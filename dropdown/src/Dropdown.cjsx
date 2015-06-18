@@ -62,6 +62,8 @@ Options = React.createClass
     render: ->
         className = "o-dropdown__options"
         className += " o-dropdown__options--on_top" if @props.on_top
+        className += " o-dropdown__options--align_right" if @props.align == "right"
+
         <div className = className>
             <ul>
                 { @props.children }

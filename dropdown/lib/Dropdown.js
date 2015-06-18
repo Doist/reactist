@@ -85,6 +85,9 @@
       if (this.props.on_top) {
         className += " o-dropdown__options--on_top";
       }
+      if (this.props.align === "right") {
+        className += " o-dropdown__options--align_right";
+      }
       return React.createElement("div", {
         "className": className
       }, React.createElement("ul", null, this.props.children));
