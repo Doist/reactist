@@ -1,0 +1,17 @@
+{
+    "name": "@doist_react/button",
+    "version": "1.0.0",
+    "author": "João Valente <joao@doist.io> (http://doist.io)",
+    "description": "",
+    "main": "lib/button.js",
+    "dependencies": {
+        "react": "^0.13.3"
+    },
+    "devDependencies": {
+        "browserify": "^10.2.4",
+        "gulp": "^3.9.0",
+        "gulp-cjsx": "^3.0.0",
+        "gulp-less": "^3.0.3",
+        "vinyl-source-stream": "^1.1.0"
+    }
+}
