@@ -57,7 +57,6 @@
 
   Trigger = React.createClass({
     render: function() {
-      console.log("will render trigger");
       return React.createElement("div", {
         "className": "o-dropdown__trigger",
         "onClick": this.props.onClick
