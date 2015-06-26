@@ -24,11 +24,15 @@
       }
     },
     componentWillMount: function() {
-      document.addEventListener("keydown", this._listenForESC, false);
+      if (this.props.close_on_esc) {
+        document.addEventListener("keydown", this._listenForESC, false);
+      }
       return document.addEventListener("click", this._handleClick, false);
     },
     componentWillUnmount: function() {
-      document.removeEventListener("keydown", this._listenForESC, false);
+      if (this.props.close_on_esc) {
+        document.removeEventListener("keydown", this._listenForESC, false);
+      }
       return document.removeEventListener("click", this._handleClick, false);
     },
     render: function() {

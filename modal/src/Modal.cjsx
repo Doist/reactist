@@ -19,11 +19,13 @@ Modal = React.createClass
             @_close(event)
 
     componentWillMount: ->
-        document.addEventListener("keydown", @_listenForESC, false)
+        if @props.close_on_esc
+            document.addEventListener("keydown", @_listenForESC, false)
         document.addEventListener("click", @_handleClick, false)
 
     componentWillUnmount: ->
-        document.removeEventListener("keydown", @_listenForESC, false)
+        if @props.close_on_esc
+            document.removeEventListener("keydown", @_listenForESC, false)
         document.removeEventListener("click", @_handleClick, false)
 
     render: ->
