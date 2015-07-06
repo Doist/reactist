@@ -32,7 +32,7 @@ class TextField extends React.Component {
     }
 
     _onFocus() {
-        return null
+        this.props.onFocus();
     }
 
     _trackKeyEvents(event) {
@@ -65,6 +65,7 @@ class TextField extends React.Component {
             onFocus={this._onFocus.bind(this)}
             onKeyDown={this._trackKeyEvents.bind(this)}
             onKeyUp={this._trackKeyEvents.bind(this)}
+            onFocus={this._onFocus.bind(this)}
             />
     }
 
@@ -76,6 +77,7 @@ class TextField extends React.Component {
             placeholder={this.props.placeholder}
             onKeyDown={this._trackKeyEvents.bind(this)}
             onKeyUp={this._trackKeyEvents.bind(this)}
+            onFocus={this._onFocus.bind(this)}
             />
     }
 

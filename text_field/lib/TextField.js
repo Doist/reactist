@@ -55,7 +55,7 @@ var TextField = (function (_React$Component) {
     }, {
         key: "_onFocus",
         value: function _onFocus() {
-            return null;
+            this.props.onFocus();
         }
     }, {
         key: "_trackKeyEvents",
@@ -132,7 +132,8 @@ var TextField = (function (_React$Component) {
                 placeholder: this.props.placeholder,
                 onFocus: this._onFocus.bind(this),
                 onKeyDown: this._trackKeyEvents.bind(this),
-                onKeyUp: this._trackKeyEvents.bind(this)
+                onKeyUp: this._trackKeyEvents.bind(this),
+                onFocus: this._onFocus.bind(this)
             });
         }
     }, {
@@ -144,7 +145,8 @@ var TextField = (function (_React$Component) {
                 onChange: this._onChange.bind(this),
                 placeholder: this.props.placeholder,
                 onKeyDown: this._trackKeyEvents.bind(this),
-                onKeyUp: this._trackKeyEvents.bind(this)
+                onKeyUp: this._trackKeyEvents.bind(this),
+                onFocus: this._onFocus.bind(this)
             });
         }
     }, {
