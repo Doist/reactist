@@ -15,7 +15,6 @@ var TextField = (function (_React$Component) {
         _classCallCheck(this, TextField);
 
         _get(Object.getPrototypeOf(TextField.prototype), "constructor", this).call(this, props);
-        this.ENTER = 13;
         this.keymap = [];
 
         if (this.props.onKeysDoAction) {
@@ -53,8 +52,6 @@ var TextField = (function (_React$Component) {
         key: "_trackKeyEvents",
         value: function _trackKeyEvents(event) {
             var keyCode = event.keyCode;
-            console.log(this.special_keys);
-            console.log(this.special_keys.indexOf(keyCode) != -1);
             if (this.props.onKeysDoAction && this.special_keys.indexOf(keyCode) != -1) {
                 this.keymap[keyCode] = event.type == "keydown";
                 var _iteratorNormalCompletion = true;
@@ -65,7 +62,6 @@ var TextField = (function (_React$Component) {
                     for (var _iterator = this.props.onKeysDoAction[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                         var obj = _step.value;
 
-                        // var action = obj.action;
                         var match = true;
                         var _iteratorNormalCompletion2 = true;
                         var _didIteratorError2 = false;
@@ -75,7 +71,6 @@ var TextField = (function (_React$Component) {
                             for (var _iterator2 = obj.keys[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
                                 var key = _step2.value;
 
-                                console.log(key + " -> " + obj.keys);
                                 if (this.keymap[key] != true) {
                                     match = false;
                                     break;
