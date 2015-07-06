@@ -58,6 +58,11 @@ var TextField = (function (_React$Component) {
             this.props.onFocus();
         }
     }, {
+        key: "_onBlur",
+        value: function _onBlur() {
+            this.props.onBlur();
+        }
+    }, {
         key: "_trackKeyEvents",
         value: function _trackKeyEvents(event) {
             var keyCode = event.keyCode;
@@ -133,7 +138,8 @@ var TextField = (function (_React$Component) {
                 onFocus: this._onFocus.bind(this),
                 onKeyDown: this._trackKeyEvents.bind(this),
                 onKeyUp: this._trackKeyEvents.bind(this),
-                onFocus: this._onFocus.bind(this)
+                onFocus: this._onFocus.bind(this),
+                onBlur: this._onBlur.bind(this)
             });
         }
     }, {
@@ -146,7 +152,8 @@ var TextField = (function (_React$Component) {
                 placeholder: this.props.placeholder,
                 onKeyDown: this._trackKeyEvents.bind(this),
                 onKeyUp: this._trackKeyEvents.bind(this),
-                onFocus: this._onFocus.bind(this)
+                onFocus: this._onFocus.bind(this),
+                onBlur: this._onBlur.bind(this)
             });
         }
     }, {

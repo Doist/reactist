@@ -35,6 +35,10 @@ class TextField extends React.Component {
         this.props.onFocus();
     }
 
+    _onBlur() {
+        this.props.onBlur();
+    }
+
     _trackKeyEvents(event) {
         var keyCode = event.keyCode;
         if (this.props.onKeysDoAction && this.special_keys.indexOf(keyCode) != -1) {
@@ -66,6 +70,7 @@ class TextField extends React.Component {
             onKeyDown={this._trackKeyEvents.bind(this)}
             onKeyUp={this._trackKeyEvents.bind(this)}
             onFocus={this._onFocus.bind(this)}
+            onBlur={this._onBlur.bind(this)}
             />
     }
 
@@ -78,6 +83,7 @@ class TextField extends React.Component {
             onKeyDown={this._trackKeyEvents.bind(this)}
             onKeyUp={this._trackKeyEvents.bind(this)}
             onFocus={this._onFocus.bind(this)}
+            onBlur={this._onBlur.bind(this)}
             />
     }
 
