@@ -28,12 +28,21 @@ var TextField = (function (_React$Component) {
     _inherits(TextField, _React$Component);
 
     _createClass(TextField, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this._adjustHeight();
+        }
+    }, {
         key: "componentDidUpdate",
         value: function componentDidUpdate() {
-            // auto height update on textareas
+            this._adjustHeight();
+        }
+    }, {
+        key: "_adjustHeight",
+        value: function _adjustHeight() {
             if (this.props.multiline) {
                 var textarea = this.refs.container.getDOMNode();
-                textarea.style.height = "auto";
+                textarea.style.height = "1px";
                 textarea.style.height = textarea.scrollHeight + "px";
             }
         }

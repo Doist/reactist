@@ -10,12 +10,18 @@ class TextField extends React.Component {
             this.special_keys = this.special_keys.concat.apply([],this.special_keys);
         }
     }
+    componentDidMount() {
+        this._adjustHeight();
+    }
 
     componentDidUpdate() {
-        // auto height update on textareas
+        this._adjustHeight();
+    }
+
+    _adjustHeight() {
         if (this.props.multiline) {
             var textarea = this.refs.container.getDOMNode();
-            textarea.style.height = "auto";
+            textarea.style.height = "1px";
             textarea.style.height = textarea.scrollHeight + "px";
         }
     }
