@@ -1,0 +1,14 @@
+{
+    "name": "@doist_react/text_field",
+    "version": "1.0.0",
+    "author": "João Valente <joao@doist.io> (http://doist.io)",
+    "description": "",
+    "main": "lib/TextField.js",
+    "dependencies": {
+        "react": "latest"
+    },
+    "devDependencies": {
+        "gulp": "latest",
+        "gulp-babel": "latest"
+    }
+}
