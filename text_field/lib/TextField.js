@@ -55,12 +55,16 @@ var TextField = (function (_React$Component) {
     }, {
         key: "_onFocus",
         value: function _onFocus() {
-            this.props.onFocus();
+            if (this.props.onFocus) {
+                this.props.onFocus();
+            }
         }
     }, {
         key: "_onBlur",
         value: function _onBlur() {
-            this.props.onBlur();
+            if (this.props.onBlur) {
+                this.props.onBlur();
+            }
         }
     }, {
         key: "_trackKeyEvents",

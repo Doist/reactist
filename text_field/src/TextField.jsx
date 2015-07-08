@@ -32,11 +32,16 @@ class TextField extends React.Component {
     }
 
     _onFocus() {
-        this.props.onFocus();
+        if (this.props.onFocus) {
+            this.props.onFocus();
+        }
+
     }
 
     _onBlur() {
-        this.props.onBlur();
+        if (this.props.onBlur) {
+            this.props.onBlur();
+        }
     }
 
     _trackKeyEvents(event) {
