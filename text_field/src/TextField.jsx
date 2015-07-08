@@ -71,7 +71,6 @@ class TextField extends React.Component {
             ref="container"
             onChange={this._onChange.bind(this)}
             placeholder={this.props.placeholder}
-            onFocus={this._onFocus.bind(this)}
             onKeyDown={this._trackKeyEvents.bind(this)}
             onKeyUp={this._trackKeyEvents.bind(this)}
             onFocus={this._onFocus.bind(this)}
