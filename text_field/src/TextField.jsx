@@ -80,9 +80,14 @@ class TextField extends React.Component {
     }
 
     _renderInput() {
+        var type = "text"
+        if (this.props.type) {
+            type = this.props.type
+        }
         return <input
             value={this.props.value}
             ref="container"
+            type={type}
             onChange={this._onChange.bind(this)}
             placeholder={this.props.placeholder}
             onKeyDown={this._trackKeyEvents.bind(this)}

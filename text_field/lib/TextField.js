@@ -149,9 +149,14 @@ var TextField = (function (_React$Component) {
     }, {
         key: "_renderInput",
         value: function _renderInput() {
+            var type = "text";
+            if (this.props.type) {
+                type = this.props.type;
+            }
             return React.createElement("input", {
                 value: this.props.value,
                 ref: "container",
+                type: type,
                 onChange: this._onChange.bind(this),
                 placeholder: this.props.placeholder,
                 onKeyDown: this._trackKeyEvents.bind(this),
