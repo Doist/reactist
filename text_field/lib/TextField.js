@@ -62,6 +62,7 @@ var TextField = (function (_React$Component) {
     }, {
         key: "_onBlur",
         value: function _onBlur() {
+            this.keymap = [];
             if (this.props.onBlur) {
                 this.props.onBlur();
             }

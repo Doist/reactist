@@ -39,6 +39,7 @@ class TextField extends React.Component {
     }
 
     _onBlur() {
+        this.keymap = [];
         if (this.props.onBlur) {
             this.props.onBlur();
         }
