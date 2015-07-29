@@ -9,7 +9,8 @@
         active_tab_index: 0
       };
     },
-    _switchActiveTab: function(index) {
+    _switchActiveTab: function(index, event) {
+      event.preventDefault();
       return this.setState({
         active_tab_index: index
       });

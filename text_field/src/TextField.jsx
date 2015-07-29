@@ -27,8 +27,13 @@ class TextField extends React.Component {
     }
 
     _onChange() {
-        var _value = this.refs.container.getDOMNode().value;
-        this.props.onChange(_value);
+        if (this.props.onChange) {
+            var _value = this.refs.container.getDOMNode().value;
+            this.props.onChange(_value);
+        } else {
+            this.forceUpdate();
+        }
+
     }
 
     _onFocus() {

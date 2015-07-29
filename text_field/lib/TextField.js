@@ -49,8 +49,12 @@ var TextField = (function (_React$Component) {
     }, {
         key: "_onChange",
         value: function _onChange() {
-            var _value = this.refs.container.getDOMNode().value;
-            this.props.onChange(_value);
+            if (this.props.onChange) {
+                var _value = this.refs.container.getDOMNode().value;
+                this.props.onChange(_value);
+            } else {
+                this.forceUpdate();
+            }
         }
     }, {
         key: "_onFocus",

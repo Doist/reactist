@@ -5,7 +5,8 @@ Tabs = React.createClass
     getInitialState: ->
         return { active_tab_index: 0 }
 
-    _switchActiveTab: (index) ->
+    _switchActiveTab: (index, event) ->
+        event.preventDefault()
         @setState { active_tab_index: index }
 
     _getTabItemLink: ->
