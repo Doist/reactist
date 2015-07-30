@@ -3,13 +3,8 @@ var React = require('react');
 class TextField extends React.Component {
     constructor(props) {
         super(props);
-        this.keymap = [];
-
-        if (this.props.onKeysDoAction) {
-            this.special_keys = this.props.onKeysDoAction.map(obj => obj.keys);
-            this.special_keys = this.special_keys.concat.apply([],this.special_keys);
-        }
     }
+
     componentDidMount() {
         this._adjustHeight();
     }
@@ -51,21 +46,11 @@ class TextField extends React.Component {
     }
 
     _trackKeyEvents(event) {
-        var keyCode = event.keyCode;
-        if (this.props.onKeysDoAction && this.special_keys.indexOf(keyCode) != -1) {
-            this.keymap[keyCode] = event.type == 'keydown';
-            for (var obj of this.props.onKeysDoAction) {
-                var match = true
-                for(var key of obj.keys) {
-                    if (this.keymap[key] != true) {
-                        match = false;
-                        break;
-                    }
-                }
-                if(match) {
-                    obj.action();
-                    this.keymap = [];
-                    break;
+        if (this.props.action) {
+            if (event.keyCode == 13)  {
+                if (event.shiftKey || event.ctrlKey || event.altKey || event.metaKey) {
+                    event.preventDefault();
+                    this.props.action();
                 }
             }
         }
@@ -78,7 +63,6 @@ class TextField extends React.Component {
             onChange={this._onChange.bind(this)}
             placeholder={this.props.placeholder}
             onKeyDown={this._trackKeyEvents.bind(this)}
-            onKeyUp={this._trackKeyEvents.bind(this)}
             onFocus={this._onFocus.bind(this)}
             onBlur={this._onBlur.bind(this)}
             />
@@ -96,7 +80,6 @@ class TextField extends React.Component {
             onChange={this._onChange.bind(this)}
             placeholder={this.props.placeholder}
             onKeyDown={this._trackKeyEvents.bind(this)}
-            onKeyUp={this._trackKeyEvents.bind(this)}
             onFocus={this._onFocus.bind(this)}
             onBlur={this._onBlur.bind(this)}
             />

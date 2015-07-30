@@ -15,14 +15,6 @@ var TextField = (function (_React$Component) {
         _classCallCheck(this, TextField);
 
         _get(Object.getPrototypeOf(TextField.prototype), "constructor", this).call(this, props);
-        this.keymap = [];
-
-        if (this.props.onKeysDoAction) {
-            this.special_keys = this.props.onKeysDoAction.map(function (obj) {
-                return obj.keys;
-            });
-            this.special_keys = this.special_keys.concat.apply([], this.special_keys);
-        }
     }
 
     _inherits(TextField, _React$Component);
@@ -74,64 +66,11 @@ var TextField = (function (_React$Component) {
     }, {
         key: "_trackKeyEvents",
         value: function _trackKeyEvents(event) {
-            var keyCode = event.keyCode;
-            if (this.props.onKeysDoAction && this.special_keys.indexOf(keyCode) != -1) {
-                this.keymap[keyCode] = event.type == "keydown";
-                var _iteratorNormalCompletion = true;
-                var _didIteratorError = false;
-                var _iteratorError = undefined;
-
-                try {
-                    for (var _iterator = this.props.onKeysDoAction[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                        var obj = _step.value;
-
-                        var match = true;
-                        var _iteratorNormalCompletion2 = true;
-                        var _didIteratorError2 = false;
-                        var _iteratorError2 = undefined;
-
-                        try {
-                            for (var _iterator2 = obj.keys[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                                var key = _step2.value;
-
-                                if (this.keymap[key] != true) {
-                                    match = false;
-                                    break;
-                                }
-                            }
-                        } catch (err) {
-                            _didIteratorError2 = true;
-                            _iteratorError2 = err;
-                        } finally {
-                            try {
-                                if (!_iteratorNormalCompletion2 && _iterator2["return"]) {
-                                    _iterator2["return"]();
-                                }
-                            } finally {
-                                if (_didIteratorError2) {
-                                    throw _iteratorError2;
-                                }
-                            }
-                        }
-
-                        if (match) {
-                            obj.action();
-                            this.keymap = [];
-                            break;
-                        }
-                    }
-                } catch (err) {
-                    _didIteratorError = true;
-                    _iteratorError = err;
-                } finally {
-                    try {
-                        if (!_iteratorNormalCompletion && _iterator["return"]) {
-                            _iterator["return"]();
-                        }
-                    } finally {
-                        if (_didIteratorError) {
-                            throw _iteratorError;
-                        }
+            if (this.props.action) {
+                if (event.keyCode == 13) {
+                    if (event.shiftKey || event.ctrlKey || event.altKey || event.metaKey) {
+                        event.preventDefault();
+                        this.props.action();
                     }
                 }
             }
@@ -145,7 +84,6 @@ var TextField = (function (_React$Component) {
                 onChange: this._onChange.bind(this),
                 placeholder: this.props.placeholder,
                 onKeyDown: this._trackKeyEvents.bind(this),
-                onKeyUp: this._trackKeyEvents.bind(this),
                 onFocus: this._onFocus.bind(this),
                 onBlur: this._onBlur.bind(this)
             });
@@ -164,7 +102,6 @@ var TextField = (function (_React$Component) {
                 onChange: this._onChange.bind(this),
                 placeholder: this.props.placeholder,
                 onKeyDown: this._trackKeyEvents.bind(this),
-                onKeyUp: this._trackKeyEvents.bind(this),
                 onFocus: this._onFocus.bind(this),
                 onBlur: this._onBlur.bind(this)
             });
