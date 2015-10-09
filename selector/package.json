@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "author": "João Valente <joao@doist.io> (http://doist.io)",
     "description": "",
-    "main": "lib/selector.js",
+    "main": "lib/Selector.js",
     "dependencies": {
         "react": "^0.13.3"
     },

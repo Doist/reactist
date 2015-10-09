@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "author": "João Valente <joao@doist.io> (http://doist.io)",
     "description": "",
-    "main": "lib/tabs.js",
+    "main": "lib/Tabs.js",
     "dependencies": {
         "react": "^0.13.3"
     },
