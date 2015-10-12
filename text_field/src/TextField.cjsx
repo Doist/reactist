@@ -11,7 +11,6 @@ TextField = React.createClass
     _adjustHeight: ->
         if this.props.multiline
             textarea = @refs.container.getDOMNode();
-            textarea.style.height = "1px";
             textarea.style.height = textarea.scrollHeight + "px";
 
     _onChange: ->

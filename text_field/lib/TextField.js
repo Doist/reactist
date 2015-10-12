@@ -14,7 +14,6 @@
       var textarea;
       if (this.props.multiline) {
         textarea = this.refs.container.getDOMNode();
-        textarea.style.height = "1px";
         return textarea.style.height = textarea.scrollHeight + "px";
       }
     },
