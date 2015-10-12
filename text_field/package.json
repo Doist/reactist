@@ -5,10 +5,12 @@
     "description": "",
     "main": "lib/TextField.js",
     "dependencies": {
-        "react": "latest"
+        "react": "^0.13.3"
     },
     "devDependencies": {
-        "gulp": "latest",
-        "gulp-babel": "latest"
+        "gulp": "^3.9.0",
+        "gulp-cjsx": "^3.0.0",
+        "gulp-less": "^3.0.3",
+        "vinyl-source-stream": "^1.1.0"
     }
 }

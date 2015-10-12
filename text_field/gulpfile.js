@@ -1,12 +1,14 @@
 var gulp = require('gulp');
-var babel = require('gulp-babel');
+var cjsx = require('gulp-cjsx');
+// var browserify = require('browserify');
+var source = require('vinyl-source-stream');
 
-var PATH_JSX = 'src/*.jsx'
+var PATH_JSX = 'src/*.cjsx'
 var PATH_MAIN = 'lib/TextField.js'
 
 gulp.task('jsx', function() {
     gulp.src(PATH_JSX)
-        .pipe(babel())
+        .pipe(cjsx())
         .pipe(gulp.dest('lib'))
 });
 
