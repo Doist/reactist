@@ -40,7 +40,7 @@
     _trackKeyEvents: function(event) {
       if (this.props.action) {
         if (event.keyCode === 13) {
-          if (event.shiftKey || event.ctrlKey || event.altKey || event.metaKey) {
+          if ((event.shiftKey || event.ctrlKey || event.altKey || event.metaKey) || !this.props.multiline) {
             event.preventDefault();
             return this.props.action();
           }

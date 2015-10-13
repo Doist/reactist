@@ -32,7 +32,7 @@ TextField = React.createClass
     _trackKeyEvents: (event) ->
         if this.props.action
             if event.keyCode == 13
-                if (event.shiftKey || event.ctrlKey || event.altKey || event.metaKey)
+                if (event.shiftKey || event.ctrlKey || event.altKey || event.metaKey) || !this.props.multiline
                     event.preventDefault()
                     this.props.action()
 
