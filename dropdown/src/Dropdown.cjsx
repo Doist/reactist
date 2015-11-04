@@ -6,6 +6,10 @@ Dropdown = React.createClass
         return { show_options: false }
 
     _toggle: ->
+        if @state.show_options && @props.onDropdownClose
+            @props.onDropdownClose()
+        if !@state.show_options && @props.onDropdownOpen
+            @props.onDropdownOpen()
         @setState { show_options: !@state.show_options }
 
     _renderMenuTrigger: ->

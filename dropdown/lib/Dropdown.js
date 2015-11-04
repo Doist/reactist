@@ -10,6 +10,12 @@
       };
     },
     _toggle: function() {
+      if (this.state.show_options && this.props.onDropdownClose) {
+        this.props.onDropdownClose();
+      }
+      if (!this.state.show_options && this.props.onDropdownOpen) {
+        this.props.onDropdownOpen();
+      }
       return this.setState({
         show_options: !this.state.show_options
       });
