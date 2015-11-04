@@ -9,7 +9,11 @@
         show_options: false
       };
     },
-    _toggle: function() {
+    _toggle: function(event) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
       if (this.state.show_options && this.props.onDropdownClose) {
         this.props.onDropdownClose();
       }

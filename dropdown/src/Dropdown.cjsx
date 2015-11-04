@@ -5,7 +5,11 @@ Dropdown = React.createClass
     getInitialState: ->
         return { show_options: false }
 
-    _toggle: ->
+    _toggle: (event) ->
+        if event
+            event.stopPropagation()
+            event.preventDefault()
+
         if @state.show_options && @props.onDropdownClose
             @props.onDropdownClose()
         if !@state.show_options && @props.onDropdownOpen
