@@ -53,10 +53,10 @@ Trigger = React.createClass
 
 Options = React.createClass
     _handleClick: (event) ->
-        if @getDOMNode().contains(event.target)
-            return
-        else
-            @props.hideOptions()
+        # if @getDOMNode().contains(event.target)
+        #     return
+        # else
+        @props.hideOptions()
 
     # when options are displaying will be listening for clicks.
     # will hide options if click outside.

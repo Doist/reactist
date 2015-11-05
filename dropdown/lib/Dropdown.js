@@ -76,11 +76,7 @@
 
   Options = React.createClass({
     _handleClick: function(event) {
-      if (this.getDOMNode().contains(event.target)) {
-
-      } else {
-        return this.props.hideOptions();
-      }
+      return this.props.hideOptions();
     },
     componentWillMount: function() {
       return document.addEventListener("click", this._handleClick, false);
