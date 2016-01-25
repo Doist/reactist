@@ -6,13 +6,24 @@
   Dropdown = React.createClass({
     getInitialState: function() {
       return {
-        show_options: false
+        show_options: false,
+        force_options_on_bottom: false
       };
     },
     _toggle: function(event) {
+      var element_offset, force_options_on_bottom, offset, scroll_offset;
+      force_options_on_bottom = false;
       if (event) {
         event.stopPropagation();
         event.preventDefault();
+        if (this.props.scroll_bottom_limit && this.props.scroll_element) {
+          scroll_offset = document.getElementsByClassName(this.props.scroll_element)[0].scrollTop;
+          element_offset = event.target.offsetTop;
+          offset = element_offset - scroll_offset;
+          if (offset < this.props.scroll_bottom_limit) {
+            force_options_on_bottom = true;
+          }
+        }
       }
       if (this.state.show_options && this.props.onDropdownClose) {
         this.props.onDropdownClose();
@@ -21,7 +32,8 @@
         this.props.onDropdownOpen();
       }
       return this.setState({
-        show_options: !this.state.show_options
+        show_options: !this.state.show_options,
+        force_options_on_bottom: force_options_on_bottom
       });
     },
     _renderMenuTrigger: function() {
@@ -39,11 +51,12 @@
       return menu_trigger;
     },
     _renderMenuOptions: function() {
-      var menu_options;
+      var menu_options, on_top;
       if (!this.state.show_options) {
         return false;
       }
       menu_options = null;
+      on_top = this.props.options_on_top && !this.state.force_options_on_bottom;
       React.Children.forEach(this.props.children, (function(_this) {
         return function(child) {
           if (child.type === Options) {
@@ -51,7 +64,7 @@
               "className": "o-dropdown__options_renderer"
             }, React.cloneElement(child, {
               hideOptions: _this._toggle,
-              on_top: _this.props.options_on_top
+              on_top: on_top
             }));
           }
         };
@@ -61,7 +74,7 @@
     render: function() {
       return React.createElement("div", {
         "className": "o-dropdown"
-      }, (this.props.options_on_top === true ? this._renderMenuOptions() : void 0), this._renderMenuTrigger(), (this.props.options_on_top !== true ? this._renderMenuOptions() : void 0));
+      }, (this.props.options_on_top === true && !this.state.force_options_on_bottom ? this._renderMenuOptions() : void 0), this._renderMenuTrigger(), (this.props.options_on_top !== true || this.state.force_options_on_bottom ? this._renderMenuOptions() : void 0));
     }
   });
 

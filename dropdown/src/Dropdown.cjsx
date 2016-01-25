@@ -3,18 +3,35 @@ React = require('react')
 Dropdown = React.createClass
 
     getInitialState: ->
-        return { show_options: false }
+        return {
+          show_options: false
+          force_options_on_bottom: false
+        }
 
     _toggle: (event) ->
+        force_options_on_bottom = false;
+
         if event
             event.stopPropagation()
             event.preventDefault()
+
+            if @props.scroll_bottom_limit && @props.scroll_element
+                scroll_offset = document.getElementsByClassName(@props.scroll_element)[0].scrollTop
+                element_offset = event.target.offsetTop
+
+                offset = element_offset - scroll_offset
+                if offset < @props.scroll_bottom_limit
+                    force_options_on_bottom = true
 
         if @state.show_options && @props.onDropdownClose
             @props.onDropdownClose()
         if !@state.show_options && @props.onDropdownOpen
             @props.onDropdownOpen()
-        @setState { show_options: !@state.show_options }
+
+        @setState {
+          show_options: !@state.show_options
+          force_options_on_bottom: force_options_on_bottom
+        }
 
     _renderMenuTrigger: ->
         menu_trigger = null
@@ -29,20 +46,22 @@ Dropdown = React.createClass
             return false
 
         menu_options = null
+        on_top = (@props.options_on_top && !@state.force_options_on_bottom);
+
         React.Children.forEach @props.children, (child) =>
             if child.type == Options
                 menu_options =
                     <div className = "o-dropdown__options_renderer">
-                        {React.cloneElement(child, {hideOptions: @_toggle, on_top: @props.options_on_top})}
+                        {React.cloneElement(child, {hideOptions: @_toggle, on_top: on_top})}
                     </div>
 
         return menu_options
 
     render: ->
         <div className = "o-dropdown">
-            { @_renderMenuOptions() if @props.options_on_top == true }
+            { @_renderMenuOptions() if @props.options_on_top == true && !@state.force_options_on_bottom }
             { @_renderMenuTrigger() }
-            { @_renderMenuOptions() if @props.options_on_top != true }
+            { @_renderMenuOptions() if @props.options_on_top != true || @state.force_options_on_bottom }
         </div>
 
 Trigger = React.createClass
