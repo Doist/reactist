@@ -1,0 +1,40 @@
+{
+    'env': {
+        'browser': true,
+        'es6': true
+    },
+    'extends': 'eslint:recommended',
+    'parserOptions': {
+        'ecmaFeatures': {
+            'experimentalObjectRestSpread': true,
+            'jsx': true
+        },
+        'sourceType': 'module'
+    },
+    'plugins': [
+        'react'
+    ],
+    'rules': {
+        'object-curly-spacing': ['warn', 'always', { 'arraysInObjects': false, 'objectsInObjects': false }],
+        'keyword-spacing': ['error', { 'before': true, 'after': true }],
+        'comma-dangle': ['error', 'never'],
+        'indent': ['error', 4, { 'SwitchCase': 1 }],
+        'linebreak-style': ['error', 'unix'],
+        'no-fallthrough': ['error'],
+        'quotes': ['error', 'single'],
+        'semi': ['warn', 'never'],
+        'react/jsx-closing-bracket-location': [1, 'tag-aligned'],
+        'react/jsx-curly-spacing': [2, 'always', { 'spacing': {'objectLiterals': 'never' }}],
+        'react/jsx-first-prop-new-line': [1, 'multiline'],
+        'react/jsx-indent': [1, 4],
+        'react/jsx-key': 1,
+        'react/jsx-no-undef': 2,
+        'react/jsx-uses-react': 1,
+        'react/jsx-uses-vars': 1,
+        # 'react/prop-types': 1,
+        'react/no-did-mount-set-state': 1,
+        'react/no-did-update-set-state': 1,
+        'react/no-direct-mutation-state': 1,
+        'react/sort-comp': 1
+    }
+}
