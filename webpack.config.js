@@ -7,6 +7,8 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "reactist.js",
+        library: 'reactist',
+        libraryTarget: 'umd',
         sourceMapFilename: "reactist.map"
     },
     resolve: {
