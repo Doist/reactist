@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
@@ -14,9 +14,6 @@ module.exports = {
         extensions: [".webpack.js", ".js", ".jsx"]
     },
     module: {
-        // rules: [
-        //     { enforce: "pre", test: /\.jsx?$/, exclude: /node_modules/, loader: "eslint-loader" }
-        // ],
         loaders: [
             { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel-loader" }
         ]

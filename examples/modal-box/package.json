@@ -1,31 +1,34 @@
 {
-  "name": "reactist",
+  "name": "reactist-modal-box",
   "version": "0.0.1",
-  "description": "Open source React components by Doist",
-  "main": "./dist/reactist.js",
+  "description": "Example use cases for the ModalBox",
+  "main": "./src/index.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "./node_modules/.bin/http-server public",
+    "start": "npm run build && npm run serve"
   },
-  "repository": "git+https://github.com/Doist/reactist.git",
+  "repository": "https://github.com/Doist/reactist",
   "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",
   "license": "MIT",
-  "homepage": "https://github.com/Doist/reactist#readme",
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-export-extensions": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
-    "eslint": "^3.19.0",
-    "eslint-loader": "^1.7.1",
-    "eslint-plugin-react": "^6.10.3",
+    "babel-preset-stage-0": "^6.24.1",
+    "http-server": "^0.10.0",
     "path": "^0.12.7",
     "webpack": "^2.4.1"
   },
   "dependencies": {
-    "react": "^15.5.4"
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "reactist": "file:../../."
   }
 }
