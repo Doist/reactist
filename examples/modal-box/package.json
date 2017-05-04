@@ -30,7 +30,10 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-tooltip": "^3.3.0",
+    "reactist": "file:../../."
   }
 }

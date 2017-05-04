@@ -3,12 +3,12 @@ import './styles/modal_box.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import closeIcon from './icons/closeIcon.js';
+import CloseIcon from './icons/CloseIcon.svg';
 
 class ModalBox extends React.Component {
     componentDidMount() {
         var overlay = ReactDOM.findDOMNode(this);
-
+        console.log('imount 23333');
         // adds the 'overlay-active' class after a small timeout
         setTimeout(() => {
             if (overlay && overlay.classList && !overlay.classList.contains('overlay-active')) {
@@ -41,22 +41,15 @@ class Header extends React.Component {
 
     render() {
         let className = 'modal_box__header';
-        let close_icon_color = '#fff'
-
-        if (this.props.whiteBg) {
-            className += ' white'
-            close_icon_color = '#B3B3B3'
-        }
 
         return (
             <div className={className}>
                 <p>{this.props.children}</p>
-                <a
-                    className='close'
-                    onClick={this._closeModal.bind(this)}
-                    dangerouslySetInnerHTML={{ __html: closeIcon(close_icon_color) }}
-                    href='#'
-                />
+                <a className='close'
+                   onClick={this._closeModal.bind(this)}
+                   href='#'>
+                    <CloseIcon />
+                </a>
             </div>
         );
     }

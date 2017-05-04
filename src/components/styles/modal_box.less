@@ -31,13 +31,14 @@
 .modal_box__header {
     display: flex;
     align-items: center;
-    background-color: @primary_color;
+    background-color: white;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+    border-bottom: 1px solid @color-grey-10;
 
     p {
         margin-left: 25px;
-        .normal_text(@color: white);
+        .normal_text(@weight: @bold);
     }
 
     a {
@@ -49,15 +50,6 @@
         margin-left: auto;
         margin-right: 8px;
     }
-
-    &.white {
-        background-color: white;
-        border-bottom: 1px solid #ECECEC;
-
-        p {
-            .smaller_text(@weight: @bold);
-        }
-    }
 }
 
 .modal_box__body {
@@ -68,6 +60,7 @@
 .modal_box__actions {
     display: flex;
     justify-content: flex-end;
-    padding: 0 25px 20px 25px;
+    padding: 20px 25px;
     background-color: white;
+    border-top: 1px solid @color-grey-10;
 }

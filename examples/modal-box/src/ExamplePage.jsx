@@ -1,20 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-import SimpleModalBox from './SimpleModalBox';
+import ButtonExamplePage from './components/ButtonExamplePage';
+import ModalBoxExamplePage from './components/ModalBoxExamplePage';
 
 class ExamplePage extends React.Component {
-    componentDidMount() {
-        ReactDOM.render(<SimpleModalBox />, document.getElementById('modal_box'));
-    }
-
     render() {
         return (
             <div>
-                <div id='modal_box'></div>
+                <ButtonExamplePage />
+                <ModalBoxExamplePage />
             </div>
         );
     }
 }
-
 export default ExamplePage;
