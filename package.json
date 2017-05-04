@@ -6,6 +6,7 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack --progress --color",
     "build-watch": "npm run build -- --watch",
+    "check": "./node_modules/.bin/eslint src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": "git+https://github.com/Doist/reactist.git",

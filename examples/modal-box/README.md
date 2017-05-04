@@ -14,3 +14,8 @@ To run the example on a development server (incl. hot reloading) execute:
 ```
 npm run start
 ```
+
+Before you submit a pull request for this example make sure you don't have any linting errors by running
+```
+npm run check
+```

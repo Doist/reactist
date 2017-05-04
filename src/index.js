@@ -1,4 +1,4 @@
-import ModalBox from "./components/ModalBox";
+import ModalBox from './components/ModalBox';
 
 export {
     ModalBox
