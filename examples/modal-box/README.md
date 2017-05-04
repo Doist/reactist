@@ -4,13 +4,13 @@ This example demonstrates the functionality of the Reactist ModalBox.
 
 # How to
 
-Run the example locally by executing: `npm run start`.
-
-You can execute the two tasks manually by:
-```bash
-# 1) Building it
+To build the example locally run:
+```
 npm run build
+```
+The output will be in the `public` folder.
 
-# 2) Serving it locally
-npm run serve
+To run the example on a development server (incl. hot reloading) execute:
+```
+npm run start
 ```

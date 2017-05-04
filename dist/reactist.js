@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["reactist"] = factory();
+	else
+		root["reactist"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -1111,7 +1121,7 @@ var ModalBox = function (_Component) {
             return _react2.default.createElement(
                 "div",
                 null,
-                "HELLO WORLD."
+                "HELLO WORLD 23."
             );
         }
     }]);
@@ -1129,17 +1139,17 @@ exports.default = ModalBox;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 exports.ModalBox = undefined;
 
-var _ModalBox2 = __webpack_require__(12);
+var _ModalBox = __webpack_require__(12);
 
-var _ModalBox3 = _interopRequireDefault(_ModalBox2);
+var _ModalBox2 = _interopRequireDefault(_ModalBox);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.ModalBox = _ModalBox3.default;
+exports.ModalBox = _ModalBox2.default;
 
 /***/ }),
 /* 14 */
@@ -3534,4 +3544,5 @@ module.exports = __webpack_require__(20);
 
 /***/ })
 /******/ ]);
+});
 //# sourceMappingURL=reactist.map

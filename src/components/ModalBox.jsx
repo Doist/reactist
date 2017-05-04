@@ -4,7 +4,7 @@ class ModalBox extends Component {
     render() {
         return (
             <div>
-                HELLO WORLD.
+                HELLO WORLD 23.
             </div>
         )
     }

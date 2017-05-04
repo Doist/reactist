@@ -5,8 +5,7 @@
   "main": "./src/index.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack",
-    "serve": "./node_modules/.bin/http-server public",
-    "start": "npm run build && npm run serve"
+    "start": "./node_modules/.bin/webpack-dev-server --hot --inline"
   },
   "repository": "https://github.com/Doist/reactist",
   "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",
@@ -24,11 +23,11 @@
     "babel-preset-stage-0": "^6.24.1",
     "http-server": "^0.10.0",
     "path": "^0.12.7",
-    "webpack": "^2.4.1"
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
     "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "reactist": "file:../../."
+    "react-dom": "^15.5.4"
   }
 }
