@@ -1,5 +1,8 @@
-import ModalBox from './components/ModalBox';
+import { ModalBox, Header, Body, Actions } from './components/ModalBox';
 
 export {
-    ModalBox
+    ModalBox,
+    Header,
+    Body,
+    Actions
 };

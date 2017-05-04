@@ -1,0 +1,25 @@
+// Colors /////////////////////////////////////////////////////////////////////
+@primary_color: #3F82EF;
+@primary_font_color: #404040;
+
+
+// Typography /////////////////////////////////////////////////////////////////
+// weights
+@normal: 400;
+@bold: 700;
+
+// normal text
+.normal_text(@color: @primary_font_color, @weight: @normal) {
+    font-size: 0.875rem;
+    color: @color;
+    font-weight: @weight;
+    line-height: 1.7;
+}
+
+// smaller text
+.smaller_text(@color: @primary_font_color, @weight: @normal) {
+    font-size: 0.81rem;
+    color: @color;
+    font-weight: @weight;
+    line-height: 1.6;
+}

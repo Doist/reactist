@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { ModalBox } from '../../../dist/reactist';
+import ExamplePage from './ExamplePage.jsx'
 
-ReactDOM.render(<ModalBox />, document.getElementById('root'));
+ReactDOM.render(<ExamplePage />, document.getElementById('root'));

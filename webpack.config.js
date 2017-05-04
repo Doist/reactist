@@ -17,8 +17,24 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel-loader" }
+            { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel-loader" },
+            { test: /\.less$/, loader: "style-loader!css-loader!less-loader" },
+            { test: /\.css$/, loader: 'style-loader!css-loader' }
         ]
+    },
+    externals: {
+        'react': {
+            root: 'React',
+            commonjs2: 'react',
+            commonjs: 'react',
+            amd: 'react'
+        },
+        'react-dom': {
+            root: 'ReactDOM',
+            commonjs2: 'react-dom',
+            commonjs: 'react-dom',
+            amd: 'react-dom'
+        }
     },
     plugins: [
         new webpack.DefinePlugin({
