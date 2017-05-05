@@ -131,7 +131,7 @@ describe('Modal.Actions', () => {
         expect(toJson(actions)).toMatchSnapshot();
     });
 
-    it('children with close prop unmount modal_box', () => {
+    it('unmounts modal_box when child with close prop is clicked', () => {
         const clickSpy = jest.fn();
         const actions = shallow(<Modal.Actions>
             <Button name="Action 1" close onClick={ clickSpy } />
@@ -141,6 +141,16 @@ describe('Modal.Actions', () => {
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode);
         actions.find('Button').first().simulate('click');
         expect(clickSpy).toHaveBeenCalled();
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1);
+    });
+
+    it('unmounts modal_box when child with close prop is clicked even when no onClick is specified', () => {
+        const actions = shallow(<Modal.Actions>
+            <Button name="Action 1" close />
+        </Modal.Actions>);
+
+        const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode);
+        actions.find('Button').first().simulate('click');
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1);
     });
 });

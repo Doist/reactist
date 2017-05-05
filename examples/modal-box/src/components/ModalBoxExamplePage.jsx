@@ -28,7 +28,7 @@ class ModalBoxExamplePage extends React.Component {
                 <Modal.Header title="Header of ModalBox" subtitle="This is a smaller description" />
                 <Modal.Body>The Body of a ModalBox can contain whatever you like!</Modal.Body>
                 <Modal.Actions>
-                    <Button name="Action 1" />
+                    <Button name="Action 1 - Closes the Modal" close />
                     <Button white name="Action 2" />
                 </Modal.Actions>
             </Modal.Box>

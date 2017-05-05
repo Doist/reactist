@@ -92,7 +92,9 @@ Body.propTypes = {
 
 class Actions extends React.Component {
     _onClick(on_click) {
-        on_click();
+        if(typeof on_click === 'function') {
+            on_click();
+        }        
         ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'));
     }
 

@@ -2655,7 +2655,9 @@ var Actions = function (_React$Component4) {
     _createClass(Actions, [{
         key: '_onClick',
         value: function _onClick(on_click) {
-            on_click();
+            if (typeof on_click === 'function') {
+                on_click();
+            }
             _reactDom2.default.unmountComponentAtNode(document.getElementById('modal_box'));
         }
     }, {
