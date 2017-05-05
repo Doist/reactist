@@ -43,6 +43,7 @@
     "react-tooltip": "^3.3.0",
     "regenerator-runtime": "^0.10.5",
     "style-loader": "^0.17.0",
+    "svg-url-loader": "^2.0.2",
     "webpack": "^2.4.1"
   },
   "peerDependencies": {

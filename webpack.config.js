@@ -25,7 +25,8 @@ module.exports = {
                     { loader: 'babel-loader', query: { presets: ['es2015'] } },
                     { loader: 'react-svg-loader', query: { jsx: true } }
                 ]
-            }
+            },
+            { test: /\.svg\.icon$/, loader: 'svg-url-loader' }
         ]
     },
     externals: {

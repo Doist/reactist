@@ -14,15 +14,19 @@
     padding: 11px;
     -webkit-font-smoothing: antialiased;
 
+    .wrapper {
+        display: inline;
+    }
+
     span {
         user-select: none;
     }
 
-    &:not(.tw_button--is_loading):not(.tw_button--secondary):not(.tw_button--white):not(.tw_button--duplicator):not([disabled]):hover {
+    &:not(.loading):not(.secondary):not(.white):not([disabled]):hover {
         background-color: @primary-color-darker;
     }
 
-    &:not(.tw_button--is_loading):not(.tw_button--secondary)&:disabled {
+    &:not(.loading):not(.secondary)&:disabled {
         background-color: @primary-color-lighter;
         cursor: not-allowed;
     }
@@ -41,7 +45,7 @@
         border: 1px solid rgba(0, 0, 0, 0.1);
         color: @color-grey-8;
 
-        &:not([disabled]):not(.tw_button--is_loading):hover {
+        &:not([disabled]):not(.loading):hover {
             background-color: @color-grey-10;
         }
 
@@ -56,7 +60,7 @@
         border: 1px solid  @primary-color;
         color: @primary-color;
 
-        &:not([disabled]):not(.tw_button--is_loading):hover {
+        &:not([disabled]):not(.loading):hover {
             background-color: @color-grey-10 !important;
         }
 
@@ -66,41 +70,42 @@
         }
     }
 
-    // &.loading {
-    //     background-color: @nobel;
-    //     color: white;
-    //     cursor: progress;
+    &.loading {
+        background-color: @color-grey-5;
+        color: white;
+        cursor: progress;
 
-    //     &:after {
-    //         background-repeat: no-repeat;
-    //         background-size: 15px;
-    //         content: '';
-    //         display: inline-block;
-    //         height: 15px;
-    //         margin-left: 12px;
-    //         vertical-align: middle;
-    //         width: 15px;
-    //         animation-duration: 1s;
-    //         animation-iteration-count: infinite;
-    //         animation-name: rotateRight;
-    //         animation-timing-function: linear;
-    //         background-image: url('/a/img/icons/spinner/white.svg');
-    //     }
+        &:after {
+            background-repeat: no-repeat;
+            background-size: 15px;
+            content: '';
+            display: inline-block;
+            height: 15px;
+            margin-left: 12px;
+            vertical-align: middle;
+            width: 15px;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            animation-name: rotateRight;
+            animation-timing-function: linear;
+            background-image: url('../icons/Spinner.svg.icon');
+        }
 
-    //     &:hover {
-    //         background-color: @nobel !important;
-    //     }
-    // }
+        &:hover {
+            background-color: @color-grey-5 !important;
+        }
+    }
 }
 
-// @keyframes rotateRight {
-//     from {
-//         transform: rotate(0deg);
-//         transform-origin: center center;
-//     }
+// Animation used by the loading state of a button
+@keyframes rotateRight {
+    from {
+        transform: rotate(0deg);
+        transform-origin: center center;
+    }
 
-//     to {
-//         transform: rotate(360deg);
-//         transform-origin: center center;
-//     }
-// }
+    to {
+        transform: rotate(360deg);
+        transform-origin: center center;
+    }
+}

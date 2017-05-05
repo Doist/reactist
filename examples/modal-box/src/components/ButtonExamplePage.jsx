@@ -13,6 +13,7 @@ class ButtonExamplePage extends React.Component {
                 <h2>Basic Buttons</h2>
                 <Button name='Primary Button' />
                 <Button secondary name='Secondary Button' />
+                <Button loading name='Loading'/>
                 
                 <h2>Small Buttons</h2>
                 <Button small name='Small Primary Button' />
@@ -28,6 +29,7 @@ class ButtonExamplePage extends React.Component {
                     <h2>Basic Buttons</h2>
                     <Button name='Primary Button' />
                     <Button secondary name='Secondary Button' />
+                    <Button loading name='Loading' />
 
                     <h2>Small Buttons</h2>
                     <Button small name='Small Primary Button' />
