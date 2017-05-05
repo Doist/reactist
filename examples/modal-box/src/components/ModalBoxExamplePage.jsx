@@ -16,7 +16,7 @@ class ModalBoxExamplePage extends React.Component {
     _renderHeaderContentModalBox() {
         this._renderModalBox((
             <Modal.Box>
-                <Modal.Header>Header of ModalBox</Modal.Header>
+                <Modal.Header title="Header of ModalBox" subtitle="This is a smaller description" />
                 <Modal.Body>The Body of a ModalBox can contain whatever you like!</Modal.Body>
             </Modal.Box>
         ));
@@ -25,7 +25,7 @@ class ModalBoxExamplePage extends React.Component {
     _renderFullModalBox() {
         this._renderModalBox((
             <Modal.Box>
-            <Modal.Header>Header of ModalBox</Modal.Header>
+                <Modal.Header title="Header of ModalBox" subtitle="This is a smaller description" />
                 <Modal.Body>The Body of a ModalBox can contain whatever you like!</Modal.Body>
                 <Modal.Actions>
                     <Button name="Action 1" />

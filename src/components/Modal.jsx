@@ -51,7 +51,11 @@ class Header extends React.Component {
 
         return (
             <div className={className}>
-                <p>{this.props.children}</p>
+                <p>
+                    {this.props.title && <span className="title">{this.props.title}</span>}
+                    {this.props.subtitle && <span className="subtitle">{this.props.subtitle}</span>}
+                    {this.props.children}
+                </p>
                 <a className='close'
                    onClick={this._closeModal.bind(this)}
                    href='#'>
@@ -65,7 +69,9 @@ Header.propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
-    ])
+    ]),
+    title: PropTypes.string,
+    subtitle: PropTypes.string
 };
 
 class Body extends React.Component {

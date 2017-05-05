@@ -122,6 +122,48 @@ exports[`Modal.Header renders all children without crashing 2`] = `
 </div>
 `;
 
+exports[`Modal.Header renders title and subtitle if available 1`] = `
+<div
+  className="modal_box__header"
+>
+  <p>
+    <span
+      className="title"
+    >
+      Modal Title
+    </span>
+  </p>
+  <a
+    className="close"
+    href="#"
+    onClick={[Function]}
+  >
+    <test-file-stub />
+  </a>
+</div>
+`;
+
+exports[`Modal.Header renders title and subtitle if available 2`] = `
+<div
+  className="modal_box__header"
+>
+  <p>
+    <span
+      className="subtitle"
+    >
+      Modal Subtitle
+    </span>
+  </p>
+  <a
+    className="close"
+    href="#"
+    onClick={[Function]}
+  >
+    <test-file-stub />
+  </a>
+</div>
+`;
+
 exports[`Modal.Header renders without crashing 1`] = `
 <div
   className="modal_box__header"

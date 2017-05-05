@@ -72,6 +72,14 @@ describe('Modal.Header', () => {
         expect(toJson(header)).toMatchSnapshot();
     });
 
+    it('renders title and subtitle if available', () => {
+        const headerTitle = shallow(<Modal.Header title='Modal Title' />);
+        expect(toJson(headerTitle)).toMatchSnapshot();
+
+        const headerSubtitle = shallow(<Modal.Header subtitle='Modal Subtitle' />);
+        expect(toJson(headerSubtitle)).toMatchSnapshot();
+    });
+
     it('renders all children without crashing', () => {
         const textHeader = shallow(<Modal.Header>
             Just a Text Header
