@@ -44,6 +44,25 @@ exports[`Modal.Body renders all children without crashing 1`] = `
 </div>
 `;
 
+exports[`Modal.Body renders an icon when supplied via props 1`] = `
+<div
+  className="modal_box__body"
+>
+  <div>
+    <div
+      className="icon"
+    >
+      <img
+        src="awesome/image.png"
+      />
+    </div>
+    <div
+      className="content"
+    />
+  </div>
+</div>
+`;
+
 exports[`Modal.Body renders without crashing 1`] = `
 <div
   className="modal_box__body"

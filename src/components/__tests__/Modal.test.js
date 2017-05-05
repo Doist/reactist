@@ -115,6 +115,11 @@ describe('Modal.Body', () => {
         </Modal.Body>);
         expect(toJson(body)).toMatchSnapshot();
     });
+
+    it('renders an icon when supplied via props', () => {
+        const body = shallow(<Modal.Body icon={ <img src='awesome/image.png' /> } />);
+        expect(toJson(body)).toMatchSnapshot();
+    });
 });
 
 describe('Modal.Actions', () => {

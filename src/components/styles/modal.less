@@ -34,7 +34,7 @@
     background-color: @color-grey-9;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
-    border-bottom: 1px solid @color-grey-10;
+    border-bottom: 1px solid @color-grey-11;
 
     p {
         margin-left: 25px;
@@ -64,6 +64,31 @@
 .modal_box__body {
     padding: 20px 25px 25px 25px;
     background-color: white;
+
+    .icon {
+        height: 300px;
+        width: 46px;
+        float: left;
+        margin-right: 8px;
+
+        & > * {
+            max-height: 46px;
+            max-width: 100%;
+        }
+    }
+
+    .content {
+        float: right;
+        // modal size minus the (icon + margin)
+        width: calc(~'100% - 54px');        
+    }
+
+    // used to clear the floating icon while still enabling scrolling
+    &:after {
+        clear: both;
+        content: "";
+        display: block;
+    }
 }
 
 .modal_box__actions {

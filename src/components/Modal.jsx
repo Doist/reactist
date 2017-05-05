@@ -78,12 +78,19 @@ class Body extends React.Component {
     render() {
         return (
             <div className='modal_box__body'>
-                {this.props.children}
+                {this.props.icon
+                    ? ( <div>
+                            <div className='icon'>{this.props.icon}</div>
+                            <div className='content'>{this.props.children}</div>
+                        </div> )
+                    : this.props.children
+                }
             </div>
         );
     }
 }
 Body.propTypes = {
+    icon: PropTypes.node,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
