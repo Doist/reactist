@@ -669,195 +669,7 @@ Button.propTypes = {
 exports.default = Button;
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.Actions = exports.Body = exports.Header = exports.ModalBox = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-__webpack_require__(30);
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(5);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _CloseIcon = __webpack_require__(9);
-
-var _CloseIcon2 = _interopRequireDefault(_CloseIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ModalBox = function (_React$Component) {
-    _inherits(ModalBox, _React$Component);
-
-    function ModalBox() {
-        _classCallCheck(this, ModalBox);
-
-        return _possibleConstructorReturn(this, (ModalBox.__proto__ || Object.getPrototypeOf(ModalBox)).apply(this, arguments));
-    }
-
-    _createClass(ModalBox, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var overlay = _reactDom2.default.findDOMNode(this);
-            // adds the 'overlay-active' class after a small timeout
-            setTimeout(function () {
-                if (overlay && overlay.classList && !overlay.classList.contains('overlay-active')) {
-                    overlay.className += ' overlay-active';
-                }
-            }, 10);
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var class_name = 'modal_box';
-            if (this.props.className) {
-                class_name += ' ' + this.props.className;
-            }
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'overlay' },
-                _react2.default.createElement(
-                    'div',
-                    { className: class_name },
-                    this.props.children
-                )
-            );
-        }
-    }]);
-
-    return ModalBox;
-}(_react2.default.Component);
-
-var Header = function (_React$Component2) {
-    _inherits(Header, _React$Component2);
-
-    function Header() {
-        _classCallCheck(this, Header);
-
-        return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
-    }
-
-    _createClass(Header, [{
-        key: '_closeModal',
-        value: function _closeModal(event) {
-            event.preventDefault();
-            _reactDom2.default.unmountComponentAtNode(document.getElementById('modal_box'));
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var className = 'modal_box__header';
-
-            return _react2.default.createElement(
-                'div',
-                { className: className },
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    this.props.children
-                ),
-                _react2.default.createElement(
-                    'a',
-                    { className: 'close',
-                        onClick: this._closeModal.bind(this),
-                        href: '#' },
-                    _react2.default.createElement(_CloseIcon2.default, null)
-                )
-            );
-        }
-    }]);
-
-    return Header;
-}(_react2.default.Component);
-
-var Body = function (_React$Component3) {
-    _inherits(Body, _React$Component3);
-
-    function Body() {
-        _classCallCheck(this, Body);
-
-        return _possibleConstructorReturn(this, (Body.__proto__ || Object.getPrototypeOf(Body)).apply(this, arguments));
-    }
-
-    _createClass(Body, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                { className: 'modal_box__body' },
-                this.props.children
-            );
-        }
-    }]);
-
-    return Body;
-}(_react2.default.Component);
-
-var Actions = function (_React$Component4) {
-    _inherits(Actions, _React$Component4);
-
-    function Actions() {
-        _classCallCheck(this, Actions);
-
-        return _possibleConstructorReturn(this, (Actions.__proto__ || Object.getPrototypeOf(Actions)).apply(this, arguments));
-    }
-
-    _createClass(Actions, [{
-        key: '_onClick',
-        value: function _onClick(on_click) {
-            on_click();
-            _reactDom2.default.unmountComponentAtNode(document.getElementById('modal_box'));
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this5 = this;
-
-            var children = _react2.default.Children.map(this.props.children, function (child) {
-                if (!child) return false;
-                if (child.type.name == 'Button' && child.props.close) {
-                    return _react2.default.cloneElement(child, { onClick: _this5._onClick.bind(null, child.props.onClick) });
-                } else {
-                    return _react2.default.cloneElement(child);
-                }
-            });
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'modal_box__actions' },
-                children
-            );
-        }
-    }]);
-
-    return Actions;
-}(_react2.default.Component);
-
-exports.ModalBox = ModalBox;
-exports.Header = Header;
-exports.Body = Body;
-exports.Actions = Actions;
-
-/***/ }),
+/* 7 */,
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -867,9 +679,11 @@ exports.Actions = Actions;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Button = exports.Actions = exports.Body = exports.Header = exports.ModalBox = undefined;
+exports.Button = exports.Modal = undefined;
 
-var _ModalBox = __webpack_require__(7);
+var _Modal = __webpack_require__(31);
+
+var _Modal2 = _interopRequireDefault(_Modal);
 
 var _Button = __webpack_require__(6);
 
@@ -877,10 +691,7 @@ var _Button2 = _interopRequireDefault(_Button);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.ModalBox = _ModalBox.ModalBox;
-exports.Header = _ModalBox.Header;
-exports.Body = _ModalBox.Body;
-exports.Actions = _ModalBox.Actions;
+exports.Modal = _Modal2.default;
 exports.Button = _Button2.default;
 
 /***/ }),
@@ -950,20 +761,7 @@ exports.push([module.i, ".button {\n  box-sizing: border-box;\n  font-family: 'O
 
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, ".overlay {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: flex;\n  align-items: flex-start;\n  justify-content: center;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.5);\n  transition: background 0.1s ease-in;\n  padding-top: 60px;\n}\n.overlay-active {\n  overflow: auto;\n  background: rgba(0, 0, 0, 0.7);\n}\n.modal_box {\n  overflow: auto;\n  overflow-x: hidden;\n  width: 40%;\n  border-radius: 4px;\n  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);\n}\n.modal_box__header {\n  display: flex;\n  align-items: center;\n  background-color: white;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n  border-bottom: 1px solid #ececec;\n}\n.modal_box__header p {\n  margin-left: 25px;\n  font-size: 0.875rem;\n  color: #404040;\n  font-weight: 700;\n  line-height: 1.7;\n  font-family: 'Open Sans', sans-serif;\n}\n.modal_box__header a {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 46px;\n  height: 46px;\n  margin-left: auto;\n  margin-right: 8px;\n}\n.modal_box__body {\n  padding: 20px 25px 25px 25px;\n  background-color: white;\n}\n.modal_box__actions {\n  display: flex;\n  justify-content: flex-end;\n  padding: 20px 25px;\n  background-color: white;\n  border-top: 1px solid #ececec;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 11 */,
 /* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2673,13 +2471,218 @@ if(false) {
 }
 
 /***/ }),
-/* 30 */
+/* 30 */,
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+__webpack_require__(33);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(5);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _CloseIcon = __webpack_require__(9);
+
+var _CloseIcon2 = _interopRequireDefault(_CloseIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Box = function (_React$Component) {
+    _inherits(Box, _React$Component);
+
+    function Box() {
+        _classCallCheck(this, Box);
+
+        return _possibleConstructorReturn(this, (Box.__proto__ || Object.getPrototypeOf(Box)).apply(this, arguments));
+    }
+
+    _createClass(Box, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var overlay = _reactDom2.default.findDOMNode(this);
+            // adds the 'overlay-active' class after a small timeout
+            setTimeout(function () {
+                if (overlay && overlay.classList && !overlay.classList.contains('overlay-active')) {
+                    overlay.className += ' overlay-active';
+                }
+            }, 10);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var class_name = 'modal_box';
+            if (this.props.className) {
+                class_name += ' ' + this.props.className;
+            }
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'overlay' },
+                _react2.default.createElement(
+                    'div',
+                    { className: class_name },
+                    this.props.children
+                )
+            );
+        }
+    }]);
+
+    return Box;
+}(_react2.default.Component);
+
+var Header = function (_React$Component2) {
+    _inherits(Header, _React$Component2);
+
+    function Header() {
+        _classCallCheck(this, Header);
+
+        return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+    }
+
+    _createClass(Header, [{
+        key: '_closeModal',
+        value: function _closeModal(event) {
+            event.preventDefault();
+            _reactDom2.default.unmountComponentAtNode(document.getElementById('modal_box'));
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var className = 'modal_box__header';
+
+            return _react2.default.createElement(
+                'div',
+                { className: className },
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    this.props.children
+                ),
+                _react2.default.createElement(
+                    'a',
+                    { className: 'close',
+                        onClick: this._closeModal.bind(this),
+                        href: '#' },
+                    _react2.default.createElement(_CloseIcon2.default, null)
+                )
+            );
+        }
+    }]);
+
+    return Header;
+}(_react2.default.Component);
+
+var Body = function (_React$Component3) {
+    _inherits(Body, _React$Component3);
+
+    function Body() {
+        _classCallCheck(this, Body);
+
+        return _possibleConstructorReturn(this, (Body.__proto__ || Object.getPrototypeOf(Body)).apply(this, arguments));
+    }
+
+    _createClass(Body, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                { className: 'modal_box__body' },
+                this.props.children
+            );
+        }
+    }]);
+
+    return Body;
+}(_react2.default.Component);
+
+var Actions = function (_React$Component4) {
+    _inherits(Actions, _React$Component4);
+
+    function Actions() {
+        _classCallCheck(this, Actions);
+
+        return _possibleConstructorReturn(this, (Actions.__proto__ || Object.getPrototypeOf(Actions)).apply(this, arguments));
+    }
+
+    _createClass(Actions, [{
+        key: '_onClick',
+        value: function _onClick(on_click) {
+            on_click();
+            _reactDom2.default.unmountComponentAtNode(document.getElementById('modal_box'));
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this5 = this;
+
+            var children = _react2.default.Children.map(this.props.children, function (child) {
+                if (!child) return false;
+                if (child.type.name == 'Button' && child.props.close) {
+                    return _react2.default.cloneElement(child, { onClick: _this5._onClick.bind(null, child.props.onClick) });
+                } else {
+                    return _react2.default.cloneElement(child);
+                }
+            });
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'modal_box__actions' },
+                children
+            );
+        }
+    }]);
+
+    return Actions;
+}(_react2.default.Component);
+
+exports.default = {
+    Box: Box,
+    Header: Header,
+    Body: Body,
+    Actions: Actions
+};
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".overlay {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: flex;\n  align-items: flex-start;\n  justify-content: center;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.5);\n  transition: background 0.1s ease-in;\n  padding-top: 60px;\n}\n.overlay-active {\n  overflow: auto;\n  background: rgba(0, 0, 0, 0.7);\n}\n.modal_box {\n  overflow: auto;\n  overflow-x: hidden;\n  width: 40%;\n  border-radius: 4px;\n  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);\n}\n.modal_box__header {\n  display: flex;\n  align-items: center;\n  background-color: white;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n  border-bottom: 1px solid #ececec;\n}\n.modal_box__header p {\n  margin-left: 25px;\n  font-size: 0.875rem;\n  color: #404040;\n  font-weight: 700;\n  line-height: 1.7;\n  font-family: 'Open Sans', sans-serif;\n}\n.modal_box__header a {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 46px;\n  height: 46px;\n  margin-left: auto;\n  margin-right: 8px;\n}\n.modal_box__body {\n  padding: 20px 25px 25px 25px;\n  background-color: white;\n}\n.modal_box__actions {\n  display: flex;\n  justify-content: flex-end;\n  padding: 20px 25px;\n  background-color: white;\n  border-top: 1px solid #ececec;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(11);
+var content = __webpack_require__(32);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -2693,8 +2696,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/less-loader/dist/index.js!./modal_box.less", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/less-loader/dist/index.js!./modal_box.less");
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/less-loader/dist/index.js!./modal.less", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/less-loader/dist/index.js!./modal.less");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});

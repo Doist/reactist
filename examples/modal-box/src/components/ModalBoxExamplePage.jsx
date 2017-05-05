@@ -1,37 +1,37 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { ModalBox, Header, Body, Actions, Button } from 'reactist';
+import { Modal, Button } from 'reactist';
 
 class ModalBoxExamplePage extends React.Component {
 
     _renderHeaderModalBox() {
         this._renderModalBox((
-            <ModalBox>
-                <Header>Header of ModalBox</Header>
-            </ModalBox>
+            <Modal.Box>
+                <Modal.Header>Header of ModalBox</Modal.Header>
+            </Modal.Box>
         ));
     }
 
     _renderHeaderContentModalBox() {
         this._renderModalBox((
-            <ModalBox>
-                <Header>Header of ModalBox</Header>
-                <Body>The Body of a ModalBox can contain whatever you like!</Body>
-            </ModalBox>
+            <Modal.Box>
+                <Modal.Header>Header of ModalBox</Modal.Header>
+                <Modal.Body>The Body of a ModalBox can contain whatever you like!</Modal.Body>
+            </Modal.Box>
         ));
     }
     
     _renderFullModalBox() {
         this._renderModalBox((
-            <ModalBox>
-            <Header>Header of ModalBox</Header>
-                <Body>The Body of a ModalBox can contain whatever you like!</Body>
-                <Actions>
+            <Modal.Box>
+            <Modal.Header>Header of ModalBox</Modal.Header>
+                <Modal.Body>The Body of a ModalBox can contain whatever you like!</Modal.Body>
+                <Modal.Actions>
                     <Button name="Action 1" />
                     <Button white name="Action 2" />
-                </Actions>
-            </ModalBox>
+                </Modal.Actions>
+            </Modal.Box>
         ));
     }
 

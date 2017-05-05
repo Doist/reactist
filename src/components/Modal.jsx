@@ -1,11 +1,11 @@
-import './styles/modal_box.less';
+import './styles/modal.less';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import CloseIcon from './icons/CloseIcon.svg';
 
-class ModalBox extends React.Component {
+class Box extends React.Component {
     componentDidMount() {
         var overlay = ReactDOM.findDOMNode(this);
         // adds the 'overlay-active' class after a small timeout
@@ -88,5 +88,9 @@ class Actions extends React.Component {
     }
 }
 
-
-export { ModalBox, Header, Body, Actions };
+export default { 
+    Box, 
+    Header, 
+    Body, 
+    Actions 
+};
