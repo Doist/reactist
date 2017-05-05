@@ -29,6 +29,7 @@
     "enzyme-to-json": "^1.5.1",
     "eslint": "^3.19.0",
     "eslint-loader": "^1.7.1",
+    "eslint-plugin-jest": "^19.0.1",
     "eslint-plugin-react": "^6.10.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^19.0.2",
@@ -52,7 +53,7 @@
   },
   "jest": {
     "moduleNameMapper": {
-      "\\.svg$": "./src/__mocks__/fileMock.js",
+      "\\.svg$": "<rootDir>/src/__mocks__/fileMock.js",
       "\\.(css|less)$": "identity-obj-proxy"
     }
   },

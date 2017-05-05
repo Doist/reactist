@@ -1,7 +1,8 @@
 {
     'env': {
         'browser': true,
-        'es6': true
+        'es6': true,
+        'jest/globals': true
     },
     'extends': 'eslint:recommended',
     'parserOptions': {
@@ -12,7 +13,8 @@
         'sourceType': 'module'
     },
     'plugins': [
-        'react'
+        'react',
+        'jest'
     ],
     'rules': {
         'object-curly-spacing': ['warn', 'always', { 'arraysInObjects': false, 'objectsInObjects': false }],
@@ -35,6 +37,9 @@
         'react/no-did-mount-set-state': 1,
         'react/no-did-update-set-state': 1,
         'react/no-direct-mutation-state': 1,
-        'react/sort-comp': 1
+        'react/sort-comp': 1,
+        'jest/no-disabled-tests': 'warn',
+        'jest/no-focused-tests': 'error',
+        'jest/no-identical-title': 'error'
     }
 }

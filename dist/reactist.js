@@ -2494,6 +2494,10 @@ var _reactDom = __webpack_require__(5);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _propTypes = __webpack_require__(15);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _CloseIcon = __webpack_require__(9);
 
 var _CloseIcon2 = _interopRequireDefault(_CloseIcon);
@@ -2549,6 +2553,11 @@ var Box = function (_React$Component) {
     return Box;
 }(_react2.default.Component);
 
+Box.propTypes = {
+    className: _propTypes2.default.string,
+    children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node])
+};
+
 var Header = function (_React$Component2) {
     _inherits(Header, _React$Component2);
 
@@ -2591,6 +2600,10 @@ var Header = function (_React$Component2) {
     return Header;
 }(_react2.default.Component);
 
+Header.propTypes = {
+    children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node])
+};
+
 var Body = function (_React$Component3) {
     _inherits(Body, _React$Component3);
 
@@ -2614,6 +2627,10 @@ var Body = function (_React$Component3) {
     return Body;
 }(_react2.default.Component);
 
+Body.propTypes = {
+    children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node])
+};
+
 var Actions = function (_React$Component4) {
     _inherits(Actions, _React$Component4);
 
@@ -2636,7 +2653,7 @@ var Actions = function (_React$Component4) {
 
             var children = _react2.default.Children.map(this.props.children, function (child) {
                 if (!child) return false;
-                if (child.type.name == 'Button' && child.props.close) {
+                if (child.props.close) {
                     return _react2.default.cloneElement(child, { onClick: _this5._onClick.bind(null, child.props.onClick) });
                 } else {
                     return _react2.default.cloneElement(child);
@@ -2653,6 +2670,15 @@ var Actions = function (_React$Component4) {
 
     return Actions;
 }(_react2.default.Component);
+/**
+ * Children can have an optional `close` property (boolean).
+ * When supplied and set to true it will close the modal after the onClick function
+ */
+
+
+Actions.propTypes = {
+    children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node])
+};
 
 exports.default = {
     Box: Box,

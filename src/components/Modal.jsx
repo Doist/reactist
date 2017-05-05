@@ -2,6 +2,7 @@ import './styles/modal.less';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 import CloseIcon from './icons/CloseIcon.svg';
 
@@ -31,6 +32,13 @@ class Box extends React.Component {
         );
     }
 }
+Box.propTypes = {
+    className: PropTypes.string,
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ])
+};
 
 class Header extends React.Component {
     _closeModal(event) {
@@ -53,6 +61,12 @@ class Header extends React.Component {
         );
     }
 }
+Header.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ])
+};
 
 class Body extends React.Component {
     render() {
@@ -63,6 +77,12 @@ class Body extends React.Component {
         );
     }
 }
+Body.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ])
+};
 
 class Actions extends React.Component {
     _onClick(on_click) {
@@ -73,7 +93,7 @@ class Actions extends React.Component {
     render() {
         const children = React.Children.map(this.props.children, (child) => {
             if (!child) return false;
-            if (child.type.name == 'Button' && child.props.close) {
+            if (child.props.close) {
                 return React.cloneElement(child, { onClick: this._onClick.bind(null, child.props.onClick) });
             } else {
                 return React.cloneElement(child);
@@ -87,6 +107,16 @@ class Actions extends React.Component {
         );
     }
 }
+/**
+ * Children can have an optional `close` property (boolean).
+ * When supplied and set to true it will close the modal after the onClick function
+ */
+Actions.propTypes = {
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ])
+};
 
 export default { 
     Box, 

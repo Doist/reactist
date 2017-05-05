@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
@@ -18,24 +18,23 @@ describe('Button', () => {
     it('calls onclick when clicked', () => {
         const mockEvent = { preventDefault: jest.fn() };
         const clickSpy = jest.fn();
-        const button = shallow(<Button onClick={clickSpy} />);
+        const button = shallow(<Button onClick={ clickSpy } />);
 
-        button.find('button').simulate("click", mockEvent);
+        button.find('button').simulate('click', mockEvent);
         expect(clickSpy).toHaveBeenCalled();
     });
 
     it('does not call onclick when disabled and clicked', () => {
         const mockEvent = { preventDefault: jest.fn() };
         const clickSpy = jest.fn();
-        const button = shallow(<Button disabled onClick={clickSpy} />);
+        const button = shallow(<Button disabled onClick={ clickSpy } />);
 
-        button.find('button').simulate("click", mockEvent);
+        button.find('button').simulate('click', mockEvent);
         expect(clickSpy).not.toHaveBeenCalled();
     });
 
     it('renders a tooltip when prop is supplied', () => {
-        const button = shallow(<Button name='THE BUTTON TEXT'
-                                       data_tip='THE TOOLTIP' />);
+        const button = shallow(<Button name='THE BUTTON TEXT' data_tip='THE TOOLTIP' />);
         expect(toJson(button)).toMatchSnapshot();
     });
 });
