@@ -1,8 +1,9 @@
 import './styles/button.less';
 
-import classNames from 'classnames';
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
+import classNames from 'classnames';
 
 class Button extends React.Component {
     constructor(props, context) {
@@ -43,5 +44,15 @@ class Button extends React.Component {
         )
     }
 }
+Button.propTypes = {
+    name: PropTypes.string,
+    onClick: PropTypes.func,
+    secondary: PropTypes.bool,
+    small: PropTypes.bool,
+    white: PropTypes.bool,
+    loading: PropTypes.bool,
+    disabled: PropTypes.bool,
+    data_tip: PropTypes.string,
+};
 
 export default Button;

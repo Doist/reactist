@@ -572,17 +572,21 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 __webpack_require__(29);
 
-var _classnames = __webpack_require__(1);
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = __webpack_require__(15);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactTooltip = __webpack_require__(22);
 
 var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
+
+var _classnames = __webpack_require__(1);
+
+var _classnames2 = _interopRequireDefault(_classnames);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -650,6 +654,17 @@ var Button = function (_React$Component) {
 
     return Button;
 }(_react2.default.Component);
+
+Button.propTypes = {
+    name: _propTypes2.default.string,
+    onClick: _propTypes2.default.func,
+    secondary: _propTypes2.default.bool,
+    small: _propTypes2.default.bool,
+    white: _propTypes2.default.bool,
+    loading: _propTypes2.default.bool,
+    disabled: _propTypes2.default.bool,
+    data_tip: _propTypes2.default.string
+};
 
 exports.default = Button;
 
@@ -929,7 +944,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "html,\nbody {\n  margin: 0;\n  padding: 0;\n  height: 100%;\n  font-family: 'Open Sans', sans-serif;\n  overflow: hidden;\n  position: relative;\n}\n.button {\n  box-sizing: border-box;\n  font-family: 'Open Sans', sans-serif;\n  background-color: #3F82EF;\n  border: 1px solid rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  color: white;\n  cursor: pointer;\n  display: block;\n  font-size: 14px;\n  font-weight: 600;\n  padding: 11px;\n  -webkit-font-smoothing: antialiased;\n}\n.button span {\n  user-select: none;\n}\n.button:not(.tw_button--is_loading):not(.tw_button--secondary):not(.tw_button--white):not(.tw_button--duplicator):not([disabled]):hover {\n  background-color: #3b7be2;\n}\n.button:not(.tw_button--is_loading):not(.tw_button--secondary).button:disabled {\n  background-color: #b3cdf9;\n  cursor: not-allowed;\n}\n.button.small {\n  padding: 0;\n  max-width: 155px;\n  font-size: 12px;\n}\n.button.small .wrapper {\n  padding: 6px;\n}\n.button.secondary {\n  background-color: #f9f9f9 !important;\n  border: 1px solid rgba(0, 0, 0, 0.1);\n  color: #404040;\n}\n.button.secondary:not([disabled]):not(.tw_button--is_loading):hover {\n  background-color: #ececec;\n}\n.button.secondary:disabled {\n  color: #B3B3B3;\n  cursor: not-allowed;\n}\n.button.white {\n  background-color: white;\n  border: 1px solid #3F82EF;\n  color: #3F82EF;\n}\n.button.white:not([disabled]):not(.tw_button--is_loading):hover {\n  background-color: #ececec !important;\n}\n.button.white:disabled {\n  color: #B3B3B3;\n  cursor: not-allowed;\n}\n", ""]);
+exports.push([module.i, ".button {\n  box-sizing: border-box;\n  font-family: 'Open Sans', sans-serif;\n  background-color: #3F82EF;\n  border: 1px solid rgba(0, 0, 0, 0.1);\n  border-radius: 2px;\n  color: white;\n  cursor: pointer;\n  display: block;\n  font-size: 14px;\n  font-weight: 600;\n  padding: 11px;\n  -webkit-font-smoothing: antialiased;\n}\n.button span {\n  user-select: none;\n}\n.button:not(.tw_button--is_loading):not(.tw_button--secondary):not(.tw_button--white):not(.tw_button--duplicator):not([disabled]):hover {\n  background-color: #3b7be2;\n}\n.button:not(.tw_button--is_loading):not(.tw_button--secondary).button:disabled {\n  background-color: #b3cdf9;\n  cursor: not-allowed;\n}\n.button.small {\n  padding: 0;\n  max-width: 155px;\n  font-size: 12px;\n}\n.button.small .wrapper {\n  padding: 6px;\n}\n.button.secondary {\n  background-color: #f9f9f9 !important;\n  border: 1px solid rgba(0, 0, 0, 0.1);\n  color: #404040;\n}\n.button.secondary:not([disabled]):not(.tw_button--is_loading):hover {\n  background-color: #ececec;\n}\n.button.secondary:disabled {\n  color: #B3B3B3;\n  cursor: not-allowed;\n}\n.button.white {\n  background-color: white;\n  border: 1px solid #3F82EF;\n  color: #3F82EF;\n}\n.button.white:not([disabled]):not(.tw_button--is_loading):hover {\n  background-color: #ececec !important;\n}\n.button.white:disabled {\n  color: #B3B3B3;\n  cursor: not-allowed;\n}\n", ""]);
 
 // exports
 
@@ -943,7 +958,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "html,\nbody {\n  margin: 0;\n  padding: 0;\n  height: 100%;\n  font-family: 'Open Sans', sans-serif;\n  overflow: hidden;\n  position: relative;\n}\n.overlay {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: flex;\n  align-items: flex-start;\n  justify-content: center;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.5);\n  transition: background 0.1s ease-in;\n  padding-top: 60px;\n}\n.overlay-active {\n  overflow: auto;\n  background: rgba(0, 0, 0, 0.7);\n}\n.modal_box {\n  overflow: auto;\n  overflow-x: hidden;\n  width: 40%;\n  border-radius: 4px;\n  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);\n}\n.modal_box__header {\n  display: flex;\n  align-items: center;\n  background-color: white;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n  border-bottom: 1px solid #ececec;\n}\n.modal_box__header p {\n  margin-left: 25px;\n  font-size: 0.875rem;\n  color: #404040;\n  font-weight: 700;\n  line-height: 1.7;\n}\n.modal_box__header a {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 46px;\n  height: 46px;\n  margin-left: auto;\n  margin-right: 8px;\n}\n.modal_box__body {\n  padding: 20px 25px 25px 25px;\n  background-color: white;\n}\n.modal_box__actions {\n  display: flex;\n  justify-content: flex-end;\n  padding: 20px 25px;\n  background-color: white;\n  border-top: 1px solid #ececec;\n}\n", ""]);
+exports.push([module.i, ".overlay {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: flex;\n  align-items: flex-start;\n  justify-content: center;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.5);\n  transition: background 0.1s ease-in;\n  padding-top: 60px;\n}\n.overlay-active {\n  overflow: auto;\n  background: rgba(0, 0, 0, 0.7);\n}\n.modal_box {\n  overflow: auto;\n  overflow-x: hidden;\n  width: 40%;\n  border-radius: 4px;\n  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);\n}\n.modal_box__header {\n  display: flex;\n  align-items: center;\n  background-color: white;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n  border-bottom: 1px solid #ececec;\n}\n.modal_box__header p {\n  margin-left: 25px;\n  font-size: 0.875rem;\n  color: #404040;\n  font-weight: 700;\n  line-height: 1.7;\n  font-family: 'Open Sans', sans-serif;\n}\n.modal_box__header a {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 46px;\n  height: 46px;\n  margin-left: auto;\n  margin-right: 8px;\n}\n.modal_box__body {\n  padding: 20px 25px 25px 25px;\n  background-color: white;\n}\n.modal_box__actions {\n  display: flex;\n  justify-content: flex-end;\n  padding: 20px 25px;\n  background-color: white;\n  border-top: 1px solid #ececec;\n}\n", ""]);
 
 // exports
 

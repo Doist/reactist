@@ -7,8 +7,8 @@ class ExamplePage extends React.Component {
     render() {
         return (
             <div>
-                <ButtonExamplePage />
                 <ModalBoxExamplePage />
+                <ButtonExamplePage />
             </div>
         );
     }

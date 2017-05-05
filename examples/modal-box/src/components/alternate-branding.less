@@ -1,0 +1,24 @@
+@primary-color: #dd4b39;
+@primary-color-lighter: lighter(#dd4b39, 0.1);
+@primary-color-darker: darker(#dd4b39, 0.1);
+
+.alternate-branding {
+    // alternate button styles
+    & > .button {
+        background-color: @primary-color;
+
+        &:not(.tw_button--is_loading):not(.tw_button--secondary):not(.tw_button--white):not(.tw_button--duplicator):not([disabled]):hover {
+            background-color: @primary-color-darker;
+        }
+
+        &:not(.tw_button--is_loading):not(.tw_button--secondary)&:disabled {
+            background-color: @primary-color-lighter;
+        }
+
+        &.white {
+            background-color: white;
+            border: 1px solid  @primary-color;
+            color: @primary-color;
+        }
+    }
+}
