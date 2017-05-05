@@ -8,7 +8,6 @@ import CloseIcon from './icons/CloseIcon.svg';
 class ModalBox extends React.Component {
     componentDidMount() {
         var overlay = ReactDOM.findDOMNode(this);
-        console.log('imount 23333');
         // adds the 'overlay-active' class after a small timeout
         setTimeout(() => {
             if (overlay && overlay.classList && !overlay.classList.contains('overlay-active')) {

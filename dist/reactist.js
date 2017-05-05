@@ -702,7 +702,6 @@ var ModalBox = function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             var overlay = _reactDom2.default.findDOMNode(this);
-            console.log('imount 23333');
             // adds the 'overlay-active' class after a small timeout
             setTimeout(function () {
                 if (overlay && overlay.classList && !overlay.classList.contains('overlay-active')) {

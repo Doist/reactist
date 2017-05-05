@@ -12,7 +12,7 @@ The output will be in the `public` folder.
 
 For development purposes you might want to link the reactist dependency so you are automatically updated when it changes:
 ```
-npm link ../../.
+npm link --production ../../.
 ```
 This needs to be repeated everytime you clear your node_modules folder.
 
