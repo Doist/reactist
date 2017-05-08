@@ -4,7 +4,7 @@
   "description": "Open source React components by Doist",
   "main": "./dist/reactist.js",
   "scripts": {
-    "build": "./node_modules/.bin/webpack --progress --color",
+    "build": "./node_modules/.bin/webpack -p --progress --color",
     "build-watch": "npm run build -- --watch",
     "check": "./node_modules/.bin/eslint src",
     "test": "./node_modules/.bin/jest",
