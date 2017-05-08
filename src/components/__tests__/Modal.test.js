@@ -120,6 +120,14 @@ describe('Modal.Body', () => {
         const body = shallow(<Modal.Body icon={ <img src='awesome/image.png' /> } />);
         expect(toJson(body)).toMatchSnapshot();
     });
+
+    it('clicking the close icon unmounts the modal_box', () => {
+        const body = shallow(<Modal.Body showCloseIcon />);
+
+        const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode);
+        body.find('.close').simulate('click', { preventDefault: jest.fn() });
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1); 
+    });
 });
 
 describe('Modal.Actions', () => {

@@ -859,11 +859,24 @@ var Body = function (_React$Component3) {
     }
 
     _createClass(Body, [{
+        key: '_closeModal',
+        value: function _closeModal(event) {
+            event.preventDefault();
+            _reactDom2.default.unmountComponentAtNode(document.getElementById('modal_box'));
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
                 'div',
                 { className: 'modal_box__body' },
+                this.props.showCloseIcon && _react2.default.createElement(
+                    'a',
+                    { className: 'close',
+                        onClick: this._closeModal.bind(this),
+                        href: '#' },
+                    _react2.default.createElement(_CloseIcon2.default, null)
+                ),
                 this.props.icon ? _react2.default.createElement(
                     'div',
                     null,
@@ -887,6 +900,7 @@ var Body = function (_React$Component3) {
 
 Body.propTypes = {
     icon: _propTypes2.default.node,
+    showCloseIcon: _propTypes2.default.bool,
     children: _propTypes2.default.oneOfType([_propTypes2.default.arrayOf(_propTypes2.default.node), _propTypes2.default.node])
 };
 
@@ -1048,7 +1062,7 @@ exports = module.exports = __webpack_require__(3)(undefined);
 
 
 // module
-exports.push([module.i, ".overlay {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: flex;\n  align-items: flex-start;\n  justify-content: center;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.5);\n  transition: background 0.1s ease-in;\n  padding-top: 60px;\n}\n.overlay-active {\n  overflow: auto;\n  background: rgba(0, 0, 0, 0.7);\n}\n.modal_box {\n  overflow: auto;\n  overflow-x: hidden;\n  width: 40%;\n  border-radius: 4px;\n  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);\n}\n.modal_box__header {\n  display: flex;\n  align-items: center;\n  background-color: #f9f9f9;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n  border-bottom: 1px solid #fafafa;\n}\n.modal_box__header p {\n  margin-left: 25px;\n  font-size: 0.875rem;\n  color: #404040;\n  font-weight: 700;\n  line-height: 1.7;\n  font-family: 'Open Sans', sans-serif;\n}\n.modal_box__header .title {\n  display: block;\n  line-height: 1;\n}\n.modal_box__header .subtitle {\n  font-size: 0.81rem;\n  color: #B3B3B3;\n  font-weight: 600;\n  line-height: 1.6;\n  font-family: 'Open Sans', sans-serif;\n}\n.modal_box__header a {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 46px;\n  height: 46px;\n  margin-left: auto;\n  margin-right: 8px;\n}\n.modal_box__body {\n  padding: 20px 25px 25px 25px;\n  background-color: white;\n}\n.modal_box__body .icon {\n  height: 300px;\n  width: 46px;\n  float: left;\n  margin-right: 8px;\n}\n.modal_box__body .icon > * {\n  max-height: 46px;\n  max-width: 100%;\n}\n.modal_box__body .content {\n  float: right;\n  width: calc(100% - 54px);\n}\n.modal_box__body:after {\n  clear: both;\n  content: \"\";\n  display: block;\n}\n.modal_box__actions {\n  display: flex;\n  justify-content: flex-end;\n  padding: 20px 25px;\n  background-color: white;\n  border-top: 1px solid #ececec;\n}\n", ""]);
+exports.push([module.i, ".overlay {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  display: flex;\n  align-items: flex-start;\n  justify-content: center;\n  z-index: 2;\n  background: rgba(0, 0, 0, 0.5);\n  transition: background 0.1s ease-in;\n  padding-top: 60px;\n}\n.overlay-active {\n  overflow: auto;\n  background: rgba(0, 0, 0, 0.7);\n}\n.modal_box {\n  overflow: auto;\n  overflow-x: hidden;\n  width: 40%;\n  border-radius: 4px;\n  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);\n}\n.modal_box__header {\n  display: flex;\n  align-items: center;\n  background-color: #f9f9f9;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n  border-bottom: 1px solid #fafafa;\n}\n.modal_box__header p {\n  margin-left: 25px;\n  font-size: 0.875rem;\n  color: #404040;\n  font-weight: 700;\n  line-height: 1.7;\n  font-family: 'Open Sans', sans-serif;\n}\n.modal_box__header .title {\n  display: block;\n  line-height: 1;\n}\n.modal_box__header .subtitle {\n  font-size: 0.81rem;\n  color: #B3B3B3;\n  font-weight: 600;\n  line-height: 1.6;\n  font-family: 'Open Sans', sans-serif;\n}\n.modal_box__header a {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 46px;\n  height: 46px;\n  margin-left: auto;\n  margin-right: 8px;\n}\n.modal_box__body {\n  padding: 20px 25px 25px 25px;\n  background-color: white;\n}\n.modal_box__body div {\n  overflow: auto;\n}\n.modal_box__body .icon {\n  height: 100%;\n  width: 42px;\n  float: left;\n  margin-right: 20px;\n}\n.modal_box__body .icon > * {\n  max-height: 42px;\n  max-width: 100%;\n}\n.modal_box__body .content {\n  float: right;\n  width: calc(100% - 62px);\n}\n.modal_box__body:after {\n  clear: both;\n  content: \"\";\n  display: block;\n}\n.modal_box__body h1 {\n  margin: 0;\n  font-size: 0.875rem;\n  color: #404040;\n  font-weight: 700;\n  line-height: 1.7;\n  font-family: 'Open Sans', sans-serif;\n  line-height: 1;\n}\n.modal_box__body .close {\n  float: right;\n}\n.modal_box__actions {\n  display: flex;\n  justify-content: flex-end;\n  padding: 20px 25px;\n  background-color: white;\n  border-top: 1px solid #ececec;\n}\n", ""]);
 
 // exports
 

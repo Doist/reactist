@@ -75,9 +75,21 @@ Header.propTypes = {
 };
 
 class Body extends React.Component {
+    _closeModal(event) {
+        event.preventDefault();
+        ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'));
+    }
+
     render() {
         return (
             <div className='modal_box__body'>
+                {this.props.showCloseIcon && (
+                    <a className='close'
+                        onClick={this._closeModal.bind(this)}
+                        href='#'>
+                        <CloseIcon />
+                    </a>)
+                }
                 {this.props.icon
                     ? ( <div>
                             <div className='icon'>{this.props.icon}</div>
@@ -91,6 +103,7 @@ class Body extends React.Component {
 }
 Body.propTypes = {
     icon: PropTypes.node,
+    showCloseIcon: PropTypes.bool,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node

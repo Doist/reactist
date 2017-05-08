@@ -65,14 +65,18 @@
     padding: 20px 25px 25px 25px;
     background-color: white;
 
+    div {
+        overflow: auto; // contain the floating elements correctly
+    }
+
     .icon {
-        height: 300px;
-        width: 46px;
+        height: 100%;
+        width: 42px;
         float: left;
-        margin-right: 8px;
+        margin-right: 20px;
 
         & > * {
-            max-height: 46px;
+            max-height: 42px;
             max-width: 100%;
         }
     }
@@ -80,7 +84,7 @@
     .content {
         float: right;
         // modal size minus the (icon + margin)
-        width: calc(~'100% - 54px');        
+        width: calc(~'100% - 62px');        
     }
 
     // used to clear the floating icon while still enabling scrolling
@@ -88,6 +92,17 @@
         clear: both;
         content: "";
         display: block;
+    }
+
+    // when used as dialog this can be used as header inside the modal body
+    h1 {
+        margin: 0;
+        .normal_text(@weight: @bold);
+        line-height: 1;
+    }
+
+    .close {
+        float: right;
     }
 }
 
