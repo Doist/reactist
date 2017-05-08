@@ -11,7 +11,7 @@ At the moment Reactist has implemented the following components:
    A versatile Modal with a Header, Body and Actions.
 2. [Button](examples/button/README.md)
 
-   A Button which can take on different states (e.g. act as a loading indicator).s
+   A Button which can take on different states (e.g. act as a loading indicator).
 
 # [How to run an example](#how-to-run)
 

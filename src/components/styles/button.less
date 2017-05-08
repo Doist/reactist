@@ -1,6 +1,6 @@
 @import './constants.less';
 
-.button {
+.reactist.button {
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
     background-color: @primary-color;
@@ -35,9 +35,7 @@
         padding: 0;
         max-width: 155px;
         font-size: 12px;
-        .wrapper {
-            padding: 6px;
-        }
+        padding: 6px;
     }
 
     &.secondary {
@@ -86,7 +84,7 @@
             width: 15px;
             animation-duration: 1s;
             animation-iteration-count: infinite;
-            animation-name: rotateRight;
+            animation-name: reactistRotateRight;
             animation-timing-function: linear;
             background-image: url('../icons/Spinner.svg.icon');
         }
@@ -98,7 +96,7 @@
 }
 
 // Animation used by the loading state of a button
-@keyframes rotateRight {
+@keyframes reactistRotateRight {
     from {
         transform: rotate(0deg);
         transform-origin: center center;

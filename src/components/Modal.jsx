@@ -11,20 +11,20 @@ class Box extends React.Component {
         var overlay = ReactDOM.findDOMNode(this);
         // adds the 'overlay-active' class after a small timeout
         setTimeout(() => {
-            if (overlay && overlay.classList && !overlay.classList.contains('overlay-active')) {
-                overlay.className += ' overlay-active';
+            if (overlay && overlay.classList && !overlay.classList.contains('reactist_overlay--active')) {
+                overlay.className += ' reactist_overlay--active';
             }
         }, 10);
     }
 
     render() {
-        let class_name = 'modal_box';
+        let class_name = 'reactist_modal_box';
         if (this.props.className) {
             class_name += ` ${this.props.className}`;
         }
         
         return (
-            <div className='overlay'>
+            <div className='reactist_overlay'>
                 <div className={class_name}>
                     {this.props.children}
                 </div>
@@ -47,10 +47,8 @@ class Header extends React.Component {
     }
 
     render() {
-        let className = 'modal_box__header';
-
         return (
-            <div className={className}>
+            <div className='reactist_modal_box__header'>
                 <p>
                     {this.props.title && <span className="title">{this.props.title}</span>}
                     {this.props.subtitle && <span className="subtitle">{this.props.subtitle}</span>}
@@ -82,7 +80,7 @@ class Body extends React.Component {
 
     render() {
         return (
-            <div className='modal_box__body'>
+            <div className='reactist_modal_box__body'>
                 {this.props.showCloseIcon && (
                     <a className='close'
                         onClick={this._closeModal.bind(this)}
@@ -91,7 +89,7 @@ class Body extends React.Component {
                     </a>)
                 }
                 {this.props.icon
-                    ? ( <div>
+                    ? ( <div className='dialog'>
                             <div className='icon'>{this.props.icon}</div>
                             <div className='content'>{this.props.children}</div>
                         </div> )
@@ -129,7 +127,7 @@ class Actions extends React.Component {
         });
 
         return (
-            <div className='modal_box__actions'>
+            <div className='reactist_modal_box__actions'>
                 {children}
             </div>
         );

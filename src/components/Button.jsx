@@ -22,6 +22,7 @@ class Button extends React.Component {
         const { data_tip } = this.props
 
         const className = classNames({
+            reactist: true,
             button: true,
             secondary: this.props.secondary,
             small: this.props.small,
