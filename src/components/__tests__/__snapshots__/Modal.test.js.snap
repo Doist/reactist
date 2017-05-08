@@ -1,0 +1,201 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[object Object] 1`] = `
+<div
+  className="reactist_overlay"
+>
+  <div
+    className="reactist_modal_box applied-to-child-of-box"
+  />
+</div>
+`;
+
+exports[`Modal.Actions renders all children without crashing 1`] = `
+<div
+  className="reactist_modal_box__actions"
+>
+  <Button
+    name="Action 1"
+  />
+  <Button
+    name="Action 2"
+  />
+</div>
+`;
+
+exports[`Modal.Actions renders without crashing 1`] = `
+<div
+  className="reactist_modal_box__actions"
+/>
+`;
+
+exports[`Modal.Body renders all children without crashing 1`] = `
+<div
+  className="reactist_modal_box__body"
+>
+  <div>
+    <h1>
+      This is a body
+    </h1>
+  </div>
+  <Button
+    name="Button in Body"
+  />
+</div>
+`;
+
+exports[`Modal.Body renders an icon when supplied via props 1`] = `
+<div
+  className="reactist_modal_box__body"
+>
+  <div
+    className="dialog"
+  >
+    <div
+      className="icon"
+    >
+      <img
+        src="awesome/image.png"
+      />
+    </div>
+    <div
+      className="content"
+    />
+  </div>
+</div>
+`;
+
+exports[`Modal.Body renders without crashing 1`] = `
+<div
+  className="reactist_modal_box__body"
+/>
+`;
+
+exports[`Modal.Box renders all children without crashing 1`] = `
+<div
+  className="reactist_overlay"
+>
+  <div
+    className="reactist_modal_box"
+  >
+    <Header>
+      Realistic test
+    </Header>
+    <Body>
+      ... is very realistic
+    </Body>
+    <Actions>
+      <Button
+        name="Wow"
+      />
+      <Button
+        name="So real"
+      />
+    </Actions>
+  </div>
+</div>
+`;
+
+exports[`Modal.Box renders without crashing 1`] = `
+<div
+  className="reactist_overlay"
+>
+  <div
+    className="reactist_modal_box"
+  />
+</div>
+`;
+
+exports[`Modal.Header renders all children without crashing 1`] = `
+<div
+  className="reactist_modal_box__header"
+>
+  <p>
+    Just a Text Header
+  </p>
+  <a
+    className="close"
+    href="#"
+    onClick={[Function]}
+  >
+    <test-file-stub />
+  </a>
+</div>
+`;
+
+exports[`Modal.Header renders all children without crashing 2`] = `
+<div
+  className="reactist_modal_box__header"
+>
+  <p>
+    <Button
+      name="Wow this looks complex"
+    />
+    Some additional text as well
+  </p>
+  <a
+    className="close"
+    href="#"
+    onClick={[Function]}
+  >
+    <test-file-stub />
+  </a>
+</div>
+`;
+
+exports[`Modal.Header renders title and subtitle if available 1`] = `
+<div
+  className="reactist_modal_box__header"
+>
+  <p>
+    <span
+      className="title"
+    >
+      Modal Title
+    </span>
+  </p>
+  <a
+    className="close"
+    href="#"
+    onClick={[Function]}
+  >
+    <test-file-stub />
+  </a>
+</div>
+`;
+
+exports[`Modal.Header renders title and subtitle if available 2`] = `
+<div
+  className="reactist_modal_box__header"
+>
+  <p>
+    <span
+      className="subtitle"
+    >
+      Modal Subtitle
+    </span>
+  </p>
+  <a
+    className="close"
+    href="#"
+    onClick={[Function]}
+  >
+    <test-file-stub />
+  </a>
+</div>
+`;
+
+exports[`Modal.Header renders without crashing 1`] = `
+<div
+  className="reactist_modal_box__header"
+>
+  <p />
+  <a
+    className="close"
+    href="#"
+    onClick={[Function]}
+  >
+    <test-file-stub />
+  </a>
+</div>
+`;

@@ -1,0 +1,35 @@
+// Colors /////////////////////////////////////////////////////////////////////
+@primary-color: #3F82EF;
+@primary-color-lighter: #b3cdf9;
+@primary-color-darker: #3b7be2;
+@primary-font-color: #404040;
+@color-grey-5: #B3B3B3;
+@color-grey-8: #404040;
+@color-grey-9: #f9f9f9;
+@color-grey-10: #ececec;
+@color-grey-11: #fafafa;
+
+
+// Typography /////////////////////////////////////////////////////////////////
+// weights
+@normal: 400;
+@semi-bold: 600;
+@bold: 700;
+
+// normal text
+.normal_text(@color: @primary-font-color, @weight: @normal) {
+    font-size: 0.875rem;
+    color: @color;
+    font-weight: @weight;
+    line-height: 1.7;
+    font-family: 'Open Sans', sans-serif;
+}
+
+// smaller text
+.smaller_text(@color: @primary-font-color, @weight: @normal) {
+    font-size: 0.81rem;
+    color: @color;
+    font-weight: @weight;
+    line-height: 1.6;
+    font-family: 'Open Sans', sans-serif;
+}

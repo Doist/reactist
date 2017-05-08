@@ -1,0 +1,24 @@
+@primary-color: #dd4b39;
+@primary-color-lighter: lighten(#dd4b39, 10%);
+@primary-color-darker: darken(#dd4b39, 10%);
+
+.alternate-branding {
+    // alternate button styles
+    & > .reactist.button {
+        background-color: @primary-color;
+
+        &:not(.loading):not(.secondary):not(.white):not([disabled]):hover {
+            background-color: @primary-color-darker;
+        }
+
+        &:not(.loading):not(.secondary)&:disabled {
+            background-color: @primary-color-lighter;
+        }
+
+        &.white {
+            background-color: white;
+            border: 1px solid  @primary-color;
+            color: @primary-color;
+        }
+    }
+}

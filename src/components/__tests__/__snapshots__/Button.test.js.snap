@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button renders a tooltip when prop is supplied 1`] = `
+<button
+  className="reactist button"
+  onClick={[Function]}
+>
+  <div
+    className="wrapper"
+    data-tip="THE TOOLTIP"
+  >
+    <span>
+      THE BUTTON TEXT
+    </span>
+  </div>
+  <ReactTooltip
+    effect="solid"
+    insecure={true}
+    multiline={true}
+    resizeHide={true}
+    wrapper="div"
+  />
+</button>
+`;
+
+exports[`Button renders empty without crashing 1`] = `
+<button
+  className="reactist button"
+  onClick={[Function]}
+>
+  <div
+    className="wrapper"
+  >
+    <span />
+  </div>
+</button>
+`;
+
+exports[`Button renders name as button text 1`] = `
+<button
+  className="reactist button"
+  onClick={[Function]}
+>
+  <div
+    className="wrapper"
+  >
+    <span>
+      THE BUTTON TEXT
+    </span>
+  </div>
+</button>
+`;
