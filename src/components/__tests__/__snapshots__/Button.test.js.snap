@@ -2,7 +2,7 @@
 
 exports[`Button renders a tooltip when prop is supplied 1`] = `
 <button
-  className="button"
+  className="reactist button"
   onClick={[Function]}
 >
   <div
@@ -25,7 +25,7 @@ exports[`Button renders a tooltip when prop is supplied 1`] = `
 
 exports[`Button renders empty without crashing 1`] = `
 <button
-  className="button"
+  className="reactist button"
   onClick={[Function]}
 >
   <div
@@ -38,7 +38,7 @@ exports[`Button renders empty without crashing 1`] = `
 
 exports[`Button renders name as button text 1`] = `
 <button
-  className="button"
+  className="reactist button"
   onClick={[Function]}
 >
   <div

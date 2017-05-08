@@ -2,17 +2,17 @@
 
 exports[`[object Object] 1`] = `
 <div
-  className="overlay"
+  className="reactist_overlay"
 >
   <div
-    className="modal_box applied-to-child-of-box"
+    className="reactist_modal_box applied-to-child-of-box"
   />
 </div>
 `;
 
 exports[`Modal.Actions renders all children without crashing 1`] = `
 <div
-  className="modal_box__actions"
+  className="reactist_modal_box__actions"
 >
   <Button
     name="Action 1"
@@ -25,13 +25,13 @@ exports[`Modal.Actions renders all children without crashing 1`] = `
 
 exports[`Modal.Actions renders without crashing 1`] = `
 <div
-  className="modal_box__actions"
+  className="reactist_modal_box__actions"
 />
 `;
 
 exports[`Modal.Body renders all children without crashing 1`] = `
 <div
-  className="modal_box__body"
+  className="reactist_modal_box__body"
 >
   <div>
     <h1>
@@ -46,9 +46,11 @@ exports[`Modal.Body renders all children without crashing 1`] = `
 
 exports[`Modal.Body renders an icon when supplied via props 1`] = `
 <div
-  className="modal_box__body"
+  className="reactist_modal_box__body"
 >
-  <div>
+  <div
+    className="dialog"
+  >
     <div
       className="icon"
     >
@@ -65,16 +67,16 @@ exports[`Modal.Body renders an icon when supplied via props 1`] = `
 
 exports[`Modal.Body renders without crashing 1`] = `
 <div
-  className="modal_box__body"
+  className="reactist_modal_box__body"
 />
 `;
 
 exports[`Modal.Box renders all children without crashing 1`] = `
 <div
-  className="overlay"
+  className="reactist_overlay"
 >
   <div
-    className="modal_box"
+    className="reactist_modal_box"
   >
     <Header>
       Realistic test
@@ -96,17 +98,17 @@ exports[`Modal.Box renders all children without crashing 1`] = `
 
 exports[`Modal.Box renders without crashing 1`] = `
 <div
-  className="overlay"
+  className="reactist_overlay"
 >
   <div
-    className="modal_box"
+    className="reactist_modal_box"
   />
 </div>
 `;
 
 exports[`Modal.Header renders all children without crashing 1`] = `
 <div
-  className="modal_box__header"
+  className="reactist_modal_box__header"
 >
   <p>
     Just a Text Header
@@ -123,7 +125,7 @@ exports[`Modal.Header renders all children without crashing 1`] = `
 
 exports[`Modal.Header renders all children without crashing 2`] = `
 <div
-  className="modal_box__header"
+  className="reactist_modal_box__header"
 >
   <p>
     <Button
@@ -143,7 +145,7 @@ exports[`Modal.Header renders all children without crashing 2`] = `
 
 exports[`Modal.Header renders title and subtitle if available 1`] = `
 <div
-  className="modal_box__header"
+  className="reactist_modal_box__header"
 >
   <p>
     <span
@@ -164,7 +166,7 @@ exports[`Modal.Header renders title and subtitle if available 1`] = `
 
 exports[`Modal.Header renders title and subtitle if available 2`] = `
 <div
-  className="modal_box__header"
+  className="reactist_modal_box__header"
 >
   <p>
     <span
@@ -185,7 +187,7 @@ exports[`Modal.Header renders title and subtitle if available 2`] = `
 
 exports[`Modal.Header renders without crashing 1`] = `
 <div
-  className="modal_box__header"
+  className="reactist_modal_box__header"
 >
   <p />
   <a

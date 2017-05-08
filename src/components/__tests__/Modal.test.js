@@ -30,7 +30,7 @@ describe('Modal.Box', () => {
         jest.useFakeTimers();
         const containsMock = jest.fn().mockReturnValue(false);
         const mockOverlay = { 
-            className: 'overlay', 
+            className: 'reactist_overlay', 
             classList: { contains: containsMock } 
         };
         const box = mount(<Modal.Box />).instance();
@@ -40,14 +40,14 @@ describe('Modal.Box', () => {
         jest.runAllTimers();
 
         expect(containsMock).toHaveBeenCalled();
-        expect(mockOverlay.className).toBe('overlay overlay-active');
+        expect(mockOverlay.className).toBe('reactist_overlay reactist_overlay--active');
     });
 
     it('does not add overlay-active when already added', () => {
         jest.useFakeTimers();
         const containsMock = jest.fn().mockReturnValue(true);
         const mockOverlay = { 
-            className: 'overlay overlay-active', 
+            className: 'reactist_overlay reactist_overlay--active', 
             classList: { contains: containsMock } 
         };
         const box = mount(<Modal.Box />).instance();
@@ -57,7 +57,7 @@ describe('Modal.Box', () => {
         jest.runAllTimers();
 
         expect(containsMock).toHaveBeenCalled();
-        expect(mockOverlay.className).toBe('overlay overlay-active');
+        expect(mockOverlay.className).toBe('reactist_overlay reactist_overlay--active');
     });
 
     it('adds additionally supplied className prop', () => {
