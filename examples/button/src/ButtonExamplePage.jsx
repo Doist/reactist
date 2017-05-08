@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button } from 'reactist';
+import { Button } from '@doist/reactist';
 
 import './alternate-branding.less';
 
@@ -9,12 +9,14 @@ class ButtonExamplePage extends React.Component {
         return (
             <section>
                 <h1>Button Examples</h1>
-                
+
                 <h2>Basic Buttons</h2>
                 <Button name='Primary Button' />
                 <Button secondary name='Secondary Button' />
                 <Button loading name='Loading'/>
-                
+                <Button danger name='Danger!'/>
+                <Button disabled danger name='Disabled Danger!'/>
+
                 <h2>Small Buttons</h2>
                 <Button small name='Small Primary Button' />
                 <Button small secondary name='Small Secondary Button' />
