@@ -4,7 +4,23 @@ Open source React components made with ❤️ by Doist.
 
 # How to use
 
-tbd.
+You can easily add Reactist to your project by installing it from npm:
+```
+npm install @doist/reactist
+```
+If you prefer to include static files just grab the [minified build from the dist folder](dist/reactist.js).
+
+A detailled explanation on how to use each component can be found in the corresponding example folder.
+
+At the moment Reactist has implemented the following components:
+
+1. [Modal](examples/modal/README.md)
+
+   A versatile Modal with a Header, Body and Actions.
+2. [Button](examples/button/README.md)
+
+   A Button which can take on different states (e.g. act as a loading indicator).
+
 
 # How to improve
 
