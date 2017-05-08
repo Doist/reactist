@@ -3,31 +3,31 @@ import ReactDOM from 'react-dom';
 
 import { Modal, Button } from 'reactist';
 
-class ModalBoxExamplePage extends React.Component {
+class ModalExamplePage extends React.Component {
 
-    _renderHeaderModalBox() {
-        this._renderModalBox((
+    _renderHeaderModal() {
+        this._renderModal((
             <Modal.Box>
-                <Modal.Header>Header of ModalBox</Modal.Header>
+                <Modal.Header>Header of Modal</Modal.Header>
             </Modal.Box>
         ));
     }
 
-    _renderHeaderContentModalBox() {
-        this._renderModalBox((
+    _renderHeaderContentModal() {
+        this._renderModal((
             <Modal.Box>
-                <Modal.Header title="Header of ModalBox" subtitle="This is a smaller description" />
-                <Modal.Body>The Body of a ModalBox can contain whatever you like!</Modal.Body>
+                <Modal.Header title="Header of Modal" subtitle="This is a smaller description" />
+                <Modal.Body>The Body of a Modal can contain whatever you like!</Modal.Body>
             </Modal.Box>
         ));
     }
     
-    _renderFullModalBox() {
-        this._renderModalBox((
+    _renderFullModal() {
+        this._renderModal((
             <Modal.Box>
-                <Modal.Header title="Header of ModalBox" subtitle="This is a smaller description" />
+                <Modal.Header title="Header of Modal" subtitle="This is a smaller description" />
                 <Modal.Body icon={<img src="/icon.png" />}>
-                    The Body of a ModalBox can contain whatever you like! Like this very long Lorem Ipsum<br />
+                    The Body of a Modal can contain whatever you like! Like this very long Lorem Ipsum<br />
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                 </Modal.Body>
                 <Modal.Actions>
@@ -38,12 +38,12 @@ class ModalBoxExamplePage extends React.Component {
         ));
     }
 
-    _renderConfirmationDialogModalBox() {
-        this._renderModalBox((
+    _renderConfirmationDialogModal() {
+        this._renderModal((
             <Modal.Box>
                 <Modal.Body icon={<img src="/icon.png" />} showCloseIcon>
                     <h1>Do you really want this?</h1>
-                    The Body of a ModalBox can contain whatever you like! Like this very long Lorem Ipsum<br />
+                    The Body of a Modal can contain whatever you like! Like this very long Lorem Ipsum<br />
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                 </Modal.Body>
                 <Modal.Actions>
@@ -54,8 +54,8 @@ class ModalBoxExamplePage extends React.Component {
         ));
     }
 
-    _renderModalBox(modalBox) {
-        ReactDOM.render(modalBox, document.getElementById('modal_box'));
+    _renderModal(modal) {
+        ReactDOM.render(modal, document.getElementById('modal_box'));
     }
     
 
@@ -63,18 +63,18 @@ class ModalBoxExamplePage extends React.Component {
         return (
             <section>
                 <div id='modal_box'></div>
-                <h1>ModalBox Examples</h1>
-                <Button name='Click me to launch a ModalBox with Header' 
-                        onClick={() => this._renderHeaderModalBox()} />
-                <Button name='Click me to launch a ModalBox with Header and Content'
-                        onClick={() => this._renderHeaderContentModalBox()} />
-                <Button name='Click me to launch a ModalBox with Header, Content and Actions'
-                        onClick={() => this._renderFullModalBox()} />
-                <Button name='Click me to launch a ModalBox acting as Confirmation Dialog'
-                    onClick={() => this._renderConfirmationDialogModalBox()} />
+                <h1>Modal Examples</h1>
+                <Button name='Click me to launch a Modal with Header' 
+                        onClick={() => this._renderHeaderModal()} />
+                <Button name='Click me to launch a Modal with Header and Content'
+                        onClick={() => this._renderHeaderContentModal()} />
+                <Button name='Click me to launch a Modal with Header, Content and Actions'
+                        onClick={() => this._renderFullModal()} />
+                <Button name='Click me to launch a Modal acting as Confirmation Dialog'
+                    onClick={() => this._renderConfirmationDialogModal()} />
             </section>
         );
     }
 };
 
-export default ModalBoxExamplePage;
+export default ModalExamplePage;

@@ -1,7 +1,7 @@
 {
-  "name": "reactist-modal-box",
+  "name": "reactist-button",
   "version": "0.0.1",
-  "description": "Example use cases for the ModalBox",
+  "description": "Example use cases for the Button",
   "main": "./src/index.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack",
