@@ -22,11 +22,11 @@
         user-select: none;
     }
 
-    &:not(.loading):not(.secondary):not(.white):not([disabled]):hover {
+    &:not(.loading):not(.secondary):not(.white):not([disabled]):not(.danger):hover {
         background-color: @primary-color-darker;
     }
 
-    &:not(.loading):not(.secondary)&:disabled {
+    &:not(.loading):not(.secondary):not(.danger)&:disabled {
         background-color: @primary-color-lighter;
         cursor: not-allowed;
     }
@@ -36,6 +36,19 @@
         max-width: 155px;
         font-size: 12px;
         padding: 6px;
+    }
+
+    &.danger {
+        background-color: @color-red;
+
+        &:not([disabled]):not(.loading):hover {
+            background-color: darken(@color-red, 10%);
+        }
+
+        &:disabled {
+            background-color: lighten(@color-red, 20%);
+            cursor: not-allowed;
+        }
     }
 
     &.secondary {

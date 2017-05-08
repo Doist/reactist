@@ -27,7 +27,8 @@ class Button extends React.Component {
             secondary: this.props.secondary,
             small: this.props.small,
             white: this.props.white,
-            loading: this.props.loading
+            loading: this.props.loading,
+            danger: this.props.danger
         });
 
         return (
@@ -53,6 +54,7 @@ Button.propTypes = {
     white: PropTypes.bool,
     loading: PropTypes.bool,
     disabled: PropTypes.bool,
+    danger: PropTypes.bool,
     data_tip: PropTypes.string,
 };
 
