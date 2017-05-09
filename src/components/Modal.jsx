@@ -79,8 +79,13 @@ class Body extends React.Component {
     }
 
     render() {
+        let className = 'reactist_modal_box__body';
+        if (this.props.className) {
+            className += ` ${this.props.className}`;
+        }
+
         return (
-            <div className='reactist_modal_box__body'>
+            <div className={className}>
                 {this.props.showCloseIcon && (
                     <a className='close'
                         onClick={this._closeModal.bind(this)}
@@ -102,6 +107,7 @@ class Body extends React.Component {
 Body.propTypes = {
     icon: PropTypes.node,
     showCloseIcon: PropTypes.bool,
+    className: PropTypes.string,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node

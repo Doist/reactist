@@ -128,6 +128,11 @@ describe('Modal.Body', () => {
         body.find('.close').simulate('click', { preventDefault: jest.fn() });
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1); 
     });
+
+    it('adds additionally supplied className prop', () => {
+        const body = shallow(<Modal.Body className='applied-to-modal-body' />);
+        expect(toJson(body)).toMatchSnapshot();
+    });
 });
 
 describe('Modal.Actions', () => {
