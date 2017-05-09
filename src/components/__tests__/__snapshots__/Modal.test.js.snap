@@ -29,6 +29,12 @@ exports[`Modal.Actions renders without crashing 1`] = `
 />
 `;
 
+exports[`Modal.Body adds additionally supplied className prop 1`] = `
+<div
+  className="reactist_modal_box__body applied-to-modal-body"
+/>
+`;
+
 exports[`Modal.Body renders all children without crashing 1`] = `
 <div
   className="reactist_modal_box__body"
