@@ -37,4 +37,10 @@ describe('Button', () => {
         const button = shallow(<Button name='THE BUTTON TEXT' data_tip='THE TOOLTIP' />);
         expect(toJson(button)).toMatchSnapshot();
     });
+
+    it('adds additional className when supplied', () => {
+        const button = shallow(<Button name='THE BUTTON TEXT' 
+                                       className='very-complex classnames-are-added' />);
+        expect(toJson(button)).toMatchSnapshot();
+    })
 });
