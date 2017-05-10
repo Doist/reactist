@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Button adds additional className when supplied 1`] = `
+<button
+  className="reactist button very-complex classnames-are-added"
+  onClick={[Function]}
+>
+  <div
+    className="wrapper"
+  >
+    <span>
+      THE BUTTON TEXT
+    </span>
+  </div>
+</button>
+`;
+
 exports[`Button renders a tooltip when prop is supplied 1`] = `
 <button
   className="reactist button"

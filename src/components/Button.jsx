@@ -29,7 +29,7 @@ class Button extends React.Component {
             white: this.props.white,
             loading: this.props.loading,
             danger: this.props.danger
-        });
+        }, this.props.className);
 
         return (
             <button
@@ -56,6 +56,7 @@ Button.propTypes = {
     disabled: PropTypes.bool,
     danger: PropTypes.bool,
     data_tip: PropTypes.string,
+    className: PropTypes.string,
 };
 
 export default Button;
