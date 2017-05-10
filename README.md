@@ -21,6 +21,9 @@ At the moment Reactist has implemented the following components:
 
    A Button which can take on different states (e.g. act as a loading indicator).
 
+3. [Time](examples/time/README.md)
+
+    A small component to display dates and times which can change on hover.
 
 # How to improve
 
