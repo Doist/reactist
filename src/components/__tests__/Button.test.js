@@ -39,8 +39,7 @@ describe('Button', () => {
     });
 
     it('adds additional className when supplied', () => {
-        const button = shallow(<Button name='THE BUTTON TEXT' 
-                                       className='very-complex classnames-are-added' />);
+        const button = shallow(<Button name='THE BUTTON TEXT' className='very-complex classnames-are-added' />);
         expect(toJson(button)).toMatchSnapshot();
-    })
+    });
 });
