@@ -1,27 +1,45 @@
-import Moment from 'moment-timezone';
-
-Moment.updateLocale('en', {
-    relativeTime: {
-        future: '%s',
-        past: '%s',
-        s: 'moments ago',
-        m: '1m',
-        mm: '%dm',
-        h: '1h',
-        hh: '%dh',
-        d: '1d',
-        dd: '%dd',
-        M: 'a month',
-        MM: '%d months',
-        y: 'a year',
-        yy: '%d years'
-    }
-});
-Moment.relativeTimeThreshold('d', 1000);
+import moment from 'moment';
 
 const TimeUtils = {
+    SHORT_FORMAT_CURRENT_YEAR: 'MMM D',
+    SHORT_FORMAT_PAST_YEAR: 'MMM D, YYYY',
+    LONG_FORMAT: 'DD MMM YY, LT',
+
     timeAgo(timestamp) {
-        return Moment.unix(timestamp).fromNow();
+        const now = moment();
+        const date = moment.unix(timestamp);
+        const diffMinutes = now.diff(date, 'minutes');
+        const diffHours = now.diff(date, 'hours');
+        const diffDays = now.diff(date, 'days');
+
+        if (diffDays > 7) {
+            if (date.isSame(now, 'year')) {
+                return date.format(this.SHORT_FORMAT_CURRENT_YEAR);
+            } else {
+                return date.format(this.SHORT_FORMAT_PAST_YEAR);
+            }
+        } else if (diffDays > 0 && diffDays <= 7) {
+            return date.format('dddd');
+        } else if (diffHours > 0 && diffHours <= 23) {
+            return `${diffHours} h`;
+        } else if (diffMinutes > 0 && diffMinutes <= 59) {
+            return `${diffMinutes} m`;
+        } else {
+            return 'moments ago';
+        }
+    },
+
+    formatTime(timestamp) {
+        const date = moment.unix(timestamp);
+        if (date.isSame(moment(), 'year')) {
+            return date.format(this.SHORT_FORMAT_CURRENT_YEAR);
+        } else {
+            return date.format(this.SHORT_FORMAT_PAST_YEAR);
+        }
+    },
+
+    formatTimeLong(timestamp) {
+        return moment.unix(timestamp).format(this.LONG_FORMAT);
     }
 };
 

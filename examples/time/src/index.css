@@ -14,3 +14,21 @@ html, body {
 h1 {
     font-size: 24px;
 }
+
+h2 {
+    font-size: 20px;
+}
+
+div {
+    display: flex;
+    width: 100;
+}
+div > span {
+    width: 160px;
+    text-align: right;
+    font-weight: 600;
+    margin-right: 16px;
+}
+div > time {
+    text-align: left;
+}
