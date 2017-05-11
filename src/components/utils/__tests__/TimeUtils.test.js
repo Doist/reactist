@@ -39,12 +39,12 @@ describe('Time Utils', () => {
     
     it('timeAgo < 1h returns `XX m`', () => {
         const testDate = moment().subtract(10, 'minutes').unix();
-        expect(TimeUtils.timeAgo(testDate)).toBe('10 m');
+        expect(TimeUtils.timeAgo(testDate)).toBe('10m');
     });
     
     it('timeAgo < 1d returns `XX h`', () => {
         const testDate = moment().subtract(10, 'hours').unix();
-        expect(TimeUtils.timeAgo(testDate)).toBe('10 h');
+        expect(TimeUtils.timeAgo(testDate)).toBe('10h');
     });
     
     it('timeAgo < 7d returns string representation of day', () => {

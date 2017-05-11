@@ -21,9 +21,9 @@ const TimeUtils = {
         } else if (diffDays > 0 && diffDays <= 7) {
             return date.format('dddd');
         } else if (diffHours > 0 && diffHours <= 23) {
-            return `${diffHours} h`;
+            return `${diffHours}h`;
         } else if (diffMinutes > 0 && diffMinutes <= 59) {
-            return `${diffMinutes} m`;
+            return `${diffMinutes}m`;
         } else {
             return 'moments ago';
         }

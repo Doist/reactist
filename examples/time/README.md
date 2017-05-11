@@ -17,8 +17,8 @@ The `Time` components renders the given timestamp following these rules:
 | Condition | Output |
 | --- | --- |
 | timestamp less than 1 minute ago | `moments ago` |
-| timestamp less than 1 hour ago | `X m` |
-| timestamp less than 1 day ago | `X h` |
+| timestamp less than 1 hour ago | `Xm` |
+| timestamp less than 1 day ago | `Xh` |
 | timestamp less than 7 days ago | the day of the timestamp (e.g. `Friday`) |
 | timestamp more than 7 days ago | Absolute date in the format `MMM D, YYYY` (e.g. Aug 9, 2016). The year is omitted when the timestamp is in the current year. |
 
