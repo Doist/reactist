@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Time adds additional class name if supplied 1`] = `
+<time
+  className="this-classes were-added"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  Mar 22, 1991
+</time>
+`;
+
+exports[`Time renders without crashing 1`] = `
+<time
+  className="reactist time"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  moments ago
+</time>
+`;

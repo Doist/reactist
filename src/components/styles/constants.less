@@ -3,6 +3,7 @@
 @primary-color-lighter: #b3cdf9;
 @primary-color-darker: #3b7be2;
 @primary-font-color: #404040;
+@secondary-font-color: #A5A5A5;
 @color-grey-5: #B3B3B3;
 @color-grey-8: #404040;
 @color-grey-9: #f9f9f9;
@@ -33,4 +34,12 @@
     font-weight: @weight;
     line-height: 1.6;
     font-family: 'Open Sans', sans-serif;
+}
+
+// tiny text
+.tiny_text(@color: @secondary-font-color, @weight: @normal) {
+    font-size: 0.75rem;
+    color: @color;
+    font-weight: @weight;
+    line-height: 1.8;
 }
