@@ -5,9 +5,10 @@ This example demonstrates the functionality of the Reactist Button.
 # How to use
 
 The `Button` component accepts the following properties:
+
 | Property | Type | Default | Description |
-| --- | --- |:---:| --- |
-| name | string | - |  The text that is displayed on the Button |
+| --- | --- | --- | --- |
+| name | string | - | The text that is displayed on the Button |
 | onClick | function | - | Function that is executed when clicking the button |
 | secondary | boolean | false | Applies the `secondary` style to the Button |
 | small | boolean | false | Applies the `small` style to the Button |
