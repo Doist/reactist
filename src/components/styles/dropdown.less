@@ -1,0 +1,54 @@
+@import './constants.less';
+
+.reactist {
+    &.dropdown {
+        .body {
+            border-radius: 3px;
+            overflow: hidden;
+            box-shadow: rgba(117, 117, 117, 0.4) 2px 1px 6px -1px;
+            z-index: 1;
+            background-color: #fff;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background-color: @color-grey-10;
+            margin: 0 5px !important;
+        }
+
+        .with_arrow:after,
+        .with_arrow:before {
+            z-index: 1;
+            content: '';
+            display: block;
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 6px;
+            right: 14px;
+        }
+
+        .with_arrow:after {
+            top: -12px;
+            border-color: transparent transparent #fff transparent;
+        }
+
+        .with_arrow:before {
+            top: -13px;
+            border-color: transparent transparent @color-grey-10 transparent;
+        }
+
+
+        .with_arrow.top:after {
+            top: 0px;
+            border-color: #fff transparent transparent transparent;
+        }
+
+        .with_arrow.top:before {
+            top: 2px;
+            border-color: @color-grey-10 transparent transparent transparent;
+        }
+    }
+}
