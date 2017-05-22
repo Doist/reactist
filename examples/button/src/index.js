@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import './index.css';
+import './index.css'
 
-import ButtonExamplePage from './ButtonExamplePage.jsx';
+import ButtonExamplePage from './ButtonExamplePage.jsx'
 
-ReactDOM.render(<ButtonExamplePage />, document.getElementById('root'));
+ReactDOM.render(<ButtonExamplePage />, document.getElementById('root'))

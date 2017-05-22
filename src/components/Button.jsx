@@ -1,20 +1,20 @@
-import './styles/button.less';
+import './styles/button.less'
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import ReactTooltip from 'react-tooltip';
-import classNames from 'classnames';
+import React from 'react'
+import PropTypes from 'prop-types'
+import ReactTooltip from 'react-tooltip'
+import classNames from 'classnames'
 
 class Button extends React.Component {
     constructor(props, context) {
-        super(props, context);
-        this._onClick = this._onClick.bind(this);
+        super(props, context)
+        this._onClick = this._onClick.bind(this)
     }
 
     _onClick(event) {
-        event.preventDefault();
+        event.preventDefault()
         if (!this.props.disabled && this.props.onClick) {
-            this.props.onClick();
+            this.props.onClick()
         }
     }
 
@@ -29,16 +29,18 @@ class Button extends React.Component {
             white: this.props.white,
             loading: this.props.loading,
             danger: this.props.danger
-        }, this.props.className);
+        }, this.props.className)
 
         return (
             <button
-                className={className}
-                disabled={this.props.disabled}
-                onClick={this._onClick}>
+                className={ className }
+                disabled={ this.props.disabled }
+                onClick={ this._onClick }
+            >
                 <div
-                    data-tip={data_tip}
-                    className='wrapper'>
+                    data-tip={ data_tip }
+                    className='wrapper'
+                >
                     <span>{this.props.name}</span>
                 </div>
                 {data_tip && <ReactTooltip effect='solid' multiline />}
@@ -56,7 +58,7 @@ Button.propTypes = {
     disabled: PropTypes.bool,
     danger: PropTypes.bool,
     data_tip: PropTypes.string,
-    className: PropTypes.string,
-};
+    className: PropTypes.string
+}
 
-export default Button;
+export default Button
