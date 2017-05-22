@@ -53,6 +53,7 @@
     "classnames": "^2.2.5",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
+    "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-tooltip": "^3.3.0"
@@ -62,8 +63,5 @@
       "\\.svg$": "<rootDir>/src/__mocks__/fileMock.js",
       "\\.(css|less)$": "identity-obj-proxy"
     }
-  },
-  "dependencies": {
-    "prop-types": "^15.5.8"
   }
 }

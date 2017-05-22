@@ -34,10 +34,13 @@
     "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
+    "@doist/reactist": "*",
     "classnames": "^2.2.5",
+    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
+    "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-tooltip": "^3.3.0",
-    "@doist/reactist": "*"
+    "react-tooltip": "^3.3.0"
   }
 }
