@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
-import { Button } from '@doist/reactist';
+import { Button } from '@doist/reactist'
 
-import './alternate-branding.less';
+import './alternate-branding.less'
 
 class ButtonExamplePage extends React.Component {
     render() {
@@ -41,8 +41,8 @@ class ButtonExamplePage extends React.Component {
                     <Button white name='White Primary Button' />
                     <Button white secondary name='White Secondary Button' /></section>
             </section>
-        );
+        )
     }
 }
 
-export default ButtonExamplePage;
+export default ButtonExamplePage

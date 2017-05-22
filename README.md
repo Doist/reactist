@@ -44,6 +44,8 @@ npm run check
 ```
 It is mandatory to fix all linting errors before you make a pull request.
 
+Tip: You can run `npm run check -- --fix` to fix most of the errors automatically.
+
 # Testing
 
 Tests are executed with jest or by simply running:
