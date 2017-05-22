@@ -52,6 +52,35 @@ class ModalExamplePage extends React.Component {
         ))
     }
 
+    _renderHugeModal() {
+        this._renderModal((
+            <Modal.Box>
+                <Modal.Header title='This modal has a lot of content' />
+                <Modal.Body>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                    <p>We add a lot of content to this modal to demonstrate its responsiveness.</p>
+                </Modal.Body>
+                <Modal.Actions>
+                    <Button name="Ok" primay close />
+                </Modal.Actions>
+            </Modal.Box>
+        ))
+    }
+
     _renderModal(modal) {
         ReactDOM.render(modal, document.getElementById('modal_box'))
     }
@@ -76,6 +105,10 @@ class ModalExamplePage extends React.Component {
                 <Button
                     name='Click me to launch a Modal acting as Confirmation Dialog'
                     onClick={ () => this._renderConfirmationDialogModal() }
+                />
+                <Button
+                    name='Click me to launch a Modal with a lot of content'
+                    onClick={ () => this._renderHugeModal() }
                 />
             </section>
         )
