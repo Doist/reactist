@@ -38,9 +38,9 @@ class Time extends React.Component {
 
         return (
             <time
-className={ className }
-                  onMouseEnter={ () => this._setHovered(true) }
-                  onMouseLeave={ () => this._setHovered(false) }
+                className={ className }
+                onMouseEnter={ () => this._setHovered(true) }
+                onMouseLeave={ () => this._setHovered(false) }
             >
                 {this._renderTime()}
             </time>

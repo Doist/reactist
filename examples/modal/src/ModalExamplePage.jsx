@@ -62,19 +62,19 @@ class ModalExamplePage extends React.Component {
                 <div id='modal_box'></div>
                 <h1>Modal Examples</h1>
                 <Button
-name='Click me to launch a Modal with Header' 
-                        onClick={ () => this._renderHeaderModal() }
+                    name='Click me to launch a Modal with Header' 
+                    onClick={ () => this._renderHeaderModal() }
                 />
                 <Button
-name='Click me to launch a Modal with Header and Content'
-                        onClick={ () => this._renderHeaderContentModal() }
+                    name='Click me to launch a Modal with Header and Content'
+                    onClick={ () => this._renderHeaderContentModal() }
                 />
                 <Button
-name='Click me to launch a Modal with Header, Content and Actions'
-                        onClick={ () => this._renderFullModal() }
+                    name='Click me to launch a Modal with Header, Content and Actions'
+                    onClick={ () => this._renderFullModal() }
                 />
                 <Button
-name='Click me to launch a Modal acting as Confirmation Dialog'
+                    name='Click me to launch a Modal acting as Confirmation Dialog'
                     onClick={ () => this._renderConfirmationDialogModal() }
                 />
             </section>
