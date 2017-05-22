@@ -6,7 +6,7 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack",
     "start": "./node_modules/.bin/webpack-dev-server --hot --inline",
-    "check": "./node_modules/.bin/eslint src --config ../../.eslintrc"
+    "check": "./node_modules/.bin/eslint src  --ext .js --ext .jsx --config ../../.eslintrc"
   },
   "repository": "https://github.com/Doist/reactist",
   "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",

@@ -1,35 +1,35 @@
-import './styles/modal.less';
+import './styles/modal.less'
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 
-import CloseIcon from './icons/CloseIcon.svg';
+import CloseIcon from './icons/CloseIcon.svg'
 
 class Box extends React.Component {
     componentDidMount() {
-        var overlay = ReactDOM.findDOMNode(this);
+        var overlay = ReactDOM.findDOMNode(this)
         // adds the 'overlay-active' class after a small timeout
         setTimeout(() => {
             if (overlay && overlay.classList && !overlay.classList.contains('reactist_overlay--active')) {
-                overlay.className += ' reactist_overlay--active';
+                overlay.className += ' reactist_overlay--active'
             }
-        }, 10);
+        }, 10)
     }
 
     render() {
-        let class_name = 'reactist_modal_box';
+        let class_name = 'reactist_modal_box'
         if (this.props.className) {
-            class_name += ` ${this.props.className}`;
+            class_name += ` ${this.props.className}`
         }
         
         return (
             <div className='reactist_overlay'>
-                <div className={class_name}>
+                <div className={ class_name }>
                     {this.props.children}
                 </div>
             </div>
-        );
+        )
     }
 }
 Box.propTypes = {
@@ -38,12 +38,12 @@ Box.propTypes = {
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
     ])
-};
+}
 
 class Header extends React.Component {
     _closeModal(event) {
-        event.preventDefault();
-        ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'));
+        event.preventDefault()
+        ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
     }
 
     render() {
@@ -54,13 +54,15 @@ class Header extends React.Component {
                     {this.props.subtitle && <span className="subtitle">{this.props.subtitle}</span>}
                     {this.props.children}
                 </p>
-                <a className='close'
-                   onClick={this._closeModal.bind(this)}
-                   href='#'>
+                <a
+                    className='close'
+                    onClick={ this._closeModal.bind(this) }
+                    href='#'
+                >
                     <CloseIcon />
                 </a>
             </div>
-        );
+        )
     }
 }
 Header.propTypes = {
@@ -70,38 +72,40 @@ Header.propTypes = {
     ]),
     title: PropTypes.string,
     subtitle: PropTypes.string
-};
+}
 
 class Body extends React.Component {
     _closeModal(event) {
-        event.preventDefault();
-        ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'));
+        event.preventDefault()
+        ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
     }
 
     render() {
-        let className = 'reactist_modal_box__body';
+        let className = 'reactist_modal_box__body'
         if (this.props.className) {
-            className += ` ${this.props.className}`;
+            className += ` ${this.props.className}`
         }
 
         return (
-            <div className={className}>
+            <div className={ className }>
                 {this.props.showCloseIcon && (
-                    <a className='close'
-                        onClick={this._closeModal.bind(this)}
-                        href='#'>
+                    <a
+                        className='close'
+                        onClick={ this._closeModal.bind(this) }
+                        href='#'
+                    >
                         <CloseIcon />
                     </a>)
                 }
                 {this.props.icon
                     ? ( <div className='dialog'>
-                            <div className='icon'>{this.props.icon}</div>
-                            <div className='content'>{this.props.children}</div>
-                        </div> )
+                        <div className='icon'>{this.props.icon}</div>
+                        <div className='content'>{this.props.children}</div>
+                    </div> )
                     : this.props.children
                 }
             </div>
-        );
+        )
     }
 }
 Body.propTypes = {
@@ -112,31 +116,31 @@ Body.propTypes = {
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
     ])
-};
+}
 
 class Actions extends React.Component {
     _onClick(on_click) {
-        if(typeof on_click === 'function') {
-            on_click();
+        if (typeof on_click === 'function') {
+            on_click()
         }        
-        ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'));
+        ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
     }
 
     render() {
         const children = React.Children.map(this.props.children, (child) => {
-            if (!child) return false;
+            if (!child) return false
             if (child.props.close) {
-                return React.cloneElement(child, { onClick: this._onClick.bind(null, child.props.onClick) });
+                return React.cloneElement(child, { onClick: this._onClick.bind(null, child.props.onClick) })
             } else {
-                return React.cloneElement(child);
+                return React.cloneElement(child)
             }
-        });
+        })
 
         return (
             <div className='reactist_modal_box__actions'>
                 {children}
             </div>
-        );
+        )
     }
 }
 /**
@@ -148,11 +152,11 @@ Actions.propTypes = {
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
     ])
-};
+}
 
 export default { 
     Box, 
     Header, 
     Body, 
     Actions 
-};
+}

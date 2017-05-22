@@ -1,12 +1,12 @@
 {
   "name": "@doist/reactist",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Open source React components by Doist",
   "main": "./dist/reactist.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack -p --progress --color",
     "build-watch": "npm run build -- --watch",
-    "check": "./node_modules/.bin/eslint src",
+    "check": "./node_modules/.bin/eslint src --ext .js --ext .jsx",
     "test": "./node_modules/.bin/jest",
     "test-watch": "npm run test -- --watch --coverage"
   },

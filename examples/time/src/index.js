@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import './index.css';
+import './index.css'
 
-import TimeExamplePage from './TimeExamplePage.jsx';
+import TimeExamplePage from './TimeExamplePage.jsx'
 
-ReactDOM.render(<TimeExamplePage />, document.getElementById('root'));
+ReactDOM.render(<TimeExamplePage />, document.getElementById('root'))
