@@ -55,9 +55,9 @@ class Header extends React.Component {
                     {this.props.children}
                 </p>
                 <a
-className='close'
-                   onClick={ this._closeModal.bind(this) }
-                   href='#'
+                    className='close'
+                    onClick={ this._closeModal.bind(this) }
+                    href='#'
                 >
                     <CloseIcon />
                 </a>
@@ -90,7 +90,7 @@ class Body extends React.Component {
             <div className={ className }>
                 {this.props.showCloseIcon && (
                     <a
-className='close'
+                        className='close'
                         onClick={ this._closeModal.bind(this) }
                         href='#'
                     >
