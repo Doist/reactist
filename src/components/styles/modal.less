@@ -44,17 +44,21 @@
         border-bottom: 1px solid @color-grey-11;
 
         p {
-            margin-left: 25px;
+            margin: 0 0 0 25px;
+            padding: 10px 0;
             .normal_text(@weight: @bold);
         }
 
         .title {
             display: block;
             line-height: 1;
+            margin-top: 5px;
         }
 
         .subtitle {
-            .smaller_text(@color: @color-grey-5, @weight: @semi-bold);
+            .smaller_text(@color: @secondary-font-color);
+            display: block;
+            margin-top: 5px;
         }
 
         a {

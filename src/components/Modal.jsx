@@ -7,6 +7,13 @@ import PropTypes from 'prop-types'
 import CloseIcon from './icons/CloseIcon.svg'
 
 class Box extends React.Component {
+    constructor(props, context) {
+        super(props, context)
+
+        this._handleKeyDown = this._handleKeyDown.bind(this)
+        window.addEventListener('keydown', this._handleKeyDown)
+    }
+
     componentDidMount() {
         var overlay = ReactDOM.findDOMNode(this)
         // adds the 'overlay-active' class after a small timeout
@@ -15,6 +22,14 @@ class Box extends React.Component {
                 overlay.className += ' reactist_overlay--active'
             }
         }, 10)
+    }
+
+    _handleKeyDown(event) {
+        if (event.keyCode === 27) { // ESC
+            // remove listener and close modal
+            window.removeEventListener('keydown', this._handleKeyDown)
+            ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
+        }
     }
 
     render() {
@@ -50,8 +65,8 @@ class Header extends React.Component {
         return (
             <div className='reactist_modal_box__header'>
                 <p>
-                    {this.props.title && <span className="title">{this.props.title}</span>}
-                    {this.props.subtitle && <span className="subtitle">{this.props.subtitle}</span>}
+                    {this.props.title && <span className='title'>{this.props.title}</span>}
+                    {this.props.subtitle && <span className='subtitle'>{this.props.subtitle}</span>}
                     {this.props.children}
                 </p>
                 <a

@@ -24,6 +24,7 @@
         'linebreak-style': ['error', 'unix'],
         'no-fallthrough': ['error'],
         'quotes': ['error', 'single'],
+        'jsx-quotes': ['error', 'prefer-single'],
         'semi': ['error', 'never'],
         'react/jsx-closing-bracket-location': [1, 'tag-aligned'],
         'react/jsx-curly-spacing': [2, 'always', { 'spacing': {'objectLiterals': 'never' }}],
