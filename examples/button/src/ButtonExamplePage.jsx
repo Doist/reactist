@@ -25,7 +25,7 @@ class ButtonExamplePage extends React.Component {
                 <Button white name='White Primary Button' />
                 <Button white secondary name='White Secondary Button' />
 
-                <section className="alternate-branding">
+                <section className='alternate-branding'>
                     <h1>Alternate Branding Button Examples</h1>
 
                     <h2>Basic Buttons</h2>

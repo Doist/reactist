@@ -48,7 +48,7 @@ describe('Time', () => {
     })
 
     it('adds additional class name if supplied', () => {
-        const time = shallow(<Time time={ testDate } className="this-classes were-added" />)
+        const time = shallow(<Time time={ testDate } className='this-classes were-added' />)
         expect(toJson(time)).toMatchSnapshot()
     })
 

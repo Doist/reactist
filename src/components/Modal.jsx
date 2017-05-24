@@ -50,8 +50,8 @@ class Header extends React.Component {
         return (
             <div className='reactist_modal_box__header'>
                 <p>
-                    {this.props.title && <span className="title">{this.props.title}</span>}
-                    {this.props.subtitle && <span className="subtitle">{this.props.subtitle}</span>}
+                    {this.props.title && <span className='title'>{this.props.title}</span>}
+                    {this.props.subtitle && <span className='subtitle'>{this.props.subtitle}</span>}
                     {this.props.children}
                 </p>
                 <a

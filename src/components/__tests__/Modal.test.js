@@ -143,8 +143,8 @@ describe('Modal.Actions', () => {
 
     it('renders all children without crashing', () => {
         const actions = shallow(<Modal.Actions>
-            <Button name="Action 1" />
-            <Button name="Action 2" />
+            <Button name='Action 1' />
+            <Button name='Action 2' />
         </Modal.Actions>)
         expect(toJson(actions)).toMatchSnapshot()
     })
@@ -152,8 +152,8 @@ describe('Modal.Actions', () => {
     it('unmounts modal_box when child with close prop is clicked', () => {
         const clickSpy = jest.fn()
         const actions = shallow(<Modal.Actions>
-            <Button name="Action 1" close onClick={ clickSpy } />
-            <Button name="Action 2" />
+            <Button name='Action 1' close onClick={ clickSpy } />
+            <Button name='Action 2' />
         </Modal.Actions>)
         
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
@@ -164,7 +164,7 @@ describe('Modal.Actions', () => {
 
     it('unmounts modal_box when child with close prop is clicked even when no onClick is specified', () => {
         const actions = shallow(<Modal.Actions>
-            <Button name="Action 1" close />
+            <Button name='Action 1' close />
         </Modal.Actions>)
 
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
