@@ -64,6 +64,22 @@ describe('Modal.Box', () => {
         const box = shallow(<Modal.Box className='applied-to-child-of-box' />)
         expect(toJson(box)).toMatchSnapshot(box)
     })
+
+    it('unmounts the modal_box when escape was pressed', () => {
+        const box = mount(<Modal.Box />).instance()
+
+        const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
+        box._handleKeyDown({ keyCode: 27 })
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1)
+    })
+
+    it('does nothing when any other key than escape was pressed', () => {
+        const box = mount(<Modal.Box />).instance()
+
+        const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
+        box._handleKeyDown({ keyCode: 23 })
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount)
+    })
 })
 
 describe('Modal.Header', () => {
