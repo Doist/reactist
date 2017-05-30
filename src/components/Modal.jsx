@@ -34,10 +34,15 @@ class Box extends React.Component {
 
     render() {
         let class_name = 'reactist_modal_box'
+
+        if (this.props.large) {
+            class_name += ' large'
+        }
+
         if (this.props.className) {
             class_name += ` ${this.props.className}`
         }
-        
+
         return (
             <div className='reactist_overlay'>
                 <div className={ class_name }>
@@ -49,6 +54,7 @@ class Box extends React.Component {
 }
 Box.propTypes = {
     className: PropTypes.string,
+    large: PropTypes.bool,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
