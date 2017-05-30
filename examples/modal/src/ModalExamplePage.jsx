@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { Modal, Button } from 'reactist'
+import { Modal, Button } from '@doist/reactist'
 
 class ModalExamplePage extends React.Component {
 
@@ -81,6 +81,21 @@ class ModalExamplePage extends React.Component {
         ))
     }
 
+    _renderLargeModal() {
+        this._renderModal((
+            <Modal.Box large>
+                <Modal.Header title='This is a large modal' />
+                <Modal.Body>
+                    <p>I'm Large, so what?</p>
+                </Modal.Body>
+                <Modal.Actions>
+                    <Button name='Ok' primay close />
+                </Modal.Actions>
+            </Modal.Box>
+        ))
+
+    }
+
     _renderModal(modal) {
         ReactDOM.render(modal, document.getElementById('modal_box'))
     }
@@ -110,6 +125,11 @@ class ModalExamplePage extends React.Component {
                     name='Click me to launch a Modal with a lot of content'
                     onClick={ () => this._renderHugeModal() }
                 />
+                <Button
+                    name='Click me to launch a Large Modal'
+                    onClick={ () => this._renderLargeModal() }
+                />
+
             </section>
         )
     }
