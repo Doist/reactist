@@ -33,11 +33,14 @@
         &.large {
             width: 60%;
             max-width: 1000px;
+
+            @media @small_screen {
+                width: calc(~'100% - 120px') // 60px on each side (incl. top via padding)
+            }
         }
 
-        // only applies for devices smaller than a desktop (defined by bootstrap)
-        @media(max-width: 992px) {
-            width: calc(~'100% - 120px') !important; // 60px on each side (incl. top via padding)
+        @media @small_screen {
+            width: calc(~'100% - 120px') // 60px on each side (incl. top via padding)
         }
     }
 
@@ -99,17 +102,17 @@
             .content {
                 float: right;
                 // modal size minus the (icon + margin)
-                width: calc(~'100% - 62px');      
-                
+                width: calc(~'100% - 62px');
+
                 // when used as dialog this can be used as header inside the modal body
                 h1 {
                     margin: 0;
                     .normal_text(@weight: @bold);
                     line-height: 1;
-                }  
+                }
             }
         }
-        
+
         // used to clear the floating icon while still enabling scrolling
         &:after {
             clear: both;
