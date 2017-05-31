@@ -89,7 +89,7 @@ class ModalExamplePage extends React.Component {
                     <p>I'm Large, so what?</p>
                 </Modal.Body>
                 <Modal.Actions>
-                    <Button name='Ok' primay close />
+                    <Button name='Ok' primary close />
                 </Modal.Actions>
             </Modal.Box>
         ))
