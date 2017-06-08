@@ -65,6 +65,11 @@ describe('Modal.Box', () => {
         expect(toJson(box)).toMatchSnapshot(box)
     })
 
+    it('adds large to className when supplied', () => {
+        const box = shallow(<Modal.Box large />)
+        expect(toJson(box)).toMatchSnapshot()
+    })
+
     it('unmounts the modal_box when escape was pressed', () => {
         const box = mount(<Modal.Box />).instance()
 
@@ -115,6 +120,15 @@ describe('Modal.Header', () => {
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
         header.find('.close').simulate('click', { preventDefault: jest.fn() })
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1)
+    })
+
+    it('invokes beforeClose when closing the modal', () => {
+        const beforeCloseSpy = jest.fn()
+        const header = shallow(<Modal.Header beforeClose={ beforeCloseSpy } />)
+        
+        
+        header.find('.close').simulate('click', { preventDefault: jest.fn() })
+        expect(beforeCloseSpy).toHaveBeenCalled()
     })
 })
 
