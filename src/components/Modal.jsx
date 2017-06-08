@@ -64,6 +64,9 @@ Box.propTypes = {
 class Header extends React.Component {
     _closeModal(event) {
         event.preventDefault()
+        if (typeof this.props.beforeClose === 'function') {
+            this.props.beforeClose()
+        }
         ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
     }
 
@@ -92,7 +95,8 @@ Header.propTypes = {
         PropTypes.node
     ]),
     title: PropTypes.string,
-    subtitle: PropTypes.string
+    subtitle: PropTypes.string,
+    beforeClose: PropTypes.func
 }
 
 class Body extends React.Component {

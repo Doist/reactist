@@ -77,6 +77,16 @@ exports[`Modal.Body renders without crashing 1`] = `
 />
 `;
 
+exports[`Modal.Box adds large to className when supplied 1`] = `
+<div
+  className="reactist_overlay"
+>
+  <div
+    className="reactist_modal_box large"
+  />
+</div>
+`;
+
 exports[`Modal.Box renders all children without crashing 1`] = `
 <div
   className="reactist_overlay"
