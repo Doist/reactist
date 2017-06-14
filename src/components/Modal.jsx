@@ -14,16 +14,6 @@ class Box extends React.Component {
         window.addEventListener('keydown', this._handleKeyDown)
     }
 
-    componentDidMount() {
-        var overlay = ReactDOM.findDOMNode(this)
-        // adds the 'overlay-active' class after a small timeout
-        setTimeout(() => {
-            if (overlay && overlay.classList && !overlay.classList.contains('reactist_overlay--active')) {
-                overlay.className += ' reactist_overlay--active'
-            }
-        }, 10)
-    }
-
     _handleKeyDown(event) {
         if (event.keyCode === 27) { // ESC
             // remove listener and close modal
