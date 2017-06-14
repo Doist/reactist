@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { Modal, Button } from '@doist/reactist'
+import { Modal, Button } from 'reactist'
 
 class ModalExamplePage extends React.Component {
 

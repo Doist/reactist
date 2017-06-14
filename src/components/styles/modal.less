@@ -1,7 +1,7 @@
 @import './constants.less';
+@import './animations.less';
 
 .reactist {
-
     &_overlay {
         position: absolute;
         top: 0;
@@ -12,14 +12,10 @@
         align-items: flex-start;
         justify-content: center;
         z-index: 2;
-        background: rgba(0, 0, 0, 0.5);
-        transition: background 0.1s ease-in;
-        padding-top: 60px;
-    }
-
-    &_overlay--active {
-        overflow: auto;
         background: rgba(0, 0, 0, 0.7);
+        overflow: auto;
+        padding-top: 60px;
+        animation: fadein 0.5s;
     }
 
     &_modal_box {

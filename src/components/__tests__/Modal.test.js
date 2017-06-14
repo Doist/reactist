@@ -26,40 +26,6 @@ describe('Modal.Box', () => {
         expect(toJson(box)).toMatchSnapshot()
     })
 
-    it('adds overlay-active class after a short timeout', () => {
-        jest.useFakeTimers()
-        const containsMock = jest.fn().mockReturnValue(false)
-        const mockOverlay = { 
-            className: 'reactist_overlay', 
-            classList: { contains: containsMock } 
-        }
-        const box = mount(<Modal.Box />).instance()
-
-        ReactDOM.findDOMNode.mockReturnValueOnce(mockOverlay)
-        box.componentDidMount()
-        jest.runAllTimers()
-
-        expect(containsMock).toHaveBeenCalled()
-        expect(mockOverlay.className).toBe('reactist_overlay reactist_overlay--active')
-    })
-
-    it('does not add overlay-active when already added', () => {
-        jest.useFakeTimers()
-        const containsMock = jest.fn().mockReturnValue(true)
-        const mockOverlay = { 
-            className: 'reactist_overlay reactist_overlay--active', 
-            classList: { contains: containsMock } 
-        }
-        const box = mount(<Modal.Box />).instance()
-
-        ReactDOM.findDOMNode.mockReturnValueOnce(mockOverlay)
-        box.componentDidMount()
-        jest.runAllTimers()
-
-        expect(containsMock).toHaveBeenCalled()
-        expect(mockOverlay.className).toBe('reactist_overlay reactist_overlay--active')
-    })
-
     it('adds additionally supplied className prop', () => {
         const box = shallow(<Modal.Box className='applied-to-child-of-box' />)
         expect(toJson(box)).toMatchSnapshot(box)
