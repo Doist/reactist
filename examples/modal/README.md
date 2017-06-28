@@ -20,6 +20,8 @@ The Modal is always attached to an element with the id **modal_box**. You need t
 ## Modal - Box
 The `Modal.Box` component simply acts as a container for the Modal and is responsible for rendering the dark overlay and all children components. You can pass it an optional `className` property to apply additional styles.
 
+The `Modal.Box` accepts an optional property `closeOnOverlayClick` when set to `true` a click on the overlay will close the modal. Defaults to `false`.
+
 ## Modal - Header
 The `Modal.Header` component shows the Header of the Modal. It always show a close icon on the right side to close the Modal. It can display arbitrary content you pass to it as children. However, the recommended usage pattern is to supply the `title` and `subtitle` (string) properties. This displays nicely formatted headings inside the Header.
 
