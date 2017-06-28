@@ -14,7 +14,7 @@ class Button extends React.Component {
     _onClick(event) {
         event.preventDefault()
         if (!this.props.disabled && this.props.onClick) {
-            this.props.onClick()
+            this.props.onClick(event)
         }
     }
 
