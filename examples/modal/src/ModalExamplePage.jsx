@@ -21,10 +21,10 @@ class ModalExamplePage extends React.Component {
             </Modal.Box>
         ))
     }
-    
-    _renderFullModal() {
+
+    _renderFullModal(closeOnOverlayClick = false) {
         this._renderModal((
-            <Modal.Box>
+            <Modal.Box closeOnOverlayClick={ closeOnOverlayClick }>
                 <Modal.Header title='Header of Modal' subtitle='This is a smaller description' />
                 <Modal.Body icon={ <img src='/icon.png' /> }>
                     The Body of a Modal can contain whatever you like! Like this very long Lorem Ipsum<br />
@@ -106,7 +106,7 @@ class ModalExamplePage extends React.Component {
                 <div id='modal_box'></div>
                 <h1>Modal Examples</h1>
                 <Button
-                    name='Click me to launch a Modal with Header' 
+                    name='Click me to launch a Modal with Header'
                     onClick={ () => this._renderHeaderModal() }
                 />
                 <Button
@@ -129,7 +129,10 @@ class ModalExamplePage extends React.Component {
                     name='Click me to launch a Large Modal'
                     onClick={ () => this._renderLargeModal() }
                 />
-
+                <Button
+                    name='Click me and click the overlay to close the modal'
+                    onClick={ () => this._renderFullModal(true) }
+                />
             </section>
         )
     }
