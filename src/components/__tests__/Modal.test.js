@@ -51,6 +51,22 @@ describe('Modal.Box', () => {
         box._handleKeyDown({ keyCode: 23 })
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount)
     })
+
+    it('unmounts the modal_box when clicking on overlay', () => {
+        const box = mount(<Modal.Box closeOnOverlayClick />).instance()
+
+        const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
+        box._handleOverlayClick({ target: { id: 'reactist-overlay' }})
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1)
+    })
+
+    it('does not close on overlay click when property was not supplied', () => {
+        const box = mount(<Modal.Box />).instance()
+
+        const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
+        box._handleOverlayClick({ target: { id: 'reactist-overlay' }})
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount)
+    })
 })
 
 describe('Modal.Header', () => {
@@ -91,8 +107,8 @@ describe('Modal.Header', () => {
     it('invokes beforeClose when closing the modal', () => {
         const beforeCloseSpy = jest.fn()
         const header = shallow(<Modal.Header beforeClose={ beforeCloseSpy } />)
-        
-        
+
+
         header.find('.close').simulate('click', { preventDefault: jest.fn() })
         expect(beforeCloseSpy).toHaveBeenCalled()
     })
@@ -122,7 +138,7 @@ describe('Modal.Body', () => {
 
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
         body.find('.close').simulate('click', { preventDefault: jest.fn() })
-        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1) 
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1)
     })
 
     it('adds additionally supplied className prop', () => {
@@ -151,7 +167,7 @@ describe('Modal.Actions', () => {
             <Button name='Action 1' close onClick={ clickSpy } />
             <Button name='Action 2' />
         </Modal.Actions>)
-        
+
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
         actions.find('Button').first().simulate('click')
         expect(clickSpy).toHaveBeenCalled()
