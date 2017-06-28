@@ -3,6 +3,7 @@
 exports[`[object Object] 1`] = `
 <div
   className="reactist_overlay"
+  id="reactist-overlay"
 >
   <div
     className="reactist_modal_box applied-to-child-of-box"
@@ -80,6 +81,7 @@ exports[`Modal.Body renders without crashing 1`] = `
 exports[`Modal.Box adds large to className when supplied 1`] = `
 <div
   className="reactist_overlay"
+  id="reactist-overlay"
 >
   <div
     className="reactist_modal_box large"
@@ -90,6 +92,7 @@ exports[`Modal.Box adds large to className when supplied 1`] = `
 exports[`Modal.Box renders all children without crashing 1`] = `
 <div
   className="reactist_overlay"
+  id="reactist-overlay"
 >
   <div
     className="reactist_modal_box"
@@ -115,6 +118,7 @@ exports[`Modal.Box renders all children without crashing 1`] = `
 exports[`Modal.Box renders without crashing 1`] = `
 <div
   className="reactist_overlay"
+  id="reactist-overlay"
 >
   <div
     className="reactist_modal_box"
