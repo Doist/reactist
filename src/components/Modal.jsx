@@ -12,7 +12,9 @@ class Box extends React.Component {
 
         this._handleKeyDown = this._handleKeyDown.bind(this)
         this._closeModal = this._closeModal.bind(this)
+        this._handleOverlayClick = this._handleOverlayClick.bind(this)
         window.addEventListener('keydown', this._handleKeyDown)
+        window.addEventListener('click', this._handleOverlayClick)
     }
 
     _closeModal() {
@@ -21,18 +23,16 @@ class Box extends React.Component {
 
     _handleKeyDown(event) {
         if (event.keyCode === 27) { // ESC
-            // remove listener and close modal
             window.removeEventListener('keydown', this._handleKeyDown)
             this._closeModal()
         }
     }
 
-    _preventOverlayClickTrigger(event) {
-        if (event) {
-            event.preventDefault()
-            event.stopPropagation()
+    _handleOverlayClick(event) {
+        if (this.props.closeOnOverlayClick && event && event.target && event.target.id === 'reactist-overlay') {
+            window.removeEventListener('click', this._handleOverlayClick)
+            this._closeModal()
         }
-        return false
     }
 
     render() {
@@ -47,8 +47,8 @@ class Box extends React.Component {
         }
 
         return (
-            <div className='reactist_overlay' onClick={ this._closeModal } >
-                <div className={ class_name } onClick={ this._preventOverlayClickTrigger.bind(this) } >
+            <div className='reactist_overlay' id='reactist-overlay'>
+                <div className={ class_name }>
                     {this.props.children}
                 </div>
             </div>
@@ -58,6 +58,7 @@ class Box extends React.Component {
 Box.propTypes = {
     className: PropTypes.string,
     large: PropTypes.bool,
+    closeOnOverlayClick: PropTypes.bool,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
@@ -67,7 +68,6 @@ Box.propTypes = {
 class Header extends React.Component {
     _closeModal(event) {
         event.preventDefault()
-        event.stopPropagation()
         if (typeof this.props.beforeClose === 'function') {
             this.props.beforeClose()
         }
@@ -149,10 +149,8 @@ Body.propTypes = {
 
 class Actions extends React.Component {
     _onClick(event, on_click) {
-        event.preventDefault()
-        event.stopPropagation()
         if (typeof on_click === 'function') {
-            on_click()
+            on_click(event)
         }
         ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
     }
