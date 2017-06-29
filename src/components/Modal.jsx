@@ -148,9 +148,9 @@ Body.propTypes = {
 }
 
 class Actions extends React.Component {
-    _onClick(event, on_click) {
+    _onClick(on_click) {
         if (typeof on_click === 'function') {
-            on_click(event)
+            on_click()
         }
         ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
     }
@@ -159,7 +159,7 @@ class Actions extends React.Component {
         const children = React.Children.map(this.props.children, (child) => {
             if (!child) return false
             if (child.props.close) {
-                return React.cloneElement(child, { onClick: (event) => this._onClick(event, child.props.onClick) })
+                return React.cloneElement(child, { onClick: () => this._onClick(child.props.onClick) })
             } else {
                 return React.cloneElement(child)
             }
