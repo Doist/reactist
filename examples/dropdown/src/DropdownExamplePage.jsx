@@ -8,7 +8,7 @@ class DropdownExamplePage extends React.Component {
         return (
             <Dropdown.Box>
                 <Dropdown.Trigger>
-                    <div>Trigger: Click to show dropdown</div>
+                    Trigger: Click to show dropdown
                 </Dropdown.Trigger>
                 <Dropdown.Body>
                     <div>
@@ -28,7 +28,7 @@ class DropdownExamplePage extends React.Component {
         return (
             <Dropdown.Box allowBodyInteractions>
                 <Dropdown.Trigger>
-                    <div>Trigger: Click to show interactive dropdown (won't close when clicking on it)</div>
+                    Trigger: Click to show interactive dropdown (won't close when clicking on it)
                 </Dropdown.Trigger>
                 <Dropdown.Body>
                     <div>
@@ -46,10 +46,13 @@ class DropdownExamplePage extends React.Component {
     render() {
         return (
             <section>
-                <div id='modal_box'></div>
                 <h1>Dropdown Examples</h1>
-                { this._renderSimpleDropdown() }
-                { this._renderInteractiveBodyDropdown() }
+                <div className='dropdown-example'>
+                    { this._renderSimpleDropdown() }
+                </div>
+                <div className='dropdown-example'>
+                    { this._renderInteractiveBodyDropdown() }
+                </div>
             </section>
         )
     }
