@@ -9,12 +9,16 @@ import CloseIcon from './icons/CloseIcon.svg'
 class Box extends React.Component {
     constructor(props, context) {
         super(props, context)
-
         this._handleKeyDown = this._handleKeyDown.bind(this)
         this._closeModal = this._closeModal.bind(this)
         this._handleOverlayClick = this._handleOverlayClick.bind(this)
         window.addEventListener('keydown', this._handleKeyDown)
         window.addEventListener('click', this._handleOverlayClick)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('keydown', this._handleKeyDown)
+        window.removeEventListener('click', this._handleOverlayClick)
     }
 
     _closeModal() {
@@ -23,14 +27,12 @@ class Box extends React.Component {
 
     _handleKeyDown(event) {
         if (event.keyCode === 27) { // ESC
-            window.removeEventListener('keydown', this._handleKeyDown)
             this._closeModal()
         }
     }
 
     _handleOverlayClick(event) {
         if (this.props.closeOnOverlayClick && event && event.target && event.target.id === 'reactist-overlay') {
-            window.removeEventListener('click', this._handleOverlayClick)
             this._closeModal()
         }
     }
