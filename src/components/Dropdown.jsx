@@ -30,9 +30,10 @@ class Box extends React.Component {
 
     _handleClickOutside(event) {
         const dropdown_dom_node = ReactDOM.findDOMNode(this)
+
         if (!dropdown_dom_node.contains(event.target))
             this._toggleShowBody()
-        else {
+        else if (!this.props.allowBodyInteractions) { // won't close when body interactions are allowed
             this._timeout = setTimeout(() => {
                 if (this.state.show_body) {
                     this._toggleShowBody()
@@ -160,7 +161,7 @@ class Body extends React.Component {
         }
 
         return (
-            <div style={ style } className='body'>
+            <div style={ style } className='body' id='reactist-dropdown-body'>
                 { this.props.children }
             </div>
         )
