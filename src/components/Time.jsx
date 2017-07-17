@@ -18,16 +18,16 @@ class Time extends React.Component {
         this.setState(() => ({ hovered: hovered }))
     }
 
-    _renderTime() {
+    _renderTime(config) {
         if (this.state.hovered) {
             if (this.props.expandFullyOnHover) {
-                return TimeUtils.formatTimeLong(this.props.time)
+                return TimeUtils.formatTimeLong(this.props.time, config.locale)
             }
             if (this.props.expandOnHover) {
-                return TimeUtils.formatTime(this.props.time)
+                return TimeUtils.formatTime(this.props.time, config.locale)
             }
         }
-        return TimeUtils.timeAgo(this.props.time)
+        return TimeUtils.timeAgo(this.props.time, config)
     }
 
     render() {
@@ -42,7 +42,7 @@ class Time extends React.Component {
                 onMouseEnter={ () => this._setHovered(true) }
                 onMouseLeave={ () => this._setHovered(false) }
             >
-                {this._renderTime()}
+                {this._renderTime(this.props.config)}
             </time>
         )
     }
@@ -51,11 +51,23 @@ Time.propTypes = {
     className: PropTypes.string,
     time: PropTypes.number.isRequired,
     expandOnHover: PropTypes.bool,
-    expandFullyOnHover: PropTypes.bool
+    expandFullyOnHover: PropTypes.bool,
+    config: PropTypes.shape({
+        locale: PropTypes.string,
+        hoursSuffix: PropTypes.string,
+        minutesSuffix: PropTypes.string,
+        momentsAgo: PropTypes.string
+    })
 }
 Time.defaultProps = {
     expandOnHover: false,
-    expandFullyOnHover: false
+    expandFullyOnHover: false,
+    config: {
+        locale: 'en',
+        hoursSuffix: 'h',
+        minutesSuffix: 'm',
+        momentsAgo: 'moments ago'
+    }
 }
 
 export default Time

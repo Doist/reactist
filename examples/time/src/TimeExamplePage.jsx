@@ -5,6 +5,7 @@ import { Time } from '@doist/reactist'
 
 class TimeExamplePage extends React.Component {
     render() {
+        moment.locale('de')
         const exampleTimes = [
             { title: 'Now', time: moment().unix() },
             { title: 'Now - 2 Minutes', time: moment().subtract(2, 'minutes').unix() },
@@ -14,6 +15,12 @@ class TimeExamplePage extends React.Component {
             { title: 'Now - 2 Weeks', time: moment().subtract(2, 'weeks').unix() },
             { title: 'Now - 2 Years', time: moment().subtract(2, 'years').unix() }
         ]
+        const i18nConfig = {
+            locale: 'de',
+            hoursSuffix: 'Std',
+            minutesSuffix: 'min',
+            momentsAgo: 'Gerade eben'
+        }
 
         return (
             <section>
@@ -38,6 +45,13 @@ class TimeExamplePage extends React.Component {
                     <div key={ index }>
                         <span>{time.title}</span>
                         <Time time={ time.time } expandFullyOnHover />
+                    </div>
+                ))}
+                <h2>Time with i18n support through config</h2>
+                {exampleTimes.map((time, index) => (
+                    <div key={ index }>
+                        <span>{time.title}</span>
+                        <Time time={ time.time } config={ i18nConfig } expandFullyOnHover />
                     </div>
                 ))}
             </section>

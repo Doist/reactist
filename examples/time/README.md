@@ -24,6 +24,20 @@ The `Time` components renders the given timestamp following these rules:
 
 You can always have a look at the example code (or run it) to see the components in action.
 
+## i18n support
+
+You can pass a config object to every `Time` component to add framework agnostic i18n support. It is basically up to you how to translate the strings and decide on the locale.
+
+The config object has the following shape and default values:
+```
+config = {
+    locale: 'en',
+    hoursSuffix: 'h',
+    minutesSuffix: 'm',
+    momentsAgo: 'moments ago'
+}
+```
+
 # How to run
 
 Follow the explanation here: [How to run an example](../README.md#how-to-run)
