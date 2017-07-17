@@ -5,9 +5,11 @@ const TimeUtils = {
     SHORT_FORMAT_PAST_YEAR: 'MMM D, YYYY',
     LONG_FORMAT: 'DD MMM YY, LT',
 
-    timeAgo(timestamp) {
+    timeAgo(timestamp, config = {}) {
+        const { locale = 'en', hoursSuffix = 'h', minutesSuffix = 'm', momentsAgo = 'moments ago' }  = config
         const now = moment()
         const date = moment.unix(timestamp)
+        date.locale(locale)
         const diffMinutes = now.diff(date, 'minutes')
         const diffHours = now.diff(date, 'hours')
         const diffDays = now.diff(date, 'days')
@@ -21,16 +23,17 @@ const TimeUtils = {
         } else if (diffDays > 0 && diffDays <= 7) {
             return date.format('dddd')
         } else if (diffHours > 0 && diffHours <= 23) {
-            return `${diffHours}h`
+            return `${diffHours}${hoursSuffix}`
         } else if (diffMinutes > 0 && diffMinutes <= 59) {
-            return `${diffMinutes}m`
+            return `${diffMinutes}${minutesSuffix}`
         } else {
-            return 'moments ago'
+            return momentsAgo
         }
     },
 
-    formatTime(timestamp) {
+    formatTime(timestamp, locale = 'en') {
         const date = moment.unix(timestamp)
+        date.locale(locale)
         if (date.isSame(moment(), 'year')) {
             return date.format(this.SHORT_FORMAT_CURRENT_YEAR)
         } else {
@@ -38,8 +41,10 @@ const TimeUtils = {
         }
     },
 
-    formatTimeLong(timestamp) {
-        return moment.unix(timestamp).format(this.LONG_FORMAT)
+    formatTimeLong(timestamp, locale = 'en') {
+        const date = moment.unix(timestamp)
+        date.locale(locale)
+        return date.format(this.LONG_FORMAT)
     }
 }
 
