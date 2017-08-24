@@ -3,8 +3,6 @@ import classNames from 'classnames'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-const SCROLL_LIMIT = 100
-
 class Box extends React.Component {
     constructor(props, context) {
         super(props, context)
@@ -15,8 +13,9 @@ class Box extends React.Component {
             scrolling_parent: this.props.scrolling_parent || null
         }
 
-        this._toggleShowBody = this._toggleShowBody.bind(this)
         this._handleClickOutside = this._handleClickOutside.bind(this)
+        this._setPosition = this._setPosition.bind(this)
+        this._toggleShowBody = this._toggleShowBody.bind(this)
 
         this._timeout = null
     }
@@ -42,23 +41,7 @@ class Box extends React.Component {
         }
     }
 
-    _toggleShowBody(event) {
-        let top = this.state.top
-
-        if (event) {
-            // NOTE: for this to work, offsetParent has to be relatively positioned
-            const dropdown_offset = ReactDOM.findDOMNode(this).offsetTop
-            const scrolling_parent = document.getElementById(this.state.scrolling_parent)
-
-            if (scrolling_parent) {
-                const scroll_offset = scrolling_parent.scrollTop
-                const total_offset = dropdown_offset - scroll_offset
-                const height = scrolling_parent.clientHeight
-
-                top = (height - total_offset < SCROLL_LIMIT)
-            }
-        }
-
+    _toggleShowBody() {
         if (!this.state.show_body) { // will show
             if (this.props.onShowBody) this.props.onShowBody()
             document.addEventListener('click', this._handleClickOutside, true)
@@ -69,7 +52,7 @@ class Box extends React.Component {
 
         this.setState({
             show_body: !this.state.show_body,
-            top: top
+            top: this.state.top
         })
     }
 
@@ -78,11 +61,37 @@ class Box extends React.Component {
         return React.cloneElement(_trigger, { onClick: this._toggleShowBody })
     }
 
+    // https://facebook.github.io/react/docs/refs-and-the-dom.html#exposing-dom-refs-to-parent-components
+    _setPosition(body) {
+        if (body) {
+            const scrolling_parent = document.getElementById(this.state.scrolling_parent)
+
+            if (scrolling_parent) {
+                const dropdown = ReactDOM.findDOMNode(this)
+                const dropdown_vertical_position = ReactDOM.findDOMNode(this).offsetTop
+                const dropdown_trigger_height = dropdown.clientHeight
+                const dropdown_body_height = body.clientHeight
+
+                const scrolling_parent_height = scrolling_parent.clientHeight
+                const scrolling_parent_offset = scrolling_parent.scrollTop
+
+                const bottom_offset = scrolling_parent_height + scrolling_parent_offset -
+                                dropdown_vertical_position - dropdown_trigger_height
+
+                const top = (bottom_offset < dropdown_body_height)
+
+                if (top !== this.state.top) {
+                    this.setState({ top })
+                }
+            }
+        }
+    }
+
     _getBodyComponent() {
         const _body = this.props.children[1]
         const style = { position:'relative' }
         const { right, top } = this.state
-        const props = { top, right }
+        const props = { top, right, setPosition: this._setPosition }
 
         const class_name = classNames({
             body_wrapper: true,
@@ -161,7 +170,7 @@ class Body extends React.Component {
         }
 
         return (
-            <div style={ style } className='body' id='reactist-dropdown-body'>
+            <div ref={ this.props.setPosition }  style={ style } className='body' id='reactist-dropdown-body'>
                 { this.props.children }
             </div>
         )
