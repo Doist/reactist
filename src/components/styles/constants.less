@@ -18,27 +18,41 @@
 @semi-bold: 600;
 @bold: 700;
 
+// font sizes
+@normal-font-size: 0.875rem;
+@smaller-font-size: 0.81rem;
+@tiny-font-size: 0.75rem;
+@heading-one-font-size: 1.25rem;
+@heading-two-font-size: 1rem;
+@subheading-font-size: 0.69rem;
+
+// heading two text
+.heading_two_text(@color: @primary-font-color, @weight: @bold) {
+    font-size: @heading-two-font-size;
+    color: @color;
+    font-weight: @weight;
+    line-height: 1.8;
+}
+
 // normal text
 .normal_text(@color: @primary-font-color, @weight: @normal) {
-    font-size: 0.875rem;
+    font-size: @normal-font-size;
     color: @color;
     font-weight: @weight;
     line-height: 1.7;
-    font-family: 'Open Sans', sans-serif;
 }
 
 // smaller text
 .smaller_text(@color: @primary-font-color, @weight: @normal) {
-    font-size: 0.81rem;
+    font-size: @smaller-font-size;
     color: @color;
     font-weight: @weight;
     line-height: 1.6;
-    font-family: 'Open Sans', sans-serif;
 }
 
 // tiny text
 .tiny_text(@color: @secondary-font-color, @weight: @normal) {
-    font-size: 0.75rem;
+    font-size: @tiny-font-size;
     color: @color;
     font-weight: @weight;
     line-height: 1.8;
