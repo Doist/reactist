@@ -20,6 +20,7 @@ class ButtonExamplePage extends React.Component {
                 <h2>Small Buttons</h2>
                 <Button small name='Small Primary Button' />
                 <Button small secondary name='Small Secondary Button' />
+                <Button small danger name='Small Danger Button with a super long name' />
 
                 <h2>White Buttons</h2>
                 <Button white name='White Primary Button' />
