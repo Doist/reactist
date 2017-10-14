@@ -1,8 +1,11 @@
-@primary-color: #dd4b39;
-@primary-color-lighter: lighten(#dd4b39, 10%);
-@primary-color-darker: darken(#dd4b39, 10%);
+.reactist.button {
+    margin-bottom: 20px;
+}
 
 .alternate-branding {
+    @primary-color: #dd4b39;
+    @primary-color-lighter: lighten(#dd4b39, 10%);
+    @primary-color-darker: darken(#dd4b39, 10%);
     // alternate button styles
     & > .reactist.button {
         background-color: @primary-color;

@@ -8,13 +8,19 @@
     "build-watch": "npm run build -- --watch",
     "check": "./node_modules/.bin/eslint src --ext .js --ext .jsx",
     "test": "./node_modules/.bin/jest",
-    "test-watch": "npm run test -- --watch --coverage"
+    "test-watch": "npm run test -- --watch --coverage",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": "git+https://github.com/Doist/reactist.git",
   "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",
   "license": "MIT",
   "homepage": "https://github.com/Doist/reactist#readme",
   "devDependencies": {
+    "@storybook/addon-actions": "^3.2.11",
+    "@storybook/addon-info": "^3.2.11",
+    "@storybook/addon-links": "^3.2.10",
+    "@storybook/react": "^3.2.11",
     "babel-core": "^6.24.1",
     "babel-jest": "^19.0.0",
     "babel-loader": "^7.0.0",
@@ -39,6 +45,7 @@
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
     "path": "^0.12.7",
+    "raw-loader": "^0.5.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-svg-loader": "^1.1.1",
@@ -63,5 +70,8 @@
       "\\.svg$": "<rootDir>/src/__mocks__/fileMock.js",
       "\\.(css|less)$": "identity-obj-proxy"
     }
+  },
+  "dependencies": {
+    "storybook-readme": "^3.1.0-beta2"
   }
 }
