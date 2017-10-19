@@ -28,7 +28,7 @@ const TimePropTypesChapter = {
 }
 
 const NoHoverEffectStory = () => (
-    <section className='story'>
+    <section className='story time'>
         { exampleTimes.map((time, index) => (
             <div key={ index }>
                 <span>{ time.title }</span>
@@ -43,7 +43,7 @@ const NoHoverEffectChapter = {
 }
 
 const ExpandTimeStory = () => (
-    <section className='story'>
+    <section className='story time'>
         { exampleTimes.map((time, index) => (
             <div key={ index }>
                 <span>{ time.title }</span>
@@ -58,7 +58,7 @@ const ExpandTimeChapter = {
 }
 
 const FullyExpandTimeStory = () => (
-    <section className='story'>
+    <section className='story time'>
         { exampleTimes.map((time, index) => (
             <div key={ index }>
                 <span>{ time.title }</span>
@@ -81,7 +81,7 @@ const TranslatedTimeStory = () => {
     }
 
     return (
-        <section className='story'>
+        <section className='story time'>
             { exampleTimes.map((time, index) => (
                 <div key={ index }>
                     <span>{ time.title }</span>
@@ -97,7 +97,7 @@ const TranslatedTimeChapter = {
 }
 
 const TimePlaygroundStory = () => (
-    <section className='story'>
+    <section className='story time'>
         <Time
             time={ number('time:', exampleTimes[0].time) }
             expandOnHover={ boolean('expand on hover:', false) }
