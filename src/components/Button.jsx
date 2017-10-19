@@ -48,16 +48,55 @@ class Button extends React.Component {
         )
     }
 }
+Button.defaultProps = {
+    secondary: false,
+    small: false,
+    white: false,
+    loading: false,
+    disabled: false,
+    danger: false
+}
 Button.propTypes = {
+    /**
+     * Text that is displayed on the button.
+     */
     name: PropTypes.string,
+    /**
+     * Function that is called when the button is clicked.
+     * Is only invoked when disabled is not set.
+     */
     onClick: PropTypes.func,
+    /**
+     * Secondary style.
+     */
     secondary: PropTypes.bool,
+    /**
+     * Small style.
+     */
     small: PropTypes.bool,
+    /**
+     * White style.
+     */
     white: PropTypes.bool,
+    /**
+     * Loading style.
+     */
     loading: PropTypes.bool,
+    /**
+     * Disabled style. Prevents onClick from being called.
+     */
     disabled: PropTypes.bool,
+    /**
+     * Danger style.
+     */
     danger: PropTypes.bool,
+    /**
+     * Tooltip that is displayed on hover.
+     */
     data_tip: PropTypes.string,
+    /**
+     * Additional css class applied to the button.
+     */
     className: PropTypes.string
 }
 

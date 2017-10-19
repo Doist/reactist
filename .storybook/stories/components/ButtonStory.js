@@ -2,61 +2,115 @@ import './styles/button_story.less'
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import withDocs from 'storybook-readme/with-docs';
+import { withKnobs, text, boolean } from '@storybook/addon-knobs';
+
+import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
 import Button from '../../../src/components/Button'
-import UsageText from './ButtonUsage.md'
+import { alternateBrandingText } from './ButtonStoryTexts'
 
-import { setDefaults, withInfo } from '@storybook/addon-info';
 
-setDefaults({
-  header: false,
-  inline: true,
-  source: false,
-  propTables: [ Button ],
-  propTablesExclusde: ['Preview', 'ReadmeContainer']
-});
+// Story Definitions ==========================================================
+const ButtonPropTypesStory = getPropTypesStory(Button)
+const ButtonPropTypesChapter = {
+    subtitle: 'Component Usage',
+    sections: [{ sectionFn: ButtonPropTypesStory, options: optionsNoSourceNoProps }]
+}
 
-const ButtonExamplesStory = () => (
+const StandardButtonsStory = () => (
     <section className='story'>
-        <h1>Button Examples</h1>
-
-        <h2>Basic Buttons</h2>
         <Button name='Primary Button' />
+        <Button white name='White Button'/>
         <Button secondary name='Secondary Button' />
-        <Button loading name='Loading'/>
-        <Button danger name='Danger!'/>
-        <Button disabled danger name='Disabled Danger!'/>
+        <Button danger name='Danger Button!'/>
+    </section>
+)
+const StandardButtonsChapter =  {
+    subtitle: 'Standard Buttons',
+    sections: [{ sectionFn: StandardButtonsStory, options: optionsSourceOnly }]
+}
 
-        <h2>Small Buttons</h2>
+const SmallButtonsStory = () => (
+    <section className='story'>
         <Button small name='Small Primary Button' />
+        <Button small white name='Small White Button'/>
         <Button small secondary name='Small Secondary Button' />
-        <Button small danger name='Small Danger Button with a super long name' />
+        <Button small danger name='Small Danger Button!'/>
+    </section>
+)
+const SmallButtonsChapter = {
+    subtitle: 'Small Buttons',
+    sections: [{ sectionFn: SmallButtonsStory, options: optionsSourceOnly }]
+}
 
-        <h2>White Buttons</h2>
-        <Button white name='White Primary Button' />
-        <Button white secondary name='White Secondary Button' />
+const DisabledButtonsStory = () => (
+    <section className='story'>
+        <Button disabled name='Disabled Primary Button' />
+        <Button disabled white name='Disabled White Button'/>
+        <Button disabled secondary name='Disabled Secondary Button' />
+        <Button disabled danger name='Disabled Danger Button!'/>
+    </section>
+)
+const DisabledButtonsChapter = {
+    subtitle: 'Disabled Buttons',
+    sections: [{ sectionFn: DisabledButtonsStory, options: optionsSourceOnly }]
+}
 
-        <section className='alternate-branding'>
-            <h1>Alternate Branding Button Examples</h1>
+const LoadingButtonsStory = () => (
+    <section className='story'>
+        <Button loading name='Loading Primary Button' />
+        <Button loading white name='Loading White Button'/>
+        <Button loading secondary name='Loading Secondary Button' />
+        <Button loading danger name='Loading Danger Button!'/>
+    </section>
+)
+const LoadingButtonsChapter = {
+    subtitle: 'Loading Buttons',
+    sections: [{ sectionFn: LoadingButtonsStory, options: optionsSourceOnly }]
+}
 
-            <h2>Basic Buttons</h2>
-            <Button name='Primary Button' />
-            <Button secondary name='Secondary Button' />
-            <Button loading name='Loading' />
+const AlternateBrandingButtonsStory = () => (
+    <section className='story alternate_branding'>
+        <Button name='Primary Button' />
+        <Button white name='White Button'/>
+        <Button secondary name='Secondary Button' />
+    </section>
+)
+const AlternaterBrandingButtonsChapter = {
+    subtitle: 'Alternate Branding',
+    info: alternateBrandingText,
+    sections: [{ sectionFn: AlternateBrandingButtonsStory, options: optionsSourceOnly }]
+}
 
-            <h2>Small Buttons</h2>
-            <Button small name='Small Primary Button' />
-            <Button small secondary name='Small Secondary Button' />
-
-            <h2>White Buttons</h2>
-            <Button white name='White Primary Button' />
-            <Button white secondary name='White Secondary Button' /></section>
+const ButtonPlaygroundStory = () => (
+    <section className='story'>
+        <Button
+            name={ text('Name', 'Button Text') }
+            secondary={ boolean('Secondary', false) }
+            white={ boolean('White', false) }
+            danger={ boolean('Danger', false) }
+            small={ boolean('Small', false) }
+            disabled={ boolean('Disabled', false) }
+            loading={ boolean('Loading', false) }
+            data_tip={ text('Tooltip', '') }
+        />
     </section>
 )
 
-const button_story = () => storiesOf('Button', module)
-    .add('Button Examples', ButtonExamplesStory)
-    .add('Usage', withDocs(UsageText, () => {}))
+// Story setup ================================================================
+const button_story = () =>
+    storiesOf('Button', module)
+        .addDecorator(withKnobs)
+        .addWithChapters('Component Overview', {
+            chapters: [
+                ButtonPropTypesChapter,
+                StandardButtonsChapter,
+                SmallButtonsChapter,
+                DisabledButtonsChapter,
+                LoadingButtonsChapter,
+                AlternaterBrandingButtonsChapter
+            ]
+        })
+        .add('Component Playground', ButtonPlaygroundStory)
 
 export default button_story
