@@ -47,6 +47,7 @@ class Time extends React.Component {
         )
     }
 }
+Time.displayName = 'Time'
 Time.propTypes = {
     /**
      * Additional css class applied to the time element.

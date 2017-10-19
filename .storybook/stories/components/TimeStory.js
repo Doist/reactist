@@ -2,7 +2,6 @@ import './styles/time_story.less'
 
 import React from 'react'
 import moment from 'moment'
-
 import { storiesOf } from '@storybook/react'
 import { withKnobs, number, boolean } from '@storybook/addon-knobs';
 

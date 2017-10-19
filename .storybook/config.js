@@ -10,8 +10,5 @@ setOptions({
     url: 'https://github.com/Doist/reactist'
 })
 
-function loadStories() {
-    require('./stories');
-}
-
+const loadStories = () => require('./stories')
 configure(loadStories, module);
