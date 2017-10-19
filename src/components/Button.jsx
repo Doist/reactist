@@ -48,6 +48,7 @@ class Button extends React.Component {
         )
     }
 }
+Button.displayName = 'Button'
 Button.defaultProps = {
     secondary: false,
     small: false,
