@@ -12,16 +12,16 @@ const removeBox = (stylesheet) => {
 }
 const removeHeadings = (stylesheet) => {
     stylesheet.header.h1.display = 'none'
-    stylesheet.propTableHead.display = 'none'
+    // stylesheet.propTableHead.display = 'none'
     return stylesheet
 }
 const propTypesStyleTransformer = (stylesheet) => removeBox(removeHeadings(stylesheet))
 
-const getPropTypesStory = (component) => withInfo({
+const getPropTypesStory = (...components) => withInfo({
     header: false,
     inline: true,
     source: false,
-    propTables: [component],
+    propTables: components,
     styles: propTypesStyleTransformer
 })(() => <div />)
 
