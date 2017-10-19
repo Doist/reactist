@@ -73,9 +73,5 @@
       "\\.svg$": "<rootDir>/src/__mocks__/fileMock.js",
       "\\.(css|less)$": "identity-obj-proxy"
     }
-  },
-  "dependencies": {
-    "@storybook/addons": "^3.2.12",
-    "storybook-readme": "^3.1.0-beta2"
   }
 }

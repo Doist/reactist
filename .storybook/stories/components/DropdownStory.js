@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { storiesOf } from '@storybook/react'
 
 import { getPropTypesStory, optionsSourceOnly } from '../utils/StoryUtils'

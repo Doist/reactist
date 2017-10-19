@@ -125,6 +125,7 @@ class Box extends React.Component {
         )
     }
 }
+Box.displayName = 'Dropdown.Box'
 
 class Trigger extends React.Component {
     constructor(props, context) {
@@ -150,6 +151,7 @@ class Trigger extends React.Component {
         )
     }
 }
+Trigger.displayName = 'Dropdown.Trigger'
 
 class Body extends React.Component {
     render() {
@@ -176,5 +178,6 @@ class Body extends React.Component {
         )
     }
 }
+Body.displayName = 'Dropdown.Body'
 
 export default { Box, Trigger, Body }
