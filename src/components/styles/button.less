@@ -1,61 +1,60 @@
 @import './constants.less';
 
-.reactist.button {
-    box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
-    background-color: @primary-color;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+@primary_button_selector: ~':not(.secondary):not(.white):not(.danger)';
+@default_state_selector: ~':not([disabled]):not(.loading)';
+.default_border(@color: rgba(0, 0, 0, 0.1)) {
+    border: 1px solid @color;
     border-radius: 2px;
-    color: white;
-    cursor: pointer;
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
+}
+
+.reactist.button {
+    .normal_text(@color: white, @weight: @semi-bold);
+    .default_border();
+    box-sizing: border-box;
+    background-color: @primary-color;
     padding: 11px;
-    -webkit-font-smoothing: antialiased;
+    cursor: pointer;
 
     .wrapper {
-        display: inline;
+        display: inline-block;
     }
-
     span {
         user-select: none;
     }
 
-    &:not(.loading):not(.secondary):not(.white):not([disabled]):not(.danger):hover {
-        background-color: @primary-color-darker;
-    }
-
-    &:not(.loading):not(.secondary):not(.danger)&:disabled {
-        background-color: @primary-color-lighter;
-        cursor: not-allowed;
+    &@{primary_button_selector} {
+        &:hover {
+            background-color: @primary-color-darker;
+        }
+        &:disabled, &.loading {
+            background-color: @primary-color-lighter;
+            cursor: not-allowed;
+        }
     }
 
     &.small {
-        padding: 0;
-        font-size: 12px;
+        .tiny_text(@color: white, @weight: @semi-bold);
         padding: 6px;
     }
 
     &.danger {
         background-color: @color-red;
 
-        &:not([disabled]):not(.loading):hover {
+        &@{default_state_selector}:hover {
             background-color: darken(@color-red, 10%);
         }
 
-        &:disabled {
+        &:disabled, &.loading {
             background-color: lighten(@color-red, 20%);
             cursor: not-allowed;
         }
     }
 
     &.secondary {
-        background-color: @color-grey-9 !important;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        background-color: @color-grey-9;
         color: @color-grey-8;
 
-        &:not([disabled]):not(.loading):hover {
+        &@{default_state_selector}:hover {
             background-color: @color-grey-10;
         }
 
@@ -67,23 +66,28 @@
 
     &.white {
         background-color: white;
-        border: 1px solid  @primary-color;
+        .default_border(@color: @primary-color);
         color: @primary-color;
 
-        &:not([disabled]):not(.loading):hover {
-            background-color: @color-grey-10 !important;
+        &@{default_state_selector}:hover {
+            background-color: @color-grey-10;
         }
 
         &:disabled {
+            border-color: @color-grey-5;
             color: @color-grey-5;
             cursor: not-allowed;
         }
     }
 
     &.loading {
-        background-color: @color-grey-5;
-        color: white;
-        cursor: progress;
+        // for improved accessibility we treat white / secondary buttons different
+        &.white, &.secondary {
+            .default_border();
+            background-color: @color-grey-5;
+            color: white;
+        }
+        cursor: progress !important;
 
         &:after {
             background-repeat: no-repeat;
@@ -99,10 +103,6 @@
             animation-name: reactistRotateRight;
             animation-timing-function: linear;
             background-image: url('../icons/Spinner.svg.icon');
-        }
-
-        &:hover {
-            background-color: @color-grey-5 !important;
         }
     }
 }
