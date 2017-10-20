@@ -16,10 +16,22 @@ exports[`Modal.Actions renders all children without crashing 1`] = `
   className="reactist_modal_box__actions"
 >
   <Button
+    danger={false}
+    disabled={false}
+    loading={false}
     name="Action 1"
+    secondary={false}
+    small={false}
+    white={false}
   />
   <Button
+    danger={false}
+    disabled={false}
+    loading={false}
     name="Action 2"
+    secondary={false}
+    small={false}
+    white={false}
   />
 </div>
 `;
@@ -46,7 +58,13 @@ exports[`Modal.Body renders all children without crashing 1`] = `
     </h1>
   </div>
   <Button
+    danger={false}
+    disabled={false}
+    loading={false}
     name="Button in Body"
+    secondary={false}
+    small={false}
+    white={false}
   />
 </div>
 `;
@@ -97,20 +115,34 @@ exports[`Modal.Box renders all children without crashing 1`] = `
   <div
     className="reactist_modal_box"
   >
-    <Header>
+    <Modal.Header>
       Realistic test
-    </Header>
-    <Body>
+    </Modal.Header>
+    <Modal.Body
+      showCloseIcon={false}
+    >
       ... is very realistic
-    </Body>
-    <Actions>
+    </Modal.Body>
+    <Modal.Actions>
       <Button
+        danger={false}
+        disabled={false}
+        loading={false}
         name="Wow"
+        secondary={false}
+        small={false}
+        white={false}
       />
       <Button
+        danger={false}
+        disabled={false}
+        loading={false}
         name="So real"
+        secondary={false}
+        small={false}
+        white={false}
       />
-    </Actions>
+    </Modal.Actions>
   </div>
 </div>
 `;
@@ -149,7 +181,13 @@ exports[`Modal.Header renders all children without crashing 2`] = `
 >
   <p>
     <Button
+      danger={false}
+      disabled={false}
+      loading={false}
       name="Wow this looks complex"
+      secondary={false}
+      small={false}
+      white={false}
     />
     Some additional text as well
   </p>
