@@ -24,16 +24,21 @@ const developmentText = `
     \`\`\`
     this will update the build artifacts whenever you change something. This is helpful if you linked your local version of reactist into your project and want to see the changes there.
 
-    If you want to develop a new component or change an existing one we recommend to do it directly in styleguidist. You can boot the development server with hot reloading by running:
+    If you want to develop a new component or change an existing one we recommend to do it directly in a story with storybook. You can boot the development server with hot reloading by running:
     \`\`\`sh
-    npm run styleguide
+    npm run storybook
     \`\`\`
-    Changes you make on the component will be instantly reflected on the component itself
+    Changes you make on the component will be instantly reflected on the component itself.
 
     To produce a new build (e.g. before submitting a PR) run:
     \`\`\`sh
     npm run build
     \`\`\`
+    **Note:** This will **not** update the docs. In case you want to update the docs you need to run:
+    \`\`\`sh
+    npm run build-storybook
+    \`\`\`
+
 
     You can run our eslint checks with
     \`\`\`sh
