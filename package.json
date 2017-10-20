@@ -40,7 +40,6 @@
     "eslint-loader": "^1.7.1",
     "eslint-plugin-jest": "^19.0.1",
     "eslint-plugin-react": "^6.10.3",
-    "identity-obj-proxy": "^3.0.0",
     "jest": "^19.0.2",
     "less": "^2.7.2",
     "less-loader": "^4.0.3",
@@ -69,9 +68,12 @@
     "react-tooltip": "^3.3.0"
   },
   "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
     "moduleNameMapper": {
       "\\.svg$": "<rootDir>/src/__mocks__/fileMock.js",
-      "\\.(css|less)$": "identity-obj-proxy"
+      "\\.(css|less)$": "<rootDir>/src/__mocks__/styleMock.js"
     }
   }
 }

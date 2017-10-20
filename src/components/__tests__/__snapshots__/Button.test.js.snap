@@ -3,6 +3,7 @@
 exports[`Button adds additional className when supplied 1`] = `
 <button
   className="reactist button very-complex classnames-are-added"
+  disabled={false}
   onClick={[Function]}
 >
   <div
@@ -18,6 +19,7 @@ exports[`Button adds additional className when supplied 1`] = `
 exports[`Button renders a tooltip when prop is supplied 1`] = `
 <button
   className="reactist button"
+  disabled={false}
   onClick={[Function]}
 >
   <div
@@ -41,6 +43,7 @@ exports[`Button renders a tooltip when prop is supplied 1`] = `
 exports[`Button renders empty without crashing 1`] = `
 <button
   className="reactist button"
+  disabled={false}
   onClick={[Function]}
 >
   <div
@@ -54,6 +57,7 @@ exports[`Button renders empty without crashing 1`] = `
 exports[`Button renders name as button text 1`] = `
 <button
   className="reactist button"
+  disabled={false}
   onClick={[Function]}
 >
   <div
