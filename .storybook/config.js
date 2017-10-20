@@ -1,5 +1,3 @@
-import 'storybook-readme/register';
-
 import { configure, setAddon } from '@storybook/react';
 import { setOptions } from '@storybook/addon-options'
 import chaptersAddon from 'react-storybook-addon-chapters'
