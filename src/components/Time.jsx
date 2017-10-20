@@ -47,11 +47,27 @@ class Time extends React.Component {
         )
     }
 }
+Time.displayName = 'Time'
 Time.propTypes = {
+    /**
+     * Additional css class applied to the time element.
+     */
     className: PropTypes.string,
+    /**
+     * UNIX timestamp of the time to display.
+     */
     time: PropTypes.number.isRequired,
+    /**
+     * When hovering over time it expands to short absolute version.
+     */
     expandOnHover: PropTypes.bool,
+    /**
+     * When hovering over time it expands to the full absolute version.
+     */
     expandFullyOnHover: PropTypes.bool,
+    /**
+     * Configuration for localization.
+     */
     config: PropTypes.shape({
         locale: PropTypes.string,
         hoursSuffix: PropTypes.string,

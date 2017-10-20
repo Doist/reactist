@@ -57,10 +57,27 @@ class Box extends React.Component {
         )
     }
 }
+Box.displayName = 'Modal.Box'
+Box.defaultProps = {
+    large: false,
+    closeOnOverlayClick: false
+}
 Box.propTypes = {
+    /**
+     * Additional css class applied to the Modal.Box.
+     */
     className: PropTypes.string,
+    /**
+     * Large style.
+     */
     large: PropTypes.bool,
+    /**
+     * Close the Modal when clicking on the overlay.
+     */
     closeOnOverlayClick: PropTypes.bool,
+    /**
+     * Children to render inside the Modal.Box. Normally Modal.Header, Modal.Body and Modal.Actions.
+     */
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
@@ -95,13 +112,26 @@ class Header extends React.Component {
         )
     }
 }
+Header.displayName = 'Modal.Header'
 Header.propTypes = {
+    /**
+     * Children to render inside the Modal.Header for a fully customizable appearance.
+     */
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
     ]),
+    /**
+     * Title of the Modal.Header.
+     */
     title: PropTypes.string,
+    /**
+     * Subtitle of the Modal.Header.
+     */
     subtitle: PropTypes.string,
+    /**
+     * Function that is called right before the Modal unmounts itself.
+     */
     beforeClose: PropTypes.func
 }
 
@@ -139,10 +169,26 @@ class Body extends React.Component {
         )
     }
 }
+Body.displayName = 'Modal.Body'
+Body.defaultProps = {
+    showCloseIcon: false
+}
 Body.propTypes = {
+    /**
+     * Display an icon (or basically any component) on the right hand side of the Modal.Body.
+     */
     icon: PropTypes.node,
+    /**
+     * Render a close icon in the top right corner of the Modal.Body. Recommended to use when no Modal.Header is used.
+     */
     showCloseIcon: PropTypes.bool,
+    /**
+     * Additionall css class applied to the Modal.Body.
+     */
     className: PropTypes.string,
+    /**
+     * Children to render inside the Modal.Body.
+     */
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
@@ -174,11 +220,12 @@ class Actions extends React.Component {
         )
     }
 }
-/**
- * Children can have an optional `close` property (boolean).
- * When supplied and set to true it will close the modal after the onClick function
- */
+Actions.displayName = 'Modal.Actions'
 Actions.propTypes = {
+    /**
+     * Children to render inside the Modal.Actions. They can have an optional `close` property (boolean).
+     * When that is supplied and set to true it will close the modal after the onClick function
+     */
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
