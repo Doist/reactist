@@ -12,7 +12,7 @@ const removeBox = (stylesheet) => {
 }
 const removeHeadings = (stylesheet) => {
     stylesheet.header.h1.display = 'none'
-    stylesheet.propTableHead.display = 'none'
+    // stylesheet.propTableHead.display = 'none'
     return stylesheet
 }
 const propTypesStyleTransformer = (stylesheet) => removeBox(removeHeadings(stylesheet))

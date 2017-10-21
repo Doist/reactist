@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MenuButton with items renders with items 1`] = `
+<Dropdown.Box
+  className="reactist menu_button"
+>
+  <Dropdown.Trigger>
+    <span
+      className="reactist menu_button_trigger"
+    >
+      Test Menu
+    </span>
+  </Dropdown.Trigger>
+  <Dropdown.Body>
+    <div
+      className="reactist menu_button_items"
+    >
+      <MenuButtonItem>
+        Item 1
+      </MenuButtonItem>
+      <MenuButtonItem>
+        Item 2
+      </MenuButtonItem>
+    </div>
+  </Dropdown.Body>
+</Dropdown.Box>
+`;
+
+exports[`MenuButton without items renders without items 1`] = `
+<div
+  className="reactist menu_button"
+>
+  <span
+    className="reactist menu_button_trigger"
+  >
+    Test Menu
+  </span>
+</div>
+`;

@@ -10,6 +10,7 @@ import TimeStory from './components/TimeStory'
 import DropdownStory from './components/DropdownStory'
 import ProgressBarStory from './components/ProgressBarStory'
 import SelectStory from './components/SelectStory'
+import MenuButtonStory from './components/MenuButtonStory'
 
 ReactistStory()
 ButtonStory()
@@ -18,3 +19,4 @@ TimeStory()
 DropdownStory()
 ProgressBarStory()
 SelectStory()
+MenuButtonStory()

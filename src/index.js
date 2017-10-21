@@ -4,6 +4,7 @@ import Time from './components/Time'
 import Dropdown from './components/Dropdown'
 import ProgressBar from './components/ProgressBar'
 import Select from './components/Select'
+import { MenuButton, MenuButtonItem } from './components/MenuButton'
 
 export {
     Modal,
@@ -11,5 +12,7 @@ export {
     Time,
     Dropdown,
     ProgressBar,
-    Select
+    Select,
+    MenuButton,
+    MenuButtonItem
 }
