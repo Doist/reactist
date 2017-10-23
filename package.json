@@ -10,7 +10,8 @@
     "test": "./node_modules/.bin/jest",
     "test-watch": "npm run test -- --watch --coverage",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook -o docs"
+    "build-storybook": "build-storybook -o docs",
+    "build-all": "npm run build && npm run build-storybook"
   },
   "repository": "git+https://github.com/Doist/reactist.git",
   "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",

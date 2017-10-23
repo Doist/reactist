@@ -39,9 +39,11 @@ const optionsNoSourceNoProps = {
     showPropTables: false,
     allowPropTablesToggling: false
 }
+const emptySection = () => {}
 
 export {
     getPropTypesStory,
+    emptySection,
     optionsSourceOnly,
     optionsNoSourceNoProps
 }
