@@ -1,0 +1,15 @@
+@import './constants.less';
+
+.reactist.input {
+    .normal_text();
+    box-sizing: border-box;
+    width: 100%;
+    display: block;
+    outline: none;
+    border: 1px solid @color-grey-10;
+    border-radius: 4px;
+    padding: 5px;
+    &:focus {
+        border-color: @primary-color;
+    }
+}
