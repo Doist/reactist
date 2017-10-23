@@ -7,8 +7,7 @@ import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
 import Button from '../../../src/components/Button'
-import { alternateBrandingText } from './ButtonStoryTexts'
-
+import { alternateBrandingText } from './ButtonStory.md'
 
 // Story Definitions ==========================================================
 const ButtonPropTypesStory = getPropTypesStory(Button)
@@ -98,19 +97,19 @@ const ButtonPlaygroundStory = () => (
 )
 
 // Story setup ================================================================
-const button_story = () =>
-    storiesOf('Button', module)
-        .addDecorator(withKnobs)
-        .addWithChapters('Component Overview', {
-            chapters: [
-                ButtonPropTypesChapter,
-                StandardButtonsChapter,
-                SmallButtonsChapter,
-                DisabledButtonsChapter,
-                LoadingButtonsChapter,
-                AlternaterBrandingButtonsChapter
-            ]
-        })
-        .add('Component Playground', ButtonPlaygroundStory)
+const Story = () =>
+storiesOf('Button', module)
+    .addDecorator(withKnobs)
+    .addWithChapters('Component Overview', {
+        chapters: [
+            ButtonPropTypesChapter,
+            StandardButtonsChapter,
+            SmallButtonsChapter,
+            DisabledButtonsChapter,
+            LoadingButtonsChapter,
+            AlternaterBrandingButtonsChapter
+        ]
+    })
+    .add('Component Playground', ButtonPlaygroundStory)
 
-export default button_story
+export default Story

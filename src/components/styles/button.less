@@ -8,10 +8,10 @@
 }
 
 .reactist.button {
-    .normal_text(@color: white, @weight: @semi-bold);
+    .normal_text(@color: white, @weight: @semi_bold);
     .default_border();
     box-sizing: border-box;
-    background-color: @primary-color;
+    background-color: @primary_color;
     padding: 11px;
     cursor: pointer;
 
@@ -24,58 +24,58 @@
 
     &@{primary_button_selector} {
         &:hover {
-            background-color: @primary-color-darker;
+            background-color: @primary_color_darker;
         }
         &:disabled, &.loading {
-            background-color: @primary-color-lighter;
+            background-color: @primary_color_lighter;
             cursor: not-allowed;
         }
     }
 
     &.small {
-        .tiny_text(@color: white, @weight: @semi-bold);
+        .tiny_text(@color: white, @weight: @semi_bold);
         padding: 6px;
     }
 
     &.danger {
-        background-color: @color-red;
+        background-color: @color_red;
 
         &@{default_state_selector}:hover {
-            background-color: darken(@color-red, 10%);
+            background-color: darken(@color_red, 10%);
         }
 
         &:disabled, &.loading {
-            background-color: lighten(@color-red, 20%);
+            background-color: lighten(@color_red, 20%);
             cursor: not-allowed;
         }
     }
 
     &.secondary {
-        background-color: @color-grey-9;
-        color: @color-grey-8;
+        background-color: @color_grey_9;
+        color: @color_grey_8;
 
         &@{default_state_selector}:hover {
-            background-color: @color-grey-10;
+            background-color: @color_grey_10;
         }
 
         &:disabled {
-            color: @color-grey-5;
+            color: @color_grey_5;
             cursor: not-allowed;
         }
     }
 
     &.white {
         background-color: white;
-        .default_border(@color: @primary-color);
-        color: @primary-color;
+        .default_border(@color: @primary_color);
+        color: @primary_color;
 
         &@{default_state_selector}:hover {
-            background-color: @color-grey-10;
+            background-color: @color_grey_10;
         }
 
         &:disabled {
-            border-color: @color-grey-5;
-            color: @color-grey-5;
+            border-color: @color_grey_5;
+            color: @color_grey_5;
             cursor: not-allowed;
         }
     }
@@ -84,7 +84,7 @@
         // for improved accessibility we treat white / secondary buttons different
         &.white, &.secondary {
             .default_border();
-            background-color: @color-grey-5;
+            background-color: @color_grey_5;
             color: white;
         }
         cursor: progress !important;

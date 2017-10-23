@@ -3,10 +3,10 @@ import { storiesOf } from '@storybook/react';
 
 import { optionsNoSourceNoProps } from '../utils/StoryUtils'
 
-import { introText, howToText, developmentText, testingText } from './ReactistStoryTexts'
+import { introText, howToText, developmentText, testingText } from './ReactistStory.md'
 
-
-const reactist_story = () => storiesOf('Reactist', module)
+const Story = () =>
+storiesOf('Reactist', module)
     .addWithChapters('Welcome', {
         chapters: [
             {
@@ -25,4 +25,4 @@ const reactist_story = () => storiesOf('Reactist', module)
         ]
     })
 
-export default reactist_story
+export default Story

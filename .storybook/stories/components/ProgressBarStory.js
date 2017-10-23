@@ -37,7 +37,7 @@ const ProgressBarPlaygroundStory = () => (
 
 
 // Story setup ================================================================
-const progress_bar_story = () =>
+const Story = () =>
 storiesOf('ProgressBar', module)
     .addDecorator(withKnobs)
     .addWithChapters('Component Overview', {
@@ -48,4 +48,4 @@ storiesOf('ProgressBar', module)
     })
     .add('Component Playground', ProgressBarPlaygroundStory)
 
-export default progress_bar_story
+export default Story

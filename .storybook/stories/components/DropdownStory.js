@@ -6,7 +6,6 @@ import { getPropTypesStory, optionsSourceOnly } from '../utils/StoryUtils'
 import Dropdown from '../../../src/components/Dropdown'
 import Button from '../../../src/components/Button'
 
-
 // Story Definitions ==========================================================
 const DropdownStory = () => (
     <section className='story'>
@@ -56,7 +55,7 @@ const InteractiveDropdownChapter = {
 }
 
 // Story setup ================================================================
-const dropdown_story = () =>
+const Story = () =>
 storiesOf('Dropdown', module)
     .addWithChapters('Component Overview', {
         chapters: [
@@ -65,4 +64,4 @@ storiesOf('Dropdown', module)
         ]
     })
 
-export default dropdown_story
+export default Story

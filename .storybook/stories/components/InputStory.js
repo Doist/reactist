@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react'
 import { getPropTypesStory, emptySection, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
 import Input from '../../../src/components/Input'
-import { inputPropsDescription } from './InputStoryTexts'
+import { inputPropsDescription } from './InputStory.md'
 
 // Story Definitions ==========================================================
 const InputPropTypesStory = getPropTypesStory(Input)
@@ -25,9 +25,8 @@ const InputChapter = {
     sections: [{ sectionFn: InputStory, options: optionsSourceOnly }]
 }
 
-
 // Story setup ================================================================
-const input_story = () =>
+const Story = () =>
 storiesOf('Input', module)
     .addWithChapters('Component Overview', {
         chapters: [
@@ -36,4 +35,4 @@ storiesOf('Input', module)
         ]
     })
 
-export default input_story
+export default Story

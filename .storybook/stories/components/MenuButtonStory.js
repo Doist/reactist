@@ -40,7 +40,7 @@ const MenuButtonWithItemsChapter = {
 }
 
 // Story setup ================================================================
-const menu_button_story = () =>
+const Story = () =>
 storiesOf('MenuButton', module)
     .addWithChapters('Component Overview', {
         chapters: [
@@ -50,4 +50,4 @@ storiesOf('MenuButton', module)
         ]
     })
 
-export default menu_button_story
+export default Story

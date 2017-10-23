@@ -1,8 +1,5 @@
 import './components/styles/story.less'
 
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-
 import ReactistStory from './reactist/ReactistStory'
 import ButtonStory from './components/ButtonStory'
 import ModalStory from './components/ModalStory'
@@ -14,11 +11,12 @@ import MenuButtonStory from './components/MenuButtonStory'
 import InputStory from './components/InputStory'
 
 ReactistStory()
+// alphabetically sorted component stories
 ButtonStory()
-ModalStory()
-TimeStory()
 DropdownStory()
+InputStory()
+MenuButtonStory()
+ModalStory()
 ProgressBarStory()
 SelectStory()
-MenuButtonStory()
-InputStory()
+TimeStory()
