@@ -63,21 +63,13 @@ Box.defaultProps = {
     closeOnOverlayClick: false
 }
 Box.propTypes = {
-    /**
-     * Additional css class applied to the Modal.Box.
-     */
+    /** Additional css class applied to the Modal.Box. */
     className: PropTypes.string,
-    /**
-     * Large style.
-     */
+    /** Large style. */
     large: PropTypes.bool,
-    /**
-     * Close the Modal when clicking on the overlay.
-     */
+    /** Close the Modal when clicking on the overlay. */
     closeOnOverlayClick: PropTypes.bool,
-    /**
-     * Children to render inside the Modal.Box. Normally Modal.Header, Modal.Body and Modal.Actions.
-     */
+    /** Children to render inside the Modal.Box. Normally Modal.Header, Modal.Body and Modal.Actions. */
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
@@ -114,24 +106,16 @@ class Header extends React.Component {
 }
 Header.displayName = 'Modal.Header'
 Header.propTypes = {
-    /**
-     * Children to render inside the Modal.Header for a fully customizable appearance.
-     */
+    /** Children to render inside the Modal.Header for a fully customizable appearance. */
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
     ]),
-    /**
-     * Title of the Modal.Header.
-     */
+    /** Title of the Modal.Header. */
     title: PropTypes.string,
-    /**
-     * Subtitle of the Modal.Header.
-     */
+    /** Subtitle of the Modal.Header. */
     subtitle: PropTypes.string,
-    /**
-     * Function that is called right before the Modal unmounts itself.
-     */
+    /** Function that is called right before the Modal unmounts itself. */
     beforeClose: PropTypes.func
 }
 
@@ -174,21 +158,16 @@ Body.defaultProps = {
     showCloseIcon: false
 }
 Body.propTypes = {
-    /**
-     * Display an icon (or basically any component) on the right hand side of the Modal.Body.
-     */
+    /** Display an icon (or basically any component) on the right hand side of the Modal.Body. */
     icon: PropTypes.node,
     /**
-     * Render a close icon in the top right corner of the Modal.Body. Recommended to use when no Modal.Header is used.
+     * Render a close icon in the top right corner of the Modal.Body.
+     * Recommended to use when no Modal.Header is used.
      */
     showCloseIcon: PropTypes.bool,
-    /**
-     * Additionall css class applied to the Modal.Body.
-     */
+    /** Additionall css class applied to the Modal.Body. */
     className: PropTypes.string,
-    /**
-     * Children to render inside the Modal.Body.
-     */
+    /** Children to render inside the Modal.Body. */
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node

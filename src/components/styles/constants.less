@@ -1,49 +1,63 @@
 // Colors /////////////////////////////////////////////////////////////////////
-@primary-color: #3F82EF;
-@primary-color-lighter: #b3cdf9;
-@primary-color-darker: #3b7be2;
-@primary-font-color: #404040;
-@secondary-font-color: #A5A5A5;
-@color-grey-5: #B3B3B3;
-@color-grey-8: #404040;
-@color-grey-9: #f9f9f9;
-@color-grey-10: #ececec;
-@color-grey-11: #fafafa;
-@color-red: #DE4C4A;
-@color-green: #70BC1C;
+@primary_color: #3F82EF;
+@primary_color_lighter: #b3cdf9;
+@primary_color_darker: #3b7be2;
+@primary_font_color: #404040;
+@secondary_font_color: #A5A5A5;
+@color_grey_5: #B3B3B3;
+@color_grey_8: #404040;
+@color_grey_9: #f9f9f9;
+@color_grey_10: #ececec;
+@color_grey_11: #fafafa;
+@color_red: #DE4C4A;
+@color_green: #70BC1C;
 
 
 // Typography /////////////////////////////////////////////////////////////////
 // weights
 @normal: 400;
-@semi-bold: 600;
+@semi_bold: 600;
 @bold: 700;
 
-// normal text
-.normal_text(@color: @primary-font-color, @weight: @normal) {
-    font-size: 0.875rem;
-    color: @color;
-    font-weight: @weight;
-    line-height: 1.7;
-    font-family: 'Open Sans', sans-serif;
-}
+// font sizes
+@normal_font_size: 0.875rem;
+@smaller_font_size: 0.81rem;
+@tiny_font_size: 0.75rem;
+@heading_one_font_size: 1.25rem;
+@heading_two_font_size: 1rem;
+@subheading_font_size: 0.69rem;
 
-// smaller text
-.smaller_text(@color: @primary-font-color, @weight: @normal) {
-    font-size: 0.81rem;
-    color: @color;
-    font-weight: @weight;
-    line-height: 1.6;
-    font-family: 'Open Sans', sans-serif;
-}
-
-// tiny text
-.tiny_text(@color: @secondary-font-color, @weight: @normal) {
-    font-size: 0.75rem;
+// heading two text
+.heading_two_text(@color: @primary_font_color, @weight: @bold) {
+    font-size: @heading_two_font_size;
     color: @color;
     font-weight: @weight;
     line-height: 1.8;
 }
 
-// Break points //////////////////////////////////////////////////////////////////
+// normal text
+.normal_text(@color: @primary_font_color, @weight: @normal) {
+    font-size: @normal_font_size;
+    color: @color;
+    font-weight: @weight;
+    line-height: 1.7;
+}
+
+// smaller text
+.smaller_text(@color: @primary_font_color, @weight: @normal) {
+    font-size: @smaller_font_size;
+    color: @color;
+    font-weight: @weight;
+    line-height: 1.6;
+}
+
+// tiny text
+.tiny_text(@color: @secondary_font_color, @weight: @normal) {
+    font-size: @tiny_font_size;
+    color: @color;
+    font-weight: @weight;
+    line-height: 1.8;
+}
+
+// Break points ///////////////////////////////////////////////////////////////
 @small_screen: ~"only screen and (max-width: 992px)";

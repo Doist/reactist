@@ -7,7 +7,7 @@ import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '..
 
 import Modal from '../../../src/components/Modal'
 import Button from '../../../src/components/Button'
-import { howToText, modalBoxText, modalHeaderText, modalBodyText, modalActionsText } from './ModalStoryTexts'
+import { howToText, modalBoxText, modalHeaderText, modalBodyText, modalActionsText } from './ModalStory.md'
 
 // Helper =====================================================================
 const renderModal = (modal) => {
@@ -101,7 +101,8 @@ const ModalPlaygroundStory = () => {
 }
 
 // Story setup ================================================================
-const modal_story = () => storiesOf('Modal', module)
+const Story = () =>
+storiesOf('Modal', module)
     .addDecorator(withKnobs)
     .addWithChapters('Component Documentation', {
         chapters: ModalDocumentationChapters
@@ -116,4 +117,4 @@ const modal_story = () => storiesOf('Modal', module)
     .add('Component Playground', ModalPlaygroundStory)
 
 
-export default modal_story
+export default Story

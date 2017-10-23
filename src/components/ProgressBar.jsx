@@ -22,13 +22,9 @@ ProgressBar.defaultProps = {
     fillPercentage: 0
 }
 ProgressBar.propTypes = {
-    /**
-     * How much of the progress bar should be filled. Number between 0 and 100 inclusive.
-     */
+    /** How much of the progress bar should be filled. Number between 0 and 100 inclusive. */
     fillPercentage: PropTypes.number,
-    /**
-     * Additional css class applied to the progress bar.
-     */
+    /** Additional css class applied to the progress bar. */
     className: PropTypes.string
 }
 
