@@ -19,19 +19,47 @@ First clone the repository to your local machine by running:
 git clone git@github.com:Doist/reactist.git
 ```
 
-You can run the build task in watch mode with
-```sh
-npm run build-watch
-```
-this will update the build artifacts whenever you change something. This is helpful if you linked your local version of reactist into your project and want to see the changes there.
+We identified two major modes of development for Reactist. First, running an interactive storybook and see the changes you make to a component in an isolated environment. This is especially helpful when developing new components. And second, improving existing components in real-life applications.
 
-If you want to develop a new component or change an existing one we recommend to do it directly in a story with storybook. You can boot the development server with hot reloading by running:
+## Storybook
+
+For the first development mode run:
 ```sh
 npm run storybook
 ```
-Changes you make on the component will be instantly reflected on the component itself.
+This boots up a development server with hot reloading on http://localhost:6006. You can iterate on the components in the existing stories or add a completely new one.
 
-To produce a new build (e.g. before submitting a PR) run:
+## Inside your application
+
+For the second development mode you can leverage `npm link`. First run:
+```sh
+npm run build-watch
+```
+this will update the build artifacts whenever you change something.
+
+In your real application you need to first delete the current *@doist/reactist* dependency and then link to your local one.
+```sh
+cd ~/your-app
+# delete current reactist dependency
+rm -rf ./node_modules/@doist/reactist
+
+# link local reactist version
+npm link ../reactist
+```
+The relative path to reactist may need to be changed to match your local environment.
+
+To undo the changes and switch back to the reactist version from npm do the following:
+```sh
+cd ~/your-app
+# first remove linked reactist dependency
+rm -rf ./node_modules/@doist/reactist
+
+# re-install reactist from npm (-E avoids updating the version / package-lock.json)
+npm install -E @doist/reactist
+```
+
+
+Independent of the development you operate in to produce a new build (e.g. before submitting a PR) run:
 ```sh
 npm run build
 ```
@@ -39,6 +67,7 @@ npm run build
 ```sh
 npm run build-storybook
 ```
+
 
 You can run our eslint checks with
 ```sh
