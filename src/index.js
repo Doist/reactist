@@ -6,6 +6,7 @@ import ProgressBar from './components/ProgressBar'
 import Select from './components/Select'
 import { MenuButton, MenuButtonItem } from './components/MenuButton'
 import Input from './components/Input'
+import { Tabs, Tab } from './components/Tabs'
 
 export {
     Modal,
@@ -16,5 +17,7 @@ export {
     Select,
     MenuButton,
     MenuButtonItem,
-    Input
+    Input,
+    Tabs,
+    Tab
 }
