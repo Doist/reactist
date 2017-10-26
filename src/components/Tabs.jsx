@@ -63,7 +63,11 @@ Tabs.propTypes = {
     defaultTab: PropTypes.number
 }
 
-const Tab = ({ children }) => <div className='reactist tabs__tab'>{ children }</div>
+const Tab = ({ children, className }) => (
+    <div className={ classNames('reactist tabs__tab', className) }>
+        { children }
+    </div>
+)
 Tab.displayName = 'Tab'
 Tab.defaultProps = {
     disabled: false
@@ -72,7 +76,9 @@ Tab.propTypes = {
     /** Title of the tab. */
     title: PropTypes.string.isRequired,
     /** Disabled tabs can't be selected. */
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    /** Additional css class applied to Tab. */
+    className: PropTypes.string
 }
 
 
