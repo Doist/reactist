@@ -9,6 +9,7 @@ import ProgressBarStory from './components/ProgressBarStory'
 import SelectStory from './components/SelectStory'
 import MenuButtonStory from './components/MenuButtonStory'
 import InputStory from './components/InputStory'
+import TabsStory from './components/TabsStory'
 
 ReactistStory()
 // alphabetically sorted component stories
@@ -19,4 +20,5 @@ MenuButtonStory()
 ModalStory()
 ProgressBarStory()
 SelectStory()
+TabsStory()
 TimeStory()

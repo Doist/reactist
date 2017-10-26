@@ -1,0 +1,25 @@
+@import './constants.less';
+
+.reactist.tabs {
+    &__header {
+        display: flex;
+        border-bottom: 1px solid @color_grey_10;
+
+        &--item {
+            display: block;
+            margin: 0 20px 0 0;
+            padding: 10px 0;
+            .normal_text(@color: @color_grey_5);
+            text-decoration: none;
+            box-sizing: border-box;
+
+            &.active {
+                .normal_text(@color: @primary_color);
+                border-bottom: 3px solid @primary_color;
+            }
+            &.disabled:hover {
+                cursor: not-allowed;
+            }
+        }
+    }
+}
