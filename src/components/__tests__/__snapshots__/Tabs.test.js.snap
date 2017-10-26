@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs renders Tab without children 1`] = `
+<div
+  className="reactist tabs__tab"
+/>
+`;
+
+exports[`Tabs renders with single children 1`] = `
+<div
+  className="reactist tabs"
+>
+  <div
+    className="reactist tabs__header"
+  >
+    <a
+      className="reactist tabs__header--item active"
+      href=""
+      onClick={[Function]}
+    >
+      Tab 1
+    </a>
+  </div>
+  <div
+    className="reactist tabs__body"
+  >
+    <Tab
+      disabled={false}
+      title="Tab 1"
+    >
+      Content
+    </Tab>
+  </div>
+</div>
+`;
+
+exports[`Tabs renders without children 1`] = `
+<div
+  className="reactist tabs"
+>
+  <div
+    className="reactist tabs__header"
+  />
+  <div
+    className="reactist tabs__body"
+  />
+</div>
+`;
