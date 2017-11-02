@@ -11,6 +11,7 @@ import MenuButtonStory from './components/MenuButtonStory'
 import InputStory from './components/InputStory'
 import TabsStory from './components/TabsStory'
 import LinkButtonStory from './components/LinkButtonStory'
+import TooltipStory from './components/TooltipStory'
 
 ReactistStory()
 // alphabetically sorted component stories
@@ -24,3 +25,4 @@ ProgressBarStory()
 SelectStory()
 TabsStory()
 TimeStory()
+TooltipStory()
