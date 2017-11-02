@@ -1,0 +1,73 @@
+@import './constants.less';
+
+@tooltip_background: @color_grey_8;
+
+.reactist.tooltip {
+    &__wrapper {
+        display: inline-block;
+        overflow: auto;
+        cursor: unset;
+    }
+
+    .smaller_text(@color: white);
+    background-color: @tooltip_background;
+    border-radius: 3px;
+    padding: 5px 10px;
+    display: inline;
+    max-width: 250px;
+    z-index: 1000;
+
+    position: fixed;
+    // positional coordinates are set in code
+
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.1s, opacity 0.1s linear;
+    &.visible {
+        visibility: visible;
+        opacity: 1;
+        transition-delay: 0s;
+    }
+
+    // Arrow Definitions ======================================================
+    @arrow_size: 5px;
+    .arrow() {
+        position: absolute;
+        content: '';
+        height: 0;
+        width: 0;
+    }
+    &.arrow_top:after {
+        .arrow();
+        top: -@arrow_size;
+        left: calc(50% - @arrow_size);
+        border-left: @arrow_size solid transparent;
+        border-right: @arrow_size solid transparent;
+        border-bottom: @arrow_size solid @tooltip_background;
+    }
+    &.arrow_right:after {
+        .arrow();
+        bottom: calc(50% - @arrow_size);
+        right: -@arrow_size;
+        border-left: @arrow_size solid @tooltip_background;
+        border-bottom: @arrow_size solid transparent;
+        border-top: @arrow_size solid transparent;
+    }
+    &.arrow_bottom:after {
+        .arrow();
+        bottom: -@arrow_size;
+        left: calc(50% - @arrow_size);
+        border-left: @arrow_size solid transparent;
+        border-right: @arrow_size solid transparent;
+        border-top: @arrow_size solid @tooltip_background;
+    }
+    &.arrow_left:after {
+        .arrow();
+        position: absolute;
+        bottom: calc(50% - @arrow_size);
+        left: -@arrow_size;
+        border-right: @arrow_size solid @tooltip_background;
+        border-bottom: @arrow_size solid transparent;
+        border-top: @arrow_size solid transparent;
+    }
+}

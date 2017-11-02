@@ -8,6 +8,7 @@ import { MenuButton, MenuButtonItem } from './components/MenuButton'
 import Input from './components/Input'
 import { Tabs, Tab } from './components/Tabs'
 import LinkButton from './components/LinkButton'
+import Tooltip from './components/Tooltip'
 
 export {
     Modal,
@@ -20,5 +21,7 @@ export {
     MenuButtonItem,
     Input,
     Tabs,
-    Tab
+    Tab,
+    LinkButton,
+    Tooltip
 }
