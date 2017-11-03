@@ -7,6 +7,7 @@ import Select from './components/Select'
 import { MenuButton, MenuButtonItem } from './components/MenuButton'
 import Input from './components/Input'
 import { Tabs, Tab } from './components/Tabs'
+import LinkButton from './components/LinkButton'
 
 export {
     Modal,

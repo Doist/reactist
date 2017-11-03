@@ -1,0 +1,16 @@
+@import './constants.less';
+
+.reactist.link_button {
+    text-decoration: none;
+
+    &:active {
+        color: @primary_color;
+    }
+    &:visited {
+        color: @primary_color;
+    }
+
+    &.disabled {
+        color: @secondary_font_color;
+    }
+}
