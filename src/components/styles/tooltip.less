@@ -22,11 +22,10 @@
 
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s linear 0.1s, opacity 0.1s linear;
+    transition: opacity 0.1s linear;
     &.visible {
         visibility: visible;
         opacity: 1;
-        transition-delay: 0s;
     }
 
     // Arrow Definitions ======================================================
@@ -63,7 +62,6 @@
     }
     &.arrow_left:after {
         .arrow();
-        position: absolute;
         bottom: calc(50% - @arrow_size);
         left: -@arrow_size;
         border-right: @arrow_size solid @tooltip_background;
