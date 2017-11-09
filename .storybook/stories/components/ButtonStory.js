@@ -82,7 +82,7 @@ const AlternaterBrandingButtonsChapter = {
 }
 
 const ButtonPlaygroundStory = () => (
-    <section className='story'>
+    <section className='story playground'>
         <Button
             name={ text('Name', 'Button Text') }
             secondary={ boolean('Secondary', false) }
