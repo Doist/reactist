@@ -132,8 +132,15 @@ class Tooltip extends React.Component {
     }
 
     render() {
-        const tooltipClass = this._getClassNameForPosition(this.props.position)
+        if (!this.props.text) {
+            return (
+                <div className='reactist tooltip__wrapper'>
+                    { this.props.children }
+                </div>
+            )
+        }
 
+        const tooltipClass = this._getClassNameForPosition(this.props.position)
         return (
             <div
                 className='reactist tooltip__wrapper'
