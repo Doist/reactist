@@ -17,27 +17,27 @@ exports[`Button adds additional className when supplied 1`] = `
 `;
 
 exports[`Button renders a tooltip when prop is supplied 1`] = `
-<button
-  className="reactist button"
-  disabled={false}
-  onClick={[Function]}
+<Tooltip
+  delayHide={0}
+  delayShow={1000}
+  hideOnScroll={true}
+  position="auto"
+  text="THE TOOLTIP"
 >
-  <div
-    className="wrapper"
-    data-tip="THE TOOLTIP"
+  <button
+    className="reactist button"
+    disabled={false}
+    onClick={[Function]}
   >
-    <span>
-      THE BUTTON TEXT
-    </span>
-  </div>
-  <ReactTooltip
-    effect="solid"
-    insecure={true}
-    multiline={true}
-    resizeHide={true}
-    wrapper="div"
-  />
-</button>
+    <div
+      className="wrapper"
+    >
+      <span>
+        THE BUTTON TEXT
+      </span>
+    </div>
+  </button>
+</Tooltip>
 `;
 
 exports[`Button renders empty without crashing 1`] = `

@@ -2,8 +2,9 @@ import './styles/button.less'
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactTooltip from 'react-tooltip'
 import classNames from 'classnames'
+
+import Tooltip from './Tooltip'
 
 class Button extends React.Component {
     constructor(props, context) {
@@ -31,21 +32,22 @@ class Button extends React.Component {
             danger: this.props.danger
         }, this.props.className)
 
-        return (
+        const button = (
             <button
                 className={ className }
                 disabled={ this.props.disabled }
                 onClick={ this._onClick }
             >
-                <div
-                    data-tip={ data_tip }
-                    className='wrapper'
-                >
+                <div className='wrapper'>
                     <span>{this.props.name}</span>
                 </div>
-                {data_tip && <ReactTooltip effect='solid' multiline />}
             </button>
         )
+
+        // conditionally wrap into tooltip
+        return data_tip
+            ? <Tooltip text={ data_tip }>{ button }</Tooltip>
+            : button
     }
 }
 Button.displayName = 'Button'
