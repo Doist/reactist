@@ -16,9 +16,7 @@ const RangeInput = ({ value, min, max, stepSize, onPlus, onMinus, onChange, clas
         <div className={ rangeInputClassName }>
             <span
                 className='range_btn minus'
-                name='-'
                 onClick={ () => value > min && onMinus(value - stepSize) }
-                disabled={ value <= min }
             />
             <input
                 value={ value }
@@ -30,9 +28,7 @@ const RangeInput = ({ value, min, max, stepSize, onPlus, onMinus, onChange, clas
             />
             <span
                 className='range_btn plus'
-                name='+'
                 onClick={ () => value < max && onPlus(value + stepSize) }
-                disabled={ value >= max }
             />
         </div>
     )
