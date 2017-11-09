@@ -54,7 +54,6 @@
     "react-storybook-addon-chapters": "^1.1.0",
     "react-svg-loader": "^1.1.1",
     "react-test-renderer": "^15.5.4",
-    "react-tooltip": "^3.3.0",
     "regenerator-runtime": "^0.10.5",
     "style-loader": "^0.17.0",
     "svg-url-loader": "^2.0.2",
@@ -66,8 +65,7 @@
     "moment-timezone": "^0.5.13",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-tooltip": "^3.3.0"
+    "react-dom": "^15.5.4"
   },
   "jest": {
     "snapshotSerializers": [
