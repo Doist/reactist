@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Tooltip renders only children if text prop is not defined 1`] = `
+<div
+  className="reactist tooltip__wrapper"
+>
+  <span>
+    Wrapped Content
+  </span>
+</div>
+`;
+
 exports[`Tooltip renders without crashing 1`] = `
 <div
   className="reactist tooltip__wrapper"

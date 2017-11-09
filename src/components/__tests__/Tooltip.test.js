@@ -18,6 +18,12 @@ describe('Tooltip', () => {
         expect(tooltip).toMatchSnapshot()
     })
 
+    it('renders only children if text prop is not defined', () => {
+        console.error = jest.fn() // silence errors caused by unsupplied required prop
+        const tooltip = shallow(getTooltip({ text: null }))
+        expect(tooltip).toMatchSnapshot()
+    })
+
     it('gets visible on hovering and hides on unhovering', () => {
         const tooltip = shallow(getTooltip())
 
