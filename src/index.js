@@ -10,6 +10,7 @@ import { Tabs, Tab } from './components/Tabs'
 import LinkButton from './components/LinkButton'
 import Tooltip from './components/Tooltip'
 import RangeInput from './components/RangeInput'
+import ErrorMessage from './components/ErrorMessage'
 
 export {
     Modal,
@@ -25,5 +26,6 @@ export {
     Tab,
     LinkButton,
     Tooltip,
-    RangeInput
+    RangeInput,
+    ErrorMessage
 }
