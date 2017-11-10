@@ -2,7 +2,7 @@ import './styles/progressbar_story.less'
 
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, number } from '@storybook/addon-knobs';
+import { withKnobs, number } from '@storybook/addon-knobs'
 
 import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
