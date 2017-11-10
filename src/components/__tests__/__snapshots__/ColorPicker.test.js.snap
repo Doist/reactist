@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ColorPicker ColorItem renders given color and does nothing when clicked without specified onClick handler 1`] = `
+<span
+  className="reactist color_item"
+  onClick={[Function]}
+  style={
+    Object {
+      "backgroundColor": "#606060",
+    }
+  }
+/>
+`;
+
+exports[`ColorPicker renders without crashing 1`] = `
+<Dropdown.Box
+  className="reactist color_picker"
+  right={true}
+>
+  <Dropdown.Trigger>
+    <ColorItem
+      colorIndex={0}
+    />
+  </Dropdown.Trigger>
+  <Dropdown.Body>
+    <div
+      className="color_options"
+    >
+      <ColorItem
+        colorIndex={1}
+      />
+      <ColorItem
+        colorIndex={2}
+      />
+      <ColorItem
+        colorIndex={3}
+      />
+      <ColorItem
+        colorIndex={4}
+      />
+      <ColorItem
+        colorIndex={5}
+      />
+      <ColorItem
+        colorIndex={6}
+      />
+      <ColorItem
+        colorIndex={7}
+      />
+      <ColorItem
+        colorIndex={8}
+      />
+      <ColorItem
+        colorIndex={9}
+      />
+      <ColorItem
+        colorIndex={10}
+      />
+      <ColorItem
+        colorIndex={11}
+      />
+      <ColorItem
+        colorIndex={12}
+      />
+    </div>
+  </Dropdown.Body>
+</Dropdown.Box>
+`;
