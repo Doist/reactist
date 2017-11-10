@@ -14,10 +14,12 @@ import LinkButtonStory from './components/LinkButtonStory'
 import TooltipStory from './components/TooltipStory'
 import RangeInputStory from './components/RangeInputStory'
 import ErrorMessageStory from './components/ErrorMessageStory'
+import ColorPickerStory from './components/ColorPickerStory'
 
 ReactistStory()
 // alphabetically sorted component stories
 ButtonStory()
+ColorPickerStory()
 DropdownStory()
 ErrorMessageStory()
 InputStory()
