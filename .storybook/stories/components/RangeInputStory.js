@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, number } from '@storybook/addon-knobs';
+import { withKnobs, number } from '@storybook/addon-knobs'
 
 import { getPropTypesStory, emptySection, optionsNoSourceNoProps } from '../utils/StoryUtils'
 

@@ -2,7 +2,7 @@ import './styles/tooltip_story.less'
 
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, number, select } from '@storybook/addon-knobs';
+import { withKnobs, text, boolean, number, select } from '@storybook/addon-knobs'
 
 import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
