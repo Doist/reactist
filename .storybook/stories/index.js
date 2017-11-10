@@ -13,11 +13,13 @@ import TabsStory from './components/TabsStory'
 import LinkButtonStory from './components/LinkButtonStory'
 import TooltipStory from './components/TooltipStory'
 import RangeInputStory from './components/RangeInputStory'
+import ErrorMessageStory from './components/ErrorMessageStory'
 
 ReactistStory()
 // alphabetically sorted component stories
 ButtonStory()
 DropdownStory()
+ErrorMessageStory()
 InputStory()
 LinkButtonStory()
 MenuButtonStory()
