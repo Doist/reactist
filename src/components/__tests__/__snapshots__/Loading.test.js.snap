@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading renders a loading indicator with three dots 1`] = `
+<div
+  className="spinner"
+>
+  <div
+    className="spinner__dot"
+  />
+  <div
+    className="spinner__dot"
+  />
+  <div
+    className="spinner__dot"
+  />
+</div>
+`;
