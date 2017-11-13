@@ -1,0 +1,33 @@
+@import './animations.less';
+@import './constants.less';
+
+.spinner {
+    display: block;
+    margin: auto;
+    padding: 20px;
+    width: 30px;
+
+    &__dot {
+        width: 9px;
+        height: 9px;
+        position: relative;
+        margin-left: 1px;
+        top: 2px;
+        border-radius: 100%;
+        display: inline-block;
+        animation: spinner-bouncedelay 1.4s infinite ease-in-out both;
+
+        background-color: @color_almost_black;
+
+        &:nth-of-type(1) {
+            animation-delay: -0.32s;
+        }
+        &:nth-of-type(2) {
+            animation-delay: -0.16s;
+        }
+    }
+
+    &--white .spinner__dot {
+        background-color: white;
+    }
+}

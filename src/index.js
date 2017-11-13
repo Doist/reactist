@@ -14,6 +14,7 @@ import ErrorMessage from './components/ErrorMessage'
 import ColorPicker, { COLORS } from './components/ColorPicker'
 import Tip from './components/Tip'
 import Checkbox from './components/Checkbox'
+import Loading from './components/Loading'
 
 export {
     Modal,
@@ -34,5 +35,6 @@ export {
     ColorPicker,
     COLORS,
     Tip,
-    Checkbox
+    Checkbox,
+    Loading
 }
