@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tip renders without crashing 1`] = `
+<Dropdown.Box
+  className="reactist tip__container"
+  top={false}
+>
+  <Dropdown.Trigger>
+    <ThinQuestionMark />
+  </Dropdown.Trigger>
+  <Dropdown.Body>
+    <div
+      className="reactist tip"
+    >
+      <p
+        className="reactist tip--title"
+      >
+        Title of the Tip
+      </p>
+      <p
+        className="reactist tip--message"
+      >
+        Message of the Tip
+      </p>
+    </div>
+  </Dropdown.Body>
+</Dropdown.Box>
+`;
