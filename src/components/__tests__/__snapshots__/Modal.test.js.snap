@@ -170,7 +170,7 @@ exports[`Modal.Header renders all children without crashing 1`] = `
     href="#"
     onClick={[Function]}
   >
-    <test-file-stub />
+    <CloseIcon />
   </a>
 </div>
 `;
@@ -196,7 +196,7 @@ exports[`Modal.Header renders all children without crashing 2`] = `
     href="#"
     onClick={[Function]}
   >
-    <test-file-stub />
+    <CloseIcon />
   </a>
 </div>
 `;
@@ -217,7 +217,7 @@ exports[`Modal.Header renders title and subtitle if available 1`] = `
     href="#"
     onClick={[Function]}
   >
-    <test-file-stub />
+    <CloseIcon />
   </a>
 </div>
 `;
@@ -238,7 +238,7 @@ exports[`Modal.Header renders title and subtitle if available 2`] = `
     href="#"
     onClick={[Function]}
   >
-    <test-file-stub />
+    <CloseIcon />
   </a>
 </div>
 `;
@@ -253,7 +253,7 @@ exports[`Modal.Header renders without crashing 1`] = `
     href="#"
     onClick={[Function]}
   >
-    <test-file-stub />
+    <CloseIcon />
   </a>
 </div>
 `;
