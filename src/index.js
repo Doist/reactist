@@ -12,6 +12,7 @@ import Tooltip from './components/Tooltip'
 import RangeInput from './components/RangeInput'
 import ErrorMessage from './components/ErrorMessage'
 import ColorPicker, { COLORS } from './components/ColorPicker'
+import Tip from './components/Tip'
 
 export {
     Modal,
@@ -30,5 +31,6 @@ export {
     RangeInput,
     ErrorMessage,
     ColorPicker,
-    COLORS
+    COLORS,
+    Tip
 }
