@@ -16,10 +16,12 @@ import RangeInputStory from './components/RangeInputStory'
 import ErrorMessageStory from './components/ErrorMessageStory'
 import ColorPickerStory from './components/ColorPickerStory'
 import TipStory from './components/TipStory'
+import CheckboxStory from './components/CheckboxStory'
 
 ReactistStory()
 // alphabetically sorted component stories
 ButtonStory()
+CheckboxStory()
 ColorPickerStory()
 DropdownStory()
 ErrorMessageStory()
