@@ -15,6 +15,7 @@ import TooltipStory from './components/TooltipStory'
 import RangeInputStory from './components/RangeInputStory'
 import ErrorMessageStory from './components/ErrorMessageStory'
 import ColorPickerStory from './components/ColorPickerStory'
+import TipStory from './components/TipStory'
 
 ReactistStory()
 // alphabetically sorted component stories
@@ -31,4 +32,5 @@ RangeInputStory()
 SelectStory()
 TabsStory()
 TimeStory()
+TipStory()
 TooltipStory()
