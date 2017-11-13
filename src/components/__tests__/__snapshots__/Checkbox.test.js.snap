@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox renders when initially set to false 1`] = `
+<label
+  className="reactist checkbox"
+>
+  <input
+    checked={false}
+    className="checkbox--input"
+    onChange={[Function]}
+    type="checkbox"
+    value="Checkbox Label"
+  />
+  Checkbox Label
+</label>
+`;
+
+exports[`Checkbox renders when initially set to true 1`] = `
+<label
+  className="reactist checkbox"
+>
+  <input
+    checked={true}
+    className="checkbox--input"
+    onChange={[Function]}
+    type="checkbox"
+    value="Checkbox Label"
+  />
+  Checkbox Label
+</label>
+`;
