@@ -1,0 +1,20 @@
+@import "./constants.less";
+
+.reactist.tip {
+    &__container {
+        width: 30px;
+        height: 20px;
+    }
+
+    width: 250px;
+    padding: 10px 20px;
+
+    &--title {
+        margin: 0 0 10px 0;
+        .normal_text(@weight: @bold);
+    }
+    &--message {
+        margin: 0;
+        .normal_text()
+    }
+}
