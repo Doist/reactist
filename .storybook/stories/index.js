@@ -17,6 +17,7 @@ import ErrorMessageStory from './components/ErrorMessageStory'
 import ColorPickerStory from './components/ColorPickerStory'
 import TipStory from './components/TipStory'
 import CheckboxStory from './components/CheckboxStory'
+import LoadingStory from './components/LoadingStory'
 
 ReactistStory()
 // alphabetically sorted component stories
@@ -27,6 +28,7 @@ DropdownStory()
 ErrorMessageStory()
 InputStory()
 LinkButtonStory()
+LoadingStory()
 MenuButtonStory()
 ModalStory()
 ProgressBarStory()
