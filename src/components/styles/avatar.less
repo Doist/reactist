@@ -1,0 +1,26 @@
+.avatar_size(@size) {
+    width: @size;
+    height: @size;
+    line-height: @size;
+    background-size: @size;
+    font-size: calc(@size / 2);
+}
+
+.reactist.avatar {
+    flex-shrink: 0;
+    background-position: center;
+    color: white;
+    text-align: center;
+    border-radius: 50%;
+
+    &_size {
+        &--xxs { .avatar_size(16px) }
+        &--xs { .avatar_size(20px) }
+        &--s { .avatar_size(30px) }
+        &--m { .avatar_size(32px) }
+        &--l { .avatar_size(34px) }
+        &--xl { .avatar_size(48px) }
+        &--xxl { .avatar_size(70px) }
+        &--xxxl { .avatar_size(100px) }
+    }
+}

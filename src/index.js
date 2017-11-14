@@ -15,6 +15,7 @@ import ColorPicker, { COLORS } from './components/ColorPicker'
 import Tip from './components/Tip'
 import Checkbox from './components/Checkbox'
 import Loading from './components/Loading'
+import Avatar from './components/Avatar'
 
 export {
     Modal,
@@ -36,5 +37,6 @@ export {
     COLORS,
     Tip,
     Checkbox,
-    Loading
+    Loading,
+    Avatar
 }
