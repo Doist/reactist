@@ -41,7 +41,7 @@ const InitialsAvatarChapter =  {
 const PictureAvatarStory = () => (
     <section className='story avatars'>
         { exampleData.map((data, index) => (
-            <Avatar key={ index } size={ data.size } user={ data.user } imageUrl={ data.image } />
+            <Avatar key={ index } size={ data.size } user={ data.user } avatarUrl={ data.image } />
         ))}
     </section>
 )
@@ -57,7 +57,7 @@ const AvatarPlaygroundStory = () => (
                 name: text('User Name', ''),
                 email: text('User Email', '')
             }}
-            imageUrl={ text('imageUrl', 'https://loremflickr.com/320/320') }
+            avatarUrl={ text('Avatar URL', 'https://loremflickr.com/320/320') }
             size={ select('Avatar Size', ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'], 'l') }
         />
     </section>

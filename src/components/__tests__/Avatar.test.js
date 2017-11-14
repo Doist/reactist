@@ -4,18 +4,18 @@ import { shallow } from 'enzyme'
 import Avatar from '../Avatar'
 
 describe('Avatar', () => {
-    it('renders a background image when imageUrl is supplied', () => {
-        const avatar = shallow(getAvatar({ imageUrl: 'https://foo.bar/com.png' }))
+    it('renders a background image when avatarUrl is supplied', () => {
+        const avatar = shallow(getAvatar({ avatarUrl: 'https://foo.bar/com.png' }))
         expect(avatar).toMatchSnapshot()
     })
 
-    it('renders initials of user name when imageUrl is not supplied', () => {
+    it('renders initials of user name when avatarUrl is not supplied', () => {
         const avatar = shallow(getAvatar())
         expect(avatar).toMatchSnapshot()
         expect(avatar.text()).toBe('HM')
     })
 
-    it('renders initials of user email when imageUrl is not supplied', () => {
+    it('renders initials of user email when avatarUrl is not supplied', () => {
         const avatar = shallow(getAvatar({ user: { email: 'henning@doist.com' }}))
         expect(avatar).toMatchSnapshot()
         expect(avatar.text()).toBe('H')

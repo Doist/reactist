@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Avatar renders a background image when imageUrl is supplied 1`] = `
+exports[`Avatar renders a background image when avatarUrl is supplied 1`] = `
 <div
   className="reactist avatar avatar_size--xl"
   style={
@@ -14,7 +14,7 @@ exports[`Avatar renders a background image when imageUrl is supplied 1`] = `
 </div>
 `;
 
-exports[`Avatar renders initials of user email when imageUrl is not supplied 1`] = `
+exports[`Avatar renders initials of user email when avatarUrl is not supplied 1`] = `
 <div
   className="reactist avatar avatar_size--xl"
   style={
@@ -27,7 +27,7 @@ exports[`Avatar renders initials of user email when imageUrl is not supplied 1`]
 </div>
 `;
 
-exports[`Avatar renders initials of user name when imageUrl is not supplied 1`] = `
+exports[`Avatar renders initials of user name when avatarUrl is not supplied 1`] = `
 <div
   className="reactist avatar avatar_size--xl"
   style={
