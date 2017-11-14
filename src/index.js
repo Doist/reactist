@@ -16,6 +16,7 @@ import Tip from './components/Tip'
 import Checkbox from './components/Checkbox'
 import Loading from './components/Loading'
 import Avatar from './components/Avatar'
+import Icon from './components/Icon'
 
 export {
     Modal,
@@ -38,5 +39,6 @@ export {
     Tip,
     Checkbox,
     Loading,
-    Avatar
+    Avatar,
+    Icon
 }
