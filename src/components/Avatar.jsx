@@ -15,14 +15,14 @@ const AVATAR_COLORS = [
 ]
 const AVATAR_SIZES = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl']
 
-const Avatar = ({ user, imageUrl, size, className }) => {
+const Avatar = ({ user, avatarUrl, size, className }) => {
     const userInitials = getInitials(user.name) || getInitials(user.email)
     const avatarSize = AVATAR_SIZES.includes(size) ? size : 'l'
     const avatarClass = classNames(`reactist avatar avatar_size--${avatarSize}`, className)
 
-    const style = imageUrl
+    const style = avatarUrl
         ? {
-            backgroundImage: `url(${imageUrl})`,
+            backgroundImage: `url(${avatarUrl})`,
             textIndent: '-9999px' // hide the initials
         }
         : {
@@ -48,7 +48,7 @@ Avatar.propTypes = {
         email: PropTypes.string
     }).isRequired,
     /** URL of the avatar image. In case nothing is set a colored circle with the user's initials is displayed. */
-    imageUrl: PropTypes.string,
+    avatarUrl: PropTypes.string,
     /** Size of the Avatar between XXS and XXXL. */
     size: PropTypes.oneOf(AVATAR_SIZES),
     /** Additional css class applied to the avatar. */
