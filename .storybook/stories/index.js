@@ -19,6 +19,7 @@ import TipStory from './components/TipStory'
 import CheckboxStory from './components/CheckboxStory'
 import LoadingStory from './components/LoadingStory'
 import AvatarStory from './components/AvatarStory'
+import IconStory from './components/IconStory'
 
 ReactistStory()
 // alphabetically sorted component stories
@@ -28,6 +29,7 @@ CheckboxStory()
 ColorPickerStory()
 DropdownStory()
 ErrorMessageStory()
+IconStory()
 InputStory()
 LinkButtonStory()
 LoadingStory()
