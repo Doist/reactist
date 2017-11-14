@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icon renders darker default icon (three dots) when neither image nor component is supplied and is hovered 1`] = `
+<a
+  className="reactist icon icon--component"
+  href="#"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <ThreeDotsIcon
+    color="#474747"
+  />
+</a>
+`;
+
+exports[`Icon renders default icon (three dots) when neither image nor component is supplied 1`] = `
+<a
+  className="reactist icon icon--component"
+  href="#"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <ThreeDotsIcon />
+</a>
+`;
+
+exports[`Icon renders icon component when supplied and no image is supplied 1`] = `
+<a
+  className="reactist icon icon--component"
+  href="#"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <CloseIcon />
+</a>
+`;
+
+exports[`Icon renders image when hovered but no hoveredImage is supplied 1`] = `
+<a
+  className="reactist icon"
+  href="#"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "backgroundImage": "url(https://fake.image.com/foo.png)",
+    }
+  }
+/>
+`;
+
+exports[`Icon renders image when unhovered and hoveredImage is supplied 1`] = `
+<a
+  className="reactist icon"
+  href="#"
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "backgroundImage": "url(https://fake.image.com/foo.png)",
+    }
+  }
+/>
+`;
+
+exports[`Icon wraps icon in a tooltip when tooltip is supplied 1`] = `
+<Tooltip
+  delayHide={0}
+  delayShow={1000}
+  hideOnScroll={true}
+  position="auto"
+  text="Tooltip text"
+>
+  <a
+    className="reactist icon icon--component"
+    href="#"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <ThreeDotsIcon />
+  </a>
+</Tooltip>
+`;
