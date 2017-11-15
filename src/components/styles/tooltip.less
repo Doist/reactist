@@ -5,14 +5,21 @@
 .reactist.tooltip {
     &__wrapper {
         display: inline-block;
+        max-width: 100%;
         cursor: unset;
     }
 
-    .smaller_text(@color: white);
+    .tooltip__text {
+        .smaller_text(@color: white);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 100%;
+        display: inline-block;
+    }
+
     background-color: @tooltip_background;
     border-radius: 3px;
     padding: 5px 10px;
-    display: inline;
     max-width: 250px;
     z-index: 1000;
 
