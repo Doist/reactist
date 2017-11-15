@@ -2,13 +2,15 @@ import './styles/tip.less'
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
 import ThinQuestionMark from './icons/ThinQuestionMarkIcon.svg'
 import Dropdown from './Dropdown'
 
-const Tip = ({ title, message, top }) => {
+const Tip = ({ title, message, top, className }) => {
+    const tipClass = classNames('reactist tip__container', className)
     return (
-        <Dropdown.Box top={ top } className='reactist tip__container'>
+        <Dropdown.Box top={ top } className={ tipClass }>
             <Dropdown.Trigger>
                 <ThinQuestionMark />
             </Dropdown.Trigger>
@@ -31,7 +33,9 @@ Tip.propTypes = {
     /** Title of the tip. */
     title: PropTypes.string.isRequired,
     /** Message of the tip. */
-    message: PropTypes.string.isRequired
+    message: PropTypes.string.isRequired,
+    /** Addtional css class that is applied to the Tip. */
+    classname: PropTypes.string
 }
 
 

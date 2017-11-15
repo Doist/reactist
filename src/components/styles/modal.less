@@ -80,6 +80,7 @@
     &_modal_box__body {
         padding: 20px 25px 25px 25px;
         background-color: white;
+        .normal_text();
 
         .dialog {
             overflow: auto; // contain the floating elements correctly
@@ -127,6 +128,10 @@
         padding: 20px 25px;
         background-color: white;
         border-top: 1px solid @color_grey_10;
+
+        & > button {
+            margin-left: 10px;
+        }
     }
 
 }
