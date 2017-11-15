@@ -38,36 +38,6 @@ exports[`Icon renders icon component when supplied and no image is supplied 1`] 
 </a>
 `;
 
-exports[`Icon renders image when hovered but no hoveredImage is supplied 1`] = `
-<a
-  className="reactist icon"
-  href="#"
-  onClick={[Function]}
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
-  style={
-    Object {
-      "backgroundImage": "url(https://fake.image.com/foo.png)",
-    }
-  }
-/>
-`;
-
-exports[`Icon renders image when unhovered and hoveredImage is supplied 1`] = `
-<a
-  className="reactist icon"
-  href="#"
-  onClick={[Function]}
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
-  style={
-    Object {
-      "backgroundImage": "url(https://fake.image.com/foo.png)",
-    }
-  }
-/>
-`;
-
 exports[`Icon wraps icon in a tooltip when tooltip is supplied 1`] = `
 <Tooltip
   delayHide={0}
