@@ -11,7 +11,7 @@ exports[`Tooltip renders only children if text prop is not defined 1`] = `
 `;
 
 exports[`Tooltip renders without crashing 1`] = `
-<div
+<span
   className="reactist tooltip__wrapper"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
@@ -19,10 +19,14 @@ exports[`Tooltip renders without crashing 1`] = `
   <span>
     Wrapped Content
   </span>
-  <div
+  <span
     className="reactist tooltip"
   >
-    tip
-  </div>
-</div>
+    <span
+      className="tooltip__text"
+    >
+      tip
+    </span>
+  </span>
+</span>
 `;
