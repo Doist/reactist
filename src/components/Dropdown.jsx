@@ -69,7 +69,7 @@ class Box extends React.Component {
             if (scrolling_parent) {
                 const dropdown = ReactDOM.findDOMNode(this)
                 const dropdown_vertical_position = ReactDOM.findDOMNode(this).offsetTop
-                const dropdown_trigger_height = dropdown.clientHeight
+                const dropdown_trigger_height = dropdown.querySelector('.trigger').clientHeight
                 const dropdown_body_height = body.clientHeight
 
                 const scrolling_parent_height = scrolling_parent.clientHeight
