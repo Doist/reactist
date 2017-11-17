@@ -10,7 +10,7 @@ exports[`ThinQuestionMarkIcon renders a svg icon 1`] = `
     fill="none"
     fillRule="evenodd"
     stroke="none"
-    stroke-width="1"
+    strokeWidth="1"
   >
     <g
       fill="#979797"
