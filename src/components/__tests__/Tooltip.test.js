@@ -167,21 +167,25 @@ describe('Tooltip', () => {
         it('updates when any property changes', () => {
             const tooltip = shallow(getTooltip()).instance()
             const currentState = tooltip.state
+            const currentProps = tooltip.props
 
-            const shouldUpdateAfterPositionChange = tooltip.shouldComponentUpdate({ position: 'bottom' }, currentState)
+            const shouldUpdateAfterPositionChange = tooltip.shouldComponentUpdate({ ...currentProps, position: 'bottom' }, currentState)
             expect(shouldUpdateAfterPositionChange).toBe(true)
 
-            const shouldUpdateAfterTextChange = tooltip.shouldComponentUpdate({ text: 'new tip' }, currentState)
+            const shouldUpdateAfterTextChange = tooltip.shouldComponentUpdate({ ...currentProps, text: 'new tip' }, currentState)
             expect(shouldUpdateAfterTextChange).toBe(true)
 
-            const shouldUpdateAfterHideOnScrollChange = tooltip.shouldComponentUpdate({ hideOnScroll: false }, currentState)
+            const shouldUpdateAfterHideOnScrollChange = tooltip.shouldComponentUpdate({ ...currentProps, hideOnScroll: false }, currentState)
             expect(shouldUpdateAfterHideOnScrollChange).toBe(true)
 
-            const shouldUpdateAfterDelayShowChange = tooltip.shouldComponentUpdate({ delayShow: 2342 }, currentState)
+            const shouldUpdateAfterDelayShowChange = tooltip.shouldComponentUpdate({ ...currentProps, delayShow: 2342 }, currentState)
             expect(shouldUpdateAfterDelayShowChange).toBe(true)
 
-            const shouldUpdateAfterDelayHideChange = tooltip.shouldComponentUpdate({ delayHide: 2342 }, currentState)
+            const shouldUpdateAfterDelayHideChange = tooltip.shouldComponentUpdate({ ...currentProps, delayHide: 2342 }, currentState)
             expect(shouldUpdateAfterDelayHideChange).toBe(true)
+
+            const shouldUpdateAfterChildrenChange = tooltip.shouldComponentUpdate({ ...currentProps, children: <span>New Content</span> }, currentState)
+            expect(shouldUpdateAfterChildrenChange).toBe(true)
         })
 
         it('does not update when state and properties did not change', () => {
