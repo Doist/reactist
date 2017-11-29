@@ -18,6 +18,7 @@ exports[`Button adds additional className when supplied 1`] = `
 
 exports[`Button renders a tooltip when prop is supplied 1`] = `
 <Tooltip
+  allowVaguePositioning={false}
   delayHide={0}
   delayShow={1000}
   hideOnScroll={true}

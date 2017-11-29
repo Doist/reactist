@@ -40,6 +40,7 @@ exports[`Icon renders icon component when supplied and no image is supplied 1`] 
 
 exports[`Icon wraps icon in a tooltip when tooltip is supplied 1`] = `
 <Tooltip
+  allowVaguePositioning={false}
   delayHide={0}
   delayShow={1000}
   hideOnScroll={true}
