@@ -10,12 +10,22 @@ class Time extends React.Component {
         super(props, context)
 
         this.state = {
-            hovered: false
+            hovered: false,
+            mouseX: null,
+            mouseY: null
         }
     }
 
-    _setHovered(hovered) {
-        this.setState(() => ({ hovered: hovered }))
+    _setHovered(hovered, event) {
+        const { mouseX, mouseY } = this.state
+        const { clientX, clientY } = event
+        if (clientX !== mouseX || clientY !== mouseY) { // mouse has moved
+            this.setState(() => ({
+                hovered,
+                mouseX: clientX,
+                mouseY: clientY
+            }))
+        }
     }
 
     _renderTime(config) {
@@ -39,8 +49,8 @@ class Time extends React.Component {
         return (
             <time
                 className={ className }
-                onMouseEnter={ () => this._setHovered(true) }
-                onMouseLeave={ () => this._setHovered(false) }
+                onMouseEnter={ (event) => this._setHovered(true, event) }
+                onMouseLeave={ (event) => this._setHovered(false, event) }
             >
                 {this._renderTime(this.props.config)}
             </time>
