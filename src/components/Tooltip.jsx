@@ -21,7 +21,8 @@ class Tooltip extends React.Component {
             this.props.text !== nextProps.text ||
             this.props.hideOnScroll !== nextProps.hideOnScroll ||
             this.props.delayShow !== nextProps.delayShow ||
-            this.props.delayHide !== nextProps.delayHide
+            this.props.delayHide !== nextProps.delayHide ||
+            this.props.children !== nextProps.children
     }
 
     componentDidUpdate() {
