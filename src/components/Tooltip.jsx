@@ -75,7 +75,7 @@ class Tooltip extends React.Component {
     }
 
     _updateTooltipPosition = () => {
-        const { position } = this.props
+        const { position, allowVaguePositioning } = this.props
         const gapSize = 5 // size of the arrow (see `tooltip.less`)
         const wrapperRect = this.wrapper.getBoundingClientRect()
         const tooltipRect = this.tooltip.getBoundingClientRect()
@@ -108,7 +108,9 @@ class Tooltip extends React.Component {
             if (enoughSpaceAtPosition || index === positionsToTry.length - 1) {
                 const tooltipPosition = calculatePosition(currentPosition, wrapperDimensions, wrapperPosition, tooltipDimensions, gapSize)
                 this.tooltip.style.top = `${tooltipPosition.y}px`
-                this.tooltip.style.left = `${tooltipPosition.x}px`
+                this.tooltip.style.left = tooltipPosition.x < 0 && allowVaguePositioning
+                    ? `${2 * gapSize}px` // not centered but fully visible
+                    : `${tooltipPosition.x}px`
 
                 if (currentPosition !== position) {
                     this.tooltip.className = this._getClassNameForPosition(currentPosition)
@@ -162,7 +164,8 @@ Tooltip.defaultProps = {
     position: 'auto',
     hideOnScroll: true,
     delayShow: 1000,
-    delayHide: 0
+    delayHide: 0,
+    allowVaguePositioning: false
 }
 Tooltip.propTypes = {
     /**
@@ -172,6 +175,10 @@ Tooltip.propTypes = {
      * Setting a distinct value like `right` will always position the tooltip right, regardless of available space.
      */
     position: PropTypes.oneOf(['auto', 'top', 'right', 'bottom', 'left']),
+    /**
+     * Whether vague positioning is allowed. When set to true the tooltip prefers to be fully visible over being correctly centered.
+     */
+    allowVaguePositioning: PropTypes.bool,
     /** Text that is displayed inside the tooltip */
     text: PropTypes.string.isRequired,
     /** Delay before the tooltip appears and disappears (in ms). */

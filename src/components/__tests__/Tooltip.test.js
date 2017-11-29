@@ -139,6 +139,16 @@ describe('Tooltip', () => {
             expect(tooltip.tooltip.style.getPropertyValue('left')).toBe('23px')
         })
 
+        it('allows vague positioning to avoid cut offs', () => {
+            PositioningUtils.hasEnoughSpace = jest.fn(() => true)
+            PositioningUtils.calculatePosition = jest.fn(() => ({ x: -23, y: 42 }))
+            const tooltip = mount(getTooltip({ allowVaguePositioning: true })).instance()
+            tooltip.setState({ visible: true }) // triggers update positions
+
+            expect(tooltip.tooltip.style.getPropertyValue('top')).toBe('42px')
+            expect(tooltip.tooltip.style.getPropertyValue('left')).toBe('10px')
+        })
+
         it('sets the tooltip to the first position that has enough space when `auto` is supplied', () => {
             PositioningUtils.hasEnoughSpace = jest.fn()
                 .mockReturnValueOnce(false) // top
