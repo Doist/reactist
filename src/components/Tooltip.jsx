@@ -122,7 +122,8 @@ class Tooltip extends React.Component {
 
     _getClassNameForPosition = (position) => {
         const { visible } = this.state
-        const className = classNames('reactist tooltip', { visible })
+        const { tooltipClassName } = this.props
+        const className = classNames('reactist tooltip', { visible }, tooltipClassName)
         if (visible) {
             return classNames(className, {
                 arrow_top: position === 'bottom',
@@ -144,9 +145,10 @@ class Tooltip extends React.Component {
         }
 
         const tooltipClass = this._getClassNameForPosition(this.props.position)
+        const wrapperClass = classNames('reactist tooltip__wrapper', this.props.wrapperClassName)
         return (
             <span
-                className='reactist tooltip__wrapper'
+                className={ wrapperClass }
                 onMouseEnter={ this._show }
                 onMouseLeave={ this._hide }
                 ref={ wrapper => this.wrapper = wrapper }
@@ -192,7 +194,11 @@ Tooltip.propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
-    ])
+    ]),
+    /** Additional css class that is applied to the wrapper element. */
+    wrapperClassName: PropTypes.string,
+    /** Additional css class that is applied to the tooltip element. */
+    tooltipClassName: PropTypes.string
 }
 
 export default Tooltip
