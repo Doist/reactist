@@ -4,39 +4,55 @@ const hasEnoughSpace = (windowDimensions, elementDimensions, wrapperDimensions, 
     const { height: wrapperHeight, width: wrapperWidth } = wrapperDimensions
     const { x: wrapperX, y: wrapperY } = wrapperPosition
 
+    const verticalPosition = _calculateVerticalPosition(wrapperPosition, wrapperDimensions, elementDimensions)
+    const horizontalPosition = _calculateHorizontalPosition(wrapperPosition, wrapperDimensions, elementDimensions)
+    const canPlaceVertically = verticalPosition + elementWidth <= windowWidth
+    const canPlaceHorizontally = horizontalPosition - elementHeight >= 0
+
     if (position === 'top') {
-        return (wrapperY - elementHeight - gap) >= 0
+        return canPlaceVertically
+            && (wrapperY - elementHeight - gap) >= 0
     } else if (position === 'right') {
-        return (wrapperX + wrapperWidth + elementWidth + gap) <= windowWidth
+        return canPlaceHorizontally
+            && (wrapperX + wrapperWidth + elementWidth + gap) <= windowWidth
     } else if (position === 'left') {
-        return (wrapperX - elementWidth - gap) >= 0
+        return canPlaceHorizontally
+            && (wrapperX - elementWidth - gap) >= 0
     } else if (position === 'bottom') {
-        return (wrapperY + wrapperHeight + elementHeight + gap) <= windowHeight
+        return canPlaceVertically
+            && (wrapperY + wrapperHeight + elementHeight + gap) <= windowHeight
     }
     return false
 }
 
+const _calculateVerticalPosition = (wrapperPosition, wrapperDimensions, elementDimensions) => {
+    return wrapperPosition.x + ((wrapperDimensions.width - elementDimensions.width) / 2)
+}
+const _calculateHorizontalPosition = (wrapperPosition, wrapperDimensions, elementDimensions) => {
+    return wrapperPosition.y + ((wrapperDimensions.height - elementDimensions.height) / 2)
+}
+
 const calculateTopCenterPosition = (wrapperDimensions, wrapperPosition, elementDimensions, gap = 0) => {
-    const x = wrapperPosition.x + ((wrapperDimensions.width - elementDimensions.width) / 2)
+    const x = _calculateVerticalPosition(wrapperPosition, wrapperDimensions, elementDimensions)
     const y = wrapperPosition.y - elementDimensions.height - gap
     return { x, y }
 }
 
 const calculateBottomCenterPosition = (wrapperDimensions, wrapperPosition, elementDimensions, gap = 0) => {
-    const x = wrapperPosition.x + ((wrapperDimensions.width - elementDimensions.width) / 2)
+    const x = _calculateVerticalPosition(wrapperPosition, wrapperDimensions, elementDimensions)
     const y = wrapperPosition.y + wrapperDimensions.height + gap
     return { x, y }
 }
 
 const calculateRightCenterPosition = (wrapperDimensions, wrapperPosition, elementDimensions, gap = 0) => {
     const x = wrapperPosition.x + wrapperDimensions.width + gap
-    const y = wrapperPosition.y + ((wrapperDimensions.height - elementDimensions.height) / 2)
+    const y = _calculateHorizontalPosition(wrapperPosition, wrapperDimensions, elementDimensions)
     return { x, y }
 }
 
 const calculateLeftCenterPosition = (wrapperDimensions, wrapperPosition, elementDimensions, gap = 0) => {
     const x = wrapperPosition.x - elementDimensions.width - gap
-    const y = wrapperPosition.y + ((wrapperDimensions.height - elementDimensions.height) / 2)
+    const y = _calculateHorizontalPosition(wrapperPosition, wrapperDimensions, elementDimensions)
     return { x, y }
 }
 

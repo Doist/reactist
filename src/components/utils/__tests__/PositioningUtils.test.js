@@ -137,6 +137,22 @@ describe('PositioningUtils', () => {
             {
                 description: 'providing a gap value is optional',
                 params: getParams({ wrapperPosition: { x: 0, y: 20 }, position: 'top', gap: undefined }), expectedResult: true
+            },
+            {
+                description: 'has NOT enough space for top placement when wrapper is too wide',
+                params: getParams({
+                    elementDimensions: { height: 20, width: 51 },
+                    wrapperPosition: { x: 50, y: 30 },
+                    position: 'top' }),
+                expectedResult: false
+            },
+            {
+                description: 'has NOT enough space for right placement when wrapper is too high',
+                params: getParams({
+                    elementDimensions: { height: 16, width: 40 },
+                    wrapperPosition: { x: 5, y: 10 },
+                    position: 'right' }),
+                expectedResult: false
             }
         ]
         testCases.forEach(testCase => {
