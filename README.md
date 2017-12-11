@@ -10,7 +10,7 @@ npm install @doist/reactist
 ```
 If you prefer to include static files just grab the [minified build from the dist folder](https://github.com/Doist/reactist/tree/develop/dist).
 
-A detailled explanation and exmaples on how to use each component can be accessed by clicking on the component name on the left.
+A detailed explanation and examples on how to use each component can be accessed by clicking on the component name on the left.
 
 # Development
 
@@ -87,7 +87,7 @@ Tests are executed with jest or by running:
 npm run test
 ```
 
-During development you may find it beneficial to continously execute the tests. This works by running:
+During development you may find it beneficial to continuously execute the tests. This works by running:
 ```sh
 npm run test-watch
 ```
