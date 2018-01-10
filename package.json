@@ -18,7 +18,7 @@
   "license": "MIT",
   "homepage": "https://github.com/Doist/reactist#readme",
   "devDependencies": {
-    "@storybook/addon-actions": "^3.2.11",
+    "@storybook/addon-actions": "^3.3.6",
     "@storybook/addon-info": "^3.2.11",
     "@storybook/addon-knobs": "^3.2.12",
     "@storybook/addon-links": "^3.2.10",

@@ -23,3 +23,30 @@
         }
     }
 }
+
+.reactist.tabs--spreadlayout {
+
+    .tabs__header {
+        display: flex;
+        border-bottom: 0;
+    }
+
+    .tabs__header--item {
+        text-align: center;
+        flex: 1;
+        border-bottom: 1px solid @color_grey_10;
+        margin: 0;
+
+        &.active {
+            .normal_text(@color: @primary_color);
+            border-bottom: 3px solid @primary_color;
+        }
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+
+}
+
