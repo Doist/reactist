@@ -1,44 +1,37 @@
-import Modal from './components/Modal'
-import Button from './components/Button'
-import Time from './components/Time'
-import Dropdown from './components/Dropdown'
-import ProgressBar from './components/ProgressBar'
-import Select from './components/Select'
-import { MenuButton, MenuButtonItem } from './components/MenuButton'
-import Input from './components/Input'
-import { Tabs, Tab } from './components/Tabs'
-import LinkButton from './components/LinkButton'
-import Tooltip from './components/Tooltip'
-import RangeInput from './components/RangeInput'
-import ErrorMessage from './components/ErrorMessage'
-import ColorPicker, { COLORS } from './components/ColorPicker'
-import Tip from './components/Tip'
-import Checkbox from './components/Checkbox'
-import Loading from './components/Loading'
-import Avatar from './components/Avatar'
-import Icon from './components/Icon'
+export { default as Avatar } from './components/Avatar'
 
-export {
-    Modal,
-    Button,
-    Time,
-    Dropdown,
-    ProgressBar,
-    Select,
-    MenuButton,
-    MenuButtonItem,
-    Input,
-    Tabs,
-    Tab,
-    LinkButton,
-    Tooltip,
-    RangeInput,
-    ErrorMessage,
-    ColorPicker,
-    COLORS,
-    Tip,
-    Checkbox,
-    Loading,
-    Avatar,
-    Icon
-}
+export { default as Button } from './components/Button'
+
+export { default as Checkbox } from './components/Checkbox'
+
+export { default as ColorPicker, COLORS } from './components/ColorPicker'
+
+export { default as Dropdown } from './components/Dropdown'
+
+export { default as ErrorMessage } from './components/ErrorMessage'
+
+export { default as Icon } from './components/Icon'
+
+export { default as Input } from './components/Input'
+
+export { default as LinkButton } from './components/LinkButton'
+
+export { default as Loading } from './components/Loading'
+
+export { MenuButton, MenuButtonItem } from './components/MenuButton'
+
+export { default as Modal } from './components/Modal'
+
+export { default as ProgressBar } from './components/ProgressBar'
+
+export { default as RangeInput } from './components/RangeInput'
+
+export { default as Select } from './components/Select'
+
+export { Tabs, Tab } from './components/Tabs'
+
+export { default as Time } from './components/Time'
+
+export { default as Tip } from './components/Tip'
+
+export { default as Tooltip } from './components/Tooltip'
