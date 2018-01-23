@@ -14,11 +14,11 @@ exports[`ErrorMessage renders error message after receiving props 1`] = `
 </div>
 `;
 
-exports[`ErrorMessage renders nothing after receiving an empty new message 1`] = `null`;
+exports[`ErrorMessage renders nothing after receiving an empty new message 1`] = `""`;
 
-exports[`ErrorMessage renders nothing if message is empty 1`] = `null`;
+exports[`ErrorMessage renders nothing if message is empty 1`] = `""`;
 
-exports[`ErrorMessage renders nothing if message is not set 1`] = `null`;
+exports[`ErrorMessage renders nothing if message is not set 1`] = `""`;
 
 exports[`ErrorMessage renders the given message 1`] = `
 <div

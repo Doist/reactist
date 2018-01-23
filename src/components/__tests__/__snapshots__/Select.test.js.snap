@@ -8,6 +8,7 @@ exports[`Select renders without crashing 1`] = `
   value="test"
 >
   <option
+    key="test"
     value="test"
   >
     test

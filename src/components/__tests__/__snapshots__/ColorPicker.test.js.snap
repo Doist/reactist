@@ -28,39 +28,51 @@ exports[`ColorPicker renders without crashing 1`] = `
     >
       <ColorItem
         colorIndex={1}
+        key="1"
       />
       <ColorItem
         colorIndex={2}
+        key="2"
       />
       <ColorItem
         colorIndex={3}
+        key="3"
       />
       <ColorItem
         colorIndex={4}
+        key="4"
       />
       <ColorItem
         colorIndex={5}
+        key="5"
       />
       <ColorItem
         colorIndex={6}
+        key="6"
       />
       <ColorItem
         colorIndex={7}
+        key="7"
       />
       <ColorItem
         colorIndex={8}
+        key="8"
       />
       <ColorItem
         colorIndex={9}
+        key="9"
       />
       <ColorItem
         colorIndex={10}
+        key="10"
       />
       <ColorItem
         colorIndex={11}
+        key="11"
       />
       <ColorItem
         colorIndex={12}
+        key="12"
       />
     </div>
   </Dropdown.Body>
