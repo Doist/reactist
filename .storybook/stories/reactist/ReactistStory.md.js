@@ -30,7 +30,11 @@ const developmentText = `
 
     #### Inside your application
 
-    For the second development mode you can leverage \`npm link\`. First run:
+    For the second development mode you can leverage
+    \`\`\`sh
+    npm link
+    \`\`\`
+    First run:
     \`\`\`sh
     npm run build-watch
     \`\`\`
@@ -92,7 +96,11 @@ const testingText = `
     \`\`\`
     This also prints the current test coverage.
 
-    MacOS users might need to upgrade watchman with \`brew install watchman\` when experiencing troubles with the watch mode. See this issue for details: https://github.com/facebook/jest/issues/1767
+    MacOS users might need to upgrade watchman with
+    \`\`\`
+    brew install watchman
+    \`\`\`
+    when experiencing troubles with the watch mode. See this issue for details: https://github.com/facebook/jest/issues/1767
 `
 
 export {
