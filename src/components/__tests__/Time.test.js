@@ -65,7 +65,7 @@ describe('Time', () => {
 
     // Helper functions ///////////////////////////////////////////////////////
     function getRenderedTime(timeComponent) {
-        return timeComponent.children().node
+        return timeComponent.getElement().props.children
     }
 
     function getMouseEvent(x = 100, y = 100) {

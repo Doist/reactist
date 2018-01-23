@@ -16,6 +16,7 @@ exports[`Tabs renders with single children 1`] = `
     <a
       className="reactist tabs__header--item active"
       href=""
+      key="0"
       onClick={[Function]}
     >
       Tab 1
@@ -26,6 +27,7 @@ exports[`Tabs renders with single children 1`] = `
   >
     <Tab
       disabled={false}
+      key=".0"
       title="Tab 1"
     >
       Content
