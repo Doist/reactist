@@ -1,7 +1,9 @@
 import './styles/dropdown.less'
-import classNames from 'classnames'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
 class Box extends React.Component {
     constructor(props, context) {
@@ -140,6 +142,24 @@ class Box extends React.Component {
     }
 }
 Box.displayName = 'Dropdown.Box'
+Box.propTypes = {
+    /** Whether the dropdown should open to the top. */
+    top: PropTypes.bool,
+    /** Whether the dropdown should open to the right. */
+    right: PropTypes.bool,
+    /** Id of the scrolling parent element to place dropdown in it. */
+    scrolling_parent: PropTypes.string,
+    /** Whether to keep dropdown open when interacted with the Body content. */
+    allowBodyInteractions: PropTypes.bool,
+    /** Callback function when the body is shown. */
+    onShowBody: PropTypes.func,
+    /** Callback function when the body is hidden. */
+    onHideBody: PropTypes.func,
+    /** Additional css class applied to the Dropdown. */
+    className: PropTypes.string,
+    /** Should be two elements: Dropdown.Trigger and Dropdown.Body. */
+    children: PropTypes.any
+}
 
 class Trigger extends React.Component {
     constructor(props, context) {
@@ -166,6 +186,12 @@ class Trigger extends React.Component {
     }
 }
 Trigger.displayName = 'Dropdown.Trigger'
+Trigger.propTypes = {
+    /** INTERNAL Callback when the trigger is clicked. Setting this yourself won't have an effect. */
+    onClick: PropTypes.func,
+    /** Content of the dropdown trigger. Can be anything from a string to component(s). */
+    children: PropTypes.any
+}
 
 class Body extends React.Component {
     render() {
@@ -198,5 +224,15 @@ class Body extends React.Component {
     }
 }
 Body.displayName = 'Dropdown.Body'
+Body.propTypes = {
+    /** INTERNAL Whether the dropdown should open to the top. Set this on the Dropdown.Box. */
+    top: PropTypes.bool,
+    /** INTERNAL Whether the dropdown should open to the right. Set this on the Dropdown.Box. */
+    right: PropTypes.bool,
+    /** INTERNAL Callback to correctly set the position of the dropdown. Setting this yourself wont' have an effect. */
+    setPosition: PropTypes.func,
+    /** Content of the dropdown body. Can be anything from a string to component(s). */
+    children: PropTypes.any
+}
 
 export default { Box, Trigger, Body }

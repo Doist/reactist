@@ -35,7 +35,7 @@ Tip.propTypes = {
     /** Message of the tip. */
     message: PropTypes.string.isRequired,
     /** Addtional css class that is applied to the Tip. */
-    classname: PropTypes.string
+    className: PropTypes.string
 }
 
 export default Tip

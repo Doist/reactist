@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const ThreeDotsIcon = ({ color = '#A5A5A5' }) => (
     <svg width="26px" height="26px" viewBox="0 0 26 26">
@@ -9,5 +10,9 @@ const ThreeDotsIcon = ({ color = '#A5A5A5' }) => (
         </g>
     </svg>
 )
+ThreeDotsIcon.propTypes = {
+    /** Color of the icon. */
+    color: PropTypes.string
+}
 
 export default ThreeDotsIcon
