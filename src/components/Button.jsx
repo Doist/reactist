@@ -7,14 +7,9 @@ import classNames from 'classnames'
 import Tooltip from './Tooltip'
 
 class Button extends React.Component {
-    constructor(props, context) {
-        super(props, context)
-        this._onClick = this._onClick.bind(this)
-    }
-
-    _onClick(event) {
+    _onClick = event => {
         event.preventDefault()
-        if (!this.props.disabled && this.props.onClick) {
+        if (!this.props.disabled && !this.props.loading && this.props.onClick) {
             this.props.onClick()
         }
     }
@@ -74,7 +69,7 @@ Button.propTypes = {
     small: PropTypes.bool,
     /** White style. */
     white: PropTypes.bool,
-    /** Loading style. */
+    /** Loading style. Prevents onClick from being called. */
     loading: PropTypes.bool,
     /** Disabled style. Prevents onClick from being called. */
     disabled: PropTypes.bool,
