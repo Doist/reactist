@@ -6,14 +6,11 @@ import classNames from 'classnames'
 
 const ProgressBar = ({ fillPercentage, className }) => {
     const finalClassName = classNames('reactist progress_bar', className)
-    const width = fillPercentage < 0
-        ? 0
-        : fillPercentage > 100
-            ? 100
-            : fillPercentage
+    const width =
+        fillPercentage < 0 ? 0 : fillPercentage > 100 ? 100 : fillPercentage
     return (
-        <div className={ finalClassName }>
-            <div className='inner' style={{ width: `${width}%` }} />
+        <div className={finalClassName}>
+            <div className="inner" style={{ width: `${width}%` }} />
         </div>
     )
 }

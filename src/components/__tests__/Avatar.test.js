@@ -5,7 +5,9 @@ import Avatar from '../Avatar'
 
 describe('Avatar', () => {
     it('renders a background image when avatarUrl is supplied', () => {
-        const avatar = shallow(getAvatar({ avatarUrl: 'https://foo.bar/com.png' }))
+        const avatar = shallow(
+            getAvatar({ avatarUrl: 'https://foo.bar/com.png' })
+        )
         expect(avatar).toMatchSnapshot()
     })
 
@@ -16,7 +18,9 @@ describe('Avatar', () => {
     })
 
     it('renders initials of user email when avatarUrl is not supplied', () => {
-        const avatar = shallow(getAvatar({ user: { email: 'henning@doist.com' }}))
+        const avatar = shallow(
+            getAvatar({ user: { email: 'henning@doist.com' } })
+        )
         expect(avatar).toMatchSnapshot()
         expect(avatar.text()).toBe('H')
     })
@@ -28,11 +32,11 @@ describe('Avatar', () => {
     })
 
     // Helpers ================================================================
-    const getAvatar = (props) => (
+    const getAvatar = props => (
         <Avatar
             user={{ name: 'Henning Mus', email: 'henning@doist.com' }}
-            size='xl'
-            { ...props }
+            size="xl"
+            {...props}
         />
     )
 })

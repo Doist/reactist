@@ -4,7 +4,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-const RangeInput = ({ value, min, max, stepSize, onPlus, onMinus, onChange, className }) => {
+const RangeInput = ({
+    value,
+    min,
+    max,
+    stepSize,
+    onPlus,
+    onMinus,
+    onChange,
+    className
+}) => {
     if (typeof onPlus !== 'function') {
         onPlus = onChange
     }
@@ -13,22 +22,23 @@ const RangeInput = ({ value, min, max, stepSize, onPlus, onMinus, onChange, clas
     }
     const rangeInputClassName = classNames('reactist range_input', className)
     return (
-        <div className={ rangeInputClassName }>
+        <div className={rangeInputClassName}>
             <span
-                className='range_btn minus'
-                onClick={ () => value > min && onMinus(value - stepSize) }
+                className="range_btn minus"
+                onClick={() => value > min && onMinus(value - stepSize)}
             />
             <input
-                value={ value }
-                className='range_slider'
-                type='range'
-                min={ min } max={ max } step={ stepSize }
-                onChange={ (event) => onChange(parseInt(event.target.value)) }
-
+                value={value}
+                className="range_slider"
+                type="range"
+                min={min}
+                max={max}
+                step={stepSize}
+                onChange={event => onChange(parseInt(event.target.value))}
             />
             <span
-                className='range_btn plus'
-                onClick={ () => value < max && onPlus(value + stepSize) }
+                className="range_btn plus"
+                onClick={() => value < max && onPlus(value + stepSize)}
             />
         </div>
     )

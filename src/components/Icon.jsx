@@ -14,7 +14,7 @@ class Icon extends React.Component {
         this.state = { hovered: false }
     }
 
-    _onClick = (event) => {
+    _onClick = event => {
         event.preventDefault()
 
         if (this.props.onClick && !this.props.disabled) {
@@ -22,42 +22,57 @@ class Icon extends React.Component {
         }
     }
 
-    _hover = () => { this.setState(() => ({ hovered: true }))}
-    _unhover = () => { this.setState(() => ({ hovered: false }))}
+    _hover = () => {
+        this.setState(() => ({ hovered: true }))
+    }
+    _unhover = () => {
+        this.setState(() => ({ hovered: false }))
+    }
 
     render() {
         const { image, hoveredImage, icon, tooltip, disabled } = this.props
-        const className = classNames('reactist icon', {
-            'icon--component': !image,
-            disabled
-        }, this.props.className)
+        const className = classNames(
+            'reactist icon',
+            {
+                'icon--component': !image,
+                disabled
+            },
+            this.props.className
+        )
 
-        const style = image && (this.state.hovered && hoveredImage
-            ? { backgroundImage: `url(${hoveredImage})` }
-            : { backgroundImage: `url(${image})` }
-        ) // only apply style for image components
-        const iconComponent = !image && (icon
-            ? icon
-            : <ThreeDotsIcon color={ this.state.hovered ? '#474747' :  undefined } />
-        ) // only set icon component for non-image components
+        const style =
+            image &&
+            (this.state.hovered && hoveredImage
+                ? { backgroundImage: `url(${hoveredImage})` }
+                : { backgroundImage: `url(${image})` }) // only apply style for image components
+        const iconComponent =
+            !image &&
+            (icon ? (
+                icon
+            ) : (
+                <ThreeDotsIcon
+                    color={this.state.hovered ? '#474747' : undefined}
+                />
+            )) // only set icon component for non-image components
 
         const component = (
             <a
-                href='#'
-                style={ style }
-                onClick={ this._onClick }
-                className={ className }
-                onMouseEnter={ this._hover }
-                onMouseLeave={ this._unhover }
+                href="#"
+                style={style}
+                onClick={this._onClick}
+                className={className}
+                onMouseEnter={this._hover}
+                onMouseLeave={this._unhover}
             >
-                { iconComponent && iconComponent }
+                {iconComponent && iconComponent}
             </a>
         )
-        return tooltip
-            ? <Tooltip text={ tooltip }>{ component }</Tooltip>
-            : component
+        return tooltip ? (
+            <Tooltip text={tooltip}>{component}</Tooltip>
+        ) : (
+            component
+        )
     }
-
 }
 Icon.displayName = 'Icon'
 Icon.defaultProps = {

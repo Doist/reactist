@@ -4,15 +4,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const Checkbox = ({ label, checked, onChange }) => (
-    <label className='reactist checkbox'>
+    <label className="reactist checkbox">
         <input
-            className='checkbox--input'
-            value={ label }
-            checked={ checked }
-            onChange={ (event) => onChange(event.target.checked) }
-            type='checkbox'
+            className="checkbox--input"
+            value={label}
+            checked={checked}
+            onChange={event => onChange(event.target.checked)}
+            type="checkbox"
         />
-        { label }
+        {label}
     </label>
 )
 Checkbox.displayName = 'Checkbox'

@@ -6,26 +6,35 @@ import PropTypes from 'prop-types'
 import Dropdown from './Dropdown'
 
 const COLORS = [
-    '#606060', '#4A90E2', '#03B3B2', '#008299',
-    '#82BA00', '#D24726', '#AC193D', '#DC4FAD',
-    '#3BD5FB', '#74E8D3', '#FFCC00', '#FB886E',
+    '#606060',
+    '#4A90E2',
+    '#03B3B2',
+    '#008299',
+    '#82BA00',
+    '#D24726',
+    '#AC193D',
+    '#DC4FAD',
+    '#3BD5FB',
+    '#74E8D3',
+    '#FFCC00',
+    '#FB886E',
     '#CCCCCC'
 ]
 
 const ColorPicker = ({ color, onChange }) => (
-    <Dropdown.Box right className='reactist color_picker'>
+    <Dropdown.Box right className="reactist color_picker">
         <Dropdown.Trigger>
-            <ColorItem colorIndex={ color } />
+            <ColorItem colorIndex={color} />
         </Dropdown.Trigger>
         <Dropdown.Body>
-            <div className='color_options'>
-                { COLORS.reduce((items, currentColor, currentIndex) => {
+            <div className="color_options">
+                {COLORS.reduce((items, currentColor, currentIndex) => {
                     if (currentIndex !== color) {
                         items.push(
                             <ColorItem
-                                key={ currentIndex }
-                                colorIndex={ currentIndex }
-                                onClick={ onChange }
+                                key={currentIndex}
+                                colorIndex={currentIndex}
+                                onClick={onChange}
                             />
                         )
                     }
@@ -48,9 +57,9 @@ ColorPicker.propTypes = {
 
 const ColorItem = ({ colorIndex, onClick }) => (
     <span
-        className='reactist color_item'
+        className="reactist color_item"
         style={{ backgroundColor: COLORS[colorIndex] }}
-        onClick={ () => onClick && onClick(colorIndex) }
+        onClick={() => onClick && onClick(colorIndex)}
     />
 )
 ColorItem.displayName = 'ColorItem'

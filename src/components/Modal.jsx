@@ -26,13 +26,19 @@ class Box extends React.Component {
     }
 
     _handleKeyDown(event) {
-        if (event.keyCode === 27) { // ESC
+        if (event.keyCode === 27) {
+            // ESC
             this._closeModal()
         }
     }
 
     _handleOverlayClick(event) {
-        if (this.props.closeOnOverlayClick && event && event.target && event.target.id === 'reactist-overlay') {
+        if (
+            this.props.closeOnOverlayClick &&
+            event &&
+            event.target &&
+            event.target.id === 'reactist-overlay'
+        ) {
             this._closeModal()
         }
     }
@@ -49,10 +55,8 @@ class Box extends React.Component {
         }
 
         return (
-            <div className='reactist_overlay' id='reactist-overlay'>
-                <div className={ class_name }>
-                    {this.props.children}
-                </div>
+            <div className="reactist_overlay" id="reactist-overlay">
+                <div className={class_name}>{this.props.children}</div>
             </div>
         )
     }
@@ -87,16 +91,20 @@ class Header extends React.Component {
 
     render() {
         return (
-            <div className='reactist_modal_box__header'>
+            <div className="reactist_modal_box__header">
                 <p>
-                    {this.props.title && <span className='title'>{this.props.title}</span>}
-                    {this.props.subtitle && <span className='subtitle'>{this.props.subtitle}</span>}
+                    {this.props.title && (
+                        <span className="title">{this.props.title}</span>
+                    )}
+                    {this.props.subtitle && (
+                        <span className="subtitle">{this.props.subtitle}</span>
+                    )}
                     {this.props.children}
                 </p>
                 <a
-                    className='close'
-                    onClick={ this._closeModal.bind(this) }
-                    href='#'
+                    className="close"
+                    onClick={this._closeModal.bind(this)}
+                    href="#"
                 >
                     <CloseIcon />
                 </a>
@@ -132,23 +140,24 @@ class Body extends React.Component {
         }
 
         return (
-            <div className={ className }>
+            <div className={className}>
                 {this.props.showCloseIcon && (
                     <a
-                        className='close'
-                        onClick={ this._closeModal.bind(this) }
-                        href='#'
+                        className="close"
+                        onClick={this._closeModal.bind(this)}
+                        href="#"
                     >
                         <CloseIcon />
-                    </a>)
-                }
-                {this.props.icon
-                    ? ( <div className='dialog'>
-                        <div className='icon'>{this.props.icon}</div>
-                        <div className='content'>{this.props.children}</div>
-                    </div> )
-                    : this.props.children
-                }
+                    </a>
+                )}
+                {this.props.icon ? (
+                    <div className="dialog">
+                        <div className="icon">{this.props.icon}</div>
+                        <div className="content">{this.props.children}</div>
+                    </div>
+                ) : (
+                    this.props.children
+                )}
             </div>
         )
     }
@@ -183,20 +192,18 @@ class Actions extends React.Component {
     }
 
     render() {
-        const children = React.Children.map(this.props.children, (child) => {
+        const children = React.Children.map(this.props.children, child => {
             if (!child) return false
             if (child.props.close) {
-                return React.cloneElement(child, { onClick: () => this._onClick(child.props.onClick) })
+                return React.cloneElement(child, {
+                    onClick: () => this._onClick(child.props.onClick)
+                })
             } else {
                 return React.cloneElement(child)
             }
         })
 
-        return (
-            <div className='reactist_modal_box__actions'>
-                {children}
-            </div>
-        )
+        return <div className="reactist_modal_box__actions">{children}</div>
     }
 }
 Actions.displayName = 'Modal.Actions'

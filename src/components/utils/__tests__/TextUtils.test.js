@@ -1,7 +1,4 @@
-import {
-    getInitials,
-    emailToIndex
-} from '../TextUtils'
+import { getInitials, emailToIndex } from '../TextUtils'
 
 describe('TextUtils', () => {
     describe('getInitials', () => {

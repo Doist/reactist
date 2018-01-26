@@ -20,14 +20,18 @@ describe('ErrorMessage', () => {
     })
 
     it('renders error message after receiving props', () => {
-        const errorMessage = shallow(getErrorMessage({ message: 'first message' }))
+        const errorMessage = shallow(
+            getErrorMessage({ message: 'first message' })
+        )
 
         errorMessage.setProps({ message: 'second message' })
         expect(errorMessage).toMatchSnapshot()
     })
 
     it('renders nothing after receiving an empty new message', () => {
-        const errorMessage = shallow(getErrorMessage({ message: 'first message' }))
+        const errorMessage = shallow(
+            getErrorMessage({ message: 'first message' })
+        )
 
         errorMessage.setProps({ message: '' })
         expect(errorMessage).toMatchSnapshot()
@@ -52,5 +56,5 @@ describe('ErrorMessage', () => {
     })
 
     // Helpers ================================================================
-    const getErrorMessage = (props) => <ErrorMessage { ...props } />
+    const getErrorMessage = props => <ErrorMessage {...props} />
 })

@@ -5,14 +5,18 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 const Loading = ({ white, className }) => {
-    const loadingClass = classNames('spinner', {
-        'spinner--white': white
-    }, className)
+    const loadingClass = classNames(
+        'spinner',
+        {
+            'spinner--white': white
+        },
+        className
+    )
     return (
-        <div className={ loadingClass }>
-            <div className='spinner__dot' />
-            <div className='spinner__dot' />
-            <div className='spinner__dot' />
+        <div className={loadingClass}>
+            <div className="spinner__dot" />
+            <div className="spinner__dot" />
+            <div className="spinner__dot" />
         </div>
     )
 }

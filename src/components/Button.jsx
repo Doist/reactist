@@ -22,32 +22,33 @@ class Button extends React.Component {
     render() {
         const { data_tip } = this.props
 
-        const className = classNames({
-            reactist: true,
-            button: true,
-            secondary: this.props.secondary,
-            small: this.props.small,
-            white: this.props.white,
-            loading: this.props.loading,
-            danger: this.props.danger
-        }, this.props.className)
+        const className = classNames(
+            {
+                reactist: true,
+                button: true,
+                secondary: this.props.secondary,
+                small: this.props.small,
+                white: this.props.white,
+                loading: this.props.loading,
+                danger: this.props.danger
+            },
+            this.props.className
+        )
 
         const button = (
             <button
-                className={ className }
-                disabled={ this.props.disabled }
-                onClick={ this._onClick }
+                className={className}
+                disabled={this.props.disabled}
+                onClick={this._onClick}
             >
-                <div className='wrapper'>
+                <div className="wrapper">
                     <span>{this.props.name}</span>
                 </div>
             </button>
         )
 
         // conditionally wrap into tooltip
-        return data_tip
-            ? <Tooltip text={ data_tip }>{ button }</Tooltip>
-            : button
+        return data_tip ? <Tooltip text={data_tip}>{button}</Tooltip> : button
     }
 }
 Button.displayName = 'Button'

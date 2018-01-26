@@ -3,10 +3,7 @@ import './styles/tooltip.less'
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import {
-    hasEnoughSpace,
-    calculatePosition
-} from './utils/PositioningUtils'
+import { hasEnoughSpace, calculatePosition } from './utils/PositioningUtils'
 
 class Tooltip extends React.Component {
     constructor(props, context) {
@@ -16,13 +13,15 @@ class Tooltip extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         // only update on state or prop changes
-        return this.state.visible !== nextState.visible ||
+        return (
+            this.state.visible !== nextState.visible ||
             this.props.position !== nextProps.position ||
             this.props.text !== nextProps.text ||
             this.props.hideOnScroll !== nextProps.hideOnScroll ||
             this.props.delayShow !== nextProps.delayShow ||
             this.props.delayHide !== nextProps.delayHide ||
             this.props.children !== nextProps.children
+        )
     }
 
     componentDidUpdate() {
@@ -81,8 +80,14 @@ class Tooltip extends React.Component {
         const tooltipRect = this.tooltip.getBoundingClientRect()
 
         const windowDimensions = {
-            height: Math.max(document.documentElement.clientHeight, window.innerHeight),
-            width: Math.max(document.documentElement.clientWidth, window.innerWidth)
+            height: Math.max(
+                document.documentElement.clientHeight,
+                window.innerHeight
+            ),
+            width: Math.max(
+                document.documentElement.clientWidth,
+                window.innerWidth
+            )
         }
         const tooltipDimensions = {
             height: tooltipRect.height,
@@ -97,33 +102,54 @@ class Tooltip extends React.Component {
             y: wrapperRect.y
         }
 
-        const positionsToTry = position === 'auto'
-            ? ['top', 'right', 'bottom', 'left', 'top']
-            : [position]
+        const positionsToTry =
+            position === 'auto'
+                ? ['top', 'right', 'bottom', 'left', 'top']
+                : [position]
 
         for (let index = 0; index < positionsToTry.length; index++) {
             const currentPosition = positionsToTry[index]
-            const enoughSpaceAtPosition = hasEnoughSpace(windowDimensions, tooltipDimensions, wrapperDimensions, wrapperPosition, currentPosition, gapSize)
+            const enoughSpaceAtPosition = hasEnoughSpace(
+                windowDimensions,
+                tooltipDimensions,
+                wrapperDimensions,
+                wrapperPosition,
+                currentPosition,
+                gapSize
+            )
 
             if (enoughSpaceAtPosition || index === positionsToTry.length - 1) {
-                const tooltipPosition = calculatePosition(currentPosition, wrapperDimensions, wrapperPosition, tooltipDimensions, gapSize)
+                const tooltipPosition = calculatePosition(
+                    currentPosition,
+                    wrapperDimensions,
+                    wrapperPosition,
+                    tooltipDimensions,
+                    gapSize
+                )
                 this.tooltip.style.top = `${tooltipPosition.y}px`
-                this.tooltip.style.left = tooltipPosition.x < 0 && allowVaguePositioning
-                    ? `${2 * gapSize}px` // not centered but fully visible
-                    : `${tooltipPosition.x}px`
+                this.tooltip.style.left =
+                    tooltipPosition.x < 0 && allowVaguePositioning
+                        ? `${2 * gapSize}px` // not centered but fully visible
+                        : `${tooltipPosition.x}px`
 
                 if (currentPosition !== position) {
-                    this.tooltip.className = this._getClassNameForPosition(currentPosition)
+                    this.tooltip.className = this._getClassNameForPosition(
+                        currentPosition
+                    )
                 }
                 break
             }
         }
     }
 
-    _getClassNameForPosition = (position) => {
+    _getClassNameForPosition = position => {
         const { visible } = this.state
         const { tooltipClassName } = this.props
-        const className = classNames('reactist tooltip', { visible }, tooltipClassName)
+        const className = classNames(
+            'reactist tooltip',
+            { visible },
+            tooltipClassName
+        )
         if (visible) {
             return classNames(className, {
                 arrow_top: position === 'bottom',
@@ -138,24 +164,30 @@ class Tooltip extends React.Component {
     render() {
         if (!this.props.text) {
             return (
-                <div className='reactist tooltip__wrapper'>
-                    { this.props.children }
+                <div className="reactist tooltip__wrapper">
+                    {this.props.children}
                 </div>
             )
         }
 
         const tooltipClass = this._getClassNameForPosition(this.props.position)
-        const wrapperClass = classNames('reactist tooltip__wrapper', this.props.wrapperClassName)
+        const wrapperClass = classNames(
+            'reactist tooltip__wrapper',
+            this.props.wrapperClassName
+        )
         return (
             <span
-                className={ wrapperClass }
-                onMouseEnter={ this._show }
-                onMouseLeave={ this._hide }
-                ref={ wrapper => this.wrapper = wrapper }
+                className={wrapperClass}
+                onMouseEnter={this._show}
+                onMouseLeave={this._hide}
+                ref={wrapper => (this.wrapper = wrapper)}
             >
-                { this.props.children }
-                <span className={ tooltipClass } ref={ tooltip => this.tooltip = tooltip }>
-                    <span className='tooltip__text'>{ this.props.text }</span>
+                {this.props.children}
+                <span
+                    className={tooltipClass}
+                    ref={tooltip => (this.tooltip = tooltip)}
+                >
+                    <span className="tooltip__text">{this.props.text}</span>
                 </span>
             </span>
         )

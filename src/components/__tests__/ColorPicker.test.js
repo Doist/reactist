@@ -14,7 +14,7 @@ describe('ColorPicker', () => {
 
         const colorOptions = colorPicker.find('.color_options')
         const selectedColorItem = colorOptions.find('ColorItem[colorIndex=3]')
-        expect(selectedColorItem.length).toBe(0)
+        expect(selectedColorItem).toHaveLength(0)
     })
 
     describe('ColorItem', () => {
@@ -26,13 +26,15 @@ describe('ColorPicker', () => {
 
         it('calls onClick after clicking it', () => {
             const onClickSpy = jest.fn()
-            const colorItem = shallow(getColorItem({ colorIndex: 5, onClick: onClickSpy }))
+            const colorItem = shallow(
+                getColorItem({ colorIndex: 5, onClick: onClickSpy })
+            )
             colorItem.simulate('click')
             expect(onClickSpy).toHaveBeenLastCalledWith(5)
         })
     })
 
     // Helpers ================================================================
-    const getColorPicker = (props) => <ColorPicker { ...props } />
-    const getColorItem = (props) => <ColorItem colorIndex={ 0 } { ...props } />
+    const getColorPicker = props => <ColorPicker {...props} />
+    const getColorItem = props => <ColorItem colorIndex={0} {...props} />
 })
