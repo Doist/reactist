@@ -18,17 +18,19 @@ describe('Checkbox', () => {
         const onChangeSpy = jest.fn()
         const checkbox = shallow(getCheckbox({ onChange: onChangeSpy }))
 
-        checkbox.find('.checkbox--input').simulate('change', { target: { checked: true }})
+        checkbox
+            .find('.checkbox--input')
+            .simulate('change', { target: { checked: true } })
         expect(onChangeSpy).toHaveBeenLastCalledWith(true)
     })
 
     // Helpers ================================================================
-    const getCheckbox = (props) => (
+    const getCheckbox = props => (
         <Checkbox
-            label='Checkbox Label'
-            checked={ false }
-            onChange={ jest.fn() }
-            { ...props }
+            label="Checkbox Label"
+            checked={false}
+            onChange={jest.fn()}
+            {...props}
         />
     )
 })

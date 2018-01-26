@@ -1,4 +1,4 @@
-const getInitials = (name) => {
+const getInitials = name => {
     if (!name) {
         return ''
     }
@@ -20,7 +20,4 @@ const emailToIndex = (email, maxIndex) => {
     return hash % maxIndex
 }
 
-export {
-    getInitials,
-    emailToIndex
-}
+export { getInitials, emailToIndex }

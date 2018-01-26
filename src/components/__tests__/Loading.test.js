@@ -15,7 +15,7 @@ describe('Loading', () => {
     })
 
     it('adds additionally supplied className', () => {
-        const loading = shallow(<Loading className='additional className' />)
+        const loading = shallow(<Loading className="additional className" />)
         expect(loading.hasClass('additional')).toBe(true)
         expect(loading.hasClass('className')).toBe(true)
     })

@@ -5,8 +5,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 class LinkButton extends React.Component {
-
-    _handleClick = (event) => {
+    _handleClick = event => {
         event.preventDefault()
         if (!this.props.disabled && this.props.onClick) {
             this.props.onClick()
@@ -14,16 +13,16 @@ class LinkButton extends React.Component {
     }
 
     render() {
-        const className = classNames('reactist link_button', {
-            disabled: this.props.disabled
-        }, this.props.className)
+        const className = classNames(
+            'reactist link_button',
+            {
+                disabled: this.props.disabled
+            },
+            this.props.className
+        )
         return (
-            <a
-                className={ className }
-                href=''
-                onClick={ this._handleClick }
-            >
-                { this.props.name }
+            <a className={className} href="" onClick={this._handleClick}>
+                {this.props.name}
             </a>
         )
     }

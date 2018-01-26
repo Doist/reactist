@@ -90,7 +90,6 @@ describe('Tooltip', () => {
             expect(document.addEventListener).not.toHaveBeenCalled()
         })
 
-
         it('removes a scrolllistener when hiding and when hideOnScroll is true', () => {
             document.removeEventListener = jest.fn()
             const tooltip = shallow(getTooltip({ hideOnScroll: true }))
@@ -131,7 +130,10 @@ describe('Tooltip', () => {
 
         it('sets the tooltip to the given position if it is not set to `auto`', () => {
             PositioningUtils.hasEnoughSpace = jest.fn(() => true)
-            PositioningUtils.calculatePosition = jest.fn(() => ({ x: 23, y: 42 }))
+            PositioningUtils.calculatePosition = jest.fn(() => ({
+                x: 23,
+                y: 42
+            }))
             const tooltip = mount(getTooltip({ position: 'right' })).instance()
             tooltip.setState({ visible: true }) // triggers update positions
 
@@ -141,8 +143,13 @@ describe('Tooltip', () => {
 
         it('allows vague positioning to avoid cut offs', () => {
             PositioningUtils.hasEnoughSpace = jest.fn(() => true)
-            PositioningUtils.calculatePosition = jest.fn(() => ({ x: -23, y: 42 }))
-            const tooltip = mount(getTooltip({ allowVaguePositioning: true })).instance()
+            PositioningUtils.calculatePosition = jest.fn(() => ({
+                x: -23,
+                y: 42
+            }))
+            const tooltip = mount(
+                getTooltip({ allowVaguePositioning: true })
+            ).instance()
             tooltip.setState({ visible: true }) // triggers update positions
 
             expect(tooltip.tooltip.style.getPropertyValue('top')).toBe('42px')
@@ -150,12 +157,16 @@ describe('Tooltip', () => {
         })
 
         it('sets the tooltip to the first position that has enough space when `auto` is supplied', () => {
-            PositioningUtils.hasEnoughSpace = jest.fn()
+            PositioningUtils.hasEnoughSpace = jest
+                .fn()
                 .mockReturnValueOnce(false) // top
                 .mockReturnValueOnce(false) // right
                 .mockReturnValueOnce(false) // bottom
                 .mockReturnValueOnce(true) // left
-            PositioningUtils.calculatePosition = jest.fn(() => ({ x: 23, y: 42 }))
+            PositioningUtils.calculatePosition = jest.fn(() => ({
+                x: 23,
+                y: 42
+            }))
             const tooltip = mount(getTooltip({ position: 'auto' })).instance()
             tooltip.setState({ visible: true }) // triggers update positions
 
@@ -170,7 +181,9 @@ describe('Tooltip', () => {
             const tooltip = shallow(getTooltip()).instance()
 
             const currentProps = tooltip.props
-            const shouldUpdate = tooltip.shouldComponentUpdate(currentProps, { visible: true })
+            const shouldUpdate = tooltip.shouldComponentUpdate(currentProps, {
+                visible: true
+            })
             expect(shouldUpdate).toBe(true)
         })
 
@@ -179,22 +192,40 @@ describe('Tooltip', () => {
             const currentState = tooltip.state
             const currentProps = tooltip.props
 
-            const shouldUpdateAfterPositionChange = tooltip.shouldComponentUpdate({ ...currentProps, position: 'bottom' }, currentState)
+            const shouldUpdateAfterPositionChange = tooltip.shouldComponentUpdate(
+                { ...currentProps, position: 'bottom' },
+                currentState
+            )
             expect(shouldUpdateAfterPositionChange).toBe(true)
 
-            const shouldUpdateAfterTextChange = tooltip.shouldComponentUpdate({ ...currentProps, text: 'new tip' }, currentState)
+            const shouldUpdateAfterTextChange = tooltip.shouldComponentUpdate(
+                { ...currentProps, text: 'new tip' },
+                currentState
+            )
             expect(shouldUpdateAfterTextChange).toBe(true)
 
-            const shouldUpdateAfterHideOnScrollChange = tooltip.shouldComponentUpdate({ ...currentProps, hideOnScroll: false }, currentState)
+            const shouldUpdateAfterHideOnScrollChange = tooltip.shouldComponentUpdate(
+                { ...currentProps, hideOnScroll: false },
+                currentState
+            )
             expect(shouldUpdateAfterHideOnScrollChange).toBe(true)
 
-            const shouldUpdateAfterDelayShowChange = tooltip.shouldComponentUpdate({ ...currentProps, delayShow: 2342 }, currentState)
+            const shouldUpdateAfterDelayShowChange = tooltip.shouldComponentUpdate(
+                { ...currentProps, delayShow: 2342 },
+                currentState
+            )
             expect(shouldUpdateAfterDelayShowChange).toBe(true)
 
-            const shouldUpdateAfterDelayHideChange = tooltip.shouldComponentUpdate({ ...currentProps, delayHide: 2342 }, currentState)
+            const shouldUpdateAfterDelayHideChange = tooltip.shouldComponentUpdate(
+                { ...currentProps, delayHide: 2342 },
+                currentState
+            )
             expect(shouldUpdateAfterDelayHideChange).toBe(true)
 
-            const shouldUpdateAfterChildrenChange = tooltip.shouldComponentUpdate({ ...currentProps, children: <span>New Content</span> }, currentState)
+            const shouldUpdateAfterChildrenChange = tooltip.shouldComponentUpdate(
+                { ...currentProps, children: <span>New Content</span> },
+                currentState
+            )
             expect(shouldUpdateAfterChildrenChange).toBe(true)
         })
 
@@ -203,7 +234,10 @@ describe('Tooltip', () => {
 
             const currentState = tooltip.state
             const currentProps = tooltip.props
-            const shouldUpdate = tooltip.shouldComponentUpdate(currentProps, currentState)
+            const shouldUpdate = tooltip.shouldComponentUpdate(
+                currentProps,
+                currentState
+            )
             expect(shouldUpdate).toBe(false)
         })
     })
@@ -217,7 +251,7 @@ describe('Tooltip', () => {
 
     // Helpers ================================================================
     const getTooltip = (props = {}) => (
-        <Tooltip text='tip' { ...props }>
+        <Tooltip text="tip" {...props}>
             <span>Wrapped Content</span>
         </Tooltip>
     )

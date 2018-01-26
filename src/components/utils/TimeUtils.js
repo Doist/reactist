@@ -6,7 +6,12 @@ const TimeUtils = {
     LONG_FORMAT: 'DD MMM YY, LT',
 
     timeAgo(timestamp, config = {}) {
-        const { locale = 'en', hoursSuffix = 'h', minutesSuffix = 'm', momentsAgo = 'moments ago' }  = config
+        const {
+            locale = 'en',
+            hoursSuffix = 'h',
+            minutesSuffix = 'm',
+            momentsAgo = 'moments ago'
+        } = config
         const now = moment()
         const date = moment.unix(timestamp)
         date.locale(locale)

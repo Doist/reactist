@@ -42,14 +42,14 @@ class ErrorMessage extends React.Component {
 
     render() {
         const { message } = this.props
-        if (!this.state.visible || !this._isValidMessage(message) ) {
+        if (!this.state.visible || !this._isValidMessage(message)) {
             return false
         }
 
         return (
-            <div className='error_message'>
-                <p>{ message }</p>
-                <div onClick={ this._hide } className='dismiss_icon' />
+            <div className="error_message">
+                <p>{message}</p>
+                <div onClick={this._hide} className="dismiss_icon" />
             </div>
         )
     }

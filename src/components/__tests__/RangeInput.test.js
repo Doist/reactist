@@ -13,14 +13,18 @@ describe('RangeInput', () => {
         const onChangeSpy = jest.fn()
         const rangeInput = shallow(getRangeInput({ onChange: onChangeSpy }))
 
-        rangeInput.find('.range_slider').simulate('change', { target: { value: '60' }})
+        rangeInput
+            .find('.range_slider')
+            .simulate('change', { target: { value: '60' } })
         expect(onChangeSpy).toHaveBeenLastCalledWith(60)
     })
 
     it('calls only onMinus when clicking on minus button', () => {
         const onMinusSpy = jest.fn()
         const onChangeSpy = jest.fn()
-        const rangeInput = shallow(getRangeInput({ onMinus: onMinusSpy, onChange: onChangeSpy }))
+        const rangeInput = shallow(
+            getRangeInput({ onMinus: onMinusSpy, onChange: onChangeSpy })
+        )
 
         rangeInput.find('.range_btn.minus').simulate('click')
         expect(onMinusSpy).toHaveBeenLastCalledWith(49)
@@ -30,7 +34,9 @@ describe('RangeInput', () => {
     it('calls only onPlus when clicking on plus button', () => {
         const onPlusSpy = jest.fn()
         const onChangeSpy = jest.fn()
-        const rangeInput = shallow(getRangeInput({ onPlus: onPlusSpy, onChange: onChangeSpy }))
+        const rangeInput = shallow(
+            getRangeInput({ onPlus: onPlusSpy, onChange: onChangeSpy })
+        )
 
         rangeInput.find('.range_btn.plus').simulate('click')
         expect(onPlusSpy).toHaveBeenLastCalledWith(51)
@@ -55,7 +61,9 @@ describe('RangeInput', () => {
 
     it('does not call onPlus if the value is at the maximum', () => {
         const onPlusSpy = jest.fn()
-        const rangeInput = shallow(getRangeInput({ onPlus: onPlusSpy, value: 100 }))
+        const rangeInput = shallow(
+            getRangeInput({ onPlus: onPlusSpy, value: 100 })
+        )
 
         rangeInput.find('.range_btn.plus').simulate('click')
         expect(onPlusSpy).not.toHaveBeenCalled()
@@ -63,18 +71,16 @@ describe('RangeInput', () => {
 
     it('does not call onMinus if the value is at the minimum', () => {
         const onMinusSpy = jest.fn()
-        const rangeInput = shallow(getRangeInput({ onMinus: onMinusSpy, value: 0 }))
+        const rangeInput = shallow(
+            getRangeInput({ onMinus: onMinusSpy, value: 0 })
+        )
 
         rangeInput.find('.range_btn.minus').simulate('click')
         expect(onMinusSpy).not.toHaveBeenCalled()
     })
 
     // helpers ================================================================
-    const getRangeInput = (props) => (
-        <RangeInput
-            value={ 50 }
-            onChange={ jest.fn() }
-            { ...props }
-        />
+    const getRangeInput = props => (
+        <RangeInput value={50} onChange={jest.fn()} {...props} />
     )
 })

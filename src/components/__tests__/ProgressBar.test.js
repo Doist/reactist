@@ -10,12 +10,12 @@ describe('ProgressBar', () => {
     })
 
     it('uses 0% width for fillPercentages smaller than 0', () => {
-        const progressBar = shallow(<ProgressBar fillPercentage={ -1 } />)
+        const progressBar = shallow(<ProgressBar fillPercentage={-1} />)
         expect(progressBar.find('.inner').props().style.width).toBe('0%')
     })
 
     it('uses 100% width for fillPercentages larger than 100', () => {
-        const progressBar = shallow(<ProgressBar fillPercentage={ 1337 } />)
+        const progressBar = shallow(<ProgressBar fillPercentage={1337} />)
         expect(progressBar.find('.inner').props().style.width).toBe('100%')
     })
 })

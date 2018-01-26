@@ -6,9 +6,7 @@ import classNames from 'classnames'
 
 const Input = ({ ...props }) => {
     const className = classNames('reactist input', props.className)
-    return (
-        <input className={ className } { ...props } />
-    )
+    return <input className={className} {...props} />
 }
 Input.displayName = 'Input'
 Input.propTypes = {

@@ -30,9 +30,9 @@ class Box extends React.Component {
     _handleClickOutside(event) {
         const dropdown_dom_node = ReactDOM.findDOMNode(this)
 
-        if (!dropdown_dom_node.contains(event.target))
-            this._toggleShowBody()
-        else if (!this.props.allowBodyInteractions) { // won't close when body interactions are allowed
+        if (!dropdown_dom_node.contains(event.target)) this._toggleShowBody()
+        else if (!this.props.allowBodyInteractions) {
+            // won't close when body interactions are allowed
             this._timeout = setTimeout(() => {
                 if (this.state.show_body) {
                     this._toggleShowBody()
@@ -42,12 +42,18 @@ class Box extends React.Component {
     }
 
     _toggleShowBody() {
-        if (!this.state.show_body) { // will show
+        if (!this.state.show_body) {
+            // will show
             if (this.props.onShowBody) this.props.onShowBody()
             document.addEventListener('click', this._handleClickOutside, true)
-        } else { // will hide
+        } else {
+            // will hide
             if (this.props.onHideBody) this.props.onHideBody()
-            document.removeEventListener('click', this._handleClickOutside, true)
+            document.removeEventListener(
+                'click',
+                this._handleClickOutside,
+                true
+            )
         }
 
         this.setState({
@@ -64,21 +70,29 @@ class Box extends React.Component {
     // https://facebook.github.io/react/docs/refs-and-the-dom.html#exposing-dom-refs-to-parent-components
     _setPosition(body) {
         if (body) {
-            const scrolling_parent = document.getElementById(this.state.scrolling_parent)
+            const scrolling_parent = document.getElementById(
+                this.state.scrolling_parent
+            )
 
             if (scrolling_parent) {
                 const dropdown = ReactDOM.findDOMNode(this)
-                const dropdown_vertical_position = ReactDOM.findDOMNode(this).offsetTop
-                const dropdown_trigger_height = dropdown.querySelector('.trigger').clientHeight
+                const dropdown_vertical_position = ReactDOM.findDOMNode(this)
+                    .offsetTop
+                const dropdown_trigger_height = dropdown.querySelector(
+                    '.trigger'
+                ).clientHeight
                 const dropdown_body_height = body.clientHeight
 
                 const scrolling_parent_height = scrolling_parent.clientHeight
                 const scrolling_parent_offset = scrolling_parent.scrollTop
 
-                const bottom_offset = scrolling_parent_height + scrolling_parent_offset -
-                                dropdown_vertical_position - dropdown_trigger_height
+                const bottom_offset =
+                    scrolling_parent_height +
+                    scrolling_parent_offset -
+                    dropdown_vertical_position -
+                    dropdown_trigger_height
 
-                const top = (bottom_offset < dropdown_body_height)
+                const top = bottom_offset < dropdown_body_height
 
                 if (top !== this.state.top) {
                     this.setState({ top })
@@ -89,7 +103,7 @@ class Box extends React.Component {
 
     _getBodyComponent() {
         const _body = this.props.children[1]
-        const style = { position:'relative' }
+        const style = { position: 'relative' }
         const { right, top } = this.state
         const props = { top, right, setPosition: this._setPosition }
 
@@ -102,8 +116,8 @@ class Box extends React.Component {
 
         if (this.state.show_body) {
             return (
-                <div className={ class_name } style={ style }>
-                    { React.cloneElement(_body, props) }
+                <div className={class_name} style={style}>
+                    {React.cloneElement(_body, props)}
                 </div>
             )
         }
@@ -117,10 +131,10 @@ class Box extends React.Component {
         if (this.props.className) class_name += ` ${this.props.className}`
 
         return (
-            <div style={ style } className={ class_name }>
-                { this.state.top && this._getBodyComponent() }
-                { this._getTriggerComponent() }
-                { !this.state.top && this._getBodyComponent() }
+            <div style={style} className={class_name}>
+                {this.state.top && this._getBodyComponent()}
+                {this._getTriggerComponent()}
+                {!this.state.top && this._getBodyComponent()}
             </div>
         )
     }
@@ -145,8 +159,8 @@ class Trigger extends React.Component {
         }
 
         return (
-            <div style={ style } className='trigger' onClick={ this._onClick } >
-                { this.props.children }
+            <div style={style} className="trigger" onClick={this._onClick}>
+                {this.props.children}
             </div>
         )
     }
@@ -172,8 +186,13 @@ class Body extends React.Component {
         }
 
         return (
-            <div ref={ this.props.setPosition }  style={ style } className='body' id='reactist-dropdown-body'>
-                { this.props.children }
+            <div
+                ref={this.props.setPosition}
+                style={style}
+                className="body"
+                id="reactist-dropdown-body"
+            >
+                {this.props.children}
             </div>
         )
     }

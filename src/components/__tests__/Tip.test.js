@@ -10,11 +10,7 @@ describe('Tip', () => {
     })
 
     // Helpers ================================================================
-    const getTip = (props) => (
-        <Tip
-            title='Title of the Tip'
-            message='Message of the Tip'
-            { ...props }
-        />
+    const getTip = props => (
+        <Tip title="Title of the Tip" message="Message of the Tip" {...props} />
     )
 })

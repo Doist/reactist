@@ -11,7 +11,7 @@ describe('Input', () => {
 
     it('adds arbitrary props to the underlying input element', () => {
         const onChangeSpy = jest.fn()
-        const input = shallow(<Input onChange={ onChangeSpy } />)
+        const input = shallow(<Input onChange={onChangeSpy} />)
 
         input.simulate('change')
         expect(onChangeSpy).toHaveBeenCalled()

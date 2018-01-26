@@ -11,14 +11,14 @@ describe('Button', () => {
     })
 
     it('renders name as button text', () => {
-        const button = shallow(<Button name='THE BUTTON TEXT' />)
+        const button = shallow(<Button name="THE BUTTON TEXT" />)
         expect(toJson(button)).toMatchSnapshot()
     })
 
     it('calls onclick when clicked', () => {
         const mockEvent = { preventDefault: jest.fn() }
         const clickSpy = jest.fn()
-        const button = shallow(<Button onClick={ clickSpy } />)
+        const button = shallow(<Button onClick={clickSpy} />)
 
         button.find('button').simulate('click', mockEvent)
         expect(clickSpy).toHaveBeenCalled()
@@ -27,19 +27,26 @@ describe('Button', () => {
     it('does not call onclick when disabled and clicked', () => {
         const mockEvent = { preventDefault: jest.fn() }
         const clickSpy = jest.fn()
-        const button = shallow(<Button disabled onClick={ clickSpy } />)
+        const button = shallow(<Button disabled onClick={clickSpy} />)
 
         button.find('button').simulate('click', mockEvent)
         expect(clickSpy).not.toHaveBeenCalled()
     })
 
     it('renders a tooltip when prop is supplied', () => {
-        const button = shallow(<Button name='THE BUTTON TEXT' data_tip='THE TOOLTIP' />)
+        const button = shallow(
+            <Button name="THE BUTTON TEXT" data_tip="THE TOOLTIP" />
+        )
         expect(toJson(button)).toMatchSnapshot()
     })
 
     it('adds additional className when supplied', () => {
-        const button = shallow(<Button name='THE BUTTON TEXT' className='very-complex classnames-are-added' />)
+        const button = shallow(
+            <Button
+                name="THE BUTTON TEXT"
+                className="very-complex classnames-are-added"
+            />
+        )
         expect(toJson(button)).toMatchSnapshot()
     })
 })
