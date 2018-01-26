@@ -33,6 +33,15 @@ describe('Button', () => {
         expect(clickSpy).not.toHaveBeenCalled()
     })
 
+    it('does not call onClick when loading and clicked', () => {
+        const mockEvent = { preventDefault: jest.fn() }
+        const clickSpy = jest.fn()
+        const button = shallow(<Button loading onClick={clickSpy} />)
+
+        button.find('button').simulate('click', mockEvent)
+        expect(clickSpy).not.toHaveBeenCalled()
+    })
+
     it('renders a tooltip when prop is supplied', () => {
         const button = shallow(
             <Button name="THE BUTTON TEXT" data_tip="THE TOOLTIP" />
