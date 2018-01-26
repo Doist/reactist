@@ -26,6 +26,7 @@ describe('Avatar', () => {
     })
 
     it('falls back to size `l` when invalid value is supplied', () => {
+        // eslint-disable-next-line
         console.error = jest.fn() // silence errors caused by faulty required prop
         const avatar = shallow(getAvatar({ size: 'medium' }))
         expect(avatar.hasClass('avatar_size--l')).toBe(true)

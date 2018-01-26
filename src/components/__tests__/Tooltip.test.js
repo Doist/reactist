@@ -19,6 +19,7 @@ describe('Tooltip', () => {
     })
 
     it('renders only children if text prop is not defined', () => {
+        // eslint-disable-next-line
         console.error = jest.fn() // silence errors caused by unsupplied required prop
         const tooltip = shallow(getTooltip({ text: null }))
         expect(tooltip).toMatchSnapshot()

@@ -95,7 +95,9 @@ Tabs.propTypes = {
     /** Whether the tabs should take all available space and distribute it evenly or use the minimum required **/
     spreadLayout: PropTypes.bool,
     /** Callback for tab change event. Tab value will be passed */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    /** Children of the Tabs component. Most commonly an array of Tab components. */
+    children: PropTypes.any
 }
 Tabs.defaultProps = {
     spreadLayout: false
@@ -119,7 +121,9 @@ Tab.propTypes = {
     /** Disabled tabs can't be selected. */
     disabled: PropTypes.bool,
     /** Additional css class applied to Tab. */
-    className: PropTypes.string
+    className: PropTypes.string,
+    /** Children of the Tab component. Can be a simple string or other component(s). */
+    children: PropTypes.any
 }
 
 export { Tabs, Tab }

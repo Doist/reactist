@@ -89,6 +89,8 @@ Icon.propTypes = {
     tooltip: PropTypes.string,
     /** Whether hte icon is disabled. Disabled icons can't be clicked and displayed with less opacity. */
     disabled: PropTypes.bool,
+    /** Icon component to render, defaults to three dots. */
+    icon: PropTypes.element,
     /** Additional css class that is applied to the icon */
     className: PropTypes.string
 }
