@@ -122,4 +122,19 @@ describe('Tabs', () => {
             )
         }).toThrow()
     })
+
+    it('accepts 0 (zero) as valid value for Tab and defaultTab', () => {
+        expect(() => {
+            shallow(
+                <Tabs defaultTab={0}>
+                    <Tab value={0} title="Tab 0">
+                        Content
+                    </Tab>
+                    <Tab value={1} title="Tab 1">
+                        Content
+                    </Tab>
+                </Tabs>
+            )
+        }).not.toThrow()
+    })
 })
