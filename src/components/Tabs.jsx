@@ -7,13 +7,14 @@ import classNames from 'classnames'
 class Tabs extends React.Component {
     constructor(props, context) {
         super(props, context)
-
         const { defaultTab, onChange } = props
         const children = React.Children.toArray(this.props.children)
 
         const hasDefault = defaultTab || defaultTab === 0
         if (hasDefault || onChange) {
-            const missing = children.find(c => !c.props.value)
+            const missing = children.find(
+                c => !c.props.value && c.props.value !== 0
+            )
             if (missing)
                 throw new Error(
                     '(Tab) Missing property: all Tab must have "value" set if "defaultTab" or "onChange" is used'
