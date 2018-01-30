@@ -6,10 +6,10 @@
         overflow: auto;
     }
 
-    .with_arrow:before, .with_arrow:after {
+    .with_arrow:before,
+    .with_arrow:after {
         display: none !important;
     }
-
 
     .menu_button_trigger {
         background-color: white;
@@ -20,7 +20,10 @@
         border: 1px solid @color_grey_10;
         padding: 5px 10px;
         border-radius: 4px;
-        &:hover { cursor: pointer; }
+        text-align: center;
+        &:hover {
+            cursor: pointer;
+        }
     }
 
     .menu_button_items {
