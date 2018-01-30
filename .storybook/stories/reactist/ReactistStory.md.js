@@ -103,9 +103,4 @@ const testingText = `
     when experiencing troubles with the watch mode. See this issue for details: https://github.com/facebook/jest/issues/1767
 `
 
-export {
-    introText,
-    howToText,
-    developmentText,
-    testingText
-}
+export { introText, howToText, developmentText, testingText }

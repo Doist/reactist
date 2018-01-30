@@ -4,7 +4,11 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, number } from '@storybook/addon-knobs'
 
-import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
+import {
+    getPropTypesStory,
+    optionsSourceOnly,
+    optionsNoSourceNoProps
+} from '../utils/StoryUtils'
 
 import ProgressBar from '../../../src/components/ProgressBar'
 
@@ -12,16 +16,21 @@ import ProgressBar from '../../../src/components/ProgressBar'
 const ProgressBarPropTypesStory = getPropTypesStory(ProgressBar)
 const ProgressBarPropTypesChapter = {
     subtitle: 'Component Usage',
-    sections: [{ sectionFn: ProgressBarPropTypesStory, options: optionsNoSourceNoProps }]
+    sections: [
+        {
+            sectionFn: ProgressBarPropTypesStory,
+            options: optionsNoSourceNoProps
+        }
+    ]
 }
 
 const ProgressBarStory = () => (
-    <section className='story'>
-        <ProgressBar fillPercentage={ 0 } />
-        <ProgressBar fillPercentage={ 25 } />
-        <ProgressBar fillPercentage={ 50 } />
-        <ProgressBar fillPercentage={ 75 } />
-        <ProgressBar fillPercentage={ 100 } />
+    <section className="story">
+        <ProgressBar fillPercentage={0} />
+        <ProgressBar fillPercentage={25} />
+        <ProgressBar fillPercentage={50} />
+        <ProgressBar fillPercentage={75} />
+        <ProgressBar fillPercentage={100} />
     </section>
 )
 const ProgressBarChapter = {
@@ -30,22 +39,18 @@ const ProgressBarChapter = {
 }
 
 const ProgressBarPlaygroundStory = () => (
-    <section className='story'>
-        <ProgressBar fillPercentage={ number('Fill Percentage:', 50) } />
+    <section className="story">
+        <ProgressBar fillPercentage={number('Fill Percentage:', 50)} />
     </section>
 )
 
-
 // Story setup ================================================================
 const Story = () =>
-storiesOf('ProgressBar', module)
-    .addDecorator(withKnobs)
-    .addWithChapters('Component Overview', {
-        chapters: [
-            ProgressBarPropTypesChapter,
-            ProgressBarChapter
-        ]
-    })
-    .add('Component Playground', ProgressBarPlaygroundStory)
+    storiesOf('ProgressBar', module)
+        .addDecorator(withKnobs)
+        .addWithChapters('Component Overview', {
+            chapters: [ProgressBarPropTypesChapter, ProgressBarChapter]
+        })
+        .add('Component Playground', ProgressBarPlaygroundStory)
 
 export default Story

@@ -9,7 +9,12 @@ import ColorPicker from '../../../src/components/ColorPicker'
 const ColorPickerPropTypesStory = getPropTypesStory(ColorPicker)
 const ColorPickerPropTypesChapter = {
     subtitle: 'Component Usage',
-    sections: [{ sectionFn: ColorPickerPropTypesStory, options: optionsNoSourceNoProps }]
+    sections: [
+        {
+            sectionFn: ColorPickerPropTypesStory,
+            options: optionsNoSourceNoProps
+        }
+    ]
 }
 
 class ColorPickersStory extends React.Component {
@@ -20,28 +25,30 @@ class ColorPickersStory extends React.Component {
 
     render() {
         return (
-            <section className='story'>
+            <section className="story">
                 <ColorPicker
-                    color={ this.state.color }
-                    onChange={ (color) => this.setState(() => ({ color })) }
+                    color={this.state.color}
+                    onChange={color => this.setState(() => ({ color }))}
                 />
             </section>
         )
     }
 }
-const ColorPickersChapter =  {
+const ColorPickersChapter = {
     subtitle: 'Color Picker',
-    sections: [{ sectionFn: () => <ColorPickersStory />, options: optionsNoSourceNoProps }]
+    sections: [
+        {
+            // eslint-disable-next-line react/display-name
+            sectionFn: () => <ColorPickersStory />,
+            options: optionsNoSourceNoProps
+        }
+    ]
 }
 
 // Story setup ================================================================
 const Story = () =>
-storiesOf('ColorPicker', module)
-    .addWithChapters('Component Overview', {
-        chapters: [
-            ColorPickerPropTypesChapter,
-            ColorPickersChapter
-        ]
+    storiesOf('ColorPicker', module).addWithChapters('Component Overview', {
+        chapters: [ColorPickerPropTypesChapter, ColorPickersChapter]
     })
 
 export default Story

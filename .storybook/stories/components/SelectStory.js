@@ -19,7 +19,9 @@ const options = [
 const SelectPropTypesStory = getPropTypesStory(Select)
 const SelectPropTypesChapter = {
     subtitle: 'Component Usage',
-    sections: [{ sectionFn: SelectPropTypesStory, options: optionsNoSourceNoProps }]
+    sections: [
+        { sectionFn: SelectPropTypesStory, options: optionsNoSourceNoProps }
+    ]
 }
 
 class SelectStory extends React.Component {
@@ -29,11 +31,11 @@ class SelectStory extends React.Component {
     }
     render() {
         return (
-            <section className='story'>
+            <section className="story">
                 <Select
-                    value={ this.state.value }
-                    options={ options }
-                    onChange={ value => this.setState(() => ({ value }))}
+                    value={this.state.value}
+                    options={options}
+                    onChange={value => this.setState(() => ({ value }))}
                 />
             </section>
         )
@@ -41,9 +43,11 @@ class SelectStory extends React.Component {
 }
 const SelectChapter = {
     subtitle: 'Select',
-    sections: [{ sectionFn: () => <SelectStory />, options: optionsNoSourceNoProps }]
+    sections: [
+        // eslint-disable-next-line react/display-name
+        { sectionFn: () => <SelectStory />, options: optionsNoSourceNoProps }
+    ]
 }
-
 
 class SelectPlaygroundStory extends React.Component {
     constructor(props, context) {
@@ -52,29 +56,25 @@ class SelectPlaygroundStory extends React.Component {
     }
     render() {
         return (
-            <section className='story'>
+            <section className="story">
                 <Select
-                    value={ this.state.value }
-                    options={ options }
-                    onChange={ value => this.setState(() => ({ value }))}
-                    disabled={ boolean('Disabled:', false) }
+                    value={this.state.value}
+                    options={options}
+                    onChange={value => this.setState(() => ({ value }))}
+                    disabled={boolean('Disabled:', false)}
                 />
             </section>
         )
     }
 }
 
-
 // Story setup ================================================================
 const Story = () =>
-storiesOf('Select', module)
-    .addDecorator(withKnobs)
-    .addWithChapters('Component Overview', {
-        chapters: [
-            SelectPropTypesChapter,
-            SelectChapter
-        ]
-    })
-    .add('Component Playground', () => <SelectPlaygroundStory />)
+    storiesOf('Select', module)
+        .addDecorator(withKnobs)
+        .addWithChapters('Component Overview', {
+            chapters: [SelectPropTypesChapter, SelectChapter]
+        })
+        .add('Component Playground', () => <SelectPlaygroundStory />)
 
 export default Story

@@ -5,33 +5,69 @@ import moment from 'moment'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, number, boolean } from '@storybook/addon-knobs'
 
-import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
+import {
+    getPropTypesStory,
+    optionsSourceOnly,
+    optionsNoSourceNoProps
+} from '../utils/StoryUtils'
 
 import Time from '../../../src/components/Time'
 
 const exampleTimes = [
     { title: 'Now', time: moment().unix() },
-    { title: 'Now - 2 Minutes', time: moment().subtract(2, 'minutes').unix() },
-    { title: 'Now - 2 Hours', time: moment().subtract(2, 'hours').unix() },
-    { title: 'Now - 18 Hours', time: moment().subtract(18, 'hours').unix() },
-    { title: 'Now - 2 Days', time: moment().subtract(2, 'days').unix() },
-    { title: 'Now - 2 Weeks', time: moment().subtract(2, 'weeks').unix() },
-    { title: 'Now - 2 Years', time: moment().subtract(2, 'years').unix() }
+    {
+        title: 'Now - 2 Minutes',
+        time: moment()
+            .subtract(2, 'minutes')
+            .unix()
+    },
+    {
+        title: 'Now - 2 Hours',
+        time: moment()
+            .subtract(2, 'hours')
+            .unix()
+    },
+    {
+        title: 'Now - 18 Hours',
+        time: moment()
+            .subtract(18, 'hours')
+            .unix()
+    },
+    {
+        title: 'Now - 2 Days',
+        time: moment()
+            .subtract(2, 'days')
+            .unix()
+    },
+    {
+        title: 'Now - 2 Weeks',
+        time: moment()
+            .subtract(2, 'weeks')
+            .unix()
+    },
+    {
+        title: 'Now - 2 Years',
+        time: moment()
+            .subtract(2, 'years')
+            .unix()
+    }
 ]
 
 // Story Definitions ==========================================================
 const TimePropTypesStory = getPropTypesStory(Time)
 const TimePropTypesChapter = {
     subtitle: 'Component Usage',
-    sections: [{ sectionFn: TimePropTypesStory, options: optionsNoSourceNoProps }]
+    sections: [
+        { sectionFn: TimePropTypesStory, options: optionsNoSourceNoProps }
+    ]
 }
 
 const NoHoverEffectStory = () => (
-    <section className='story time'>
-        { exampleTimes.map((time, index) => (
-            <div key={ index }>
-                <span>{ time.title }</span>
-                <Time time={ time.time } />
+    <section className="story time">
+        {exampleTimes.map((time, index) => (
+            <div key={index}>
+                <span>{time.title}</span>
+                <Time time={time.time} />
             </div>
         ))}
     </section>
@@ -42,11 +78,11 @@ const NoHoverEffectChapter = {
 }
 
 const ExpandTimeStory = () => (
-    <section className='story time'>
-        { exampleTimes.map((time, index) => (
-            <div key={ index }>
-                <span>{ time.title }</span>
-                <Time expandOnHover time={ time.time } />
+    <section className="story time">
+        {exampleTimes.map((time, index) => (
+            <div key={index}>
+                <span>{time.title}</span>
+                <Time expandOnHover time={time.time} />
             </div>
         ))}
     </section>
@@ -57,11 +93,11 @@ const ExpandTimeChapter = {
 }
 
 const FullyExpandTimeStory = () => (
-    <section className='story time'>
-        { exampleTimes.map((time, index) => (
-            <div key={ index }>
-                <span>{ time.title }</span>
-                <Time expandFullyOnHover time={ time.time } />
+    <section className="story time">
+        {exampleTimes.map((time, index) => (
+            <div key={index}>
+                <span>{time.title}</span>
+                <Time expandFullyOnHover time={time.time} />
             </div>
         ))}
     </section>
@@ -80,11 +116,15 @@ const TranslatedTimeStory = () => {
     }
 
     return (
-        <section className='story time'>
-            { exampleTimes.map((time, index) => (
-                <div key={ index }>
-                    <span>{ time.title }</span>
-                    <Time expandFullyOnHover config={ i18nConfig } time={ time.time } />
+        <section className="story time">
+            {exampleTimes.map((time, index) => (
+                <div key={index}>
+                    <span>{time.title}</span>
+                    <Time
+                        expandFullyOnHover
+                        config={i18nConfig}
+                        time={time.time}
+                    />
                 </div>
             ))}
         </section>
@@ -96,29 +136,28 @@ const TranslatedTimeChapter = {
 }
 
 const TimePlaygroundStory = () => (
-    <section className='story time'>
+    <section className="story time">
         <Time
-            time={ number('time:', exampleTimes[0].time) }
-            expandOnHover={ boolean('expand on hover:', false) }
-            expandFullyOnHover={ boolean('expand fully on hover:', false) }
+            time={number('time:', exampleTimes[0].time)}
+            expandOnHover={boolean('expand on hover:', false)}
+            expandFullyOnHover={boolean('expand fully on hover:', false)}
         />
     </section>
 )
 
-
 // Story setup ================================================================
 const Story = () =>
-storiesOf('Time', module)
-    .addDecorator(withKnobs)
-    .addWithChapters('Component Overview', {
-        chapters: [
-            TimePropTypesChapter,
-            NoHoverEffectChapter,
-            ExpandTimeChapter,
-            FullyExpandTimeChapter,
-            TranslatedTimeChapter
-        ]
-    })
-    .add('Component Playground', TimePlaygroundStory)
+    storiesOf('Time', module)
+        .addDecorator(withKnobs)
+        .addWithChapters('Component Overview', {
+            chapters: [
+                TimePropTypesChapter,
+                NoHoverEffectChapter,
+                ExpandTimeChapter,
+                FullyExpandTimeChapter,
+                TranslatedTimeChapter
+            ]
+        })
+        .add('Component Playground', TimePlaygroundStory)
 
 export default Story

@@ -29,6 +29,4 @@ const alternateBrandingText = `
     \`\`\`
 `
 
-export {
-    alternateBrandingText
-}
+export { alternateBrandingText }

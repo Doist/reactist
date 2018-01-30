@@ -1,7 +1,12 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import { getPropTypesStory, emptySection, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
+import {
+    getPropTypesStory,
+    emptySection,
+    optionsSourceOnly,
+    optionsNoSourceNoProps
+} from '../utils/StoryUtils'
 
 import Input from '../../../src/components/Input'
 import { inputPropsDescription } from './InputStory.md'
@@ -12,12 +17,17 @@ const InputPropTypesChapter = {
     subtitle: 'Component Usage',
     sections: [
         { sectionFn: InputPropTypesStory, options: optionsNoSourceNoProps },
-        { sectionFn: emptySection, info: inputPropsDescription, options: optionsNoSourceNoProps }]
+        {
+            sectionFn: emptySection,
+            info: inputPropsDescription,
+            options: optionsNoSourceNoProps
+        }
+    ]
 }
 
 const InputStory = () => (
-    <section className='story'>
-        <Input placeholder='Simple input wrapper' />
+    <section className="story">
+        <Input placeholder="Simple input wrapper" />
     </section>
 )
 const InputChapter = {
@@ -27,12 +37,8 @@ const InputChapter = {
 
 // Story setup ================================================================
 const Story = () =>
-storiesOf('Input', module)
-    .addWithChapters('Component Overview', {
-        chapters: [
-            InputPropTypesChapter,
-            InputChapter,
-        ]
+    storiesOf('Input', module).addWithChapters('Component Overview', {
+        chapters: [InputPropTypesChapter, InputChapter]
     })
 
 export default Story

@@ -2,13 +2,14 @@ import React from 'react'
 import { withInfo } from '@storybook/addon-info'
 
 // Info Addon =================================================================
-const getPropTypesStory = (...components) => withInfo({
-    header: false,
-    inline: true,
-    source: false,
-    propTables: components,
-    maxPropStringLength: 300
-})(() => <div />)
+const getPropTypesStory = (...components) =>
+    withInfo({
+        header: false,
+        inline: true,
+        source: false,
+        propTables: components,
+        maxPropStringLength: 300
+    })(() => <div />)
 
 // Chapters Addon =============================================================
 const optionsSourceOnly = {
