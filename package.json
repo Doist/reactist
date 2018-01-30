@@ -6,7 +6,7 @@
     "scripts": {
         "build": "./node_modules/.bin/webpack -p --progress --color",
         "build-watch": "npm run build -- --watch",
-        "check": "./node_modules/.bin/eslint src --ext .js --ext .jsx",
+        "check": "./node_modules/.bin/eslint . --ext .js --ext .jsx",
         "test": "./node_modules/.bin/jest",
         "test-watch": "npm run test -- --watch --coverage",
         "storybook": "start-storybook -p 6006",
@@ -73,9 +73,7 @@
     },
     "jest": {
         "setupTestFrameworkScriptFile": "./scripts/jestSetup.js",
-        "snapshotSerializers": [
-            "enzyme-to-json/serializer"
-        ],
+        "snapshotSerializers": ["enzyme-to-json/serializer"],
         "moduleNameMapper": {
             "\\.(css|less)$": "<rootDir>/src/__mocks__/styleMock.js"
         }
