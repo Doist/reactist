@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean, number, select } from '@storybook/addon-knobs'
+import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 
 import { getPropTypesStory, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
@@ -10,7 +10,9 @@ import Checkbox from '../../../src/components/Checkbox'
 const CheckboxPropTypesStory = getPropTypesStory(Checkbox)
 const CheckboxPropTypesChapter = {
     subtitle: 'Component Usage',
-    sections: [{ sectionFn: CheckboxPropTypesStory, options: optionsNoSourceNoProps }]
+    sections: [
+        { sectionFn: CheckboxPropTypesStory, options: optionsNoSourceNoProps }
+    ]
 }
 
 class CheckboxStory extends React.Component {
@@ -21,41 +23,41 @@ class CheckboxStory extends React.Component {
 
     render() {
         return (
-            <section className='story'>
+            <section className="story">
                 <Checkbox
-                    label='Checkbox with a clickable label'
-                    checked={ this.state.checked }
-                    onChange={ (checked) => this.setState(() => ({ checked })) }
+                    label="Checkbox with a clickable label"
+                    checked={this.state.checked}
+                    onChange={checked => this.setState(() => ({ checked }))}
                 />
             </section>
         )
     }
 }
-const CheckboxChapter =  {
+const CheckboxChapter = {
     subtitle: 'Checkbox',
-    sections: [{ sectionFn: () => <CheckboxStory />, options: optionsNoSourceNoProps }]
+    sections: [
+        // eslint-disable-next-line react/display-name
+        { sectionFn: () => <CheckboxStory />, options: optionsNoSourceNoProps }
+    ]
 }
 
 const CheckboxPlaygroundStory = () => (
-    <section className='story'>
+    <section className="story">
         <Checkbox
-            label={ text('Label', 'Label next to the checkbox') }
-            checked={ boolean('Checked', true) }
-            onChange={ () => {} }
+            label={text('Label', 'Label next to the checkbox')}
+            checked={boolean('Checked', true)}
+            onChange={() => {}}
         />
     </section>
 )
 
 // Story setup ================================================================
 const Story = () =>
-storiesOf('Checkbox', module)
-    .addDecorator(withKnobs)
-    .addWithChapters('Component Overview', {
-        chapters: [
-            CheckboxPropTypesChapter,
-            CheckboxChapter
-        ]
-    })
-    .add('Component Playground', CheckboxPlaygroundStory)
+    storiesOf('Checkbox', module)
+        .addDecorator(withKnobs)
+        .addWithChapters('Component Overview', {
+            chapters: [CheckboxPropTypesChapter, CheckboxChapter]
+        })
+        .add('Component Playground', CheckboxPlaygroundStory)
 
 export default Story

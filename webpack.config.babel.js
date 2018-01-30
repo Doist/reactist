@@ -14,19 +14,27 @@ const BASE_CONFIG = {
         sourceMapFilename: 'reactist.map'
     },
     resolve: {
-        modules: [path.resolve(__dirname, 'node_modules'), 'node_modules', 'src'],
+        modules: [
+            path.resolve(__dirname, 'node_modules'),
+            'node_modules',
+            'src'
+        ],
         extensions: ['.webpack.js', '.js', '.jsx']
     },
     module: {
         loaders: [
-            { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
+            },
             { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' },
             { test: /\.css$/, loader: 'style-loader!css-loader' },
             { test: /\.svg$/, loader: 'svg-url-loader' }
         ]
     },
     externals: {
-        'react': {
+        react: {
             root: 'React',
             commonjs2: 'react',
             commonjs: 'react',
@@ -42,13 +50,13 @@ const BASE_CONFIG = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': JSON.stringify('production')
+                NODE_ENV: JSON.stringify('production')
             }
         })
     ]
 }
 
-const createConfig = (overriddenAttributes) => ({
+const createConfig = overriddenAttributes => ({
     ...BASE_CONFIG,
     ...overriddenAttributes
 })
@@ -64,6 +72,4 @@ const modulesConfig = createConfig({
     }
 })
 
-module.exports = [
-    mainConfig, modulesConfig
-]
+module.exports = [mainConfig, modulesConfig]

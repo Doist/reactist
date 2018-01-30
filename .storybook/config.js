@@ -1,4 +1,4 @@
-import { configure, setAddon } from '@storybook/react';
+import { configure, setAddon } from '@storybook/react'
 import { setOptions } from '@storybook/addon-options'
 import chaptersAddon from 'react-storybook-addon-chapters'
 
@@ -9,4 +9,4 @@ setOptions({
 })
 
 const loadStories = () => require('./stories')
-configure(loadStories, module);
+configure(loadStories, module)

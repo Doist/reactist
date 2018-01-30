@@ -1,17 +1,17 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import { getPropTypesStory, optionsSourceOnly } from '../utils/StoryUtils'
+import { optionsSourceOnly } from '../utils/StoryUtils'
 
 import Dropdown from '../../../src/components/Dropdown'
 import Button from '../../../src/components/Button'
 
 // Story Definitions ==========================================================
 const DropdownStory = () => (
-    <section className='story'>
+    <section className="story">
         <Dropdown.Box>
             <Dropdown.Trigger>
-                <Button name='Trigger: Click to show dropdown' />
+                <Button name="Trigger: Click to show dropdown" />
             </Dropdown.Trigger>
             <Dropdown.Body>
                 <div>
@@ -32,10 +32,10 @@ const DropdownChapter = {
 }
 
 const InteractiveDropdownStory = () => (
-    <section className='story'>
+    <section className="story">
         <Dropdown.Box allowBodyInteractions>
             <Dropdown.Trigger>
-                <Button name='Trigger: Click to show interactive dropdown (will not close when clicking on it)' />
+                <Button name="Trigger: Click to show interactive dropdown (will not close when clicking on it)" />
             </Dropdown.Trigger>
             <Dropdown.Body>
                 <div>
@@ -51,17 +51,15 @@ const InteractiveDropdownStory = () => (
 )
 const InteractiveDropdownChapter = {
     subtitle: 'Interactive Dropdown',
-    sections: [{ sectionFn: InteractiveDropdownStory, options: optionsSourceOnly }]
+    sections: [
+        { sectionFn: InteractiveDropdownStory, options: optionsSourceOnly }
+    ]
 }
 
 // Story setup ================================================================
 const Story = () =>
-storiesOf('Dropdown', module)
-    .addWithChapters('Component Overview', {
-        chapters: [
-            DropdownChapter,
-            InteractiveDropdownChapter
-        ]
+    storiesOf('Dropdown', module).addWithChapters('Component Overview', {
+        chapters: [DropdownChapter, InteractiveDropdownChapter]
     })
 
 export default Story
