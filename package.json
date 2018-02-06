@@ -1,6 +1,6 @@
 {
     "name": "@doist/reactist",
-    "version": "1.14.16",
+    "version": "1.14.17",
     "description": "Open source React components by Doist",
     "main": "./dist/reactist.js",
     "scripts": {
@@ -73,7 +73,9 @@
     },
     "jest": {
         "setupTestFrameworkScriptFile": "./scripts/jestSetup.js",
-        "snapshotSerializers": ["enzyme-to-json/serializer"],
+        "snapshotSerializers": [
+            "enzyme-to-json/serializer"
+        ],
         "moduleNameMapper": {
             "\\.(css|less)$": "<rootDir>/src/__mocks__/styleMock.js"
         }
