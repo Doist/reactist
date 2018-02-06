@@ -98,8 +98,8 @@ class Tooltip extends React.Component {
             width: wrapperRect.width
         }
         const wrapperPosition = {
-            x: wrapperRect.x,
-            y: wrapperRect.y
+            x: wrapperRect.left,
+            y: wrapperRect.top
         }
 
         const positionsToTry =
