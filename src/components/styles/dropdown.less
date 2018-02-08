@@ -8,8 +8,9 @@
 
         .body {
             border-radius: 3px;
+            border: 1px solid @color_border_grey;
             overflow: hidden;
-            box-shadow: 0 2px 10px -1px hsla(0,0%,46%,0.5);
+            box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
             z-index: 1;
             background-color: #fff;
         }
@@ -18,7 +19,7 @@
             border: none;
             height: 1px;
             background-color: @color_grey_10;
-            margin: 0 5px !important;
+            margin: 0 5px;
         }
 
         .with_arrow:after,
@@ -35,13 +36,13 @@
         }
 
         .with_arrow:after {
-            top: -12px;
+            top: -11px;
             border-color: transparent transparent #fff transparent;
         }
 
         .with_arrow:before {
-            top: -13px;
-            border-color: transparent transparent @color_grey_10 transparent;
+            top: -12px;
+            border-color: transparent transparent @color_border_grey transparent;
         }
 
 
@@ -54,7 +55,7 @@
             top: 0px;
             right: 13px;
             border-width: 7px;
-            border-color: @color_grey_10 transparent transparent transparent;
+            border-color: @color_border_grey transparent transparent transparent;
         }
     }
 }
