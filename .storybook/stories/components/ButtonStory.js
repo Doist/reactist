@@ -48,6 +48,19 @@ const SmallButtonsChapter = {
     sections: [{ sectionFn: SmallButtonsStory, options: optionsSourceOnly }]
 }
 
+const LargeButtonsStory = () => (
+    <section className="story">
+        <Button large name="Large Primary Button" />
+        <Button large white name="Large White Button" />
+        <Button large secondary name="Large Secondary Button" />
+        <Button large danger name="Large Danger Button!" />
+    </section>
+)
+const LargeButtonsChapter = {
+    subtitle: 'Large Buttons',
+    sections: [{ sectionFn: LargeButtonsStory, options: optionsSourceOnly }]
+}
+
 const DisabledButtonsStory = () => (
     <section className="story">
         <Button disabled name="Disabled Primary Button" />
@@ -113,6 +126,7 @@ const Story = () =>
                 ButtonPropTypesChapter,
                 StandardButtonsChapter,
                 SmallButtonsChapter,
+                LargeButtonsChapter,
                 DisabledButtonsChapter,
                 LoadingButtonsChapter,
                 AlternaterBrandingButtonsChapter
