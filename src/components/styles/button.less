@@ -4,15 +4,15 @@
 @default_state_selector: ~':not([disabled]):not(.loading)';
 .default_border(@color: rgba(0, 0, 0, 0.1)) {
     border: 1px solid @color;
-    border-radius: 2px;
+    border-radius: 3px;
 }
 
 .reactist.button {
-    .normal_text(@color: white, @weight: @semi_bold);
+    .normal_text(@color: white);
     .default_border();
     box-sizing: border-box;
     background-color: @primary_color;
-    padding: 11px;
+    padding: 5px 15px;
     cursor: pointer;
 
     .wrapper {
@@ -22,19 +22,24 @@
         user-select: none;
     }
 
+    &:disabled, &.loading {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
     &@{primary_button_selector} {
         &:hover {
             background-color: @primary_color_darker;
         }
-        &:disabled, &.loading {
-            background-color: @primary_color_lighter;
-            cursor: not-allowed;
-        }
     }
 
     &.small {
-        .tiny_text(@color: white, @weight: @semi_bold);
-        padding: 6px;
+        .smaller_text(@color: white);
+        padding: 5px 10px;
+    }
+
+    &.large {
+        padding: 10px 15px;
     }
 
     &.danger {
@@ -43,24 +48,14 @@
         &@{default_state_selector}:hover {
             background-color: darken(@color_red, 10%);
         }
-
-        &:disabled, &.loading {
-            background-color: lighten(@color_red, 20%);
-            cursor: not-allowed;
-        }
     }
 
     &.secondary {
-        background-color: @color_grey_9;
+        background-color: white;
         color: @color_grey_8;
 
         &@{default_state_selector}:hover {
-            background-color: @color_grey_10;
-        }
-
-        &:disabled {
-            color: @color_grey_5;
-            cursor: not-allowed;
+            background-color: @color_border_grey;
         }
     }
 
@@ -70,22 +65,16 @@
         color: @primary_color;
 
         &@{default_state_selector}:hover {
-            background-color: @color_grey_10;
-        }
-
-        &:disabled {
-            border-color: @color_grey_5;
-            color: @color_grey_5;
-            cursor: not-allowed;
+            background-color: @primary_color_lighter;
         }
     }
 
     &.loading {
         // for improved accessibility we treat white / secondary buttons different
         &.white, &.secondary {
-            .default_border();
-            background-color: @color_grey_5;
-            color: white;
+            .default_border(@color: @color_border_grey);
+            background-color: @color_border_grey;
+            color: @color_grey_8;
         }
         cursor: progress !important;
 
