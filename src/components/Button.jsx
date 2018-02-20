@@ -18,11 +18,11 @@ class Button extends React.Component {
         const { data_tip } = this.props
 
         const className = classNames(
+            'reactist button',
             {
-                reactist: true,
-                button: true,
                 secondary: this.props.secondary,
                 small: this.props.small,
+                large: this.props.large,
                 white: this.props.white,
                 loading: this.props.loading,
                 danger: this.props.danger
@@ -67,6 +67,8 @@ Button.propTypes = {
     secondary: PropTypes.bool,
     /** Small style. */
     small: PropTypes.bool,
+    /** Large style. */
+    large: PropTypes.bool,
     /** White style. */
     white: PropTypes.bool,
     /** Loading style. Prevents onClick from being called. */
