@@ -22,6 +22,7 @@ exports[`Button renders a tooltip when prop is supplied 1`] = `
   delayHide={0}
   delayShow={1000}
   hideOnScroll={true}
+  inverted={false}
   position="auto"
   text="THE TOOLTIP"
 >

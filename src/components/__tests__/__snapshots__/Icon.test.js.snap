@@ -44,6 +44,7 @@ exports[`Icon wraps icon in a tooltip when tooltip is supplied 1`] = `
   delayHide={0}
   delayShow={1000}
   hideOnScroll={true}
+  inverted={false}
   position="auto"
   text="Tooltip text"
 >
