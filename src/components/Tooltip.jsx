@@ -144,10 +144,10 @@ class Tooltip extends React.Component {
 
     _getClassNameForPosition = position => {
         const { visible } = this.state
-        const { tooltipClassName } = this.props
+        const { tooltipClassName, inverted } = this.props
         const className = classNames(
             'reactist tooltip',
-            { visible },
+            { visible, inverted },
             tooltipClassName
         )
         if (visible) {
@@ -199,7 +199,8 @@ Tooltip.defaultProps = {
     hideOnScroll: true,
     delayShow: 1000,
     delayHide: 0,
-    allowVaguePositioning: false
+    allowVaguePositioning: false,
+    inverted: false
 }
 Tooltip.propTypes = {
     /**
@@ -230,7 +231,9 @@ Tooltip.propTypes = {
     /** Additional css class that is applied to the wrapper element. */
     wrapperClassName: PropTypes.string,
     /** Additional css class that is applied to the tooltip element. */
-    tooltipClassName: PropTypes.string
+    tooltipClassName: PropTypes.string,
+    /** Inverted tooltips have a light background with dark text. */
+    inverted: PropTypes.bool
 }
 
 export default Tooltip
