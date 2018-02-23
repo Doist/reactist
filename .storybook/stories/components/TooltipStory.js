@@ -41,6 +41,18 @@ const TooltipChapter = {
     sections: [{ sectionFn: TooltipStory, options: optionsSourceOnly }]
 }
 
+const InvertedTooltipStory = () => (
+    <section className="story tooltip">
+        <Tooltip text="Very helpful inverted content in this tooltip" inverted>
+            <div className="tip_item">Hover me for an **inverted** Tooltip</div>
+        </Tooltip>
+    </section>
+)
+const InvertedTooltipChapter = {
+    subtitle: 'Inverted Tooltip',
+    sections: [{ sectionFn: InvertedTooltipStory, options: optionsSourceOnly }]
+}
+
 const TooltipPlaygroundStory = () => (
     <section className="story tooltip">
         <Tooltip
@@ -53,6 +65,7 @@ const TooltipPlaygroundStory = () => (
                 ['auto', 'top', 'right', 'bottom', 'left'],
                 'auto'
             )}
+            inverted={boolean('Inverted', false)}
         >
             <div className="tip_item">Hover me to see your tooltip</div>
         </Tooltip>
@@ -64,7 +77,11 @@ const Story = () =>
     storiesOf('Tooltip', module)
         .addDecorator(withKnobs)
         .addWithChapters('Component Overview', {
-            chapters: [TooltipPropTypesChapter, TooltipChapter]
+            chapters: [
+                TooltipPropTypesChapter,
+                TooltipChapter,
+                InvertedTooltipChapter
+            ]
         })
         .add('Component Playground', TooltipPlaygroundStory)
 
