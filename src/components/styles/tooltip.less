@@ -37,6 +37,16 @@
         opacity: 1;
     }
 
+    &.inverted {
+        background-color: white;
+        border-radius: 3px;
+        border: 1px solid @color_border_grey;
+        box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
+        .tooltip__text {
+            color: @primary_font_color;
+        }
+    }
+
     // Arrow Definitions ======================================================
     @arrow_size: 5px;
     .arrow() {
@@ -45,36 +55,89 @@
         height: 0;
         width: 0;
     }
-    &.arrow_top:after {
+    .arrow_top(@color: @tooltip_background) {
         .arrow();
         top: -@arrow_size;
         left: calc(50% - @arrow_size);
         border-left: @arrow_size solid transparent;
         border-right: @arrow_size solid transparent;
-        border-bottom: @arrow_size solid @tooltip_background;
+        border-bottom: @arrow_size solid @color;
     }
-    &.arrow_right:after {
+    .arrow_right(@color: @tooltip_background) {
         .arrow();
         bottom: calc(50% - @arrow_size);
         right: -@arrow_size;
-        border-left: @arrow_size solid @tooltip_background;
+        border-left: @arrow_size solid @color;
         border-bottom: @arrow_size solid transparent;
         border-top: @arrow_size solid transparent;
     }
-    &.arrow_bottom:after {
+    .arrow_bottom(@color: @tooltip_background) {
         .arrow();
         bottom: -@arrow_size;
         left: calc(50% - @arrow_size);
         border-left: @arrow_size solid transparent;
         border-right: @arrow_size solid transparent;
-        border-top: @arrow_size solid @tooltip_background;
+        border-top: @arrow_size solid @color;
     }
-    &.arrow_left:after {
+    .arrow_left(@color: @tooltip_background) {
         .arrow();
         bottom: calc(50% - @arrow_size);
         left: -@arrow_size;
-        border-right: @arrow_size solid @tooltip_background;
+        border-right: @arrow_size solid @color;
         border-bottom: @arrow_size solid transparent;
         border-top: @arrow_size solid transparent;
+    }
+
+
+    &.arrow_top:after {
+        .arrow_top();
+    }
+    &.arrow_top.inverted{
+        &:before {
+            .arrow_top(@color: @color_border_grey);
+            top: calc(~'-@{arrow_size} - 1px');
+        }
+        &:after {
+            border-bottom: @arrow_size solid white;
+        }
+    }
+
+    &.arrow_right:after {
+        .arrow_right();
+    }
+    &.arrow_right.inverted {
+        &:before {
+            .arrow_right(@color: @color_border_grey);
+            right: calc(~'-@{arrow_size} - 1px');
+        }
+        &:after {
+            border-left: @arrow_size solid white;
+        }
+    }
+
+    &.arrow_bottom:after {
+        .arrow_bottom();
+    }
+    &.arrow_bottom.inverted {
+        &:before {
+            .arrow_bottom(@color: @color_border_grey);
+            bottom: calc(~'-@{arrow_size} - 1px');
+        }
+        &:after {
+            border-top: @arrow_size solid white;
+        }
+    }
+
+    &.arrow_left:after {
+        .arrow_left();
+    }
+    &.arrow_left.inverted {
+        &:before {
+            .arrow_left(@color: @color_border_grey);
+            left: calc(~'-@{arrow_size} - 1px');
+        }
+        &:after {
+            border-right: @arrow_size solid white;
+        }
     }
 }
