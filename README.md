@@ -84,7 +84,7 @@ npm run check -- --fix
 
 # Testing
 
-Tests are executed with jest or by running:
+Tests are executed with Jest or by running:
 ```sh
 npm run test
 ```
