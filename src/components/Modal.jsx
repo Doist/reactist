@@ -56,7 +56,9 @@ class Box extends React.Component {
 
         return (
             <div className="reactist_overlay" id="reactist-overlay">
-                <div className={class_name}>{this.props.children}</div>
+                <div className="reactist_overlay_inner">
+                    <div className={class_name}>{this.props.children}</div>
+                </div>
             </div>
         )
     }

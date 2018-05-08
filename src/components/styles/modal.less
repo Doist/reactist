@@ -8,14 +8,17 @@
         right: 0;
         bottom: 0;
         left: 0;
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
         z-index: 2;
         background: rgba(0, 0, 0, 0.7);
         overflow: auto;
-        padding-top: 60px;
         animation: fadein 0.25s;
+
+        &_inner {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            margin: 60px 0;
+        }
     }
 
     &_modal_box {
@@ -24,7 +27,6 @@
         width: 580px;
         border-radius: 4px;
         box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.16);
-        margin-bottom: 60px;
 
         &.large {
             width: 60%;
