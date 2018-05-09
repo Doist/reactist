@@ -93,8 +93,12 @@ exports[`Modal.Box adds additionally supplied className prop: [object Object] 1`
   id="reactist-overlay"
 >
   <div
-    className="reactist_modal_box applied-to-child-of-box"
-  />
+    className="reactist_overlay_inner"
+  >
+    <div
+      className="reactist_modal_box applied-to-child-of-box"
+    />
+  </div>
 </div>
 `;
 
@@ -104,8 +108,12 @@ exports[`Modal.Box adds large to className when supplied 1`] = `
   id="reactist-overlay"
 >
   <div
-    className="reactist_modal_box large"
-  />
+    className="reactist_overlay_inner"
+  >
+    <div
+      className="reactist_modal_box large"
+    />
+  </div>
 </div>
 `;
 
@@ -115,36 +123,40 @@ exports[`Modal.Box renders all children without crashing 1`] = `
   id="reactist-overlay"
 >
   <div
-    className="reactist_modal_box"
+    className="reactist_overlay_inner"
   >
-    <Modal.Header>
-      Realistic test
-    </Modal.Header>
-    <Modal.Body
-      showCloseIcon={false}
+    <div
+      className="reactist_modal_box"
     >
-      ... is very realistic
-    </Modal.Body>
-    <Modal.Actions>
-      <Button
-        danger={false}
-        disabled={false}
-        loading={false}
-        name="Wow"
-        secondary={false}
-        small={false}
-        white={false}
-      />
-      <Button
-        danger={false}
-        disabled={false}
-        loading={false}
-        name="So real"
-        secondary={false}
-        small={false}
-        white={false}
-      />
-    </Modal.Actions>
+      <Modal.Header>
+        Realistic test
+      </Modal.Header>
+      <Modal.Body
+        showCloseIcon={false}
+      >
+        ... is very realistic
+      </Modal.Body>
+      <Modal.Actions>
+        <Button
+          danger={false}
+          disabled={false}
+          loading={false}
+          name="Wow"
+          secondary={false}
+          small={false}
+          white={false}
+        />
+        <Button
+          danger={false}
+          disabled={false}
+          loading={false}
+          name="So real"
+          secondary={false}
+          small={false}
+          white={false}
+        />
+      </Modal.Actions>
+    </div>
   </div>
 </div>
 `;
@@ -155,8 +167,12 @@ exports[`Modal.Box renders without crashing 1`] = `
   id="reactist-overlay"
 >
   <div
-    className="reactist_modal_box"
-  />
+    className="reactist_overlay_inner"
+  >
+    <div
+      className="reactist_modal_box"
+    />
+  </div>
 </div>
 `;
 
