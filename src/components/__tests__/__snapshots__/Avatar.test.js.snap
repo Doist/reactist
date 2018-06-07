@@ -39,3 +39,16 @@ exports[`Avatar renders initials of user name when avatarUrl is not supplied 1`]
   HM
 </div>
 `;
+
+exports[`Avatar renders initials on custom color 1`] = `
+<div
+  className="reactist avatar avatar_size--xl"
+  style={
+    Object {
+      "backgroundColor": "red",
+    }
+  }
+>
+  HM
+</div>
+`;

@@ -17,6 +17,14 @@ describe('Avatar', () => {
         expect(avatar.text()).toBe('HM')
     })
 
+    it('renders initials on custom color', () => {
+        const avatar = shallow(
+            getAvatar({ colorList: ['red', 'green', '#0000FF'] })
+        )
+        expect(avatar).toMatchSnapshot()
+        expect(avatar.text()).toBe('HM')
+    })
+
     it('renders initials of user email when avatarUrl is not supplied', () => {
         const avatar = shallow(
             getAvatar({ user: { email: 'henning@doist.com' } })
