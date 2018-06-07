@@ -45,6 +45,7 @@
     }
 
     .thumb() {
+        box-sizing: border-box;
         border: @thumb-border-width solid @thumb-border-color;
         height: @thumb-height;
         width: @thumb-width;
@@ -86,7 +87,6 @@
         }
 
         &::-ms-track {
-            .track();
             background: transparent;
             border-color: transparent;
             border-width: @thumb-width 0;
@@ -94,9 +94,11 @@
         }
 
         &::-ms-fill-lower {
+            .track();
             background: darken(@track-color, @contrast);
         }
         &::-ms-fill-upper {
+            .track();
             background: @track-color;
         }
         &::-ms-thumb {
