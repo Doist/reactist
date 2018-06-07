@@ -3,6 +3,8 @@ import './styles/time.less'
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Tooltip from './Tooltip'
+
 import TimeUtils from './utils/TimeUtils'
 
 class Time extends React.Component {
@@ -31,10 +33,10 @@ class Time extends React.Component {
 
     _renderTime(config) {
         if (this.state.hovered) {
-            if (this.props.expandFullyOnHover) {
+            if (this.props.expandFullyOnHover && !this.props.tooltipOnHover) {
                 return TimeUtils.formatTimeLong(this.props.time, config.locale)
             }
-            if (this.props.expandOnHover) {
+            if (this.props.expandOnHover && !this.props.tooltipOnHover) {
                 return TimeUtils.formatTime(this.props.time, config.locale)
             }
         }
@@ -47,13 +49,29 @@ class Time extends React.Component {
             className = this.props.className
         }
 
+        const timeComponent = this._renderTime(this.props.config)
+
         return (
             <time
                 className={className}
                 onMouseEnter={event => this._setHovered(true, event)}
                 onMouseLeave={event => this._setHovered(false, event)}
             >
-                {this._renderTime(this.props.config)}
+                {this.props.tooltipOnHover ? (
+                    <Tooltip
+                        text={
+                            this.props.tooltip ||
+                            TimeUtils.formatTimeLong(
+                                this.props.time,
+                                this.props.config.locale
+                            )
+                        }
+                    >
+                        {timeComponent}
+                    </Tooltip>
+                ) : (
+                    timeComponent
+                )}
             </time>
         )
     }
@@ -68,6 +86,10 @@ Time.propTypes = {
     expandOnHover: PropTypes.bool,
     /** When hovering over time it expands to the full absolute version. */
     expandFullyOnHover: PropTypes.bool,
+    /** When hovering over time it shows a tooltip with the full absolute version. */
+    tooltipOnHover: PropTypes.bool,
+    /** If you don't want to use the default time format on the tooltip use this prop to supply a custom text */
+    tooltip: PropTypes.string,
     /** Configuration for localization. */
     config: PropTypes.shape({
         locale: PropTypes.string,
@@ -79,6 +101,7 @@ Time.propTypes = {
 Time.defaultProps = {
     expandOnHover: false,
     expandFullyOnHover: false,
+    tooltipOnHover: false,
     config: {
         locale: 'en',
         hoursSuffix: 'h',
