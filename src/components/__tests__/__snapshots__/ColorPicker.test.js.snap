@@ -12,13 +12,14 @@ exports[`ColorPicker ColorItem renders given color and does nothing when clicked
 />
 `;
 
-exports[`ColorPicker renders without crashing 1`] = `
+exports[`ColorPicker renders with custom colorList 1`] = `
 <Dropdown.Box
   className="reactist color_picker"
   right={true}
 >
   <Dropdown.Trigger>
     <ColorItem
+      color="red"
       colorIndex={0}
     />
   </Dropdown.Trigger>
@@ -27,50 +28,92 @@ exports[`ColorPicker renders without crashing 1`] = `
       className="color_options"
     >
       <ColorItem
+        color="green"
         colorIndex={1}
         key="1"
       />
       <ColorItem
+        color="#0000FF"
+        colorIndex={2}
+        key="2"
+      />
+    </div>
+  </Dropdown.Body>
+</Dropdown.Box>
+`;
+
+exports[`ColorPicker renders without crashing 1`] = `
+<Dropdown.Box
+  className="reactist color_picker"
+  right={true}
+>
+  <Dropdown.Trigger>
+    <ColorItem
+      color="#606060"
+      colorIndex={0}
+    />
+  </Dropdown.Trigger>
+  <Dropdown.Body>
+    <div
+      className="color_options"
+    >
+      <ColorItem
+        color="#4A90E2"
+        colorIndex={1}
+        key="1"
+      />
+      <ColorItem
+        color="#03B3B2"
         colorIndex={2}
         key="2"
       />
       <ColorItem
+        color="#008299"
         colorIndex={3}
         key="3"
       />
       <ColorItem
+        color="#82BA00"
         colorIndex={4}
         key="4"
       />
       <ColorItem
+        color="#D24726"
         colorIndex={5}
         key="5"
       />
       <ColorItem
+        color="#AC193D"
         colorIndex={6}
         key="6"
       />
       <ColorItem
+        color="#DC4FAD"
         colorIndex={7}
         key="7"
       />
       <ColorItem
+        color="#3BD5FB"
         colorIndex={8}
         key="8"
       />
       <ColorItem
+        color="#74E8D3"
         colorIndex={9}
         key="9"
       />
       <ColorItem
+        color="#FFCC00"
         colorIndex={10}
         key="10"
       />
       <ColorItem
+        color="#FB886E"
         colorIndex={11}
         key="11"
       />
       <ColorItem
+        color="#CCCCCC"
         colorIndex={12}
         key="12"
       />

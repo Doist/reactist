@@ -9,6 +9,13 @@ describe('ColorPicker', () => {
         expect(colorPicker).toMatchSnapshot()
     })
 
+    it('renders with custom colorList', () => {
+        const colorPicker = shallow(
+            getColorPicker({ colorList: ['red', 'green', '#0000FF'] })
+        )
+        expect(colorPicker).toMatchSnapshot()
+    })
+
     it('renders all colors except the selected one', () => {
         const colorPicker = shallow(getColorPicker({ color: 3 }))
 
@@ -36,5 +43,7 @@ describe('ColorPicker', () => {
 
     // Helpers ================================================================
     const getColorPicker = props => <ColorPicker {...props} />
-    const getColorItem = props => <ColorItem colorIndex={0} {...props} />
+    const getColorItem = props => (
+        <ColorItem color="#606060" colorIndex={0} {...props} />
+    )
 })
