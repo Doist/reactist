@@ -14,7 +14,7 @@ class ErrorMessage extends React.Component {
         this.state = { visible: is_valid_message }
     }
 
-    componentWillReceiveProps(next_props) {
+    UNSAFE_componentWillReceiveProps(next_props) {
         if (this._isValidMessage(next_props.message)) {
             this.setState(() => ({ visible: true }))
             this._triggerDelayedHide()
