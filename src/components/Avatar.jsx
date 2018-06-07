@@ -28,7 +28,13 @@ const AVATAR_COLORS = [
 ]
 const AVATAR_SIZES = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl']
 
-const Avatar = ({ user, avatarUrl, size, className }) => {
+const Avatar = ({
+    user,
+    avatarUrl,
+    size,
+    className,
+    colorList = AVATAR_COLORS
+}) => {
     const userInitials = getInitials(user.name) || getInitials(user.email)
     const avatarSize = AVATAR_SIZES.includes(size) ? size : 'l'
     const avatarClass = classNames(
@@ -43,7 +49,7 @@ const Avatar = ({ user, avatarUrl, size, className }) => {
           }
         : {
               backgroundColor:
-                  AVATAR_COLORS[emailToIndex(user.email, AVATAR_COLORS.length)]
+                  colorList[emailToIndex(user.email, colorList.length)]
           }
 
     return (
@@ -69,7 +75,9 @@ Avatar.propTypes = {
     /** Size of the Avatar between XXS and XXXL. */
     size: PropTypes.oneOf(AVATAR_SIZES),
     /** Additional css class applied to the avatar. */
-    className: PropTypes.string
+    className: PropTypes.string,
+    /** Optional list of color codes used as fallback when image not available. Defaults to AVATAR_COLORS array. */
+    colorList: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default Avatar
