@@ -1,6 +1,6 @@
 {
     "name": "@doist/reactist",
-    "version": "1.15.5",
+    "version": "1.15.6",
     "description": "Open source React components by Doist",
     "main": "./dist/reactist.js",
     "scripts": {
@@ -46,7 +46,7 @@
         "eslint-plugin-prettier": "^2.5.0",
         "eslint-plugin-react": "^7.5.1",
         "jest": "^22.1.4",
-        "less": "^2.7.2",
+        "less": "^3.0.4",
         "less-loader": "^4.0.3",
         "moment": "^2.18.1",
         "moment-timezone": "^0.5.13",
