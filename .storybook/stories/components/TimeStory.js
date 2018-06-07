@@ -107,6 +107,21 @@ const FullyExpandTimeChapter = {
     sections: [{ sectionFn: FullyExpandTimeStory, options: optionsSourceOnly }]
 }
 
+const TooltipTimeStory = () => (
+    <section className="story time">
+        {exampleTimes.map((time, index) => (
+            <div key={index}>
+                <span>{time.title}</span>
+                <Time tooltipOnHover time={time.time} />
+            </div>
+        ))}
+    </section>
+)
+const TooltipTimeChapter = {
+    subtitle: 'Show full time in tooltip on hover',
+    sections: [{ sectionFn: TooltipTimeStory, options: optionsSourceOnly }]
+}
+
 const TranslatedTimeStory = () => {
     const i18nConfig = {
         locale: 'de',
@@ -155,6 +170,7 @@ const Story = () =>
                 NoHoverEffectChapter,
                 ExpandTimeChapter,
                 FullyExpandTimeChapter,
+                TooltipTimeChapter,
                 TranslatedTimeChapter
             ]
         })
