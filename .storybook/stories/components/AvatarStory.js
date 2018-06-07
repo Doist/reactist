@@ -76,6 +76,30 @@ const InitialsAvatarChapter = {
     sections: [{ sectionFn: InitialsAvatarStory, options: optionsSourceOnly }]
 }
 
+const CustomColorAvatarStory = () => (
+    <section className="story avatars">
+        {exampleData.map((data, index) => (
+            <Avatar
+                colorList={[
+                    'palevioletred',
+                    'palegoldenrod',
+                    'palegreen',
+                    'paleturquoise'
+                ]}
+                key={index}
+                size={data.size}
+                user={data.user}
+            />
+        ))}
+    </section>
+)
+const CustomColorAvatarChapter = {
+    subtitle: 'Avatars with Initials and Custom Colors',
+    sections: [
+        { sectionFn: CustomColorAvatarStory, options: optionsSourceOnly }
+    ]
+}
+
 const PictureAvatarStory = () => (
     <section className="story avatars">
         {exampleData.map((data, index) => (
@@ -118,6 +142,7 @@ const Story = () =>
             chapters: [
                 AvatarPropTypesChapter,
                 InitialsAvatarChapter,
+                CustomColorAvatarChapter,
                 PictureAvatarChapter
             ]
         })
