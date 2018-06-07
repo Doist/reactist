@@ -2,7 +2,10 @@
 
 Open source React components made with ❤️ by Doist.
 
+[![npm version](https://badge.fury.io/js/%40doist%2Freactist.svg)](https://badge.fury.io/js/%40doist%2Freactist)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 # How to use
 
