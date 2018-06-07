@@ -21,18 +21,19 @@ const COLORS = [
     '#CCCCCC'
 ]
 
-const ColorPicker = ({ color, onChange }) => (
+const ColorPicker = ({ color, onChange, colorList = COLORS }) => (
     <Dropdown.Box right className="reactist color_picker">
         <Dropdown.Trigger>
-            <ColorItem colorIndex={color} />
+            <ColorItem color={colorList[color]} colorIndex={color} />
         </Dropdown.Trigger>
         <Dropdown.Body>
             <div className="color_options">
-                {COLORS.reduce((items, currentColor, currentIndex) => {
+                {colorList.reduce((items, currentColor, currentIndex) => {
                     if (currentIndex !== color) {
                         items.push(
                             <ColorItem
                                 key={currentIndex}
+                                color={currentColor}
                                 colorIndex={currentIndex}
                                 onClick={onChange}
                             />
@@ -52,19 +53,23 @@ ColorPicker.propTypes = {
     /** Currently selected color. Needs to be the index of the COLORS array. */
     color: PropTypes.number.isRequired,
     /** Callback that is invoked when a color has been selected. Is called with the index of the COLORS array. */
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    /** Optional list of color codes as an array of strings. Defaults to COLORS array. */
+    colorList: PropTypes.arrayOf(PropTypes.string)
 }
 
-const ColorItem = ({ colorIndex, onClick }) => (
+const ColorItem = ({ color, colorIndex, onClick }) => (
     <span
         className="reactist color_item"
-        style={{ backgroundColor: COLORS[colorIndex] }}
+        style={{ backgroundColor: color }}
         onClick={() => onClick && onClick(colorIndex)}
     />
 )
 ColorItem.displayName = 'ColorItem'
 ColorItem.propTypes = {
-    /** Index of the color to display. Is based upon the COLORS array. */
+    /** The color of the ColorItem as string. */
+    color: PropTypes.string.isRequired,
+    /** Index of the color to display. Is based upon the colorList array. */
     colorIndex: PropTypes.number.isRequired,
     /** Optional callback that is called when the item is clicked. */
     onClick: PropTypes.func
