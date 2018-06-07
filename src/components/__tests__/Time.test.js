@@ -66,9 +66,37 @@ describe('Time', () => {
         expect(toJson(time)).toMatchSnapshot()
     })
 
+    it('renders wrapped in tooltip when tooltipOnHover is set', () => {
+        const time = shallow(<Time time={testDate} tooltipOnHover />)
+        expect(time).toMatchSnapshot()
+    })
+
+    it('renders with custom tooltip when supplied', () => {
+        const time = shallow(
+            <Time time={testDate} tooltipOnHover tooltip="Test" />
+        )
+        expect(time).toMatchSnapshot()
+    })
+
+    it('does not render short absolute time on hover when tooltipOnHover is set', () => {
+        const time = shallow(
+            <Time time={moment().unix()} tooltipOnHover expandOnHover />
+        )
+        time.simulate('mouseEnter', getMouseEvent())
+        expect(time.find('Tooltip').props().children).toBe('moments ago')
+    })
+
+    it('does not render full absolute time on hover when tooltipOnHover is set', () => {
+        const time = shallow(
+            <Time time={moment().unix()} tooltipOnHover expandFullyOnHover />
+        )
+        time.simulate('mouseEnter', getMouseEvent())
+        expect(time.find('Tooltip').props().children).toBe('moments ago')
+    })
+
     // Helper functions ///////////////////////////////////////////////////////
     function getRenderedTime(timeComponent) {
-        return timeComponent.getElement().props.children
+        return timeComponent.find('time').props().children
     }
 
     function getMouseEvent(x = 100, y = 100) {

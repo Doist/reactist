@@ -10,6 +10,26 @@ exports[`Time adds additional class name if supplied 1`] = `
 </time>
 `;
 
+exports[`Time renders with custom tooltip when supplied 1`] = `
+<time
+  className="reactist time"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <Tooltip
+    allowVaguePositioning={false}
+    delayHide={0}
+    delayShow={1000}
+    hideOnScroll={true}
+    inverted={false}
+    position="auto"
+    text="Test"
+  >
+    Mar 22, 1991
+  </Tooltip>
+</time>
+`;
+
 exports[`Time renders without crashing 1`] = `
 <time
   className="reactist time"
@@ -17,5 +37,25 @@ exports[`Time renders without crashing 1`] = `
   onMouseLeave={[Function]}
 >
   moments ago
+</time>
+`;
+
+exports[`Time renders wrapped in tooltip when tooltipOnHover is set 1`] = `
+<time
+  className="reactist time"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <Tooltip
+    allowVaguePositioning={false}
+    delayHide={0}
+    delayShow={1000}
+    hideOnScroll={true}
+    inverted={false}
+    position="auto"
+    text="22 Mar 91, 1:37 PM"
+  >
+    Mar 22, 1991
+  </Tooltip>
 </time>
 `;
