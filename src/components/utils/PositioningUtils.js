@@ -21,8 +21,11 @@ const hasEnoughSpace = (
         wrapperDimensions,
         elementDimensions
     )
-    const canPlaceVertically = verticalPosition + elementWidth <= windowWidth
-    const canPlaceHorizontally = horizontalPosition - elementHeight >= 0
+    const canPlaceVertically =
+        verticalPosition >= 0 && verticalPosition + elementWidth <= windowWidth
+    const canPlaceHorizontally =
+        horizontalPosition >= 0 &&
+        horizontalPosition + elementHeight <= windowHeight
 
     if (position === 'top') {
         return canPlaceVertically && wrapperY - elementHeight - gap >= 0
