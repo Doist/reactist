@@ -17,6 +17,10 @@ If you prefer to include static files just grab the [minified build from the dis
 
 A detailed explanation and examples on how to use each component can be accessed by clicking on the component name on the left.
 
+# Changelog
+
+You can find our changelog [here](./CHANGELOG.md).
+
 # Development
 
 First clone the repository to your local machine by running:
