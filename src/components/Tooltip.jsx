@@ -79,16 +79,29 @@ class Tooltip extends React.Component {
         const wrapperRect = this.wrapper.getBoundingClientRect()
         const tooltipRect = this.tooltip.getBoundingClientRect()
 
-        const windowDimensions = {
-            height: Math.max(
-                document.documentElement.clientHeight,
-                window.innerHeight
-            ),
-            width: Math.max(
-                document.documentElement.clientWidth,
-                window.innerWidth
-            )
+        // Instead of using the documentElement find the nearest absolutely positioned element
+        const documentEl = document.documentElement
+        let node = this.wrapper
+        let foundParent = false
+        while (!foundParent) {
+            const styles = getComputedStyle(node)
+            const position = styles.getPropertyValue('position')
+            if (
+                position === 'absolute' ||
+                node === documentEl ||
+                !node.parentElement
+            ) {
+                foundParent = true
+            } else {
+                node = node.parentElement
+            }
         }
+        const nodeRect = node.getBoundingClientRect()
+        const windowDimensions = {
+            height: nodeRect.height,
+            width: nodeRect.width
+        }
+
         const tooltipDimensions = {
             height: tooltipRect.height,
             width: tooltipRect.width
@@ -97,7 +110,11 @@ class Tooltip extends React.Component {
             height: wrapperRect.height,
             width: wrapperRect.width
         }
-        const wrapperPosition = {
+        const wrapperPositionRelative = {
+            x: wrapperRect.left - nodeRect.left,
+            y: wrapperRect.top - nodeRect.top
+        }
+        const wrapperPositionAbsolute = {
             x: wrapperRect.left,
             y: wrapperRect.top
         }
@@ -113,7 +130,7 @@ class Tooltip extends React.Component {
                 windowDimensions,
                 tooltipDimensions,
                 wrapperDimensions,
-                wrapperPosition,
+                wrapperPositionRelative,
                 currentPosition,
                 gapSize
             )
@@ -122,7 +139,7 @@ class Tooltip extends React.Component {
                 const tooltipPosition = calculatePosition(
                     currentPosition,
                     wrapperDimensions,
-                    wrapperPosition,
+                    wrapperPositionAbsolute,
                     tooltipDimensions,
                     gapSize
                 )
