@@ -9,7 +9,11 @@ exports[`ColorPicker ColorItem renders given color and does nothing when clicked
       "backgroundColor": "#606060",
     }
   }
-/>
+>
+  <span
+    className="color_item--inner_ring"
+  />
+</span>
 `;
 
 exports[`ColorPicker renders with custom colorList 1`] = `
@@ -18,10 +22,18 @@ exports[`ColorPicker renders with custom colorList 1`] = `
   right={true}
 >
   <Dropdown.Trigger>
-    <ColorItem
-      color="red"
-      colorIndex={0}
-    />
+    <span
+      className="color_trigger"
+      style={
+        Object {
+          "backgroundColor": "red",
+        }
+      }
+    >
+      <span
+        className="color_trigger--inner_ring"
+      />
+    </span>
   </Dropdown.Trigger>
   <Dropdown.Body>
     <div
@@ -31,11 +43,13 @@ exports[`ColorPicker renders with custom colorList 1`] = `
         color="green"
         colorIndex={1}
         key="1"
+        tooltip={null}
       />
       <ColorItem
         color="#0000FF"
         colorIndex={2}
         key="2"
+        tooltip={null}
       />
     </div>
   </Dropdown.Body>
@@ -48,10 +62,18 @@ exports[`ColorPicker renders without crashing 1`] = `
   right={true}
 >
   <Dropdown.Trigger>
-    <ColorItem
-      color="#606060"
-      colorIndex={0}
-    />
+    <span
+      className="color_trigger"
+      style={
+        Object {
+          "backgroundColor": "#606060",
+        }
+      }
+    >
+      <span
+        className="color_trigger--inner_ring"
+      />
+    </span>
   </Dropdown.Trigger>
   <Dropdown.Body>
     <div
@@ -61,61 +83,73 @@ exports[`ColorPicker renders without crashing 1`] = `
         color="#4A90E2"
         colorIndex={1}
         key="1"
+        tooltip={null}
       />
       <ColorItem
         color="#03B3B2"
         colorIndex={2}
         key="2"
+        tooltip={null}
       />
       <ColorItem
         color="#008299"
         colorIndex={3}
         key="3"
+        tooltip={null}
       />
       <ColorItem
         color="#82BA00"
         colorIndex={4}
         key="4"
+        tooltip={null}
       />
       <ColorItem
         color="#D24726"
         colorIndex={5}
         key="5"
+        tooltip={null}
       />
       <ColorItem
         color="#AC193D"
         colorIndex={6}
         key="6"
+        tooltip={null}
       />
       <ColorItem
         color="#DC4FAD"
         colorIndex={7}
         key="7"
+        tooltip={null}
       />
       <ColorItem
         color="#3BD5FB"
         colorIndex={8}
         key="8"
+        tooltip={null}
       />
       <ColorItem
         color="#74E8D3"
         colorIndex={9}
         key="9"
+        tooltip={null}
       />
       <ColorItem
         color="#FFCC00"
         colorIndex={10}
         key="10"
+        tooltip={null}
       />
       <ColorItem
         color="#FB886E"
         colorIndex={11}
         key="11"
+        tooltip={null}
       />
       <ColorItem
         color="#CCCCCC"
         colorIndex={12}
         key="12"
+        tooltip={null}
       />
     </div>
   </Dropdown.Body>

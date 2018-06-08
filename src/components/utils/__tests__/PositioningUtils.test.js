@@ -301,7 +301,7 @@ describe('PositioningUtils', () => {
                 description:
                     'has NOT enough space for right placement when wrapper is too high',
                 params: getParams({
-                    elementDimensions: { height: 16, width: 40 },
+                    elementDimensions: { height: 16, width: 41 },
                     wrapperPosition: { x: 5, y: 10 },
                     position: 'right'
                 }),
