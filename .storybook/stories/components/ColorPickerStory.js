@@ -74,13 +74,49 @@ const CustomColorPickersChapter = {
     ]
 }
 
+class NamedColorPickersStory extends React.Component {
+    constructor(props, context) {
+        super(props, context)
+        this.state = { color: 0 }
+    }
+
+    render() {
+        return (
+            <section className="story">
+                <ColorPicker
+                    color={this.state.color}
+                    onChange={color => this.setState(() => ({ color }))}
+                    colorList={[
+                        { color: 'red', name: 'Red' },
+                        { color: 'green', name: 'Green' },
+                        { color: 'palegoldenrod', name: 'Gold' },
+                        { color: '#FF00FF', name: 'Pink' },
+                        { color: '#ABCDEF', name: 'Blue-Gray-ish' }
+                    ]}
+                />
+            </section>
+        )
+    }
+}
+const NamedColorPickersChapter = {
+    subtitle: 'Named Colors Color Picker',
+    sections: [
+        {
+            // eslint-disable-next-line react/display-name
+            sectionFn: () => <NamedColorPickersStory />,
+            options: optionsNoSourceNoProps
+        }
+    ]
+}
+
 // Story setup ================================================================
 const Story = () =>
     storiesOf('ColorPicker', module).addWithChapters('Component Overview', {
         chapters: [
             ColorPickerPropTypesChapter,
             ColorPickersChapter,
-            CustomColorPickersChapter
+            CustomColorPickersChapter,
+            NamedColorPickersChapter
         ]
     })
 
