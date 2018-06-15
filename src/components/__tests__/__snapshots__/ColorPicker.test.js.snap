@@ -40,14 +40,23 @@ exports[`ColorPicker renders with custom colorList 1`] = `
       className="color_options"
     >
       <ColorItem
+        color="red"
+        colorIndex={0}
+        isActive={true}
+        key="0"
+        tooltip={null}
+      />
+      <ColorItem
         color="green"
         colorIndex={1}
+        isActive={false}
         key="1"
         tooltip={null}
       />
       <ColorItem
         color="#0000FF"
         colorIndex={2}
+        isActive={false}
         key="2"
         tooltip={null}
       />
@@ -80,74 +89,93 @@ exports[`ColorPicker renders without crashing 1`] = `
       className="color_options"
     >
       <ColorItem
+        color="#606060"
+        colorIndex={0}
+        isActive={true}
+        key="0"
+        tooltip={null}
+      />
+      <ColorItem
         color="#4A90E2"
         colorIndex={1}
+        isActive={false}
         key="1"
         tooltip={null}
       />
       <ColorItem
         color="#03B3B2"
         colorIndex={2}
+        isActive={false}
         key="2"
         tooltip={null}
       />
       <ColorItem
         color="#008299"
         colorIndex={3}
+        isActive={false}
         key="3"
         tooltip={null}
       />
       <ColorItem
         color="#82BA00"
         colorIndex={4}
+        isActive={false}
         key="4"
         tooltip={null}
       />
       <ColorItem
         color="#D24726"
         colorIndex={5}
+        isActive={false}
         key="5"
         tooltip={null}
       />
       <ColorItem
         color="#AC193D"
         colorIndex={6}
+        isActive={false}
         key="6"
         tooltip={null}
       />
       <ColorItem
         color="#DC4FAD"
         colorIndex={7}
+        isActive={false}
         key="7"
         tooltip={null}
       />
       <ColorItem
         color="#3BD5FB"
         colorIndex={8}
+        isActive={false}
         key="8"
         tooltip={null}
       />
       <ColorItem
         color="#74E8D3"
         colorIndex={9}
+        isActive={false}
         key="9"
         tooltip={null}
       />
       <ColorItem
         color="#FFCC00"
         colorIndex={10}
+        isActive={false}
         key="10"
         tooltip={null}
       />
       <ColorItem
         color="#FB886E"
         colorIndex={11}
+        isActive={false}
         key="11"
         tooltip={null}
       />
       <ColorItem
         color="#CCCCCC"
         colorIndex={12}
+        isActive={false}
         key="12"
         tooltip={null}
       />

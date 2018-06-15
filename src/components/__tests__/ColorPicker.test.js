@@ -16,19 +16,16 @@ describe('ColorPicker', () => {
         expect(colorPicker).toMatchSnapshot()
     })
 
-    it('renders all colors except the selected one', () => {
-        const colorPicker = shallow(getColorPicker({ color: 3 }))
-
-        const colorOptions = colorPicker.find('.color_options')
-        const selectedColorItem = colorOptions.find('ColorItem[colorIndex=3]')
-        expect(selectedColorItem).toHaveLength(0)
-    })
-
     describe('ColorItem', () => {
         it('renders given color and does nothing when clicked without specified onClick handler', () => {
             const colorItem = shallow(getColorItem())
             colorItem.simulate('click')
             expect(colorItem).toMatchSnapshot()
+        })
+
+        it('adds active class when prop is supplied', () => {
+            const colorItem = shallow(getColorItem({ isActive: true }))
+            expect(colorItem.hasClass('active')).toBe(true)
         })
 
         it('calls onClick after clicking it', () => {
