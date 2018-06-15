@@ -48,6 +48,11 @@ const ColorPicker = ({ color, onChange, colorList = COLORS }) => (
                     const isNamed = _isNamedColor(currentColor)
                     items.push(
                         <ColorItem
+                            isActive={
+                                color >= colorList.length
+                                    ? currentIndex === 0
+                                    : currentIndex === color
+                            }
                             key={currentIndex}
                             color={isNamed ? currentColor.color : currentColor}
                             colorIndex={currentIndex}
@@ -79,10 +84,10 @@ ColorPicker.propTypes = {
     )
 }
 
-const ColorItem = ({ color, colorIndex, onClick, tooltip }) => {
+const ColorItem = ({ color, colorIndex, isActive, onClick, tooltip }) => {
     const item = (
         <span
-            className="reactist color_item"
+            className={'reactist color_item' + (isActive ? ' active' : '')}
             style={{ backgroundColor: color }}
             onClick={() => onClick && onClick(colorIndex)}
         >
@@ -98,6 +103,8 @@ ColorItem.propTypes = {
     color: PropTypes.string.isRequired,
     /** Index of the color to display. Is based upon the colorList array. */
     colorIndex: PropTypes.number.isRequired,
+    /** Flag that can be used to highlight the currently selected item. */
+    isActive: PropTypes.bool,
     /** Optional callback that is called when the item is clicked. */
     onClick: PropTypes.func,
     /** Optional tooltip to be shown when hovering the item. */
