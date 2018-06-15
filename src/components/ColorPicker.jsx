@@ -23,6 +23,10 @@ const COLORS = [
 ]
 
 const _isNamedColor = color => typeof color !== 'string'
+const _getColor = (colorList, colorIndex) => {
+    const index = colorIndex >= colorList.length ? 0 : colorIndex
+    return colorList[index]
+}
 
 const ColorPicker = ({ color, onChange, colorList = COLORS }) => (
     <Dropdown.Box right className="reactist color_picker">
@@ -31,8 +35,8 @@ const ColorPicker = ({ color, onChange, colorList = COLORS }) => (
                 className="color_trigger"
                 style={{
                     backgroundColor: _isNamedColor(colorList[color])
-                        ? colorList[color].color
-                        : colorList[color]
+                        ? _getColor(colorList, color).color
+                        : _getColor(colorList, color)
                 }}
             >
                 <span className="color_trigger--inner_ring" />
@@ -41,20 +45,16 @@ const ColorPicker = ({ color, onChange, colorList = COLORS }) => (
         <Dropdown.Body>
             <div className="color_options">
                 {colorList.reduce((items, currentColor, currentIndex) => {
-                    if (currentIndex !== color) {
-                        const isNamed = _isNamedColor(currentColor)
-                        items.push(
-                            <ColorItem
-                                key={currentIndex}
-                                color={
-                                    isNamed ? currentColor.color : currentColor
-                                }
-                                colorIndex={currentIndex}
-                                onClick={onChange}
-                                tooltip={isNamed ? currentColor.name : null}
-                            />
-                        )
-                    }
+                    const isNamed = _isNamedColor(currentColor)
+                    items.push(
+                        <ColorItem
+                            key={currentIndex}
+                            color={isNamed ? currentColor.color : currentColor}
+                            colorIndex={currentIndex}
+                            onClick={onChange}
+                            tooltip={isNamed ? currentColor.name : null}
+                        />
+                    )
                     return items
                 }, [])}
             </div>
