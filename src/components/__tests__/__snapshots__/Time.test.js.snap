@@ -19,7 +19,7 @@ exports[`Time renders with custom tooltip when supplied 1`] = `
   <Tooltip
     allowVaguePositioning={false}
     delayHide={0}
-    delayShow={1000}
+    delayShow={500}
     hideOnScroll={true}
     inverted={false}
     position="auto"
@@ -49,7 +49,7 @@ exports[`Time renders wrapped in tooltip when tooltipOnHover is set 1`] = `
   <Tooltip
     allowVaguePositioning={false}
     delayHide={0}
-    delayShow={1000}
+    delayShow={500}
     hideOnScroll={true}
     inverted={false}
     position="auto"
