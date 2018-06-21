@@ -66,6 +66,7 @@ class Time extends React.Component {
                                 this.props.config.locale
                             )
                         }
+                        delayShow={500}
                     >
                         {timeComponent}
                     </Tooltip>
