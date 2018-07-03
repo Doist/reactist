@@ -20,7 +20,7 @@ exports[`Button renders a tooltip when prop is supplied 1`] = `
 <Tooltip
   allowVaguePositioning={false}
   delayHide={0}
-  delayShow={1000}
+  delayShow={500}
   hideOnScroll={true}
   inverted={false}
   position="auto"

@@ -214,7 +214,7 @@ Tooltip.displayName = 'Tooltip'
 Tooltip.defaultProps = {
     position: 'auto',
     hideOnScroll: true,
-    delayShow: 1000,
+    delayShow: 500,
     delayHide: 0,
     allowVaguePositioning: false,
     inverted: false
