@@ -3,6 +3,7 @@ import './styles/modal.less'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 
 import CloseIcon from './icons/CloseIcon.svg'
 
@@ -44,20 +45,19 @@ class Box extends React.Component {
     }
 
     render() {
-        let class_name = 'reactist_modal_box'
-
-        if (this.props.large) {
-            class_name += ' large'
-        }
-
-        if (this.props.className) {
-            class_name += ` ${this.props.className}`
-        }
+        const { large, style, children } = this.props
+        const className = classnames(
+            'reactist_modal_box',
+            { large },
+            this.props.className
+        )
 
         return (
             <div className="reactist_overlay" id="reactist-overlay">
                 <div className="reactist_overlay_inner">
-                    <div className={class_name}>{this.props.children}</div>
+                    <div style={style} className={className}>
+                        {children}
+                    </div>
                 </div>
             </div>
         )
@@ -71,6 +71,8 @@ Box.defaultProps = {
 Box.propTypes = {
     /** Additional css class applied to the Modal.Box. */
     className: PropTypes.string,
+    /** Sometimes a class name is not enough so you can use this to set the style directly. */
+    style: PropTypes.object,
     /** Large style. */
     large: PropTypes.bool,
     /** Close the Modal when clicking on the overlay. */
@@ -136,14 +138,15 @@ class Body extends React.Component {
     }
 
     render() {
-        let className = 'reactist_modal_box__body'
-        if (this.props.className) {
-            className += ` ${this.props.className}`
-        }
+        const { icon, children, style, showCloseIcon } = this.props
+        const className = classnames(
+            'reactist_modal_box__body',
+            this.props.className
+        )
 
         return (
-            <div className={className}>
-                {this.props.showCloseIcon && (
+            <div className={className} style={style}>
+                {showCloseIcon && (
                     <a
                         className="close"
                         onClick={this._closeModal.bind(this)}
@@ -152,13 +155,13 @@ class Body extends React.Component {
                         <CloseIcon />
                     </a>
                 )}
-                {this.props.icon ? (
+                {icon ? (
                     <div className="dialog">
-                        <div className="icon">{this.props.icon}</div>
-                        <div className="content">{this.props.children}</div>
+                        <div className="icon">{icon}</div>
+                        <div className="content">{children}</div>
                     </div>
                 ) : (
-                    this.props.children
+                    children
                 )}
             </div>
         )
@@ -178,6 +181,8 @@ Body.propTypes = {
     showCloseIcon: PropTypes.bool,
     /** Additionall css class applied to the Modal.Body. */
     className: PropTypes.string,
+    /** Sometimes a class name is not enough so you can use this to set the style directly. */
+    style: PropTypes.object,
     /** Children to render inside the Modal.Body. */
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
