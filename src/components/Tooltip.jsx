@@ -20,6 +20,7 @@ class Tooltip extends React.Component {
             this.props.hideOnScroll !== nextProps.hideOnScroll ||
             this.props.delayShow !== nextProps.delayShow ||
             this.props.delayHide !== nextProps.delayHide ||
+            this.props.gapSize !== nextProps.gapSize ||
             this.props.children !== nextProps.children
         )
     }
@@ -74,8 +75,7 @@ class Tooltip extends React.Component {
     }
 
     _updateTooltipPosition = () => {
-        const { position, allowVaguePositioning } = this.props
-        const gapSize = 5 // size of the arrow (see `tooltip.less`)
+        const { position, allowVaguePositioning, gapSize } = this.props
         const wrapperRect = this.wrapper.getBoundingClientRect()
         const tooltipRect = this.tooltip.getBoundingClientRect()
 
@@ -217,7 +217,8 @@ Tooltip.defaultProps = {
     delayShow: 500,
     delayHide: 0,
     allowVaguePositioning: false,
-    inverted: false
+    inverted: false,
+    gapSize: 5 // default size of the arrow (see `tooltip.less`)
 }
 Tooltip.propTypes = {
     /**
@@ -250,7 +251,9 @@ Tooltip.propTypes = {
     /** Additional css class that is applied to the tooltip element. */
     tooltipClassName: PropTypes.string,
     /** Inverted tooltips have a light background with dark text. */
-    inverted: PropTypes.bool
+    inverted: PropTypes.bool,
+    /** Gap between the tooltip wrapper and the arrow  */
+    gapSize: PropTypes.number
 }
 
 export default Tooltip

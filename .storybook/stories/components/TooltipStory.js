@@ -66,6 +66,7 @@ const TooltipPlaygroundStory = () => (
                 'auto'
             )}
             inverted={boolean('Inverted', false)}
+            gapSize={number('Gap Size (px)', 5)}
         >
             <div className="tip_item">Hover me to see your tooltip</div>
         </Tooltip>
