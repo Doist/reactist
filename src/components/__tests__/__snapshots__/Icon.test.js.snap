@@ -43,6 +43,7 @@ exports[`Icon wraps icon in a tooltip when tooltip is supplied 1`] = `
   allowVaguePositioning={false}
   delayHide={0}
   delayShow={500}
+  gapSize={5}
   hideOnScroll={true}
   inverted={false}
   position="auto"
