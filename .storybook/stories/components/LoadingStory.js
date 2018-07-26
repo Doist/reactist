@@ -2,7 +2,6 @@ import './styles/loading_story.less'
 
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, boolean } from '@storybook/addon-knobs'
 
 import {
     getPropTypesStory,
@@ -24,7 +23,6 @@ const LoadingPropTypesChapter = {
 const LoadingStory = () => (
     <section className="story loading">
         <Loading />
-        <Loading white />
     </section>
 )
 const LoadingChapter = {
@@ -32,19 +30,10 @@ const LoadingChapter = {
     sections: [{ sectionFn: LoadingStory, options: optionsSourceOnly }]
 }
 
-const LoadingPlaygroundStory = () => (
-    <section className="story loading">
-        <Loading white={boolean('White Loading', false)} />
-    </section>
-)
-
 // Story setup ================================================================
 const Story = () =>
-    storiesOf('Loading', module)
-        .addDecorator(withKnobs)
-        .addWithChapters('Component Overview', {
-            chapters: [LoadingPropTypesChapter, LoadingChapter]
-        })
-        .add('Component Playground', LoadingPlaygroundStory)
+    storiesOf('Loading', module).addWithChapters('Component Overview', {
+        chapters: [LoadingPropTypesChapter, LoadingChapter]
+    })
 
 export default Story
