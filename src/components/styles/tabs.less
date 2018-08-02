@@ -6,16 +6,26 @@
         border-bottom: 1px solid @color_grey_10;
 
         &--item {
+            @item_spacing: 10px;
+
             display: block;
             margin: 0 20px 0 0;
-            padding: 10px 0;
+            padding: @item_spacing 0;
             .normal_text(@color: @secondary_font_color);
             text-decoration: none;
             box-sizing: border-box;
 
             &.active {
                 .normal_text(@color: @primary_color);
-                border-bottom: 3px solid @primary_color;
+                &:after {
+                    display: block;
+                    content: '';
+                    background-color: @primary_color;
+                    height: 3px;
+                    border-radius: 3px 3px 0 0 ;
+                    position: relative;
+                    top: @item_spacing;
+                }
             }
             &.disabled:hover {
                 cursor: not-allowed;
