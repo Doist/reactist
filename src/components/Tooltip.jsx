@@ -38,11 +38,11 @@ class Tooltip extends React.Component {
     }
 
     _initScrollListener() {
-        document.addEventListener('scroll', this._hide)
+        document.addEventListener('scroll', this._hide, true)
     }
 
     _removeScrollListener() {
-        document.removeEventListener('scroll', this._hide)
+        document.removeEventListener('scroll', this._hide, true)
     }
 
     _clearDelayTimeout() {
