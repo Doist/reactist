@@ -72,7 +72,7 @@ describe('Tooltip', () => {
     })
 
     describe('Scroll Listener', () => {
-        it('adds a scrolllistener when becoming visible and when hideOnScroll is true', () => {
+        it('adds a capturing scrolllistener when becoming visible and when hideOnScroll is true', () => {
             document.addEventListener = jest.fn()
             const tooltip = shallow(getTooltip({ hideOnScroll: true }))
 
@@ -80,6 +80,7 @@ describe('Tooltip', () => {
             jest.runAllTimers()
             const callArgs = document.addEventListener.mock.calls[0]
             expect(callArgs[0]).toBe('scroll')
+            expect(callArgs[2]).toBe(true)
         })
 
         it('does not add a scrolllistener when becoming visible and when hideOnScroll is false', () => {
@@ -91,7 +92,7 @@ describe('Tooltip', () => {
             expect(document.addEventListener).not.toHaveBeenCalled()
         })
 
-        it('removes a scrolllistener when hiding and when hideOnScroll is true', () => {
+        it('removes a capturing scrolllistener when hiding and when hideOnScroll is true', () => {
             document.removeEventListener = jest.fn()
             const tooltip = shallow(getTooltip({ hideOnScroll: true }))
 
@@ -99,6 +100,7 @@ describe('Tooltip', () => {
             jest.runAllTimers()
             const callArgs = document.removeEventListener.mock.calls[0]
             expect(callArgs[0]).toBe('scroll')
+            expect(callArgs[2]).toBe(true)
         })
 
         it('does not remove a scrolllistener when hiding and when hideOnScroll is false', () => {
