@@ -2,6 +2,9 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 1.15.20
+- [Bug] Setting `useCapture` to `true` to catch scroll events of all elements of a page to correctly hide the tooltip
+
 ## 1.15.19
 - [New] Added `gapSize` to `<Tooltip />`
 
