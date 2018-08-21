@@ -38,7 +38,8 @@ class Box extends React.Component {
             this.props.closeOnOverlayClick &&
             event &&
             event.target &&
-            event.target.id === 'reactist-overlay'
+            (event.target.id === 'reactist-overlay' ||
+                event.target.id === 'reactist-overlay-inner')
         ) {
             this._closeModal()
         }
@@ -54,7 +55,10 @@ class Box extends React.Component {
 
         return (
             <div className="reactist_overlay" id="reactist-overlay">
-                <div className="reactist_overlay_inner">
+                <div
+                    className="reactist_overlay_inner"
+                    id="reactist-overlay-inner"
+                >
                     <div style={style} className={className}>
                         {children}
                     </div>
