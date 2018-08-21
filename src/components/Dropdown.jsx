@@ -10,9 +10,7 @@ class Box extends React.Component {
         super(props, context)
         this.state = {
             show_body: false,
-            top: this.props.top || false,
-            right: this.props.right || false,
-            scrolling_parent: this.props.scrolling_parent || null
+            top: props.top || false
         }
 
         this._handleClickOutside = this._handleClickOutside.bind(this)
@@ -59,8 +57,7 @@ class Box extends React.Component {
         }
 
         this.setState({
-            show_body: !this.state.show_body,
-            top: this.state.top
+            show_body: !this.state.show_body
         })
     }
 
@@ -73,7 +70,7 @@ class Box extends React.Component {
     _setPosition(body) {
         if (body) {
             const scrolling_parent = document.getElementById(
-                this.state.scrolling_parent
+                this.props.scrolling_parent
             )
 
             if (scrolling_parent) {
@@ -104,9 +101,9 @@ class Box extends React.Component {
     }
 
     _getBodyComponent() {
-        const _body = this.props.children[1]
-        const style = { position: 'relative' }
-        const { right, top } = this.state
+        const { top } = this.state
+        const { right = false, children } = this.props
+        const _body = children[1]
         const props = { top, right, setPosition: this._setPosition }
 
         const class_name = classNames({
@@ -118,7 +115,7 @@ class Box extends React.Component {
 
         if (this.state.show_body) {
             return (
-                <div className={class_name} style={style}>
+                <div className={class_name} style={{ position: 'relative' }}>
                     {React.cloneElement(_body, props)}
                 </div>
             )
@@ -128,15 +125,14 @@ class Box extends React.Component {
     }
 
     render() {
-        let class_name = 'reactist dropdown'
-        let style = { display: 'inline-block' }
-        if (this.props.className) class_name += ` ${this.props.className}`
+        const className = classNames('reactist dropdown', this.props.className)
+        const { top } = this.state
 
         return (
-            <div style={style} className={class_name}>
-                {this.state.top && this._getBodyComponent()}
+            <div style={{ display: 'inline-block' }} className={className}>
+                {top && this._getBodyComponent()}
                 {this._getTriggerComponent()}
-                {!this.state.top && this._getBodyComponent()}
+                {!top && this._getBodyComponent()}
             </div>
         )
     }
