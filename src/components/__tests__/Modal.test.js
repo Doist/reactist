@@ -68,6 +68,16 @@ describe('Modal.Box', () => {
         )
     })
 
+    it('unmounts the modal_box when clicking on inner overlay (sides of modal)', () => {
+        const box = mount(<Modal.Box closeOnOverlayClick />).instance()
+
+        const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
+        box._handleOverlayClick({ target: { id: 'reactist-overlay-inner' } })
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
+            unmountCallCount + 1
+        )
+    })
+
     it('does not close on overlay click when property was not supplied', () => {
         const box = mount(<Modal.Box />).instance()
 
