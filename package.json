@@ -1,6 +1,6 @@
 {
     "name": "@doist/reactist",
-    "version": "1.15.21",
+    "version": "1.15.22",
     "description": "Open source React components by Doist",
     "main": "./dist/reactist.js",
     "scripts": {
