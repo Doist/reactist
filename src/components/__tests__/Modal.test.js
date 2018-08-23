@@ -41,11 +41,13 @@ describe('Modal.Box', () => {
     it('unmounts the modal_box when escape was pressed', () => {
         const box = mount(<Modal.Box />).instance()
 
+        const preventSpy = jest.fn()
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
-        box._handleKeyDown({ keyCode: 27 })
+        box._handleKeyDown({ keyCode: 27, preventDefault: preventSpy })
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
             unmountCallCount + 1
         )
+        expect(getCallCount(preventSpy)).toBe(1)
     })
 
     it('does nothing when any other key than escape was pressed', () => {

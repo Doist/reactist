@@ -30,6 +30,7 @@ class Box extends React.Component {
         if (event.keyCode === 27) {
             // ESC
             this._closeModal()
+            event.preventDefault()
         }
     }
 
