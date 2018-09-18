@@ -87,7 +87,7 @@ exports[`Modal.Body renders without crashing 1`] = `
 />
 `;
 
-exports[`Modal.Box adds additionally supplied className prop: [object Object] 1`] = `
+exports[`Modal.Box adds additionally supplied className prop 1`] = `
 <div
   className="reactist_overlay"
   id="reactist-overlay"
