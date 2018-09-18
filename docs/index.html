@@ -3,42 +3,54 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="storybook-version" content="3.4.10">
     <meta content="IE=edge" http-equiv="X-UA-Compatible" />
     <title>Storybook</title>
-    <style>
-        /*
-          When resizing panels, the drag event breaks if the cursor
-          moves over the iframe. Add the 'dragging' class to the body
-          at drag start and remove it when the drag ends.
-         */
-        .dragging iframe {
-            pointer-events: none;
-        }
+    <link rel="shortcut icon" href="favicon.ico?v=1" />
 
-        /* Styling the fuzzy search box placeholders */
-        .searchBox::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-            color: #ddd;
-            font-size: 16px;
-        }
+    
+  
+    
+      <style>
+  html, body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+</style>
 
-        .searchBox::-moz-placeholder { /* Firefox 19+ */
-            color: #ddd;
-            font-size: 16px;
-        }
+<script>
+  if (window.parent !== window) {
+    window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = window.parent.__REACT_DEVTOOLS_GLOBAL_HOOK__;
+    window.__VUE_DEVTOOLS_GLOBAL_HOOK__ = window.parent.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+  }
+</script>
 
-        .searchBox:focus{
-            border-color: #EEE !important;
-        }
-
-        .btn:hover{
-            background-color: #eee
-        }
-    </style>
+    
+  
+</head>
+<body>
+    
     
 
-</head>
-<body style="margin: 0;">
+    
+  
     <div id="root"></div>
-<script type="text/javascript" src="static/manager.559c669ec5c03c7d5584.bundle.js"></script></body>
+
+    
+      
+    
+  
+    
+      
+        <script src="static/runtime~manager.1e37d0d1017cb5f1305c.bundle.js" defer></script>
+      
+    
+      
+        <script src="static/manager.e00aea990dc5fcd3508b.bundle.js" defer></script>
+      
+    
+  
+</body>
 </html>
