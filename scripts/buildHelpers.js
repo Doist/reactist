@@ -11,4 +11,4 @@ const getComponentsMap = componentsDir => {
         }, {}) // create a map like this { 'Button': './src/comps/Button' }
 }
 
-export { getComponentsMap }
+module.exports = { getComponentsMap }

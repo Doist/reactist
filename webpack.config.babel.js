@@ -1,10 +1,11 @@
-import path from 'path'
-import webpack from 'webpack'
-import { getComponentsMap } from './scripts/buildHelpers'
+const path = require('path')
+const webpack = require('webpack')
+const getComponentsMap = require('./scripts/buildHelpers').getComponentsMap
 
 const BASE_CONFIG = {
     entry: './src/index.js',
     devtool: 'source-map',
+    mode: 'production',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'reactist.js',
@@ -22,15 +23,28 @@ const BASE_CONFIG = {
         extensions: ['.webpack.js', '.js', '.jsx']
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader'
+                use: [{ loader: 'babel-loader' }]
             },
-            { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' },
-            { test: /\.css$/, loader: 'style-loader!css-loader' },
-            { test: /\.svg$/, loader: 'svg-url-loader' }
+            {
+                test: /\.less$/,
+                use: [
+                    { loader: 'style-loader' },
+                    { loader: 'css-loader' },
+                    { loader: 'less-loader' }
+                ]
+            },
+            {
+                test: /\.css$/,
+                use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+            },
+            {
+                test: /\.svg$/,
+                use: [{ loader: 'svg-url-loader' }]
+            }
         ]
     },
     externals: {
@@ -45,7 +59,10 @@ const BASE_CONFIG = {
             commonjs2: 'react-dom',
             commonjs: 'react-dom',
             amd: 'react-dom'
-        }
+        },
+        moment: 'moment',
+        classnames: 'classnames',
+        'prop-types': 'prop-types'
     },
     plugins: [
         new webpack.DefinePlugin({

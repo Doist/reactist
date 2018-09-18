@@ -133,12 +133,13 @@ describe('Tooltip', () => {
 
         it('sets the tooltip to the given position if it is not set to `auto`', () => {
             PositioningUtils.hasEnoughSpace = jest.fn(() => true)
-            jest
-                .spyOn(PositioningUtils, 'calculatePosition')
-                .mockImplementationOnce(() => ({
-                    x: 23,
-                    y: 42
-                }))
+            jest.spyOn(
+                PositioningUtils,
+                'calculatePosition'
+            ).mockImplementationOnce(() => ({
+                x: 23,
+                y: 42
+            }))
 
             const tooltip = mount(getTooltip({ position: 'right' })).instance()
             tooltip.setState({ visible: true }) // triggers update positions
@@ -149,12 +150,13 @@ describe('Tooltip', () => {
 
         it('allows vague positioning to avoid cut offs', () => {
             PositioningUtils.hasEnoughSpace = jest.fn(() => true)
-            jest
-                .spyOn(PositioningUtils, 'calculatePosition')
-                .mockImplementationOnce(() => ({
-                    x: -23,
-                    y: 42
-                }))
+            jest.spyOn(
+                PositioningUtils,
+                'calculatePosition'
+            ).mockImplementationOnce(() => ({
+                x: -23,
+                y: 42
+            }))
 
             const tooltip = mount(
                 getTooltip({ allowVaguePositioning: true })
@@ -172,12 +174,13 @@ describe('Tooltip', () => {
                 .mockReturnValueOnce(false) // right
                 .mockReturnValueOnce(false) // bottom
                 .mockReturnValueOnce(true) // left
-            jest
-                .spyOn(PositioningUtils, 'calculatePosition')
-                .mockImplementationOnce(() => ({
-                    x: 23,
-                    y: 42
-                }))
+            jest.spyOn(
+                PositioningUtils,
+                'calculatePosition'
+            ).mockImplementationOnce(() => ({
+                x: 23,
+                y: 42
+            }))
             const tooltip = mount(getTooltip({ position: 'auto' })).instance()
             tooltip.setState({ visible: true }) // triggers update positions
 
