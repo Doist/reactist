@@ -57,7 +57,11 @@ Button.defaultProps = {
 }
 Button.propTypes = {
     /** Text that is displayed on the button. */
-    name: PropTypes.string,
+    name: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ]),
     /**
      * Function that is called when the button is clicked.
      * Is only invoked when disabled is not set.
@@ -78,7 +82,11 @@ Button.propTypes = {
     /** Danger style. */
     danger: PropTypes.bool,
     /** Tooltip that is displayed on hover. */
-    data_tip: PropTypes.string,
+    data_tip: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ]),
     /** Additional css class applied to the button. */
     className: PropTypes.string
 }

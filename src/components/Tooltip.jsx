@@ -233,7 +233,11 @@ Tooltip.propTypes = {
      */
     allowVaguePositioning: PropTypes.bool,
     /** Text that is displayed inside the tooltip */
-    text: PropTypes.string.isRequired,
+    text: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ]).isRequired,
     /** Delay before the tooltip appears and disappears (in ms). */
     /** Set whether scrolling should hide the tooltip or not. */
     hideOnScroll: PropTypes.bool,
@@ -243,6 +247,7 @@ Tooltip.propTypes = {
     delayHide: PropTypes.number,
     /** Children that are wrapped by the toolip. */
     children: PropTypes.oneOfType([
+        PropTypes.string,
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
     ]),

@@ -25,7 +25,11 @@ Checkbox.propTypes = {
     /** Current value of the checkbox. */
     checked: PropTypes.bool,
     /** Label that is displayed next to the checkbox. */
-    label: PropTypes.string
+    label: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ])
 }
 
 export default Checkbox

@@ -36,18 +36,19 @@ Select.defaultProps = {
 }
 Select.propTypes = {
     /** Currently selected value. */
-    value: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     /** Callback for the change event. Will be called with the next value (not the full event). */
     onChange: PropTypes.func.isRequired,
     /** Options that are rendered in the select. */
     options: PropTypes.arrayOf(
         PropTypes.shape({
             /** Optional key for each option. If not provided `value` is used. */
-            key: PropTypes.string,
+            key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
             /** Value of the option. */
-            value: PropTypes.string.isRequired,
+            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+                .isRequired,
             /** Text to display for the option. */
-            text: PropTypes.string,
+            text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
             /** Whether the options is disabled or not. */
             disabled: PropTypes.bool
         })

@@ -33,7 +33,11 @@ Tip.propTypes = {
     /** Title of the tip. */
     title: PropTypes.string.isRequired,
     /** Message of the tip. */
-    message: PropTypes.string.isRequired,
+    message: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ]).isRequired,
     /** Addtional css class that is applied to the Tip. */
     className: PropTypes.string
 }

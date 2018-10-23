@@ -60,7 +60,11 @@ ErrorMessage.defaultProps = {
 }
 ErrorMessage.propTypes = {
     /** Message to be displayed. This component only renders when message is set. */
-    message: PropTypes.string,
+    message: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ]),
     /** Timeout after the error message disappears (in ms). */
     timeout: PropTypes.number,
     /** Optional callback that is invoked when the error message disappears. */
