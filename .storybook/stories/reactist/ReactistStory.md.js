@@ -3,11 +3,11 @@ const introText = `
 `
 
 const howToText = `
-    You can easily add Reactist to your project by installing it from npm:
+    You can add Reactist to your project by installing it from npm:
     \`\`\`sh
     npm install @doist/reactist
     \`\`\`
-    If you prefer to include static files just grab the [minified build from the dist folder](https://github.com/Doist/reactist/tree/develop/dist).
+    If you prefer to include static files grab the [minified build from the dist folder](https://github.com/Doist/reactist/tree/develop/dist).
 
     A detailled explanation and examples on how to use each component can be accessed by clicking on the component name on the left.
 `
@@ -61,6 +61,7 @@ const developmentText = `
     npm install -E @doist/reactist
     \`\`\`
 
+    ### Development tips and tricks
 
     Independent of the development you operate in to produce a new build (e.g. before submitting a PR) run:
     \`\`\`sh
