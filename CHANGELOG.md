@@ -2,6 +2,9 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 1.16.02
+- [Tweak] Relaxed prop types of most components which render strings to also accept component(s)
+
 ## 1.16.01
 - [Tweak] Updated icon of `<Select />` to fit our iconography
 
