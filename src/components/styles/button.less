@@ -1,7 +1,7 @@
 @import './constants.less';
 
 @primary_button_selector: ~':not(.secondary):not(.white):not(.danger)';
-@default_state_selector: ~':not([disabled]):not(.loading)';
+@default_state_selector: ~':not([disabled]):not(.busy)';
 .default_border(@color: rgba(0, 0, 0, 0.1)) {
     border: 1px solid @color;
     border-radius: 3px;
@@ -22,7 +22,7 @@
         user-select: none;
     }
 
-    &:disabled, &.loading {
+    &:disabled, &.busy {
         opacity: 0.4;
         cursor: not-allowed;
     }
@@ -70,7 +70,7 @@
         }
     }
 
-    &.loading {
+    &.busy {
         // for improved accessibility we treat white / secondary buttons different
         &.white, &.secondary {
             .default_border(@color: @color_border_grey);
@@ -97,7 +97,7 @@
     }
 }
 
-// Animation used by the loading state of a button
+// Animation used by the busy state of a button
 @keyframes reactistRotateRight {
     from {
         transform: rotate(0deg);

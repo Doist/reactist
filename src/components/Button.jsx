@@ -24,7 +24,7 @@ class Button extends React.Component {
                 small: this.props.small,
                 large: this.props.large,
                 white: this.props.white,
-                loading: this.props.loading,
+                busy: this.props.loading,
                 danger: this.props.danger
             },
             this.props.className
