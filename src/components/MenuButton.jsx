@@ -30,7 +30,11 @@ const MenuButton = ({ className, name, onClick, children }) => {
 MenuButton.displayName = 'MenuButton'
 MenuButton.propTypes = {
     /** Name that is displayed as trigger of the MenuButton.  */
-    name: PropTypes.string,
+    name: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ]),
     /** When not providing any children you can control what happens when the MenuButton is clicked. */
     onClick: PropTypes.func,
     /** Children are displayed as items after clicking on the MenuButton. */
