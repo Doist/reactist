@@ -7,15 +7,15 @@ Open source React components made with ❤️ by Doist.
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-# How to use
+**[Check out our live demo.](http://doist.github.io/reactist)** It includes all currently implemented components plus a live playground to interact with them in different states.
 
-You can easily add Reactist to your project by installing it from npm:
+# How to use reactist
+
+You can add Reactist to your project by installing it from npm:
 ```sh
 npm install @doist/reactist
 ```
-If you prefer to include static files just grab the [minified build from the dist folder](https://github.com/Doist/reactist/tree/develop/dist).
-
-A detailed explanation and examples on how to use each component can be accessed by clicking on the component name on the left.
+If you prefer to include static files grab the [minified build from the dist folder](https://github.com/Doist/reactist/tree/develop/dist).
 
 # Changelog
 
@@ -67,6 +67,7 @@ rm -rf ./node_modules/@doist/reactist
 npm install -E @doist/reactist
 ```
 
+## Development tips and tricks
 
 Independent of the development you operate in to produce a new build (e.g. before submitting a PR) run:
 ```sh
