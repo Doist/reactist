@@ -47,10 +47,10 @@ class Box extends React.Component {
     }
 
     render() {
-        const { large, style, children } = this.props
+        const { large, medium, style, children } = this.props
         const className = classnames(
             'reactist_modal_box',
-            { large },
+            { large, medium },
             this.props.className
         )
 
@@ -80,6 +80,8 @@ Box.propTypes = {
     style: PropTypes.object,
     /** Large style. */
     large: PropTypes.bool,
+    /** Medium size syle. */
+    medium: PropTypes.bool,
     /** Close the Modal when clicking on the overlay. */
     closeOnOverlayClick: PropTypes.bool,
     /** Children to render inside the Modal.Box. Normally Modal.Header, Modal.Body and Modal.Actions. */
@@ -143,9 +145,10 @@ class Body extends React.Component {
     }
 
     render() {
-        const { icon, children, style, showCloseIcon } = this.props
+        const { icon, plain, children, style, showCloseIcon } = this.props
         const className = classnames(
             'reactist_modal_box__body',
+            { plain },
             this.props.className
         )
 
@@ -188,6 +191,8 @@ Body.propTypes = {
     className: PropTypes.string,
     /** Sometimes a class name is not enough so you can use this to set the style directly. */
     style: PropTypes.object,
+    /** Applies less styles on the body (e.g. no padding) */
+    plain: PropTypes.bool,
     /** Children to render inside the Modal.Body. */
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
