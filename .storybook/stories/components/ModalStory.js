@@ -113,11 +113,49 @@ const ModalHeaderBodyAndActionsChapter = {
     ]
 }
 
+const PlainMediumModalStory = () => {
+    const modal = (
+        <Modal.Box medium>
+            <Modal.Header title="Header of Modal" />
+            <Modal.Body plain>
+                The Body of a Modal can contain whatever you like! Like this
+                very long Lorem Ipsum<br />
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industrys standard dummy text
+                ever since the 1500s, when an unknown printer took a galley of
+                type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged. It was
+                popularised in the 1960s with the release of Letraset sheets
+                containing Lorem Ipsum passages, and more recently with desktop
+                publishing software like Aldus PageMaker including versions of
+                Lorem Ipsum.
+            </Modal.Body>
+        </Modal.Box>
+    )
+    return getStory(
+        'Click me to launch a medium-sized Modal with Header and plain Body',
+        modal
+    )
+}
+const PlainMediumModalChapter = {
+    subtitle: 'Header, Body and Actions',
+    sections: [
+        {
+            sectionFn: PlainMediumModalStory,
+            options: optionsNoSourceNoProps
+        }
+    ]
+}
+
 const ModalPlaygroundStory = () => {
     return (
         <section>
             <div id="modal_box" />
-            <Modal.Box large={boolean('Box: Large', false)}>
+            <Modal.Box
+                medium={boolean('Box: Medium', false)}
+                large={boolean('Box: Large', false)}
+            >
                 <Modal.Header
                     title={text('Header: Title', 'Header of Modal')}
                     subtitle={text(
@@ -125,7 +163,10 @@ const ModalPlaygroundStory = () => {
                         'This is a smaller description'
                     )}
                 />
-                <Modal.Body showCloseIcon={boolean('Body: Close Icon', false)}>
+                <Modal.Body
+                    plain={boolean('Body: Plain Style', false)}
+                    showCloseIcon={boolean('Body: Close Icon', false)}
+                >
                     Some Content
                 </Modal.Body>
                 <Modal.Actions>
@@ -148,7 +189,8 @@ const Story = () =>
             chapters: [
                 ModalHeaderOnlyChapter,
                 ModalHeaderAndBodyChapter,
-                ModalHeaderBodyAndActionsChapter
+                ModalHeaderBodyAndActionsChapter,
+                PlainMediumModalChapter
             ]
         })
         .add('Component Playground', ModalPlaygroundStory)
