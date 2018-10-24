@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 1.16.06
+- [New] Added `medium` property to `<Modal.Box />` as a new size constant. It will produce modals that are 680px wide
+- [New] Added `plain` property to `<Modal.Body />` which removes all styling from the body for custom modals
+
 ## 1.16.05
 - [Tweak] Darkened border color of `<Select />` to border color constant
 
