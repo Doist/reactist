@@ -1,27 +1,22 @@
-import moment from 'moment'
 import React from 'react'
 import { shallow } from 'enzyme'
 import toJson from 'enzyme-to-json'
 
 import Time from '../Time'
 
+import TimeUtils from '../utils/TimeUtils'
+const { unix } = TimeUtils
+
 describe('Time', () => {
-    const testDate = moment()
-        .year(1991)
-        .month('March')
-        .date(22)
-        .hours(13)
-        .minutes(37)
-        .seconds(42)
-        .unix()
+    const testDate = unix(new Date('March 22, 1991 13:37:42'))
 
     it('renders without crashing', () => {
-        const time = shallow(<Time time={moment().unix()} />)
+        const time = shallow(<Time time={Date.now()} />)
         expect(toJson(time)).toMatchSnapshot()
     })
 
     it('toggles hovered state on mouse enter and leave when mouse moves', () => {
-        const time = shallow(<Time time={moment().unix()} />)
+        const time = shallow(<Time time={Date.now()} />)
         expect(time.state('hovered')).toBe(false)
 
         time.simulate('mouseEnter', getMouseEvent(100, 100))
@@ -32,7 +27,7 @@ describe('Time', () => {
     })
 
     it('does not toggle hovered state when mouse did not move', () => {
-        const time = shallow(<Time time={moment().unix()} />)
+        const time = shallow(<Time time={Date.now()} />)
         expect(time.state('hovered')).toBe(false)
 
         time.simulate('mouseEnter', getMouseEvent())
@@ -43,7 +38,7 @@ describe('Time', () => {
     })
 
     it('renders relative time when not hovered', () => {
-        const time = shallow(<Time time={moment().unix()} />)
+        const time = shallow(<Time time={Date.now()} />)
         expect(getRenderedTime(time)).toBe('moments ago')
     })
 
@@ -80,7 +75,7 @@ describe('Time', () => {
 
     it('does not render short absolute time on hover when tooltipOnHover is set', () => {
         const time = shallow(
-            <Time time={moment().unix()} tooltipOnHover expandOnHover />
+            <Time time={Date.now()} tooltipOnHover expandOnHover />
         )
         time.simulate('mouseEnter', getMouseEvent())
         expect(time.find('Tooltip').props().children).toBe('moments ago')
@@ -88,7 +83,7 @@ describe('Time', () => {
 
     it('does not render full absolute time on hover when tooltipOnHover is set', () => {
         const time = shallow(
-            <Time time={moment().unix()} tooltipOnHover expandFullyOnHover />
+            <Time time={Date.now()} tooltipOnHover expandFullyOnHover />
         )
         time.simulate('mouseEnter', getMouseEvent())
         expect(time.find('Tooltip').props().children).toBe('moments ago')

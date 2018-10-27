@@ -1,7 +1,6 @@
 import './styles/time_story.less'
 
 import React from 'react'
-import moment from 'moment'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, number, boolean } from '@storybook/addon-knobs'
 
@@ -13,43 +12,36 @@ import {
 
 import Time from '../../../src/components/Time'
 
+import TimeUtils from '../../../src/components/utils/TimeUtils'
+const { unix, minutes, hours, days, weeks, years } = TimeUtils
+
+const now = Date.now()
+
 const exampleTimes = [
-    { title: 'Now', time: moment().unix() },
+    { title: 'Now', time: unix(Date.now()) },
     {
         title: 'Now - 2 Minutes',
-        time: moment()
-            .subtract(2, 'minutes')
-            .unix()
+        time: unix(now - minutes(2))
     },
     {
         title: 'Now - 2 Hours',
-        time: moment()
-            .subtract(2, 'hours')
-            .unix()
+        time: unix(now - hours(2))
     },
     {
         title: 'Now - 18 Hours',
-        time: moment()
-            .subtract(18, 'hours')
-            .unix()
+        time: unix(now - hours(18))
     },
     {
         title: 'Now - 2 Days',
-        time: moment()
-            .subtract(2, 'days')
-            .unix()
+        time: unix(now - days(2))
     },
     {
         title: 'Now - 2 Weeks',
-        time: moment()
-            .subtract(2, 'weeks')
-            .unix()
+        time: unix(now - weeks(2))
     },
     {
         title: 'Now - 2 Years',
-        time: moment()
-            .subtract(2, 'years')
-            .unix()
+        time: unix(now - years(2))
     }
 ]
 

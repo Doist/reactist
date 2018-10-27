@@ -60,7 +60,7 @@ const BASE_CONFIG = {
             commonjs: 'react-dom',
             amd: 'react-dom'
         },
-        moment: 'moment',
+        'date-fns': 'date-fns',
         classnames: 'classnames',
         'prop-types': 'prop-types'
     },
