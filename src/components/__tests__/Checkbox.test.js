@@ -24,6 +24,18 @@ describe('Checkbox', () => {
         expect(onChangeSpy).toHaveBeenLastCalledWith(true)
     })
 
+    it('does not call onChange when disabled', () => {
+        const onChangeSpy = jest.fn()
+        const checkbox = shallow(
+            getCheckbox({ disabled: true, onChange: onChangeSpy })
+        )
+
+        checkbox
+            .find('.checkbox--input')
+            .simulate('change', { target: { checked: true } })
+        expect(onChangeSpy).not.toHaveBeenCalled()
+    })
+
     // Helpers ================================================================
     const getCheckbox = props => (
         <Checkbox
