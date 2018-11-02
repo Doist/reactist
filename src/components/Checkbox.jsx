@@ -3,13 +3,16 @@ import './styles/checkbox.less'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Checkbox = ({ label, checked, onChange }) => (
+const Checkbox = ({ label, disabled, checked, onChange }) => (
     <label className="reactist checkbox">
         <input
             className="checkbox--input"
             value={label}
             checked={checked}
-            onChange={event => onChange(event.target.checked)}
+            disabled={disabled}
+            onChange={
+                disabled ? undefined : event => onChange(event.target.checked)
+            }
             type="checkbox"
         />
         {label}
@@ -24,6 +27,8 @@ Checkbox.propTypes = {
     onChange: PropTypes.func.isRequired,
     /** Current value of the checkbox. */
     checked: PropTypes.bool,
+    /** Whether the checkbox is disabled or not. */
+    disabled: PropTypes.bool,
     /** Label that is displayed next to the checkbox. */
     label: PropTypes.oneOfType([
         PropTypes.string,
