@@ -9,10 +9,12 @@
 
     .popover__content {
         max-width: 100%;
-        display: inline-block;
+        // display: inline-block;
+        display: inline-flex;
+        border-radius: 3px;
     }
 
-    border-radius: 3px;
+
     white-space: normal;
     z-index: 1000;
 
@@ -37,50 +39,37 @@
         height: 0;
         width: 0;
     }
-    .arrow_top(@color: white) {
+
+    &.arrow_top:after {
         .arrow();
         top: -@arrow_size;
         left: calc(50% - @arrow_size);
         border-left: @arrow_size solid transparent;
         border-right: @arrow_size solid transparent;
-        border-bottom: @arrow_size solid @color;
+        border-bottom: @arrow_size solid white;
     }
-    .arrow_right(@color: white) {
+    &.arrow_right:after {
         .arrow();
         bottom: calc(50% - @arrow_size);
         right: -@arrow_size;
-        border-left: @arrow_size solid @color;
+        border-left: @arrow_size solid white;
         border-bottom: @arrow_size solid transparent;
         border-top: @arrow_size solid transparent;
     }
-    .arrow_bottom(@color: white) {
+    &.arrow_bottom:after {
         .arrow();
         bottom: -@arrow_size;
         left: calc(50% - @arrow_size);
         border-left: @arrow_size solid transparent;
         border-right: @arrow_size solid transparent;
-        border-top: @arrow_size solid @color;
+        border-top: @arrow_size solid white;
     }
-    .arrow_left(@color: white) {
+    &.arrow_left:after {
         .arrow();
         bottom: calc(50% - @arrow_size);
         left: -@arrow_size;
-        border-right: @arrow_size solid @color;
+        border-right: @arrow_size solid white;
         border-bottom: @arrow_size solid transparent;
         border-top: @arrow_size solid transparent;
-    }
-
-
-    &.arrow_top:after {
-        .arrow_top();
-    }
-    &.arrow_right:after {
-        .arrow_right();
-    }
-    &.arrow_bottom:after {
-        .arrow_bottom();
-    }
-    &.arrow_left:after {
-        .arrow_left();
     }
 }
