@@ -11,22 +11,54 @@ exports[`Tooltip renders only children if text prop is not defined 1`] = `
 `;
 
 exports[`Tooltip renders without crashing 1`] = `
-<span
-  className="reactist tooltip__wrapper"
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
+<Tooltip
+  allowVaguePositioning={false}
+  delayHide={0}
+  delayShow={500}
+  gapSize={5}
+  hideOnScroll={true}
+  inverted={false}
+  position="auto"
+  text="tip"
 >
-  <span>
-    Wrapped Content
-  </span>
-  <span
-    className="reactist tooltip"
+  <Popover
+    allowVaguePositioning={false}
+    arrowClassName="reactist tooltip__arrow"
+    content="tip"
+    gapSize={5}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    popoverClassName="reactist tooltip__text"
+    popoverRef={[Function]}
+    position="auto"
+    trigger={
+      <span>
+        Wrapped Content
+      </span>
+    }
+    visible={false}
+    withArrow={true}
+    wrapperClassName="reactist tooltip__wrapper"
+    wrapperRef={[Function]}
   >
     <span
-      className="tooltip__text"
+      className="reactist popover__wrapper reactist tooltip__wrapper"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
     >
-      tip
+      <span>
+        Wrapped Content
+      </span>
+      <span
+        className="reactist popover"
+      >
+        <span
+          className="popover__content reactist tooltip__text"
+        >
+          tip
+        </span>
+      </span>
     </span>
-  </span>
-</span>
+  </Popover>
+</Tooltip>
 `;

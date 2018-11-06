@@ -7,10 +7,7 @@ import classNames from 'classnames'
 import Popover from './Popover'
 
 class Tooltip extends React.Component {
-    constructor(props, context) {
-        super(props, context)
-        this.state = { visible: false }
-    }
+    state = { visible: false }
 
     shouldComponentUpdate(nextProps, nextState) {
         // only update on state or prop changes
@@ -69,8 +66,17 @@ class Tooltip extends React.Component {
         this.delayTimeout = setTimeout(actionFn, delay)
     }
 
+    _updateTooltipRef = tooltip => {
+        this.tooltip = tooltip
+    }
+
+    _updateWrapperRef = wrapper => {
+        this.wrapper = wrapper
+    }
+
     render() {
         const {
+            position,
             allowVaguePositioning,
             wrapperClassName,
             tooltipClassName,
@@ -84,7 +90,14 @@ class Tooltip extends React.Component {
             'reactist tooltip__wrapper',
             wrapperClassName
         )
-        const tooltipClass = classNames('reactist tooltip__text', tooltipClassName, { inverted })
+        const tooltipClass = classNames(
+            'reactist tooltip__text',
+            tooltipClassName,
+            {
+                inverted
+            }
+        )
+        const arrowClass = classNames('reactist tooltip__arrow', { inverted })
 
         if (!text) {
             return <div className={wrapperClass}>{children}</div>
@@ -92,35 +105,22 @@ class Tooltip extends React.Component {
 
         return (
             <Popover
+                position={position}
                 visible={this.state.visible}
                 trigger={children}
                 content={text}
                 popoverClassName={tooltipClass}
                 wrapperClassName={wrapperClass}
+                arrowClassName={arrowClass}
                 onMouseEnter={this._show}
                 onMouseLeave={this._hide}
                 allowVaguePositioning={allowVaguePositioning}
                 gapSize={gapSize}
+                popoverRef={this._updateTooltipRef}
+                wrapperRef={this._updateWrapperRef}
                 withArrow
             />
         )
-
-        // return (
-        //     <span
-        //         className={wrapperClass}
-        //         onMouseEnter={this._show}
-        //         onMouseLeave={this._hide}
-        //         ref={wrapper => (this.wrapper = wrapper)}
-        //     >
-        //         {this.props.children}
-        //         <span
-        //             className={tooltipClass}
-        //             ref={tooltip => (this.tooltip = tooltip)}
-        //         >
-        //             <span className="tooltip__text">{this.props.text}</span>
-        //         </span>
-        //     </span>
-        // )
     }
 }
 Tooltip.displayName = 'Tooltip'
