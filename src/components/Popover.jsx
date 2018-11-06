@@ -7,9 +7,32 @@ import classNames from 'classnames'
 import { hasEnoughSpace, calculatePosition } from './utils/PositioningUtils'
 
 class Popover extends React.Component {
-    componentDidUpdate(prevProps) {
-        if (this.wrapper && !prevProps.visible && this.props.visible) {
+    componentDidMount() {
+        if (this.props.visible) {
             this._updatePopoverPosition()
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.wrapper && this.props.visible) {
+            const positionChanged = prevProps.position !== this.props.position
+            const vaguePositioningChanged =
+                prevProps.allowVaguePositioning !==
+                this.props.allowVaguePositioning
+            const visibilityChanged = prevProps.visible !== this.props.visible
+            const arrowChanged = prevProps.withArrow !== this.props.withArrow
+            const gapSizeChanged = prevProps.gapSize !== this.props.gapSize
+            const contentChanged = prevProps.content !== this.props.content
+            if (
+                positionChanged ||
+                vaguePositioningChanged ||
+                visibilityChanged ||
+                arrowChanged ||
+                gapSizeChanged ||
+                contentChanged
+            ) {
+                this._updatePopoverPosition()
+            }
         }
     }
 
@@ -99,15 +122,11 @@ class Popover extends React.Component {
     }
 
     _getClassNameForPosition = position => {
-        const { popoverClassName, visible, withArrow } = this.props
-        const className = classNames(
-            'reactist popover',
-            { visible },
-            popoverClassName
-        )
+        const { visible, withArrow, arrowClassName } = this.props
+        const className = classNames('reactist popover', { visible })
 
         if (visible && withArrow) {
-            return classNames(className, {
+            return classNames(className, arrowClassName, {
                 arrow_top: position === 'bottom',
                 arrow_right: position === 'left',
                 arrow_bottom: position === 'auto' || position === 'top',
@@ -117,10 +136,25 @@ class Popover extends React.Component {
         return className
     }
 
+    _updatePopoverRef = popover => {
+        this.popover = popover
+        if (typeof this.props.popoverRef === 'function') {
+            this.props.popoverRef(popover)
+        }
+    }
+
+    _updateWrapperRef = wrapper => {
+        this.wrapper = wrapper
+        if (typeof this.props.wrapperRef === 'function') {
+            this.props.wrapperRef(wrapper)
+        }
+    }
+
     render() {
         const {
             position,
             wrapperClassName,
+            popoverClassName,
             onMouseEnter,
             onMouseLeave,
             onClick,
@@ -128,6 +162,10 @@ class Popover extends React.Component {
             content
         } = this.props
         const popoverClass = this._getClassNameForPosition(position)
+        const popoverContentClass = classNames(
+            'popover__content',
+            popoverClassName
+        )
         const wrapperClass = classNames(
             'reactist popover__wrapper',
             wrapperClassName
@@ -139,20 +177,21 @@ class Popover extends React.Component {
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
                 onClick={onClick}
-                ref={wrapper => (this.wrapper = wrapper)}
+                ref={this._updateWrapperRef}
             >
                 {trigger}
-                <span
-                    className={popoverClass}
-                    ref={popover => (this.popover = popover)}
-                >
-                    <span className="popover__content">{content}</span>
+                <span className={popoverClass} ref={this._updatePopoverRef}>
+                    <span className={popoverContentClass}>{content}</span>
                 </span>
             </span>
         )
     }
 }
-
+Popover.displayName = 'Popover'
+Popover.defaultProps = {
+    position: 'auto',
+    gapSize: 5 // default size of the arrow (see `tooltip.less`)
+}
 Popover.propTypes = {
     /**
      * Position of the popover. Defaults to `auto`.
@@ -189,10 +228,16 @@ Popover.propTypes = {
     wrapperClassName: PropTypes.string,
     /** Additional css class that is applied to the popover element. */
     popoverClassName: PropTypes.string,
+    /** Additional css class that is applied to style the arrow. Not applied when `withArrow` is false. */
+    arrowClassName: PropTypes.string,
     /** Whether or not the popover should have a centered arrow pointing to the trigger element. */
     withArrow: PropTypes.bool,
     /** Gap between the popover wrapper and the arrow. */
-    gapSize: PropTypes.number
+    gapSize: PropTypes.number,
+    /** ref of the wrapper in case you need to manipulate it. */
+    wrapperRef: PropTypes.func,
+    /** ref of the popover in case you need to manipulate it. */
+    popoverRef: PropTypes.func
 }
 
 export default Popover
