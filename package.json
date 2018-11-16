@@ -12,7 +12,9 @@
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook -o docs",
         "build-all": "npm run build && npm run build-storybook",
-        "analyze-bundle": "(TIMESTAMP=`date +%Y-%m-%d_%H-%M-%S`; NODE_ENV=production; ./node_modules/.bin/webpack --mode production --json --progress --profile > webpack-build-log.$TIMESTAMP.json && ./node_modules/.bin/webpack-bundle-analyzer webpack-build-log.$TIMESTAMP.json dist)"
+        "analyze-bundle": "(TIMESTAMP=`date +%Y-%m-%d_%H-%M-%S`; NODE_ENV=production; ./node_modules/.bin/webpack --mode production --json --progress --profile > webpack-build-log.$TIMESTAMP.json && ./node_modules/.bin/webpack-bundle-analyzer webpack-build-log.$TIMESTAMP.json dist)",
+        "precise-commits": "precise-commits",
+        "precommit": "npm run precise-commits"
     },
     "repository": "git+https://github.com/Doist/reactist.git",
     "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",
