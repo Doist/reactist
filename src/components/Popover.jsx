@@ -163,7 +163,7 @@ class Popover extends React.Component {
         } = this.props
         const popoverClass = this._getClassNameForPosition(position)
         const popoverContentClass = classNames(
-            'popover__content',
+            'reactist popover__content',
             popoverClassName
         )
         const wrapperClass = classNames(
