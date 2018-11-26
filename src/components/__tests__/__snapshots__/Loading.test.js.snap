@@ -8,9 +8,9 @@ exports[`Loading renders a loading indicator 1`] = `
     className="loading--spinner"
   >
     <svg
-      height="24"
+      height={24}
       viewBox="0 0 24 24"
-      width="24"
+      width={24}
     >
       <g
         fill="none"
