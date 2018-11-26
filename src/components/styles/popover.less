@@ -11,6 +11,11 @@
         max-width: 100%;
         display: inline-flex;
         border-radius: 3px;
+
+        color: @primary_font_color;
+        background-color: white;
+        border: 1px solid @color_border_grey;
+        box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
     }
 
 
@@ -39,34 +44,69 @@
         width: 0;
     }
 
-    &.arrow_top:after {
+    &.arrow_top:before {
         .arrow();
         top: -@arrow_size;
         left: calc(50% - @arrow_size);
         border-left: @arrow_size solid transparent;
         border-right: @arrow_size solid transparent;
+        border-bottom: @arrow_size solid @color_border_grey;
+    }
+    &.arrow_top:after {
+        .arrow();
+        top: -@arrow_size + 1px;
+        left: calc(50% - @arrow_size);
+        border-left: @arrow_size solid transparent;
+        border-right: @arrow_size solid transparent;
         border-bottom: @arrow_size solid white;
+    }
+
+    &.arrow_right:before {
+        .arrow();
+        bottom: calc(50% - @arrow_size);
+        right: -@arrow_size;
+        border-left: @arrow_size solid @color_border_grey;
+        border-bottom: @arrow_size solid transparent;
+        border-top: @arrow_size solid transparent;
     }
     &.arrow_right:after {
         .arrow();
         bottom: calc(50% - @arrow_size);
-        right: -@arrow_size;
+        right: -@arrow_size + 1px;
         border-left: @arrow_size solid white;
         border-bottom: @arrow_size solid transparent;
         border-top: @arrow_size solid transparent;
     }
-    &.arrow_bottom:after {
+
+    &.arrow_bottom:before {
         .arrow();
         bottom: -@arrow_size;
         left: calc(50% - @arrow_size);
         border-left: @arrow_size solid transparent;
         border-right: @arrow_size solid transparent;
+        border-top: @arrow_size solid @color_border_grey;
+    }
+    &.arrow_bottom:after {
+        .arrow();
+        bottom: -@arrow_size + 1px;
+        left: calc(50% - @arrow_size);
+        border-left: @arrow_size solid transparent;
+        border-right: @arrow_size solid transparent;
         border-top: @arrow_size solid white;
+    }
+
+    &.arrow_left:before {
+        .arrow();
+        bottom: calc(50% - @arrow_size);
+        left: -@arrow_size;
+        border-right: @arrow_size solid @color_border_grey;
+        border-bottom: @arrow_size solid transparent;
+        border-top: @arrow_size solid transparent;
     }
     &.arrow_left:after {
         .arrow();
         bottom: calc(50% - @arrow_size);
-        left: -@arrow_size;
+        left: -@arrow_size + 1px;
         border-right: @arrow_size solid white;
         border-bottom: @arrow_size solid transparent;
         border-top: @arrow_size solid transparent;
