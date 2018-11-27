@@ -20,6 +20,7 @@ import CheckboxStory from './components/CheckboxStory'
 import LoadingStory from './components/LoadingStory'
 import AvatarStory from './components/AvatarStory'
 import IconStory from './components/IconStory'
+import KeyCapturerStory from './components/KeyCapturerStory'
 
 ReactistStory()
 // alphabetically sorted component stories
@@ -31,6 +32,7 @@ DropdownStory()
 ErrorMessageStory()
 IconStory()
 InputStory()
+KeyCapturerStory()
 LinkButtonStory()
 LoadingStory()
 MenuButtonStory()
