@@ -15,29 +15,43 @@ class Button extends React.Component {
     }
 
     render() {
-        const { data_tip } = this.props
+        const {
+            className,
+            secondary,
+            small,
+            large,
+            white,
+            loading,
+            danger,
+            disabled,
+            name,
+            data_tip,
+            ...extraProps
+        } = this.props
 
-        const className = classNames(
+        delete extraProps.onClick
+        const buttonClass = classNames(
             'reactist button',
             {
-                secondary: this.props.secondary,
-                small: this.props.small,
-                large: this.props.large,
-                white: this.props.white,
-                busy: this.props.loading,
-                danger: this.props.danger
+                secondary,
+                small,
+                large,
+                white,
+                busy: loading,
+                danger
             },
-            this.props.className
+            className
         )
 
         const button = (
             <button
-                className={className}
-                disabled={this.props.disabled}
+                className={buttonClass}
+                disabled={disabled}
                 onClick={this._onClick}
+                {...extraProps}
             >
                 <div className="wrapper">
-                    <span>{this.props.name}</span>
+                    <span>{name}</span>
                 </div>
             </button>
         )

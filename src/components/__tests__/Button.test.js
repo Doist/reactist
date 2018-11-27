@@ -58,4 +58,11 @@ describe('Button', () => {
         )
         expect(toJson(button)).toMatchSnapshot()
     })
+
+    it('applies any extra props to the underlying button', () => {
+        const button = shallow(
+            <Button name="THE BUTTON TEXT" type="submit" form="form-id" />
+        )
+        expect(toJson(button)).toMatchSnapshot()
+    })
 })
