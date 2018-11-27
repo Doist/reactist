@@ -16,6 +16,24 @@ exports[`Button adds additional className when supplied 1`] = `
 </button>
 `;
 
+exports[`Button applies any extra props to the underlying button 1`] = `
+<button
+  className="reactist button"
+  disabled={false}
+  form="form-id"
+  onClick={[Function]}
+  type="submit"
+>
+  <div
+    className="wrapper"
+  >
+    <span>
+      THE BUTTON TEXT
+    </span>
+  </div>
+</button>
+`;
+
 exports[`Button renders a tooltip when prop is supplied 1`] = `
 <Tooltip
   allowVaguePositioning={false}
