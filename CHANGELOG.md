@@ -2,6 +2,21 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 1.18.01
+- [Tweak] Reset margins on `<Input />` so it's visually aligned in Safari (and all other browsers) by default
+
+## 1.18.00
+- [New] Added the utility component `<KeyCapturer>`. Use it to wrap arbitrary elements and act on keyboard events happening while it is focussed
+
+## 1.17.04
+- [Tweak] All additionally passed props to a `<Button />` are now applied to the underlying `<button>` element. This allows you to make better use of the platform (e.g `type='submit'`) or adhere to accessibility best practices
+
+## 1.17.03
+- [Tweak] Moved some default styles from `<Tooltip />` to `<Popover />` which should make it easier to build nice experiences with it as you no longer need to provide all the styles
+
+## 1.17.02
+- [New] Added `size`, `spinnerColor` and `bgColor` properties to `<Loading />` for a fully customizable loading experience
+
 ## 1.17.01
 - [Tweak] Unified all border colors across all components
 

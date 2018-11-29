@@ -7,59 +7,54 @@
         display: inline-block;
         max-width: 100%;
         cursor: unset;
-    }
 
-    &.tooltip__text {
-        .smaller_text(@color: white);
-        text-overflow: ellipsis;
-        overflow: hidden;
-        max-width: 100%;
+        .reactist.tooltip__text {
+            .smaller_text();
+            text-overflow: ellipsis;
+            overflow: hidden;
+            max-width: 100%;
+            padding: 5px 10px;
+            max-width: 250px;
 
-        background-color: @tooltip_background;
-        border-radius: 3px;
-        padding: 5px 10px;
-        max-width: 250px;
-
-        &.inverted {
-            color: @primary_font_color;
-            background-color: white;
-            border-radius: 3px;
-            border: 1px solid @color_border_grey;
-            box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
-        }
-    }
-
-    &.tooltip__arrow {
-        &.arrow_top {
-            &:after {
-                border-bottom-color: @tooltip_background !important;
-            }
-            &.inverted:after {
-                border-bottom-color: @color_border_grey !important;
+            &:not(.inverted) {
+                background-color: @tooltip_background;
+                color: white;
+                border: none;
             }
         }
-        &.arrow_right {
-            &:after {
-                border-left-color: @tooltip_background !important;
+
+        .reactist.tooltip__arrow:not(.inverted) {
+            &.arrow_top {
+                &:before {
+                    border-bottom-color: @tooltip_background;
+                }
+                &:after {
+                    display: none;
+                }
             }
-            &.inverted:after {
-                border-left-color: @color_border_grey !important;
+            &.arrow_right {
+                &:before {
+                    border-left-color: @tooltip_background;
+                }
+                &:after {
+                    display: none;
+                }
             }
-        }
-        &.arrow_bottom {
-            &:after {
-                border-top-color: @tooltip_background !important;
+            &.arrow_bottom {
+                &:before {
+                    border-top-color: @tooltip_background;
+                }
+                &:after {
+                    display: none;
+                }
             }
-            &.inverted:after {
-                border-top-color: @color_border_grey !important;
-            }
-        }
-        &.arrow_left {
-            &:after {
-                border-right-color: @tooltip_background !important;
-            }
-            &.inverted:after {
-                border-right-color: @color_border_grey !important;
+            &.arrow_left {
+                &:before {
+                    border-right-color: @tooltip_background;
+                }
+                &:after {
+                    display: none;
+                }
             }
         }
     }

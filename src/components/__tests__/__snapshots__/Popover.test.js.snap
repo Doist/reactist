@@ -23,7 +23,7 @@ exports[`Popover adds arrow class when prop is set 1`] = `
       className="reactist popover visible arrow_bottom"
     >
       <span
-        className="popover__content"
+        className="reactist popover__content"
       >
         Popover Content
       </span>
@@ -54,7 +54,7 @@ exports[`Popover renders without crashing 1`] = `
       className="reactist popover visible"
     >
       <span
-        className="popover__content"
+        className="reactist popover__content"
       >
         Popover Content
       </span>
