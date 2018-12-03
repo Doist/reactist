@@ -103,11 +103,31 @@ class Tooltip extends React.Component {
             return <div className={wrapperClass}>{children}</div>
         }
 
+        // wrap on click of trigger to hide tooltip on click
+        const trigger = React.Children.map(children, child => {
+            if (React.isValidElement(child)) {
+                /**
+                 * We can only attach click listeners to valid elements.
+                 * When passing in a string / number as child we cannot attach the listener.
+                 */
+                return React.cloneElement(child, {
+                    onClick: event => {
+                        this._hide()
+                        if (typeof child.props.onClick === 'function') {
+                            child.props.onClick(event)
+                        }
+                    }
+                })
+            } else {
+                return child
+            }
+        })
+
         return (
             <Popover
                 position={position}
                 visible={this.state.visible}
-                trigger={children}
+                trigger={trigger}
                 content={text}
                 popoverClassName={tooltipClass}
                 wrapperClassName={wrapperClass}

@@ -199,6 +199,30 @@ describe('Tooltip', () => {
         expect(tooltip.tooltip).toBeTruthy()
     })
 
+    it('hides when clicking on trigger', () => {
+        const clickSpy = jest.fn()
+        const tooltip = mount(
+            <Tooltip text="Tip">
+                <span id="trigger" onClick={clickSpy}>
+                    Trigger
+                </span>
+            </Tooltip>
+        )
+
+        // hover an make sure tooltip is visible
+        tooltip.simulate('mouseEnter')
+        jest.runAllTimers()
+        expect(tooltip.state().visible).toBe(true)
+
+        // clicking the trigger
+        tooltip.find('span#trigger').simulate('click')
+        jest.runAllTimers()
+
+        // making sure click is executed and tooltip hides
+        expect(tooltip.state().visible).toBe(false)
+        expect(clickSpy).toHaveBeenCalledTimes(1)
+    })
+
     // Helpers ================================================================
     const getTooltip = (props = {}) => (
         <Tooltip text="tip" {...props}>
