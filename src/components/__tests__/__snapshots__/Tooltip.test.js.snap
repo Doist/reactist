@@ -32,9 +32,13 @@ exports[`Tooltip renders without crashing 1`] = `
     popoverRef={[Function]}
     position="auto"
     trigger={
-      <span>
-        Wrapped Content
-      </span>
+      Array [
+        <span
+          onClick={[Function]}
+        >
+          Wrapped Content
+        </span>,
+      ]
     }
     visible={false}
     withArrow={true}
@@ -46,7 +50,10 @@ exports[`Tooltip renders without crashing 1`] = `
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
-      <span>
+      <span
+        key=".0"
+        onClick={[Function]}
+      >
         Wrapped Content
       </span>
       <span
