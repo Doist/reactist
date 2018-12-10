@@ -84,7 +84,11 @@ class Popover extends React.Component {
         const positionsToTry =
             position === 'auto'
                 ? ['top', 'right', 'bottom', 'left', 'top']
-                : [position]
+                : position === 'vertical'
+                    ? ['top', 'bottom']
+                    : position === 'horizontal'
+                        ? ['left', 'right']
+                        : [position]
 
         for (let index = 0; index < positionsToTry.length; index++) {
             const currentPosition = positionsToTry[index]
@@ -106,10 +110,28 @@ class Popover extends React.Component {
                     gapSize
                 )
                 this.popover.style.top = `${popoverPosition.y}px`
-                this.popover.style.left =
-                    popoverPosition.x < 0 && allowVaguePositioning
-                        ? `${2 * gapSize}px` // not centered but fully visible
-                        : `${popoverPosition.x}px`
+                this.popover.style.left = `${popoverPosition.x}px`
+
+                /**
+                 * Correct placement if vague positioning is allowed.
+                 * When it's not allowed we "cut off" popovers and display them
+                 * out of the viewport to maintain their centered position.
+                 */
+                if (allowVaguePositioning) {
+                    // correct horizontally
+                    if (popoverPosition.x < 0) {
+                        this.popover.style.left = `${2 * gapSize}px`
+                    }
+                    // correct vertically
+                    if (
+                        popoverPosition.y + popoverDimensions.height >
+                        windowDimensions.height
+                    ) {
+                        this.popover.style.top = `${windowDimensions.height -
+                            popoverDimensions.height -
+                            2 * gapSize}px`
+                    }
+                }
 
                 if (currentPosition !== position) {
                     this.popover.className = this._getClassNameForPosition(
@@ -198,8 +220,18 @@ Popover.propTypes = {
      * `auto` tries to position the tooltip to the top,
      * if there's not enough space it tries to position the tooltip clockwise (right, bottom, left).
      * Setting a distinct value like `right` will always position the popover right, regardless of available space.
+     * Specifying `horizontal` will only try to position the tooltip left and right in that order.
+     * Specifying `vertical` will only try to position the tooltip top and bottom in that order.
      */
-    position: PropTypes.oneOf(['auto', 'top', 'right', 'bottom', 'left']),
+    position: PropTypes.oneOf([
+        'auto',
+        'top',
+        'right',
+        'bottom',
+        'left',
+        'horizontal',
+        'vertical'
+    ]),
     /**
      * Whether vague positioning is allowed. When set to true the popover prefers to be fully visible over being correctly centered.
      */
