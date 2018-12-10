@@ -20,6 +20,7 @@ exports[`Tooltip renders without crashing 1`] = `
   inverted={false}
   position="auto"
   text="tip"
+  withArrow={true}
 >
   <Popover
     allowVaguePositioning={false}

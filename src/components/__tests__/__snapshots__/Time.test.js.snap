@@ -25,6 +25,7 @@ exports[`Time renders with custom tooltip when supplied 1`] = `
     inverted={false}
     position="auto"
     text="Test"
+    withArrow={true}
   >
     Mar 22, 1991
   </Tooltip>
@@ -56,6 +57,7 @@ exports[`Time renders wrapped in tooltip when tooltipOnHover is set 1`] = `
     inverted={false}
     position="auto"
     text="22 Mar 91, 1:37 PM"
+    withArrow={true}
   >
     Mar 22, 1991
   </Tooltip>

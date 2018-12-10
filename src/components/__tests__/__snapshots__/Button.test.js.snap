@@ -44,6 +44,7 @@ exports[`Button renders a tooltip when prop is supplied 1`] = `
   inverted={false}
   position="auto"
   text="THE TOOLTIP"
+  withArrow={true}
 >
   <button
     className="reactist button"
