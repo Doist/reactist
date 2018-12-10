@@ -159,8 +159,18 @@ Tooltip.propTypes = {
      * `auto` tries to position the tooltip to the top,
      * if there's not enough space it tries to position the tooltip clockwise (right, bottom, left).
      * Setting a distinct value like `right` will always position the tooltip right, regardless of available space.
+     * Specifying `horizontal` will only try to position the tooltip left and right in that order.
+     * Specifying `vertical` will only try to position the tooltip top and bottom in that order.
      */
-    position: PropTypes.oneOf(['auto', 'top', 'right', 'bottom', 'left']),
+    position: PropTypes.oneOf([
+        'auto',
+        'top',
+        'right',
+        'bottom',
+        'left',
+        'horizontal',
+        'vertical'
+    ]),
     /**
      * Whether vague positioning is allowed. When set to true the tooltip prefers to be fully visible over being correctly centered.
      */
