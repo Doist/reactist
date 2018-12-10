@@ -2,6 +2,9 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 1.18.04
+- [New] Added `withArrow` property to `<Tooltip />` to support arrow-less tooltips
+
 ## 1.18.03
 - [Tweak] `allowVaguePositioning` now also takes the vertical positioning into account instead of only the horizontal one
 
