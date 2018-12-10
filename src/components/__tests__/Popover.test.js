@@ -55,7 +55,7 @@ describe('Popover', () => {
                 getPopover({ allowVaguePositioning: true })
             ).instance()
 
-            expect(popover.popover.style.getPropertyValue('top')).toBe('42px')
+            expect(popover.popover.style.getPropertyValue('top')).toBe('-10px')
             expect(popover.popover.style.getPropertyValue('left')).toBe('10px')
         })
 
