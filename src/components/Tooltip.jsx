@@ -83,7 +83,8 @@ class Tooltip extends React.Component {
             text,
             children,
             gapSize,
-            inverted
+            inverted,
+            withArrow
         } = this.props
 
         const wrapperClass = classNames(
@@ -138,7 +139,7 @@ class Tooltip extends React.Component {
                 gapSize={gapSize}
                 popoverRef={this._updateTooltipRef}
                 wrapperRef={this._updateWrapperRef}
-                withArrow
+                withArrow={withArrow}
             />
         )
     }
@@ -151,6 +152,7 @@ Tooltip.defaultProps = {
     delayHide: 0,
     allowVaguePositioning: false,
     inverted: false,
+    withArrow: true,
     gapSize: 5 // default size of the arrow (see `tooltip.less`)
 }
 Tooltip.propTypes = {
@@ -200,7 +202,9 @@ Tooltip.propTypes = {
     /** Inverted tooltips have a light background with dark text. */
     inverted: PropTypes.bool,
     /** Gap between the tooltip wrapper and the arrow  */
-    gapSize: PropTypes.number
+    gapSize: PropTypes.number,
+    /** Whether or not the tooltip should have a centered arrow pointing to the trigger element. */
+    withArrow: PropTypes.bool
 }
 
 export default Tooltip
