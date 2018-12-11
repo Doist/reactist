@@ -1,5 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Dropdown.Body renders all children without crashing 1`] = `
+<div
+  className="body"
+  id="reactist-dropdown-body"
+  style={
+    Object {
+      "position": "absolute",
+      "right": 0,
+      "top": 0,
+    }
+  }
+>
+  Body Content
+</div>
+`;
+
+exports[`Dropdown.Body renders all children without crashing 2`] = `
+<div
+  className="body"
+  id="reactist-dropdown-body"
+  style={
+    Object {
+      "position": "absolute",
+      "right": 0,
+      "top": 0,
+    }
+  }
+>
+  <div>
+    <img
+      alt=""
+      src=""
+    />
+    Some additional text as well
+  </div>
+</div>
+`;
+
+exports[`Dropdown.Body renders empty without crashing 1`] = `
+<div
+  className="body"
+  id="reactist-dropdown-body"
+  style={
+    Object {
+      "position": "absolute",
+      "right": 0,
+      "top": 0,
+    }
+  }
+/>
+`;
+
 exports[`Dropdown.Trigger renders all children without crashing 1`] = `
 <div
   className="trigger"
