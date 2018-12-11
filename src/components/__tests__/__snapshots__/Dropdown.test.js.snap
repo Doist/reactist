@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropdown.Trigger renders all children without crashing 1`] = `
+<div
+  className="trigger"
+  onClick={[Function]}
+  style={
+    Object {
+      "display": "block",
+    }
+  }
+>
+  Trigger Content
+</div>
+`;
+
+exports[`Dropdown.Trigger renders all children without crashing 2`] = `
+<div
+  className="trigger"
+  onClick={[Function]}
+  style={
+    Object {
+      "display": "block",
+    }
+  }
+>
+  <div>
+    <img
+      alt=""
+      src=""
+    />
+    Some additional text as well
+  </div>
+</div>
+`;
+
+exports[`Dropdown.Trigger renders empty without crashing 1`] = `
+<div
+  className="trigger"
+  onClick={[Function]}
+  style={
+    Object {
+      "display": "block",
+    }
+  }
+/>
+`;
