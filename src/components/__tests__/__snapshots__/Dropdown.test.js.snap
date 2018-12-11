@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Dropdown.Body renders all children without crashing 1`] = `
+exports[`Dropdown Dropdown.Body renders all children without crashing 1`] = `
 <div
   className="body"
   id="reactist-dropdown-body"
@@ -16,7 +16,7 @@ exports[`Dropdown.Body renders all children without crashing 1`] = `
 </div>
 `;
 
-exports[`Dropdown.Body renders all children without crashing 2`] = `
+exports[`Dropdown Dropdown.Body renders all children without crashing 2`] = `
 <div
   className="body"
   id="reactist-dropdown-body"
@@ -38,7 +38,7 @@ exports[`Dropdown.Body renders all children without crashing 2`] = `
 </div>
 `;
 
-exports[`Dropdown.Body renders empty without crashing 1`] = `
+exports[`Dropdown Dropdown.Body renders empty without crashing 1`] = `
 <div
   className="body"
   id="reactist-dropdown-body"
@@ -52,7 +52,34 @@ exports[`Dropdown.Body renders empty without crashing 1`] = `
 />
 `;
 
-exports[`Dropdown.Trigger renders all children without crashing 1`] = `
+exports[`Dropdown Dropdown.Box renders the Trigger component without crashing 1`] = `
+<Dropdown.Box>
+  <div
+    className="reactist dropdown"
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  >
+    <Dropdown.Trigger
+      onClick={[Function]}
+    >
+      <div
+        className="trigger"
+        onClick={[Function]}
+        style={
+          Object {
+            "display": "block",
+          }
+        }
+      />
+    </Dropdown.Trigger>
+  </div>
+</Dropdown.Box>
+`;
+
+exports[`Dropdown Dropdown.Trigger renders all children without crashing 1`] = `
 <div
   className="trigger"
   onClick={[Function]}
@@ -66,7 +93,7 @@ exports[`Dropdown.Trigger renders all children without crashing 1`] = `
 </div>
 `;
 
-exports[`Dropdown.Trigger renders all children without crashing 2`] = `
+exports[`Dropdown Dropdown.Trigger renders all children without crashing 2`] = `
 <div
   className="trigger"
   onClick={[Function]}
@@ -86,7 +113,7 @@ exports[`Dropdown.Trigger renders all children without crashing 2`] = `
 </div>
 `;
 
-exports[`Dropdown.Trigger renders empty without crashing 1`] = `
+exports[`Dropdown Dropdown.Trigger renders empty without crashing 1`] = `
 <div
   className="trigger"
   onClick={[Function]}
