@@ -27,10 +27,12 @@
     top: 0;
     left: 0;
 
+    display: none;
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.1s linear;
     &.visible {
+        display: initial;
         visibility: visible;
         opacity: 1;
     }
