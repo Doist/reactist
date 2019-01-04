@@ -2,7 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-## 1.18.06
+## 1.18.08
+- [New] When providing a className to `<Input />` it no longer overrides reactist' native styles
+
+## 1.18.07
 - [New] Allowing to attach a ref to `<Input />`
 
 ## 1.18.06
