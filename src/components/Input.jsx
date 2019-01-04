@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 const Input = React.forwardRef((props, ref) => {
     const className = classNames('reactist input', props.className)
-    return <input className={className} {...props} ref={ref} />
+    return <input {...props} className={className} ref={ref} />
 })
 Input.displayName = 'Input'
 Input.propTypes = {
