@@ -2,6 +2,7 @@ import './styles/color_picker.less'
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 
 import Dropdown from './Dropdown'
 import Tooltip from './Tooltip'
@@ -28,11 +29,11 @@ const _getColor = (colorList, colorIndex) => {
     return colorList[index]
 }
 
-const ColorPicker = ({ color, onChange, colorList = COLORS }) => (
+const ColorPicker = ({ color, small, onChange, colorList = COLORS }) => (
     <Dropdown.Box right className="reactist color_picker">
         <Dropdown.Trigger>
             <span
-                className="color_trigger"
+                className={classnames('color_trigger', { small })}
                 style={{
                     backgroundColor: _isNamedColor(colorList[color])
                         ? _getColor(colorList, color).color
@@ -75,6 +76,8 @@ ColorPicker.propTypes = {
     color: PropTypes.number.isRequired,
     /** Callback that is invoked when a color has been selected. Is called with the index of the COLORS array. */
     onChange: PropTypes.func,
+    /** Optional flag whether a smaller version of the color picker should be rendered. */
+    small: PropTypes.bool,
     /** Optional list of color codes. Either as an array of strings or an array of objects with the color name. Defaults to COLORS array without names. */
     colorList: PropTypes.arrayOf(
         PropTypes.oneOfType([

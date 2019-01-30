@@ -18,10 +18,7 @@ const ColorPickerPropTypesChapter = {
 }
 
 class ColorPickersStory extends React.Component {
-    constructor(props, context) {
-        super(props, context)
-        this.state = { color: 0 }
-    }
+    state = { color: 0 }
 
     render() {
         return (
@@ -46,10 +43,7 @@ const ColorPickersChapter = {
 }
 
 class CustomColorPickersStory extends React.Component {
-    constructor(props, context) {
-        super(props, context)
-        this.state = { color: 0 }
-    }
+    state = { color: 0 }
 
     render() {
         return (
@@ -75,10 +69,7 @@ const CustomColorPickersChapter = {
 }
 
 class NamedColorPickersStory extends React.Component {
-    constructor(props, context) {
-        super(props, context)
-        this.state = { color: 0 }
-    }
+    state = { color: 0 }
 
     render() {
         return (
@@ -109,6 +100,32 @@ const NamedColorPickersChapter = {
     ]
 }
 
+class SmallColorPickerStory extends React.Component {
+    state = { color: 0 }
+
+    render() {
+        return (
+            <section className="story">
+                <ColorPicker
+                    small
+                    color={this.state.color}
+                    onChange={color => this.setState(() => ({ color }))}
+                />
+            </section>
+        )
+    }
+}
+const SmallColorPickerChapter = {
+    subtitle: 'Small Color Picker',
+    sections: [
+        {
+            // eslint-disable-next-line react/display-name
+            sectionFn: () => <SmallColorPickerStory />,
+            options: optionsNoSourceNoProps
+        }
+    ]
+}
+
 // Story setup ================================================================
 const Story = () =>
     storiesOf('ColorPicker', module).addWithChapters('Component Overview', {
@@ -116,7 +133,8 @@ const Story = () =>
             ColorPickerPropTypesChapter,
             ColorPickersChapter,
             CustomColorPickersChapter,
-            NamedColorPickersChapter
+            NamedColorPickersChapter,
+            SmallColorPickerChapter
         ]
     })
 
