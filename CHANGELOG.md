@@ -2,6 +2,9 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 1.18.14
+- [Tweak] Updated the `<CloseIcon />` (used in `<Modal.Header>`) to new icon style
+
 ## 1.18.13
 - [Tweak] Decreased top and bottom margins of `<Modal />` to 40px
 
