@@ -34,10 +34,10 @@ class Time extends React.Component {
     _renderTime(config) {
         if (this.state.hovered) {
             if (this.props.expandFullyOnHover && !this.props.tooltipOnHover) {
-                return TimeUtils.formatTimeLong(this.props.time, config.locale)
+                return TimeUtils.formatTimeLong(this.props.time, config)
             }
             if (this.props.expandOnHover && !this.props.tooltipOnHover) {
-                return TimeUtils.formatTime(this.props.time, config.locale)
+                return TimeUtils.formatTime(this.props.time, config)
             }
         }
         return TimeUtils.timeAgo(this.props.time, config)
@@ -63,7 +63,7 @@ class Time extends React.Component {
                             this.props.tooltip ||
                             TimeUtils.formatTimeLong(
                                 this.props.time,
-                                this.props.config.locale
+                                this.props.config
                             )
                         }
                         delayShow={500}
@@ -94,6 +94,10 @@ Time.propTypes = {
     /** Configuration for localization. */
     config: PropTypes.shape({
         locale: PropTypes.string,
+        shortFormatCurrentYear: PropTypes.string,
+        shortFormatPastYear: PropTypes.string,
+        fullFormat: PropTypes.string,
+        yesterday: PropTypes.string,
         hoursSuffix: PropTypes.string,
         minutesSuffix: PropTypes.string,
         momentsAgo: PropTypes.string
@@ -105,6 +109,7 @@ Time.defaultProps = {
     tooltipOnHover: false,
     config: {
         locale: 'en',
+        yesterday: 'yesterday',
         hoursSuffix: 'h',
         minutesSuffix: 'm',
         momentsAgo: 'moments ago'

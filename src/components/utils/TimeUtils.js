@@ -1,13 +1,16 @@
 import moment from 'moment'
 
 const TimeUtils = {
-    SHORT_FORMAT_CURRENT_YEAR: 'MMM D',
-    SHORT_FORMAT_PAST_YEAR: 'MMM D, YYYY',
-    LONG_FORMAT: 'DD MMM YY, LT',
+    SHORT_FORMAT_CURRENT_YEAR: 'L',
+    SHORT_FORMAT_PAST_YEAR: 'LL',
+    LONG_FORMAT: 'LL, LT',
 
     timeAgo(timestamp, config = {}) {
         const {
             locale = 'en',
+            shortFormatCurrentYear = this.SHORT_FORMAT_CURRENT_YEAR,
+            shortFormatPastYear = this.SHORT_FORMAT_PAST_YEAR,
+            yesterday = 'yesterday',
             hoursSuffix = 'h',
             minutesSuffix = 'm',
             momentsAgo = 'moments ago'
@@ -19,14 +22,14 @@ const TimeUtils = {
         const diffHours = now.diff(date, 'hours')
         const diffDays = now.diff(date, 'days')
 
-        if (diffDays > 7) {
+        if (diffDays > 1) {
             if (date.isSame(now, 'year')) {
-                return date.format(this.SHORT_FORMAT_CURRENT_YEAR)
+                return date.format(shortFormatCurrentYear)
             } else {
-                return date.format(this.SHORT_FORMAT_PAST_YEAR)
+                return date.format(shortFormatPastYear)
             }
-        } else if (diffDays > 0 && diffDays <= 7) {
-            return date.format('dddd')
+        } else if (diffDays === 1) {
+            return yesterday
         } else if (diffHours > 0 && diffHours <= 23) {
             return `${diffHours}${hoursSuffix}`
         } else if (diffMinutes > 0 && diffMinutes <= 59) {
@@ -36,20 +39,26 @@ const TimeUtils = {
         }
     },
 
-    formatTime(timestamp, locale = 'en') {
+    formatTime(timestamp, config = {}) {
+        const {
+            locale = 'en',
+            shortFormatCurrentYear = this.SHORT_FORMAT_CURRENT_YEAR,
+            shortFormatPastYear = this.SHORT_FORMAT_PAST_YEAR
+        } = config
         const date = moment.unix(timestamp)
         date.locale(locale)
         if (date.isSame(moment(), 'year')) {
-            return date.format(this.SHORT_FORMAT_CURRENT_YEAR)
+            return date.format(shortFormatCurrentYear)
         } else {
-            return date.format(this.SHORT_FORMAT_PAST_YEAR)
+            return date.format(shortFormatPastYear)
         }
     },
 
-    formatTimeLong(timestamp, locale = 'en') {
+    formatTimeLong(timestamp, config = {}) {
+        const { locale = 'en', longFormat = this.LONG_FORMAT } = config
         const date = moment.unix(timestamp)
         date.locale(locale)
-        return date.format(this.LONG_FORMAT)
+        return date.format(longFormat)
     }
 }
 
