@@ -6,7 +6,7 @@ import TimeUtils from '../TimeUtils'
 let now = null
 beforeAll(() => {
     // whenever moment() is invoked 2017-03-22 will be taken as date
-    Date.now = jest.fn(() => new Date(2017, 2, 22).valueOf())
+    Date.now = jest.fn(() => new Date(Date.UTC(2017, 2, 23, 0, 0, 0)).valueOf())
     now = moment()
 })
 
