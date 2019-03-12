@@ -1,4 +1,7 @@
-import moment from 'moment'
+import dayjs from 'dayjs'
+import LocalizedFormat from 'dayjs/plugin/localizedFormat'
+
+dayjs.extend(LocalizedFormat)
 
 const TimeUtils = {
     SHORT_FORMAT_CURRENT_YEAR: 'L',
@@ -15,8 +18,8 @@ const TimeUtils = {
             minutesSuffix = 'm',
             momentsAgo = 'moments ago'
         } = config
-        const now = moment()
-        const date = moment.unix(timestamp)
+        const now = dayjs()
+        const date = dayjs(timestamp * 1000)
         date.locale(locale)
         const diffMinutes = now.diff(date, 'minutes')
         const diffHours = now.diff(date, 'hours')
@@ -45,9 +48,9 @@ const TimeUtils = {
             shortFormatCurrentYear = this.SHORT_FORMAT_CURRENT_YEAR,
             shortFormatPastYear = this.SHORT_FORMAT_PAST_YEAR
         } = config
-        const date = moment.unix(timestamp)
+        const date = dayjs(timestamp * 1000)
         date.locale(locale)
-        if (date.isSame(moment(), 'year')) {
+        if (date.isSame(dayjs(), 'year')) {
             return date.format(shortFormatCurrentYear)
         } else {
             return date.format(shortFormatPastYear)
@@ -56,7 +59,7 @@ const TimeUtils = {
 
     formatTimeLong(timestamp, config = {}) {
         const { locale = 'en', longFormat = this.LONG_FORMAT } = config
-        const date = moment.unix(timestamp)
+        const date = dayjs(timestamp * 1000)
         date.locale(locale)
         return date.format(longFormat)
     }
