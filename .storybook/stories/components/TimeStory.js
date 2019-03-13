@@ -1,7 +1,7 @@
 import './styles/time_story.less'
 
 import React from 'react'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, number, boolean } from '@storybook/addon-knobs'
 
@@ -14,40 +14,40 @@ import {
 import Time from '../../../src/components/Time'
 
 const exampleTimes = [
-    { title: 'Now', time: moment().unix() },
+    { title: 'Now', time: dayjs().unix() },
     {
         title: 'Now - 2 Minutes',
-        time: moment()
+        time: dayjs()
             .subtract(2, 'minutes')
             .unix()
     },
     {
         title: 'Now - 2 Hours',
-        time: moment()
+        time: dayjs()
             .subtract(2, 'hours')
             .unix()
     },
     {
         title: 'Now - 18 Hours',
-        time: moment()
+        time: dayjs()
             .subtract(18, 'hours')
             .unix()
     },
     {
         title: 'Now - 2 Days',
-        time: moment()
+        time: dayjs()
             .subtract(2, 'days')
             .unix()
     },
     {
         title: 'Now - 2 Weeks',
-        time: moment()
+        time: dayjs()
             .subtract(2, 'weeks')
             .unix()
     },
     {
         title: 'Now - 2 Years',
-        time: moment()
+        time: dayjs()
             .subtract(2, 'years')
             .unix()
     }
