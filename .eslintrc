@@ -33,5 +33,10 @@
         "react/no-did-update-set-state": "error",
         "react/no-find-dom-node": "off",
         "react/sort-comp": "error"
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
     }
 }
