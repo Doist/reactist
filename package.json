@@ -13,7 +13,8 @@
         "build-storybook": "build-storybook -o docs",
         "build-all": "npm run build && npm run build-storybook",
         "analyze-bundle": "(TIMESTAMP=`date +%Y-%m-%d_%H-%M-%S`; NODE_ENV=production; ./node_modules/.bin/webpack --mode production --json --progress --profile > webpack-build-log.$TIMESTAMP.json && ./node_modules/.bin/webpack-bundle-analyzer webpack-build-log.$TIMESTAMP.json dist)",
-        "prepare-release": "rm -rf node_modules package-lock && npm install && npm run check && npm run test && npm run build-all"
+        "prepare-release": "rm -rf node_modules package-lock && npm install && npm run check && npm run test && npm run build-all",
+        "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less}\""
     },
     "repository": "git+https://github.com/Doist/reactist.git",
     "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",
@@ -49,9 +50,11 @@
         "eslint-plugin-jest": "^21.22.0",
         "eslint-plugin-prettier": "^2.6.2",
         "eslint-plugin-react": "^7.11.1",
+        "husky": "^2.1.0",
         "jest": "^24.7.1",
         "less": "^3.8.1",
         "less-loader": "^4.1.0",
+        "lint-staged": "^8.1.5",
         "moment": "^2.18.1",
         "moment-timezone": "^0.5.13",
         "path": "^0.12.7",
@@ -87,5 +90,21 @@
         },
         "testURL": "http://localhost"
     },
-    "dependencies": {}
+    "dependencies": {},
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged",
+            "pre-push": "npm run check && npm run test"
+        }
+    },
+    "lint-staged": {
+        "./**/*.{js,jsx,ts,tsx,json,css,scss,less}": [
+            "prettier --write",
+            "git add"
+        ],
+        "*.{js,jsx}": [
+            "eslint --fix",
+            "git add"
+        ]
+    }
 }
