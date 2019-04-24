@@ -22,7 +22,8 @@
         user-select: none;
     }
 
-    &:disabled, &.busy {
+    &:disabled,
+    &.busy {
         opacity: 0.4;
         cursor: not-allowed;
     }
@@ -72,7 +73,8 @@
 
     &.busy {
         // for improved accessibility we treat white / secondary buttons different
-        &.white, &.secondary {
+        &.white,
+        &.secondary {
             .default_border(@color: @color_border_grey);
             background-color: @color_border_grey;
             color: @secondary_font_color;

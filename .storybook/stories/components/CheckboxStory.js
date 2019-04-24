@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs'
-import { action, decorate } from '@storybook/addon-actions'
+import { decorate } from '@storybook/addon-actions'
 
 import { getPropTypesStory, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
@@ -41,7 +41,6 @@ const CheckboxChapter = {
         { sectionFn: () => <CheckboxStory />, options: optionsNoSourceNoProps }
     ]
 }
-
 
 class CheckboxPlaygroundStory extends React.Component {
     constructor(props, context) {
