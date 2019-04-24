@@ -39,7 +39,7 @@ const InputChapter = {
 const InputPlaygroundStory = () => (
     <section className="story">
         <Input
-            placeholder={text("Simple input wrapper")}
+            placeholder={text('Simple input wrapper')}
             disabled={boolean('Disabled:', false)}
         />
     </section>
