@@ -16,4 +16,14 @@ describe('Input', () => {
         input.simulate('change')
         expect(onChangeSpy).toHaveBeenCalled()
     })
+
+    it('adds additional className when supplied', () => {
+        const input = shallow(
+            <Input className="very-complex classnames-are-added" />
+        )
+        expect(input.hasClass('input')).toBe(true)
+        expect(input.hasClass('reactist')).toBe(true)
+        expect(input.hasClass('very-complex')).toBe(true)
+        expect(input.hasClass('classnames-are-added')).toBe(true)
+    })
 })

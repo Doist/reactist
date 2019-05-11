@@ -17,7 +17,7 @@
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            margin: 60px 0;
+            margin: 40px 0;
         }
     }
 
@@ -25,8 +25,8 @@
         overflow: auto;
         overflow-x: hidden;
         width: 580px;
-        border-radius: 4px;
-        box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.16);
+        border-radius: 3px;
+        box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);
 
         &.medium {
             width: 680px;
@@ -37,12 +37,16 @@
             max-width: 1000px;
 
             @media @small_screen {
-                width: calc(~'100% - 120px') // 60px on each side (incl. top via padding)
+                width: calc(
+                    ~'100% - 120px'
+                ); // 60px on each side (incl. top via padding)
             }
         }
 
         @media @small_screen {
-            width: calc(~'100% - 120px') // 60px on each side (incl. top via padding)
+            width: calc(
+                ~'100% - 120px'
+            ); // 60px on each side (incl. top via padding)
         }
     }
 
@@ -123,7 +127,7 @@
         // used to clear the floating icon while still enabling scrolling
         &:after {
             clear: both;
-            content: "";
+            content: '';
             display: block;
         }
 
@@ -143,5 +147,4 @@
             margin-left: 10px;
         }
     }
-
 }

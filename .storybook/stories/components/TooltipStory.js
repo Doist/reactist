@@ -66,7 +66,9 @@ const TooltipPlaygroundStory = () => (
                 'auto'
             )}
             inverted={boolean('Inverted', false)}
+            allowVaguePositioning={boolean('Allow Vague Positioning', false)}
             gapSize={number('Gap Size (px)', 5)}
+            withArrow={boolean('With Arrow', true)}
         >
             <div className="tip_item">Hover me to see your tooltip</div>
         </Tooltip>

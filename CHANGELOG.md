@@ -2,6 +2,79 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 1.19.00
+- [Tweak] Changed the way the `<Time />` component formats it's time. You now have more control to influence the date and time format from the outside
+
+## 1.18.15
+- [Tweak] Using a 3px border-radius everywhere instead of a mixture of 3px and 4px
+
+## 1.18.14
+- [Tweak] Updated the `<CloseIcon />` (used in `<Modal.Header>`) to new icon style
+
+## 1.18.13
+- [Tweak] Decreased top and bottom margins of `<Modal />` to 40px
+
+## 1.18.12
+- [Tweak] Increase left and right padding of `<Input />` to 10px to match `<Select />`
+
+## 1.18.11
+- [Tweak] `<ColorPicker />` no longer shows the dropdown arrow and it's styling no longer includes margins
+- [New] `<ColorPicker />` now comes in a `small` version which is only 18px squared instead of 24px
+
+## 1.18.10
+- [Tweak] Switched separators (`<hr />`) in `<Dropdown />` to border gray to unify colors more
+
+## 1.18.09
+- [Tweak] No longer force no text-decoration on `<LinkButton />`
+
+## 1.18.08
+- [New] When providing a className to `<Input />` it no longer overrides reactist' native styles
+
+## 1.18.07
+- [New] Allowing to attach a ref to `<Input />`
+
+## 1.18.06
+- [Bug] Centering the text of `<Tooltip />`
+
+## 1.18.05
+- [Bug] Set visibility of `<Popover />` to `none` to avoid click jacking
+
+## 1.18.04
+- [New] Added `withArrow` property to `<Tooltip />` to support arrow-less tooltips
+
+## 1.18.03
+- [Tweak] `allowVaguePositioning` now also takes the vertical positioning into account instead of only the horizontal one
+
+## 1.18.02
+- [Tweak] When clicking on the trigger of a `<Tooltip />` (i.e. its children) we will close the Tooltip. This is helpful so tooltips no longer overlap menu. In case you need more finegrained control over this consider using a `<Popover />` directly.
+
+## 1.18.01
+- [Tweak] Reset margins on `<Input />` so it's visually aligned in Safari (and all other browsers) by default
+
+## 1.18.00
+- [New] Added the utility component `<KeyCapturer>`. Use it to wrap arbitrary elements and act on keyboard events happening while it is focussed
+
+## 1.17.04
+- [Tweak] All additionally passed props to a `<Button />` are now applied to the underlying `<button>` element. This allows you to make better use of the platform (e.g `type='submit'`) or adhere to accessibility best practices
+
+## 1.17.03
+- [Tweak] Moved some default styles from `<Tooltip />` to `<Popover />` which should make it easier to build nice experiences with it as you no longer need to provide all the styles
+
+## 1.17.02
+- [New] Added `size`, `spinnerColor` and `bgColor` properties to `<Loading />` for a fully customizable loading experience
+
+## 1.17.01
+- [Tweak] Unified all border colors across all components
+
+## 1.17.00
+- [New] Added new general purpose `<Popover />` component which also powers the `<Tooltip />` component. This allows for more flexible popovers than overriding the styles of a tooltip.
+
+## 1.16.08
+- [New] Added support for `disabled` property to `<Checkbox />`
+
+## 1.16.07
+- [Tweak] We now update the styles of `<Input />` when supplying the `disabled` property
+
 ## 1.16.06
 - [New] Added `medium` property to `<Modal.Box />` as a new size constant. It will produce modals that are 680px wide
 - [New] Added `plain` property to `<Modal.Body />` which removes all styling from the body for custom modals

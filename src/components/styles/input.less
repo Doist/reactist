@@ -6,10 +6,15 @@
     width: 100%;
     display: block;
     outline: none;
-    border: 1px solid @color_grey_10;
-    border-radius: 4px;
-    padding: 5px;
+    border: 1px solid @color_border_grey;
+    border-radius: 3px;
+    padding: 5px 10px;
+    margin: 0;
+
     &:focus {
         border-color: @primary_color;
+    }
+    &:disabled {
+        background-color: @color_grey_11;
     }
 }

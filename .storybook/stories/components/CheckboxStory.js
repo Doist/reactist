@@ -1,6 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs'
+import { decorate } from '@storybook/addon-actions'
 
 import { getPropTypesStory, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
@@ -41,15 +42,27 @@ const CheckboxChapter = {
     ]
 }
 
-const CheckboxPlaygroundStory = () => (
-    <section className="story">
-        <Checkbox
-            label={text('Label', 'Label next to the checkbox')}
-            checked={boolean('Checked', true)}
-            onChange={() => {}}
-        />
-    </section>
-)
+class CheckboxPlaygroundStory extends React.Component {
+    constructor(props, context) {
+        super(props, context)
+        this.state = { checked: true }
+    }
+
+    render() {
+        return (
+            <section className="story">
+                <Checkbox
+                    label={text('Label', 'Label next to the checkbox')}
+                    checked={boolean('Checked', this.state.checked)}
+                    disabled={boolean('Disabled', false)}
+                    onChange={decorate([
+                        checked => this.setState(() => ({ checked }))
+                    ]).action('Checkbox Toggle')}
+                />
+            </section>
+        )
+    }
+}
 
 // Story setup ================================================================
 const Story = () =>
@@ -58,6 +71,6 @@ const Story = () =>
         .addWithChapters('Component Overview', {
             chapters: [CheckboxPropTypesChapter, CheckboxChapter]
         })
-        .add('Component Playground', CheckboxPlaygroundStory)
+        .add('Component Playground', () => <CheckboxPlaygroundStory />)
 
 export default Story

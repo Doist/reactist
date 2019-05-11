@@ -3,13 +3,11 @@ import './styles/tooltip.less'
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import { hasEnoughSpace, calculatePosition } from './utils/PositioningUtils'
+
+import Popover from './Popover'
 
 class Tooltip extends React.Component {
-    constructor(props, context) {
-        super(props, context)
-        this.state = { visible: false }
-    }
+    state = { visible: false }
 
     shouldComponentUpdate(nextProps, nextState) {
         // only update on state or prop changes
@@ -23,13 +21,6 @@ class Tooltip extends React.Component {
             this.props.gapSize !== nextProps.gapSize ||
             this.props.children !== nextProps.children
         )
-    }
-
-    componentDidUpdate() {
-        if (this.wrapper && this.state.visible) {
-            // Interact with the DOM after a state update
-            this._updateTooltipPosition()
-        }
     }
 
     componentWillUnmount() {
@@ -59,6 +50,7 @@ class Tooltip extends React.Component {
             }
         }, this.props.delayShow)
     }
+
     _hide = () => {
         this._delayAction(() => {
             this._clearDelayTimeout()
@@ -74,139 +66,81 @@ class Tooltip extends React.Component {
         this.delayTimeout = setTimeout(actionFn, delay)
     }
 
-    _updateTooltipPosition = () => {
-        const { position, allowVaguePositioning, gapSize } = this.props
-        const wrapperRect = this.wrapper.getBoundingClientRect()
-        const tooltipRect = this.tooltip.getBoundingClientRect()
-
-        // Instead of using the documentElement find the nearest absolutely positioned element
-        const documentEl = document.documentElement
-        let node = this.wrapper
-        let foundParent = false
-        while (!foundParent) {
-            const styles = getComputedStyle(node)
-            const position = styles.getPropertyValue('position')
-            if (
-                position === 'absolute' ||
-                node === documentEl ||
-                !node.parentElement
-            ) {
-                foundParent = true
-            } else {
-                node = node.parentElement
-            }
-        }
-        const nodeRect = node.getBoundingClientRect()
-        const windowDimensions = {
-            height: nodeRect.height,
-            width: nodeRect.width
-        }
-
-        const tooltipDimensions = {
-            height: tooltipRect.height,
-            width: tooltipRect.width
-        }
-        const wrapperDimensions = {
-            height: wrapperRect.height,
-            width: wrapperRect.width
-        }
-        const wrapperPositionRelative = {
-            x: wrapperRect.left - nodeRect.left,
-            y: wrapperRect.top - nodeRect.top
-        }
-        const wrapperPositionAbsolute = {
-            x: wrapperRect.left,
-            y: wrapperRect.top
-        }
-
-        const positionsToTry =
-            position === 'auto'
-                ? ['top', 'right', 'bottom', 'left', 'top']
-                : [position]
-
-        for (let index = 0; index < positionsToTry.length; index++) {
-            const currentPosition = positionsToTry[index]
-            const enoughSpaceAtPosition = hasEnoughSpace(
-                windowDimensions,
-                tooltipDimensions,
-                wrapperDimensions,
-                wrapperPositionRelative,
-                currentPosition,
-                gapSize
-            )
-
-            if (enoughSpaceAtPosition || index === positionsToTry.length - 1) {
-                const tooltipPosition = calculatePosition(
-                    currentPosition,
-                    wrapperDimensions,
-                    wrapperPositionAbsolute,
-                    tooltipDimensions,
-                    gapSize
-                )
-                this.tooltip.style.top = `${tooltipPosition.y}px`
-                this.tooltip.style.left =
-                    tooltipPosition.x < 0 && allowVaguePositioning
-                        ? `${2 * gapSize}px` // not centered but fully visible
-                        : `${tooltipPosition.x}px`
-
-                if (currentPosition !== position) {
-                    this.tooltip.className = this._getClassNameForPosition(
-                        currentPosition
-                    )
-                }
-                break
-            }
-        }
+    _updateTooltipRef = tooltip => {
+        this.tooltip = tooltip
     }
 
-    _getClassNameForPosition = position => {
-        const { visible } = this.state
-        const { tooltipClassName, inverted } = this.props
-        const className = classNames(
-            'reactist tooltip',
-            { visible, inverted },
-            tooltipClassName
-        )
-        if (visible) {
-            return classNames(className, {
-                arrow_top: position === 'bottom',
-                arrow_right: position === 'left',
-                arrow_bottom: position === 'auto' || position === 'top',
-                arrow_left: position === 'right'
-            })
-        }
-        return className
+    _updateWrapperRef = wrapper => {
+        this.wrapper = wrapper
     }
 
     render() {
-        if (!this.props.text) {
-            return (
-                <div className="reactist tooltip__wrapper">
-                    {this.props.children}
-                </div>
-            )
-        }
+        const {
+            position,
+            allowVaguePositioning,
+            wrapperClassName,
+            tooltipClassName,
+            text,
+            children,
+            gapSize,
+            inverted,
+            withArrow
+        } = this.props
 
-        const tooltipClass = this._getClassNameForPosition(this.props.position)
         const wrapperClass = classNames(
             'reactist tooltip__wrapper',
-            this.props.wrapperClassName
+            wrapperClassName
         )
+        const tooltipClass = classNames(
+            'reactist tooltip__text',
+            tooltipClassName,
+            {
+                inverted
+            }
+        )
+        const arrowClass = classNames('reactist tooltip__arrow', { inverted })
+
+        if (!text) {
+            return <div className={wrapperClass}>{children}</div>
+        }
+
+        // wrap on click of trigger to hide tooltip on click
+        const trigger = React.Children.map(children, child => {
+            if (React.isValidElement(child)) {
+                /**
+                 * We can only attach click listeners to valid elements.
+                 * When passing in a string / number as child we cannot attach the listener.
+                 */
+                return React.cloneElement(child, {
+                    onClick: event => {
+                        this._hide()
+                        if (typeof child.props.onClick === 'function') {
+                            child.props.onClick(event)
+                        }
+                    }
+                })
+            } else {
+                return child
+            }
+        })
+
         return (
-            <span
-                className={wrapperClass}
+            <Popover
+                position={position}
+                visible={this.state.visible}
+                trigger={trigger}
+                content={text}
+                popoverClassName={tooltipClass}
+                wrapperClassName={wrapperClass}
+                arrowClassName={arrowClass}
                 onMouseEnter={this._show}
                 onMouseLeave={this._hide}
-                ref={wrapper => (this.wrapper = wrapper)}
-            >
-                {this.props.children}
-                <span
-                    className={tooltipClass}
-                    ref={tooltip => (this.tooltip = tooltip)}
-                >
-                    <span className="tooltip__text">{this.props.text}</span>
-                </span>
-            </span>
+                allowVaguePositioning={allowVaguePositioning}
+                gapSize={gapSize}
+                popoverRef={this._updateTooltipRef}
+                wrapperRef={this._updateWrapperRef}
+                withArrow={withArrow}
+            />
         )
     }
 }
@@ -218,6 +152,7 @@ Tooltip.defaultProps = {
     delayHide: 0,
     allowVaguePositioning: false,
     inverted: false,
+    withArrow: true,
     gapSize: 5 // default size of the arrow (see `tooltip.less`)
 }
 Tooltip.propTypes = {
@@ -226,8 +161,18 @@ Tooltip.propTypes = {
      * `auto` tries to position the tooltip to the top,
      * if there's not enough space it tries to position the tooltip clockwise (right, bottom, left).
      * Setting a distinct value like `right` will always position the tooltip right, regardless of available space.
+     * Specifying `horizontal` will only try to position the tooltip left and right in that order.
+     * Specifying `vertical` will only try to position the tooltip top and bottom in that order.
      */
-    position: PropTypes.oneOf(['auto', 'top', 'right', 'bottom', 'left']),
+    position: PropTypes.oneOf([
+        'auto',
+        'top',
+        'right',
+        'bottom',
+        'left',
+        'horizontal',
+        'vertical'
+    ]),
     /**
      * Whether vague positioning is allowed. When set to true the tooltip prefers to be fully visible over being correctly centered.
      */
@@ -238,7 +183,6 @@ Tooltip.propTypes = {
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
     ]).isRequired,
-    /** Delay before the tooltip appears and disappears (in ms). */
     /** Set whether scrolling should hide the tooltip or not. */
     hideOnScroll: PropTypes.bool,
     /** How long to wait after hovering before the tooltip is shown (in ms). */
@@ -258,7 +202,9 @@ Tooltip.propTypes = {
     /** Inverted tooltips have a light background with dark text. */
     inverted: PropTypes.bool,
     /** Gap between the tooltip wrapper and the arrow  */
-    gapSize: PropTypes.number
+    gapSize: PropTypes.number,
+    /** Whether or not the tooltip should have a centered arrow pointing to the trigger element. */
+    withArrow: PropTypes.bool
 }
 
 export default Tooltip

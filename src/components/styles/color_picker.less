@@ -9,7 +9,6 @@
         height: 24px;
         width: 24px;
         border-radius: 50%;
-        margin: 5px;
         cursor: pointer;
 
         background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4gICAgPHBhdGggZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNOS4yNSAxMC42NDZsMi42NDYgMi42NDcgMi42NDctMi42NDdhLjUuNSAwIDAgMSAuNzA3LjcwOEwxMi42MDQgMTRhMSAxIDAgMCAxLTEuNDE1IDBsLTIuNjQ2LTIuNjQ2YS41LjUgMCAwIDEgLjcwNy0uNzA4eiIvPjwvc3ZnPg==);
@@ -25,7 +24,19 @@
             visibility: hidden;
         }
         &:hover {
-            .color_trigger--inner_ring { visibility: visible; }
+            .color_trigger--inner_ring {
+                visibility: visible;
+            }
+        }
+
+        &.small {
+            height: 18px;
+            width: 18px;
+
+            .color_trigger--inner_ring {
+                width: 12px;
+                height: 12px;
+            }
         }
     }
 
@@ -49,7 +60,9 @@
             visibility: hidden;
         }
         &:hover {
-            .color_item--inner_ring { visibility: visible; }
+            .color_item--inner_ring {
+                visibility: visible;
+            }
         }
 
         &.active {
@@ -65,5 +78,10 @@
         flex-wrap: wrap;
         width: 164px; // 4 * 32 + 3 * 8 + 2 * 6
         position: relative;
+    }
+
+    .with_arrow:after,
+    .with_arrow:before {
+        visibility: hidden;
     }
 }

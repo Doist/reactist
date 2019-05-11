@@ -1,6 +1,6 @@
 {
     "name": "@doist/reactist",
-    "version": "1.16.06",
+    "version": "1.19.00",
     "description": "Open source React components by Doist",
     "main": "./dist/reactist.js",
     "scripts": {
@@ -12,7 +12,9 @@
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook -o docs",
         "build-all": "npm run build && npm run build-storybook",
-        "analyze-bundle": "(TIMESTAMP=`date +%Y-%m-%d_%H-%M-%S`; NODE_ENV=production; ./node_modules/.bin/webpack --mode production --json --progress --profile > webpack-build-log.$TIMESTAMP.json && ./node_modules/.bin/webpack-bundle-analyzer webpack-build-log.$TIMESTAMP.json dist)"
+        "analyze-bundle": "(TIMESTAMP=`date +%Y-%m-%d_%H-%M-%S`; NODE_ENV=production; ./node_modules/.bin/webpack --mode production --json --progress --profile > webpack-build-log.$TIMESTAMP.json && ./node_modules/.bin/webpack-bundle-analyzer webpack-build-log.$TIMESTAMP.json dist)",
+        "prepare-release": "rm -rf node_modules package-lock && npm install && npm run check && npm run test && npm run build-all",
+        "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less}\""
     },
     "repository": "git+https://github.com/Doist/reactist.git",
     "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",
@@ -48,9 +50,11 @@
         "eslint-plugin-jest": "^21.22.0",
         "eslint-plugin-prettier": "^2.6.2",
         "eslint-plugin-react": "^7.11.1",
-        "jest": "^23.6.0",
+        "husky": "^2.1.0",
+        "jest": "^24.7.1",
         "less": "^3.8.1",
         "less-loader": "^4.1.0",
+        "lint-staged": "^8.1.5",
         "moment": "^2.18.1",
         "moment-timezone": "^0.5.13",
         "path": "^0.12.7",
@@ -64,7 +68,7 @@
         "style-loader": "^0.23.0",
         "svg-url-loader": "^2.3.2",
         "webpack": "^4.18.0",
-        "webpack-bundle-analyzer": "^3.0.2",
+        "webpack-bundle-analyzer": "^3.3.2",
         "webpack-cli": "^3.1.0"
     },
     "peerDependencies": {
@@ -75,7 +79,9 @@
         "prop-types": "^15.6.2"
     },
     "jest": {
-        "setupTestFrameworkScriptFile": "./scripts/jestSetup.js",
+        "setupFilesAfterEnv": [
+            "./scripts/jestSetup.js"
+        ],
         "snapshotSerializers": [
             "enzyme-to-json/serializer"
         ],
@@ -84,5 +90,21 @@
         },
         "testURL": "http://localhost"
     },
-    "dependencies": {}
+    "dependencies": {},
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged",
+            "pre-push": "npm run check && npm run test"
+        }
+    },
+    "lint-staged": {
+        "./**/*.{js,jsx,ts,tsx,json,css,scss,less}": [
+            "prettier --write",
+            "git add"
+        ],
+        "*.{js,jsx}": [
+            "eslint --fix",
+            "git add"
+        ]
+    }
 }

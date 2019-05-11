@@ -48,6 +48,7 @@ exports[`Icon wraps icon in a tooltip when tooltip is supplied 1`] = `
   inverted={false}
   position="auto"
   text="Tooltip text"
+  withArrow={true}
 >
   <a
     className="reactist icon icon--component"

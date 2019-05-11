@@ -6,30 +6,30 @@ import TimeUtils from '../TimeUtils'
 let now = null
 beforeAll(() => {
     // whenever moment() is invoked 2017-03-22 will be taken as date
-    Date.now = jest.fn(() => new Date(Date.UTC(2017, 2, 22)).valueOf())
+    Date.now = jest.fn(() => new Date(2017, 2, 22).valueOf())
     now = moment()
 })
 
 describe('Time Utils', () => {
-    it('formatTime shoud match `MMM D` when in current year', () => {
+    it('formatTime shoud match `LL` when in current year', () => {
         const testDate = moment()
             .year(now.year())
             .month('March')
             .date(9)
             .unix()
-        expect(TimeUtils.formatTime(testDate)).toBe('Mar 9')
+        expect(TimeUtils.formatTime(testDate)).toBe('03/09/2017')
     })
 
-    it('formatTime should match `MMM D, YYYY` when in past year', () => {
+    it('formatTime should match `LL` when in past year', () => {
         const testDate = moment()
             .year(2016)
             .month('March')
             .date(9)
             .unix()
-        expect(TimeUtils.formatTime(testDate)).toBe('Mar 9, 2016')
+        expect(TimeUtils.formatTime(testDate)).toBe('March 9, 2016')
     })
 
-    it('formatTimeLong should match `DD MMM YY, LT`', () => {
+    it('formatTimeLong should match `LL, LT`', () => {
         const testDate = moment()
             .year(2017)
             .month('August')
@@ -38,7 +38,9 @@ describe('Time Utils', () => {
             .minutes(37)
             .seconds(42)
             .unix()
-        expect(TimeUtils.formatTimeLong(testDate)).toBe('01 Aug 17, 1:37 PM')
+        expect(TimeUtils.formatTimeLong(testDate)).toBe(
+            'August 1, 2017, 1:37 PM'
+        )
     })
 
     it('timeAgo < 1m returns `moments ago`', () => {
@@ -62,28 +64,28 @@ describe('Time Utils', () => {
         expect(TimeUtils.timeAgo(testDate)).toBe('10h')
     })
 
-    it('timeAgo < 7d returns string representation of day', () => {
+    it('timeAgo < 7d returns MM/DD/YYYY', () => {
         const testDate = moment()
-            .day('Monday')
+            .subtract(2, 'days')
             .unix()
-        expect(TimeUtils.timeAgo(testDate)).toBe('Monday')
+        expect(TimeUtils.timeAgo(testDate)).toBe('03/20/2017')
     })
 
-    it('timeAgo > 7d returns `MMM D` in current year', () => {
+    it('timeAgo > 7d returns `MM/DD/YYYY` in current year', () => {
         const testDate = moment()
             .year(now.year())
             .month('March')
             .date(9)
             .unix()
-        expect(TimeUtils.timeAgo(testDate)).toBe('Mar 9')
+        expect(TimeUtils.timeAgo(testDate)).toBe('03/09/2017')
     })
 
-    it('timeAgo > 7d returns `MMM D, YYYY` in past year', () => {
+    it('timeAgo > 7d returns `LL` in past year', () => {
         const testDate = moment()
             .year(2016)
             .month('March')
             .date(9)
             .unix()
-        expect(TimeUtils.timeAgo(testDate)).toBe('Mar 9, 2016')
+        expect(TimeUtils.timeAgo(testDate)).toBe('March 9, 2016')
     })
 })

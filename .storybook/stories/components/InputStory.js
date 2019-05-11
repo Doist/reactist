@@ -1,5 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
+import { withKnobs, boolean, text } from '@storybook/addon-knobs'
 
 import {
     getPropTypesStory,
@@ -35,10 +36,22 @@ const InputChapter = {
     sections: [{ sectionFn: InputStory, options: optionsSourceOnly }]
 }
 
+const InputPlaygroundStory = () => (
+    <section className="story">
+        <Input
+            placeholder={text('Simple input wrapper')}
+            disabled={boolean('Disabled:', false)}
+        />
+    </section>
+)
+
 // Story setup ================================================================
 const Story = () =>
-    storiesOf('Input', module).addWithChapters('Component Overview', {
-        chapters: [InputPropTypesChapter, InputChapter]
-    })
+    storiesOf('Input', module)
+        .addDecorator(withKnobs)
+        .addWithChapters('Component Overview', {
+            chapters: [InputPropTypesChapter, InputChapter]
+        })
+        .add('Component Playground', () => <InputPlaygroundStory />)
 
 export default Story

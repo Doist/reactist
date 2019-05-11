@@ -50,13 +50,13 @@ describe('Time', () => {
     it('renders full absolute time when hovered and expandedFullOnHover is set', () => {
         const time = shallow(<Time time={testDate} expandFullyOnHover />)
         time.simulate('mouseEnter', getMouseEvent())
-        expect(getRenderedTime(time)).toBe('22 Mar 91, 1:37 PM')
+        expect(getRenderedTime(time)).toBe('March 22, 1991, 1:37 PM')
     })
 
     it('renders short absolute time when hovered and expandedOnHover is set', () => {
         const time = shallow(<Time time={testDate} expandOnHover />)
         time.simulate('mouseEnter', getMouseEvent())
-        expect(getRenderedTime(time)).toBe('Mar 22, 1991')
+        expect(getRenderedTime(time)).toBe('March 22, 1991')
     })
 
     it('adds additional class name if supplied', () => {

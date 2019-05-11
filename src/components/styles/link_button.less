@@ -11,6 +11,11 @@
     }
 
     &.disabled {
+        cursor: not-allowed;
         color: @secondary_font_color;
+    }
+
+    &:not(.disabled):hover {
+        text-decoration: underline;
     }
 }

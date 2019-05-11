@@ -3,7 +3,7 @@
 .reactist.tabs {
     &__header {
         display: flex;
-        border-bottom: 1px solid @color_grey_10;
+        border-bottom: 1px solid @color_border_grey;
 
         &--item {
             @item_spacing: 10px;
@@ -22,7 +22,7 @@
                     content: '';
                     background-color: @primary_color;
                     height: 3px;
-                    border-radius: 3px 3px 0 0 ;
+                    border-radius: 3px 3px 0 0;
                     position: relative;
                     top: @item_spacing;
                 }
@@ -35,7 +35,6 @@
 }
 
 .reactist.tabs--spreadlayout {
-
     .tabs__header {
         display: flex;
         border-bottom: 0;
@@ -44,7 +43,7 @@
     .tabs__header--item {
         text-align: center;
         flex: 1;
-        border-bottom: 1px solid @color_grey_10;
+        border-bottom: 1px solid @color_border_grey;
         margin: 0;
 
         &.active {
@@ -56,7 +55,4 @@
             text-decoration: none;
         }
     }
-
-
 }
-

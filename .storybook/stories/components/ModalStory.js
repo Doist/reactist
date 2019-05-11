@@ -80,7 +80,8 @@ const ModalHeaderBodyAndActionsStory = () => {
             />
             <Modal.Body>
                 The Body of a Modal can contain whatever you like! Like this
-                very long Lorem Ipsum<br />
+                very long Lorem Ipsum
+                <br />
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industrys standard dummy text
                 ever since the 1500s, when an unknown printer took a galley of
@@ -119,7 +120,8 @@ const PlainMediumModalStory = () => {
             <Modal.Header title="Header of Modal" />
             <Modal.Body plain>
                 The Body of a Modal can contain whatever you like! Like this
-                very long Lorem Ipsum<br />
+                very long Lorem Ipsum
+                <br />
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industrys standard dummy text
                 ever since the 1500s, when an unknown printer took a galley of

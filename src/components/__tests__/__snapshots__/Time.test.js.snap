@@ -6,7 +6,7 @@ exports[`Time adds additional class name if supplied 1`] = `
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >
-  Mar 22, 1991
+  March 22, 1991
 </time>
 `;
 
@@ -25,8 +25,9 @@ exports[`Time renders with custom tooltip when supplied 1`] = `
     inverted={false}
     position="auto"
     text="Test"
+    withArrow={true}
   >
-    Mar 22, 1991
+    March 22, 1991
   </Tooltip>
 </time>
 `;
@@ -55,9 +56,10 @@ exports[`Time renders wrapped in tooltip when tooltipOnHover is set 1`] = `
     hideOnScroll={true}
     inverted={false}
     position="auto"
-    text="22 Mar 91, 1:37 PM"
+    text="March 22, 1991, 1:37 PM"
+    withArrow={true}
   >
-    Mar 22, 1991
+    March 22, 1991
   </Tooltip>
 </time>
 `;

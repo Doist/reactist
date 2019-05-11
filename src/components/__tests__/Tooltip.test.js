@@ -2,7 +2,6 @@ import React from 'react'
 import { shallow, mount } from 'enzyme'
 
 import Tooltip from '../Tooltip'
-import * as PositioningUtils from '../utils/PositioningUtils'
 
 describe('Tooltip', () => {
     // Setup ==================================================================
@@ -14,7 +13,7 @@ describe('Tooltip', () => {
     })
 
     it('renders without crashing', () => {
-        const tooltip = shallow(getTooltip())
+        const tooltip = mount(getTooltip())
         expect(tooltip).toMatchSnapshot()
     })
 
@@ -121,102 +120,6 @@ describe('Tooltip', () => {
         })
     })
 
-    describe('Position Calculation', () => {
-        it('calculates tooltip position after becoming visible', () => {
-            const updateTooltipPositionSpy = jest.fn()
-            const tooltip = mount(getTooltip()).instance()
-            tooltip._updateTooltipPosition = updateTooltipPositionSpy
-
-            tooltip.setState({ visible: true })
-            expect(updateTooltipPositionSpy).toHaveBeenCalled()
-        })
-
-        it('sets the tooltip to the given position if it is not set to `auto`', () => {
-            PositioningUtils.hasEnoughSpace = jest.fn(() => true)
-            jest.spyOn(
-                PositioningUtils,
-                'calculatePosition'
-            ).mockImplementationOnce(() => ({
-                x: 23,
-                y: 42
-            }))
-
-            const tooltip = mount(getTooltip({ position: 'right' })).instance()
-            tooltip.setState({ visible: true }) // triggers update positions
-
-            expect(tooltip.tooltip.style.getPropertyValue('top')).toBe('42px')
-            expect(tooltip.tooltip.style.getPropertyValue('left')).toBe('23px')
-        })
-
-        it('allows vague positioning to avoid cut offs', () => {
-            PositioningUtils.hasEnoughSpace = jest.fn(() => true)
-            jest.spyOn(
-                PositioningUtils,
-                'calculatePosition'
-            ).mockImplementationOnce(() => ({
-                x: -23,
-                y: 42
-            }))
-
-            const tooltip = mount(
-                getTooltip({ allowVaguePositioning: true })
-            ).instance()
-            tooltip.setState({ visible: true }) // triggers update positions
-
-            expect(tooltip.tooltip.style.getPropertyValue('top')).toBe('42px')
-            expect(tooltip.tooltip.style.getPropertyValue('left')).toBe('10px')
-        })
-
-        it('sets the tooltip to the first position that has enough space when `auto` is supplied', () => {
-            PositioningUtils.hasEnoughSpace = jest
-                .fn()
-                .mockReturnValueOnce(false) // top
-                .mockReturnValueOnce(false) // right
-                .mockReturnValueOnce(false) // bottom
-                .mockReturnValueOnce(true) // left
-            jest.spyOn(
-                PositioningUtils,
-                'calculatePosition'
-            ).mockImplementationOnce(() => ({
-                x: 23,
-                y: 42
-            }))
-            const tooltip = mount(getTooltip({ position: 'auto' })).instance()
-            tooltip.setState({ visible: true }) // triggers update positions
-
-            expect(tooltip.tooltip.style.getPropertyValue('top')).toBe('42px')
-            expect(tooltip.tooltip.style.getPropertyValue('left')).toBe('23px')
-            expect(tooltip.tooltip.className).toContain('arrow_right')
-        })
-
-        it('sets the tooltip to the correct position when changing the gap size', () => {
-            PositioningUtils.hasEnoughSpace = jest.fn(() => true)
-
-            const wrapper = mount(getTooltip({ position: 'top' }))
-            const instance = wrapper.instance()
-
-            instance.wrapper.getBoundingClientRect = jest.fn(() => ({
-                left: 500,
-                top: 500,
-                width: 70,
-                height: 20
-            }))
-
-            instance.tooltip.getBoundingClientRect = jest.fn(() => ({
-                width: 70,
-                height: 20
-            }))
-
-            instance.setState({ visible: true }) // triggers update positions
-
-            expect(instance.tooltip.style.getPropertyValue('top')).toBe('475px')
-
-            wrapper.setProps({ gapSize: 20 })
-
-            expect(instance.tooltip.style.getPropertyValue('top')).toBe('460px')
-        })
-    })
-
     describe('Component Updates', () => {
         it('updates when the state changes', () => {
             const tooltip = shallow(getTooltip()).instance()
@@ -294,6 +197,30 @@ describe('Tooltip', () => {
 
         expect(tooltip.wrapper).toBeTruthy()
         expect(tooltip.tooltip).toBeTruthy()
+    })
+
+    it('hides when clicking on trigger', () => {
+        const clickSpy = jest.fn()
+        const tooltip = mount(
+            <Tooltip text="Tip">
+                <span id="trigger" onClick={clickSpy}>
+                    Trigger
+                </span>
+            </Tooltip>
+        )
+
+        // hover an make sure tooltip is visible
+        tooltip.simulate('mouseEnter')
+        jest.runAllTimers()
+        expect(tooltip.state().visible).toBe(true)
+
+        // clicking the trigger
+        tooltip.find('span#trigger').simulate('click')
+        jest.runAllTimers()
+
+        // making sure click is executed and tooltip hides
+        expect(tooltip.state().visible).toBe(false)
+        expect(clickSpy).toHaveBeenCalledTimes(1)
     })
 
     // Helpers ================================================================

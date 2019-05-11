@@ -4,10 +4,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-const Input = ({ ...props }) => {
+const Input = React.forwardRef((props, ref) => {
     const className = classNames('reactist input', props.className)
-    return <input className={className} {...props} />
-}
+    return <input {...props} className={className} ref={ref} />
+})
 Input.displayName = 'Input'
 Input.propTypes = {
     /** Additional css class applied to the input. */
