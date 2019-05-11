@@ -5,7 +5,7 @@ import TimeUtils from '../TimeUtils'
 
 beforeAll(() => {
     // whenever dayjs() is invoked 2017-03-22 will be taken as date
-    MockDate.set(new Date(Date.UTC(2017, 2, 23)))
+    MockDate.set(new Date(2017, 2, 22))
 })
 
 describe('Time Utils', () => {
