@@ -1,6 +1,6 @@
 {
     "name": "@doist/reactist",
-    "version": "1.19.00",
+    "version": "1.20.00",
     "description": "Open source React components by Doist",
     "main": "./dist/reactist.js",
     "scripts": {
@@ -57,8 +57,6 @@
         "less-loader": "^4.1.0",
         "lint-staged": "^8.1.5",
         "mockdate": "^2.0.2",
-        "moment": "^2.18.1",
-        "moment-timezone": "^0.5.13",
         "path": "^0.12.7",
         "prettier": "1.14.2",
         "raw-loader": "^0.5.1",
