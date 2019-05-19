@@ -3,7 +3,9 @@
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
 ## 1.20.00
-- [Tweak] Replaced Moment with Day.js
+- [Tweak] Replaced Moment with [Day.js](https://github.com/iamkun/dayjs)
+
+   🚨 This introduces a new peerDependency (`dayjs`) and removes the need for `moment`. If you're not using the `<Time />` nothing should change for you.
 
 ## 1.19.00
 - [Tweak] Changed the way the `<Time />` component formats it's time. You now have more control to influence the date and time format from the outside
