@@ -2,6 +2,9 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 1.21.00
+- [Tweak] introduced `.npmignore` file to keep released package smaller and only include the essentials. This also fixes a bug in **v1.20.00** where parts of the `.git` directory ended up in the file package.
+
 ## 1.20.00
 - [Tweak] Replaced Moment with [Day.js](https://github.com/iamkun/dayjs)
 
