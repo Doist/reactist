@@ -1,0 +1,22 @@
+# Should be ignored by default but doesn't work
+.git/
+
+# Directories
+.cache/
+.github/
+.storybook/
+.vscode/
+coverage/
+docs/
+scripts/
+src/
+
+# Files
+.babelrc
+.DS_Store
+.eslintignore
+.eslintrc
+.prettierignore
+.prettierrc
+webpack-build-log**
+webpack.config.babel.js
