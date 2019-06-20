@@ -101,9 +101,11 @@ class Box extends React.Component {
     }
 
     _getBodyComponent() {
+        if (!this.state.show_body) {
+            return null
+        }
         const { top } = this.state
         const { right = false, children } = this.props
-        const _body = children[1]
         const props = { top, right, setPosition: this._setPosition }
 
         const class_name = classNames({
@@ -113,15 +115,17 @@ class Box extends React.Component {
             bottom: !top
         })
 
-        if (this.state.show_body) {
-            return (
-                <div className={class_name} style={{ position: 'relative' }}>
-                    {React.cloneElement(_body, props)}
-                </div>
-            )
-        }
+        const body = children[1]
 
-        return false
+        const contentMarkup =
+            typeof body === 'function'
+                ? body(props)
+                : React.cloneElement(body, props)
+        return (
+            <div className={class_name} style={{ position: 'relative' }}>
+                {contentMarkup}
+            </div>
+        )
     }
 
     render() {
@@ -153,7 +157,8 @@ Box.propTypes = {
     onHideBody: PropTypes.func,
     /** Additional css class applied to the Dropdown. */
     className: PropTypes.string,
-    /** Should be two elements: Dropdown.Trigger and Dropdown.Body. */
+    /** Should be two elements: Dropdown.Trigger and Dropdown.Body.
+     * Second element can be a function, which will be called only if it is open */
     children: PropTypes.any
 }
 

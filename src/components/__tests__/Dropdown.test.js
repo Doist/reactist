@@ -77,6 +77,24 @@ describe('Dropdown', () => {
             expect(box.find(Dropdown.Body)).toHaveLength(0)
         })
 
+        it('toggles the Body component as a function with each Trigger click', () => {
+            const box = shallow(
+                <Dropdown.Box>
+                    <Dropdown.Trigger onClick={jest.fn()} />
+                    {props => <Dropdown.Body {...props} />}
+                </Dropdown.Box>
+            )
+            expect(box.find(Dropdown.Body)).toHaveLength(0)
+
+            const trigger = box.find(Dropdown.Trigger)
+
+            simulateClick(trigger)
+            expect(box.find(Dropdown.Body)).toHaveLength(1)
+
+            simulateClick(trigger)
+            expect(box.find(Dropdown.Body)).toHaveLength(0)
+        })
+
         it('renders the Trigger component first when top prop is not provided', () => {
             const box = mount(
                 <Dropdown.Box>
