@@ -9,12 +9,15 @@
         bottom: 0;
         left: 0;
         z-index: 2;
+        display: flex;
+        justify-content: center;
         background: rgba(0, 0, 0, 0.7);
         overflow: auto;
         animation: fadein 0.25s;
 
         &_inner {
             display: flex;
+            flex-direction: column;
             align-items: flex-start;
             justify-content: center;
             margin: 40px 0;
@@ -22,6 +25,8 @@
     }
 
     &_modal_box {
+        display: flex;
+        flex-direction: column;
         overflow: auto;
         overflow-x: hidden;
         width: 580px;
@@ -88,6 +93,8 @@
     }
 
     &_modal_box__body {
+        flex-grow: 1;
+        overflow: auto;
         padding: 20px 25px 25px 25px;
         background-color: white;
         .normal_text();
