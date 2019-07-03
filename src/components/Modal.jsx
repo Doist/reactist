@@ -1,7 +1,7 @@
 import './styles/modal.less'
 
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM, { createPortal } from 'react-dom'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
@@ -54,7 +54,7 @@ class Box extends React.Component {
             this.props.className
         )
 
-        return (
+        return createPortal(
             <div className="reactist_overlay" id="reactist-overlay">
                 <div
                     className="reactist_overlay_inner"
@@ -64,7 +64,8 @@ class Box extends React.Component {
                         {children}
                     </div>
                 </div>
-            </div>
+            </div>,
+            document.body
         )
     }
 }
