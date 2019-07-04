@@ -1,4 +1,7 @@
-jest.mock('react-dom')
+jest.mock('react-dom', () => ({
+    createPortal: element => element,
+    unmountComponentAtNode: jest.fn()
+}))
 
 import React from 'react'
 import ReactDOM from 'react-dom'
