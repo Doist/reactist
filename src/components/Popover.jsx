@@ -203,7 +203,9 @@ class Popover extends React.Component {
             >
                 {trigger}
                 <span className={popoverClass} ref={this._updatePopoverRef}>
-                    <span className={popoverContentClass}>{content}</span>
+                    {this.props.visible ? (
+                        <span className={popoverContentClass}>{content}</span>
+                    ) : null}
                 </span>
             </span>
         )
