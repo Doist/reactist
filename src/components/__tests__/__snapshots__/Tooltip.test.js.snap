@@ -59,13 +59,7 @@ exports[`Tooltip renders without crashing 1`] = `
       </span>
       <span
         className="reactist popover"
-      >
-        <span
-          className="reactist popover__content reactist tooltip__text"
-        >
-          tip
-        </span>
-      </span>
+      />
     </span>
   </Popover>
 </Tooltip>
