@@ -2,6 +2,9 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 1.22.02
+- [Tweak] `<Popover />` content is now rendered lazily (i.e. only if `visible` is `true`)
+
 ## 1.22.01
 - [Tweak] `<Modal.Body />` now starts to scroll instead of requiring the whole window to scroll.
 
