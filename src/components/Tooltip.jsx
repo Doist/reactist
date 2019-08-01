@@ -181,6 +181,7 @@ Tooltip.propTypes = {
     text: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.node),
+        PropTypes.func,
         PropTypes.node
     ]).isRequired,
     /** Set whether scrolling should hide the tooltip or not. */
