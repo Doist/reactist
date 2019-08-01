@@ -204,7 +204,11 @@ class Popover extends React.Component {
                 {trigger}
                 <span className={popoverClass} ref={this._updatePopoverRef}>
                     {this.props.visible ? (
-                        <span className={popoverContentClass}>{content}</span>
+                        <span className={popoverContentClass}>
+                            {typeof content === 'function'
+                                ? content()
+                                : content}
+                        </span>
                     ) : null}
                 </span>
             </span>
@@ -244,6 +248,7 @@ Popover.propTypes = {
     content: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.node),
+        PropTypes.func,
         PropTypes.node
     ]).isRequired,
     /** Trigger slot of the popover. */
