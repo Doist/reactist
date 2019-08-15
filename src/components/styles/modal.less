@@ -18,9 +18,10 @@
         &_inner {
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
             justify-content: center;
             margin: 40px 0;
+            width: 100%;
         }
     }
 
@@ -43,15 +44,16 @@
 
             @media @small_screen {
                 width: calc(
-                    ~'100% - 120px'
-                ); // 60px on each side (incl. top via padding)
+                    ~'100% - 80px'
+                ); // 40px on each side (incl. top via padding)
             }
         }
 
         @media @small_screen {
             width: calc(
-                ~'100% - 120px'
-            ); // 60px on each side (incl. top via padding)
+                ~'100% - 80px'
+            ); // 40px on each side (incl. top via padding)
+            max-width: 580px;
         }
     }
 
