@@ -4,6 +4,10 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 ## 1.22.04
 
+-   [Tweak] Fixed unsupported `display: initial` in IE11
+
+## 1.22.04
+
 -   [Tweak] Fixed broken styles for `<Modal>` on small screens
 
 ## 1.22.03
