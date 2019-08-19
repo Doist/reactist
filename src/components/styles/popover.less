@@ -31,6 +31,7 @@
     opacity: 0;
     transition: opacity 0.1s linear;
     &.visible {
+        display: inline-block; // initial isn't supported in IE11
         display: initial;
         visibility: visible;
         opacity: 1;
