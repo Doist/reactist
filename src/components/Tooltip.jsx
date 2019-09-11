@@ -190,7 +190,7 @@ Tooltip.propTypes = {
     delayShow: PropTypes.number,
     /** How long to wait after unhovering before the tooltip is hidden (in ms). */
     delayHide: PropTypes.number,
-    /** Children that are wrapped by the toolip. */
+    /** Children that are wrapped by the tooltip. */
     children: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.node),

@@ -242,7 +242,7 @@ Popover.propTypes = {
      * Whether vague positioning is allowed. When set to true the popover prefers to be fully visible over being correctly centered.
      */
     allowVaguePositioning: PropTypes.bool,
-    /** Whether or not the popover is currently visibble. */
+    /** Whether or not the popover is currently visible. */
     visible: PropTypes.bool.isRequired,
     /** Content slot of the popover. */
     content: PropTypes.oneOfType([

@@ -80,7 +80,7 @@ Box.propTypes = {
     style: PropTypes.object,
     /** Large style. */
     large: PropTypes.bool,
-    /** Medium size syle. */
+    /** Medium size style. */
     medium: PropTypes.bool,
     /** Close the Modal when clicking on the overlay. */
     closeOnOverlayClick: PropTypes.bool,
@@ -187,7 +187,7 @@ Body.propTypes = {
      * Recommended to use when no Modal.Header is used.
      */
     showCloseIcon: PropTypes.bool,
-    /** Additionall css class applied to the Modal.Body. */
+    /** Additional css class applied to the Modal.Body. */
     className: PropTypes.string,
     /** Sometimes a class name is not enough so you can use this to set the style directly. */
     style: PropTypes.object,
