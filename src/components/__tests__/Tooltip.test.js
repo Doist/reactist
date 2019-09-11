@@ -223,6 +223,14 @@ describe('Tooltip', () => {
         expect(clickSpy).toHaveBeenCalledTimes(1)
     })
 
+    it('pass as children simple text', () => {
+        const tooltip = mount(
+            <Tooltip text="Tip">Wrapped Text</Tooltip>
+        ).instance()
+        expect(tooltip.wrapper).toBeTruthy()
+        expect(tooltip.tooltip).toBeTruthy()
+    })
+
     // Helpers ================================================================
     const getTooltip = (props = {}) => (
         <Tooltip text="tip" {...props}>
