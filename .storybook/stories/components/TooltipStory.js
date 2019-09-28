@@ -29,7 +29,10 @@ const TooltipPropTypesChapter = {
 
 const TooltipStory = () => (
     <section className="story tooltip">
-        <Tooltip text="Very helpful content in this tooltip">
+        <Tooltip
+            text="Very helpful content in this tooltip"
+            tooltipClassName="storybook-tooltip-content"
+        >
             <div className="tip_item">
                 Hover me for an automatically positioned Tooltip
             </div>
@@ -43,7 +46,11 @@ const TooltipChapter = {
 
 const InvertedTooltipStory = () => (
     <section className="story tooltip">
-        <Tooltip text="Very helpful inverted content in this tooltip" inverted>
+        <Tooltip
+            text="Very helpful inverted content in this tooltip"
+            tooltipClassName="storybook-tooltip-content"
+            inverted
+        >
             <div className="tip_item">Hover me for an **inverted** Tooltip</div>
         </Tooltip>
     </section>
@@ -69,6 +76,7 @@ const TooltipPlaygroundStory = () => (
             allowVaguePositioning={boolean('Allow Vague Positioning', false)}
             gapSize={number('Gap Size (px)', 5)}
             withArrow={boolean('With Arrow', true)}
+            tooltipClassName="storybook-tooltip-content"
         >
             <div className="tip_item">Hover me to see your tooltip</div>
         </Tooltip>
