@@ -86,7 +86,7 @@ describe('Popover', () => {
             PositioningUtils.hasEnoughSpace = jest.fn(() => true)
 
             const popover = mount(
-                getPopover({ position: 'top', visible: false })
+                getPopover({ position: 'top', visible: true })
             )
             const instance = popover.instance()
 
@@ -102,9 +102,7 @@ describe('Popover', () => {
                 height: 20
             }))
 
-            popover.setProps({ visible: true })
-
-            expect(instance.popover.style.getPropertyValue('top')).toBe('475px')
+            expect(instance.popover.style.getPropertyValue('top')).toBe('-5px')
 
             popover.setProps({ gapSize: 20 })
 
@@ -152,13 +150,9 @@ describe('Popover', () => {
 
     it('updates refs', () => {
         const popoverRefSpy = jest.fn()
-        const wrapperRefSpy = jest.fn()
-        mount(
-            getPopover({ popoverRef: popoverRefSpy, wrapperRef: wrapperRefSpy })
-        )
+        mount(getPopover({ popoverRef: popoverRefSpy }))
 
         expect(popoverRefSpy).toHaveBeenCalled()
-        expect(wrapperRefSpy).toHaveBeenCalled()
     })
 
     // Helpers ================================================================

@@ -192,10 +192,24 @@ describe('Tooltip', () => {
         })
     })
 
-    it('sets ref of tooltip and wrapper after mounting', () => {
+    it('sets ref of wrapper after mounting', () => {
         const tooltip = mount(getTooltip()).instance()
 
         expect(tooltip.wrapper).toBeTruthy()
+    })
+
+    it('does not set ref of tooltip when it is not visible', () => {
+        const tooltip = mount(getTooltip()).instance()
+
+        expect(tooltip.tooltip).toBeUndefined()
+    })
+
+    it('sets ref of tooltip when it is visible after mounting', () => {
+        const tooltipWrapper = mount(getTooltip())
+        const tooltip = tooltipWrapper.instance()
+
+        tooltipWrapper.simulate('mouseenter')
+        jest.runAllTimers()
         expect(tooltip.tooltip).toBeTruthy()
     })
 
@@ -224,10 +238,12 @@ describe('Tooltip', () => {
     })
 
     it('pass as children simple text', () => {
-        const tooltip = mount(
-            <Tooltip text="Tip">Wrapped Text</Tooltip>
-        ).instance()
-        expect(tooltip.wrapper).toBeTruthy()
+        const tooltipWrapper = mount(<Tooltip text="Tip">Wrapped Text</Tooltip>)
+        const tooltip = tooltipWrapper.instance()
+
+        tooltipWrapper.simulate('mouseEnter')
+        jest.runAllTimers()
+
         expect(tooltip.tooltip).toBeTruthy()
     })
 

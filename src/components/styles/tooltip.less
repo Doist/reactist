@@ -2,60 +2,54 @@
 
 @tooltip_background: @color_almost_black;
 
-.reactist {
-    &.tooltip__wrapper {
-        display: inline-block;
+.reactist.tooltip__arrow {
+    .reactist.tooltip__text {
+        .smaller_text();
+        text-align: center;
+        text-overflow: ellipsis;
+        overflow: hidden;
         max-width: 100%;
-        cursor: unset;
+        padding: 5px 10px;
+        max-width: 250px;
 
-        .reactist.tooltip__text {
-            .smaller_text();
-            text-align: center;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            max-width: 100%;
-            padding: 5px 10px;
-            max-width: 250px;
+        &:not(.inverted) {
+            background-color: @tooltip_background;
+            color: white;
+            border: none;
+        }
+    }
 
-            &:not(.inverted) {
-                background-color: @tooltip_background;
-                color: white;
-                border: none;
+    &:not(.inverted) {
+        &.arrow_top {
+            &:before {
+                border-bottom-color: @tooltip_background;
+            }
+            &:after {
+                display: none;
             }
         }
-
-        .reactist.tooltip__arrow:not(.inverted) {
-            &.arrow_top {
-                &:before {
-                    border-bottom-color: @tooltip_background;
-                }
-                &:after {
-                    display: none;
-                }
+        &.arrow_right {
+            &:before {
+                border-left-color: @tooltip_background;
             }
-            &.arrow_right {
-                &:before {
-                    border-left-color: @tooltip_background;
-                }
-                &:after {
-                    display: none;
-                }
+            &:after {
+                display: none;
             }
-            &.arrow_bottom {
-                &:before {
-                    border-top-color: @tooltip_background;
-                }
-                &:after {
-                    display: none;
-                }
+        }
+        &.arrow_bottom {
+            &:before {
+                border-top-color: @tooltip_background;
             }
-            &.arrow_left {
-                &:before {
-                    border-right-color: @tooltip_background;
-                }
-                &:after {
-                    display: none;
-                }
+            &:after {
+                display: none;
+            }
+        }
+        &.arrow_left {
+            &:before {
+                border-right-color: @tooltip_background;
+            }
+            &:after {
+                display: none;
             }
         }
     }

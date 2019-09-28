@@ -1,13 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tooltip renders only children if text prop is not defined 1`] = `
-<div
-  className="reactist tooltip__wrapper"
->
-  <span>
-    Wrapped Content
-  </span>
-</div>
+<span>
+  Wrapped Content
+</span>
 `;
 
 exports[`Tooltip renders without crashing 1`] = `
@@ -43,23 +39,15 @@ exports[`Tooltip renders without crashing 1`] = `
     }
     visible={false}
     withArrow={true}
-    wrapperClassName="reactist tooltip__wrapper"
     wrapperRef={[Function]}
   >
     <span
-      className="reactist popover__wrapper reactist tooltip__wrapper"
+      key=".$.0"
+      onClick={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
-      <span
-        key=".0"
-        onClick={[Function]}
-      >
-        Wrapped Content
-      </span>
-      <span
-        className="reactist popover"
-      />
+      Wrapped Content
     </span>
   </Popover>
 </Tooltip>

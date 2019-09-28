@@ -1,6 +1,7 @@
 import './styles/popover.less'
 
 import React from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
@@ -37,6 +38,10 @@ class Popover extends React.Component {
     }
 
     _updatePopoverPosition = () => {
+        if (!this.props.visible) {
+            return
+        }
+
         const { position, allowVaguePositioning, gapSize } = this.props
         const wrapperRect = this.wrapper.getBoundingClientRect()
         const popoverRect = this.popover.getBoundingClientRect()
@@ -175,7 +180,6 @@ class Popover extends React.Component {
     render() {
         const {
             position,
-            wrapperClassName,
             popoverClassName,
             onMouseEnter,
             onMouseLeave,
@@ -188,30 +192,54 @@ class Popover extends React.Component {
             'reactist popover__content',
             popoverClassName
         )
-        const wrapperClass = classNames(
-            'reactist popover__wrapper',
-            wrapperClassName
-        )
+        const wrappedTrigger = React.Children.map(trigger, child => {
+            if (React.isValidElement(child)) {
+                return React.cloneElement(child, {
+                    onMouseEnter,
+                    onMouseLeave,
+                    onClick: event => {
+                        if (typeof onClick === 'function') {
+                            onClick(event)
+                        }
+
+                        if (typeof child.props.onClick === 'function') {
+                            child.props.onClick(event)
+                        }
+                    },
+                    ref: this._updateWrapperRef
+                })
+            } else {
+                return (
+                    <span
+                        onMouseEnter={onMouseEnter}
+                        onMouseLeave={onMouseLeave}
+                        onClick={onClick}
+                        ref={this._updateWrapperRef}
+                    >
+                        {child}
+                    </span>
+                )
+            }
+        })
 
         return (
-            <span
-                className={wrapperClass}
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
-                onClick={onClick}
-                ref={this._updateWrapperRef}
-            >
-                {trigger}
-                <span className={popoverClass} ref={this._updatePopoverRef}>
-                    {this.props.visible ? (
-                        <span className={popoverContentClass}>
-                            {typeof content === 'function'
-                                ? content()
-                                : content}
-                        </span>
-                    ) : null}
-                </span>
-            </span>
+            <React.Fragment>
+                {wrappedTrigger}
+                {this.props.visible &&
+                    ReactDOM.createPortal(
+                        <span
+                            className={popoverClass}
+                            ref={this._updatePopoverRef}
+                        >
+                            <span className={popoverContentClass}>
+                                {typeof content === 'function'
+                                    ? content()
+                                    : content}
+                            </span>
+                        </span>,
+                        document.body
+                    )}
+            </React.Fragment>
         )
     }
 }
@@ -263,8 +291,6 @@ Popover.propTypes = {
     onMouseEnter: PropTypes.func,
     /** Function to be called when the mouse leaves the trigger. */
     onMouseLeave: PropTypes.func,
-    /** Additional css class that is applied to the wrapper element. */
-    wrapperClassName: PropTypes.string,
     /** Additional css class that is applied to the popover element. */
     popoverClassName: PropTypes.string,
     /** Additional css class that is applied to style the arrow. Not applied when `withArrow` is false. */

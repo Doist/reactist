@@ -14,11 +14,37 @@ exports[`Popover adds arrow class when prop is set 1`] = `
   withArrow={true}
 >
   <span
-    className="reactist popover__wrapper"
+    key=".0"
+    onClick={[Function]}
   >
-    <span>
-      Trigger Content
-    </span>
+    Trigger Content
+  </span>
+  <Portal
+    containerInfo={
+      <body>
+        <span
+          class="reactist popover visible"
+          style="top: -5px; left: 0px;"
+        >
+          <span
+            class="reactist popover__content"
+          >
+            Popover Content
+          </span>
+        </span>
+        <span
+          class="reactist popover visible arrow_bottom"
+          style="top: -5px; left: 0px;"
+        >
+          <span
+            class="reactist popover__content"
+          >
+            Popover Content
+          </span>
+        </span>
+      </body>
+    }
+  >
     <span
       className="reactist popover visible arrow_bottom"
     >
@@ -28,7 +54,7 @@ exports[`Popover adds arrow class when prop is set 1`] = `
         Popover Content
       </span>
     </span>
-  </span>
+  </Portal>
 </Popover>
 `;
 
@@ -45,11 +71,27 @@ exports[`Popover renders without crashing 1`] = `
   visible={true}
 >
   <span
-    className="reactist popover__wrapper"
+    key=".0"
+    onClick={[Function]}
   >
-    <span>
-      Trigger Content
-    </span>
+    Trigger Content
+  </span>
+  <Portal
+    containerInfo={
+      <body>
+        <span
+          class="reactist popover visible"
+          style="top: -5px; left: 0px;"
+        >
+          <span
+            class="reactist popover__content"
+          >
+            Popover Content
+          </span>
+        </span>
+      </body>
+    }
+  >
     <span
       className="reactist popover visible"
     >
@@ -59,6 +101,6 @@ exports[`Popover renders without crashing 1`] = `
         Popover Content
       </span>
     </span>
-  </span>
+  </Portal>
 </Popover>
 `;

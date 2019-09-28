@@ -78,7 +78,6 @@ class Tooltip extends React.Component {
         const {
             position,
             allowVaguePositioning,
-            wrapperClassName,
             tooltipClassName,
             text,
             children,
@@ -87,10 +86,6 @@ class Tooltip extends React.Component {
             withArrow
         } = this.props
 
-        const wrapperClass = classNames(
-            'reactist tooltip__wrapper',
-            wrapperClassName
-        )
         const tooltipClass = classNames(
             'reactist tooltip__text',
             tooltipClassName,
@@ -101,7 +96,7 @@ class Tooltip extends React.Component {
         const arrowClass = classNames('reactist tooltip__arrow', { inverted })
 
         if (!text) {
-            return <div className={wrapperClass}>{children}</div>
+            return children
         }
 
         // wrap on click of trigger to hide tooltip on click
@@ -131,7 +126,6 @@ class Tooltip extends React.Component {
                 trigger={trigger}
                 content={text}
                 popoverClassName={tooltipClass}
-                wrapperClassName={wrapperClass}
                 arrowClassName={arrowClass}
                 onMouseEnter={this._show}
                 onMouseLeave={this._hide}
@@ -196,8 +190,6 @@ Tooltip.propTypes = {
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
     ]),
-    /** Additional css class that is applied to the wrapper element. */
-    wrapperClassName: PropTypes.string,
     /** Additional css class that is applied to the tooltip element. */
     tooltipClassName: PropTypes.string,
     /** Inverted tooltips have a light background with dark text. */
