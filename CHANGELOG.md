@@ -4,6 +4,10 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 ## 1.22.04
 
+-   [New] Added a `refresh` prop to `<Time />` component in order to keep the information shown up-to-date when the component displays "time ago". By default, the component will re-render every 60 seconds.
+
+## 1.22.04
+
 -   [Tweak] Fixed unsupported `display: initial` in IE11
 
 ## 1.22.04
