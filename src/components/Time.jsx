@@ -7,15 +7,37 @@ import Tooltip from './Tooltip'
 
 import TimeUtils from './utils/TimeUtils'
 
+const DELAY = 60000
+
 class Time extends React.Component {
     constructor(props, context) {
         super(props, context)
+
+        this.refresh_timeout = null
 
         this.state = {
             hovered: false,
             mouseX: null,
             mouseY: null
         }
+    }
+
+    componentDidMount() {
+        if (this.props.refresh) {
+            this._refresh()
+        }
+    }
+
+    componentDidUpdate() {
+        clearTimeout(this.refresh_timeout)
+
+        if (this.props.refresh) {
+            this._refresh()
+        }
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.refresh_timeout)
     }
 
     _setHovered(hovered, event) {
@@ -41,6 +63,12 @@ class Time extends React.Component {
             }
         }
         return TimeUtils.timeAgo(this.props.time, config)
+    }
+
+    _refresh() {
+        this.refresh_timeout = setTimeout(() => {
+            this.setState(() => this.state)
+        }, DELAY)
     }
 
     render() {
@@ -89,6 +117,8 @@ Time.propTypes = {
     expandFullyOnHover: PropTypes.bool,
     /** When hovering over time it shows a tooltip with the full absolute version. */
     tooltipOnHover: PropTypes.bool,
+    /** Refresh the component every DELAY seconds. */
+    refresh: PropTypes.bool,
     /** If you don't want to use the default time format on the tooltip use this prop to supply a custom text */
     tooltip: PropTypes.string,
     /** Configuration for localization. */
@@ -107,6 +137,7 @@ Time.defaultProps = {
     expandOnHover: false,
     expandFullyOnHover: false,
     tooltipOnHover: false,
+    refresh: true,
     config: {
         locale: 'en',
         yesterday: 'yesterday',
