@@ -156,6 +156,7 @@ const TimePlaygroundStory = () => (
             time={number('time:', exampleTimes[0].time)}
             expandOnHover={boolean('expand on hover:', false)}
             expandFullyOnHover={boolean('expand fully on hover:', false)}
+            refresh={boolean('Refresh:', true)}
         />
     </section>
 )
