@@ -13,7 +13,7 @@ class Time extends React.Component {
     constructor(props, context) {
         super(props, context)
 
-        this.refresh_timeout = null
+        this.refresh_interval = null
 
         this.state = {
             hovered: false,
@@ -28,16 +28,18 @@ class Time extends React.Component {
         }
     }
 
-    componentDidUpdate() {
-        clearTimeout(this.refresh_timeout)
-
-        if (this.props.refresh) {
+    componentDidUpdate(prevProps) {
+        if (!prevProps.refresh && this.props.refresh) {
             this._refresh()
+        }
+
+        if (prevProps.refresh && !this.props.refresh) {
+            clearTimeout(this.refresh_interval)
         }
     }
 
     componentWillUnmount() {
-        clearTimeout(this.refresh_timeout)
+        clearTimeout(this.refresh_interval)
     }
 
     _setHovered(hovered, event) {
@@ -66,7 +68,7 @@ class Time extends React.Component {
     }
 
     _refresh() {
-        this.refresh_timeout = setTimeout(() => {
+        this.refresh_interval = setInterval(() => {
             this.setState(() => this.state)
         }, DELAY)
     }
