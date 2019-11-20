@@ -69,7 +69,7 @@ class Time extends React.Component {
 
     _refresh() {
         this.refresh_interval = setInterval(() => {
-            this.setState(() => this.state)
+            this.forceUpdate()
         }, DELAY)
     }
 
