@@ -1,5 +1,5 @@
 .cache
-dist
-coverage
-docs/static
-lib
+dist/**
+coverage/**
+docs/**
+lib/**
