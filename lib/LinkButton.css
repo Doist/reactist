@@ -1,0 +1,19 @@
+.reactist.link_button {
+  text-decoration: none;
+}
+.reactist.link_button:active {
+  color: #3f82ef;
+}
+.reactist.link_button:visited {
+  color: #3f82ef;
+}
+.reactist.link_button.disabled {
+  cursor: not-allowed;
+  color: #808080;
+}
+.reactist.link_button:not(.disabled):hover {
+  text-decoration: underline;
+}
+
+
+/*# sourceMappingURL=LinkButton.map*/

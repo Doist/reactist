@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const getComponentsMap = require('./scripts/buildHelpers').getComponentsMap
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const BASE_CONFIG = {
     entry: './src/index.js',
@@ -32,14 +33,10 @@ const BASE_CONFIG = {
             {
                 test: /\.less$/,
                 use: [
-                    { loader: 'style-loader' },
+                    { loader: MiniCssExtractPlugin.loader },
                     { loader: 'css-loader' },
                     { loader: 'less-loader' }
                 ]
-            },
-            {
-                test: /\.css$/,
-                use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
             },
             {
                 test: /\.svg$/,
@@ -69,7 +66,8 @@ const BASE_CONFIG = {
             'process.env': {
                 NODE_ENV: JSON.stringify('production')
             }
-        })
+        }),
+        new MiniCssExtractPlugin({ filename: 'reactist.css' })
     ]
 }
 
@@ -86,7 +84,15 @@ const modulesConfig = createConfig({
         path: path.resolve(__dirname, 'lib'),
         filename: '[name].js',
         sourceMapFilename: '[name].map'
-    }
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }
+        }),
+        new MiniCssExtractPlugin()
+    ]
 })
 
 module.exports = [mainConfig, modulesConfig]
