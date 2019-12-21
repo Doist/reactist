@@ -115,7 +115,7 @@ describe('Popover', () => {
             const updatePositionSpy = jest.fn()
             const popover = mount(
                 getPopover({
-                    positon: 'top',
+                    position: 'top',
                     allowVaguePosition: false,
                     withArrow: false,
                     gapSize: 10,

@@ -9,7 +9,7 @@ const howToText = `
     \`\`\`
     If you prefer to include static files grab the [minified build from the dist folder](https://github.com/Doist/reactist/tree/develop/dist).
 
-    A detailled explanation and examples on how to use each component can be accessed by clicking on the component name on the left.
+    A detailed explanation and examples on how to use each component can be accessed by clicking on the component name on the left.
 `
 
 const developmentText = `
@@ -91,7 +91,7 @@ const testingText = `
     npm run test
     \`\`\`
 
-    During development you may find it beneficial to continously execute the tests. This works by running:
+    During development you may find it beneficial to continuously execute the tests. This works by running:
     \`\`\`sh
     npm run test-watch
     \`\`\`
