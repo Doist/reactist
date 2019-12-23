@@ -38,7 +38,7 @@ Tip.propTypes = {
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
     ]).isRequired,
-    /** Addtional css class that is applied to the Tip. */
+    /** Additional css class that is applied to the Tip. */
     className: PropTypes.string
 }
 
