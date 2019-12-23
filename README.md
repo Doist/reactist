@@ -25,11 +25,16 @@ import loading from "@doist/reactist/lib/loading"
 
 You also need to load the CSS file of the component somewhere in your app. For instance:
 
-```
+```html
 <link rel="stylesheet" type="text/css" href="./node_modules/@doist/reactist/lib/Loading.css">
 ```
 
 If you prefer to include static files grab the [minified build from the dist folder](https://github.com/Doist/reactist/tree/develop/dist).
+
+```html
+<script src="./node_modules/@doist/reactist/dist/reactist.js"></script>
+<link rel="stylesheet" type="text/css" href="./node_modules/@doist/reactist/dist/reactist.css">
+```
 
 
 # Changelog

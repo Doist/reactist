@@ -2,11 +2,16 @@ const path = require('path')
 const webpack = require('webpack')
 const getComponentsMap = require('./scripts/buildHelpers').getComponentsMap
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const TerserJSPlugin = require('terser-webpack-plugin')
 
 const BASE_CONFIG = {
     entry: './src/index.js',
     devtool: 'source-map',
     mode: 'production',
+    optimization: {
+        minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'reactist.js',
@@ -79,11 +84,14 @@ const createConfig = overriddenAttributes => ({
 const mainConfig = createConfig()
 const modulesConfig = createConfig({
     entry: getComponentsMap(path.resolve(__dirname, './src/components')),
+    devtool: false,
+    optimization: {
+        minimize: false
+    },
     output: {
         ...BASE_CONFIG.output,
         path: path.resolve(__dirname, 'lib'),
-        filename: '[name].js',
-        sourceMapFilename: '[name].map'
+        filename: '[name].js'
     },
     plugins: [
         new webpack.DefinePlugin({
