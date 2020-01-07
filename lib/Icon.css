@@ -1,0 +1,185 @@
+.reactist.icon {
+  flex: 0 0 auto;
+  display: block;
+  width: 40px;
+  height: 40px;
+  background-size: 25px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.reactist.icon.disabled {
+  opacity: 0.4;
+}
+.reactist.icon--component {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reactist.tooltip__wrapper {
+  display: inline-block;
+  max-width: 100%;
+  cursor: unset;
+}
+.reactist.tooltip__wrapper .reactist.tooltip__text {
+  font-size: 0.81rem;
+  color: #202020;
+  font-weight: 400;
+  line-height: 1.6;
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100%;
+  padding: 5px 10px;
+  max-width: 250px;
+}
+.reactist.tooltip__wrapper .reactist.tooltip__text:not(.inverted) {
+  background-color: #333333;
+  color: white;
+  border: none;
+}
+.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_top:before {
+  border-bottom-color: #333333;
+}
+.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_top:after {
+  display: none;
+}
+.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_right:before {
+  border-left-color: #333333;
+}
+.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_right:after {
+  display: none;
+}
+.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_bottom:before {
+  border-top-color: #333333;
+}
+.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_bottom:after {
+  display: none;
+}
+.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_left:before {
+  border-right-color: #333333;
+}
+.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_left:after {
+  display: none;
+}
+
+.reactist.popover {
+  white-space: normal;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.1s linear;
+}
+.reactist.popover__wrapper {
+  display: inline-block;
+  max-width: 100%;
+  cursor: unset;
+}
+.reactist.popover .popover__content {
+  max-width: 100%;
+  display: inline-flex;
+  border-radius: 3px;
+  color: #202020;
+  background-color: white;
+  border: 1px solid #dcdcdc;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
+}
+.reactist.popover.visible {
+  display: inline-block;
+  display: initial;
+  visibility: visible;
+  opacity: 1;
+}
+.reactist.popover.arrow_top:before {
+  position: absolute;
+  content: '';
+  height: 0;
+  width: 0;
+  top: -5px;
+  left: calc(50% - 5px);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #dcdcdc;
+}
+.reactist.popover.arrow_top:after {
+  position: absolute;
+  content: '';
+  height: 0;
+  width: 0;
+  top: -4px;
+  left: calc(50% - 5px);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid white;
+}
+.reactist.popover.arrow_right:before {
+  position: absolute;
+  content: '';
+  height: 0;
+  width: 0;
+  bottom: calc(50% - 5px);
+  right: -5px;
+  border-left: 5px solid #dcdcdc;
+  border-bottom: 5px solid transparent;
+  border-top: 5px solid transparent;
+}
+.reactist.popover.arrow_right:after {
+  position: absolute;
+  content: '';
+  height: 0;
+  width: 0;
+  bottom: calc(50% - 5px);
+  right: -4px;
+  border-left: 5px solid white;
+  border-bottom: 5px solid transparent;
+  border-top: 5px solid transparent;
+}
+.reactist.popover.arrow_bottom:before {
+  position: absolute;
+  content: '';
+  height: 0;
+  width: 0;
+  bottom: -5px;
+  left: calc(50% - 5px);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #dcdcdc;
+}
+.reactist.popover.arrow_bottom:after {
+  position: absolute;
+  content: '';
+  height: 0;
+  width: 0;
+  bottom: -4px;
+  left: calc(50% - 5px);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid white;
+}
+.reactist.popover.arrow_left:before {
+  position: absolute;
+  content: '';
+  height: 0;
+  width: 0;
+  bottom: calc(50% - 5px);
+  left: -5px;
+  border-right: 5px solid #dcdcdc;
+  border-bottom: 5px solid transparent;
+  border-top: 5px solid transparent;
+}
+.reactist.popover.arrow_left:after {
+  position: absolute;
+  content: '';
+  height: 0;
+  width: 0;
+  bottom: calc(50% - 5px);
+  left: -4px;
+  border-right: 5px solid white;
+  border-bottom: 5px solid transparent;
+  border-top: 5px solid transparent;
+}
+

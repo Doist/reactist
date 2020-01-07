@@ -1,6 +1,6 @@
 {
     "name": "@doist/reactist",
-    "version": "1.22.06",
+    "version": "2.0.0",
     "description": "Open source React components by Doist",
     "main": "./dist/reactist.js",
     "scripts": {
@@ -56,7 +56,9 @@
         "less": "^3.8.1",
         "less-loader": "^4.1.0",
         "lint-staged": "^8.1.5",
+        "mini-css-extract-plugin": "^0.8.2",
         "mockdate": "^2.0.2",
+        "optimize-css-assets-webpack-plugin": "^5.0.3",
         "path": "^0.12.7",
         "prettier": "1.14.2",
         "raw-loader": "^0.5.1",
@@ -67,6 +69,7 @@
         "react-test-renderer": "^16.5.0",
         "style-loader": "^0.23.0",
         "svg-url-loader": "^2.3.2",
+        "terser-webpack-plugin": "^2.3.1",
         "webpack": "^4.18.0",
         "webpack-bundle-analyzer": "^3.3.2",
         "webpack-cli": "^3.1.0"
