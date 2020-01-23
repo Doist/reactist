@@ -129,7 +129,7 @@ Time.propTypes = {
         shortFormatCurrentYear: PropTypes.string,
         shortFormatPastYear: PropTypes.string,
         fullFormat: PropTypes.string,
-        yesterday: PropTypes.string,
+        daysSuffix: PropTypes.string,
         hoursSuffix: PropTypes.string,
         minutesSuffix: PropTypes.string,
         momentsAgo: PropTypes.string
@@ -142,7 +142,7 @@ Time.defaultProps = {
     refresh: true,
     config: {
         locale: 'en',
-        yesterday: 'yesterday',
+        daysSuffix: 'd',
         hoursSuffix: 'h',
         minutesSuffix: 'm',
         momentsAgo: 'moments ago'

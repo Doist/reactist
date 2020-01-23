@@ -47,6 +47,13 @@ describe('Time Utils', () => {
         expect(TimeUtils.timeAgo(testDate)).toBe('10h')
     })
 
+    it('timeAgo == 1d returns `1d`', () => {
+        const testDate = dayjs()
+            .subtract(1, 'days')
+            .unix()
+        expect(TimeUtils.timeAgo(testDate)).toBe('1d')
+    })
+
     it('timeAgo < 7d returns MM/DD/YYYY', () => {
         const testDate = dayjs()
             .subtract(2, 'days')

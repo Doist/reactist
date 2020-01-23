@@ -13,7 +13,7 @@ const TimeUtils = {
             locale = 'en',
             shortFormatCurrentYear = this.SHORT_FORMAT_CURRENT_YEAR,
             shortFormatPastYear = this.SHORT_FORMAT_PAST_YEAR,
-            yesterday = 'yesterday',
+            daysSuffix = 'd',
             hoursSuffix = 'h',
             minutesSuffix = 'm',
             momentsAgo = 'moments ago'
@@ -32,7 +32,7 @@ const TimeUtils = {
                 return date.format(shortFormatPastYear)
             }
         } else if (diffDays === 1) {
-            return yesterday
+            return `${diffDays}${daysSuffix}`
         } else if (diffHours > 0 && diffHours <= 23) {
             return `${diffHours}${hoursSuffix}`
         } else if (diffMinutes > 0 && diffMinutes <= 59) {
