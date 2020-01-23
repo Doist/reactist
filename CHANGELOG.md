@@ -2,9 +2,13 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 2.0.1
+
+-   _Empty release_
+
 ## 2.0.0
 
-- [Breaking] Styles are no longer included automatically but need to be loaded manually. See the readme for a detailed instruction on how to achieve that.
+-   [Breaking] Styles are no longer included automatically but need to be loaded manually. See the readme for a detailed instruction on how to achieve that.
 
 ## 1.22.06
 
