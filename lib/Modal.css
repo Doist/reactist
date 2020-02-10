@@ -120,12 +120,12 @@
 .reactist_modal_box__body .dialog {
   overflow: auto;
 }
-.reactist_modal_box__body .dialog .icon {
+.reactist_modal_box__body .dialog .reactist_icon {
   width: 42px;
   float: left;
   margin-right: 20px;
 }
-.reactist_modal_box__body .dialog .icon > * {
+.reactist_modal_box__body .dialog .reactist_icon > * {
   max-height: 42px;
   max-width: 100%;
 }

@@ -31,7 +31,7 @@ class Button extends React.Component {
 
         delete extraProps.onClick
         const buttonClass = classNames(
-            'reactist button',
+            'reactist_button',
             {
                 secondary,
                 small,

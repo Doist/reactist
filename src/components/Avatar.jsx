@@ -38,7 +38,7 @@ const Avatar = ({
     const userInitials = getInitials(user.name) || getInitials(user.email)
     const avatarSize = AVATAR_SIZES.includes(size) ? size : 'l'
     const avatarClass = classNames(
-        `reactist avatar avatar_size--${avatarSize}`,
+        `reactist_avatar reactist_avatar_size--${avatarSize}`,
         className
     )
 

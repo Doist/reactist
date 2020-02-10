@@ -8,16 +8,16 @@ import ThinQuestionMark from './icons/ThinQuestionMarkIcon.svg'
 import Dropdown from './Dropdown'
 
 const Tip = ({ title, message, top, className }) => {
-    const tipClass = classNames('reactist tip__container', className)
+    const tipClass = classNames('reactist_tip__container', className)
     return (
         <Dropdown.Box top={top} className={tipClass}>
             <Dropdown.Trigger>
                 <ThinQuestionMark />
             </Dropdown.Trigger>
             <Dropdown.Body>
-                <div className="reactist tip">
-                    <p className="reactist tip--title">{title}</p>
-                    <p className="reactist tip--message">{message}</p>
+                <div className="reactist_tip">
+                    <p className="reactist_tip--title">{title}</p>
+                    <p className="reactist_tip--message">{message}</p>
                 </div>
             </Dropdown.Body>
         </Dropdown.Box>

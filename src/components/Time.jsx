@@ -74,7 +74,7 @@ class Time extends React.Component {
     }
 
     render() {
-        let className = 'reactist time'
+        let className = 'reactist_time'
         if (this.props.className) {
             className = this.props.className
         }

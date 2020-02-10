@@ -2,7 +2,7 @@
 
 exports[`Tip renders without crashing 1`] = `
 <Dropdown.Box
-  className="reactist tip__container"
+  className="reactist_tip__container"
   top={false}
 >
   <Dropdown.Trigger>
@@ -10,15 +10,15 @@ exports[`Tip renders without crashing 1`] = `
   </Dropdown.Trigger>
   <Dropdown.Body>
     <div
-      className="reactist tip"
+      className="reactist_tip"
     >
       <p
-        className="reactist tip--title"
+        className="reactist_tip--title"
       >
         Title of the Tip
       </p>
       <p
-        className="reactist tip--message"
+        className="reactist_tip--message"
       >
         Message of the Tip
       </p>

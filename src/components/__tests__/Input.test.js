@@ -21,8 +21,7 @@ describe('Input', () => {
         const input = shallow(
             <Input className="very-complex classnames-are-added" />
         )
-        expect(input.hasClass('input')).toBe(true)
-        expect(input.hasClass('reactist')).toBe(true)
+        expect(input.hasClass('reactist_input')).toBe(true)
         expect(input.hasClass('very-complex')).toBe(true)
         expect(input.hasClass('classnames-are-added')).toBe(true)
     })

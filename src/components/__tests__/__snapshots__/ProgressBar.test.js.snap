@@ -2,7 +2,7 @@
 
 exports[`ProgressBar renders without crashing 1`] = `
 <div
-  className="reactist progress_bar"
+  className="reactist_progress_bar"
 >
   <div
     className="inner"

@@ -6,12 +6,12 @@ import classNames from 'classnames'
 import Dropdown from './Dropdown'
 
 const MenuButton = ({ className, name, onClick, children }) => {
-    const menuButtonClass = classNames('reactist menu_button', className)
+    const menuButtonClass = classNames('reactist_menu_button', className)
 
     if (!children || children.length === 0) {
         return (
             <div className={menuButtonClass} onClick={onClick}>
-                <span className="reactist menu_button_trigger">{name}</span>
+                <span className="reactist_menu_button_trigger">{name}</span>
             </div>
         )
     }
@@ -19,10 +19,10 @@ const MenuButton = ({ className, name, onClick, children }) => {
     return (
         <Dropdown.Box className={menuButtonClass}>
             <Dropdown.Trigger>
-                <span className="reactist menu_button_trigger">{name}</span>
+                <span className="reactist_menu_button_trigger">{name}</span>
             </Dropdown.Trigger>
             <Dropdown.Body>
-                <div className="reactist menu_button_items">{children}</div>
+                <div className="reactist_menu_button_items">{children}</div>
             </Dropdown.Body>
         </Dropdown.Box>
     )
@@ -45,7 +45,7 @@ MenuButton.propTypes = {
 
 const MenuButtonItem = ({ className, onClick, children }) => {
     const menuButtonItemClass = classNames(
-        'reactist menu_button_item',
+        'reactist_menu_button_item',
         className
     )
     return (

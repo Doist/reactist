@@ -68,7 +68,7 @@ exports[`Modal.Body renders an icon when supplied via props 1`] = `
     className="dialog"
   >
     <div
-      className="icon"
+      className="reactist_icon"
     >
       <img
         src="awesome/image.png"

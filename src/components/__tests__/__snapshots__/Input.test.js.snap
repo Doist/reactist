@@ -2,6 +2,6 @@
 
 exports[`Input renders without crashing 1`] = `
 <input
-  className="reactist input"
+  className="reactist_input"
 />
 `;

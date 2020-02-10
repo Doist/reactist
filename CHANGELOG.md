@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 2.0.3
+
+- [Tweak] Changed namespacing from `.reactist.popover {}` to `.reactist_popover {}`.
+
 ## 2.0.2
 
 - [Tweak] Changed time formatting from `yesterday` to `1d`

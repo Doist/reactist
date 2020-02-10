@@ -145,7 +145,7 @@ class Popover extends React.Component {
 
     _getClassNameForPosition = position => {
         const { visible, withArrow, arrowClassName } = this.props
-        const className = classNames('reactist popover', { visible })
+        const className = classNames('reactist_popover', { visible })
 
         if (visible && withArrow) {
             return classNames(className, arrowClassName, {
@@ -185,11 +185,11 @@ class Popover extends React.Component {
         } = this.props
         const popoverClass = this._getClassNameForPosition(position)
         const popoverContentClass = classNames(
-            'reactist popover__content',
+            'reactist_popover__content',
             popoverClassName
         )
         const wrapperClass = classNames(
-            'reactist popover__wrapper',
+            'reactist_popover__wrapper',
             wrapperClassName
         )
 

@@ -32,9 +32,9 @@ class Icon extends React.Component {
     render() {
         const { image, hoveredImage, icon, tooltip, disabled } = this.props
         const className = classNames(
-            'reactist icon',
+            'reactist_icon',
             {
-                'icon--component': !image,
+                'reactist_icon--component': !image,
                 disabled
             },
             this.props.className

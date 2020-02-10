@@ -43,7 +43,7 @@ class Tabs extends React.Component {
         return tabs.map((t, i) => {
             const { title, disabled } = t.props
             const value = t.props.value || i
-            const className = classNames('reactist tabs__header--item', {
+            const className = classNames('reactist_tabs__header--item', {
                 disabled,
                 active: i === this.state.activeTabIndex
             })
@@ -73,17 +73,16 @@ class Tabs extends React.Component {
             children[this.state.activeTabIndex] || children[0] || null
 
         const cls = classNames(
-            'reactist',
-            'tabs',
+            'reactist_tabs',
             this.props.spreadLayout ? 'tabs--spreadlayout' : null
         )
 
         return (
             <div className={cls}>
-                <div className="reactist tabs__header">
+                <div className="reactist_tabs__header">
                     {this._renderTabLinks(children)}
                 </div>
-                <div className="reactist tabs__body">{activeTab}</div>
+                <div className="reactist_tabs__body">{activeTab}</div>
             </div>
         )
     }
@@ -105,7 +104,7 @@ Tabs.defaultProps = {
 }
 
 const Tab = ({ children, className }) => (
-    <div className={classNames('reactist tabs__tab', className)}>
+    <div className={classNames('reactist_tabs__tab', className)}>
         {children}
     </div>
 )

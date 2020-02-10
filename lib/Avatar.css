@@ -1,60 +1,60 @@
-.reactist.avatar {
+.reactist_avatar {
   flex-shrink: 0;
   background-position: center;
   color: white;
   text-align: center;
   border-radius: 50%;
 }
-.reactist.avatar_size--xxs {
+.reactist_avatar_size--xxs {
   width: 16px;
   height: 16px;
   line-height: 16px;
   background-size: 16px;
   font-size: calc(16px / 2);
 }
-.reactist.avatar_size--xs {
+.reactist_avatar_size--xs {
   width: 20px;
   height: 20px;
   line-height: 20px;
   background-size: 20px;
   font-size: calc(20px / 2);
 }
-.reactist.avatar_size--s {
+.reactist_avatar_size--s {
   width: 30px;
   height: 30px;
   line-height: 30px;
   background-size: 30px;
   font-size: calc(30px / 2);
 }
-.reactist.avatar_size--m {
+.reactist_avatar_size--m {
   width: 32px;
   height: 32px;
   line-height: 32px;
   background-size: 32px;
   font-size: calc(32px / 2);
 }
-.reactist.avatar_size--l {
+.reactist_avatar_size--l {
   width: 34px;
   height: 34px;
   line-height: 34px;
   background-size: 34px;
   font-size: calc(34px / 2);
 }
-.reactist.avatar_size--xl {
+.reactist_avatar_size--xl {
   width: 48px;
   height: 48px;
   line-height: 48px;
   background-size: 48px;
   font-size: calc(48px / 2);
 }
-.reactist.avatar_size--xxl {
+.reactist_avatar_size--xxl {
   width: 70px;
   height: 70px;
   line-height: 70px;
   background-size: 70px;
   font-size: calc(70px / 2);
 }
-.reactist.avatar_size--xxxl {
+.reactist_avatar_size--xxxl {
   width: 100px;
   height: 100px;
   line-height: 100px;

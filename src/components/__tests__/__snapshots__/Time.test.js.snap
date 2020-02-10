@@ -12,7 +12,7 @@ exports[`Time adds additional class name if supplied 1`] = `
 
 exports[`Time renders with custom tooltip when supplied 1`] = `
 <time
-  className="reactist time"
+  className="reactist_time"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >
@@ -34,7 +34,7 @@ exports[`Time renders with custom tooltip when supplied 1`] = `
 
 exports[`Time renders without crashing 1`] = `
 <time
-  className="reactist time"
+  className="reactist_time"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >
@@ -44,7 +44,7 @@ exports[`Time renders without crashing 1`] = `
 
 exports[`Time renders wrapped in tooltip when tooltipOnHover is set 1`] = `
 <time
-  className="reactist time"
+  className="reactist_time"
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >

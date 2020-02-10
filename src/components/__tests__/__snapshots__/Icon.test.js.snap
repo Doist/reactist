@@ -2,7 +2,7 @@
 
 exports[`Icon renders darker default icon (three dots) when neither image nor component is supplied and is hovered 1`] = `
 <a
-  className="reactist icon icon--component"
+  className="reactist_icon reactist_icon--component"
   href="#"
   onClick={[Function]}
   onMouseEnter={[Function]}
@@ -16,7 +16,7 @@ exports[`Icon renders darker default icon (three dots) when neither image nor co
 
 exports[`Icon renders default icon (three dots) when neither image nor component is supplied 1`] = `
 <a
-  className="reactist icon icon--component"
+  className="reactist_icon reactist_icon--component"
   href="#"
   onClick={[Function]}
   onMouseEnter={[Function]}
@@ -28,7 +28,7 @@ exports[`Icon renders default icon (three dots) when neither image nor component
 
 exports[`Icon renders icon component when supplied and no image is supplied 1`] = `
 <a
-  className="reactist icon icon--component"
+  className="reactist_icon reactist_icon--component"
   href="#"
   onClick={[Function]}
   onMouseEnter={[Function]}
@@ -51,7 +51,7 @@ exports[`Icon wraps icon in a tooltip when tooltip is supplied 1`] = `
   withArrow={true}
 >
   <a
-    className="reactist icon icon--component"
+    className="reactist_icon reactist_icon--component"
     href="#"
     onClick={[Function]}
     onMouseEnter={[Function]}

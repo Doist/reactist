@@ -2,7 +2,7 @@
 
 exports[`LinkButton appends additionally supplied classnames 1`] = `
 <a
-  className="reactist link_button extra-brand-style"
+  className="reactist_link_button extra-brand-style"
   href=""
   onClick={[Function]}
 >
@@ -12,7 +12,7 @@ exports[`LinkButton appends additionally supplied classnames 1`] = `
 
 exports[`LinkButton renders without crashing 1`] = `
 <a
-  className="reactist link_button"
+  className="reactist_link_button"
   href=""
   onClick={[Function]}
 >

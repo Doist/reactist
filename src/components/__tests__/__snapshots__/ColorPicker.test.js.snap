@@ -18,7 +18,7 @@ exports[`ColorPicker ColorItem renders given color and does nothing when clicked
 
 exports[`ColorPicker renders with custom colorList 1`] = `
 <Dropdown.Box
-  className="reactist color_picker"
+  className="reactist_color_picker"
   right={true}
 >
   <Dropdown.Trigger>
@@ -67,7 +67,7 @@ exports[`ColorPicker renders with custom colorList 1`] = `
 
 exports[`ColorPicker renders without crashing 1`] = `
 <Dropdown.Box
-  className="reactist color_picker"
+  className="reactist_color_picker"
   right={true}
 >
   <Dropdown.Trigger>
