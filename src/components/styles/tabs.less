@@ -32,27 +32,27 @@
             }
         }
     }
-}
 
-.reactist_tabs--spreadlayout {
-    .reactist_tabs__header {
-        display: flex;
-        border-bottom: 0;
-    }
-
-    .reactist_tabs__header--item {
-        text-align: center;
-        flex: 1;
-        border-bottom: 1px solid @color_border_grey;
-        margin: 0;
-
-        &.active {
-            .normal_text(@color: @primary_color);
-            border-bottom: 3px solid @primary_color;
+    &--spreadlayout {
+        .reactist_tabs__header {
+            display: flex;
+            border-bottom: 0;
         }
 
-        &:hover {
-            text-decoration: none;
+        .reactist_tabs__header--item {
+            text-align: center;
+            flex: 1;
+            border-bottom: 1px solid @color_border_grey;
+            margin: 0;
+
+            &.active {
+                .normal_text(@color: @primary_color);
+                border-bottom: 3px solid @primary_color;
+            }
+
+            &:hover {
+                text-decoration: none;
+            }
         }
     }
 }

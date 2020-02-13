@@ -73,8 +73,7 @@ class Tabs extends React.Component {
             children[this.state.activeTabIndex] || children[0] || null
 
         const cls = classNames(
-            'reactist_tabs',
-            this.props.spreadLayout ? 'tabs--spreadlayout' : null
+            `reactist_tabs${this.props.spreadLayout ? '--spreadlayout' : ''}`
         )
 
         return (
