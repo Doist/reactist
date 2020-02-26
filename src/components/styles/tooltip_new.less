@@ -1,0 +1,48 @@
+@import './constants.less';
+
+@tooltip_background: @color_almost_black;
+
+.tooltip_new__content {
+    .smaller_text();
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background-color: @tooltip_background;
+    color: white;
+}
+
+.popper.tooltip_new {
+    &[data-placement='bottom'] .popper__arrow {
+        border-bottom-color: @tooltip_background;
+
+        &:before {
+            border-bottom-color: @tooltip_background;
+        }
+    }
+
+    &[data-placement='top'] .popper__arrow {
+        border-top-color: @tooltip_background;
+
+        &:before {
+            border-top-color: @tooltip_background;
+        }
+    }
+
+    &[data-placement='left'] .popper__arrow {
+        border-left-color: @tooltip_background;
+
+        &:before {
+            border-left-color: @tooltip_background;
+        }
+    }
+
+    &[data-placement='right'] .popper__arrow {
+        border-right-color: @tooltip_background;
+
+        &:before {
+            border-right-color: @tooltip_background;
+        }
+    }
+}

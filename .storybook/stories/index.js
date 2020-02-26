@@ -12,6 +12,7 @@ import InputStory from './components/InputStory'
 import TabsStory from './components/TabsStory'
 import LinkButtonStory from './components/LinkButtonStory'
 import TooltipStory from './components/TooltipStory'
+import TooltipNewStory from './components/TooltipNewStory'
 import RangeInputStory from './components/RangeInputStory'
 import ErrorMessageStory from './components/ErrorMessageStory'
 import ColorPickerStory from './components/ColorPickerStory'
@@ -21,6 +22,7 @@ import LoadingStory from './components/LoadingStory'
 import AvatarStory from './components/AvatarStory'
 import IconStory from './components/IconStory'
 import KeyCapturerStory from './components/KeyCapturerStory'
+import PopperStory from './components/PopperStory'
 
 ReactistStory()
 // alphabetically sorted component stories
@@ -44,3 +46,5 @@ TabsStory()
 TimeStory()
 TipStory()
 TooltipStory()
+TooltipNewStory()
+PopperStory()

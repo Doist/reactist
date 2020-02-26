@@ -1,0 +1,22 @@
+diff a/src/components/styles/popper.less b/src/components/styles/popper.less	(rejected hunks)
+@@ -12 +12 @@
+-            content: "";
++            content: '';
+@@ -21 +21 @@
+-    &[data-placement="top"] &__arrow {
++    &[data-placement='top'] &__arrow {
+@@ -34 +34 @@
+-    &[data-placement="left"] &__arrow {
++    &[data-placement='left'] &__arrow {
+@@ -48 +48 @@
+-    &[data-placement="right"] &__arrow {
++    &[data-placement='right'] &__arrow {
+@@ -73 +73 @@
+-        &[data-placement="top"] .popper__arrow {
++        &[data-placement='top'] .popper__arrow {
+@@ -81 +81 @@
+-        &[data-placement="left"] .popper__arrow {
++        &[data-placement='left'] .popper__arrow {
+@@ -89 +89 @@
+-        &[data-placement="right"] .popper__arrow {
++        &[data-placement='right'] .popper__arrow {

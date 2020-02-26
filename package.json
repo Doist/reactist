@@ -36,6 +36,7 @@
         "@storybook/addon-links": "^5.2.6",
         "@storybook/addon-options": "^5.2.6",
         "@storybook/react": "^5.2.6",
+        "@testing-library/react": "^9.4.1",
         "babel-core": "^7.0.0-bridge.0",
         "babel-eslint": "^9.0.0",
         "babel-loader": "^8.0.2",
@@ -93,7 +94,9 @@
         },
         "testURL": "http://localhost"
     },
-    "dependencies": {},
+    "dependencies": {
+        "react-popper": "^1.3.7"
+    },
     "husky": {
         "hooks": {
             "pre-commit": "lint-staged",
