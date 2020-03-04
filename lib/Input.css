@@ -1,4 +1,4 @@
-.reactist.input {
+.reactist_input {
   font-size: 0.875rem;
   color: #202020;
   font-weight: 400;
@@ -12,10 +12,10 @@
   padding: 5px 10px;
   margin: 0;
 }
-.reactist.input:focus {
+.reactist_input:focus {
   border-color: #3f82ef;
 }
-.reactist.input:disabled {
+.reactist_input:disabled {
   background-color: #fafafa;
 }
 

@@ -8,7 +8,7 @@ const alternateBrandingText = `
 
     .alternate-branding {
         // alternate button styles
-        & > .button {
+        & > .reactist_button {
             background-color: @primary-color;
 
             &:not(.loading):not(.secondary):not(.white):not([disabled]):hover {

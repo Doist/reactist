@@ -2,7 +2,7 @@
 
 exports[`RangeInput renders without crashing 1`] = `
 <div
-  className="reactist range_input"
+  className="reactist_range_input"
 >
   <span
     className="range_btn minus"

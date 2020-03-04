@@ -2,19 +2,19 @@
 
 exports[`Tabs renders Tab without children 1`] = `
 <div
-  className="reactist tabs__tab"
+  className="reactist_tabs__tab"
 />
 `;
 
 exports[`Tabs renders with single children 1`] = `
 <div
-  className="reactist tabs"
+  className="reactist_tabs"
 >
   <div
-    className="reactist tabs__header"
+    className="reactist_tabs__header"
   >
     <a
-      className="reactist tabs__header--item active"
+      className="reactist_tabs__header--item active"
       href=""
       key="0"
       onClick={[Function]}
@@ -23,7 +23,7 @@ exports[`Tabs renders with single children 1`] = `
     </a>
   </div>
   <div
-    className="reactist tabs__body"
+    className="reactist_tabs__body"
   >
     <Tab
       disabled={false}
@@ -38,13 +38,13 @@ exports[`Tabs renders with single children 1`] = `
 
 exports[`Tabs renders without children 1`] = `
 <div
-  className="reactist tabs"
+  className="reactist_tabs"
 >
   <div
-    className="reactist tabs__header"
+    className="reactist_tabs__header"
   />
   <div
-    className="reactist tabs__body"
+    className="reactist_tabs__body"
   />
 </div>
 `;

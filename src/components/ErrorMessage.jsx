@@ -47,7 +47,7 @@ class ErrorMessage extends React.Component {
         }
 
         return (
-            <div className="error_message">
+            <div className="reactist_error_message">
                 <p>{message}</p>
                 <div onClick={this._hide} className="dismiss_icon" />
             </div>

@@ -1,4 +1,4 @@
-.reactist.select {
+.reactist_select {
   font-size: 0.875rem;
   color: #202020;
   font-weight: 400;
@@ -16,10 +16,10 @@
   background-repeat: no-repeat;
   background-size: 8px 11px;
 }
-.reactist.select.disabled {
+.reactist_select.disabled {
   background-color: #fafafa;
 }
-.reactist.select:focus {
+.reactist_select:focus {
   outline: none;
   border: 1px solid #3f82ef;
 }

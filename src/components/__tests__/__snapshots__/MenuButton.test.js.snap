@@ -2,18 +2,18 @@
 
 exports[`MenuButton with items renders with items 1`] = `
 <Dropdown.Box
-  className="reactist menu_button"
+  className="reactist_menu_button"
 >
   <Dropdown.Trigger>
     <span
-      className="reactist menu_button_trigger"
+      className="reactist_menu_button_trigger"
     >
       Test Menu
     </span>
   </Dropdown.Trigger>
   <Dropdown.Body>
     <div
-      className="reactist menu_button_items"
+      className="reactist_menu_button_items"
     >
       <MenuButtonItem>
         Item 1
@@ -28,10 +28,10 @@ exports[`MenuButton with items renders with items 1`] = `
 
 exports[`MenuButton without items renders without items 1`] = `
 <div
-  className="reactist menu_button"
+  className="reactist_menu_button"
 >
   <span
-    className="reactist menu_button_trigger"
+    className="reactist_menu_button_trigger"
   >
     Test Menu
   </span>

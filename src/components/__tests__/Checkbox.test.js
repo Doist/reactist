@@ -19,7 +19,7 @@ describe('Checkbox', () => {
         const checkbox = shallow(getCheckbox({ onChange: onChangeSpy }))
 
         checkbox
-            .find('.checkbox--input')
+            .find('.reactist_checkbox--input')
             .simulate('change', { target: { checked: true } })
         expect(onChangeSpy).toHaveBeenLastCalledWith(true)
     })
@@ -31,7 +31,7 @@ describe('Checkbox', () => {
         )
 
         checkbox
-            .find('.checkbox--input')
+            .find('.reactist_checkbox--input')
             .simulate('change', { target: { checked: true } })
         expect(onChangeSpy).not.toHaveBeenCalled()
     })

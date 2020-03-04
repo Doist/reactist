@@ -55,7 +55,7 @@ exports[`Dropdown Dropdown.Body renders empty without crashing 1`] = `
 exports[`Dropdown Dropdown.Box renders the Trigger component without crashing 1`] = `
 <Dropdown.Box>
   <div
-    className="reactist dropdown"
+    className="reactist_dropdown"
     style={
       Object {
         "display": "inline-block",

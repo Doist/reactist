@@ -109,7 +109,7 @@ describe('Dropdown', () => {
                 box
                     .find('div')
                     .at(0)
-                    .hasClass('reactist dropdown')
+                    .hasClass('reactist_dropdown')
             ).toEqual(true)
             expect(
                 box
@@ -133,7 +133,7 @@ describe('Dropdown', () => {
                 box
                     .find('div')
                     .at(0)
-                    .hasClass('reactist dropdown')
+                    .hasClass('reactist_dropdown')
             ).toEqual(true)
             expect(
                 box

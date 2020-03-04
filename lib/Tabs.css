@@ -1,8 +1,8 @@
-.reactist.tabs__header {
+.reactist_tabs__header {
   display: flex;
   border-bottom: 1px solid #dcdcdc;
 }
-.reactist.tabs__header--item {
+.reactist_tabs__header--item {
   display: block;
   margin: 0 20px 0 0;
   padding: 10px 0;
@@ -13,13 +13,13 @@
   text-decoration: none;
   box-sizing: border-box;
 }
-.reactist.tabs__header--item.active {
+.reactist_tabs__header--item.active {
   font-size: 0.875rem;
   color: #3f82ef;
   font-weight: 400;
   line-height: 1.7;
 }
-.reactist.tabs__header--item.active:after {
+.reactist_tabs__header--item.active:after {
   display: block;
   content: '';
   background-color: #3f82ef;
@@ -28,27 +28,27 @@
   position: relative;
   top: 10px;
 }
-.reactist.tabs__header--item.disabled:hover {
+.reactist_tabs__header--item.disabled:hover {
   cursor: not-allowed;
 }
-.reactist.tabs--spreadlayout .tabs__header {
+.reactist_tabs--spreadlayout .reactist_tabs__header {
   display: flex;
   border-bottom: 0;
 }
-.reactist.tabs--spreadlayout .tabs__header--item {
+.reactist_tabs--spreadlayout .reactist_tabs__header--item {
   text-align: center;
   flex: 1;
   border-bottom: 1px solid #dcdcdc;
   margin: 0;
 }
-.reactist.tabs--spreadlayout .tabs__header--item.active {
+.reactist_tabs--spreadlayout .reactist_tabs__header--item.active {
   font-size: 0.875rem;
   color: #3f82ef;
   font-weight: 400;
   line-height: 1.7;
   border-bottom: 3px solid #3f82ef;
 }
-.reactist.tabs--spreadlayout .tabs__header--item:hover {
+.reactist_tabs--spreadlayout .reactist_tabs__header--item:hover {
   text-decoration: none;
 }
 

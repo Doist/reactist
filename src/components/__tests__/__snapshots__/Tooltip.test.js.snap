@@ -2,7 +2,7 @@
 
 exports[`Tooltip renders only children if text prop is not defined 1`] = `
 <div
-  className="reactist tooltip__wrapper"
+  className="reactist_tooltip__wrapper"
 >
   <span>
     Wrapped Content
@@ -24,12 +24,12 @@ exports[`Tooltip renders without crashing 1`] = `
 >
   <Popover
     allowVaguePositioning={false}
-    arrowClassName="reactist tooltip__arrow"
+    arrowClassName="reactist_tooltip__arrow"
     content="tip"
     gapSize={5}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
-    popoverClassName="reactist tooltip__text"
+    popoverClassName="reactist_tooltip__text"
     popoverRef={[Function]}
     position="auto"
     trigger={
@@ -43,11 +43,11 @@ exports[`Tooltip renders without crashing 1`] = `
     }
     visible={false}
     withArrow={true}
-    wrapperClassName="reactist tooltip__wrapper"
+    wrapperClassName="reactist_tooltip__wrapper"
     wrapperRef={[Function]}
   >
     <span
-      className="reactist popover__wrapper reactist tooltip__wrapper"
+      className="reactist_popover__wrapper reactist_tooltip__wrapper"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
@@ -58,7 +58,7 @@ exports[`Tooltip renders without crashing 1`] = `
         Wrapped Content
       </span>
       <span
-        className="reactist popover"
+        className="reactist_popover"
       />
     </span>
   </Popover>

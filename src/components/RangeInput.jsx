@@ -20,7 +20,7 @@ const RangeInput = ({
     if (typeof onMinus !== 'function') {
         onMinus = onChange
     }
-    const rangeInputClassName = classNames('reactist range_input', className)
+    const rangeInputClassName = classNames('reactist_range_input', className)
     return (
         <div className={rangeInputClassName}>
             <span

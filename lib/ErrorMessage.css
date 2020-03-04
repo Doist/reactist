@@ -1,17 +1,17 @@
-.error_message {
+.reactist_error_message {
   padding: 10px 10px 0 10px;
   margin-bottom: 10px;
   background-color: #f8d9d8;
   border: 1px solid #de4c4a;
 }
-.error_message p {
+.reactist_error_message p {
   font-size: 0.875rem;
   color: #de4c4a;
   font-weight: 400;
   line-height: 1.7;
   margin: 0 0 10px 0;
 }
-.error_message .dismiss_icon {
+.reactist_error_message .dismiss_icon {
   height: 20px;
   width: 20px;
   background-repeat: no-repeat;
@@ -21,7 +21,7 @@
   position: relative;
   top: -30px;
 }
-.error_message .dismiss_icon:hover {
+.reactist_error_message .dismiss_icon:hover {
   cursor: pointer;
 }
 

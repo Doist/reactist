@@ -3,12 +3,12 @@
 @tooltip_background: @color_almost_black;
 
 .reactist {
-    &.tooltip__wrapper {
+    &_tooltip__wrapper {
         display: inline-block;
         max-width: 100%;
         cursor: unset;
 
-        .reactist.tooltip__text {
+        .reactist_tooltip__text {
             .smaller_text();
             text-align: center;
             text-overflow: ellipsis;
@@ -24,7 +24,7 @@
             }
         }
 
-        .reactist.tooltip__arrow:not(.inverted) {
+        .reactist_tooltip__arrow:not(.inverted) {
             &.arrow_top {
                 &:before {
                     border-bottom-color: @tooltip_background;

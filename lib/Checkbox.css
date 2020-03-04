@@ -1,13 +1,13 @@
-.reactist.checkbox {
+.reactist_checkbox {
   font-size: 0.875rem;
   color: #202020;
   font-weight: 400;
   line-height: 1.7;
 }
-.reactist.checkbox:hover {
+.reactist_checkbox:hover {
   cursor: pointer;
 }
-.reactist.checkbox .checkbox--input {
+.reactist_checkbox .reactist_checkbox--input {
   margin-right: 10px;
 }
 

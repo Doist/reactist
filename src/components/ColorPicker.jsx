@@ -30,7 +30,7 @@ const _getColor = (colorList, colorIndex) => {
 }
 
 const ColorPicker = ({ color, small, onChange, colorList = COLORS }) => (
-    <Dropdown.Box right className="reactist color_picker">
+    <Dropdown.Box right className="reactist_color_picker">
         <Dropdown.Trigger>
             <span
                 className={classnames('color_trigger', { small })}

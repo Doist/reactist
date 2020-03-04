@@ -2,7 +2,7 @@
 
 exports[`Avatar renders a background image when avatarUrl is supplied 1`] = `
 <div
-  className="reactist avatar avatar_size--xl"
+  className="reactist_avatar reactist_avatar_size--xl"
   style={
     Object {
       "backgroundImage": "url(https://foo.bar/com.png)",
@@ -16,7 +16,7 @@ exports[`Avatar renders a background image when avatarUrl is supplied 1`] = `
 
 exports[`Avatar renders initials of user email when avatarUrl is not supplied 1`] = `
 <div
-  className="reactist avatar avatar_size--xl"
+  className="reactist_avatar reactist_avatar_size--xl"
   style={
     Object {
       "backgroundColor": "#98be2f",
@@ -29,7 +29,7 @@ exports[`Avatar renders initials of user email when avatarUrl is not supplied 1`
 
 exports[`Avatar renders initials of user name when avatarUrl is not supplied 1`] = `
 <div
-  className="reactist avatar avatar_size--xl"
+  className="reactist_avatar reactist_avatar_size--xl"
   style={
     Object {
       "backgroundColor": "#98be2f",
@@ -42,7 +42,7 @@ exports[`Avatar renders initials of user name when avatarUrl is not supplied 1`]
 
 exports[`Avatar renders initials on custom color 1`] = `
 <div
-  className="reactist avatar avatar_size--xl"
+  className="reactist_avatar reactist_avatar_size--xl"
   style={
     Object {
       "backgroundColor": "red",

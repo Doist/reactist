@@ -1,10 +1,10 @@
-.reactist.progress_bar {
+.reactist_progress_bar {
   height: 4px;
   border-radius: 3px;
   background-color: #ececec;
   width: 100%;
 }
-.reactist.progress_bar .inner {
+.reactist_progress_bar .inner {
   height: inherit;
   border-radius: 4px;
   background-color: #70bc1c;

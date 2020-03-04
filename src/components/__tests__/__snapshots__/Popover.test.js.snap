@@ -14,16 +14,16 @@ exports[`Popover adds arrow class when prop is set 1`] = `
   withArrow={true}
 >
   <span
-    className="reactist popover__wrapper"
+    className="reactist_popover__wrapper"
   >
     <span>
       Trigger Content
     </span>
     <span
-      className="reactist popover visible arrow_bottom"
+      className="reactist_popover visible arrow_bottom"
     >
       <span
-        className="reactist popover__content"
+        className="reactist_popover__content"
       >
         Popover Content
       </span>
@@ -45,16 +45,16 @@ exports[`Popover renders without crashing 1`] = `
   visible={true}
 >
   <span
-    className="reactist popover__wrapper"
+    className="reactist_popover__wrapper"
   >
     <span>
       Trigger Content
     </span>
     <span
-      className="reactist popover visible"
+      className="reactist_popover visible"
     >
       <span
-        className="reactist popover__content"
+        className="reactist_popover__content"
       >
         Popover Content
       </span>

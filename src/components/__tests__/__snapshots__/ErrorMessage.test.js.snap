@@ -2,7 +2,7 @@
 
 exports[`ErrorMessage renders error message after receiving props 1`] = `
 <div
-  className="error_message"
+  className="reactist_error_message"
 >
   <p>
     second message
@@ -22,7 +22,7 @@ exports[`ErrorMessage renders nothing if message is not set 1`] = `""`;
 
 exports[`ErrorMessage renders the given message 1`] = `
 <div
-  className="error_message"
+  className="reactist_error_message"
 >
   <p>
     Oh noes

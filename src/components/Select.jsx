@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 const Select = ({ value, options, onChange, disabled, className }) => {
     const selectClassName = classNames(
-        'reactist select',
+        'reactist_select',
         { disabled },
         className
     )

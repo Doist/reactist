@@ -1,60 +1,58 @@
 @import './constants.less';
 
-.reactist {
-    &.dropdown {
-        .trigger {
-            cursor: pointer;
-        }
+.reactist_dropdown {
+    .trigger {
+        cursor: pointer;
+    }
 
-        .body {
-            border-radius: 3px;
-            border: 1px solid @color_border_grey;
-            overflow: hidden;
-            box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
-            z-index: 1;
-            background-color: #fff;
-        }
+    .body {
+        border-radius: 3px;
+        border: 1px solid @color_border_grey;
+        overflow: hidden;
+        box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
+        z-index: 1;
+        background-color: #fff;
+    }
 
-        hr {
-            border: none;
-            height: 1px;
-            background-color: @color_border_grey;
-            margin: 0 5px;
-        }
+    hr {
+        border: none;
+        height: 1px;
+        background-color: @color_border_grey;
+        margin: 0 5px;
+    }
 
-        .with_arrow:after,
-        .with_arrow:before {
-            z-index: 1;
-            content: '';
-            display: block;
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 6px;
-            right: 14px;
-        }
+    .with_arrow:after,
+    .with_arrow:before {
+        z-index: 1;
+        content: '';
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 6px;
+        right: 14px;
+    }
 
-        .with_arrow:after {
-            top: -11px;
-            border-color: transparent transparent #fff transparent;
-        }
+    .with_arrow:after {
+        top: -11px;
+        border-color: transparent transparent #fff transparent;
+    }
 
-        .with_arrow:before {
-            top: -12px;
-            border-color: transparent transparent @color_border_grey transparent;
-        }
+    .with_arrow:before {
+        top: -12px;
+        border-color: transparent transparent @color_border_grey transparent;
+    }
 
-        .with_arrow.top:after {
-            top: -1px;
-            border-color: #fff transparent transparent transparent;
-        }
+    .with_arrow.top:after {
+        top: -1px;
+        border-color: #fff transparent transparent transparent;
+    }
 
-        .with_arrow.top:before {
-            top: -1px;
-            right: 13px;
-            border-width: 7px;
-            border-color: @color_border_grey transparent transparent transparent;
-        }
+    .with_arrow.top:before {
+        top: -1px;
+        right: 13px;
+        border-width: 7px;
+        border-color: @color_border_grey transparent transparent transparent;
     }
 }

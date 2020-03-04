@@ -37,7 +37,7 @@ describe('Avatar', () => {
         // eslint-disable-next-line
         console.error = jest.fn() // silence errors caused by faulty required prop
         const avatar = shallow(getAvatar({ size: 'medium' }))
-        expect(avatar.hasClass('avatar_size--l')).toBe(true)
+        expect(avatar.hasClass('reactist_avatar_size--l')).toBe(true)
     })
 
     // Helpers ================================================================

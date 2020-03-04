@@ -129,7 +129,7 @@ class Box extends React.Component {
     }
 
     render() {
-        const className = classNames('reactist dropdown', this.props.className)
+        const className = classNames('reactist_dropdown', this.props.className)
         const { top } = this.state
 
         return (

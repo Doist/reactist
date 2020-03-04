@@ -2,7 +2,7 @@
 
 exports[`Select renders without crashing 1`] = `
 <select
-  className="reactist select"
+  className="reactist_select"
   disabled={false}
   onChange={[Function]}
   value="test"

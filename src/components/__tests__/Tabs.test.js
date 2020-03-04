@@ -38,7 +38,7 @@ describe('Tabs', () => {
             </Tabs>
         )
 
-        const tab3 = tabs.find('.tabs__header--item').at(2)
+        const tab3 = tabs.find('.reactist_tabs__header--item').at(2)
         expect(tab3.hasClass('active')).toBe(true)
     })
 
@@ -57,7 +57,7 @@ describe('Tabs', () => {
         expect(tabs.find('#tab1')).toHaveLength(1)
         expect(tabs.find('#tab2')).toHaveLength(0)
 
-        const tab2 = tabs.find('.tabs__header--item').at(1)
+        const tab2 = tabs.find('.reactist_tabs__header--item').at(1)
         tab2.simulate('click', { preventDefault: jest.fn() })
 
         expect(tabs.find('#tab1')).toHaveLength(0)
@@ -76,7 +76,7 @@ describe('Tabs', () => {
 
         expect(f).not.toHaveBeenCalled()
 
-        const tab2 = tabs.find('.tabs__header--item').at(1)
+        const tab2 = tabs.find('.reactist_tabs__header--item').at(1)
         tab2.simulate('click', { preventDefault: jest.fn() })
 
         expect(f).toHaveBeenCalledWith('2')
@@ -98,7 +98,7 @@ describe('Tabs', () => {
         expect(tabs.find('#tab1')).toHaveLength(1)
         expect(tabs.find('#tab2')).toHaveLength(0)
 
-        const tab2 = tabs.find('.tabs__header--item').at(1)
+        const tab2 = tabs.find('.reactist_tabs__header--item').at(1)
         tab2.simulate('click', { preventDefault: jest.fn() })
 
         expect(tabs.find('#tab1')).toHaveLength(1)

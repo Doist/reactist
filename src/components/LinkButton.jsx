@@ -14,7 +14,7 @@ class LinkButton extends React.Component {
 
     render() {
         const className = classNames(
-            'reactist link_button',
+            'reactist_link_button',
             {
                 disabled: this.props.disabled
             },

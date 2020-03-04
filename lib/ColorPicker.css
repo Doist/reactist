@@ -1,4 +1,4 @@
-.reactist.color_picker .color_trigger {
+.reactist_color_picker .color_trigger {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
@@ -12,25 +12,25 @@
   background-repeat: no-repeat;
   background-size: 24px;
 }
-.reactist.color_picker .color_trigger--inner_ring {
+.reactist_color_picker .color_trigger--inner_ring {
   background-color: rgba(0, 0, 0, 0.1);
   width: 14px;
   height: 14px;
   border-radius: 50%;
   visibility: hidden;
 }
-.reactist.color_picker .color_trigger:hover .color_trigger--inner_ring {
+.reactist_color_picker .color_trigger:hover .color_trigger--inner_ring {
   visibility: visible;
 }
-.reactist.color_picker .color_trigger.small {
+.reactist_color_picker .color_trigger.small {
   height: 18px;
   width: 18px;
 }
-.reactist.color_picker .color_trigger.small .color_trigger--inner_ring {
+.reactist_color_picker .color_trigger.small .color_trigger--inner_ring {
   width: 12px;
   height: 12px;
 }
-.reactist.color_picker .color_item {
+.reactist_color_picker .color_item {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
@@ -41,7 +41,7 @@
   border-radius: 50%;
   cursor: pointer;
 }
-.reactist.color_picker .color_item--inner_ring {
+.reactist_color_picker .color_item--inner_ring {
   background-color: transparent;
   border: 2px solid white;
   height: 24px;
@@ -49,30 +49,30 @@
   border-radius: 50%;
   visibility: hidden;
 }
-.reactist.color_picker .color_item:hover .color_item--inner_ring {
+.reactist_color_picker .color_item:hover .color_item--inner_ring {
   visibility: visible;
 }
-.reactist.color_picker .color_item.active {
+.reactist_color_picker .color_item.active {
   background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4gICAgPHBhdGggZmlsbD0iI0ZGRiIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTAuOTc0IDE0Ljc3MWw0LjE2LTcuMjA0YS40OTkuNDk5IDAgMSAxIC44NjMuNDk5bC00LjQ3IDcuNzQ0YS40OTkuNDk5IDAgMCAxLS43MzUuMTQ3LjUwMi41MDIgMCAwIDEtLjA2MS0uMDQ4bC0zLjM2Ni0zLjE0YS40OTkuNDk5IDAgMSAxIC42OC0uNzI5bDIuOTI5IDIuNzMxeiIvPjwvc3ZnPg==);
   background-position: center;
   background-repeat: no-repeat;
 }
-.reactist.color_picker .color_options {
+.reactist_color_picker .color_options {
   padding: 6px;
   display: flex;
   flex-wrap: wrap;
   width: 164px;
   position: relative;
 }
-.reactist.color_picker .with_arrow:after,
-.reactist.color_picker .with_arrow:before {
+.reactist_color_picker .with_arrow:after,
+.reactist_color_picker .with_arrow:before {
   visibility: hidden;
 }
 
-.reactist.dropdown .trigger {
+.reactist_dropdown .trigger {
   cursor: pointer;
 }
-.reactist.dropdown .body {
+.reactist_dropdown .body {
   border-radius: 3px;
   border: 1px solid #dcdcdc;
   overflow: hidden;
@@ -80,14 +80,14 @@
   z-index: 1;
   background-color: #fff;
 }
-.reactist.dropdown hr {
+.reactist_dropdown hr {
   border: none;
   height: 1px;
   background-color: #dcdcdc;
   margin: 0 5px;
 }
-.reactist.dropdown .with_arrow:after,
-.reactist.dropdown .with_arrow:before {
+.reactist_dropdown .with_arrow:after,
+.reactist_dropdown .with_arrow:before {
   z-index: 1;
   content: '';
   display: block;
@@ -98,31 +98,31 @@
   border-width: 6px;
   right: 14px;
 }
-.reactist.dropdown .with_arrow:after {
+.reactist_dropdown .with_arrow:after {
   top: -11px;
   border-color: transparent transparent #fff transparent;
 }
-.reactist.dropdown .with_arrow:before {
+.reactist_dropdown .with_arrow:before {
   top: -12px;
   border-color: transparent transparent #dcdcdc transparent;
 }
-.reactist.dropdown .with_arrow.top:after {
+.reactist_dropdown .with_arrow.top:after {
   top: -1px;
   border-color: #fff transparent transparent transparent;
 }
-.reactist.dropdown .with_arrow.top:before {
+.reactist_dropdown .with_arrow.top:before {
   top: -1px;
   right: 13px;
   border-width: 7px;
   border-color: #dcdcdc transparent transparent transparent;
 }
 
-.reactist.tooltip__wrapper {
+.reactist_tooltip__wrapper {
   display: inline-block;
   max-width: 100%;
   cursor: unset;
 }
-.reactist.tooltip__wrapper .reactist.tooltip__text {
+.reactist_tooltip__wrapper .reactist_tooltip__text {
   font-size: 0.81rem;
   color: #202020;
   font-weight: 400;
@@ -134,37 +134,37 @@
   padding: 5px 10px;
   max-width: 250px;
 }
-.reactist.tooltip__wrapper .reactist.tooltip__text:not(.inverted) {
+.reactist_tooltip__wrapper .reactist_tooltip__text:not(.inverted) {
   background-color: #333333;
   color: white;
   border: none;
 }
-.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_top:before {
+.reactist_tooltip__wrapper .reactist_tooltip__arrow:not(.inverted).arrow_top:before {
   border-bottom-color: #333333;
 }
-.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_top:after {
+.reactist_tooltip__wrapper .reactist_tooltip__arrow:not(.inverted).arrow_top:after {
   display: none;
 }
-.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_right:before {
+.reactist_tooltip__wrapper .reactist_tooltip__arrow:not(.inverted).arrow_right:before {
   border-left-color: #333333;
 }
-.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_right:after {
+.reactist_tooltip__wrapper .reactist_tooltip__arrow:not(.inverted).arrow_right:after {
   display: none;
 }
-.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_bottom:before {
+.reactist_tooltip__wrapper .reactist_tooltip__arrow:not(.inverted).arrow_bottom:before {
   border-top-color: #333333;
 }
-.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_bottom:after {
+.reactist_tooltip__wrapper .reactist_tooltip__arrow:not(.inverted).arrow_bottom:after {
   display: none;
 }
-.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_left:before {
+.reactist_tooltip__wrapper .reactist_tooltip__arrow:not(.inverted).arrow_left:before {
   border-right-color: #333333;
 }
-.reactist.tooltip__wrapper .reactist.tooltip__arrow:not(.inverted).arrow_left:after {
+.reactist_tooltip__wrapper .reactist_tooltip__arrow:not(.inverted).arrow_left:after {
   display: none;
 }
 
-.reactist.popover {
+.reactist_popover {
   white-space: normal;
   z-index: 1000;
   position: fixed;
@@ -175,12 +175,12 @@
   opacity: 0;
   transition: opacity 0.1s linear;
 }
-.reactist.popover__wrapper {
+.reactist_popover__wrapper {
   display: inline-block;
   max-width: 100%;
   cursor: unset;
 }
-.reactist.popover .popover__content {
+.reactist_popover .reactist_popover__content {
   max-width: 100%;
   display: inline-flex;
   border-radius: 3px;
@@ -189,13 +189,13 @@
   border: 1px solid #dcdcdc;
   box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.08);
 }
-.reactist.popover.visible {
+.reactist_popover.visible {
   display: inline-block;
   display: initial;
   visibility: visible;
   opacity: 1;
 }
-.reactist.popover.arrow_top:before {
+.reactist_popover.arrow_top:before {
   position: absolute;
   content: '';
   height: 0;
@@ -206,7 +206,7 @@
   border-right: 5px solid transparent;
   border-bottom: 5px solid #dcdcdc;
 }
-.reactist.popover.arrow_top:after {
+.reactist_popover.arrow_top:after {
   position: absolute;
   content: '';
   height: 0;
@@ -217,7 +217,7 @@
   border-right: 5px solid transparent;
   border-bottom: 5px solid white;
 }
-.reactist.popover.arrow_right:before {
+.reactist_popover.arrow_right:before {
   position: absolute;
   content: '';
   height: 0;
@@ -228,7 +228,7 @@
   border-bottom: 5px solid transparent;
   border-top: 5px solid transparent;
 }
-.reactist.popover.arrow_right:after {
+.reactist_popover.arrow_right:after {
   position: absolute;
   content: '';
   height: 0;
@@ -239,7 +239,7 @@
   border-bottom: 5px solid transparent;
   border-top: 5px solid transparent;
 }
-.reactist.popover.arrow_bottom:before {
+.reactist_popover.arrow_bottom:before {
   position: absolute;
   content: '';
   height: 0;
@@ -250,7 +250,7 @@
   border-right: 5px solid transparent;
   border-top: 5px solid #dcdcdc;
 }
-.reactist.popover.arrow_bottom:after {
+.reactist_popover.arrow_bottom:after {
   position: absolute;
   content: '';
   height: 0;
@@ -261,7 +261,7 @@
   border-right: 5px solid transparent;
   border-top: 5px solid white;
 }
-.reactist.popover.arrow_left:before {
+.reactist_popover.arrow_left:before {
   position: absolute;
   content: '';
   height: 0;
@@ -272,7 +272,7 @@
   border-bottom: 5px solid transparent;
   border-top: 5px solid transparent;
 }
-.reactist.popover.arrow_left:after {
+.reactist_popover.arrow_left:after {
   position: absolute;
   content: '';
   height: 0;

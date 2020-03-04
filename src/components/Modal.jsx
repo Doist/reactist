@@ -165,7 +165,7 @@ class Body extends React.Component {
                 )}
                 {icon ? (
                     <div className="dialog">
-                        <div className="icon">{icon}</div>
+                        <div className="reactist_icon">{icon}</div>
                         <div className="content">{children}</div>
                     </div>
                 ) : (

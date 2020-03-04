@@ -14,7 +14,7 @@
     transform: rotate(360deg);
   }
 }
-.reactist.loading {
+.reactist_loading {
   display: flex;
   align-items: center;
   justify-items: center;
@@ -22,7 +22,7 @@
   justify-content: center;
   flex: 1 1 auto;
 }
-.reactist.loading .loading--spinner {
+.reactist_loading .reactist_loading--spinner {
   animation-name: spinner;
   animation-duration: 1.2s;
   animation-iteration-count: infinite;
