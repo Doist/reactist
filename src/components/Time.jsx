@@ -59,12 +59,16 @@ class Time extends React.Component {
         }
 
         if (prevProps.refresh && !this.props.refresh) {
-            clearTimeout(this.refresh_interval)
+            if (this.refresh_interval) {
+                clearTimeout(this.refresh_interval)
+            }
         }
     }
 
     componentWillUnmount() {
-        clearTimeout(this.refresh_interval)
+        if (this.refresh_interval) {
+            clearTimeout(this.refresh_interval)
+        }
     }
 
     /**
