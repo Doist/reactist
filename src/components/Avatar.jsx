@@ -50,7 +50,7 @@ const Avatar = ({
     colorList = AVATAR_COLORS
 }) => {
     const userInitials = getInitials(user.name) || getInitials(user.email)
-    const avatarSize = AVATAR_SIZES.includes(size) ? size : 'l'
+    const avatarSize = size && AVATAR_SIZES.includes(size) ? size : 'l'
     const avatarClass = classNames(
         `reactist_avatar reactist_avatar_size--${avatarSize}`,
         className
