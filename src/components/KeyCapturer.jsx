@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+/** @type {Record<string, string>} */
 const SUPPORTED_KEYS = {
     ARROW_UP: 'ArrowUp',
     ARROW_RIGHT: 'ArrowRight',
@@ -12,6 +13,9 @@ const SUPPORTED_KEYS = {
 }
 
 const KeyCapturerResolver = {
+    /**
+     * @param {string} eventKey
+     */
     resolveByKey: eventKey => {
         switch (eventKey) {
             case 'Left': // IE specific
@@ -45,6 +49,9 @@ const KeyCapturerResolver = {
             }
         }
     },
+    /**
+     * @param {number} keyCode
+     */
     resolveByKeyCode: keyCode => {
         switch (keyCode) {
             case 37: {
@@ -76,14 +83,23 @@ const KeyCapturerResolver = {
 }
 
 /**
+ * @typedef {Record<string, (() => void) | boolean | React.ReactChild> & {eventName?: 'onKeyDown' | 'onKeyDownCapture' | 'onKeyUp' | 'onKeyUpCapture'}} Props
+ */
+
+/**
  * Use this component to wrap anything you want to handle key events for (e.g. an input).
  * You can specify the `eventName` to capture (defaults to `onKeyDown`).
  * Check the SUPPORTED_KEYS map to see which keys are supported and supply the respective
  * `on${Key}` prop (i.e. `onEnter` or `onArrowDown`).
  * If you want the default behaviour to be preserved (i.e. only want to hook into the event
  * instead of replacing it) set the `propagate${Key}` prop (e.g. propagateBackspace).
+ *
+ * @extends {React.Component<Props>}
  */
 class KeyCapturer extends React.Component {
+    /**
+     * @param {React.KeyboardEvent} event
+     */
     _handleKeyEvent = event => {
         // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
         const key =
@@ -93,6 +109,7 @@ class KeyCapturer extends React.Component {
 
         if (Object.values(SUPPORTED_KEYS).includes(key)) {
             if (typeof this.props[`on${key}`] === 'function') {
+                // @ts-ignore Dynamic type not expressible in TypeScript.
                 this.props[`on${key}`]()
                 if (this.props[`propagate${key}`] !== true) {
                     event.preventDefault()
@@ -105,9 +122,12 @@ class KeyCapturer extends React.Component {
     render() {
         const { children, eventName = 'onKeyDown' } = this.props
 
-        return React.cloneElement(children, {
-            [eventName]: this._handleKeyEvent
-        })
+        return React.cloneElement(
+            /** @type {React.ReactElement} */ (children),
+            {
+                [eventName]: this._handleKeyEvent
+            }
+        )
     }
 }
 

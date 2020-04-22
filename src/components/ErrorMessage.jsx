@@ -3,7 +3,19 @@ import './styles/error_message.less'
 import React from 'react'
 import PropTypes from 'prop-types'
 
+/**
+ * @typedef {Object} Props
+ * @property {number} timeout
+ * @property {() => void} [onHide]
+ * @property {string} message
+ */
+
+/** @extends {React.Component<Props>} */
 class ErrorMessage extends React.Component {
+    /**
+     * @param {Props} props
+     * @param {unknown} context
+     */
     constructor(props, context) {
         super(props, context)
 
@@ -14,6 +26,9 @@ class ErrorMessage extends React.Component {
         this.state = { visible: is_valid_message }
     }
 
+    /**
+     * @param {Props} next_props
+     */
     UNSAFE_componentWillReceiveProps(next_props) {
         if (this._isValidMessage(next_props.message)) {
             this.setState(() => ({ visible: true }))
@@ -21,6 +36,9 @@ class ErrorMessage extends React.Component {
         }
     }
 
+    /**
+     * @param {string} message
+     */
     _isValidMessage(message) {
         return message && message.length > 0
     }

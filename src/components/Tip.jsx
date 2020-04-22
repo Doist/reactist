@@ -7,6 +7,15 @@ import classNames from 'classnames'
 import ThinQuestionMark from './icons/ThinQuestionMarkIcon.svg'
 import Dropdown from './Dropdown'
 
+/**
+ * @typedef {Object} Props
+ * @property {string | undefined} [className]
+ * @property {React.ReactNode} [title]
+ * @property {React.ReactNode} [message]
+ * @property {boolean | undefined} [top]
+ */
+
+/** @type {React.FC<Props>} */
 const Tip = ({ title, message, top, className }) => {
     const tipClass = classNames('reactist_tip__container', className)
     return (

@@ -4,6 +4,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
+/**
+ * @typedef {Object} Props
+ * @property {string | undefined} [className]
+ * @property {number | undefined} [fillPercentage]
+ */
+
+/** @type {React.FC<Props>} */
 const ProgressBar = ({ fillPercentage, className }) => {
     const finalClassName = classNames('reactist_progress_bar', className)
     const width =

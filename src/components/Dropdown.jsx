@@ -5,7 +5,30 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
+/**
+ * @typedef {Object} BoxProps
+ * @property {() => void} [onShowBody]
+ * @property {() => void} [onHideBody]
+ * @property {boolean} [allowBodyInteractions]
+ * @property {boolean} [top]
+ * @property {boolean} [right]
+ * @property {string} [scrolling_parent]
+ * @property {[React.ReactElement<TriggerProps>, React.ReactElement<{}> | ((props: {}) => JSX.Element)]} children
+ * @property {string} [className]
+ */
+
+/**
+ * @typedef {Object} BoxState
+ * @typedef {boolean} top
+ * @typedef {boolean} show_body
+ */
+
+/** @extends {React.Component<BoxProps, BoxState>} */
 class Box extends React.Component {
+    /**
+     * @param {BoxProps} props
+     * @param {unknown} context
+     */
     constructor(props, context) {
         super(props, context)
         this.state = {
@@ -27,6 +50,9 @@ class Box extends React.Component {
         }
     }
 
+    /**
+     * @param {MouseEvent} event
+     */
     _handleClickOutside(event) {
         const dropdown_dom_node = ReactDOM.findDOMNode(this)
 
@@ -67,6 +93,9 @@ class Box extends React.Component {
     }
 
     // https://facebook.github.io/react/docs/refs-and-the-dom.html#exposing-dom-refs-to-parent-components
+    /**
+     * @param {HTMLElement} body
+     */
     _setPosition(body) {
         if (body) {
             const scrolling_parent = document.getElementById(
@@ -162,12 +191,25 @@ Box.propTypes = {
     children: PropTypes.any
 }
 
+/**
+ * @typedef {Object} TriggerProps
+ * @property {(event?: React.MouseEvent) => void} [onClick]
+ */
+
+/** @extends {React.Component<TriggerProps>} */
 class Trigger extends React.Component {
+    /**
+     * @param {TriggerProps} props
+     * @param {unknown} context
+     */
     constructor(props, context) {
         super(props, context)
         this._onClick = this._onClick.bind(this)
     }
 
+    /**
+     * @param {React.MouseEvent} event
+     */
     _onClick(event) {
         event.preventDefault()
         event.stopPropagation()
@@ -196,6 +238,7 @@ Trigger.propTypes = {
 
 class Body extends React.Component {
     render() {
+        /** @type {React.CSSProperties} */
         let style = {
             position: 'absolute',
             right: 0,

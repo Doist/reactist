@@ -3,11 +3,26 @@ import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 
 dayjs.extend(LocalizedFormat)
 
+/**
+ * @typedef {Object} Config
+ * @property {string} [locale]
+ * @property {string} [longFormat]
+ * @property {string} [shortFormatCurrentYear]
+ * @property {string} [shortFormatPastYear]
+ * @property {string} [daysSuffix]
+ * @property {string} [hoursSuffix]
+ * @property {string} [minutesSuffix]
+ * @property {string} [momentsAgo]
+ */
 const TimeUtils = {
     SHORT_FORMAT_CURRENT_YEAR: 'L',
     SHORT_FORMAT_PAST_YEAR: 'LL',
     LONG_FORMAT: 'LL, LT',
 
+    /**
+     * @param {number} timestamp
+     * @param {Config} [config]
+     */
     timeAgo(timestamp, config = {}) {
         const {
             locale = 'en',
@@ -42,6 +57,10 @@ const TimeUtils = {
         }
     },
 
+    /**
+     * @param {number} timestamp
+     * @param {Config} [config]
+     */
     formatTime(timestamp, config = {}) {
         const {
             locale = 'en',
@@ -57,6 +76,10 @@ const TimeUtils = {
         }
     },
 
+    /**
+     * @param {number} timestamp
+     * @param {Config} [config]
+     */
     formatTimeLong(timestamp, config = {}) {
         const { locale = 'en', longFormat = this.LONG_FORMAT } = config
         const date = dayjs(timestamp * 1000)

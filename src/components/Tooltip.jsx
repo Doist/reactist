@@ -6,9 +6,39 @@ import classNames from 'classnames'
 
 import Popover from './Popover'
 
+/** @typedef {import('./Popover').Props} PopoverProps */
+
+/**
+ * @typedef {Object} TooltipProps
+ * @property {React.MouseEventHandler} [onMouseEnter]
+ * @property {React.MouseEventHandler} [onMouseLeave]
+ * @property {string} [tooltipClassName]
+ * @property {number} delayShow
+ * @property {number} delayHide
+ * @property {boolean} [hideOnScroll]
+ * @property {boolean} [inverted]
+ * @property {PopoverProps['content']} [text]
+ */
+
+/**
+ * @typedef {React.PropsWithChildren<TooltipProps & Pick<PopoverProps, "popoverClassName" | "wrapperClassName" | "allowVaguePositioning" | "gapSize" | "withArrow" | "position">>} Props
+ */
+
+/**
+ * @typedef {Object} State
+ * @property {boolean} visible
+ */
+
+/** @extends {React.Component<Props, State>} */
 class Tooltip extends React.Component {
+    /** @type {State} */
     state = { visible: false }
 
+    /**
+     * @param {Props} nextProps
+     * @param {State} nextState
+     * @return {boolean}
+     */
     shouldComponentUpdate(nextProps, nextState) {
         // only update on state or prop changes
         return (
@@ -61,15 +91,25 @@ class Tooltip extends React.Component {
         }, this.props.delayHide)
     }
 
+    /**
+     * @param {(...args: any[]) => void} actionFn
+     * @param {number} delay
+     */
     _delayAction(actionFn, delay) {
         this._clearDelayTimeout()
         this.delayTimeout = setTimeout(actionFn, delay)
     }
 
+    /**
+     * @param {HTMLLIElement} tooltip
+     */
     _updateTooltipRef = tooltip => {
         this.tooltip = tooltip
     }
 
+    /**
+     * @param {HTMLLIElement} wrapper
+     */
     _updateWrapperRef = wrapper => {
         this.wrapper = wrapper
     }
@@ -112,6 +152,9 @@ class Tooltip extends React.Component {
                  * When passing in a string / number as child we cannot attach the listener.
                  */
                 return React.cloneElement(child, {
+                    /**
+                     * @param {React.MouseEvent} event
+                     */
                     onClick: event => {
                         this._hide()
                         if (typeof child.props.onClick === 'function') {

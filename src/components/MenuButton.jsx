@@ -5,6 +5,15 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Dropdown from './Dropdown'
 
+/**
+ * @typedef {Object} Props
+ * @property {string | undefined} [className]
+ * @property {React.MouseEventHandler | undefined} [onClick]
+ * @property {React.ReactNode} [name]
+ * @property {React.ReactNode[] | undefined} [children]
+ */
+
+/** @type {React.FC<Props>} */
 const MenuButton = ({ className, name, onClick, children }) => {
     const menuButtonClass = classNames('reactist_menu_button', className)
 
@@ -43,6 +52,13 @@ MenuButton.propTypes = {
     className: PropTypes.string
 }
 
+/**
+ * @typedef {Object} MenuButtonItemProps
+ * @property {string | undefined} [className]
+ * @property {React.MouseEventHandler | undefined} [onClick]
+ */
+
+/** @type {React.FC<MenuButtonItemProps>} */
 const MenuButtonItem = ({ className, onClick, children }) => {
     const menuButtonItemClass = classNames(
         'reactist_menu_button_item',

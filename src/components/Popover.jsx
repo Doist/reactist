@@ -6,6 +6,28 @@ import classNames from 'classnames'
 
 import { hasEnoughSpace, calculatePosition } from './utils/PositioningUtils'
 
+/** @typedef {'left' | 'right' | 'top' | 'bottom' | 'vertical' | 'horizontal' | 'auto'} Position */
+
+/**
+ * @typedef {Object} Props
+ * @property {boolean} [visible]
+ * @property {React.Ref<HTMLElement>} [popoverRef]
+ * @property {React.Ref<HTMLElement>} [wrapperRef]
+ * @property {React.MouseEventHandler} [onMouseEnter]
+ * @property {React.MouseEventHandler} [onMouseLeave]
+ * @property {React.MouseEventHandler} [onClick]
+ * @property {string} [wrapperClassName]
+ * @property {string} [popoverClassName]
+ * @property {string} [arrowClassName]
+ * @property {(() => React.ReactNode) | React.ReactNode} [content]
+ * @property {React.ReactNode} [trigger]
+ * @property {Position} position
+ * @property {boolean} [withArrow]
+ * @property {boolean} [allowVaguePositioning]
+ * @property {number} gapSize
+ */
+
+/** @extends {React.Component<Props>} */
 class Popover extends React.Component {
     componentDidMount() {
         if (this.props.visible) {
@@ -13,6 +35,9 @@ class Popover extends React.Component {
         }
     }
 
+    /**
+     * @param {Props} prevProps
+     */
     componentDidUpdate(prevProps) {
         if (this.wrapper && this.props.visible) {
             const positionChanged = prevProps.position !== this.props.position
@@ -81,6 +106,7 @@ class Popover extends React.Component {
             y: wrapperRect.top
         }
 
+        /** @type {("left" | "right" | "top" | "bottom")[]} */
         const positionsToTry =
             position === 'auto'
                 ? ['top', 'right', 'bottom', 'left', 'top']
@@ -143,6 +169,9 @@ class Popover extends React.Component {
         }
     }
 
+    /**
+     * @param {Position} position
+     */
     _getClassNameForPosition = position => {
         const { visible, withArrow, arrowClassName } = this.props
         const className = classNames('reactist_popover', { visible })
@@ -158,6 +187,9 @@ class Popover extends React.Component {
         return className
     }
 
+    /**
+     * @param {HTMLElement} popover
+     */
     _updatePopoverRef = popover => {
         this.popover = popover
         if (typeof this.props.popoverRef === 'function') {
@@ -165,6 +197,9 @@ class Popover extends React.Component {
         }
     }
 
+    /**
+     * @param {HTMLElement} wrapper
+     */
     _updateWrapperRef = wrapper => {
         this.wrapper = wrapper
         if (typeof this.props.wrapperRef === 'function') {

@@ -7,7 +7,21 @@ import classnames from 'classnames'
 
 import CloseIcon from './icons/CloseIcon.svg'
 
+/**
+ * @typedef {Object} Props
+ * @property {string} [className]
+ * @property {React.CSSProperties} [style]
+ * @property {boolean} [large]
+ * @property {boolean} [medium]
+ * @property {boolean} [closeOnOverlayClick]
+ */
+
+/** @extends {React.Component<Props>} */
 class Box extends React.Component {
+    /**
+     * @param {Props} props
+     * @param {unknown} context
+     */
     constructor(props, context) {
         super(props, context)
         this._handleKeyDown = this._handleKeyDown.bind(this)
@@ -26,6 +40,9 @@ class Box extends React.Component {
         ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
     }
 
+    /**
+     * @param {KeyboardEvent} event
+     */
     _handleKeyDown(event) {
         if (event.keyCode === 27) {
             // ESC
@@ -34,6 +51,9 @@ class Box extends React.Component {
         }
     }
 
+    /**
+     * @param {MouseEvent} event
+     */
     _handleOverlayClick(event) {
         if (
             this.props.closeOnOverlayClick &&
@@ -92,6 +112,9 @@ Box.propTypes = {
 }
 
 class Header extends React.Component {
+    /**
+     * @param {React.MouseEvent} event
+     */
     _closeModal(event) {
         event.preventDefault()
         if (typeof this.props.beforeClose === 'function') {
@@ -139,6 +162,9 @@ Header.propTypes = {
 }
 
 class Body extends React.Component {
+    /**
+     * @param {React.MouseEvent} event
+     */
     _closeModal(event) {
         event.preventDefault()
         ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
@@ -200,7 +226,15 @@ Body.propTypes = {
     ])
 }
 
+/**
+ * @typedef {Object} ActionProps
+ * @property {() => void} [onClick]
+ * @property {boolean} [close]
+ */
+
+/** @extends {React.Component} */
 class Actions extends React.Component {
+    /** @param {ActionProps['onClick']} on_click */
     _onClick(on_click) {
         if (typeof on_click === 'function') {
             on_click()

@@ -26,8 +26,22 @@ const AVATAR_COLORS = [
     '#3863cc',
     '#5e5e5e'
 ]
+
+/** @typedef {'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl'} AvatarSize */
+
+/** @type {AvatarSize[]} */
 const AVATAR_SIZES = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl']
 
+/**
+ * @typedef {Object} Props
+ * @property {string | undefined} [className]
+ * @property {string[] | undefined} [colorList]
+ * @property {AvatarSize | undefined} [size]
+ * @property {string | undefined} [avatarUrl]
+ * @property {{name?: string, email?: string}} user
+ */
+
+/** @type {React.FC<Props>} */
 const Avatar = ({
     user,
     avatarUrl,

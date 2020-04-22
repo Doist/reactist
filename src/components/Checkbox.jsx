@@ -3,6 +3,15 @@ import './styles/checkbox.less'
 import React from 'react'
 import PropTypes from 'prop-types'
 
+/**
+ * @typedef {Object} Props
+ * @property {boolean | undefined} [checked]
+ * @property {boolean | undefined} [disabled]
+ * @property {(checked: boolean) => void} [onChange]
+ * @property {string | React.ReactNode | React.ReactNode[]} [label]
+ */
+
+/** @type {React.FC<Props>} */
 const Checkbox = ({ label, disabled, checked, onChange }) => (
     <label className="reactist_checkbox">
         <input

@@ -9,7 +9,29 @@ import TimeUtils from './utils/TimeUtils'
 
 const DELAY = 60000
 
+/**
+ * @typedef {Object} Props
+ * @property {number} time
+ * @property {import('./utils/TimeUtils').Config} config
+ * @property {string} [className]
+ * @property {boolean} [tooltipOnHover]
+ * @property {boolean} [refresh]
+ * @property {React.ReactNode} [tooltip]
+ * @property {boolean} [expandOnHover]
+ * @property {boolean} [expandFullyOnHover]
+ */
+
+/**
+ * @typedef {Object} State
+ * @property {boolean} hovered
+ */
+
+/** @extends {React.Component<Props, State>} */
 class Time extends React.Component {
+    /**
+     * @param {Props} props
+     * @param {unknown} context
+     */
     constructor(props, context) {
         super(props, context)
 
@@ -28,6 +50,9 @@ class Time extends React.Component {
         }
     }
 
+    /**
+     * @param {Props} prevProps
+     */
     componentDidUpdate(prevProps) {
         if (!prevProps.refresh && this.props.refresh) {
             this._refresh()
@@ -42,6 +67,10 @@ class Time extends React.Component {
         clearTimeout(this.refresh_interval)
     }
 
+    /**
+     * @param {boolean} hovered
+     * @param {React.MouseEvent} event
+     */
     _setHovered(hovered, event) {
         const { mouseX, mouseY } = this.state
         const { clientX, clientY } = event
@@ -55,6 +84,9 @@ class Time extends React.Component {
         }
     }
 
+    /**
+     * @param {Props['config']} config
+     */
     _renderTime(config) {
         if (this.state.hovered) {
             if (this.props.expandFullyOnHover && !this.props.tooltipOnHover) {

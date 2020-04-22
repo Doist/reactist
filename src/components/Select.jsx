@@ -4,6 +4,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
+/**
+ * @typedef {Object} Option
+ * @property {string | number | undefined} [key]
+ * @property {string | number} [value]
+ * @property {string | number | undefined} [text]
+ * @property {boolean | undefined} [disabled]
+ */
+
+/**
+ * @typedef {Object} Props
+ * @property {string | undefined} [className]
+ * @property {boolean | undefined} [disabled]
+ * @property {string | number} value
+ * @property {(value: Props['value']) => void} onChange
+ * @property {Option[] | undefined} [options]
+ */
+
+/** @type {React.FC<Props>} */
 const Select = ({ value, options, onChange, disabled, className }) => {
     const selectClassName = classNames(
         'reactist_select',
