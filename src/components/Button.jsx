@@ -17,7 +17,7 @@ import Tooltip from './Tooltip'
  * @property {boolean} [white]
  * @property {boolean} [large]
  * @property {boolean} [danger]
- * @property {boolean} [data_tip]
+ * @property {string} [data_tip]
  * @property {React.ReactNode} [name]
  * @property {boolean} [close]
  */
