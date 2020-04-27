@@ -243,16 +243,19 @@ class Actions extends React.Component {
     }
 
     render() {
-        const children = React.Children.map(this.props.children, child => {
-            if (!child) return false
-            if (child.props.close) {
-                return React.cloneElement(child, {
-                    onClick: () => this._onClick(child.props.onClick)
-                })
-            } else {
-                return React.cloneElement(child)
+        const children = React.Children.map(
+            this.props.children,
+            /** @param {React.ReactElement<ActionProps>} child */ child => {
+                if (!child) return false
+                if (child.props.close) {
+                    return React.cloneElement(child, {
+                        onClick: () => this._onClick(child.props.onClick)
+                    })
+                } else {
+                    return React.cloneElement(child)
+                }
             }
-        })
+        )
 
         return <div className="reactist_modal_box__actions">{children}</div>
     }
