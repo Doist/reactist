@@ -21,9 +21,9 @@ const TimeUtils = {
         const now = dayjs()
         const date = dayjs(timestamp * 1000)
         date.locale(locale)
-        const diffMinutes = now.diff(date, 'minutes')
-        const diffHours = now.diff(date, 'hours')
-        const diffDays = now.diff(date, 'days')
+        const diffMinutes = now.diff(date, 'minute')
+        const diffHours = now.diff(date, 'hour')
+        const diffDays = now.diff(date, 'day')
 
         if (diffDays > 1) {
             if (date.isSame(now, 'year')) {
