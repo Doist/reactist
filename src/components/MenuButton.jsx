@@ -58,7 +58,7 @@ MenuButton.propTypes = {
  * @property {React.MouseEventHandler | undefined} [onClick]
  */
 
-/** @type {React.FC<MenuButtonItemProps>} */
+/** @type {React.FC<React.PropsWithChildren<MenuButtonItemProps>>} */
 const MenuButtonItem = ({ className, onClick, children }) => {
     const menuButtonItemClass = classNames(
         'reactist_menu_button_item',
