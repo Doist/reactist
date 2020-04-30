@@ -72,7 +72,6 @@ const ColorPicker = ({ color, small, onChange, colorList = COLORS }) => (
             <div className="color_options">
                 {colorList.reduce(
                     (items, currentColor, currentIndex) => {
-                        const isNamed = _isNamedColor(currentColor)
                         items.push(
                             <ColorItem
                                 isActive={
@@ -82,11 +81,17 @@ const ColorPicker = ({ color, small, onChange, colorList = COLORS }) => (
                                 }
                                 key={currentIndex}
                                 color={
-                                    isNamed ? currentColor.color : currentColor
+                                    _isNamedColor(currentColor)
+                                        ? currentColor.color
+                                        : currentColor
                                 }
                                 colorIndex={currentIndex}
                                 onClick={onChange}
-                                tooltip={isNamed ? currentColor.name : null}
+                                tooltip={
+                                    _isNamedColor(currentColor)
+                                        ? currentColor.name
+                                        : null
+                                }
                             />
                         )
                         return items
