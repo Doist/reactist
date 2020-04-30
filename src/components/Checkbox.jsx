@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
  * @property {boolean | undefined} [checked]
  * @property {boolean | undefined} [disabled]
  * @property {(checked: boolean) => void} [onChange]
- * @property {string | React.ReactNode | React.ReactNode[]} [label]
+ * @property {string} [label]
  */
 
 /** @type {React.FC<Props>} */
