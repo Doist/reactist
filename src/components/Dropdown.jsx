@@ -56,7 +56,8 @@ class Box extends React.Component {
     _handleClickOutside(event) {
         const dropdown_dom_node = ReactDOM.findDOMNode(this)
 
-        if (!dropdown_dom_node.contains(event.target)) this._toggleShowBody()
+        if (!dropdown_dom_node.contains(/** @type {Node} */ (event.target)))
+            this._toggleShowBody()
         else if (!this.props.allowBodyInteractions) {
             // won't close when body interactions are allowed
             this._timeout = setTimeout(() => {
@@ -104,9 +105,10 @@ class Box extends React.Component {
 
             if (scrolling_parent) {
                 const dropdown = ReactDOM.findDOMNode(this)
-                const dropdown_vertical_position = ReactDOM.findDOMNode(this)
-                    .offsetTop
-                const dropdown_trigger_height = dropdown.querySelector(
+                const dropdown_vertical_position = /** @type {HTMLElement} */ (ReactDOM.findDOMNode(
+                    this
+                )).offsetTop
+                const dropdown_trigger_height = /** @type {Element} */ (dropdown).querySelector(
                     '.trigger'
                 ).clientHeight
                 const dropdown_body_height = body.clientHeight
