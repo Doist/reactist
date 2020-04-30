@@ -51,16 +51,22 @@ const _getColor = (colorList, colorIndex) => {
 const ColorPicker = ({ color, small, onChange, colorList = COLORS }) => (
     <Dropdown.Box right className="reactist_color_picker">
         <Dropdown.Trigger>
-            <span
-                className={classnames('color_trigger', { small })}
-                style={{
-                    backgroundColor: _isNamedColor(colorList[color])
-                        ? _getColor(colorList, color).color
-                        : _getColor(colorList, color)
-                }}
-            >
-                <span className="color_trigger--inner_ring" />
-            </span>
+            {(() => {
+                const backgroundColor = _getColor(colorList, color)
+
+                return (
+                    <span
+                        className={classnames('color_trigger', { small })}
+                        style={{
+                            backgroundColor: _isNamedColor(backgroundColor)
+                                ? backgroundColor.color
+                                : backgroundColor
+                        }}
+                    >
+                        <span className="color_trigger--inner_ring" />
+                    </span>
+                )
+            })()}
         </Dropdown.Trigger>
         <Dropdown.Body>
             <div className="color_options">
