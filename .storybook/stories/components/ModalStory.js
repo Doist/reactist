@@ -37,7 +37,7 @@ const ModalDocumentationChapters = [
 
 const ModalHeaderOnlyStory = () => {
     const modal = (
-        <Modal.Box>
+        <Modal.Box closeOnOverlayClick>
             <Modal.Header title="Header of Modal" />
         </Modal.Box>
     )
@@ -52,7 +52,7 @@ const ModalHeaderOnlyChapter = {
 
 const ModalHeaderAndBodyStory = () => {
     const modal = (
-        <Modal.Box>
+        <Modal.Box closeOnOverlayClick>
             <Modal.Header
                 title="Header of Modal"
                 subtitle="This is a smaller description"
@@ -73,7 +73,7 @@ const ModalHeaderAndBodyChapter = {
 
 const ModalHeaderBodyAndActionsStory = () => {
     const modal = (
-        <Modal.Box>
+        <Modal.Box closeOnOverlayClick>
             <Modal.Header
                 title="Header of Modal"
                 subtitle="This is a smaller description"
@@ -116,7 +116,7 @@ const ModalHeaderBodyAndActionsChapter = {
 
 const ModalScrollableBodyStory = () => {
     const modal = (
-        <Modal.Box>
+        <Modal.Box closeOnOverlayClick>
             <Modal.Header title="Header of Modal with Scrollable Body" />
             <Modal.Body>
                 The Body of a Modal can contain whatever you like! Like this
@@ -204,7 +204,7 @@ const ModalScrollableBodyChapter = {
 
 const PlainMediumModalStory = () => {
     const modal = (
-        <Modal.Box medium>
+        <Modal.Box medium closeOnOverlayClick>
             <Modal.Header title="Header of Modal" />
             <Modal.Body plain>
                 The Body of a Modal can contain whatever you like! Like this
@@ -243,6 +243,7 @@ const ModalPlaygroundStory = () => {
         <section>
             <div id="modal_box" />
             <Modal.Box
+                closeOnOverlayClick
                 medium={boolean('Box: Medium', false)}
                 large={boolean('Box: Large', false)}
             >

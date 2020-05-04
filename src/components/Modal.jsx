@@ -28,12 +28,10 @@ class Box extends React.Component {
         this._closeModal = this._closeModal.bind(this)
         this._handleOverlayClick = this._handleOverlayClick.bind(this)
         window.addEventListener('keydown', this._handleKeyDown)
-        window.addEventListener('click', this._handleOverlayClick)
     }
 
     componentWillUnmount() {
         window.removeEventListener('keydown', this._handleKeyDown)
-        window.removeEventListener('click', this._handleOverlayClick)
     }
 
     _closeModal() {
@@ -52,13 +50,11 @@ class Box extends React.Component {
     }
 
     /**
-     * @param {MouseEvent} event
+     * @param {React.MouseEvent<Element>} event
      */
     _handleOverlayClick(event) {
         if (
-            this.props.closeOnOverlayClick &&
-            event &&
-            event.target &&
+            event.target instanceof Element &&
             (event.target.id === 'reactist-overlay' ||
                 event.target.id === 'reactist-overlay-inner')
         ) {
@@ -67,7 +63,14 @@ class Box extends React.Component {
     }
 
     render() {
-        const { large, medium, style, children } = this.props
+        const {
+            large,
+            medium,
+            style,
+            children,
+            closeOnOverlayClick
+        } = this.props
+
         const className = classnames(
             'reactist_modal_box',
             { large, medium },
@@ -75,7 +78,13 @@ class Box extends React.Component {
         )
 
         return (
-            <div className="reactist_overlay" id="reactist-overlay">
+            <div
+                className="reactist_overlay"
+                id="reactist-overlay"
+                onClick={
+                    closeOnOverlayClick ? this._handleOverlayClick : undefined
+                }
+            >
                 <div
                     className="reactist_overlay_inner"
                     id="reactist-overlay-inner"
