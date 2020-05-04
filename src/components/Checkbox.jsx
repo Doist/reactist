@@ -39,11 +39,7 @@ Checkbox.propTypes = {
     /** Whether the checkbox is disabled or not. */
     disabled: PropTypes.bool,
     /** Label that is displayed next to the checkbox. */
-    label: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node
-    ])
+    label: PropTypes.string
 }
 
 export default Checkbox
