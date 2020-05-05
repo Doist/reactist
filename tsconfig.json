@@ -13,7 +13,7 @@
         "declaration": true,
         "emitDeclarationOnly": true,
         "noImplicitAny": true,
-        "strict": false
+        "strict": true
     },
     "include": ["./src/components/**/*"],
     "exclude": ["node_modules", "./src/**/__mocks__", "./src/**/__tests__"]
