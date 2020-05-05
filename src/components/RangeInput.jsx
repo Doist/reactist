@@ -18,10 +18,10 @@ import classNames from 'classnames'
 
 /** @type {React.FC<Props>} */
 const RangeInput = ({
-    value,
-    min,
-    max,
-    stepSize,
+    value = 0,
+    min = 0,
+    max = 100,
+    stepSize = 1,
     onPlus,
     onMinus,
     onChange,
