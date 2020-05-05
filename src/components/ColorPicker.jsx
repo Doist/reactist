@@ -7,7 +7,7 @@ import classnames from 'classnames'
 import Dropdown from './Dropdown'
 import Tooltip from './Tooltip'
 
-/** @typedef {{name?: string; color?: string}} NamedColor */
+/** @typedef {{name?: string; color: string}} NamedColor */
 
 const COLORS = [
     '#606060',
@@ -44,7 +44,7 @@ const _getColor = (colorList, colorIndex) => {
  * @property {boolean | undefined} [small]
  * @property {number} color
  * @property {((color: number) => void) | undefined} [onChange]
- * @property {(string | NamedColor)[]} [colorList]
+ * @property {(string | NamedColor)[] | undefined} [colorList]
  */
 
 /** @type {React.FC<Props>} */
@@ -116,9 +116,12 @@ ColorPicker.propTypes = {
     /** Optional list of color codes. Either as an array of strings or an array of objects with the color name. Defaults to COLORS array without names. */
     colorList: PropTypes.arrayOf(
         PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.shape({ color: PropTypes.string, name: PropTypes.string })
-        ])
+            PropTypes.string.isRequired,
+            PropTypes.shape({
+                color: PropTypes.string.isRequired,
+                name: PropTypes.string
+            })
+        ]).isRequired
     )
 }
 

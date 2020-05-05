@@ -38,7 +38,7 @@ const AVATAR_SIZES = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl']
  * @property {string[] | undefined} [colorList]
  * @property {AvatarSize | undefined} [size]
  * @property {string | undefined} [avatarUrl]
- * @property {{name?: string, email?: string}} user
+ * @property {{name?: string, email: string}} user
  */
 
 /** @type {React.FC<Props>} */
@@ -82,7 +82,7 @@ Avatar.propTypes = {
         /** Name of the user. */
         name: PropTypes.string,
         /** Email of the user. Used to calculate avatar color and as fallback in case name is not set. */
-        email: PropTypes.string
+        email: PropTypes.string.isRequired
     }).isRequired,
     /** URL of the avatar image. In case nothing is set a colored circle with the user's initials is displayed. */
     avatarUrl: PropTypes.string,
@@ -91,7 +91,7 @@ Avatar.propTypes = {
     /** Additional css class applied to the avatar. */
     className: PropTypes.string,
     /** Optional list of color codes used as fallback when image not available. Defaults to AVATAR_COLORS array. */
-    colorList: PropTypes.arrayOf(PropTypes.string)
+    colorList: PropTypes.arrayOf(PropTypes.string.isRequired)
 }
 
 export default Avatar

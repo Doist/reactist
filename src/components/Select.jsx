@@ -18,7 +18,7 @@ import classNames from 'classnames'
  * @property {boolean | undefined} [disabled]
  * @property {string | number} value
  * @property {(value: Props['value']) => void} onChange
- * @property {Option[] | undefined} [options]
+ * @property {Option[]} [options]
  */
 
 /** @type {React.FC<Props>} */
@@ -69,8 +69,8 @@ Select.propTypes = {
             text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
             /** Whether the options is disabled or not. */
             disabled: PropTypes.bool
-        })
-    ),
+        }).isRequired
+    ).isRequired,
     /** Whether the select is disabled or not. */
     disabled: PropTypes.bool,
     /** Additional css class applied to the select. */
