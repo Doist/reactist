@@ -3,14 +3,14 @@ export type Props = {
     checked?: boolean;
     disabled?: boolean;
     onChange?: (checked: boolean) => void;
-    label?: string;
+    label?: React.ReactText;
 };
 /**
  * @typedef {Object} Props
  * @property {boolean | undefined} [checked]
  * @property {boolean | undefined} [disabled]
  * @property {(checked: boolean) => void} [onChange]
- * @property {string} [label]
+ * @property {string | number | undefined} [label]
  */
 /** @type {React.FC<Props>} */
 declare const Checkbox: React.FC<Props>;
