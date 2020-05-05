@@ -61,30 +61,27 @@ describe('Modal.Box', () => {
     })
 
     it('unmounts the modal_box when clicking on overlay', () => {
-        const box = mount(<Modal.Box closeOnOverlayClick />).instance()
-
+        const wrapper = mount(<Modal.Box closeOnOverlayClick />)
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
-        box._handleOverlayClick({ target: { id: 'reactist-overlay' } })
+        wrapper.find('#reactist-overlay').simulate('click')
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
             unmountCallCount + 1
         )
     })
 
     it('unmounts the modal_box when clicking on inner overlay (sides of modal)', () => {
-        const box = mount(<Modal.Box closeOnOverlayClick />).instance()
-
+        const wrapper = mount(<Modal.Box closeOnOverlayClick />)
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
-        box._handleOverlayClick({ target: { id: 'reactist-overlay-inner' } })
+        wrapper.find('#reactist-overlay-inner').simulate('click')
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
             unmountCallCount + 1
         )
     })
 
     it('does not close on overlay click when property was not supplied', () => {
-        const box = mount(<Modal.Box />).instance()
-
+        const wrapper = mount(<Modal.Box />)
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
-        box._handleOverlayClick({ target: { id: 'reactist-overlay' } })
+        wrapper.find('#reactist-overlay').simulate('click')
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
             unmountCallCount
         )

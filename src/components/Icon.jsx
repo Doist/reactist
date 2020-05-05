@@ -7,13 +7,32 @@ import classNames from 'classnames'
 import Tooltip from './Tooltip'
 import ThreeDotsIcon from './icons/ThreeDotsIcon.svg'
 
+/**
+ * @typedef {Object} Props
+ * @property {() => void} [onClick]
+ * @property {boolean} [disabled]
+ * @property {boolean} [className]
+ * @property {string} [image]
+ * @property {string} [hoveredImage]
+ * @property {React.ReactNode} [icon]
+ * @property {React.ReactNode} [tooltip]
+ */
+
+/** @extends {React.Component<Props>} */
 class Icon extends React.Component {
+    /**
+     * @param {Props} props
+     * @param {unknown} context
+     */
     constructor(props, context) {
         super(props, context)
 
         this.state = { hovered: false }
     }
 
+    /**
+     * @param {React.MouseEvent} event
+     */
     _onClick = event => {
         event.preventDefault()
 
@@ -40,6 +59,7 @@ class Icon extends React.Component {
             this.props.className
         )
 
+        /** @type {React.CSSProperties | undefined} */
         const style =
             image &&
             (this.state.hovered && hoveredImage

@@ -7,25 +7,40 @@ import classnames from 'classnames'
 
 import CloseIcon from './icons/CloseIcon.svg'
 
+/**
+ * @typedef {Object} Props
+ * @property {string} [className]
+ * @property {React.CSSProperties} [style]
+ * @property {boolean} [large]
+ * @property {boolean} [medium]
+ * @property {boolean} [closeOnOverlayClick]
+ */
+
+/** @extends {React.Component<Props>} */
 class Box extends React.Component {
+    /**
+     * @param {Props} props
+     * @param {unknown} context
+     */
     constructor(props, context) {
         super(props, context)
         this._handleKeyDown = this._handleKeyDown.bind(this)
         this._closeModal = this._closeModal.bind(this)
         this._handleOverlayClick = this._handleOverlayClick.bind(this)
         window.addEventListener('keydown', this._handleKeyDown)
-        window.addEventListener('click', this._handleOverlayClick)
     }
 
     componentWillUnmount() {
         window.removeEventListener('keydown', this._handleKeyDown)
-        window.removeEventListener('click', this._handleOverlayClick)
     }
 
     _closeModal() {
         ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
     }
 
+    /**
+     * @param {KeyboardEvent} event
+     */
     _handleKeyDown(event) {
         if (event.keyCode === 27) {
             // ESC
@@ -34,11 +49,12 @@ class Box extends React.Component {
         }
     }
 
+    /**
+     * @param {React.MouseEvent<Element>} event
+     */
     _handleOverlayClick(event) {
         if (
-            this.props.closeOnOverlayClick &&
-            event &&
-            event.target &&
+            event.target instanceof Element &&
             (event.target.id === 'reactist-overlay' ||
                 event.target.id === 'reactist-overlay-inner')
         ) {
@@ -47,7 +63,14 @@ class Box extends React.Component {
     }
 
     render() {
-        const { large, medium, style, children } = this.props
+        const {
+            large,
+            medium,
+            style,
+            children,
+            closeOnOverlayClick
+        } = this.props
+
         const className = classnames(
             'reactist_modal_box',
             { large, medium },
@@ -55,7 +78,13 @@ class Box extends React.Component {
         )
 
         return (
-            <div className="reactist_overlay" id="reactist-overlay">
+            <div
+                className="reactist_overlay"
+                id="reactist-overlay"
+                onClick={
+                    closeOnOverlayClick ? this._handleOverlayClick : undefined
+                }
+            >
                 <div
                     className="reactist_overlay_inner"
                     id="reactist-overlay-inner"
@@ -92,6 +121,9 @@ Box.propTypes = {
 }
 
 class Header extends React.Component {
+    /**
+     * @param {React.MouseEvent} event
+     */
     _closeModal(event) {
         event.preventDefault()
         if (typeof this.props.beforeClose === 'function') {
@@ -139,6 +171,9 @@ Header.propTypes = {
 }
 
 class Body extends React.Component {
+    /**
+     * @param {React.MouseEvent} event
+     */
     _closeModal(event) {
         event.preventDefault()
         ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
@@ -200,7 +235,15 @@ Body.propTypes = {
     ])
 }
 
+/**
+ * @typedef {Object} ActionProps
+ * @property {() => void} [onClick]
+ * @property {boolean} [close]
+ */
+
+/** @extends {React.Component} */
 class Actions extends React.Component {
+    /** @param {ActionProps['onClick']} on_click */
     _onClick(on_click) {
         if (typeof on_click === 'function') {
             on_click()
@@ -209,16 +252,19 @@ class Actions extends React.Component {
     }
 
     render() {
-        const children = React.Children.map(this.props.children, child => {
-            if (!child) return false
-            if (child.props.close) {
-                return React.cloneElement(child, {
-                    onClick: () => this._onClick(child.props.onClick)
-                })
-            } else {
-                return React.cloneElement(child)
+        const children = React.Children.map(
+            this.props.children,
+            /** @param {React.ReactElement<ActionProps>} child */ child => {
+                if (!child) return false
+                if (child.props.close) {
+                    return React.cloneElement(child, {
+                        onClick: () => this._onClick(child.props.onClick)
+                    })
+                } else {
+                    return React.cloneElement(child)
+                }
             }
-        })
+        )
 
         return <div className="reactist_modal_box__actions">{children}</div>
     }

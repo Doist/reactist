@@ -4,6 +4,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
+/**
+ * @typedef {Object} Props
+ * @property {string | undefined} [className]
+ * @property {string | undefined} [spinnerColor]
+ * @property {string | undefined} [bgColor]
+ * @property {string | number | undefined} [size]
+ */
+
+/** @type {React.FC<Props>} */
 const Loading = ({ className, spinnerColor, bgColor, size }) => (
     <div className={classNames('reactist_loading', className)}>
         <span className="reactist_loading--spinner">

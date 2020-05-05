@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "UMD",
+        "allowJs": true,
+        "checkJs": true,
+        "target": "es6",
+        "moduleResolution": "Node",
+        "noImplicitReturns": true,
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
+        "baseUrl": ".",
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "noImplicitAny": true,
+        "strict": false
+    },
+    "include": ["./src/components/**/*"],
+    "exclude": ["node_modules", "./src/**/__mocks__", "./src/**/__tests__"]
+}

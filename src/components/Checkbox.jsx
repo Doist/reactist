@@ -3,6 +3,15 @@ import './styles/checkbox.less'
 import React from 'react'
 import PropTypes from 'prop-types'
 
+/**
+ * @typedef {Object} Props
+ * @property {boolean | undefined} [checked]
+ * @property {boolean | undefined} [disabled]
+ * @property {(checked: boolean) => void} [onChange]
+ * @property {string} [label]
+ */
+
+/** @type {React.FC<Props>} */
 const Checkbox = ({ label, disabled, checked, onChange }) => (
     <label className="reactist_checkbox">
         <input
@@ -30,11 +39,7 @@ Checkbox.propTypes = {
     /** Whether the checkbox is disabled or not. */
     disabled: PropTypes.bool,
     /** Label that is displayed next to the checkbox. */
-    label: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node
-    ])
+    label: PropTypes.string
 }
 
 export default Checkbox

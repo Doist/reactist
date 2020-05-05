@@ -4,7 +4,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
+/**
+ * @typedef {Object} Props
+ * @property {(event?: React.MouseEvent) => void} [onClick]
+ * @property {boolean} [disabled]
+ * @property {string} [className]
+ * @property {React.ReactNode} [name]
+ */
+
+/** @extends {React.Component<Props>} */
 class LinkButton extends React.Component {
+    /**
+     * @param {React.MouseEvent} event
+     */
     _handleClick = event => {
         event.preventDefault()
         if (!this.props.disabled && this.props.onClick) {

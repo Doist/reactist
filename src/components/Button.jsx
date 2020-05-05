@@ -6,7 +6,27 @@ import classNames from 'classnames'
 
 import Tooltip from './Tooltip'
 
+/**
+ * @typedef {Object} Props
+ * @property {(event?: React.MouseEvent) => void} [onClick]
+ * @property {boolean} [disabled]
+ * @property {boolean} [loading]
+ * @property {string} [className]
+ * @property {boolean} [secondary]
+ * @property {boolean} [small]
+ * @property {boolean} [white]
+ * @property {boolean} [large]
+ * @property {boolean} [danger]
+ * @property {string} [data_tip]
+ * @property {React.ReactNode} [name]
+ * @property {boolean} [close]
+ */
+
+/** @extends {React.Component<Props>} */
 class Button extends React.Component {
+    /**
+     * @param {React.MouseEvent} event
+     */
     _onClick = event => {
         event.preventDefault()
         if (!this.props.disabled && !this.props.loading && this.props.onClick) {

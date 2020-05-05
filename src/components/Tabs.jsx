@@ -4,11 +4,26 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
+/**
+ * @typedef {Object} Props
+ * @property {boolean} [disabled]
+ * @property {boolean} [spreadLayout]
+ * @property {number} [defaultTab]
+ * @property {(value: string | number | undefined) => void} [onChange]
+ */
+
+/** @extends {React.Component<Props>} */
 class Tabs extends React.Component {
+    /**
+     * @param {Props} props
+     * @param {unknown} context
+     */
     constructor(props, context) {
         super(props, context)
         const { defaultTab, onChange } = props
-        const children = React.Children.toArray(this.props.children)
+        const children = /** @type {React.Component<TabProps>[]} */ (React.Children.toArray(
+            this.props.children
+        ))
 
         const hasDefault = defaultTab || defaultTab === 0
         if (hasDefault || onChange) {
@@ -34,11 +49,18 @@ class Tabs extends React.Component {
         }
     }
 
+    /**
+     * @param {React.Component<TabProps>} tab
+     * @param {number} i
+     */
     _switchActiveTab = (tab, i) => {
         this.setState(() => ({ activeTabIndex: i }))
         if (this.props.onChange) this.props.onChange(tab.props.value)
     }
 
+    /**
+     * @param {React.Component<TabProps>[]} tabs
+     */
     _renderTabLinks = tabs => {
         return tabs.map((t, i) => {
             const { title, disabled } = t.props
@@ -68,7 +90,9 @@ class Tabs extends React.Component {
 
     render() {
         // ensures that single or no child components don't throw
-        const children = React.Children.toArray(this.props.children)
+        const children = /** @type {React.Component<TabProps>[]} */ (React.Children.toArray(
+            this.props.children
+        ))
         const activeTab =
             children[this.state.activeTabIndex] || children[0] || null
 
@@ -102,6 +126,15 @@ Tabs.defaultProps = {
     spreadLayout: false
 }
 
+/**
+ * @typedef {Object} TabProps
+ * @property {string | undefined} [className]
+ * @property {boolean | undefined} [disabled]
+ * @property {string | number | undefined} [value]
+ * @property {React.ReactNode} [title]
+ */
+
+/** @type {React.FC<React.PropsWithChildren<TabProps>>} */
 const Tab = ({ children, className }) => (
     <div className={classNames('reactist_tabs__tab', className)}>
         {children}

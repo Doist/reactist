@@ -1,17 +1,18 @@
 {
     "name": "@doist/reactist",
-    "version": "3.0.0",
+    "version": "3.1.0",
     "description": "Open source React components by Doist",
     "main": "./dist/reactist.js",
     "scripts": {
         "build": "NODE_ENV=production ./node_modules/.bin/webpack --progress --color",
         "build-watch": "npm run build -- --watch",
+        "build-types": "rm -f dist/**/*.d.ts lib/**/d.ts && npx tsc -p tsconfig.lib.json; npx tsc -p tsconfig.index.json; mv dist/index.d.ts dist/reactist.d.ts",
         "check": "./node_modules/.bin/eslint . --ext .js --ext .jsx",
         "test": "./node_modules/.bin/jest",
         "test-watch": "npm run test -- --watch --coverage",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook -o docs",
-        "build-all": "npm run build && npm run build-storybook",
+        "build-all": "npm run build && npm run build-storybook && npm run build-types",
         "analyze-bundle": "(TIMESTAMP=`date +%Y-%m-%d_%H-%M-%S`; NODE_ENV=production; ./node_modules/.bin/webpack --mode production --json --progress --profile > webpack-build-log.$TIMESTAMP.json && ./node_modules/.bin/webpack-bundle-analyzer webpack-build-log.$TIMESTAMP.json dist)",
         "prepare-release": "rm -rf node_modules package-lock && npm install && npm run check && npm run test && npm run build-all",
         "prettify": "./node_modules/.bin/prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md}\""
@@ -36,6 +37,8 @@
         "@storybook/addon-links": "^5.2.6",
         "@storybook/addon-options": "^5.2.6",
         "@storybook/react": "^5.2.6",
+        "@types/classnames": "^2.2.10",
+        "@types/react-dom": "^16.9.6",
         "babel-core": "^7.0.0-bridge.0",
         "babel-eslint": "^9.0.0",
         "babel-loader": "^8.0.2",
@@ -70,6 +73,7 @@
         "style-loader": "^0.23.0",
         "svg-url-loader": "^2.3.2",
         "terser-webpack-plugin": "^2.3.1",
+        "typescript": "^3.8.3",
         "webpack": "^4.18.0",
         "webpack-bundle-analyzer": "^3.3.2",
         "webpack-cli": "^3.1.0"

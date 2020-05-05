@@ -1,3 +1,14 @@
+/** @typedef {{width: number; height: number}} Dimensions */
+/** @typedef {{x: number; y: number}} Position */
+
+/**
+ * @param {Dimensions} windowDimensions
+ * @param {Dimensions} elementDimensions
+ * @param {Dimensions} wrapperDimensions
+ * @param {Position} wrapperPosition
+ * @param {'top' | 'right' | 'bottom' | 'left'} position
+ * @param {number} gap
+ */
 const hasEnoughSpace = (
     windowDimensions,
     elementDimensions,
@@ -45,6 +56,11 @@ const hasEnoughSpace = (
     return false
 }
 
+/**
+ * @param {Position} wrapperPosition
+ * @param {Dimensions} wrapperDimensions
+ * @param {Dimensions} elementDimensions
+ */
 const _calculateVerticalPosition = (
     wrapperPosition,
     wrapperDimensions,
@@ -55,6 +71,11 @@ const _calculateVerticalPosition = (
         (wrapperDimensions.width - elementDimensions.width) / 2
     )
 }
+/**
+ * @param {Position} wrapperPosition
+ * @param {Dimensions} wrapperDimensions
+ * @param {Dimensions} elementDimensions
+ */
 const _calculateHorizontalPosition = (
     wrapperPosition,
     wrapperDimensions,
@@ -66,6 +87,12 @@ const _calculateHorizontalPosition = (
     )
 }
 
+/**
+ * @param {Position} wrapperPosition
+ * @param {Dimensions} wrapperDimensions
+ * @param {Dimensions} elementDimensions
+ * @param {number} [gap]
+ */
 const calculateTopCenterPosition = (
     wrapperDimensions,
     wrapperPosition,
@@ -81,6 +108,12 @@ const calculateTopCenterPosition = (
     return { x, y }
 }
 
+/**
+ * @param {Position} wrapperPosition
+ * @param {Dimensions} wrapperDimensions
+ * @param {Dimensions} elementDimensions
+ * @param {number} [gap]
+ */
 const calculateBottomCenterPosition = (
     wrapperDimensions,
     wrapperPosition,
@@ -96,6 +129,12 @@ const calculateBottomCenterPosition = (
     return { x, y }
 }
 
+/**
+ * @param {Position} wrapperPosition
+ * @param {Dimensions} wrapperDimensions
+ * @param {Dimensions} elementDimensions
+ * @param {number} [gap]
+ */
 const calculateRightCenterPosition = (
     wrapperDimensions,
     wrapperPosition,
@@ -111,6 +150,12 @@ const calculateRightCenterPosition = (
     return { x, y }
 }
 
+/**
+ * @param {Position} wrapperPosition
+ * @param {Dimensions} wrapperDimensions
+ * @param {Dimensions} elementDimensions
+ * @param {number} [gap]
+ */
 const calculateLeftCenterPosition = (
     wrapperDimensions,
     wrapperPosition,
@@ -126,6 +171,13 @@ const calculateLeftCenterPosition = (
     return { x, y }
 }
 
+/**
+ * @param {'top' | 'right' | 'bottom' | 'left'} position
+ * @param {Position} wrapperPosition
+ * @param {Dimensions} wrapperDimensions
+ * @param {Dimensions} elementDimensions
+ * @param {number} [gap]
+ */
 const calculatePosition = (
     position,
     wrapperDimensions,

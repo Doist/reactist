@@ -4,6 +4,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
+/**
+ * @typedef {Object} Props
+ * @property {string | undefined} [className]
+ * @property {number} [value]
+ * @property {number | undefined} [min]
+ * @property {number | undefined} [max]
+ * @property {number | undefined} [stepSize]
+ * @property {((value: number) => void) | undefined} [onPlus]
+ * @property {((value: number) => void) | undefined} [onMinus]
+ * @property {(value: number) => void} [onChange]
+ */
+
+/** @type {React.FC<Props>} */
 const RangeInput = ({
     value,
     min,

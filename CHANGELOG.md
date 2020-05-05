@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 3.1.0
+
+- [Feature] Adds typings for all components and utilities
+
 ## 3.0.1
 
 - [Fix] Formatting in the `<Time />` component wasn't working as expected, this is now fixed.
