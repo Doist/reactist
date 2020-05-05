@@ -11,7 +11,7 @@ import classNames from 'classnames'
  */
 
 /** @type {React.FC<Props>} */
-const ProgressBar = ({ fillPercentage, className }) => {
+const ProgressBar = ({ fillPercentage = 0, className }) => {
     const finalClassName = classNames('reactist_progress_bar', className)
     const width =
         fillPercentage < 0 ? 0 : fillPercentage > 100 ? 100 : fillPercentage
