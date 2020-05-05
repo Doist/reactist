@@ -107,7 +107,7 @@ class KeyCapturer extends React.Component {
                 ? KeyCapturerResolver.resolveByKey(event.key)
                 : KeyCapturerResolver.resolveByKeyCode(event.keyCode)
 
-        if (Object.values(SUPPORTED_KEYS).includes(key)) {
+        if (key && Object.values(SUPPORTED_KEYS).includes(key)) {
             if (typeof this.props[`on${key}`] === 'function') {
                 // @ts-ignore Dynamic type not expressible in TypeScript.
                 this.props[`on${key}`]()
