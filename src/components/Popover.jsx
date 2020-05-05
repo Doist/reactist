@@ -68,7 +68,8 @@ class Popover extends React.Component {
 
         // Instead of using the documentElement find the nearest absolutely positioned element
         const documentEl = document.documentElement
-        let node = this.wrapper
+        // Safe cast: only called when mounted.
+        let node = /** @type {HTMLElement} */ (this.wrapper)
         let foundParent = false
         while (!foundParent) {
             const styles = getComputedStyle(node)
