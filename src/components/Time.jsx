@@ -30,10 +30,9 @@ const DELAY = 60000
 class Time extends React.Component {
     /**
      * @param {Props} props
-     * @param {unknown} context
      */
-    constructor(props, context) {
-        super(props, context)
+    constructor(props) {
+        super(props)
 
         this.refresh_interval = null
 
