@@ -31,9 +31,8 @@ export type State = {
 declare class Time extends React.Component<Props, State, any> {
     /**
      * @param {Props} props
-     * @param {unknown} context
      */
-    constructor(props: Props, context: unknown);
+    constructor(props: Props);
     refresh_interval: NodeJS.Timeout;
     state: {
         hovered: boolean;
