@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
  * @property {boolean | undefined} [checked]
  * @property {boolean | undefined} [disabled]
  * @property {(checked: boolean) => void} [onChange]
- * @property {string} [label]
+ * @property {string | number | undefined} [label]
  */
 
 /** @type {React.FC<Props>} */
@@ -39,7 +39,7 @@ Checkbox.propTypes = {
     /** Whether the checkbox is disabled or not. */
     disabled: PropTypes.bool,
     /** Label that is displayed next to the checkbox. */
-    label: PropTypes.string
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 }
 
 export default Checkbox
