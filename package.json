@@ -124,8 +124,8 @@
             "prettier --write",
             "git add"
         ],
-        "*.{js,jsx}": [
-            "npm run lint",
+        "*.{js,jsx,ts,tsx}": [
+            "tsdx lint",
             "git add"
         ]
     },
