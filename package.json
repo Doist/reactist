@@ -125,7 +125,7 @@
             "git add"
         ],
         "*.{js,jsx}": [
-            "tsdx lint",
+            "npm run lint",
             "git add"
         ]
     },
