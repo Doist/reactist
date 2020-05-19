@@ -71,6 +71,7 @@ exports[`Modal.Body renders an icon when supplied via props 1`] = `
       className="reactist_icon"
     >
       <img
+        alt=""
         src="awesome/image.png"
       />
     </div>
