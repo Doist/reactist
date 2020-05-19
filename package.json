@@ -25,7 +25,7 @@
         "lint": "tsdx lint",
         "prepare": "tsdx build",
         "storybook": "start-storybook -p 6006",
-        "prepare-release": "rm -rf node_modules package-lock && npm install && npm run check && npm run test && npm run build-all",
+        "prepare-release": "rm -rf node_modules package-lock && npm install && npm run lint && npm run test && npm run build-all",
         "prettify": "./node_modules/.bin/prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md}\""
     },
     "peerDependencies": {
@@ -115,7 +115,7 @@
     "husky": {
         "hooks": {
             "pre-commit": "lint-staged",
-            "pre-push": "npm run check && npm run test"
+            "pre-push": "npm run lint && npm run test"
         }
     },
     "lint-staged": {
