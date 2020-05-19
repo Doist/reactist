@@ -1,0 +1,37 @@
+{
+    "extends": [
+        "react-app",
+        "prettier/@typescript-eslint",
+        "plugin:prettier/recommended",
+        "jest",
+        "prettier",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier/@typescript-eslint"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true,
+            "impliedStrict": true
+        },
+        "sourceType": "module",
+        "project": "tsconfig.json"
+    },
+    "rules": {
+        "prettier/prettier": "error",
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "react/no-did-mount-set-state": "error",
+        "react/no-did-update-set-state": "error",
+        "react/no-find-dom-node": "off",
+        "react/sort-comp": "error"
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
+}

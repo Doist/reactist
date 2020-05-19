@@ -13,6 +13,7 @@
         "noUnusedParameters": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": false,
         "moduleResolution": "node",
         "baseUrl": "./",
         "paths": {

@@ -142,6 +142,7 @@ class Header extends React.Component<any, any> {
 
     render() {
         return (
+            /* eslint-disable jsx-a11y/anchor-is-valid */
             <div className="reactist_modal_box__header">
                 <p>
                     {this.props.title && (
@@ -160,6 +161,7 @@ class Header extends React.Component<any, any> {
                     <CloseIcon />
                 </a>
             </div>
+            /* eslint-enable jsx-a11y/anchor-is-valid */
         )
     }
 }
@@ -200,6 +202,7 @@ class Body extends React.Component<any, any> {
         )
 
         return (
+            /* eslint-disable jsx-a11y/anchor-is-valid */
             <div className={className} style={style}>
                 {showCloseIcon && (
                     <a
@@ -219,6 +222,7 @@ class Body extends React.Component<any, any> {
                     children
                 )}
             </div>
+            /* eslint-enable jsx-a11y/anchor-is-valid */
         )
     }
 }

@@ -80,6 +80,7 @@ class Icon extends React.Component<any, any> {
             )) // only set icon component for non-image components
 
         const component = (
+            /* eslint-disable jsx-a11y/anchor-is-valid */
             <a
                 href="#"
                 style={style}
@@ -90,6 +91,7 @@ class Icon extends React.Component<any, any> {
             >
                 {iconComponent && iconComponent}
             </a>
+            /* eslint-enable jsx-a11y/anchor-is-valid */
         )
         return tooltip ? (
             <Tooltip text={tooltip}>{component}</Tooltip>

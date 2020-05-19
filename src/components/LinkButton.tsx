@@ -37,9 +37,11 @@ class LinkButton extends React.Component<any, any> {
             this.props.className
         )
         return (
+            /* eslint-disable jsx-a11y/anchor-is-valid */
             <a className={className} href="" onClick={this._handleClick}>
                 {this.props.name}
             </a>
+            /* eslint-enable jsx-a11y/anchor-is-valid */
         )
     }
 }

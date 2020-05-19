@@ -1,5 +1,3 @@
-jest.mock('react-dom')
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { shallow, mount } from 'enzyme'
@@ -7,6 +5,8 @@ import toJson from 'enzyme-to-json'
 
 import Modal from '../Modal'
 import Button from '../Button' // for more descriptive snapshots
+
+jest.mock('react-dom')
 
 describe('Modal.Box', () => {
     it('renders without crashing', () => {
@@ -158,7 +158,7 @@ describe('Modal.Body', () => {
 
     it('renders an icon when supplied via props', () => {
         const body = shallow(
-            <Modal.Body icon={<img src="awesome/image.png" />} />
+            <Modal.Body icon={<img src="awesome/image.png" alt="" />} />
         )
         expect(toJson(body)).toMatchSnapshot()
     })
