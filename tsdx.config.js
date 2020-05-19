@@ -1,15 +1,22 @@
-const styles = require('rollup-plugin-styles')
+const postcss = require('rollup-plugin-postcss')
+const autoprefixer = require('autoprefixer')
+const cssnano = require('cssnano')
 
 module.exports = {
     rollup(config, options) {
-        config.plugins = [
-            styles({
-                mode: ['extract'],
-                include: ['**/*.less', '**/*.css'],
-            }),
-            ...config.plugins,
-        ]
-
+        config.plugins.push(
+            postcss({
+                plugins: [
+                    autoprefixer(),
+                    cssnano({
+                        preset: 'default',
+                    }),
+                ],
+                inject: false,
+                // only write out CSS for the first bundle (avoids pointless extra files):
+                extract: 'reactist.css',
+            })
+        )
         return config
     },
 }

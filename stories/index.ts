@@ -1,6 +1,6 @@
 import './components/styles/story.less'
 
-import ReactistStory from './reactist/ReactistStory.tsx'
+import ReactistStory from './reactist/ReactistStory'
 import ButtonStory from './components/ButtonStory'
 import ModalStory from './components/ModalStory'
 import TimeStory from './components/TimeStory'
