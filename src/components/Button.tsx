@@ -24,9 +24,9 @@ import Tooltip from './Tooltip'
 
 /** @extends {React.Component<any>} */
 class Button extends React.Component<any> {
-    public static defaultProps
     public static displayName
     public static propTypes
+    public static defaultProps
 
     /**
      * @param {React.MouseEvent} event
@@ -49,6 +49,7 @@ class Button extends React.Component<any> {
             danger,
             disabled,
             name,
+            //eslint-disable-next-line @typescript-eslint/camelcase
             data_tip,
             ...extraProps
         } = this.props
@@ -81,6 +82,7 @@ class Button extends React.Component<any> {
         )
 
         // conditionally wrap into tooltip
+        //eslint-disable-next-line @typescript-eslint/camelcase
         return data_tip ? <Tooltip text={data_tip}>{button}</Tooltip> : button
     }
 }
@@ -120,6 +122,7 @@ Button.propTypes = {
     /** Danger style. */
     danger: PropTypes.bool,
     /** Tooltip that is displayed on hover. */
+    //eslint-disable-next-line @typescript-eslint/camelcase
     data_tip: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.node),

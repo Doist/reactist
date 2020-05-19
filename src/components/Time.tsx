@@ -29,14 +29,15 @@ const DELAY = 60000
 /** @extends {React.Component<Props, State>} */
 class Time extends React.Component<any, any> {
     public static displayName
-    public static defaultProps
     public static propTypes
+    public static defaultProps
 
     /**
      * @param {Props} props
      */
     constructor(props) {
         super(props)
+        //eslint-disable-next-line @typescript-eslint/camelcase
         ;(this as any).refresh_interval = null
 
         this.state = {
@@ -106,6 +107,7 @@ class Time extends React.Component<any, any> {
     }
 
     _refresh() {
+        //eslint-disable-next-line @typescript-eslint/camelcase
         ;(this as any).refresh_interval = setInterval(() => {
             this.forceUpdate()
         }, DELAY)

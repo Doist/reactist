@@ -30,8 +30,8 @@ import { hasEnoughSpace, calculatePosition } from './utils/PositioningUtils'
 /** @extends {React.Component<Props>} */
 class Popover extends React.Component<any, any> {
     public static displayName
-    public static defaultProps
     public static propTypes
+    public static defaultProps
 
     componentDidMount() {
         if (this.props.visible) {
@@ -180,6 +180,7 @@ class Popover extends React.Component<any, any> {
         const { visible, withArrow, arrowClassName } = this.props
         const className = classNames('reactist_popover', { visible })
 
+        /* eslint-disable @typescript-eslint/camelcase */
         if (visible && withArrow) {
             return classNames(className, arrowClassName, {
                 arrow_top: position === 'bottom',
@@ -188,6 +189,7 @@ class Popover extends React.Component<any, any> {
                 arrow_left: position === 'right',
             })
         }
+        /* eslint-enable @typescript-eslint/camelcase */
         return className
     }
 

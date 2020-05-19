@@ -111,6 +111,7 @@ class KeyCapturer extends React.Component<any, any> {
 
         if (Object.values(SUPPORTED_KEYS).includes(key)) {
             if (typeof this.props[`on${key}`] === 'function') {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
                 // @ts-ignore Dynamic type not expressible in TypeScript.
                 this.props[`on${key}`]()
                 if (this.props[`propagate${key}`] !== true) {

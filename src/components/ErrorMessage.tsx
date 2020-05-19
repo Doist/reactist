@@ -13,8 +13,8 @@ import PropTypes from 'prop-types'
 /** @extends {React.Component<Props>} */
 class ErrorMessage extends React.Component<any, any> {
     public static displayName
-    public static defaultProps
     public static propTypes
+    public static defaultProps
 
     /**
      * @param {Props} props
@@ -23,22 +23,26 @@ class ErrorMessage extends React.Component<any, any> {
     constructor(props, context) {
         super(props, context)
 
+        /* eslint-disable @typescript-eslint/camelcase */
         const is_valid_message = this._isValidMessage(props.message)
         if (is_valid_message) {
             this._triggerDelayedHide()
         }
         this.state = { visible: is_valid_message }
+        /* eslint-enable @typescript-eslint/camelcase */
     }
 
     /**
      * @param {Props} next_props
      */
+    /* eslint-disable @typescript-eslint/camelcase */
     UNSAFE_componentWillReceiveProps(next_props) {
         if (this._isValidMessage(next_props.message)) {
             this.setState(() => ({ visible: true }))
             this._triggerDelayedHide()
         }
     }
+    /* eslint-enable @typescript-eslint/camelcase */
 
     /**
      * @param {string} message

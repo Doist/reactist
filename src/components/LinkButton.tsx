@@ -15,8 +15,8 @@ import classNames from 'classnames'
 /** @extends {React.Component<Props>} */
 class LinkButton extends React.Component<any, any> {
     public static displayName
-    public static defaultProps
     public static propTypes
+    public static defaultProps
 
     /**
      * @param {React.MouseEvent} event

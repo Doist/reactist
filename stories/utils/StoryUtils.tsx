@@ -24,7 +24,7 @@ const optionsNoSourceNoProps = {
     showPropTables: false,
     allowPropTablesToggling: false,
 }
-const emptySection = () => {}
+const emptySection = () => undefined
 
 export {
     getPropTypesStory,

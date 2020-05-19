@@ -35,6 +35,7 @@ class Box extends React.Component<any, any> {
     constructor(props, context) {
         super(props, context)
         this.state = {
+            //eslint-disable-next-line @typescript-eslint/camelcase
             show_body: false,
             top: props.top || false,
         }
@@ -56,8 +57,10 @@ class Box extends React.Component<any, any> {
      * @param {MouseEvent} event
      */
     _handleClickOutside(event) {
+        //eslint-disable-next-line @typescript-eslint/camelcase
         const dropdown_dom_node = ReactDOM.findDOMNode(this)
 
+        //eslint-disable-next-line @typescript-eslint/camelcase
         if (!dropdown_dom_node.contains(/** @type {Node} */ (event.target)))
             this._toggleShowBody()
         else if (!this.props.allowBodyInteractions) {
@@ -86,12 +89,13 @@ class Box extends React.Component<any, any> {
         }
 
         this.setState({
+            //eslint-disable-next-line @typescript-eslint/camelcase
             show_body: !this.state.show_body,
         })
     }
 
     _getTriggerComponent() {
-        let _trigger = this.props.children[0]
+        const _trigger = this.props.children[0]
         return React.cloneElement(_trigger, { onClick: this._toggleShowBody })
     }
 
@@ -101,10 +105,12 @@ class Box extends React.Component<any, any> {
      */
     _setPosition(body) {
         if (body) {
+            //eslint-disable-next-line @typescript-eslint/camelcase
             const scrolling_parent = document.getElementById(
                 this.props.scrolling_parent
             )
 
+            /* eslint-disable @typescript-eslint/camelcase */
             if (scrolling_parent) {
                 const dropdown = ReactDOM.findDOMNode(this)
                 const dropdown_vertical_position = /** @type {HTMLElement} */ (ReactDOM.findDOMNode(
@@ -130,6 +136,7 @@ class Box extends React.Component<any, any> {
                     this.setState({ top })
                 }
             }
+            /* eslint-enable @typescript-eslint/camelcase */
         }
     }
 
@@ -141,12 +148,14 @@ class Box extends React.Component<any, any> {
         const { right = false, children } = this.props
         const props = { top, right, setPosition: this._setPosition }
 
+        /* eslint-disable @typescript-eslint/camelcase */
         const class_name = classNames({
             body_wrapper: true,
             with_arrow: true,
             top: top,
             bottom: !top,
         })
+        /* eslint-enable @typescript-eslint/camelcase */
 
         const body = children[1]
 
@@ -155,6 +164,7 @@ class Box extends React.Component<any, any> {
                 ? body(props)
                 : React.cloneElement(body, props)
         return (
+            //eslint-disable-next-line @typescript-eslint/camelcase
             <div className={class_name} style={{ position: 'relative' }}>
                 {contentMarkup}
             </div>
@@ -181,6 +191,7 @@ Box.propTypes = {
     /** Whether the dropdown should open to the right. */
     right: PropTypes.bool,
     /** Id of the scrolling parent element to place dropdown in it. */
+    //eslint-disable-next-line @typescript-eslint/camelcase
     scrolling_parent: PropTypes.string,
     /** Whether to keep dropdown open when interacted with the Body content. */
     allowBodyInteractions: PropTypes.bool,
@@ -249,7 +260,7 @@ class Body extends React.Component<any> {
 
     render() {
         /** @type {React.CSSProperties} */
-        let style = {
+        const style = {
             position: 'absolute',
             right: 0,
             top: 0,

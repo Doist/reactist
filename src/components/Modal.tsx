@@ -126,8 +126,8 @@ Box.propTypes = {
 
 class Header extends React.Component<any, any> {
     public static displayName
-    public static defaultProps
     public static propTypes
+    public static defaultProps
 
     /**
      * @param {React.MouseEvent} event
@@ -263,12 +263,14 @@ class Actions extends React.Component<any, any> {
     public static propTypes
 
     /** @param {ActionProps['onClick']} on_click */
+    /* eslint-disable @typescript-eslint/camelcase */
     _onClick(on_click) {
         if (typeof on_click === 'function') {
             on_click()
         }
         ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
     }
+    /* eslint-enable @typescript-eslint/camelcase */
 
     render() {
         const children = React.Children.map(

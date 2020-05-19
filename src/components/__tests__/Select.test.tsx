@@ -34,7 +34,7 @@ describe('Select', () => {
     // helpers
     const getSelect = (props = undefined) => (
         <Select
-            onChange={() => {}}
+            onChange={jest.fn()}
             value="test"
             options={[{ value: 'test', text: 'test' }]}
             {...props}

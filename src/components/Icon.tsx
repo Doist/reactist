@@ -21,8 +21,8 @@ import ThreeDotsIcon from './icons/ThreeDotsIcon.svg'
 /** @extends {React.Component<Props>} */
 class Icon extends React.Component<any, any> {
     public static displayName
-    public static defaultProps
     public static propTypes
+    public static defaultProps
 
     /**
      * @param {Props} props

@@ -7,12 +7,12 @@ const getInitials = (name = undefined) => {
     }
 
     const seed = name.trim().split(' ')
-    const first_initial = seed[0]
-    const last_initial = seed[seed.length - 1]
+    const firstInitial = seed[0]
+    const lastInitial = seed[seed.length - 1]
 
-    let initials = first_initial[0]
-    if (first_initial[0] !== last_initial[0]) {
-        initials += last_initial[0]
+    let initials = firstInitial[0]
+    if (firstInitial[0] !== lastInitial[0]) {
+        initials += lastInitial[0]
     }
     return initials.toUpperCase()
 }
