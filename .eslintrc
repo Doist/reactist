@@ -18,6 +18,7 @@
         },
         "sourceType": "module"
     },
+    "ignorePatterns": ["tsdx.config.js"],
     "rules": {
         "prettier/prettier": "error",
         "linebreak-style": ["error", "unix"],
