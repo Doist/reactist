@@ -1,9 +1,5 @@
-export default ErrorMessage;
-export type Props = {
-    timeout: number;
-    onHide?: () => void;
-    message: string;
-};
+import './styles/error_message.less';
+import React from 'react';
 /**
  * @typedef {Object} Props
  * @property {number} timeout
@@ -11,40 +7,26 @@ export type Props = {
  * @property {string} message
  */
 /** @extends {React.Component<Props>} */
-declare class ErrorMessage extends React.Component<Props, any, any> {
+declare class ErrorMessage extends React.Component<any, any> {
+    static displayName: any;
+    static defaultProps: any;
+    static propTypes: any;
     /**
      * @param {Props} props
      * @param {unknown} context
      */
-    constructor(props: Props, context: unknown);
-    state: {
-        visible: boolean;
-    };
+    constructor(props: any, context: any);
     /**
      * @param {Props} next_props
      */
-    UNSAFE_componentWillReceiveProps(next_props: Props): void;
+    UNSAFE_componentWillReceiveProps(next_props: any): void;
     /**
      * @param {string} message
      */
-    _isValidMessage(message: string): boolean;
+    _isValidMessage(message: any): boolean;
     _clearTimeout: () => void;
     _triggerDelayedHide: () => void;
-    timeout: NodeJS.Timeout;
     _hide: () => void;
     render(): false | JSX.Element;
 }
-declare namespace ErrorMessage {
-    export const displayName: string;
-    export namespace defaultProps {
-        export const timeout: number;
-    }
-    export namespace propTypes {
-        export const message: PropTypes.Requireable<PropTypes.ReactNodeLike>;
-        const timeout_1: PropTypes.Requireable<number>;
-        export { timeout_1 as timeout };
-        export const onHide: PropTypes.Requireable<(...args: any[]) => any>;
-    }
-}
-import React from "react";
-import PropTypes from "prop-types";
+export default ErrorMessage;

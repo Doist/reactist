@@ -10,14 +10,32 @@ module.exports = {
     plugins: [],
     module: {
         rules: [
-            // add your custom rules.
             {
                 test: /\.md$/,
-                use: 'raw-loader'
+                use: 'raw-loader',
             },
             { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' },
             { test: /\.css$/, loader: 'style-loader!css-loader' },
-            { test: /\.svg$/, loader: 'svg-url-loader' }
-        ]
-    }
+            { test: /\.svg$/, loader: 'svg-url-loader' },
+            {
+                test: /\.(ts|tsx)$/,
+                use: [
+                    {
+                        loader: require.resolve('ts-loader'),
+                        options: {
+                            transpileOnly: true,
+                        },
+                    },
+                    {
+                        loader: require.resolve(
+                            'react-docgen-typescript-loader'
+                        ),
+                    },
+                ],
+            },
+        ],
+    },
+    resolve: {
+        extensions: ['.ts', '.tsx'],
+    },
 }

@@ -4,5 +4,5 @@
         "rootDir": "./src",
         "declarationDir": "dist"
     },
-    "include": ["./src/index.js", "./src/components/**/*.js"]
+    "include": ["./src/index.tsx", "./src/components/**/*.tsx"]
 }

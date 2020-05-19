@@ -1,10 +1,6 @@
-export default Checkbox;
-export type Props = {
-    checked?: boolean;
-    disabled?: boolean;
-    onChange?: (checked: boolean) => void;
-    label?: React.ReactText;
-};
+import './styles/checkbox.less';
+import React from 'react';
+import PropTypes from 'prop-types';
 /**
  * @typedef {Object} Props
  * @property {boolean | undefined} [checked]
@@ -13,5 +9,26 @@ export type Props = {
  * @property {string | number | undefined} [label]
  */
 /** @type {React.FC<Props>} */
-declare const Checkbox: React.FC<Props>;
-import React from "react";
+declare const Checkbox: {
+    ({ label, disabled, checked, onChange }: {
+        label: any;
+        disabled: any;
+        checked: any;
+        onChange: any;
+    }): JSX.Element;
+    displayName: string;
+    defaultProps: {
+        checked: boolean;
+    };
+    propTypes: {
+        /** Handler function that is called when the checkbox is toggled. Is invoked with the checked value and not the full event. */
+        onChange: PropTypes.Validator<(...args: any[]) => any>;
+        /** Current value of the checkbox. */
+        checked: PropTypes.Requireable<boolean>;
+        /** Whether the checkbox is disabled or not. */
+        disabled: PropTypes.Requireable<boolean>;
+        /** Label that is displayed next to the checkbox. */
+        label: PropTypes.Requireable<React.Key>;
+    };
+};
+export default Checkbox;

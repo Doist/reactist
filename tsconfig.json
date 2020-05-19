@@ -1,20 +1,27 @@
 {
+    "include": ["src", "types"],
     "compilerOptions": {
-        "module": "UMD",
         "allowJs": true,
-        "checkJs": true,
-        "target": "es6",
-        "moduleResolution": "Node",
-        "noImplicitReturns": true,
-        "jsx": "react",
-        "allowSyntheticDefaultImports": true,
-        "skipLibCheck": true,
-        "baseUrl": ".",
+        "module": "esnext",
+        "lib": ["dom", "esnext"],
+        "importHelpers": true,
         "declaration": true,
-        "emitDeclarationOnly": true,
-        "noImplicitAny": true,
-        "strict": false
+        "sourceMap": true,
+        "rootDir": "src",
+        "strict": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "moduleResolution": "node",
+        "baseUrl": "./",
+        "paths": {
+            "@": ["./"],
+            "*": ["src/*", "node_modules/*"]
+        },
+        "jsx": "react",
+        "esModuleInterop": true,
+        "emitDeclarationOnly": true
     },
-    "include": ["./src/components/**/*"],
-    "exclude": ["node_modules", "./src/**/__mocks__", "./src/**/__tests__"]
+    "exclude": ["node_modules"]
 }

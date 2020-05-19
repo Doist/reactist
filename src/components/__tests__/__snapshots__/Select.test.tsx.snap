@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Select renders without crashing 1`] = `
+<select
+  className="reactist_select"
+  disabled={false}
+  onChange={[Function]}
+  value="test"
+>
+  <option
+    key="test"
+    value="test"
+  >
+    test
+  </option>
+</select>
+`;

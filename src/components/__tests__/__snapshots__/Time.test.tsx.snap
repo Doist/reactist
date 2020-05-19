@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Time adds additional class name if supplied 1`] = `
+<time
+  className="this-classes were-added"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  March 22, 1991
+</time>
+`;
+
+exports[`Time renders with custom tooltip when supplied 1`] = `
+<time
+  className="reactist_time"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <Tooltip
+    allowVaguePositioning={false}
+    delayHide={0}
+    delayShow={500}
+    gapSize={5}
+    hideOnScroll={true}
+    inverted={false}
+    position="auto"
+    text="Test"
+    withArrow={true}
+  >
+    March 22, 1991
+  </Tooltip>
+</time>
+`;
+
+exports[`Time renders without crashing 1`] = `
+<time
+  className="reactist_time"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  moments ago
+</time>
+`;
+
+exports[`Time renders wrapped in tooltip when tooltipOnHover is set 1`] = `
+<time
+  className="reactist_time"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <Tooltip
+    allowVaguePositioning={false}
+    delayHide={0}
+    delayShow={500}
+    gapSize={5}
+    hideOnScroll={true}
+    inverted={false}
+    position="auto"
+    text="March 22, 1991, 1:37 PM"
+    withArrow={true}
+  >
+    March 22, 1991
+  </Tooltip>
+</time>
+`;

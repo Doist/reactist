@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tooltip renders only children if text prop is not defined 1`] = `
+<div
+  className="reactist_tooltip__wrapper"
+>
+  <span>
+    Wrapped Content
+  </span>
+</div>
+`;
+
+exports[`Tooltip renders without crashing 1`] = `
+<Tooltip
+  allowVaguePositioning={false}
+  delayHide={0}
+  delayShow={500}
+  gapSize={5}
+  hideOnScroll={true}
+  inverted={false}
+  position="auto"
+  text="tip"
+  withArrow={true}
+>
+  <Popover
+    allowVaguePositioning={false}
+    arrowClassName="reactist_tooltip__arrow"
+    content="tip"
+    gapSize={5}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    popoverClassName="reactist_tooltip__text"
+    popoverRef={[Function]}
+    position="auto"
+    trigger={
+      Array [
+        <span
+          onClick={[Function]}
+        >
+          Wrapped Content
+        </span>,
+      ]
+    }
+    visible={false}
+    withArrow={true}
+    wrapperClassName="reactist_tooltip__wrapper"
+    wrapperRef={[Function]}
+  >
+    <span
+      className="reactist_popover__wrapper reactist_tooltip__wrapper"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <span
+        key=".0"
+        onClick={[Function]}
+      >
+        Wrapped Content
+      </span>
+      <span
+        className="reactist_popover"
+      />
+    </span>
+  </Popover>
+</Tooltip>
+`;

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LinkButton appends additionally supplied classnames 1`] = `
+<a
+  className="reactist_link_button extra-brand-style"
+  href=""
+  onClick={[Function]}
+>
+  link
+</a>
+`;
+
+exports[`LinkButton renders without crashing 1`] = `
+<a
+  className="reactist_link_button"
+  href=""
+  onClick={[Function]}
+>
+  link
+</a>
+`;

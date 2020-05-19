@@ -1,15 +1,6 @@
-export type Props = {
-    disabled?: boolean;
-    spreadLayout?: boolean;
-    defaultTab?: number;
-    onChange?: (value: React.ReactText) => void;
-};
-export type TabProps = {
-    className?: string;
-    disabled?: boolean;
-    value?: React.ReactText;
-    title?: React.ReactNode;
-};
+import './styles/tabs.less';
+import React from 'react';
+import PropTypes from 'prop-types';
 /**
  * @typedef {Object} Props
  * @property {boolean} [disabled]
@@ -18,38 +9,25 @@ export type TabProps = {
  * @property {(value: string | number | undefined) => void} [onChange]
  */
 /** @extends {React.Component<Props>} */
-export class Tabs extends React.Component<Props, any, any> {
+declare class Tabs extends React.Component<any, any> {
+    static displayName: any;
+    static defaultProps: any;
+    static propTypes: any;
     /**
      * @param {Props} props
      * @param {unknown} context
      */
-    constructor(props: Props, context: unknown);
-    state: {
-        activeTabIndex: number;
-    };
+    constructor(props: any, context: any);
     /**
      * @param {React.Component<TabProps>} tab
      * @param {number} i
      */
-    _switchActiveTab: (tab: React.Component<TabProps, any, any>, i: number) => void;
+    _switchActiveTab: (tab: any, i: any) => void;
     /**
      * @param {React.Component<TabProps>[]} tabs
      */
-    _renderTabLinks: (tabs: React.Component<TabProps, any, any>[]) => JSX.Element[];
+    _renderTabLinks: (tabs: any) => any;
     render(): JSX.Element;
-}
-export namespace Tabs {
-    export const displayName: string;
-    export namespace propTypes {
-        export const defaultTab: PropTypes.Requireable<React.ReactText>;
-        export const spreadLayout: PropTypes.Requireable<boolean>;
-        export const onChange: PropTypes.Requireable<(...args: any[]) => any>;
-        export const children: PropTypes.Requireable<any>;
-    }
-    export namespace defaultProps {
-        const spreadLayout_1: boolean;
-        export { spreadLayout_1 as spreadLayout };
-    }
 }
 /**
  * @typedef {Object} TabProps
@@ -59,6 +37,25 @@ export namespace Tabs {
  * @property {React.ReactNode} [title]
  */
 /** @type {React.FC<React.PropsWithChildren<TabProps>>} */
-export const Tab: React.FC<React.PropsWithChildren<TabProps>>;
-import React from "react";
-import PropTypes from "prop-types";
+declare const Tab: {
+    ({ children, className }: {
+        children: any;
+        className: any;
+    }): JSX.Element;
+    displayName: string;
+    defaultProps: {
+        disabled: boolean;
+    };
+    propTypes: {
+        value: PropTypes.Requireable<React.Key>;
+        /** Title of the tab. */
+        title: PropTypes.Validator<string>;
+        /** Disabled tabs can't be selected. */
+        disabled: PropTypes.Requireable<boolean>;
+        /** Additional css class applied to Tab. */
+        className: PropTypes.Requireable<string>;
+        /** Children of the Tab component. Can be a simple string or other component(s). */
+        children: PropTypes.Requireable<any>;
+    };
+};
+export { Tabs, Tab };

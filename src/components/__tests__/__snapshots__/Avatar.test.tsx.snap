@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar renders a background image when avatarUrl is supplied 1`] = `
+<div
+  className="reactist_avatar reactist_avatar_size--xl"
+  style={
+    Object {
+      "backgroundImage": "url(https://foo.bar/com.png)",
+      "textIndent": "-9999px",
+    }
+  }
+>
+  HM
+</div>
+`;
+
+exports[`Avatar renders initials of user email when avatarUrl is not supplied 1`] = `
+<div
+  className="reactist_avatar reactist_avatar_size--xl"
+  style={
+    Object {
+      "backgroundColor": "#98be2f",
+    }
+  }
+>
+  H
+</div>
+`;
+
+exports[`Avatar renders initials of user name when avatarUrl is not supplied 1`] = `
+<div
+  className="reactist_avatar reactist_avatar_size--xl"
+  style={
+    Object {
+      "backgroundColor": "#98be2f",
+    }
+  }
+>
+  HM
+</div>
+`;
+
+exports[`Avatar renders initials on custom color 1`] = `
+<div
+  className="reactist_avatar reactist_avatar_size--xl"
+  style={
+    Object {
+      "backgroundColor": "red",
+    }
+  }
+>
+  HM
+</div>
+`;

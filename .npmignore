@@ -18,5 +18,4 @@ src/
 .eslintrc
 .prettierignore
 .prettierrc
-webpack-build-log**
-webpack.config.babel.js
+tsdx.config.js

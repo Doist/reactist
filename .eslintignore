@@ -1,6 +1,0 @@
-.github/
-!.storybook/
-coverage/
-dist/
-docs/
-lib/
