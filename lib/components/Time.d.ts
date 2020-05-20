@@ -18,8 +18,8 @@ import React from 'react';
 /** @extends {React.Component<Props, State>} */
 declare class Time extends React.Component<any, any> {
     static displayName: any;
-    static defaultProps: any;
     static propTypes: any;
+    static defaultProps: any;
     /**
      * @param {Props} props
      */

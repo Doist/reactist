@@ -57,4 +57,4 @@ declare const calculateLeftCenterPosition: (wrapperDimensions: any, wrapperPosit
  * @param {number} [gap]
  */
 declare const calculatePosition: (position: any, wrapperDimensions: any, wrapperPosition: any, elementDimensions: any, gap?: number) => any;
-export { hasEnoughSpace, calculatePosition, calculateTopCenterPosition, calculateBottomCenterPosition, calculateRightCenterPosition, calculateLeftCenterPosition };
+export { hasEnoughSpace, calculatePosition, calculateTopCenterPosition, calculateBottomCenterPosition, calculateRightCenterPosition, calculateLeftCenterPosition, };

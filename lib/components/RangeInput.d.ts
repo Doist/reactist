@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
  */
 /** @type {React.FC<Props>} */
 declare const RangeInput: {
-    ({ value, min, max, stepSize, onPlus, onMinus, onChange, className }: {
+    ({ value, min, max, stepSize, onPlus, onMinus, onChange, className, }: {
         value: any;
         min: any;
         max: any;

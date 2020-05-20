@@ -17,9 +17,9 @@ import React from 'react';
  */
 /** @extends {React.Component<any>} */
 declare class Button extends React.Component<any> {
-    static defaultProps: any;
     static displayName: any;
     static propTypes: any;
+    static defaultProps: any;
     /**
      * @param {React.MouseEvent} event
      */

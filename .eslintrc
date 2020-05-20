@@ -18,7 +18,7 @@
         },
         "sourceType": "module"
     },
-    "ignorePatterns": ["tsdx.config.js"],
+    "ignorePatterns": ["tsdx.config.js", "dist/**", "docs/**", "lib/**"],
     "rules": {
         "prettier/prettier": "error",
         "linebreak-style": ["error", "unix"],

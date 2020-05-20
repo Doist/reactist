@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
  */
 /** @type {React.FC<Props>} */
 declare const Avatar: {
-    ({ user, avatarUrl, size, className, colorList }: {
+    ({ user, avatarUrl, size, className, colorList, }: {
         user: any;
         avatarUrl: any;
         size: any;

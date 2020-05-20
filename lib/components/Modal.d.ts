@@ -32,8 +32,8 @@ declare class Box extends React.Component<any, any> {
 }
 declare class Header extends React.Component<any, any> {
     static displayName: any;
-    static defaultProps: any;
     static propTypes: any;
+    static defaultProps: any;
     /**
      * @param {React.MouseEvent} event
      */

@@ -11,8 +11,8 @@ import PropTypes from 'prop-types';
 /** @extends {React.Component<Props>} */
 declare class Tabs extends React.Component<any, any> {
     static displayName: any;
-    static defaultProps: any;
     static propTypes: any;
+    static defaultProps: any;
     /**
      * @param {Props} props
      * @param {unknown} context
