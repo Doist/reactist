@@ -18,7 +18,14 @@
         },
         "sourceType": "module"
     },
-    "ignorePatterns": ["tsdx.config.js", "dist/**", "docs/**", "lib/**"],
+    "ignorePatterns": [
+        "tsdx.config.js",
+        "webpack.config.*",
+        "dist/**",
+        "docs/**",
+        "lib/**",
+        "scripts/**"
+    ],
     "rules": {
         "prettier/prettier": "error",
         "linebreak-style": ["error", "unix"],
