@@ -1,9 +1,0 @@
-{
-    "extends": "./tsconfig.json",
-    "compilerOptions": {
-        "rootDir": "./src",
-        "declarationDir": "dist",
-        "emitDeclarationOnly": true
-    },
-    "include": ["./src/index.tsx", "./src/components/**/*.tsx"]
-}

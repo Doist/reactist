@@ -2,8 +2,7 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "rootDir": "./src",
-        "declarationDir": "lib",
-        "emitDeclarationOnly": true
+        "declarationDir": "dist"
     },
     "exclude": ["node_modules", "**/__mocks__", "**/__tests__"]
 }

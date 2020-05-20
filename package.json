@@ -17,10 +17,9 @@
     },
     "scripts": {
         "start": "tsdx watch",
-        "build": "tsdx build",
-        "build-types": "rm -f dist/**/*.d.ts lib/**/d.ts && npx tsc -p tsconfig.lib.json; npx tsc -p tsconfig.index.json; mv dist/index.d.ts dist/reactist.d.ts",
+        "build": "tsdx build --tsconfig tsconfig.dist.json; mv dist/index.d.ts dist/reactist.d.ts",
         "build-storybook": "build-storybook -o docs",
-        "build-all": "npm run build && npm run build-storybook && npm run build-types",
+        "build-all": "npm run build && npm run build-storybook",
         "test": "tsdx test --passWithNoTests",
         "lint": "tsdx lint src stories",
         "prepare": "tsdx build",
