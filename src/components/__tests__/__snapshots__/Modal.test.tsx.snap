@@ -1,0 +1,282 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal.Actions renders all children without crashing 1`] = `
+<div
+  className="reactist_modal_box__actions"
+>
+  <Button
+    danger={false}
+    disabled={false}
+    key=".0"
+    loading={false}
+    name="Action 1"
+    secondary={false}
+    small={false}
+    white={false}
+  />
+  <Button
+    danger={false}
+    disabled={false}
+    key=".1"
+    loading={false}
+    name="Action 2"
+    secondary={false}
+    small={false}
+    white={false}
+  />
+</div>
+`;
+
+exports[`Modal.Actions renders without crashing 1`] = `
+<div
+  className="reactist_modal_box__actions"
+/>
+`;
+
+exports[`Modal.Body adds additionally supplied className prop 1`] = `
+<div
+  className="reactist_modal_box__body applied-to-modal-body"
+/>
+`;
+
+exports[`Modal.Body renders all children without crashing 1`] = `
+<div
+  className="reactist_modal_box__body"
+>
+  <div>
+    <h1>
+      This is a body
+    </h1>
+  </div>
+  <Button
+    danger={false}
+    disabled={false}
+    loading={false}
+    name="Button in Body"
+    secondary={false}
+    small={false}
+    white={false}
+  />
+</div>
+`;
+
+exports[`Modal.Body renders an icon when supplied via props 1`] = `
+<div
+  className="reactist_modal_box__body"
+>
+  <div
+    className="dialog"
+  >
+    <div
+      className="reactist_icon"
+    >
+      <img
+        alt=""
+        src="awesome/image.png"
+      />
+    </div>
+    <div
+      className="content"
+    />
+  </div>
+</div>
+`;
+
+exports[`Modal.Body renders without crashing 1`] = `
+<div
+  className="reactist_modal_box__body"
+/>
+`;
+
+exports[`Modal.Box adds additionally supplied className prop 1`] = `
+<div
+  className="reactist_overlay"
+  id="reactist-overlay"
+>
+  <div
+    className="reactist_overlay_inner"
+    id="reactist-overlay-inner"
+  >
+    <div
+      className="reactist_modal_box applied-to-child-of-box"
+    />
+  </div>
+</div>
+`;
+
+exports[`Modal.Box adds large to className when supplied 1`] = `
+<div
+  className="reactist_overlay"
+  id="reactist-overlay"
+>
+  <div
+    className="reactist_overlay_inner"
+    id="reactist-overlay-inner"
+  >
+    <div
+      className="reactist_modal_box large"
+    />
+  </div>
+</div>
+`;
+
+exports[`Modal.Box renders all children without crashing 1`] = `
+<div
+  className="reactist_overlay"
+  id="reactist-overlay"
+>
+  <div
+    className="reactist_overlay_inner"
+    id="reactist-overlay-inner"
+  >
+    <div
+      className="reactist_modal_box"
+    >
+      <Modal.Header>
+        Realistic test
+      </Modal.Header>
+      <Modal.Body
+        showCloseIcon={false}
+      >
+        ... is very realistic
+      </Modal.Body>
+      <Modal.Actions>
+        <Button
+          danger={false}
+          disabled={false}
+          loading={false}
+          name="Wow"
+          secondary={false}
+          small={false}
+          white={false}
+        />
+        <Button
+          danger={false}
+          disabled={false}
+          loading={false}
+          name="So real"
+          secondary={false}
+          small={false}
+          white={false}
+        />
+      </Modal.Actions>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Modal.Box renders without crashing 1`] = `
+<div
+  className="reactist_overlay"
+  id="reactist-overlay"
+>
+  <div
+    className="reactist_overlay_inner"
+    id="reactist-overlay-inner"
+  >
+    <div
+      className="reactist_modal_box"
+    />
+  </div>
+</div>
+`;
+
+exports[`Modal.Header renders all children without crashing 1`] = `
+<div
+  className="reactist_modal_box__header"
+>
+  <p>
+    Just a Text Header
+  </p>
+  <a
+    className="close"
+    href="#"
+    onClick={[Function]}
+  >
+    <CloseIcon />
+  </a>
+</div>
+`;
+
+exports[`Modal.Header renders all children without crashing 2`] = `
+<div
+  className="reactist_modal_box__header"
+>
+  <p>
+    <Button
+      danger={false}
+      disabled={false}
+      loading={false}
+      name="Wow this looks complex"
+      secondary={false}
+      small={false}
+      white={false}
+    />
+    Some additional text as well
+  </p>
+  <a
+    className="close"
+    href="#"
+    onClick={[Function]}
+  >
+    <CloseIcon />
+  </a>
+</div>
+`;
+
+exports[`Modal.Header renders title and subtitle if available 1`] = `
+<div
+  className="reactist_modal_box__header"
+>
+  <p>
+    <span
+      className="title"
+    >
+      Modal Title
+    </span>
+  </p>
+  <a
+    className="close"
+    href="#"
+    onClick={[Function]}
+  >
+    <CloseIcon />
+  </a>
+</div>
+`;
+
+exports[`Modal.Header renders title and subtitle if available 2`] = `
+<div
+  className="reactist_modal_box__header"
+>
+  <p>
+    <span
+      className="subtitle"
+    >
+      Modal Subtitle
+    </span>
+  </p>
+  <a
+    className="close"
+    href="#"
+    onClick={[Function]}
+  >
+    <CloseIcon />
+  </a>
+</div>
+`;
+
+exports[`Modal.Header renders without crashing 1`] = `
+<div
+  className="reactist_modal_box__header"
+>
+  <p />
+  <a
+    className="close"
+    href="#"
+    onClick={[Function]}
+  >
+    <CloseIcon />
+  </a>
+</div>
+`;

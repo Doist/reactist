@@ -1,46 +1,32 @@
-export default TimeUtils;
-export type Config = {
-    locale?: string;
-    longFormat?: string;
-    shortFormatCurrentYear?: string;
-    shortFormatPastYear?: string;
-    daysSuffix?: string;
-    hoursSuffix?: string;
-    minutesSuffix?: string;
-    momentsAgo?: string;
+/**
+ * @typedef {Object} Config
+ * @property {string} [locale]
+ * @property {string} [longFormat]
+ * @property {string} [shortFormatCurrentYear]
+ * @property {string} [shortFormatPastYear]
+ * @property {string} [daysSuffix]
+ * @property {string} [hoursSuffix]
+ * @property {string} [minutesSuffix]
+ * @property {string} [momentsAgo]
+ */
+declare const TimeUtils: {
+    SHORT_FORMAT_CURRENT_YEAR: string;
+    SHORT_FORMAT_PAST_YEAR: string;
+    LONG_FORMAT: string;
+    /**
+     * @param {number} timestamp
+     * @param {Config} [config]
+     */
+    timeAgo(timestamp: any, config?: {}): any;
+    /**
+     * @param {number} timestamp
+     * @param {Config} [config]
+     */
+    formatTime(timestamp: any, config?: {}): string;
+    /**
+     * @param {number} timestamp
+     * @param {Config} [config]
+     */
+    formatTimeLong(timestamp: any, config?: {}): string;
 };
-declare namespace TimeUtils {
-    export const SHORT_FORMAT_CURRENT_YEAR: string;
-    export const SHORT_FORMAT_PAST_YEAR: string;
-    export const LONG_FORMAT: string;
-    /**
-     * @param {number} timestamp
-     * @param {Config} [config]
-     */
-    export function timeAgo(timestamp: number, config?: Config): string;
-    /**
-     * @param {number} timestamp
-     * @param {Config} [config]
-     */
-    export function timeAgo(timestamp: number, config?: Config): string;
-    /**
-     * @param {number} timestamp
-     * @param {Config} [config]
-     */
-    export function formatTime(timestamp: number, config?: Config): string;
-    /**
-     * @param {number} timestamp
-     * @param {Config} [config]
-     */
-    export function formatTime(timestamp: number, config?: Config): string;
-    /**
-     * @param {number} timestamp
-     * @param {Config} [config]
-     */
-    export function formatTimeLong(timestamp: number, config?: Config): string;
-    /**
-     * @param {number} timestamp
-     * @param {Config} [config]
-     */
-    export function formatTimeLong(timestamp: number, config?: Config): string;
-}
+export default TimeUtils;

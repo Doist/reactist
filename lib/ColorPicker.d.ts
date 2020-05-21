@@ -1,24 +1,8 @@
-export default ColorPicker;
-export type NamedColor = {
-    name?: string;
-    color?: string;
-};
-export type Props = {
-    small?: boolean;
-    color: number;
-    onChange?: (color: number) => void;
-    colorList?: (string | {
-        name?: string;
-        color?: string;
-    })[];
-};
-export type ColorItemProps = {
-    color: string;
-    colorIndex: number;
-    isActive?: boolean;
-    onClick?: (colorIndex: number) => void;
-    tooltip?: React.ReactNode;
-};
+import './styles/color_picker.less';
+import React from 'react';
+import PropTypes from 'prop-types';
+/** @typedef {{name?: string; color?: string}} NamedColor */
+declare const COLORS: string[];
 /**
  * @typedef {Object} Props
  * @property {boolean | undefined} [small]
@@ -27,7 +11,7 @@ export type ColorItemProps = {
  * @property {(string | NamedColor)[]} [colorList]
  */
 /** @type {React.FC<Props>} */
-declare const ColorPicker: React.FC<Props>;
+declare const ColorPicker: React.FC<any>;
 /**
  * @typedef {Object} ColorItemProps
  * @property {string} color
@@ -37,7 +21,27 @@ declare const ColorPicker: React.FC<Props>;
  * @property {React.ReactNode} [tooltip]
  */
 /** @type {React.FC<ColorItemProps>} */
-export const ColorItem: React.FC<ColorItemProps>;
-/** @typedef {{name?: string; color?: string}} NamedColor */
-export const COLORS: string[];
-import React from "react";
+declare const ColorItem: {
+    ({ color, colorIndex, isActive, onClick, tooltip }: {
+        color: any;
+        colorIndex: any;
+        isActive: any;
+        onClick: any;
+        tooltip: any;
+    }): JSX.Element;
+    displayName: string;
+    propTypes: {
+        /** The color of the ColorItem as string. */
+        color: PropTypes.Validator<string>;
+        /** Index of the color to display. Is based upon the colorList array. */
+        colorIndex: PropTypes.Validator<number>;
+        /** Flag that can be used to highlight the currently selected item. */
+        isActive: PropTypes.Requireable<boolean>;
+        /** Optional callback that is called when the item is clicked. */
+        onClick: PropTypes.Requireable<(...args: any[]) => any>;
+        /** Optional tooltip to be shown when hovering the item. */
+        tooltip: PropTypes.Requireable<string>;
+    };
+};
+export default ColorPicker;
+export { ColorItem, COLORS };

@@ -1,6 +1,23 @@
-export default KeyCapturer;
-export type Props = Record<string, string | number | boolean | React.ReactElement<any, string | ((props: any) => React.ReactElement<any, string | any | (new (props: any) => React.Component<any, any, any>)>) | (new (props: any) => React.Component<any, any, any>)> | (() => void)> & {
-    eventName?: "onKeyDown" | "onKeyDownCapture" | "onKeyUp" | "onKeyUpCapture";
+import React from 'react';
+/** @type {Record<string, string>} */
+declare const SUPPORTED_KEYS: {
+    ARROW_UP: string;
+    ARROW_RIGHT: string;
+    ARROW_DOWN: string;
+    ARROW_LEFT: string;
+    ENTER: string;
+    BACKSPACE: string;
+    ESCAPE: string;
+};
+declare const KeyCapturerResolver: {
+    /**
+     * @param {string} eventKey
+     */
+    resolveByKey: (eventKey: any) => string;
+    /**
+     * @param {number} keyCode
+     */
+    resolveByKeyCode: (keyCode: any) => string;
 };
 /**
  * @typedef {Record<string, (() => void) | boolean | React.ReactChild> & {eventName?: 'onKeyDown' | 'onKeyDownCapture' | 'onKeyUp' | 'onKeyUpCapture'}} Props
@@ -15,32 +32,13 @@ export type Props = Record<string, string | number | boolean | React.ReactElemen
  *
  * @extends {React.Component<Props>}
  */
-declare class KeyCapturer extends React.Component<Record<string, string | number | boolean | React.ReactElement<any, string | ((props: any) => React.ReactElement<any, string | any | (new (props: any) => React.Component<any, any, any>)>) | (new (props: any) => React.Component<any, any, any>)> | (() => void)> & {
-    eventName?: "onKeyDown" | "onKeyDownCapture" | "onKeyUp" | "onKeyUpCapture";
-}, any, any> {
-    constructor(props: Readonly<Record<string, string | number | boolean | React.ReactElement<any, string | ((props: any) => React.ReactElement<any, string | any | (new (props: any) => React.Component<any, any, any>)>) | (new (props: any) => React.Component<any, any, any>)> | (() => void)> & {
-        eventName?: "onKeyDown" | "onKeyDownCapture" | "onKeyUp" | "onKeyUpCapture";
-    }>);
-    constructor(props: Record<string, string | number | boolean | React.ReactElement<any, string | ((props: any) => React.ReactElement<any, string | any | (new (props: any) => React.Component<any, any, any>)>) | (new (props: any) => React.Component<any, any, any>)> | (() => void)> & {
-        eventName?: "onKeyDown" | "onKeyDownCapture" | "onKeyUp" | "onKeyUpCapture";
-    }, context?: any);
+declare class KeyCapturer extends React.Component<any, any> {
+    static propTypes: any;
     /**
      * @param {React.KeyboardEvent} event
      */
-    _handleKeyEvent: (event: React.KeyboardEvent<Element>) => void;
+    _handleKeyEvent: (event: any) => void;
     render(): React.ReactElement<any, string | ((props: any) => React.ReactElement<any, string | any | (new (props: any) => React.Component<any, any, any>)>) | (new (props: any) => React.Component<any, any, any>)>;
 }
-declare namespace KeyCapturer {
-    export namespace propTypes {
-        export const children: PropTypes.Requireable<any>;
-        export const eventName: PropTypes.Requireable<string>;
-    }
-}
-export namespace KeyCapturerResolver {
-    export function resolveByKey(eventKey: string): string;
-    export function resolveByKeyCode(keyCode: number): string;
-}
-/** @type {Record<string, string>} */
-export const SUPPORTED_KEYS: Record<string, string>;
-import React from "react";
-import PropTypes from "prop-types";
+export default KeyCapturer;
+export { KeyCapturerResolver, SUPPORTED_KEYS };

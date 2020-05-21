@@ -10,7 +10,7 @@ const BASE_CONFIG = {
     devtool: 'source-map',
     mode: 'production',
     optimization: {
-        minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
+        minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -18,89 +18,88 @@ const BASE_CONFIG = {
         library: 'reactist',
         libraryTarget: 'umd',
         umdNamedDefine: true,
-        sourceMapFilename: 'reactist.map'
+        sourceMapFilename: 'reactist.map',
     },
     resolve: {
         modules: [
             path.resolve(__dirname, 'node_modules'),
             'node_modules',
-            'src'
+            'src',
         ],
-        extensions: ['.webpack.js', '.js', '.jsx']
+        extensions: ['.webpack.js', '.js', '.jsx'],
     },
     module: {
         rules: [
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                use: [{ loader: 'babel-loader' }]
+                use: [{ loader: 'babel-loader' }],
             },
             {
                 test: /\.less$/,
                 use: [
                     { loader: MiniCssExtractPlugin.loader },
                     { loader: 'css-loader' },
-                    { loader: 'less-loader' }
-                ]
+                    { loader: 'less-loader' },
+                ],
             },
             {
                 test: /\.svg$/,
-                use: [{ loader: 'svg-url-loader' }]
-            }
-        ]
+                use: [{ loader: 'svg-url-loader' }],
+            },
+        ],
     },
     externals: {
         react: {
             root: 'React',
             commonjs2: 'react',
             commonjs: 'react',
-            amd: 'react'
+            amd: 'react',
         },
         'react-dom': {
             root: 'ReactDOM',
             commonjs2: 'react-dom',
             commonjs: 'react-dom',
-            amd: 'react-dom'
+            amd: 'react-dom',
         },
         dayjs: 'dayjs',
         classnames: 'classnames',
-        'prop-types': 'prop-types'
+        'prop-types': 'prop-types',
     },
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify('production')
-            }
+                NODE_ENV: JSON.stringify('production'),
+            },
         }),
-        new MiniCssExtractPlugin({ filename: 'reactist.css' })
-    ]
+        new MiniCssExtractPlugin({ filename: 'reactist.css' }),
+    ],
 }
 
 const createConfig = overriddenAttributes => ({
     ...BASE_CONFIG,
-    ...overriddenAttributes
+    ...overriddenAttributes,
 })
 
-const mainConfig = createConfig()
 const modulesConfig = createConfig({
     entry: getComponentsMap(path.resolve(__dirname, './src/components')),
     devtool: false,
     optimization: {
-        minimize: false
+        minimize: false,
     },
     output: {
         ...BASE_CONFIG.output,
         path: path.resolve(__dirname, 'lib'),
-        filename: '[name].js'
+        filename: '[name].js',
     },
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify('production')
-            }
+                NODE_ENV: JSON.stringify('production'),
+            },
         }),
-        new MiniCssExtractPlugin()
-    ]
+        new MiniCssExtractPlugin(),
+    ],
 })
 
-module.exports = [mainConfig, modulesConfig]
+module.exports = modulesConfig

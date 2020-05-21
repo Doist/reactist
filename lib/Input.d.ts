@@ -1,8 +1,5 @@
-export default Input;
-export type InputProps = {
-    className?: string;
-};
-export type Props = InputProps & React.InputHTMLAttributes<HTMLInputElement>;
+import './styles/input.less';
+import React from 'react';
 /**
  * @typedef {Object} InputProps
  * @property {string | undefined} [className]
@@ -10,5 +7,5 @@ export type Props = InputProps & React.InputHTMLAttributes<HTMLInputElement>;
 /**
  * @typedef {InputProps & React.InputHTMLAttributes<HTMLInputElement>} Props
  */
-declare const Input: React.ForwardRefExoticComponent<InputProps & React.InputHTMLAttributes<HTMLInputElement> & React.RefAttributes<HTMLInputElement>>;
-import React from "react";
+declare const Input: React.ForwardRefExoticComponent<any>;
+export default Input;

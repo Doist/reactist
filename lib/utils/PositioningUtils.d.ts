@@ -1,86 +1,60 @@
-export type Dimensions = {
-    width: number;
-    height: number;
-};
-export type Position = {
-    x: number;
+/** @typedef {{width: number; height: number}} Dimensions */
+/** @typedef {{x: number; y: number}} Position */
+/**
+ * @param {Dimensions} windowDimensions
+ * @param {Dimensions} elementDimensions
+ * @param {Dimensions} wrapperDimensions
+ * @param {Position} wrapperPosition
+ * @param {'top' | 'right' | 'bottom' | 'left'} position
+ * @param {number} gap
+ */
+declare const hasEnoughSpace: (windowDimensions: any, elementDimensions: any, wrapperDimensions: any, wrapperPosition: any, position: any, gap?: number) => boolean;
+/**
+ * @param {Position} wrapperPosition
+ * @param {Dimensions} wrapperDimensions
+ * @param {Dimensions} elementDimensions
+ * @param {number} [gap]
+ */
+declare const calculateTopCenterPosition: (wrapperDimensions: any, wrapperPosition: any, elementDimensions: any, gap?: number) => {
+    x: any;
     y: number;
 };
-export function hasEnoughSpace(windowDimensions: {
-    width: number;
-    height: number;
-}, elementDimensions: {
-    width: number;
-    height: number;
-}, wrapperDimensions: {
-    width: number;
-    height: number;
-}, wrapperPosition: {
-    x: number;
-    y: number;
-}, position: "top" | "right" | "bottom" | "left", gap?: number): boolean;
-export function calculatePosition(position: "top" | "right" | "bottom" | "left", wrapperDimensions: {
-    width: number;
-    height: number;
-}, wrapperPosition: {
-    x: number;
-    y: number;
-}, elementDimensions: {
-    width: number;
-    height: number;
-}, gap?: number): {
-    x: number;
-    y: number;
+/**
+ * @param {Position} wrapperPosition
+ * @param {Dimensions} wrapperDimensions
+ * @param {Dimensions} elementDimensions
+ * @param {number} [gap]
+ */
+declare const calculateBottomCenterPosition: (wrapperDimensions: any, wrapperPosition: any, elementDimensions: any, gap?: number) => {
+    x: any;
+    y: any;
 };
-export function calculateTopCenterPosition(wrapperDimensions: {
-    width: number;
-    height: number;
-}, wrapperPosition: {
-    x: number;
-    y: number;
-}, elementDimensions: {
-    width: number;
-    height: number;
-}, gap?: number): {
-    x: number;
-    y: number;
+/**
+ * @param {Position} wrapperPosition
+ * @param {Dimensions} wrapperDimensions
+ * @param {Dimensions} elementDimensions
+ * @param {number} [gap]
+ */
+declare const calculateRightCenterPosition: (wrapperDimensions: any, wrapperPosition: any, elementDimensions: any, gap?: number) => {
+    x: any;
+    y: any;
 };
-export function calculateBottomCenterPosition(wrapperDimensions: {
-    width: number;
-    height: number;
-}, wrapperPosition: {
+/**
+ * @param {Position} wrapperPosition
+ * @param {Dimensions} wrapperDimensions
+ * @param {Dimensions} elementDimensions
+ * @param {number} [gap]
+ */
+declare const calculateLeftCenterPosition: (wrapperDimensions: any, wrapperPosition: any, elementDimensions: any, gap?: number) => {
     x: number;
-    y: number;
-}, elementDimensions: {
-    width: number;
-    height: number;
-}, gap?: number): {
-    x: number;
-    y: number;
+    y: any;
 };
-export function calculateRightCenterPosition(wrapperDimensions: {
-    width: number;
-    height: number;
-}, wrapperPosition: {
-    x: number;
-    y: number;
-}, elementDimensions: {
-    width: number;
-    height: number;
-}, gap?: number): {
-    x: number;
-    y: number;
-};
-export function calculateLeftCenterPosition(wrapperDimensions: {
-    width: number;
-    height: number;
-}, wrapperPosition: {
-    x: number;
-    y: number;
-}, elementDimensions: {
-    width: number;
-    height: number;
-}, gap?: number): {
-    x: number;
-    y: number;
-};
+/**
+ * @param {'top' | 'right' | 'bottom' | 'left'} position
+ * @param {Position} wrapperPosition
+ * @param {Dimensions} wrapperDimensions
+ * @param {Dimensions} elementDimensions
+ * @param {number} [gap]
+ */
+declare const calculatePosition: (position: any, wrapperDimensions: any, wrapperPosition: any, elementDimensions: any, gap?: number) => any;
+export { hasEnoughSpace, calculatePosition, calculateTopCenterPosition, calculateBottomCenterPosition, calculateRightCenterPosition, calculateLeftCenterPosition, };

@@ -1,17 +1,6 @@
-export default Select;
-export type Option = {
-    key?: React.ReactText;
-    value?: React.ReactText;
-    text?: React.ReactText;
-    disabled?: boolean;
-};
-export type Props = {
-    className?: string;
-    disabled?: boolean;
-    value: React.ReactText;
-    onChange: (value: React.ReactText) => void;
-    options?: Option[];
-};
+/// <reference types="react" />
+import './styles/select.less';
+import PropTypes from 'prop-types';
 /**
  * @typedef {Object} Option
  * @property {string | number | undefined} [key]
@@ -28,5 +17,39 @@ export type Props = {
  * @property {Option[] | undefined} [options]
  */
 /** @type {React.FC<Props>} */
-declare const Select: React.FC<Props>;
-import React from "react";
+declare const Select: {
+    ({ value, options, onChange, disabled, className }: {
+        value: any;
+        options: any;
+        onChange: any;
+        disabled: any;
+        className: any;
+    }): JSX.Element;
+    displayName: string;
+    defaultProps: {
+        options: any[];
+        disabled: boolean;
+    };
+    propTypes: {
+        /** Currently selected value. */
+        value: PropTypes.Validator<string | number>;
+        /** Callback for the change event. Will be called with the next value (not the full event). */
+        onChange: PropTypes.Validator<(...args: any[]) => any>;
+        /** Options that are rendered in the select. */
+        options: PropTypes.Requireable<PropTypes.InferProps<{
+            /** Optional key for each option. If not provided `value` is used. */
+            key: PropTypes.Requireable<string | number>;
+            /** Value of the option. */
+            value: PropTypes.Validator<string | number>;
+            /** Text to display for the option. */
+            text: PropTypes.Requireable<string | number>;
+            /** Whether the options is disabled or not. */
+            disabled: PropTypes.Requireable<boolean>;
+        }>[]>;
+        /** Whether the select is disabled or not. */
+        disabled: PropTypes.Requireable<boolean>;
+        /** Additional css class applied to the select. */
+        className: PropTypes.Requireable<string>;
+    };
+};
+export default Select;

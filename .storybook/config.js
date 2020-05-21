@@ -5,8 +5,8 @@ import chaptersAddon from 'react-storybook-addon-chapters'
 setAddon(chaptersAddon)
 setOptions({
     name: 'Reactist',
-    url: 'https://github.com/Doist/reactist'
+    url: 'https://github.com/Doist/reactist',
 })
 
-const loadStories = () => require('./stories')
+const loadStories = () => require('../stories')
 configure(loadStories, module)

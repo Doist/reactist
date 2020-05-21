@@ -1,30 +1,30 @@
 {
-    "env": {
-        "node": true,
-        "browser": true,
-        "es6": true,
-        "jest/globals": true
-    },
+    "plugins": ["jest"],
     "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
+        "react-app",
+        "prettier/@typescript-eslint",
+        "plugin:prettier/recommended",
         "plugin:jest/recommended",
         "prettier",
-        "prettier/react"
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier/@typescript-eslint"
     ],
-    "parser": "babel-eslint",
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
-            "impliedStrict": true,
-            "experimentalObjectRestSpread": true,
-            "jsx": true
+            "jsx": true,
+            "impliedStrict": true
         },
         "sourceType": "module"
     },
-    "plugins": [
-        "react",
-        "jest",
-        "prettier"
+    "ignorePatterns": [
+        "tsdx.config.js",
+        "webpack.config.*",
+        "dist/**",
+        "docs/**",
+        "lib/**",
+        "scripts/**"
     ],
     "rules": {
         "prettier/prettier": "error",
@@ -32,7 +32,9 @@
         "react/no-did-mount-set-state": "error",
         "react/no-did-update-set-state": "error",
         "react/no-find-dom-node": "off",
-        "react/sort-comp": "error"
+        "react/sort-comp": "error",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-explicit-any": "off"
     },
     "settings": {
         "react": {

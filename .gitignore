@@ -1,6 +1,7 @@
-node_modules/
+*.log
+.DS_Store
+node_modules
+.cache
+dist/
 coverage/
 .vscode/
-.DS_Store
-.cache/
-webpack-build-log**
