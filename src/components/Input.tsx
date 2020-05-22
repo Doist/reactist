@@ -18,7 +18,7 @@ const Input: React.ForwardRefExoticComponent<any> = React.forwardRef(
      * @param {Props} props
      * @param {React.Ref<HTMLInputElement>} ref
      */
-    (props, ref) => {
+    (props: React.InputHTMLAttributes<any>, ref: any) => {
         const className = classNames('reactist_input', props.className)
         return <input {...props} className={className} ref={ref} />
     }

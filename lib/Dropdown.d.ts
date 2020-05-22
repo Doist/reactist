@@ -41,12 +41,10 @@ declare class Box extends React.Component<any, any> {
     _getBodyComponent(): JSX.Element;
     render(): JSX.Element;
 }
-/**
- * @typedef {Object} TriggerProps
- * @property {(event?: React.MouseEvent) => void} [onClick]
- */
-/** @extends {React.Component<TriggerProps>} */
-declare class Trigger extends React.Component<any> {
+interface TriggerProps {
+    onClick?: (event?: React.MouseEvent) => void;
+}
+declare class Trigger extends React.Component<TriggerProps> {
     static displayName: any;
     static propTypes: any;
     /**
@@ -60,14 +58,14 @@ declare class Trigger extends React.Component<any> {
     _onClick(event: any): void;
     render(): JSX.Element;
 }
-declare class Body extends React.Component<any> {
+declare class Body extends React.Component<any, any, any> {
     static displayName: any;
     static propTypes: any;
     render(): JSX.Element;
 }
-declare const _default: {
+declare const Dropdown: {
     Box: typeof Box;
     Trigger: typeof Trigger;
     Body: typeof Body;
 };
-export default _default;
+export default Dropdown;

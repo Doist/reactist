@@ -7,7 +7,7 @@
     "homepage": "https://github.com/Doist/reactist#readme",
     "repository": "git+https://github.com/Doist/reactist.git",
     "main": "dist/index.js",
-    "typings": "dist/index.d.ts",
+    "types": "dist/reactist.d.ts",
     "files": [
         "dist",
         "src"
@@ -26,7 +26,7 @@
         "build-all": "npm run build && npm run build-storybook && npm run build-types",
         "test": "tsdx test --passWithNoTests",
         "lint": "tsdx lint src stories",
-        "prepare": "tsdx build",
+        "prepare": "npm run build",
         "storybook": "start-storybook -p 6006",
         "prepare-release": "rm -rf node_modules package-lock && npm install && npm run lint && npm run test && npm run build-all",
         "prettify": "./node_modules/.bin/prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md}\""

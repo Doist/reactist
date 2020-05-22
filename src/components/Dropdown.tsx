@@ -206,13 +206,11 @@ Box.propTypes = {
     children: PropTypes.any,
 }
 
-/**
- * @typedef {Object} TriggerProps
- * @property {(event?: React.MouseEvent) => void} [onClick]
- */
+interface TriggerProps {
+    onClick?: (event?: React.MouseEvent) => void
+}
 
-/** @extends {React.Component<TriggerProps>} */
-class Trigger extends React.Component<any> {
+class Trigger extends React.Component<TriggerProps> {
     public static displayName
     public static propTypes
 
@@ -254,7 +252,7 @@ Trigger.propTypes = {
     children: PropTypes.any,
 }
 
-class Body extends React.Component<any> {
+class Body extends React.Component<any, any, any> {
     public static displayName
     public static propTypes
 
@@ -300,4 +298,10 @@ Body.propTypes = {
     children: PropTypes.any,
 }
 
-export default { Box, Trigger, Body }
+const Dropdown = {
+    Box,
+    Trigger,
+    Body,
+}
+
+export default Dropdown
