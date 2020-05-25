@@ -207,7 +207,7 @@ describe('Tooltip', () => {
     })
 
     it('sets ref of tooltip and wrapper after mounting', () => {
-        const tooltip = mount(getTooltip()).instance() as Tooltip
+        const tooltip: Tooltip = mount(getTooltip()).instance()
 
         expect(tooltip.wrapper).toBeTruthy()
         expect(tooltip.tooltip).toBeTruthy()
