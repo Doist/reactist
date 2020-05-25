@@ -1,7 +1,7 @@
 /**
  * @param {string | null | undefined} name
  */
-const getInitials = (name = undefined) => {
+const getInitials = (name?: string) => {
     if (!name) {
         return ''
     }

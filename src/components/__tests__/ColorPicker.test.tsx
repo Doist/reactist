@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import ColorPicker, { ColorItem } from '../ColorPicker'
+import ColorPicker, { ColorItem, Props, ColorItemProps } from '../ColorPicker'
 
 describe('ColorPicker', () => {
     it('renders without crashing', () => {
@@ -24,14 +24,20 @@ describe('ColorPicker', () => {
         })
 
         it('adds active class when prop is supplied', () => {
-            const colorItem = shallow(getColorItem({ isActive: true }))
+            const colorItem = shallow(
+                getColorItem({ isActive: true, colorIndex: 5, color: '#fff' })
+            )
             expect(colorItem.hasClass('active')).toBe(true)
         })
 
         it('calls onClick after clicking it', () => {
             const onClickSpy = jest.fn()
             const colorItem = shallow(
-                getColorItem({ colorIndex: 5, onClick: onClickSpy })
+                getColorItem({
+                    colorIndex: 5,
+                    onClick: onClickSpy,
+                    color: '#fff',
+                })
             )
             colorItem.simulate('click')
             expect(onClickSpy).toHaveBeenLastCalledWith(5)
@@ -39,8 +45,8 @@ describe('ColorPicker', () => {
     })
 
     // Helpers ================================================================
-    const getColorPicker = (props = undefined) => <ColorPicker {...props} />
-    const getColorItem = (props = undefined) => (
+    const getColorPicker = (props?: Props) => <ColorPicker {...props} />
+    const getColorItem = (props?: ColorItemProps) => (
         <ColorItem color="#606060" colorIndex={0} {...props} />
     )
 })
