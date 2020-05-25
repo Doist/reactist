@@ -35,8 +35,8 @@ describe('Avatar', () => {
 
     it('falls back to size `l` when invalid value is supplied', () => {
         // eslint-disable-next-line
-        console.error = jest.fn() // silence errors caused by faulty required prop
-        const avatar = shallow(getAvatar({ size: 'm' }))
+        console.error = jest.fn()
+        const avatar = shallow((getAvatar as any)({ size: 'medium' })) // any cast is required because we are passing in a faulty prop
         expect(avatar.hasClass('reactist_avatar_size--l')).toBe(true)
     })
 

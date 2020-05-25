@@ -65,10 +65,13 @@ class Popover extends React.Component<any, any> {
         }
     }
 
+    popover: any
+    wrapper: any
+
     _updatePopoverPosition = () => {
         const { position, allowVaguePositioning, gapSize } = this.props
-        const wrapperRect = (this as any).wrapper.getBoundingClientRect()
-        const popoverRect = (this as any).popover.getBoundingClientRect()
+        const wrapperRect = this.wrapper.getBoundingClientRect()
+        const popoverRect = this.popover.getBoundingClientRect()
 
         // Instead of using the documentElement find the nearest absolutely positioned element
         const documentEl = document.documentElement
