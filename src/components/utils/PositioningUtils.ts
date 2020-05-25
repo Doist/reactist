@@ -203,15 +203,6 @@ const calculatePosition: PositionFn = (
     return wrapperPosition
 }
 
-type PositioningUtils = {
-    hasEnoughSpace: typeof hasEnoughSpace
-    calculatePosition: typeof calculatePosition
-    calculateTopCenterPosition: typeof calculateTopCenterPosition
-    calculateBottomCenterPosition: typeof calculateBottomCenterPosition
-    calculateRightCenterPosition: typeof calculateRightCenterPosition
-    calculateLeftCenterPosition: typeof calculateLeftCenterPosition
-}
-
 export {
     hasEnoughSpace,
     calculatePosition,
@@ -219,5 +210,5 @@ export {
     calculateBottomCenterPosition,
     calculateRightCenterPosition,
     calculateLeftCenterPosition,
+    RelativePosition,
 }
-export type { PositioningUtils, AbsolutePosition, RelativePosition }

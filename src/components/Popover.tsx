@@ -4,8 +4,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-import { hasEnoughSpace, calculatePosition } from './utils/PositioningUtils'
-import type { RelativePosition } from './utils/PositioningUtils'
+import {
+    hasEnoughSpace,
+    calculatePosition,
+    RelativePosition,
+} from './utils/PositioningUtils'
 
 /**
  * Position of the popover. Defaults to `auto`.
