@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { shallow, mount, ShallowWrapper, ReactWrapper } from 'enzyme'
 
 import Tooltip from '../Tooltip'
 
@@ -25,7 +25,9 @@ describe('Tooltip', () => {
     })
 
     it('gets visible on hovering and hides on unhovering', () => {
-        const tooltip = shallow(getTooltip())
+        const tooltip: ShallowWrapper<Tooltip, React.ComponentState> = shallow(
+            getTooltip()
+        )
 
         tooltip.simulate('mouseEnter')
         jest.runAllTimers()
@@ -207,15 +209,23 @@ describe('Tooltip', () => {
     })
 
     it('sets ref of tooltip and wrapper after mounting', () => {
-        const tooltip: Tooltip = mount(getTooltip()).instance()
+        const tooltip: ReactWrapper<
+            Tooltip,
+            React.ComponentState,
+            Tooltip
+        > = mount(getTooltip())
 
-        expect(tooltip.wrapper).toBeTruthy()
-        expect(tooltip.tooltip).toBeTruthy()
+        expect(tooltip.instance().wrapper).toBeTruthy()
+        expect(tooltip.instance().tooltip).toBeTruthy()
     })
 
     it('hides when clicking on trigger', () => {
         const clickSpy = jest.fn()
-        const tooltip = mount(
+        const tooltip: ReactWrapper<
+            Tooltip,
+            React.ComponentState,
+            Tooltip
+        > = mount(
             <Tooltip text="Tip">
                 <span id="trigger" onClick={clickSpy}>
                     Trigger
@@ -238,11 +248,13 @@ describe('Tooltip', () => {
     })
 
     it('pass as children simple text', () => {
-        const tooltip = mount(
-            <Tooltip text="Tip">Wrapped Text</Tooltip>
-        ).instance()
-        expect(tooltip.wrapper).toBeTruthy()
-        expect(tooltip.tooltip).toBeTruthy()
+        const tooltip: ReactWrapper<
+            Tooltip,
+            React.ComponentState,
+            Tooltip
+        > = mount(<Tooltip text="Tip">Wrapped Text</Tooltip>)
+        expect(tooltip.instance().wrapper).toBeTruthy()
+        expect(tooltip.instance().tooltip).toBeTruthy()
     })
 
     // Helpers ================================================================
