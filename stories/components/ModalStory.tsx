@@ -16,7 +16,7 @@ import {
 } from './ModalStory.md'
 
 // Helper =====================================================================
-const renderModal = modal => {
+const renderModal = (modal) => {
     ReactDOM.render(modal, document.getElementById('modal_box'))
 }
 const getStory = (text, modal) => (

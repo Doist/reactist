@@ -29,7 +29,7 @@ const COLORS = [
  * @param {string | NamedColor} color
  * @return {color is NamedColor}
  */
-const _isNamedColor = color => typeof color !== 'string'
+const _isNamedColor = (color) => typeof color !== 'string'
 /**
  * @param {(string | NamedColor)[]} colorList
  * @param {number} colorIndex

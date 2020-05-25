@@ -25,9 +25,9 @@ class Tabs extends React.Component<any, any> {
     constructor(props, context) {
         super(props, context)
         const { defaultTab, onChange } = props
-        const children = /** @type {React.Component<TabProps>[]} */ (React.Children.toArray(
+        const children = /** @type {React.Component<TabProps>[]} */ React.Children.toArray(
             this.props.children
-        ))
+        )
 
         const hasDefault = defaultTab || defaultTab === 0
         if (hasDefault || onChange) {
@@ -67,7 +67,7 @@ class Tabs extends React.Component<any, any> {
     /**
      * @param {React.Component<TabProps>[]} tabs
      */
-    _renderTabLinks = tabs => {
+    _renderTabLinks = (tabs) => {
         return tabs.map((t, i) => {
             const { title, disabled } = t.props
             const value = t.props.value || i
@@ -82,7 +82,7 @@ class Tabs extends React.Component<any, any> {
                     className={className}
                     href=""
                     key={value}
-                    onClick={event => {
+                    onClick={(event) => {
                         event.preventDefault()
                         if (!disabled) {
                             this._switchActiveTab(t, i)
@@ -97,9 +97,9 @@ class Tabs extends React.Component<any, any> {
 
     render() {
         // ensures that single or no child components don't throw
-        const children = /** @type {React.Component<TabProps>[]} */ (React.Children.toArray(
+        const children = /** @type {React.Component<TabProps>[]} */ React.Children.toArray(
             this.props.children
-        ))
+        )
         const activeTab =
             children[this.state.activeTabIndex] || children[0] || null
 

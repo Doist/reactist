@@ -205,10 +205,7 @@ describe('Modal.Actions', () => {
         )
 
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
-        actions
-            .find('Button')
-            .first()
-            .simulate('click')
+        actions.find('Button').first().simulate('click')
         expect(clickSpy).toHaveBeenCalled()
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
             unmountCallCount + 1
@@ -223,10 +220,7 @@ describe('Modal.Actions', () => {
         )
 
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
-        actions
-            .find('Button')
-            .first()
-            .simulate('click')
+        actions.find('Button').first().simulate('click')
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
             unmountCallCount + 1
         )

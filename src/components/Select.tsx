@@ -32,10 +32,10 @@ const Select = ({ value, options, onChange, disabled, className }) => {
         <select
             className={selectClassName}
             value={value}
-            onChange={event => onChange(event.target.value)}
+            onChange={(event) => onChange(event.target.value)}
             disabled={disabled}
         >
-            {options.map(option => (
+            {options.map((option) => (
                 <option
                     key={option.key || option.value}
                     value={option.value}

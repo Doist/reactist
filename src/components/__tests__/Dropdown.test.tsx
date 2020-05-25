@@ -81,7 +81,7 @@ describe('Dropdown', () => {
             const box = shallow(
                 <Dropdown.Box>
                     <Dropdown.Trigger onClick={jest.fn()} />
-                    {props => <Dropdown.Body {...props} />}
+                    {(props) => <Dropdown.Body {...props} />}
                 </Dropdown.Box>
             )
             expect(box.find(Dropdown.Body)).toHaveLength(0)
@@ -105,18 +105,10 @@ describe('Dropdown', () => {
 
             openDropdown(box)
 
-            expect(
-                box
-                    .find('div')
-                    .at(0)
-                    .hasClass('reactist_dropdown')
-            ).toEqual(true)
-            expect(
-                box
-                    .find('div')
-                    .at(1)
-                    .hasClass('trigger')
-            ).toEqual(true)
+            expect(box.find('div').at(0).hasClass('reactist_dropdown')).toEqual(
+                true
+            )
+            expect(box.find('div').at(1).hasClass('trigger')).toEqual(true)
         })
 
         it('renders the Body component first when top prop is provided', () => {
@@ -129,18 +121,10 @@ describe('Dropdown', () => {
 
             openDropdown(box)
 
-            expect(
-                box
-                    .find('div')
-                    .at(0)
-                    .hasClass('reactist_dropdown')
-            ).toEqual(true)
-            expect(
-                box
-                    .find('div')
-                    .at(1)
-                    .hasClass('body_wrapper')
-            ).toEqual(true)
+            expect(box.find('div').at(0).hasClass('reactist_dropdown')).toEqual(
+                true
+            )
+            expect(box.find('div').at(1).hasClass('body_wrapper')).toEqual(true)
         })
 
         it('calls onShowBody and onHideBody callbacks when the Body component is shown and hidden', () => {
@@ -239,13 +223,13 @@ describe('Dropdown', () => {
 
     // Helpers ================================================================
 
-    const openDropdown = rootElement => {
+    const openDropdown = (rootElement) => {
         const trigger = rootElement.find(Dropdown.Trigger)
         simulateClick(trigger)
         expect(rootElement.find(Dropdown.Body)).toHaveLength(1)
     }
 
-    const simulateClick = element => {
+    const simulateClick = (element) => {
         element.simulate('click', {
             preventDefault: jest.fn(),
             stopPropagation: jest.fn(),

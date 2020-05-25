@@ -35,7 +35,7 @@ class SelectStory extends React.Component {
                 <Select
                     value={this.state.value}
                     options={options}
-                    onChange={value => this.setState(() => ({ value }))}
+                    onChange={(value) => this.setState(() => ({ value }))}
                 />
             </section>
         )
@@ -60,7 +60,7 @@ class SelectPlaygroundStory extends React.Component {
                 <Select
                     value={this.state.value}
                     options={options}
-                    onChange={value => this.setState(() => ({ value }))}
+                    onChange={(value) => this.setState(() => ({ value }))}
                     disabled={boolean('Disabled:', false)}
                 />
             </section>

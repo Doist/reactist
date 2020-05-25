@@ -61,7 +61,7 @@ class Box extends React.Component<any, any> {
         const dropdown_dom_node = ReactDOM.findDOMNode(this)
 
         //eslint-disable-next-line @typescript-eslint/camelcase
-        if (!dropdown_dom_node.contains(/** @type {Node} */ (event.target)))
+        if (!dropdown_dom_node.contains(/** @type {Node} */ event.target))
             this._toggleShowBody()
         else if (!this.props.allowBodyInteractions) {
             // won't close when body interactions are allowed

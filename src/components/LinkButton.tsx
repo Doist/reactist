@@ -21,7 +21,7 @@ class LinkButton extends React.Component<any, any> {
     /**
      * @param {React.MouseEvent} event
      */
-    _handleClick = event => {
+    _handleClick = (event) => {
         event.preventDefault()
         if (!this.props.disabled && this.props.onClick) {
             this.props.onClick()
