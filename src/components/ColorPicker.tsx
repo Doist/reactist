@@ -39,62 +39,64 @@ type Props = {
     colorList?: (string | NamedColor)[]
 }
 
-const ColorPicker: React.FC<Props> = ({
+function ColorPicker({
     color = 0,
     small,
     onChange,
     colorList = COLORS,
-}) => (
-    <Dropdown.Box right className="reactist_color_picker">
-        <Dropdown.Trigger>
-            {(() => {
-                const backgroundColor = _getColor(colorList, color)
+}: Props) {
+    return (
+        <Dropdown.Box right className="reactist_color_picker">
+            <Dropdown.Trigger>
+                {(() => {
+                    const backgroundColor = _getColor(colorList, color)
 
-                return (
-                    <span
-                        className={classnames('color_trigger', { small })}
-                        style={{
-                            backgroundColor: _isNamedColor(backgroundColor)
-                                ? backgroundColor.color
-                                : backgroundColor,
-                        }}
-                    >
-                        <span className="color_trigger--inner_ring" />
-                    </span>
-                )
-            })()}
-        </Dropdown.Trigger>
-        <Dropdown.Body>
-            <div className="color_options">
-                {colorList.reduce((items, currentColor, currentIndex) => {
-                    items.push(
-                        <ColorItem
-                            isActive={
-                                color >= colorList.length
-                                    ? currentIndex === 0
-                                    : currentIndex === color
-                            }
-                            key={currentIndex}
-                            color={
-                                _isNamedColor(currentColor)
-                                    ? (currentColor as any).color
-                                    : currentColor
-                            }
-                            colorIndex={currentIndex}
-                            onClick={onChange}
-                            tooltip={
-                                _isNamedColor(currentColor)
-                                    ? (currentColor as any).name
-                                    : null
-                            }
-                        />
+                    return (
+                        <span
+                            className={classnames('color_trigger', { small })}
+                            style={{
+                                backgroundColor: _isNamedColor(backgroundColor)
+                                    ? backgroundColor.color
+                                    : backgroundColor,
+                            }}
+                        >
+                            <span className="color_trigger--inner_ring" />
+                        </span>
                     )
-                    return items
-                }, [] as React.ReactNode[])}
-            </div>
-        </Dropdown.Body>
-    </Dropdown.Box>
-)
+                })()}
+            </Dropdown.Trigger>
+            <Dropdown.Body>
+                <div className="color_options">
+                    {colorList.reduce((items, currentColor, currentIndex) => {
+                        items.push(
+                            <ColorItem
+                                isActive={
+                                    color >= colorList.length
+                                        ? currentIndex === 0
+                                        : currentIndex === color
+                                }
+                                key={currentIndex}
+                                color={
+                                    _isNamedColor(currentColor)
+                                        ? (currentColor as any).color
+                                        : currentColor
+                                }
+                                colorIndex={currentIndex}
+                                onClick={onChange}
+                                tooltip={
+                                    _isNamedColor(currentColor)
+                                        ? (currentColor as any).name
+                                        : null
+                                }
+                            />
+                        )
+                        return items
+                    }, [] as React.ReactNode[])}
+                </div>
+            </Dropdown.Body>
+        </Dropdown.Box>
+    )
+}
 ColorPicker.displayName = 'ColorPicker'
 
 type ColorItemProps = {
@@ -105,13 +107,13 @@ type ColorItemProps = {
     tooltip?: React.ReactNode
 }
 
-const ColorItem: React.FC<ColorItemProps> = ({
+function ColorItem({
     color,
     colorIndex,
     isActive,
     onClick,
     tooltip,
-}) => {
+}: ColorItemProps) {
     const item = (
         <span
             className={'reactist color_item' + (isActive ? ' active' : '')}

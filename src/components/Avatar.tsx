@@ -47,13 +47,13 @@ type Props = {
     user: { name?: string; email?: string }
 }
 
-const Avatar: React.FC<Props> = ({
+function Avatar({
     user,
     avatarUrl,
     size = 'l',
     className,
     colorList = AVATAR_COLORS,
-}) => {
+}: Props) {
     const userInitials = getInitials(user.name) || getInitials(user.email)
     const avatarSize = size && AVATAR_SIZES.includes(size) ? size : 'l'
     const avatarClass = classNames(
