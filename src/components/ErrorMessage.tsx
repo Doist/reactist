@@ -13,9 +13,8 @@ interface State {
 }
 
 class ErrorMessage extends React.Component<Props, State> {
-    public static displayName
-    public static propTypes
-    public static defaultProps
+    public static displayName: string
+    public static defaultProps: Props
 
     /**
      * @param {Props} props

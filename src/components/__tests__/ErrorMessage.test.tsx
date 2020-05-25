@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, ShallowWrapper } from 'enzyme'
 
 import ErrorMessage from '../ErrorMessage'
 
@@ -39,7 +39,10 @@ describe('ErrorMessage', () => {
 
     it('hides after reaching timeout', () => {
         jest.useFakeTimers()
-        const errorMessage = shallow(getErrorMessage({ message: 'Oh noes' }))
+        const errorMessage: ShallowWrapper<
+            ErrorMessage,
+            React.ComponentState
+        > = shallow(getErrorMessage({ message: 'Oh noes' }))
 
         expect(errorMessage.state().visible).toBe(true)
         jest.runAllTimers()
@@ -56,5 +59,7 @@ describe('ErrorMessage', () => {
     })
 
     // Helpers ================================================================
-    const getErrorMessage = (props = undefined) => <ErrorMessage {...props} />
+    const getErrorMessage = (
+        props?: React.ComponentPropsWithoutRef<typeof ErrorMessage>
+    ) => <ErrorMessage {...props} />
 })
