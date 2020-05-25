@@ -163,12 +163,13 @@ describe('PositioningUtils', () => {
             expect(leftPosition).toEqual(leftCenterPositionWithoutGap)
         })
         it('returns the wrapper position if position for calculation is invalid', () => {
-            const position = (calculatePosition as any)(
+            const position = calculatePosition(
+                // @ts-expect-error we are deliberately calling an invalid value.
                 'invalid',
                 wrapperDimensions,
                 wrapperPosition,
                 elementDimensions
-            ) // as any is required as we are deliberately calling an invalid value.
+            )
             expect(position).toEqual(wrapperPosition)
         })
     })
