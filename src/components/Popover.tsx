@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 import { hasEnoughSpace, calculatePosition } from './utils/PositioningUtils'
+import type { RelativePosition } from './utils/PositioningUtils'
 
 /**
  * Position of the popover. Defaults to `auto`.
@@ -133,14 +134,13 @@ class Popover extends React.Component<Props, any> {
         }
 
         /** @type {("left" | "right" | "top" | "bottom")[]} */
-        const positionsToTry =
-            position === 'auto'
-                ? ['top', 'right', 'bottom', 'left', 'top']
-                : position === 'vertical'
-                ? ['top', 'bottom']
-                : position === 'horizontal'
-                ? ['left', 'right']
-                : [position]
+        const positionsToTry = ((position === 'auto'
+            ? ['top', 'right', 'bottom', 'left', 'top']
+            : position === 'vertical'
+            ? ['top', 'bottom']
+            : position === 'horizontal'
+            ? ['left', 'right']
+            : [position]) as unknown) as RelativePosition[]
 
         for (let index = 0; index < positionsToTry.length; index++) {
             const currentPosition = positionsToTry[index]

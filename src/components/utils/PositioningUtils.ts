@@ -2,14 +2,15 @@
 /** @typedef {{x: number; y: number}} Position */
 
 type Dimensions = { width: number; height: number }
-type Position = { x: number; y: number }
+type AbsolutePosition = { x: number; y: number }
+type RelativePosition = 'top' | 'right' | 'bottom' | 'left'
 
 type HasEnoughSpaceFn = (
     windowDimensions: Dimensions,
     elementDimensions: Dimensions,
     wrapperDimensions: Dimensions,
-    wrapperPosition: Position,
-    position: 'top' | 'right' | 'bottom' | 'left',
+    wrapperPosition: AbsolutePosition,
+    position: RelativePosition,
     gap: number
 ) => boolean
 
@@ -61,7 +62,7 @@ const hasEnoughSpace: HasEnoughSpaceFn = (
 }
 
 type VerticalHorizontalPositionFn = (
-    wrapperPosition: Position,
+    wrapperPosition: AbsolutePosition,
     wrapperDimensions: Dimensions,
     elementDimensions: Dimensions
 ) => number
@@ -97,10 +98,10 @@ const _calculateHorizontalPosition: VerticalHorizontalPositionFn = (
 
 type CenterPositionFn = (
     wrapperDimensions: Dimensions,
-    wrapperPosition: Position,
+    wrapperPosition: AbsolutePosition,
     elementDimensions: Dimensions,
-    gap: number
-) => Position
+    gap?: number
+) => AbsolutePosition
 
 const calculateTopCenterPosition: CenterPositionFn = (
     wrapperDimensions,
@@ -165,10 +166,10 @@ const calculateLeftCenterPosition: CenterPositionFn = (
 type PositionFn = (
     position: 'top' | 'right' | 'bottom' | 'left',
     wrapperDimensions: Dimensions,
-    wrapperPosition: Position,
+    wrapperPosition: AbsolutePosition,
     elementDimensions: Dimensions,
-    gap: number
-) => Position
+    gap?: number
+) => AbsolutePosition
 
 const calculatePosition: PositionFn = (
     position,
@@ -226,4 +227,4 @@ export {
     calculateRightCenterPosition,
     calculateLeftCenterPosition,
 }
-export type { PositioningUtils, Position }
+export type { PositioningUtils, AbsolutePosition, RelativePosition }

@@ -3,7 +3,6 @@ import { mount } from 'enzyme'
 
 import Popover from '../Popover'
 import * as PositioningUtils from '../utils/PositioningUtils'
-import type { Position } from '../utils/PositioningUtils'
 
 describe('Popover', () => {
     it('renders without crashing', () => {
