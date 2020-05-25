@@ -20,7 +20,7 @@ const Checkbox = ({ label, disabled, checked, onChange }) => (
             checked={checked}
             disabled={disabled}
             onChange={
-                disabled ? undefined : event => onChange(event.target.checked)
+                disabled ? undefined : (event) => onChange(event.target.checked)
             }
             type="checkbox"
         />
