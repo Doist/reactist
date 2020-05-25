@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import ErrorMessage from '../ErrorMessage'
+import ErrorMessage, { State } from '../ErrorMessage'
 
 describe('ErrorMessage', () => {
     it('renders nothing if message is not set', () => {
@@ -41,9 +41,9 @@ describe('ErrorMessage', () => {
         jest.useFakeTimers()
         const errorMessage = shallow(getErrorMessage({ message: 'Oh noes' }))
 
-        expect(errorMessage.state().visible).toBe(true)
+        expect((errorMessage.state() as State).visible).toBe(true)
         jest.runAllTimers()
-        expect(errorMessage.state().visible).toBe(false)
+        expect((errorMessage.state() as State).visible).toBe(false)
     })
 
     it('calls onHide callback when hiding', () => {

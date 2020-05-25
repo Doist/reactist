@@ -304,6 +304,15 @@ Actions.propTypes = {
     ]),
 }
 
+type Modal = {
+    Box: Box
+    Header: Header
+    Body: Body
+    Actions: Actions
+}
+
+export type { Modal }
+
 export default {
     Box,
     Header,
