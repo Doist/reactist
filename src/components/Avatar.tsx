@@ -39,7 +39,7 @@ const AVATAR_SIZES: AvatarSize[] = [
     'xxxl',
 ]
 
-interface Props {
+type Props = {
     className?: string
     colorList?: string[]
     size?: AvatarSize

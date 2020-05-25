@@ -27,7 +27,7 @@ type Position =
     | 'horizontal'
     | 'auto'
 
-interface Props {
+type Props = {
     visible?: boolean
     /** ref of the popover in case you need to manipulate it. */
     popoverRef?: React.Ref<HTMLElement>

@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 import Popover from './Popover'
 
-interface TooltipProps {
+type TooltipProps = {
     onMouseEnter?: React.MouseEventHandler
     onMouseLeave?: React.MouseEventHandler
     tooltipClassName?: string

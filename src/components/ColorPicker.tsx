@@ -32,7 +32,7 @@ const _getColor = (colorList: (string | NamedColor)[], colorIndex: number) => {
     return colorList[index]
 }
 
-interface Props {
+type Props = {
     small?: boolean
     color?: number
     onChange?: (color: number) => void
@@ -97,7 +97,7 @@ const ColorPicker: React.FC<Props> = ({
 )
 ColorPicker.displayName = 'ColorPicker'
 
-interface ColorItemProps {
+type ColorItemProps = {
     color: string
     colorIndex: number
     isActive?: boolean

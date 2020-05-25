@@ -2,13 +2,13 @@ import './styles/error_message.less'
 
 import React from 'react'
 
-interface Props {
+type Props = {
     timeout?: number
     onHide?: () => void
     message?: string
 }
 
-interface State {
+type State = {
     visible: boolean
 }
 

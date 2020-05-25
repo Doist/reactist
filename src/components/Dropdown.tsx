@@ -4,7 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 
-interface BoxProps {
+type BoxProps = {
     onShowBody?: () => void
     onHideBody?: () => void
     allowBodyInteractions?: boolean
@@ -18,7 +18,7 @@ interface BoxProps {
     className?: string
 }
 
-interface BoxState {
+type BoxState = {
     top: boolean
     show_body: boolean
 }
@@ -190,7 +190,7 @@ class Box extends React.Component<BoxProps, BoxState> {
 }
 Box.displayName = 'Dropdown.Box'
 
-interface TriggerProps {
+type TriggerProps = {
     onClick?: (event?: React.MouseEvent) => void
 }
 

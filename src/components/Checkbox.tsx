@@ -2,7 +2,7 @@ import './styles/checkbox.less'
 
 import React from 'react'
 
-interface Props {
+type Props = {
     checked?: boolean
     disabled?: boolean
     onChange?: (checked: boolean) => void
