@@ -89,13 +89,6 @@ const _calculateHorizontalPosition: VerticalHorizontalPositionFn = (
     )
 }
 
-/**
- * @param {Position} wrapperPosition
- * @param {Dimensions} wrapperDimensions
- * @param {Dimensions} elementDimensions
- * @param {number} [gap]
- */
-
 type CenterPositionFn = (
     wrapperDimensions: Dimensions,
     wrapperPosition: AbsolutePosition,
