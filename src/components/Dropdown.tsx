@@ -205,7 +205,7 @@ class Trigger extends React.Component<TriggerProps> {
     _onClick(event: React.MouseEvent) {
         event.preventDefault()
         event.stopPropagation()
-        this.props.onClick && this.props.onClick(event)
+        this.props.onClick ?? this.props.onClick(event)
     }
 
     render() {
