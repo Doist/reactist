@@ -86,5 +86,4 @@ ErrorMessage.defaultProps = {
     timeout: 2500,
 }
 
-export { Props, State }
 export default ErrorMessage

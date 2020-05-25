@@ -79,5 +79,4 @@ const Avatar: React.FC<Props> = ({
 }
 Avatar.displayName = 'Avatar'
 
-export { Props }
 export default Avatar

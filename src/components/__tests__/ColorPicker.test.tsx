@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import ColorPicker, { ColorItem, Props, ColorItemProps } from '../ColorPicker'
+import ColorPicker, { ColorItem } from '../ColorPicker'
 
 describe('ColorPicker', () => {
     it('renders without crashing', () => {
@@ -45,8 +45,10 @@ describe('ColorPicker', () => {
     })
 
     // Helpers ================================================================
-    const getColorPicker = (props?: Props) => <ColorPicker {...props} />
-    const getColorItem = (props?: ColorItemProps) => (
+    const getColorPicker = (
+        props?: React.ComponentProps<typeof ColorPicker>
+    ) => <ColorPicker {...props} />
+    const getColorItem = (props?: React.ComponentProps<typeof ColorItem>) => (
         <ColorItem color="#606060" colorIndex={0} {...props} />
     )
 })

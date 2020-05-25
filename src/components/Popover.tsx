@@ -133,13 +133,14 @@ class Popover extends React.Component<Props, any> {
             y: wrapperRect.top,
         }
 
-        const positionsToTry = ((position === 'auto'
-            ? ['top', 'right', 'bottom', 'left', 'top']
-            : position === 'vertical'
-            ? ['top', 'bottom']
-            : position === 'horizontal'
-            ? ['left', 'right']
-            : [position]) as unknown) as RelativePosition[]
+        const positionsToTry: (RelativePosition | undefined)[] =
+            position === 'auto'
+                ? ['top', 'right', 'bottom', 'left', 'top']
+                : position === 'vertical'
+                ? ['top', 'bottom']
+                : position === 'horizontal'
+                ? ['left', 'right']
+                : [position]
 
         for (let index = 0; index < positionsToTry.length; index++) {
             const currentPosition = positionsToTry[index]
@@ -344,4 +345,3 @@ Popover.propTypes = {
 }
 
 export default Popover
-export { Props }

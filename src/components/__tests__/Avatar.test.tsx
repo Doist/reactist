@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import Avatar, { Props } from '../Avatar'
+import Avatar from '../Avatar'
 
 describe('Avatar', () => {
     it('renders a background image when avatarUrl is supplied', () => {
@@ -43,7 +43,7 @@ describe('Avatar', () => {
 
     // Helpers ================================================================
     const getAvatar = (
-        props?: Omit<Props, 'user'> & {
+        props?: Omit<React.ComponentProps<typeof Avatar>, 'user'> & {
             user?: { name?: string; email?: string }
         }
     ) => (

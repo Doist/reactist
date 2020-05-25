@@ -127,4 +127,4 @@ const ColorItem: React.FC<ColorItemProps> = ({
 ColorItem.displayName = 'ColorItem'
 
 export default ColorPicker
-export { ColorItem, COLORS, Props, ColorItemProps }
+export { ColorItem, COLORS }

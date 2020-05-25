@@ -4,7 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-import Popover, { Props as PopoverProps } from './Popover'
+import Popover from './Popover'
 
 interface TooltipProps {
     onMouseEnter?: React.MouseEventHandler
@@ -14,13 +14,13 @@ interface TooltipProps {
     delayHide?: number
     hideOnScroll?: boolean
     inverted?: boolean
-    text: PopoverProps['content']
+    text: React.ComponentProps<typeof Popover>['content']
 }
 
 type Props = React.PropsWithChildren<
     TooltipProps &
         Pick<
-            PopoverProps,
+            React.ComponentProps<typeof Popover>,
             | 'popoverClassName'
             | 'wrapperClassName'
             | 'allowVaguePositioning'
@@ -262,4 +262,3 @@ Tooltip.propTypes = {
 }
 
 export default Tooltip
-export { Props }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import Checkbox, { Props } from '../Checkbox'
+import Checkbox from '../Checkbox'
 
 describe('Checkbox', () => {
     it('renders when initially set to false', () => {
@@ -37,7 +37,7 @@ describe('Checkbox', () => {
     })
 
     // Helpers ================================================================
-    const getCheckbox = (props?: Props) => (
+    const getCheckbox = (props?: React.ComponentProps<typeof Checkbox>) => (
         <Checkbox
             label="Checkbox Label"
             checked={false}

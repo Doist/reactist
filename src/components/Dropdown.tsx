@@ -197,7 +197,7 @@ interface TriggerProps {
 class Trigger extends React.Component<TriggerProps> {
     public static displayName: string
 
-    constructor(props: TriggerProps, context: React.Context<any>) {
+    constructor(props: TriggerProps, context: React.Context<unknown>) {
         super(props, context)
         this._onClick = this._onClick.bind(this)
     }
