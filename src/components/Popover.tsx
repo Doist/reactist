@@ -115,10 +115,10 @@ class Popover extends React.Component<any, any> {
             position === 'auto'
                 ? ['top', 'right', 'bottom', 'left', 'top']
                 : position === 'vertical'
-                    ? ['top', 'bottom']
-                    : position === 'horizontal'
-                        ? ['left', 'right']
-                        : [position]
+                ? ['top', 'bottom']
+                : position === 'horizontal'
+                ? ['left', 'right']
+                : [position]
 
         for (let index = 0; index < positionsToTry.length; index++) {
             const currentPosition = positionsToTry[index]
@@ -157,9 +157,11 @@ class Popover extends React.Component<any, any> {
                         popoverPosition.y + popoverDimensions.height >
                         windowDimensions.height
                     ) {
-                        ;(this as any).popover.style.top = `${windowDimensions.height -
+                        ;(this as any).popover.style.top = `${
+                            windowDimensions.height -
                             popoverDimensions.height -
-                            2 * gapSize}px`
+                            2 * gapSize
+                        }px`
                     }
                 }
 
@@ -176,7 +178,7 @@ class Popover extends React.Component<any, any> {
     /**
      * @param {Position} position
      */
-    _getClassNameForPosition = position => {
+    _getClassNameForPosition = (position) => {
         const { visible, withArrow, arrowClassName } = this.props
         const className = classNames('reactist_popover', { visible })
 
@@ -196,7 +198,7 @@ class Popover extends React.Component<any, any> {
     /**
      * @param {HTMLElement} popover
      */
-    _updatePopoverRef = popover => {
+    _updatePopoverRef = (popover) => {
         ;(this as any).popover = popover
         if (typeof this.props.popoverRef === 'function') {
             this.props.popoverRef(popover)
@@ -206,7 +208,7 @@ class Popover extends React.Component<any, any> {
     /**
      * @param {HTMLElement} wrapper
      */
-    _updateWrapperRef = wrapper => {
+    _updateWrapperRef = (wrapper) => {
         ;(this as any).wrapper = wrapper
         if (typeof this.props.wrapperRef === 'function') {
             this.props.wrapperRef(wrapper)

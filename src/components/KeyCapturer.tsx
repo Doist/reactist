@@ -16,7 +16,7 @@ const KeyCapturerResolver = {
     /**
      * @param {string} eventKey
      */
-    resolveByKey: eventKey => {
+    resolveByKey: (eventKey) => {
         switch (eventKey) {
             case 'Left': // IE specific
             case 'ArrowLeft': {
@@ -52,7 +52,7 @@ const KeyCapturerResolver = {
     /**
      * @param {number} keyCode
      */
-    resolveByKeyCode: keyCode => {
+    resolveByKeyCode: (keyCode) => {
         switch (keyCode) {
             case 37: {
                 return SUPPORTED_KEYS.ARROW_LEFT
@@ -102,7 +102,7 @@ class KeyCapturer extends React.Component<any, any> {
     /**
      * @param {React.KeyboardEvent} event
      */
-    _handleKeyEvent = event => {
+    _handleKeyEvent = (event) => {
         // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
         const key =
             event.key !== undefined
@@ -126,7 +126,7 @@ class KeyCapturer extends React.Component<any, any> {
         const { children, eventName = 'onKeyDown' } = this.props
 
         return React.cloneElement(
-            /** @type {React.ReactElement} */ (children as React.ReactElement),
+            /** @type {React.ReactElement} */ children as React.ReactElement,
             {
                 [eventName]: this._handleKeyEvent,
             }

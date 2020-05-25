@@ -124,8 +124,8 @@ class Time extends React.Component<any, any> {
         return (
             <time
                 className={className}
-                onMouseEnter={event => this._setHovered(true, event)}
-                onMouseLeave={event => this._setHovered(false, event)}
+                onMouseEnter={(event) => this._setHovered(true, event)}
+                onMouseLeave={(event) => this._setHovered(false, event)}
             >
                 {this.props.tooltipOnHover ? (
                     <Tooltip

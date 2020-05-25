@@ -27,37 +27,27 @@ describe('Time Utils', () => {
     })
 
     it('timeAgo < 1m returns `moments ago`', () => {
-        const testDate = dayjs()
-            .subtract(10, 'second')
-            .unix()
+        const testDate = dayjs().subtract(10, 'second').unix()
         expect(TimeUtils.timeAgo(testDate)).toBe('moments ago')
     })
 
     it('timeAgo < 1h returns `XXm`', () => {
-        const testDate = dayjs()
-            .subtract(10, 'minute')
-            .unix()
+        const testDate = dayjs().subtract(10, 'minute').unix()
         expect(TimeUtils.timeAgo(testDate)).toBe('10m')
     })
 
     it('timeAgo < 1d returns `XXh`', () => {
-        const testDate = dayjs()
-            .subtract(10, 'hour')
-            .unix()
+        const testDate = dayjs().subtract(10, 'hour').unix()
         expect(TimeUtils.timeAgo(testDate)).toBe('10h')
     })
 
     it('timeAgo == 1d returns `1d`', () => {
-        const testDate = dayjs()
-            .subtract(1, 'day')
-            .unix()
+        const testDate = dayjs().subtract(1, 'day').unix()
         expect(TimeUtils.timeAgo(testDate)).toBe('1d')
     })
 
     it('timeAgo < 7d returns MM/DD/YYYY', () => {
-        const testDate = dayjs()
-            .subtract(2, 'day')
-            .unix()
+        const testDate = dayjs().subtract(2, 'day').unix()
         expect(TimeUtils.timeAgo(testDate)).toBe('03/20/2017')
     })
 

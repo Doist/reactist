@@ -189,7 +189,7 @@ describe('KeyCapturer', () => {
                     expected: null,
                 },
             ]
-            testCases.forEach(testCase => {
+            testCases.forEach((testCase) => {
                 it(testCase.description, () => {
                     expect(
                         KeyCapturerResolver.resolveByKey(testCase.input)
@@ -241,7 +241,7 @@ describe('KeyCapturer', () => {
                     expected: null,
                 },
             ]
-            testCases.forEach(testCase => {
+            testCases.forEach((testCase) => {
                 it(testCase.description, () => {
                     expect(
                         KeyCapturerResolver.resolveByKeyCode(testCase.input)

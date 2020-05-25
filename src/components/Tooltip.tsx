@@ -107,14 +107,14 @@ class Tooltip extends React.Component<any, any> {
     /**
      * @param {HTMLLIElement} tooltip
      */
-    _updateTooltipRef = tooltip => {
+    _updateTooltipRef = (tooltip) => {
         ;(this as any).tooltip = tooltip
     }
 
     /**
      * @param {HTMLLIElement} wrapper
      */
-    _updateWrapperRef = wrapper => {
+    _updateWrapperRef = (wrapper) => {
         ;(this as any).wrapper = wrapper
     }
 
@@ -149,7 +149,7 @@ class Tooltip extends React.Component<any, any> {
         }
 
         // wrap on click of trigger to hide tooltip on click
-        const trigger = React.Children.map(children, child => {
+        const trigger = React.Children.map(children, (child) => {
             if (React.isValidElement(child)) {
                 /**
                  * We can only attach click listeners to valid elements.
@@ -159,7 +159,7 @@ class Tooltip extends React.Component<any, any> {
                     /**
                      * @param {React.MouseEvent} event
                      */
-                    onClick: event => {
+                    onClick: (event) => {
                         this._hide()
                         if (typeof child.props.onClick === 'function') {
                             child.props.onClick(event)

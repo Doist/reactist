@@ -174,7 +174,7 @@ describe('PositioningUtils', () => {
     })
 
     describe('Enough Space Calculations', () => {
-        const getParams = params => ({
+        const getParams = (params) => ({
             windowDimensions,
             wrapperDimensions,
             elementDimensions,
@@ -308,7 +308,7 @@ describe('PositioningUtils', () => {
                 expectedResult: false,
             },
         ]
-        testCases.forEach(testCase => {
+        testCases.forEach((testCase) => {
             it(testCase.description, () => {
                 const result = hasEnoughSpace(
                     testCase.params.windowDimensions,

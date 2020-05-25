@@ -37,7 +37,7 @@ class Icon extends React.Component<any, any> {
     /**
      * @param {React.MouseEvent} event
      */
-    _onClick = event => {
+    _onClick = (event) => {
         event.preventDefault()
 
         if (this.props.onClick && !this.props.disabled) {

@@ -25,7 +25,7 @@ class ColorPickersStory extends React.Component {
             <section className="story">
                 <ColorPicker
                     color={this.state.color}
-                    onChange={color => this.setState(() => ({ color }))}
+                    onChange={(color) => this.setState(() => ({ color }))}
                 />
             </section>
         )
@@ -50,7 +50,7 @@ class CustomColorPickersStory extends React.Component {
             <section className="story">
                 <ColorPicker
                     color={this.state.color}
-                    onChange={color => this.setState(() => ({ color }))}
+                    onChange={(color) => this.setState(() => ({ color }))}
                     colorList={['red', 'green', 'palegoldenrod', '#FF00FF']}
                 />
             </section>
@@ -76,7 +76,7 @@ class NamedColorPickersStory extends React.Component {
             <section className="story">
                 <ColorPicker
                     color={this.state.color}
-                    onChange={color => this.setState(() => ({ color }))}
+                    onChange={(color) => this.setState(() => ({ color }))}
                     colorList={[
                         { color: 'red', name: 'Red' },
                         { color: 'green', name: 'Green' },
@@ -109,7 +109,7 @@ class SmallColorPickerStory extends React.Component {
                 <ColorPicker
                     small
                     color={this.state.color}
-                    onChange={color => this.setState(() => ({ color }))}
+                    onChange={(color) => this.setState(() => ({ color }))}
                 />
             </section>
         )

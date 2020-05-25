@@ -31,7 +31,7 @@ class Button extends React.Component<any> {
     /**
      * @param {React.MouseEvent} event
      */
-    _onClick = event => {
+    _onClick = (event) => {
         event.preventDefault()
         if (!this.props.disabled && !this.props.loading && this.props.onClick) {
             this.props.onClick()

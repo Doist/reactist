@@ -35,7 +35,7 @@ const _getColor = (colorList: (string | NamedColor)[], colorIndex: number) => {
 interface Props {
     small?: boolean
     color?: number
-    onChange?: ((color: number) => void)
+    onChange?: (color: number) => void
     colorList?: (string | NamedColor)[]
 }
 
@@ -66,34 +66,31 @@ const ColorPicker: React.FC<Props> = ({
         </Dropdown.Trigger>
         <Dropdown.Body>
             <div className="color_options">
-                {colorList.reduce(
-                    (items, currentColor, currentIndex) => {
-                        items.push(
-                            <ColorItem
-                                isActive={
-                                    color >= colorList.length
-                                        ? currentIndex === 0
-                                        : currentIndex === color
-                                }
-                                key={currentIndex}
-                                color={
-                                    _isNamedColor(currentColor)
-                                        ? (currentColor as any).color
-                                        : currentColor
-                                }
-                                colorIndex={currentIndex}
-                                onClick={onChange}
-                                tooltip={
-                                    _isNamedColor(currentColor)
-                                        ? (currentColor as any).name
-                                        : null
-                                }
-                            />
-                        )
-                        return items
-                    },
-                    [] as React.ReactNode[]
-                )}
+                {colorList.reduce((items, currentColor, currentIndex) => {
+                    items.push(
+                        <ColorItem
+                            isActive={
+                                color >= colorList.length
+                                    ? currentIndex === 0
+                                    : currentIndex === color
+                            }
+                            key={currentIndex}
+                            color={
+                                _isNamedColor(currentColor)
+                                    ? (currentColor as any).color
+                                    : currentColor
+                            }
+                            colorIndex={currentIndex}
+                            onClick={onChange}
+                            tooltip={
+                                _isNamedColor(currentColor)
+                                    ? (currentColor as any).name
+                                    : null
+                            }
+                        />
+                    )
+                    return items
+                }, [] as React.ReactNode[])}
             </div>
         </Dropdown.Body>
     </Dropdown.Box>

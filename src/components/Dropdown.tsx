@@ -165,8 +165,8 @@ class Box extends React.Component<BoxProps, BoxState> {
             typeof body === 'function'
                 ? body(props)
                 : body
-                    ? React.cloneElement(body, props)
-                    : undefined
+                ? React.cloneElement(body, props)
+                : undefined
         return (
             //eslint-disable-next-line @typescript-eslint/camelcase
             <div className={class_name} style={{ position: 'relative' }}>

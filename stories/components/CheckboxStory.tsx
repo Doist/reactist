@@ -28,7 +28,7 @@ class CheckboxStory extends React.Component<any, any> {
                 <Checkbox
                     label="Checkbox with a clickable label"
                     checked={this.state.checked}
-                    onChange={checked => this.setState(() => ({ checked }))}
+                    onChange={(checked) => this.setState(() => ({ checked }))}
                 />
             </section>
         )
@@ -56,7 +56,7 @@ class CheckboxPlaygroundStory extends React.Component<any, any> {
                     checked={boolean('Checked', this.state.checked)}
                     disabled={boolean('Disabled', false)}
                     onChange={decorate([
-                        checked => this.setState(() => ({ checked })),
+                        (checked) => this.setState(() => ({ checked })),
                     ]).action('Checkbox Toggle')}
                 />
             </section>

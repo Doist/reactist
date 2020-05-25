@@ -24,7 +24,7 @@ const Checkbox: React.FC<Props> = ({
             onChange={
                 disabled || !onChange
                     ? undefined
-                    : event => onChange(event.target.checked)
+                    : (event) => onChange(event.target.checked)
             }
             type="checkbox"
         />
