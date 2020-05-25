@@ -133,7 +133,7 @@ class Popover extends React.Component<Props, any> {
             y: wrapperRect.top,
         }
 
-        const positionsToTry: (RelativePosition | undefined)[] =
+        const positionsToTry: RelativePosition[] =
             position === 'auto'
                 ? ['top', 'right', 'bottom', 'left', 'top']
                 : position === 'vertical'
