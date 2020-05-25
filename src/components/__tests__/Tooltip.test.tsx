@@ -29,11 +29,11 @@ describe('Tooltip', () => {
 
         tooltip.simulate('mouseEnter')
         jest.runAllTimers()
-        expect((tooltip as any).state().visible).toBe(true)
+        expect(tooltip.state().visible).toBe(true)
 
         tooltip.simulate('mouseLeave')
         jest.runAllTimers()
-        expect((tooltip as any).state().visible).toBe(false)
+        expect(tooltip.state().visible).toBe(false)
     })
 
     describe('Arrow Placement', () => {
@@ -209,8 +209,8 @@ describe('Tooltip', () => {
     it('sets ref of tooltip and wrapper after mounting', () => {
         const tooltip = mount(getTooltip()).instance() as Tooltip
 
-        expect((tooltip as any).wrapper).toBeTruthy()
-        expect((tooltip as any).tooltip).toBeTruthy()
+        expect(tooltip.wrapper).toBeTruthy()
+        expect(tooltip.tooltip).toBeTruthy()
     })
 
     it('hides when clicking on trigger', () => {
@@ -226,14 +226,14 @@ describe('Tooltip', () => {
         // hover an make sure tooltip is visible
         tooltip.simulate('mouseEnter')
         jest.runAllTimers()
-        expect((tooltip as any).state().visible).toBe(true)
+        expect(tooltip.state().visible).toBe(true)
 
         // clicking the trigger
         tooltip.find('span#trigger').simulate('click')
         jest.runAllTimers()
 
         // making sure click is executed and tooltip hides
-        expect((tooltip as any).state().visible).toBe(false)
+        expect(tooltip.state().visible).toBe(false)
         expect(clickSpy).toHaveBeenCalledTimes(1)
     })
 
@@ -241,8 +241,8 @@ describe('Tooltip', () => {
         const tooltip = mount(
             <Tooltip text="Tip">Wrapped Text</Tooltip>
         ).instance()
-        expect((tooltip as any).wrapper).toBeTruthy()
-        expect((tooltip as any).tooltip).toBeTruthy()
+        expect(tooltip.wrapper).toBeTruthy()
+        expect(tooltip.tooltip).toBeTruthy()
     })
 
     // Helpers ================================================================

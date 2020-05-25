@@ -3,6 +3,7 @@ import { mount } from 'enzyme'
 
 import Popover from '../Popover'
 import * as PositioningUtils from '../utils/PositioningUtils'
+import type { Position } from '../utils/PositioningUtils'
 
 describe('Popover', () => {
     it('renders without crashing', () => {
@@ -26,7 +27,9 @@ describe('Popover', () => {
         })
 
         it('sets the tooltip to the given position if it is not set to `auto`', () => {
-            ;(PositioningUtils.hasEnoughSpace as any) = jest.fn(() => true)
+            ;(PositioningUtils.hasEnoughSpace as jest.Mock<boolean>) = jest.fn(
+                () => true
+            )
             jest.spyOn(
                 PositioningUtils,
                 'calculatePosition'
@@ -44,7 +47,9 @@ describe('Popover', () => {
         })
 
         it('allows vague positioning to avoid cut offs', () => {
-            ;(PositioningUtils.hasEnoughSpace as any) = jest.fn(() => true)
+            ;(PositioningUtils.hasEnoughSpace as jest.Mock<boolean>) = jest.fn(
+                () => true
+            )
             jest.spyOn(
                 PositioningUtils,
                 'calculatePosition'
@@ -62,7 +67,7 @@ describe('Popover', () => {
         })
 
         it('sets the tooltip to the first position that has enough space when `auto` is supplied', () => {
-            ;(PositioningUtils.hasEnoughSpace as any) = jest
+            ;(PositioningUtils.hasEnoughSpace as jest.Mock<boolean>) = jest
                 .fn()
                 .mockReturnValueOnce(false) // top
                 .mockReturnValueOnce(false) // right
@@ -85,7 +90,9 @@ describe('Popover', () => {
         })
 
         it('sets the tooltip to the correct position when changing the gap size', () => {
-            ;(PositioningUtils.hasEnoughSpace as any) = jest.fn(() => true)
+            ;(PositioningUtils.hasEnoughSpace as jest.Mock<boolean>) = jest.fn(
+                () => true
+            )
 
             const popover = mount(
                 getPopover({ position: 'top', visible: false })
