@@ -3,7 +3,7 @@ import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 
 dayjs.extend(LocalizedFormat)
 
-type Config = {
+type TimeConfig = {
     locale?: string
     longFormat?: string
     shortFormatCurrentYear?: string
@@ -19,7 +19,7 @@ const TimeUtils = {
     SHORT_FORMAT_PAST_YEAR: 'LL',
     LONG_FORMAT: 'LL, LT',
 
-    timeAgo(timestamp: number, config: Config = {}) {
+    timeAgo(timestamp: number, config: TimeConfig = {}) {
         const {
             locale = 'en',
             shortFormatCurrentYear = this.SHORT_FORMAT_CURRENT_YEAR,
@@ -53,7 +53,7 @@ const TimeUtils = {
         }
     },
 
-    formatTime(timestamp: number, config: Config = {}) {
+    formatTime(timestamp: number, config: TimeConfig = {}) {
         const {
             locale = 'en',
             shortFormatCurrentYear = this.SHORT_FORMAT_CURRENT_YEAR,
@@ -68,7 +68,7 @@ const TimeUtils = {
         }
     },
 
-    formatTimeLong(timestamp: number, config: Config = {}) {
+    formatTimeLong(timestamp: number, config: TimeConfig = {}) {
         const { locale = 'en', longFormat = this.LONG_FORMAT } = config
         const date = dayjs(timestamp * 1000)
         date.locale(locale)
@@ -77,4 +77,4 @@ const TimeUtils = {
 }
 
 export default TimeUtils
-export { Config as TimeConfig }
+export { TimeConfig }

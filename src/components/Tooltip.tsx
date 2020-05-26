@@ -114,7 +114,7 @@ class Tooltip extends React.Component<Props, State> {
         }, this.props.delayHide)
     }
 
-    _delayAction(actionFn: (...args: any[]) => void, delay: number) {
+    _delayAction(actionFn: Parameters<typeof setTimeout>[0], delay: number) {
         this._clearDelayTimeout()
         this.delayTimeout = setTimeout(actionFn, delay)
     }
