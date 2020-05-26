@@ -65,7 +65,12 @@ describe('Modal.Box', () => {
     })
 
     it('unmounts the modal_box when clicking on overlay', () => {
-        const wrapper = mount(<Modal.Box closeOnOverlayClick />)
+        const wrapper = mount(
+            <>
+                <div id="modal_box" />
+                <Modal.Box closeOnOverlayClick />
+            </>
+        )
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
         wrapper.find('#reactist-overlay').simulate('click')
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(

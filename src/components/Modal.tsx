@@ -36,13 +36,12 @@ class Box extends React.Component<React.PropsWithChildren<Props>> {
     }
 
     _closeModal() {
-        const modalElement = document.getElementById('modal_box')
-        if (modalElement) {
-            ReactDOM.unmountComponentAtNode(modalElement)
-        }
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const modalElement = document.getElementById('modal_box')!
+        ReactDOM.unmountComponentAtNode(modalElement)
     }
 
-    _handleKeyDown(event: KeyboardEvent) {
+    _handleKeyDown(event: Partial<KeyboardEvent>) {
         if (event.keyCode === 27) {
             // ESC
             this._closeModal()
@@ -119,10 +118,9 @@ class Header extends React.Component<HeaderProps> {
         if (typeof this.props.beforeClose === 'function') {
             this.props.beforeClose()
         }
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const modalElement = document.getElementById('modal_box')
-        if (modalElement) {
-            ReactDOM.unmountComponentAtNode(modalElement)
-        }
+        ReactDOM.unmountComponentAtNode(modalElement)
     }
 
     render() {
@@ -154,7 +152,7 @@ Header.displayName = 'Modal.Header'
 
 interface BodyProps {
     /** Display an icon (or basically any component) on the right hand side of the Modal.Body. */
-    icon?: string
+    icon?: React.ReactNode
     /** Applies less styles on the body (e.g. no padding) */
     plain?: string
     /** Sometimes a class name is not enough so you can use this to set the style directly. */
@@ -173,10 +171,9 @@ class Body extends React.Component<BodyProps> {
 
     _closeModal(event: React.MouseEvent) {
         event.preventDefault()
-        const modalElement = document.getElementById('modal_box')
-        if (modalElement) {
-            ReactDOM.unmountComponentAtNode(modalElement)
-        }
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const modalElement = document.getElementById('modal_box')!
+        ReactDOM.unmountComponentAtNode(modalElement)
     }
 
     render() {
@@ -222,7 +219,7 @@ interface ActionProps {
      * Children to render inside the Modal.Actions. They can have an optional `close` property (boolean).
      * When that is supplied and set to true it will close the modal after the onClick function
      */
-    children: React.ReactElement<ActionChildrenProps>[]
+    children?: React.ReactNode
 }
 
 interface ActionChildrenProps {
@@ -237,17 +234,13 @@ class Actions extends React.Component<ActionProps> {
         if (typeof onClick === 'function') {
             onClick()
         }
-        const modalElement = document.getElementById('modal_box')
-        if (modalElement) {
-            ReactDOM.unmountComponentAtNode(modalElement)
-        }
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const modalElement = document.getElementById('modal_box')!
+        ReactDOM.unmountComponentAtNode(modalElement)
     }
 
     render() {
-        const children = React.Children.map<
-            React.ReactElement<ActionChildrenProps>,
-            React.ReactElement<ActionChildrenProps>
-        >(
+        const children = React.Children.map(
             this.props.children,
             (child: React.ReactElement<ActionChildrenProps>) => {
                 if (child.props.close) {
