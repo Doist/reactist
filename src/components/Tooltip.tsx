@@ -11,9 +11,9 @@ type TooltipProps = {
     /** Additional css class that is applied to the tooltip element. */
     tooltipClassName?: string
     /** How long to wait after hovering before the tooltip is shown (in ms). */
-    delayShow?: number
+    delayShow: number
     /** How long to wait after unhovering before the tooltip is hidden (in ms). */
-    delayHide?: number
+    delayHide: number
     /** Set whether scrolling should hide the tooltip or not. */
     hideOnScroll?: boolean
     /** Inverted tooltips have a light background with dark text. */
@@ -96,26 +96,22 @@ class Tooltip extends React.Component<Props, State> {
     }
 
     _show = () => {
-        if (this.props.delayShow) {
-            this._delayAction(() => {
-                this.setState(() => ({ visible: true }))
-                if (this.props.hideOnScroll) {
-                    this._initScrollListener()
-                }
-            }, this.props.delayShow)
-        }
+        this._delayAction(() => {
+            this.setState(() => ({ visible: true }))
+            if (this.props.hideOnScroll) {
+                this._initScrollListener()
+            }
+        }, this.props.delayShow)
     }
 
     _hide = () => {
-        if (this.props.delayHide) {
-            this._delayAction(() => {
-                this._clearDelayTimeout()
-                this.setState(() => ({ visible: false }))
-                if (this.props.hideOnScroll) {
-                    this._removeScrollListener()
-                }
-            }, this.props.delayHide)
-        }
+        this._delayAction(() => {
+            this._clearDelayTimeout()
+            this.setState(() => ({ visible: false }))
+            if (this.props.hideOnScroll) {
+                this._removeScrollListener()
+            }
+        }, this.props.delayHide)
     }
 
     _delayAction(actionFn: (...args: any[]) => void, delay: number) {
