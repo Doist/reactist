@@ -3,7 +3,7 @@ import './styles/range_input.less'
 import React from 'react'
 import classNames from 'classnames'
 
-interface Props {
+type Props = {
     /** Optional css class that is applied to the range input. */
     className?: string
     /** Current value of the range input. */

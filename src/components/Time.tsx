@@ -7,7 +7,7 @@ import TimeUtils, { TimeConfig } from './utils/TimeUtils'
 
 const DELAY = 60000
 
-interface Props {
+type Props = {
     /** UNIX timestamp of the time to display. */
     time?: number
     /** Configuration for localization. */
@@ -25,7 +25,7 @@ interface Props {
     expandFullyOnHover?: boolean
 }
 
-interface State {
+type State = {
     hovered: boolean
     mouseX?: number
     mouseY?: number

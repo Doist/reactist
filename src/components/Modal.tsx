@@ -6,7 +6,7 @@ import classnames from 'classnames'
 
 import CloseIcon from './icons/CloseIcon.svg'
 
-interface Props {
+type Props = {
     /** Additional css class applied to the Modal.Box. */
     className?: string
     /** Sometimes a class name is not enough so you can use this to set the style directly. */
@@ -100,7 +100,7 @@ Box.defaultProps = {
     closeOnOverlayClick: false,
 }
 
-interface HeaderProps {
+type HeaderProps = {
     /** Title of the Modal.Header. */
     title?: string
     /** Subtitle of the Modal.Header. */
@@ -150,7 +150,7 @@ class Header extends React.Component<HeaderProps> {
 }
 Header.displayName = 'Modal.Header'
 
-interface BodyProps {
+type BodyProps = {
     /** Display an icon (or basically any component) on the right hand side of the Modal.Body. */
     icon?: React.ReactNode
     /** Applies less styles on the body (e.g. no padding) */
@@ -214,7 +214,7 @@ Body.defaultProps = {
     showCloseIcon: false,
 }
 
-interface ActionProps {
+type ActionProps = {
     /**
      * Children to render inside the Modal.Actions. They can have an optional `close` property (boolean).
      * When that is supplied and set to true it will close the modal after the onClick function
@@ -222,7 +222,7 @@ interface ActionProps {
     children?: React.ReactNode
 }
 
-interface ActionChildrenProps {
+type ActionChildrenProps = {
     close?: boolean
     onClick?: () => void
 }

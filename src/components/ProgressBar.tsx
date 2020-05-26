@@ -3,7 +3,7 @@ import './styles/progress_bar.less'
 import React from 'react'
 import classNames from 'classnames'
 
-interface Props {
+type Props = {
     /** Additional css class applied to the progress bar. */
     className?: string
     /** How much of the progress bar should be filled. Number between 0 and 100 inclusive. */

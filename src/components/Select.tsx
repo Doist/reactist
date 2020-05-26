@@ -3,7 +3,7 @@ import './styles/select.less'
 import React from 'react'
 import classNames from 'classnames'
 
-interface Option {
+type Option = {
     /** Optional key for each option. If not provided `value` is used. */
     key?: string | number
     /** Value of the option. */
@@ -14,7 +14,7 @@ interface Option {
     disabled?: boolean
 }
 
-interface Props {
+type Props = {
     className?: string
     disabled?: boolean
     /** Currently selected value. */

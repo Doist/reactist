@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import ThinQuestionMark from './icons/ThinQuestionMarkIcon.svg'
 import Dropdown from './Dropdown'
 
-interface Props {
+type Props = {
     /** Additional css class that is applied to the Tip. */
     className?: string
     /** Title of the tip. */

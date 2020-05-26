@@ -3,7 +3,7 @@ import './styles/tabs.less'
 import React from 'react'
 import classNames from 'classnames'
 
-interface Props {
+type Props = {
     disabled?: boolean
     /** Whether the tabs should take all available space and distribute it evenly or use the minimum required **/
     spreadLayout?: boolean
@@ -13,7 +13,7 @@ interface Props {
     onChange?: (value: string | number | undefined) => void
 }
 
-interface State {
+type State = {
     activeTabIndex: number
 }
 
@@ -118,7 +118,7 @@ Tabs.defaultProps = {
     spreadLayout: false,
 }
 
-interface TabProps {
+type TabProps = {
     /** Additional css class applied to Tab. */
     className?: string
     /** Disabled tabs can't be selected. */
