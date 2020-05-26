@@ -22,10 +22,10 @@ interface Props {
     /** Callback for the change event. Will be called with the next value (not the full event). */
     onChange?: (value: Props['value']) => void
     /** Options that are rendered in the select. */
-    options?: Option[]
+    options: Option[]
 }
 
-function Select({ value, options, onChange, disabled, className }: Props) {
+function Select({ value, options = [], onChange, disabled, className }: Props) {
     const selectClassName = classNames(
         'reactist_select',
         { disabled },
