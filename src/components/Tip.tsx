@@ -1,20 +1,22 @@
 import './styles/tip.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 import ThinQuestionMark from './icons/ThinQuestionMarkIcon.svg'
 import Dropdown from './Dropdown'
 
 interface Props {
+    /** Additional css class that is applied to the Tip. */
     className?: string
+    /** Title of the tip. */
     title?: React.ReactNode
+    /** Message of the tip. */
     message?: React.ReactNode
+    /** Whether the tip content should be displayed to the top or not. Maps to the Dropdown.Box top property. */
     top?: boolean
 }
 
-/** @type {React.FC<Props>} */
 function Tip({ title, message, top, className }: Props) {
     const tipClass = classNames('reactist_tip__container', className)
     return (
@@ -34,20 +36,6 @@ function Tip({ title, message, top, className }: Props) {
 Tip.displayName = 'Tip'
 Tip.defaultProps = {
     top: false,
-}
-Tip.propTypes = {
-    /** Whether the tip content should be displayed to the top or not. Maps to the Dropdown.Box top property. */
-    top: PropTypes.bool,
-    /** Title of the tip. */
-    title: PropTypes.string.isRequired,
-    /** Message of the tip. */
-    message: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]).isRequired,
-    /** Additional css class that is applied to the Tip. */
-    className: PropTypes.string,
 }
 
 export default Tip
