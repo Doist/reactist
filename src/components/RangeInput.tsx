@@ -1,32 +1,37 @@
 import './styles/range_input.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-/**
- * @typedef {Object} Props
- * @property {string | undefined} [className]
- * @property {number} [value]
- * @property {number | undefined} [min]
- * @property {number | undefined} [max]
- * @property {number | undefined} [stepSize]
- * @property {((value: number) => void) | undefined} [onPlus]
- * @property {((value: number) => void) | undefined} [onMinus]
- * @property {(value: number) => void} [onChange]
- */
+interface Props {
+    /** Optional css class that is applied to the range input. */
+    className?: string
+    /** Current value of the range input. */
+    value: number
+    /** Minimum value of the range input. */
+    min?: number
+    /** Maximum value of the range input. */
+    max?: number
+    /** Step size of the range input and the plus/minus buttons. */
+    stepSize?: number
+    /** Optional function that is called when plus button is clicked. If not supplied onChange will be called with the next value. */
+    onPlus?: (value: number) => void
+    /** Optional function that is called when minus button is clicked. If not supplied onChange will be called with the next value. */
+    onMinus?: (value: number) => void
+    /** Callback function that is called whenever the range input value changes. When onPlus or onMinus is supplied this will not be called for button clicks. */
+    onChange?: (value: number) => void
+}
 
-/** @type {React.FC<Props>} */
-const RangeInput = ({
-    value,
-    min,
-    max,
-    stepSize,
+function RangeInput({
+    value = 0,
+    min = 0,
+    max = 100,
+    stepSize = 1,
     onPlus,
     onMinus,
     onChange,
     className,
-}) => {
+}: Props) {
     if (typeof onPlus !== 'function') {
         onPlus = onChange
     }
@@ -38,7 +43,9 @@ const RangeInput = ({
         <div className={rangeInputClassName}>
             <span
                 className="range_btn minus"
-                onClick={() => value > min && onMinus(value - stepSize)}
+                onClick={() =>
+                    value > min && onMinus && onMinus(value - stepSize)
+                }
             />
             <input
                 value={value}
@@ -47,39 +54,19 @@ const RangeInput = ({
                 min={min}
                 max={max}
                 step={stepSize}
-                onChange={(event) => onChange(parseInt(event.target.value))}
+                onChange={(event) =>
+                    onChange && onChange(parseInt(event.target.value))
+                }
             />
             <span
                 className="range_btn plus"
-                onClick={() => value < max && onPlus(value + stepSize)}
+                onClick={() =>
+                    value < max && onPlus && onPlus(value + stepSize)
+                }
             />
         </div>
     )
 }
 RangeInput.displayName = 'RangeInput'
-RangeInput.defaultProps = {
-    value: 0,
-    min: 0,
-    max: 100,
-    stepSize: 1,
-}
-RangeInput.propTypes = {
-    /** Current value of the range input. */
-    value: PropTypes.number.isRequired,
-    /** Minimum value of the range input. */
-    min: PropTypes.number,
-    /** Maximum value of the range input. */
-    max: PropTypes.number,
-    /** Step size of the range input and the plus/minus buttons. */
-    stepSize: PropTypes.number,
-    /** Optional function that is called when plus button is clicked. If not supplied onChange will be called with the next value. */
-    onPlus: PropTypes.func,
-    /** Optional function that is called when minus button is clicked. If not supplied onChange will be called with the next value. */
-    onMinus: PropTypes.func,
-    /** Callback function that is called whenever the range input value changes. When onPlus or onMinus is supplied this will not be called for button clicks. */
-    onChange: PropTypes.func.isRequired,
-    /** Optional css class that is applied to the range input. */
-    className: PropTypes.string,
-}
 
 export default RangeInput
