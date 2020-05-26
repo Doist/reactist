@@ -15,8 +15,8 @@ interface Option {
 }
 
 interface Props {
-    className?: string
-    disabled?: boolean
+    className: string
+    disabled: boolean
     /** Currently selected value. */
     value: string | number
     /** Callback for the change event. Will be called with the next value (not the full event). */
@@ -25,7 +25,13 @@ interface Props {
     options: Option[]
 }
 
-function Select({ value, options = [], onChange, disabled, className }: Props) {
+function Select({
+    value,
+    options = [],
+    onChange,
+    disabled = true,
+    className = '',
+}: Props) {
     const selectClassName = classNames(
         'reactist_select',
         { disabled },
