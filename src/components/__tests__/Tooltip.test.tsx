@@ -119,7 +119,7 @@ describe('Tooltip', () => {
             document.removeEventListener = jest.fn()
             const tooltip = shallow(getTooltip()).instance()
 
-            tooltip.componentWillUnmount()
+            if (tooltip.componentWillUnmount) tooltip.componentWillUnmount()
             expect(document.removeEventListener).toHaveBeenCalled()
         })
     })
@@ -129,13 +129,15 @@ describe('Tooltip', () => {
             const tooltip = shallow(getTooltip()).instance()
 
             const currentProps = tooltip.props
-            const shouldUpdate = tooltip.shouldComponentUpdate(
-                currentProps,
-                {
-                    visible: true,
-                },
-                undefined
-            )
+            const shouldUpdate =
+                tooltip.shouldComponentUpdate &&
+                tooltip.shouldComponentUpdate(
+                    currentProps,
+                    {
+                        visible: true,
+                    },
+                    undefined
+                )
             expect(shouldUpdate).toBe(true)
         })
 
@@ -144,53 +146,67 @@ describe('Tooltip', () => {
             const currentState = tooltip.state
             const currentProps = tooltip.props
 
-            const shouldUpdateAfterPositionChange = tooltip.shouldComponentUpdate(
-                { ...currentProps, position: 'bottom' },
-                currentState,
-                undefined
-            )
+            const shouldUpdateAfterPositionChange =
+                tooltip.shouldComponentUpdate &&
+                tooltip.shouldComponentUpdate(
+                    { ...currentProps, position: 'bottom' },
+                    currentState,
+                    undefined
+                )
             expect(shouldUpdateAfterPositionChange).toBe(true)
 
-            const shouldUpdateAfterTextChange = tooltip.shouldComponentUpdate(
-                { ...currentProps, text: 'new tip' },
-                currentState,
-                undefined
-            )
+            const shouldUpdateAfterTextChange =
+                tooltip.shouldComponentUpdate &&
+                tooltip.shouldComponentUpdate(
+                    { ...currentProps, text: 'new tip' },
+                    currentState,
+                    undefined
+                )
             expect(shouldUpdateAfterTextChange).toBe(true)
 
-            const shouldUpdateAfterHideOnScrollChange = tooltip.shouldComponentUpdate(
-                { ...currentProps, hideOnScroll: false },
-                currentState,
-                undefined
-            )
+            const shouldUpdateAfterHideOnScrollChange =
+                tooltip.shouldComponentUpdate &&
+                tooltip.shouldComponentUpdate(
+                    { ...currentProps, hideOnScroll: false },
+                    currentState,
+                    undefined
+                )
             expect(shouldUpdateAfterHideOnScrollChange).toBe(true)
 
-            const shouldUpdateAfterDelayShowChange = tooltip.shouldComponentUpdate(
-                { ...currentProps, delayShow: 2342 },
-                currentState,
-                undefined
-            )
+            const shouldUpdateAfterDelayShowChange =
+                tooltip.shouldComponentUpdate &&
+                tooltip.shouldComponentUpdate(
+                    { ...currentProps, delayShow: 2342 },
+                    currentState,
+                    undefined
+                )
             expect(shouldUpdateAfterDelayShowChange).toBe(true)
 
-            const shouldUpdateAfterDelayHideChange = tooltip.shouldComponentUpdate(
-                { ...currentProps, delayHide: 2342 },
-                currentState,
-                undefined
-            )
+            const shouldUpdateAfterDelayHideChange =
+                tooltip.shouldComponentUpdate &&
+                tooltip.shouldComponentUpdate(
+                    { ...currentProps, delayHide: 2342 },
+                    currentState,
+                    undefined
+                )
             expect(shouldUpdateAfterDelayHideChange).toBe(true)
 
-            const shouldUpdateAfterGapSizeChange = tooltip.shouldComponentUpdate(
-                { ...currentProps, gapSize: 10 },
-                currentState,
-                undefined
-            )
+            const shouldUpdateAfterGapSizeChange =
+                tooltip.shouldComponentUpdate &&
+                tooltip.shouldComponentUpdate(
+                    { ...currentProps, gapSize: 10 },
+                    currentState,
+                    undefined
+                )
             expect(shouldUpdateAfterGapSizeChange).toBe(true)
 
-            const shouldUpdateAfterChildrenChange = tooltip.shouldComponentUpdate(
-                { ...currentProps, children: <span>New Content</span> },
-                currentState,
-                undefined
-            )
+            const shouldUpdateAfterChildrenChange =
+                tooltip.shouldComponentUpdate &&
+                tooltip.shouldComponentUpdate(
+                    { ...currentProps, children: <span>New Content</span> },
+                    currentState,
+                    undefined
+                )
             expect(shouldUpdateAfterChildrenChange).toBe(true)
         })
 
@@ -199,11 +215,13 @@ describe('Tooltip', () => {
 
             const currentState = tooltip.state
             const currentProps = tooltip.props
-            const shouldUpdate = tooltip.shouldComponentUpdate(
-                currentProps,
-                currentState,
-                undefined
-            )
+            const shouldUpdate =
+                tooltip.shouldComponentUpdate &&
+                tooltip.shouldComponentUpdate(
+                    currentProps,
+                    currentState,
+                    undefined
+                )
             expect(shouldUpdate).toBe(false)
         })
     })

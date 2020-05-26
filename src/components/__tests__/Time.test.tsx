@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, ShallowWrapper } from 'enzyme'
 import toJson from 'enzyme-to-json'
 
 import Time from '../Time'
@@ -88,7 +88,7 @@ describe('Time', () => {
     })
 
     // Helper functions ///////////////////////////////////////////////////////
-    function getRenderedTime(timeComponent) {
+    function getRenderedTime(timeComponent: ShallowWrapper<Time>) {
         return timeComponent.find('time').props().children
     }
 

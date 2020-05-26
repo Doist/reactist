@@ -15,14 +15,14 @@ interface Option {
 }
 
 interface Props {
-    className: string
-    disabled: boolean
+    className?: string
+    disabled?: boolean
     /** Currently selected value. */
-    value: string | number
+    value?: string | number
     /** Callback for the change event. Will be called with the next value (not the full event). */
     onChange?: (value: Props['value']) => void
     /** Options that are rendered in the select. */
-    options: Option[]
+    options?: Option[]
 }
 
 function Select({

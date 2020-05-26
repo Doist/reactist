@@ -45,7 +45,7 @@ class Box extends React.Component<React.PropsWithChildren<Props>> {
         if (event.keyCode === 27) {
             // ESC
             this._closeModal()
-            event.preventDefault()
+            if (event.preventDefault) event.preventDefault()
         }
     }
 
@@ -119,7 +119,7 @@ class Header extends React.Component<HeaderProps> {
             this.props.beforeClose()
         }
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const modalElement = document.getElementById('modal_box')
+        const modalElement = document.getElementById('modal_box')!
         ReactDOM.unmountComponentAtNode(modalElement)
     }
 
@@ -241,6 +241,9 @@ class Actions extends React.Component<ActionProps> {
 
     render() {
         const children = React.Children.map(
+            // //@ts-expect-error Children cannot be typed properly yet in React
+            // This is required for strict mode and will be enabled when that is enabled
+            // see: https://github.com/microsoft/TypeScript/issues/21699
             this.props.children,
             (child: React.ReactElement<ActionChildrenProps>) => {
                 if (child.props.close) {

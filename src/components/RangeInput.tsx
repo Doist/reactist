@@ -7,7 +7,7 @@ interface Props {
     /** Optional css class that is applied to the range input. */
     className?: string
     /** Current value of the range input. */
-    value: number
+    value?: number
     /** Minimum value of the range input. */
     min?: number
     /** Maximum value of the range input. */

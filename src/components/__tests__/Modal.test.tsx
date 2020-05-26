@@ -237,6 +237,6 @@ describe('Modal.Actions', () => {
 })
 
 // Helper functions ///////////////////////////////////////////////////////////
-function getCallCount(mock) {
-    return mock.mock.calls.length
+function getCallCount(mock: typeof ReactDOM.unmountComponentAtNode) {
+    return (mock as jest.Mock).mock.calls.length
 }
