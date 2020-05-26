@@ -175,7 +175,12 @@ describe('PositioningUtils', () => {
     })
 
     describe('Enough Space Calculations', () => {
-        const getParams = (params) => ({
+        const getParams = (params: {
+            wrapperPosition: any
+            position: any
+            gap?: number
+            elementDimensions?: { height: number; width: number }
+        }) => ({
             windowDimensions,
             wrapperDimensions,
             elementDimensions,
@@ -183,10 +188,10 @@ describe('PositioningUtils', () => {
             ...params,
         })
         const getTestCase = (
-            description,
-            wrapperPosition,
-            position,
-            expectedResult
+            description: string,
+            wrapperPosition: { x: number; y: number },
+            position: string,
+            expectedResult: boolean
         ) => ({
             description,
             params: getParams({ wrapperPosition, position }),

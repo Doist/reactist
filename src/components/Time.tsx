@@ -1,49 +1,49 @@
 import './styles/time.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import Tooltip from './Tooltip'
-
-import TimeUtils from './utils/TimeUtils'
+import TimeUtils, { TimeConfig } from './utils/TimeUtils'
 
 const DELAY = 60000
 
-/**
- * @typedef {Object} Props
- * @property {number} time
- * @property {import('./utils/TimeUtils').Config} config
- * @property {string} [className]
- * @property {boolean} [tooltipOnHover]
- * @property {boolean} [refresh]
- * @property {React.ReactNode} [tooltip]
- * @property {boolean} [expandOnHover]
- * @property {boolean} [expandFullyOnHover]
- */
+interface Props {
+    /** UNIX timestamp of the time to display. */
+    time?: number
+    /** Configuration for localization. */
+    config?: TimeConfig
+    /** Additional css class applied to the time element. */
+    className?: string
+    tooltipOnHover?: boolean
+    /** Refresh the component every DELAY seconds. */
+    refresh?: boolean
+    /** If you don't want to use the default time format on the tooltip use this prop to supply a custom text */
+    tooltip?: React.ReactNode
+    /** When hovering over time it expands to short absolute version. */
+    expandOnHover?: boolean
+    /** When hovering over time it expands to the full absolute version. */
+    expandFullyOnHover?: boolean
+}
 
-/**
- * @typedef {Object} State
- * @property {boolean} hovered
- */
+interface State {
+    hovered: boolean
+    mouseX?: number
+    mouseY?: number
+}
 
-/** @extends {React.Component<Props, State>} */
-class Time extends React.Component<any, any> {
-    public static displayName
-    public static propTypes
-    public static defaultProps
+class Time extends React.Component<Props, State> {
+    public static displayName: string
+    public static defaultProps: Props
 
-    /**
-     * @param {Props} props
-     */
-    constructor(props) {
+    constructor(props: Props) {
         super(props)
         //eslint-disable-next-line @typescript-eslint/camelcase
         ;(this as any).refresh_interval = null
 
         this.state = {
             hovered: false,
-            mouseX: null,
-            mouseY: null,
+            mouseX: undefined,
+            mouseY: undefined,
         }
     }
 
@@ -53,10 +53,7 @@ class Time extends React.Component<any, any> {
         }
     }
 
-    /**
-     * @param {Props} prevProps
-     */
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: Props) {
         if (!prevProps.refresh && this.props.refresh) {
             this._refresh()
         }
@@ -74,11 +71,7 @@ class Time extends React.Component<any, any> {
         }
     }
 
-    /**
-     * @param {boolean} hovered
-     * @param {React.MouseEvent} event
-     */
-    _setHovered(hovered, event) {
+    _setHovered(hovered: boolean, event: React.MouseEvent) {
         const { mouseX, mouseY } = this.state
         const { clientX, clientY } = event
         if (clientX !== mouseX || clientY !== mouseY) {
@@ -91,10 +84,10 @@ class Time extends React.Component<any, any> {
         }
     }
 
-    /**
-     * @param {Props['config']} config
-     */
-    _renderTime(config) {
+    _renderTime(config: Props['config']) {
+        if (!this.props.time) {
+            return
+        }
         if (this.state.hovered) {
             if (this.props.expandFullyOnHover && !this.props.tooltipOnHover) {
                 return TimeUtils.formatTimeLong(this.props.time, config)
@@ -131,10 +124,11 @@ class Time extends React.Component<any, any> {
                     <Tooltip
                         text={
                             this.props.tooltip ||
-                            TimeUtils.formatTimeLong(
-                                this.props.time,
-                                this.props.config
-                            )
+                            (this.props.time &&
+                                TimeUtils.formatTimeLong(
+                                    this.props.time,
+                                    this.props.config
+                                ))
                         }
                         delayShow={500}
                     >
@@ -148,33 +142,7 @@ class Time extends React.Component<any, any> {
     }
 }
 Time.displayName = 'Time'
-Time.propTypes = {
-    /** Additional css class applied to the time element. */
-    className: PropTypes.string,
-    /** UNIX timestamp of the time to display. */
-    time: PropTypes.number.isRequired,
-    /** When hovering over time it expands to short absolute version. */
-    expandOnHover: PropTypes.bool,
-    /** When hovering over time it expands to the full absolute version. */
-    expandFullyOnHover: PropTypes.bool,
-    /** When hovering over time it shows a tooltip with the full absolute version. */
-    tooltipOnHover: PropTypes.bool,
-    /** Refresh the component every DELAY seconds. */
-    refresh: PropTypes.bool,
-    /** If you don't want to use the default time format on the tooltip use this prop to supply a custom text */
-    tooltip: PropTypes.string,
-    /** Configuration for localization. */
-    config: PropTypes.shape({
-        locale: PropTypes.string,
-        shortFormatCurrentYear: PropTypes.string,
-        shortFormatPastYear: PropTypes.string,
-        fullFormat: PropTypes.string,
-        daysSuffix: PropTypes.string,
-        hoursSuffix: PropTypes.string,
-        minutesSuffix: PropTypes.string,
-        momentsAgo: PropTypes.string,
-    }),
-}
+
 Time.defaultProps = {
     expandOnHover: false,
     expandFullyOnHover: false,

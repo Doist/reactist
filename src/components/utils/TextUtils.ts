@@ -14,7 +14,7 @@ const getInitials = (name?: string) => {
     return initials.toUpperCase()
 }
 
-const emailToIndex = (email, maxIndex) => {
+const emailToIndex = (email: string, maxIndex: number) => {
     const seed = email.split('@')[0]
     const hash = seed.charCodeAt(0) + seed.charCodeAt(seed.length - 1) || 0
     return hash % maxIndex
