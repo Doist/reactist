@@ -19,14 +19,16 @@ describe('Popover', () => {
         it('calculates tooltip position after becoming visible', () => {
             const updatePopoverPositionSpy = jest.fn()
             const popover = mount(getPopover({ visible: false }))
-            popover.instance()._updatePopoverPosition = updatePopoverPositionSpy
+            ;(popover.instance() as Popover)._updatePopoverPosition = updatePopoverPositionSpy
             popover.setProps({ visible: true })
 
             expect(updatePopoverPositionSpy).toHaveBeenCalled()
         })
 
         it('sets the tooltip to the given position if it is not set to `auto`', () => {
-            ;(PositioningUtils.hasEnoughSpace as any) = jest.fn(() => true)
+            ;(PositioningUtils.hasEnoughSpace as jest.Mock<boolean>) = jest.fn(
+                () => true
+            )
             jest.spyOn(
                 PositioningUtils,
                 'calculatePosition'
@@ -35,14 +37,18 @@ describe('Popover', () => {
                 y: 42,
             }))
 
-            const popover = mount(getPopover({ position: 'right' })).instance()
+            const popover = mount(
+                getPopover({ position: 'right' })
+            ).instance() as Popover
 
             expect(popover.popover.style.getPropertyValue('top')).toBe('42px')
             expect(popover.popover.style.getPropertyValue('left')).toBe('23px')
         })
 
         it('allows vague positioning to avoid cut offs', () => {
-            ;(PositioningUtils.hasEnoughSpace as any) = jest.fn(() => true)
+            ;(PositioningUtils.hasEnoughSpace as jest.Mock<boolean>) = jest.fn(
+                () => true
+            )
             jest.spyOn(
                 PositioningUtils,
                 'calculatePosition'
@@ -53,14 +59,14 @@ describe('Popover', () => {
 
             const popover = mount(
                 getPopover({ allowVaguePositioning: true })
-            ).instance()
+            ).instance() as Popover
 
             expect(popover.popover.style.getPropertyValue('top')).toBe('-10px')
             expect(popover.popover.style.getPropertyValue('left')).toBe('10px')
         })
 
         it('sets the tooltip to the first position that has enough space when `auto` is supplied', () => {
-            ;(PositioningUtils.hasEnoughSpace as any) = jest
+            ;(PositioningUtils.hasEnoughSpace as jest.Mock<boolean>) = jest
                 .fn()
                 .mockReturnValueOnce(false) // top
                 .mockReturnValueOnce(false) // right
@@ -75,7 +81,7 @@ describe('Popover', () => {
             }))
             const popover = mount(
                 getPopover({ position: 'auto', withArrow: true })
-            ).instance()
+            ).instance() as Popover
 
             expect(popover.popover.style.getPropertyValue('top')).toBe('42px')
             expect(popover.popover.style.getPropertyValue('left')).toBe('23px')
@@ -83,12 +89,14 @@ describe('Popover', () => {
         })
 
         it('sets the tooltip to the correct position when changing the gap size', () => {
-            ;(PositioningUtils.hasEnoughSpace as any) = jest.fn(() => true)
+            ;(PositioningUtils.hasEnoughSpace as jest.Mock<boolean>) = jest.fn(
+                () => true
+            )
 
             const popover = mount(
                 getPopover({ position: 'top', visible: false })
             )
-            const instance = popover.instance()
+            const instance = popover.instance() as Popover
 
             instance.wrapper.getBoundingClientRect = jest.fn(() => ({
                 left: 500,
@@ -123,7 +131,7 @@ describe('Popover', () => {
                     visible: false,
                 })
             )
-            const instance = popover.instance()
+            const instance = popover.instance() as Popover
             instance._updatePopoverPosition = updatePositionSpy
             expect(updatePositionSpy).toHaveBeenCalledTimes(0)
 

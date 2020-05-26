@@ -6,37 +6,39 @@ import classNames from 'classnames'
 
 import Popover from './Popover'
 
-/** @typedef {import('./Popover').Props} PopoverProps */
+type TooltipProps = {
+    onMouseEnter?: React.MouseEventHandler
+    onMouseLeave?: React.MouseEventHandler
+    tooltipClassName?: string
+    delayShow?: number
+    delayHide?: number
+    hideOnScroll?: boolean
+    inverted?: boolean
+    text: React.ComponentProps<typeof Popover>['content']
+}
 
-/**
- * @typedef {Object} TooltipProps
- * @property {React.MouseEventHandler} [onMouseEnter]
- * @property {React.MouseEventHandler} [onMouseLeave]
- * @property {string} [tooltipClassName]
- * @property {number} delayShow
- * @property {number} delayHide
- * @property {boolean} [hideOnScroll]
- * @property {boolean} [inverted]
- * @property {PopoverProps['content']} [text]
- */
+type Props = React.PropsWithChildren<
+    TooltipProps &
+        Pick<
+            React.ComponentProps<typeof Popover>,
+            | 'popoverClassName'
+            | 'wrapperClassName'
+            | 'allowVaguePositioning'
+            | 'gapSize'
+            | 'withArrow'
+            | 'position'
+        >
+>
+type State = {
+    visible?: boolean
+}
 
-/**
- * @typedef {React.PropsWithChildren<TooltipProps & Pick<PopoverProps, "popoverClassName" | "wrapperClassName" | "allowVaguePositioning" | "gapSize" | "withArrow" | "position">>} Props
- */
-
-/**
- * @typedef {Object} State
- * @property {boolean} visible
- */
-
-/** @extends {React.Component<Props, State>} */
-class Tooltip extends React.Component<any, any> {
+class Tooltip extends React.Component<Props, State> {
     public static displayName
     public static propTypes
     public static defaultProps
 
-    /** @type {State} */
-    state = { visible: false }
+    state: State = { visible: false }
 
     /**
      * @param {Props} nextProps
@@ -62,6 +64,10 @@ class Tooltip extends React.Component<any, any> {
         this._removeScrollListener()
     }
 
+    wrapper: HTMLLIElement
+    tooltip: HTMLLIElement
+    delayTimeout: NodeJS.Timeout | undefined
+
     _initScrollListener() {
         document.addEventListener('scroll', this._hide, true)
     }
@@ -71,8 +77,8 @@ class Tooltip extends React.Component<any, any> {
     }
 
     _clearDelayTimeout() {
-        if ((this as any).delayTimeout) {
-            clearTimeout((this as any).delayTimeout)
+        if (this.delayTimeout) {
+            clearTimeout(this.delayTimeout)
         }
     }
 
@@ -100,22 +106,22 @@ class Tooltip extends React.Component<any, any> {
      * @param {number} delay
      */
     _delayAction(actionFn, delay) {
-        ;(this as any)._clearDelayTimeout()
-        ;(this as any).delayTimeout = setTimeout(actionFn, delay)
+        this._clearDelayTimeout()
+        this.delayTimeout = setTimeout(actionFn, delay)
     }
 
     /**
      * @param {HTMLLIElement} tooltip
      */
     _updateTooltipRef = (tooltip) => {
-        ;(this as any).tooltip = tooltip
+        this.tooltip = tooltip
     }
 
     /**
      * @param {HTMLLIElement} wrapper
      */
     _updateWrapperRef = (wrapper) => {
-        ;(this as any).wrapper = wrapper
+        this.wrapper = wrapper
     }
 
     render() {

@@ -2,37 +2,31 @@ import './styles/dropdown.less'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-/**
- * @typedef {Object} BoxProps
- * @property {() => void} [onShowBody]
- * @property {() => void} [onHideBody]
- * @property {boolean} [allowBodyInteractions]
- * @property {boolean} [top]
- * @property {boolean} [right]
- * @property {string} [scrolling_parent]
- * @property {[React.ReactElement<TriggerProps>, React.ReactElement<{}> | ((props: {}) => JSX.Element)]} children
- * @property {string} [className]
- */
+type BoxProps = {
+    onShowBody?: () => void
+    onHideBody?: () => void
+    allowBodyInteractions?: boolean
+    top?: boolean
+    right?: boolean
+    scrolling_parent?: string
+    children?: [
+        React.ReactElement<TriggerProps>,
+        React.ReactElement<{}> | ((props: {}) => JSX.Element)
+    ]
+    className?: string
+}
 
-/**
- * @typedef {Object} BoxState
- * @typedef {boolean} top
- * @typedef {boolean} show_body
- */
+type BoxState = {
+    top: boolean
+    show_body: boolean
+}
 
-/** @extends {React.Component<BoxProps, BoxState>} */
-class Box extends React.Component<any, any> {
-    public static displayName
-    public static propTypes
+class Box extends React.Component<BoxProps, BoxState> {
+    public static displayName: string
 
-    /**
-     * @param {BoxProps} props
-     * @param {unknown} context
-     */
-    constructor(props, context) {
+    constructor(props: BoxProps, context: React.Context<any>) {
         super(props, context)
         this.state = {
             //eslint-disable-next-line @typescript-eslint/camelcase
@@ -53,15 +47,16 @@ class Box extends React.Component<any, any> {
         }
     }
 
-    /**
-     * @param {MouseEvent} event
-     */
-    _handleClickOutside(event) {
+    _handleClickOutside(event: MouseEvent) {
         //eslint-disable-next-line @typescript-eslint/camelcase
         const dropdown_dom_node = ReactDOM.findDOMNode(this)
 
-        //eslint-disable-next-line @typescript-eslint/camelcase
-        if (!dropdown_dom_node.contains(/** @type {Node} */ event.target))
+        if (
+            //eslint-disable-next-line @typescript-eslint/camelcase
+            dropdown_dom_node &&
+            //eslint-disable-next-line @typescript-eslint/camelcase
+            !dropdown_dom_node.contains(event.target as Node)
+        )
             this._toggleShowBody()
         else if (!this.props.allowBodyInteractions) {
             // won't close when body interactions are allowed
@@ -95,30 +90,37 @@ class Box extends React.Component<any, any> {
     }
 
     _getTriggerComponent() {
-        const _trigger = this.props.children[0]
-        return React.cloneElement(_trigger, { onClick: this._toggleShowBody })
+        const _trigger = this.props.children && this.props.children[0]
+        return _trigger
+            ? React.cloneElement(_trigger, { onClick: this._toggleShowBody })
+            : undefined
     }
 
     // https://facebook.github.io/react/docs/refs-and-the-dom.html#exposing-dom-refs-to-parent-components
-    /**
-     * @param {HTMLElement} body
-     */
-    _setPosition(body) {
+    _setPosition(body: HTMLElement) {
         if (body) {
             //eslint-disable-next-line @typescript-eslint/camelcase
             const scrolling_parent = document.getElementById(
-                this.props.scrolling_parent
+                this.props.scrolling_parent ? this.props.scrolling_parent : ''
             )
 
             /* eslint-disable @typescript-eslint/camelcase */
             if (scrolling_parent) {
                 const dropdown = ReactDOM.findDOMNode(this)
+                if (!dropdown) {
+                    return
+                }
                 const dropdown_vertical_position = /** @type {HTMLElement} */ (ReactDOM.findDOMNode(
                     this
                 ) as HTMLElement).offsetTop
-                const dropdown_trigger_height = /** @type {Element} */ (dropdown as Element).querySelector(
+                const dropdown_trigger = (dropdown as Element).querySelector(
                     '.trigger'
-                ).clientHeight
+                )
+                if (!dropdown_trigger) {
+                    return
+                }
+                const dropdown_trigger_height =
+                    /** @type {Element} */ dropdown_trigger.clientHeight
                 const dropdown_body_height = body.clientHeight
 
                 const scrolling_parent_height = scrolling_parent.clientHeight
@@ -157,12 +159,14 @@ class Box extends React.Component<any, any> {
         })
         /* eslint-enable @typescript-eslint/camelcase */
 
-        const body = children[1]
+        const body = children && children[1]
 
         const contentMarkup =
             typeof body === 'function'
                 ? body(props)
-                : React.cloneElement(body, props)
+                : body
+                ? React.cloneElement(body, props)
+                : undefined
         return (
             //eslint-disable-next-line @typescript-eslint/camelcase
             <div className={class_name} style={{ position: 'relative' }}>
@@ -185,51 +189,23 @@ class Box extends React.Component<any, any> {
     }
 }
 Box.displayName = 'Dropdown.Box'
-Box.propTypes = {
-    /** Whether the dropdown should open to the top. */
-    top: PropTypes.bool,
-    /** Whether the dropdown should open to the right. */
-    right: PropTypes.bool,
-    /** Id of the scrolling parent element to place dropdown in it. */
-    //eslint-disable-next-line @typescript-eslint/camelcase
-    scrolling_parent: PropTypes.string,
-    /** Whether to keep dropdown open when interacted with the Body content. */
-    allowBodyInteractions: PropTypes.bool,
-    /** Callback function when the body is shown. */
-    onShowBody: PropTypes.func,
-    /** Callback function when the body is hidden. */
-    onHideBody: PropTypes.func,
-    /** Additional css class applied to the Dropdown. */
-    className: PropTypes.string,
-    /** Should be two elements: Dropdown.Trigger and Dropdown.Body.
-     * Second element can be a function, which will be called only if it is open */
-    children: PropTypes.any,
-}
 
-interface TriggerProps {
+type TriggerProps = {
     onClick?: (event?: React.MouseEvent) => void
 }
 
 class Trigger extends React.Component<TriggerProps> {
-    public static displayName
-    public static propTypes
+    public static displayName: string
 
-    /**
-     * @param {TriggerProps} props
-     * @param {unknown} context
-     */
-    constructor(props, context) {
+    constructor(props: TriggerProps, context: React.Context<unknown>) {
         super(props, context)
         this._onClick = this._onClick.bind(this)
     }
 
-    /**
-     * @param {React.MouseEvent} event
-     */
-    _onClick(event) {
+    _onClick(event: React.MouseEvent) {
         event.preventDefault()
         event.stopPropagation()
-        this.props.onClick(event)
+        if (this.props.onClick) this.props.onClick(event)
     }
 
     render() {
@@ -245,16 +221,9 @@ class Trigger extends React.Component<TriggerProps> {
     }
 }
 Trigger.displayName = 'Dropdown.Trigger'
-Trigger.propTypes = {
-    /** INTERNAL Callback when the trigger is clicked. Setting this yourself won't have an effect. */
-    onClick: PropTypes.func,
-    /** Content of the dropdown trigger. Can be anything from a string to component(s). */
-    children: PropTypes.any,
-}
 
 class Body extends React.Component<any, any, any> {
-    public static displayName
-    public static propTypes
+    public static displayName: string
 
     render() {
         /** @type {React.CSSProperties} */
@@ -287,16 +256,6 @@ class Body extends React.Component<any, any, any> {
     }
 }
 Body.displayName = 'Dropdown.Body'
-Body.propTypes = {
-    /** INTERNAL Whether the dropdown should open to the top. Set this on the Dropdown.Box. */
-    top: PropTypes.bool,
-    /** INTERNAL Whether the dropdown should open to the right. Set this on the Dropdown.Box. */
-    right: PropTypes.bool,
-    /** INTERNAL Callback to correctly set the position of the dropdown. Setting this yourself wont' have an effect. */
-    setPosition: PropTypes.func,
-    /** Content of the dropdown body. Can be anything from a string to component(s). */
-    children: PropTypes.any,
-}
 
 const Dropdown = {
     Box,

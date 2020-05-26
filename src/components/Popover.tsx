@@ -4,31 +4,54 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-import { hasEnoughSpace, calculatePosition } from './utils/PositioningUtils'
-
-/** @typedef {'left' | 'right' | 'top' | 'bottom' | 'vertical' | 'horizontal' | 'auto'} Position */
+import {
+    hasEnoughSpace,
+    calculatePosition,
+    RelativePosition,
+} from './utils/PositioningUtils'
 
 /**
- * @typedef {Object} Props
- * @property {boolean} [visible]
- * @property {React.Ref<HTMLElement>} [popoverRef]
- * @property {React.Ref<HTMLElement>} [wrapperRef]
- * @property {React.MouseEventHandler} [onMouseEnter]
- * @property {React.MouseEventHandler} [onMouseLeave]
- * @property {React.MouseEventHandler} [onClick]
- * @property {string} [wrapperClassName]
- * @property {string} [popoverClassName]
- * @property {string} [arrowClassName]
- * @property {(() => React.ReactNode) | React.ReactNode} [content]
- * @property {React.ReactNode} [trigger]
- * @property {Position} position
- * @property {boolean} [withArrow]
- * @property {boolean} [allowVaguePositioning]
- * @property {number} gapSize
+ * Position of the popover. Defaults to `auto`.
+ * `auto` tries to position the tooltip to the top,
+ * if there's not enough space it tries to position the tooltip clockwise (right, bottom, left).
+ * Setting a distinct value like `right` will always position the popover right, regardless of available space.
+ * Specifying `horizontal` will only try to position the tooltip left and right in that order.
+ * Specifying `vertical` will only try to position the tooltip top and bottom in that order.
  */
+type Position =
+    | 'left'
+    | 'right'
+    | 'top'
+    | 'bottom'
+    | 'vertical'
+    | 'horizontal'
+    | 'auto'
 
-/** @extends {React.Component<Props>} */
-class Popover extends React.Component<any, any> {
+type Props = {
+    visible?: boolean
+    /** ref of the popover in case you need to manipulate it. */
+    popoverRef?: React.Ref<HTMLElement>
+    /** ref of the wrapper in case you need to manipulate it. */
+    wrapperRef?: React.Ref<HTMLElement>
+    onMouseEnter?: React.MouseEventHandler
+    onMouseLeave?: React.MouseEventHandler
+    onClick?: React.MouseEventHandler
+    wrapperClassName?: string
+    popoverClassName?: string
+    arrowClassName?: string
+    /** Content prop of the popover. */
+    content?: (() => React.ReactNode) | React.ReactNode
+    trigger?: React.ReactNode
+    position?: Position
+    withArrow?: boolean
+    /**
+     * Whether vague positioning is allowed. When set to true the popover prefers to be fully visible over being correctly centered.
+     */
+    allowVaguePositioning?: boolean
+    gapSize?: number
+}
+
+class Popover extends React.Component<Props, any> {
     public static displayName
     public static propTypes
     public static defaultProps
@@ -65,10 +88,13 @@ class Popover extends React.Component<any, any> {
         }
     }
 
+    popover: any
+    wrapper: any
+
     _updatePopoverPosition = () => {
         const { position, allowVaguePositioning, gapSize } = this.props
-        const wrapperRect = (this as any).wrapper.getBoundingClientRect()
-        const popoverRect = (this as any).popover.getBoundingClientRect()
+        const wrapperRect = this.wrapper.getBoundingClientRect()
+        const popoverRect = this.popover.getBoundingClientRect()
 
         // Instead of using the documentElement find the nearest absolutely positioned element
         const documentEl = document.documentElement
@@ -110,8 +136,7 @@ class Popover extends React.Component<any, any> {
             y: wrapperRect.top,
         }
 
-        /** @type {("left" | "right" | "top" | "bottom")[]} */
-        const positionsToTry =
+        const positionsToTry: RelativePosition[] =
             position === 'auto'
                 ? ['top', 'right', 'bottom', 'left', 'top']
                 : position === 'vertical'

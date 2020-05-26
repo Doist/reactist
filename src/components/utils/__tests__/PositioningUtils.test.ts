@@ -164,6 +164,7 @@ describe('PositioningUtils', () => {
         })
         it('returns the wrapper position if position for calculation is invalid', () => {
             const position = calculatePosition(
+                // @ts-expect-error we are deliberately calling an invalid value.
                 'invalid',
                 wrapperDimensions,
                 wrapperPosition,

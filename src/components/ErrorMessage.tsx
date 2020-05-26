@@ -1,20 +1,20 @@
 import './styles/error_message.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
 
-/**
- * @typedef {Object} Props
- * @property {number} timeout
- * @property {() => void} [onHide]
- * @property {string} message
- */
+type Props = {
+    timeout?: number
+    onHide?: () => void
+    message?: string
+}
 
-/** @extends {React.Component<Props>} */
-class ErrorMessage extends React.Component<any, any> {
-    public static displayName
-    public static propTypes
-    public static defaultProps
+type State = {
+    visible: boolean
+}
+
+class ErrorMessage extends React.Component<Props, State> {
+    public static displayName: string
+    public static defaultProps: Props
 
     /**
      * @param {Props} props
@@ -83,18 +83,6 @@ class ErrorMessage extends React.Component<any, any> {
 ErrorMessage.displayName = 'ErrorMessage'
 ErrorMessage.defaultProps = {
     timeout: 2500,
-}
-ErrorMessage.propTypes = {
-    /** Message to be displayed. This component only renders when message is set. */
-    message: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]),
-    /** Timeout after the error message disappears (in ms). */
-    timeout: PropTypes.number,
-    /** Optional callback that is invoked when the error message disappears. */
-    onHide: PropTypes.func,
 }
 
 export default ErrorMessage

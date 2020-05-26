@@ -4,6 +4,7 @@ import { shallow, mount } from 'enzyme'
 import toJson from 'enzyme-to-json'
 
 import Modal from '../Modal'
+import type { Modal as ModalType } from '../Modal'
 import Button from '../Button' // for more descriptive snapshots
 
 jest.mock('react-dom')
@@ -43,7 +44,10 @@ describe('Modal.Box', () => {
 
         const preventSpy = jest.fn()
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
-        box._handleKeyDown({ keyCode: 27, preventDefault: preventSpy })
+        ;(box as ModalType['Box'])._handleKeyDown({
+            keyCode: 27,
+            preventDefault: preventSpy,
+        })
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
             unmountCallCount + 1
         )
@@ -54,7 +58,7 @@ describe('Modal.Box', () => {
         const box = mount(<Modal.Box />).instance()
 
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
-        box._handleKeyDown({ keyCode: 23 })
+        ;(box as ModalType['Box'])._handleKeyDown({ keyCode: 23 })
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
             unmountCallCount
         )

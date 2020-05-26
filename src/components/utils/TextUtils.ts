@@ -1,7 +1,4 @@
-/**
- * @param {string | null | undefined} name
- */
-const getInitials = (name = undefined) => {
+const getInitials = (name?: string) => {
     if (!name) {
         return ''
     }
@@ -17,10 +14,6 @@ const getInitials = (name = undefined) => {
     return initials.toUpperCase()
 }
 
-/**
- * @param {string} email
- * @param {number} maxIndex
- */
 const emailToIndex = (email, maxIndex) => {
     const seed = email.split('@')[0]
     const hash = seed.charCodeAt(0) + seed.charCodeAt(seed.length - 1) || 0

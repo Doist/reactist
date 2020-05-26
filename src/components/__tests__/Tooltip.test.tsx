@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import { shallow, mount, ShallowWrapper, ReactWrapper } from 'enzyme'
 
 import Tooltip from '../Tooltip'
 
@@ -25,7 +25,9 @@ describe('Tooltip', () => {
     })
 
     it('gets visible on hovering and hides on unhovering', () => {
-        const tooltip = shallow(getTooltip())
+        const tooltip: ShallowWrapper<Tooltip, React.ComponentState> = shallow(
+            getTooltip()
+        )
 
         tooltip.simulate('mouseEnter')
         jest.runAllTimers()
@@ -127,9 +129,13 @@ describe('Tooltip', () => {
             const tooltip = shallow(getTooltip()).instance()
 
             const currentProps = tooltip.props
-            const shouldUpdate = tooltip.shouldComponentUpdate(currentProps, {
-                visible: true,
-            })
+            const shouldUpdate = tooltip.shouldComponentUpdate(
+                currentProps,
+                {
+                    visible: true,
+                },
+                undefined
+            )
             expect(shouldUpdate).toBe(true)
         })
 
@@ -140,43 +146,50 @@ describe('Tooltip', () => {
 
             const shouldUpdateAfterPositionChange = tooltip.shouldComponentUpdate(
                 { ...currentProps, position: 'bottom' },
-                currentState
+                currentState,
+                undefined
             )
             expect(shouldUpdateAfterPositionChange).toBe(true)
 
             const shouldUpdateAfterTextChange = tooltip.shouldComponentUpdate(
                 { ...currentProps, text: 'new tip' },
-                currentState
+                currentState,
+                undefined
             )
             expect(shouldUpdateAfterTextChange).toBe(true)
 
             const shouldUpdateAfterHideOnScrollChange = tooltip.shouldComponentUpdate(
                 { ...currentProps, hideOnScroll: false },
-                currentState
+                currentState,
+                undefined
             )
             expect(shouldUpdateAfterHideOnScrollChange).toBe(true)
 
             const shouldUpdateAfterDelayShowChange = tooltip.shouldComponentUpdate(
                 { ...currentProps, delayShow: 2342 },
-                currentState
+                currentState,
+                undefined
             )
             expect(shouldUpdateAfterDelayShowChange).toBe(true)
 
             const shouldUpdateAfterDelayHideChange = tooltip.shouldComponentUpdate(
                 { ...currentProps, delayHide: 2342 },
-                currentState
+                currentState,
+                undefined
             )
             expect(shouldUpdateAfterDelayHideChange).toBe(true)
 
             const shouldUpdateAfterGapSizeChange = tooltip.shouldComponentUpdate(
                 { ...currentProps, gapSize: 10 },
-                currentState
+                currentState,
+                undefined
             )
             expect(shouldUpdateAfterGapSizeChange).toBe(true)
 
             const shouldUpdateAfterChildrenChange = tooltip.shouldComponentUpdate(
                 { ...currentProps, children: <span>New Content</span> },
-                currentState
+                currentState,
+                undefined
             )
             expect(shouldUpdateAfterChildrenChange).toBe(true)
         })
@@ -188,22 +201,31 @@ describe('Tooltip', () => {
             const currentProps = tooltip.props
             const shouldUpdate = tooltip.shouldComponentUpdate(
                 currentProps,
-                currentState
+                currentState,
+                undefined
             )
             expect(shouldUpdate).toBe(false)
         })
     })
 
     it('sets ref of tooltip and wrapper after mounting', () => {
-        const tooltip = mount(getTooltip()).instance()
+        const tooltip: ReactWrapper<
+            Tooltip,
+            React.ComponentState,
+            Tooltip
+        > = mount(getTooltip())
 
-        expect(tooltip.wrapper).toBeTruthy()
-        expect(tooltip.tooltip).toBeTruthy()
+        expect(tooltip.instance().wrapper).toBeTruthy()
+        expect(tooltip.instance().tooltip).toBeTruthy()
     })
 
     it('hides when clicking on trigger', () => {
         const clickSpy = jest.fn()
-        const tooltip = mount(
+        const tooltip: ReactWrapper<
+            Tooltip,
+            React.ComponentState,
+            Tooltip
+        > = mount(
             <Tooltip text="Tip">
                 <span id="trigger" onClick={clickSpy}>
                     Trigger
@@ -226,11 +248,13 @@ describe('Tooltip', () => {
     })
 
     it('pass as children simple text', () => {
-        const tooltip = mount(
-            <Tooltip text="Tip">Wrapped Text</Tooltip>
-        ).instance()
-        expect(tooltip.wrapper).toBeTruthy()
-        expect(tooltip.tooltip).toBeTruthy()
+        const tooltip: ReactWrapper<
+            Tooltip,
+            React.ComponentState,
+            Tooltip
+        > = mount(<Tooltip text="Tip">Wrapped Text</Tooltip>)
+        expect(tooltip.instance().wrapper).toBeTruthy()
+        expect(tooltip.instance().tooltip).toBeTruthy()
     })
 
     // Helpers ================================================================
