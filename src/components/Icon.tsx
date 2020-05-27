@@ -64,9 +64,11 @@ class Icon extends React.Component<Props, State> {
         )
 
         const style: React.CSSProperties | undefined =
-            image && this.state.hovered && hoveredImage
-                ? { backgroundImage: `url(${hoveredImage})` }
-                : { backgroundImage: `url(${image})` } // only apply style for image components
+            typeof image === 'string'
+                ? this.state.hovered && hoveredImage
+                    ? { backgroundImage: `url(${hoveredImage})` }
+                    : { backgroundImage: `url(${image})` }
+                : undefined // only apply style for image components
         const iconComponent =
             !image &&
             (icon ? (
