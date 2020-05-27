@@ -70,7 +70,7 @@ class Popover extends React.Component<Props, any> {
      * @param {Props} prevProps
      */
     componentDidUpdate(prevProps: Props) {
-        if ((this as any).wrapper && this.props.visible) {
+        if (this.wrapper && this.props.visible) {
             const positionChanged = prevProps.position !== this.props.position
             const vaguePositioningChanged =
                 prevProps.allowVaguePositioning !==
@@ -102,7 +102,7 @@ class Popover extends React.Component<Props, any> {
 
         // Instead of using the documentElement find the nearest absolutely positioned element
         const documentEl = document.documentElement
-        let node = (this as any).wrapper
+        let node = this.wrapper
         let foundParent = false
         while (!foundParent) {
             const styles = getComputedStyle(node)
@@ -168,8 +168,8 @@ class Popover extends React.Component<Props, any> {
                     popoverDimensions,
                     gapSize
                 )
-                ;(this as any).popover.style.top = `${popoverPosition.y}px`
-                ;(this as any).popover.style.left = `${popoverPosition.x}px`
+                this.popover.style.top = `${popoverPosition.y}px`
+                this.popover.style.left = `${popoverPosition.x}px`
 
                 /**
                  * Correct placement if vague positioning is allowed.
@@ -179,14 +179,14 @@ class Popover extends React.Component<Props, any> {
                 if (allowVaguePositioning) {
                     // correct horizontally
                     if (popoverPosition.x < 0) {
-                        ;(this as any).popover.style.left = `${2 * gapSize}px`
+                        this.popover.style.left = `${2 * gapSize}px`
                     }
                     // correct vertically
                     if (
                         popoverPosition.y + popoverDimensions.height >
                         windowDimensions.height
                     ) {
-                        ;(this as any).popover.style.top = `${
+                        this.popover.style.top = `${
                             windowDimensions.height -
                             popoverDimensions.height -
                             2 * gapSize
@@ -195,7 +195,7 @@ class Popover extends React.Component<Props, any> {
                 }
 
                 if (currentPosition !== position) {
-                    ;(this as any).popover.className = this._getClassNameForPosition(
+                    this.popover.className = this._getClassNameForPosition(
                         currentPosition
                     )
                 }
@@ -222,14 +222,14 @@ class Popover extends React.Component<Props, any> {
     }
 
     _updatePopoverRef = (popover: HTMLElement) => {
-        ;(this as any).popover = popover
+        this.popover = popover
         if (typeof this.props.popoverRef === 'function') {
             this.props.popoverRef(popover)
         }
     }
 
     _updateWrapperRef = (wrapper: HTMLElement) => {
-        ;(this as any).wrapper = wrapper
+        this.wrapper = wrapper
         if (typeof this.props.wrapperRef === 'function') {
             this.props.wrapperRef(wrapper)
         }

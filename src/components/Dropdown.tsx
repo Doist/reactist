@@ -37,15 +37,16 @@ class Box extends React.Component<BoxProps, BoxState> {
         this._handleClickOutside = this._handleClickOutside.bind(this)
         this._setPosition = this._setPosition.bind(this)
         this._toggleShowBody = this._toggleShowBody.bind(this)
-        ;(this as any)._timeout = null
+        this._timeout = undefined
     }
 
     componentWillUnmount() {
         document.removeEventListener('click', this._handleClickOutside, true)
-        if ((this as any)._timeout) {
-            clearTimeout((this as any)._timeout)
+        if (this._timeout) {
+            clearTimeout(this._timeout)
         }
     }
+    _timeout?: NodeJS.Timeout
 
     _handleClickOutside(event: MouseEvent) {
         //eslint-disable-next-line @typescript-eslint/camelcase
@@ -60,7 +61,7 @@ class Box extends React.Component<BoxProps, BoxState> {
             this._toggleShowBody()
         else if (!this.props.allowBodyInteractions) {
             // won't close when body interactions are allowed
-            ;(this as any)._timeout = setTimeout(() => {
+            this._timeout = setTimeout(() => {
                 if (this.state.show_body) {
                     this._toggleShowBody()
                 }
@@ -226,12 +227,11 @@ class Body extends React.Component<any, any, any> {
     public static displayName: string
 
     render() {
-        /** @type {React.CSSProperties} */
-        const style = {
+        const style: React.CSSProperties = {
             position: 'absolute',
             right: 0,
             top: 0,
-        } as any
+        }
 
         if (this.props.top) {
             style.top = 'auto'

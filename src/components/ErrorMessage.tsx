@@ -40,6 +40,8 @@ class ErrorMessage extends React.Component<Props, State> {
     }
     /* eslint-enable @typescript-eslint/camelcase */
 
+    timeout?: NodeJS.Timeout
+
     /**
      * @param {string} message
      */
@@ -48,12 +50,12 @@ class ErrorMessage extends React.Component<Props, State> {
     }
 
     _clearTimeout = () => {
-        ;(this as any).timeout && clearTimeout((this as any).timeout)
+        this.timeout && clearTimeout(this.timeout)
     }
 
     _triggerDelayedHide = () => {
-        ;(this as any)._clearTimeout()
-        ;(this as any).timeout = setTimeout(this._hide, this.props.timeout)
+        this._clearTimeout()
+        this.timeout = setTimeout(this._hide, this.props.timeout)
     }
 
     _hide = () => {
