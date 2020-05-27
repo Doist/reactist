@@ -37,8 +37,7 @@ class Time extends React.Component<Props, State> {
 
     constructor(props: Props) {
         super(props)
-        //eslint-disable-next-line @typescript-eslint/camelcase
-        this.refresh_interval = undefined
+        this.refreshInterval = undefined
 
         this.state = {
             hovered: false,
@@ -59,19 +58,19 @@ class Time extends React.Component<Props, State> {
         }
 
         if (prevProps.refresh && !this.props.refresh) {
-            if (this.refresh_interval) {
-                clearTimeout(this.refresh_interval)
+            if (this.refreshInterval) {
+                clearTimeout(this.refreshInterval)
             }
         }
     }
 
     componentWillUnmount() {
-        if (this.refresh_interval) {
-            clearTimeout(this.refresh_interval)
+        if (this.refreshInterval) {
+            clearTimeout(this.refreshInterval)
         }
     }
 
-    refresh_interval?: ReturnType<typeof setTimeout>
+    refreshInterval?: ReturnType<typeof setTimeout>
 
     _setHovered(hovered: boolean, event: React.MouseEvent) {
         const { mouseX, mouseY } = this.state
@@ -102,8 +101,7 @@ class Time extends React.Component<Props, State> {
     }
 
     _refresh() {
-        //eslint-disable-next-line @typescript-eslint/camelcase
-        this.refresh_interval = setInterval(() => {
+        this.refreshInterval = setInterval(() => {
             this.forceUpdate()
         }, DELAY)
     }

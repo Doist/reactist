@@ -19,32 +19,22 @@ class ErrorMessage extends React.Component<Props, State> {
     constructor(props: Props, context: unknown) {
         super(props, context)
 
-        /* eslint-disable @typescript-eslint/camelcase */
-        const is_valid_message = this._isValidMessage(props.message)
-        if (is_valid_message) {
+        const isValidMessage = this._isValidMessage(props.message)
+        if (isValidMessage) {
             this._triggerDelayedHide()
         }
-        this.state = { visible: is_valid_message }
-        /* eslint-enable @typescript-eslint/camelcase */
+        this.state = { visible: isValidMessage }
     }
 
-    /**
-     * @param {Props} next_props
-     */
-    /* eslint-disable @typescript-eslint/camelcase */
-    UNSAFE_componentWillReceiveProps(next_props: Props) {
-        if (this._isValidMessage(next_props.message)) {
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
+        if (this._isValidMessage(nextProps.message)) {
             this.setState(() => ({ visible: true }))
             this._triggerDelayedHide()
         }
     }
-    /* eslint-enable @typescript-eslint/camelcase */
 
     timeout?: number
 
-    /**
-     * @param {string} message
-     */
     _isValidMessage(message?: string) {
         return typeof message === 'string' && message.length > 0
     }

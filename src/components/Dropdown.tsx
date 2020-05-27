@@ -20,7 +20,7 @@ type BoxProps = {
 
 type BoxState = {
     top: boolean
-    show_body: boolean
+    showBody: boolean
 }
 
 class Box extends React.Component<BoxProps, BoxState> {
@@ -29,8 +29,7 @@ class Box extends React.Component<BoxProps, BoxState> {
     constructor(props: BoxProps, context: React.Context<any>) {
         super(props, context)
         this.state = {
-            //eslint-disable-next-line @typescript-eslint/camelcase
-            show_body: false,
+            showBody: false,
             top: props.top || false,
         }
 
@@ -49,20 +48,14 @@ class Box extends React.Component<BoxProps, BoxState> {
     _timeout?: ReturnType<typeof setTimeout>
 
     _handleClickOutside(event: MouseEvent) {
-        //eslint-disable-next-line @typescript-eslint/camelcase
-        const dropdown_dom_node = ReactDOM.findDOMNode(this)
+        const dropdownDOMNode = ReactDOM.findDOMNode(this)
 
-        if (
-            //eslint-disable-next-line @typescript-eslint/camelcase
-            dropdown_dom_node &&
-            //eslint-disable-next-line @typescript-eslint/camelcase
-            !dropdown_dom_node.contains(event.target as Node)
-        )
+        if (dropdownDOMNode && !dropdownDOMNode.contains(event.target as Node))
             this._toggleShowBody()
         else if (!this.props.allowBodyInteractions) {
             // won't close when body interactions are allowed
             this._timeout = setTimeout(() => {
-                if (this.state.show_body) {
+                if (this.state.showBody) {
                     this._toggleShowBody()
                 }
             }, 100)
@@ -70,7 +63,7 @@ class Box extends React.Component<BoxProps, BoxState> {
     }
 
     _toggleShowBody() {
-        if (!this.state.show_body) {
+        if (!this.state.showBody) {
             // will show
             if (this.props.onShowBody) this.props.onShowBody()
             document.addEventListener('click', this._handleClickOutside, true)
@@ -85,8 +78,7 @@ class Box extends React.Component<BoxProps, BoxState> {
         }
 
         this.setState({
-            //eslint-disable-next-line @typescript-eslint/camelcase
-            show_body: !this.state.show_body,
+            showBody: !this.state.showBody,
         })
     }
 
@@ -100,50 +92,47 @@ class Box extends React.Component<BoxProps, BoxState> {
     // https://facebook.github.io/react/docs/refs-and-the-dom.html#exposing-dom-refs-to-parent-components
     _setPosition(body: HTMLElement) {
         if (body) {
-            //eslint-disable-next-line @typescript-eslint/camelcase
-            const scrolling_parent = document.getElementById(
+            const scrollingParent = document.getElementById(
                 this.props.scrolling_parent ? this.props.scrolling_parent : ''
             )
 
-            /* eslint-disable @typescript-eslint/camelcase */
-            if (scrolling_parent) {
+            if (scrollingParent) {
                 const dropdown = ReactDOM.findDOMNode(this)
                 if (!dropdown) {
                     return
                 }
-                const dropdown_vertical_position = (ReactDOM.findDOMNode(
+                const dropdownVerticalPosition = (ReactDOM.findDOMNode(
                     this
                 ) as HTMLElement).offsetTop
-                const dropdown_trigger = (dropdown as Element).querySelector(
+                const dropdownTrigger = (dropdown as Element).querySelector(
                     '.trigger'
                 )
-                if (!dropdown_trigger) {
+                if (!dropdownTrigger) {
                     return
                 }
-                const dropdown_trigger_height = dropdown_trigger.clientHeight
-                const dropdown_body_height = body.clientHeight
+                const dropdownTriggerHeight = dropdownTrigger.clientHeight
+                const dropdownBodyHeight = body.clientHeight
 
-                const scrolling_parent_height = scrolling_parent.clientHeight
-                const scrolling_parent_offset = scrolling_parent.scrollTop
+                const scrollingParentHeight = scrollingParent.clientHeight
+                const scrollingParentOffset = scrollingParent.scrollTop
 
-                const bottom_offset =
-                    scrolling_parent_height +
-                    scrolling_parent_offset -
-                    dropdown_vertical_position -
-                    dropdown_trigger_height
+                const bottomOffset =
+                    scrollingParentHeight +
+                    scrollingParentOffset -
+                    dropdownVerticalPosition -
+                    dropdownTriggerHeight
 
-                const top = bottom_offset < dropdown_body_height
+                const top = bottomOffset < dropdownBodyHeight
 
                 if (top !== this.state.top) {
                     this.setState({ top })
                 }
             }
-            /* eslint-enable @typescript-eslint/camelcase */
         }
     }
 
     _getBodyComponent() {
-        if (!this.state.show_body) {
+        if (!this.state.showBody) {
             return null
         }
         const { top } = this.state
@@ -151,7 +140,7 @@ class Box extends React.Component<BoxProps, BoxState> {
         const props = { top, right, setPosition: this._setPosition }
 
         /* eslint-disable @typescript-eslint/camelcase */
-        const class_name = classNames({
+        const className = classNames({
             body_wrapper: true,
             with_arrow: true,
             top: top,
@@ -168,8 +157,7 @@ class Box extends React.Component<BoxProps, BoxState> {
                 ? React.cloneElement(body, props)
                 : undefined
         return (
-            //eslint-disable-next-line @typescript-eslint/camelcase
-            <div className={class_name} style={{ position: 'relative' }}>
+            <div className={className} style={{ position: 'relative' }}>
                 {contentMarkup}
             </div>
         )

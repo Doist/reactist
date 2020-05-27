@@ -66,9 +66,6 @@ class Popover extends React.Component<Props, any> {
         }
     }
 
-    /**
-     * @param {Props} prevProps
-     */
     componentDidUpdate(prevProps: Props) {
         if (this.wrapper && this.props.visible) {
             const positionChanged = prevProps.position !== this.props.position
