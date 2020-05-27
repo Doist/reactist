@@ -102,9 +102,9 @@ Box.defaultProps = {
 
 type HeaderProps = {
     /** Title of the Modal.Header. */
-    title?: string
+    title?: string | React.ReactNode
     /** Subtitle of the Modal.Header. */
-    subtitle?: string
+    subtitle?: string | React.ReactNode
     /** Function that is called right before the Modal unmounts itself. */
     beforeClose?: () => void
 }
@@ -154,7 +154,7 @@ type BodyProps = {
     /** Display an icon (or basically any component) on the right hand side of the Modal.Body. */
     icon?: React.ReactNode
     /** Applies less styles on the body (e.g. no padding) */
-    plain?: string
+    plain?: boolean
     /** Sometimes a class name is not enough so you can use this to set the style directly. */
     style?: React.CSSProperties
     /** Additionall css class applied to the Modal.Body. */
@@ -231,7 +231,7 @@ class Actions extends React.Component<ActionProps> {
     public static displayName: string
 
     _onClick(onClick: ActionChildrenProps['onClick']) {
-        if (typeof onClick === 'function') {
+        if (onClick) {
             onClick()
         }
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -241,9 +241,9 @@ class Actions extends React.Component<ActionProps> {
 
     render() {
         const children = React.Children.map(
-            // //@ts-expect-error Children cannot be typed properly yet in React
             // This is required for strict mode and will be enabled when that is enabled
             // see: https://github.com/microsoft/TypeScript/issues/21699
+            // @ts-expect-error Children cannot be typed properly yet in React
             this.props.children,
             (child: React.ReactElement<ActionChildrenProps>) => {
                 if (child.props.close) {

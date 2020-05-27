@@ -44,7 +44,7 @@ describe('Avatar', () => {
     // Helpers ================================================================
     const getAvatar = (
         props?: Omit<React.ComponentProps<typeof Avatar>, 'user'> & {
-            user?: { name?: string; email?: string }
+            user?: { name?: string; email: string }
         }
     ) => (
         <Avatar

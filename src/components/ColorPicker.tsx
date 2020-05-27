@@ -6,7 +6,7 @@ import classnames from 'classnames'
 import Dropdown from './Dropdown'
 import Tooltip from './Tooltip'
 
-type NamedColor = { name?: string; color?: string }
+type NamedColor = { name: string; color: string }
 
 const COLORS = [
     '#606060',
@@ -78,14 +78,14 @@ function ColorPicker({
                                 key={currentIndex}
                                 color={
                                     _isNamedColor(currentColor)
-                                        ? (currentColor as any).color
+                                        ? currentColor.color
                                         : currentColor
                                 }
                                 colorIndex={currentIndex}
                                 onClick={onChange}
                                 tooltip={
                                     _isNamedColor(currentColor)
-                                        ? (currentColor as any).name
+                                        ? currentColor.name
                                         : null
                                 }
                             />

@@ -1,8 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
-/** @type {Record<string, string>} */
-const SUPPORTED_KEYS = {
+const SUPPORTED_KEYS: Record<string, string> = {
     ARROW_UP: 'ArrowUp',
     ARROW_RIGHT: 'ArrowRight',
     ARROW_DOWN: 'ArrowDown',
@@ -13,10 +11,7 @@ const SUPPORTED_KEYS = {
 }
 
 const KeyCapturerResolver = {
-    /**
-     * @param {string} eventKey
-     */
-    resolveByKey: (eventKey) => {
+    resolveByKey: (eventKey: string) => {
         switch (eventKey) {
             case 'Left': // IE specific
             case 'ArrowLeft': {
@@ -49,10 +44,8 @@ const KeyCapturerResolver = {
             }
         }
     },
-    /**
-     * @param {number} keyCode
-     */
-    resolveByKeyCode: (keyCode) => {
+
+    resolveByKeyCode: (keyCode: number) => {
         switch (keyCode) {
             case 37: {
                 return SUPPORTED_KEYS.ARROW_LEFT
@@ -82,9 +75,12 @@ const KeyCapturerResolver = {
     },
 }
 
-/**
- * @typedef {Record<string, (() => void) | boolean | React.ReactChild> & {eventName?: 'onKeyDown' | 'onKeyDownCapture' | 'onKeyUp' | 'onKeyUpCapture'}} Props
- */
+type KeyCapturerProps = Record<
+    string,
+    (() => void) | boolean | React.ReactChild
+> & {
+    eventName?: 'onKeyDown' | 'onKeyDownCapture' | 'onKeyUp' | 'onKeyUpCapture'
+}
 
 /**
  * Use this component to wrap anything you want to handle key events for (e.g. an input).
@@ -93,26 +89,18 @@ const KeyCapturerResolver = {
  * `on${Key}` prop (i.e. `onEnter` or `onArrowDown`).
  * If you want the default behaviour to be preserved (i.e. only want to hook into the event
  * instead of replacing it) set the `propagate${Key}` prop (e.g. propagateBackspace).
- *
- * @extends {React.Component<Props>}
  */
-class KeyCapturer extends React.Component<any, any> {
-    public static propTypes
-
-    /**
-     * @param {React.KeyboardEvent} event
-     */
-    _handleKeyEvent = (event) => {
+class KeyCapturer extends React.Component<KeyCapturerProps> {
+    _handleKeyEvent = (event: React.KeyboardEvent) => {
         // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
         const key =
             event.key !== undefined
                 ? KeyCapturerResolver.resolveByKey(event.key)
                 : KeyCapturerResolver.resolveByKeyCode(event.keyCode)
 
-        if (Object.values(SUPPORTED_KEYS).includes(key)) {
+        if (key && Object.values(SUPPORTED_KEYS).includes(key)) {
             if (typeof this.props[`on${key}`] === 'function') {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-                // @ts-ignore Dynamic type not expressible in TypeScript.
+                // @ts-expect-error Dynamic type not expressible in TypeScript.
                 this.props[`on${key}`]()
                 if (this.props[`propagate${key}`] !== true) {
                     event.preventDefault()
@@ -125,18 +113,10 @@ class KeyCapturer extends React.Component<any, any> {
     render() {
         const { children, eventName = 'onKeyDown' } = this.props
 
-        return React.cloneElement(
-            /** @type {React.ReactElement} */ children as React.ReactElement,
-            {
-                [eventName]: this._handleKeyEvent,
-            }
-        )
+        return React.cloneElement(children as React.ReactElement, {
+            [eventName]: this._handleKeyEvent,
+        })
     }
-}
-
-KeyCapturer.propTypes = {
-    children: PropTypes.any,
-    eventName: PropTypes.string,
 }
 
 export default KeyCapturer

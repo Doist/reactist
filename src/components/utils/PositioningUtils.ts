@@ -1,6 +1,3 @@
-/** @typedef {{width: number; height: number}} Dimensions */
-/** @typedef {{x: number; y: number}} Position */
-
 type Dimensions = { width: number; height: number }
 type AbsolutePosition = { x: number; y: number }
 type RelativePosition = 'top' | 'right' | 'bottom' | 'left'

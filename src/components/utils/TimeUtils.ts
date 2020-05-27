@@ -28,7 +28,7 @@ const TimeUtils = {
             hoursSuffix = 'h',
             minutesSuffix = 'm',
             momentsAgo = 'moments ago',
-        } = config as any
+        } = config
         const now = dayjs()
         const date = dayjs(timestamp * 1000)
         date.locale(locale)

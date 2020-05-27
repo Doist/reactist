@@ -1,37 +1,43 @@
 import './styles/button.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 import Tooltip from './Tooltip'
 
-/**
- * @typedef {Object} Props
- * @property {(event?: React.MouseEvent) => void} [onClick]
- * @property {boolean} [disabled]
- * @property {boolean} [loading]
- * @property {string} [className]
- * @property {boolean} [secondary]
- * @property {boolean} [small]
- * @property {boolean} [white]
- * @property {boolean} [large]
- * @property {boolean} [danger]
- * @property {string} [data_tip]
- * @property {React.ReactNode} [name]
- * @property {boolean} [close]
- */
+type Props = {
+    /** Disabled style. Prevents onClick from being called. */
+    disabled?: boolean
+    /** Loading style. Prevents onClick from being called. */
+    loading?: boolean
+    className?: string
+    /** Secondary style. */
+    secondary?: boolean
+    /** Small style. */
+    small?: boolean
+    /** White style. */
+    white?: boolean
+    /** Large style. */
+    large?: boolean
+    /** Danger style. */
+    danger?: boolean
+    /** Tooltip that is displayed on hover. */
+    data_tip?: string
+    /** Text that is displayed on the button. */
+    name?: React.ReactNode
+    /** Handler for onClick */
+    onClick: () => void
+    close?: boolean
+}
 
-/** @extends {React.Component<any>} */
-class Button extends React.Component<any> {
-    public static displayName
-    public static propTypes
-    public static defaultProps
+class Button extends React.Component<
+    Props &
+        Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'name' | 'onClick'>
+> {
+    public static displayName: string
+    public static defaultProps: Partial<Props>
 
-    /**
-     * @param {React.MouseEvent} event
-     */
-    _onClick = (event) => {
+    _onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
         if (!this.props.disabled && !this.props.loading && this.props.onClick) {
             this.props.onClick()
@@ -51,10 +57,10 @@ class Button extends React.Component<any> {
             name,
             //eslint-disable-next-line @typescript-eslint/camelcase
             data_tip,
+            onClick,
             ...extraProps
         } = this.props
 
-        delete (extraProps as any).onClick
         const buttonClass = classNames(
             'reactist_button',
             {
@@ -94,42 +100,6 @@ Button.defaultProps = {
     loading: false,
     disabled: false,
     danger: false,
-}
-Button.propTypes = {
-    /** Text that is displayed on the button. */
-    name: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]),
-    /**
-     * Function that is called when the button is clicked.
-     * Is only invoked when disabled is not set.
-     */
-    onClick: PropTypes.func,
-    /** Secondary style. */
-    secondary: PropTypes.bool,
-    /** Small style. */
-    small: PropTypes.bool,
-    /** Large style. */
-    large: PropTypes.bool,
-    /** White style. */
-    white: PropTypes.bool,
-    /** Loading style. Prevents onClick from being called. */
-    loading: PropTypes.bool,
-    /** Disabled style. Prevents onClick from being called. */
-    disabled: PropTypes.bool,
-    /** Danger style. */
-    danger: PropTypes.bool,
-    /** Tooltip that is displayed on hover. */
-    //eslint-disable-next-line @typescript-eslint/camelcase
-    data_tip: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]),
-    /** Additional css class applied to the button. */
-    className: PropTypes.string,
 }
 
 export default Button
