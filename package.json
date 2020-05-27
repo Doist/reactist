@@ -7,7 +7,7 @@
     "homepage": "https://github.com/Doist/reactist#readme",
     "repository": "git+https://github.com/Doist/reactist.git",
     "main": "dist/index.js",
-    "types": "dist/reactist.d.ts",
+    "types": "dist/index.d.ts",
     "files": [
         "dist",
         "src"
@@ -19,7 +19,7 @@
         "start": "tsdx watch",
         "build": "npm run build-webpack && npm run build-tsdx",
         "build-webpack": "rimraf 'lib/**/*.{js,map,css}'; tsc --declaration false -p tsconfig.json; NODE_ENV=production ./node_modules/.bin/webpack --progress --color; rimraf 'src/**/*.{js,map}'",
-        "build-tsdx": "tsdx build --tsconfig tsconfig.dist.json; mv dist/index.d.ts dist/reactist.d.ts",
+        "build-tsdx": "tsdx build --tsconfig tsconfig.dist.json",
         "build-watch": "tsdx watch",
         "build-types": "rimraf 'lib/**/*.d.ts'; npx tsc -p tsconfig.lib.json;",
         "build-storybook": "build-storybook -o docs",

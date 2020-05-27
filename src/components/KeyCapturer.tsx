@@ -79,7 +79,7 @@ type KeyCapturerProps = Record<
     string,
     (() => void) | boolean | React.ReactChild
 > & {
-    eventName: 'onKeyDown' | 'onKeyDownCapture' | 'onKeyUp' | 'onKeyUpCapture'
+    eventName?: 'onKeyDown' | 'onKeyDownCapture' | 'onKeyUp' | 'onKeyUpCapture'
 }
 
 /**

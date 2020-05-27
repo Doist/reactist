@@ -6,11 +6,6 @@ import classNames from 'classnames'
 import Tooltip from './Tooltip'
 
 type Props = {
-    /**
-     * Function that is called when the button is clicked.
-     * Is only invoked when disabled is not set.
-     */
-    onClick?: (event?: React.MouseEvent) => void
     /** Disabled style. Prevents onClick from being called. */
     disabled?: boolean
     /** Loading style. Prevents onClick from being called. */
@@ -34,15 +29,15 @@ type Props = {
 }
 
 class Button extends React.Component<
-    Props & React.ButtonHTMLAttributes<HTMLButtonElement>
+    Props & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'name'>
 > {
     public static displayName: string
     public static defaultProps: Props
 
-    _onClick = (event: React.MouseEvent) => {
+    _onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
         if (!this.props.disabled && !this.props.loading && this.props.onClick) {
-            this.props.onClick()
+            this.props.onClick(event)
         }
     }
 

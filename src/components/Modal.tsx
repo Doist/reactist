@@ -102,9 +102,9 @@ Box.defaultProps = {
 
 type HeaderProps = {
     /** Title of the Modal.Header. */
-    title?: string
+    title?: string | React.ReactNode
     /** Subtitle of the Modal.Header. */
-    subtitle?: string
+    subtitle?: string | React.ReactNode
     /** Function that is called right before the Modal unmounts itself. */
     beforeClose?: () => void
 }
@@ -154,7 +154,7 @@ type BodyProps = {
     /** Display an icon (or basically any component) on the right hand side of the Modal.Body. */
     icon?: React.ReactNode
     /** Applies less styles on the body (e.g. no padding) */
-    plain?: string
+    plain?: boolean
     /** Sometimes a class name is not enough so you can use this to set the style directly. */
     style?: React.CSSProperties
     /** Additionall css class applied to the Modal.Body. */
