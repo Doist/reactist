@@ -25,19 +25,22 @@ type Props = {
     data_tip?: string
     /** Text that is displayed on the button. */
     name?: React.ReactNode
+    /** Handler for onClick */
+    onClick: () => void
     close?: boolean
 }
 
 class Button extends React.Component<
-    Props & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'name'>
+    Props &
+        Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'name' | 'onClick'>
 > {
     public static displayName: string
-    public static defaultProps: Props
+    public static defaultProps: Partial<Props>
 
     _onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
         if (!this.props.disabled && !this.props.loading && this.props.onClick) {
-            this.props.onClick(event)
+            this.props.onClick()
         }
     }
 
@@ -54,10 +57,10 @@ class Button extends React.Component<
             name,
             //eslint-disable-next-line @typescript-eslint/camelcase
             data_tip,
+            onClick,
             ...extraProps
         } = this.props
 
-        delete extraProps.onClick
         const buttonClass = classNames(
             'reactist_button',
             {

@@ -231,7 +231,7 @@ class Actions extends React.Component<ActionProps> {
     public static displayName: string
 
     _onClick(onClick: ActionChildrenProps['onClick']) {
-        if (typeof onClick === 'function') {
+        if (onClick) {
             onClick()
         }
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
