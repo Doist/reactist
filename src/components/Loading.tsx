@@ -3,7 +3,7 @@ import './styles/loading.less'
 import React from 'react'
 import classNames from 'classnames'
 
-interface Props {
+type Props = {
     /** Additional css class that is applied to Loading. */
     className?: string
     /** Hex code of the spinner color. */

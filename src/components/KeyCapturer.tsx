@@ -113,12 +113,9 @@ class KeyCapturer extends React.Component<KeyCapturerProps> {
     render() {
         const { children, eventName = 'onKeyDown' } = this.props
 
-        return React.cloneElement(
-            /** @type {React.ReactElement} */ children as React.ReactElement,
-            {
-                [eventName]: this._handleKeyEvent,
-            }
-        )
+        return React.cloneElement(children as React.ReactElement, {
+            [eventName]: this._handleKeyEvent,
+        })
     }
 }
 

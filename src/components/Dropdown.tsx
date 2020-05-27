@@ -111,7 +111,7 @@ class Box extends React.Component<BoxProps, BoxState> {
                 if (!dropdown) {
                     return
                 }
-                const dropdown_vertical_position = /** @type {HTMLElement} */ (ReactDOM.findDOMNode(
+                const dropdown_vertical_position = (ReactDOM.findDOMNode(
                     this
                 ) as HTMLElement).offsetTop
                 const dropdown_trigger = (dropdown as Element).querySelector(
@@ -120,8 +120,7 @@ class Box extends React.Component<BoxProps, BoxState> {
                 if (!dropdown_trigger) {
                     return
                 }
-                const dropdown_trigger_height =
-                    /** @type {Element} */ dropdown_trigger.clientHeight
+                const dropdown_trigger_height = dropdown_trigger.clientHeight
                 const dropdown_body_height = body.clientHeight
 
                 const scrolling_parent_height = scrolling_parent.clientHeight
