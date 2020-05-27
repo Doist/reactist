@@ -79,7 +79,7 @@ class Tooltip extends React.Component<Props, State> {
 
     wrapper?: HTMLLIElement
     tooltip?: HTMLLIElement
-    delayTimeout: NodeJS.Timeout | undefined
+    delayTimeout?: number
 
     _initScrollListener() {
         document.addEventListener('scroll', this._hide, true)

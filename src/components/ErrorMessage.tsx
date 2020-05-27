@@ -40,7 +40,7 @@ class ErrorMessage extends React.Component<Props, State> {
     }
     /* eslint-enable @typescript-eslint/camelcase */
 
-    timeout?: NodeJS.Timeout
+    timeout?: number
 
     /**
      * @param {string} message

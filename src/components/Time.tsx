@@ -71,7 +71,7 @@ class Time extends React.Component<Props, State> {
         }
     }
 
-    refresh_interval?: NodeJS.Timeout
+    refresh_interval?: number
 
     _setHovered(hovered: boolean, event: React.MouseEvent) {
         const { mouseX, mouseY } = this.state
