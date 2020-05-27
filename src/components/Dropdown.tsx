@@ -13,7 +13,7 @@ type BoxProps = {
     scrolling_parent?: string
     children?: [
         React.ReactElement<TriggerProps>,
-        React.ReactElement<{}> | ((props: {}) => JSX.Element)
+        React.ReactElement<BodyProps> | ((props: BodyProps) => JSX.Element)
     ]
     className?: string
 }
@@ -23,7 +23,7 @@ type BoxState = {
     showBody: boolean
 }
 
-class Box extends React.Component<BoxProps, BoxState> {
+class Box extends React.Component<React.PropsWithChildren<BoxProps>, BoxState> {
     public static displayName: string
 
     constructor(props: BoxProps, context: React.Context<unknown>) {
@@ -90,7 +90,7 @@ class Box extends React.Component<BoxProps, BoxState> {
     }
 
     // https://facebook.github.io/react/docs/refs-and-the-dom.html#exposing-dom-refs-to-parent-components
-    _setPosition(body: HTMLElement) {
+    _setPosition(body: HTMLElement | null) {
         if (body) {
             const scrollingParent = document.getElementById(
                 this.props.scrolling_parent ? this.props.scrolling_parent : ''
@@ -211,13 +211,13 @@ class Trigger extends React.Component<TriggerProps> {
 Trigger.displayName = 'Dropdown.Trigger'
 
 type BodyProps = {
-    setPosition: React.Ref<HTMLDivElement>
-    children: React.ReactNode
-    top: boolean
-    right: boolean
+    setPosition?: React.Ref<HTMLDivElement>
+    children?: React.ReactNode
+    top?: boolean
+    right?: boolean
 }
 
-class Body extends React.Component<BodyProps> {
+class Body extends React.Component<React.PropsWithChildren<BodyProps>> {
     public static displayName: string
 
     render() {
