@@ -26,7 +26,7 @@ type BoxState = {
 class Box extends React.Component<BoxProps, BoxState> {
     public static displayName: string
 
-    constructor(props: BoxProps, context: React.Context<any>) {
+    constructor(props: BoxProps, context: React.Context<unknown>) {
         super(props, context)
         this.state = {
             showBody: false,
@@ -210,7 +210,14 @@ class Trigger extends React.Component<TriggerProps> {
 }
 Trigger.displayName = 'Dropdown.Trigger'
 
-class Body extends React.Component<any, any, any> {
+type BodyProps = {
+    setPosition: React.Ref<HTMLDivElement>
+    children: React.ReactNode
+    top: boolean
+    right: boolean
+}
+
+class Body extends React.Component<BodyProps> {
     public static displayName: string
 
     render() {

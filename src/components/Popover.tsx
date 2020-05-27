@@ -56,7 +56,7 @@ type Props = {
     gapSize: number
 }
 
-class Popover extends React.Component<Props, any> {
+class Popover extends React.Component<Props> {
     public static displayName: string
     public static defaultProps: Props
 
@@ -89,8 +89,8 @@ class Popover extends React.Component<Props, any> {
         }
     }
 
-    popover: any
-    wrapper: any
+    popover!: HTMLElement
+    wrapper!: HTMLElement
 
     _updatePopoverPosition = () => {
         const { position, allowVaguePositioning, gapSize } = this.props
