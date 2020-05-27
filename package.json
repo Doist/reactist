@@ -25,6 +25,7 @@
         "build-storybook": "build-storybook -o docs",
         "build-all": "npm run build && npm run build-storybook && npm run build-types",
         "test": "tsdx test --passWithNoTests",
+        "type-check": "tsc --noEmit -p ./tsconfig.json",
         "lint": "tsdx lint src stories",
         "prepare": "npm run build",
         "storybook": "start-storybook -p 6006",

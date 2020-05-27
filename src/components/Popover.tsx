@@ -1,7 +1,6 @@
 import './styles/popover.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 import {
@@ -33,28 +32,33 @@ type Props = {
     popoverRef?: React.Ref<HTMLElement>
     /** ref of the wrapper in case you need to manipulate it. */
     wrapperRef?: React.Ref<HTMLElement>
+    /** Function to be called when the mouse enters the trigger. */
     onMouseEnter?: React.MouseEventHandler
+    /** Function to be called when the mouse leaves the trigger. */
     onMouseLeave?: React.MouseEventHandler
     onClick?: React.MouseEventHandler
+    /** Additional css class that is applied to the wrapper element. */
     wrapperClassName?: string
+    /** Additional css class that is applied to the popover element. */
     popoverClassName?: string
+    /** Additional css class that is applied to style the arrow. Not applied when `withArrow` is false. */
     arrowClassName?: string
     /** Content prop of the popover. */
     content?: (() => React.ReactNode) | React.ReactNode
     trigger?: React.ReactNode
-    position?: Position
+    position: Position
     withArrow?: boolean
     /**
      * Whether vague positioning is allowed. When set to true the popover prefers to be fully visible over being correctly centered.
      */
     allowVaguePositioning?: boolean
-    gapSize?: number
+    /** Gap between the popover wrapper and the arrow. */
+    gapSize: number
 }
 
 class Popover extends React.Component<Props, any> {
-    public static displayName
-    public static propTypes
-    public static defaultProps
+    public static displayName: string
+    public static defaultProps: Props
 
     componentDidMount() {
         if (this.props.visible) {
@@ -65,7 +69,7 @@ class Popover extends React.Component<Props, any> {
     /**
      * @param {Props} prevProps
      */
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: Props) {
         if ((this as any).wrapper && this.props.visible) {
             const positionChanged = prevProps.position !== this.props.position
             const vaguePositioningChanged =
@@ -200,10 +204,7 @@ class Popover extends React.Component<Props, any> {
         }
     }
 
-    /**
-     * @param {Position} position
-     */
-    _getClassNameForPosition = (position) => {
+    _getClassNameForPosition = (position: Position) => {
         const { visible, withArrow, arrowClassName } = this.props
         const className = classNames('reactist_popover', { visible })
 
@@ -220,20 +221,14 @@ class Popover extends React.Component<Props, any> {
         return className
     }
 
-    /**
-     * @param {HTMLElement} popover
-     */
-    _updatePopoverRef = (popover) => {
+    _updatePopoverRef = (popover: HTMLElement) => {
         ;(this as any).popover = popover
         if (typeof this.props.popoverRef === 'function') {
             this.props.popoverRef(popover)
         }
     }
 
-    /**
-     * @param {HTMLElement} wrapper
-     */
-    _updateWrapperRef = (wrapper) => {
+    _updateWrapperRef = (wrapper: HTMLElement) => {
         ;(this as any).wrapper = wrapper
         if (typeof this.props.wrapperRef === 'function') {
             this.props.wrapperRef(wrapper)
@@ -251,7 +246,9 @@ class Popover extends React.Component<Props, any> {
             trigger,
             content,
         } = this.props
-        const popoverClass = this._getClassNameForPosition(position)
+        const popoverClass = position
+            ? this._getClassNameForPosition(position)
+            : ''
         const popoverContentClass = classNames(
             'reactist_popover__content',
             popoverClassName
@@ -287,64 +284,6 @@ Popover.displayName = 'Popover'
 Popover.defaultProps = {
     position: 'auto',
     gapSize: 5, // default size of the arrow (see `tooltip.less`)
-}
-Popover.propTypes = {
-    /**
-     * Position of the popover. Defaults to `auto`.
-     * `auto` tries to position the tooltip to the top,
-     * if there's not enough space it tries to position the tooltip clockwise (right, bottom, left).
-     * Setting a distinct value like `right` will always position the popover right, regardless of available space.
-     * Specifying `horizontal` will only try to position the tooltip left and right in that order.
-     * Specifying `vertical` will only try to position the tooltip top and bottom in that order.
-     */
-    position: PropTypes.oneOf([
-        'auto',
-        'top',
-        'right',
-        'bottom',
-        'left',
-        'horizontal',
-        'vertical',
-    ]),
-    /**
-     * Whether vague positioning is allowed. When set to true the popover prefers to be fully visible over being correctly centered.
-     */
-    allowVaguePositioning: PropTypes.bool,
-    /** Whether or not the popover is currently visibble. */
-    visible: PropTypes.bool.isRequired,
-    /** Content slot of the popover. */
-    content: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.func,
-        PropTypes.node,
-    ]).isRequired,
-    /** Trigger slot of the popover. */
-    trigger: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]),
-    /** Function to be called when the trigger is clicked. */
-    onClick: PropTypes.func,
-    /** Function to be called when the mouse enters the trigger. */
-    onMouseEnter: PropTypes.func,
-    /** Function to be called when the mouse leaves the trigger. */
-    onMouseLeave: PropTypes.func,
-    /** Additional css class that is applied to the wrapper element. */
-    wrapperClassName: PropTypes.string,
-    /** Additional css class that is applied to the popover element. */
-    popoverClassName: PropTypes.string,
-    /** Additional css class that is applied to style the arrow. Not applied when `withArrow` is false. */
-    arrowClassName: PropTypes.string,
-    /** Whether or not the popover should have a centered arrow pointing to the trigger element. */
-    withArrow: PropTypes.bool,
-    /** Gap between the popover wrapper and the arrow. */
-    gapSize: PropTypes.number,
-    /** ref of the wrapper in case you need to manipulate it. */
-    wrapperRef: PropTypes.func,
-    /** ref of the popover in case you need to manipulate it. */
-    popoverRef: PropTypes.func,
 }
 
 export default Popover

@@ -3,27 +3,23 @@ import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 
 dayjs.extend(LocalizedFormat)
 
-/**
- * @typedef {Object} Config
- * @property {string} [locale]
- * @property {string} [longFormat]
- * @property {string} [shortFormatCurrentYear]
- * @property {string} [shortFormatPastYear]
- * @property {string} [daysSuffix]
- * @property {string} [hoursSuffix]
- * @property {string} [minutesSuffix]
- * @property {string} [momentsAgo]
- */
+type TimeConfig = {
+    locale?: string
+    longFormat?: string
+    shortFormatCurrentYear?: string
+    shortFormatPastYear?: string
+    daysSuffix?: string
+    hoursSuffix?: string
+    minutesSuffix?: string
+    momentsAgo?: string
+}
+
 const TimeUtils = {
     SHORT_FORMAT_CURRENT_YEAR: 'L',
     SHORT_FORMAT_PAST_YEAR: 'LL',
     LONG_FORMAT: 'LL, LT',
 
-    /**
-     * @param {number} timestamp
-     * @param {Config} [config]
-     */
-    timeAgo(timestamp, config = {}) {
+    timeAgo(timestamp: number, config: TimeConfig = {}) {
         const {
             locale = 'en',
             shortFormatCurrentYear = this.SHORT_FORMAT_CURRENT_YEAR,
@@ -57,16 +53,12 @@ const TimeUtils = {
         }
     },
 
-    /**
-     * @param {number} timestamp
-     * @param {Config} [config]
-     */
-    formatTime(timestamp, config = {}) {
+    formatTime(timestamp: number, config: TimeConfig = {}) {
         const {
             locale = 'en',
             shortFormatCurrentYear = this.SHORT_FORMAT_CURRENT_YEAR,
             shortFormatPastYear = this.SHORT_FORMAT_PAST_YEAR,
-        } = config as any
+        } = config
         const date = dayjs(timestamp * 1000)
         date.locale(locale)
         if (date.isSame(dayjs(), 'year')) {
@@ -76,12 +68,8 @@ const TimeUtils = {
         }
     },
 
-    /**
-     * @param {number} timestamp
-     * @param {Config} [config]
-     */
-    formatTimeLong(timestamp, config = {}) {
-        const { locale = 'en', longFormat = this.LONG_FORMAT } = config as any
+    formatTimeLong(timestamp: number, config: TimeConfig = {}) {
+        const { locale = 'en', longFormat = this.LONG_FORMAT } = config
         const date = dayjs(timestamp * 1000)
         date.locale(locale)
         return date.format(longFormat)
@@ -89,3 +77,4 @@ const TimeUtils = {
 }
 
 export default TimeUtils
+export { TimeConfig }

@@ -2,31 +2,28 @@ import './styles/modal.less'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
 import CloseIcon from './icons/CloseIcon.svg'
 
-/**
- * @typedef {Object} Props
- * @property {string} [className]
- * @property {React.CSSProperties} [style]
- * @property {boolean} [large]
- * @property {boolean} [medium]
- * @property {boolean} [closeOnOverlayClick]
- */
+type Props = {
+    /** Additional css class applied to the Modal.Box. */
+    className?: string
+    /** Sometimes a class name is not enough so you can use this to set the style directly. */
+    style?: React.CSSProperties
+    /** Large style. */
+    large: boolean
+    /** Medium size syle. */
+    medium?: boolean
+    /** Close the Modal when clicking on the overlay. */
+    closeOnOverlayClick: boolean
+}
 
-/** @extends {React.Component<Props>} */
-class Box extends React.Component<any, any> {
-    public static displayName
-    public static propTypes
-    public static defaultProps
+class Box extends React.Component<React.PropsWithChildren<Props>> {
+    public static displayName: string
+    public static defaultProps: Props
 
-    /**
-     * @param {Props} props
-     * @param {unknown} context
-     */
-    constructor(props, context) {
+    constructor(props: Props, context: unknown) {
         super(props, context)
         this._handleKeyDown = this._handleKeyDown.bind(this)
         this._closeModal = this._closeModal.bind(this)
@@ -39,24 +36,20 @@ class Box extends React.Component<any, any> {
     }
 
     _closeModal() {
-        ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const modalElement = document.getElementById('modal_box')!
+        ReactDOM.unmountComponentAtNode(modalElement)
     }
 
-    /**
-     * @param {KeyboardEvent} event
-     */
-    _handleKeyDown(event) {
+    _handleKeyDown(event: Partial<KeyboardEvent>) {
         if (event.keyCode === 27) {
             // ESC
             this._closeModal()
-            event.preventDefault()
+            if (event.preventDefault) event.preventDefault()
         }
     }
 
-    /**
-     * @param {React.MouseEvent<Element>} event
-     */
-    _handleOverlayClick(event) {
+    _handleOverlayClick(event: React.MouseEvent<Element>) {
         if (
             event.target instanceof Element &&
             (event.target.id === 'reactist-overlay' ||
@@ -106,38 +99,28 @@ Box.defaultProps = {
     large: false,
     closeOnOverlayClick: false,
 }
-Box.propTypes = {
-    /** Additional css class applied to the Modal.Box. */
-    className: PropTypes.string,
-    /** Sometimes a class name is not enough so you can use this to set the style directly. */
-    style: PropTypes.object,
-    /** Large style. */
-    large: PropTypes.bool,
-    /** Medium size syle. */
-    medium: PropTypes.bool,
-    /** Close the Modal when clicking on the overlay. */
-    closeOnOverlayClick: PropTypes.bool,
-    /** Children to render inside the Modal.Box. Normally Modal.Header, Modal.Body and Modal.Actions. */
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]),
+
+type HeaderProps = {
+    /** Title of the Modal.Header. */
+    title?: string
+    /** Subtitle of the Modal.Header. */
+    subtitle?: string
+    /** Function that is called right before the Modal unmounts itself. */
+    beforeClose?: () => void
 }
 
-class Header extends React.Component<any, any> {
-    public static displayName
-    public static propTypes
-    public static defaultProps
+class Header extends React.Component<HeaderProps> {
+    public static displayName: string
+    public static defaultProps: HeaderProps
 
-    /**
-     * @param {React.MouseEvent} event
-     */
-    _closeModal(event) {
+    _closeModal(event: React.MouseEvent) {
         event.preventDefault()
         if (typeof this.props.beforeClose === 'function') {
             this.props.beforeClose()
         }
-        ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const modalElement = document.getElementById('modal_box')!
+        ReactDOM.unmountComponentAtNode(modalElement)
     }
 
     render() {
@@ -166,31 +149,31 @@ class Header extends React.Component<any, any> {
     }
 }
 Header.displayName = 'Modal.Header'
-Header.propTypes = {
-    /** Children to render inside the Modal.Header for a fully customizable appearance. */
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]),
-    /** Title of the Modal.Header. */
-    title: PropTypes.string,
-    /** Subtitle of the Modal.Header. */
-    subtitle: PropTypes.string,
-    /** Function that is called right before the Modal unmounts itself. */
-    beforeClose: PropTypes.func,
-}
 
-class Body extends React.Component<any, any> {
-    public static displayName
-    public static propTypes
-    public static defaultProps
-
+type BodyProps = {
+    /** Display an icon (or basically any component) on the right hand side of the Modal.Body. */
+    icon?: React.ReactNode
+    /** Applies less styles on the body (e.g. no padding) */
+    plain?: string
+    /** Sometimes a class name is not enough so you can use this to set the style directly. */
+    style?: React.CSSProperties
+    /** Additionall css class applied to the Modal.Body. */
+    className?: string
     /**
-     * @param {React.MouseEvent} event
+     * Render a close icon in the top right corner of the Modal.Body.
+     * Recommended to use when no Modal.Header is used.
      */
-    _closeModal(event) {
+    showCloseIcon?: boolean
+}
+class Body extends React.Component<BodyProps> {
+    public static displayName: string
+    public static defaultProps: BodyProps
+
+    _closeModal(event: React.MouseEvent) {
         event.preventDefault()
-        ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const modalElement = document.getElementById('modal_box')!
+        ReactDOM.unmountComponentAtNode(modalElement)
     }
 
     render() {
@@ -230,55 +213,39 @@ Body.displayName = 'Modal.Body'
 Body.defaultProps = {
     showCloseIcon: false,
 }
-Body.propTypes = {
-    /** Display an icon (or basically any component) on the right hand side of the Modal.Body. */
-    icon: PropTypes.node,
+
+type ActionProps = {
     /**
-     * Render a close icon in the top right corner of the Modal.Body.
-     * Recommended to use when no Modal.Header is used.
+     * Children to render inside the Modal.Actions. They can have an optional `close` property (boolean).
+     * When that is supplied and set to true it will close the modal after the onClick function
      */
-    showCloseIcon: PropTypes.bool,
-    /** Additionall css class applied to the Modal.Body. */
-    className: PropTypes.string,
-    /** Sometimes a class name is not enough so you can use this to set the style directly. */
-    style: PropTypes.object,
-    /** Applies less styles on the body (e.g. no padding) */
-    plain: PropTypes.bool,
-    /** Children to render inside the Modal.Body. */
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]),
+    children?: React.ReactNode
 }
 
-/**
- * @typedef {Object} ActionProps
- * @property {() => void} [onClick]
- * @property {boolean} [close]
- */
+type ActionChildrenProps = {
+    close?: boolean
+    onClick?: () => void
+}
 
-/** @extends {React.Component} */
-class Actions extends React.Component<any, any> {
-    public static displayName
-    public static propTypes
+class Actions extends React.Component<ActionProps> {
+    public static displayName: string
 
-    /** @param {ActionProps['onClick']} on_click */
-    /* eslint-disable @typescript-eslint/camelcase */
-    _onClick(on_click) {
-        if (typeof on_click === 'function') {
-            on_click()
+    _onClick(onClick: ActionChildrenProps['onClick']) {
+        if (typeof onClick === 'function') {
+            onClick()
         }
-        ReactDOM.unmountComponentAtNode(document.getElementById('modal_box'))
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const modalElement = document.getElementById('modal_box')!
+        ReactDOM.unmountComponentAtNode(modalElement)
     }
-    /* eslint-enable @typescript-eslint/camelcase */
 
     render() {
         const children = React.Children.map(
+            // //@ts-expect-error Children cannot be typed properly yet in React
+            // This is required for strict mode and will be enabled when that is enabled
+            // see: https://github.com/microsoft/TypeScript/issues/21699
             this.props.children,
-            /** @param {React.ReactElement<ActionProps>} child */ (
-                child: React.ReactElement<any>
-            ) => {
-                if (!child) return false
+            (child: React.ReactElement<ActionChildrenProps>) => {
                 if (child.props.close) {
                     return React.cloneElement(child, {
                         onClick: () => this._onClick(child.props.onClick),
@@ -293,16 +260,6 @@ class Actions extends React.Component<any, any> {
     }
 }
 Actions.displayName = 'Modal.Actions'
-Actions.propTypes = {
-    /**
-     * Children to render inside the Modal.Actions. They can have an optional `close` property (boolean).
-     * When that is supplied and set to true it will close the modal after the onClick function
-     */
-    children: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]),
-}
 
 type Modal = {
     Box: Box

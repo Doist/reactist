@@ -1,48 +1,50 @@
 import './styles/tabs.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-/**
- * @typedef {Object} Props
- * @property {boolean} [disabled]
- * @property {boolean} [spreadLayout]
- * @property {number} [defaultTab]
- * @property {(value: string | number | undefined) => void} [onChange]
- */
+type Props = {
+    disabled?: boolean
+    /** Whether the tabs should take all available space and distribute it evenly or use the minimum required **/
+    spreadLayout?: boolean
+    /** selects the tab whose value prop matches this prop */
+    defaultTab?: number
+    /** Callback for tab change event. Tab value will be passed */
+    onChange?: (value: string | number | undefined) => void
+}
 
-/** @extends {React.Component<Props>} */
-class Tabs extends React.Component<any, any> {
-    public static displayName
-    public static propTypes
-    public static defaultProps
+type State = {
+    activeTabIndex: number
+}
 
-    /**
-     * @param {Props} props
-     * @param {unknown} context
-     */
-    constructor(props, context) {
+class Tabs extends React.Component<React.PropsWithChildren<Props>, State> {
+    public static displayName: string
+    public static defaultProps: Props
+
+    constructor(props: Props, context: unknown) {
         super(props, context)
         const { defaultTab, onChange } = props
-        const children = /** @type {React.Component<TabProps>[]} */ React.Children.toArray(
+        const children = React.Children.toArray(
             this.props.children
-        )
+        ) as React.Component<TabProps>[]
 
         const hasDefault = defaultTab || defaultTab === 0
         if (hasDefault || onChange) {
-            const missing = children.find(
-                (c: React.ReactElement) => !c.props.value && c.props.value !== 0
-            )
-            if (missing)
-                throw new Error(
-                    '(Tab) Missing property: all Tab must have "value" set if "defaultTab" or "onChange" is used'
+            if (children) {
+                const missing = children.find(
+                    (c: React.Component<TabProps>) =>
+                        !c.props.value && c.props.value !== 0
                 )
+                if (missing)
+                    throw new Error(
+                        '(Tab) Missing property: all Tab must have "value" set if "defaultTab" or "onChange" is used'
+                    )
+            }
         }
 
-        if (hasDefault) {
+        if (hasDefault && children) {
             const i = children.findIndex(
-                (x: React.ReactElement) => x.props.value === defaultTab
+                (x: React.Component<TabProps>) => x.props.value === defaultTab
             )
             if (i === -1)
                 throw new Error(
@@ -55,19 +57,12 @@ class Tabs extends React.Component<any, any> {
         }
     }
 
-    /**
-     * @param {React.Component<TabProps>} tab
-     * @param {number} i
-     */
-    _switchActiveTab = (tab, i) => {
+    _switchActiveTab = (tab: React.Component<TabProps>, i: number) => {
         this.setState(() => ({ activeTabIndex: i }))
         if (this.props.onChange) this.props.onChange(tab.props.value)
     }
 
-    /**
-     * @param {React.Component<TabProps>[]} tabs
-     */
-    _renderTabLinks = (tabs) => {
+    _renderTabLinks = (tabs: React.Component<TabProps>[]) => {
         return tabs.map((t, i) => {
             const { title, disabled } = t.props
             const value = t.props.value || i
@@ -97,9 +92,9 @@ class Tabs extends React.Component<any, any> {
 
     render() {
         // ensures that single or no child components don't throw
-        const children = /** @type {React.Component<TabProps>[]} */ React.Children.toArray(
+        const children = React.Children.toArray(
             this.props.children
-        )
+        ) as React.Component<TabProps>[]
         const activeTab =
             children[this.state.activeTabIndex] || children[0] || null
 
@@ -119,30 +114,25 @@ class Tabs extends React.Component<any, any> {
 }
 Tabs.displayName = 'Tabs'
 
-Tabs.propTypes = {
-    /** selects the tab whose value prop matches this prop */
-    defaultTab: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    /** Whether the tabs should take all available space and distribute it evenly or use the minimum required **/
-    spreadLayout: PropTypes.bool,
-    /** Callback for tab change event. Tab value will be passed */
-    onChange: PropTypes.func,
-    /** Children of the Tabs component. Most commonly an array of Tab components. */
-    children: PropTypes.any,
-}
 Tabs.defaultProps = {
     spreadLayout: false,
 }
 
-/**
- * @typedef {Object} TabProps
- * @property {string | undefined} [className]
- * @property {boolean | undefined} [disabled]
- * @property {string | number | undefined} [value]
- * @property {React.ReactNode} [title]
- */
+type TabProps = {
+    /** Additional css class applied to Tab. */
+    className?: string
+    /** Disabled tabs can't be selected. */
+    disabled?: boolean
+    /* It assigns a value to the tab so that it can be selected by the Tabs.*/
+    value?: string | number
+    /** Title of the tab. */
+    title?: React.ReactNode
+}
 
-/** @type {React.FC<React.PropsWithChildren<TabProps>>} */
-const Tab = ({ children, className }) => (
+const Tab: React.FC<React.PropsWithChildren<TabProps>> = ({
+    children,
+    className,
+}) => (
     <div className={classNames('reactist_tabs__tab', className)}>
         {children}
     </div>
@@ -150,19 +140,6 @@ const Tab = ({ children, className }) => (
 Tab.displayName = 'Tab'
 Tab.defaultProps = {
     disabled: false,
-}
-Tab.propTypes = {
-    /* It assigns a value to the tab so that it can be selected by the Tabs.*/
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-
-    /** Title of the tab. */
-    title: PropTypes.string.isRequired,
-    /** Disabled tabs can't be selected. */
-    disabled: PropTypes.bool,
-    /** Additional css class applied to Tab. */
-    className: PropTypes.string,
-    /** Children of the Tab component. Can be a simple string or other component(s). */
-    children: PropTypes.any,
 }
 
 export { Tabs, Tab }

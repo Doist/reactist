@@ -1,28 +1,37 @@
 import './styles/select.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-/**
- * @typedef {Object} Option
- * @property {string | number | undefined} [key]
- * @property {string | number} [value]
- * @property {string | number | undefined} [text]
- * @property {boolean | undefined} [disabled]
- */
+type Option = {
+    /** Optional key for each option. If not provided `value` is used. */
+    key?: string | number
+    /** Value of the option. */
+    value: string | number
+    /** Text to display for the option. */
+    text?: string | number
+    /** Whether the options is disabled or not. */
+    disabled?: boolean
+}
 
-/**
- * @typedef {Object} Props
- * @property {string | undefined} [className]
- * @property {boolean | undefined} [disabled]
- * @property {string | number} value
- * @property {(value: Props['value']) => void} onChange
- * @property {Option[] | undefined} [options]
- */
+type Props = {
+    className?: string
+    disabled?: boolean
+    /** Currently selected value. */
+    value?: string | number
+    /** Callback for the change event. Will be called with the next value (not the full event). */
+    onChange?: (value: Props['value']) => void
+    /** Options that are rendered in the select. */
+    options?: Option[]
+}
 
-/** @type {React.FC<Props>} */
-const Select = ({ value, options, onChange, disabled, className }) => {
+function Select({
+    value,
+    options = [],
+    onChange,
+    disabled = true,
+    className = '',
+}: Props) {
     const selectClassName = classNames(
         'reactist_select',
         { disabled },
@@ -32,18 +41,21 @@ const Select = ({ value, options, onChange, disabled, className }) => {
         <select
             className={selectClassName}
             value={value}
-            onChange={(event) => onChange(event.target.value)}
+            onChange={(event) =>
+                onChange ? onChange(event.target.value) : undefined
+            }
             disabled={disabled}
         >
-            {options.map((option) => (
-                <option
-                    key={option.key || option.value}
-                    value={option.value}
-                    disabled={option.disabled}
-                >
-                    {option.text}
-                </option>
-            ))}
+            {options &&
+                options.map((option) => (
+                    <option
+                        key={option.key || option.value}
+                        value={option.value}
+                        disabled={option.disabled}
+                    >
+                        {option.text}
+                    </option>
+                ))}
         </select>
     )
 }
@@ -51,30 +63,6 @@ Select.displayName = 'Select'
 Select.defaultProps = {
     options: [],
     disabled: false,
-}
-Select.propTypes = {
-    /** Currently selected value. */
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    /** Callback for the change event. Will be called with the next value (not the full event). */
-    onChange: PropTypes.func.isRequired,
-    /** Options that are rendered in the select. */
-    options: PropTypes.arrayOf(
-        PropTypes.shape({
-            /** Optional key for each option. If not provided `value` is used. */
-            key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-            /** Value of the option. */
-            value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-                .isRequired,
-            /** Text to display for the option. */
-            text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-            /** Whether the options is disabled or not. */
-            disabled: PropTypes.bool,
-        })
-    ),
-    /** Whether the select is disabled or not. */
-    disabled: PropTypes.bool,
-    /** Additional css class applied to the select. */
-    className: PropTypes.string,
 }
 
 export default Select
