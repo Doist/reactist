@@ -1,43 +1,43 @@
 import './styles/icon.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 import Tooltip from './Tooltip'
 import ThreeDotsIcon from './icons/ThreeDotsIcon.svg'
 
-/**
- * @typedef {Object} Props
- * @property {() => void} [onClick]
- * @property {boolean} [disabled]
- * @property {boolean} [className]
- * @property {string} [image]
- * @property {string} [hoveredImage]
- * @property {React.ReactNode} [icon]
- * @property {React.ReactNode} [tooltip]
- */
+type Props = {
+    /** Callback that is called when icon is clicked. */
+    onClick?: () => void
+    /** Whether hte icon is disabled. Disabled icons can't be clicked and displayed with less opacity. */
+    disabled?: boolean
+    /** Additional css class that is applied to the icon */
+    className?: string
+    /** URL to the image that should be displayed as icon. */
+    image?: string
+    /** Optional URL to the image that should be displayed when the icon is hovered. */
+    hoveredImage?: string
+    /** Icon component to render, defaults to three dots. */
+    icon?: React.ReactNode
+    /** Text of the tooltip of the icon. */
+    tooltip?: React.ReactNode
+}
 
-/** @extends {React.Component<Props>} */
-class Icon extends React.Component<any, any> {
-    public static displayName
-    public static propTypes
-    public static defaultProps
+type State = {
+    hovered: boolean
+}
 
-    /**
-     * @param {Props} props
-     * @param {unknown} context
-     */
-    constructor(props, context) {
+class Icon extends React.Component<Props, State> {
+    public static displayName: string
+    public static defaultProps: Props
+
+    constructor(props: Props, context: unknown) {
         super(props, context)
 
         this.state = { hovered: false }
     }
 
-    /**
-     * @param {React.MouseEvent} event
-     */
-    _onClick = (event) => {
+    _onClick = (event: React.MouseEvent) => {
         event.preventDefault()
 
         if (this.props.onClick && !this.props.disabled) {
@@ -63,12 +63,10 @@ class Icon extends React.Component<any, any> {
             this.props.className
         )
 
-        /** @type {React.CSSProperties | undefined} */
-        const style =
-            image &&
-            (this.state.hovered && hoveredImage
+        const style: React.CSSProperties | undefined =
+            image && this.state.hovered && hoveredImage
                 ? { backgroundImage: `url(${hoveredImage})` }
-                : { backgroundImage: `url(${image})` }) // only apply style for image components
+                : { backgroundImage: `url(${image})` } // only apply style for image components
         const iconComponent =
             !image &&
             (icon ? (
@@ -103,22 +101,6 @@ class Icon extends React.Component<any, any> {
 Icon.displayName = 'Icon'
 Icon.defaultProps = {
     disabled: false,
-}
-Icon.propTypes = {
-    /** URL to the image that should be displayed as icon. */
-    image: PropTypes.string,
-    /** Optional URL to the image that should be displayed when the icon is hovered. */
-    hoveredImage: PropTypes.string,
-    /** Callback that is called when icon is clicked. */
-    onClick: PropTypes.func,
-    /** Text of the tooltip of the icon. */
-    tooltip: PropTypes.string,
-    /** Whether hte icon is disabled. Disabled icons can't be clicked and displayed with less opacity. */
-    disabled: PropTypes.bool,
-    /** Icon component to render, defaults to three dots. */
-    icon: PropTypes.element,
-    /** Additional css class that is applied to the icon */
-    className: PropTypes.string,
 }
 
 export default Icon

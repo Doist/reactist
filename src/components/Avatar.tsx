@@ -44,7 +44,7 @@ type Props = {
     colorList?: string[]
     size?: AvatarSize
     avatarUrl?: string
-    user: { name?: string; email?: string }
+    user: { name?: string; email: string }
 }
 
 function Avatar({

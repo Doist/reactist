@@ -16,11 +16,7 @@ class ErrorMessage extends React.Component<Props, State> {
     public static displayName: string
     public static defaultProps: Props
 
-    /**
-     * @param {Props} props
-     * @param {unknown} context
-     */
-    constructor(props, context) {
+    constructor(props: Props, context: unknown) {
         super(props, context)
 
         /* eslint-disable @typescript-eslint/camelcase */
@@ -36,7 +32,7 @@ class ErrorMessage extends React.Component<Props, State> {
      * @param {Props} next_props
      */
     /* eslint-disable @typescript-eslint/camelcase */
-    UNSAFE_componentWillReceiveProps(next_props) {
+    UNSAFE_componentWillReceiveProps(next_props: Props) {
         if (this._isValidMessage(next_props.message)) {
             this.setState(() => ({ visible: true }))
             this._triggerDelayedHide()
@@ -47,8 +43,8 @@ class ErrorMessage extends React.Component<Props, State> {
     /**
      * @param {string} message
      */
-    _isValidMessage(message) {
-        return message && message.length > 0
+    _isValidMessage(message?: string) {
+        return typeof message === 'string' && message.length > 0
     }
 
     _clearTimeout = () => {

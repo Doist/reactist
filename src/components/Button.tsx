@@ -1,37 +1,45 @@
 import './styles/button.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 import Tooltip from './Tooltip'
 
-/**
- * @typedef {Object} Props
- * @property {(event?: React.MouseEvent) => void} [onClick]
- * @property {boolean} [disabled]
- * @property {boolean} [loading]
- * @property {string} [className]
- * @property {boolean} [secondary]
- * @property {boolean} [small]
- * @property {boolean} [white]
- * @property {boolean} [large]
- * @property {boolean} [danger]
- * @property {string} [data_tip]
- * @property {React.ReactNode} [name]
- * @property {boolean} [close]
- */
-
-/** @extends {React.Component<any>} */
-class Button extends React.Component<any> {
-    public static displayName
-    public static propTypes
-    public static defaultProps
-
+type Props = {
     /**
-     * @param {React.MouseEvent} event
+     * Function that is called when the button is clicked.
+     * Is only invoked when disabled is not set.
      */
-    _onClick = (event) => {
+    onClick?: (event?: React.MouseEvent) => void
+    /** Disabled style. Prevents onClick from being called. */
+    disabled?: boolean
+    /** Loading style. Prevents onClick from being called. */
+    loading?: boolean
+    className?: string
+    /** Secondary style. */
+    secondary?: boolean
+    /** Small style. */
+    small?: boolean
+    /** White style. */
+    white?: boolean
+    /** Large style. */
+    large?: boolean
+    /** Danger style. */
+    danger?: boolean
+    /** Tooltip that is displayed on hover. */
+    data_tip?: string
+    /** Text that is displayed on the button. */
+    name?: React.ReactNode
+    close?: boolean
+}
+
+class Button extends React.Component<
+    Props & React.ButtonHTMLAttributes<HTMLButtonElement>
+> {
+    public static displayName: string
+    public static defaultProps: Props
+
+    _onClick = (event: React.MouseEvent) => {
         event.preventDefault()
         if (!this.props.disabled && !this.props.loading && this.props.onClick) {
             this.props.onClick()
@@ -54,7 +62,7 @@ class Button extends React.Component<any> {
             ...extraProps
         } = this.props
 
-        delete (extraProps as any).onClick
+        delete extraProps.onClick
         const buttonClass = classNames(
             'reactist_button',
             {
@@ -94,42 +102,6 @@ Button.defaultProps = {
     loading: false,
     disabled: false,
     danger: false,
-}
-Button.propTypes = {
-    /** Text that is displayed on the button. */
-    name: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]),
-    /**
-     * Function that is called when the button is clicked.
-     * Is only invoked when disabled is not set.
-     */
-    onClick: PropTypes.func,
-    /** Secondary style. */
-    secondary: PropTypes.bool,
-    /** Small style. */
-    small: PropTypes.bool,
-    /** Large style. */
-    large: PropTypes.bool,
-    /** White style. */
-    white: PropTypes.bool,
-    /** Loading style. Prevents onClick from being called. */
-    loading: PropTypes.bool,
-    /** Disabled style. Prevents onClick from being called. */
-    disabled: PropTypes.bool,
-    /** Danger style. */
-    danger: PropTypes.bool,
-    /** Tooltip that is displayed on hover. */
-    //eslint-disable-next-line @typescript-eslint/camelcase
-    data_tip: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]),
-    /** Additional css class applied to the button. */
-    className: PropTypes.string,
 }
 
 export default Button

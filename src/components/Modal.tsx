@@ -241,9 +241,9 @@ class Actions extends React.Component<ActionProps> {
 
     render() {
         const children = React.Children.map(
-            // //@ts-expect-error Children cannot be typed properly yet in React
             // This is required for strict mode and will be enabled when that is enabled
             // see: https://github.com/microsoft/TypeScript/issues/21699
+            // @ts-expect-error Children cannot be typed properly yet in React
             this.props.children,
             (child: React.ReactElement<ActionChildrenProps>) => {
                 if (child.props.close) {
