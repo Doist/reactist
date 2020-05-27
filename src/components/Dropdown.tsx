@@ -46,7 +46,7 @@ class Box extends React.Component<BoxProps, BoxState> {
             clearTimeout(this._timeout)
         }
     }
-    _timeout?: number
+    _timeout?: ReturnType<typeof setTimeout>
 
     _handleClickOutside(event: MouseEvent) {
         //eslint-disable-next-line @typescript-eslint/camelcase
