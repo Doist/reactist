@@ -2,6 +2,12 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 4.0.0
+
+- [New] The library is now fully Typescript, provides an ES6 module export, and provides native type bindings.
+- [Tweak] To support tree-shaking, we've switched to the Rollup bundler
+- [Breaking Change] All imports are now ES6 relative imports, change `import Loading from "@doist/reactist/lib/loading"` to `import { Loading } from "@doist/reactist"`
+
 ## 3.1.2
 
 - [Tweak] Removes unused (legacy) context from `<Time />` constructor
