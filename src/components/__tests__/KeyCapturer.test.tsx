@@ -101,6 +101,7 @@ describe('KeyCapturer', () => {
 
             const wrapped = _getWrappedComponent({
                 onArrowDown: spy,
+                // @ts-expect-error We are using a custom event name here deliberately.
                 eventName: 'onKeyPress',
             })
             wrapped.simulate('keypress', event)
@@ -111,9 +112,11 @@ describe('KeyCapturer', () => {
         })
 
         // Helpers ////////////////////////////////////////////////////////////////
-        const _getWrappedComponent = (props = undefined) => {
+        const _getWrappedComponent = (
+            props?: Partial<React.ComponentProps<typeof KeyCapturer>>
+        ) => {
             return shallow(
-                <KeyCapturer {...props}>
+                <KeyCapturer eventName="onKeyDown" {...props}>
                     <div>Hello World</div>
                 </KeyCapturer>
             )
@@ -189,7 +192,7 @@ describe('KeyCapturer', () => {
                     expected: null,
                 },
             ]
-            testCases.forEach(testCase => {
+            testCases.forEach((testCase) => {
                 it(testCase.description, () => {
                     expect(
                         KeyCapturerResolver.resolveByKey(testCase.input)
@@ -241,7 +244,7 @@ describe('KeyCapturer', () => {
                     expected: null,
                 },
             ]
-            testCases.forEach(testCase => {
+            testCases.forEach((testCase) => {
                 it(testCase.description, () => {
                     expect(
                         KeyCapturerResolver.resolveByKeyCode(testCase.input)

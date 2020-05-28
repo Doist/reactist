@@ -80,7 +80,7 @@ describe('RangeInput', () => {
     })
 
     // helpers ================================================================
-    const getRangeInput = (props = undefined) => (
-        <RangeInput value={50} onChange={jest.fn()} {...props} />
-    )
+    const getRangeInput = (
+        props: React.ComponentProps<typeof RangeInput> = {}
+    ) => <RangeInput value={50} onChange={jest.fn()} {...props} />
 })

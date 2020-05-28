@@ -46,16 +46,10 @@ describe('MenuButton', () => {
                 </MenuButton>
             )
 
-            menuButton
-                .find('MenuButtonItem')
-                .get(0)
-                .props.onClick()
+            menuButton.find('MenuButtonItem').get(0).props.onClick()
             expect(onClickSpy1).toHaveBeenCalledTimes(1)
             expect(onClickSpy2).toHaveBeenCalledTimes(0)
-            menuButton
-                .find('MenuButtonItem')
-                .get(1)
-                .props.onClick()
+            menuButton.find('MenuButtonItem').get(1).props.onClick()
             expect(onClickSpy1).toHaveBeenCalledTimes(1)
             expect(onClickSpy2).toHaveBeenCalledTimes(1)
         })

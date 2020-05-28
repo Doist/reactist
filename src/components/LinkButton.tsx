@@ -1,27 +1,24 @@
 import './styles/link_button.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-/**
- * @typedef {Object} Props
- * @property {(event?: React.MouseEvent) => void} [onClick]
- * @property {boolean} [disabled]
- * @property {string} [className]
- * @property {React.ReactNode} [name]
- */
+type Props = {
+    /** Function that should be called when link button is clicked. No parameters are passed. */
+    onClick?: (event?: React.MouseEvent) => void
+    /** Disabled link buttons cannot be clicked. */
+    disabled?: boolean
+    /** Additional css class applied to the link button. */
+    className?: string
+    /** Name of the link button that should be displayed. */
+    name: React.ReactNode
+}
 
-/** @extends {React.Component<Props>} */
-class LinkButton extends React.Component<any, any> {
-    public static displayName
-    public static propTypes
-    public static defaultProps
+class LinkButton extends React.Component<Props> {
+    public static displayName: string
+    public static defaultProps: Partial<Props>
 
-    /**
-     * @param {React.MouseEvent} event
-     */
-    _handleClick = event => {
+    _handleClick = (event: React.MouseEvent) => {
         event.preventDefault()
         if (!this.props.disabled && this.props.onClick) {
             this.props.onClick()
@@ -48,16 +45,6 @@ class LinkButton extends React.Component<any, any> {
 LinkButton.displayName = 'LinkButton'
 LinkButton.defaultProps = {
     disabled: false,
-}
-LinkButton.propTypes = {
-    /** Name of the link button that should be displayed. */
-    name: PropTypes.string.isRequired,
-    /** Function that should be called when link button is clicked. No parameters are passed. */
-    onClick: PropTypes.func,
-    /** Disabled link buttons cannot be clicked. */
-    disabled: PropTypes.bool,
-    /** Additional css class applied to the link button. */
-    className: PropTypes.string,
 }
 
 export default LinkButton

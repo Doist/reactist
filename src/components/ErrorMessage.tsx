@@ -1,63 +1,51 @@
 import './styles/error_message.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
 
-/**
- * @typedef {Object} Props
- * @property {number} timeout
- * @property {() => void} [onHide]
- * @property {string} message
- */
+type Props = {
+    timeout?: number
+    onHide?: () => void
+    message?: string
+}
 
-/** @extends {React.Component<Props>} */
-class ErrorMessage extends React.Component<any, any> {
-    public static displayName
-    public static propTypes
-    public static defaultProps
+type State = {
+    visible: boolean
+}
 
-    /**
-     * @param {Props} props
-     * @param {unknown} context
-     */
-    constructor(props, context) {
+class ErrorMessage extends React.Component<Props, State> {
+    public static displayName: string
+    public static defaultProps: Props
+
+    constructor(props: Props, context: unknown) {
         super(props, context)
 
-        /* eslint-disable @typescript-eslint/camelcase */
-        const is_valid_message = this._isValidMessage(props.message)
-        if (is_valid_message) {
+        const isValidMessage = this._isValidMessage(props.message)
+        if (isValidMessage) {
             this._triggerDelayedHide()
         }
-        this.state = { visible: is_valid_message }
-        /* eslint-enable @typescript-eslint/camelcase */
+        this.state = { visible: isValidMessage }
     }
 
-    /**
-     * @param {Props} next_props
-     */
-    /* eslint-disable @typescript-eslint/camelcase */
-    UNSAFE_componentWillReceiveProps(next_props) {
-        if (this._isValidMessage(next_props.message)) {
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
+        if (this._isValidMessage(nextProps.message)) {
             this.setState(() => ({ visible: true }))
             this._triggerDelayedHide()
         }
     }
-    /* eslint-enable @typescript-eslint/camelcase */
 
-    /**
-     * @param {string} message
-     */
-    _isValidMessage(message) {
-        return message && message.length > 0
+    timeout?: number
+
+    _isValidMessage(message?: string) {
+        return typeof message === 'string' && message.length > 0
     }
 
     _clearTimeout = () => {
-        ;(this as any).timeout && clearTimeout((this as any).timeout)
+        this.timeout && clearTimeout(this.timeout)
     }
 
     _triggerDelayedHide = () => {
-        ;(this as any)._clearTimeout()
-        ;(this as any).timeout = setTimeout(this._hide, this.props.timeout)
+        this._clearTimeout()
+        this.timeout = setTimeout(this._hide, this.props.timeout)
     }
 
     _hide = () => {
@@ -83,18 +71,6 @@ class ErrorMessage extends React.Component<any, any> {
 ErrorMessage.displayName = 'ErrorMessage'
 ErrorMessage.defaultProps = {
     timeout: 2500,
-}
-ErrorMessage.propTypes = {
-    /** Message to be displayed. This component only renders when message is set. */
-    message: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]),
-    /** Timeout after the error message disappears (in ms). */
-    timeout: PropTypes.number,
-    /** Optional callback that is invoked when the error message disappears. */
-    onHide: PropTypes.func,
 }
 
 export default ErrorMessage

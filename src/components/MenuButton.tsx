@@ -1,20 +1,21 @@
 import './styles/menu_button.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Dropdown from './Dropdown'
 
-/**
- * @typedef {Object} Props
- * @property {string | undefined} [className]
- * @property {React.MouseEventHandler | undefined} [onClick]
- * @property {React.ReactNode} [name]
- * @property {React.ReactNode[] | undefined} [children]
- */
+type Props = {
+    /** Additional css class applied to the MenuButton. */
+    className?: string
+    /** When not providing any children you can control what happens when the MenuButton is clicked. */
+    onClick?: React.MouseEventHandler
+    /** Name that is displayed as trigger of the MenuButton.  */
+    name?: React.ReactNode
+    /** Children are displayed as items after clicking on the MenuButton. */
+    children?: React.ReactNode[]
+}
 
-/** @type {React.FC<Props>} */
-const MenuButton = ({ className, name, onClick, children }) => {
+function MenuButton({ className, name, onClick, children }: Props) {
     const menuButtonClass = classNames('reactist_menu_button', className)
 
     if (!children || children.length === 0) {
@@ -37,29 +38,20 @@ const MenuButton = ({ className, name, onClick, children }) => {
     )
 }
 MenuButton.displayName = 'MenuButton'
-MenuButton.propTypes = {
-    /** Name that is displayed as trigger of the MenuButton.  */
-    name: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node,
-    ]),
-    /** When not providing any children you can control what happens when the MenuButton is clicked. */
-    onClick: PropTypes.func,
-    /** Children are displayed as items after clicking on the MenuButton. */
-    children: PropTypes.arrayOf(PropTypes.node),
-    /** Additional css class applied to the MenuButton. */
-    className: PropTypes.string,
+
+type MenuButtonItemProps = {
+    /** Additional css class applied to the MenuButtonItem. */
+    className?: string
+    /** Callback when MenuButtonItem is clicked. */
+    onClick?: React.MouseEventHandler
 }
 
-/**
- * @typedef {Object} MenuButtonItemProps
- * @property {string | undefined} [className]
- * @property {React.MouseEventHandler | undefined} [onClick]
- */
-
-/** @type {React.FC<React.PropsWithChildren<MenuButtonItemProps>>} */
-const MenuButtonItem = ({ className, onClick, children }) => {
+function MenuButtonItem({
+    className,
+    onClick,
+    /** Content of the MenuButtonItem. */
+    children,
+}: React.PropsWithChildren<MenuButtonItemProps>) {
     const menuButtonItemClass = classNames(
         'reactist_menu_button_item',
         className
@@ -71,17 +63,5 @@ const MenuButtonItem = ({ className, onClick, children }) => {
     )
 }
 MenuButtonItem.displayName = 'MenuButtonItem'
-MenuButtonItem.propTypes = {
-    /** Callback when MenuButtonItem is clicked. */
-    onClick: PropTypes.func,
-    /** Content of the MenuButtonItem. */
-    children: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.node,
-        PropTypes.arrayOf(PropTypes.node),
-    ]),
-    /** Additional css class applied to the MenuButtonItem. */
-    className: PropTypes.string,
-}
 
 export { MenuButton, MenuButtonItem }

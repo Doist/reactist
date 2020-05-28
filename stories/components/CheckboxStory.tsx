@@ -16,7 +16,11 @@ const CheckboxPropTypesChapter = {
     ],
 }
 
-class CheckboxStory extends React.Component<any, any> {
+type CheckboxStoryState = {
+    checked: boolean
+}
+
+class CheckboxStory extends React.Component<{}, CheckboxStoryState> {
     constructor(props, context) {
         super(props, context)
         this.state = { checked: true }
@@ -28,7 +32,7 @@ class CheckboxStory extends React.Component<any, any> {
                 <Checkbox
                     label="Checkbox with a clickable label"
                     checked={this.state.checked}
-                    onChange={checked => this.setState(() => ({ checked }))}
+                    onChange={(checked) => this.setState(() => ({ checked }))}
                 />
             </section>
         )
@@ -42,7 +46,14 @@ const CheckboxChapter = {
     ],
 }
 
-class CheckboxPlaygroundStory extends React.Component<any, any> {
+type CheckboxPlaygroundStoryState = {
+    checked: boolean
+}
+
+class CheckboxPlaygroundStory extends React.Component<
+    {},
+    CheckboxPlaygroundStoryState
+> {
     constructor(props, context) {
         super(props, context)
         this.state = { checked: true }
@@ -56,7 +67,7 @@ class CheckboxPlaygroundStory extends React.Component<any, any> {
                     checked={boolean('Checked', this.state.checked)}
                     disabled={boolean('Disabled', false)}
                     onChange={decorate([
-                        checked => this.setState(() => ({ checked })),
+                        (checked) => this.setState(() => ({ checked })),
                     ]).action('Checkbox Toggle')}
                 />
             </section>

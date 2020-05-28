@@ -4,6 +4,7 @@ import { shallow, mount } from 'enzyme'
 import toJson from 'enzyme-to-json'
 
 import Modal from '../Modal'
+import type { Modal as ModalType } from '../Modal'
 import Button from '../Button' // for more descriptive snapshots
 
 jest.mock('react-dom')
@@ -43,7 +44,10 @@ describe('Modal.Box', () => {
 
         const preventSpy = jest.fn()
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
-        box._handleKeyDown({ keyCode: 27, preventDefault: preventSpy })
+        ;(box as ModalType['Box'])._handleKeyDown({
+            keyCode: 27,
+            preventDefault: preventSpy,
+        })
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
             unmountCallCount + 1
         )
@@ -54,14 +58,19 @@ describe('Modal.Box', () => {
         const box = mount(<Modal.Box />).instance()
 
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
-        box._handleKeyDown({ keyCode: 23 })
+        ;(box as ModalType['Box'])._handleKeyDown({ keyCode: 23 })
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
             unmountCallCount
         )
     })
 
     it('unmounts the modal_box when clicking on overlay', () => {
-        const wrapper = mount(<Modal.Box closeOnOverlayClick />)
+        const wrapper = mount(
+            <>
+                <div id="modal_box" />
+                <Modal.Box closeOnOverlayClick />
+            </>
+        )
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
         wrapper.find('#reactist-overlay').simulate('click')
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
@@ -205,10 +214,7 @@ describe('Modal.Actions', () => {
         )
 
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
-        actions
-            .find('Button')
-            .first()
-            .simulate('click')
+        actions.find('Button').first().simulate('click')
         expect(clickSpy).toHaveBeenCalled()
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
             unmountCallCount + 1
@@ -223,10 +229,7 @@ describe('Modal.Actions', () => {
         )
 
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
-        actions
-            .find('Button')
-            .first()
-            .simulate('click')
+        actions.find('Button').first().simulate('click')
         expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
             unmountCallCount + 1
         )
@@ -234,6 +237,6 @@ describe('Modal.Actions', () => {
 })
 
 // Helper functions ///////////////////////////////////////////////////////////
-function getCallCount(mock) {
-    return mock.mock.calls.length
+function getCallCount(mock: typeof ReactDOM.unmountComponentAtNode) {
+    return (mock as jest.Mock).mock.calls.length
 }

@@ -37,7 +37,7 @@ describe('Checkbox', () => {
     })
 
     // Helpers ================================================================
-    const getCheckbox = (props = undefined) => (
+    const getCheckbox = (props?: React.ComponentProps<typeof Checkbox>) => (
         <Checkbox
             label="Checkbox Label"
             checked={false}

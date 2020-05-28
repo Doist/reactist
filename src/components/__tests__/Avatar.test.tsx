@@ -35,13 +35,18 @@ describe('Avatar', () => {
 
     it('falls back to size `l` when invalid value is supplied', () => {
         // eslint-disable-next-line
-        console.error = jest.fn() // silence errors caused by faulty required prop
+        console.error = jest.fn()
+        // @ts-expect-error we are deliberately calling an invalid value here
         const avatar = shallow(getAvatar({ size: 'medium' }))
         expect(avatar.hasClass('reactist_avatar_size--l')).toBe(true)
     })
 
     // Helpers ================================================================
-    const getAvatar = (props = undefined) => (
+    const getAvatar = (
+        props?: Omit<React.ComponentProps<typeof Avatar>, 'user'> & {
+            user?: { name?: string; email: string }
+        }
+    ) => (
         <Avatar
             user={{ name: 'Henning Mus', email: 'henning@doist.com' }}
             size="xl"

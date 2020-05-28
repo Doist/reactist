@@ -164,6 +164,7 @@ describe('PositioningUtils', () => {
         })
         it('returns the wrapper position if position for calculation is invalid', () => {
             const position = calculatePosition(
+                // @ts-expect-error we are deliberately calling an invalid value.
                 'invalid',
                 wrapperDimensions,
                 wrapperPosition,
@@ -174,7 +175,12 @@ describe('PositioningUtils', () => {
     })
 
     describe('Enough Space Calculations', () => {
-        const getParams = params => ({
+        const getParams = (params: {
+            wrapperPosition: { x: number; y: number }
+            position: 'top' | 'right' | 'bottom' | 'left'
+            gap?: number
+            elementDimensions?: { height: number; width: number }
+        }) => ({
             windowDimensions,
             wrapperDimensions,
             elementDimensions,
@@ -182,10 +188,10 @@ describe('PositioningUtils', () => {
             ...params,
         })
         const getTestCase = (
-            description,
-            wrapperPosition,
-            position,
-            expectedResult
+            description: string,
+            wrapperPosition: { x: number; y: number },
+            position: 'top' | 'right' | 'bottom' | 'left',
+            expectedResult: boolean
         ) => ({
             description,
             params: getParams({ wrapperPosition, position }),
@@ -274,6 +280,7 @@ describe('PositioningUtils', () => {
                 description: 'invalid position has never enough space',
                 params: getParams({
                     wrapperPosition: { x: 50, y: 50 },
+                    // @ts-expect-error deliberately passing in an error value
                     position: 'invalid',
                 }),
                 expectedResult: false,
@@ -308,7 +315,7 @@ describe('PositioningUtils', () => {
                 expectedResult: false,
             },
         ]
-        testCases.forEach(testCase => {
+        testCases.forEach((testCase) => {
             it(testCase.description, () => {
                 const result = hasEnoughSpace(
                     testCase.params.windowDimensions,

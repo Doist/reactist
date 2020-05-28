@@ -31,7 +31,7 @@ class RangeInputStory extends React.Component {
             <section className="story">
                 <RangeInput
                     value={this.state.value}
-                    onChange={value => this.setState(() => ({ value }))}
+                    onChange={(value) => this.setState(() => ({ value }))}
                 />
             </section>
         )
@@ -62,7 +62,7 @@ class RangeInputPlaygroundStory extends React.Component {
                 <p>Current Value: {this.state.value}</p>
                 <RangeInput
                     value={this.state.value}
-                    onChange={value => this.setState(() => ({ value }))}
+                    onChange={(value) => this.setState(() => ({ value }))}
                     stepSize={number('Step Size', 1)}
                     min={number('Minimum Value', 0)}
                     max={number('Maximum Value', 100)}

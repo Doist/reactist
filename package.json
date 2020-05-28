@@ -7,7 +7,7 @@
     "homepage": "https://github.com/Doist/reactist#readme",
     "repository": "git+https://github.com/Doist/reactist.git",
     "main": "dist/index.js",
-    "typings": "dist/index.d.ts",
+    "types": "dist/index.d.ts",
     "files": [
         "dist",
         "src"
@@ -17,16 +17,17 @@
     },
     "scripts": {
         "start": "tsdx watch",
-        "build": "npm run build-webpack && npm run build-tsdx",
+        "build": "npm run build-tsdx",
         "build-webpack": "rimraf 'lib/**/*.{js,map,css}'; tsc --declaration false -p tsconfig.json; NODE_ENV=production ./node_modules/.bin/webpack --progress --color; rimraf 'src/**/*.{js,map}'",
-        "build-tsdx": "tsdx build --tsconfig tsconfig.dist.json; mv dist/index.d.ts dist/reactist.d.ts",
+        "build-tsdx": "tsdx build --tsconfig tsconfig.dist.json",
         "build-watch": "tsdx watch",
         "build-types": "rimraf 'lib/**/*.d.ts'; npx tsc -p tsconfig.lib.json;",
         "build-storybook": "build-storybook -o docs",
         "build-all": "npm run build && npm run build-storybook && npm run build-types",
         "test": "tsdx test --passWithNoTests",
+        "type-check": "tsc --noEmit -p ./tsconfig.json",
         "lint": "tsdx lint src stories",
-        "prepare": "tsdx build",
+        "prepare": "npm run build",
         "storybook": "start-storybook -p 6006",
         "prepare-release": "rm -rf node_modules package-lock && npm install && npm run lint && npm run test && npm run build-all",
         "prettify": "./node_modules/.bin/prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md}\""
@@ -38,7 +39,7 @@
         "react-dom": "^15.5.4 || ^16.2.0",
         "prop-types": "^15.6.2"
     },
-    "module": "dist/test-tsdx.esm.js",
+    "module": "dist/reactist.esm.js",
     "devDependencies": {
         "@babel/core": "^7.9.6",
         "@babel/plugin-proposal-class-properties": "^7.0.0",
@@ -59,6 +60,8 @@
         "@storybook/react": "^5.3.18",
         "@types/cheerio": "^0.22.18",
         "@types/classnames": "^2.2.10",
+        "@types/enzyme": "^3.10.5",
+        "@types/enzyme-adapter-react-16": "^1.0.6",
         "@types/react": "^16.9.35",
         "@types/react-dom": "^16.9.8",
         "@typescript-eslint/eslint-plugin": "^2.34.0",
@@ -89,7 +92,7 @@
         "optimize-css-assets-webpack-plugin": "^5.0.3",
         "path": "^0.12.7",
         "postcss-url": "^8.0.0",
-        "prettier": "1.14.2",
+        "prettier": "2.0.5",
         "raw-loader": "^0.5.1",
         "react": "^16.13.1",
         "react-docgen-typescript-loader": "^3.7.2",

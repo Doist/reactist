@@ -1,15 +1,17 @@
-/** @typedef {{width: number; height: number}} Dimensions */
-/** @typedef {{x: number; y: number}} Position */
+type Dimensions = { width: number; height: number }
+type AbsolutePosition = { x: number; y: number }
+type RelativePosition = 'top' | 'right' | 'bottom' | 'left'
 
-/**
- * @param {Dimensions} windowDimensions
- * @param {Dimensions} elementDimensions
- * @param {Dimensions} wrapperDimensions
- * @param {Position} wrapperPosition
- * @param {'top' | 'right' | 'bottom' | 'left'} position
- * @param {number} gap
- */
-const hasEnoughSpace = (
+type HasEnoughSpaceFn = (
+    windowDimensions: Dimensions,
+    elementDimensions: Dimensions,
+    wrapperDimensions: Dimensions,
+    wrapperPosition: AbsolutePosition,
+    position: RelativePosition,
+    gap: number
+) => boolean
+
+const hasEnoughSpace: HasEnoughSpaceFn = (
     windowDimensions,
     elementDimensions,
     wrapperDimensions,
@@ -56,12 +58,13 @@ const hasEnoughSpace = (
     return false
 }
 
-/**
- * @param {Position} wrapperPosition
- * @param {Dimensions} wrapperDimensions
- * @param {Dimensions} elementDimensions
- */
-const _calculateVerticalPosition = (
+type VerticalHorizontalPositionFn = (
+    wrapperPosition: AbsolutePosition,
+    wrapperDimensions: Dimensions,
+    elementDimensions: Dimensions
+) => number
+
+const _calculateVerticalPosition: VerticalHorizontalPositionFn = (
     wrapperPosition,
     wrapperDimensions,
     elementDimensions
@@ -71,12 +74,8 @@ const _calculateVerticalPosition = (
         (wrapperDimensions.width - elementDimensions.width) / 2
     )
 }
-/**
- * @param {Position} wrapperPosition
- * @param {Dimensions} wrapperDimensions
- * @param {Dimensions} elementDimensions
- */
-const _calculateHorizontalPosition = (
+
+const _calculateHorizontalPosition: VerticalHorizontalPositionFn = (
     wrapperPosition,
     wrapperDimensions,
     elementDimensions
@@ -87,13 +86,14 @@ const _calculateHorizontalPosition = (
     )
 }
 
-/**
- * @param {Position} wrapperPosition
- * @param {Dimensions} wrapperDimensions
- * @param {Dimensions} elementDimensions
- * @param {number} [gap]
- */
-const calculateTopCenterPosition = (
+type CenterPositionFn = (
+    wrapperDimensions: Dimensions,
+    wrapperPosition: AbsolutePosition,
+    elementDimensions: Dimensions,
+    gap?: number
+) => AbsolutePosition
+
+const calculateTopCenterPosition: CenterPositionFn = (
     wrapperDimensions,
     wrapperPosition,
     elementDimensions,
@@ -108,13 +108,7 @@ const calculateTopCenterPosition = (
     return { x, y }
 }
 
-/**
- * @param {Position} wrapperPosition
- * @param {Dimensions} wrapperDimensions
- * @param {Dimensions} elementDimensions
- * @param {number} [gap]
- */
-const calculateBottomCenterPosition = (
+const calculateBottomCenterPosition: CenterPositionFn = (
     wrapperDimensions,
     wrapperPosition,
     elementDimensions,
@@ -129,13 +123,7 @@ const calculateBottomCenterPosition = (
     return { x, y }
 }
 
-/**
- * @param {Position} wrapperPosition
- * @param {Dimensions} wrapperDimensions
- * @param {Dimensions} elementDimensions
- * @param {number} [gap]
- */
-const calculateRightCenterPosition = (
+const calculateRightCenterPosition: CenterPositionFn = (
     wrapperDimensions,
     wrapperPosition,
     elementDimensions,
@@ -150,13 +138,7 @@ const calculateRightCenterPosition = (
     return { x, y }
 }
 
-/**
- * @param {Position} wrapperPosition
- * @param {Dimensions} wrapperDimensions
- * @param {Dimensions} elementDimensions
- * @param {number} [gap]
- */
-const calculateLeftCenterPosition = (
+const calculateLeftCenterPosition: CenterPositionFn = (
     wrapperDimensions,
     wrapperPosition,
     elementDimensions,
@@ -171,14 +153,15 @@ const calculateLeftCenterPosition = (
     return { x, y }
 }
 
-/**
- * @param {'top' | 'right' | 'bottom' | 'left'} position
- * @param {Position} wrapperPosition
- * @param {Dimensions} wrapperDimensions
- * @param {Dimensions} elementDimensions
- * @param {number} [gap]
- */
-const calculatePosition = (
+type PositionFn = (
+    position: 'top' | 'right' | 'bottom' | 'left',
+    wrapperDimensions: Dimensions,
+    wrapperPosition: AbsolutePosition,
+    elementDimensions: Dimensions,
+    gap?: number
+) => AbsolutePosition
+
+const calculatePosition: PositionFn = (
     position,
     wrapperDimensions,
     wrapperPosition,
@@ -224,4 +207,5 @@ export {
     calculateBottomCenterPosition,
     calculateRightCenterPosition,
     calculateLeftCenterPosition,
+    RelativePosition,
 }

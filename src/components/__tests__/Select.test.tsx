@@ -32,7 +32,7 @@ describe('Select', () => {
     })
 
     // helpers
-    const getSelect = (props = undefined) => (
+    const getSelect = (props: React.ComponentProps<typeof Select> = {}) => (
         <Select
             onChange={jest.fn()}
             value="test"

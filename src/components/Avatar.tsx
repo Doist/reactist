@@ -1,7 +1,6 @@
 import './styles/avatar.less'
 
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 import { getInitials, emailToIndex } from './utils/TextUtils'
@@ -27,28 +26,34 @@ const AVATAR_COLORS = [
     '#5e5e5e',
 ]
 
-/** @typedef {'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl'} AvatarSize */
+type AvatarSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl'
 
-/** @type {AvatarSize[]} */
-const AVATAR_SIZES = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl']
+const AVATAR_SIZES: AvatarSize[] = [
+    'xxs',
+    'xs',
+    's',
+    'm',
+    'l',
+    'xl',
+    'xxl',
+    'xxxl',
+]
 
-/**
- * @typedef {Object} Props
- * @property {string | undefined} [className]
- * @property {string[] | undefined} [colorList]
- * @property {AvatarSize | undefined} [size]
- * @property {string | undefined} [avatarUrl]
- * @property {{name?: string, email?: string}} user
- */
+type Props = {
+    className?: string
+    colorList?: string[]
+    size?: AvatarSize
+    avatarUrl?: string
+    user: { name?: string; email: string }
+}
 
-/** @type {React.FC<Props>} */
-const Avatar = ({
+function Avatar({
     user,
     avatarUrl,
-    size,
+    size = 'l',
     className,
     colorList = AVATAR_COLORS,
-}) => {
+}: Props) {
     const userInitials = getInitials(user.name) || getInitials(user.email)
     const avatarSize = size && AVATAR_SIZES.includes(size) ? size : 'l'
     const avatarClass = classNames(
@@ -73,25 +78,5 @@ const Avatar = ({
     )
 }
 Avatar.displayName = 'Avatar'
-Avatar.defaultProps = {
-    size: 'l',
-}
-Avatar.propTypes = {
-    /** Minimal required user shape for the avatar. */
-    user: PropTypes.shape({
-        /** Name of the user. */
-        name: PropTypes.string,
-        /** Email of the user. Used to calculate avatar color and as fallback in case name is not set. */
-        email: PropTypes.string,
-    }).isRequired,
-    /** URL of the avatar image. In case nothing is set a colored circle with the user's initials is displayed. */
-    avatarUrl: PropTypes.string,
-    /** Size of the Avatar between XXS and XXXL. */
-    size: PropTypes.oneOf(AVATAR_SIZES),
-    /** Additional css class applied to the avatar. */
-    className: PropTypes.string,
-    /** Optional list of color codes used as fallback when image not available. Defaults to AVATAR_COLORS array. */
-    colorList: PropTypes.arrayOf(PropTypes.string),
-}
 
 export default Avatar
