@@ -103,11 +103,23 @@ describe('Popover', () => {
                 top: 500,
                 width: 70,
                 height: 20,
+                x: 0,
+                y: 0,
+                bottom: 0,
+                right: 0,
+                toJSON: jest.fn(),
             }))
 
             instance.popover.getBoundingClientRect = jest.fn(() => ({
                 width: 70,
                 height: 20,
+                left: 0,
+                top: 0,
+                x: 0,
+                y: 0,
+                bottom: 0,
+                right: 0,
+                toJSON: jest.fn(),
             }))
 
             popover.setProps({ visible: true })
