@@ -194,6 +194,26 @@ describe('Modal.Actions', () => {
         expect(toJson(actions)).toMatchSnapshot()
     })
 
+    it('renders without children', () => {
+        const actions = shallow(<Modal.Actions />)
+        expect(toJson(actions)).toMatchSnapshot()
+    })
+
+    it('renders with null or undefined children', () => {
+        const actionsWithNullChildren = shallow(
+            <Modal.Actions>{null}</Modal.Actions>
+        )
+        expect(toJson(actionsWithNullChildren)).toMatchSnapshot()
+        const actionsWithUndefinedChildren = shallow(
+            <Modal.Actions>{undefined}</Modal.Actions>
+        )
+        expect(toJson(actionsWithUndefinedChildren)).toMatchSnapshot()
+        const actionsWithFalseChildren = shallow(
+            <Modal.Actions>{false}</Modal.Actions>
+        )
+        expect(toJson(actionsWithFalseChildren)).toMatchSnapshot()
+    })
+
     it('renders all children without crashing', () => {
         const actions = shallow(
             <Modal.Actions>

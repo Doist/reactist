@@ -27,6 +27,30 @@ exports[`Modal.Actions renders all children without crashing 1`] = `
 </div>
 `;
 
+exports[`Modal.Actions renders with null or undefined children 1`] = `
+<div
+  className="reactist_modal_box__actions"
+/>
+`;
+
+exports[`Modal.Actions renders with null or undefined children 2`] = `
+<div
+  className="reactist_modal_box__actions"
+/>
+`;
+
+exports[`Modal.Actions renders with null or undefined children 3`] = `
+<div
+  className="reactist_modal_box__actions"
+/>
+`;
+
+exports[`Modal.Actions renders without children 1`] = `
+<div
+  className="reactist_modal_box__actions"
+/>
+`;
+
 exports[`Modal.Actions renders without crashing 1`] = `
 <div
   className="reactist_modal_box__actions"
