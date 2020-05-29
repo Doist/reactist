@@ -23,7 +23,7 @@
         "build-watch": "tsdx watch",
         "build-types": "rimraf 'lib/**/*.d.ts'; npx tsc -p tsconfig.lib.json;",
         "build-storybook": "build-storybook -o docs",
-        "build-all": "npm run build && npm run build-storybook && npm run build-types",
+        "build-all": "npm run build && npm run build-storybook",
         "test": "tsdx test --passWithNoTests",
         "type-check": "tsc --noEmit -p ./tsconfig.json",
         "lint": "tsdx lint src stories",
