@@ -26,19 +26,21 @@ const BASE_CONFIG = {
             'node_modules',
             'src',
         ],
-        extensions: ['.webpack.js', '.js', '.jsx'],
+        extensions: ['.webpack.js', '.js', '.jsx', '.ts', '.tsx'],
     },
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
+                test: /\.(js|jsx|tsx|ts)$/,
                 exclude: /node_modules/,
                 use: [{ loader: 'babel-loader' }],
             },
             {
                 test: /\.less$/,
                 use: [
-                    { loader: MiniCssExtractPlugin.loader },
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
                     { loader: 'css-loader' },
                     { loader: 'less-loader' },
                 ],
@@ -72,11 +74,13 @@ const BASE_CONFIG = {
                 NODE_ENV: JSON.stringify('production'),
             },
         }),
-        new MiniCssExtractPlugin({ filename: 'reactist.css' }),
+        new MiniCssExtractPlugin({
+            filename: '[name]/[name].css',
+        }),
     ],
 }
 
-const createConfig = overriddenAttributes => ({
+const createConfig = (overriddenAttributes) => ({
     ...BASE_CONFIG,
     ...overriddenAttributes,
 })
@@ -89,8 +93,8 @@ const modulesConfig = createConfig({
     },
     output: {
         ...BASE_CONFIG.output,
-        path: path.resolve(__dirname, 'lib'),
-        filename: '[name].js',
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'umd/[name].js',
     },
     plugins: [
         new webpack.DefinePlugin({
@@ -98,7 +102,9 @@ const modulesConfig = createConfig({
                 NODE_ENV: JSON.stringify('production'),
             },
         }),
-        new MiniCssExtractPlugin(),
+        new MiniCssExtractPlugin({
+            filename: '[name]/index.css',
+        }),
     ],
 })
 
