@@ -17,6 +17,7 @@ module.exports = {
             config.output.dir = 'dist'
             config.output.file = undefined
             config.output.entryFileNames = '[name]/index.js'
+            config.output.hoistTransitiveImports = false
         }
         config.plugins.push(
             postcss({
