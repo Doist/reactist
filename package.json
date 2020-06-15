@@ -106,7 +106,7 @@
         "rimraf": "^3.0.2",
         "rollup-plugin-postcss": "^3.1.1",
         "style-loader": "^0.23.1",
-        "svg-url-loader": "^2.3.3",
+        "svg-url-loader": "^6.0.0",
         "terser-webpack-plugin": "^3.0.1",
         "ts-loader": "^7.0.4",
         "tsdx": "^0.13.2",
