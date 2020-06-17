@@ -88,7 +88,7 @@
         "jest": "^24.7.1",
         "less": "^3.8.1",
         "less-loader": "^4.1.0",
-        "lint-staged": "^8.1.5",
+        "lint-staged": "^10.2.10",
         "mini-css-extract-plugin": "^0.8.2",
         "mockdate": "^2.0.2",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
