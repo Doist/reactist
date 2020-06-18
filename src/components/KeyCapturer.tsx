@@ -98,7 +98,7 @@ class KeyCapturer extends React.Component<KeyCapturerProps> {
         if (key && Object.values(SUPPORTED_KEYS).includes(key)) {
             if (typeof this.props[`on${key}`] === 'function') {
                 // @ts-expect-error Dynamic type not expressible in TypeScript.
-                this.props[`on${key}`]()
+                this.props[`on${key}`](event)
                 if (this.props[`propagate${key}`] !== true) {
                     event.preventDefault()
                     event.stopPropagation()

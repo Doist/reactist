@@ -108,6 +108,24 @@ describe('KeyCapturer', () => {
             expect(event.stopPropagation).toHaveBeenCalledTimes(1)
         })
 
+        it('forwards the event to the handler', () => {
+            const spy = jest.fn()
+            const event = {
+                key: 'Enter',
+                preventDefault: jest.fn(),
+                stopPropagation: jest.fn(),
+            }
+
+            const wrapped = _getWrappedComponent({ onEnter: spy })
+            wrapped.simulate('keydown', event)
+
+            expect(spy).toHaveBeenCalledWith({
+                key: 'Enter',
+                preventDefault: expect.any(Function),
+                stopPropagation: expect.any(Function),
+            })
+        })
+
         // Helpers ////////////////////////////////////////////////////////////////
         const _getWrappedComponent = (
             props?: Partial<React.ComponentProps<typeof KeyCapturer>>,
