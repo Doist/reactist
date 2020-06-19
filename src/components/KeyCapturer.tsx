@@ -77,6 +77,7 @@ const KeyCapturerResolver = {
 
 type KeyCapturerProps = Record<string, (() => void) | boolean | React.ReactChild> & {
     eventName?: 'onKeyDown' | 'onKeyDownCapture' | 'onKeyUp' | 'onKeyUpCapture'
+    children: React.ReactElement<unknown>
 }
 
 /**
@@ -87,8 +88,10 @@ type KeyCapturerProps = Record<string, (() => void) | boolean | React.ReactChild
  * If you want the default behaviour to be preserved (i.e. only want to hook into the event
  * instead of replacing it) set the `propagate${Key}` prop (e.g. propagateBackspace).
  */
-class KeyCapturer extends React.Component<KeyCapturerProps> {
-    _handleKeyEvent = (event: React.KeyboardEvent) => {
+function KeyCapturer(props: KeyCapturerProps) {
+    const { children, eventName = 'onKeyDown' } = props
+
+    const handleKeyEvent = (event: React.KeyboardEvent) => {
         // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
         const key =
             event.key !== undefined
@@ -96,10 +99,10 @@ class KeyCapturer extends React.Component<KeyCapturerProps> {
                 : KeyCapturerResolver.resolveByKeyCode(event.keyCode)
 
         if (key && Object.values(SUPPORTED_KEYS).includes(key)) {
-            if (typeof this.props[`on${key}`] === 'function') {
+            if (typeof props[`on${key}`] === 'function') {
                 // @ts-expect-error Dynamic type not expressible in TypeScript.
-                this.props[`on${key}`](event)
-                if (this.props[`propagate${key}`] !== true) {
+                props[`on${key}`](event)
+                if (props[`propagate${key}`] !== true) {
                     event.preventDefault()
                     event.stopPropagation()
                 }
@@ -107,13 +110,9 @@ class KeyCapturer extends React.Component<KeyCapturerProps> {
         }
     }
 
-    render() {
-        const { children, eventName = 'onKeyDown' } = this.props
-
-        return React.cloneElement(children as React.ReactElement, {
-            [eventName]: this._handleKeyEvent,
-        })
-    }
+    return React.cloneElement(children, {
+        [eventName]: handleKeyEvent,
+    })
 }
 
 export default KeyCapturer
