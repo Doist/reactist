@@ -3,7 +3,7 @@ const documentation = `
 
     You can specify the **eventName** to capture (defaults to **onKeyDown**).
 
-    Check the **SUPPORTED_KEYS** map to see which keys are supported and supply the respective **on\${Key}** prop (i.e. **onEnter** or **onArrowDown**).
+    Check the **SUPPORTED_KEYS** map to see which keys are supported and supply the respective **on\${Key}** prop (i.e. **onEnter** or **onArrowDown**). Note that the **onEnter** handler will not fire when used in an IME composition session to prevent interference with the user's input.
 
     If you want the default behaviour to be preserved (i.e. only want to hook into the event instead of replacing it) set the **propagate\${Key}** prop (e.g. **propagateBackspace**).
 
