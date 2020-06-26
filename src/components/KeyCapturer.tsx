@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 const SUPPORTED_KEYS: Record<string, string> = {
     ARROW_UP: 'ArrowUp',
@@ -90,13 +90,40 @@ type KeyCapturerProps = Record<string, (() => void) | boolean | React.ReactChild
  */
 function KeyCapturer(props: KeyCapturerProps) {
     const { children, eventName = 'onKeyDown' } = props
+    const composingRef = useRef(false)
+    const composingEventHandlers =
+        typeof props.onEnter === 'function'
+            ? {
+                  onCompositionStart: () => {
+                      composingRef.current = true
+                  },
+                  onCompositionEnd: () => {
+                      composingRef.current = false
+                  },
+              }
+            : undefined
 
-    const handleKeyEvent = (event: React.KeyboardEvent) => {
+    function handleKeyEvent(event: React.KeyboardEvent<HTMLInputElement>) {
         // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
         const key =
             event.key !== undefined
                 ? KeyCapturerResolver.resolveByKey(event.key)
                 : KeyCapturerResolver.resolveByKeyCode(event.keyCode)
+
+        if (
+            key === SUPPORTED_KEYS.ENTER &&
+            typeof props.onEnter === 'function'
+        ) {
+            if (
+                composingRef.current ||
+                // Safari fires the onCompositionEnd event before the keydown event, so we
+                // have to rely on the 229 keycode, which is Enter when fired from an IME
+                // https://www.w3.org/TR/uievents/#determine-keydown-keyup-keyCode
+                (event.keyCode || event.which) === 229
+            ) {
+                return
+            }
+        }
 
         if (key && Object.values(SUPPORTED_KEYS).includes(key)) {
             if (typeof props[`on${key}`] === 'function') {
@@ -112,6 +139,7 @@ function KeyCapturer(props: KeyCapturerProps) {
 
     return React.cloneElement(children, {
         [eventName]: handleKeyEvent,
+        ...composingEventHandlers,
     })
 }
 
