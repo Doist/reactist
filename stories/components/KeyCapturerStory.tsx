@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/react'
 
-import documentation from './KeyCapturerStore.md'
+import documentation from './KeyCapturerStory.md'
 
 // Story Definitions ==========================================================
 const KeyCapturerDocumentationChapters = [{ subtitle: 'Documentation', info: documentation }]
