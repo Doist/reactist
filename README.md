@@ -142,3 +142,9 @@ npm run test-watch
 This also prints the current test coverage.
 
 MacOS users might need to upgrade watchman with `brew install watchman` when experiencing troubles with the watch mode. See this issue for details: https://github.com/facebook/jest/issues/1767
+
+# Releasing
+
+A new version of reactist is published both on npm and GPR whenever a new release on Github is created. A Github Action will automatically perform all the necessary steps.
+
+The Action will release the version number that's specified inside the `package.json`'s `version` field so make sure that it reflects the version you want to publish.
