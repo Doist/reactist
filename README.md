@@ -145,6 +145,6 @@ MacOS users might need to upgrade watchman with `brew install watchman` when exp
 
 # Releasing
 
-A new version of reactist is published both on npm and GPR whenever a new release on Github is created. A Github Action will automatically perform all the necessary steps.
+A new version of reactist is published both on npm and GitHub Package Registry whenever a new release on GitHub is created. A GitHub Action will automatically perform all the necessary steps.
 
 The Action will release the version number that's specified inside the `package.json`'s `version` field so make sure that it reflects the version you want to publish.
