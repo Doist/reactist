@@ -52,10 +52,7 @@ function MenuButtonItem({
     /** Content of the MenuButtonItem. */
     children,
 }: React.PropsWithChildren<MenuButtonItemProps>) {
-    const menuButtonItemClass = classNames(
-        'reactist_menu_button_item',
-        className
-    )
+    const menuButtonItemClass = classNames('reactist_menu_button_item', className)
     return (
         <div className={menuButtonItemClass} onClick={onClick}>
             {children}

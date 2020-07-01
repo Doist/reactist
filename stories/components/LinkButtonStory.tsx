@@ -4,11 +4,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 
-import {
-    getPropTypesStory,
-    optionsSourceOnly,
-    optionsNoSourceNoProps,
-} from '../utils/StoryUtils'
+import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
 import LinkButton from '../../src/components/LinkButton'
 
@@ -37,10 +33,7 @@ const LinkButtonsChapter = {
 
 const LinkButtonPlaygroundStory = () => (
     <section className="story">
-        <LinkButton
-            name={text('Name', 'LinkButton Text')}
-            disabled={boolean('Disabled', false)}
-        />
+        <LinkButton name={text('Name', 'LinkButton Text')} disabled={boolean('Disabled', false)} />
     </section>
 )
 

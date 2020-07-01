@@ -28,16 +28,7 @@ const AVATAR_COLORS = [
 
 type AvatarSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl'
 
-const AVATAR_SIZES: AvatarSize[] = [
-    'xxs',
-    'xs',
-    's',
-    'm',
-    'l',
-    'xl',
-    'xxl',
-    'xxxl',
-]
+const AVATAR_SIZES: AvatarSize[] = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl']
 
 type Props = {
     className?: string
@@ -47,19 +38,10 @@ type Props = {
     user: { name?: string; email: string }
 }
 
-function Avatar({
-    user,
-    avatarUrl,
-    size = 'l',
-    className,
-    colorList = AVATAR_COLORS,
-}: Props) {
+function Avatar({ user, avatarUrl, size = 'l', className, colorList = AVATAR_COLORS }: Props) {
     const userInitials = getInitials(user.name) || getInitials(user.email)
     const avatarSize = size && AVATAR_SIZES.includes(size) ? size : 'l'
-    const avatarClass = classNames(
-        `reactist_avatar reactist_avatar_size--${avatarSize}`,
-        className
-    )
+    const avatarClass = classNames(`reactist_avatar reactist_avatar_size--${avatarSize}`, className)
 
     const style = avatarUrl
         ? {
@@ -67,8 +49,7 @@ function Avatar({
               textIndent: '-9999px', // hide the initials
           }
         : {
-              backgroundColor:
-                  colorList[emailToIndex(user.email, colorList.length)],
+              backgroundColor: colorList[emailToIndex(user.email, colorList.length)],
           }
 
     return (

@@ -11,7 +11,7 @@ describe('Dropdown', () => {
                 <Dropdown.Box>
                     <Dropdown.Trigger />
                     <Dropdown.Body />
-                </Dropdown.Box>
+                </Dropdown.Box>,
             )
 
             expect(toJson(box)).toMatchSnapshot()
@@ -22,7 +22,7 @@ describe('Dropdown', () => {
                 <Dropdown.Box className="additional class">
                     <Dropdown.Trigger />
                     <Dropdown.Body />
-                </Dropdown.Box>
+                </Dropdown.Box>,
             )
 
             expect(box.hasClass('additional')).toBe(true)
@@ -34,12 +34,10 @@ describe('Dropdown', () => {
                 <Dropdown.Box>
                     <Dropdown.Trigger />
                     <Dropdown.Body />
-                </Dropdown.Box>
+                </Dropdown.Box>,
             )
 
-            expect(box.find(Dropdown.Trigger).prop('onClick')).not.toEqual(
-                undefined
-            )
+            expect(box.find(Dropdown.Trigger).prop('onClick')).not.toEqual(undefined)
         })
 
         it('passes top, right, and setPosition props down to the Body component', () => {
@@ -47,7 +45,7 @@ describe('Dropdown', () => {
                 <Dropdown.Box top right>
                     <Dropdown.Trigger onClick={jest.fn()} />
                     <Dropdown.Body />
-                </Dropdown.Box>
+                </Dropdown.Box>,
             )
 
             openDropdown(box)
@@ -64,7 +62,7 @@ describe('Dropdown', () => {
                 <Dropdown.Box>
                     <Dropdown.Trigger onClick={jest.fn()} />
                     <Dropdown.Body />
-                </Dropdown.Box>
+                </Dropdown.Box>,
             )
             expect(box.find(Dropdown.Body)).toHaveLength(0)
 
@@ -82,7 +80,7 @@ describe('Dropdown', () => {
                 <Dropdown.Box>
                     <Dropdown.Trigger onClick={jest.fn()} />
                     {(props) => <Dropdown.Body {...props} />}
-                </Dropdown.Box>
+                </Dropdown.Box>,
             )
             expect(box.find(Dropdown.Body)).toHaveLength(0)
 
@@ -100,14 +98,12 @@ describe('Dropdown', () => {
                 <Dropdown.Box>
                     <Dropdown.Trigger onClick={jest.fn()} />
                     <Dropdown.Body />
-                </Dropdown.Box>
+                </Dropdown.Box>,
             )
 
             openDropdown(box)
 
-            expect(box.find('div').at(0).hasClass('reactist_dropdown')).toEqual(
-                true
-            )
+            expect(box.find('div').at(0).hasClass('reactist_dropdown')).toEqual(true)
             expect(box.find('div').at(1).hasClass('trigger')).toEqual(true)
         })
 
@@ -116,14 +112,12 @@ describe('Dropdown', () => {
                 <Dropdown.Box top>
                     <Dropdown.Trigger onClick={jest.fn()} />
                     <Dropdown.Body />
-                </Dropdown.Box>
+                </Dropdown.Box>,
             )
 
             openDropdown(box)
 
-            expect(box.find('div').at(0).hasClass('reactist_dropdown')).toEqual(
-                true
-            )
+            expect(box.find('div').at(0).hasClass('reactist_dropdown')).toEqual(true)
             expect(box.find('div').at(1).hasClass('body_wrapper')).toEqual(true)
         })
 
@@ -132,13 +126,10 @@ describe('Dropdown', () => {
             const onHideBodySpy = jest.fn()
 
             const box = shallow(
-                <Dropdown.Box
-                    onShowBody={onShowBodySpy}
-                    onHideBody={onHideBodySpy}
-                >
+                <Dropdown.Box onShowBody={onShowBodySpy} onHideBody={onHideBodySpy}>
                     <Dropdown.Trigger onClick={jest.fn()} />
                     <Dropdown.Body />
-                </Dropdown.Box>
+                </Dropdown.Box>,
             )
 
             const trigger = box.find(Dropdown.Trigger)
@@ -158,9 +149,7 @@ describe('Dropdown', () => {
         })
 
         it('renders all children without crashing', () => {
-            const simpleTrigger = shallow(
-                <Dropdown.Trigger>Trigger Content</Dropdown.Trigger>
-            )
+            const simpleTrigger = shallow(<Dropdown.Trigger>Trigger Content</Dropdown.Trigger>)
 
             expect(toJson(simpleTrigger)).toMatchSnapshot()
 
@@ -170,7 +159,7 @@ describe('Dropdown', () => {
                         <img src="" alt="" />
                         Some additional text as well
                     </div>
-                </Dropdown.Trigger>
+                </Dropdown.Trigger>,
             )
 
             expect(toJson(complexTrigger)).toMatchSnapshot()
@@ -192,9 +181,7 @@ describe('Dropdown', () => {
         })
 
         it('renders all children without crashing', () => {
-            const simpleBody = shallow(
-                <Dropdown.Body>Body Content</Dropdown.Body>
-            )
+            const simpleBody = shallow(<Dropdown.Body>Body Content</Dropdown.Body>)
             expect(toJson(simpleBody)).toMatchSnapshot()
 
             const complexBody = shallow(
@@ -203,7 +190,7 @@ describe('Dropdown', () => {
                         <img src="" alt="" />
                         Some additional text as well
                     </div>
-                </Dropdown.Body>
+                </Dropdown.Body>,
             )
             expect(toJson(complexBody)).toMatchSnapshot()
         })

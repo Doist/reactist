@@ -20,24 +20,27 @@ npm install @doist/reactist
 To import a component within your code:
 
 ```js
-import { Loading } from "@doist/reactist"
+import { Loading } from '@doist/reactist'
 //OR
-import Loading from "@doist/reactist/dist/Loading"
+import Loading from '@doist/reactist/dist/Loading'
 ```
 
 You also need to load the CSS file of reactist somewhere in your app. For instance:
 
 ```html
-<link rel="stylesheet" type="text/css" href="./node_modules/@doist/reactist/dist/Loading/index.css">
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="./node_modules/@doist/reactist/dist/Loading/index.css"
+/>
 ```
 
 If you prefer to include static files grab the [minified build from the dist folder](https://github.com/Doist/reactist/tree/develop/dist).
 
 ```html
 <script src="./node_modules/@doist/reactist/dist/index.js"></script>
-<link rel="stylesheet" type="text/css" href="./node_modules/@doist/reactist/dist/reactist.css">
+<link rel="stylesheet" type="text/css" href="./node_modules/@doist/reactist/dist/reactist.css" />
 ```
-
 
 # Changelog
 

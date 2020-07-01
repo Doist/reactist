@@ -18,9 +18,7 @@ describe('Input', () => {
     })
 
     it('adds additional className when supplied', () => {
-        const input = shallow(
-            <Input className="very-complex classnames-are-added" />
-        )
+        const input = shallow(<Input className="very-complex classnames-are-added" />)
         expect(input.hasClass('reactist_input')).toBe(true)
         expect(input.hasClass('very-complex')).toBe(true)
         expect(input.hasClass('classnames-are-added')).toBe(true)

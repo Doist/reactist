@@ -21,9 +21,7 @@ describe('Time Utils', () => {
 
     it('formatTimeLong should match `LL, LT`', () => {
         const testDate = dayjs(new Date('August 1, 2017 13:37:42')).unix()
-        expect(TimeUtils.formatTimeLong(testDate)).toBe(
-            'August 1, 2017, 1:37 PM'
-        )
+        expect(TimeUtils.formatTimeLong(testDate)).toBe('August 1, 2017, 1:37 PM')
     })
 
     it('timeAgo < 1m returns `moments ago`', () => {

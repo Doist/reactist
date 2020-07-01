@@ -4,41 +4,41 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 ## 4.0.2
 
-- [New] Brings back individual JS and CSS files so that applications can do selective import in an ES6 build.
+-   [New] Brings back individual JS and CSS files so that applications can do selective import in an ES6 build.
 
 ## 4.0.1
 
-- [Fix] Modal.Actions now can have empty or null children again
+-   [Fix] Modal.Actions now can have empty or null children again
 
 ## 4.0.0
 
-- [New] The library is now fully Typescript, provides an ES6 module export, and provides native type bindings.
-- [Tweak] To support tree-shaking, we've switched to the Rollup bundler
-- [Breaking Change] All imports are now ES6 relative imports, change `import Loading from "@doist/reactist/lib/loading"` to `import { Loading } from "@doist/reactist"`
+-   [New] The library is now fully Typescript, provides an ES6 module export, and provides native type bindings.
+-   [Tweak] To support tree-shaking, we've switched to the Rollup bundler
+-   [Breaking Change] All imports are now ES6 relative imports, change `import Loading from "@doist/reactist/lib/loading"` to `import { Loading } from "@doist/reactist"`
 
 ## 3.1.2
 
-- [Tweak] Removes unused (legacy) context from `<Time />` constructor
+-   [Tweak] Removes unused (legacy) context from `<Time />` constructor
 
 ## 3.1.1
 
-- [Tweak] Better typing for the checkbox label
+-   [Tweak] Better typing for the checkbox label
 
 ## 3.1.0
 
-- [Feature] Adds typings for all components and utilities
+-   [Feature] Adds typings for all components and utilities
 
 ## 3.0.1
 
-- [Fix] Formatting in the `<Time />` component wasn't working as expected, this is now fixed.
+-   [Fix] Formatting in the `<Time />` component wasn't working as expected, this is now fixed.
 
 ## 3.0.0
 
-- [Breaking] Changed namespacing from `.reactist.popover {}` to `.reactist_popover {}`. Customizing components' styling need to update accordingly.
+-   [Breaking] Changed namespacing from `.reactist.popover {}` to `.reactist_popover {}`. Customizing components' styling need to update accordingly.
 
 ## 2.0.2
 
-- [Tweak] Changed time formatting from `yesterday` to `1d`
+-   [Tweak] Changed time formatting from `yesterday` to `1d`
 
 ## 2.0.1
 

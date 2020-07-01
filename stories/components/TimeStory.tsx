@@ -5,11 +5,7 @@ import dayjs from 'dayjs'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, number, boolean } from '@storybook/addon-knobs'
 
-import {
-    getPropTypesStory,
-    optionsSourceOnly,
-    optionsNoSourceNoProps,
-} from '../utils/StoryUtils'
+import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
 import Time from '../../src/components/Time'
 
@@ -45,9 +41,7 @@ const exampleTimes = [
 const TimePropTypesStory = getPropTypesStory(Time)
 const TimePropTypesChapter = {
     subtitle: 'Component Usage',
-    sections: [
-        { sectionFn: TimePropTypesStory, options: optionsNoSourceNoProps },
-    ],
+    sections: [{ sectionFn: TimePropTypesStory, options: optionsNoSourceNoProps }],
 }
 
 const NoHoverEffectStory = () => (
@@ -123,11 +117,7 @@ const TranslatedTimeStory = () => {
             {exampleTimes.map((time, index) => (
                 <div key={index}>
                     <span>{time.title}</span>
-                    <Time
-                        expandFullyOnHover
-                        config={i18nConfig}
-                        time={time.time}
-                    />
+                    <Time expandFullyOnHover config={i18nConfig} time={time.time} />
                 </div>
             ))}
         </section>

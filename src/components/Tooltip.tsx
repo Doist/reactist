@@ -140,17 +140,10 @@ class Tooltip extends React.Component<Props, State> {
             withArrow,
         } = this.props
 
-        const wrapperClass = classNames(
-            'reactist_tooltip__wrapper',
-            wrapperClassName
-        )
-        const tooltipClass = classNames(
-            'reactist_tooltip__text',
-            tooltipClassName,
-            {
-                inverted,
-            }
-        )
+        const wrapperClass = classNames('reactist_tooltip__wrapper', wrapperClassName)
+        const tooltipClass = classNames('reactist_tooltip__text', tooltipClassName, {
+            inverted,
+        })
         const arrowClass = classNames('reactist_tooltip__arrow', { inverted })
 
         if (!text) {

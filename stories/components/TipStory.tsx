@@ -4,11 +4,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text } from '@storybook/addon-knobs'
 
-import {
-    getPropTypesStory,
-    optionsNoSourceNoProps,
-    optionsSourceOnly,
-} from '../utils/StoryUtils'
+import { getPropTypesStory, optionsNoSourceNoProps, optionsSourceOnly } from '../utils/StoryUtils'
 
 import Tip from '../../src/components/Tip'
 
@@ -16,9 +12,7 @@ import Tip from '../../src/components/Tip'
 const TipPropTypesStory = getPropTypesStory(Tip)
 const TipPropTypesChapter = {
     subtitle: 'Component Usage',
-    sections: [
-        { sectionFn: TipPropTypesStory, options: optionsNoSourceNoProps },
-    ],
+    sections: [{ sectionFn: TipPropTypesStory, options: optionsNoSourceNoProps }],
 }
 
 const TipStory = () => (

@@ -3,11 +3,7 @@ import './styles/menubutton_story.less'
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import {
-    getPropTypesStory,
-    optionsSourceOnly,
-    optionsNoSourceNoProps,
-} from '../utils/StoryUtils'
+import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
 import { MenuButton, MenuButtonItem } from '../../src/components/MenuButton'
 
@@ -45,19 +41,13 @@ const MenuButtonWithItemsStory = () => (
 )
 const MenuButtonWithItemsChapter = {
     subtitle: 'Menu Button with items',
-    sections: [
-        { sectionFn: MenuButtonWithItemsStory, options: optionsSourceOnly },
-    ],
+    sections: [{ sectionFn: MenuButtonWithItemsStory, options: optionsSourceOnly }],
 }
 
 // Story setup ================================================================
 const Story = () =>
     storiesOf('MenuButton', module).addWithChapters('Component Overview', {
-        chapters: [
-            MenuButtonPropTypesChapter,
-            MenuButtonChapter,
-            MenuButtonWithItemsChapter,
-        ],
+        chapters: [MenuButtonPropTypesChapter, MenuButtonChapter, MenuButtonWithItemsChapter],
     })
 
 export default Story

@@ -13,7 +13,7 @@ describe('Tabs', () => {
         const tabs = shallow(
             <Tabs>
                 <Tab title="Tab 1">Content</Tab>
-            </Tabs>
+            </Tabs>,
         )
         expect(tabs).toMatchSnapshot()
     })
@@ -35,7 +35,7 @@ describe('Tabs', () => {
                 <Tab value={3} title="Tab 3">
                     Content
                 </Tab>
-            </Tabs>
+            </Tabs>,
         )
 
         const tab3 = tabs.find('.reactist_tabs__header--item').at(2)
@@ -51,7 +51,7 @@ describe('Tabs', () => {
                 <Tab title="Tab 2">
                     <div id="tab2" />
                 </Tab>
-            </Tabs>
+            </Tabs>,
         )
 
         expect(tabs.find('#tab1')).toHaveLength(1)
@@ -71,7 +71,7 @@ describe('Tabs', () => {
             <Tabs onChange={f}>
                 <Tab title="Tab 1" value="1" />
                 <Tab title="Tab 2" value="2" />
-            </Tabs>
+            </Tabs>,
         )
 
         expect(f).not.toHaveBeenCalled()
@@ -92,7 +92,7 @@ describe('Tabs', () => {
                 <Tab title="Tab 2" disabled>
                     <div id="tab2" />
                 </Tab>
-            </Tabs>
+            </Tabs>,
         )
 
         expect(tabs.find('#tab1')).toHaveLength(1)
@@ -118,7 +118,7 @@ describe('Tabs', () => {
                     <Tab value={4} title="Tab 4">
                         Content
                     </Tab>
-                </Tabs>
+                </Tabs>,
             )
         }).toThrow()
     })
@@ -133,7 +133,7 @@ describe('Tabs', () => {
                     <Tab value={1} title="Tab 1">
                         Content
                     </Tab>
-                </Tabs>
+                </Tabs>,
             )
         }).not.toThrow()
     })

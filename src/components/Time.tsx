@@ -125,10 +125,7 @@ class Time extends React.Component<Props, State> {
                         text={
                             this.props.tooltip ||
                             (this.props.time &&
-                                TimeUtils.formatTimeLong(
-                                    this.props.time,
-                                    this.props.config
-                                ))
+                                TimeUtils.formatTimeLong(this.props.time, this.props.config))
                         }
                         delayShow={500}
                     >

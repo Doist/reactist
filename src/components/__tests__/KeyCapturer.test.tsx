@@ -1,10 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import KeyCapturer, {
-    KeyCapturerResolver,
-    SUPPORTED_KEYS,
-} from '../KeyCapturer'
+import KeyCapturer, { KeyCapturerResolver, SUPPORTED_KEYS } from '../KeyCapturer'
 
 describe('KeyCapturer', () => {
     describe('Capturer', () => {
@@ -113,12 +110,12 @@ describe('KeyCapturer', () => {
 
         // Helpers ////////////////////////////////////////////////////////////////
         const _getWrappedComponent = (
-            props?: Partial<React.ComponentProps<typeof KeyCapturer>>
+            props?: Partial<React.ComponentProps<typeof KeyCapturer>>,
         ) => {
             return shallow(
                 <KeyCapturer eventName="onKeyDown" {...props}>
                     <div>Hello World</div>
-                </KeyCapturer>
+                </KeyCapturer>,
             )
         }
     })
@@ -194,9 +191,7 @@ describe('KeyCapturer', () => {
             ]
             testCases.forEach((testCase) => {
                 it(testCase.description, () => {
-                    expect(
-                        KeyCapturerResolver.resolveByKey(testCase.input)
-                    ).toBe(testCase.expected)
+                    expect(KeyCapturerResolver.resolveByKey(testCase.input)).toBe(testCase.expected)
                 })
             })
         })
@@ -246,9 +241,9 @@ describe('KeyCapturer', () => {
             ]
             testCases.forEach((testCase) => {
                 it(testCase.description, () => {
-                    expect(
-                        KeyCapturerResolver.resolveByKeyCode(testCase.input)
-                    ).toBe(testCase.expected)
+                    expect(KeyCapturerResolver.resolveByKeyCode(testCase.input)).toBe(
+                        testCase.expected,
+                    )
                 })
             })
         })

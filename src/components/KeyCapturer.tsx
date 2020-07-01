@@ -75,10 +75,7 @@ const KeyCapturerResolver = {
     },
 }
 
-type KeyCapturerProps = Record<
-    string,
-    (() => void) | boolean | React.ReactChild
-> & {
+type KeyCapturerProps = Record<string, (() => void) | boolean | React.ReactChild> & {
     eventName?: 'onKeyDown' | 'onKeyDownCapture' | 'onKeyUp' | 'onKeyUpCapture'
 }
 

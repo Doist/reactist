@@ -45,53 +45,38 @@ const ModalHeaderOnlyStory = () => {
 }
 const ModalHeaderOnlyChapter = {
     subtitle: 'Header Only',
-    sections: [
-        { sectionFn: ModalHeaderOnlyStory, options: optionsNoSourceNoProps },
-    ],
+    sections: [{ sectionFn: ModalHeaderOnlyStory, options: optionsNoSourceNoProps }],
 }
 
 const ModalHeaderAndBodyStory = () => {
     const modal = (
         <Modal.Box closeOnOverlayClick>
-            <Modal.Header
-                title="Header of Modal"
-                subtitle="This is a smaller description"
-            />
-            <Modal.Body>
-                The Body of a Modal can contain whatever you like!
-            </Modal.Body>
+            <Modal.Header title="Header of Modal" subtitle="This is a smaller description" />
+            <Modal.Body>The Body of a Modal can contain whatever you like!</Modal.Body>
         </Modal.Box>
     )
     return getStory('Click me to launch a Modal with Header and Body', modal)
 }
 const ModalHeaderAndBodyChapter = {
     subtitle: 'Header and Body',
-    sections: [
-        { sectionFn: ModalHeaderAndBodyStory, options: optionsNoSourceNoProps },
-    ],
+    sections: [{ sectionFn: ModalHeaderAndBodyStory, options: optionsNoSourceNoProps }],
 }
 
 const ModalHeaderBodyAndActionsStory = () => {
     const modal = (
         <Modal.Box closeOnOverlayClick>
-            <Modal.Header
-                title="Header of Modal"
-                subtitle="This is a smaller description"
-            />
+            <Modal.Header title="Header of Modal" subtitle="This is a smaller description" />
             <Modal.Body>
-                The Body of a Modal can contain whatever you like! Like this
-                very long Lorem Ipsum
+                The Body of a Modal can contain whatever you like! Like this very long Lorem Ipsum
                 <br />
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industrys standard dummy text
-                ever since the 1500s, when an unknown printer took a galley of
-                type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.
             </Modal.Body>
             <Modal.Actions>
                 <Button white name="Does nothing" />
@@ -99,10 +84,7 @@ const ModalHeaderBodyAndActionsStory = () => {
             </Modal.Actions>
         </Modal.Box>
     )
-    return getStory(
-        'Click me to launch a Modal with Header, Body and Actions',
-        modal
-    )
+    return getStory('Click me to launch a Modal with Header, Body and Actions', modal)
 }
 const ModalHeaderBodyAndActionsChapter = {
     subtitle: 'Header, Body and Actions',
@@ -119,74 +101,61 @@ const ModalScrollableBodyStory = () => {
         <Modal.Box closeOnOverlayClick>
             <Modal.Header title="Header of Modal with Scrollable Body" />
             <Modal.Body>
-                The Body of a Modal can contain whatever you like! Like this
-                very long Lorem Ipsum
+                The Body of a Modal can contain whatever you like! Like this very long Lorem Ipsum
                 <br />
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industrys standard dummy text
-                ever since the 1500s, when an unknown printer took a galley of
-                type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.
                 <br />
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industrys standard dummy text
-                ever since the 1500s, when an unknown printer took a galley of
-                type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.
                 <br />
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industrys standard dummy text
-                ever since the 1500s, when an unknown printer took a galley of
-                type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.
                 <br />
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industrys standard dummy text
-                ever since the 1500s, when an unknown printer took a galley of
-                type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.
                 <br />
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industrys standard dummy text
-                ever since the 1500s, when an unknown printer took a galley of
-                type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.
                 <br />
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industrys standard dummy text
-                ever since the 1500s, when an unknown printer took a galley of
-                type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.
             </Modal.Body>
         </Modal.Box>
     )
@@ -207,26 +176,20 @@ const PlainMediumModalStory = () => {
         <Modal.Box medium closeOnOverlayClick>
             <Modal.Header title="Header of Modal" />
             <Modal.Body plain>
-                The Body of a Modal can contain whatever you like! Like this
-                very long Lorem Ipsum
+                The Body of a Modal can contain whatever you like! Like this very long Lorem Ipsum
                 <br />
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industrys standard dummy text
-                ever since the 1500s, when an unknown printer took a galley of
-                type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.
             </Modal.Body>
         </Modal.Box>
     )
-    return getStory(
-        'Click me to launch a medium-sized Modal with Header and plain Body',
-        modal
-    )
+    return getStory('Click me to launch a medium-sized Modal with Header and plain Body', modal)
 }
 const PlainMediumModalChapter = {
     subtitle: 'Header, Body and Actions',
@@ -249,10 +212,7 @@ const ModalPlaygroundStory = () => {
             >
                 <Modal.Header
                     title={text('Header: Title', 'Header of Modal')}
-                    subtitle={text(
-                        'Header: Subitle',
-                        'This is a smaller description'
-                    )}
+                    subtitle={text('Header: Subitle', 'This is a smaller description')}
                 />
                 <Modal.Body
                     plain={boolean('Body: Plain Style', false)}

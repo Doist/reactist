@@ -1,11 +1,6 @@
 import { storiesOf } from '@storybook/react'
 
-import {
-    introText,
-    howToText,
-    developmentText,
-    testingText,
-} from './ReactistStory.md'
+import { introText, howToText, developmentText, testingText } from './ReactistStory.md'
 
 const Story = () =>
     storiesOf('Reactist', module).addWithChapters('Welcome', {

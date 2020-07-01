@@ -18,9 +18,7 @@ function Checkbox({ label, disabled, checked = false, onChange }: Props) {
                 checked={checked}
                 disabled={disabled}
                 onChange={
-                    disabled || !onChange
-                        ? undefined
-                        : (event) => onChange(event.target.checked)
+                    disabled || !onChange ? undefined : (event) => onChange(event.target.checked)
                 }
                 type="checkbox"
             />

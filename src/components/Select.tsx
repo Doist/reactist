@@ -25,25 +25,13 @@ type Props = {
     options?: Option[]
 }
 
-function Select({
-    value,
-    options = [],
-    onChange,
-    disabled = true,
-    className = '',
-}: Props) {
-    const selectClassName = classNames(
-        'reactist_select',
-        { disabled },
-        className
-    )
+function Select({ value, options = [], onChange, disabled = true, className = '' }: Props) {
+    const selectClassName = classNames('reactist_select', { disabled }, className)
     return (
         <select
             className={selectClassName}
             value={value}
-            onChange={(event) =>
-                onChange ? onChange(event.target.value) : undefined
-            }
+            onChange={(event) => (onChange ? onChange(event.target.value) : undefined)}
             disabled={disabled}
         >
             {options &&

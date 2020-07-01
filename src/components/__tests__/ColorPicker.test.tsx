@@ -10,9 +10,7 @@ describe('ColorPicker', () => {
     })
 
     it('renders with custom colorList', () => {
-        const colorPicker = shallow(
-            getColorPicker({ colorList: ['red', 'green', '#0000FF'] })
-        )
+        const colorPicker = shallow(getColorPicker({ colorList: ['red', 'green', '#0000FF'] }))
         expect(colorPicker).toMatchSnapshot()
     })
 
@@ -25,7 +23,7 @@ describe('ColorPicker', () => {
 
         it('adds active class when prop is supplied', () => {
             const colorItem = shallow(
-                getColorItem({ isActive: true, colorIndex: 5, color: '#fff' })
+                getColorItem({ isActive: true, colorIndex: 5, color: '#fff' }),
             )
             expect(colorItem.hasClass('active')).toBe(true)
         })
@@ -37,7 +35,7 @@ describe('ColorPicker', () => {
                     colorIndex: 5,
                     onClick: onClickSpy,
                     color: '#fff',
-                })
+                }),
             )
             colorItem.simulate('click')
             expect(onClickSpy).toHaveBeenLastCalledWith(5)
@@ -45,9 +43,9 @@ describe('ColorPicker', () => {
     })
 
     // Helpers ================================================================
-    const getColorPicker = (
-        props?: React.ComponentProps<typeof ColorPicker>
-    ) => <ColorPicker {...props} />
+    const getColorPicker = (props?: React.ComponentProps<typeof ColorPicker>) => (
+        <ColorPicker {...props} />
+    )
     const getColorItem = (props?: React.ComponentProps<typeof ColorItem>) => (
         <ColorItem color="#606060" colorIndex={0} {...props} />
     )

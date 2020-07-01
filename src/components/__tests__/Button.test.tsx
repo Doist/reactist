@@ -43,26 +43,19 @@ describe('Button', () => {
     })
 
     it('renders a tooltip when prop is supplied', () => {
-        const button = shallow(
-            <Button name="THE BUTTON TEXT" data_tip="THE TOOLTIP" />
-        )
+        const button = shallow(<Button name="THE BUTTON TEXT" data_tip="THE TOOLTIP" />)
         expect(toJson(button)).toMatchSnapshot()
     })
 
     it('adds additional className when supplied', () => {
         const button = shallow(
-            <Button
-                name="THE BUTTON TEXT"
-                className="very-complex classnames-are-added"
-            />
+            <Button name="THE BUTTON TEXT" className="very-complex classnames-are-added" />,
         )
         expect(toJson(button)).toMatchSnapshot()
     })
 
     it('applies any extra props to the underlying button', () => {
-        const button = shallow(
-            <Button name="THE BUTTON TEXT" type="submit" form="form-id" />
-        )
+        const button = shallow(<Button name="THE BUTTON TEXT" type="submit" form="form-id" />)
         expect(toJson(button)).toMatchSnapshot()
     })
 })

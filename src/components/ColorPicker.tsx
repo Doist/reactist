@@ -24,8 +24,7 @@ const COLORS = [
     '#CCCCCC',
 ]
 
-const _isNamedColor = (color: string | NamedColor): color is NamedColor =>
-    typeof color !== 'string'
+const _isNamedColor = (color: string | NamedColor): color is NamedColor => typeof color !== 'string'
 
 const _getColor = (colorList: (string | NamedColor)[], colorIndex: number) => {
     const index = colorIndex >= colorList.length ? 0 : colorIndex
@@ -39,12 +38,7 @@ type Props = {
     colorList?: (string | NamedColor)[]
 }
 
-function ColorPicker({
-    color = 0,
-    small,
-    onChange,
-    colorList = COLORS,
-}: Props) {
+function ColorPicker({ color = 0, small, onChange, colorList = COLORS }: Props) {
     return (
         <Dropdown.Box right className="reactist_color_picker">
             <Dropdown.Trigger>
@@ -77,18 +71,12 @@ function ColorPicker({
                                 }
                                 key={currentIndex}
                                 color={
-                                    _isNamedColor(currentColor)
-                                        ? currentColor.color
-                                        : currentColor
+                                    _isNamedColor(currentColor) ? currentColor.color : currentColor
                                 }
                                 colorIndex={currentIndex}
                                 onClick={onChange}
-                                tooltip={
-                                    _isNamedColor(currentColor)
-                                        ? currentColor.name
-                                        : null
-                                }
-                            />
+                                tooltip={_isNamedColor(currentColor) ? currentColor.name : null}
+                            />,
                         )
                         return items
                     }, [] as React.ReactNode[])}
@@ -107,13 +95,7 @@ type ColorItemProps = {
     tooltip?: React.ReactNode
 }
 
-function ColorItem({
-    color,
-    colorIndex,
-    isActive,
-    onClick,
-    tooltip,
-}: ColorItemProps) {
+function ColorItem({ color, colorIndex, isActive, onClick, tooltip }: ColorItemProps) {
     const item = (
         <span
             className={'reactist color_item' + (isActive ? ' active' : '')}

@@ -12,9 +12,7 @@ describe('MenuButton', () => {
 
         it('calls onClick callback when rendering without items', () => {
             const onClickSpy = jest.fn()
-            const menuButton = shallow(
-                <MenuButton name="Test Menu" onClick={onClickSpy} />
-            )
+            const menuButton = shallow(<MenuButton name="Test Menu" onClick={onClickSpy} />)
 
             menuButton.simulate('click')
             expect(onClickSpy).toHaveBeenCalled()
@@ -27,7 +25,7 @@ describe('MenuButton', () => {
                 <MenuButton name="Test Menu">
                     <MenuButtonItem>Item 1</MenuButtonItem>
                     <MenuButtonItem>Item 2</MenuButtonItem>
-                </MenuButton>
+                </MenuButton>,
             )
             expect(menuButton).toMatchSnapshot()
         })
@@ -37,13 +35,9 @@ describe('MenuButton', () => {
             const onClickSpy2 = jest.fn()
             const menuButton = shallow(
                 <MenuButton name="Test Menu">
-                    <MenuButtonItem onClick={onClickSpy1}>
-                        Item 1
-                    </MenuButtonItem>
-                    <MenuButtonItem onClick={onClickSpy2}>
-                        Item 2
-                    </MenuButtonItem>
-                </MenuButton>
+                    <MenuButtonItem onClick={onClickSpy1}>Item 1</MenuButtonItem>
+                    <MenuButtonItem onClick={onClickSpy2}>Item 2</MenuButtonItem>
+                </MenuButton>,
             )
 
             menuButton.find('MenuButtonItem').get(0).props.onClick()
@@ -56,9 +50,7 @@ describe('MenuButton', () => {
 
         it('can use item without menu', () => {
             const onClickSpy = jest.fn()
-            const item = shallow(
-                <MenuButtonItem onClick={onClickSpy}>Item 1</MenuButtonItem>
-            )
+            const item = shallow(<MenuButtonItem onClick={onClickSpy}>Item 1</MenuButtonItem>)
 
             item.simulate('click')
             expect(onClickSpy).toHaveBeenCalled()

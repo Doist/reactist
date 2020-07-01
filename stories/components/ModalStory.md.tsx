@@ -46,10 +46,4 @@ const modalActionsText = `
     \`\`\`
 `
 
-export {
-    howToText,
-    modalBoxText,
-    modalHeaderText,
-    modalBodyText,
-    modalActionsText,
-}
+export { howToText, modalBoxText, modalHeaderText, modalBodyText, modalActionsText }

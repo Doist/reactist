@@ -9,9 +9,7 @@ module.exports = {
     rollup(config, options) {
         if (config.output.format === 'esm') {
             config.input = {
-                ...getComponentsMap(
-                    path.resolve(__dirname, './src/components')
-                ),
+                ...getComponentsMap(path.resolve(__dirname, './src/components')),
                 index: path.resolve(__dirname, './src/index.ts'),
             }
             config.output.dir = 'dist'
@@ -34,7 +32,7 @@ module.exports = {
                 ],
                 inject: false,
                 extract: 'reactist.css',
-            })
+            }),
         )
         return config
     },

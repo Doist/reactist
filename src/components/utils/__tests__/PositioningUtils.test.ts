@@ -29,7 +29,7 @@ describe('PositioningUtils', () => {
                 wrapperDimensions,
                 wrapperPosition,
                 elementDimensions,
-                gap
+                gap,
             )
             expect(position).toEqual(topCenterPosition)
         })
@@ -37,7 +37,7 @@ describe('PositioningUtils', () => {
             const position = calculateTopCenterPosition(
                 wrapperDimensions,
                 wrapperPosition,
-                elementDimensions
+                elementDimensions,
             )
             expect(position).toEqual(topCenterPositionWithoutGap)
         })
@@ -47,7 +47,7 @@ describe('PositioningUtils', () => {
                 wrapperDimensions,
                 wrapperPosition,
                 elementDimensions,
-                gap
+                gap,
             )
             expect(position).toEqual(bottomCenterPosition)
         })
@@ -55,7 +55,7 @@ describe('PositioningUtils', () => {
             const position = calculateBottomCenterPosition(
                 wrapperDimensions,
                 wrapperPosition,
-                elementDimensions
+                elementDimensions,
             )
             expect(position).toEqual(bottomCenterPositionWithoutGap)
         })
@@ -65,7 +65,7 @@ describe('PositioningUtils', () => {
                 wrapperDimensions,
                 wrapperPosition,
                 elementDimensions,
-                gap
+                gap,
             )
             expect(position).toEqual(rightCenterPosition)
         })
@@ -73,7 +73,7 @@ describe('PositioningUtils', () => {
             const position = calculateRightCenterPosition(
                 wrapperDimensions,
                 wrapperPosition,
-                elementDimensions
+                elementDimensions,
             )
             expect(position).toEqual(rightCenterPositionWithoutGap)
         })
@@ -83,7 +83,7 @@ describe('PositioningUtils', () => {
                 wrapperDimensions,
                 wrapperPosition,
                 elementDimensions,
-                gap
+                gap,
             )
             expect(position).toEqual(leftCenterPosition)
         })
@@ -91,7 +91,7 @@ describe('PositioningUtils', () => {
             const position = calculateLeftCenterPosition(
                 wrapperDimensions,
                 wrapperPosition,
-                elementDimensions
+                elementDimensions,
             )
             expect(position).toEqual(leftCenterPositionWithoutGap)
         })
@@ -102,28 +102,28 @@ describe('PositioningUtils', () => {
                 wrapperDimensions,
                 wrapperPosition,
                 elementDimensions,
-                gap
+                gap,
             )
             const rightPosition = calculatePosition(
                 'right',
                 wrapperDimensions,
                 wrapperPosition,
                 elementDimensions,
-                gap
+                gap,
             )
             const bottomPosition = calculatePosition(
                 'bottom',
                 wrapperDimensions,
                 wrapperPosition,
                 elementDimensions,
-                gap
+                gap,
             )
             const leftPosition = calculatePosition(
                 'left',
                 wrapperDimensions,
                 wrapperPosition,
                 elementDimensions,
-                gap
+                gap,
             )
 
             expect(topPosition).toEqual(topCenterPosition)
@@ -136,25 +136,25 @@ describe('PositioningUtils', () => {
                 'top',
                 wrapperDimensions,
                 wrapperPosition,
-                elementDimensions
+                elementDimensions,
             )
             const rightPosition = calculatePosition(
                 'right',
                 wrapperDimensions,
                 wrapperPosition,
-                elementDimensions
+                elementDimensions,
             )
             const bottomPosition = calculatePosition(
                 'bottom',
                 wrapperDimensions,
                 wrapperPosition,
-                elementDimensions
+                elementDimensions,
             )
             const leftPosition = calculatePosition(
                 'left',
                 wrapperDimensions,
                 wrapperPosition,
-                elementDimensions
+                elementDimensions,
             )
 
             expect(topPosition).toEqual(topCenterPositionWithoutGap)
@@ -168,7 +168,7 @@ describe('PositioningUtils', () => {
                 'invalid',
                 wrapperDimensions,
                 wrapperPosition,
-                elementDimensions
+                elementDimensions,
             )
             expect(position).toEqual(wrapperPosition)
         })
@@ -191,7 +191,7 @@ describe('PositioningUtils', () => {
             description: string,
             wrapperPosition: { x: number; y: number },
             position: 'top' | 'right' | 'bottom' | 'left',
-            expectedResult: boolean
+            expectedResult: boolean,
         ) => ({
             description,
             params: getParams({ wrapperPosition, position }),
@@ -204,76 +204,76 @@ describe('PositioningUtils', () => {
                 'has NOT enough space for top placement when wrapper is at the top edge',
                 { x: 0, y: 0 },
                 'top',
-                false
+                false,
             ),
             getTestCase(
                 'has NOT enough space for top placement when wrapper is too close to top',
                 { x: 0, y: 24 },
                 'top',
-                false
+                false,
             ),
             getTestCase(
                 'has enough space for top placement as soon as element + gap fits',
                 { x: 0, y: 25 },
                 'top',
-                true
+                true,
             ),
             // RIGHT placement ==================================================
             getTestCase(
                 'has NOT enough space for right placement when wrapper is at the right edge',
                 { x: 100, y: 50 },
                 'right',
-                false
+                false,
             ),
             getTestCase(
                 'has NOT enough space for right placement when wrapper is too close to the right edge',
                 { x: 6, y: 50 },
                 'right',
-                false
+                false,
             ),
             getTestCase(
                 'has enough space for right placement as soon as element + gap fits',
                 { x: 5, y: 50 },
                 'right',
-                true
+                true,
             ),
             // BOTTOM placement ==================================================
             getTestCase(
                 'has NOT enough space for bottom placement when wrapper is at the bottom edge',
                 { x: 0, y: 100 },
                 'bottom',
-                false
+                false,
             ),
             getTestCase(
                 'has NOT enough space for bottom placement when wrapper is too close to the bottom',
                 { x: 0, y: 56 },
                 'bottom',
-                false
+                false,
             ),
             getTestCase(
                 'has enough space for bottom placement as soon as element + gap fits',
                 { x: 0, y: 55 },
                 'bottom',
-                true
+                true,
             ),
             // LEFT placement ==================================================
             getTestCase(
                 'has NOT enough space for left placement when wrapper is at the left edge',
                 { x: 0, y: 50 },
                 'left',
-                false
+                false,
             ),
             getTestCase(
                 'has NOT enough space for left placement when wrapper is too close to the left',
                 { x: 44, y: 50 },
                 'left',
-                false
+                false,
             ),
             getTestCase(
                 'has enough space for left placement as soon as element + gap fits',
                 { x: 45, y: 50 },
                 'left',
-                true
+                true,
             ),
             // edge cases =====================================================
             {
@@ -295,8 +295,7 @@ describe('PositioningUtils', () => {
                 expectedResult: true,
             },
             {
-                description:
-                    'has NOT enough space for top placement when wrapper is too wide',
+                description: 'has NOT enough space for top placement when wrapper is too wide',
                 params: getParams({
                     elementDimensions: { height: 20, width: 51 },
                     wrapperPosition: { x: 50, y: 30 },
@@ -305,8 +304,7 @@ describe('PositioningUtils', () => {
                 expectedResult: false,
             },
             {
-                description:
-                    'has NOT enough space for right placement when wrapper is too high',
+                description: 'has NOT enough space for right placement when wrapper is too high',
                 params: getParams({
                     elementDimensions: { height: 16, width: 41 },
                     wrapperPosition: { x: 5, y: 10 },
@@ -323,7 +321,7 @@ describe('PositioningUtils', () => {
                     testCase.params.wrapperDimensions,
                     testCase.params.wrapperPosition,
                     testCase.params.position,
-                    testCase.params.gap
+                    testCase.params.gap,
                 )
                 expect(result).toBe(testCase.expectedResult)
             })

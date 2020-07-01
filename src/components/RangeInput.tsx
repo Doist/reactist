@@ -43,9 +43,7 @@ function RangeInput({
         <div className={rangeInputClassName}>
             <span
                 className="range_btn minus"
-                onClick={() =>
-                    value > min && onMinus && onMinus(value - stepSize)
-                }
+                onClick={() => value > min && onMinus && onMinus(value - stepSize)}
             />
             <input
                 value={value}
@@ -54,15 +52,11 @@ function RangeInput({
                 min={min}
                 max={max}
                 step={stepSize}
-                onChange={(event) =>
-                    onChange && onChange(parseInt(event.target.value))
-                }
+                onChange={(event) => onChange && onChange(parseInt(event.target.value))}
             />
             <span
                 className="range_btn plus"
-                onClick={() =>
-                    value < max && onPlus && onPlus(value + stepSize)
-                }
+                onClick={() => value < max && onPlus && onPlus(value + stepSize)}
             />
         </div>
     )

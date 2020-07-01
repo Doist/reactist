@@ -31,8 +31,7 @@ type Props = {
 }
 
 class Button extends React.Component<
-    Props &
-        Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'name' | 'onClick'>
+    Props & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'name' | 'onClick'>
 > {
     public static displayName: string
     public static defaultProps: Partial<Props>
@@ -71,7 +70,7 @@ class Button extends React.Component<
                 busy: loading,
                 danger,
             },
-            className
+            className,
         )
 
         const button = (

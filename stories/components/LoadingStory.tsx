@@ -4,11 +4,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, number } from '@storybook/addon-knobs'
 
-import {
-    getPropTypesStory,
-    optionsNoSourceNoProps,
-    optionsSourceOnly,
-} from '../utils/StoryUtils'
+import { getPropTypesStory, optionsNoSourceNoProps, optionsSourceOnly } from '../utils/StoryUtils'
 
 import Loading from '../../src/components/Loading'
 
@@ -16,9 +12,7 @@ import Loading from '../../src/components/Loading'
 const LoadingPropTypesStory = getPropTypesStory(Loading)
 const LoadingPropTypesChapter = {
     subtitle: 'Component Usage',
-    sections: [
-        { sectionFn: LoadingPropTypesStory, options: optionsNoSourceNoProps },
-    ],
+    sections: [{ sectionFn: LoadingPropTypesStory, options: optionsNoSourceNoProps }],
 }
 
 const LoadingStory = () => (

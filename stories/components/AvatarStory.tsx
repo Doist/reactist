@@ -4,11 +4,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, select } from '@storybook/addon-knobs'
 
-import {
-    getPropTypesStory,
-    optionsNoSourceNoProps,
-    optionsSourceOnly,
-} from '../utils/StoryUtils'
+import { getPropTypesStory, optionsNoSourceNoProps, optionsSourceOnly } from '../utils/StoryUtils'
 
 import Avatar from '../../src/components/Avatar'
 
@@ -59,9 +55,7 @@ const exampleData = [
 const AvatarPropTypesStory = getPropTypesStory(Avatar)
 const AvatarPropTypesChapter = {
     subtitle: 'Component Usage',
-    sections: [
-        { sectionFn: AvatarPropTypesStory, options: optionsNoSourceNoProps },
-    ],
+    sections: [{ sectionFn: AvatarPropTypesStory, options: optionsNoSourceNoProps }],
 }
 
 const InitialsAvatarStory = () => (
@@ -80,12 +74,7 @@ const CustomColorAvatarStory = () => (
     <section className="story avatars">
         {exampleData.map((data, index) => (
             <Avatar
-                colorList={[
-                    'palevioletred',
-                    'palegoldenrod',
-                    'palegreen',
-                    'paleturquoise',
-                ]}
+                colorList={['palevioletred', 'palegoldenrod', 'palegreen', 'paleturquoise']}
                 key={index}
                 size={data.size}
                 user={data.user}
@@ -95,20 +84,13 @@ const CustomColorAvatarStory = () => (
 )
 const CustomColorAvatarChapter = {
     subtitle: 'Avatars with Initials and Custom Colors',
-    sections: [
-        { sectionFn: CustomColorAvatarStory, options: optionsSourceOnly },
-    ],
+    sections: [{ sectionFn: CustomColorAvatarStory, options: optionsSourceOnly }],
 }
 
 const PictureAvatarStory = () => (
     <section className="story avatars">
         {exampleData.map((data, index) => (
-            <Avatar
-                key={index}
-                size={data.size}
-                user={data.user}
-                avatarUrl={data.image}
-            />
+            <Avatar key={index} size={data.size} user={data.user} avatarUrl={data.image} />
         ))}
     </section>
 )
@@ -125,11 +107,7 @@ const AvatarPlaygroundStory = () => (
                 email: text('User Email', ''),
             }}
             avatarUrl={text('Avatar URL', 'https://loremflickr.com/320/320')}
-            size={select(
-                'Avatar Size',
-                ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'],
-                'l'
-            )}
+            size={select('Avatar Size', ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'], 'l')}
         />
     </section>
 )

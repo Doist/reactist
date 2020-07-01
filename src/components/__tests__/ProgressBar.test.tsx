@@ -11,7 +11,7 @@ describe('ProgressBar', () => {
 
     it('uses 0% width for fillPercentages smaller than 0', () => {
         const progressBar: ShallowWrapper<typeof ProgressBar> = shallow(
-            <ProgressBar fillPercentage={-1} />
+            <ProgressBar fillPercentage={-1} />,
         )
         expect(progressBar.find('.inner').props().style?.width).toBe('0%')
     })

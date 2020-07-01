@@ -60,7 +60,7 @@ class Icon extends React.Component<Props, State> {
                 'reactist_icon--component': !image,
                 disabled,
             },
-            this.props.className
+            this.props.className,
         )
 
         const style: React.CSSProperties | undefined =
@@ -71,13 +71,7 @@ class Icon extends React.Component<Props, State> {
                 : undefined // only apply style for image components
         const iconComponent =
             !image &&
-            (icon ? (
-                icon
-            ) : (
-                <ThreeDotsIcon
-                    color={this.state.hovered ? '#474747' : undefined}
-                />
-            )) // only set icon component for non-image components
+            (icon ? icon : <ThreeDotsIcon color={this.state.hovered ? '#474747' : undefined} />) // only set icon component for non-image components
 
         const component = (
             /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -93,11 +87,7 @@ class Icon extends React.Component<Props, State> {
             </a>
             /* eslint-enable jsx-a11y/anchor-is-valid */
         )
-        return tooltip ? (
-            <Tooltip text={tooltip}>{component}</Tooltip>
-        ) : (
-            component
-        )
+        return tooltip ? <Tooltip text={tooltip}>{component}</Tooltip> : component
     }
 }
 Icon.displayName = 'Icon'

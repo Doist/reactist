@@ -31,7 +31,7 @@ class LinkButton extends React.Component<Props> {
             {
                 disabled: this.props.disabled,
             },
-            this.props.className
+            this.props.className,
         )
         return (
             /* eslint-disable jsx-a11y/anchor-is-valid */

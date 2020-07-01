@@ -53,9 +53,7 @@ describe('Time', () => {
     })
 
     it('adds additional class name if supplied', () => {
-        const time = shallow(
-            <Time time={testDate} className="this-classes were-added" />
-        )
+        const time = shallow(<Time time={testDate} className="this-classes were-added" />)
         expect(toJson(time)).toMatchSnapshot()
     })
 
@@ -65,24 +63,18 @@ describe('Time', () => {
     })
 
     it('renders with custom tooltip when supplied', () => {
-        const time = shallow(
-            <Time time={testDate} tooltipOnHover tooltip="Test" />
-        )
+        const time = shallow(<Time time={testDate} tooltipOnHover tooltip="Test" />)
         expect(time).toMatchSnapshot()
     })
 
     it('does not render short absolute time on hover when tooltipOnHover is set', () => {
-        const time = shallow(
-            <Time time={dayjs().unix()} tooltipOnHover expandOnHover />
-        )
+        const time = shallow(<Time time={dayjs().unix()} tooltipOnHover expandOnHover />)
         time.simulate('mouseEnter', getMouseEvent())
         expect(time.find('Tooltip').props().children).toBe('moments ago')
     })
 
     it('does not render full absolute time on hover when tooltipOnHover is set', () => {
-        const time = shallow(
-            <Time time={dayjs().unix()} tooltipOnHover expandFullyOnHover />
-        )
+        const time = shallow(<Time time={dayjs().unix()} tooltipOnHover expandFullyOnHover />)
         time.simulate('mouseEnter', getMouseEvent())
         expect(time.find('Tooltip').props().children).toBe('moments ago')
     })

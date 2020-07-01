@@ -21,11 +21,7 @@ const BASE_CONFIG = {
         sourceMapFilename: 'reactist.map',
     },
     resolve: {
-        modules: [
-            path.resolve(__dirname, 'node_modules'),
-            'node_modules',
-            'src',
-        ],
+        modules: [path.resolve(__dirname, 'node_modules'), 'node_modules', 'src'],
         extensions: ['.webpack.js', '.js', '.jsx', '.ts', '.tsx'],
     },
     module: {

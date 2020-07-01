@@ -52,40 +52,24 @@ class Box extends React.Component<React.PropsWithChildren<Props>> {
     _handleOverlayClick(event: React.MouseEvent<Element>) {
         if (
             event.target instanceof Element &&
-            (event.target.id === 'reactist-overlay' ||
-                event.target.id === 'reactist-overlay-inner')
+            (event.target.id === 'reactist-overlay' || event.target.id === 'reactist-overlay-inner')
         ) {
             this._closeModal()
         }
     }
 
     render() {
-        const {
-            large,
-            medium,
-            style,
-            children,
-            closeOnOverlayClick,
-        } = this.props
+        const { large, medium, style, children, closeOnOverlayClick } = this.props
 
-        const className = classnames(
-            'reactist_modal_box',
-            { large, medium },
-            this.props.className
-        )
+        const className = classnames('reactist_modal_box', { large, medium }, this.props.className)
 
         return (
             <div
                 className="reactist_overlay"
                 id="reactist-overlay"
-                onClick={
-                    closeOnOverlayClick ? this._handleOverlayClick : undefined
-                }
+                onClick={closeOnOverlayClick ? this._handleOverlayClick : undefined}
             >
-                <div
-                    className="reactist_overlay_inner"
-                    id="reactist-overlay-inner"
-                >
+                <div className="reactist_overlay_inner" id="reactist-overlay-inner">
                     <div style={style} className={className}>
                         {children}
                     </div>
@@ -128,19 +112,11 @@ class Header extends React.Component<HeaderProps> {
             /* eslint-disable jsx-a11y/anchor-is-valid */
             <div className="reactist_modal_box__header">
                 <p>
-                    {this.props.title && (
-                        <span className="title">{this.props.title}</span>
-                    )}
-                    {this.props.subtitle && (
-                        <span className="subtitle">{this.props.subtitle}</span>
-                    )}
+                    {this.props.title && <span className="title">{this.props.title}</span>}
+                    {this.props.subtitle && <span className="subtitle">{this.props.subtitle}</span>}
                     {this.props.children}
                 </p>
-                <a
-                    className="close"
-                    onClick={this._closeModal.bind(this)}
-                    href="#"
-                >
+                <a className="close" onClick={this._closeModal.bind(this)} href="#">
                     <CloseIcon />
                 </a>
             </div>
@@ -178,21 +154,13 @@ class Body extends React.Component<BodyProps> {
 
     render() {
         const { icon, plain, children, style, showCloseIcon } = this.props
-        const className = classnames(
-            'reactist_modal_box__body',
-            { plain },
-            this.props.className
-        )
+        const className = classnames('reactist_modal_box__body', { plain }, this.props.className)
 
         return (
             /* eslint-disable jsx-a11y/anchor-is-valid */
             <div className={className} style={style}>
                 {showCloseIcon && (
-                    <a
-                        className="close"
-                        onClick={this._closeModal.bind(this)}
-                        href="#"
-                    >
+                    <a className="close" onClick={this._closeModal.bind(this)} href="#">
                         <CloseIcon />
                     </a>
                 )}
@@ -252,7 +220,7 @@ class Actions extends React.Component<ActionProps> {
                 } else {
                     return child ? React.cloneElement(child) : <></>
                 }
-            }
+            },
         )
 
         return <div className="reactist_modal_box__actions">{children}</div>

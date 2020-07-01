@@ -10,18 +10,14 @@ describe('LinkButton', () => {
     })
 
     it('appends additionally supplied classnames', () => {
-        const linkButton = shallow(
-            <LinkButton name="link" className="extra-brand-style" />
-        )
+        const linkButton = shallow(<LinkButton name="link" className="extra-brand-style" />)
         expect(linkButton).toMatchSnapshot()
     })
 
     it('calls onClick handler when supplied and prevents default behaviour of link', () => {
         const clickSpy = jest.fn()
         const defaultPreventionSpy = jest.fn()
-        const linkButton = shallow(
-            <LinkButton name="link" onClick={clickSpy} />
-        )
+        const linkButton = shallow(<LinkButton name="link" onClick={clickSpy} />)
 
         linkButton.simulate('click', { preventDefault: defaultPreventionSpy })
         expect(clickSpy).toHaveBeenCalled()
@@ -31,9 +27,7 @@ describe('LinkButton', () => {
     it('does not call onClick handler when disabled but prevents default behaviour of link', () => {
         const clickSpy = jest.fn()
         const defaultPreventionSpy = jest.fn()
-        const linkButton = shallow(
-            <LinkButton name="link" disabled onClick={clickSpy} />
-        )
+        const linkButton = shallow(<LinkButton name="link" disabled onClick={clickSpy} />)
 
         linkButton.simulate('click', { preventDefault: defaultPreventionSpy })
         expect(clickSpy).not.toHaveBeenCalled()
