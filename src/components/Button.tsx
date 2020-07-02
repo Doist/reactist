@@ -1,104 +1,93 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+import classNames from 'classnames'
+import Tooltip from './Tooltip'
 import './styles/button.less'
 
-import React from 'react'
-import classNames from 'classnames'
+type NativeButtonProps = React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+>
 
-import Tooltip from './Tooltip'
-
-type Props = {
-    /** Disabled style. Prevents onClick from being called. */
-    disabled?: boolean
-    /** Loading style. Prevents onClick from being called. */
+type Props = Omit<NativeButtonProps, 'title'> & {
+    /**
+     * Loading style. When true it disables the button, but it also adds a visual indication of
+     * some in-progress operation going on.
+     */
     loading?: boolean
-    className?: string
-    /** Secondary style. */
-    secondary?: boolean
-    /** Small style. */
-    small?: boolean
-    /** White style. */
-    white?: boolean
-    /** Large style. */
-    large?: boolean
-    /** Danger style. */
-    danger?: boolean
-    /** Tooltip that is displayed on hover. */
-    data_tip?: string
-    /** Text that is displayed on the button. */
-    name?: React.ReactNode
-    /** Handler for onClick */
-    onClick: () => void
+    /**
+     * Controls visually how the button shows up from a predefined set of kinds of buttons.
+     *
+     * Note: the 'white' variant is considered deprecated. Use 'secondary' instead.
+     */
+    variant: 'primary' | 'secondary' | 'danger' | 'white'
+    /**
+     * The size of the button. If not provided it shows up in a normal size.
+     */
+    size?: 'default' | 'small' | 'large'
+    /**
+     * Tooltip that is displayed on hover.
+     *
+     * This replaces `title` which is not supported for these buttons to avoid confusion.
+     */
+    tooltip?: string
+    /**
+     * A flag to make outer elements know this button is meant to close something (e.g. in
+     * Modal.Actions).
+     *
+     * @deprecated This is being removed in favor of being explicit in calling whatever action the
+     *   button should perform when clicked.
+     */
     close?: boolean
 }
 
-class Button extends React.Component<
-    Props & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'name' | 'onClick'>
-> {
-    public static displayName: string
-    public static defaultProps: Partial<Props>
+function Button({
+    type = 'button',
+    variant,
+    size = 'default',
+    loading = false,
+    disabled = false,
+    tooltip,
+    onClick,
+    children,
+    ...props
+}: Props) {
+    const className = classNames(
+        'reactist_button',
+        `reactist_button--${variant}`,
+        size !== 'default' ? `reactist_button--${size}` : null,
+        { 'reactist_button--loading': loading },
+        props.className,
+    )
 
-    _onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault()
-        if (!this.props.disabled && !this.props.loading && this.props.onClick) {
-            this.props.onClick()
-        }
-    }
+    const button = (
+        <button
+            {...props}
+            type={type}
+            className={className}
+            disabled={disabled || loading}
+            onClick={onClick}
+        >
+            {children}
+        </button>
+    )
 
-    render() {
-        const {
-            className,
-            secondary,
-            small,
-            large,
-            white,
-            loading,
-            danger,
-            disabled,
-            name,
-            //eslint-disable-next-line @typescript-eslint/camelcase
-            data_tip,
-            onClick,
-            ...extraProps
-        } = this.props
-
-        const buttonClass = classNames(
-            'reactist_button',
-            {
-                secondary,
-                small,
-                large,
-                white,
-                busy: loading,
-                danger,
-            },
-            className,
-        )
-
-        const button = (
-            <button
-                className={buttonClass}
-                disabled={disabled}
-                onClick={this._onClick}
-                {...extraProps}
-            >
-                <div className="wrapper">
-                    <span>{name}</span>
-                </div>
-            </button>
-        )
-
-        // conditionally wrap into tooltip
-        //eslint-disable-next-line @typescript-eslint/camelcase
-        return data_tip ? <Tooltip text={data_tip}>{button}</Tooltip> : button
-    }
+    return tooltip ? <Tooltip text={tooltip}>{button}</Tooltip> : button
 }
+
 Button.displayName = 'Button'
+
+Button.propTypes = {
+    loading: PropTypes.bool,
+    variant: PropTypes.oneOf(['primary', 'secondary', 'white', 'danger']).isRequired,
+    size: PropTypes.oneOf(['default', 'small', 'large']),
+    tooltip: PropTypes.string,
+}
+
 Button.defaultProps = {
-    secondary: false,
-    small: false,
-    white: false,
+    size: 'default',
     loading: false,
     disabled: false,
-    danger: false,
 }
 
 export default Button
