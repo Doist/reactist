@@ -11,8 +11,7 @@ type Props = {
 }
 function ProgressBar({ fillPercentage = 0, className }: Props) {
     const finalClassName = classNames('reactist_progress_bar', className)
-    const width =
-        fillPercentage < 0 ? 0 : fillPercentage > 100 ? 100 : fillPercentage
+    const width = fillPercentage < 0 ? 0 : fillPercentage > 100 ? 100 : fillPercentage
     return (
         <div className={finalClassName}>
             <div className="inner" style={{ width: `${width}%` }} />

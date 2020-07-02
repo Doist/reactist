@@ -24,31 +24,28 @@ class Tabs extends React.Component<React.PropsWithChildren<Props>, State> {
     constructor(props: Props, context: unknown) {
         super(props, context)
         const { defaultTab, onChange } = props
-        const children = React.Children.toArray(
-            this.props.children
-        ) as React.Component<TabProps>[]
+        const children = React.Children.toArray(this.props.children) as React.Component<TabProps>[]
 
         const hasDefault = defaultTab || defaultTab === 0
         if (hasDefault || onChange) {
             if (children) {
                 const missing = children.find(
-                    (c: React.Component<TabProps>) =>
-                        !c.props.value && c.props.value !== 0
+                    (c: React.Component<TabProps>) => !c.props.value && c.props.value !== 0,
                 )
                 if (missing)
                     throw new Error(
-                        '(Tab) Missing property: all Tab must have "value" set if "defaultTab" or "onChange" is used'
+                        '(Tab) Missing property: all Tab must have "value" set if "defaultTab" or "onChange" is used',
                     )
             }
         }
 
         if (hasDefault && children) {
             const i = children.findIndex(
-                (x: React.Component<TabProps>) => x.props.value === defaultTab
+                (x: React.Component<TabProps>) => x.props.value === defaultTab,
             )
             if (i === -1)
                 throw new Error(
-                    `(Tabs) Unable to find Tab with the matching defaultTab value "${defaultTab}"`
+                    `(Tabs) Unable to find Tab with the matching defaultTab value "${defaultTab}"`,
                 )
 
             this.state = { activeTabIndex: i }
@@ -92,21 +89,14 @@ class Tabs extends React.Component<React.PropsWithChildren<Props>, State> {
 
     render() {
         // ensures that single or no child components don't throw
-        const children = React.Children.toArray(
-            this.props.children
-        ) as React.Component<TabProps>[]
-        const activeTab =
-            children[this.state.activeTabIndex] || children[0] || null
+        const children = React.Children.toArray(this.props.children) as React.Component<TabProps>[]
+        const activeTab = children[this.state.activeTabIndex] || children[0] || null
 
-        const cls = classNames(
-            `reactist_tabs${this.props.spreadLayout ? '--spreadlayout' : ''}`
-        )
+        const cls = classNames(`reactist_tabs${this.props.spreadLayout ? '--spreadlayout' : ''}`)
 
         return (
             <div className={cls}>
-                <div className="reactist_tabs__header">
-                    {this._renderTabLinks(children)}
-                </div>
+                <div className="reactist_tabs__header">{this._renderTabLinks(children)}</div>
                 <div className="reactist_tabs__body">{activeTab}</div>
             </div>
         )
@@ -129,13 +119,8 @@ type TabProps = {
     title?: React.ReactNode
 }
 
-const Tab: React.FC<React.PropsWithChildren<TabProps>> = ({
-    children,
-    className,
-}) => (
-    <div className={classNames('reactist_tabs__tab', className)}>
-        {children}
-    </div>
+const Tab: React.FC<React.PropsWithChildren<TabProps>> = ({ children, className }) => (
+    <div className={classNames('reactist_tabs__tab', className)}>{children}</div>
 )
 Tab.displayName = 'Tab'
 Tab.defaultProps = {

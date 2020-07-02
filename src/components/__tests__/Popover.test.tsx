@@ -26,40 +26,26 @@ describe('Popover', () => {
         })
 
         it('sets the tooltip to the given position if it is not set to `auto`', () => {
-            ;(PositioningUtils.hasEnoughSpace as jest.Mock<boolean>) = jest.fn(
-                () => true
-            )
-            jest.spyOn(
-                PositioningUtils,
-                'calculatePosition'
-            ).mockImplementationOnce(() => ({
+            ;(PositioningUtils.hasEnoughSpace as jest.Mock<boolean>) = jest.fn(() => true)
+            jest.spyOn(PositioningUtils, 'calculatePosition').mockImplementationOnce(() => ({
                 x: 23,
                 y: 42,
             }))
 
-            const popover = mount(
-                getPopover({ position: 'right' })
-            ).instance() as Popover
+            const popover = mount(getPopover({ position: 'right' })).instance() as Popover
 
             expect(popover.popover.style.getPropertyValue('top')).toBe('42px')
             expect(popover.popover.style.getPropertyValue('left')).toBe('23px')
         })
 
         it('allows vague positioning to avoid cut offs', () => {
-            ;(PositioningUtils.hasEnoughSpace as jest.Mock<boolean>) = jest.fn(
-                () => true
-            )
-            jest.spyOn(
-                PositioningUtils,
-                'calculatePosition'
-            ).mockImplementationOnce(() => ({
+            ;(PositioningUtils.hasEnoughSpace as jest.Mock<boolean>) = jest.fn(() => true)
+            jest.spyOn(PositioningUtils, 'calculatePosition').mockImplementationOnce(() => ({
                 x: -23,
                 y: 42,
             }))
 
-            const popover = mount(
-                getPopover({ allowVaguePositioning: true })
-            ).instance() as Popover
+            const popover = mount(getPopover({ allowVaguePositioning: true })).instance() as Popover
 
             expect(popover.popover.style.getPropertyValue('top')).toBe('-10px')
             expect(popover.popover.style.getPropertyValue('left')).toBe('10px')
@@ -72,15 +58,12 @@ describe('Popover', () => {
                 .mockReturnValueOnce(false) // right
                 .mockReturnValueOnce(false) // bottom
                 .mockReturnValueOnce(true) // left
-            jest.spyOn(
-                PositioningUtils,
-                'calculatePosition'
-            ).mockImplementationOnce(() => ({
+            jest.spyOn(PositioningUtils, 'calculatePosition').mockImplementationOnce(() => ({
                 x: 23,
                 y: 42,
             }))
             const popover = mount(
-                getPopover({ position: 'auto', withArrow: true })
+                getPopover({ position: 'auto', withArrow: true }),
             ).instance() as Popover
 
             expect(popover.popover.style.getPropertyValue('top')).toBe('42px')
@@ -89,13 +72,9 @@ describe('Popover', () => {
         })
 
         it('sets the tooltip to the correct position when changing the gap size', () => {
-            ;(PositioningUtils.hasEnoughSpace as jest.Mock<boolean>) = jest.fn(
-                () => true
-            )
+            ;(PositioningUtils.hasEnoughSpace as jest.Mock<boolean>) = jest.fn(() => true)
 
-            const popover = mount(
-                getPopover({ position: 'top', visible: false })
-            )
+            const popover = mount(getPopover({ position: 'top', visible: false }))
             const instance = popover.instance() as Popover
 
             instance.wrapper.getBoundingClientRect = jest.fn(() => ({
@@ -141,7 +120,7 @@ describe('Popover', () => {
                     gapSize: 10,
                     content: 'First content',
                     visible: false,
-                })
+                }),
             )
             const instance = popover.instance() as Popover
             instance._updatePopoverPosition = updatePositionSpy
@@ -173,9 +152,7 @@ describe('Popover', () => {
     it('updates refs', () => {
         const popoverRefSpy = jest.fn()
         const wrapperRefSpy = jest.fn()
-        mount(
-            getPopover({ popoverRef: popoverRefSpy, wrapperRef: wrapperRefSpy })
-        )
+        mount(getPopover({ popoverRef: popoverRefSpy, wrapperRef: wrapperRefSpy }))
 
         expect(popoverRefSpy).toHaveBeenCalled()
         expect(wrapperRefSpy).toHaveBeenCalled()

@@ -2,11 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, number } from '@storybook/addon-knobs'
 
-import {
-    getPropTypesStory,
-    optionsSourceOnly,
-    optionsNoSourceNoProps,
-} from '../utils/StoryUtils'
+import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
 import ErrorMessage from '../../src/components/ErrorMessage'
 
@@ -24,10 +20,7 @@ const ErrorMessagePropTypesChapter = {
 
 const ErrorMessageStory = () => (
     <section className="story">
-        <ErrorMessage
-            message="Oh no something bad happened :/"
-            timeout={1000 * 60 * 60 * 24}
-        />
+        <ErrorMessage message="Oh no something bad happened :/" timeout={1000 * 60 * 60 * 24} />
     </section>
 )
 const ErrorMessageChapter = {

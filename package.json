@@ -6,6 +6,7 @@
     "license": "MIT",
     "homepage": "https://github.com/Doist/reactist#readme",
     "repository": "git+https://github.com/Doist/reactist.git",
+    "prettier": "@doist/prettier-config",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "files": [
@@ -30,7 +31,7 @@
         "prepare": "npm run build",
         "storybook": "start-storybook -p 6006",
         "prepare-release": "rm -rf node_modules package-lock && npm install && npm run lint && npm run test && npm run build-all",
-        "prettify": "./node_modules/.bin/prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md}\""
+        "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md}\""
     },
     "peerDependencies": {
         "classnames": "^2.2.5",
@@ -60,6 +61,8 @@
         "@storybook/addon-options": "^5.3.18",
         "@storybook/addons": "^5.3.18",
         "@storybook/react": "^5.3.18",
+        "@testing-library/jest-dom": "^5.11.0",
+        "@testing-library/react": "^10.4.3",
         "@types/cheerio": "^0.22.18",
         "@types/classnames": "^2.2.10",
         "@types/enzyme": "^3.10.5",
@@ -116,39 +119,7 @@
         "webpack-bundle-analyzer": "^3.3.2",
         "webpack-cli": "^3.1.0"
     },
-    "jest": {
-        "setupFilesAfterEnv": [
-            "./scripts/jestSetup.ts"
-        ],
-        "snapshotSerializers": [
-            "enzyme-to-json/serializer"
-        ],
-        "moduleNameMapper": {
-            "\\.(css|less)$": "<rootDir>/src/__mocks__/styleMock.ts"
-        },
-        "testURL": "http://localhost"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "lint-staged",
-            "pre-push": "npm run lint && npm run test"
-        }
-    },
-    "lint-staged": {
-        "./**/*.{js,jsx,ts,tsx,json,css,scss,less}": [
-            "prettier --write",
-            "git add"
-        ],
-        "*.{js,jsx,ts,tsx}": [
-            "tsdx lint",
-            "git add"
-        ]
-    },
-    "prettier": {
-        "printWidth": 80,
-        "semi": false,
-        "singleQuote": true,
-        "trailingComma": "es5",
-        "tabWidth": 4
+    "dependencies": {
+        "@doist/prettier-config": "^2.1.0"
     }
 }

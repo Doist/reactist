@@ -11,9 +11,7 @@ import Checkbox from '../../src/components/Checkbox'
 const CheckboxPropTypesStory = getPropTypesStory(Checkbox)
 const CheckboxPropTypesChapter = {
     subtitle: 'Component Usage',
-    sections: [
-        { sectionFn: CheckboxPropTypesStory, options: optionsNoSourceNoProps },
-    ],
+    sections: [{ sectionFn: CheckboxPropTypesStory, options: optionsNoSourceNoProps }],
 }
 
 type CheckboxStoryState = {
@@ -50,10 +48,7 @@ type CheckboxPlaygroundStoryState = {
     checked: boolean
 }
 
-class CheckboxPlaygroundStory extends React.Component<
-    {},
-    CheckboxPlaygroundStoryState
-> {
+class CheckboxPlaygroundStory extends React.Component<{}, CheckboxPlaygroundStoryState> {
     constructor(props, context) {
         super(props, context)
         this.state = { checked: true }
@@ -66,9 +61,9 @@ class CheckboxPlaygroundStory extends React.Component<
                     label={text('Label', 'Label next to the checkbox')}
                     checked={boolean('Checked', this.state.checked)}
                     disabled={boolean('Disabled', false)}
-                    onChange={decorate([
-                        (checked) => this.setState(() => ({ checked })),
-                    ]).action('Checkbox Toggle')}
+                    onChange={decorate([(checked) => this.setState(() => ({ checked }))]).action(
+                        'Checkbox Toggle',
+                    )}
                 />
             </section>
         )

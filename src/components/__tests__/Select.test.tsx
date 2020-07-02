@@ -13,7 +13,7 @@ describe('Select', () => {
         const select = shallow(
             getSelect({
                 options: [{ value: 'test', text: 'test', key: 'test-key' }],
-            })
+            }),
         )
         expect(select.find('option').get(0).key).toBe('test-key')
     })
@@ -24,7 +24,7 @@ describe('Select', () => {
             getSelect({
                 onChange: onChangeSpy,
                 options: [{ value: 'test2', text: 'test2' }],
-            })
+            }),
         )
 
         select.simulate('change', { target: { value: 'test2' } })

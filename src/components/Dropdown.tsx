@@ -13,7 +13,7 @@ type BoxProps = {
     scrolling_parent?: string
     children?: [
         React.ReactElement<TriggerProps>,
-        React.ReactElement<BodyProps> | ((props: BodyProps) => JSX.Element)
+        React.ReactElement<BodyProps> | ((props: BodyProps) => JSX.Element),
     ]
     className?: string
 }
@@ -70,11 +70,7 @@ class Box extends React.Component<React.PropsWithChildren<BoxProps>, BoxState> {
         } else {
             // will hide
             if (this.props.onHideBody) this.props.onHideBody()
-            document.removeEventListener(
-                'click',
-                this._handleClickOutside,
-                true
-            )
+            document.removeEventListener('click', this._handleClickOutside, true)
         }
 
         this.setState({
@@ -93,7 +89,7 @@ class Box extends React.Component<React.PropsWithChildren<BoxProps>, BoxState> {
     _setPosition(body: HTMLElement | null) {
         if (body) {
             const scrollingParent = document.getElementById(
-                this.props.scrolling_parent ? this.props.scrolling_parent : ''
+                this.props.scrolling_parent ? this.props.scrolling_parent : '',
             )
 
             if (scrollingParent) {
@@ -101,12 +97,9 @@ class Box extends React.Component<React.PropsWithChildren<BoxProps>, BoxState> {
                 if (!dropdown) {
                     return
                 }
-                const dropdownVerticalPosition = (ReactDOM.findDOMNode(
-                    this
-                ) as HTMLElement).offsetTop
-                const dropdownTrigger = (dropdown as Element).querySelector(
-                    '.trigger'
-                )
+                const dropdownVerticalPosition = (ReactDOM.findDOMNode(this) as HTMLElement)
+                    .offsetTop
+                const dropdownTrigger = (dropdown as Element).querySelector('.trigger')
                 if (!dropdownTrigger) {
                     return
                 }

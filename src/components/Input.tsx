@@ -15,7 +15,7 @@ const Input: React.FC<React.PropsWithRef<Props>> = React.forwardRef(
     (props: Props, ref: React.Ref<HTMLInputElement>) => {
         const className = classNames('reactist_input', props.className)
         return <input {...props} className={className} ref={ref} />
-    }
+    },
 )
 Input.displayName = 'Input'
 

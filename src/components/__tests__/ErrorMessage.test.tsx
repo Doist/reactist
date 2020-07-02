@@ -20,18 +20,14 @@ describe('ErrorMessage', () => {
     })
 
     it('renders error message after receiving props', () => {
-        const errorMessage = shallow(
-            getErrorMessage({ message: 'first message' })
-        )
+        const errorMessage = shallow(getErrorMessage({ message: 'first message' }))
 
         errorMessage.setProps({ message: 'second message' })
         expect(errorMessage).toMatchSnapshot()
     })
 
     it('renders nothing after receiving an empty new message', () => {
-        const errorMessage = shallow(
-            getErrorMessage({ message: 'first message' })
-        )
+        const errorMessage = shallow(getErrorMessage({ message: 'first message' }))
 
         errorMessage.setProps({ message: '' })
         expect(errorMessage).toMatchSnapshot()
@@ -39,10 +35,9 @@ describe('ErrorMessage', () => {
 
     it('hides after reaching timeout', () => {
         jest.useFakeTimers()
-        const errorMessage: ShallowWrapper<
-            ErrorMessage,
-            React.ComponentState
-        > = shallow(getErrorMessage({ message: 'Oh noes' }))
+        const errorMessage: ShallowWrapper<ErrorMessage, React.ComponentState> = shallow(
+            getErrorMessage({ message: 'Oh noes' }),
+        )
 
         expect(errorMessage.state().visible).toBe(true)
         jest.runAllTimers()
@@ -59,7 +54,7 @@ describe('ErrorMessage', () => {
     })
 
     // Helpers ================================================================
-    const getErrorMessage = (
-        props?: React.ComponentPropsWithoutRef<typeof ErrorMessage>
-    ) => <ErrorMessage {...props} />
+    const getErrorMessage = (props?: React.ComponentPropsWithoutRef<typeof ErrorMessage>) => (
+        <ErrorMessage {...props} />
+    )
 })

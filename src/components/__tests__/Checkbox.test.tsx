@@ -18,31 +18,20 @@ describe('Checkbox', () => {
         const onChangeSpy = jest.fn()
         const checkbox = shallow(getCheckbox({ onChange: onChangeSpy }))
 
-        checkbox
-            .find('.reactist_checkbox--input')
-            .simulate('change', { target: { checked: true } })
+        checkbox.find('.reactist_checkbox--input').simulate('change', { target: { checked: true } })
         expect(onChangeSpy).toHaveBeenLastCalledWith(true)
     })
 
     it('does not call onChange when disabled', () => {
         const onChangeSpy = jest.fn()
-        const checkbox = shallow(
-            getCheckbox({ disabled: true, onChange: onChangeSpy })
-        )
+        const checkbox = shallow(getCheckbox({ disabled: true, onChange: onChangeSpy }))
 
-        checkbox
-            .find('.reactist_checkbox--input')
-            .simulate('change', { target: { checked: true } })
+        checkbox.find('.reactist_checkbox--input').simulate('change', { target: { checked: true } })
         expect(onChangeSpy).not.toHaveBeenCalled()
     })
 
     // Helpers ================================================================
     const getCheckbox = (props?: React.ComponentProps<typeof Checkbox>) => (
-        <Checkbox
-            label="Checkbox Label"
-            checked={false}
-            onChange={jest.fn()}
-            {...props}
-        />
+        <Checkbox label="Checkbox Label" checked={false} onChange={jest.fn()} {...props} />
     )
 })

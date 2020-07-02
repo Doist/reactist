@@ -8,7 +8,7 @@ type HasEnoughSpaceFn = (
     wrapperDimensions: Dimensions,
     wrapperPosition: AbsolutePosition,
     position: RelativePosition,
-    gap: number
+    gap: number,
 ) => boolean
 
 const hasEnoughSpace: HasEnoughSpaceFn = (
@@ -17,7 +17,7 @@ const hasEnoughSpace: HasEnoughSpaceFn = (
     wrapperDimensions,
     wrapperPosition,
     position,
-    gap = 0
+    gap = 0,
 ) => {
     const { height: windowHeight, width: windowWidth } = windowDimensions
     const { height: elementHeight, width: elementWidth } = elementDimensions
@@ -27,33 +27,26 @@ const hasEnoughSpace: HasEnoughSpaceFn = (
     const verticalPosition = _calculateVerticalPosition(
         wrapperPosition,
         wrapperDimensions,
-        elementDimensions
+        elementDimensions,
     )
     const horizontalPosition = _calculateHorizontalPosition(
         wrapperPosition,
         wrapperDimensions,
-        elementDimensions
+        elementDimensions,
     )
     const canPlaceVertically =
         verticalPosition >= 0 && verticalPosition + elementWidth <= windowWidth
     const canPlaceHorizontally =
-        horizontalPosition >= 0 &&
-        horizontalPosition + elementHeight <= windowHeight
+        horizontalPosition >= 0 && horizontalPosition + elementHeight <= windowHeight
 
     if (position === 'top') {
         return canPlaceVertically && wrapperY - elementHeight - gap >= 0
     } else if (position === 'right') {
-        return (
-            canPlaceHorizontally &&
-            wrapperX + wrapperWidth + elementWidth + gap <= windowWidth
-        )
+        return canPlaceHorizontally && wrapperX + wrapperWidth + elementWidth + gap <= windowWidth
     } else if (position === 'left') {
         return canPlaceHorizontally && wrapperX - elementWidth - gap >= 0
     } else if (position === 'bottom') {
-        return (
-            canPlaceVertically &&
-            wrapperY + wrapperHeight + elementHeight + gap <= windowHeight
-        )
+        return canPlaceVertically && wrapperY + wrapperHeight + elementHeight + gap <= windowHeight
     }
     return false
 }
@@ -61,49 +54,39 @@ const hasEnoughSpace: HasEnoughSpaceFn = (
 type VerticalHorizontalPositionFn = (
     wrapperPosition: AbsolutePosition,
     wrapperDimensions: Dimensions,
-    elementDimensions: Dimensions
+    elementDimensions: Dimensions,
 ) => number
 
 const _calculateVerticalPosition: VerticalHorizontalPositionFn = (
     wrapperPosition,
     wrapperDimensions,
-    elementDimensions
+    elementDimensions,
 ) => {
-    return (
-        wrapperPosition.x +
-        (wrapperDimensions.width - elementDimensions.width) / 2
-    )
+    return wrapperPosition.x + (wrapperDimensions.width - elementDimensions.width) / 2
 }
 
 const _calculateHorizontalPosition: VerticalHorizontalPositionFn = (
     wrapperPosition,
     wrapperDimensions,
-    elementDimensions
+    elementDimensions,
 ) => {
-    return (
-        wrapperPosition.y +
-        (wrapperDimensions.height - elementDimensions.height) / 2
-    )
+    return wrapperPosition.y + (wrapperDimensions.height - elementDimensions.height) / 2
 }
 
 type CenterPositionFn = (
     wrapperDimensions: Dimensions,
     wrapperPosition: AbsolutePosition,
     elementDimensions: Dimensions,
-    gap?: number
+    gap?: number,
 ) => AbsolutePosition
 
 const calculateTopCenterPosition: CenterPositionFn = (
     wrapperDimensions,
     wrapperPosition,
     elementDimensions,
-    gap = 0
+    gap = 0,
 ) => {
-    const x = _calculateVerticalPosition(
-        wrapperPosition,
-        wrapperDimensions,
-        elementDimensions
-    )
+    const x = _calculateVerticalPosition(wrapperPosition, wrapperDimensions, elementDimensions)
     const y = wrapperPosition.y - elementDimensions.height - gap
     return { x, y }
 }
@@ -112,13 +95,9 @@ const calculateBottomCenterPosition: CenterPositionFn = (
     wrapperDimensions,
     wrapperPosition,
     elementDimensions,
-    gap = 0
+    gap = 0,
 ) => {
-    const x = _calculateVerticalPosition(
-        wrapperPosition,
-        wrapperDimensions,
-        elementDimensions
-    )
+    const x = _calculateVerticalPosition(wrapperPosition, wrapperDimensions, elementDimensions)
     const y = wrapperPosition.y + wrapperDimensions.height + gap
     return { x, y }
 }
@@ -127,14 +106,10 @@ const calculateRightCenterPosition: CenterPositionFn = (
     wrapperDimensions,
     wrapperPosition,
     elementDimensions,
-    gap = 0
+    gap = 0,
 ) => {
     const x = wrapperPosition.x + wrapperDimensions.width + gap
-    const y = _calculateHorizontalPosition(
-        wrapperPosition,
-        wrapperDimensions,
-        elementDimensions
-    )
+    const y = _calculateHorizontalPosition(wrapperPosition, wrapperDimensions, elementDimensions)
     return { x, y }
 }
 
@@ -142,14 +117,10 @@ const calculateLeftCenterPosition: CenterPositionFn = (
     wrapperDimensions,
     wrapperPosition,
     elementDimensions,
-    gap = 0
+    gap = 0,
 ) => {
     const x = wrapperPosition.x - elementDimensions.width - gap
-    const y = _calculateHorizontalPosition(
-        wrapperPosition,
-        wrapperDimensions,
-        elementDimensions
-    )
+    const y = _calculateHorizontalPosition(wrapperPosition, wrapperDimensions, elementDimensions)
     return { x, y }
 }
 
@@ -158,7 +129,7 @@ type PositionFn = (
     wrapperDimensions: Dimensions,
     wrapperPosition: AbsolutePosition,
     elementDimensions: Dimensions,
-    gap?: number
+    gap?: number,
 ) => AbsolutePosition
 
 const calculatePosition: PositionFn = (
@@ -166,35 +137,35 @@ const calculatePosition: PositionFn = (
     wrapperDimensions,
     wrapperPosition,
     elementDimensions,
-    gap = 0
+    gap = 0,
 ) => {
     if (position === 'top') {
         return calculateTopCenterPosition(
             wrapperDimensions,
             wrapperPosition,
             elementDimensions,
-            gap
+            gap,
         )
     } else if (position === 'right') {
         return calculateRightCenterPosition(
             wrapperDimensions,
             wrapperPosition,
             elementDimensions,
-            gap
+            gap,
         )
     } else if (position === 'bottom') {
         return calculateBottomCenterPosition(
             wrapperDimensions,
             wrapperPosition,
             elementDimensions,
-            gap
+            gap,
         )
     } else if (position === 'left') {
         return calculateLeftCenterPosition(
             wrapperDimensions,
             wrapperPosition,
             elementDimensions,
-            gap
+            gap,
         )
     }
     return wrapperPosition

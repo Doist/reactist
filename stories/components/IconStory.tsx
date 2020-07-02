@@ -2,11 +2,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 
-import {
-    getPropTypesStory,
-    optionsNoSourceNoProps,
-    optionsSourceOnly,
-} from '../utils/StoryUtils'
+import { getPropTypesStory, optionsNoSourceNoProps, optionsSourceOnly } from '../utils/StoryUtils'
 
 import Icon from '../../src/components/Icon'
 import CloseIcon from '../../src/components/icons/CloseIcon.svg'
@@ -15,9 +11,7 @@ import CloseIcon from '../../src/components/icons/CloseIcon.svg'
 const IconPropTypesStory = getPropTypesStory(Icon)
 const IconPropTypesChapter = {
     subtitle: 'Component Usage',
-    sections: [
-        { sectionFn: IconPropTypesStory, options: optionsNoSourceNoProps },
-    ],
+    sections: [{ sectionFn: IconPropTypesStory, options: optionsNoSourceNoProps }],
 }
 
 const IconStory = () => (

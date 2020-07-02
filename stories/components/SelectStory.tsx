@@ -19,9 +19,7 @@ const options = [
 const SelectPropTypesStory = getPropTypesStory(Select)
 const SelectPropTypesChapter = {
     subtitle: 'Component Usage',
-    sections: [
-        { sectionFn: SelectPropTypesStory, options: optionsNoSourceNoProps },
-    ],
+    sections: [{ sectionFn: SelectPropTypesStory, options: optionsNoSourceNoProps }],
 }
 
 class SelectStory extends React.Component {

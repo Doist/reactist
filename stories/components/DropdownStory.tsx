@@ -51,9 +51,7 @@ const InteractiveDropdownStory = () => (
 )
 const InteractiveDropdownChapter = {
     subtitle: 'Interactive Dropdown',
-    sections: [
-        { sectionFn: InteractiveDropdownStory, options: optionsSourceOnly },
-    ],
+    sections: [{ sectionFn: InteractiveDropdownStory, options: optionsSourceOnly }],
 }
 
 // Story setup ================================================================

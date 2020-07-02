@@ -14,12 +14,7 @@ type Props = {
     size?: string | number
 }
 
-function Loading({
-    className,
-    spinnerColor = '#3F82EF',
-    bgColor = '#D9E6FB',
-    size = 24,
-}: Props) {
+function Loading({ className, spinnerColor = '#3F82EF', bgColor = '#D9E6FB', size = 24 }: Props) {
     return (
         <div className={classNames('reactist_loading', className)}>
             <span className="reactist_loading--spinner">

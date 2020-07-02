@@ -5,20 +5,14 @@ import { storiesOf } from '@storybook/react'
 import { withKnobs, boolean } from '@storybook/addon-knobs'
 import { action } from '@storybook/addon-actions'
 
-import {
-    getPropTypesStory,
-    optionsSourceOnly,
-    optionsNoSourceNoProps,
-} from '../utils/StoryUtils'
+import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
 import { Tabs, Tab } from '../../src/components/Tabs'
 
 // Story Definitions ==========================================================
 const TabsPropTypesStory = getPropTypesStory(Tabs, Tab)
 const TabsPropTypesChapter = {
     subtitle: 'Component Usage',
-    sections: [
-        { sectionFn: TabsPropTypesStory, options: optionsNoSourceNoProps },
-    ],
+    sections: [{ sectionFn: TabsPropTypesStory, options: optionsNoSourceNoProps }],
 }
 
 const TabsStory = () => {

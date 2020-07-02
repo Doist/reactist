@@ -4,11 +4,7 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 
-import {
-    getPropTypesStory,
-    optionsSourceOnly,
-    optionsNoSourceNoProps,
-} from '../utils/StoryUtils'
+import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
 import Button from '../../src/components/Button'
 import { alternateBrandingText } from './ButtonStory.md'
@@ -17,9 +13,7 @@ import { alternateBrandingText } from './ButtonStory.md'
 const ButtonPropTypesStory = getPropTypesStory(Button)
 const ButtonPropTypesChapter = {
     subtitle: 'Component Usage',
-    sections: [
-        { sectionFn: ButtonPropTypesStory, options: optionsNoSourceNoProps },
-    ],
+    sections: [{ sectionFn: ButtonPropTypesStory, options: optionsNoSourceNoProps }],
 }
 
 const StandardButtonsStory = () => (

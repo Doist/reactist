@@ -26,9 +26,4 @@ const optionsNoSourceNoProps = {
 }
 const emptySection = () => undefined
 
-export {
-    getPropTypesStory,
-    emptySection,
-    optionsSourceOnly,
-    optionsNoSourceNoProps,
-}
+export { getPropTypesStory, emptySection, optionsSourceOnly, optionsNoSourceNoProps }

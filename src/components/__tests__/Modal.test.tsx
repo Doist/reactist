@@ -24,7 +24,7 @@ describe('Modal.Box', () => {
                     <Button name="Wow" />
                     <Button name="So real" />
                 </Modal.Actions>
-            </Modal.Box>
+            </Modal.Box>,
         )
         expect(toJson(box)).toMatchSnapshot()
     })
@@ -48,9 +48,7 @@ describe('Modal.Box', () => {
             keyCode: 27,
             preventDefault: preventSpy,
         })
-        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
-            unmountCallCount + 1
-        )
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1)
         expect(getCallCount(preventSpy)).toBe(1)
     })
 
@@ -59,9 +57,7 @@ describe('Modal.Box', () => {
 
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
         ;(box as ModalType['Box'])._handleKeyDown({ keyCode: 23 })
-        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
-            unmountCallCount
-        )
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount)
     })
 
     it('unmounts the modal_box when clicking on overlay', () => {
@@ -69,31 +65,25 @@ describe('Modal.Box', () => {
             <>
                 <div id="modal_box" />
                 <Modal.Box closeOnOverlayClick />
-            </>
+            </>,
         )
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
         wrapper.find('#reactist-overlay').simulate('click')
-        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
-            unmountCallCount + 1
-        )
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1)
     })
 
     it('unmounts the modal_box when clicking on inner overlay (sides of modal)', () => {
         const wrapper = mount(<Modal.Box closeOnOverlayClick />)
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
         wrapper.find('#reactist-overlay-inner').simulate('click')
-        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
-            unmountCallCount + 1
-        )
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1)
     })
 
     it('does not close on overlay click when property was not supplied', () => {
         const wrapper = mount(<Modal.Box />)
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
         wrapper.find('#reactist-overlay').simulate('click')
-        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
-            unmountCallCount
-        )
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount)
     })
 })
 
@@ -107,23 +97,19 @@ describe('Modal.Header', () => {
         const headerTitle = shallow(<Modal.Header title="Modal Title" />)
         expect(toJson(headerTitle)).toMatchSnapshot()
 
-        const headerSubtitle = shallow(
-            <Modal.Header subtitle="Modal Subtitle" />
-        )
+        const headerSubtitle = shallow(<Modal.Header subtitle="Modal Subtitle" />)
         expect(toJson(headerSubtitle)).toMatchSnapshot()
     })
 
     it('renders all children without crashing', () => {
-        const textHeader = shallow(
-            <Modal.Header>Just a Text Header</Modal.Header>
-        )
+        const textHeader = shallow(<Modal.Header>Just a Text Header</Modal.Header>)
         expect(toJson(textHeader)).toMatchSnapshot()
 
         const complexHeader = shallow(
             <Modal.Header>
                 <Button name="Wow this looks complex" />
                 Some additional text as well
-            </Modal.Header>
+            </Modal.Header>,
         )
         expect(toJson(complexHeader)).toMatchSnapshot()
     })
@@ -133,9 +119,7 @@ describe('Modal.Header', () => {
 
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
         header.find('.close').simulate('click', { preventDefault: jest.fn() })
-        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
-            unmountCallCount + 1
-        )
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1)
     })
 
     it('invokes beforeClose when closing the modal', () => {
@@ -160,15 +144,13 @@ describe('Modal.Body', () => {
                     <h1>This is a body</h1>
                 </div>
                 <Button name="Button in Body" />
-            </Modal.Body>
+            </Modal.Body>,
         )
         expect(toJson(body)).toMatchSnapshot()
     })
 
     it('renders an icon when supplied via props', () => {
-        const body = shallow(
-            <Modal.Body icon={<img src="awesome/image.png" alt="" />} />
-        )
+        const body = shallow(<Modal.Body icon={<img src="awesome/image.png" alt="" />} />)
         expect(toJson(body)).toMatchSnapshot()
     })
 
@@ -177,9 +159,7 @@ describe('Modal.Body', () => {
 
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
         body.find('.close').simulate('click', { preventDefault: jest.fn() })
-        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
-            unmountCallCount + 1
-        )
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1)
     })
 
     it('adds additionally supplied className prop', () => {
@@ -200,17 +180,11 @@ describe('Modal.Actions', () => {
     })
 
     it('renders with null or undefined children', () => {
-        const actionsWithNullChildren = shallow(
-            <Modal.Actions>{null}</Modal.Actions>
-        )
+        const actionsWithNullChildren = shallow(<Modal.Actions>{null}</Modal.Actions>)
         expect(toJson(actionsWithNullChildren)).toMatchSnapshot()
-        const actionsWithUndefinedChildren = shallow(
-            <Modal.Actions>{undefined}</Modal.Actions>
-        )
+        const actionsWithUndefinedChildren = shallow(<Modal.Actions>{undefined}</Modal.Actions>)
         expect(toJson(actionsWithUndefinedChildren)).toMatchSnapshot()
-        const actionsWithFalseChildren = shallow(
-            <Modal.Actions>{false}</Modal.Actions>
-        )
+        const actionsWithFalseChildren = shallow(<Modal.Actions>{false}</Modal.Actions>)
         expect(toJson(actionsWithFalseChildren)).toMatchSnapshot()
     })
 
@@ -219,7 +193,7 @@ describe('Modal.Actions', () => {
             <Modal.Actions>
                 <Button name="Action 1" />
                 <Button name="Action 2" />
-            </Modal.Actions>
+            </Modal.Actions>,
         )
         expect(toJson(actions)).toMatchSnapshot()
     })
@@ -230,29 +204,25 @@ describe('Modal.Actions', () => {
             <Modal.Actions>
                 <Button name="Action 1" close onClick={clickSpy} />
                 <Button name="Action 2" />
-            </Modal.Actions>
+            </Modal.Actions>,
         )
 
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
         actions.find('Button').first().simulate('click')
         expect(clickSpy).toHaveBeenCalled()
-        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
-            unmountCallCount + 1
-        )
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1)
     })
 
     it('unmounts modal_box when child with close prop is clicked even when no onClick is specified', () => {
         const actions = shallow(
             <Modal.Actions>
                 <Button name="Action 1" close />
-            </Modal.Actions>
+            </Modal.Actions>,
         )
 
         const unmountCallCount = getCallCount(ReactDOM.unmountComponentAtNode)
         actions.find('Button').first().simulate('click')
-        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(
-            unmountCallCount + 1
-        )
+        expect(getCallCount(ReactDOM.unmountComponentAtNode)).toBe(unmountCallCount + 1)
     })
 })
 
