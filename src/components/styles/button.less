@@ -1,7 +1,5 @@
 @import './constants.less';
 
-@primary_button_selector: ~':not(.secondary):not(.white):not(.danger)';
-@default_state_selector: ~':not([disabled]):not(.busy)';
 .default_border(@color: rgba(0, 0, 0, 0.1)) {
     border: 1px solid @color;
     border-radius: 3px;
@@ -22,64 +20,62 @@
         user-select: none;
     }
 
-    &:disabled,
-    &.busy {
+    &:disabled {
         opacity: 0.4;
         cursor: not-allowed;
     }
 
-    &@{primary_button_selector} {
-        &:hover {
-            background-color: @primary_color_darker;
-        }
+    &--primary:hover {
+        background-color: @primary_color_darker;
     }
 
-    &.small {
+    &--small {
         .smaller_text(@color: white);
         padding: 5px 10px;
     }
 
-    &.large {
+    &--large {
         padding: 10px 15px;
     }
 
-    &.danger {
+    &--danger {
         background-color: @color_red;
 
-        &@{default_state_selector}:hover {
+        &:not([disabled]):hover {
             background-color: darken(@color_red, 10%);
         }
     }
 
-    &.secondary {
+    &--secondary {
         background-color: white;
         .default_border(@color: @color_border_grey);
         color: @primary_font_color;
 
-        &@{default_state_selector}:hover {
+        &:not([disabled]):hover {
             background-color: @color_grey_9;
         }
     }
 
-    &.white {
+    &--white {
         background-color: white;
         .default_border(@color: @primary_color);
         color: @primary_color;
 
-        &@{default_state_selector}:hover {
+        &:not([disabled]):hover {
             background-color: @primary_color_lighter;
         }
     }
 
-    &.busy {
-        // for improved accessibility we treat white / secondary buttons different
-        &.white,
-        &.secondary {
+    &--loading {
+        cursor: progress !important;
+
+        // for improved accessibility we treat white / secondary buttons differently
+        &.reactist_button--white,
+        &.reactist_button--secondary {
             .default_border(@color: @color_border_grey);
             background-color: @color_border_grey;
             color: @secondary_font_color;
         }
-        cursor: progress !important;
 
         &:after {
             background-repeat: no-repeat;

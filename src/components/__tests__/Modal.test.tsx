@@ -21,8 +21,8 @@ describe('Modal.Box', () => {
                 <Modal.Header>Realistic test</Modal.Header>
                 <Modal.Body>... is very realistic</Modal.Body>
                 <Modal.Actions>
-                    <Button name="Wow" />
-                    <Button name="So real" />
+                    <Button variant="primary">Wow</Button>
+                    <Button variant="primary">So real</Button>
                 </Modal.Actions>
             </Modal.Box>,
         )
@@ -107,7 +107,7 @@ describe('Modal.Header', () => {
 
         const complexHeader = shallow(
             <Modal.Header>
-                <Button name="Wow this looks complex" />
+                <Button variant="primary">Wow this looks complex</Button>
                 Some additional text as well
             </Modal.Header>,
         )
@@ -143,7 +143,7 @@ describe('Modal.Body', () => {
                 <div>
                     <h1>This is a body</h1>
                 </div>
-                <Button name="Button in Body" />
+                <Button variant="primary">Button in Body</Button>
             </Modal.Body>,
         )
         expect(toJson(body)).toMatchSnapshot()
@@ -191,8 +191,8 @@ describe('Modal.Actions', () => {
     it('renders all children without crashing', () => {
         const actions = shallow(
             <Modal.Actions>
-                <Button name="Action 1" />
-                <Button name="Action 2" />
+                <Button variant="primary">Action 1</Button>
+                <Button variant="primary">Action 2</Button>
             </Modal.Actions>,
         )
         expect(toJson(actions)).toMatchSnapshot()
@@ -202,8 +202,10 @@ describe('Modal.Actions', () => {
         const clickSpy = jest.fn()
         const actions = shallow(
             <Modal.Actions>
-                <Button name="Action 1" close onClick={clickSpy} />
-                <Button name="Action 2" />
+                <Button variant="primary" close onClick={clickSpy}>
+                    Action 1
+                </Button>
+                <Button variant="primary">Action 2</Button>
             </Modal.Actions>,
         )
 
@@ -216,7 +218,9 @@ describe('Modal.Actions', () => {
     it('unmounts modal_box when child with close prop is clicked even when no onClick is specified', () => {
         const actions = shallow(
             <Modal.Actions>
-                <Button name="Action 1" close />
+                <Button variant="primary" close>
+                    Action 1
+                </Button>
             </Modal.Actions>,
         )
 

@@ -11,15 +11,15 @@ const alternateBrandingText = `
         & > .reactist_button {
             background-color: @primary-color;
 
-            &:not(.loading):not(.secondary):not(.white):not([disabled]):hover {
+            &--primary:not([disabled]):hover {
                 background-color: @primary-color-darker;
             }
 
-            &:not(.loading):not(.secondary)&:disabled {
+            &:not(.reactist_button--loading):not(.reactist_button--secondary)&:disabled {
                 background-color: @primary-color-lighter;
             }
 
-            &.white {
+            &.reactist_button--white {
                 background-color: white;
                 border: 1px solid  @primary-color;
                 color: @primary-color;
