@@ -115,17 +115,13 @@ describe('KeyCapturer', () => {
             render(
                 <KeyCapturer eventName="onKeyDown" onEnter={onEnter}>
                     <input type="text" />
-                </KeyCapturer>
+                </KeyCapturer>,
             )
             fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Enter' })
 
             // Instance of React synthetic event
             expect(Object.keys(onEnter.mock.calls[0][0])).toEqual(
-                expect.arrayContaining([
-                    'key',
-                    'target',
-                    'isPropagationStopped',
-                ])
+                expect.arrayContaining(['key', 'target', 'isPropagationStopped']),
             )
         })
 
@@ -134,7 +130,7 @@ describe('KeyCapturer', () => {
             render(
                 <KeyCapturer eventName="onKeyDown" onEnter={onEnter}>
                     <input type="text" />
-                </KeyCapturer>
+                </KeyCapturer>,
             )
 
             const input = screen.getByRole('textbox')
@@ -149,7 +145,7 @@ describe('KeyCapturer', () => {
             render(
                 <KeyCapturer eventName="onKeyDown" onEnter={onEnter}>
                     <input type="text" />
-                </KeyCapturer>
+                </KeyCapturer>,
             )
 
             const input = screen.getByRole('textbox')
@@ -165,7 +161,7 @@ describe('KeyCapturer', () => {
             render(
                 <KeyCapturer eventName="onKeyDown" onEnter={onEnter}>
                     <input type="text" />
-                </KeyCapturer>
+                </KeyCapturer>,
             )
 
             fireEvent.keyDown(screen.getByRole('textbox'), {

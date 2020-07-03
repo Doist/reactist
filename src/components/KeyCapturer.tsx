@@ -110,10 +110,7 @@ function KeyCapturer(props: KeyCapturerProps) {
                 ? KeyCapturerResolver.resolveByKey(event.key)
                 : KeyCapturerResolver.resolveByKeyCode(event.keyCode)
 
-        if (
-            key === SUPPORTED_KEYS.ENTER &&
-            typeof props.onEnter === 'function'
-        ) {
+        if (key === SUPPORTED_KEYS.ENTER && typeof props.onEnter === 'function') {
             if (
                 composingRef.current ||
                 // Safari fires the onCompositionEnd event before the keydown event, so we
