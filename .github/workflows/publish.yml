@@ -14,18 +14,18 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com
           scope: '@doist'
+      # Skip post-install scripts here, as a malicious
+      # script could steal NODE_AUTH_TOKEN.
       - run: npm ci --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # `npm rebuild` will run all those post-install scripts for us.
+      - run: npm rebuild && npm run prepare --if-present
       - run: npm run lint
       - run: npm run type-check
       - run: npm test
 
       # Publish to GitHub package registry
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
@@ -33,8 +33,8 @@ jobs:
       # Publish to npm registry
       - uses: actions/setup-node@v1
         with:
-          node-version: 12
           registry-url: https://registry.npmjs.org/
+          scope: ''
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
