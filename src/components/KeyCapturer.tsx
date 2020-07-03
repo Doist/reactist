@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 
 const SUPPORTED_KEYS: Record<string, string> = {
     ARROW_UP: 'ArrowUp',
@@ -77,6 +77,7 @@ const KeyCapturerResolver = {
 
 type KeyCapturerProps = Record<string, (() => void) | boolean | React.ReactChild> & {
     eventName?: 'onKeyDown' | 'onKeyDownCapture' | 'onKeyUp' | 'onKeyUpCapture'
+    children: React.ReactElement<unknown>
 }
 
 /**
@@ -87,19 +88,45 @@ type KeyCapturerProps = Record<string, (() => void) | boolean | React.ReactChild
  * If you want the default behaviour to be preserved (i.e. only want to hook into the event
  * instead of replacing it) set the `propagate${Key}` prop (e.g. propagateBackspace).
  */
-class KeyCapturer extends React.Component<KeyCapturerProps> {
-    _handleKeyEvent = (event: React.KeyboardEvent) => {
+function KeyCapturer(props: KeyCapturerProps) {
+    const { children, eventName = 'onKeyDown' } = props
+    const composingRef = useRef(false)
+    const composingEventHandlers =
+        typeof props.onEnter === 'function'
+            ? {
+                  onCompositionStart: () => {
+                      composingRef.current = true
+                  },
+                  onCompositionEnd: () => {
+                      composingRef.current = false
+                  },
+              }
+            : undefined
+
+    function handleKeyEvent(event: React.KeyboardEvent<HTMLInputElement>) {
         // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
         const key =
             event.key !== undefined
                 ? KeyCapturerResolver.resolveByKey(event.key)
                 : KeyCapturerResolver.resolveByKeyCode(event.keyCode)
 
+        if (key === SUPPORTED_KEYS.ENTER && typeof props.onEnter === 'function') {
+            if (
+                composingRef.current ||
+                // Safari fires the onCompositionEnd event before the keydown event, so we
+                // have to rely on the 229 keycode, which is Enter when fired from an IME
+                // https://www.w3.org/TR/uievents/#determine-keydown-keyup-keyCode
+                (event.keyCode || event.which) === 229
+            ) {
+                return
+            }
+        }
+
         if (key && Object.values(SUPPORTED_KEYS).includes(key)) {
-            if (typeof this.props[`on${key}`] === 'function') {
+            if (typeof props[`on${key}`] === 'function') {
                 // @ts-expect-error Dynamic type not expressible in TypeScript.
-                this.props[`on${key}`]()
-                if (this.props[`propagate${key}`] !== true) {
+                props[`on${key}`](event)
+                if (props[`propagate${key}`] !== true) {
                     event.preventDefault()
                     event.stopPropagation()
                 }
@@ -107,13 +134,10 @@ class KeyCapturer extends React.Component<KeyCapturerProps> {
         }
     }
 
-    render() {
-        const { children, eventName = 'onKeyDown' } = this.props
-
-        return React.cloneElement(children as React.ReactElement, {
-            [eventName]: this._handleKeyEvent,
-        })
-    }
+    return React.cloneElement(children, {
+        [eventName]: handleKeyEvent,
+        ...composingEventHandlers,
+    })
 }
 
 export default KeyCapturer

@@ -1,5 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
+import { screen, render, fireEvent } from '@testing-library/react'
 
 import KeyCapturer, { KeyCapturerResolver, SUPPORTED_KEYS } from '../KeyCapturer'
 
@@ -106,6 +107,69 @@ describe('KeyCapturer', () => {
             expect(spy).toHaveBeenCalledTimes(1)
             expect(event.preventDefault).toHaveBeenCalledTimes(1)
             expect(event.stopPropagation).toHaveBeenCalledTimes(1)
+        })
+
+        it('forwards the event to the handler', () => {
+            const onEnter = jest.fn()
+
+            render(
+                <KeyCapturer eventName="onKeyDown" onEnter={onEnter}>
+                    <input type="text" />
+                </KeyCapturer>,
+            )
+            fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Enter' })
+
+            // Instance of React synthetic event
+            expect(Object.keys(onEnter.mock.calls[0][0])).toEqual(
+                expect.arrayContaining(['key', 'target', 'isPropagationStopped']),
+            )
+        })
+
+        it('prevents the Enter key from firing the onEnter handler if composition has started', () => {
+            const onEnter = jest.fn()
+            render(
+                <KeyCapturer eventName="onKeyDown" onEnter={onEnter}>
+                    <input type="text" />
+                </KeyCapturer>,
+            )
+
+            const input = screen.getByRole('textbox')
+            fireEvent.compositionStart(input)
+            fireEvent.keyDown(input, { key: 'Enter', keyCode: 13 })
+
+            expect(onEnter).not.toHaveBeenCalled()
+        })
+
+        it('fires the onEnter handler when Enter key is pressed if composition has ended', () => {
+            const onEnter = jest.fn()
+            render(
+                <KeyCapturer eventName="onKeyDown" onEnter={onEnter}>
+                    <input type="text" />
+                </KeyCapturer>,
+            )
+
+            const input = screen.getByRole('textbox')
+            fireEvent.compositionStart(input)
+            fireEvent.compositionEnd(input)
+            fireEvent.keyDown(input, { key: 'Enter', keyCode: 13 })
+
+            expect(onEnter).toHaveBeenCalledTimes(1)
+        })
+
+        it('prevents the Enter key from firing the onEnter handler if event.which is 229', () => {
+            const onEnter = jest.fn()
+            render(
+                <KeyCapturer eventName="onKeyDown" onEnter={onEnter}>
+                    <input type="text" />
+                </KeyCapturer>,
+            )
+
+            fireEvent.keyDown(screen.getByRole('textbox'), {
+                key: 'Enter',
+                keyCode: 229,
+            })
+
+            expect(onEnter).not.toHaveBeenCalled()
         })
 
         // Helpers ////////////////////////////////////////////////////////////////
