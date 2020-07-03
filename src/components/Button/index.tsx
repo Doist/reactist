@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import Tooltip from './Tooltip'
-import './styles/button.less'
+import Tooltip from '../Tooltip'
+import styles from './button.less'
 
 type NativeButtonProps = React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -58,6 +58,7 @@ function Button({
         size !== 'default' ? `reactist_button--${size}` : null,
         { 'reactist_button--loading': loading },
         props.className,
+        styles.reactist_button,
     )
 
     const button = (
