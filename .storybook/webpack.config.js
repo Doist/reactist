@@ -14,7 +14,14 @@ module.exports = {
                 test: /\.md$/,
                 use: 'raw-loader',
             },
-            { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' },
+            {
+                test: /\.less$/,
+                use: [
+                    'style-loader',
+                    { loader: 'css-loader', options: { modules: { auto: true } } },
+                    'less-loader',
+                ],
+            },
             { test: /\.css$/, loader: 'style-loader!css-loader' },
             { test: /\.svg$/, loader: 'svg-url-loader' },
             {
