@@ -2,7 +2,7 @@
     "name": "@doist/reactist",
     "description": "Open source React components by Doist",
     "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",
-    "version": "4.1.1",
+    "version": "4.1.2",
     "license": "MIT",
     "homepage": "https://github.com/Doist/reactist#readme",
     "repository": "git+https://github.com/Doist/reactist.git",
@@ -30,7 +30,6 @@
         "lint": "tsdx lint src stories",
         "prepare": "npm run build",
         "storybook": "start-storybook -p 6006",
-        "prepare-release": "rm -rf node_modules package-lock && npm install && npm run lint && npm run test && npm run build-all",
         "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md}\""
     },
     "peerDependencies": {
