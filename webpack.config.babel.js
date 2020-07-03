@@ -37,7 +37,7 @@ const BASE_CONFIG = {
                     {
                         loader: MiniCssExtractPlugin.loader,
                     },
-                    { loader: 'css-loader' },
+                    { loader: 'css-loader', options: { modules: { auto: true } } },
                     { loader: 'less-loader' },
                 ],
             },
