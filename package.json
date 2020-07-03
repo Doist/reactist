@@ -30,7 +30,6 @@
         "lint": "tsdx lint src stories",
         "prepare": "npm run build",
         "storybook": "start-storybook -p 6006",
-        "prepare-release": "rm -rf node_modules package-lock && npm install && npm run lint && npm run test && npm run build-all",
         "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md}\""
     },
     "peerDependencies": {
