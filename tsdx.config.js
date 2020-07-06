@@ -10,7 +10,6 @@ module.exports = {
         config.preserveModules = true
         config.output.file = undefined
         config.output.assetFileNames = '[name][extname]'
-        config.output.chunkFileNames = '[name]'
         config.plugins = [
             styles({
                 autoModules: /index/,
