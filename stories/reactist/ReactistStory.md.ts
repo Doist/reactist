@@ -36,7 +36,7 @@ const developmentText = `
     \`\`\`
     First run:
     \`\`\`sh
-    npm run build-watch
+    npm run start
     \`\`\`
     this will update the build artifacts whenever you change something.
 
