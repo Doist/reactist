@@ -8,6 +8,7 @@ module.exports = {
             config.output.dir = 'dist'
         }
         config.preserveModules = true
+        // file is unset as now we code-split into different folders
         config.output.file = undefined
         config.output.assetFileNames = '[name][extname]'
         config.plugins = [
