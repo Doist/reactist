@@ -20,7 +20,7 @@
     "scripts": {
         "start": "tsdx watch",
         "build-all": "npm run build && npm run build-storybook",
-        "build": "rimraf es lib; tsdx build --tsconfig tsconfig.dist.json; rimraf dist/index.js",
+        "build": "rimraf es lib; tsdx build --tsconfig tsconfig.dist.json; rimraf dist/index.js; mv dist/index.css dist/reactist.css; mv es/index.css es/reactist.css",
         "build-watch": "tsdx watch",
         "build-storybook": "build-storybook -o docs",
         "test": "tsdx test --passWithNoTests",
