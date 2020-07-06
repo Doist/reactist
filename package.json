@@ -8,23 +8,21 @@
     "repository": "git+https://github.com/Doist/reactist.git",
     "prettier": "@doist/prettier-config",
     "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "module": "es/index.js",
+    "typings": "lib/index.d.ts",
     "files": [
         "dist",
-        "src"
+        "es"
     ],
     "engines": {
         "node": ">=10"
     },
     "scripts": {
         "start": "tsdx watch",
-        "build": "npm run build-tsdx && npm run build-webpack; rimraf 'dist/umd'",
-        "build-webpack": "NODE_ENV=production ./node_modules/.bin/webpack --progress --color",
-        "build-tsdx": "tsdx build --tsconfig tsconfig.dist.json",
-        "build-watch": "tsdx watch",
-        "build-types": "rimraf 'lib/**/*.d.ts'; npx tsc -p tsconfig.lib.json;",
-        "build-storybook": "build-storybook -o docs",
         "build-all": "npm run build && npm run build-storybook",
+        "build": "rimraf es lib; tsdx build --tsconfig tsconfig.dist.json; rimraf dist/index.js",
+        "build-watch": "tsdx watch",
+        "build-storybook": "build-storybook -o docs",
         "test": "tsdx test --passWithNoTests",
         "type-check": "tsc --noEmit -p ./tsconfig.json",
         "lint": "tsdx lint src stories",
@@ -39,7 +37,6 @@
         "react-dom": "^15.5.4 || ^16.2.0",
         "prop-types": "^15.6.2"
     },
-    "module": "dist/index/index.js",
     "devDependencies": {
         "@babel/core": "^7.9.6",
         "@babel/plugin-proposal-class-properties": "^7.10.1",
@@ -107,6 +104,7 @@
         "react-test-renderer": "^16.5.0",
         "rimraf": "^3.0.2",
         "rollup-plugin-postcss": "^3.1.1",
+        "rollup-plugin-styles": "^3.10.0",
         "style-loader": "^0.23.1",
         "svg-url-loader": "^6.0.0",
         "terser-webpack-plugin": "^3.0.1",

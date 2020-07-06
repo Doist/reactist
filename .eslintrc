@@ -19,12 +19,13 @@
         "sourceType": "module"
     },
     "ignorePatterns": [
-        "tsdx.config.js",
-        "webpack.config.*",
         "dist/**",
         "docs/**",
         "lib/**",
-        "scripts/**"
+        "postcss.config.js",
+        "scripts/**",
+        "tsdx.config.js",
+        "webpack.config.*"
     ],
     "rules": {
         "prettier/prettier": "error",
