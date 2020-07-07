@@ -56,21 +56,10 @@
         }
     }
 
-    &--white {
-        background-color: white;
-        .default_border(@color: @primary_color);
-        color: @primary_color;
-
-        &:not([disabled]):hover {
-            background-color: @primary_color_lighter;
-        }
-    }
-
     &--loading {
         cursor: progress !important;
 
-        // for improved accessibility we treat white / secondary buttons differently
-        &.reactist_button--white,
+        // for improved accessibility we treat secondary buttons differently
         &.reactist_button--secondary {
             .default_border(@color: @color_border_grey);
             background-color: @color_border_grey;

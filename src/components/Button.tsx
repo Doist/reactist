@@ -17,10 +17,8 @@ type Props = Omit<NativeButtonProps, 'title'> & {
     loading?: boolean
     /**
      * Controls visually how the button shows up from a predefined set of kinds of buttons.
-     *
-     * Note: the 'white' variant is considered deprecated. Use 'secondary' instead.
      */
-    variant: 'primary' | 'secondary' | 'danger' | 'white'
+    variant: 'primary' | 'secondary' | 'danger'
     /**
      * The size of the button. If not provided it shows up in a normal size.
      */
@@ -79,7 +77,7 @@ Button.displayName = 'Button'
 
 Button.propTypes = {
     loading: PropTypes.bool,
-    variant: PropTypes.oneOf(['primary', 'secondary', 'white', 'danger']).isRequired,
+    variant: PropTypes.oneOf(['primary', 'secondary', 'danger']).isRequired,
     size: PropTypes.oneOf(['default', 'small', 'large']),
     tooltip: PropTypes.string,
 }
