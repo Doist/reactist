@@ -1,40 +1,41 @@
 name: Release @doist/reactist package
 
 on:
-  release:
-    types: [created]
+    release:
+        types: [created]
 
 jobs:
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com
-          scope: '@doist'
-      # Skip post-install scripts here, as a malicious
-      # script could steal NODE_AUTH_TOKEN.
-      - run: npm ci --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # `npm rebuild` will run all those post-install scripts for us.
-      - run: npm rebuild && npm run prepare --if-present
-      - run: npm run lint
-      - run: npm run type-check
-      - run: npm test
+    publish:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+            - run: npm ci
+            - run: npm run lint
+            - run: npm run type-check
+            - run: npm test
 
-      # Publish to GitHub package registry
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            # Verify storybook build and create artifacts for publishing
+            - run: npm run build-all
 
-      # Publish to npm registry
-      - uses: actions/setup-node@v1
-        with:
-          registry-url: https://registry.npmjs.org/
-          scope: ''
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+            # Publish to GitHub package registry
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+                  registry-url: https://npm.pkg.github.com/
+                  scope: '@doist'
+            - run: npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+            # Publish to npm registry
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+                  registry-url: https://registry.npmjs.org/
+                  scope: '@doist'
+            - run: npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
