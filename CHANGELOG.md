@@ -12,7 +12,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 ## 4.1.0
 
--   [New] The `event` object is now forwarded to the on* handler in the `KeyCapturer` component. The `onEnter` event will also no longer fire when it's in the middle of an [IME composition session](https://developer.mozilla.org/en-US/docs/Glossary/input_method_editor).
+-   [New] The `event` object is now forwarded to the on\* handler in the `KeyCapturer` component. The `onEnter` event will also no longer fire when it's in the middle of an [IME composition session](https://developer.mozilla.org/en-US/docs/Glossary/input_method_editor).
 
 ## 4.0.2
 
