@@ -17,6 +17,9 @@ jobs:
       - run: npm run type-check
       - run: npm test
 
+      # Verify storybook build and create artifacts for publishing
+      - run: npm run build-all
+
       # Publish to GitHub package registry
       - uses: actions/setup-node@v1
         with:

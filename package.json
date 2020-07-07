@@ -28,7 +28,6 @@
         "test": "tsdx test --passWithNoTests",
         "type-check": "tsc --noEmit -p ./tsconfig.json",
         "lint": "tsdx lint src stories",
-        "prepare": "npm run build",
         "storybook": "start-storybook -p 6006",
         "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md}\""
     },
