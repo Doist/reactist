@@ -41,7 +41,7 @@ const modalActionsText = `
 
     \`\`\`
     &lt;Modal.Actions&gt;
-        &lt;Button name='Clicking me will close the Modal' close /&gt;
+        &lt;Button variant="primary" close /&gt;Clicking me will close the Modal&lt;/Button&gt;
     &lt;/Modal.Actions&gt;
     \`\`\`
 `
