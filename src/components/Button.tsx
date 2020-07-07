@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Validator } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Tooltip from './Tooltip'
@@ -39,17 +39,20 @@ type Props = Omit<NativeButtonProps, 'title'> & {
     close?: boolean
 }
 
-function Button({
-    type = 'button',
-    variant,
-    size = 'default',
-    loading = false,
-    disabled = false,
-    tooltip,
-    onClick,
-    children,
-    ...props
-}: Props) {
+const Button = React.forwardRef<HTMLButtonElement, Props>(function Button(
+    {
+        type = 'button',
+        variant,
+        size = 'default',
+        loading = false,
+        disabled = false,
+        tooltip,
+        onClick,
+        children,
+        ...props
+    },
+    ref,
+) {
     const className = classNames(
         'reactist_button',
         `reactist_button--${variant}`,
@@ -61,6 +64,7 @@ function Button({
     const button = (
         <button
             {...props}
+            ref={ref}
             type={type}
             className={className}
             disabled={disabled || loading}
@@ -71,13 +75,15 @@ function Button({
     )
 
     return tooltip ? <Tooltip text={tooltip}>{button}</Tooltip> : button
-}
+})
 
 Button.displayName = 'Button'
 
 Button.propTypes = {
     loading: PropTypes.bool,
-    variant: PropTypes.oneOf(['primary', 'secondary', 'danger']).isRequired,
+    variant: PropTypes.oneOf(['primary', 'secondary', 'danger']).isRequired as Validator<
+        Props['variant']
+    >,
     size: PropTypes.oneOf(['default', 'small', 'large']),
     tooltip: PropTypes.string,
 }
