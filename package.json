@@ -97,7 +97,7 @@
         "path": "^0.12.7",
         "postcss-url": "^8.0.0",
         "prettier": "2.0.5",
-        "raw-loader": "^0.5.1",
+        "raw-loader": "^4.0.1",
         "react": "^16.13.1",
         "react-docgen-typescript-loader": "^3.7.2",
         "react-dom": "^16.13.1",
