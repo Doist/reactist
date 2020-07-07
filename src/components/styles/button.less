@@ -56,7 +56,25 @@
         }
     }
 
-    &--loading {
+    &--link {
+        color: @primary_color;
+        background-color: transparent;
+        border: none;
+        text-decoration: none;
+        padding: 0;
+        font-size: inherit;
+
+        &:disabled {
+            color: @secondary_font_color;
+        }
+
+        &:not(:disabled):hover {
+            text-decoration: underline;
+        }
+    }
+
+    // For the moment link-styled buttons do not support the loading indicator
+    &--loading:not(&--link) {
         cursor: progress !important;
 
         // for improved accessibility we treat secondary buttons differently
@@ -79,6 +97,7 @@
             animation-iteration-count: infinite;
             animation-name: reactistRotateRight;
             animation-timing-function: linear;
+            color: #ffffff;
             background-image: url('../icons/spinner.svg');
         }
     }

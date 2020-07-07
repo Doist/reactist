@@ -18,7 +18,7 @@ type Props = Omit<NativeButtonProps, 'title'> & {
     /**
      * Controls visually how the button shows up from a predefined set of kinds of buttons.
      */
-    variant: 'primary' | 'secondary' | 'danger'
+    variant: 'primary' | 'secondary' | 'danger' | 'link'
     /**
      * The size of the button. If not provided it shows up in a normal size.
      */
@@ -81,7 +81,7 @@ Button.displayName = 'Button'
 
 Button.propTypes = {
     loading: PropTypes.bool,
-    variant: PropTypes.oneOf(['primary', 'secondary', 'danger']).isRequired as Validator<
+    variant: PropTypes.oneOf(['primary', 'secondary', 'danger', 'link']).isRequired as Validator<
         Props['variant']
     >,
     size: PropTypes.oneOf(['default', 'small', 'large']),

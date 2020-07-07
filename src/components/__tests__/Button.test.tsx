@@ -90,4 +90,9 @@ describe('Button', () => {
             </button>
         `)
     })
+
+    it('renders a <button /> even if the button variant is "link"', () => {
+        render(<Button variant="link">Click me</Button>)
+        expect(screen.getByRole('button', { name: 'Click me' })).toBeInTheDocument()
+    })
 })

@@ -22,6 +22,11 @@ function StandardButtonsStory() {
             <Button variant="primary">Primary Button</Button>
             <Button variant="secondary">Secondary Button</Button>
             <Button variant="danger">Danger Button!</Button>
+            <Button variant="link">Link Button</Button>
+            <p>
+                You can <Button variant="link">add link buttons inline</Button> and it works as
+                you'd expect.
+            </p>
         </section>
     )
 }
@@ -42,6 +47,9 @@ function SmallButtonsStory() {
             </Button>
             <Button size="small" variant="danger">
                 Small Danger Button!
+            </Button>
+            <Button size="small" variant="link">
+                Small Link Button
             </Button>
         </section>
     )
@@ -64,6 +72,9 @@ function LargeButtonsStory() {
             <Button size="large" variant="danger">
                 Large Danger Button!
             </Button>
+            <Button size="large" variant="link">
+                Large Link Button
+            </Button>
         </section>
     )
 }
@@ -85,6 +96,9 @@ function DisabledButtonsStory() {
             <Button disabled variant="danger">
                 Disabled Danger Button!
             </Button>
+            <Button disabled variant="link">
+                Disabled Link Button
+            </Button>
         </section>
     )
 }
@@ -105,6 +119,9 @@ function LoadingButtonsStory() {
             </Button>
             <Button loading variant="danger">
                 Loading Danger Button!
+            </Button>
+            <Button loading variant="link">
+                Loading Link Button
             </Button>
         </section>
     )
@@ -139,7 +156,7 @@ function ButtonPlaygroundStory() {
     return (
         <section className="story playground">
             <Button
-                variant={select('Variant', ['primary', 'secondary', 'danger'], 'primary')}
+                variant={select('Variant', ['primary', 'secondary', 'danger', 'link'], 'primary')}
                 size={select('Size', ['default', 'small', 'large'], 'default')}
                 disabled={boolean('Disabled', false)}
                 loading={boolean('Loading', false)}
