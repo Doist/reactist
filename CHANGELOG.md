@@ -2,13 +2,17 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 4.1.4
+
+-   [Fix] Reinstalled @doist/prettier-config from the npm registry and removed the authentication needed when pulling down dependencies.
+
 ## 4.1.3
 
-- [Fix] We have a dev dependency being on the GiHub package registry and we had problems with our Github actions pulling it. This is hopefully all fixed. 🤞
+-   [Fix] We have a dev dependency being on the GiHub package registry and we had problems with our Github actions pulling it. This is hopefully all fixed. 🤞
 
 ## 4.1.0
 
-- [New] The `event` object is now forwarded to the on* handler in the `KeyCapturer` component. The `onEnter` event will also no longer fire when it's in the middle of an [IME composition session](https://developer.mozilla.org/en-US/docs/Glossary/input_method_editor).
+-   [New] The `event` object is now forwarded to the on* handler in the `KeyCapturer` component. The `onEnter` event will also no longer fire when it's in the middle of an [IME composition session](https://developer.mozilla.org/en-US/docs/Glossary/input_method_editor).
 
 ## 4.0.2
 
