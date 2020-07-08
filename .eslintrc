@@ -34,7 +34,8 @@
         "react/no-find-dom-node": "off",
         "react/sort-comp": "error",
         "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/no-explicit-any": "error"
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/explicit-module-boundary-types": "off"
     },
     "settings": {
         "react": {
