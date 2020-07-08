@@ -132,14 +132,12 @@ class Box extends React.Component<React.PropsWithChildren<BoxProps>, BoxState> {
         const { right = false, children } = this.props
         const props = { top, right, setPosition: this._setPosition }
 
-        /* eslint-disable @typescript-eslint/camelcase */
         const className = classNames({
             body_wrapper: true,
             with_arrow: true,
             top: top,
             bottom: !top,
         })
-        /* eslint-enable @typescript-eslint/camelcase */
 
         const body = children && children[1]
 

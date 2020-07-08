@@ -54,7 +54,6 @@ class Button extends React.Component<
             danger,
             disabled,
             name,
-            //eslint-disable-next-line @typescript-eslint/camelcase
             data_tip,
             onClick,
             ...extraProps
@@ -87,7 +86,6 @@ class Button extends React.Component<
         )
 
         // conditionally wrap into tooltip
-        //eslint-disable-next-line @typescript-eslint/camelcase
         return data_tip ? <Tooltip text={data_tip}>{button}</Tooltip> : button
     }
 }
