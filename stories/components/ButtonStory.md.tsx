@@ -6,7 +6,7 @@ const alternateBrandingText = `
     @primary-color-lighter: lighter(#dd4b39, 0.1);
     @primary-color-darker: darker(#dd4b39, 0.1);
 
-    .alternate-branding {
+    .alternate_branding {
         // alternate button styles
         & > .reactist_button {
             background-color: @primary-color;
@@ -19,7 +19,7 @@ const alternateBrandingText = `
                 background-color: @primary-color-lighter;
             }
 
-            &.reactist_button--white {
+            &.reactist_button--secondary {
                 background-color: white;
                 border: 1px solid  @primary-color;
                 color: @primary-color;
