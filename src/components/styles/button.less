@@ -62,7 +62,6 @@
         border: none;
         text-decoration: none;
         padding: 0;
-        font-size: inherit;
 
         &:disabled {
             color: @secondary_font_color;
@@ -71,6 +70,10 @@
         &:not(:disabled):hover {
             text-decoration: underline;
         }
+    }
+
+    &--link:not(&--small):not(&--large) {
+        font-size: inherit;
     }
 
     // For the moment link-styled buttons do not support the loading indicator
