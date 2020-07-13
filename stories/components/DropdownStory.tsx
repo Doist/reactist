@@ -11,7 +11,7 @@ const DropdownStory = () => (
     <section className="story">
         <Dropdown.Box>
             <Dropdown.Trigger>
-                <Button name="Trigger: Click to show dropdown" />
+                <Button variant="primary">Trigger: Click to show dropdown</Button>
             </Dropdown.Trigger>
             <Dropdown.Body>
                 <div>
@@ -35,7 +35,9 @@ const InteractiveDropdownStory = () => (
     <section className="story">
         <Dropdown.Box allowBodyInteractions>
             <Dropdown.Trigger>
-                <Button name="Trigger: Click to show interactive dropdown (will not close when clicking on it)" />
+                <Button variant="primary">
+                    Trigger: Click to show interactive dropdown (will not close when clicking on it)
+                </Button>
             </Dropdown.Trigger>
             <Dropdown.Body>
                 <div>
