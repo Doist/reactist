@@ -2,20 +2,7 @@
 
 .reactist_keyboard_shortcut {
     font: 11px Menlo, monospace;
-
-    // In macOS style, make it all a single pill, replacing the '+' signs with spacing
-    &--macos {
-        kbd.reactist_keyboard_shortcut__plus {
-            display: none;
-        }
-        kbd.reactist_keyboard_shortcut__key:not(:last-of-type) {
-            margin-right: 0.5em;
-        }
-    }
-
-    // Styling the keys (or key groups in macOS) as pill-like units
-    &:not(&--macos) .reactist_keyboard_shortcut__key,
-    &--macos .reactist_keyboard_shortcut__group {
+    > kbd > kbd {
         display: inline-block;
         padding: 3px 5px;
         margin: 0 2px;

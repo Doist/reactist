@@ -5,45 +5,17 @@ exports[`KeyboardShortcut allows to customize how modifiers are translated 1`] =
   <span
     class="reactist_keyboard_shortcut"
   >
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         [ctrl]
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         [alt]
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         [shift]
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         E
       </kbd>
     </kbd>
@@ -51,45 +23,17 @@ exports[`KeyboardShortcut allows to customize how modifiers are translated 1`] =
   <span
     class="reactist_keyboard_shortcut reactist_keyboard_shortcut--macos"
   >
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         ⌃
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         ⌥
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         ⇧
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         E
       </kbd>
     </kbd>
@@ -102,38 +46,17 @@ exports[`KeyboardShortcut only capitalizes a non-modifier part if the overall sh
   <span
     class="reactist_keyboard_shortcut"
   >
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         e
       </kbd>
     </kbd>
     , 
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         Alt
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         E
       </kbd>
     </kbd>
@@ -141,38 +64,17 @@ exports[`KeyboardShortcut only capitalizes a non-modifier part if the overall sh
   <span
     class="reactist_keyboard_shortcut reactist_keyboard_shortcut--macos"
   >
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         e
       </kbd>
     </kbd>
     , 
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         ⌥
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         E
       </kbd>
     </kbd>
@@ -185,48 +87,20 @@ exports[`KeyboardShortcut recognizes mod/cmd as a modifier that behaves differen
   <span
     class="reactist_keyboard_shortcut"
   >
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         Ctrl
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         K
       </kbd>
     </kbd>
     , 
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         Ctrl
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         J
       </kbd>
     </kbd>
@@ -234,48 +108,20 @@ exports[`KeyboardShortcut recognizes mod/cmd as a modifier that behaves differen
   <span
     class="reactist_keyboard_shortcut reactist_keyboard_shortcut--macos"
   >
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         ⌘
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         K
       </kbd>
     </kbd>
     , 
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         ⌘
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         J
       </kbd>
     </kbd>
@@ -288,28 +134,14 @@ exports[`KeyboardShortcut supports passing various shortcuts, which it will sepa
   <span
     class="reactist_keyboard_shortcut"
   >
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         p1
       </kbd>
     </kbd>
     , 
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         p2
       </kbd>
     </kbd>
@@ -317,28 +149,14 @@ exports[`KeyboardShortcut supports passing various shortcuts, which it will sepa
   <span
     class="reactist_keyboard_shortcut reactist_keyboard_shortcut--macos"
   >
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         p1
       </kbd>
     </kbd>
     , 
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         p2
       </kbd>
     </kbd>
@@ -351,45 +169,17 @@ exports[`KeyboardShortcut works as expected 1`] = `
   <span
     class="reactist_keyboard_shortcut"
   >
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         Ctrl
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         Alt
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         Shift
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         E
       </kbd>
     </kbd>
@@ -397,45 +187,17 @@ exports[`KeyboardShortcut works as expected 1`] = `
   <span
     class="reactist_keyboard_shortcut reactist_keyboard_shortcut--macos"
   >
-    <kbd
-      class="reactist_keyboard_shortcut__group"
-    >
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      />
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+    <kbd>
+      <kbd>
         ⌃
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         ⌥
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         ⇧
       </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__plus"
-      >
-        +
-      </kbd>
-      <kbd
-        class="reactist_keyboard_shortcut__key"
-      >
+      <kbd>
         E
       </kbd>
     </kbd>

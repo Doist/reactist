@@ -85,14 +85,9 @@ export default function KeyboardShortcut({
             {shortcuts.map((shortcut, i) => (
                 <React.Fragment key={i}>
                     {i === 0 ? null : ', '}
-                    <kbd className="reactist_keyboard_shortcut__group">
+                    <kbd>
                         {parseKeys(shortcut, translateModifiers).map((key, j) => (
-                            <React.Fragment key={j}>
-                                <kbd className="reactist_keyboard_shortcut__plus">
-                                    {j === 0 ? null : '+'}
-                                </kbd>
-                                <kbd className="reactist_keyboard_shortcut__key">{key}</kbd>
-                            </React.Fragment>
+                            <kbd key={j}>{key}</kbd>
                         ))}
                     </kbd>
                 </React.Fragment>
