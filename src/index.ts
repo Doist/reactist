@@ -16,8 +16,6 @@ export { default as Input } from './components/Input'
 
 export { default as KeyCapturer, SUPPORTED_KEYS } from './components/KeyCapturer'
 
-export { default as LinkButton } from './components/LinkButton'
-
 export { default as Loading } from './components/Loading'
 
 export { MenuButton, MenuButtonItem } from './components/MenuButton'

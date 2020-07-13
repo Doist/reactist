@@ -22,7 +22,9 @@ const renderModal = (modal) => {
 const getStory = (text, modal) => (
     <section className="story">
         <div id="modal_box" />
-        <Button name={text} onClick={() => renderModal(modal)} />
+        <Button variant="primary" onClick={() => renderModal(modal)}>
+            {text}
+        </Button>
     </section>
 )
 
@@ -79,8 +81,10 @@ const ModalHeaderBodyAndActionsStory = () => {
                 Ipsum.
             </Modal.Body>
             <Modal.Actions>
-                <Button white name="Does nothing" />
-                <Button name="Close the Modal" close />
+                <Button variant="secondary">Does nothing</Button>
+                <Button variant="primary" close>
+                    Close the Modal
+                </Button>
             </Modal.Actions>
         </Modal.Box>
     )
@@ -221,8 +225,8 @@ const ModalPlaygroundStory = () => {
                     Some Content
                 </Modal.Body>
                 <Modal.Actions>
-                    <Button white name="Action 1" />
-                    <Button name="Action 2" />
+                    <Button variant="secondary">Action 1</Button>
+                    <Button variant="primary">Action 2</Button>
                 </Modal.Actions>
             </Modal.Box>
         </section>

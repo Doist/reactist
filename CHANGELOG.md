@@ -2,6 +2,20 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 5.0.0
+
+The `Button` component's big renovation.
+
+-   [BREAKING CHANGE] The `Button` component changed its outer interface entirely.
+    -   Instead of individual boolean props for setting its visual style (`primary`, `secondary`, etc.) it has a single prop `variant` which receives the styling/variant as a string value.
+    -   This prop is now required so if you were not adding any of these boolean props, you now need to add `variant="primary"`.
+    -   The `white` prop now does not even exist as a `variant`. It is replaced by `variant="secondary"`.
+    -   Instead of individual boolean props for setting its size (`small`, `large`), `Button` now has a single prop `size` that can receive either `'small'` or `'large'` as its value. If omitted the button has its default size.
+    -   The `Button` now uses `children` as the prop in which it receives the content inside the button, as opposed to using the `name` prop. So now `<Button name="Hello" />` becomes `<Button>Hello</Button>`.
+    -   The `Button` prop `data_tip` is now called `tooltip`.
+    -   The css class names for the `Button` component are now all following a BEM-like naming convention. Instead of having classes such as `.loading`, `.secondary`, etc. it now has all of these prefixed by `.reactist_button--`. That is, `.secondary` is now `.reactist_button--secondary`.
+-   [BREAKING CHANGE] The `LinkButton` component has been removed entirely. The main reason being it is not accessible to use a link as a button. You can achieve a visually similar button with a new possible `variant` prop on the regular `Button`. So now `<LinkButton name="Click me" />` becomes `<Button variant="link">Click me</Button>`. This new link-like button is semantically a button, as opposed to being a link posing as a button.
+
 ## 4.1.5
 
 -   [Fix] Tightens up type definitions for the `KeyCapturer` props.
