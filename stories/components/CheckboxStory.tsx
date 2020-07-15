@@ -18,7 +18,7 @@ type CheckboxStoryState = {
     checked: boolean
 }
 
-class CheckboxStory extends React.Component<{}, CheckboxStoryState> {
+class CheckboxStory extends React.Component<unknown, CheckboxStoryState> {
     constructor(props, context) {
         super(props, context)
         this.state = { checked: true }
@@ -48,7 +48,7 @@ type CheckboxPlaygroundStoryState = {
     checked: boolean
 }
 
-class CheckboxPlaygroundStory extends React.Component<{}, CheckboxPlaygroundStoryState> {
+class CheckboxPlaygroundStory extends React.Component<unknown, CheckboxPlaygroundStoryState> {
     constructor(props, context) {
         super(props, context)
         this.state = { checked: true }

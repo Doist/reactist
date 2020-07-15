@@ -182,7 +182,6 @@ class Popover extends React.Component<Props> {
         const { visible, withArrow, arrowClassName } = this.props
         const className = classNames('reactist_popover', { visible })
 
-        /* eslint-disable @typescript-eslint/camelcase */
         if (visible && withArrow) {
             return classNames(className, arrowClassName, {
                 arrow_top: position === 'bottom',
@@ -191,7 +190,6 @@ class Popover extends React.Component<Props> {
                 arrow_left: position === 'right',
             })
         }
-        /* eslint-enable @typescript-eslint/camelcase */
         return className
     }
 
