@@ -47,7 +47,7 @@ describe('KeyboardShortcut', () => {
 
     it('allows to customize how modifiers are translated', () => {
         const element = renderKeyboardShortcut('ctrl + alt + shift + e', {
-            translateModifiers: (modifier) => `[${modifier}]`,
+            translateKey: (modifier) => (modifier.length === 1 ? modifier : `[${modifier}]`),
         })
         expect(element).toMatchSnapshot()
     })

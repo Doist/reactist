@@ -1,33 +1,60 @@
 import * as React from 'react'
 import classNames from 'classnames'
 
-type Modifier = 'ctrl' | 'alt' | 'shift'
-type TranslateModifiers = (modifier: Modifier) => string
+//
+// Support for setting up how to translate modifiers globally.
+//
 
-function defaultTranslateModifiers(modifier: Modifier) {
-    return modifier.charAt(0).toUpperCase() + modifier.slice(1).toLowerCase()
+let globalTranslateKey = (key: string) => key
+
+type TranslateKey = typeof globalTranslateKey
+
+KeyboardShortcut.setTranslateKey = (tr: TranslateKey) => {
+    globalTranslateKey = tr
+}
+
+function translateKeyMac(key: string) {
+    switch (key.toLowerCase()) {
+        case 'cmd':
+        case 'mod':
+            return '⌘'
+        case 'control':
+        case 'ctrl':
+            return '⌃'
+        case 'alt':
+            return '⌥'
+        case 'shift':
+            return '⇧'
+        case 'space':
+            return '␣'
+        default:
+            return key
+    }
+}
+
+//
+// Some helpers
+//
+
+function capitalize(str: string) {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
 }
 
 function hasModifiers(str: string) {
-    return /\b(mod|cmd|ctrl|alt|shift)\b/.test(str)
+    return /\b(mod|cmd|ctrl|control|alt|shift)\b/i.test(str)
 }
 
-function parseKeysMac(shortcut: string) {
-    const str = hasModifiers(shortcut) ? shortcut.toUpperCase() : shortcut
-    return str
-        .replace(/\b(mod|cmd)\b/gi, '⌘')
-        .replace(/\bctrl\b/gi, '⌃')
-        .replace(/\balt\b/gi, '⌥')
-        .replace(/\bshift\b/gi, '⇧')
-        .split(/\s*\+\s*/)
+function isSpecialKey(str: string) {
+    return /^(mod|cmd|ctrl|control|alt|shift|space)$/i.test(str)
 }
 
-function parseKeysDefault(shortcut: string, translateModifiers: TranslateModifiers) {
+function parseKeys(shortcut: string, isMac: boolean, translateKey: TranslateKey) {
+    const t = isMac ? translateKeyMac : translateKey
     const _hasModifiers = hasModifiers(shortcut)
 
     function mapIndividualKey(str: string) {
-        if (str === 'ctrl' || str === 'alt' || str === 'shift') {
-            return translateModifiers(str)
+        if (isSpecialKey(str)) {
+            return capitalize(t(str))
         }
         if (_hasModifiers && str.length === 1) {
             return str.toUpperCase()
@@ -35,11 +62,16 @@ function parseKeysDefault(shortcut: string, translateModifiers: TranslateModifie
         return str
     }
 
-    return shortcut
-        .replace(/\b(mod|cmd)\b/i, 'ctrl')
-        .split(/\s*\+\s*/)
-        .map(mapIndividualKey)
+    if (!isMac) {
+        shortcut = shortcut.replace(/\b(mod|cmd)\b/i, 'ctrl')
+    }
+
+    return shortcut.split(/\s*\+\s*/).map(mapIndividualKey)
 }
+
+//
+// The KeyboardShortcut component
+//
 
 type NativeSpanProps = React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLSpanElement>,
@@ -54,27 +86,42 @@ type Props = Omit<NativeSpanProps, 'children'> & {
      */
     children: string | string[]
     /**
-     * A function that will be used to change how you want all supported modifiers represented. This
-     * may be useful if in some languages a modifier is not expressed as in English.
+     * A function that allows you to change how some key names are represented. This may be useful,
+     * for instance, to translate modifier names that are expressed differently in other languages
+     * (e.g. `Ctrl` is named `Strg` in German).
+     *
+     * It defaults to a global version that leaves the key as is. You can pass your version as a
+     * prop, or you can also set your own version of this global default one, so you don't need to
+     * pass your own on each invocation of this component.
+     *
+     * ```js
+     * import { KeyboardShortcut } from '@doist/reactist'
+     * KeyboardShortcut.setTranslateKey = key => { ... }
+     * ```
+     *
+     * Note: When the component detects the macOS operating system it bypasses key translation for
+     * most modifiers and uses macOS-specific symbols. See the `isMac` prop for details.
      */
-    translateModifiers?: TranslateModifiers
+    translateKey?: TranslateKey
     /**
      * This prop is not meant to be passed. The component will automatically initialize it to `true`
      * if it detects that the current browser / operating system is on macOS, in which case modifier
      * keys are represented using macOS' notation (e.g. ⌘ ⌃ ⌥ ⇧).
+     *
+     * Though it is discouraged, if you don't want this special treatment in macOS, you can pass
+     * `isMac={false}` in all invocations of this component.
      */
     isMac?: boolean
 }
 
 export default function KeyboardShortcut({
     children,
-    translateModifiers = defaultTranslateModifiers,
     className,
+    translateKey = globalTranslateKey,
     isMac = navigator.platform != null && navigator.platform.toUpperCase().includes('MAC'),
     ...props
 }: Props) {
     const shortcuts = typeof children === 'string' ? [children] : children
-    const parseKeys = isMac ? parseKeysMac : parseKeysDefault
     return (
         <span
             className={classNames('reactist_keyboard_shortcut', className, {
@@ -86,7 +133,7 @@ export default function KeyboardShortcut({
                 <React.Fragment key={i}>
                     {i === 0 ? null : ', '}
                     <kbd>
-                        {parseKeys(shortcut, translateModifiers).map((key, j) => (
+                        {parseKeys(shortcut, isMac, translateKey).map((key, j) => (
                             <kbd key={j}>{key}</kbd>
                         ))}
                     </kbd>
