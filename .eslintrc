@@ -18,7 +18,7 @@
             "impliedStrict": true
         },
         "sourceType": "module",
-        "project": "tsconfig.json"
+        "project": ["tsconfig.json", "tsconfig.stories.json"]
     },
     "ignorePatterns": [
         "tsdx.config.js",
@@ -38,7 +38,12 @@
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-explicit-any": "error",
         "@typescript-eslint/explicit-module-boundary-types": "off",
-        "@typescript-eslint/ban-ts-comment": "off"
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/unbound-method": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-return": "off"
     },
     "settings": {
         "react": {
