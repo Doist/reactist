@@ -20,6 +20,7 @@ import LoadingStory from './components/LoadingStory'
 import AvatarStory from './components/AvatarStory'
 import IconStory from './components/IconStory'
 import KeyCapturerStory from './components/KeyCapturerStory'
+import KeyboardShortcutStory from './components/KeyboardShortcutStory'
 
 ReactistStory()
 // alphabetically sorted component stories
@@ -32,6 +33,7 @@ ErrorMessageStory()
 IconStory()
 InputStory()
 KeyCapturerStory()
+KeyboardShortcutStory()
 LoadingStory()
 MenuButtonStory()
 ModalStory()

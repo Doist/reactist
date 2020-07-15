@@ -1,0 +1,206 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KeyboardShortcut allows to customize how modifiers are translated 1`] = `
+<div>
+  <span
+    class="reactist_keyboard_shortcut"
+  >
+    <kbd>
+      <kbd>
+        [ctrl]
+      </kbd>
+      <kbd>
+        [alt]
+      </kbd>
+      <kbd>
+        [shift]
+      </kbd>
+      <kbd>
+        E
+      </kbd>
+    </kbd>
+  </span>
+  <span
+    class="reactist_keyboard_shortcut reactist_keyboard_shortcut--macos"
+  >
+    <kbd>
+      <kbd>
+        ⌃
+      </kbd>
+      <kbd>
+        ⌥
+      </kbd>
+      <kbd>
+        ⇧
+      </kbd>
+      <kbd>
+        E
+      </kbd>
+    </kbd>
+  </span>
+</div>
+`;
+
+exports[`KeyboardShortcut only capitalizes a non-modifier part if the overall shortcut has modifiers 1`] = `
+<div>
+  <span
+    class="reactist_keyboard_shortcut"
+  >
+    <kbd>
+      <kbd>
+        e
+      </kbd>
+    </kbd>
+    , 
+    <kbd>
+      <kbd>
+        Alt
+      </kbd>
+      <kbd>
+        E
+      </kbd>
+    </kbd>
+  </span>
+  <span
+    class="reactist_keyboard_shortcut reactist_keyboard_shortcut--macos"
+  >
+    <kbd>
+      <kbd>
+        e
+      </kbd>
+    </kbd>
+    , 
+    <kbd>
+      <kbd>
+        ⌥
+      </kbd>
+      <kbd>
+        E
+      </kbd>
+    </kbd>
+  </span>
+</div>
+`;
+
+exports[`KeyboardShortcut recognizes mod/cmd as a modifier that behaves differently in macOS and outside macOS 1`] = `
+<div>
+  <span
+    class="reactist_keyboard_shortcut"
+  >
+    <kbd>
+      <kbd>
+        Ctrl
+      </kbd>
+      <kbd>
+        K
+      </kbd>
+    </kbd>
+    , 
+    <kbd>
+      <kbd>
+        Ctrl
+      </kbd>
+      <kbd>
+        J
+      </kbd>
+    </kbd>
+  </span>
+  <span
+    class="reactist_keyboard_shortcut reactist_keyboard_shortcut--macos"
+  >
+    <kbd>
+      <kbd>
+        ⌘
+      </kbd>
+      <kbd>
+        K
+      </kbd>
+    </kbd>
+    , 
+    <kbd>
+      <kbd>
+        ⌘
+      </kbd>
+      <kbd>
+        J
+      </kbd>
+    </kbd>
+  </span>
+</div>
+`;
+
+exports[`KeyboardShortcut supports passing various shortcuts, which it will separate with commas 1`] = `
+<div>
+  <span
+    class="reactist_keyboard_shortcut"
+  >
+    <kbd>
+      <kbd>
+        p1
+      </kbd>
+    </kbd>
+    , 
+    <kbd>
+      <kbd>
+        p2
+      </kbd>
+    </kbd>
+  </span>
+  <span
+    class="reactist_keyboard_shortcut reactist_keyboard_shortcut--macos"
+  >
+    <kbd>
+      <kbd>
+        p1
+      </kbd>
+    </kbd>
+    , 
+    <kbd>
+      <kbd>
+        p2
+      </kbd>
+    </kbd>
+  </span>
+</div>
+`;
+
+exports[`KeyboardShortcut works as expected 1`] = `
+<div>
+  <span
+    class="reactist_keyboard_shortcut"
+  >
+    <kbd>
+      <kbd>
+        Ctrl
+      </kbd>
+      <kbd>
+        Alt
+      </kbd>
+      <kbd>
+        Shift
+      </kbd>
+      <kbd>
+        E
+      </kbd>
+    </kbd>
+  </span>
+  <span
+    class="reactist_keyboard_shortcut reactist_keyboard_shortcut--macos"
+  >
+    <kbd>
+      <kbd>
+        ⌃
+      </kbd>
+      <kbd>
+        ⌥
+      </kbd>
+      <kbd>
+        ⇧
+      </kbd>
+      <kbd>
+        E
+      </kbd>
+    </kbd>
+  </span>
+</div>
+`;
