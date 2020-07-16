@@ -45,6 +45,8 @@ class Tabs extends React.Component<React.PropsWithChildren<Props>, State> {
             )
             if (i === -1)
                 throw new Error(
+                    // `hasDefault` being `true` guarantees `defaultTab` being a `number`.
+                    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                     `(Tabs) Unable to find Tab with the matching defaultTab value "${defaultTab}"`,
                 )
 
