@@ -1,4 +1,4 @@
-import React, { Validator } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Tooltip from './Tooltip'
@@ -18,7 +18,7 @@ type Props = Omit<NativeButtonProps, 'title'> & {
     /**
      * Controls visually how the button shows up from a predefined set of kinds of buttons.
      */
-    variant: 'primary' | 'secondary' | 'danger' | 'link'
+    variant?: 'primary' | 'secondary' | 'danger' | 'link'
     /**
      * The size of the button. If not provided it shows up in a normal size.
      */
@@ -28,7 +28,7 @@ type Props = Omit<NativeButtonProps, 'title'> & {
      *
      * This replaces `title` which is not supported for these buttons to avoid confusion.
      */
-    tooltip?: string
+    tooltip?: React.ReactNode
     /**
      * A flag to make outer elements know this button is meant to close something (e.g. in
      * Modal.Actions).
@@ -55,7 +55,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(function Button(
 ) {
     const className = classNames(
         'reactist_button',
-        `reactist_button--${variant}`,
+        variant ? `reactist_button--${variant}` : null,
         size !== 'default' ? `reactist_button--${size}` : null,
         { 'reactist_button--loading': loading },
         props.className,
@@ -81,9 +81,7 @@ Button.displayName = 'Button'
 
 Button.propTypes = {
     loading: PropTypes.bool,
-    variant: PropTypes.oneOf(['primary', 'secondary', 'danger', 'link']).isRequired as Validator<
-        Props['variant']
-    >,
+    variant: PropTypes.oneOf(['primary', 'secondary', 'danger', 'link']),
     size: PropTypes.oneOf(['default', 'small', 'large']),
     tooltip: PropTypes.string,
 }
