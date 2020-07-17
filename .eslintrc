@@ -8,6 +8,7 @@
         "prettier",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "prettier/@typescript-eslint"
     ],
     "parser": "@typescript-eslint/parser",
@@ -16,7 +17,8 @@
             "jsx": true,
             "impliedStrict": true
         },
-        "sourceType": "module"
+        "sourceType": "module",
+        "project": ["tsconfig.json", "tsconfig.stories.json"]
     },
     "ignorePatterns": [
         "dist/**",
@@ -34,8 +36,13 @@
         "react/no-did-update-set-state": "error",
         "react/no-find-dom-node": "off",
         "react/sort-comp": "error",
-        "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/no-explicit-any": "error"
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/unbound-method": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-return": "off"
     },
     "settings": {
         "react": {

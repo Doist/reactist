@@ -173,9 +173,9 @@ describe('KeyCapturer', () => {
         })
 
         // Helpers ////////////////////////////////////////////////////////////////
-        const _getWrappedComponent = (
-            props?: Partial<React.ComponentProps<typeof KeyCapturer>>,
-        ) => {
+        function _getWrappedComponent(
+            props: Omit<React.ComponentProps<typeof KeyCapturer>, 'children'> = {},
+        ) {
             return shallow(
                 <KeyCapturer eventName="onKeyDown" {...props}>
                     <div>Hello World</div>

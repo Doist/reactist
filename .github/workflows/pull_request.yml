@@ -3,23 +3,15 @@ name: Build and test
 on: pull_request
 
 jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com
-          scope: '@doist'
-      # Skip post-install scripts here, as a malicious
-      # script could steal NODE_AUTH_TOKEN.
-      - run: npm ci --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # `npm rebuild` will run all those post-install scripts for us.
-      - run: npm rebuild && npm run prepare --if-present
-      - run: npm run lint
-      - run: npm run type-check
-      - run: npm test
-      - run: npm run build-all
+    build-and-test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+            - run: npm ci
+            - run: npm run lint
+            - run: npm run type-check
+            - run: npm test
+            - run: npm run build-all

@@ -5,6 +5,6 @@ node_modules
 dist/
 es/
 lib/
-styles/
+/styles/
 coverage/
 .vscode/

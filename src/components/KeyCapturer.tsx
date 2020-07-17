@@ -1,6 +1,8 @@
 import React, { useRef } from 'react'
 
-const SUPPORTED_KEYS: Record<string, string> = {
+type Key = 'ArrowUp' | 'ArrowRight' | 'ArrowDown' | 'ArrowLeft' | 'Enter' | 'Backspace' | 'Escape'
+
+const SUPPORTED_KEYS: Record<string, Key> = {
     ARROW_UP: 'ArrowUp',
     ARROW_RIGHT: 'ArrowRight',
     ARROW_DOWN: 'ArrowDown',
@@ -11,33 +13,33 @@ const SUPPORTED_KEYS: Record<string, string> = {
 }
 
 const KeyCapturerResolver = {
-    resolveByKey: (eventKey: string) => {
+    resolveByKey(eventKey: string): Key | null {
         switch (eventKey) {
             case 'Left': // IE specific
             case 'ArrowLeft': {
-                return SUPPORTED_KEYS.ARROW_LEFT
+                return 'ArrowLeft'
             }
             case 'Up': // IE specific
             case 'ArrowUp': {
-                return SUPPORTED_KEYS.ARROW_UP
+                return 'ArrowUp'
             }
             case 'Right': // IE specific
             case 'ArrowRight': {
-                return SUPPORTED_KEYS.ARROW_RIGHT
+                return 'ArrowRight'
             }
             case 'Down': // IE specific
             case 'ArrowDown': {
-                return SUPPORTED_KEYS.ARROW_DOWN
+                return 'ArrowDown'
             }
             case 'Enter': {
-                return SUPPORTED_KEYS.ENTER
+                return 'Enter'
             }
             case 'Backspace': {
-                return SUPPORTED_KEYS.BACKSPACE
+                return 'Backspace'
             }
             case 'Esc': // IE specific
             case 'Escape': {
-                return SUPPORTED_KEYS.ESCAPE
+                return 'Escape'
             }
             default: {
                 return null
@@ -45,28 +47,28 @@ const KeyCapturerResolver = {
         }
     },
 
-    resolveByKeyCode: (keyCode: number) => {
+    resolveByKeyCode(keyCode: number): Key | null {
         switch (keyCode) {
             case 37: {
-                return SUPPORTED_KEYS.ARROW_LEFT
+                return 'ArrowLeft'
             }
             case 38: {
-                return SUPPORTED_KEYS.ARROW_UP
+                return 'ArrowUp'
             }
             case 39: {
-                return SUPPORTED_KEYS.ARROW_RIGHT
+                return 'ArrowRight'
             }
             case 40: {
-                return SUPPORTED_KEYS.ARROW_DOWN
+                return 'ArrowDown'
             }
             case 13: {
-                return SUPPORTED_KEYS.ENTER
+                return 'Enter'
             }
             case 8: {
-                return SUPPORTED_KEYS.BACKSPACE
+                return 'Backspace'
             }
             case 27: {
-                return SUPPORTED_KEYS.ESCAPE
+                return 'Escape'
             }
             default: {
                 return null
@@ -75,10 +77,53 @@ const KeyCapturerResolver = {
     },
 }
 
-type KeyCapturerProps = Record<string, (() => void) | boolean | React.ReactChild> & {
-    eventName?: 'onKeyDown' | 'onKeyDownCapture' | 'onKeyUp' | 'onKeyUpCapture'
-    children: React.ReactElement<unknown>
+type EventHandler = (event: React.SyntheticEvent) => void
+
+type EventHandlerProps = {
+    onArrowUp?: EventHandler
+    onArrowDown?: EventHandler
+    onArrowLeft?: EventHandler
+    onArrowRight?: EventHandler
+    onEnter?: EventHandler
+    onBackspace?: EventHandler
+    onEscape?: EventHandler
 }
+
+type PropagateProps = {
+    propagateArrowUp?: boolean
+    propagateArrowDown?: boolean
+    propagateArrowLeft?: boolean
+    propagateArrowRight?: boolean
+    propagateEnter?: boolean
+    propagateBackspace?: boolean
+    propagateEscape?: boolean
+}
+
+const keyEventHandlerMapping: Record<Key, keyof EventHandlerProps> = {
+    ArrowUp: 'onArrowUp',
+    ArrowDown: 'onArrowDown',
+    ArrowLeft: 'onArrowLeft',
+    ArrowRight: 'onArrowRight',
+    Enter: 'onEnter',
+    Backspace: 'onBackspace',
+    Escape: 'onEscape',
+}
+
+const keyPropagatePropMapping: Record<Key, keyof PropagateProps> = {
+    ArrowUp: 'propagateArrowUp',
+    ArrowDown: 'propagateArrowDown',
+    ArrowLeft: 'propagateArrowLeft',
+    ArrowRight: 'propagateArrowRight',
+    Enter: 'propagateEnter',
+    Backspace: 'propagateBackspace',
+    Escape: 'propagateEscape',
+}
+
+type KeyCapturerProps = EventHandlerProps &
+    PropagateProps & {
+        eventName?: 'onKeyDown' | 'onKeyDownCapture' | 'onKeyUp' | 'onKeyUpCapture'
+        children: React.ReactElement<unknown>
+    }
 
 /**
  * Use this component to wrap anything you want to handle key events for (e.g. an input).
@@ -91,17 +136,16 @@ type KeyCapturerProps = Record<string, (() => void) | boolean | React.ReactChild
 function KeyCapturer(props: KeyCapturerProps) {
     const { children, eventName = 'onKeyDown' } = props
     const composingRef = useRef(false)
-    const composingEventHandlers =
-        typeof props.onEnter === 'function'
-            ? {
-                  onCompositionStart: () => {
-                      composingRef.current = true
-                  },
-                  onCompositionEnd: () => {
-                      composingRef.current = false
-                  },
-              }
-            : undefined
+    const composingEventHandlers = props.onEnter
+        ? {
+              onCompositionStart: () => {
+                  composingRef.current = true
+              },
+              onCompositionEnd: () => {
+                  composingRef.current = false
+              },
+          }
+        : undefined
 
     function handleKeyEvent(event: React.KeyboardEvent<HTMLInputElement>) {
         // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
@@ -110,7 +154,11 @@ function KeyCapturer(props: KeyCapturerProps) {
                 ? KeyCapturerResolver.resolveByKey(event.key)
                 : KeyCapturerResolver.resolveByKeyCode(event.keyCode)
 
-        if (key === SUPPORTED_KEYS.ENTER && typeof props.onEnter === 'function') {
+        if (!key) return
+        const propagateEvent = props[keyPropagatePropMapping[key]] || false
+        const eventHandler = props[keyEventHandlerMapping[key]]
+
+        if (key === 'Enter' && eventHandler) {
             if (
                 composingRef.current ||
                 // Safari fires the onCompositionEnd event before the keydown event, so we
@@ -122,14 +170,11 @@ function KeyCapturer(props: KeyCapturerProps) {
             }
         }
 
-        if (key && Object.values(SUPPORTED_KEYS).includes(key)) {
-            if (typeof props[`on${key}`] === 'function') {
-                // @ts-expect-error Dynamic type not expressible in TypeScript.
-                props[`on${key}`](event)
-                if (props[`propagate${key}`] !== true) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
+        if (eventHandler) {
+            eventHandler(event)
+            if (!propagateEvent) {
+                event.preventDefault()
+                event.stopPropagation()
             }
         }
     }

@@ -10,7 +10,6 @@ import SelectStory from './components/SelectStory'
 import MenuButtonStory from './components/MenuButtonStory'
 import InputStory from './components/InputStory'
 import TabsStory from './components/TabsStory'
-import LinkButtonStory from './components/LinkButtonStory'
 import TooltipStory from './components/TooltipStory'
 import RangeInputStory from './components/RangeInputStory'
 import ErrorMessageStory from './components/ErrorMessageStory'
@@ -21,6 +20,7 @@ import LoadingStory from './components/LoadingStory'
 import AvatarStory from './components/AvatarStory'
 import IconStory from './components/IconStory'
 import KeyCapturerStory from './components/KeyCapturerStory'
+import KeyboardShortcutStory from './components/KeyboardShortcutStory'
 
 ReactistStory()
 // alphabetically sorted component stories
@@ -33,7 +33,7 @@ ErrorMessageStory()
 IconStory()
 InputStory()
 KeyCapturerStory()
-LinkButtonStory()
+KeyboardShortcutStory()
 LoadingStory()
 MenuButtonStory()
 ModalStory()
