@@ -17,6 +17,8 @@
         "node": ">=10"
     },
     "scripts": {
+        "setup": "npm install && npm run validate",
+        "validate": "npm run lint && npm run type-check && npm run test",
         "start": "tsdx watch",
         "build": "npm run build-tsdx && npm run build-webpack; rimraf 'dist/umd'",
         "build-webpack": "NODE_ENV=production ./node_modules/.bin/webpack --progress --color",
