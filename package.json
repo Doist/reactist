@@ -21,8 +21,7 @@
     "scripts": {
         "start": "tsdx watch",
         "build-all": "npm run build && npm run build:storybook",
-        "build": "npm run clean; tsdx build --tsconfig tsconfig.dist.json; npm run build:reorganize-styles",
-        "build:reorganize-styles": "rimraf dist/assets; mv es/index.css es/reactist.css; mkdir styles; find es -iname '*.css' -type f -exec mv {} styles/ \\;",
+        "build": "scripts/build.sh",
         "build:storybook": "build-storybook -o docs",
         "clean": "rimraf es lib styles dist",
         "test": "tsdx test --passWithNoTests",
