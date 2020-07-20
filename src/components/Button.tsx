@@ -29,14 +29,6 @@ type Props = Omit<NativeButtonProps, 'title'> & {
      * This replaces `title` which is not supported for these buttons to avoid confusion.
      */
     tooltip?: React.ReactNode
-    /**
-     * A flag to make outer elements know this button is meant to close something (e.g. in
-     * Modal.Actions).
-     *
-     * @deprecated This is being removed in favor of being explicit in calling whatever action the
-     *   button should perform when clicked.
-     */
-    close?: boolean
 }
 
 const Button = React.forwardRef<HTMLButtonElement, Props>(function Button(
