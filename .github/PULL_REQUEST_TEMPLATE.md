@@ -16,9 +16,8 @@ Feel free to leave unchecked or remove the lines that are not applicable.
 
 -   [ ] Added tests for bugs / new features
 -   [ ] Updated docs (storybooks, readme)
+-   [ ] Executed `npm run validate` and made sure no errors / warnings were shown
 -   [ ] Described changes in `CHANGELOG.md`
--   [ ] Executed `npm run lint` and made sure no errors / warnings were shown
--   [ ] Executed `npm run test` and made sure all tests are passing
 -   [ ] Bumped version in `package.json`
 -   [ ] Updated all static build artifacts (`npm run build-all`)
 
