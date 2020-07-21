@@ -2,11 +2,15 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-## 5.1.0
+## v5.2.0
+
+- [Feature] `Button` can now be unstyled if you omit the `variant` prop. This resets the styles to be even less than default styles of the web browser (e.g. removes all border, padding and background).
+
+## v5.1.0
 
 - [New] A `KeyboardShortcut` component will take one or several keyboard shortcut specified as string, and will parse them and render them in a nice semantic markup using the `kbd` element. Each key part of a key combination gets its own container so you can style things nicely.
 
-## 5.0.0
+## v5.0.0
 
 The `Button` component's big renovation.
 

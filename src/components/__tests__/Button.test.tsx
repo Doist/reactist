@@ -76,19 +76,13 @@ describe('Button', () => {
 
     it('applies any extra props to the underlying button', () => {
         render(
-            <Button variant="primary" type="submit" form="form-id">
+            <Button type="submit" form="form-id">
                 Click me
             </Button>,
         )
-        expect(screen.getByRole('button')).toMatchInlineSnapshot(`
-            <button
-              class="reactist_button reactist_button--primary"
-              form="form-id"
-              type="submit"
-            >
-              Click me
-            </button>
-        `)
+        const button = screen.getByRole('button')
+        expect(button).toHaveAttribute('form', 'form-id')
+        expect(button).toHaveAttribute('type', 'submit')
     })
 
     it('renders a <button /> even if the button variant is "link"', () => {

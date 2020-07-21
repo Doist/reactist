@@ -20,7 +20,7 @@ type Props = {
     /** Currently selected value. */
     value?: string | number
     /** Callback for the change event. Will be called with the next value (not the full event). */
-    onChange?: (value: Props['value']) => void
+    onChange?: (value: string) => void
     /** Options that are rendered in the select. */
     options?: Option[]
 }
