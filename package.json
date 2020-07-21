@@ -10,6 +10,7 @@
     "main": "dist/index.js",
     "module": "es/index.js",
     "typings": "lib/index.d.ts",
+    "sideEffects": false,
     "files": [
         "dist",
         "es",
