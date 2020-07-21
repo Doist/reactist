@@ -14,5 +14,5 @@ mkdir styles
 find es -iname '*.css' -type f -exec mv {} styles/ \;
 find dist -iname '*.css' -type f -exec rm {} \;
 find lib -iname '*.css' -type f -exec rm {} \;
-
+rm styles/index.css
 

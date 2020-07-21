@@ -1,8 +1,8 @@
 import React, { Validator } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import Tooltip from './Tooltip'
-import './styles/button.less'
+import Tooltip from '../Tooltip'
+import styles from './Button.module.less'
 
 type NativeButtonProps = React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -54,10 +54,10 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(function Button(
     ref,
 ) {
     const className = classNames(
-        'reactist_button',
-        `reactist_button--${variant}`,
-        size !== 'default' ? `reactist_button--${size}` : null,
-        { 'reactist_button--loading': loading },
+        styles['reactist_button'],
+        styles[`reactist_button--${variant}`],
+        size !== 'default' ? styles[`reactist_button--${size}`] : null,
+        { [styles['reactist_button--loading']]: loading },
         props.className,
     )
 
