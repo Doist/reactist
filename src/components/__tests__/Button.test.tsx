@@ -53,7 +53,7 @@ describe('Button', () => {
               class="reactist_popover__wrapper reactist_tooltip__wrapper"
             >
               <button
-                class="reactist_button reactist_button--primary"
+                class="reactist_button reactist_button reactist_button--primary reactist_button--primary"
                 type="button"
               >
                 x
