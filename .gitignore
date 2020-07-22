@@ -3,5 +3,8 @@
 node_modules
 .cache
 dist/
+es/
+lib/
+/styles/
 coverage/
 .vscode/

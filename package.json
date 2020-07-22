@@ -2,16 +2,20 @@
     "name": "@doist/reactist",
     "description": "Open source React components by Doist",
     "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",
-    "version": "5.2.0",
+    "version": "6.0.0",
     "license": "MIT",
     "homepage": "https://github.com/Doist/reactist#readme",
     "repository": "git+https://github.com/Doist/reactist.git",
     "prettier": "@doist/prettier-config",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "lib/index.js",
+    "module": "es/index.js",
+    "typings": "lib/index.d.ts",
+    "unpkg": "dist/reactist.cjs.production.min.js",
+    "sideEffects": false,
     "files": [
         "dist",
-        "src"
+        "es",
+        "styles"
     ],
     "engines": {
         "node": ">=10"
@@ -20,13 +24,10 @@
         "setup": "npm install && npm run validate",
         "validate": "npm run lint && npm run type-check && npm run test",
         "start": "tsdx watch",
-        "build": "npm run build-tsdx && npm run build-webpack; rimraf 'dist/umd'",
-        "build-webpack": "NODE_ENV=production ./node_modules/.bin/webpack --progress --color",
-        "build-tsdx": "tsdx build --tsconfig tsconfig.dist.json",
-        "build-watch": "tsdx watch",
-        "build-types": "rimraf 'lib/**/*.d.ts'; npx tsc -p tsconfig.lib.json;",
-        "build-storybook": "build-storybook -o docs",
-        "build-all": "npm run build && npm run build-storybook",
+        "build-all": "npm run build && npm run build:storybook",
+        "build": "scripts/build.sh",
+        "build:storybook": "build-storybook -o docs",
+        "clean": "rimraf es lib styles dist",
         "test": "tsdx test --passWithNoTests",
         "type-check": "tsc --noEmit -p ./tsconfig.json",
         "lint": "tsdx lint src stories",
@@ -40,7 +41,6 @@
         "react-dom": "^15.5.4 || ^16.2.0",
         "prop-types": "^15.6.2"
     },
-    "module": "dist/index/index.js",
     "devDependencies": {
         "@babel/core": "^7.9.6",
         "@babel/plugin-proposal-class-properties": "^7.10.1",
@@ -97,7 +97,6 @@
         "mockdate": "^3.0.2",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
         "path": "^0.12.7",
-        "postcss-url": "^8.0.0",
         "prettier": "2.0.5",
         "raw-loader": "^4.0.1",
         "react": "^16.13.1",
@@ -109,15 +108,14 @@
         "react-test-renderer": "^16.5.0",
         "rimraf": "^3.0.2",
         "rollup-plugin-postcss": "^3.1.1",
-        "style-loader": "^1.2.1",
+        "rollup-plugin-styles": "^3.10.0",
+        "style-loader": "^0.23.1",
         "svg-url-loader": "^6.0.0",
-        "terser-webpack-plugin": "^3.0.1",
         "ts-loader": "^7.0.4",
         "tsdx": "^0.13.2",
         "tslib": "^2.0.0",
         "typescript": "^3.9.2",
-        "webpack": "^4.43.0",
-        "webpack-bundle-analyzer": "^3.3.2",
-        "webpack-cli": "^3.1.0"
-    }
+        "webpack": "^4.43.0"
+    },
+    "dependencies": {}
 }

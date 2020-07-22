@@ -1,39 +1,34 @@
-const path = require('path')
-const postcss = require('rollup-plugin-postcss')
-const autoprefixer = require('autoprefixer')
-const cssnano = require('cssnano')
-const url = require('postcss-url')
-const getComponentsMap = require('./scripts/buildHelpers').getComponentsMap
+const styles = require('rollup-plugin-styles')
 
 module.exports = {
     rollup(config, options) {
-        if (config.output.format === 'esm') {
-            config.input = {
-                ...getComponentsMap(path.resolve(__dirname, './src/components')),
-                index: path.resolve(__dirname, './src/index.ts'),
-            }
-            config.output.dir = 'dist'
-            config.output.file = undefined
-            config.output.entryFileNames = '[name]/index.js'
-            config.output.hoistTransitiveImports = false
-        }
-        config.plugins.push(
-            postcss({
-                plugins: [
-                    autoprefixer(),
-                    cssnano({
-                        preset: 'default',
-                    }),
-                    url({
-                        url: 'inline',
-                        maxSize: 10,
-                        fallback: 'copy',
-                    }),
-                ],
-                inject: false,
-                extract: 'reactist.css',
+        // Add rollup-plugin styles and process as CSS modules anything that is named "index.css"
+        // Also inline all assets in CSS files using base64 encoding & data URLs.
+        config.plugins = [
+            styles({
+                autoModules: /index/,
+                mode: 'extract',
+                url: { inline: true },
             }),
-        )
+        ].concat(config.plugins)
+
+        // Bundled output is tsdx default, so we don't need to do anything special.
+        if (process.env.BUNDLED_OUTPUT === 'true' && config.output.format === 'cjs') {
+            return config
+        }
+
+        // These are for unbundled output in ESM (es/) and CJS (lib/) folders.
+        if (config.output.format === 'esm') {
+            config.output.dir = 'es'
+        } else if (config.output.format === 'cjs') {
+            config.output.dir = 'lib'
+        }
+
+        config.preserveModules = true
+        // file is unset as now we code-split into different folders
+        config.output.file = undefined
+        config.output.assetFileNames = '[name][extname]'
+
         return config
     },
 }

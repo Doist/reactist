@@ -31,15 +31,15 @@ You also need to load the CSS file of reactist somewhere in your app. For instan
 <link
     rel="stylesheet"
     type="text/css"
-    href="./node_modules/@doist/reactist/dist/Loading/index.css"
+    href="./node_modules/@doist/reactist/styles/Loading.css"
 />
 ```
 
 If you prefer to include static files grab the [minified build from the dist folder](https://github.com/Doist/reactist/tree/develop/dist).
 
 ```html
-<script src="./node_modules/@doist/reactist/dist/index.js"></script>
-<link rel="stylesheet" type="text/css" href="./node_modules/@doist/reactist/dist/reactist.css" />
+<script src="./node_modules/@doist/reactist/dist/reactist.cjs.production.min.js"></script>
+<link rel="stylesheet" type="text/css" href="./node_modules/@doist/reactist/styles/reactist.css" />
 ```
 
 # Changelog
@@ -75,7 +75,7 @@ This boots up a development server with hot reloading on http://localhost:6006. 
 For the second development mode you can leverage `npm link`. First run:
 
 ```sh
-npm run build-watch
+npm run start
 ```
 
 this will update the build artifacts whenever you change something.
