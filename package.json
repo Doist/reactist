@@ -10,6 +10,7 @@
     "main": "lib/index.js",
     "module": "es/index.js",
     "typings": "lib/index.d.ts",
+    "unpkg": "dist/reactist.cjs.production.min.js",
     "sideEffects": false,
     "files": [
         "dist",
