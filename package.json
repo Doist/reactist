@@ -7,9 +7,10 @@
     "homepage": "https://github.com/Doist/reactist#readme",
     "repository": "git+https://github.com/Doist/reactist.git",
     "prettier": "@doist/prettier-config",
-    "main": "dist/index.js",
+    "main": "lib/index.js",
     "module": "es/index.js",
     "typings": "lib/index.d.ts",
+    "unpkg": "dist/reactist.cjs.production.min.js",
     "sideEffects": false,
     "files": [
         "dist",
