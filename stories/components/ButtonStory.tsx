@@ -23,6 +23,7 @@ function StandardButtonsStory() {
             <Button variant="secondary">Secondary Button</Button>
             <Button variant="danger">Danger Button!</Button>
             <Button variant="link">Link Button</Button>
+            <Button>Plain Button</Button>
             <p>
                 You can <Button variant="link">add link buttons inline</Button> and it works as
                 you'd expect.
@@ -51,6 +52,7 @@ function SmallButtonsStory() {
             <Button size="small" variant="link">
                 Small Link Button
             </Button>
+            <Button size="small">Small Plain Button</Button>
         </section>
     )
 }
@@ -75,6 +77,7 @@ function LargeButtonsStory() {
             <Button size="large" variant="link">
                 Large Link Button
             </Button>
+            <Button size="large">Large Plain Button</Button>
         </section>
     )
 }
@@ -99,6 +102,7 @@ function DisabledButtonsStory() {
             <Button disabled variant="link">
                 Disabled Link Button
             </Button>
+            <Button disabled>Disabled Plain Button</Button>
         </section>
     )
 }
@@ -120,9 +124,10 @@ function LoadingButtonsStory() {
             <Button loading variant="danger">
                 Loading Danger Button!
             </Button>
-            <Button loading variant="link">
-                Loading Link Button
-            </Button>
+            <p>
+                Note: <code>loading</code> has no effect on link or plain buttons. Use{' '}
+                <code>disabled</code> instead.
+            </p>
         </section>
     )
 }
@@ -153,10 +158,15 @@ const AlternaterBrandingButtonsChapter = {
 }
 
 function ButtonPlaygroundStory() {
+    const variant = select(
+        'Variant',
+        ['(none)', 'primary', 'secondary', 'danger', 'link'],
+        'primary',
+    )
     return (
         <section className="story playground">
             <Button
-                variant={select('Variant', ['primary', 'secondary', 'danger', 'link'], 'primary')}
+                variant={variant === '(none)' ? undefined : variant}
                 size={select('Size', ['default', 'small', 'large'], 'default')}
                 disabled={boolean('Disabled', false)}
                 loading={boolean('Loading', false)}

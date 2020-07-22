@@ -2,7 +2,7 @@
     "name": "@doist/reactist",
     "description": "Open source React components by Doist",
     "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",
-    "version": "5.1.0",
+    "version": "5.2.0",
     "license": "MIT",
     "homepage": "https://github.com/Doist/reactist#readme",
     "repository": "git+https://github.com/Doist/reactist.git",
@@ -21,6 +21,8 @@
         "node": ">=10"
     },
     "scripts": {
+        "setup": "npm install && npm run validate",
+        "validate": "npm run lint && npm run type-check && npm run test",
         "start": "tsdx watch",
         "build-all": "npm run build && npm run build:storybook",
         "build": "scripts/build.sh",

@@ -48,11 +48,15 @@ You can find our changelog [here](./CHANGELOG.md).
 
 # Development
 
-First clone the repository to your local machine by running:
+First clone the repository, and run its setup task:
 
 ```sh
-git clone git@github.com:Doist/reactist.git
+git clone https://github.com/doist/reactist.git
+cd reactist
+npm run setup
 ```
+
+The setup task will install dependencies and run various validations (linting, type checking, tests).
 
 We identified two major modes of development for Reactist. First, running an interactive storybook and see the changes you make to a component in an isolated environment. This is especially helpful when developing new components. And second, improving existing components in real-life applications.
 
@@ -114,23 +118,9 @@ npm run build
 npm run build-storybook
 ```
 
-You can run our eslint checks with
-
-```sh
-npm run check
-```
-
-It is mandatory to fix all linting errors before you make a pull request.
-
-**Tip:** You can fix most of the errors automatically by running:
-
-```sh
-npm run check -- --fix
-```
-
 # Testing
 
-Tests are executed with Jest or by running:
+Tests are executed by running:
 
 ```sh
 npm run test
@@ -139,10 +129,8 @@ npm run test
 During development you may find it beneficial to continuously execute the tests. This works by running:
 
 ```sh
-npm run test-watch
+npm run test -- --watch
 ```
-
-This also prints the current test coverage.
 
 MacOS users might need to upgrade watchman with `brew install watchman` when experiencing troubles with the watch mode. See this issue for details: https://github.com/facebook/jest/issues/1767
 

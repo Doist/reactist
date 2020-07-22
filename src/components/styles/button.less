@@ -1,39 +1,50 @@
 @import './constants.less';
 
-.default_border(@color: rgba(0, 0, 0, 0.1)) {
-    border: 1px solid @color;
-    border-radius: 3px;
-}
-
 .reactist_button {
-    .normal_text(@color: white);
-    .default_border();
-    box-sizing: border-box;
-    background-color: @primary_color;
-    padding: 5px 15px;
     cursor: pointer;
     user-select: none;
+    color: inherit;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    .normal_text();
 
     &:disabled {
         opacity: 0.4;
         cursor: not-allowed;
     }
 
-    &--primary:hover {
-        background-color: @primary_color_darker;
-    }
-
     &--small {
-        .smaller_text(@color: white);
-        padding: 5px 10px;
+        .smaller_text();
     }
 
-    &--large {
-        padding: 10px 15px;
+    &--primary,
+    &--secondary,
+    &--danger {
+        box-sizing: border-box;
+        padding: 5px 15px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 3px;
+        &.reactist_button--small {
+            padding: 5px 10px;
+        }
+        &.reactist_button--large {
+            padding: 10px 15px;
+        }
+    }
+
+    &--primary {
+        background-color: @primary_color;
+        color: white;
+
+        &:not([disabled]):hover {
+            background-color: @primary_color_darker;
+        }
     }
 
     &--danger {
         background-color: @color_red;
+        color: white;
 
         &:not([disabled]):hover {
             background-color: darken(@color_red, 10%);
@@ -42,8 +53,8 @@
 
     &--secondary {
         background-color: white;
-        .default_border(@color: @color_border_grey);
         color: @primary_font_color;
+        border-color: @color_border_grey;
 
         &:not([disabled]):hover {
             background-color: @color_grey_9;
@@ -52,10 +63,7 @@
 
     &--link {
         color: @primary_color;
-        background-color: transparent;
-        border: none;
         text-decoration: none;
-        padding: 0;
 
         &:disabled {
             color: @secondary_font_color;
@@ -64,39 +72,43 @@
         &:not(:disabled):hover {
             text-decoration: underline;
         }
+
+        &:not(&--small):not(&--large) {
+            font-size: inherit;
+        }
     }
 
-    &--link:not(&--small):not(&--large) {
-        font-size: inherit;
+    // loading-like buttons are only supported for the primary, secondary and danger variants
+    &--primary,
+    &--secondary,
+    &--danger {
+        &.reactist_button--loading {
+            cursor: progress !important;
+            &:after {
+                background-repeat: no-repeat;
+                background-size: 15px;
+                content: '';
+                display: inline-block;
+                height: 15px;
+                margin-left: 12px;
+                vertical-align: middle;
+                width: 15px;
+                animation-duration: 1s;
+                animation-iteration-count: infinite;
+                animation-name: reactistRotateRight;
+                animation-timing-function: linear;
+                color: #ffffff;
+                background-image: url('../icons/spinner.svg');
+            }
+        }
     }
 
-    // For the moment link-styled buttons do not support the loading indicator
-    &--loading:not(&--link) {
-        cursor: progress !important;
-
-        // for improved accessibility we treat secondary buttons differently
-        &.reactist_button--secondary {
-            .default_border(@color: @color_border_grey);
-            background-color: @color_border_grey;
-            color: @secondary_font_color;
-        }
-
-        &:after {
-            background-repeat: no-repeat;
-            background-size: 15px;
-            content: '';
-            display: inline-block;
-            height: 15px;
-            margin-left: 12px;
-            vertical-align: middle;
-            width: 15px;
-            animation-duration: 1s;
-            animation-iteration-count: infinite;
-            animation-name: reactistRotateRight;
-            animation-timing-function: linear;
-            color: #ffffff;
-            background-image: url('../icons/spinner.svg');
-        }
+    // we treat secondary buttons differently because the loading indicator is white
+    // TODO: make the loading indicator color adaptable from the outside using SVG currentColor
+    &--secondary.reactist_button--loading {
+        border-color: @color_border_grey;
+        background-color: @color_border_grey;
+        color: @secondary_font_color;
     }
 }
 
