@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v6.0.0
+
+- [Improvement] Reactist now generates a build more aligned to antd's best practices. It generates a clean ES6 build, a CommonJS build as well as an unpkg build. It also builds in support for future CSS module integration. This is a breaking change because importing modules has changed slightly. See README.md.
+
 ## v5.2.0
 
 - [Feature] `Button` can now be unstyled if you omit the `variant` prop. This resets the styles to be even less than default styles of the web browser (e.g. removes all border, padding and background).
