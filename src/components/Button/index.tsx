@@ -54,7 +54,9 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(function Button(
     ref,
 ) {
     const className = classNames(
+        'reactist_button',
         styles['reactist_button'],
+        variant ? `reactist_button--${variant}` : null,
         variant ? styles[`reactist_button--${variant}`] : null,
         size !== 'default' ? styles[`reactist_button--${size}`] : null,
         { [styles['reactist_button--loading']]: loading },
