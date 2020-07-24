@@ -118,5 +118,7 @@
         "typescript": "^3.9.2",
         "webpack": "^4.43.0"
     },
-    "dependencies": {}
+    "dependencies": {
+        "reakit": "^1.1.2"
+    }
 }

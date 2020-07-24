@@ -2,7 +2,7 @@ import './styles/time.less'
 
 import React from 'react'
 
-import Tooltip from './Tooltip'
+import { Tooltip } from './Tooltip'
 import TimeUtils, { TimeConfig } from './utils/TimeUtils'
 
 const DELAY = 60000
@@ -122,14 +122,13 @@ class Time extends React.Component<Props, State> {
             >
                 {this.props.tooltipOnHover ? (
                     <Tooltip
-                        text={
+                        content={
                             this.props.tooltip ||
                             (this.props.time &&
                                 TimeUtils.formatTimeLong(this.props.time, this.props.config))
                         }
-                        delayShow={500}
                     >
-                        {timeComponent}
+                        <span>{timeComponent}</span>
                     </Tooltip>
                 ) : (
                     timeComponent

@@ -44,25 +44,13 @@ describe('Button', () => {
 
     it('renders a tooltip when prop is supplied', () => {
         render(
-            <Button variant="primary" tooltip="Click me">
-                x
+            <Button variant="primary" tooltip="tooltip content here">
+                Click me
             </Button>,
         )
-        expect(screen.getByRole('button').parentElement).toMatchInlineSnapshot(`
-            <span
-              class="reactist_popover__wrapper reactist_tooltip__wrapper"
-            >
-              <button
-                class="reactist_button reactist_button--primary"
-                type="button"
-              >
-                x
-              </button>
-              <span
-                class="reactist_popover"
-              />
-            </span>
-        `)
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+        fireEvent.focus(screen.getByRole('button', { name: 'Click me' }))
+        expect(screen.getByRole('tooltip', { name: 'tooltip content here' })).toBeInTheDocument()
     })
 
     it('adds additional className when supplied', () => {

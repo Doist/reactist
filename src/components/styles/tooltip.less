@@ -2,61 +2,16 @@
 
 @tooltip_background: @color_almost_black;
 
-.reactist {
-    &_tooltip__wrapper {
-        display: inline-block;
-        max-width: 100%;
-        cursor: unset;
-
-        .reactist_tooltip__text {
-            .smaller_text();
-            text-align: center;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            max-width: 100%;
-            padding: 5px 10px;
-            max-width: 250px;
-
-            &:not(.inverted) {
-                background-color: @tooltip_background;
-                color: white;
-                border: none;
-            }
-        }
-
-        .reactist_tooltip__arrow:not(.inverted) {
-            &.arrow_top {
-                &:before {
-                    border-bottom-color: @tooltip_background;
-                }
-                &:after {
-                    display: none;
-                }
-            }
-            &.arrow_right {
-                &:before {
-                    border-left-color: @tooltip_background;
-                }
-                &:after {
-                    display: none;
-                }
-            }
-            &.arrow_bottom {
-                &:before {
-                    border-top-color: @tooltip_background;
-                }
-                &:after {
-                    display: none;
-                }
-            }
-            &.arrow_left {
-                &:before {
-                    border-right-color: @tooltip_background;
-                }
-                &:after {
-                    display: none;
-                }
-            }
-        }
-    }
+.reactist_tooltip {
+    .smaller_text();
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    padding: 5px 10px;
+    max-width: 250px;
+    background-color: @tooltip_background;
+    color: white;
+    border: none;
+    border-radius: 3px;
 }

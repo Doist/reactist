@@ -221,16 +221,26 @@ class Popover extends React.Component<Props> {
         const popoverClass = position ? this._getClassNameForPosition(position) : ''
         const popoverContentClass = classNames('reactist_popover__content', popoverClassName)
         const wrapperClass = classNames('reactist_popover__wrapper', wrapperClassName)
+        const triggerElement = React.Children.only<React.ReactElement>(
+            trigger as React.ReactElement,
+        )
+
+        function handleTriggerClick(event: React.SyntheticEvent) {
+            // @ts-expect-error This is temporary while we revisit the Popover interface
+            if (onClick) onClick(event)
+            if (typeof triggerElement.props.onClick === 'function') {
+                triggerElement.props.onClick(event)
+            }
+        }
 
         return (
             <span
                 className={wrapperClass}
                 onMouseEnter={onMouseEnter}
                 onMouseLeave={onMouseLeave}
-                onClick={onClick}
                 ref={this._updateWrapperRef}
             >
-                {trigger}
+                {React.cloneElement(triggerElement, { onClick: handleTriggerClick })}
                 <span className={popoverClass} ref={this._updatePopoverRef}>
                     {this.props.visible ? (
                         <span className={popoverContentClass}>

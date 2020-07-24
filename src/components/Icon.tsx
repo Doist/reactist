@@ -3,7 +3,7 @@ import './styles/icon.less'
 import React from 'react'
 import classNames from 'classnames'
 
-import Tooltip from './Tooltip'
+import { Tooltip } from './Tooltip'
 import ThreeDotsIcon from './icons/ThreeDotsIcon.svg'
 
 type Props = {
@@ -87,7 +87,7 @@ class Icon extends React.Component<Props, State> {
             </a>
             /* eslint-enable jsx-a11y/anchor-is-valid */
         )
-        return tooltip ? <Tooltip text={tooltip}>{component}</Tooltip> : component
+        return tooltip ? <Tooltip content={tooltip}>{component}</Tooltip> : component
     }
 }
 Icon.displayName = 'Icon'

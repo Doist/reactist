@@ -16,7 +16,9 @@ exports[`Popover adds arrow class when prop is set 1`] = `
   <span
     className="reactist_popover__wrapper"
   >
-    <span>
+    <span
+      onClick={[Function]}
+    >
       Trigger Content
     </span>
     <span
@@ -47,7 +49,9 @@ exports[`Popover renders without crashing 1`] = `
   <span
     className="reactist_popover__wrapper"
   >
-    <span>
+    <span
+      onClick={[Function]}
+    >
       Trigger Content
     </span>
     <span

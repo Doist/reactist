@@ -4,7 +4,7 @@ import React from 'react'
 import classnames from 'classnames'
 
 import Dropdown from './Dropdown'
-import Tooltip from './Tooltip'
+import { Tooltip } from './Tooltip'
 
 type NamedColor = { name: string; color: string }
 
@@ -106,7 +106,7 @@ function ColorItem({ color, colorIndex, isActive, onClick, tooltip }: ColorItemP
         </span>
     )
 
-    return tooltip ? <Tooltip text={tooltip}>{item}</Tooltip> : item
+    return tooltip ? <Tooltip content={tooltip}>{item}</Tooltip> : item
 }
 ColorItem.displayName = 'ColorItem'
 
