@@ -9,6 +9,10 @@ type NativeButtonProps = React.DetailedHTMLProps<
     HTMLButtonElement
 >
 
+type ThemeProps = {
+    theme?: 'twist-light'
+}
+
 type Props = Omit<NativeButtonProps, 'title'> & {
     /**
      * Loading style. When true it disables the button, but it also adds a visual indication of
@@ -39,7 +43,7 @@ type Props = Omit<NativeButtonProps, 'title'> & {
     close?: boolean
 }
 
-const Button = React.forwardRef<HTMLButtonElement, Props>(function Button(
+const Button = React.forwardRef<HTMLButtonElement, Props & ThemeProps>(function Button(
     {
         type = 'button',
         variant,
@@ -48,6 +52,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(function Button(
         disabled = false,
         tooltip,
         onClick,
+        theme,
         children,
         ...props
     },
@@ -58,6 +63,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(function Button(
         styles['reactist_button'],
         variant ? `reactist_button--${variant}` : null,
         variant ? styles[`reactist_button--${variant}`] : null,
+        theme ? `reactist-theme-${theme}` : null,
         size !== 'default' ? styles[`reactist_button--${size}`] : null,
         { [styles['reactist_button--loading']]: loading },
         props.className,

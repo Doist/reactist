@@ -34,11 +34,11 @@
     }
 
     &--primary {
-        background-color: @primary_color;
-        color: white;
+        background-color: var(--primary-fill-color);
+        color: var(--primary-font-color);
 
         &:not([disabled]):hover {
-            background-color: @primary_color_darker;
+            background-color: var(--primary-fill-elevated-color);
         }
     }
 
@@ -52,12 +52,12 @@
     }
 
     &--secondary {
-        background-color: white;
-        color: @primary_font_color;
+        background-color: var(--secondary-fill-color);
+        color: var(--secondary-font-color);
         border-color: @color_border_grey;
 
         &:not([disabled]):hover {
-            background-color: @color_grey_9;
+            background-color: var(--secondary-fill-elevated-color);
         }
     }
 

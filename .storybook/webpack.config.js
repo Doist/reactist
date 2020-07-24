@@ -19,7 +19,9 @@ module.exports = {
                 use: [
                     'style-loader',
                     { loader: 'css-loader', options: { modules: { auto: true } } },
-                    'less-loader',
+                    {
+                        loader: 'less-loader',
+                    },
                 ],
             },
             { test: /\.css$/, loader: 'style-loader!css-loader' },
