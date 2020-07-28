@@ -85,3 +85,4 @@ Button.defaultProps = {
 }
 
 export default Button
+export { ButtonProps }

@@ -1,0 +1,64 @@
+@import './constants.less';
+
+.reactist_menulist[role='menu'] {
+    display: block;
+    white-space: nowrap;
+    background: hsla(0, 100%, 100%, 0.99);
+    outline: none;
+    font-size: 85%;
+    padding: 4px 0;
+    min-width: 180px;
+    border: 1px solid @color_border_grey;
+    border-radius: 3px;
+
+    [role='menuitem'],
+    .reactist_menugroup__label {
+        user-select: none;
+        outline: none;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        padding: 5px 10px;
+        width: 100%;
+        color: inherit;
+        border: none;
+        background-color: transparent;
+    }
+
+    .reactist_menugroup__label {
+        color: @secondary_font_color;
+    }
+
+    [role='menuitem'] {
+        &:focus,
+        &[aria-expanded='true'] {
+            color: @primary_font_color;
+            background-color: @color_grey_10;
+        }
+        &[aria-disabled],
+        &:disabled {
+            color: @secondary_font_color;
+            pointer-events: none;
+        }
+    }
+
+    // sub-menus need to be shifted a bit towards the top to be aligned with its menu item
+    [role='menu'] {
+        margin-top: -5px;
+    }
+
+    hr {
+        border: none;
+        height: 1px;
+        background-color: @color_border_grey;
+        margin: 4px 0;
+    }
+}
+
+.reactist_menuitem__icon {
+    padding-right: 10px;
+}
+
+.reactist_menuitem__label {
+    flex: 1;
+}

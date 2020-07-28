@@ -20,7 +20,9 @@ export { default as KeyboardShortcut } from './components/KeyboardShortcut'
 
 export { default as Loading } from './components/Loading'
 
-export { MenuButton, MenuButtonItem } from './components/MenuButton'
+// export { MenuButton, MenuButtonItem } from './components/MenuButton'
+
+export * from './components/Menu'
 
 export { default as Modal } from './components/Modal'
 
