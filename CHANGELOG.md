@@ -8,7 +8,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 ## v6.0.0
 
-- [Improvement] Reactist now generates a build more aligned to antd's best practices. It generates a clean ES6 build, a CommonJS build as well as an unpkg build. It also builds in support for future CSS module integration. This is a breaking change because importing modules has changed slightly. See README.md.
+- [BREAKING CHANGE] Reactist now generates a build more aligned to antd's best practices. It generates a clean ES6 build, a CommonJS build, as well as an unpkg build. It also adds built-in support for future CSS module integration. This is a breaking change because importing modules has changed slightly. See README.md.
+- [BREAKING CHANGE] The `Button` component's `close` prop, which was deprecated back in v5, is now no longer supported.
 
 ## v5.2.0
 
