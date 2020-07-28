@@ -24,16 +24,16 @@
     "scripts": {
         "setup": "npm install && npm run validate",
         "validate": "npm run lint && npm run type-check && npm run test",
-        "start": "npm run build-themes && tsdx watch",
+        "start": "concurrently 'npm run start:themes' 'tsdx watch'",
+        "start:themes": "nodemon -e ts --watch src/themes --exec \"npx babel-node -x '.ts' src/themes/index.ts\"",
         "build-all": "npm run build-themes && npm run build && npm run build:storybook",
-        "build-themes": "npx ts-node src/themes/index.ts",
         "build": "scripts/build.sh",
         "build:storybook": "build-storybook -o docs",
         "clean": "rimraf es lib styles dist",
         "test": "tsdx test --passWithNoTests",
         "type-check": "tsc --noEmit -p ./tsconfig.json",
         "lint": "tsdx lint src stories",
-        "storybook": "start-storybook -p 6006",
+        "storybook": "concurrently 'npm run start:themes' 'start-storybook -p 6006'",
         "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md}\""
     },
     "peerDependencies": {
@@ -45,6 +45,7 @@
     },
     "devDependencies": {
         "@babel/core": "^7.9.6",
+        "@babel/node": "^7.10.5",
         "@babel/plugin-proposal-class-properties": "^7.10.1",
         "@babel/plugin-proposal-export-default-from": "^7.0.0",
         "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
@@ -79,6 +80,7 @@
         "babel-eslint": "^10.1.0",
         "babel-loader": "^8.1.0",
         "classnames": "^2.2.5",
+        "concurrently": "^5.2.0",
         "css-loader": "^3.6.0",
         "cssnano": "^4.1.10",
         "dayjs": "^1.8.10",
@@ -97,6 +99,7 @@
         "lint-staged": "^10.2.11",
         "mini-css-extract-plugin": "^0.8.2",
         "mockdate": "^3.0.2",
+        "nodemon": "^2.0.4",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
         "path": "^0.12.7",
         "prettier": "2.0.5",

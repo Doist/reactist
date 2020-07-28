@@ -1,4 +1,6 @@
-module.exports = {
+import Theme from './Theme'
+
+const twistDark: Theme = {
     primaryFillColor: '#3f82ef',
     primaryFillElevatedColor: '#3b7be2',
     primaryFontColor: 'white',
@@ -6,3 +8,5 @@ module.exports = {
     secondaryFillElevatedColor: '#f9f9f9',
     secondaryFontColor: 'rgb(146, 146, 146)',
 }
+
+export default twistDark

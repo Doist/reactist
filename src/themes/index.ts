@@ -1,10 +1,15 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
-const fs = require('fs')
-const twistLight = require('./twistLight')
-const twistDark = require('./twistDark')
+import fs from 'fs'
+import path from 'path'
+import twistLight from './twistLight'
+import twistDark from './twistDark'
 
 const themes = { twistLight, twistDark }
+
+const GENERATED_THEME_HEADER = `
+//This is an auto-generated themes definition file. Do not edit manually!
+//To make changes during development, run \`npm run start\` or
+//\`npm run storybook\`\n
+`
 
 function compileThemeProperties() {
     const underscore = (camelCasedWord: string) => {
@@ -29,8 +34,7 @@ function compileThemeProperties() {
      */
     return Object.entries(themes).reduce((compiledKeys, [themeKey, themeProps]) => {
         compiledKeys += `.reactist_theme_${underscore(themeKey)} {\n`
-        Object.entries(themeProps).forEach(([propKey, propValue]) => {
-            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        Object.entries<string>(themeProps).forEach(([propKey, propValue]) => {
             compiledKeys += `  --${dasherize(underscore(propKey))}: ${propValue};\n`
         })
         compiledKeys += '}\n'
@@ -38,5 +42,6 @@ function compileThemeProperties() {
     }, '')
 }
 
-fs.writeFileSync(`${__dirname}/themes.less`, compileThemeProperties())
+const lessFilePath = path.join(__dirname, 'themes.less')
+fs.writeFileSync(lessFilePath, `${GENERATED_THEME_HEADER}${compileThemeProperties()}`)
 console.log('Theme LESS file generated.')
