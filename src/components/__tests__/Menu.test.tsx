@@ -14,7 +14,7 @@ it('renders a button that opens and closes the menu when clicked', () => {
         <Menu>
             <MenuButton>Options menu</MenuButton>
             <MenuList aria-label="Some options">
-                <MenuItem label="First option" />
+                <MenuItem>First option</MenuItem>
             </MenuList>
         </Menu>,
     )
@@ -33,9 +33,11 @@ it('closes the menu when a menu item is selected (unless the onSelect handler re
         <Menu>
             <MenuButton>Options menu</MenuButton>
             <MenuList aria-label="Some options">
-                <MenuItem label="First option" onSelect={() => undefined} />
-                <MenuItem label="Second option" onSelect={() => false} />
-                <MenuItem label="Third option" onSelect={() => undefined} hideOnSelect={false} />
+                <MenuItem onSelect={() => undefined}>First option</MenuItem>
+                <MenuItem onSelect={() => false}>Second option</MenuItem>
+                <MenuItem onSelect={() => undefined} hideOnSelect={false}>
+                    Third option
+                </MenuItem>
             </MenuList>
         </Menu>,
     )
@@ -64,8 +66,12 @@ it("calls the onSelect and the menu's onItemSelect with the value when menu item
         <Menu onItemSelect={onItemSelect}>
             <MenuButton>Options menu</MenuButton>
             <MenuList aria-label="Some options">
-                <MenuItem value="1st" label="1st option" onSelect={() => onSelect('1st option')} />
-                <MenuItem value="2nd" label="2nd option" onSelect={() => onSelect('2nd option')} />
+                <MenuItem value="1st" onSelect={() => onSelect('1st option')}>
+                    1st option
+                </MenuItem>
+                <MenuItem value="2nd" onSelect={() => onSelect('2nd option')}>
+                    2nd option
+                </MenuItem>
             </MenuList>
         </Menu>,
     )
@@ -89,9 +95,15 @@ it('allows to navigate through the menu items using the keyboard', () => {
         <Menu onItemSelect={onItemSelect}>
             <MenuButton>Options menu</MenuButton>
             <MenuList aria-label="Some options">
-                <MenuItem value="1st" label="1st option" onSelect={() => onSelect('1st option')} />
-                <MenuItem value="2nd" label="2nd option" onSelect={() => onSelect('2nd option')} />
-                <MenuItem value="3rd" label="3rd option" onSelect={() => onSelect('3rd option')} />
+                <MenuItem value="1st" onSelect={() => onSelect('1st option')}>
+                    1st option
+                </MenuItem>
+                <MenuItem value="2nd" onSelect={() => onSelect('2nd option')}>
+                    2nd option
+                </MenuItem>
+                <MenuItem value="3rd" onSelect={() => onSelect('3rd option')}>
+                    3rd option
+                </MenuItem>
             </MenuList>
         </Menu>,
     )

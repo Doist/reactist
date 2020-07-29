@@ -19,7 +19,6 @@
         display: flex;
         align-items: center;
         padding: 5px 10px;
-        width: 100%;
         color: inherit;
         border: none;
         background-color: transparent;
@@ -27,9 +26,26 @@
 
     .reactist_menugroup__label {
         color: @secondary_font_color;
+        font-size: @tiny_font_size;
+    }
+
+    .reactist_submenu_button {
+        padding-right: 16px;
+    }
+
+    .reactist_submenu_button::after {
+        content: '';
+        position: absolute;
+        border-style: solid;
+        border-width: 4px 0 4px 6px;
+        border-color: transparent @secondary_font_color;
+        display: block;
+        width: 0;
+        right: 6px;
     }
 
     [role='menuitem'] {
+        width: 100%;
         &:focus,
         &[aria-expanded='true'] {
             color: @primary_font_color;
@@ -53,12 +69,4 @@
         background-color: @color_border_grey;
         margin: 4px 0;
     }
-}
-
-.reactist_menuitem__icon {
-    padding-right: 10px;
-}
-
-.reactist_menuitem__label {
-    flex: 1;
 }

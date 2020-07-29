@@ -1,7 +1,6 @@
 import * as React from 'react'
 import classNames from 'classnames'
 import Button, { ButtonProps } from './Button'
-import KeyboardShortcut from './KeyboardShortcut'
 
 //
 // Reactist menu is a thin wrapper around Reakit's menu components. This may or may not be
@@ -140,23 +139,9 @@ type MenuItemProps = {
      */
     value?: string
     /**
-     * A text label for the menu item. It can contain rich markup, but it is expected to convey a
-     * textual representation of what the menu item does.
+     * The content inside the menu item.
      */
-    label?: React.ReactNode
-    /**
-     * An icon to show to the left of the menu item label.
-     */
-    icon?: React.ReactNode
-    /**
-     * A keyboard shortcut that also activates the action that the menu item performs when selected.
-     *
-     * This is for informational purposes only, and it does not register any key even handlers. It
-     * is up to you to make sure that the keyboard shortcut does anything at all.
-     *
-     * @see KeyboardShortcut
-     */
-    shortcut?: string
+    children: React.ReactNode
     /**
      * When `true` the menu item is disabled and won't be selectable or be part of the keyboard
      * navigation across the menu options.
@@ -193,27 +178,25 @@ type MenuItemProps = {
  * callback.
  */
 const MenuItem = React.forwardRef<HTMLButtonElement, MenuItemProps>(function MenuItem(
-    { value, label, icon, shortcut, onSelect, hideOnSelect = true, ...props },
+    { value, children, onSelect, hideOnSelect = true, ...props },
     ref,
 ) {
     const { handleItemSelect, ...state } = React.useContext(MenuContext)
+    const { hide } = state
 
-    function handleClick() {
-        const onSelectResult: unknown = onSelect ? onSelect() : undefined
-        const shouldClose = onSelectResult !== false && hideOnSelect
-        handleItemSelect(value)
-        if (shouldClose) state.hide()
-    }
+    const handleClick = React.useCallback(
+        function handleClick() {
+            const onSelectResult: unknown = onSelect ? onSelect() : undefined
+            const shouldClose = onSelectResult !== false && hideOnSelect
+            handleItemSelect(value)
+            if (shouldClose) hide()
+        },
+        [onSelect, handleItemSelect, hideOnSelect, hide, value],
+    )
 
     return (
         <Reakit.MenuItem {...props} {...state} ref={ref} onClick={handleClick}>
-            {icon ? <span className="reactist_menuitem__icon">{icon}</span> : null}
-            <span className="reactist_menuitem__label">{label}</span>
-            {shortcut ? (
-                <span className="reactist_menuitem__kb">
-                    <KeyboardShortcut>{shortcut}</KeyboardShortcut>
-                </span>
-            ) : null}
+            {children}
         </Reakit.MenuItem>
     )
 })
@@ -222,7 +205,7 @@ const MenuItem = React.forwardRef<HTMLButtonElement, MenuItemProps>(function Men
 // SubMenu
 //
 
-type SubMenuProps = Pick<MenuItemProps, 'label' | 'icon' | 'className' | 'disabled'> & {
+type SubMenuProps = {
     /**
      * The children of the sub-menu specify the structure of the options in the sub-menu.
      *
@@ -235,12 +218,13 @@ type SubMenuProps = Pick<MenuItemProps, 'label' | 'icon' | 'className' | 'disabl
  * This component can be rendered alongside other `MenuItem` inside a `MenuList` in order to have
  * a sub-menu.
  *
- * The options of the sub-menu must be provided inside another `MenuList` explicitly given as
- * `children`:
+ * Its children are expected to have the structure of a first level menu (a `MenuButton` and a
+ * `MenuList`).
  *
  * ```jsx
  * <MenuItem label="Edit profile" />
- * <SubMenu label="More options">
+ * <SubMenu>
+ *   <MenuButton>More options</MenuButton>
  *   <MenuList>
  *     <MenuItem label="Preferences" />
  *     <MenuItem label="Sign out" />
@@ -248,11 +232,11 @@ type SubMenuProps = Pick<MenuItemProps, 'label' | 'icon' | 'className' | 'disabl
  * </SubMenu>
  * ```
  *
- * The `MenuList` needs to be provided to give more flexibility to customize it (e.g. you can pass
- * a `className` and other props to it).
+ * The `MenuButton` will become a menu item in the current menu items list, and it will lead to
+ * opening a sub-menu with the menu items list below it.
  */
 const SubMenu = React.forwardRef<HTMLButtonElement, SubMenuProps>(function SubMenu(
-    { label, icon, children, ...props },
+    { children, ...props },
     ref,
 ) {
     const { handleItemSelect: parentMenuItemSelect, ...state } = React.useContext(MenuContext)
@@ -266,40 +250,21 @@ const SubMenu = React.forwardRef<HTMLButtonElement, SubMenuProps>(function SubMe
         [parentMenuHide, parentMenuItemSelect],
     )
 
-    //
-    // This may seem controversial but it seems to work pretty well.
-    //
-    // We're dynamically building a component here because reakit's way to compose menus is by
-    // passing a component in the `as` prop to its `MenuItem` as seen below. That seems convenient,
-    // but on the other hand it does not allow us to own the rendering of the menu items that open
-    // a sub-menu. We do not want these to be an arbitrary `MenuButton` but we want to control what
-    // we render inside.
-    //
-    // Our API to create sub-menus is leaner, allowing us to compose it all inline while keeping
-    // control of the content of menu items not being arbitrary but having a certain structure.
-    //
-    const SubMenuList = React.useCallback(
-        React.forwardRef<HTMLButtonElement, Reakit.MenuButtonProps>(function SubMenuList(
-            innerProps,
-            innerRef,
-        ) {
-            return (
-                <Menu onItemSelect={handleSubItemSelect}>
-                    <MenuButton {...innerProps} ref={innerRef}>
-                        {icon ? <span className="reactist_menuitem__icon">{icon}</span> : null}
-                        <span className="reactist_menuitem__label">{label}</span>
-                        <svg viewBox="0 0 43.3 50">
-                            <polygon points="43.3 25 0 0 0 50 43.3 25"></polygon>
-                        </svg>
-                    </MenuButton>
-                    {children}
-                </Menu>
-            )
-        }),
-        [children, label, icon, handleSubItemSelect],
-    )
+    const [button, list] = React.Children.toArray(children)
 
-    return <Reakit.MenuItem {...props} {...state} as={SubMenuList} ref={ref} />
+    return (
+        <Reakit.MenuItem {...state} {...props} ref={ref}>
+            {(buttonProps) => (
+                <Menu onItemSelect={handleSubItemSelect}>
+                    {React.cloneElement(button as React.ReactElement, {
+                        ...buttonProps,
+                        className: classNames(buttonProps.className, 'reactist_submenu_button'),
+                    })}
+                    {list}
+                </Menu>
+            )}
+        </Reakit.MenuItem>
+    )
 })
 
 //

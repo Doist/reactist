@@ -6,7 +6,8 @@ import { action } from '@storybook/addon-actions'
 
 import { optionsSourceOnly } from '../utils/StoryUtils'
 
-import { Menu, MenuButton, MenuList, MenuItem, SubMenu, MenuGroup } from '../../src/components/Menu'
+import { Menu, MenuButton, MenuList, MenuItem, MenuGroup, SubMenu } from '../../src/components/Menu'
+import KeyboardShortcut from '../../src/components/KeyboardShortcut'
 
 function MenuIndicator() {
     return (
@@ -28,10 +29,10 @@ function SimpleMenuExample() {
                 <MenuButton variant="primary">
                     Simple menu <MenuIndicator />
                 </MenuButton>
-                <MenuList>
-                    <MenuItem label="Edit" onSelect={action('Edit')} />
-                    <MenuItem label="Duplicate" onSelect={action('Duplicate')} />
-                    <MenuItem label="Remove" onSelect={action('Remove')} />
+                <MenuList aria-label="Simple menu">
+                    <MenuItem onSelect={action('Edit')}>Edit</MenuItem>
+                    <MenuItem onSelect={action('Duplicate')}>Duplicate</MenuItem>
+                    <MenuItem onSelect={action('Remove')}>Remove</MenuItem>
                 </MenuList>
             </Menu>
             <Menu>
@@ -39,15 +40,16 @@ function SimpleMenuExample() {
                     With sub-menu <MenuIndicator />
                 </MenuButton>
                 <MenuList aria-label="With sub-menu">
-                    <MenuItem label="About Reactist…" onSelect={action('About Reactist…')} />
-                    <MenuItem label="Check for updates…" onSelect={action('Check for updates…')} />
+                    <MenuItem onSelect={action('About Reactist…')}>About Reactist…</MenuItem>
+                    <MenuItem onSelect={action('Check for updates…')}>Check for updates…</MenuItem>
                     <hr />
-                    <SubMenu label="Preferences">
+                    <SubMenu>
+                        <MenuButton>Preferences</MenuButton>
                         <MenuList>
-                            <MenuItem label="Settings" onSelect={action('Settings')} />
-                            <MenuItem label="Extensions" onSelect={action('Extensions')} />
+                            <MenuItem onSelect={action('Settings')}>Settings</MenuItem>
+                            <MenuItem onSelect={action('Extensions')}>Extensions</MenuItem>
                             <hr />
-                            <MenuItem label="Notifications" onSelect={action('Notifications')} />
+                            <MenuItem onSelect={action('Notifications')}>Notifications</MenuItem>
                         </MenuList>
                     </SubMenu>
                 </MenuList>
@@ -56,41 +58,39 @@ function SimpleMenuExample() {
                 <MenuButton variant="link">
                     Menu with extra features <MenuIndicator />
                 </MenuButton>
-                <MenuList>
-                    <MenuItem icon="✏️" label="Edit" onSelect={action('Edit')} />
+                <MenuList aria-label="Menu with extra features">
+                    <MenuItem onSelect={action('Edit')}>
+                        <span className="menu_item_icon" aria-hidden>
+                            ✏️
+                        </span>
+                        <span className="menu_item_label">Edit</span>
+                    </MenuItem>
+                    <MenuItem onSelect={action('Duplicate')}>
+                        <span className="menu_item_icon" aria-hidden>
+                            👯‍♀️
+                        </span>
+                        <span className="menu_item_label">Duplicate</span>
+                        <KeyboardShortcut>Cmd + D</KeyboardShortcut>
+                    </MenuItem>
                     <MenuItem
-                        icon="🍻"
-                        label="Duplicate"
-                        shortcut="Cmd + D"
-                        onSelect={action('Duplicate')}
-                    />
-                    <MenuItem
-                        icon={flag ? '👍' : '👎'}
-                        label="Toggle thumbs up or down"
                         onSelect={() => {
                             action(flag ? 'Toggle off' : 'Toggle on')(flag ? '👎' : '👍')
                             setFlag((f) => !f)
                             return false // This prevents the menu from closing
                         }}
-                    />
+                    >
+                        <span className="menu_item_icon" aria-hidden>
+                            {flag ? '👍' : '👎'}
+                        </span>
+                        <span className="menu_item_label">Toggle thumbs up or down</span>
+                    </MenuItem>
                     <hr />
                     <MenuGroup label="Dangerous options">
-                        <MenuItem
-                            icon="😱"
-                            disabled
-                            label="Remove all (disabled)"
-                            onSelect={action('Remove all')}
-                        />
-                        <MenuItem
-                            icon="⛔"
-                            label="Remove first"
-                            onSelect={action('Remove first')}
-                        />
-                        <MenuItem
-                            icon="☑️"
-                            label="Remove completed"
-                            onSelect={action('Remove completed')}
-                        />
+                        <MenuItem onSelect={action('Remove first')}>Remove first</MenuItem>
+                        <MenuItem onSelect={action('Remove completed')}>Remove completed</MenuItem>
+                        <MenuItem disabled onSelect={action('Remove all')}>
+                            Remove all (disabled)
+                        </MenuItem>
                     </MenuGroup>
                 </MenuList>
             </Menu>
@@ -115,13 +115,13 @@ function Item({ value, name }: { value: string; name: string }) {
     return (
         <li className="item_box">
             <div className="item_name">{name}</div>
-            <Menu onItemSelect={(optionId) => action(`${String(optionId)} '${name}'`)(value)}>
+            <Menu onItemSelect={(itemValue) => action(`${String(itemValue)} '${name}'`)(value)}>
                 <MenuButton aria-label={ariaLabel}>⋯</MenuButton>
                 <MenuList aria-label={ariaLabel}>
-                    <MenuItem value="edit" label={getLabel('Edit')} />
-                    <MenuItem value="duplicate" label={getLabel('Duplicate')} />
+                    <MenuItem value="edit">{getLabel('Edit')}</MenuItem>
+                    <MenuItem value="duplicate">{getLabel('Duplicate')}</MenuItem>
                     <hr />
-                    <MenuItem value="remove" label={getLabel('Remove')} />
+                    <MenuItem value="remove">{getLabel('Remove')}</MenuItem>
                 </MenuList>
             </Menu>
         </li>
