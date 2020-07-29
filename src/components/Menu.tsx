@@ -1,6 +1,6 @@
 import * as React from 'react'
 import classNames from 'classnames'
-import Button, { ButtonProps } from './Button'
+import { forwardRefWithAs } from './utils/type-helpers'
 
 //
 // Reactist menu is a thin wrapper around Reakit's menu components. This may or may not be
@@ -81,23 +81,16 @@ function Menu({ children, onItemSelect, ...props }: MenuProps) {
 // MenuButton
 //
 
-type MenuButtonProps = NativeProps<HTMLButtonElement> &
-    Partial<Pick<ButtonProps, 'loading' | 'variant' | 'size' | 'tooltip'>>
-
 /**
  * A button to toggle a dropdown menu open or closed.
  */
-const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(function MenuButton(
-    { className, ...props },
-    ref,
-) {
+const MenuButton = forwardRefWithAs<'button'>(function MenuButton({ className, ...props }, ref) {
     const { handleItemSelect, ...state } = React.useContext(MenuContext)
     return (
         <Reakit.MenuButton
             {...props}
             {...state}
             ref={ref}
-            as={Button}
             className={classNames('reactist_menubutton', className)}
         />
     )
@@ -107,15 +100,10 @@ const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(function
 // MenuList
 //
 
-type MenuListProps = NativeProps<HTMLDivElement>
-
 /**
  * The dropdown menu itself, containing a list of menu items.
  */
-const MenuList = React.forwardRef<HTMLDivElement, MenuListProps>(function MenuList(
-    { className, ...props },
-    ref,
-) {
+const MenuList = forwardRefWithAs<'div'>(function MenuList({ className, ...props }, ref) {
     const { handleItemSelect, ...state } = React.useContext(MenuContext)
     return (
         <Reakit.Menu
@@ -177,7 +165,7 @@ type MenuItemProps = {
  * A menu item inside a menu list. It can be selected by the user, triggering the `onSelect`
  * callback.
  */
-const MenuItem = React.forwardRef<HTMLButtonElement, MenuItemProps>(function MenuItem(
+const MenuItem = forwardRefWithAs<'button', MenuItemProps>(function MenuItem(
     { value, children, onSelect, hideOnSelect = true, ...props },
     ref,
 ) {
@@ -205,14 +193,7 @@ const MenuItem = React.forwardRef<HTMLButtonElement, MenuItemProps>(function Men
 // SubMenu
 //
 
-type SubMenuProps = {
-    /**
-     * The children of the sub-menu specify the structure of the options in the sub-menu.
-     *
-     * See the component documentation below for details.
-     */
-    children: React.ReactNode
-}
+type SubMenuProps = Pick<MenuProps, 'children' | 'onItemSelect'>
 
 /**
  * This component can be rendered alongside other `MenuItem` inside a `MenuList` in order to have
@@ -236,7 +217,7 @@ type SubMenuProps = {
  * opening a sub-menu with the menu items list below it.
  */
 const SubMenu = React.forwardRef<HTMLButtonElement, SubMenuProps>(function SubMenu(
-    { children, ...props },
+    { children, onItemSelect, ...props },
     ref,
 ) {
     const { handleItemSelect: parentMenuItemSelect, ...state } = React.useContext(MenuContext)
@@ -244,10 +225,11 @@ const SubMenu = React.forwardRef<HTMLButtonElement, SubMenuProps>(function SubMe
 
     const handleSubItemSelect = React.useCallback(
         function handleSubItemSelect(value) {
+            if (onItemSelect) onItemSelect(value)
             parentMenuItemSelect(value)
             parentMenuHide()
         },
-        [parentMenuHide, parentMenuItemSelect],
+        [parentMenuHide, parentMenuItemSelect, onItemSelect],
     )
 
     const [button, list] = React.Children.toArray(children)
@@ -284,7 +266,7 @@ type MenuGroupProps = NativeProps<HTMLDivElement> & {
  * This group does not add any visual separator. You can do that yourself adding `<hr />` elements
  * before and/or after the group if you so wish.
  */
-const MenuGroup = React.forwardRef<HTMLDivElement, MenuGroupProps>(function MenuGroud(
+const MenuGroup = forwardRefWithAs<'div', MenuGroupProps>(function MenuGroud(
     { label, children, ...props },
     ref,
 ) {
@@ -304,9 +286,7 @@ const MenuGroup = React.forwardRef<HTMLDivElement, MenuGroupProps>(function Menu
 export {
     Menu,
     MenuButton,
-    MenuButtonProps,
     MenuList,
-    MenuListProps,
     MenuItem,
     MenuItemProps,
     SubMenu,

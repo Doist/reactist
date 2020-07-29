@@ -8,6 +8,7 @@ import { optionsSourceOnly } from '../utils/StoryUtils'
 
 import { Menu, MenuButton, MenuList, MenuItem, MenuGroup, SubMenu } from '../../src/components/Menu'
 import KeyboardShortcut from '../../src/components/KeyboardShortcut'
+import Button from '../../src/components/Button'
 
 function MenuIndicator() {
     return (
@@ -26,7 +27,7 @@ function SimpleMenuExample() {
     return (
         <section className="story">
             <Menu>
-                <MenuButton variant="primary">
+                <MenuButton as={Button} variant="primary">
                     Simple menu <MenuIndicator />
                 </MenuButton>
                 <MenuList aria-label="Simple menu">
@@ -36,7 +37,7 @@ function SimpleMenuExample() {
                 </MenuList>
             </Menu>
             <Menu>
-                <MenuButton variant="secondary">
+                <MenuButton as={Button} variant="secondary" tooltip="And a tooltip too">
                     With sub-menu <MenuIndicator />
                 </MenuButton>
                 <MenuList aria-label="With sub-menu">
@@ -55,8 +56,8 @@ function SimpleMenuExample() {
                 </MenuList>
             </Menu>
             <Menu>
-                <MenuButton variant="link">
-                    Menu with extra features <MenuIndicator />
+                <MenuButton>
+                    With extra features <MenuIndicator />
                 </MenuButton>
                 <MenuList aria-label="Menu with extra features">
                     <MenuItem onSelect={action('Edit')}>
@@ -116,7 +117,9 @@ function Item({ value, name }: { value: string; name: string }) {
         <li className="item_box">
             <div className="item_name">{name}</div>
             <Menu onItemSelect={(itemValue) => action(`${String(itemValue)} '${name}'`)(value)}>
-                <MenuButton aria-label={ariaLabel}>⋯</MenuButton>
+                <MenuButton as={Button} aria-label={ariaLabel}>
+                    ⋯
+                </MenuButton>
                 <MenuList aria-label={ariaLabel}>
                     <MenuItem value="edit">{getLabel('Edit')}</MenuItem>
                     <MenuItem value="duplicate">{getLabel('Duplicate')}</MenuItem>
