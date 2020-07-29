@@ -120,3 +120,22 @@ it('allows to navigate through the menu items using the keyboard', () => {
     expect(onItemSelect).toHaveBeenCalledWith('2nd')
     expect(screen.queryByRole('menu')).not.toBeInTheDocument()
 })
+
+it('allows to render a menu item as a link', () => {
+    render(
+        <Menu>
+            <MenuButton>Links</MenuButton>
+            <MenuList aria-label="Some options">
+                <MenuItem as="a" href="https://github.com/Doist/reactist">
+                    Github repo
+                </MenuItem>
+            </MenuList>
+        </Menu>,
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Links' }))
+    const menuItem = screen.getByRole('menuitem', { name: 'Github repo' })
+    expect(menuItem).toHaveAttribute('href', 'https://github.com/Doist/reactist')
+    expect(menuItem.tagName).toEqual('A')
+    // no need to test that clicking a link triggers navigation, and also navigation is not
+    // supported in jsdom, so we'd need to mock window.location or something
+})

@@ -41,6 +41,14 @@ function SimpleMenuExample() {
                     With sub-menu <MenuIndicator />
                 </MenuButton>
                 <MenuList aria-label="With sub-menu">
+                    <MenuItem
+                        as="a"
+                        href="https://github.com/Doist/reactist"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                    >
+                        Reactist on Github
+                    </MenuItem>
                     <MenuItem onSelect={action('About Reactist…')}>About Reactist…</MenuItem>
                     <MenuItem onSelect={action('Check for updates…')}>Check for updates…</MenuItem>
                     <hr />

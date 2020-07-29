@@ -58,6 +58,15 @@
         }
     }
 
+    a[role='menuitem'] {
+        cursor: default;
+        text-decoration: none;
+        width: auto;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
     // sub-menus need to be shifted a bit towards the top to be aligned with its menu item
     [role='menu'] {
         margin-top: -5px;
