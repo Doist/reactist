@@ -5,7 +5,7 @@
     white-space: nowrap;
     background: hsla(0, 100%, 100%, 0.99);
     outline: none;
-    font-size: 85%;
+    font-size: @smaller_font_size;
     padding: 4px 0;
     min-width: 180px;
     border: 1px solid @color_border_grey;
@@ -46,6 +46,7 @@
 
     [role='menuitem'] {
         width: 100%;
+        box-sizing: border-box;
         &:focus,
         &[aria-expanded='true'] {
             color: @primary_font_color;
@@ -61,7 +62,6 @@
     a[role='menuitem'] {
         cursor: default;
         text-decoration: none;
-        width: auto;
         &:hover {
             text-decoration: none;
         }
