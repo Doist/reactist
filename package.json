@@ -105,7 +105,7 @@
         "react-dom": "^16.13.1",
         "react-is": "^16.13.1",
         "react-storybook-addon-chapters": "^3.1.7",
-        "react-svg-loader": "^2.1.0",
+        "react-svg-loader": "^3.0.3",
         "react-test-renderer": "^16.5.0",
         "rimraf": "^3.0.2",
         "rollup-plugin-postcss": "^3.1.1",
