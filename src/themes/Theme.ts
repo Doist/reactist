@@ -1,11 +1,11 @@
 interface Theme {
-    primaryFillColor: string
-    primaryFillElevatedColor: string
-    primaryFontColor: string
+    buttonPrimaryFill: string
+    buttonPrimaryFillHighlight: string
+    contentPrimary: string
 
-    secondaryFillColor: string
-    secondaryFillElevatedColor: string
-    secondaryFontColor: string
+    buttonSecondaryFill: string
+    buttonSecondaryFillHighlight: string
+    contentSecondary: string
 
     // Used for enumeration
     [s: string]: string

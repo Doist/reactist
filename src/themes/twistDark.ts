@@ -1,12 +1,12 @@
 import Theme from './Theme'
 
 const twistDark: Theme = {
-    primaryFillColor: '#3f82ef',
-    primaryFillElevatedColor: '#3b7be2',
-    primaryFontColor: 'white',
-    secondaryFillColor: 'rgb(31, 31, 31)',
-    secondaryFillElevatedColor: '#f9f9f9',
-    secondaryFontColor: 'rgb(146, 146, 146)',
+    buttonPrimaryFill: '#3f82ef',
+    buttonPrimaryFillHighlight: '#3b7be2',
+    contentPrimary: 'white',
+    buttonSecondaryFill: 'rgb(31, 31, 31)',
+    buttonSecondaryFillHighlight: '#f9f9f9',
+    contentSecondary: 'rgb(146, 146, 146)',
 }
 
 export default twistDark

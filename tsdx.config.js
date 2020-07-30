@@ -9,9 +9,6 @@ module.exports = {
                 autoModules: true,
                 mode: 'extract',
                 url: { inline: true },
-                less: {
-                    globalVars: { primary_color2: '#3f82ef' },
-                },
             }),
         ].concat(config.plugins)
 
