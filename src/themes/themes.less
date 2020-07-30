@@ -2,19 +2,23 @@
 //To make changes during development, run `npm run start` or
 //`npm run storybook`
 
-.reactist_theme_twist_light {
-    --button-primary-fill: #3f82ef;
-    --button-primary-fill-highlight: #3b7be2;
-    --content-primary: white;
-    --button-secondary-fill: rgb(255, 255, 255);
-    --button-secondary-fill-highlight: #f9f9f9;
-    --content-secondary: rgb(123, 123, 123);
+:root[data-reactist-theme='twist_light'] {
+    --reactist-non-adaptive-white: white;
+    --reactist-button-primary-fill: #246fe0;
+    --reactist-button-primary-fill-highlight: #1d63cc;
+    --reactist-content-primary: rgba(0, 0, 0, 0.88);
+    --reactist-button-secondary-fill: rgb(255, 255, 255);
+    --reactist-button-secondary-fill-highlight: #f9f9f9;
+    --reactist-content-secondary: rgb(123, 123, 123);
+    --reactist-framework-border: #d6d6d6;
 }
-.reactist_theme_twist_dark {
-    --button-primary-fill: #3f82ef;
-    --button-primary-fill-highlight: #3b7be2;
-    --content-primary: white;
-    --button-secondary-fill: rgb(31, 31, 31);
-    --button-secondary-fill-highlight: #f9f9f9;
-    --content-secondary: rgb(146, 146, 146);
+:root[data-reactist-theme='twist_dark'] {
+    --reactist-non-adaptive-white: white;
+    --reactist-button-primary-fill: #246fe0;
+    --reactist-button-primary-fill-highlight: #397de3;
+    --reactist-content-primary: white;
+    --reactist-button-secondary-fill: transparent;
+    --reactist-button-secondary-fill-highlight: #3d3d3d;
+    --reactist-content-secondary: rgba(255, 255, 255, 0.88);
+    --reactist-framework-border: #525252;
 }

@@ -1,12 +1,14 @@
 import Theme from './Theme'
 
 const twistLight: Theme = {
-    buttonPrimaryFill: '#3f82ef',
-    buttonPrimaryFillHighlight: '#3b7be2',
-    contentPrimary: 'white',
+    nonAdaptiveWhite: 'white',
+    buttonPrimaryFill: '#246fe0',
+    buttonPrimaryFillHighlight: '#1d63cc',
+    contentPrimary: 'rgba(0, 0, 0, 0.88)',
     buttonSecondaryFill: 'rgb(255, 255, 255)',
     buttonSecondaryFillHighlight: '#f9f9f9',
     contentSecondary: 'rgb(123, 123, 123)',
+    frameworkBorder: '#d6d6d6',
 }
 
 export default twistLight

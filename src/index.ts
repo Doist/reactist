@@ -39,3 +39,5 @@ export { default as Tip } from './components/Tip'
 export { default as Tooltip } from './components/Tooltip'
 
 export { default as Popover } from './components/Popover'
+
+export { default as ThemeProvider } from './themes/ThemeProvider'

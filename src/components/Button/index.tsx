@@ -53,7 +53,6 @@ const Button = React.forwardRef<HTMLButtonElement, Props & ThemeProps>(function 
     const className = classNames(
         'reactist_button',
         styles['reactist_button'],
-        variant ? `reactist_button--${variant}` : null,
         variant ? styles[`reactist_button--${variant}`] : null,
         theme ? `reactist-theme-${theme}` : null,
         size !== 'default' ? styles[`reactist_button--${size}`] : null,

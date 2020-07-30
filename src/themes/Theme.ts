@@ -1,4 +1,6 @@
-interface Theme {
+type Theme = {
+    nonAdaptiveWhite: string
+
     buttonPrimaryFill: string
     buttonPrimaryFillHighlight: string
     contentPrimary: string
@@ -6,6 +8,7 @@ interface Theme {
     buttonSecondaryFill: string
     buttonSecondaryFillHighlight: string
     contentSecondary: string
+    frameworkBorder: string
 
     // Used for enumeration
     [s: string]: string

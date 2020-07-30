@@ -11,7 +11,9 @@
     "module": "es/index.js",
     "typings": "lib/index.d.ts",
     "unpkg": "dist/reactist.cjs.production.min.js",
-    "sideEffects": false,
+    "sideEffects": [
+        "**/*.css"
+    ],
     "files": [
         "dist",
         "es",
@@ -25,9 +27,10 @@
         "setup": "npm install && npm run validate",
         "validate": "npm run lint && npm run type-check && npm run test",
         "start": "concurrently 'npm run start:themes' 'tsdx watch'",
-        "start:themes": "nodemon -e ts --watch src/themes --exec \"npx babel-node -x '.ts' src/themes/index.ts\"",
-        "build-all": "npm run build-themes && npm run build && npm run build:storybook",
+        "start:themes": "nodemon -e ts --watch src/themes --exec \"npm run build:themes\"",
+        "build-all": "npm run build && npm run build:storybook",
         "build": "scripts/build.sh",
+        "build:themes": "npx babel-node -x '.ts' src/themes/compile.ts",
         "build:storybook": "build-storybook -o docs",
         "clean": "rimraf es lib styles dist",
         "test": "tsdx test --passWithNoTests",

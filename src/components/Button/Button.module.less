@@ -34,11 +34,11 @@
     }
 
     &--primary {
-        background-color: var(--primary-fill-color);
-        color: var(--primary-font-color);
+        background-color: var(--reactist-button-primary-fill);
+        color: var(--reactist-non-adaptive-white);
 
         &:not([disabled]):hover {
-            background-color: var(--primary-fill-elevated-color);
+            background-color: var(--reactist-button-primary-fill-highlight);
         }
     }
 
@@ -52,12 +52,12 @@
     }
 
     &--secondary {
-        background-color: var(--secondary-fill-color);
-        color: var(--secondary-font-color);
-        border-color: @color_border_grey;
+        background-color: var(--reactist-button-secondary-fill);
+        color: var(--reactist-content-primary);
+        border-color: var(--reactist-framework-border);
 
         &:not([disabled]):hover {
-            background-color: var(--secondary-fill-elevated-color);
+            background-color: var(--reactist-button-secondary-fill-highlight);
         }
     }
 
