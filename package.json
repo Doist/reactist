@@ -91,6 +91,7 @@
         "eslint-plugin-react": "^7.19.0",
         "husky": "^4.2.5",
         "jest": "^24.7.1",
+        "jest-environment-jsdom-sixteen": "^1.0.3",
         "less": "^3.8.1",
         "less-loader": "^4.1.0",
         "lint-staged": "^10.2.11",
@@ -118,5 +119,7 @@
         "typescript": "^3.9.2",
         "webpack": "^4.43.0"
     },
-    "dependencies": {}
+    "dependencies": {
+        "reakit": "^1.1.2"
+    }
 }

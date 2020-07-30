@@ -102,9 +102,7 @@ describe('Dropdown', () => {
             )
 
             openDropdown(box)
-
-            expect(box.find('div').at(0).hasClass('reactist_dropdown')).toEqual(true)
-            expect(box.find('div').at(1).hasClass('trigger')).toEqual(true)
+            expect(box).toMatchSnapshot()
         })
 
         it('renders the Body component first when top prop is provided', () => {
@@ -116,9 +114,7 @@ describe('Dropdown', () => {
             )
 
             openDropdown(box)
-
-            expect(box.find('div').at(0).hasClass('reactist_dropdown')).toEqual(true)
-            expect(box.find('div').at(1).hasClass('body_wrapper')).toEqual(true)
+            expect(box).toMatchSnapshot()
         })
 
         it('calls onShowBody and onHideBody callbacks when the Body component is shown and hidden', () => {

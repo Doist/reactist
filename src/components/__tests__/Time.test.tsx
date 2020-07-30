@@ -70,13 +70,21 @@ describe('Time', () => {
     it('does not render short absolute time on hover when tooltipOnHover is set', () => {
         const time = shallow(<Time time={dayjs().unix()} tooltipOnHover expandOnHover />)
         time.simulate('mouseEnter', getMouseEvent())
-        expect(time.find('Tooltip').props().children).toBe('moments ago')
+        expect(time.find('Tooltip').props().children).toMatchInlineSnapshot(`
+            <span>
+              moments ago
+            </span>
+        `)
     })
 
     it('does not render full absolute time on hover when tooltipOnHover is set', () => {
         const time = shallow(<Time time={dayjs().unix()} tooltipOnHover expandFullyOnHover />)
         time.simulate('mouseEnter', getMouseEvent())
-        expect(time.find('Tooltip').props().children).toBe('moments ago')
+        expect(time.find('Tooltip').props().children).toMatchInlineSnapshot(`
+            <span>
+              moments ago
+            </span>
+        `)
     })
 
     // Helper functions ///////////////////////////////////////////////////////

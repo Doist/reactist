@@ -52,6 +52,125 @@ exports[`Dropdown Dropdown.Body renders empty without crashing 1`] = `
 />
 `;
 
+exports[`Dropdown Dropdown.Box renders the Body component first when top prop is provided 1`] = `
+<Dropdown.Box
+  top={true}
+>
+  <div
+    className="reactist_dropdown"
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  >
+    <div
+      className="body_wrapper with_arrow top"
+      style={
+        Object {
+          "position": "relative",
+        }
+      }
+    >
+      <Dropdown.Body
+        right={false}
+        setPosition={[Function]}
+        top={true}
+      >
+        <div
+          className="body"
+          id="reactist-dropdown-body"
+          style={
+            Object {
+              "bottom": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": "auto",
+            }
+          }
+        />
+      </Dropdown.Body>
+    </div>
+    <Dropdown.Trigger
+      onClick={[Function]}
+    >
+      <Button
+        className="trigger"
+        disabled={false}
+        loading={false}
+        onClick={[Function]}
+        size="default"
+      >
+        <button
+          className="reactist_button trigger"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+      </Button>
+    </Dropdown.Trigger>
+  </div>
+</Dropdown.Box>
+`;
+
+exports[`Dropdown Dropdown.Box renders the Trigger component first when top prop is not provided 1`] = `
+<Dropdown.Box>
+  <div
+    className="reactist_dropdown"
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  >
+    <Dropdown.Trigger
+      onClick={[Function]}
+    >
+      <Button
+        className="trigger"
+        disabled={false}
+        loading={false}
+        onClick={[Function]}
+        size="default"
+      >
+        <button
+          className="reactist_button trigger"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+      </Button>
+    </Dropdown.Trigger>
+    <div
+      className="body_wrapper with_arrow bottom"
+      style={
+        Object {
+          "position": "relative",
+        }
+      }
+    >
+      <Dropdown.Body
+        right={false}
+        setPosition={[Function]}
+        top={false}
+      >
+        <div
+          className="body"
+          id="reactist-dropdown-body"
+          style={
+            Object {
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
+        />
+      </Dropdown.Body>
+    </div>
+  </div>
+</Dropdown.Box>
+`;
+
 exports[`Dropdown Dropdown.Box renders the Trigger component without crashing 1`] = `
 <Dropdown.Box>
   <div
@@ -65,43 +184,44 @@ exports[`Dropdown Dropdown.Box renders the Trigger component without crashing 1`
     <Dropdown.Trigger
       onClick={[Function]}
     >
-      <div
+      <Button
         className="trigger"
+        disabled={false}
+        loading={false}
         onClick={[Function]}
-        style={
-          Object {
-            "display": "block",
-          }
-        }
-      />
+        size="default"
+      >
+        <button
+          className="reactist_button trigger"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        />
+      </Button>
     </Dropdown.Trigger>
   </div>
 </Dropdown.Box>
 `;
 
 exports[`Dropdown Dropdown.Trigger renders all children without crashing 1`] = `
-<div
+<Button
   className="trigger"
+  disabled={false}
+  loading={false}
   onClick={[Function]}
-  style={
-    Object {
-      "display": "block",
-    }
-  }
+  size="default"
 >
   Trigger Content
-</div>
+</Button>
 `;
 
 exports[`Dropdown Dropdown.Trigger renders all children without crashing 2`] = `
-<div
+<Button
   className="trigger"
+  disabled={false}
+  loading={false}
   onClick={[Function]}
-  style={
-    Object {
-      "display": "block",
-    }
-  }
+  size="default"
 >
   <div>
     <img
@@ -110,17 +230,15 @@ exports[`Dropdown Dropdown.Trigger renders all children without crashing 2`] = `
     />
     Some additional text as well
   </div>
-</div>
+</Button>
 `;
 
 exports[`Dropdown Dropdown.Trigger renders empty without crashing 1`] = `
-<div
+<Button
   className="trigger"
+  disabled={false}
+  loading={false}
   onClick={[Function]}
-  style={
-    Object {
-      "display": "block",
-    }
-  }
+  size="default"
 />
 `;

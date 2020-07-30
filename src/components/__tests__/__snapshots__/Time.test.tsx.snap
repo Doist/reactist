@@ -17,17 +17,11 @@ exports[`Time renders with custom tooltip when supplied 1`] = `
   onMouseLeave={[Function]}
 >
   <Tooltip
-    allowVaguePositioning={false}
-    delayHide={0}
-    delayShow={500}
-    gapSize={5}
-    hideOnScroll={true}
-    inverted={false}
-    position="auto"
-    text="Test"
-    withArrow={true}
+    content="Test"
   >
-    March 22, 1991
+    <span>
+      March 22, 1991
+    </span>
   </Tooltip>
 </time>
 `;
@@ -49,17 +43,11 @@ exports[`Time renders wrapped in tooltip when tooltipOnHover is set 1`] = `
   onMouseLeave={[Function]}
 >
   <Tooltip
-    allowVaguePositioning={false}
-    delayHide={0}
-    delayShow={500}
-    gapSize={5}
-    hideOnScroll={true}
-    inverted={false}
-    position="auto"
-    text="March 22, 1991, 1:37 PM"
-    withArrow={true}
+    content="March 22, 1991, 1:37 PM"
   >
-    March 22, 1991
+    <span>
+      March 22, 1991
+    </span>
   </Tooltip>
 </time>
 `;

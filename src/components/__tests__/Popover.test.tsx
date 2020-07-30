@@ -144,7 +144,7 @@ describe('Popover', () => {
             popover.setProps({ content: 'New Content' })
             expect(updatePositionSpy).toHaveBeenCalledTimes(6)
 
-            popover.setProps({ trigger: 'New Trigger' })
+            popover.setProps({ trigger: <span>New Trigger</span> })
             expect(updatePositionSpy).toHaveBeenCalledTimes(6)
         })
     })
