@@ -42,7 +42,7 @@ describe('Button', () => {
         expect(clickSpy).not.toHaveBeenCalled()
     })
 
-    it('renders a tooltip when prop is supplied', () => {
+    it('renders a tooltip when prop is supplied', async () => {
         render(
             <Button variant="primary" tooltip="tooltip content here">
                 Click me
@@ -50,7 +50,9 @@ describe('Button', () => {
         )
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
         fireEvent.focus(screen.getByRole('button', { name: 'Click me' }))
-        expect(screen.getByRole('tooltip', { name: 'tooltip content here' })).toBeInTheDocument()
+        expect(
+            await screen.findByRole('tooltip', { name: 'tooltip content here' }),
+        ).toBeInTheDocument()
     })
 
     it('adds additional className when supplied', () => {

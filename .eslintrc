@@ -30,6 +30,7 @@
         "webpack.config.*"
     ],
     "rules": {
+        "jest/expect-expect": "off",
         "prettier/prettier": "error",
         "linebreak-style": ["error", "unix"],
         "react/no-did-mount-set-state": "error",

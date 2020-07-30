@@ -5,4 +5,5 @@ module.exports = {
         '\\.(css|less)$': '<rootDir>/src/__mocks__/styleMock.ts',
     },
     testURL: 'http://localhost',
+    testEnvironment: 'jest-environment-jsdom-sixteen',
 }
