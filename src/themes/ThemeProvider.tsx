@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import underscore from '../utils/underscore'
 
@@ -23,5 +23,5 @@ export default function ThemeProvider({ theme }: ThemeProviderProps) {
         document.documentElement.setAttribute('data-reactist-theme', `${underscore(theme)}`)
     }, [theme])
 
-    return true
+    return <React.Fragment />
 }
