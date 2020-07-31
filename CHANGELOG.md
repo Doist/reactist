@@ -4,7 +4,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 ## v7.1.0
 
-- [Improvement] `Button` now uses CSS modules for styling internally. Using `reactist_button*` classes for styling is now DEPRECATED. You should pass in your own custom classes to have custom styling.
+- [Improvement] `Button` now uses CSS modules for styling internally. Using `reactist_button*` classes for styling is now DEPRECATED. You should pass in your own custom classes to have custom styling. In a future version, we'll remove support for `reactist_button` CSS styling entirely.
 
 ## v7.0.0
 
