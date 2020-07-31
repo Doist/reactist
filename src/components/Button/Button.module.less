@@ -35,7 +35,7 @@
 
     &--primary {
         background-color: var(--reactist-button-primary-fill);
-        color: var(--reactist-non-adaptive-white);
+        color: var(--reactist-button-content-primary);
 
         &:not([disabled]):hover {
             background-color: var(--reactist-button-primary-fill-highlight);
@@ -44,7 +44,7 @@
 
     &--danger {
         background-color: @color_red;
-        color: white;
+        color: var(--reactist-button-content-primary);
 
         &:not([disabled]):hover {
             background-color: darken(@color_red, 10%);

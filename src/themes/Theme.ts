@@ -1,5 +1,5 @@
 type Theme = {
-    nonAdaptiveWhite: string
+    buttonContentPrimary: string
 
     buttonPrimaryFill: string
     buttonPrimaryFillHighlight: string

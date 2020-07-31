@@ -1,7 +1,7 @@
 import Theme from './Theme'
 
 const twistDark: Theme = {
-    nonAdaptiveWhite: 'white',
+    buttonContentPrimary: 'white',
     buttonPrimaryFill: '#246fe0',
     buttonPrimaryFillHighlight: '#397de3',
     contentPrimary: 'white',

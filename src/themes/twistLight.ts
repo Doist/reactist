@@ -1,7 +1,7 @@
 import Theme from './Theme'
 
 const twistLight: Theme = {
-    nonAdaptiveWhite: 'white',
+    buttonContentPrimary: 'white',
     buttonPrimaryFill: '#246fe0',
     buttonPrimaryFillHighlight: '#1d63cc',
     contentPrimary: 'rgba(0, 0, 0, 0.88)',
