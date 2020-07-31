@@ -17,7 +17,9 @@ function compileThemeProperties() {
      * Generates CSS vars out of the above typescript definition.
      */
     return Object.entries(themes).reduce((compiledKeys, [themeKey, themeProps]) => {
-        compiledKeys += `:root[data-reactist-theme='${underscore(themeKey)}'] {\n`
+        compiledKeys += `:root[data-reactist-theme='${underscore(
+            themeKey,
+        )}'], .reactist_theme_${underscore(themeKey)} {\n`
         Object.entries<string>(themeProps).forEach(([propKey, propValue]) => {
             compiledKeys += `  --reactist-${dasherize(underscore(propKey))}: ${propValue};\n`
         })
