@@ -40,15 +40,7 @@ exports[`Icon renders icon component when supplied and no image is supplied 1`] 
 
 exports[`Icon wraps icon in a tooltip when tooltip is supplied 1`] = `
 <Tooltip
-  allowVaguePositioning={false}
-  delayHide={0}
-  delayShow={500}
-  gapSize={5}
-  hideOnScroll={true}
-  inverted={false}
-  position="auto"
-  text="Tooltip text"
-  withArrow={true}
+  content="Tooltip text"
 >
   <a
     className="reactist_icon reactist_icon--component"

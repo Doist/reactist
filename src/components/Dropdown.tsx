@@ -3,6 +3,7 @@ import './styles/dropdown.less'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
+import Button from './Button'
 
 type BoxProps = {
     onShowBody?: () => void
@@ -167,38 +168,41 @@ class Box extends React.Component<React.PropsWithChildren<BoxProps>, BoxState> {
         )
     }
 }
+
 Box.displayName = 'Dropdown.Box'
 
-type TriggerProps = {
-    onClick?: (event?: React.MouseEvent) => void
+type NativeButtonProps = React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+>
+
+type TriggerProps = Omit<NativeButtonProps, 'title'> & {
+    tooltip?: React.ReactNode
 }
 
-class Trigger extends React.Component<TriggerProps> {
-    public static displayName: string
-
-    constructor(props: TriggerProps, context: React.Context<unknown>) {
-        super(props, context)
-        this._onClick = this._onClick.bind(this)
-    }
-
-    _onClick(event: React.MouseEvent) {
+const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(function Trigger(
+    { children, onClick, tooltip, className, ...props },
+    ref,
+) {
+    function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         event.preventDefault()
         event.stopPropagation()
-        if (this.props.onClick) this.props.onClick(event)
+        if (onClick) onClick(event)
     }
 
-    render() {
-        const style = {
-            display: 'block',
-        }
+    return (
+        <Button
+            {...props}
+            className={classNames('trigger', className)}
+            onClick={handleClick}
+            tooltip={tooltip}
+            ref={ref}
+        >
+            {children}
+        </Button>
+    )
+})
 
-        return (
-            <div style={style} className="trigger" onClick={this._onClick}>
-                {this.props.children}
-            </div>
-        )
-    }
-}
 Trigger.displayName = 'Dropdown.Trigger'
 
 type BodyProps = {
@@ -208,38 +212,26 @@ type BodyProps = {
     right?: boolean
 }
 
-class Body extends React.Component<React.PropsWithChildren<BodyProps>> {
-    public static displayName: string
+function Body({ top, right, children, setPosition }: BodyProps) {
+    const style: React.CSSProperties = { position: 'absolute', right: 0, top: 0 }
 
-    render() {
-        const style: React.CSSProperties = {
-            position: 'absolute',
-            right: 0,
-            top: 0,
-        }
-
-        if (this.props.top) {
-            style.top = 'auto'
-            style.bottom = 0
-        }
-
-        if (this.props.right) {
-            style.right = 'auto'
-            style.left = 0
-        }
-
-        return (
-            <div
-                ref={this.props.setPosition}
-                style={style}
-                className="body"
-                id="reactist-dropdown-body"
-            >
-                {this.props.children}
-            </div>
-        )
+    if (top) {
+        style.top = 'auto'
+        style.bottom = 0
     }
+
+    if (right) {
+        style.right = 'auto'
+        style.left = 0
+    }
+
+    return (
+        <div ref={setPosition} style={style} className="body" id="reactist-dropdown-body">
+            {children}
+        </div>
+    )
 }
+
 Body.displayName = 'Dropdown.Body'
 
 const Dropdown = {

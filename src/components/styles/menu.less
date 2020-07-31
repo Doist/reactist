@@ -1,0 +1,81 @@
+@import './constants.less';
+
+.reactist_menulist[role='menu'] {
+    display: block;
+    white-space: nowrap;
+    background: hsla(0, 100%, 100%, 0.99);
+    outline: none;
+    font-size: @smaller_font_size;
+    padding: 4px 0;
+    min-width: 180px;
+    border: 1px solid @color_border_grey;
+    border-radius: 3px;
+
+    [role='menuitem'],
+    .reactist_menugroup__label {
+        user-select: none;
+        outline: none;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        padding: 5px 10px;
+        color: inherit;
+        border: none;
+        background-color: transparent;
+    }
+
+    .reactist_menugroup__label {
+        color: @secondary_font_color;
+        font-size: @tiny_font_size;
+    }
+
+    .reactist_submenu_button {
+        padding-right: 16px;
+    }
+
+    .reactist_submenu_button::after {
+        content: '';
+        position: absolute;
+        border-style: solid;
+        border-width: 4px 0 4px 6px;
+        border-color: transparent @secondary_font_color;
+        display: block;
+        width: 0;
+        right: 6px;
+    }
+
+    [role='menuitem'] {
+        width: 100%;
+        box-sizing: border-box;
+        &:focus,
+        &[aria-expanded='true'] {
+            color: @primary_font_color;
+            background-color: @color_grey_10;
+        }
+        &[aria-disabled],
+        &:disabled {
+            color: @secondary_font_color;
+            pointer-events: none;
+        }
+    }
+
+    a[role='menuitem'] {
+        cursor: default;
+        text-decoration: none;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    // sub-menus need to be shifted a bit towards the top to be aligned with its menu item
+    [role='menu'] {
+        margin-top: -5px;
+    }
+
+    hr {
+        border: none;
+        height: 1px;
+        background-color: @color_border_grey;
+        margin: 4px 0;
+    }
+}

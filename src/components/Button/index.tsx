@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import Tooltip from '../Tooltip'
+import { Tooltip } from '../Tooltip'
 import styles from './Button.module.less'
 
 type NativeButtonProps = React.DetailedHTMLProps<
@@ -13,7 +13,7 @@ type ThemeProps = {
     theme?: 'twist-light'
 }
 
-type Props = Omit<NativeButtonProps, 'title'> & {
+export type ButtonProps = Omit<NativeButtonProps, 'title' | 'ref'> & ThemeProps & {
     /**
      * Loading style. When true it disables the button, but it also adds a visual indication of
      * some in-progress operation going on.
@@ -35,7 +35,7 @@ type Props = Omit<NativeButtonProps, 'title'> & {
     tooltip?: React.ReactNode
 }
 
-const Button = React.forwardRef<HTMLButtonElement, Props & ThemeProps>(function Button(
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     {
         type = 'button',
         variant,
@@ -73,7 +73,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props & ThemeProps>(function 
         </button>
     )
 
-    return tooltip ? <Tooltip text={tooltip}>{button}</Tooltip> : button
+    return tooltip ? <Tooltip content={tooltip}>{button}</Tooltip> : button
 })
 
 Button.displayName = 'Button'
@@ -82,7 +82,7 @@ Button.propTypes = {
     loading: PropTypes.bool,
     variant: PropTypes.oneOf(['primary', 'secondary', 'danger', 'link']),
     size: PropTypes.oneOf(['default', 'small', 'large']),
-    tooltip: PropTypes.string,
+    tooltip: PropTypes.node,
 }
 
 Button.defaultProps = {

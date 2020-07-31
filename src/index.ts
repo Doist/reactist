@@ -20,7 +20,9 @@ export { default as KeyboardShortcut } from './components/KeyboardShortcut'
 
 export { default as Loading } from './components/Loading'
 
-export { MenuButton, MenuButtonItem } from './components/MenuButton'
+// export { MenuButton, MenuButtonItem } from './components/MenuButton'
+
+export * from './components/Menu'
 
 export { default as Modal } from './components/Modal'
 
@@ -36,7 +38,7 @@ export { default as Time } from './components/Time'
 
 export { default as Tip } from './components/Tip'
 
-export { default as Tooltip } from './components/Tooltip'
+export { Tooltip } from './components/Tooltip'
 
 export { default as Popover } from './components/Popover'
 

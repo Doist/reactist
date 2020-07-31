@@ -7,7 +7,6 @@
     border: none;
     background-color: transparent;
     padding: 0;
-    .normal_text();
 
     &:disabled {
         opacity: 0.4;
@@ -21,6 +20,7 @@
     &--primary,
     &--secondary,
     &--danger {
+        .normal_text();
         box-sizing: border-box;
         padding: 5px 15px;
         border: 1px solid rgba(0, 0, 0, 0.1);
