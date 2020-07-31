@@ -102,7 +102,7 @@ exports[`Dropdown Dropdown.Box renders the Body component first when top prop is
         size="default"
       >
         <button
-          className="reactist_button trigger"
+          className="reactist_button reactist_button trigger"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -134,7 +134,7 @@ exports[`Dropdown Dropdown.Box renders the Trigger component first when top prop
         size="default"
       >
         <button
-          className="reactist_button trigger"
+          className="reactist_button reactist_button trigger"
           disabled={false}
           onClick={[Function]}
           type="button"
@@ -192,7 +192,7 @@ exports[`Dropdown Dropdown.Box renders the Trigger component without crashing 1`
         size="default"
       >
         <button
-          className="reactist_button trigger"
+          className="reactist_button reactist_button trigger"
           disabled={false}
           onClick={[Function]}
           type="button"
