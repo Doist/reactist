@@ -14,13 +14,14 @@ import './styles/tooltip.less'
 
 type TooltipProps = Omit<ReakitTooltipProps, 'children'> & {
     children: React.ReactNode
-    content: React.ReactNode
+    content: React.ReactNode | (() => React.ReactNode)
     position?: PopoverState['placement']
     gapSize?: number
 }
 
-const SHOW_DELAY = 100
-const HIDE_DELAY = 100
+// These are exported to be used in the tests, they are not meant to be exported publicly
+export const SHOW_DELAY = 500
+export const HIDE_DELAY = 100
 
 function useDelayedTooltipState(initialState: TooltipInitialState) {
     const tooltipState = useTooltipState(initialState)
@@ -56,13 +57,15 @@ function Tooltip({
             <TooltipReference {...tooltip} ref={(child as any).ref} {...child.props}>
                 {(referenceProps) => React.cloneElement(child, referenceProps)}
             </TooltipReference>
-            <ReakitTooltip
-                {...tooltip}
-                {...props}
-                className={classNames('reactist_tooltip', className)}
-            >
-                {content}
-            </ReakitTooltip>
+            {tooltip.visible ? (
+                <ReakitTooltip
+                    {...tooltip}
+                    {...props}
+                    className={classNames('reactist_tooltip', className)}
+                >
+                    {typeof content === 'function' ? content() : content}
+                </ReakitTooltip>
+            ) : null}
         </>
     )
 }
