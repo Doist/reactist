@@ -2,7 +2,7 @@
     "name": "@doist/reactist",
     "description": "Open source React components by Doist",
     "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",
-    "version": "7.1.0",
+    "version": "8.0.0-alpha",
     "license": "MIT",
     "homepage": "https://github.com/Doist/reactist#readme",
     "repository": "git+https://github.com/Doist/reactist.git",
@@ -33,6 +33,7 @@
         "type-check": "tsc --noEmit -p ./tsconfig.json",
         "lint": "tsdx lint src stories",
         "storybook": "start-storybook -p 6006",
+        "postinstall": "patch-package",
         "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md}\""
     },
     "peerDependencies": {
@@ -98,6 +99,7 @@
         "mini-css-extract-plugin": "^0.8.2",
         "mockdate": "^3.0.2",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
+        "patch-package": "^6.2.2",
         "path": "^0.12.7",
         "prettier": "2.0.5",
         "raw-loader": "^4.0.1",
@@ -120,6 +122,7 @@
         "webpack": "^4.43.0"
     },
     "dependencies": {
+        "@reach/tooltip": "0.10.5",
         "reakit": "^1.1.2"
     }
 }

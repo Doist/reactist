@@ -1,23 +1,31 @@
 import React from 'react'
 import { render, screen, fireEvent, act } from '@testing-library/react'
-import { Tooltip, SHOW_DELAY, HIDE_DELAY } from '../Tooltip'
+import { Tooltip } from '../Tooltip'
+
+const SHOW_DELAY = 500
+const HIDE_DELAY = 100
 
 // Runs the same test abstracting how the tooltip is triggered (can be via mouse or keyboard)
 function testShowHide({
+    delayedShow,
     triggerShow,
     triggerHide,
 }: {
+    delayedShow: boolean
     triggerShow: () => void
     triggerHide: () => void
 }) {
     triggerShow()
 
-    // tooltip is not immediately visible
-    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-    // wait a bit
-    act(() => {
-        jest.advanceTimersByTime(SHOW_DELAY)
-    })
+    // tooltip is not immediately visible only when hovering, but shown immediately on focus
+    if (delayedShow) {
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+        // wait a bit
+        act(() => {
+            jest.advanceTimersByTime(SHOW_DELAY)
+        })
+    }
+
     // tooltip is now visible
     expect(screen.getByRole('tooltip', { name: 'tooltip content here' })).toBeInTheDocument()
 
@@ -49,6 +57,7 @@ describe('Tooltip', () => {
         )
 
         testShowHide({
+            delayedShow: false,
             triggerShow() {
                 fireEvent.focus(screen.getByRole('button', { name: 'Click me' }))
             },
@@ -65,6 +74,7 @@ describe('Tooltip', () => {
             </Tooltip>,
         )
         testShowHide({
+            delayedShow: true,
             triggerShow() {
                 fireEvent.mouseOver(screen.getByRole('button', { name: 'Click me' }))
             },

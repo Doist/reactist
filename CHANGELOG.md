@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v8.0.0-alpha
+
+- [Experimental] switching the internal implementation of the tooltip to a different library to see if addresses some performance issues.
+
 ## v7.1.0
 
 - [Feature] The tooltip content now can be provided as a function that will be called to generate its content. This function will only be called when the tooltip needs to be shown. This allows to have more control on tooltip content that is potentially expensive to generate, so that it only happens when needed.

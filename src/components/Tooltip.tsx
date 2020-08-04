@@ -1,110 +1,121 @@
-import React from 'react'
-import classNames from 'classnames'
-
-import {
-    useTooltipState,
-    TooltipInitialState,
-    Tooltip as ReakitTooltip,
-    TooltipReference,
-    TooltipProps as ReakitTooltipProps,
-} from 'reakit/Tooltip'
-import { PopoverState } from 'reakit/Popover'
-
+import React, { useState } from 'react'
+import { TooltipPopup, useTooltip } from '@reach/tooltip'
+import '@reach/tooltip/styles.css'
 import './styles/tooltip.less'
 
-type TooltipProps = Omit<ReakitTooltipProps, 'children'> & {
-    children: React.ReactNode
+type TooltipProps = JSX.IntrinsicElements['div'] & {
     content: React.ReactNode | (() => React.ReactNode)
-    position?: PopoverState['placement']
-    gapSize?: number
+    children: React.ReactNode
 }
 
-// These are exported to be used in the tests, they are not meant to be exported publicly
-export const SHOW_DELAY = 500
-export const HIDE_DELAY = 100
+/*
+ * This Tooltip.js module will export @reach/tooltip,
+ * with its default position set to centering position
+ */
 
-function useDelayedTooltipState(initialState: TooltipInitialState) {
-    const tooltipState = useTooltipState(initialState)
-    const delay = useDelay()
-    return React.useMemo(
-        () => ({
-            ...tooltipState,
-            show: delay(() => tooltipState.show(), SHOW_DELAY),
-            hide: delay(() => tooltipState.hide(), HIDE_DELAY),
-        }),
-        [delay, tooltipState],
-    )
-}
+const OFFSET = 3
 
-function Tooltip({
-    children,
-    content,
-    position = 'top',
-    gapSize = 3,
-    className,
-    ...props
-}: TooltipProps) {
-    const tooltip = useDelayedTooltipState({ placement: position, gutter: gapSize })
-
-    const child = React.Children.only<React.ReactElement>(children as React.ReactElement)
-    if (!content) {
-        return child
+/**
+ * @see https://github.com/reach/reach-ui/blob/d4bcfc73f27e6e618ec2eb2b0154a58bc17496f0/packages/tooltip/src/index.tsx#L573
+ */
+function getCollisions({
+    triggerRect,
+    tooltipRect,
+}: {
+    triggerRect?: Partial<DOMRect> | null
+    tooltipRect?: Partial<DOMRect> | null
+}) {
+    if (
+        !triggerRect ||
+        !tooltipRect ||
+        typeof triggerRect.top !== 'number' ||
+        typeof triggerRect.bottom !== 'number' ||
+        typeof tooltipRect.height !== 'number'
+    ) {
+        return {}
     }
+
+    return {
+        top: triggerRect.top - tooltipRect.height < 0,
+        bottom: window.innerHeight < triggerRect.bottom + tooltipRect.height + OFFSET,
+    }
+}
+
+/**
+ * Override default positioning logic
+ *
+ * Original implementation: https://github.com/reach/reach-ui/blob/d4bcfc73f27e6e618ec2eb2b0154a58bc17496f0/packages/tooltip/src/index.tsx#L568
+ * Centering demo: https://reacttraining.com/reach-ui/tooltip/#triangle-pointers-and-custom-styles
+ */
+function centered(triggerRect?: Partial<DOMRect> | null, tooltipRect?: Partial<DOMRect> | null) {
+    if (
+        !triggerRect ||
+        !tooltipRect ||
+        typeof triggerRect.top !== 'number' ||
+        typeof triggerRect.left !== 'number' ||
+        typeof triggerRect.bottom !== 'number' ||
+        typeof triggerRect.width !== 'number' ||
+        typeof tooltipRect.height !== 'number' ||
+        typeof tooltipRect.width !== 'number'
+    ) {
+        return {}
+    }
+
+    const collisions = getCollisions({ triggerRect, tooltipRect })
+    const directionUp = !collisions.top
+
+    const triggerCenter = triggerRect.left + triggerRect.width / 2
+    const left = triggerCenter - tooltipRect.width / 2
+    const maxLeft = window.innerWidth - tooltipRect.width - OFFSET
+
+    return {
+        left: Math.min(Math.max(OFFSET, left), maxLeft) + window.scrollX,
+        top: directionUp
+            ? triggerRect.top - OFFSET - window.scrollY - tooltipRect.height
+            : triggerRect.bottom + OFFSET + window.scrollY,
+    }
+}
+
+/**
+ * @see https://github.com/reach/reach-ui/blob/d4bcfc73f27e6e618ec2eb2b0154a58bc17496f0/packages/tooltip/src/index.tsx#L363
+ */
+function Tooltip({ children, id, content, ...rest }: TooltipProps) {
+    const child = React.Children.only<React.ReactElement>(children as React.ReactElement)
+
+    const [trigger, tooltip] = useTooltip({
+        id,
+        onMouseEnter: child.props.onMouseEnter,
+        onMouseMove: child.props.onMouseMove,
+        onMouseLeave: child.props.onMouseLeave,
+        onFocus: child.props.onFocus,
+        onBlur: child.props.onBlur,
+        onKeyDown: child.props.onKeyDown,
+        onMouseDown: child.props.onMouseDown,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ref: (child as any).ref,
+    })
+
+    const { isVisible, triggerRect } = tooltip
+    const [tooltipElement, setTooltipElement] = useState<HTMLDivElement | null>(null)
+    const tooltipRect = tooltipElement && tooltipElement.getBoundingClientRect()
+    const collisions = getCollisions({ triggerRect, tooltipRect })
+    const directionUp = !collisions.top
 
     return (
         <>
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            <TooltipReference {...tooltip} ref={(child as any).ref} {...child.props}>
-                {(referenceProps) => React.cloneElement(child, referenceProps)}
-            </TooltipReference>
-            {tooltip.visible ? (
-                <ReakitTooltip
+            {React.cloneElement(children as React.ReactElement, trigger)}
+            {isVisible && content && (
+                <TooltipPopup
+                    data-direction={directionUp ? 'up' : 'down'}
+                    ref={(ref: HTMLDivElement) => setTooltipElement(ref)}
+                    position={centered}
+                    label={typeof content === 'function' ? content() : content}
                     {...tooltip}
-                    {...props}
-                    className={classNames('reactist_tooltip', className)}
-                >
-                    {typeof content === 'function' ? content() : content}
-                </ReakitTooltip>
-            ) : null}
+                    {...rest}
+                />
+            )}
         </>
     )
 }
 
 export { Tooltip, TooltipProps }
-
-//
-// Internal helpers
-//
-
-/**
- * Returns a function offering the same interface as setTimeout, but cleans up on unmount.
- *
- * The timeout state is shared, and only one delayed function can be active at any given time. If
- * a new delayed function is called while another one was waiting for its time to run, that older
- * invocation is cleared and it never runs.
- *
- * This is suitable for our use case here, but probably not the most intuitive thing in general.
- * That's why this is not made a shared util or something like it.
- */
-function useDelay() {
-    const timeoutRef = React.useRef<ReturnType<typeof setTimeout>>()
-
-    const clearTimeouts = React.useCallback(function clearTimeouts() {
-        if (timeoutRef.current != null) {
-            clearTimeout(timeoutRef.current)
-        }
-    }, [])
-
-    // Runs clearTimeouts when the component is unmounted
-    React.useEffect(() => clearTimeouts, [clearTimeouts])
-
-    return React.useCallback(
-        function delay(fn: () => void, delay: number) {
-            return () => {
-                clearTimeouts()
-                timeoutRef.current = setTimeout(fn, delay)
-            }
-        },
-        [clearTimeouts],
-    )
-}
