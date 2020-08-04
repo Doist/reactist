@@ -12,7 +12,7 @@ const ExampleButton = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
     ref,
 ) {
     return (
-        <Button className="tip_item" ref={ref} {...props}>
+        <Button ref={ref} {...props}>
             I am a button.
             <br />
             Hover or focus me to see a tooltip.
@@ -43,6 +43,10 @@ function TooltipPlaygroundStory() {
     const gapSize = number('Gap Size (px)', 5)
     return (
         <section className="story tooltip">
+            <input
+                autoFocus
+                placeholder="Focus here so you can press Tab to test focusing the button below"
+            />
             <Tooltip
                 // Tooltip does not react to dynamic changes of some props so we force a new
                 // component re-render every time these change.

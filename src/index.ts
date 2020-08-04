@@ -38,6 +38,6 @@ export { default as Time } from './components/Time'
 
 export { default as Tip } from './components/Tip'
 
-export { Tooltip } from './components/Tooltip'
+export { Tooltip, TooltipProps } from './components/Tooltip'
 
 export { default as Popover } from './components/Popover'
