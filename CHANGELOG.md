@@ -2,34 +2,38 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v7.1.1
+
+-   [Bugfix] Fixes an improperly configured `sideEffects` property in package.json that prevented importing CSS files from reactist.
+
 ## v7.1.0
 
-- [Feature] The tooltip content now can be provided as a function that will be called to generate its content. This function will only be called when the tooltip needs to be shown. This allows to have more control on tooltip content that is potentially expensive to generate, so that it only happens when needed.
-- [Fix] The tooltip content is now rendered to the DOM only when the tooltip is shown. This is regardless of wether the content is provided directly or via a function. The React tree won't be comitted to the DOM unless the tooltip needs to become visible.
-- [Tweak] The tooltip delay to appear is now extended from 100ms to 500ms which was our earlier standard with the previous implementation of the tooltip.
+-   [Feature] The tooltip content now can be provided as a function that will be called to generate its content. This function will only be called when the tooltip needs to be shown. This allows to have more control on tooltip content that is potentially expensive to generate, so that it only happens when needed.
+-   [Fix] The tooltip content is now rendered to the DOM only when the tooltip is shown. This is regardless of wether the content is provided directly or via a function. The React tree won't be comitted to the DOM unless the tooltip needs to become visible.
+-   [Tweak] The tooltip delay to appear is now extended from 100ms to 500ms which was our earlier standard with the previous implementation of the tooltip.
 
 ## v7.0.0
 
-- [BREAKING CHANGE] A new Tooltip component is introduced. It is keyboard and screen reader friendly, more compliant with accessibility recommendations about tooltips. It does not provide all the features of the previous Tooltip, and its props change quite a bit. Additionally, it now has a new restriction where it expects its children to consist of a single element. This element is the one used as a trigger for the tooltip. (#276)
-- [BREAKING CHANGE] The `Popover` component now has a new restriction where it expects its children to consist of a single element. (#276)
-- [BREAKING CHANGE] A new set of components for building menus is introduced. The new menus are keyboard and screen reader friendly, more compliant with accessibility recommendations about menus. The old `MenuButton` and `MenuButtonItem` components are no longer available. Moreover we now have a `MenuButton` that is nothing like the one before. Check their code and examples in storybook. (#278)
+-   [BREAKING CHANGE] A new Tooltip component is introduced. It is keyboard and screen reader friendly, more compliant with accessibility recommendations about tooltips. It does not provide all the features of the previous Tooltip, and its props change quite a bit. Additionally, it now has a new restriction where it expects its children to consist of a single element. This element is the one used as a trigger for the tooltip. (#276)
+-   [BREAKING CHANGE] The `Popover` component now has a new restriction where it expects its children to consist of a single element. (#276)
+-   [BREAKING CHANGE] A new set of components for building menus is introduced. The new menus are keyboard and screen reader friendly, more compliant with accessibility recommendations about menus. The old `MenuButton` and `MenuButtonItem` components are no longer available. Moreover we now have a `MenuButton` that is nothing like the one before. Check their code and examples in storybook. (#278)
 
 ## v6.0.1
 
-- [Fix] This fixes a bug in v6.0.0 where the lib/ directory was unbundled.
+-   [Fix] This fixes a bug in v6.0.0 where the lib/ directory was unbundled.
 
 ## v6.0.0
 
-- [BREAKING CHANGE] Reactist now generates a build more aligned to antd's best practices. It generates a clean ES6 build, a CommonJS build, as well as an unpkg build. It also adds built-in support for future CSS module integration. This is a breaking change because importing modules has changed slightly. See README.md.
-- [BREAKING CHANGE] The `Button` component's `close` prop, which was deprecated back in v5, is now no longer supported.
+-   [BREAKING CHANGE] Reactist now generates a build more aligned to antd's best practices. It generates a clean ES6 build, a CommonJS build, as well as an unpkg build. It also adds built-in support for future CSS module integration. This is a breaking change because importing modules has changed slightly. See README.md.
+-   [BREAKING CHANGE] The `Button` component's `close` prop, which was deprecated back in v5, is now no longer supported.
 
 ## v5.2.0
 
-- [Feature] `Button` can now be unstyled if you omit the `variant` prop. This resets the styles to be even less than default styles of the web browser (e.g. removes all border, padding and background).
+-   [Feature] `Button` can now be unstyled if you omit the `variant` prop. This resets the styles to be even less than default styles of the web browser (e.g. removes all border, padding and background).
 
 ## v5.1.0
 
-- [New] A `KeyboardShortcut` component will take one or several keyboard shortcut specified as string, and will parse them and render them in a nice semantic markup using the `kbd` element. Each key part of a key combination gets its own container so you can style things nicely.
+-   [New] A `KeyboardShortcut` component will take one or several keyboard shortcut specified as string, and will parse them and render them in a nice semantic markup using the `kbd` element. Each key part of a key combination gets its own container so you can style things nicely.
 
 ## v5.0.0
 
