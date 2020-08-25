@@ -95,7 +95,7 @@
         "jest": "^24.7.1",
         "jest-environment-jsdom-sixteen": "^1.0.3",
         "less": "^3.8.1",
-        "less-loader": "^4.1.0",
+        "less-loader": "^7.0.0",
         "lint-staged": "^10.2.11",
         "mini-css-extract-plugin": "^0.8.2",
         "mockdate": "^3.0.2",
