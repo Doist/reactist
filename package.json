@@ -64,7 +64,7 @@
         "@storybook/addon-links": "^5.3.18",
         "@storybook/addon-options": "^5.3.18",
         "@storybook/addons": "^5.3.18",
-        "@storybook/react": "^5.3.18",
+        "@storybook/react": "^6.0.21",
         "@testing-library/jest-dom": "^5.11.0",
         "@testing-library/react": "^10.4.3",
         "@types/cheerio": "^0.22.18",
