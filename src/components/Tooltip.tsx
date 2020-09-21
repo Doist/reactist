@@ -62,7 +62,6 @@ function Tooltip({
                     {...tooltip}
                     {...props}
                     className={classNames('reactist_tooltip', className)}
-                    style={{ zIndex: 100000 }}
                 >
                     {typeof content === 'function' ? content() : content}
                 </ReakitTooltip>
