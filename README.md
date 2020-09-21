@@ -115,7 +115,7 @@ npm run build
 **Note:** This will **not** update the docs. In case you want to update the docs you need to run:
 
 ```sh
-npm run build-storybook
+npm run build:storybook
 ```
 
 # Testing
