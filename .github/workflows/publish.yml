@@ -3,6 +3,7 @@ name: Release @doist/reactist package
 on:
     release:
         types: [created]
+    workflow_dispatch:
 
 jobs:
     publish:
