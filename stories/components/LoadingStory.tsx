@@ -44,4 +44,4 @@ const Story = () =>
         })
         .add('Component Playground', () => <LoadingPlaygroundStory />)
 
-export default Story
+export { Story as LoadingStory }

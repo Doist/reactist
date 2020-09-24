@@ -49,4 +49,4 @@ const Story = () =>
         })
         .add('Component Playground', ProgressBarPlaygroundStory)
 
-export default Story
+export { Story as ProgressBarStory }

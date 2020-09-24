@@ -140,7 +140,7 @@ const TimePlaygroundStory = () => (
 )
 
 // Story setup ================================================================
-const Story = () =>
+const TimeStory = () =>
     storiesOf('Time', module)
         .addDecorator(withKnobs)
         .addWithChapters('Component Overview', {
@@ -155,4 +155,4 @@ const Story = () =>
         })
         .add('Component Playground', TimePlaygroundStory)
 
-export default Story
+export { TimeStory }
