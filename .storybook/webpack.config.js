@@ -18,7 +18,7 @@ module.exports = {
                 test: /\.less$/,
                 use: [
                     'style-loader',
-                    { loader: 'css-loader', options: { modules: { auto: true } } },
+                    { loader: 'css-loader', options: { modules: { auto: true }, esModule: false } },
                     'less-loader',
                 ],
             },
