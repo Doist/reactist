@@ -75,4 +75,4 @@ const Story = () =>
         })
         .add('Component Playground', () => <SelectPlaygroundStory />)
 
-export default Story
+export { Story as SelectStory }

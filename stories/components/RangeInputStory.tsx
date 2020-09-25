@@ -81,4 +81,4 @@ const Story = () =>
         })
         .add('Component Playground', () => <RangeInputPlaygroundStory />)
 
-export default Story
+export { Story as RangeInputStory }

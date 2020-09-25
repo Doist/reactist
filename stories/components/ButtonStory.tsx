@@ -179,7 +179,7 @@ function ButtonPlaygroundStory() {
 }
 
 // Story setup ================================================================
-function Story() {
+function ButtonStory() {
     storiesOf('Button', module)
         .addDecorator(withKnobs)
         .addWithChapters('Component Overview', {
@@ -196,4 +196,4 @@ function Story() {
         .add('Component Playground', ButtonPlaygroundStory)
 }
 
-export default Story
+export { ButtonStory }

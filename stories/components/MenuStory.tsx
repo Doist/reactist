@@ -168,10 +168,10 @@ const OverflowMenuChapter = {
 }
 
 // Story setup ================================================================
-function Story() {
+function MenuStory() {
     storiesOf('Menu', module).addWithChapters('Component Overview', {
         chapters: [SimpleMenuChapter, OverflowMenuChapter],
     })
 }
 
-export default Story
+export { MenuStory }

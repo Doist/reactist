@@ -46,4 +46,4 @@ const Story = () =>
         })
         .add('Component Playground', TipPlaygroundStory)
 
-export default Story
+export { Story as TipStory }
