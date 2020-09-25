@@ -51,10 +51,33 @@ function Tooltip({
         return child
     }
 
+    /**
+     * Prevents the tooltip from automatically firing on focus all the time. This is to prevent
+     * tooltips from showing when the trigger element is focused back after a popover or dialog that
+     * it opened was closed. See link below for more details.
+     * @see https://github.com/reakit/reakit/discussions/749
+     */
+    function handleFocus(event: React.FocusEvent) {
+        // If focus is not followed by a key up event, does it mean that it's not
+        // an intentional keyboard focus? Not sure but it seems to work.
+        function handleKeyUp(e: Event) {
+            if ((e as KeyboardEvent).key !== 'Escape') tooltip.show()
+        }
+        event.currentTarget.addEventListener('keyup', handleKeyUp, { once: true })
+        // Prevent tooltip.show from being called by TooltipReference
+        event.preventDefault()
+        if (typeof child.props.onFocus === 'function') child.props.onFocus(event)
+    }
+
     return (
         <>
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            <TooltipReference {...tooltip} ref={(child as any).ref} {...child.props}>
+            <TooltipReference
+                {...tooltip}
+                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                ref={(child as any).ref}
+                {...child.props}
+                onFocus={handleFocus}
+            >
                 {(referenceProps) => React.cloneElement(child, referenceProps)}
             </TooltipReference>
             {tooltip.visible ? (
