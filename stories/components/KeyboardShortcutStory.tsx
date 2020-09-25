@@ -46,4 +46,4 @@ const Story = () =>
         .addDecorator(withKnobs)
         .add('Component Playground', KeyboardShortcutPlaygroundStory)
 
-export default Story
+export { Story as KeyboardShortcutStory }

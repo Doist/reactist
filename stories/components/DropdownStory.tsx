@@ -62,4 +62,4 @@ const Story = () =>
         chapters: [DropdownChapter, InteractiveDropdownChapter],
     })
 
-export default Story
+export { Story as DropdownStory }

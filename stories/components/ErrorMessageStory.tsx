@@ -46,4 +46,4 @@ const Story = () =>
         })
         .add('Component Playground', ErrorMessagePlaygroundStory)
 
-export default Story
+export { Story as ErrorMessageStory }

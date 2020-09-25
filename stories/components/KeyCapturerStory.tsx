@@ -6,9 +6,9 @@ import documentation from './KeyCapturerStory.md'
 const KeyCapturerDocumentationChapters = [{ subtitle: 'Documentation', info: documentation }]
 
 // Story setup ================================================================
-const Story = () =>
+const KeyCapturerStory = () =>
     storiesOf('KeyCapturer', module).addWithChapters('Component Documentation', {
         chapters: KeyCapturerDocumentationChapters,
     })
 
-export default Story
+export { KeyCapturerStory }

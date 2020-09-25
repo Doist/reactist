@@ -62,10 +62,10 @@ function TooltipPlaygroundStory() {
 }
 
 // Story setup ================================================================
-function Story() {
+function TooltipStory() {
     storiesOf('Tooltip', module)
         .addDecorator(withKnobs)
         .add('Component Playground', TooltipPlaygroundStory)
 }
 
-export default Story
+export { TooltipStory }

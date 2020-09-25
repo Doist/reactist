@@ -113,7 +113,7 @@ const AvatarPlaygroundStory = () => (
 )
 
 // Story setup ================================================================
-const Story = () =>
+const AvatarStory = () =>
     storiesOf('Avatar', module)
         .addDecorator(withKnobs)
         .addWithChapters('Component Overview', {
@@ -126,4 +126,4 @@ const Story = () =>
         })
         .add('Component Playground', AvatarPlaygroundStory)
 
-export default Story
+export { AvatarStory }
