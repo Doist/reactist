@@ -32,6 +32,7 @@
         "build:storybook": "build-storybook -o docs",
         "clean": "rimraf es lib styles dist",
         "test": "tsdx test --passWithNoTests",
+        "test:coverage": "tsdx test --coverage",
         "type-check": "tsc --noEmit -p ./tsconfig.json",
         "lint": "tsdx lint src stories",
         "storybook": "start-storybook -p 6006",
