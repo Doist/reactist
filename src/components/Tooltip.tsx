@@ -60,8 +60,13 @@ function Tooltip({
     function handleFocus(event: React.FocusEvent) {
         // If focus is not followed by a key up event, does it mean that it's not
         // an intentional keyboard focus? Not sure but it seems to work.
+        // This may be resolved soon in an upcoming version of reakit:
+        // https://github.com/reakit/reakit/issues/750
         function handleKeyUp(e: Event) {
-            if ((e as KeyboardEvent).key !== 'Escape') tooltip.show()
+            const eventKey = (e as KeyboardEvent).key
+            if (eventKey !== 'Escape' && eventKey !== 'Enter' && eventKey !== 'Space') {
+                tooltip.show()
+            }
         }
         event.currentTarget.addEventListener('keyup', handleKeyUp, { once: true })
         // Prevent tooltip.show from being called by TooltipReference
