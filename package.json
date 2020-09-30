@@ -33,6 +33,7 @@
         "clean": "rimraf es lib styles dist",
         "test": "tsdx test --passWithNoTests",
         "test:watch": "npm run test -- --watch",
+        "test:coverage": "tsdx test --coverage",
         "type-check": "tsc --noEmit -p ./tsconfig.json",
         "lint": "tsdx lint src stories",
         "storybook": "start-storybook -p 6006",
