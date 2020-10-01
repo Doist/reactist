@@ -1,5 +1,6 @@
 import React from 'react'
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { render, screen, act } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { Tooltip, SHOW_DELAY, HIDE_DELAY } from '../Tooltip'
 
 // Runs the same test abstracting how the tooltip is triggered (can be via mouse or keyboard)
@@ -47,13 +48,15 @@ describe('Tooltip', () => {
                 <button>Click me</button>
             </Tooltip>,
         )
+        const button = screen.getByRole('button', { name: 'Click me' })
 
         testShowHide({
             triggerShow() {
-                fireEvent.focus(screen.getByRole('button', { name: 'Click me' }))
+                userEvent.tab()
+                expect(button).toHaveFocus()
             },
             triggerHide() {
-                fireEvent.blur(screen.getByRole('button', { name: 'Click me' }))
+                userEvent.tab()
             },
         })
     })
@@ -64,12 +67,13 @@ describe('Tooltip', () => {
                 <button>Click me</button>
             </Tooltip>,
         )
+        const button = screen.getByRole('button', { name: 'Click me' })
         testShowHide({
             triggerShow() {
-                fireEvent.mouseOver(screen.getByRole('button', { name: 'Click me' }))
+                userEvent.hover(button)
             },
             triggerHide() {
-                fireEvent.mouseLeave(screen.getByRole('button', { name: 'Click me' }))
+                userEvent.unhover(button)
             },
         })
     })
@@ -80,16 +84,18 @@ describe('Tooltip', () => {
                 <button>Click me</button>
             </Tooltip>,
         )
+        const button = screen.getByRole('button', { name: 'Click me' })
 
         // mouse over and wait more than enough
-        fireEvent.mouseOver(screen.getByRole('button', { name: 'Click me' }))
+        userEvent.hover(button)
         act(() => {
             jest.advanceTimersByTime(SHOW_DELAY * 2)
         })
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
 
         // focus on button and wait more than enough
-        fireEvent.blur(screen.getByRole('button', { name: 'Click me' }))
+        userEvent.tab()
+        expect(button).toHaveFocus()
         act(() => {
             jest.advanceTimersByTime(SHOW_DELAY * 2)
         })
@@ -114,6 +120,7 @@ describe('Tooltip', () => {
                 <button>Click me</button>
             </Tooltip>,
         )
+        const button = screen.getByRole('button', { name: 'Click me' })
 
         // assert that content has not been generated internally even, not even after a delay
         act(() => {
@@ -122,10 +129,36 @@ describe('Tooltip', () => {
         expect(content).not.toHaveBeenCalled()
 
         // content is generated when the tooltip is needed to be shown
-        fireEvent.mouseOver(screen.getByRole('button', { name: 'Click me' }))
+        userEvent.hover(button)
         act(() => {
             jest.advanceTimersByTime(SHOW_DELAY)
         })
         expect(content).toHaveBeenCalled()
+    })
+
+    /**
+     * @see https://github.com/reakit/reakit/discussions/749
+     */
+    it('does not show the tooltip if the button received focus in a way not associated with a key event', () => {
+        function getTooltipButton() {
+            return screen.getByRole('button', { name: 'Click me' })
+        }
+
+        render(
+            <>
+                <Tooltip content="tooltip content here">
+                    <button>Click me</button>
+                </Tooltip>
+                <button onClick={() => getTooltipButton().focus()}>Trigger focus</button>
+            </>,
+        )
+
+        userEvent.click(screen.getByRole('button', { name: 'Trigger focus' }))
+        expect(getTooltipButton()).toHaveFocus()
+
+        act(() => {
+            jest.advanceTimersByTime(SHOW_DELAY * 2)
+        })
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
     })
 })

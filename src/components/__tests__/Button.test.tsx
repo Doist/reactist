@@ -1,5 +1,6 @@
 import React from 'react'
-import { render, fireEvent, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { render, screen } from '@testing-library/react'
 
 import Button from '../Button'
 
@@ -16,7 +17,7 @@ describe('Button', () => {
                 Click me
             </Button>,
         )
-        fireEvent.click(screen.getByRole('button', { name: 'Click me' }))
+        userEvent.click(screen.getByRole('button', { name: 'Click me' }))
         expect(clickSpy).toHaveBeenCalled()
     })
 
@@ -27,7 +28,7 @@ describe('Button', () => {
                 Click me
             </Button>,
         )
-        fireEvent.click(screen.getByRole('button', { name: 'Click me' }))
+        userEvent.click(screen.getByRole('button', { name: 'Click me' }))
         expect(clickSpy).not.toHaveBeenCalled()
     })
 
@@ -38,7 +39,7 @@ describe('Button', () => {
                 Click me
             </Button>,
         )
-        fireEvent.click(screen.getByRole('button', { name: 'Click me' }))
+        userEvent.click(screen.getByRole('button', { name: 'Click me' }))
         expect(clickSpy).not.toHaveBeenCalled()
     })
 
@@ -49,7 +50,8 @@ describe('Button', () => {
             </Button>,
         )
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-        fireEvent.focus(screen.getByRole('button', { name: 'Click me' }))
+        userEvent.tab()
+        expect(screen.getByRole('button', { name: 'Click me' })).toHaveFocus()
         expect(
             await screen.findByRole('tooltip', { name: 'tooltip content here' }),
         ).toBeInTheDocument()
