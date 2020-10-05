@@ -125,6 +125,6 @@
         "webpack": "^4.43.0"
     },
     "dependencies": {
-        "reakit": "^1.1.2"
+        "reakit": "1.2.5"
     }
 }

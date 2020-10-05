@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { Menu, MenuButton, MenuList, MenuItem } from '../Menu'
 
 function getFocusedElement() {
@@ -20,10 +21,10 @@ it('renders a button that opens and closes the menu when clicked', () => {
     )
     expect(screen.queryByRole('menu')).not.toBeInTheDocument()
     expect(screen.queryByRole('menuitem')).not.toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+    userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
     expect(screen.getByRole('menu')).toBeInTheDocument()
     expect(screen.getByRole('menuitem', { name: 'First option' })).toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+    userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
     expect(screen.queryByRole('menu')).not.toBeInTheDocument()
     expect(screen.queryByRole('menuitem')).not.toBeInTheDocument()
 })
@@ -43,18 +44,18 @@ it('closes the menu when a menu item is selected (unless the onSelect handler re
     )
 
     // 'First option' closes the menu
-    fireEvent.click(screen.getByRole('button', { name: 'Options menu' }))
-    fireEvent.click(screen.getByRole('menuitem', { name: 'First option' }))
+    userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+    userEvent.click(screen.getByRole('menuitem', { name: 'First option' }))
     expect(screen.queryByRole('menu')).not.toBeInTheDocument()
     expect(screen.queryByRole('menuitem')).not.toBeInTheDocument()
 
     // 'Second option' does not close the menu
-    fireEvent.click(screen.getByRole('button', { name: 'Options menu' }))
-    fireEvent.click(screen.getByRole('menuitem', { name: 'Second option' }))
+    userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+    userEvent.click(screen.getByRole('menuitem', { name: 'Second option' }))
     expect(screen.getByRole('menu')).toBeInTheDocument()
 
     // 'Third option' does not close the menu
-    fireEvent.click(screen.getByRole('menuitem', { name: 'Third option' }))
+    userEvent.click(screen.getByRole('menuitem', { name: 'Third option' }))
     expect(screen.getByRole('menu')).toBeInTheDocument()
 })
 
@@ -77,8 +78,8 @@ it("calls the onSelect and the menu's onItemSelect with the value when menu item
     )
 
     for (const opt of ['1st', '2nd']) {
-        fireEvent.click(screen.getByRole('button', { name: 'Options menu' }))
-        fireEvent.click(screen.getByRole('menuitem', { name: `${opt} option` }))
+        userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+        userEvent.click(screen.getByRole('menuitem', { name: `${opt} option` }))
         expect(onItemSelect).toHaveBeenCalledWith(opt)
         expect(onSelect).toHaveBeenCalledWith(`${opt} option`)
     }
@@ -87,7 +88,7 @@ it("calls the onSelect and the menu's onItemSelect with the value when menu item
     expect(onSelect).toHaveBeenCalledTimes(2)
 })
 
-it('allows to navigate through the menu items using the keyboard', () => {
+it('allows to navigate through the menu items using the keyboard', async () => {
     const onItemSelect = jest.fn()
     const onSelect = jest.fn()
 
@@ -108,7 +109,8 @@ it('allows to navigate through the menu items using the keyboard', () => {
         </Menu>,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+    await userEvent.type(screen.getByRole('button', { name: 'Options menu' }), '{enter}')
+    fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
     expect(screen.getByRole('menuitem', { name: '1st option' })).toHaveFocus()
     fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
     fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
@@ -132,7 +134,7 @@ it('allows to render a menu item as a link', () => {
             </MenuList>
         </Menu>,
     )
-    fireEvent.click(screen.getByRole('button', { name: 'Links' }))
+    userEvent.click(screen.getByRole('button', { name: 'Links' }))
     const menuItem = screen.getByRole('menuitem', { name: 'Github repo' })
     expect(menuItem).toHaveAttribute('href', 'https://github.com/Doist/reactist')
     expect(menuItem.tagName).toEqual('A')
