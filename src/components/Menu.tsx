@@ -13,6 +13,7 @@ import { forwardRefWithAs } from './utils/type-helpers'
 // other features, easily show keyboard shortcuts in menu items, etc.)
 //
 import * as Reakit from 'reakit/Menu'
+import { PopoverBackdrop } from 'reakit/Popover'
 
 import './styles/menu.less'
 
@@ -100,18 +101,60 @@ const MenuButton = forwardRefWithAs<'button'>(function MenuButton({ className, .
 // MenuList
 //
 
+type MenuBackdropProps = Reakit.MenuStateReturn & {
+    children: React.ReactNode
+}
+
+const BACKDROP_STYLE: React.CSSProperties = {
+    width: '100%',
+    height: '100%',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+}
+
+/**
+ * Internal component to provide a backdrop/overlay to all menus. This is needed because reakit's
+ * menus do not show an overlay by default.
+ */
+function MenuBackdrop({
+    baseId,
+    visible,
+    animated,
+    animating,
+    stopAnimation,
+    modal,
+    children,
+}: MenuBackdropProps) {
+    return (
+        <PopoverBackdrop
+            baseId={baseId}
+            visible={visible}
+            animated={animated}
+            animating={animating}
+            stopAnimation={stopAnimation}
+            modal={modal}
+            style={BACKDROP_STYLE}
+        >
+            {children}
+        </PopoverBackdrop>
+    )
+}
+
 /**
  * The dropdown menu itself, containing a list of menu items.
  */
 const MenuList = forwardRefWithAs<'div'>(function MenuList({ className, ...props }, ref) {
     const { handleItemSelect, ...state } = React.useContext(MenuContext)
     return (
-        <Reakit.Menu
-            {...props}
-            {...state}
-            ref={ref}
-            className={classNames('reactist_menulist', className)}
-        />
+        <MenuBackdrop {...state}>
+            <Reakit.Menu
+                {...props}
+                {...state}
+                ref={ref}
+                className={classNames('reactist_menulist', className)}
+            />
+        </MenuBackdrop>
     )
 })
 
