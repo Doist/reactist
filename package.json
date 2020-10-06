@@ -41,7 +41,6 @@
     },
     "peerDependencies": {
         "classnames": "^2.2.5",
-        "dayjs": "^1.8.10",
         "react": "^15.5.4 || ^16.2.0",
         "react-dom": "^15.5.4 || ^16.2.0",
         "prop-types": "^15.6.2"
@@ -85,7 +84,6 @@
         "classnames": "^2.2.5",
         "css-loader": "^4.2.2",
         "cssnano": "^4.1.10",
-        "dayjs": "^1.8.10",
         "enzyme": "^3.6.0",
         "enzyme-adapter-react-16": "^1.5.0",
         "enzyme-to-json": "^3.3.4",
@@ -125,6 +123,7 @@
         "webpack": "^4.43.0"
     },
     "dependencies": {
+        "dayjs": "^1.8.10",
         "reakit": "1.2.5"
     }
 }
