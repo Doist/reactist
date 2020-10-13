@@ -102,7 +102,7 @@
         "mockdate": "^3.0.2",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
         "path": "^0.12.7",
-        "prettier": "2.0.5",
+        "prettier": "2.1.2",
         "raw-loader": "^4.0.1",
         "react": "^16.13.1",
         "react-docgen-typescript-loader": "^3.7.2",
