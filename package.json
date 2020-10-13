@@ -124,6 +124,6 @@
     },
     "dependencies": {
         "dayjs": "^1.8.10",
-        "reakit": "1.2.5"
+        "reakit": "1.3.0-alpha.3"
     }
 }
