@@ -36,7 +36,6 @@
         "react/no-did-mount-set-state": "error",
         "react/no-did-update-set-state": "error",
         "react/no-find-dom-node": "off",
-        "react/sort-comp": "error",
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/unbound-method": "off",
