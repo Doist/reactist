@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { SyntheticEvent } from 'react'
 import { shallow } from 'enzyme'
 import { screen, render, fireEvent } from '@testing-library/react'
 
@@ -110,7 +110,7 @@ describe('KeyCapturer', () => {
         })
 
         it('forwards the event to the handler', () => {
-            const onEnter = jest.fn()
+            const onEnter: jest.MockedFunction<React.EventHandler<SyntheticEvent>> = jest.fn()
 
             render(
                 <KeyCapturer eventName="onKeyDown" onEnter={onEnter}>

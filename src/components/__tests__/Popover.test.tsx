@@ -52,7 +52,9 @@ describe('Popover', () => {
         })
 
         it('sets the tooltip to the first position that has enough space when `auto` is supplied', () => {
-            ;(PositioningUtils.hasEnoughSpace as jest.Mock<boolean>) = jest
+            ;(PositioningUtils.hasEnoughSpace as jest.MockedFunction<
+                typeof PositioningUtils.hasEnoughSpace
+            >) = jest
                 .fn()
                 .mockReturnValueOnce(false) // top
                 .mockReturnValueOnce(false) // right
