@@ -71,6 +71,7 @@ function Tooltip({
         event.currentTarget.addEventListener('keyup', handleKeyUp, { once: true })
         // Prevent tooltip.show from being called by TooltipReference
         event.preventDefault()
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
         if (typeof child.props.onFocus === 'function') child.props.onFocus(event)
     }
 
@@ -78,7 +79,7 @@ function Tooltip({
         <>
             <TooltipReference
                 {...tooltip}
-                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
                 ref={(child as any).ref}
                 {...child.props}
                 onFocus={handleFocus}
