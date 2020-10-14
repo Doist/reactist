@@ -314,6 +314,8 @@ describe('PositioningUtils', () => {
             },
         ]
         testCases.forEach((testCase) => {
+            // Variable title.
+            // eslint-disable-next-line jest/valid-title
             it(testCase.description, () => {
                 const result = hasEnoughSpace(
                     testCase.params.windowDimensions,
