@@ -32,7 +32,6 @@
     "rules": {
         "jest/expect-expect": "off",
         "prettier/prettier": "error",
-        "linebreak-style": ["error", "unix"],
         "react/no-did-mount-set-state": "error",
         "react/no-did-update-set-state": "error",
         "react/no-find-dom-node": "off",
