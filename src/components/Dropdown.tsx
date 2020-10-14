@@ -34,9 +34,6 @@ class Box extends React.Component<React.PropsWithChildren<BoxProps>, BoxState> {
             top: props.top || false,
         }
 
-        this._handleClickOutside = this._handleClickOutside.bind(this)
-        this._setPosition = this._setPosition.bind(this)
-        this._toggleShowBody = this._toggleShowBody.bind(this)
         this._timeout = undefined
     }
 
@@ -48,7 +45,7 @@ class Box extends React.Component<React.PropsWithChildren<BoxProps>, BoxState> {
     }
     _timeout?: ReturnType<typeof setTimeout>
 
-    _handleClickOutside(event: MouseEvent) {
+    _handleClickOutside = (event: MouseEvent) => {
         const dropdownDOMNode = ReactDOM.findDOMNode(this)
 
         if (dropdownDOMNode && !dropdownDOMNode.contains(event.target as Node))
@@ -63,7 +60,7 @@ class Box extends React.Component<React.PropsWithChildren<BoxProps>, BoxState> {
         }
     }
 
-    _toggleShowBody() {
+    _toggleShowBody = () => {
         if (!this.state.showBody) {
             // will show
             if (this.props.onShowBody) this.props.onShowBody()
@@ -87,7 +84,7 @@ class Box extends React.Component<React.PropsWithChildren<BoxProps>, BoxState> {
     }
 
     // https://facebook.github.io/react/docs/refs-and-the-dom.html#exposing-dom-refs-to-parent-components
-    _setPosition(body: HTMLElement | null) {
+    _setPosition = (body: HTMLElement | null) => {
         if (body) {
             const scrollingParent = document.getElementById(
                 this.props.scrolling_parent ? this.props.scrolling_parent : '',
