@@ -254,6 +254,8 @@ describe('KeyCapturer', () => {
                 },
             ]
             testCases.forEach((testCase) => {
+                // Variable title.
+                // eslint-disable-next-line jest/valid-title
                 it(testCase.description, () => {
                     expect(KeyCapturerResolver.resolveByKey(testCase.input)).toBe(testCase.expected)
                 })
@@ -304,6 +306,8 @@ describe('KeyCapturer', () => {
                 },
             ]
             testCases.forEach((testCase) => {
+                // Variable title.
+                // eslint-disable-next-line jest/valid-title
                 it(testCase.description, () => {
                     expect(KeyCapturerResolver.resolveByKeyCode(testCase.input)).toBe(
                         testCase.expected,
