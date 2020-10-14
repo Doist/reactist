@@ -61,7 +61,7 @@ it('closes the menu when a menu item is selected (unless the onSelect handler re
 
 it("calls the onSelect and the menu's onItemSelect with the value when menu items are selected", () => {
     const onItemSelect = jest.fn()
-    const onSelect = jest.fn()
+    const onSelect = jest.fn<void, [string]>()
 
     render(
         <Menu onItemSelect={onItemSelect}>
@@ -90,7 +90,7 @@ it("calls the onSelect and the menu's onItemSelect with the value when menu item
 
 it('allows to navigate through the menu items using the keyboard', async () => {
     const onItemSelect = jest.fn()
-    const onSelect = jest.fn()
+    const onSelect = jest.fn<void, [string]>()
 
     render(
         <Menu onItemSelect={onItemSelect}>
