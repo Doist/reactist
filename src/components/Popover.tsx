@@ -228,7 +228,9 @@ class Popover extends React.Component<Props> {
         function handleTriggerClick(event: React.SyntheticEvent) {
             // @ts-expect-error This is temporary while we revisit the Popover interface
             if (onClick) onClick(event)
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             if (typeof triggerElement.props.onClick === 'function') {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
                 triggerElement.props.onClick(event)
             }
         }
