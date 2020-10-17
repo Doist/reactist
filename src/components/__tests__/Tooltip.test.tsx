@@ -61,6 +61,8 @@ describe('Tooltip', () => {
         })
     })
 
+    // Calls into testShowHide subtest.
+    // eslint-disable-next-line jest/expect-expect
     it('renders a tooltip when the button is hovered, hides it when unhovered', () => {
         render(
             <Tooltip content="tooltip content here">
