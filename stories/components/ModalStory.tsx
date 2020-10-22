@@ -5,8 +5,9 @@ import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 
 import { optionsNoSourceNoProps } from '../utils/StoryUtils'
 
-import Modal from '../../src/components/modal'
+import { default as Modal } from '../../src/components/modal'
 import Button from '../../src/components/button'
+
 import {
     howToText,
     modalBoxText,
