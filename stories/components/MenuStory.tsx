@@ -109,6 +109,7 @@ function SimpleMenuExample() {
 
 const SimpleMenuChapter = {
     subtitle: 'Some menu examples',
+    // eslint-disable-next-line react/display-name
     sections: [{ sectionFn: () => <SimpleMenuExample />, options: optionsSourceOnly }],
 }
 
@@ -164,6 +165,7 @@ function OverflowMenuExample() {
 
 const OverflowMenuChapter = {
     subtitle: 'A list of items with an overflow options menu',
+    // eslint-disable-next-line react/display-name
     sections: [{ sectionFn: () => <OverflowMenuExample />, options: optionsSourceOnly }],
 }
 
