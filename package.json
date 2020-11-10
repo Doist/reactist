@@ -79,7 +79,6 @@
         "@typescript-eslint/parser": "^4.4.1",
         "autoprefixer": "^9.8.0",
         "babel-core": "^7.0.0-bridge.0",
-        "babel-eslint": "^10.1.0",
         "babel-loader": "^8.1.0",
         "classnames": "^2.2.5",
         "css-loader": "^4.2.2",
