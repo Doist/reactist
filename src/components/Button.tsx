@@ -9,6 +9,10 @@ type NativeButtonProps = React.DetailedHTMLProps<
     HTMLButtonElement
 >
 
+export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'link'
+
+export type ButtonSize = 'default' | 'small' | 'large'
+
 export type ButtonProps = Omit<NativeButtonProps, 'title' | 'ref'> & {
     /**
      * Loading style. When true it disables the button, but it also adds a visual indication of
@@ -18,11 +22,11 @@ export type ButtonProps = Omit<NativeButtonProps, 'title' | 'ref'> & {
     /**
      * Controls visually how the button shows up from a predefined set of kinds of buttons.
      */
-    variant?: 'primary' | 'secondary' | 'danger' | 'link'
+    variant?: ButtonVariant
     /**
      * The size of the button. If not provided it shows up in a normal size.
      */
-    size?: 'default' | 'small' | 'large'
+    size?: ButtonSize
     /**
      * Tooltip that is displayed on hover.
      *
