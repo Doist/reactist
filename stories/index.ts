@@ -21,6 +21,7 @@ import { AvatarStory } from './components/AvatarStory'
 import { IconStory } from './components/IconStory'
 import { KeyCapturerStory } from './components/KeyCapturerStory'
 import { KeyboardShortcutStory } from './components/KeyboardShortcutStory'
+import { TodoistQuickAddStory } from './components/TodoistQuickAddStory'
 
 ReactistStory()
 // alphabetically sorted component stories
@@ -44,3 +45,4 @@ TabsStory()
 TimeStory()
 TipStory()
 TooltipStory()
+TodoistQuickAddStory()

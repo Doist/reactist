@@ -41,3 +41,5 @@ export { default as Tip } from './components/Tip'
 export { Tooltip, TooltipProps } from './components/Tooltip'
 
 export { default as Popover } from './components/Popover'
+
+export { default as TodoistQuickAdd } from './components/TodoistQuickAdd'
