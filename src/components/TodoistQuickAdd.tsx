@@ -25,7 +25,6 @@ type Props = {
     priority?: number
     date?: string
     theme?: number
-    theme?: number
     todoistHost?: string
     onAdd?: () => void
     onClose?: () => void
