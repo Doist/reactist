@@ -2,11 +2,11 @@ import { useState, useEffect, useRef } from 'react'
 
 const LOADING_TIMEOUT = 5000 // 5sec
 const SCRIPT_ELM_ID = 'todoist-quick-add'
-const TODOIST_DOMAIN = 'local.todoist.com'
+const TODOIST_HOST = 'todoist.com'
 
 type ShowProps = {
     content: string
-    todoistDomain: string
+    todoistHost: string
     priority?: number
     date?: string
     theme?: number
@@ -25,6 +25,8 @@ type Props = {
     priority?: number
     date?: string
     theme?: number
+    theme?: number
+    todoistHost?: string
     onAdd?: () => void
     onClose?: () => void
     onLoadingSuccess?: () => void
@@ -44,6 +46,7 @@ function TodoistQuickAdd({
     priority,
     date,
     theme,
+    todoistHost,
     onAdd,
     onClose,
     onLoadingSuccess,
@@ -103,7 +106,7 @@ function TodoistQuickAdd({
         const showQuickAdd = () => {
             window.TodoistQuickAddSDK.show({
                 content: content,
-                todoistDomain: TODOIST_DOMAIN,
+                todoistHost: todoistHost || TODOIST_HOST,
                 date: date,
                 priority: priority,
                 theme: theme,
@@ -124,7 +127,7 @@ function TodoistQuickAdd({
                 onLoadingError()
             }
         }
-    }, [content, priority, date, theme, onLoadingError])
+    }, [content, priority, date, theme, todoistHost, onLoadingError])
 
     return null
 }
