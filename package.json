@@ -58,7 +58,7 @@
         "@babel/preset-typescript": "^7.10.1",
         "@babel/register": "^7.0.0",
         "@doist/prettier-config": "^3.0.5",
-        "@storybook/addon-actions": "^5.3.18",
+        "@storybook/addon-actions": "^6.1.9",
         "@storybook/addon-docs": "^5.3.18",
         "@storybook/addon-info": "^5.3.18",
         "@storybook/addon-knobs": "^5.3.18",
