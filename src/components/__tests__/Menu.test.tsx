@@ -19,14 +19,16 @@ it('renders a button that opens and closes the menu when clicked', () => {
             </MenuList>
         </Menu>,
     )
-    expect(screen.queryByRole('menu')).not.toBeInTheDocument()
-    expect(screen.queryByRole('menuitem')).not.toBeInTheDocument()
+
+    // querying by role doesn't work in this case as the menu and menuitem could
+    // still be added to the document but as children of a hidden element. To
+    // really make sure they're not in the DOM we're querying by text here
+    expect(screen.queryByText('First option')).not.toBeInTheDocument()
     userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
     expect(screen.getByRole('menu')).toBeInTheDocument()
     expect(screen.getByRole('menuitem', { name: 'First option' })).toBeInTheDocument()
     userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
-    expect(screen.queryByRole('menu')).not.toBeInTheDocument()
-    expect(screen.queryByRole('menuitem')).not.toBeInTheDocument()
+    expect(screen.queryByText('First option')).not.toBeInTheDocument()
 })
 
 it('closes the menu when a menu item is selected (unless the onSelect handler returns false or hideOnSelect is false)', () => {

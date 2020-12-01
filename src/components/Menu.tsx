@@ -146,7 +146,7 @@ function MenuBackdrop({
  */
 const MenuList = forwardRefWithAs<'div'>(function MenuList({ className, ...props }, ref) {
     const { handleItemSelect, ...state } = React.useContext(MenuContext)
-    return (
+    return state.visible ? (
         <MenuBackdrop {...state}>
             <Reakit.Menu
                 {...props}
@@ -155,7 +155,7 @@ const MenuList = forwardRefWithAs<'div'>(function MenuList({ className, ...props
                 className={classNames('reactist_menulist', className)}
             />
         </MenuBackdrop>
-    )
+    ) : null
 })
 
 //
