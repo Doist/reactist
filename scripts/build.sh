@@ -9,10 +9,5 @@ rimraf dist/assets dist/index.js
 
 # Reorganize Styles
 # We delete duplicate styles in dist/ & lib/
-mv es/index.css es/reactist.css
-mkdir styles
-find es -iname '*.css' -type f -exec mv {} styles/ \;
-find dist -iname '*.css' -type f -exec rm {} \;
-find lib -iname '*.css' -type f -exec rm {} \;
-
+./scripts/organize-styles.sh
 
