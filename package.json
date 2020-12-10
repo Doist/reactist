@@ -26,7 +26,7 @@
     "scripts": {
         "setup": "npm install && npm run validate",
         "validate": "npm run lint && npm run type-check && npm run test",
-        "start": "tsdx watch",
+        "start": "tsdx watch --onSuccess \"./scripts/organize-styles.sh\"",
         "build-all": "npm run build && npm run build:storybook",
         "build": "scripts/build.sh",
         "build:storybook": "build-storybook -o docs",
