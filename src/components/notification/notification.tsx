@@ -4,6 +4,7 @@ import CloseIcon from '../icons/CloseIcon.svg'
 import './notification.less'
 
 type NotificationProps = {
+    id: string
     icon?: React.ReactNode
     title?: React.ReactNode
     subtitle?: React.ReactNode
@@ -23,6 +24,7 @@ type NotificationProps = {
 } & JSX.IntrinsicElements['div']
 
 function Notification({
+    id,
     icon,
     title,
     subtitle,
@@ -33,6 +35,11 @@ function Notification({
     customClassNames,
     ...rest
 }: NotificationProps) {
+    const titleId = title ? `${id}-title` : null
+    const subtitleId = subtitle ? `${id}-subtitle` : null
+    const ariaLabelledBy = titleId ? { 'aria-labelledby': titleId } : null
+    const ariaDescribedBy = subtitleId ? { 'aria-describedby': subtitleId } : null
+
     const notificationContent = children ?? (
         <div
             className={classNames(
@@ -42,6 +49,7 @@ function Notification({
         >
             {title ? (
                 <h3
+                    id={titleId ?? ''}
                     className={classNames(
                         'reactist-notification__title',
                         customClassNames?.title ?? '',
@@ -52,6 +60,7 @@ function Notification({
             ) : null}
             {subtitle ? (
                 <p
+                    id={subtitleId ?? ''}
                     className={classNames(
                         'reactist-notification__subtitle',
                         customClassNames?.subtitle ?? '',
@@ -89,6 +98,7 @@ function Notification({
 
     return (
         <div
+            id={id}
             role="dialog"
             className={classNames(
                 'reactist-notification',
@@ -97,6 +107,8 @@ function Notification({
                     'reactist-notification--with-button': Boolean(onClick),
                 },
             )}
+            {...ariaLabelledBy}
+            {...ariaDescribedBy}
             {...rest}
         >
             {onClick ? (

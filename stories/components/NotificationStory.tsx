@@ -18,6 +18,7 @@ function StandardNotificationStory() {
     return (
         <section className="story">
             <Notification
+                id="standard-notification"
                 icon={<span className="notification-story-notification-dot"></span>}
                 title="You have a new message!"
                 subtitle="Click here to view."
@@ -37,6 +38,7 @@ function NonClickableNotificationStory() {
     return (
         <section className="story">
             <Notification
+                id="non-clickable-notification"
                 title="Your task is due in 5 hours"
                 subtitle="Keep going!"
                 onClose={action('onClose')}
@@ -54,6 +56,7 @@ function CustomContentNotificationStory() {
     return (
         <section className="story">
             <Notification
+                id="custom-content-notification"
                 icon={<Avatar size="s" user={{ name: 'Brock Lesnar', email: 'brock@twist.com' }} />}
                 onClose={action('onClose')}
                 customClassNames={{
@@ -78,7 +81,7 @@ function CustomContentNotificationStory() {
 function NotificationPlaygroundStory() {
     return (
         <section className="story playground">
-            <Notification />
+            <Notification id="playground-notification" />
         </section>
     )
 }
