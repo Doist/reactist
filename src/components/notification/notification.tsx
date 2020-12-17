@@ -10,8 +10,8 @@ type NotificationProps = {
     subtitle?: React.ReactNode
     children?: React.ReactNode
     customCloseButton?: React.ReactNode
-    onClick?: () => void
-    onClose?: () => void
+    onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+    onClose?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
     className?: string
 } & JSX.IntrinsicElements['div']
 
