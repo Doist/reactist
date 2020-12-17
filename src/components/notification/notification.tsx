@@ -12,6 +12,7 @@ type NotificationProps = {
     customCloseButton?: React.ReactNode
     onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
     onClose?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+    closeAltText?: string
     className?: string
 } & JSX.IntrinsicElements['div']
 
@@ -24,6 +25,7 @@ function Notification({
     customCloseButton,
     onClick,
     onClose,
+    closeAltText = 'Close',
     className,
     ...rest
 }: NotificationProps) {
@@ -74,7 +76,11 @@ function Notification({
             )}
 
             {onClose ? (
-                <button className="reactist-notification__close-button" onClick={onClose}>
+                <button
+                    className="reactist-notification__close-button"
+                    onClick={onClose}
+                    aria-label={closeAltText}
+                >
                     {customCloseButton ?? <CloseIcon />}
                 </button>
             ) : null}

@@ -91,6 +91,7 @@ function NotificationPlaygroundStory() {
                 id="playground-notification"
                 title={text('title', 'You have a new notification')}
                 subtitle={text('subtitle', 'Click to open')}
+                closeAltText={text('closeAltText', 'Close me!')}
                 onClose={onClose}
                 onClick={onClick}
                 icon={icon}
