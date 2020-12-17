@@ -59,9 +59,7 @@ function CustomContentNotificationStory() {
                 id="custom-content-notification"
                 icon={<Avatar size="s" user={{ name: 'Brock Lesnar', email: 'brock@twist.com' }} />}
                 onClose={action('onClose')}
-                customClassNames={{
-                    notificationContainer: 'notification-story-notification-container',
-                }}
+                className="notification-story-notification-container"
             >
                 <div className="notification-story-content">
                     <p className="notification-story-text">You received a message from Brock</p>

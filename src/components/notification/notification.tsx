@@ -12,15 +12,7 @@ type NotificationProps = {
     customCloseButton?: React.ReactNode
     onClick?: () => void
     onClose?: () => void
-    customClassNames?: {
-        notificationContainer?: string
-        notificationButton?: string
-        notificationIconContentGroup?: string
-        notificationContent?: string
-        title?: string
-        subtitle?: string
-        closeButton?: string
-    }
+    className?: string
 } & JSX.IntrinsicElements['div']
 
 function Notification({
@@ -32,7 +24,7 @@ function Notification({
     customCloseButton,
     onClick,
     onClose,
-    customClassNames,
+    className,
     ...rest
 }: NotificationProps) {
     const titleId = title ? `${id}-title` : null
@@ -41,31 +33,14 @@ function Notification({
     const ariaDescribedBy = subtitleId ? { 'aria-describedby': subtitleId } : null
 
     const notificationContent = children ?? (
-        <div
-            className={classNames(
-                'reactist-notification__content',
-                customClassNames?.notificationContent ?? '',
-            )}
-        >
+        <div className="reactist-notification__content">
             {title ? (
-                <h3
-                    id={titleId ?? ''}
-                    className={classNames(
-                        'reactist-notification__title',
-                        customClassNames?.title ?? '',
-                    )}
-                >
+                <h3 id={titleId ?? ''} className="reactist-notification__title">
                     {title}
                 </h3>
             ) : null}
             {subtitle ? (
-                <p
-                    id={subtitleId ?? ''}
-                    className={classNames(
-                        'reactist-notification__subtitle',
-                        customClassNames?.subtitle ?? '',
-                    )}
-                >
+                <p id={subtitleId ?? ''} className="reactist-notification__subtitle">
                     {subtitle}
                 </p>
             ) : null}
@@ -73,23 +48,12 @@ function Notification({
     )
     const notificationBody = (
         <>
-            <div
-                className={classNames(
-                    'reactist-notification__icon-content-group',
-                    customClassNames?.notificationIconContentGroup ?? '',
-                )}
-            >
+            <div className="reactist-notification__icon-content-group">
                 {icon ?? null}
                 {notificationContent}
             </div>
             {onClose ? (
-                <button
-                    className={classNames(
-                        'reactist-notification__close-button',
-                        customClassNames?.closeButton ?? '',
-                    )}
-                    onClick={onClose}
-                >
+                <button className="reactist-notification__close-button" onClick={onClose}>
                     {customCloseButton ?? <CloseIcon />}
                 </button>
             ) : null}
@@ -100,25 +64,15 @@ function Notification({
         <div
             id={id}
             role="dialog"
-            className={classNames(
-                'reactist-notification',
-                customClassNames?.notificationContainer ?? '',
-                {
-                    'reactist-notification--with-button': Boolean(onClick),
-                },
-            )}
+            className={classNames('reactist-notification', className, {
+                'reactist-notification--with-button': Boolean(onClick),
+            })}
             {...ariaLabelledBy}
             {...ariaDescribedBy}
             {...rest}
         >
             {onClick ? (
-                <button
-                    className={classNames(
-                        'reactist-notification__button',
-                        customClassNames?.notificationButton ?? '',
-                    )}
-                    onClick={onClick}
-                >
+                <button className="reactist-notification__button" onClick={onClick}>
                     {notificationBody}
                 </button>
             ) : (
