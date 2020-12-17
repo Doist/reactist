@@ -31,21 +31,31 @@ function Notification({
 }: NotificationProps) {
     const titleId = title ? `${id}-title` : null
     const subtitleId = subtitle ? `${id}-subtitle` : null
-    const ariaLabelledBy = titleId ? { 'aria-labelledby': titleId } : null
-    const ariaDescribedBy = subtitleId ? { 'aria-describedby': subtitleId } : null
+    const contentId = children ? `${id}-content` : null
+    const ariaLabelledBy =
+        children && contentId
+            ? { 'aria-labelledby': contentId }
+            : titleId
+            ? { 'aria-labelledby': titleId }
+            : null
+    const ariaDescribedBy = subtitleId && !children ? { 'aria-describedby': subtitleId } : null
 
-    const notificationContent = children ?? (
-        <div className="reactist-notification__content">
-            {title ? (
-                <h3 id={titleId ?? ''} className="reactist-notification__title">
-                    {title}
-                </h3>
-            ) : null}
-            {subtitle ? (
-                <p id={subtitleId ?? ''} className="reactist-notification__subtitle">
-                    {subtitle}
-                </p>
-            ) : null}
+    const notificationContent = (
+        <div id={contentId ?? ''} className="reactist-notification__content">
+            {children ?? (
+                <>
+                    {title ? (
+                        <h3 id={titleId ?? ''} className="reactist-notification__title">
+                            {title}
+                        </h3>
+                    ) : null}
+                    {subtitle ? (
+                        <p id={subtitleId ?? ''} className="reactist-notification__subtitle">
+                            {subtitle}
+                        </p>
+                    ) : null}
+                </>
+            )}
         </div>
     )
     const notificationBody = (

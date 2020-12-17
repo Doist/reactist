@@ -84,6 +84,14 @@ function NotificationPlaygroundStory() {
             <Avatar size="s" user={{ name: 'Ada bot', email: 'adabot@twist.com' }} />
         </div>
     ) : null
+    const children = boolean('use children?', false) ? (
+        <div className="notification-story-notification-container">
+            <p className="notification-story-text">
+                If children is provided, then{' '}
+                <strong>it will be rendered instead of the title and subtitle</strong>
+            </p>
+        </div>
+    ) : null
 
     return (
         <section className="story playground">
@@ -95,7 +103,9 @@ function NotificationPlaygroundStory() {
                 onClose={onClose}
                 onClick={onClick}
                 icon={icon}
-            />
+            >
+                {children}
+            </Notification>
         </section>
     )
 }
