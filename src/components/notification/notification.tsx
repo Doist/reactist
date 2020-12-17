@@ -47,17 +47,10 @@ function Notification({
         </div>
     )
     const notificationBody = (
-        <>
-            <div className="reactist-notification__icon-content-group">
-                {icon ?? null}
-                {notificationContent}
-            </div>
-            {onClose ? (
-                <button className="reactist-notification__close-button" onClick={onClose}>
-                    {customCloseButton ?? <CloseIcon />}
-                </button>
-            ) : null}
-        </>
+        <div className="reactist-notification__icon-content-group">
+            {icon ?? null}
+            {notificationContent}
+        </div>
     )
 
     return (
@@ -66,6 +59,7 @@ function Notification({
             role="dialog"
             className={classNames('reactist-notification', className, {
                 'reactist-notification--with-button': Boolean(onClick),
+                'reactist-notification--with-close-button': Boolean(onClose),
             })}
             {...ariaLabelledBy}
             {...ariaDescribedBy}
@@ -78,6 +72,12 @@ function Notification({
             ) : (
                 notificationBody
             )}
+
+            {onClose ? (
+                <button className="reactist-notification__close-button" onClick={onClose}>
+                    {customCloseButton ?? <CloseIcon />}
+                </button>
+            ) : null}
         </div>
     )
 }

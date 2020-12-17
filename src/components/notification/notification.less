@@ -2,6 +2,7 @@
 
 .reactist-notification {
     display: flex;
+    position: relative;
     box-sizing: border-box;
     max-width: 284px;
     padding: 10px 14px;
@@ -38,14 +39,26 @@
 }
 
 .reactist-notification__close-button {
-    position: relative;
-    top: -2px;
-    right: -2px;
+    // To maintain an 8px margin from the edge, while
+    // the container has a 14px padding
+    margin-right: -6px;
+}
+
+.reactist-notification--with-button {
+    .reactist-notification__close-button {
+        margin: 8px 8px 0 0;
+    }
 }
 
 .reactist-notification__icon-content-group {
     display: flex;
     flex: 1;
+}
+
+.reactist-notification--with-close-button {
+    .reactist-notification__icon-content-group {
+        padding-right: 24px;
+    }
 }
 
 .reactist-notification__content {
