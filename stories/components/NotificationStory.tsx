@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs } from '@storybook/addon-knobs'
+import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 import { action } from '@storybook/addon-actions'
 
 import Avatar from '../../src/components/Avatar'
@@ -77,9 +77,24 @@ function CustomContentNotificationStory() {
 }
 
 function NotificationPlaygroundStory() {
+    const onClose = boolean('use onClose?', true) ? action('onClose') : undefined
+    const onClick = boolean('use onClick?', true) ? action('onClick') : undefined
+    const icon = boolean('use icon?', true) ? (
+        <div className="notification-story-avatar-container">
+            <Avatar size="s" user={{ name: 'Ada bot', email: 'adabot@twist.com' }} />
+        </div>
+    ) : null
+
     return (
         <section className="story playground">
-            <Notification id="playground-notification" />
+            <Notification
+                id="playground-notification"
+                title={text('title', 'You have a new notification')}
+                subtitle={text('subtitle', 'Click to open')}
+                onClose={onClose}
+                onClick={onClick}
+                icon={icon}
+            />
         </section>
     )
 }
