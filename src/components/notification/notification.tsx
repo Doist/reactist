@@ -32,12 +32,11 @@ function Notification({
     const titleId = title ? `${id}-title` : null
     const subtitleId = subtitle ? `${id}-subtitle` : null
     const contentId = children ? `${id}-content` : null
-    const ariaLabelledBy =
-        children && contentId
-            ? { 'aria-labelledby': contentId }
-            : titleId
-            ? { 'aria-labelledby': titleId }
-            : null
+    const ariaLabelledBy = contentId
+        ? { 'aria-labelledby': contentId }
+        : titleId
+        ? { 'aria-labelledby': titleId }
+        : null
     const ariaDescribedBy = subtitleId && !children ? { 'aria-describedby': subtitleId } : null
 
     const notificationContent = (
