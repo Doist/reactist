@@ -4,7 +4,7 @@ import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 
 import { getPropTypesStory, optionsNoSourceNoProps, optionsSourceOnly } from '../utils/StoryUtils'
 
-import Icon from '../../src/components/Icon'
+import Icon from '../../src/components/icon'
 import CloseIcon from '../../src/components/icons/CloseIcon.svg'
 
 // Story Definitions ==========================================================

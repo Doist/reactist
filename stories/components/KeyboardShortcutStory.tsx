@@ -2,8 +2,8 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text } from '@storybook/addon-knobs'
 
-import '../../src/components/styles/keyboard_shortcut.less'
-import KeyboardShortcut from '../../src/components/KeyboardShortcut'
+import '../../src/components/keyboard-shortcut/keyboard-shortcut.less'
+import KeyboardShortcut from '../../src/components/keyboard-shortcut'
 
 function KeyboardShortcutPlaygroundStory() {
     const shortcuts = text('Shortcut', 'Cmd + Alt + Shift + E, q').split(/\s*,\s*/)

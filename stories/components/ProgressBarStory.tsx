@@ -6,7 +6,7 @@ import { withKnobs, number } from '@storybook/addon-knobs'
 
 import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
-import ProgressBar from '../../src/components/ProgressBar'
+import ProgressBar from '../../src/components/progress-bar'
 
 // Story Definitions ==========================================================
 const ProgressBarPropTypesStory = getPropTypesStory(ProgressBar)

@@ -6,7 +6,7 @@ import { withKnobs, text } from '@storybook/addon-knobs'
 
 import { getPropTypesStory, optionsNoSourceNoProps, optionsSourceOnly } from '../utils/StoryUtils'
 
-import Tip from '../../src/components/Tip'
+import Tip from '../../src/components/tip'
 
 // Story Definitions ==========================================================
 const TipPropTypesStory = getPropTypesStory(Tip)

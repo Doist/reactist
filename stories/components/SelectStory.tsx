@@ -4,7 +4,7 @@ import { withKnobs, boolean } from '@storybook/addon-knobs'
 
 import { getPropTypesStory, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
-import Select from '../../src/components/Select'
+import Select from '../../src/components/select'
 
 const options = [
     { value: 'intro', text: 'Select a fruit', disabled: true },

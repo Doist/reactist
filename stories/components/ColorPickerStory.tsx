@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react'
 
 import { getPropTypesStory, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
-import ColorPicker from '../../src/components/ColorPicker'
+import ColorPicker from '../../src/components/color-picker'
 
 // Story Definitions ==========================================================
 const ColorPickerPropTypesStory = getPropTypesStory(ColorPicker)

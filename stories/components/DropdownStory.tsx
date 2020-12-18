@@ -3,8 +3,8 @@ import { storiesOf } from '@storybook/react'
 
 import { optionsSourceOnly } from '../utils/StoryUtils'
 
-import Dropdown from '../../src/components/Dropdown'
-import Button from '../../src/components/Button'
+import Dropdown from '../../src/components/dropdown'
+import Button from '../../src/components/button'
 
 // Story Definitions ==========================================================
 const DropdownStory = () => (

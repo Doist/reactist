@@ -6,7 +6,7 @@ import { withKnobs, text, number } from '@storybook/addon-knobs'
 
 import { getPropTypesStory, optionsNoSourceNoProps, optionsSourceOnly } from '../utils/StoryUtils'
 
-import Loading from '../../src/components/Loading'
+import Loading from '../../src/components/loading'
 
 // Story Definitions ==========================================================
 const LoadingPropTypesStory = getPropTypesStory(Loading)

@@ -4,7 +4,7 @@ import { withKnobs, text, number } from '@storybook/addon-knobs'
 
 import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
-import ErrorMessage from '../../src/components/ErrorMessage'
+import ErrorMessage from '../../src/components/error-message'
 
 // Story Definitions ==========================================================
 const ErrorMessagePropTypesStory = getPropTypesStory(ErrorMessage)
