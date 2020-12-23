@@ -26,6 +26,8 @@ export * from './components/Menu'
 
 export { default as Modal } from './components/Modal'
 
+export { Notification } from './components/notification/notification'
+
 export { default as ProgressBar } from './components/ProgressBar'
 
 export { default as RangeInput } from './components/RangeInput'
