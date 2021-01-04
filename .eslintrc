@@ -35,8 +35,7 @@
         "react/no-did-update-set-state": "error",
         "react/no-find-dom-node": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
-        "@typescript-eslint/ban-ts-comment": "off",
-        "@typescript-eslint/unbound-method": "off"
+        "@typescript-eslint/ban-ts-comment": "off"
     },
     "overrides": [
         {

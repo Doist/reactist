@@ -25,9 +25,6 @@ class Box extends React.Component<React.PropsWithChildren<Props>> {
 
     constructor(props: Props, context: unknown) {
         super(props, context)
-        this._handleKeyDown = this._handleKeyDown.bind(this)
-        this._closeModal = this._closeModal.bind(this)
-        this._handleOverlayClick = this._handleOverlayClick.bind(this)
         window.addEventListener('keydown', this._handleKeyDown)
     }
 
@@ -35,13 +32,13 @@ class Box extends React.Component<React.PropsWithChildren<Props>> {
         window.removeEventListener('keydown', this._handleKeyDown)
     }
 
-    _closeModal() {
+    _closeModal = () => {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const modalElement = document.getElementById('modal_box')!
         ReactDOM.unmountComponentAtNode(modalElement)
     }
 
-    _handleKeyDown(event: Partial<KeyboardEvent>) {
+    _handleKeyDown = (event: Partial<KeyboardEvent>) => {
         if (event.keyCode === 27) {
             // ESC
             this._closeModal()
@@ -49,7 +46,7 @@ class Box extends React.Component<React.PropsWithChildren<Props>> {
         }
     }
 
-    _handleOverlayClick(event: React.MouseEvent<Element>) {
+    _handleOverlayClick = (event: React.MouseEvent<Element>) => {
         if (
             event.target instanceof Element &&
             (event.target.id === 'reactist-overlay' || event.target.id === 'reactist-overlay-inner')
