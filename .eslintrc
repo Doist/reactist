@@ -26,6 +26,7 @@
     ],
     "rules": {
         "func-style": "off",
+        "import/no-default-export": "off", // Legacy API.
         "react/no-find-dom-node": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/ban-ts-comment": "off"
