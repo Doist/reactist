@@ -6,7 +6,7 @@ import { withKnobs, text, select } from '@storybook/addon-knobs'
 
 import { getPropTypesStory, optionsNoSourceNoProps, optionsSourceOnly } from '../utils/StoryUtils'
 
-import Avatar from '../../src/components/Avatar'
+import Avatar from '../../src/components/avatar'
 
 const exampleData = [
     {

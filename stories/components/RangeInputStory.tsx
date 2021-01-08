@@ -4,7 +4,7 @@ import { withKnobs, number } from '@storybook/addon-knobs'
 
 import { getPropTypesStory, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
-import RangeInput from '../../src/components/RangeInput'
+import RangeInput from '../../src/components/range-input'
 
 // Story Definitions ==========================================================
 const RangeInputPropTypesStory = getPropTypesStory(RangeInput)

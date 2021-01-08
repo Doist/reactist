@@ -6,7 +6,7 @@ import { withKnobs, boolean } from '@storybook/addon-knobs'
 import { action } from '@storybook/addon-actions'
 
 import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
-import { Tabs, Tab } from '../../src/components/Tabs'
+import { Tabs, Tab } from '../../src/components/tabs'
 
 // Story Definitions ==========================================================
 const TabsPropTypesStory = getPropTypesStory(Tabs, Tab)

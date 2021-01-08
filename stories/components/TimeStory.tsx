@@ -7,7 +7,7 @@ import { withKnobs, number, boolean } from '@storybook/addon-knobs'
 
 import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
-import Time from '../../src/components/Time'
+import Time from '../../src/components/time'
 
 const exampleTimes = [
     { title: 'Now', time: dayjs().unix() },

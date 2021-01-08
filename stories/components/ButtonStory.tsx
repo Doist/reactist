@@ -6,7 +6,7 @@ import { withKnobs, text, boolean, select } from '@storybook/addon-knobs'
 
 import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
-import Button from '../../src/components/Button'
+import Button from '../../src/components/button'
 import { alternateBrandingText } from './ButtonStory.md'
 
 // Story Definitions ==========================================================

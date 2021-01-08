@@ -9,7 +9,7 @@ import {
     optionsNoSourceNoProps,
 } from '../utils/StoryUtils'
 
-import Input from '../../src/components/Input'
+import Input from '../../src/components/input'
 import { inputPropsDescription } from './InputStory.md'
 
 // Story Definitions ==========================================================

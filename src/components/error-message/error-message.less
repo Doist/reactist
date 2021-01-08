@@ -1,0 +1,27 @@
+@import '../styles/constants.less';
+
+.reactist_error_message {
+    padding: 10px 10px 0 10px;
+    margin-bottom: 10px;
+    background-color: lighten(@color_red, 33%);
+    border: 1px solid @color_red;
+
+    p {
+        .normal_text(@color: @color_red);
+        margin: 0 0 10px 0;
+    }
+
+    .dismiss_icon {
+        height: 20px;
+        width: 20px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-image: url('../icons/close_red.svg');
+        float: right;
+        position: relative;
+        top: -30px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

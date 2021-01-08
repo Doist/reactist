@@ -5,7 +5,7 @@ import { decorate } from '@storybook/addon-actions'
 
 import { getPropTypesStory, optionsNoSourceNoProps } from '../utils/StoryUtils'
 
-import Checkbox from '../../src/components/Checkbox'
+import Checkbox from '../../src/components/checkbox'
 
 // Story Definitions ==========================================================
 const CheckboxPropTypesStory = getPropTypesStory(Checkbox)

@@ -1,45 +1,43 @@
-export { default as Avatar } from './components/Avatar'
+export { default as Avatar } from './components/avatar'
 
-export { default as Button } from './components/Button'
+export { default as Button } from './components/button'
 
-export { default as Checkbox } from './components/Checkbox'
+export { default as Checkbox } from './components/checkbox'
 
-export { default as ColorPicker, COLORS } from './components/ColorPicker'
+export { default as ColorPicker, COLORS } from './components/color-picker'
 
-export { default as Dropdown } from './components/Dropdown'
+export { default as Dropdown } from './components/dropdown'
 
-export { default as ErrorMessage } from './components/ErrorMessage'
+export { default as ErrorMessage } from './components/error-message'
 
-export { default as Icon } from './components/Icon'
+export { default as Icon } from './components/icon'
 
-export { default as Input } from './components/Input'
+export { default as Input } from './components/input'
 
-export { default as KeyCapturer, SUPPORTED_KEYS } from './components/KeyCapturer'
+export { default as KeyCapturer, SUPPORTED_KEYS } from './components/key-capturer'
 
-export { default as KeyboardShortcut } from './components/KeyboardShortcut'
+export { default as KeyboardShortcut } from './components/keyboard-shortcut'
 
-export { default as Loading } from './components/Loading'
+export { default as Loading } from './components/loading'
 
-// export { MenuButton, MenuButtonItem } from './components/MenuButton'
+export * from './components/menu'
 
-export * from './components/Menu'
-
-export { default as Modal } from './components/Modal'
+export { default as Modal } from './components/modal'
 
 export { Notification } from './components/notification/notification'
 
-export { default as ProgressBar } from './components/ProgressBar'
+export { default as ProgressBar } from './components/progress-bar'
 
-export { default as RangeInput } from './components/RangeInput'
+export { default as RangeInput } from './components/range-input'
 
-export { default as Select } from './components/Select'
+export { default as Select } from './components/select'
 
-export { Tabs, Tab } from './components/Tabs'
+export { Tabs, Tab } from './components/tabs'
 
-export { default as Time } from './components/Time'
+export { default as Time } from './components/time'
 
-export { default as Tip } from './components/Tip'
+export { default as Tip } from './components/tip'
 
-export { Tooltip, TooltipProps } from './components/Tooltip'
+export { Tooltip, TooltipProps } from './components/tooltip'
 
-export { default as Popover } from './components/Popover'
+export { default as Popover } from './components/popover'
