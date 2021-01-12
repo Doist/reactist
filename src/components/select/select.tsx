@@ -23,9 +23,19 @@ type Props = {
     onChange?: (value: string) => void
     /** Options that are rendered in the select. */
     options?: Option[]
+    /** Classname for the option elements */
+    optionsClassName?: string
 }
 
-function Select({ value, options = [], onChange, disabled = true, className = '' }: Props) {
+function Select({
+    value,
+    options = [],
+    onChange,
+    disabled = true,
+    className = '',
+    optionsClassName,
+    ...otherProps
+}: Props) {
     const selectClassName = classNames('reactist_select', { disabled }, className)
     return (
         <select
@@ -33,6 +43,7 @@ function Select({ value, options = [], onChange, disabled = true, className = ''
             value={value}
             onChange={(event) => (onChange ? onChange(event.target.value) : undefined)}
             disabled={disabled}
+            {...otherProps}
         >
             {options &&
                 options.map((option) => (
@@ -40,6 +51,7 @@ function Select({ value, options = [], onChange, disabled = true, className = ''
                         key={option.key || option.value}
                         value={option.value}
                         disabled={option.disabled}
+                        className={optionsClassName}
                     >
                         {option.text}
                     </option>

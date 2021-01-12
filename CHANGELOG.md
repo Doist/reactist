@@ -2,6 +2,9 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v7.3.0
+-   [Feature] New `TimePicker` component have been added.
+
 ## v7.2.0
 -   [Feature] A new `Notification` component has been added.
 

@@ -22,6 +22,7 @@ import { AvatarStory } from './components/AvatarStory'
 import { IconStory } from './components/IconStory'
 import { KeyCapturerStory } from './components/KeyCapturerStory'
 import { KeyboardShortcutStory } from './components/KeyboardShortcutStory'
+import { TimePickerStory } from './components/TimePickerStory'
 
 ReactistStory()
 // alphabetically sorted component stories
@@ -44,5 +45,6 @@ RangeInputStory()
 SelectStory()
 TabsStory()
 TimeStory()
+TimePickerStory()
 TipStory()
 TooltipStory()

@@ -41,3 +41,5 @@ export { default as Tip } from './components/tip'
 export { Tooltip, TooltipProps } from './components/tooltip'
 
 export { default as Popover } from './components/popover'
+
+export { default as TimePicker } from './components/TimePicker'
