@@ -74,8 +74,9 @@ interface ForwardRefFunction<ComponentType extends As, ComponentProps = {}> {
 }
 
 export interface ForwardRefComponentWithAs<ComponentType extends As, ComponentProps> {
-    <TT extends As>(props: PropsWithAs<TT, ComponentProps>): React.ReactElement | null
-    (props: PropsWithAs<ComponentType, ComponentProps>): React.ReactElement | null
+    <TT extends As = ComponentType>(
+        props: PropsWithAs<TT, ComponentProps>,
+    ): React.ReactElement | null
     readonly $$typeof: symbol
     defaultProps?: Partial<PropsWithAs<ComponentType, ComponentProps>>
     propTypes?: React.WeakValidationMap<PropsWithAs<ComponentType, ComponentProps>>
