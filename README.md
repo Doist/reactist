@@ -16,6 +16,7 @@ You can add Reactist to your project by installing it from npm:
 ```sh
 npm install @doist/reactist
 ```
+<!-- random commit for the video -->
 
 To import a component within your code:
 
