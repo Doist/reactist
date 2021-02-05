@@ -1,0 +1,111 @@
+/* Default spacing */
+.space-xsmall {
+    margin: -var(--reactist-spacing-xsmall) 0 0 -var(--reactist-spacing-xsmall);
+}
+.space-xsmall > * {
+    margin: var(--reactist-spacing-xsmall) 0 0 var(--reactist-spacing-xsmall);
+}
+
+.space-small {
+    margin: -var(--reactist-spacing-small) 0 0 -var(--reactist-spacing-small);
+}
+.space-small > * {
+    margin: var(--reactist-spacing-small) 0 0 var(--reactist-spacing-small);
+}
+
+.space-medium {
+    margin: -var(--reactist-spacing-medium) 0 0 -var(--reactist-spacing-medium);
+}
+.space-medium > * {
+    margin: var(--reactist-spacing-medium) 0 0 var(--reactist-spacing-medium);
+}
+
+.space-large {
+    margin: -var(--reactist-spacing-large) 0 0 -var(--reactist-spacing-large);
+}
+.space-large > * {
+    margin: var(--reactist-spacing-large) 0 0 var(--reactist-spacing-large);
+}
+
+.space-xlarge {
+    margin: -var(--reactist-spacing-xlarge) 0 0 -var(--reactist-spacing-xlarge);
+}
+.space-xlarge > * {
+    margin: var(--reactist-spacing-xlarge) 0 0 var(--reactist-spacing-xlarge);
+}
+
+/* Spacing in tablet */
+@media (min-width: var(--reactist-breakpoint-tablet)) {
+    .tablet-space-xsmall {
+        margin: -var(--reactist-spacing-xsmall) 0 0 -var(--reactist-spacing-xsmall);
+    }
+    .tablet-space-xsmall > * {
+        margin: var(--reactist-spacing-xsmall) 0 0 var(--reactist-spacing-xsmall);
+    }
+
+    .tablet-space-small {
+        margin: -var(--reactist-spacing-small) 0 0 -var(--reactist-spacing-small);
+    }
+    .tablet-space-small > * {
+        margin: var(--reactist-spacing-small) 0 0 var(--reactist-spacing-small);
+    }
+
+    .tablet-space-medium {
+        margin: -var(--reactist-spacing-medium) 0 0 -var(--reactist-spacing-medium);
+    }
+    .tablet-space-medium > * {
+        margin: var(--reactist-spacing-medium) 0 0 var(--reactist-spacing-medium);
+    }
+
+    .tablet-space-large {
+        margin: -var(--reactist-spacing-large) 0 0 -var(--reactist-spacing-large);
+    }
+    .tablet-space-large > * {
+        margin: var(--reactist-spacing-large) 0 0 var(--reactist-spacing-large);
+    }
+
+    .tablet-space-xlarge {
+        margin: -var(--reactist-spacing-xlarge) 0 0 -var(--reactist-spacing-xlarge);
+    }
+    .tablet-space-xlarge > * {
+        margin: var(--reactist-spacing-xlarge) 0 0 var(--reactist-spacing-xlarge);
+    }
+}
+
+/* Spacing in desktop */
+@media (min-width: var(--reactist-breakpoint-desktop)) {
+    .desktop-space-xsmall {
+        margin: -var(--reactist-spacing-xsmall) 0 0 -var(--reactist-spacing-xsmall);
+    }
+    .desktop-space-xsmall > * {
+        margin: var(--reactist-spacing-xsmall) 0 0 var(--reactist-spacing-xsmall);
+    }
+
+    .desktop-space-small {
+        margin: -var(--reactist-spacing-small) 0 0 -var(--reactist-spacing-small);
+    }
+    .desktop-space-small > * {
+        margin: var(--reactist-spacing-small) 0 0 var(--reactist-spacing-small);
+    }
+
+    .desktop-space-medium {
+        margin: -var(--reactist-spacing-medium) 0 0 -var(--reactist-spacing-medium);
+    }
+    .desktop-space-medium > * {
+        margin: var(--reactist-spacing-medium) 0 0 var(--reactist-spacing-medium);
+    }
+
+    .desktop-space-large {
+        margin: -var(--reactist-spacing-large) 0 0 -var(--reactist-spacing-large);
+    }
+    .desktop-space-large > * {
+        margin: var(--reactist-spacing-large) 0 0 var(--reactist-spacing-large);
+    }
+
+    .desktop-space-xlarge {
+        margin: -var(--reactist-spacing-xlarge) 0 0 -var(--reactist-spacing-xlarge);
+    }
+    .desktop-space-xlarge > * {
+        margin: var(--reactist-spacing-xlarge) 0 0 var(--reactist-spacing-xlarge);
+    }
+}

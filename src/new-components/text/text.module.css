@@ -1,0 +1,32 @@
+.text {
+    font-size: var(--reactist-font-size-normal);
+    font-weight: var(--reactist-font-weight-regular);
+    color: var(--reactist-content-primary);
+}
+
+.size-xsmall {
+    font-size: var(--reactist-font-size-xsmall);
+}
+.size-small {
+    font-size: var(--reactist-font-size-small);
+}
+.size-large {
+    font-size: var(--reactist-font-size-large);
+}
+.size-xlarge {
+    font-size: var(--reactist-font-size-large);
+}
+
+.weight-medium {
+    font-weight: var(--reactist-font-weight-medium);
+}
+.weight-strong {
+    font-weight: var(--reactist-font-weight-strong);
+}
+
+.tone-secondary {
+    color: var(--reactist-content-secondary);
+}
+.tone-danger {
+    color: var(--reactist-chromatic-content-red);
+}

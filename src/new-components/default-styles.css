@@ -1,0 +1,36 @@
+:root {
+    /* spacing sizes */
+    --reactist-spacing-xsmall: 4px;
+    --reactist-spacing-small: 8px;
+    --reactist-spacing-medium: 12px;
+    --reactist-spacing-large: 16px;
+    --reactist-spacing-xlarge: 24px;
+
+    /* font sizes */
+    --reactist-font-size-xsmall: 10px;
+    --reactist-font-size-small: 12px;
+    --reactist-font-size-normal: 14px;
+    --reactist-font-size-large: 16px;
+    --reactist-font-size-header: 20px;
+    --reactist-font-size-header-large: 24px;
+
+    /* font weight */
+    --reactist-font-weight-regular: 400;
+    --reactist-font-weight-medium: 500;
+    --reactist-font-weight-strong: 700;
+
+    /* breakpoints */
+    --reactist-breakpoint-tablet: 768px;
+    --reactist-breakpoint-desktop: 992px;
+
+    /* border-radius */
+    --reactist-border-radius-small: 5px;
+    --reactist-border-radius-large: 10px;
+
+    /* background color */
+    --reactist-bg-default: rgb(255, 255, 255);
+    --reactist-bg-brand: rgb(209, 69, 59);
+    --reactist-bg-shade: rgb(250, 250, 250);
+    --reactist-bg-highlight: rgb(242, 242, 242);
+    --reactist-bg-selected: rgb(230, 230, 230);
+}

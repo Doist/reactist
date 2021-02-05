@@ -1,0 +1,111 @@
+/* Default vertical spacing */
+.space-xsmall {
+    margin-top: -var(--reactist-spacing-xsmall);
+}
+.space-xsmall > * {
+    padding-top: var(--reactist-spacing-xsmall);
+}
+
+.space-small {
+    margin-top: -var(--reactist-spacing-small);
+}
+.space-small > * {
+    padding-top: var(--reactist-spacing-small);
+}
+
+.space-medium > {
+    margin-top: -var(--reactist-spacing-medium);
+}
+.space-medium > * {
+    padding-top: var(--reactist-spacing-medium);
+}
+
+.space-large {
+    margin-top: -var(--reactist-spacing-large);
+}
+.space-large > * {
+    padding-top: var(--reactist-spacing-large);
+}
+
+.space-xlarge {
+    margin-top: -var(--reactist-spacing-xlarge);
+}
+.space-xlarge > * {
+    padding-top: var(--reactist-spacing-xlarge);
+}
+
+/* Vertical spacing in tablet */
+@media (min-width: var(--reactist-breakpoint-tablet)) {
+    .tablet-space-xsmall {
+        margin-top: -var(--reactist-spacing-xsmall);
+    }
+    .tablet-space-xsmall > * {
+        padding-top: var(--reactist-spacing-xsmall);
+    }
+
+    .tablet-space-small {
+        margin-top: -var(--reactist-spacing-small);
+    }
+    .tablet-space-small > * {
+        padding-top: var(--reactist-spacing-small);
+    }
+
+    .tablet-space-medium {
+        margin-top: -var(--reactist-spacing-medium);
+    }
+    .tablet-space-medium > * {
+        padding-top: var(--reactist-spacing-medium);
+    }
+
+    .tablet-space-large {
+        margin-top: -var(--reactist-spacing-large);
+    }
+    .tablet-space-large > * {
+        padding-top: var(--reactist-spacing-large);
+    }
+
+    .tablet-space-xlarge {
+        margin-top: -var(--reactist-spacing-xlarge);
+    }
+    .tablet-space-xlarge > * {
+        padding-top: var(--reactist-spacing-xlarge);
+    }
+}
+
+/* Vertical spacing in desktop */
+@media (min-width: var(--reactist-breakpoint-desktop)) {
+    .desktop-space-xsmall {
+        margin-top: -var(--reactist-spacing-xsmall);
+    }
+    .desktop-space-xsmall > * {
+        padding-top: var(--reactist-spacing-xsmall);
+    }
+
+    .desktop-space-small {
+        margin-top: -var(--reactist-spacing-small);
+    }
+    .desktop-space-small > * {
+        padding-top: var(--reactist-spacing-small);
+    }
+
+    .desktop-space-medium {
+        margin-top: -var(--reactist-spacing-medium);
+    }
+    .desktop-space-medium > * {
+        padding-top: var(--reactist-spacing-medium);
+    }
+
+    .desktop-space-large {
+        margin-top: -var(--reactist-spacing-large);
+    }
+    .desktop-space-large > * {
+        padding-top: var(--reactist-spacing-large);
+    }
+
+    .desktop-space-xlarge {
+        margin-top: -var(--reactist-spacing-xlarge);
+    }
+    .desktop-space-xlarge > * {
+        padding-top: var(--reactist-spacing-xlarge);
+    }
+}
