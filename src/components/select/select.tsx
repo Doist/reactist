@@ -23,9 +23,19 @@ type Props = {
     onChange?: (value: string) => void
     /** Options that are rendered in the select. */
     options?: Option[]
+    /** Value to initially be set */
+    defaultValue?: string | number
 }
 
-function Select({ value, options = [], onChange, disabled = true, className = '' }: Props) {
+function Select({
+    value,
+    options = [],
+    onChange,
+    disabled = true,
+    className = '',
+    defaultValue,
+    ...otherProps
+}: Props) {
     const selectClassName = classNames('reactist_select', { disabled }, className)
     return (
         <select
@@ -33,6 +43,8 @@ function Select({ value, options = [], onChange, disabled = true, className = ''
             value={value}
             onChange={(event) => (onChange ? onChange(event.target.value) : undefined)}
             disabled={disabled}
+            defaultValue={defaultValue}
+            {...otherProps}
         >
             {options &&
                 options.map((option) => (
