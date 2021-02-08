@@ -15,23 +15,35 @@ module.exports = {
                 use: 'raw-loader',
             },
             {
-                test: /\.less$/,
+                test: /\.(less|css)$/,
                 use: [
                     'style-loader',
-                    { loader: 'css-loader', options: { modules: { auto: true }, esModule: false } },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                auto: true,
+                                localIdentName:
+                                    process.env.NODE_ENV === 'production'
+                                        ? '[hash:base64]'
+                                        : '[path][name]__[local]',
+                            },
+                            esModule: false,
+                        },
+                    },
                     'less-loader',
                 ],
             },
-            { test: /\.css$/, loader: 'style-loader!css-loader' },
-            { test: /\.svg$/, loader: 'svg-url-loader' },
+            {
+                test: /\.svg$/,
+                loader: 'svg-url-loader',
+            },
             {
                 test: /\.(ts|tsx)$/,
                 use: [
                     {
                         loader: require.resolve('ts-loader'),
-                        options: {
-                            transpileOnly: true,
-                        },
+                        options: { transpileOnly: true },
                     },
                     {
                         loader: require.resolve('react-docgen-typescript-loader'),

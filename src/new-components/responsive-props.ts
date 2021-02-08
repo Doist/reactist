@@ -1,4 +1,4 @@
-// Responsive props
+type ResponsiveBreakpoints = 'tablet' | 'desktop'
 
 type Atom = string | number | boolean
 
@@ -15,7 +15,7 @@ type Atom = string | number | boolean
  *   devices, according to the `'y'` value in tablet-like viewport sizes, and as `'z'` for any
  *   viewport size larger than mobile screens.
  */
-export type ResponsiveProp<AtomType extends Atom> =
+type ResponsiveProp<AtomType extends Atom> =
     | AtomType
     | Readonly<[AtomType, AtomType]>
     | Readonly<[AtomType, AtomType, AtomType]>
@@ -40,7 +40,7 @@ const DEBUG = process.env.NODE_ENV === 'development'
  * @param property the prop name
  * @param value the given prop's value
  */
-export function getClassNames(
+function getClassNames(
     styles: Record<string, string>,
     property: string,
     value: ResponsiveProp<string> | null | undefined,
@@ -67,7 +67,7 @@ export function getClassNames(
  * @param fromValue the responsive prop value
  * @param mapper the mapping function
  */
-export function mapResponsiveProp<From extends Atom, To extends Atom>(
+function mapResponsiveProp<From extends Atom, To extends Atom>(
     fromValue: ResponsiveProp<From> | undefined,
     mapper: (from: From) => To,
 ): ResponsiveProp<To> | undefined {
@@ -83,3 +83,6 @@ export function mapResponsiveProp<From extends Atom, To extends Atom>(
     }
     return undefined
 }
+
+export type { ResponsiveProp, ResponsiveBreakpoints }
+export { getClassNames, mapResponsiveProp }

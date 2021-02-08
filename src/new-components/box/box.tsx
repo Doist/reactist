@@ -18,19 +18,27 @@ interface PaddingProps {
     paddingLeft?: ResponsiveProp<Space>
 }
 
+type BoxMaxMinWidth = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
+type BoxDisplay = 'block' | 'flex' | 'inline' | 'inlineBlock' | 'none'
+type BoxFlexDirection = 'column' | 'row'
+type BoxFlexWrap = 'nowrap' | 'wrap'
+type BoxAlignItems = 'center' | 'flexEnd' | 'flexStart'
+type BoxJustifyContent = 'center' | 'flexEnd' | 'flexStart' | 'spaceBetween'
+type BoxOverflow = 'hidden' | 'auto' | 'visible' | 'scroll'
+
 interface ReusableBoxProps extends PaddingProps {
-    minWidth?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
-    maxWidth?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
+    minWidth?: BoxMaxMinWidth
+    maxWidth?: BoxMaxMinWidth
     background?: 'default' | 'shade' | 'highlight' | 'selected'
 }
 
 interface BoxProps extends WithEnhancedClassName, ReusableBoxProps {
-    display?: ResponsiveProp<'block' | 'flex' | 'inline' | 'inlineBlock' | 'none'>
-    flexDirection?: ResponsiveProp<'column' | 'row'>
-    flexWrap?: 'nowrap' | 'wrap'
-    alignItems?: ResponsiveProp<'center' | 'flexEnd' | 'flexStart'>
-    justifyContent?: ResponsiveProp<'center' | 'flexEnd' | 'flexStart' | 'spaceBetween'>
-    overflow?: 'hidden' | 'auto' | 'visible' | 'scroll'
+    display?: ResponsiveProp<BoxDisplay>
+    flexDirection?: ResponsiveProp<BoxFlexDirection>
+    flexWrap?: BoxFlexWrap
+    alignItems?: ResponsiveProp<BoxAlignItems>
+    justifyContent?: ResponsiveProp<BoxJustifyContent>
+    overflow?: BoxOverflow
     width?: 'full'
     height?: 'full'
 }
@@ -101,5 +109,16 @@ const Box = forwardRefWithAs<BoxProps>(function Box(
     )
 })
 
-export type { BoxProps, ReusableBoxProps }
+export type {
+    BoxProps,
+    ReusableBoxProps,
+    BoxMaxMinWidth,
+    BoxDisplay,
+    BoxFlexDirection,
+    BoxFlexWrap,
+    BoxAlignItems,
+    BoxJustifyContent,
+    BoxOverflow,
+}
+
 export { Box }

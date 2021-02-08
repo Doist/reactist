@@ -25,7 +25,7 @@
 .display-none {
     display: none;
 }
-@media (min-width: var(--reactist-breakpoint-tablet)) {
+@media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-display-block {
         display: block;
     }
@@ -42,7 +42,7 @@
         display: none;
     }
 }
-@media (min-width: var(--reactist-breakpoint-desktop)) {
+@media (min-width: 992px /* --reactist-breakpoint-desktop */) {
     .desktop-display-block {
         display: block;
     }
@@ -101,7 +101,7 @@
 .flexDirection-row {
     flex-direction: row;
 }
-@media (min-width: var(--reactist-breakpoint-tablet)) {
+@media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-flexDirection-column {
         flex-direction: column;
     }
@@ -109,7 +109,7 @@
         flex-direction: row;
     }
 }
-@media (min-width: var(--reactist-breakpoint-desktop)) {
+@media (min-width: 992px /* --reactist-breakpoint-desktop */) {
     .desktop-flexDirection-column {
         flex-direction: column;
     }
@@ -136,7 +136,7 @@
 .alignItems-flexEnd {
     align-items: flex-end;
 }
-@media (min-width: var(--reactist-breakpoint-tablet)) {
+@media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-alignItems-flexStart {
         align-items: flex-start;
     }
@@ -147,7 +147,7 @@
         align-items: flex-end;
     }
 }
-@media (min-width: var(--reactist-breakpoint-desktop)) {
+@media (min-width: 992px /* --reactist-breakpoint-desktop */) {
     .desktop-alignItems-flexStart {
         align-items: flex-start;
     }
@@ -172,7 +172,7 @@
 .justifyContent-spaceBetween {
     justify-content: space-between;
 }
-@media (min-width: var(--reactist-breakpoint-tablet)) {
+@media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-justifyContent-flexStart {
         justify-content: flex-start;
     }
@@ -186,7 +186,7 @@
         justify-content: space-between;
     }
 }
-@media (min-width: var(--reactist-breakpoint-desktop)) {
+@media (min-width: 992px /* --reactist-breakpoint-desktop */) {
     .desktop-justifyContent-flexStart {
         justify-content: flex-start;
     }
@@ -239,7 +239,7 @@
 .paddingTop-xlarge {
     padding-top: var(--reactist-spacing-xlarge);
 }
-@media (min-width: var(--reactist-breakpoint-tablet)) {
+@media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-paddingTop-xsmall {
         padding-top: var(--reactist-spacing-xsmall);
     }
@@ -256,7 +256,7 @@
         padding-top: var(--reactist-spacing-xlarge);
     }
 }
-@media (min-width: var(--reactist-breakpoint-desktop)) {
+@media (min-width: 992px /* --reactist-breakpoint-desktop */) {
     .desktop-paddingTop-xsmall {
         padding-top: var(--reactist-spacing-xsmall);
     }
@@ -290,7 +290,7 @@
 .paddingRight-xlarge {
     padding-right: var(--reactist-spacing-xlarge);
 }
-@media (min-width: var(--reactist-breakpoint-tablet)) {
+@media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-paddingRight-xsmall {
         padding-right: var(--reactist-spacing-xsmall);
     }
@@ -307,7 +307,7 @@
         padding-right: var(--reactist-spacing-xlarge);
     }
 }
-@media (min-width: var(--reactist-breakpoint-desktop)) {
+@media (min-width: 992px /* --reactist-breakpoint-desktop */) {
     .desktop-paddingRight-xsmall {
         padding-right: var(--reactist-spacing-xsmall);
     }
@@ -341,7 +341,7 @@
 .paddingBottom-xlarge {
     padding-bottom: var(--reactist-spacing-xlarge);
 }
-@media (min-width: var(--reactist-breakpoint-tablet)) {
+@media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-paddingBottom-xsmall {
         padding-bottom: var(--reactist-spacing-xsmall);
     }
@@ -358,7 +358,7 @@
         padding-bottom: var(--reactist-spacing-xlarge);
     }
 }
-@media (min-width: var(--reactist-breakpoint-desktop)) {
+@media (min-width: 992px /* --reactist-breakpoint-desktop */) {
     .desktop-paddingBottom-xsmall {
         padding-bottom: var(--reactist-spacing-xsmall);
     }
@@ -392,7 +392,7 @@
 .paddingLeft-xlarge {
     padding-left: var(--reactist-spacing-xlarge);
 }
-@media (min-width: var(--reactist-breakpoint-tablet)) {
+@media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-paddingLeft-xsmall {
         padding-left: var(--reactist-spacing-xsmall);
     }
@@ -409,7 +409,7 @@
         padding-left: var(--reactist-spacing-xlarge);
     }
 }
-@media (min-width: var(--reactist-breakpoint-desktop)) {
+@media (min-width: 992px /* --reactist-breakpoint-desktop */) {
     .desktop-paddingLeft-xsmall {
         padding-left: var(--reactist-spacing-xsmall);
     }

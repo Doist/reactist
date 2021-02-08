@@ -10,9 +10,11 @@ import type { ReusableBoxProps } from '../box'
 
 import styles from './inline.module.css'
 
+type InlineAlign = 'left' | 'center' | 'right'
+
 interface InlineProps extends WithEnhancedClassName, ReusableBoxProps {
     space?: ResponsiveProp<Space>
-    align?: ResponsiveProp<'left' | 'center' | 'right'>
+    align?: ResponsiveProp<InlineAlign>
 }
 
 const Inline = forwardRefWithAs<InlineProps>(function Inline(
@@ -40,5 +42,5 @@ const Inline = forwardRefWithAs<InlineProps>(function Inline(
     )
 })
 
-export type { InlineProps }
+export type { InlineProps, InlineAlign }
 export { Inline }

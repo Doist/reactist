@@ -3,7 +3,7 @@ import { forwardRefWithAs } from '../type-helpers'
 import { getClassNames, mapResponsiveProp } from '../responsive-props'
 import { Box } from '../box'
 
-import type { ResponsiveProp } from '../responsive-props'
+import type { ResponsiveProp, ResponsiveBreakpoints } from '../responsive-props'
 import type { Space, WithEnhancedClassName } from '../common-types'
 import type { ReusableBoxProps } from '../box'
 
@@ -48,11 +48,15 @@ const Column = forwardRefWithAs<ColumnProps>(function Column(
     )
 })
 
+type ColumnsHorizontalAlignment = 'left' | 'center' | 'right'
+type ColumnsVerticalAlignment = 'top' | 'center' | 'bottom'
+type ColumnsCollapseBelow = ResponsiveBreakpoints
+
 interface ColumnsProps extends WithEnhancedClassName, ReusableBoxProps {
     space?: ResponsiveProp<Space>
-    align?: ResponsiveProp<'left' | 'center' | 'right'>
-    alignY?: ResponsiveProp<'top' | 'center' | 'bottom'>
-    collapseBelow?: 'tablet' | 'desktop'
+    align?: ResponsiveProp<ColumnsHorizontalAlignment>
+    alignY?: ResponsiveProp<ColumnsVerticalAlignment>
+    collapseBelow?: ResponsiveBreakpoints
 }
 
 const Columns = forwardRefWithAs<ColumnsProps>(function Columns(
@@ -88,5 +92,13 @@ const Columns = forwardRefWithAs<ColumnsProps>(function Columns(
     )
 })
 
-export type { ColumnProps, ColumnsProps, ColumnWidth }
+export type {
+    ColumnProps,
+    ColumnsProps,
+    ColumnWidth,
+    ColumnsCollapseBelow,
+    ColumnsHorizontalAlignment,
+    ColumnsVerticalAlignment,
+}
+
 export { Column, Columns }
