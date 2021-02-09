@@ -5,7 +5,7 @@ import { Box } from '../box'
 import type { ComponentTypes } from '../type-helpers'
 import type { Tone, WithEnhancedClassName } from '../common-types'
 
-import styles from './divider.module.css'
+import styles from './text.module.css'
 
 interface TextProps extends WithEnhancedClassName {
     component?: ComponentTypes
