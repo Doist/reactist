@@ -1,3 +1,5 @@
+import './new-components/default-styles.less'
+
 export { Box } from './new-components/box'
 export { Columns } from './new-components/columns'
 export { default as Avatar } from './components/avatar'
