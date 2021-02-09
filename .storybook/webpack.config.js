@@ -15,14 +15,22 @@ module.exports = {
                 use: 'raw-loader',
             },
             {
-                test: /\.(less|css)$/,
+                test: /\.less$/,
+                use: [
+                    'style-loader',
+                    { loader: 'css-loader', options: { modules: { auto: true }, esModule: false } },
+                    'less-loader',
+                ],
+            },
+            {
+                test: /\.module\.css$/i,
                 use: [
                     'style-loader',
                     {
                         loader: 'css-loader',
                         options: {
                             modules: {
-                                auto: true,
+                                mode: 'local',
                                 localIdentName:
                                     process.env.NODE_ENV === 'production'
                                         ? '[hash:base64]'
@@ -31,8 +39,12 @@ module.exports = {
                             esModule: false,
                         },
                     },
-                    'less-loader',
                 ],
+            },
+            {
+                test: /\.css$/,
+                exclude: /\.module\.css$/,
+                loader: 'style-loader!css-loader',
             },
             {
                 test: /\.svg$/,
