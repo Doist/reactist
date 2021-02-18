@@ -155,8 +155,8 @@ function OverflowMenuExample() {
                 be used as a context menu).
             </p>
             <ul>
-                {items.map((item) => (
-                    <Item {...item} />
+                {items.map((item, index) => (
+                    <Item key={index} {...item} />
                 ))}
             </ul>
         </section>
