@@ -18,7 +18,7 @@ Feel free to leave unchecked or remove the lines that are not applicable.
 -   [ ] Updated docs (storybooks, readme)
 -   [ ] Executed `npm run validate` and made sure no errors / warnings were shown
 -   [ ] Described changes in `CHANGELOG.md`
--   [ ] Bumped version in `package.json`
+-   [ ] Bumped version in `package.json` and `package-lock.json` (`npm --no-git-tag-version version major`) [ref](https://docs.npmjs.com/cli/v6/commands/npm-version)
 -   [ ] Updated all static build artifacts (`npm run build-all`)
 
 ## Versioning
