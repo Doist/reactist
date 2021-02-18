@@ -57,6 +57,7 @@
         "@babel/preset-react": "^7.0.0",
         "@babel/preset-typescript": "^7.10.1",
         "@babel/register": "^7.0.0",
+        "@doist/eslint-config": "^3.0.0",
         "@doist/prettier-config": "^3.0.5",
         "@storybook/addon-actions": "^5.3.18",
         "@storybook/addon-docs": "^5.3.18",

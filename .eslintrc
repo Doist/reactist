@@ -1,15 +1,10 @@
 {
     "plugins": ["jest"],
     "extends": [
+        "@doist/eslint-config/recommended-requiring-type-checking",
+        "@doist/eslint-config/react",
         "react-app",
-        "prettier/@typescript-eslint",
-        "plugin:prettier/recommended",
-        "plugin:jest/recommended",
-        "prettier",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
-        "prettier/@typescript-eslint"
+        "plugin:jest/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -30,9 +25,8 @@
         "webpack.config.*"
     ],
     "rules": {
-        "prettier/prettier": "error",
-        "react/no-did-mount-set-state": "error",
-        "react/no-did-update-set-state": "error",
+        "func-style": "off",
+        "import/no-default-export": "off", // Legacy API.
         "react/no-find-dom-node": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/ban-ts-comment": "off"
@@ -43,6 +37,7 @@
             // jest mocks are hard to type, allow incomplete types in tests.
             "files": ["stories/**/*", "*.test.*"],
             "rules": {
+                "react/no-unescaped-entities": "off",
                 "@typescript-eslint/no-unsafe-member-access": "off",
                 "@typescript-eslint/no-unsafe-call": "off",
                 "@typescript-eslint/no-unsafe-assignment": "off",

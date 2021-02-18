@@ -8,6 +8,8 @@ function getInitials(name?: string) {
     const lastInitial = seed[seed.length - 1]
 
     let initials = firstInitial[0]
+    // Better readable this way.
+    // eslint-disable-next-line @typescript-eslint/prefer-string-starts-ends-with
     if (firstInitial[0] !== lastInitial[0]) {
         initials += lastInitial[0]
     }

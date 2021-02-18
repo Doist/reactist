@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 import { Tooltip } from '../tooltip'
@@ -76,13 +75,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 })
 
 Button.displayName = 'Button'
-
-Button.propTypes = {
-    loading: PropTypes.bool,
-    variant: PropTypes.oneOf(['primary', 'secondary', 'danger', 'link']),
-    size: PropTypes.oneOf(['default', 'small', 'large']),
-    tooltip: PropTypes.node,
-}
 
 Button.defaultProps = {
     size: 'default',

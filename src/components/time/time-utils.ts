@@ -1,4 +1,15 @@
 import dayjs from 'dayjs'
+/**
+ * There's a problem with our setup where the default export from
+ * localizedFormat (and likely every other dayjs plugin) isn't properly
+ * recognized. The proposed workarounds (importing with `.js` ending, or adding
+ * `allowSyntheticDefaultImports` to the tsconfig) either broke linting or type
+ * checking. After spending some time on this it was decided that further
+ * investigations are not worth it, the code works and the eslint ignore is fine.
+ * ref: https://github.com/iamkun/dayjs/issues/593
+ * ref: https://day.js.org/docs/en/installation/typescript
+ */
+// eslint-disable-next-line import/default
 import LocalizedFormat from 'dayjs/plugin/localizedFormat'
 
 dayjs.extend(LocalizedFormat)

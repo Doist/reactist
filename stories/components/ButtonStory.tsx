@@ -26,7 +26,7 @@ function StandardButtonsStory() {
             <Button>Plain Button</Button>
             <p>
                 You can <Button variant="link">add link buttons inline</Button> and it works as
-                you'd expect.
+                you&apos;d expect.
             </p>
         </section>
     )

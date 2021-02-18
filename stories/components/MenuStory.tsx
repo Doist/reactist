@@ -109,6 +109,7 @@ function SimpleMenuExample() {
 
 const SimpleMenuChapter = {
     subtitle: 'Some menu examples',
+    // eslint-disable-next-line react/display-name
     sections: [{ sectionFn: () => <SimpleMenuExample />, options: optionsSourceOnly }],
 }
 
@@ -154,8 +155,8 @@ function OverflowMenuExample() {
                 be used as a context menu).
             </p>
             <ul>
-                {items.map((item) => (
-                    <Item {...item} />
+                {items.map((item, index) => (
+                    <Item key={index} {...item} />
                 ))}
             </ul>
         </section>
@@ -164,6 +165,7 @@ function OverflowMenuExample() {
 
 const OverflowMenuChapter = {
     subtitle: 'A list of items with an overflow options menu',
+    // eslint-disable-next-line react/display-name
     sections: [{ sectionFn: () => <OverflowMenuExample />, options: optionsSourceOnly }],
 }
 
