@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 9.0.0
+- [Build] The project now requires node v14.5.5+ and npm v6.14.11+ to install and run.
+- We're skipping right over v8.0.0 as its tag has already been created previously
+
 ## 7.2.1
 
 -   [Tweak] Adds `defaultValue` and ensures additional props are carried forward on the `Select` component.
