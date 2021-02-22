@@ -44,11 +44,17 @@ You can find our changelog [here](./CHANGELOG.md).
 
 # Development
 
-First clone the repository, and run its setup task:
+We leverage `package.json`'s `engines` field to specify the node/npm versions to be used while in development. The easiest way to switch quickly is through [fnm](https://github.com/Schniz/fnm).
+
+It's worth noting that fnm can automatically switch to a project's specified node version when it encounters a `.nvmrc` file. To do so, use the `--use-on-cd` flag when [generating your shell's config script with `fnm env`](https://github.com/Schniz/fnm#fnm-env).
+
+Once fnm is installed, clone the repository. Then, switch to the required node version, and run its setup task:
 
 ```sh
 git clone https://github.com/doist/reactist.git
 cd reactist
+fnm install
+fnm use
 npm run setup
 ```
 
