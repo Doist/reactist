@@ -13,7 +13,7 @@
     padding-top: var(--reactist-spacing-small);
 }
 
-.space-medium > {
+.space-medium {
     margin-top: calc(var(--reactist-spacing-medium) * -1);
 }
 .space-medium > * {

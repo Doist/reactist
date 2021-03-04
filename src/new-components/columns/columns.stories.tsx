@@ -47,16 +47,14 @@ storiesOf('Columns', module)
                     </Columns>
                 </Wrapper>
                 <Wrapper title="Use align to control horizontal alignment" border={true}>
-                    <Stack space="medium">
-                        <Columns {...props}>
-                            <Column width="1/5">
-                                <Placeholder height={20} />
-                            </Column>
-                            <Column width="1/5">
-                                <Placeholder height={20} />
-                            </Column>
-                        </Columns>
-                    </Stack>
+                    <Columns {...props}>
+                        <Column width="1/5">
+                            <Placeholder height={20} />
+                        </Column>
+                        <Column width="1/5">
+                            <Placeholder height={20} />
+                        </Column>
+                    </Columns>
                 </Wrapper>
             </Stack>
         )

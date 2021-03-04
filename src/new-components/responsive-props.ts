@@ -53,6 +53,7 @@ function getClassNames(
             ? [styles[`${property}-${value}`]]
             : value.map((s, i) => styles[`${prefix[i]}${property}-${s}`])
     if (DEBUG && !classList.every(Boolean)) {
+        // eslint-disable-next-line no-console
         console.warn('Not all generated class names were found', { property, value, classList })
     }
     return classList
