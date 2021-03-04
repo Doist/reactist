@@ -15,10 +15,11 @@ type InlineAlign = 'left' | 'center' | 'right'
 interface InlineProps extends ReusableBoxProps {
     space?: ResponsiveProp<Space>
     align?: ResponsiveProp<InlineAlign>
+    alignY?: ResponsiveProp<'top' | 'center' | 'bottom'>
 }
 
 const Inline = forwardRefWithAs<InlineProps>(function Inline(
-    { component, space, align = 'left', children, ...props },
+    { component, space, align = 'left', alignY = 'center', children, ...props },
     ref,
 ) {
     const isList = component === 'ol' || component === 'ul'
@@ -30,6 +31,9 @@ const Inline = forwardRefWithAs<InlineProps>(function Inline(
             flexWrap="wrap"
             className={getClassNames(styles, 'space', space)}
             ref={ref}
+            alignItems={mapResponsiveProp(alignY, (alignY) =>
+                alignY === 'top' ? 'flexStart' : alignY === 'bottom' ? 'flexEnd' : 'center',
+            )}
             justifyContent={mapResponsiveProp(align, (align) =>
                 align === 'left' ? 'flexStart' : align === 'right' ? 'flexEnd' : 'center',
             )}
