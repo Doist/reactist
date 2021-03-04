@@ -5,20 +5,20 @@ import { getClassNames, mapResponsiveProp } from '../responsive-props'
 import { Box } from '../box'
 
 import type { ResponsiveProp } from '../responsive-props'
-import type { Space, WithEnhancedClassName } from '../common-types'
+import type { Space } from '../common-types'
 import type { ReusableBoxProps } from '../box'
 
 import styles from './inline.module.css'
 
 type InlineAlign = 'left' | 'center' | 'right'
 
-interface InlineProps extends WithEnhancedClassName, ReusableBoxProps {
+interface InlineProps extends ReusableBoxProps {
     space?: ResponsiveProp<Space>
     align?: ResponsiveProp<InlineAlign>
 }
 
 const Inline = forwardRefWithAs<InlineProps>(function Inline(
-    { component, space, align = 'left', children, className, ...props },
+    { component, space, align = 'left', children, ...props },
     ref,
 ) {
     const isList = component === 'ol' || component === 'ul'
@@ -28,7 +28,7 @@ const Inline = forwardRefWithAs<InlineProps>(function Inline(
         <Box
             display="flex"
             flexWrap="wrap"
-            className={[className, getClassNames(styles, 'space', space)]}
+            className={getClassNames(styles, 'space', space)}
             ref={ref}
             justifyContent={mapResponsiveProp(align, (align) =>
                 align === 'left' ? 'flexStart' : align === 'right' ? 'flexEnd' : 'center',

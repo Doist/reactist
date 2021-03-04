@@ -3,11 +3,11 @@ import { getClassNames } from '../responsive-props'
 import { Box } from '../box'
 
 import type { ComponentTypes } from '../type-helpers'
-import type { Tone, WithEnhancedClassName } from '../common-types'
+import type { Tone } from '../common-types'
 
 import styles from './text.module.css'
 
-interface TextProps extends WithEnhancedClassName {
+interface TextProps {
     component?: ComponentTypes
     children: React.ReactNode
     size?: 'xsmall' | 'small' | 'standard' | 'large' | 'xlarge'
@@ -20,14 +20,12 @@ function Text({
     size = 'standard',
     weight = 'regular',
     tone = 'normal',
-    className,
     children,
 }: TextProps) {
     return (
         <Box
             component={component}
             className={[
-                className,
                 styles.text,
                 size !== 'standard' ? getClassNames(styles, 'size', size) : null,
                 weight !== 'regular' ? getClassNames(styles, 'weight', weight) : null,

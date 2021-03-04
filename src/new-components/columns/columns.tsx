@@ -4,7 +4,7 @@ import { getClassNames, mapResponsiveProp } from '../responsive-props'
 import { Box } from '../box'
 
 import type { ResponsiveProp, ResponsiveBreakpoints } from '../responsive-props'
-import type { Space, WithEnhancedClassName } from '../common-types'
+import type { Space } from '../common-types'
 import type { ReusableBoxProps } from '../box'
 
 import styles from './columns.module.css'
@@ -23,18 +23,17 @@ type ColumnWidth =
     | '3/5'
     | '4/5'
 
-interface ColumnProps extends WithEnhancedClassName {
+interface ColumnProps {
     width?: ColumnWidth
 }
 
 const Column = forwardRefWithAs<ColumnProps>(function Column(
-    { component, width = 'auto', children, className, ...props },
+    { component, width = 'auto', children, ...props },
     ref,
 ) {
     return (
         <Box
             className={[
-                className,
                 styles.column,
                 width !== 'content'
                     ? getClassNames(styles, 'columnWidth', width.replace('/', '-'))
@@ -52,7 +51,7 @@ type ColumnsHorizontalAlignment = 'left' | 'center' | 'right'
 type ColumnsVerticalAlignment = 'top' | 'center' | 'bottom'
 type ColumnsCollapseBelow = ResponsiveBreakpoints
 
-interface ColumnsProps extends WithEnhancedClassName, ReusableBoxProps {
+interface ColumnsProps extends ReusableBoxProps {
     space?: ResponsiveProp<Space>
     align?: ResponsiveProp<ColumnsHorizontalAlignment>
     alignY?: ResponsiveProp<ColumnsVerticalAlignment>
@@ -60,13 +59,12 @@ interface ColumnsProps extends WithEnhancedClassName, ReusableBoxProps {
 }
 
 const Columns = forwardRefWithAs<ColumnsProps>(function Columns(
-    { space, align, alignY, collapseBelow, children, className, ...props },
+    { space, align, alignY, collapseBelow, children, ...props },
     ref,
 ) {
     return (
         <Box
             className={[
-                className,
                 getClassNames(styles, 'space', space),
                 getClassNames(stackStyles, 'space', space),
             ]}

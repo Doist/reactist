@@ -6,13 +6,13 @@ import { Box } from '../box'
 import { Divider } from '../divider'
 
 import type { ResponsiveProp } from '../responsive-props'
-import type { Space, WithEnhancedClassName } from '../common-types'
+import type { Space } from '../common-types'
 import type { ReusableBoxProps } from '../box'
 import type { DividerWeight } from '../divider'
 
 import styles from './stack.module.css'
 
-interface StackProps extends WithEnhancedClassName, ReusableBoxProps {
+interface StackProps extends ReusableBoxProps {
     space?: ResponsiveProp<Space>
     dividers?: boolean | DividerWeight
 }
