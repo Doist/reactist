@@ -6,7 +6,11 @@ module.exports = {
         // Also inline all assets in CSS files using base64 encoding & data URLs.
         config.plugins = [
             styles({
-                autoModules: /index/,
+                autoModules: /\.module\.css$/,
+                modules: {
+                    mode: 'local',
+                    generateScopeName: '[hash:base64]',
+                },
                 mode: 'extract',
                 url: { inline: true },
             }),

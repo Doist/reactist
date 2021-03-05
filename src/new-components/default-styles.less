@@ -1,0 +1,52 @@
+:root {
+    /*
+     * breakpoints
+     *
+     * Unfortunately CSS custom properties are not available in media queries. So these are not
+     * being used right now (although all uses of the hardcoded value are annotated with the names.
+     *
+     * We could manage these as pre-processor variables, but that would leave the question about how
+     * is going to be possible to customize these values from consumer apps.
+     *
+     * See https://stackoverflow.com/q/40722882/621809
+     * Possible solution: https://www.npmjs.com/package/postcss-media-variables
+     */
+    --reactist-breakpoint-tablet: 768px;
+    --reactist-breakpoint-desktop: 992px;
+
+    /* spacing sizes */
+    --reactist-spacing-xsmall: 4px;
+    --reactist-spacing-small: 8px;
+    --reactist-spacing-medium: 12px;
+    --reactist-spacing-large: 16px;
+    --reactist-spacing-xlarge: 24px;
+
+    /* font sizes */
+    --reactist-font-size-xsmall: 10px;
+    --reactist-font-size-small: 12px;
+    --reactist-font-size-normal: 14px;
+    --reactist-font-size-large: 16px;
+    --reactist-font-size-header: 20px;
+    --reactist-font-size-header-large: 24px;
+
+    /* font weight */
+    --reactist-font-weight-regular: 400;
+    --reactist-font-weight-medium: 500;
+    --reactist-font-weight-strong: 700;
+
+    /* border and separator colors */
+    --reactist-framework-separator: rgb(230, 230, 230);
+    --reactist-framework-border: rgb(214, 214, 214);
+    --reactist-framework-border-focus: rgba(0, 0, 0, 0.4);
+
+    /* border-radius */
+    --reactist-border-radius-small: 5px;
+    --reactist-border-radius-large: 10px;
+
+    /* background color */
+    --reactist-bg-default: rgb(255, 255, 255);
+    --reactist-bg-brand: rgb(209, 69, 59);
+    --reactist-bg-shade: rgb(250, 250, 250);
+    --reactist-bg-highlight: rgb(242, 242, 242);
+    --reactist-bg-selected: rgb(230, 230, 230);
+}

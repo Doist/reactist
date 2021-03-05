@@ -1,0 +1,60 @@
+.heading {
+    margin: 0;
+    padding: 0;
+    color: var(--reactist-content-primary);
+    font-weight: var(--reactist-font-weight-strong);
+}
+
+.weight-light {
+    font-weight: var(--reactist-font-weight-regular);
+}
+
+/* font size */
+
+h1.heading {
+    font-size: var(--reactist-font-size-header);
+}
+h1.size-larger {
+    font-size: var(--reactist-font-size-header-large);
+}
+h1.size-smaller {
+    font-size: var(--reactist-font-size-large);
+}
+
+h2.heading {
+    font-size: var(--reactist-font-size-large);
+}
+h2.size-larger {
+    font-size: var(--reactist-font-size-header);
+}
+h2.size-smaller {
+    font-size: var(--reactist-font-size-normal);
+}
+
+h3.heading {
+    font-size: var(--reactist-font-size-normal);
+}
+h3.size-larger {
+    font-size: var(--reactist-font-size-large);
+}
+h3.size-smaller {
+    font-size: var(--reactist-font-size-small);
+}
+
+h4.heading,
+h5.heading,
+h6.heading {
+    /*
+     * unlike at higher levels, this one is kept as the same size as h3's
+     * you can make it one level larger visually, but making it smaller has no effect
+     */
+    font-size: var(--reactist-font-size-normal);
+}
+
+h4.size-larger,
+h5.size-larger,
+h6.size-larger {
+    font-size: var(--reactist-font-size-large);
+}
+
+/* h4/h5/h6 can't be made smaller, maybe we reconsider this? */

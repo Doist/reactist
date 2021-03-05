@@ -1,0 +1,8 @@
+.divider {
+    border: none;
+    border-bottom: 1px solid var(--reactist-framework-separator);
+}
+
+.weight-strong {
+    border-color: var(--reactist-framework-border-focus);
+}
