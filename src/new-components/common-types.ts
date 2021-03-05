@@ -1,8 +1,10 @@
+import classNames from 'classnames'
 import type { HTMLAttributes } from 'react'
-import type { ClassValue } from 'classnames/types'
 
 export type Space = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
 export type Tone = 'normal' | 'secondary' | 'danger'
+
+type ClassValue = Parameters<typeof classNames>[number]
 
 export type WithEnhancedClassName<T = unknown> = T extends HTMLElement
     ? Omit<HTMLAttributes<T>, 'className'> & { className?: ClassValue }
