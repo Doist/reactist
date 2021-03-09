@@ -33,7 +33,7 @@ module.exports = {
                                 mode: 'local',
                                 localIdentName:
                                     process.env.NODE_ENV === 'production'
-                                        ? '[hash:base64]'
+                                        ? '[hash:base64:8]'
                                         : '[path][name]__[local]',
                             },
                             esModule: false,

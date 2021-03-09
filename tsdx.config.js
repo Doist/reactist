@@ -9,7 +9,7 @@ module.exports = {
                 autoModules: /\.module\.css$/,
                 modules: {
                     mode: 'local',
-                    generateScopeName: '[hash:base64]',
+                    generateScopedName: '[hash:8]',
                 },
                 mode: 'extract',
                 url: { inline: true },
