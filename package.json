@@ -25,6 +25,7 @@
         "npm": "^6.14.11"
     },
     "scripts": {
+        "postinstall": "patch-package",
         "setup": "npm install && npm run validate",
         "validate": "npm run lint && npm run type-check && npm run test",
         "start": "tsdx watch --onSuccess \"./scripts/organize-styles.sh\"",
