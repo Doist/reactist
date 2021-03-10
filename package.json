@@ -2,7 +2,7 @@
     "name": "@doist/reactist",
     "description": "Open source React components by Doist",
     "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",
-    "version": "9.1.0-beta",
+    "version": "9.1.0-beta.1",
     "license": "MIT",
     "homepage": "https://github.com/Doist/reactist#readme",
     "repository": "git+https://github.com/Doist/reactist.git",
@@ -25,6 +25,7 @@
         "npm": "^6.14.11"
     },
     "scripts": {
+        "postinstall": "patch-package",
         "setup": "npm install && npm run validate",
         "validate": "npm run lint && npm run type-check && npm run test",
         "start": "tsdx watch --onSuccess \"./scripts/organize-styles.sh\"",
@@ -102,6 +103,7 @@
         "mini-css-extract-plugin": "^0.11.0",
         "mockdate": "^3.0.2",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
+        "patch-package": "^6.4.6",
         "path": "^0.12.7",
         "prettier": "2.1.2",
         "raw-loader": "^4.0.1",
@@ -114,7 +116,7 @@
         "react-test-renderer": "^16.13.1",
         "rimraf": "^3.0.2",
         "rollup-plugin-postcss": "^3.1.1",
-        "rollup-plugin-styles": "^3.10.0",
+        "rollup-plugin-styles": "^3.14.1",
         "style-loader": "^0.23.1",
         "svg-url-loader": "^6.0.0",
         "ts-loader": "^8.0.2",

@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 9.1.0-beta.1
+
+- [Fix] The previous beta release had an issue where all components' stylesheets were being treated as CSS modules. This will now build with the correct class name selectors again.
+
 ## 9.1.0-beta
 
 - [Feature] A set of base design system components have been added: `Box`, `Columns`, `Divider`, `Heading`, `Inline`, `Stack`, and `Text`. Since we're still experimenting with their API, they will be packaged under beta releases until they become more concrete.
