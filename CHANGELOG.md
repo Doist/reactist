@@ -2,20 +2,25 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-## 9.1.0-beta.1
+## v9.1.0-beta.2
 
-- [Fix] The previous beta release had an issue where all components' stylesheets were being treated as CSS modules. This will now build with the correct class name selectors again.
+-   [Fix] Move patch-package to dependencies to allow it to run (on nothing since we're patching a dev-dependency) after being installed as a package.
+-   [Fix] Prevent emotion's `css` prop from polluting the exported type definitions
 
-## 9.1.0-beta
+## v9.1.0-beta.1
 
-- [Feature] A set of base design system components have been added: `Box`, `Columns`, `Divider`, `Heading`, `Inline`, `Stack`, and `Text`. Since we're still experimenting with their API, they will be packaged under beta releases until they become more concrete.
+-   [Fix] The previous beta release had an issue where all components' stylesheets were being treated as CSS modules. This will now build with the correct class name selectors again.
 
-## 9.0.0
+## v9.1.0-beta
+
+-   [Feature] A set of base design system components have been added: `Box`, `Columns`, `Divider`, `Heading`, `Inline`, `Stack`, and `Text`. Since we're still experimenting with their API, they will be packaged under beta releases until they become more concrete.
+
+## v9.0.0
 
 -   [Build] The project now requires node v14.5.5+ and npm v6.14.11+ to install and run.
 -   We're skipping right over v8.0.0 as its tag has already been created previously
 
-## 7.2.1
+## v7.2.1
 
 -   [Tweak] Adds `defaultValue` and ensures additional props are carried forward on the `Select` component.
 
