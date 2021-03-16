@@ -7,13 +7,29 @@ import styles from './heading.module.css'
 type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6 | '1' | '2' | '3' | '4' | '5' | '6'
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
-interface HeadingProps
-    extends Omit<JSX.IntrinsicElements[HeadingElement], 'className' | 'children'> {
-    level: HeadingLevel
-    weight?: 'regular' | 'light'
-    size?: 'smaller' | 'larger'
-    children: React.ReactNode
-}
+type SupportedBoxProps = Pick<
+    React.ComponentProps<typeof Box>,
+    | 'padding'
+    | 'paddingX'
+    | 'paddingY'
+    | 'paddingTop'
+    | 'paddingRight'
+    | 'paddingBottom'
+    | 'paddingLeft'
+>
+
+type SupportedHeadingElementProps = Omit<
+    JSX.IntrinsicElements[HeadingElement],
+    'className' | 'children'
+>
+
+type HeadingProps = SupportedBoxProps &
+    SupportedHeadingElementProps & {
+        level: HeadingLevel
+        weight?: 'regular' | 'light'
+        size?: 'smaller' | 'larger'
+        children: React.ReactNode
+    }
 
 function Heading({ level, weight = 'regular', size, children, ...props }: HeadingProps) {
     // In TypeScript v4.1, this would be properly recognized without needing the type assertion
@@ -22,13 +38,13 @@ function Heading({ level, weight = 'regular', size, children, ...props }: Headin
 
     return (
         <Box
+            {...props}
             className={[
                 styles.heading,
                 weight !== 'regular' ? getClassNames(styles, 'weight', weight) : null,
                 getClassNames(styles, 'size', size),
             ]}
             component={headingElementName}
-            {...props}
         >
             {children}
         </Box>
