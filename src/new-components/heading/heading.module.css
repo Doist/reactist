@@ -14,6 +14,9 @@
 h1.heading {
     font-size: var(--reactist-font-size-header);
 }
+h1.size-largest {
+    font-size: var(--reactist-font-size-header-xlarge);
+}
 h1.size-larger {
     font-size: var(--reactist-font-size-header-large);
 }
@@ -22,10 +25,13 @@ h1.size-smaller {
 }
 
 h2.heading {
-    font-size: var(--reactist-font-size-large);
+    font-size: var(--reactist-font-size-header);
+}
+h2.size-largest {
+    font-size: var(--reactist-font-size-header-xlarge);
 }
 h2.size-larger {
-    font-size: var(--reactist-font-size-header);
+    font-size: var(--reactist-font-size-header-large);
 }
 h2.size-smaller {
     font-size: var(--reactist-font-size-normal);
@@ -33,6 +39,9 @@ h2.size-smaller {
 
 h3.heading {
     font-size: var(--reactist-font-size-normal);
+}
+h3.size-largest {
+    font-size: var(--reactist-font-size-header);
 }
 h3.size-larger {
     font-size: var(--reactist-font-size-large);
@@ -46,9 +55,15 @@ h5.heading,
 h6.heading {
     /*
      * unlike at higher levels, this one is kept as the same size as h3's
-     * you can make it one level larger visually, but making it smaller has no effect
+     * you can make it two levels larger visually, but making it smaller has no effect
      */
     font-size: var(--reactist-font-size-normal);
+}
+
+h4.size-largest,
+h5.size-largest,
+h6.size-largest {
+    font-size: var(--reactist-font-size-header);
 }
 
 h4.size-larger,

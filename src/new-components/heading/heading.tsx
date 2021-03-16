@@ -27,7 +27,7 @@ type HeadingProps = SupportedBoxProps &
     SupportedHeadingElementProps & {
         level: HeadingLevel
         weight?: 'regular' | 'light'
-        size?: 'smaller' | 'larger'
+        size?: 'smaller' | 'larger' | 'largest'
         children: React.ReactNode
     }
 
