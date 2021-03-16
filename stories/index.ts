@@ -22,8 +22,11 @@ import { AvatarStory } from './components/AvatarStory'
 import { IconStory } from './components/IconStory'
 import { KeyCapturerStory } from './components/KeyCapturerStory'
 import { KeyboardShortcutStory } from './components/KeyboardShortcutStory'
+import { ColorStory } from './components/color.stories'
 
 ReactistStory()
+ColorStory()
+
 // alphabetically sorted component stories
 AvatarStory()
 ButtonStory()
