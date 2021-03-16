@@ -1,6 +1,4 @@
 .heading {
-    margin: 0;
-    padding: 0;
     color: var(--reactist-content-primary);
     font-weight: var(--reactist-font-weight-strong);
 }
