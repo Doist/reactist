@@ -13,6 +13,7 @@ type TextProps = {
     size?: 'xsmall' | 'small' | 'standard' | 'large' | 'xlarge'
     weight?: 'regular' | 'medium' | 'strong'
     tone?: Tone
+    lineClamp?: number
 }
 
 function Text({
@@ -21,6 +22,7 @@ function Text({
     weight = 'regular',
     tone = 'normal',
     children,
+    lineClamp = 0,
     ...rest
 }: TextProps) {
     return (
@@ -32,6 +34,8 @@ function Text({
                 size !== 'standard' ? getClassNames(styles, 'size', size) : null,
                 weight !== 'regular' ? getClassNames(styles, 'weight', weight) : null,
                 tone !== 'normal' ? getClassNames(styles, 'tone', tone) : null,
+                lineClamp > 1 ? styles.lineClamp : null,
+                lineClamp ? getClassNames(styles, 'line-clamp', lineClamp.toString()) : null,
             ]}
         >
             {children}

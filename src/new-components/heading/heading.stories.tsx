@@ -1,13 +1,16 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, select } from '@storybook/addon-knobs'
+import { withKnobs, select, text } from '@storybook/addon-knobs'
 
 import { Stack } from '../stack'
 import { Heading } from './heading'
 
 const HeadingChapter = {
     subtitle: 'Heading',
-    sections: [{ sectionFn: HeadingStory, options: { showPropTables: false } }],
+    sections: [
+        { sectionFn: HeadingStory, options: { showPropTables: false } },
+        { sectionFn: TruncatedHeadingStory, options: { showPropTables: false } },
+    ],
 }
 
 function HeadingStory() {
@@ -67,6 +70,23 @@ function HeadingStory() {
     )
 }
 
+function TruncatedHeadingStory() {
+    return (
+        <section className="story">
+            <Heading level={1} size="largest" lineClamp={1}>
+                This is a long title which we will use demonstrate truncating content. When this
+                overflows and begins to drop to a new line, its overflowing content will be replaced
+                by ellipses.
+            </Heading>
+            <Heading level={2} size="smaller" lineClamp={2}>
+                Now we have a subtitle which we will use to truncate to multiple lines. It&rsquo;s
+                much longer so we will allow a second line to be displayed before truncating it at
+                two lines.
+            </Heading>
+        </section>
+    )
+}
+
 function HeadingPlaygroundStory() {
     const level = select('level', ['1', '2', '3', '4', '5', '6'], '1')
     const size = select(
@@ -80,11 +100,17 @@ function HeadingPlaygroundStory() {
         undefined,
     )
     const weight = select('weight', ['regular', 'light'], 'regular')
+    const lineClamp = select(
+        'lineClamp',
+        { none: undefined, 0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 },
+        1,
+    )
+    const children = text('children', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit')
 
     return (
         <section className="story playground">
-            <Heading level={level} size={size} weight={weight}>
-                Heading
+            <Heading level={level} size={size} weight={weight} lineClamp={lineClamp}>
+                {children}
             </Heading>
         </section>
     )

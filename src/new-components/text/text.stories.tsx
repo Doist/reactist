@@ -7,7 +7,10 @@ import { Text } from './text'
 
 const TextChapter = {
     subtitle: 'Text',
-    sections: [{ sectionFn: TextStory, options: { showPropTables: false } }],
+    sections: [
+        { sectionFn: TextStory, options: { showPropTables: false } },
+        { sectionFn: TruncatedTextStory, options: { showPropTables: false } },
+    ],
 }
 
 function TextStory() {
@@ -92,6 +95,40 @@ function TextStory() {
                 </Text>
                 <Text size="xsmall" weight="regular">
                     Text, ssmall, regular
+                </Text>
+            </Stack>
+        </section>
+    )
+}
+
+function TruncatedTextStory() {
+    return (
+        <section className="story">
+            <Stack space="medium">
+                <Text lineClamp={1}>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident cumque
+                    recusandae quibusdam, veniam cum illo? Inventore, doloremque necessitatibus!
+                    Sequi porro alias mollitia, temporibus quidem, aut modi tempora placeat laborum
+                    eos sapiente necessitatibus autem ipsum officia rerum distinctio consectetur
+                    tenetur qui! Perspiciatis ab corporis, itaque alias ex optio voluptatum nulla
+                    consequatur aut explicabo dolorem rerum ratione magnam. Mollitia dignissimos et
+                    ad commodi quasi molestias fugiat repellendus, magni distinctio voluptate neque
+                    quos esse asperiores iure excepturi eligendi eaque veniam voluptas blanditiis
+                    temporibus, omnis laborum quidem autem totam. Iure, numquam. Totam facilis
+                    dolorum, consequatur, eligendi est dolores modi dolore maiores ipsum magnam a.
+                </Text>
+
+                <Text lineClamp={4}>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident cumque
+                    recusandae quibusdam, veniam cum illo? Inventore, doloremque necessitatibus!
+                    Sequi porro alias mollitia, temporibus quidem, aut modi tempora placeat laborum
+                    eos sapiente necessitatibus autem ipsum officia rerum distinctio consectetur
+                    tenetur qui! Perspiciatis ab corporis, itaque alias ex optio voluptatum nulla
+                    consequatur aut explicabo dolorem rerum ratione magnam. Mollitia dignissimos et
+                    ad commodi quasi molestias fugiat repellendus, magni distinctio voluptate neque
+                    quos esse asperiores iure excepturi eligendi eaque veniam voluptas blanditiis
+                    temporibus, omnis laborum quidem autem totam. Iure, numquam. Totam facilis
+                    dolorum, consequatur, eligendi est dolores modi dolore maiores ipsum magnam a.
                 </Text>
             </Stack>
         </section>
