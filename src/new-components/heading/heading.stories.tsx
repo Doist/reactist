@@ -3,7 +3,6 @@ import { storiesOf } from '@storybook/react'
 import { withKnobs, select } from '@storybook/addon-knobs'
 
 import { Stack } from '../stack'
-import { Box } from '../box'
 import { Heading } from './heading'
 
 const HeadingChapter = {
@@ -15,62 +14,54 @@ function HeadingStory() {
     return (
         <section className="story">
             <Stack dividers space="medium">
-                <Box>
-                    <Heading level={1} size="largest" paddingBottom="xlarge">
+                <Stack space="small">
+                    <Heading level={1} size="largest">
                         Heading level 1, largest
                     </Heading>
-                    <Heading level={1} size="larger" paddingBottom="large">
+                    <Heading level={1} size="larger">
                         Heading level 1, larger
                     </Heading>
-                    <Heading level={1} paddingBottom="medium">
-                        Heading level 1
-                    </Heading>
-                    <Heading level={1} size="smaller" paddingBottom="small">
+                    <Heading level={1}>Heading level 1</Heading>
+                    <Heading level={1} size="smaller">
                         Heading level 1, smaller
                     </Heading>
-                </Box>
+                </Stack>
 
-                <Box>
-                    <Heading level={2} size="largest" paddingBottom="large">
+                <Stack space="small">
+                    <Heading level={2} size="largest">
                         Heading level 2, largest
                     </Heading>
-                    <Heading level={2} size="larger" paddingBottom="medium">
+                    <Heading level={2} size="larger">
                         Heading level 2, larger
                     </Heading>
-                    <Heading level={2} paddingBottom="small">
-                        Heading level 2
-                    </Heading>
-                    <Heading level={2} size="smaller" paddingBottom="xsmall">
+                    <Heading level={2}>Heading level 2</Heading>
+                    <Heading level={2} size="smaller">
                         Heading level 2, smaller
                     </Heading>
-                </Box>
+                </Stack>
 
-                <Box>
-                    <Heading level={3} size="largest" paddingBottom="large">
+                <Stack space="small">
+                    <Heading level={3} size="largest">
                         Heading level 3, largest
                     </Heading>
-                    <Heading level={3} size="larger" paddingBottom="medium">
+                    <Heading level={3} size="larger">
                         Heading level 3, larger
                     </Heading>
-                    <Heading level={3} paddingBottom="small">
-                        Heading level 3
-                    </Heading>
-                    <Heading level={3} size="smaller" paddingBottom="xsmall">
+                    <Heading level={3}>Heading level 3</Heading>
+                    <Heading level={3} size="smaller">
                         Heading level 3, smaller
                     </Heading>
-                </Box>
+                </Stack>
 
-                <Box>
-                    <Heading level={4} size="largest" paddingBottom="large">
+                <Stack space="small">
+                    <Heading level={4} size="largest">
                         Heading level 4 / 5 / 6, largest
                     </Heading>
-                    <Heading level={4} size="larger" paddingBottom="medium">
+                    <Heading level={4} size="larger">
                         Heading level 4 / 5 / 6, larger
                     </Heading>
-                    <Heading level={4} paddingBottom="small">
-                        Heading level 4 / 5 / 6
-                    </Heading>
-                </Box>
+                    <Heading level={4}>Heading level 4 / 5 / 6</Heading>
+                </Stack>
             </Stack>
         </section>
     )

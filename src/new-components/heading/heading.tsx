@@ -7,29 +7,17 @@ import styles from './heading.module.css'
 type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6 | '1' | '2' | '3' | '4' | '5' | '6'
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
-type SupportedBoxProps = Pick<
-    React.ComponentProps<typeof Box>,
-    | 'padding'
-    | 'paddingX'
-    | 'paddingY'
-    | 'paddingTop'
-    | 'paddingRight'
-    | 'paddingBottom'
-    | 'paddingLeft'
->
-
 type SupportedHeadingElementProps = Omit<
     JSX.IntrinsicElements[HeadingElement],
     'className' | 'children'
 >
 
-type HeadingProps = SupportedBoxProps &
-    SupportedHeadingElementProps & {
-        level: HeadingLevel
-        weight?: 'regular' | 'light'
-        size?: 'smaller' | 'larger' | 'largest'
-        children: React.ReactNode
-    }
+type HeadingProps = SupportedHeadingElementProps & {
+    level: HeadingLevel
+    weight?: 'regular' | 'light'
+    size?: 'smaller' | 'larger' | 'largest'
+    children: React.ReactNode
+}
 
 function Heading({ level, weight = 'regular', size, children, ...props }: HeadingProps) {
     // In TypeScript v4.1, this would be properly recognized without needing the type assertion

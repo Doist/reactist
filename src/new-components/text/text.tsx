@@ -7,18 +7,7 @@ import type { Tone } from '../common-types'
 
 import styles from './text.module.css'
 
-type SupportedBoxProps = Pick<
-    React.ComponentProps<typeof Box>,
-    | 'padding'
-    | 'paddingX'
-    | 'paddingY'
-    | 'paddingTop'
-    | 'paddingRight'
-    | 'paddingBottom'
-    | 'paddingLeft'
->
-
-type TextProps = SupportedBoxProps & {
+type TextProps = {
     component?: ComponentTypes
     children: React.ReactNode
     size?: 'xsmall' | 'small' | 'standard' | 'large' | 'xlarge'
