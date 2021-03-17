@@ -12,11 +12,19 @@ type Props = {
     bgColor?: string
     /** Circle diameter in pixels. */
     size?: string | number
+
+    'aria-label'?: string
 }
 
-function Loading({ className, spinnerColor = '#3F82EF', bgColor = '#D9E6FB', size = 24 }: Props) {
+function Loading({
+    className,
+    spinnerColor = '#3F82EF',
+    bgColor = '#D9E6FB',
+    size = 24,
+    'aria-label': ariaLabel,
+}: Props) {
     return (
-        <div className={classNames('reactist_loading', className)}>
+        <div className={classNames('reactist_loading', className)} aria-Label={ariaLabel}>
             <span className="reactist_loading--spinner">
                 <svg width={size} height={size} viewBox={'0 0 24 24'}>
                     <g fill="none" fillRule="nonzero">
