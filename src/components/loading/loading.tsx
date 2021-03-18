@@ -21,7 +21,7 @@ function Loading({
     spinnerColor = '#3F82EF',
     bgColor = '#D9E6FB',
     size = 24,
-    'aria-label': ariaLabel,
+    'aria-label': ariaLabel = 'Loading',
 }: Props) {
     return (
         <div className={classNames('reactist_loading', className)} aria-Label={ariaLabel}>
