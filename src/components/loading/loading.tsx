@@ -24,7 +24,12 @@ function Loading({
     'aria-label': ariaLabel = 'Loading',
 }: Props) {
     return (
-        <div className={classNames('reactist_loading', className)} aria-Label={ariaLabel}>
+        <div
+            className={classNames('reactist_loading', className)}
+            aria-label={ariaLabel}
+            aria-live="assertive"
+            role="alert"
+        >
             <span className="reactist_loading--spinner">
                 <svg width={size} height={size} viewBox={'0 0 24 24'}>
                     <g fill="none" fillRule="nonzero">
