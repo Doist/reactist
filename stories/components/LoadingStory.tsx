@@ -17,7 +17,7 @@ const LoadingPropTypesChapter = {
 
 const LoadingStory = () => (
     <section className="story loading">
-        <Loading />
+        <Loading aria-label="Loading…" />
     </section>
 )
 const LoadingChapter = {
@@ -28,6 +28,7 @@ const LoadingChapter = {
 const LoadingPlaygroundStory = () => (
     <section className="story">
         <Loading
+            aria-label={text('aria-label:', 'Loading…')}
             size={number('size:', 24)}
             spinnerColor={text('Spinner Color:', '#3F82EF')}
             bgColor={text('Background Color:', '#D9E6FB')}
