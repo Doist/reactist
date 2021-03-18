@@ -16,6 +16,7 @@ module.exports = {
             },
             {
                 test: /\.less$/,
+                sideEffects: true,
                 use: [
                     'style-loader',
                     { loader: 'css-loader', options: { modules: { auto: true }, esModule: false } },

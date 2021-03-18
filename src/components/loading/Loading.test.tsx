@@ -1,17 +1,31 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { render, screen } from '@testing-library/react'
 
 import { Loading } from './loading'
 
 describe('Loading', () => {
     it('renders a loading indicator', () => {
-        const loading = shallow(<Loading />)
-        expect(loading).toMatchSnapshot()
+        render(<Loading />)
+        expect(screen.getByRole('alert', { name: 'Loading' })).toBeVisible()
+    })
+
+    it('adds accessibility attributes', () => {
+        render(<Loading />)
+
+        const loading = screen.getByRole('alert', { name: 'Loading' })
+        expect(loading).toHaveAttribute('aria-live', 'assertive')
+    })
+
+    it('allows for custom aria labels', () => {
+        render(<Loading aria-label="Your content is now loading" />)
+
+        expect(screen.getByRole('alert', { name: 'Your content is now loading' })).toBeVisible()
     })
 
     it('adds additionally supplied className', () => {
-        const loading = shallow(<Loading className="additional className" />)
-        expect(loading.hasClass('additional')).toBe(true)
-        expect(loading.hasClass('className')).toBe(true)
+        render(<Loading className="additional className" />)
+
+        const loading = screen.getByRole('alert', { name: 'Loading' })
+        expect(loading).toHaveClass('additional', 'className')
     })
 })

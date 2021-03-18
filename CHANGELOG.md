@@ -15,7 +15,12 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 -   [Feature] A set of base design system components have been added: `Box`, `Columns`, `Divider`, `Heading`, `Inline`, `Stack`, and `Text`. Since we're still experimenting with their API, they will be packaged under beta releases until they become more concrete.
 
-## v9.0.0
+## 9.1.0
+
+-   [Feature] Adds support for `aria-label` to the `Loading` component
+-   [Docs] This also fixes our gh-pages-hosted Storybook to load the proper stylesheets again
+
+## 9.0.0
 
 -   [Build] The project now requires node v14.5.5+ and npm v6.14.11+ to install and run.
 -   We're skipping right over v8.0.0 as its tag has already been created previously
