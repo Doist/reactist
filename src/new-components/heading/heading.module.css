@@ -1,6 +1,4 @@
 .heading {
-    margin: 0;
-    padding: 0;
     color: var(--reactist-content-primary);
     font-weight: var(--reactist-font-weight-strong);
 }
@@ -14,6 +12,9 @@
 h1.heading {
     font-size: var(--reactist-font-size-header);
 }
+h1.size-largest {
+    font-size: var(--reactist-font-size-header-xlarge);
+}
 h1.size-larger {
     font-size: var(--reactist-font-size-header-large);
 }
@@ -22,10 +23,13 @@ h1.size-smaller {
 }
 
 h2.heading {
-    font-size: var(--reactist-font-size-large);
+    font-size: var(--reactist-font-size-header);
+}
+h2.size-largest {
+    font-size: var(--reactist-font-size-header-xlarge);
 }
 h2.size-larger {
-    font-size: var(--reactist-font-size-header);
+    font-size: var(--reactist-font-size-header-large);
 }
 h2.size-smaller {
     font-size: var(--reactist-font-size-normal);
@@ -33,6 +37,9 @@ h2.size-smaller {
 
 h3.heading {
     font-size: var(--reactist-font-size-normal);
+}
+h3.size-largest {
+    font-size: var(--reactist-font-size-header);
 }
 h3.size-larger {
     font-size: var(--reactist-font-size-large);
@@ -46,9 +53,15 @@ h5.heading,
 h6.heading {
     /*
      * unlike at higher levels, this one is kept as the same size as h3's
-     * you can make it one level larger visually, but making it smaller has no effect
+     * you can make it two levels larger visually, but making it smaller has no effect
      */
     font-size: var(--reactist-font-size-normal);
+}
+
+h4.size-largest,
+h5.size-largest,
+h6.size-largest {
+    font-size: var(--reactist-font-size-header);
 }
 
 h4.size-larger,
@@ -58,3 +71,30 @@ h6.size-larger {
 }
 
 /* h4/h5/h6 can't be made smaller, maybe we reconsider this? */
+
+/* truncated text */
+
+.line-clamp-1 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.lineClamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-2 {
+    -webkit-line-clamp: 2;
+}
+.line-clamp-3 {
+    -webkit-line-clamp: 3;
+}
+.line-clamp-4 {
+    -webkit-line-clamp: 4;
+}
+.line-clamp-5 {
+    -webkit-line-clamp: 5;
+}

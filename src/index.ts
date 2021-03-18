@@ -1,7 +1,7 @@
 import './new-components/default-styles.less'
 
 export { Box } from './new-components/box'
-export { Columns } from './new-components/columns'
+export { Columns, Column } from './new-components/columns'
 export { default as Avatar } from './components/avatar'
 export { default as Button } from './components/button'
 export { default as Checkbox } from './components/checkbox'
