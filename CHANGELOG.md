@@ -5,6 +5,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 ## 9.1.0
 
 -   [Feature] Adds support for `aria-label` to the `Loading` component
+-   [Docs] This also fixes our gh-pages-hosted Storybook to load the proper stylesheets again
 
 ## 9.0.0
 
