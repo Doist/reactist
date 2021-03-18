@@ -78,10 +78,11 @@ function TruncatedHeadingStory() {
                 overflows and begins to drop to a new line, its overflowing content will be replaced
                 by ellipses.
             </Heading>
-            <Heading level={2} size="smaller" lineClamp={2}>
-                Now we have a subtitle which we will use to truncate to multiple lines. It&rsquo;s
-                much longer so we will allow a second line to be displayed before truncating it at
-                two lines.
+            <Heading level={2} lineClamp={2}>
+                Now we have a subtitle which we will use to demostrate truncating to multiple lines.
+                Sometimes we need to provide more context yet still remain skimmable to users, and
+                subtitles are a good way to do this. As it&rsquo;s much longer now we can allow a
+                second line to be displayed before truncating it at two lines.
             </Heading>
         </section>
     )
@@ -100,11 +101,7 @@ function HeadingPlaygroundStory() {
         undefined,
     )
     const weight = select('weight', ['regular', 'light'], 'regular')
-    const lineClamp = select(
-        'lineClamp',
-        { none: undefined, 0: 0, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 },
-        1,
-    )
+    const lineClamp = select('lineClamp', { none: undefined, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 }, 1)
     const children = text('children', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit')
 
     return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { withKnobs, select } from '@storybook/addon-knobs'
+import { withKnobs, select, text } from '@storybook/addon-knobs'
 
 import { Stack } from '../stack'
 import { Text } from './text'
@@ -139,11 +139,13 @@ function TextPlaygroundStory() {
     const size = select('size', ['xsmall', 'small', 'standard', 'large', 'xlarge'], 'standard')
     const weight = select('weight', ['regular', 'medium', 'strong'], 'regular')
     const tone = select('tone', ['normal', 'secondary', 'danger'], 'normal')
+    const lineClamp = select('lineClamp', { none: undefined, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 }, 1)
+    const children = text('children', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit')
 
     return (
         <section className="story playground">
-            <Text tone={tone} size={size} weight={weight}>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit
+            <Text tone={tone} size={size} weight={weight} lineClamp={lineClamp}>
+                {children}
             </Text>
         </section>
     )

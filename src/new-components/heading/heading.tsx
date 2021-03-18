@@ -17,31 +17,24 @@ type HeadingProps = SupportedHeadingElementProps & {
     weight?: 'regular' | 'light'
     size?: 'smaller' | 'larger' | 'largest'
     children: React.ReactNode
-    lineClamp?: number
+    lineClamp?: 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
 }
 
-function Heading({
-    level,
-    weight = 'regular',
-    size,
-    children,
-    lineClamp = 0,
-    ...props
-}: HeadingProps) {
+function Heading({ level, weight = 'regular', size, children, lineClamp, ...props }: HeadingProps) {
     // In TypeScript v4.1, this would be properly recognized without needing the type assertion
     // https://devblogs.microsoft.com/typescript/announcing-typescript-4-1-beta/#template-literal-types
     const headingElementName = `h${level}` as HeadingElement
-    const dataLineClampAttribute = lineClamp ? { 'data-line-clamp': lineClamp } : null
+    const lineClampMultipleLines =
+        typeof lineClamp === 'string' ? parseInt(lineClamp, 10) > 1 : (lineClamp || 0) > 1
 
     return (
         <Box
             {...props}
-            {...dataLineClampAttribute}
             className={[
                 styles.heading,
                 weight !== 'regular' ? getClassNames(styles, 'weight', weight) : null,
                 getClassNames(styles, 'size', size),
-                lineClamp > 1 ? styles.lineClamp : null,
+                lineClampMultipleLines ? styles.lineClamp : null,
                 lineClamp ? getClassNames(styles, 'line-clamp', lineClamp.toString()) : null,
             ]}
             component={headingElementName}

@@ -13,7 +13,7 @@ type TextProps = {
     size?: 'xsmall' | 'small' | 'standard' | 'large' | 'xlarge'
     weight?: 'regular' | 'medium' | 'strong'
     tone?: Tone
-    lineClamp?: number
+    lineClamp?: 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
 }
 
 function Text({
@@ -22,9 +22,12 @@ function Text({
     weight = 'regular',
     tone = 'normal',
     children,
-    lineClamp = 0,
+    lineClamp,
     ...rest
 }: TextProps) {
+    const lineClampMultipleLines =
+        typeof lineClamp === 'string' ? parseInt(lineClamp, 10) > 1 : (lineClamp || 0) > 1
+
     return (
         <Box
             {...rest}
@@ -34,7 +37,7 @@ function Text({
                 size !== 'standard' ? getClassNames(styles, 'size', size) : null,
                 weight !== 'regular' ? getClassNames(styles, 'weight', weight) : null,
                 tone !== 'normal' ? getClassNames(styles, 'tone', tone) : null,
-                lineClamp > 1 ? styles.lineClamp : null,
+                lineClampMultipleLines ? styles.lineClamp : null,
                 lineClamp ? getClassNames(styles, 'line-clamp', lineClamp.toString()) : null,
             ]}
         >
