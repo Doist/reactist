@@ -239,6 +239,9 @@
 .paddingTop-xlarge {
     padding-top: var(--reactist-spacing-xlarge);
 }
+.paddingTop-xxlarge {
+    padding-top: var(--reactist-spacing-xxlarge);
+}
 @media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-paddingTop-xsmall {
         padding-top: var(--reactist-spacing-xsmall);
@@ -254,6 +257,9 @@
     }
     .tablet-paddingTop-xlarge {
         padding-top: var(--reactist-spacing-xlarge);
+    }
+    .tablet-paddingTop-xxlarge {
+        padding-top: var(--reactist-spacing-xxlarge);
     }
 }
 @media (min-width: 992px /* --reactist-breakpoint-desktop */) {
@@ -271,6 +277,9 @@
     }
     .desktop-paddingTop-xlarge {
         padding-top: var(--reactist-spacing-xlarge);
+    }
+    .desktop-paddingTop-xxlarge {
+        padding-top: var(--reactist-spacing-xxlarge);
     }
 }
 
@@ -290,6 +299,9 @@
 .paddingRight-xlarge {
     padding-right: var(--reactist-spacing-xlarge);
 }
+.paddingRight-xxlarge {
+    padding-right: var(--reactist-spacing-xxlarge);
+}
 @media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-paddingRight-xsmall {
         padding-right: var(--reactist-spacing-xsmall);
@@ -305,6 +317,9 @@
     }
     .tablet-paddingRight-xlarge {
         padding-right: var(--reactist-spacing-xlarge);
+    }
+    .tablet-paddingRight-xxlarge {
+        padding-right: var(--reactist-spacing-xxlarge);
     }
 }
 @media (min-width: 992px /* --reactist-breakpoint-desktop */) {
@@ -322,6 +337,9 @@
     }
     .desktop-paddingRight-xlarge {
         padding-right: var(--reactist-spacing-xlarge);
+    }
+    .desktop-paddingRight-xxlarge {
+        padding-right: var(--reactist-spacing-xxlarge);
     }
 }
 
@@ -341,6 +359,9 @@
 .paddingBottom-xlarge {
     padding-bottom: var(--reactist-spacing-xlarge);
 }
+.paddingBottom-xxlarge {
+    padding-bottom: var(--reactist-spacing-xxlarge);
+}
 @media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-paddingBottom-xsmall {
         padding-bottom: var(--reactist-spacing-xsmall);
@@ -356,6 +377,9 @@
     }
     .tablet-paddingBottom-xlarge {
         padding-bottom: var(--reactist-spacing-xlarge);
+    }
+    .tablet-paddingBottom-xxlarge {
+        padding-bottom: var(--reactist-spacing-xxlarge);
     }
 }
 @media (min-width: 992px /* --reactist-breakpoint-desktop */) {
@@ -373,6 +397,9 @@
     }
     .desktop-paddingBottom-xlarge {
         padding-bottom: var(--reactist-spacing-xlarge);
+    }
+    .desktop-paddingBottom-xxlarge {
+        padding-bottom: var(--reactist-spacing-xxlarge);
     }
 }
 
@@ -392,6 +419,9 @@
 .paddingLeft-xlarge {
     padding-left: var(--reactist-spacing-xlarge);
 }
+.paddingLeft-xxlarge {
+    padding-left: var(--reactist-spacing-xxlarge);
+}
 @media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-paddingLeft-xsmall {
         padding-left: var(--reactist-spacing-xsmall);
@@ -407,6 +437,9 @@
     }
     .tablet-paddingLeft-xlarge {
         padding-left: var(--reactist-spacing-xlarge);
+    }
+    .tablet-paddingLeft-xxlarge {
+        padding-left: var(--reactist-spacing-xxlarge);
     }
 }
 @media (min-width: 992px /* --reactist-breakpoint-desktop */) {
@@ -424,6 +457,9 @@
     }
     .desktop-paddingLeft-xlarge {
         padding-left: var(--reactist-spacing-xlarge);
+    }
+    .desktop-paddingLeft-xxlarge {
+        padding-left: var(--reactist-spacing-xxlarge);
     }
 }
 
