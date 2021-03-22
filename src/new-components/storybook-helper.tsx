@@ -26,7 +26,7 @@ function selectWithNone<T extends string | number>(
 function selectSize(label: string, defaultValue: Space | 'none' = 'none') {
     return selectWithNone<Space>(
         label,
-        ['xsmall', 'small', 'medium', 'large', 'xlarge'],
+        ['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge'],
         defaultValue,
     )
 }

@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import type { HTMLAttributes } from 'react'
 
-export type Space = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
+export type Space = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'
 export type Tone = 'normal' | 'secondary' | 'danger'
 
 type ClassValue = Parameters<typeof classNames>[number]

@@ -34,6 +34,13 @@
     padding-top: var(--reactist-spacing-xlarge);
 }
 
+.space-xxlarge {
+    margin-top: calc(var(--reactist-spacing-xxlarge) * -1);
+}
+.space-xxlarge > * {
+    padding-top: var(--reactist-spacing-xxlarge);
+}
+
 /* Vertical spacing in tablet */
 @media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-space-xsmall {
@@ -69,6 +76,13 @@
     }
     .tablet-space-xlarge > * {
         padding-top: var(--reactist-spacing-xlarge);
+    }
+
+    .tablet-space-xxlarge {
+        margin-top: calc(var(--reactist-spacing-xxlarge) * -1);
+    }
+    .tablet-space-xxlarge > * {
+        padding-top: var(--reactist-spacing-xxlarge);
     }
 }
 
@@ -107,5 +121,12 @@
     }
     .desktop-space-xlarge > * {
         padding-top: var(--reactist-spacing-xlarge);
+    }
+
+    .desktop-space-xxlarge {
+        margin-top: calc(var(--reactist-spacing-xxlarge) * -1);
+    }
+    .desktop-space-xxlarge > * {
+        padding-top: var(--reactist-spacing-xxlarge);
     }
 }
