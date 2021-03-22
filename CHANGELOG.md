@@ -23,6 +23,10 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 -   [Feature] A set of base design system components have been added: `Box`, `Columns`, `Divider`, `Heading`, `Inline`, `Stack`, and `Text`. Since we're still experimenting with their API, they will be packaged under beta releases until they become more concrete.
 
+## 9.1.1
+
+-   [Fix] Prevent `Loading` component from spinning off-centre
+
 ## 9.1.0
 
 -   [Feature] Adds support for `aria-label` to the `Loading` component
