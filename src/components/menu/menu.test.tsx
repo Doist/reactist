@@ -143,3 +143,28 @@ it('allows to render a menu item as a link', () => {
     // no need to test that clicking a link triggers navigation, and also navigation is not
     // supported in jsdom, so we'd need to mock window.location or something
 })
+
+it('allows to intercept clicks and prevent the onSelect action to occur', () => {
+    const onSelect = jest.fn()
+    render(
+        <Menu>
+            <MenuButton>Options menu</MenuButton>
+            <MenuList aria-label="Some options">
+                <MenuItem
+                    onClick={(event: React.MouseEvent) => event.preventDefault()}
+                    onSelect={() => onSelect()}
+                >
+                    Click me
+                </MenuItem>
+            </MenuList>
+        </Menu>,
+    )
+
+    userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+    userEvent.click(screen.getByRole('menuitem', { name: 'Click me' }))
+    expect(onSelect).not.toHaveBeenCalled()
+
+    // Check that it closed the menu anyway
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument()
+    expect(screen.queryByRole('menuitem')).not.toBeInTheDocument()
+})
