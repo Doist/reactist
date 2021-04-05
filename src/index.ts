@@ -1,7 +1,35 @@
 import './new-components/default-styles.less'
 
-export { Box } from './new-components/box'
-export { Columns, Column } from './new-components/columns'
+// layout components
+export * from './new-components/box'
+export * from './new-components/columns'
+export * from './new-components/divider'
+export * from './new-components/inline'
+export * from './new-components/stack'
+
+// alerts, notifications, etc.
+export * from './new-components/alert'
+export * from './new-components/notice'
+
+// text and typography
+export * from './new-components/heading'
+export * from './new-components/text'
+
+// links
+export * from './new-components/button-link'
+export * from './new-components/text-link'
+
+// form fields
+export * from './new-components/password-field'
+export * from './new-components/select-field'
+export * from './new-components/switch-field'
+export * from './new-components/text-area'
+export * from './new-components/text-field'
+
+//
+// components not yet integrated with the design system
+//
+
 export { default as Avatar } from './components/avatar'
 export { default as Button } from './components/button'
 export { default as Checkbox } from './components/checkbox'
@@ -20,12 +48,7 @@ export { default as RangeInput } from './components/range-input'
 export { default as Select } from './components/select'
 export { default as Time } from './components/time'
 export { default as Tip } from './components/tip'
-export { Divider } from './new-components/divider'
-export { Heading } from './new-components/heading'
-export { Inline } from './new-components/inline'
 export { Notification } from './components/notification/notification'
-export { Stack } from './new-components/stack'
 export { Tabs, Tab } from './components/tabs'
-export { Text } from './new-components/text'
 export { Tooltip, TooltipProps } from './components/tooltip'
 export * from './components/menu'
