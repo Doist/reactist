@@ -12,3 +12,9 @@ export type WithEnhancedClassName<T = unknown> = T extends HTMLElement
     : T extends { className?: unknown }
     ? Omit<T, 'className'> & { className?: ClassValue }
     : T & { className?: ClassValue }
+
+export interface OpenInNewTab {
+    openInNewTab?: boolean
+    target?: never
+    rel?: never
+}

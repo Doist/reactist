@@ -1,0 +1,9 @@
+.container {
+    gap: var(--reactist-spacing-medium);
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.container:hover {
+    text-decoration: none;
+}

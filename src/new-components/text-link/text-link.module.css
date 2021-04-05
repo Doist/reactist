@@ -1,0 +1,21 @@
+.container {
+    font-size: inherit;
+    font-weight: inherit;
+    font-family: inherit;
+    text-decoration: none;
+}
+
+.container:hover {
+    text-decoration: underline;
+}
+
+.container svg {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    font-size: inherit;
+    color: inherit;
+    vertical-align: -0.125em;
+    fill: currentColor;
+    padding: 0 6px;
+}
