@@ -20,6 +20,7 @@ export * from './new-components/button-link'
 export * from './new-components/text-link'
 
 // form fields
+export * from './new-components/checkbox-field'
 export * from './new-components/password-field'
 export * from './new-components/select-field'
 export * from './new-components/switch-field'

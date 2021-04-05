@@ -1,0 +1,8 @@
+.container svg {
+    color: var(--reactist-content-secondary);
+    border-radius: 5px;
+}
+
+.container.checked svg {
+    color: var(--reactist-chromatic-fill-red);
+}
