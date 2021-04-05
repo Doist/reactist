@@ -22,7 +22,8 @@ const Stack = forwardRefWithAs<StackProps>(function Stack(
     ref,
 ) {
     const isList = component === 'ol' || component === 'ul'
-    const inlineItemComponent = isList ? 'li' : 'div'
+    const isFlowContent = component === 'span' || component === 'label'
+    const inlineItemComponent = isList ? 'li' : isFlowContent ? 'span' : 'div'
 
     return (
         <Box
