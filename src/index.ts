@@ -9,6 +9,7 @@ export * from './new-components/stack'
 
 // alerts, notifications, etc.
 export * from './new-components/alert'
+export * from './new-components/loading-spinner'
 export * from './new-components/notice'
 
 // text and typography

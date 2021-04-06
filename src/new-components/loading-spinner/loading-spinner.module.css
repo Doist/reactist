@@ -1,0 +1,32 @@
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    justify-content: center;
+    flex: 1 1 auto;
+}
+
+.container svg {
+    animation-name: spinner;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.spinner {
+    fill: var(--reactist-chromatic-content-red);
+}
+
+.spinnerBackground {
+    fill: var(--reactist-framework-fill-crest);
+}
