@@ -23,13 +23,13 @@ h1.size-smaller {
 }
 
 h2.heading {
-    font-size: var(--reactist-font-size-header);
+    font-size: var(--reactist-font-size-large);
 }
 h2.size-largest {
-    font-size: var(--reactist-font-size-header-xlarge);
+    font-size: var(--reactist-font-size-header-large);
 }
 h2.size-larger {
-    font-size: var(--reactist-font-size-header-large);
+    font-size: var(--reactist-font-size-header);
 }
 h2.size-smaller {
     font-size: var(--reactist-font-size-normal);
