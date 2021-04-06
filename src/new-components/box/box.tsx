@@ -37,7 +37,10 @@ interface ReusableBoxProps extends BorderProps, PaddingProps {
     background?: 'default' | 'aside' | 'highlight' | 'selected'
 }
 
+type BoxPosition = 'absolute' | 'fixed' | 'relative' | 'static' | 'sticky'
+
 interface BoxProps extends WithEnhancedClassName, ReusableBoxProps {
+    position?: ResponsiveProp<BoxPosition>
     display?: ResponsiveProp<BoxDisplay>
     flexDirection?: ResponsiveProp<BoxFlexDirection>
     flexWrap?: BoxFlexWrap
@@ -53,6 +56,7 @@ interface BoxProps extends WithEnhancedClassName, ReusableBoxProps {
 const Box = forwardRefWithAs<BoxProps>(function Box(
     {
         component = 'div',
+        position = 'static',
         display = 'block',
         flexDirection = 'row',
         flexWrap,
@@ -95,6 +99,7 @@ const Box = forwardRefWithAs<BoxProps>(function Box(
                     className,
                     styles.box,
                     getClassNames(styles, 'display', display),
+                    getClassNames(styles, 'position', position),
                     minWidth != null ? getClassNames(styles, 'minWidth', String(minWidth)) : null,
                     getClassNames(styles, 'maxWidth', maxWidth),
                     getClassNames(styles, 'paddingTop', resolvedPaddingTop),
@@ -133,6 +138,7 @@ export type {
     ReusableBoxProps,
     BoxMaxMinWidth,
     BoxDisplay,
+    BoxPosition,
     BoxFlexDirection,
     BoxFlexWrap,
     BoxAlignItems,
