@@ -103,6 +103,9 @@
 }
 
 /* min-width */
+.minWidth-0 {
+    min-width: 0px;
+}
 .minWidth-xsmall {
     min-width: 220px;
 }

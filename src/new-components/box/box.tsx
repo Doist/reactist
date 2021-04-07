@@ -99,7 +99,7 @@ const Box = forwardRefWithAs<BoxProps>(function Box(
                     className,
                     styles.box,
                     getClassNames(styles, 'display', display),
-                    getClassNames(styles, 'position', position),
+                    position !== 'static' ? getClassNames(styles, 'position', position) : null,
                     minWidth != null ? getClassNames(styles, 'minWidth', String(minWidth)) : null,
                     getClassNames(styles, 'maxWidth', maxWidth),
                     getClassNames(styles, 'paddingTop', resolvedPaddingTop),
