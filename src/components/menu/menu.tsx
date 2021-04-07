@@ -202,6 +202,19 @@ type MenuItemProps = {
      * achieve the same effect conditionally and dynamically deciding at run time.
      */
     onSelect?: () => unknown
+    /**
+     * The event handler called when the menu item is clicked.
+     *
+     * This is similar to `onSelect`, but a bit different. You can certainly use it to trigger the
+     * action that the menu item represents. But in general you should prefer `onSelect` for that.
+     *
+     * The main use for this handler is to get access to the click event. This can be used, for
+     * example, to call `event.preventDefault()`, which will effectively prevent the rest of the
+     * consequences of the click, including preventing `onSelect` from being called. In particular,
+     * this is useful in menu items that are links, and you want the click to not trigger navigation
+     * under some circumstances.
+     */
+    onClick?: (event: React.MouseEvent) => void
 }
 
 /**
@@ -209,20 +222,22 @@ type MenuItemProps = {
  * callback.
  */
 const MenuItem = forwardRefWithAs<'button', MenuItemProps>(function MenuItem(
-    { value, children, onSelect, hideOnSelect = true, ...props },
+    { value, children, onSelect, hideOnSelect = true, onClick, ...props },
     ref,
 ) {
     const { handleItemSelect, ...state } = React.useContext(MenuContext)
     const { hide } = state
 
     const handleClick = React.useCallback(
-        function handleClick() {
-            const onSelectResult: unknown = onSelect ? onSelect() : undefined
+        function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+            onClick?.(event)
+            const onSelectResult: unknown =
+                onSelect && !event.defaultPrevented ? onSelect() : undefined
             const shouldClose = onSelectResult !== false && hideOnSelect
             handleItemSelect(value)
             if (shouldClose) hide()
         },
-        [onSelect, handleItemSelect, hideOnSelect, hide, value],
+        [onSelect, onClick, handleItemSelect, hideOnSelect, hide, value],
     )
 
     return (

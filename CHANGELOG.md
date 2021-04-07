@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 9.1.2
+
+-   [Fix] Call a MenuItem component's onClick handler if provided; ignore the select action if event.defaultPrevented.
+
 ## v9.2.0-beta.1
 
 -   [Feature] Add `xxlarge` option to various `padding` and `space` props for `Box`, `Columns`, `Inline`, and `Stack` components
