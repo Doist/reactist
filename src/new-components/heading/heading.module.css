@@ -7,6 +7,15 @@
     font-weight: var(--reactist-font-weight-regular);
 }
 
+/* tone */
+
+.tone-secondary {
+    color: var(--reactist-content-secondary);
+}
+.tone-danger {
+    color: var(--reactist-chromatic-content-red);
+}
+
 /* font size */
 
 h1.heading {
