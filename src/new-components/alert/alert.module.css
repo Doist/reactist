@@ -1,0 +1,38 @@
+.container {
+    border-radius: var(--reactist-border-radius-small);
+    border-style: solid;
+    border-width: 1px;
+    color: var(--reactist-content-primary);
+}
+
+.tone-info {
+    background-color: var(--reactist-alert-tone-info-background);
+    border-color: var(--reactist-alert-tone-info-border);
+}
+.tone-info svg {
+    color: var(--reactist-alert-tone-info-icon);
+}
+
+.tone-positive {
+    background-color: var(--reactist-alert-tone-positive-background);
+    border-color: var(--reactist-alert-tone-positive-border);
+}
+.tone-positive svg {
+    color: var(--reactist-alert-tone-positive-icon);
+}
+
+.tone-caution {
+    background-color: var(--reactist-alert-tone-caution-background);
+    border-color: var(--reactist-alert-tone-caution-border);
+}
+.tone-caution svg {
+    color: var(--reactist-alert-tone-caution-icon);
+}
+
+.tone-critical {
+    background-color: var(--reactist-alert-tone-critical-background);
+    border-color: var(--reactist-alert-tone-critical-border);
+}
+.tone-critical svg {
+    color: var(--reactist-alert-tone-critical-icon);
+}

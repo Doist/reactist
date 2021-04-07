@@ -1,0 +1,18 @@
+.container label {
+    box-sizing: border-box;
+    display: block;
+    font-size: var(--reactist-font-size-normal);
+}
+
+.primaryLabel {
+    font-weight: var(--reactist-font-weight-strong);
+}
+
+.secondaryLabel {
+    color: var(--reactist-content-secondary);
+}
+
+.auxiliaryLabel {
+    padding-left: var(--reactist-spacing-small);
+    text-align: right;
+}

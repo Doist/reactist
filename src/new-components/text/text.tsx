@@ -2,7 +2,7 @@ import * as React from 'react'
 import { getClassNames } from '../responsive-props'
 import { Box } from '../box'
 
-import type { ComponentTypes } from '../type-helpers'
+import { ComponentTypes, forwardRefWithAs } from '../type-helpers'
 import type { Tone } from '../common-types'
 
 import styles from './text.module.css'
@@ -16,7 +16,7 @@ type TextProps = {
     lineClamp?: 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
 }
 
-function Text({
+const Text = forwardRefWithAs<TextProps>(function Text({
     component = 'span',
     size = 'standard',
     weight = 'regular',
@@ -24,7 +24,7 @@ function Text({
     children,
     lineClamp,
     ...rest
-}: TextProps) {
+}) {
     const lineClampMultipleLines =
         typeof lineClamp === 'string' ? parseInt(lineClamp, 10) > 1 : (lineClamp || 0) > 1
 
@@ -44,7 +44,7 @@ function Text({
             {children}
         </Box>
     )
-}
+})
 
 export type { TextProps }
 export { Text }

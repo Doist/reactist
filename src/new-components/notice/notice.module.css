@@ -1,0 +1,19 @@
+.container {
+    color: var(--reactist-content-primary);
+}
+
+.tone-info svg {
+    color: var(--reactist-alert-tone-info-icon);
+}
+
+.tone-positive svg {
+    color: var(--reactist-alert-tone-positive-icon);
+}
+
+.tone-caution svg {
+    color: var(--reactist-alert-tone-caution-icon);
+}
+
+.tone-critical svg {
+    color: var(--reactist-alert-tone-critical-icon);
+}

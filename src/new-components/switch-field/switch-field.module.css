@@ -1,0 +1,54 @@
+.container.disabled label {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.inputWrapper {
+    --tmp-switch-width: 32px;
+    --tmp-switch-height: 18px; /* should never be much more than half the width */
+    --tmp-inner-padding: 3px; /* should always be really small, probably never more than 4px */
+    --tmp-handle-size: calc(var(--tmp-switch-height) - 2 * var(--tmp-inner-padding));
+    --tmp-slide-length: calc(
+        var(--tmp-switch-width) - var(--tmp-handle-size) - var(--tmp-inner-padding)
+    );
+
+    position: relative;
+    display: inline-block;
+    overflow: visible;
+    margin-right: 10px;
+    width: var(--tmp-switch-width);
+    height: var(--tmp-switch-height);
+    min-height: auto;
+    border-radius: calc(var(--tmp-switch-height) / 2);
+    background-color: var(--reactist-framework-fill-summit);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* hide input only visually, keep it visible for screen readers and keyboard access */
+.inputWrapper input {
+    position: absolute;
+    opacity: 0;
+}
+
+.handle {
+    display: block;
+    position: absolute;
+    display: block;
+    padding: 0;
+    top: var(--tmp-inner-padding);
+    left: var(--tmp-inner-padding);
+    width: var(--tmp-handle-size);
+    height: var(--tmp-handle-size);
+    border-radius: 50%;
+    background: var(--reactist-bg-default);
+    transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.inputWrapper.checked {
+    background-color: var(--reactist-chromatic-content-green);
+}
+
+.inputWrapper.checked.handle {
+    left: var(--tmp-slide-length);
+}

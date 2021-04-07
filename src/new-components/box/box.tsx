@@ -26,16 +26,26 @@ type BoxAlignItems = 'center' | 'flexEnd' | 'flexStart'
 type BoxJustifyContent = 'center' | 'flexEnd' | 'flexStart' | 'spaceBetween'
 type BoxOverflow = 'hidden' | 'auto' | 'visible' | 'scroll'
 
-interface ReusableBoxProps extends PaddingProps {
-    minWidth?: BoxMaxMinWidth
-    maxWidth?: BoxMaxMinWidth
-    background?: 'default' | 'shade' | 'highlight' | 'selected'
+interface BorderProps {
+    borderRadius?: 'standard' | 'none' | 'full'
+    border?: 'standard' | 'none' // to be extended with more options
 }
 
+interface ReusableBoxProps extends BorderProps, PaddingProps {
+    minWidth?: 0 | BoxMaxMinWidth
+    maxWidth?: BoxMaxMinWidth
+    background?: 'default' | 'aside' | 'highlight' | 'selected'
+}
+
+type BoxPosition = 'absolute' | 'fixed' | 'relative' | 'static' | 'sticky'
+
 interface BoxProps extends WithEnhancedClassName, ReusableBoxProps {
+    position?: ResponsiveProp<BoxPosition>
     display?: ResponsiveProp<BoxDisplay>
     flexDirection?: ResponsiveProp<BoxFlexDirection>
     flexWrap?: BoxFlexWrap
+    flexGrow?: 0 | 1
+    flexShrink?: 0
     alignItems?: ResponsiveProp<BoxAlignItems>
     justifyContent?: ResponsiveProp<BoxJustifyContent>
     overflow?: BoxOverflow
@@ -46,15 +56,20 @@ interface BoxProps extends WithEnhancedClassName, ReusableBoxProps {
 const Box = forwardRefWithAs<BoxProps>(function Box(
     {
         component = 'div',
+        position = 'static',
         display = 'block',
         flexDirection = 'row',
         flexWrap,
+        flexGrow,
+        flexShrink,
         alignItems,
         justifyContent,
         overflow,
         width,
         height,
         background,
+        border,
+        borderRadius,
         minWidth,
         maxWidth,
         padding,
@@ -84,7 +99,8 @@ const Box = forwardRefWithAs<BoxProps>(function Box(
                     className,
                     styles.box,
                     getClassNames(styles, 'display', display),
-                    getClassNames(styles, 'minWidth', minWidth),
+                    position !== 'static' ? getClassNames(styles, 'position', position) : null,
+                    minWidth != null ? getClassNames(styles, 'minWidth', String(minWidth)) : null,
                     getClassNames(styles, 'maxWidth', maxWidth),
                     getClassNames(styles, 'paddingTop', resolvedPaddingTop),
                     getClassNames(styles, 'paddingRight', resolvedPaddingRight),
@@ -98,10 +114,18 @@ const Box = forwardRefWithAs<BoxProps>(function Box(
                     display === 'flex'
                         ? getClassNames(styles, 'justifyContent', justifyContent)
                         : null,
+                    flexShrink != null
+                        ? getClassNames(styles, 'flexShrink', String(flexShrink))
+                        : null,
+                    flexGrow != null ? getClassNames(styles, 'flexGrow', String(flexGrow)) : null,
                     getClassNames(styles, 'overflow', overflow),
                     getClassNames(styles, 'width', width),
                     getClassNames(styles, 'height', height),
                     getClassNames(styles, 'bg', background),
+                    borderRadius !== 'none'
+                        ? getClassNames(styles, 'borderRadius', borderRadius)
+                        : null,
+                    border !== 'none' ? getClassNames(styles, 'border', border) : null,
                 ) || undefined,
             ref,
         },
@@ -114,6 +138,7 @@ export type {
     ReusableBoxProps,
     BoxMaxMinWidth,
     BoxDisplay,
+    BoxPosition,
     BoxFlexDirection,
     BoxFlexWrap,
     BoxAlignItems,

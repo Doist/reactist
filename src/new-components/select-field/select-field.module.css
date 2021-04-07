@@ -1,0 +1,44 @@
+.selectWrapper {
+    width: 100%;
+    position: relative;
+}
+
+.selectWrapper svg {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    bottom: 8px;
+    color: var(--reactist-content-secondary);
+}
+
+.selectWrapper select {
+    /* position is set so that z-index is acknowledged */
+    position: relative;
+
+    /* z-index is set so that the select appears on top of the svg, and picks up all clicks */
+    /* since the select is transparent, visually there's no effect. */
+    z-index: 1;
+
+    --tmp-desired-height: 32px;
+    --tmp-line-height-increase: 4px;
+    --tmp-vertical-padding: calc(
+        (
+                var(--tmp-desired-height) - var(--reactist-font-size-normal) -
+                    var(--tmp-line-height-increase)
+            ) / 2
+    );
+    padding: var(--tpm-vertical-padding) 10px;
+
+    box-sizing: border-box;
+    width: 100%;
+    background: none;
+    border-radius: var(--reactist-border-radius-small);
+    border: 1px solid var(--reactist-framework-border);
+    font-size: var(--reactist-font-size-normal);
+    line-height: calc(var(--reactist-font-size-normal) + 4px);
+    margin: 0;
+}
+
+.selectWrapper select:focus {
+    border-color: var(--reactist-framework-border-focus);
+}

@@ -39,6 +39,9 @@ const Column = forwardRefWithAs<ColumnProps>(function Column(
                     ? getClassNames(styles, 'columnWidth', width.replace('/', '-'))
                     : null,
             ]}
+            minWidth={0}
+            width={width !== 'content' ? 'full' : undefined}
+            flexShrink={width === 'content' ? 0 : undefined}
             ref={ref}
             {...props}
         >

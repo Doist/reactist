@@ -23,8 +23,7 @@ class Box extends React.Component<React.PropsWithChildren<Props>> {
     public static displayName: string
     public static defaultProps: Props
 
-    constructor(props: Props, context: unknown) {
-        super(props, context)
+    componentDidMount() {
         window.addEventListener('keydown', this._handleKeyDown)
     }
 
