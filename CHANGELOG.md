@@ -2,6 +2,21 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v9.2.0-beta.2
+
+-   [Feature] New components `Alert`, `LoadingSpinner`, `Notice`, `Heading`, `Text`, `ButtonLink`, `TextLink`, `CheckboxField`, `PasswordField`, `SelectField`, `SwitchField`, `TextArea`, `TextField`.
+-   [Feature] New prop `tone` for component `Heading` (just like that for `Text`).
+-   [Feature] New prop `position` for component `Box`.
+-   [Feature] New props `flexShrink` and `flexGrow` for component `Box`.
+-   [Feature] New props `border` and `borderRadius` for component `Box`.
+-   [Feature] New `minWidth={0}` in component `Box`.
+-   [Feature] `Text` now supports receiving a `ref`.
+-   [Fix] Changed `Box` value for prop `background`. Former value `shade` is now called `aside`.
+-   [Fix] `Column` with `width="content"` did not shrink entirely to zero if empty.
+-   [Fix] Other fixes to columns so that it did not expand more than expected, so it allows truncated text to truncate.
+-   [Fix] Correct font sizes for the various levels of `Heading`.
+-   [Fix] `Stack` and `Inline` now generate `span` instead of `div` elements if the html element they use for the container does not allow to contain `div` elements.
+
 ## 9.1.2
 
 -   [Fix] Call a MenuItem component's onClick handler if provided; ignore the select action if event.defaultPrevented.
