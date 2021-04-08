@@ -16,15 +16,18 @@ type TextProps = {
     lineClamp?: 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
 }
 
-const Text = forwardRefWithAs<TextProps>(function Text({
-    component = 'span',
-    size = 'standard',
-    weight = 'regular',
-    tone = 'normal',
-    children,
-    lineClamp,
-    ...rest
-}) {
+const Text = forwardRefWithAs<TextProps>(function Text(
+    {
+        component = 'span',
+        size = 'standard',
+        weight = 'regular',
+        tone = 'normal',
+        children,
+        lineClamp,
+        ...rest
+    },
+    ref,
+) {
     const lineClampMultipleLines =
         typeof lineClamp === 'string' ? parseInt(lineClamp, 10) > 1 : (lineClamp || 0) > 1
 
@@ -40,6 +43,7 @@ const Text = forwardRefWithAs<TextProps>(function Text({
                 lineClampMultipleLines ? styles.lineClamp : null,
                 lineClamp ? getClassNames(styles, 'line-clamp', lineClamp.toString()) : null,
             ]}
+            ref={ref}
         >
             {children}
         </Box>
