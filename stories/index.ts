@@ -18,14 +18,12 @@ import { ColorPickerStory } from './components/ColorPickerStory'
 import { TipStory } from './components/TipStory'
 import { CheckboxStory } from './components/CheckboxStory'
 import { LoadingStory } from './components/LoadingStory'
-import { AvatarStory } from './components/AvatarStory'
 import { IconStory } from './components/IconStory'
 import { KeyCapturerStory } from './components/KeyCapturerStory'
 import { KeyboardShortcutStory } from './components/KeyboardShortcutStory'
 
 ReactistStory()
 // alphabetically sorted component stories
-AvatarStory()
 ButtonStory()
 CheckboxStory()
 ColorPickerStory()

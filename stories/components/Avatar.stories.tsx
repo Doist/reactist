@@ -1,12 +1,15 @@
 import './styles/avatar_story.less'
 
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { withKnobs, text, select } from '@storybook/addon-knobs'
 
-import { getPropTypesStory, optionsNoSourceNoProps, optionsSourceOnly } from '../utils/StoryUtils'
-
 import Avatar from '../../src/components/avatar'
+
+export default {
+    title: 'Avatar',
+    decorators: [withKnobs],
+    component: Avatar,
+}
 
 const exampleData = [
     {
@@ -52,25 +55,16 @@ const exampleData = [
 ]
 
 // Story Definitions ==========================================================
-const AvatarPropTypesStory = getPropTypesStory(Avatar)
-const AvatarPropTypesChapter = {
-    subtitle: 'Component Usage',
-    sections: [{ sectionFn: AvatarPropTypesStory, options: optionsNoSourceNoProps }],
-}
 
-const InitialsAvatarStory = () => (
+export const InitialsAvatarStory = () => (
     <section className="story avatars">
         {exampleData.map((data, index) => (
             <Avatar key={index} size={data.size} user={data.user} />
         ))}
     </section>
 )
-const InitialsAvatarChapter = {
-    subtitle: 'Avatars with Initials',
-    sections: [{ sectionFn: InitialsAvatarStory, options: optionsSourceOnly }],
-}
 
-const CustomColorAvatarStory = () => (
+export const CustomColorAvatarStory = () => (
     <section className="story avatars">
         {exampleData.map((data, index) => (
             <Avatar
@@ -82,24 +76,16 @@ const CustomColorAvatarStory = () => (
         ))}
     </section>
 )
-const CustomColorAvatarChapter = {
-    subtitle: 'Avatars with Initials and Custom Colors',
-    sections: [{ sectionFn: CustomColorAvatarStory, options: optionsSourceOnly }],
-}
 
-const PictureAvatarStory = () => (
+export const PictureAvatarStory = () => (
     <section className="story avatars">
         {exampleData.map((data, index) => (
             <Avatar key={index} size={data.size} user={data.user} avatarUrl={data.image} />
         ))}
     </section>
 )
-const PictureAvatarChapter = {
-    subtitle: 'Avatars with Pictures',
-    sections: [{ sectionFn: PictureAvatarStory, options: optionsSourceOnly }],
-}
 
-const AvatarPlaygroundStory = () => (
+export const AvatarPlaygroundStory = () => (
     <section className="story Avatar">
         <Avatar
             user={{
@@ -111,19 +97,3 @@ const AvatarPlaygroundStory = () => (
         />
     </section>
 )
-
-// Story setup ================================================================
-const AvatarStory = () =>
-    storiesOf('Avatar', module)
-        .addDecorator(withKnobs)
-        .addWithChapters('Component Overview', {
-            chapters: [
-                AvatarPropTypesChapter,
-                InitialsAvatarChapter,
-                CustomColorAvatarChapter,
-                PictureAvatarChapter,
-            ],
-        })
-        .add('Component Playground', AvatarPlaygroundStory)
-
-export { AvatarStory }
