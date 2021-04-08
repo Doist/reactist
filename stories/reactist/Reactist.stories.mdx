@@ -1,0 +1,95 @@
+import { Story, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Reactist" />
+
+## Welcome
+Open source React components made with ❤️ by Doist.
+
+## How to use
+You can add Reactist to your project by installing it from npm:  
+`npm install @doist/reactist`  
+If you prefer to include static files grab the [minified build from the dist folder](https://github.com/Doist/reactist/tree/develop/dist).
+
+A detailed explanation and examples on how to use each component can be accessed by clicking on the component name on the left.
+
+## Development
+
+First clone the repository to your local machine by running:  
+`git clone git@github.com:Doist/reactist.git`  
+We identified two major modes of development for Reactist. First, running an interactive storybook and see the changes you make to a component in an isolated environment. This is especially helpful when developing new components. And second, improving existing components in real-life applications.  
+
+#### Storybook
+For the first development mode run:  
+`npm run storybook`  
+This boots up a development server with hot reloading on http://localhost:6006. You can iterate on the components in the existing stories or add a completely new one.  
+
+#### Inside your application
+
+For the second development mode you can leverage  
+`npm link`  
+First run:  
+`npm run start`  
+this will update the build artifacts whenever you change something.
+In your real application you need to first delete the current *@doist/reactist* dependency and then link to your local one.
+```
+cd ~/your-app
+# delete current reactist dependency
+rm -rf ./node_modules/@doist/reactist  
+
+# link local reactist version
+npm link ../reactist
+```
+The relative path to reactist may need to be changed to match your local environment.  
+
+To undo the changes and switch back to the reactist version from npm do the following:
+```
+cd ~/your-app
+# first remove linked reactist dependency
+rm -rf ./node_modules/@doist/reactist
+
+# re-install reactist from npm (-E avoids updating the version / package-lock.json)  
+npm install -E @doist/reactist
+```
+
+### Development tips and tricks
+
+Independent of the development you operate in to produce a new build (e.g. before submitting a PR) run:  
+```
+npm run build
+```
+**Note:** This will **not** update the docs. In case you want to update the docs you need to run:
+```
+npm run build-storybook
+```
+
+You can run our eslint checks with  
+```
+npm run check
+```
+It is mandatory to fix all linting errors before you make a pull request.  
+
+**Tip:** You can fix most of the errors automatically by running:  
+```
+npm run check -- --fix
+```
+
+## Testing
+Tests are executed with jest or by running:  
+```
+npm run test
+```
+
+During development you may find it beneficial to continuously execute the tests. This works by running:
+```
+npm run test-watch
+```
+This also prints the current test coverage.
+
+MacOS users might need to upgrade watchman with
+```
+brew install watchman
+```
+when experiencing troubles with the watch mode. See this issue for details: https://github.com/facebook/jest/issues/1767
+<!-- The `test` component is a numerical indicator of associated items. For a simple colored circle without a number inside, pass in the "empty" prop. If empty, it will not display any text within the badge.
+## Component example
+<Story id="reactist--welcome" /> // see note below on what id to put here -->
