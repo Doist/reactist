@@ -5,7 +5,8 @@ import { storiesOf } from '@storybook/react'
 import { withKnobs, text, number, select } from '@storybook/addon-knobs'
 
 import { Tooltip, TooltipProps } from '../../src/components/tooltip'
-import Button, { ButtonProps } from '../../src/components/button'
+import Button from '../../src/components/button'
+import type { ButtonProps } from '../../src/components/button'
 
 const ExampleButton = React.forwardRef<HTMLButtonElement, ButtonProps>(function ExampleButton(
     props,

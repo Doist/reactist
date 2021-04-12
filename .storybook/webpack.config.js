@@ -24,7 +24,7 @@ module.exports = {
                 ],
             },
             { test: /\.css$/, loader: 'style-loader!css-loader' },
-            { test: /\.svg$/, loader: 'svg-url-loader' },
+            // { test: /\.svg$/, loader: 'svg-url-loader' },
             {
                 test: /\.(ts|tsx)$/,
                 use: [
@@ -42,6 +42,6 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.ts', '.tsx'],
+        extensions: ['.ts', '.tsx', '.svg'],
     },
 }

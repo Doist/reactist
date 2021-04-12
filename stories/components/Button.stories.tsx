@@ -1,22 +1,19 @@
 import './styles/button_story.less'
 
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean, select } from '@storybook/addon-knobs'
 
-import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
-
 import Button from '../../src/components/button'
-import { alternateBrandingText } from './ButtonStory.md'
 
-// Story Definitions ==========================================================
-const ButtonPropTypesStory = getPropTypesStory(Button)
-const ButtonPropTypesChapter = {
-    subtitle: 'Component Usage',
-    sections: [{ sectionFn: ButtonPropTypesStory, options: optionsNoSourceNoProps }],
+export default {
+    title: 'Button',
+    decorators: [withKnobs],
+    component: Button,
 }
 
-function StandardButtonsStory() {
+// Story Definitions ==========================================================
+
+export const StandardButtonsStory = () => {
     return (
         <section className="story">
             <Button variant="primary">Primary Button</Button>
@@ -32,12 +29,7 @@ function StandardButtonsStory() {
     )
 }
 
-const StandardButtonsChapter = {
-    subtitle: 'Standard Buttons',
-    sections: [{ sectionFn: StandardButtonsStory, options: optionsSourceOnly }],
-}
-
-function SmallButtonsStory() {
+export const SmallButtonsStory = () => {
     return (
         <section className="story">
             <Button size="small" variant="primary">
@@ -57,12 +49,7 @@ function SmallButtonsStory() {
     )
 }
 
-const SmallButtonsChapter = {
-    subtitle: 'Small Buttons',
-    sections: [{ sectionFn: SmallButtonsStory, options: optionsSourceOnly }],
-}
-
-function LargeButtonsStory() {
+export const LargeButtonsStory = () => {
     return (
         <section className="story">
             <Button size="large" variant="primary">
@@ -82,12 +69,7 @@ function LargeButtonsStory() {
     )
 }
 
-const LargeButtonsChapter = {
-    subtitle: 'Large Buttons',
-    sections: [{ sectionFn: LargeButtonsStory, options: optionsSourceOnly }],
-}
-
-function DisabledButtonsStory() {
+export const DisabledButtonsStory = () => {
     return (
         <section className="story">
             <Button disabled variant="primary">
@@ -107,12 +89,7 @@ function DisabledButtonsStory() {
     )
 }
 
-const DisabledButtonsChapter = {
-    subtitle: 'Disabled Buttons',
-    sections: [{ sectionFn: DisabledButtonsStory, options: optionsSourceOnly }],
-}
-
-function LoadingButtonsStory() {
+export const LoadingButtonsStory = () => {
     return (
         <section className="story">
             <Button loading variant="primary">
@@ -132,12 +109,7 @@ function LoadingButtonsStory() {
     )
 }
 
-const LoadingButtonsChapter = {
-    subtitle: 'Loading Buttons',
-    sections: [{ sectionFn: LoadingButtonsStory, options: optionsSourceOnly }],
-}
-
-function AlternateBrandingButtonsStory() {
+export const AlternateBrandingButtonsStory = () => {
     return (
         <section className="story alternate_branding">
             <Button variant="primary">Primary Button</Button>
@@ -146,18 +118,7 @@ function AlternateBrandingButtonsStory() {
     )
 }
 
-const AlternaterBrandingButtonsChapter = {
-    subtitle: 'Alternate Branding',
-    info: alternateBrandingText,
-    sections: [
-        {
-            sectionFn: AlternateBrandingButtonsStory,
-            options: optionsSourceOnly,
-        },
-    ],
-}
-
-function ButtonPlaygroundStory() {
+export const ButtonPlaygroundStory = () => {
     const variant = select(
         'Variant',
         ['(none)', 'primary', 'secondary', 'danger', 'link'],
@@ -177,23 +138,3 @@ function ButtonPlaygroundStory() {
         </section>
     )
 }
-
-// Story setup ================================================================
-function ButtonStory() {
-    storiesOf('Button', module)
-        .addDecorator(withKnobs)
-        .addWithChapters('Component Overview', {
-            chapters: [
-                ButtonPropTypesChapter,
-                StandardButtonsChapter,
-                SmallButtonsChapter,
-                LargeButtonsChapter,
-                DisabledButtonsChapter,
-                LoadingButtonsChapter,
-                AlternaterBrandingButtonsChapter,
-            ],
-        })
-        .add('Component Playground', ButtonPlaygroundStory)
-}
-
-export { ButtonStory }

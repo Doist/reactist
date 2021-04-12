@@ -1,7 +1,5 @@
 import './components/styles/story.less'
 
-import { ReactistStory } from './reactist/ReactistStory'
-import { ButtonStory } from './components/ButtonStory'
 import { ModalStory } from './components/ModalStory'
 import { TimeStory } from './components/TimeStory'
 import { DropdownStory } from './components/DropdownStory'
@@ -22,9 +20,7 @@ import { IconStory } from './components/IconStory'
 import { KeyCapturerStory } from './components/KeyCapturerStory'
 import { KeyboardShortcutStory } from './components/KeyboardShortcutStory'
 
-ReactistStory()
 // alphabetically sorted component stories
-ButtonStory()
 CheckboxStory()
 ColorPickerStory()
 DropdownStory()
