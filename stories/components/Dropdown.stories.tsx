@@ -1,13 +1,15 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
-
-import { optionsSourceOnly } from '../utils/StoryUtils'
 
 import Dropdown from '../../src/components/dropdown'
 import Button from '../../src/components/button'
 
+export default {
+    title: 'Dropdown',
+    component: Dropdown,
+}
+
 // Story Definitions ==========================================================
-const DropdownStory = () => (
+export const DropdownStory = () => (
     <section className="story">
         <Dropdown.Box>
             <Dropdown.Trigger>
@@ -26,12 +28,8 @@ const DropdownStory = () => (
         </Dropdown.Box>
     </section>
 )
-const DropdownChapter = {
-    subtitle: 'Normal Dropdown',
-    sections: [{ sectionFn: DropdownStory, options: optionsSourceOnly }],
-}
 
-const InteractiveDropdownStory = () => (
+export const InteractiveDropdownStory = () => (
     <section className="story">
         <Dropdown.Box allowBodyInteractions>
             <Dropdown.Trigger>
@@ -51,15 +49,3 @@ const InteractiveDropdownStory = () => (
         </Dropdown.Box>
     </section>
 )
-const InteractiveDropdownChapter = {
-    subtitle: 'Interactive Dropdown',
-    sections: [{ sectionFn: InteractiveDropdownStory, options: optionsSourceOnly }],
-}
-
-// Story setup ================================================================
-const Story = () =>
-    storiesOf('Dropdown', module).addWithChapters('Component Overview', {
-        chapters: [DropdownChapter, InteractiveDropdownChapter],
-    })
-
-export { Story as DropdownStory }
