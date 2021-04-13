@@ -1,10 +1,7 @@
 import './styles/menu_story.less'
 
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-
-import { optionsSourceOnly } from '../utils/StoryUtils'
 
 import { Menu, MenuButton, MenuList, MenuItem, MenuGroup, SubMenu } from '../../src/components/menu'
 import KeyboardShortcut from '../../src/components/keyboard-shortcut'
@@ -18,14 +15,21 @@ function MenuIndicator() {
     )
 }
 
+// Story setup ================================================================
+
+export default {
+    title: 'Menu',
+    component: Menu,
+}
 //
 // Simple menus
 //
 
-function SimpleMenuExample() {
+export const SimpleMenuExample = () => {
     const [flag, setFlag] = React.useState(false)
     return (
         <section className="story">
+            <p>Some menu examples</p>
             <Menu>
                 <MenuButton as={Button} variant="primary">
                     Simple menu <MenuIndicator />
@@ -107,17 +111,11 @@ function SimpleMenuExample() {
     )
 }
 
-const SimpleMenuChapter = {
-    subtitle: 'Some menu examples',
-    // eslint-disable-next-line react/display-name
-    sections: [{ sectionFn: () => <SimpleMenuExample />, options: optionsSourceOnly }],
-}
-
 //
 // List of items, each with its own options menu
 //
 
-function Item({ value, name }: { value: string; name: string }) {
+const Item = ({ value, name }: { value: string; name: string }) => {
     function getLabel(actionName: string) {
         return `${actionName} '${name}'`
     }
@@ -146,34 +144,22 @@ const items = [
     { value: '3', name: 'Third item' },
 ]
 
-function OverflowMenuExample() {
+export const OverflowMenuExample = () => {
     return (
-        <section className="story">
-            <p>
-                This example is meant to be expanded with future features we plan to support (such
-                as allowing to control the visible state of the menu from outside, and allow it to
-                be used as a context menu).
-            </p>
-            <ul>
-                {items.map((item, index) => (
-                    <Item key={index} {...item} />
-                ))}
-            </ul>
-        </section>
+        <>
+            <section className="story">
+                <p>A list of items with an overflow options menu</p>
+                <p>
+                    This example is meant to be expanded with future features we plan to support
+                    (such as allowing to control the visible state of the menu from outside, and
+                    allow it to be used as a context menu).
+                </p>
+                <ul>
+                    {items.map((item, index) => (
+                        <Item key={index} {...item} />
+                    ))}
+                </ul>
+            </section>
+        </>
     )
 }
-
-const OverflowMenuChapter = {
-    subtitle: 'A list of items with an overflow options menu',
-    // eslint-disable-next-line react/display-name
-    sections: [{ sectionFn: () => <OverflowMenuExample />, options: optionsSourceOnly }],
-}
-
-// Story setup ================================================================
-function MenuStory() {
-    storiesOf('Menu', module).addWithChapters('Component Overview', {
-        chapters: [SimpleMenuChapter, OverflowMenuChapter],
-    })
-}
-
-export { MenuStory }
