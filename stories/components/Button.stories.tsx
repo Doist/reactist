@@ -1,9 +1,10 @@
-import './styles/button_story.less'
-
 import React from 'react'
+import ReactMarkdown from 'react-markdown'
 import { withKnobs, text, boolean, select } from '@storybook/addon-knobs'
 
+import './styles/button_story.less'
 import Button from '../../src/components/button'
+import { alternateBrandingText } from './ButtonStory.md'
 
 export default {
     title: 'Button',
@@ -112,6 +113,12 @@ export const LoadingButtonsStory = () => {
 export const AlternateBrandingButtonsStory = () => {
     return (
         <section className="story alternate_branding">
+            <p>
+                If you want your buttons to have a different color scheme you need to import a
+                <code>.css</code> file and overwrite the following rules:
+            </p>
+            <ReactMarkdown source={alternateBrandingText} />
+            <br />
             <Button variant="primary">Primary Button</Button>
             <Button variant="secondary">Secondary Button</Button>
         </section>

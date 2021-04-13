@@ -1,7 +1,5 @@
 const alternateBrandingText = `
-    If you want your buttons to have a different color scheme you need to import a \`.css\` file and overwrite the following rules:
 
-    \`\`\`less
     @primary-color: #dd4b39;
     @primary-color-lighter: lighter(#dd4b39, 0.1);
     @primary-color-darker: darker(#dd4b39, 0.1);
@@ -26,7 +24,6 @@ const alternateBrandingText = `
             }
         }
     }
-    \`\`\`
 `
 
 export { alternateBrandingText }
