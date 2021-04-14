@@ -21,7 +21,7 @@ function TextArea({
             secondaryLabel={secondaryLabel}
             auxiliaryLabel={auxiliaryLabel}
             hint={hint}
-            className={styles.componentTextArea}
+            className={styles.container}
             maxWidth={maxWidth}
         >
             {(extraProps) => (

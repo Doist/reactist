@@ -27,8 +27,9 @@
                     var(--tmp-line-height-increase)
             ) / 2
     );
-    padding: var(--tpm-vertical-padding) 10px;
+    padding: var(--tmp-vertical-padding) 10px;
 
+    appearance: none;
     box-sizing: border-box;
     width: 100%;
     background: none;
