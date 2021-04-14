@@ -1,22 +1,26 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 import { action } from '@storybook/addon-actions'
 
 import Avatar from '../../src/components/avatar'
 import Tip from '../../src/components/tip'
-import { optionsSourceOnly } from '../utils/StoryUtils'
 import { Notification } from '../../src/components/notification/notification'
 import './styles/notification_story.less'
 
-const StandardNotificationChapter = {
-    subtitle: 'Standard Notification',
-    sections: [{ sectionFn: StandardNotificationStory, options: optionsSourceOnly }],
+// Story setup ================================================================
+
+export default {
+    title: 'Notification',
+    component: Notification,
+    decorators: [withKnobs],
 }
 
-function StandardNotificationStory() {
+// Story Definitions ==========================================================
+
+export const StandardNotificationStory = () => {
     return (
         <section className="story">
+            <p>Standard Notification</p>
             <Notification
                 id="standard-notification"
                 icon={<span className="notification-story-notification-dot"></span>}
@@ -29,14 +33,10 @@ function StandardNotificationStory() {
     )
 }
 
-const NonClickableNotificationChapter = {
-    subtitle: 'Non-clickable Notification',
-    sections: [{ sectionFn: NonClickableNotificationStory, options: optionsSourceOnly }],
-}
-
-function NonClickableNotificationStory() {
+export const NonClickableNotificationStory = () => {
     return (
         <section className="story">
+            <p>Non-clickable Notification</p>
             <Notification
                 id="non-clickable-notification"
                 title="Your task is due in 5 hours"
@@ -47,14 +47,10 @@ function NonClickableNotificationStory() {
     )
 }
 
-const CustomContentNotificationChapter = {
-    subtitle: 'Custom Content Notification',
-    sections: [{ sectionFn: CustomContentNotificationStory, options: optionsSourceOnly }],
-}
-
-function CustomContentNotificationStory() {
+export const CustomContentNotificationStory = () => {
     return (
         <section className="story">
+            <p>Custom Content Notification</p>
             <Notification
                 id="custom-content-notification"
                 icon={<Avatar size="s" user={{ name: 'Brock Lesnar', email: 'brock@twist.com' }} />}
@@ -76,7 +72,7 @@ function CustomContentNotificationStory() {
     )
 }
 
-function NotificationPlaygroundStory() {
+export const NotificationPlaygroundStory = () => {
     const onClose = boolean('use onClose?', true) ? action('onClose') : undefined
     const onClick = boolean('use onClick?', true) ? action('onClick') : undefined
     const icon = boolean('use icon?', true) ? (
@@ -109,18 +105,3 @@ function NotificationPlaygroundStory() {
         </section>
     )
 }
-
-function NotificationStory() {
-    storiesOf('Notification', module)
-        .addDecorator(withKnobs)
-        .addWithChapters('Component Overview', {
-            chapters: [
-                StandardNotificationChapter,
-                NonClickableNotificationChapter,
-                CustomContentNotificationChapter,
-            ],
-        })
-        .add('Component Playground', NotificationPlaygroundStory)
-}
-
-export { NotificationStory }
