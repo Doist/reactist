@@ -8,6 +8,7 @@ module.exports = {
         '@storybook/addon-options/register',
         '@storybook/addon-knobs/register',
         '@storybook/addon-actions/register',
+        '@storybook/addon-controls',
         {
             name: '@storybook/addon-docs',
             options: {

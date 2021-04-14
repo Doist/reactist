@@ -2,12 +2,16 @@ import './styles/time_story.less'
 
 import React from 'react'
 import dayjs from 'dayjs'
-import { storiesOf } from '@storybook/react'
-import { withKnobs, number, boolean } from '@storybook/addon-knobs'
-
-import { getPropTypesStory, optionsSourceOnly, optionsNoSourceNoProps } from '../utils/StoryUtils'
+import { boolean } from '@storybook/addon-knobs'
 
 import Time from '../../src/components/time'
+
+// Story setup ================================================================
+
+export default {
+    title: 'Time',
+    component: Time,
+}
 
 const exampleTimes = [
     { title: 'Now', time: dayjs().unix() },
@@ -38,14 +42,10 @@ const exampleTimes = [
 ]
 
 // Story Definitions ==========================================================
-const TimePropTypesStory = getPropTypesStory(Time)
-const TimePropTypesChapter = {
-    subtitle: 'Component Usage',
-    sections: [{ sectionFn: TimePropTypesStory, options: optionsNoSourceNoProps }],
-}
 
-const NoHoverEffectStory = () => (
+export const NoHoverEffectStory = () => (
     <section className="story time">
+        <p>Normal Time (no hover effect)</p>
         {exampleTimes.map((time, index) => (
             <div key={index}>
                 <span>{time.title}</span>
@@ -54,13 +54,10 @@ const NoHoverEffectStory = () => (
         ))}
     </section>
 )
-const NoHoverEffectChapter = {
-    subtitle: 'Normal Time (no hover effect)',
-    sections: [{ sectionFn: NoHoverEffectStory, options: optionsSourceOnly }],
-}
 
-const ExpandTimeStory = () => (
+export const ExpandTimeStory = () => (
     <section className="story time">
+        <p>Expanding time on hover</p>
         {exampleTimes.map((time, index) => (
             <div key={index}>
                 <span>{time.title}</span>
@@ -69,13 +66,10 @@ const ExpandTimeStory = () => (
         ))}
     </section>
 )
-const ExpandTimeChapter = {
-    subtitle: 'Expanding time on hover',
-    sections: [{ sectionFn: ExpandTimeStory, options: optionsSourceOnly }],
-}
 
-const FullyExpandTimeStory = () => (
+export const FullyExpandTimeStory = () => (
     <section className="story time">
+        <p>Fully expanding time on hover</p>
         {exampleTimes.map((time, index) => (
             <div key={index}>
                 <span>{time.title}</span>
@@ -84,13 +78,10 @@ const FullyExpandTimeStory = () => (
         ))}
     </section>
 )
-const FullyExpandTimeChapter = {
-    subtitle: 'Fully expanding time on hover',
-    sections: [{ sectionFn: FullyExpandTimeStory, options: optionsSourceOnly }],
-}
 
-const TooltipTimeStory = () => (
+export const TooltipTimeStory = () => (
     <section className="story time">
+        <p>Show full time in tooltip on hover</p>
         {exampleTimes.map((time, index) => (
             <div key={index}>
                 <span>{time.title}</span>
@@ -99,12 +90,8 @@ const TooltipTimeStory = () => (
         ))}
     </section>
 )
-const TooltipTimeChapter = {
-    subtitle: 'Show full time in tooltip on hover',
-    sections: [{ sectionFn: TooltipTimeStory, options: optionsSourceOnly }],
-}
 
-const TranslatedTimeStory = () => {
+export const TranslatedTimeStory = () => {
     const i18nConfig = {
         locale: 'de',
         hoursSuffix: 'Std',
@@ -114,6 +101,7 @@ const TranslatedTimeStory = () => {
 
     return (
         <section className="story time">
+            <p>Translated times</p>
             {exampleTimes.map((time, index) => (
                 <div key={index}>
                     <span>{time.title}</span>
@@ -123,36 +111,16 @@ const TranslatedTimeStory = () => {
         </section>
     )
 }
-const TranslatedTimeChapter = {
-    subtitle: 'Translated times',
-    sections: [{ sectionFn: TranslatedTimeStory, options: optionsSourceOnly }],
-}
 
-const TimePlaygroundStory = () => (
+export const TimePlaygroundStory = (args) => (
     <section className="story time">
-        <Time
-            time={number('time:', exampleTimes[0].time)}
-            expandOnHover={boolean('expand on hover:', false)}
-            expandFullyOnHover={boolean('expand fully on hover:', false)}
-            refresh={boolean('Refresh:', true)}
-        />
+        <Time {...args} />
     </section>
 )
 
-// Story setup ================================================================
-const TimeStory = () =>
-    storiesOf('Time', module)
-        .addDecorator(withKnobs)
-        .addWithChapters('Component Overview', {
-            chapters: [
-                TimePropTypesChapter,
-                NoHoverEffectChapter,
-                ExpandTimeChapter,
-                FullyExpandTimeChapter,
-                TooltipTimeChapter,
-                TranslatedTimeChapter,
-            ],
-        })
-        .add('Component Playground', TimePlaygroundStory)
-
-export { TimeStory }
+TimePlaygroundStory.args = {
+    time: exampleTimes[0].time,
+    expandOnHover: boolean('expand on hover:', false),
+    expandFullyOnHover: boolean('expand fully on hover:', false),
+    refresh: boolean('Refresh:', true),
+}
