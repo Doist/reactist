@@ -1,12 +1,16 @@
 import './styles/tooltip_story.less'
 
 import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { withKnobs, text, number, select } from '@storybook/addon-knobs'
 
 import { Tooltip, TooltipProps } from '../../src/components/tooltip'
 import Button from '../../src/components/button'
 import type { ButtonProps } from '../../src/components/button'
+
+// Story setup ================================================================
+
+export default {
+    title: 'Tooltip',
+}
 
 const ExampleButton = React.forwardRef<HTMLButtonElement, ButtonProps>(function ExampleButton(
     props,
@@ -39,9 +43,7 @@ const positions: Array<TooltipProps['position']> = [
     'left-start',
 ]
 
-function TooltipPlaygroundStory() {
-    const position = select('Position', ['(default)', ...positions], '(default)')
-    const gapSize = number('Gap Size (px)', 5)
+export const TooltipPlaygroundStory = (args) => {
     return (
         <section className="story tooltip">
             <input
@@ -51,10 +53,8 @@ function TooltipPlaygroundStory() {
             <Tooltip
                 // Tooltip does not react to dynamic changes of some props so we force a new
                 // component re-render every time these change.
-                key={String(position) + String(gapSize)}
-                content={text('Tooltip Text', 'Very helpful content in this tooltip')}
-                position={position === '(default)' ? undefined : position}
-                gapSize={gapSize}
+                {...args}
+                key={String(args.position) + String(args.gapSize)}
             >
                 <ExampleButton />
             </Tooltip>
@@ -62,11 +62,11 @@ function TooltipPlaygroundStory() {
     )
 }
 
-// Story setup ================================================================
-function TooltipStory() {
-    storiesOf('Tooltip', module)
-        .addDecorator(withKnobs)
-        .add('Component Playground', TooltipPlaygroundStory)
+TooltipPlaygroundStory.args = {
+    content: 'Very helpful content in this tooltip',
+    gapSize: 5,
 }
 
-export { TooltipStory }
+TooltipPlaygroundStory.argTypes = {
+    position: { control: { type: 'select', options: positions, title: 'test' } },
+}
