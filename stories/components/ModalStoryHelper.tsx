@@ -1,27 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { storiesOf } from '@storybook/react'
-import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 
-import { optionsNoSourceNoProps } from '../utils/StoryUtils'
+import './styles/modal_story.less'
 
 import { default as Modal } from '../../src/components/modal'
 import Button from '../../src/components/button'
-
-import {
-    howToText,
-    modalBoxText,
-    modalHeaderText,
-    modalBodyText,
-    modalActionsText,
-} from './ModalStory.md'
 
 // Helper =====================================================================
 const renderModal = (modal) => {
     ReactDOM.render(modal, document.getElementById('modal_box'))
 }
-const getStory = (text, modal) => (
+const getStory = (text, modal, title) => (
     <section className="story">
+        <p>{title}</p>
         <div id="modal_box" />
         <Button variant="primary" onClick={() => renderModal(modal)}>
             {text}
@@ -29,43 +20,37 @@ const getStory = (text, modal) => (
     </section>
 )
 
-// Story Definitions ==========================================================
-const ModalDocumentationChapters = [
-    { subtitle: 'How to use', info: howToText },
-    { subtitle: 'Modal Box', info: modalBoxText },
-    { subtitle: 'Modal Header', info: modalHeaderText },
-    { subtitle: 'Modal Body', info: modalBodyText },
-    { subtitle: 'Modal Actions', info: modalActionsText },
-]
+// Story setup ===============================================================
 
-const ModalHeaderOnlyStory = () => {
+export default {
+    title: 'Modal',
+    docs: {
+        page: './Modal.mdx',
+    },
+}
+
+// Story Definitions ==========================================================
+
+export const ModalHeaderOnlyStory = () => {
     const modal = (
         <Modal.Box closeOnOverlayClick>
             <Modal.Header title="Header of Modal" />
         </Modal.Box>
     )
-    return getStory('Click me to launch a Modal with Header', modal)
-}
-const ModalHeaderOnlyChapter = {
-    subtitle: 'Header Only',
-    sections: [{ sectionFn: ModalHeaderOnlyStory, options: optionsNoSourceNoProps }],
+    return getStory('Click me to launch a Modal with Header', modal, 'Header Only')
 }
 
-const ModalHeaderAndBodyStory = () => {
+export const ModalHeaderAndBodyStory = () => {
     const modal = (
         <Modal.Box closeOnOverlayClick>
             <Modal.Header title="Header of Modal" subtitle="This is a smaller description" />
             <Modal.Body>The Body of a Modal can contain whatever you like!</Modal.Body>
         </Modal.Box>
     )
-    return getStory('Click me to launch a Modal with Header and Body', modal)
-}
-const ModalHeaderAndBodyChapter = {
-    subtitle: 'Header and Body',
-    sections: [{ sectionFn: ModalHeaderAndBodyStory, options: optionsNoSourceNoProps }],
+    return getStory('Click me to launch a Modal with Header and Body', modal, 'Header and Body')
 }
 
-const ModalHeaderBodyAndActionsStory = () => {
+export const ModalHeaderBodyAndActionsStory = () => {
     const modal = (
         <Modal.Box closeOnOverlayClick>
             <Modal.Header title="Header of Modal" subtitle="This is a smaller description" />
@@ -89,19 +74,14 @@ const ModalHeaderBodyAndActionsStory = () => {
             </Modal.Actions>
         </Modal.Box>
     )
-    return getStory('Click me to launch a Modal with Header, Body and Actions', modal)
-}
-const ModalHeaderBodyAndActionsChapter = {
-    subtitle: 'Header, Body and Actions',
-    sections: [
-        {
-            sectionFn: ModalHeaderBodyAndActionsStory,
-            options: optionsNoSourceNoProps,
-        },
-    ],
+    return getStory(
+        'Click me to launch a Modal with Header, Body and Actions',
+        modal,
+        'Header, Body and Actions',
+    )
 }
 
-const ModalScrollableBodyStory = () => {
+export const ModalScrollableBodyStory = () => {
     const modal = (
         <Modal.Box closeOnOverlayClick>
             <Modal.Header title="Header of Modal with Scrollable Body" />
@@ -164,19 +144,10 @@ const ModalScrollableBodyStory = () => {
             </Modal.Body>
         </Modal.Box>
     )
-    return getStory('Click me to launch a Modal with Scrollable Body', modal)
-}
-const ModalScrollableBodyChapter = {
-    subtitle: 'Scrollable Body',
-    sections: [
-        {
-            sectionFn: ModalScrollableBodyStory,
-            options: optionsNoSourceNoProps,
-        },
-    ],
+    return getStory('Click me to launch a Modal with Scrollable Body', modal, 'Scrollable Body')
 }
 
-const PlainMediumModalStory = () => {
+export const PlainMediumModalStory = () => {
     const modal = (
         <Modal.Box medium closeOnOverlayClick>
             <Modal.Header title="Header of Modal" />
@@ -194,37 +165,20 @@ const PlainMediumModalStory = () => {
             </Modal.Body>
         </Modal.Box>
     )
-    return getStory('Click me to launch a medium-sized Modal with Header and plain Body', modal)
-}
-const PlainMediumModalChapter = {
-    subtitle: 'Header, Body and Actions',
-    sections: [
-        {
-            sectionFn: PlainMediumModalStory,
-            options: optionsNoSourceNoProps,
-        },
-    ],
+    return getStory(
+        'Click me to launch a medium-sized Modal with Header and plain Body',
+        modal,
+        'Header, Body and Actions',
+    )
 }
 
-const ModalPlaygroundStory = () => {
+export const ModalPlaygroundStory = (args) => {
     return (
         <section>
             <div id="modal_box" />
-            <Modal.Box
-                closeOnOverlayClick
-                medium={boolean('Box: Medium', false)}
-                large={boolean('Box: Large', false)}
-            >
-                <Modal.Header
-                    title={text('Header: Title', 'Header of Modal')}
-                    subtitle={text('Header: Subitle', 'This is a smaller description')}
-                />
-                <Modal.Body
-                    plain={boolean('Body: Plain Style', false)}
-                    showCloseIcon={boolean('Body: Close Icon', false)}
-                >
-                    Some Content
-                </Modal.Body>
+            <Modal.Box {...args} closeOnOverlayClick>
+                <Modal.Header {...args} />
+                <Modal.Body {...args}>Some Content</Modal.Body>
                 <Modal.Actions>
                     <Button variant="secondary">Action 1</Button>
                     <Button variant="primary">Action 2</Button>
@@ -233,23 +187,3 @@ const ModalPlaygroundStory = () => {
         </section>
     )
 }
-
-// Story setup ================================================================
-const ModalStory = () =>
-    storiesOf('Modal', module)
-        .addDecorator(withKnobs)
-        .addWithChapters('Component Documentation', {
-            chapters: ModalDocumentationChapters,
-        })
-        .addWithChapters('Component Overview', {
-            chapters: [
-                ModalHeaderOnlyChapter,
-                ModalHeaderAndBodyChapter,
-                ModalHeaderBodyAndActionsChapter,
-                ModalScrollableBodyChapter,
-                PlainMediumModalChapter,
-            ],
-        })
-        .add('Component Playground', ModalPlaygroundStory)
-
-export { ModalStory }
