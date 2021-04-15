@@ -1,5 +1,4 @@
 import * as React from 'react'
-import flattenChildren from 'react-keyed-flatten-children'
 import { forwardRefWithAs } from '../type-helpers'
 import { getClassNames, mapResponsiveProp } from '../responsive-props'
 import { Box } from '../box'
@@ -22,10 +21,6 @@ const Inline = forwardRefWithAs<InlineProps>(function Inline(
     { component, space, align = 'left', alignY = 'center', children, ...props },
     ref,
 ) {
-    const isList = component === 'ol' || component === 'ul'
-    const isFlowContent = component === 'span' || component === 'label'
-    const inlineItemComponent = isList ? 'li' : isFlowContent ? 'span' : 'div'
-
     return (
         <Box
             component={component}
@@ -41,9 +36,7 @@ const Inline = forwardRefWithAs<InlineProps>(function Inline(
             )}
             {...props}
         >
-            {React.Children.map(flattenChildren(children), (child) =>
-                child != null ? <Box component={inlineItemComponent}>{child}</Box> : null,
-            )}
+            {children}
         </Box>
     )
 })
