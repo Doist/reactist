@@ -2,6 +2,17 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v9.2.0-beta.4
+
+Various fixes to the new experimental components
+
+- The `SelectField` now has its native appearance reset (i.e. `appearance: none`).
+- Fixed a typo in an internal css variable in the `SelectField` that made it not have the proper height.
+- Text in `Alert` and `Notice` is now properly aligned vertically with the icon.
+- Fixed some css module classes that were incorrect in the JS code.
+- `Alert` colours did not have the transparency properly set.
+- The `SwitchField` now has a new dedicated css variable for theming its background when checked.
+
 ## v9.2.0-beta.3
 
 -   [Fix] `Text` component was not receiving its ref correctly

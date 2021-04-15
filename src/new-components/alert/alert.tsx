@@ -29,15 +29,13 @@ function Alert({ id, children, tone, closeLabel, onClose }: AlertProps) {
             role="alert"
             aria-live="polite"
             padding="small"
-            className={[styles.componentAlert, getClassNames(styles, 'tone', tone)]}
+            className={[styles.container, getClassNames(styles, 'tone', tone)]}
         >
             <Columns space="small" alignY="top">
                 <Column width="content">
                     <AlertIcon tone={tone} />
                 </Column>
-                <Column>
-                    <Box paddingY="xsmall">{children}</Box>
-                </Column>
+                <Column>{children}</Column>
                 {onClose != null ? (
                     <Column width="content">
                         <button type="button" onClick={onClose} aria-label={closeLabel}>

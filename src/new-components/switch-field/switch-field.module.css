@@ -46,7 +46,7 @@
 }
 
 .inputWrapper.checked {
-    background-color: var(--reactist-chromatic-content-green);
+    background-color: var(--reactist-switch-checked);
 }
 
 .inputWrapper.checked.handle {

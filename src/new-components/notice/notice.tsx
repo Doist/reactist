@@ -18,15 +18,13 @@ function Notice({ id, children, tone }: NoticeProps) {
             id={id}
             role="alert"
             aria-live="polite"
-            className={[styles.componentNotice, getClassNames(styles, 'tone', tone)]}
+            className={[styles.container, getClassNames(styles, 'tone', tone)]}
         >
             <Columns space="small" alignY="top">
                 <Column width="content">
                     <AlertIcon tone={tone} />
                 </Column>
-                <Column>
-                    <Box paddingY="xsmall">{children}</Box>
-                </Column>
+                <Column>{children}</Column>
             </Columns>
         </Box>
     )
