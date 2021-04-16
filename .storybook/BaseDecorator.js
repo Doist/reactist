@@ -3,4 +3,4 @@
  */
 import React from 'react'
 
-export default (Story) => <Story />
+export default (Story) => Story()
