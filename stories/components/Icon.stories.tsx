@@ -1,5 +1,4 @@
 import React from 'react'
-import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 
 import Icon from '../../src/components/icon'
 import CloseIcon from '../../src/components/icons/CloseIcon.svg'
@@ -9,7 +8,6 @@ import CloseIcon from '../../src/components/icons/CloseIcon.svg'
 export default {
     title: 'Icon',
     component: Icon,
-    decorators: [withKnobs],
 }
 // Story Definitions ==========================================================
 
@@ -27,12 +25,47 @@ export const IconStory = () => (
     </section>
 )
 
-export const IconPlaygroundStory = () => (
+export const IconPlaygroundStory = (args) => (
     <section className="story">
-        <Icon
-            image={text('Image URL', 'https://loremflickr.com/72/72')}
-            hoveredImage={text('Hovered Image URL', '')}
-            disabled={boolean('Disabled', false)}
-        />
+        <Icon {...args} />
     </section>
 )
+
+IconPlaygroundStory.args = {
+    image: 'https://loremflickr.com/72/72',
+    hoveredImage: '',
+    disabled: false,
+}
+
+IconPlaygroundStory.argTypes = {
+    image: {
+        control: {
+            type: 'text',
+        },
+    },
+    hoveredImage: {
+        control: {
+            type: 'text',
+        },
+    },
+    disabled: {
+        control: {
+            type: 'boolean',
+        },
+    },
+    tooltip: {
+        control: {
+            type: null,
+        },
+    },
+    icon: {
+        control: {
+            type: null,
+        },
+    },
+    className: {
+        control: {
+            type: null,
+        },
+    },
+}

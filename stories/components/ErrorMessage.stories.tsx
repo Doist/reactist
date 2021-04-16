@@ -1,12 +1,10 @@
 import React from 'react'
-import { withKnobs, text, number } from '@storybook/addon-knobs'
 
 import ErrorMessage from '../../src/components/error-message'
 
 export default {
     title: 'ErrorMessage',
     component: ErrorMessage,
-    decorators: [withKnobs],
 }
 
 export const ErrorMessageStory = () => (
@@ -15,11 +13,26 @@ export const ErrorMessageStory = () => (
     </section>
 )
 
-export const ErrorMessagePlaygroundStory = () => (
+export const ErrorMessagePlaygroundStory = (args) => (
     <section className="story">
-        <ErrorMessage
-            message={text('Error Message', 'Oh no something bad happened :/')}
-            timeout={number('Timeout', 60000)}
-        />
+        <ErrorMessage {...args} />
     </section>
 )
+
+ErrorMessagePlaygroundStory.args = {
+    message: 'Oh no something bad happened :/',
+    timeout: 60000,
+}
+
+ErrorMessagePlaygroundStory.argTypes = {
+    message: {
+        control: {
+            type: 'text',
+        },
+    },
+    timeout: {
+        control: {
+            type: 'number',
+        },
+    },
+}

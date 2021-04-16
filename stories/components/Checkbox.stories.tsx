@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 
 import Checkbox from '../../src/components/checkbox'
 
@@ -8,7 +7,6 @@ import Checkbox from '../../src/components/checkbox'
 export default {
     title: 'Checkbox',
     component: Checkbox,
-    decorators: [withKnobs],
 }
 
 // Story Definitions ==========================================================
@@ -16,29 +14,49 @@ export default {
 export const CheckboxStory = () => {
     const [checked, setChecked] = useState<boolean>(false)
 
+    const handleCheck = () => {
+        setChecked((prev: boolean) => !prev)
+    }
+
     return (
         <section className="story">
             <p>Checkbox</p>
             <Checkbox
                 label="Checkbox with a clickable label"
                 checked={checked}
-                onChange={() => setChecked((prev: boolean) => !prev)}
+                onChange={handleCheck}
             />
         </section>
     )
 }
 
-export const CheckboxPlaygroundStory = () => {
+export const CheckboxPlaygroundStory = (args) => {
     const [checked, setChecked] = useState<boolean>(false)
 
+    const handleCheck = () => {
+        setChecked((prev: boolean) => !prev)
+    }
     return (
         <section className="story">
-            <Checkbox
-                label={text('Label', 'Label next to the checkbox')}
-                checked={boolean('Checked', checked)}
-                disabled={boolean('Disabled', false)}
-                onChange={() => setChecked((prev: boolean) => !prev)}
-            />
+            <Checkbox checked={checked} {...args} onChange={handleCheck} />
         </section>
     )
+}
+
+CheckboxPlaygroundStory.args = {
+    label: 'Label next to the checkbox',
+    disabled: false,
+}
+
+CheckboxPlaygroundStory.argTypes = {
+    disabled: {
+        control: {
+            type: 'boolean',
+        },
+    },
+    checked: {
+        control: {
+            type: 'boolean',
+        },
+    },
 }

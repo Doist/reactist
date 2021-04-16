@@ -1,5 +1,5 @@
 import React from 'react'
-import { withKnobs, text } from '@storybook/addon-knobs'
+import { text } from '@storybook/addon-knobs'
 
 import '../../src/components/keyboard-shortcut/keyboard-shortcut.less'
 import KeyboardShortcut from '../../src/components/keyboard-shortcut'
@@ -8,14 +8,13 @@ import KeyboardShortcut from '../../src/components/keyboard-shortcut'
 
 export default {
     title: 'KeyboardShortcut',
-    decorators: [withKnobs],
 }
 
 // Story Definitions ================================================================
 
-export const KeyboardShortcutPlaygroundStory = () => {
-    const shortcuts = text('Shortcut', 'Cmd + Alt + Shift + E, q').split(/\s*,\s*/)
-    const shortcut = shortcuts.length > 1 ? shortcuts : shortcuts[0] || ''
+export const KeyboardShortcutPlaygroundStory = (args) => {
+    const shortcut = args.shortcut.length > 1 ? args.shortcut : args.shortcut[0] || ''
+
     return (
         <section className="story">
             <pre>
@@ -46,4 +45,16 @@ export const KeyboardShortcutPlaygroundStory = () => {
             </p>
         </section>
     )
+}
+
+KeyboardShortcutPlaygroundStory.args = {
+    shortcut: text('Shortcut', 'Cmd + Alt + Shift + E, q').split(/\s*,\s*/),
+}
+
+KeyboardShortcutPlaygroundStory.argTypes = {
+    shortcut: {
+        control: {
+            type: 'text',
+        },
+    },
 }

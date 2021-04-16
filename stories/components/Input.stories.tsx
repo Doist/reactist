@@ -1,5 +1,4 @@
 import React from 'react'
-import { withKnobs, boolean, text } from '@storybook/addon-knobs'
 
 import Input from '../../src/components/input'
 import './styles/input_story.less'
@@ -9,7 +8,6 @@ import './styles/input_story.less'
 export default {
     title: 'Input',
     component: Input,
-    decorators: [withKnobs],
 }
 
 // Story Definitions ==========================================================
@@ -28,8 +26,31 @@ export const InputStory = () => (
     </section>
 )
 
-export const InputPlaygroundStory = () => (
+export const InputPlaygroundStory = (args) => (
     <section className="story">
-        <Input placeholder={text('Simple input wrapper')} disabled={boolean('Disabled:', false)} />
+        <Input {...args} />
     </section>
 )
+
+InputPlaygroundStory.args = {
+    placeholder: 'Simple input wrapper',
+    disabled: false,
+}
+
+InputPlaygroundStory.argTypes = {
+    placeholder: {
+        control: {
+            type: 'text',
+        },
+    },
+    disabled: {
+        control: {
+            type: 'boolean',
+        },
+    },
+    className: {
+        control: {
+            type: null,
+        },
+    },
+}

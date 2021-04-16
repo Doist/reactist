@@ -8,7 +8,6 @@ import { alternateBrandingText } from './ButtonStory.md'
 
 export default {
     title: 'Button',
-    decorators: [withKnobs],
     component: Button,
 }
 
@@ -125,23 +124,31 @@ export const AlternateBrandingButtonsStory = () => {
     )
 }
 
-export const ButtonPlaygroundStory = () => {
-    const variant = select(
-        'Variant',
-        ['(none)', 'primary', 'secondary', 'danger', 'link'],
-        'primary',
-    )
+export const ButtonPlaygroundStory = (args) => {
     return (
         <section className="story playground">
-            <Button
-                variant={variant === '(none)' ? undefined : variant}
-                size={select('Size', ['default', 'small', 'large'], 'default')}
-                disabled={boolean('Disabled', false)}
-                loading={boolean('Loading', false)}
-                tooltip={text('Tooltip', '')}
-            >
-                {text('Name', 'Button Text')}
-            </Button>
+            <Button {...args}>{text('Name', 'Button Text')}</Button>
         </section>
     )
+}
+
+ButtonPlaygroundStory.args = {
+    variant: select('Variant', ['(none)', 'primary', 'secondary', 'danger', 'link'], 'primary'),
+    size: select('Size', ['default', 'small', 'large'], 'default'),
+    disabled: false,
+    loading: false,
+    tooltip: '',
+}
+
+ButtonPlaygroundStory.argTypes = {
+    disabled: 'boolean',
+    loading: 'boolean',
+    variant: {
+        type: 'select',
+        options: ['(none)', 'primary', 'secondary', 'danger', 'link'],
+    },
+    size: {
+        type: 'select',
+        options: ['default', 'small', 'large'],
+    },
 }

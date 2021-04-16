@@ -43,3 +43,11 @@ RangeInputPlaygroundStory.args = {
     min: 0,
     max: 100,
 }
+
+RangeInputPlaygroundStory.argTypes = {
+    className: {
+        control: {
+            type: null,
+        },
+    },
+}

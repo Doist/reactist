@@ -1,7 +1,6 @@
 import './styles/tip_story.less'
 
 import React from 'react'
-import { text } from '@storybook/addon-knobs'
 
 import Tip from '../../src/components/tip'
 
@@ -31,6 +30,19 @@ export const TipPlaygroundStory = (args) => (
 )
 
 TipPlaygroundStory.args = {
-    title: text('Title', 'Title of the Tip'),
-    message: text('Message', 'Very helpful message'),
+    title: 'Title of the Tip',
+    message: 'Very helpful message',
+}
+
+TipPlaygroundStory.argTypes = {
+    className: {
+        control: {
+            type: null,
+        },
+    },
+    top: {
+        control: {
+            type: null,
+        },
+    },
 }

@@ -2,7 +2,6 @@ import './styles/time_story.less'
 
 import React from 'react'
 import dayjs from 'dayjs'
-import { boolean } from '@storybook/addon-knobs'
 
 import Time from '../../src/components/time'
 
@@ -120,7 +119,45 @@ export const TimePlaygroundStory = (args) => (
 
 TimePlaygroundStory.args = {
     time: exampleTimes[0].time,
-    expandOnHover: boolean('expand on hover:', false),
-    expandFullyOnHover: boolean('expand fully on hover:', false),
-    refresh: boolean('Refresh:', true),
+    expandOnHover: false,
+    expandFullyOnHover: false,
+    refresh: true,
+}
+
+TimePlaygroundStory.argTypes = {
+    expandOnHover: {
+        control: {
+            type: 'boolean',
+        },
+    },
+    expandFullyOnHover: {
+        control: {
+            type: 'boolean',
+        },
+    },
+    refresh: {
+        control: {
+            type: 'boolean',
+        },
+    },
+    config: {
+        control: {
+            type: null,
+        },
+    },
+    className: {
+        control: {
+            type: null,
+        },
+    },
+    tooltipOnHover: {
+        control: {
+            type: null,
+        },
+    },
+    tooltip: {
+        control: {
+            type: null,
+        },
+    },
 }

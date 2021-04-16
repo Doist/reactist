@@ -1,5 +1,4 @@
 import React from 'react'
-import { withKnobs, text, boolean } from '@storybook/addon-knobs'
 import { action } from '@storybook/addon-actions'
 
 import Avatar from '../../src/components/avatar'
@@ -12,7 +11,6 @@ import './styles/notification_story.less'
 export default {
     title: 'Notification',
     component: Notification,
-    decorators: [withKnobs],
 }
 
 // Story Definitions ==========================================================
@@ -72,15 +70,15 @@ export const CustomContentNotificationStory = () => {
     )
 }
 
-export const NotificationPlaygroundStory = () => {
-    const onClose = boolean('use onClose?', true) ? action('onClose') : undefined
-    const onClick = boolean('use onClick?', true) ? action('onClick') : undefined
-    const icon = boolean('use icon?', true) ? (
+export const NotificationPlaygroundStory = (args) => {
+    const onClose = args.onClose ? action('onClose') : undefined
+    const onClick = args.onClick ? action('onClick') : undefined
+    const icon = args.icon ? (
         <div className="notification-story-avatar-container">
             <Avatar size="s" user={{ name: 'Ada bot', email: 'adabot@twist.com' }} />
         </div>
     ) : null
-    const children = boolean('use children?', false) ? (
+    const children = args.children ? (
         <div className="notification-story-notification-container">
             <p className="notification-story-text">
                 If children is provided, then{' '}
@@ -93,9 +91,7 @@ export const NotificationPlaygroundStory = () => {
         <section className="story playground">
             <Notification
                 id="playground-notification"
-                title={text('title', 'You have a new notification')}
-                subtitle={text('subtitle', 'Click to open')}
-                closeAltText={text('closeAltText', 'Close me!')}
+                {...args}
                 onClose={onClose}
                 onClick={onClick}
                 icon={icon}
@@ -104,4 +100,47 @@ export const NotificationPlaygroundStory = () => {
             </Notification>
         </section>
     )
+}
+
+NotificationPlaygroundStory.args = {
+    title: 'You have a new notification',
+    subtitle: 'Click to open',
+    closeAltText: 'Close me!',
+    icon: true,
+    children: false,
+    onClose: true,
+    onClick: true,
+}
+
+NotificationPlaygroundStory.argTypes = {
+    icon: {
+        control: {
+            type: 'boolean',
+        },
+    },
+    onClose: {
+        control: {
+            type: 'boolean',
+        },
+    },
+    onClick: {
+        control: {
+            type: 'boolean',
+        },
+    },
+    className: {
+        control: {
+            type: null,
+        },
+    },
+    customCloseButton: {
+        control: {
+            type: null,
+        },
+    },
+    id: {
+        control: {
+            type: null,
+        },
+    },
 }

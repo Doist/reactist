@@ -68,5 +68,11 @@ TooltipPlaygroundStory.args = {
 }
 
 TooltipPlaygroundStory.argTypes = {
-    position: { control: { type: 'select', options: positions, title: 'test' } },
+    position: {
+        control: {
+            type: 'select',
+            options: positions,
+            title: 'test',
+        },
+    },
 }

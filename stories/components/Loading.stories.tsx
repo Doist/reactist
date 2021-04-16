@@ -1,33 +1,41 @@
-import './styles/loading_story.less'
-
 import React from 'react'
-import { withKnobs, text, number } from '@storybook/addon-knobs'
 
 import Loading from '../../src/components/loading'
+import './styles/loading_story.less'
 
 // Story setup ================================================================
 
 export default {
     title: 'Loading',
     component: Loading,
-    decorators: [withKnobs],
 }
 
 // Story Definitions ==========================================================
 
 export const LoadingStory = () => (
     <section className="story loading">
+        <p>Loading</p>
         <Loading aria-label="Loading…" />
     </section>
 )
 
-export const LoadingPlaygroundStory = () => (
+export const LoadingPlaygroundStory = (args) => (
     <section className="story">
-        <Loading
-            aria-label={text('aria-label:', 'Loading…')}
-            size={number('size:', 24)}
-            spinnerColor={text('Spinner Color:', '#3F82EF')}
-            bgColor={text('Background Color:', '#D9E6FB')}
-        />
+        <Loading {...args} />
     </section>
 )
+
+LoadingPlaygroundStory.args = {
+    'aria-label': 'Loading',
+    size: 24,
+    spinnerColor: '#3F82EF',
+    bgColor: '#D9E6FB',
+}
+
+LoadingPlaygroundStory.argTypes = {
+    className: {
+        control: {
+            type: null,
+        },
+    },
+}

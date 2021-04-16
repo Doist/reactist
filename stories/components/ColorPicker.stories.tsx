@@ -14,10 +14,14 @@ export default {
 export const ColorPickersStory = () => {
     const [color, setColor] = useState<number>(0)
 
+    const handleChange = (color) => {
+        setColor(color)
+    }
+
     return (
         <section className="story">
             <p>Color Picker</p>
-            <ColorPicker color={color} onChange={() => setColor(color)} />
+            <ColorPicker color={color} onChange={handleChange} />
         </section>
     )
 }
@@ -25,12 +29,16 @@ export const ColorPickersStory = () => {
 export const CustomColorPickersStory = () => {
     const [color, setColor] = useState<number>(0)
 
+    const handleChange = (color) => {
+        setColor(color)
+    }
+
     return (
         <section className="story">
             <p>Custom Colors Color Picker</p>
             <ColorPicker
                 color={color}
-                onChange={() => setColor(color)}
+                onChange={handleChange}
                 colorList={['red', 'green', 'palegoldenrod', '#FF00FF']}
             />
         </section>
@@ -40,12 +48,16 @@ export const CustomColorPickersStory = () => {
 export const NamedColorPickersStory = () => {
     const [color, setColor] = useState<number>(0)
 
+    const handleChange = (color) => {
+        setColor(color)
+    }
+
     return (
         <section className="story">
             <p>Named Colors Color Picker</p>
             <ColorPicker
                 color={color}
-                onChange={() => setColor(color)}
+                onChange={handleChange}
                 colorList={[
                     { color: 'red', name: 'Red' },
                     { color: 'green', name: 'Green' },
@@ -61,10 +73,14 @@ export const NamedColorPickersStory = () => {
 export const SmallColorPickerStory = () => {
     const [color, setColor] = useState<number>(0)
 
+    const handleChange = (color) => {
+        setColor(color)
+    }
+
     return (
         <section className="story">
             <p>Small Color Picker</p>
-            <ColorPicker small color={color} onChange={() => setColor(color)} />
+            <ColorPicker small color={color} onChange={handleChange} />
         </section>
     )
 }

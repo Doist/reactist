@@ -52,6 +52,24 @@ export const TabsPlaygroundStory = (args) => {
     )
 }
 
-TabsPlaygroundStory.arg = {
-    spreadLayout: boolean('spreadLayout', false),
+TabsPlaygroundStory.args = {
+    spreadLayout: false,
+}
+
+TabsPlaygroundStory.argTypes = {
+    spreadLayout: {
+        control: {
+            type: 'boolean',
+        },
+    },
+    disabled: {
+        control: {
+            type: null,
+        },
+    },
+    defaultTab: {
+        control: {
+            type: null,
+        },
+    },
 }

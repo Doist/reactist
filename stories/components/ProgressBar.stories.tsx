@@ -1,7 +1,6 @@
 import './styles/progressbar_story.less'
 
 import React from 'react'
-import { withKnobs, number } from '@storybook/addon-knobs'
 
 import ProgressBar from '../../src/components/progress-bar'
 
@@ -9,7 +8,6 @@ import ProgressBar from '../../src/components/progress-bar'
 export default {
     title: 'ProgressBar',
     component: ProgressBar,
-    decorators: [withKnobs],
 }
 
 // Story Definitions ==========================================================
@@ -25,8 +23,25 @@ export const ProgressBarStory = () => (
     </section>
 )
 
-export const ProgressBarPlaygroundStory = () => (
+export const ProgressBarPlaygroundStory = (args) => (
     <section className="story">
-        <ProgressBar fillPercentage={number('Fill Percentage:', 50)} />
+        <ProgressBar {...args} />
     </section>
 )
+
+ProgressBarPlaygroundStory.args = {
+    fillPercentage: 50,
+}
+
+ProgressBarPlaygroundStory.argTypes = {
+    fillPercentage: {
+        control: {
+            type: 'number',
+        },
+    },
+    className: {
+        control: {
+            type: null,
+        },
+    },
+}
