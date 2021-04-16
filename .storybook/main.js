@@ -6,7 +6,6 @@ module.exports = {
     addons: [
         '@storybook/addon-postcss',
         '@storybook/addon-options/register',
-        '@storybook/addon-knobs/register',
         '@storybook/addon-actions/register',
         '@storybook/addon-controls',
         {
