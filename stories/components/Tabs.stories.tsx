@@ -4,7 +4,6 @@ import React from 'react'
 import { action } from '@storybook/addon-actions'
 
 import { Tabs, Tab } from '../../src/components/tabs'
-import { boolean } from '@storybook/addon-knobs'
 
 // Story setup ================================================================
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
-import { withKnobs, text, boolean, select } from '@storybook/addon-knobs'
 
 import './styles/button_story.less'
 import Button from '../../src/components/button'
@@ -127,14 +126,14 @@ export const AlternateBrandingButtonsStory = () => {
 export const ButtonPlaygroundStory = (args) => {
     return (
         <section className="story playground">
-            <Button {...args}>{text('Name', 'Button Text')}</Button>
+            <Button {...args}>Button Text</Button>
         </section>
     )
 }
 
 ButtonPlaygroundStory.args = {
-    variant: select('Variant', ['(none)', 'primary', 'secondary', 'danger', 'link'], 'primary'),
-    size: select('Size', ['default', 'small', 'large'], 'default'),
+    variant: 'primary',
+    size: 'default',
     disabled: false,
     loading: false,
     tooltip: '',
