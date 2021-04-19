@@ -146,20 +146,18 @@ const items = [
 
 export const OverflowMenuExample = () => {
     return (
-        <>
-            <section className="story">
-                <p>A list of items with an overflow options menu</p>
-                <p>
-                    This example is meant to be expanded with future features we plan to support
-                    (such as allowing to control the visible state of the menu from outside, and
-                    allow it to be used as a context menu).
-                </p>
-                <ul>
-                    {items.map((item, index) => (
-                        <Item key={index} {...item} />
-                    ))}
-                </ul>
-            </section>
-        </>
+        <section className="story">
+            <p>A list of items with an overflow options menu</p>
+            <p>
+                This example is meant to be expanded with future features we plan to support (such
+                as allowing to control the visible state of the menu from outside, and allow it to
+                be used as a context menu).
+            </p>
+            <ul>
+                {items.map((item, index) => (
+                    <Item key={index} {...item} />
+                ))}
+            </ul>
+        </section>
     )
 }
