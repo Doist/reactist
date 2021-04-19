@@ -7,6 +7,9 @@
     "plugins": [
         "@babel/proposal-class-properties",
         "@babel/proposal-object-rest-spread",
+        // This plugin is needed to avoid having to add loose mode
+        // configuration on above plugins. Despite this plugin already
+        // being included with preset-env, Babel requires it to be defined.
         "@babel/plugin-proposal-private-methods"
     ]
 }

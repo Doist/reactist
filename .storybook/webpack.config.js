@@ -24,21 +24,6 @@ module.exports = {
                 ],
             },
             { test: /\.css$/, loader: 'style-loader!css-loader' },
-            // { test: /\.svg$/, loader: 'svg-url-loader' },
-            {
-                test: /\.(ts|tsx)$/,
-                use: [
-                    {
-                        loader: require.resolve('ts-loader'),
-                        options: {
-                            transpileOnly: true,
-                        },
-                    },
-                    {
-                        loader: require.resolve('react-docgen-typescript-loader'),
-                    },
-                ],
-            },
         ],
     },
     resolve: {

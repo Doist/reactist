@@ -7,13 +7,13 @@ module.exports = {
         '@storybook/addon-postcss',
         '@storybook/addon-options/register',
         '@storybook/addon-actions/register',
-        '@storybook/addon-controls',
         {
             name: '@storybook/addon-docs',
             options: {
                 configureJSX: true,
             },
         },
+        '@storybook/addon-controls',
     ],
     typescript: {
         check: true,
