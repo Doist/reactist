@@ -49,6 +49,6 @@
     background-color: var(--reactist-switch-checked);
 }
 
-.inputWrapper.checked.handle {
+.inputWrapper.checked .handle {
     left: var(--tmp-slide-length);
 }

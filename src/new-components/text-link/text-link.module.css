@@ -3,6 +3,8 @@
     font-weight: inherit;
     font-family: inherit;
     text-decoration: none;
+    color: var(--reactist-chromatic-content-blue);
+    cursor: pointer;
 }
 
 .container:hover {
