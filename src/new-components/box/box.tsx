@@ -19,7 +19,7 @@ interface PaddingProps {
 }
 
 type BoxMaxMinWidth = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
-type BoxDisplay = 'block' | 'flex' | 'inline' | 'inlineBlock' | 'none'
+type BoxDisplay = 'block' | 'flex' | 'inline' | 'inlineBlock' | 'inlineFlex' | 'none'
 type BoxFlexDirection = 'column' | 'row'
 type BoxFlexWrap = 'nowrap' | 'wrap'
 type BoxAlignItems = 'center' | 'flexEnd' | 'flexStart'
@@ -89,6 +89,7 @@ const Box = forwardRefWithAs<BoxProps>(function Box(
     const resolvedPaddingRight = paddingRight ?? paddingX ?? padding
     const resolvedPaddingBottom = paddingBottom ?? paddingY ?? padding
     const resolvedPaddingLeft = paddingLeft ?? paddingX ?? padding
+    const isFlex = display === 'flex' || display === 'inlineFlex'
 
     return React.createElement(
         component,
@@ -106,14 +107,10 @@ const Box = forwardRefWithAs<BoxProps>(function Box(
                     getClassNames(styles, 'paddingRight', resolvedPaddingRight),
                     getClassNames(styles, 'paddingBottom', resolvedPaddingBottom),
                     getClassNames(styles, 'paddingLeft', resolvedPaddingLeft),
-                    display === 'flex'
-                        ? getClassNames(styles, 'flexDirection', flexDirection)
-                        : null,
-                    display === 'flex' ? getClassNames(styles, 'flexWrap', flexWrap) : null,
-                    display === 'flex' ? getClassNames(styles, 'alignItems', alignItems) : null,
-                    display === 'flex'
-                        ? getClassNames(styles, 'justifyContent', justifyContent)
-                        : null,
+                    isFlex ? getClassNames(styles, 'flexDirection', flexDirection) : null,
+                    isFlex ? getClassNames(styles, 'flexWrap', flexWrap) : null,
+                    isFlex ? getClassNames(styles, 'alignItems', alignItems) : null,
+                    isFlex ? getClassNames(styles, 'justifyContent', justifyContent) : null,
                     flexShrink != null
                         ? getClassNames(styles, 'flexShrink', String(flexShrink))
                         : null,

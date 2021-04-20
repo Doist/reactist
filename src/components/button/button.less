@@ -35,7 +35,7 @@
 
     &--primary {
         background-color: @primary_color;
-        color: white;
+        color: white !important;
 
         &:not([disabled]):hover {
             background-color: @primary_color_darker;
@@ -44,7 +44,7 @@
 
     &--danger {
         background-color: @color_red;
-        color: white;
+        color: white !important;
 
         &:not([disabled]):hover {
             background-color: darken(@color_red, 10%);
@@ -53,7 +53,7 @@
 
     &--secondary {
         background-color: white;
-        color: @primary_font_color;
+        color: @primary_font_color !important;
         border-color: @color_border_grey;
 
         &:not([disabled]):hover {

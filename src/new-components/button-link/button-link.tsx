@@ -18,7 +18,7 @@ const ButtonLink = forwardRefWithAs<ButtonLinkProps>(function ButtonLink(
         <Box
             {...props}
             component={component}
-            display="flex"
+            display="inlineFlex"
             alignItems="center"
             justifyContent="center"
             className={[
