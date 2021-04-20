@@ -21,10 +21,6 @@ const Stack = forwardRefWithAs<StackProps>(function Stack(
     { component, space, dividers = false, children, className, ...props },
     ref,
 ) {
-    const isList = component === 'ol' || component === 'ul'
-    const isFlowContent = component === 'span' || component === 'label'
-    const inlineItemComponent = isList ? 'li' : isFlowContent ? 'span' : 'div'
-
     return (
         <Box
             component={component}
@@ -32,16 +28,20 @@ const Stack = forwardRefWithAs<StackProps>(function Stack(
             ref={ref}
             {...props}
         >
-            {React.Children.map(flattenChildren(children), (child, index) => (
-                <Box component={inlineItemComponent}>
-                    {dividers && index > 0 ? (
-                        <Box paddingBottom={space}>
-                            <Divider weight={typeof dividers === 'string' ? dividers : undefined} />
-                        </Box>
-                    ) : null}
-                    {child}
-                </Box>
-            ))}
+            {dividers
+                ? React.Children.map(flattenChildren(children), (child, index) =>
+                      index > 0 ? (
+                          <>
+                              <Divider
+                                  weight={typeof dividers === 'string' ? dividers : undefined}
+                              />
+                              {child}
+                          </>
+                      ) : (
+                          child
+                      ),
+                  )
+                : children}
         </Box>
     )
 })

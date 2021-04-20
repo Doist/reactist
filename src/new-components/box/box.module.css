@@ -64,6 +64,9 @@
 .display-inlineBlock {
     display: inline-block;
 }
+.display-inlineFlex {
+    display: inline-flex;
+}
 .display-none {
     display: none;
 }
@@ -79,6 +82,9 @@
     }
     .tablet-display-inlineBlock {
         display: inline-block;
+    }
+    .tablet-display-inlineFlex {
+        display: inline-flex;
     }
     .tablet-display-none {
         display: none;
@@ -96,6 +102,9 @@
     }
     .desktop-display-inlineBlock {
         display: inline-block;
+    }
+    .desktop-display-inlineFlex {
+        display: inline-flex;
     }
     .desktop-display-none {
         display: none;
