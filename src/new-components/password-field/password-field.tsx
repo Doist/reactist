@@ -41,11 +41,14 @@ function PasswordField({
             secondaryLabel={secondaryLabel}
             auxiliaryLabel={auxiliaryLabel}
             hint={hint}
-            className={[styles.inputWrapper, textFieldStyles.inputWrapper]}
             maxWidth={maxWidth}
         >
             {(extraProps) => (
-                <Box display="flex" alignItems="center" className={styles.inputWrapper}>
+                <Box
+                    display="flex"
+                    alignItems="center"
+                    className={[styles.inputWrapper, textFieldStyles.inputWrapper]}
+                >
                     <input
                         {...props}
                         {...extraProps}
