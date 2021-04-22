@@ -35,7 +35,8 @@
 }
 
 .space-xxlarge {
-    margin: calc(var(--reactist-spacing-xxlarge) * -1) 0 0 calc(var(--reactist-spacing-xxlarge) * -1);
+    margin: calc(var(--reactist-spacing-xxlarge) * -1) 0 0
+        calc(var(--reactist-spacing-xxlarge) * -1);
 }
 .space-xxlarge > * {
     margin: var(--reactist-spacing-xxlarge) 0 0 var(--reactist-spacing-xxlarge);

@@ -28,6 +28,7 @@
             ) / 2
     );
     padding: var(--tmp-vertical-padding) 10px;
+    padding-right: 30px; /* to make room for the absolutely positioned chevron icon */
 
     appearance: none;
     box-sizing: border-box;

@@ -4,5 +4,5 @@
 }
 
 .container.checked svg {
-    color: var(--reactist-chromatic-fill-red);
+    color: var(--reactist-switch-checked);
 }
