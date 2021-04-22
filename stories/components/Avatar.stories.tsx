@@ -1,7 +1,7 @@
 import './styles/avatar_story.less'
 
 import React from 'react'
-import { withKnobs, text, select } from '@storybook/addon-knobs'
+import { withKnobs } from '@storybook/addon-knobs'
 
 import Avatar from '../../src/components/avatar'
 
@@ -85,15 +85,60 @@ export const PictureAvatarStory = () => (
     </section>
 )
 
-export const AvatarPlaygroundStory = () => (
-    <section className="story Avatar">
-        <Avatar
-            user={{
-                name: text('User Name', ''),
-                email: text('User Email', ''),
-            }}
-            avatarUrl={text('Avatar URL', 'https://loremflickr.com/320/320')}
-            size={select('Avatar Size', ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'], 'l')}
-        />
-    </section>
-)
+export const AvatarPlaygroundStory = (args) => {
+    return (
+        <section className="story Avatar">
+            <Avatar
+                {...args}
+                user={{
+                    name: args.userName,
+                    email: args.email,
+                }}
+            />
+        </section>
+    )
+}
+
+AvatarPlaygroundStory.args = {
+    size: 'l',
+    avatarUrl: 'https://loremflickr.com/320/320',
+    userName: '',
+    email: '',
+}
+
+AvatarPlaygroundStory.argTypes = {
+    size: {
+        type: 'select',
+        options: ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'],
+    },
+    avatarUrl: {
+        control: {
+            type: 'text',
+        },
+    },
+    userName: {
+        control: {
+            type: 'text',
+        },
+    },
+    email: {
+        control: {
+            type: 'text',
+        },
+    },
+    className: {
+        control: {
+            type: null,
+        },
+    },
+    user: {
+        control: {
+            type: null,
+        },
+    },
+    colorList: {
+        control: {
+            type: null,
+        },
+    },
+}
