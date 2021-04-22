@@ -6,7 +6,7 @@ import styles from './text-field.module.css'
 type TextFieldProps = BaseFieldProps<HTMLInputElement>
 
 const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
-    { id, label, secondaryLabel, auxiliaryLabel, hint, type = 'text', maxWidth, ...props },
+    { id, label, secondaryLabel, auxiliaryLabel, hint, type = 'text', maxWidth, hidden, ...props },
     ref,
 ) {
     return (
@@ -17,6 +17,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
             auxiliaryLabel={auxiliaryLabel}
             hint={hint}
             maxWidth={maxWidth}
+            hidden={hidden}
         >
             {(extraProps) => (
                 <Box className={styles.inputWrapper}>

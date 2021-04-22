@@ -18,7 +18,16 @@ type PasswordFieldProps = Omit<TextFieldProps, 'type'> & {
 }
 
 const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(function PasswordField(
-    { label, secondaryLabel, auxiliaryLabel, hint, maxWidth, togglePasswordLabel, ...props },
+    {
+        label,
+        secondaryLabel,
+        auxiliaryLabel,
+        hint,
+        maxWidth,
+        togglePasswordLabel,
+        hidden,
+        ...props
+    },
     ref,
 ) {
     const id = useId(props.id)
@@ -40,6 +49,7 @@ const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(fun
             auxiliaryLabel={auxiliaryLabel}
             hint={hint}
             maxWidth={maxWidth}
+            hidden={hidden}
         >
             {(extraProps) => (
                 <Box

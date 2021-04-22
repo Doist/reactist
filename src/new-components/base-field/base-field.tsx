@@ -44,6 +44,7 @@ function BaseField({
     className,
     children,
     maxWidth,
+    hidden,
     ...props
 }: BaseFieldProps & BaseFieldChildren & WithEnhancedClassName) {
     const id = useId(props.id)
@@ -54,7 +55,7 @@ function BaseField({
         : props['aria-describedby']
 
     return (
-        <Box className={[className, styles.container]} maxWidth={maxWidth}>
+        <Box className={[className, styles.container]} maxWidth={maxWidth} hidden={hidden}>
             <Box
                 component="span"
                 display="flex"
