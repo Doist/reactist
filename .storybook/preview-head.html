@@ -1,0 +1,125 @@
+<meta charset="utf-8">
+<title>Storybook</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<base target="_parent">
+<style>
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    :not(.sb-show-main)>.sb-main,
+    :not(.sb-show-nopreview)>.sb-nopreview,
+    :not(.sb-show-errordisplay)>.sb-errordisplay {
+        display: none;
+    }
+
+    .sb-show-main.sb-main-centered {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .sb-show-main.sb-main-centered #root {
+        box-sizing: border-box;
+        margin: auto;
+        padding: 1rem;
+        max-height: 100%;
+        /* Hack for centering correctly in IE11 */
+    }
+
+    /* Vertical centering fix for IE11 */
+    @media screen and (-ms-high-contrast: none),
+    (-ms-high-contrast: active) {
+        .sb-show-main.sb-main-centered:after {
+            content: '';
+            min-height: inherit;
+            font-size: 0;
+        }
+    }
+
+    .sb-show-main.sb-main-fullscreen {
+        margin: 0;
+        padding: 0;
+        display: block;
+    }
+
+    .sb-show-main.sb-main-padded {
+        margin: 0;
+        padding: 1rem;
+        display: block;
+    }
+
+    .sb-wrapper {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        font-family: "Nunito Sans", -apple-system, ".SFNSText-Regular", "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        overflow: auto;
+    }
+
+    .sb-heading {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        margin: 10px 0;
+        padding-right: 25px;
+    }
+
+    .sb-nopreview {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+    }
+
+    .sb-nopreview_main {
+        margin: auto;
+        padding: 30px;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.03);
+    }
+
+    .sb-nopreview_heading {
+        text-align: center;
+    }
+
+    .sb-errordisplay {
+        border: 20px solid rgb(187, 49, 49);
+        background: #222;
+        color: #fff;
+        z-index: 999999;
+    }
+
+    .sb-errordisplay_code {
+        padding: 10px;
+        background: #000;
+        color: #eee;
+        font-family: "Operator Mono", "Fira Code Retina", "Fira Code", "FiraCode-Retina", "Andale Mono", "Lucida Console", Consolas, Monaco, monospace;
+    }
+
+    .sb-errordisplay pre {
+        white-space: pre-wrap;
+    }
+
+    .story {
+        font-family: Arial;
+    }
+</style>
+<style>
+    #root[hidden],
+    #docs-root[hidden] {
+        display: none !important;
+    }
+</style>

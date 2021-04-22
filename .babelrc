@@ -5,7 +5,23 @@
         "@babel/preset-typescript"
     ],
     "plugins": [
-        "@babel/proposal-class-properties",
-        "@babel/proposal-object-rest-spread"
+        // Explicitly defining its mode is required to avoid Babel 
+        // 'loose mode' errors when running Storybook
+        [
+            "@babel/proposal-class-properties",
+            {
+                "loose": false
+            }
+        ],
+        "@babel/proposal-object-rest-spread",
+        // This plugin and its mode is needed to avoid having to set loose mode
+        // configuration to true on above plugins. Despite this plugin already
+        // being included with preset-env, Babel requires it to be defined.
+        [
+            "@babel/plugin-proposal-private-methods",
+            {
+                "loose": false
+            }
+        ]
     ]
 }
