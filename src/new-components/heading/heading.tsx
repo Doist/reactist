@@ -21,15 +21,10 @@ type HeadingProps = SupportedHeadingElementProps & {
     lineClamp?: 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
 }
 
-function Heading({
-    level,
-    weight = 'regular',
-    size,
-    tone = 'normal',
-    children,
-    lineClamp,
-    ...props
-}: HeadingProps) {
+const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(function Heading(
+    { level, weight = 'regular', size, tone = 'normal', children, lineClamp, ...props },
+    ref,
+) {
     // In TypeScript v4.1, this would be properly recognized without needing the type assertion
     // https://devblogs.microsoft.com/typescript/announcing-typescript-4-1-beta/#template-literal-types
     const headingElementName = `h${level}` as HeadingElement
@@ -48,11 +43,12 @@ function Heading({
                 lineClamp ? getClassNames(styles, 'line-clamp', lineClamp.toString()) : null,
             ]}
             component={headingElementName}
+            ref={ref}
         >
             {children}
         </Box>
     )
-}
+})
 
 export type { HeadingProps, HeadingLevel }
 export { Heading }

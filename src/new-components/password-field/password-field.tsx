@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useForkRef } from 'reakit-utils'
 import { Tooltip } from '../../components/tooltip'
 import { BaseField } from '../base-field'
 import { Box } from '../box'
@@ -16,22 +17,28 @@ type PasswordFieldProps = Omit<TextFieldProps, 'type'> & {
     togglePasswordLabel: string
 }
 
-function PasswordField({
-    label,
-    secondaryLabel,
-    auxiliaryLabel,
-    hint,
-    maxWidth,
-    togglePasswordLabel,
-    ...props
-}: PasswordFieldProps) {
+const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(function PasswordField(
+    {
+        label,
+        secondaryLabel,
+        auxiliaryLabel,
+        hint,
+        maxWidth,
+        togglePasswordLabel,
+        hidden,
+        ...props
+    },
+    ref,
+) {
     const id = useId(props.id)
-    const inputRef = React.useRef<HTMLInputElement>(null)
+    const internalRef = React.useRef<HTMLInputElement>(null)
+    const inputRef = useForkRef(internalRef, ref)
+
     const [isPasswordVisible, setPasswordVisible] = React.useState(false)
 
     function togglePasswordVisibility() {
         setPasswordVisible((v) => !v)
-        inputRef.current?.focus()
+        internalRef.current?.focus()
     }
 
     return (
@@ -41,11 +48,15 @@ function PasswordField({
             secondaryLabel={secondaryLabel}
             auxiliaryLabel={auxiliaryLabel}
             hint={hint}
-            className={[styles.inputWrapper, textFieldStyles.inputWrapper]}
             maxWidth={maxWidth}
+            hidden={hidden}
         >
             {(extraProps) => (
-                <Box display="flex" alignItems="center" className={styles.inputWrapper}>
+                <Box
+                    display="flex"
+                    alignItems="center"
+                    className={[styles.inputWrapper, textFieldStyles.inputWrapper]}
+                >
                     <input
                         {...props}
                         {...extraProps}
@@ -70,7 +81,7 @@ function PasswordField({
             )}
         </BaseField>
     )
-}
+})
 
 export { PasswordField }
 export type { PasswordFieldProps }
