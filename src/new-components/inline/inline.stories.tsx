@@ -9,6 +9,7 @@ import {
     selectWithNone,
 } from '../storybook-helper'
 import { Stack } from '../stack'
+import { Heading } from '../heading'
 import { Inline } from './inline'
 import type { InlineAlign } from './inline'
 
@@ -62,3 +63,18 @@ storiesOf('Inline', module)
             </Stack>
         </>
     ))
+
+    .add('Nested inside a Stack', () => {
+        const space = selectSize('space', 'xlarge')
+        return (
+            <>
+                <Stack space={space}>
+                    <Heading level="1">
+                        Parent stack with space=&ldquo;{space ?? 'none'}&rdquo;
+                    </Heading>
+                    <Inline space="xsmall">{renderInlineContent()}</Inline>
+                    <Inline space="xsmall">{renderInlineContent()}</Inline>
+                </Stack>
+            </>
+        )
+    })

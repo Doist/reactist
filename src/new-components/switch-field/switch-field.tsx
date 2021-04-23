@@ -16,12 +16,13 @@ function SwitchField({
     hint,
     disabled = false,
     checked = false,
+    maxWidth,
     ...props
 }: SwitchFieldProps) {
     const id = useId(props.id)
     const hintId = useId()
     return (
-        <Box className={[styles.container, disabled ? styles.disabled : null]}>
+        <Box className={[styles.container, disabled ? styles.disabled : null]} maxWidth={maxWidth}>
             <Box component="label" display="flex" alignItems="center">
                 <Box className={[styles.inputWrapper, checked ? styles.checked : null]}>
                     <input
