@@ -2,6 +2,16 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v9.2.0-beta.7
+
+Various fixes to the new experimental components
+
+- Adds a right padding to the `SelectField` to make sure the chevron never appears on top of the `select` content.
+- Use for the checked `CheckboxField` the same colour variable we use for the `SwitchField`.
+- Add a wrapper `div` around what `Inline` renders, to avoid conflicts with margin applied from the outside by `Stack` (when `Inline` is nested in `Stack`).
+- Simplify the CSS for `Stack` leveraging the `:not(:first-child)` selector.
+- Add one more story to each of `Stack` and `Inline` to showcase that these new changes did not break their expected behaviour.
+
 ## v9.2.0-beta.6
 
 Various fixes to the new experimental components
