@@ -8,7 +8,6 @@ import type { Space } from '../common-types'
 import type { ReusableBoxProps } from '../box'
 
 import styles from './columns.module.css'
-import stackStyles from '../stack/stack.module.css'
 
 type ColumnWidth =
     | 'auto'
@@ -67,10 +66,8 @@ const Columns = forwardRefWithAs<ColumnsProps>(function Columns(
 ) {
     return (
         <Box
-            className={[
-                getClassNames(styles, 'space', space),
-                getClassNames(stackStyles, 'space', space),
-            ]}
+            {...props}
+            className={getClassNames(styles, 'space', space)}
             flexDirection={
                 collapseBelow === 'desktop'
                     ? ['column', 'column', 'row']
@@ -86,7 +83,6 @@ const Columns = forwardRefWithAs<ColumnsProps>(function Columns(
                 align === 'left' ? 'flexStart' : align === 'right' ? 'flexEnd' : 'center',
             )}
             ref={ref}
-            {...props}
         >
             {children}
         </Box>

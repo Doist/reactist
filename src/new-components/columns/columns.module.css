@@ -161,3 +161,139 @@
 .columnWidth-4-5 {
     flex: 0 0 80%;
 }
+
+/* styles for whan stacked */
+
+/* Default vertical spacing */
+.space-xsmall {
+    margin-top: calc(var(--reactist-spacing-xsmall) * -1);
+}
+.space-xsmall > * {
+    margin-top: var(--reactist-spacing-xsmall);
+}
+
+.space-small {
+    margin-top: calc(var(--reactist-spacing-small) * -1);
+}
+.space-small > * {
+    margin-top: var(--reactist-spacing-small);
+}
+
+.space-medium {
+    margin-top: calc(var(--reactist-spacing-medium) * -1);
+}
+.space-medium > * {
+    margin-top: var(--reactist-spacing-medium);
+}
+
+.space-large {
+    margin-top: calc(var(--reactist-spacing-large) * -1);
+}
+.space-large > * {
+    margin-top: var(--reactist-spacing-large);
+}
+
+.space-xlarge {
+    margin-top: calc(var(--reactist-spacing-xlarge) * -1);
+}
+.space-xlarge > * {
+    margin-top: var(--reactist-spacing-xlarge);
+}
+
+.space-xxlarge {
+    margin-top: calc(var(--reactist-spacing-xxlarge) * -1);
+}
+.space-xxlarge > * {
+    margin-top: var(--reactist-spacing-xxlarge);
+}
+
+/* Vertical spacing in tablet */
+@media (min-width: 768px /* --reactist-breakpoint-tablet */) {
+    .tablet-space-xsmall {
+        margin-top: calc(var(--reactist-spacing-xsmall) * -1);
+    }
+    .tablet-tablet-space-xsmall > * {
+        margin-top: var(--reactist-spacing-xsmall);
+    }
+
+    .tablet-space-small {
+        margin-top: calc(var(--reactist-spacing-small) * -1);
+    }
+    .tablet-space-small > * {
+        margin-top: var(--reactist-spacing-small);
+    }
+
+    .tablet-space-medium {
+        margin-top: calc(var(--reactist-spacing-medium) * -1);
+    }
+    .tablet-space-medium > * {
+        margin-top: var(--reactist-spacing-medium);
+    }
+
+    .tablet-space-large {
+        margin-top: calc(var(--reactist-spacing-large) * -1);
+    }
+    .tablet-space-large > * {
+        margin-top: var(--reactist-spacing-large);
+    }
+
+    .tablet-space-xlarge {
+        margin-top: calc(var(--reactist-spacing-xlarge) * -1);
+    }
+    .tablet-space-xlarge > * {
+        margin-top: var(--reactist-spacing-xlarge);
+    }
+
+    .tablet-space-xxlarge {
+        margin-top: calc(var(--reactist-spacing-xxlarge) * -1);
+    }
+    .tablet-space-xxlarge > * {
+        margin-top: var(--reactist-spacing-xxlarge);
+    }
+}
+
+/* Vertical spacing in desktop */
+
+@media (min-width: 992px /* --reactist-breakpoint-desktop */) {
+    .desktop-space-xsmall {
+        margin-top: calc(var(--reactist-spacing-xsmall) * -1);
+    }
+    .desktop-space-xsmall > * {
+        margin-top: var(--reactist-spacing-xsmall);
+    }
+
+    .desktop-space-small {
+        margin-top: calc(var(--reactist-spacing-small) * -1);
+    }
+    .desktop-space-small > * {
+        margin-top: var(--reactist-spacing-small);
+    }
+
+    .desktop-space-medium {
+        margin-top: calc(var(--reactist-spacing-medium) * -1);
+    }
+    .desktop-space-medium > * {
+        margin-top: var(--reactist-spacing-medium);
+    }
+
+    .desktop-space-large {
+        margin-top: calc(var(--reactist-spacing-large) * -1);
+    }
+    .desktop-space-large > * {
+        margin-top: var(--reactist-spacing-large);
+    }
+
+    .desktop-space-xlarge {
+        margin-top: calc(var(--reactist-spacing-xlarge) * -1);
+    }
+    .desktop-space-xlarge > * {
+        margin-top: var(--reactist-spacing-xlarge);
+    }
+
+    .desktop-space-xxlarge {
+        margin-top: calc(var(--reactist-spacing-xxlarge) * -1);
+    }
+    .desktop-space-xxlarge > * {
+        margin-top: var(--reactist-spacing-xxlarge);
+    }
+}
