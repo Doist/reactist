@@ -1,11 +1,13 @@
 import * as React from 'react'
-import { withKnobs, select } from '@storybook/addon-knobs'
 import {
+    select,
     selectWithNone,
     reusableBoxProps,
+    disableResponsiveProps,
     Placeholder,
     ResponsiveWidthRef,
     Wrapper,
+    PartialProps,
 } from '../storybook-helper'
 import { Stack } from '../stack'
 import { Box } from './box'
@@ -19,38 +21,24 @@ import type {
 
 export default {
     title: 'Design system/Box',
-    decorators: [withKnobs],
     component: Box,
+    argTypes: {
+        display: select<BoxDisplay>(['block', 'inlineBlock', 'inline', 'flex', 'none'], 'block'),
+        flexDirection: selectWithNone<BoxFlexDirection>(['column', 'row'], 'row'),
+        flexWrap: selectWithNone<BoxFlexWrap>(['wrap', 'nowrap'], 'nowrap'),
+        alignItems: selectWithNone<BoxAlignItems>(['center', 'flexEnd', 'flexStart'], 'none'),
+        justifyContent: selectWithNone<BoxJustifyContent>(
+            ['center', 'flexEnd', 'flexStart', 'spaceBetween'],
+            'none',
+        ),
+        ...reusableBoxProps(),
+    },
 }
 
-export function InteractivePropsStory() {
+export function InteractivePropsStory(args: PartialProps<typeof Box>) {
     return (
         <Wrapper border={true}>
-            <Box
-                style={{ backgroundColor: 'lightgreen' }}
-                display={select<BoxDisplay>(
-                    'display',
-                    ['block', 'inlineBlock', 'inline', 'flex', 'none'],
-                    'block',
-                )}
-                flexDirection={selectWithNone<BoxFlexDirection>(
-                    'flexDirection',
-                    ['column', 'row'],
-                    'row',
-                )}
-                flexWrap={selectWithNone<BoxFlexWrap>('flexWrap', ['wrap', 'nowrap'], 'nowrap')}
-                alignItems={selectWithNone<BoxAlignItems>(
-                    'alignItems',
-                    ['center', 'flexEnd', 'flexStart'],
-                    'none',
-                )}
-                justifyContent={selectWithNone<BoxJustifyContent>(
-                    'justifyContent',
-                    ['center', 'flexEnd', 'flexStart', 'spaceBetween'],
-                    'none',
-                )}
-                {...reusableBoxProps()}
-            >
+            <Box style={{ backgroundColor: 'lightgreen' }} {...args}>
                 <div>One</div>
                 <div>Two</div>
                 <div>Three</div>
@@ -96,4 +84,13 @@ export function ResponsiveStory() {
             </Stack>
         </>
     )
+}
+
+ResponsiveStory.argTypes = {
+    display: { control: false },
+    flexDirection: { control: false },
+    flexWrap: { control: false },
+    alignItems: { control: false },
+    justifyContent: { control: false },
+    ...disableResponsiveProps,
 }

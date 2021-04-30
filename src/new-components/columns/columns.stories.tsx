@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { storiesOf } from '@storybook/react'
 import {
     selectSize,
     times,
@@ -8,12 +7,13 @@ import {
     ResponsiveWidthRef,
     Wrapper,
     selectWithNone,
+    PartialProps,
+    disableResponsiveProps,
 } from '../storybook-helper'
 import { Stack } from '../stack'
 import { Columns, Column } from './columns'
 
 import type {
-    ColumnsProps,
     ColumnsHorizontalAlignment,
     ColumnsVerticalAlignment,
     ColumnsCollapseBelow,
@@ -23,27 +23,19 @@ export default {
     title: 'Design system/Columns',
     component: Columns,
     subcomponents: { Column },
+    argTypes: {
+        space: selectSize(),
+        align: selectWithNone<ColumnsHorizontalAlignment>(['left', 'center', 'right']),
+        alignY: selectWithNone<ColumnsVerticalAlignment>(['top', 'center', 'bottom']),
+        ...reusableBoxProps(),
+    },
 }
 
-export function AlignmentStory() {
-    const props: Partial<ColumnsProps> = {
-        space: selectSize('space'),
-        align: selectWithNone<ColumnsHorizontalAlignment>(
-            'align',
-            ['left', 'center', 'right'],
-            'none',
-        ),
-        alignY: selectWithNone<ColumnsVerticalAlignment>(
-            'alignY',
-            ['top', 'center', 'bottom'],
-            'none',
-        ),
-        ...reusableBoxProps(),
-    }
+export function AlignmentStory(args: PartialProps<typeof Columns>) {
     return (
         <Stack space="xlarge">
             <Wrapper title="Use alignY to control vertical alignment" border={true}>
-                <Columns {...props}>
+                <Columns {...args}>
                     {times(5).map((i) => (
                         <Column key={i}>
                             <Placeholder label={i + 1} height={(i + 1) * 30} />
@@ -52,7 +44,7 @@ export function AlignmentStory() {
                 </Columns>
             </Wrapper>
             <Wrapper title="Use align to control horizontal alignment" border={true}>
-                <Columns {...props}>
+                <Columns {...args}>
                     <Column width="1/5">
                         <Placeholder height={20} />
                     </Column>
@@ -65,8 +57,7 @@ export function AlignmentStory() {
     )
 }
 
-export function WidthsStory() {
-    const space = selectSize('space', 'medium')
+export function WidthsStory({ space }: PartialProps<typeof Columns>) {
     return (
         <Stack space="large" dividers>
             <Wrapper>
@@ -241,7 +232,14 @@ export function WidthsStory() {
     )
 }
 
-export function ResponsiveStory() {
+WidthsStory.argTypes = {
+    space: selectSize('medium'),
+    align: { control: false },
+    alignY: { control: false },
+    ...disableResponsiveProps,
+}
+
+export function ResponsiveStory(args: PartialProps<typeof Columns>) {
     return (
         <>
             <ResponsiveWidthRef />
@@ -256,14 +254,7 @@ export function ResponsiveStory() {
                     </Columns>
                 </Wrapper>
                 <Wrapper title="Use collapseBelow to control if/when the columns become stacked depending on viewport width">
-                    <Columns
-                        collapseBelow={selectWithNone<ColumnsCollapseBelow>(
-                            'collapseBelow',
-                            ['tablet', 'desktop'],
-                            'tablet',
-                        )}
-                        space={selectSize('space', 'medium')}
-                    >
+                    <Columns {...args}>
                         {times(5).map((i) => (
                             <Column key={i}>
                                 <Placeholder label={i + 1} height={50} />
@@ -274,4 +265,12 @@ export function ResponsiveStory() {
             </Stack>
         </>
     )
+}
+
+ResponsiveStory.argTypes = {
+    space: selectSize('medium'),
+    collapseBelow: selectWithNone<ColumnsCollapseBelow>(['tablet', 'desktop'], 'tablet'),
+    align: { control: false },
+    alignY: { control: false },
+    ...disableResponsiveProps,
 }

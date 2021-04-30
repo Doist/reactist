@@ -6,15 +6,21 @@ import {
     ResponsiveWidthRef,
     Wrapper,
     selectWithNone,
+    PartialProps,
+    disableResponsiveProps,
 } from '../storybook-helper'
 import { Stack } from '../stack'
 import { Heading } from '../heading'
-import { Inline } from './inline'
-import type { InlineAlign } from './inline'
+import { Inline, InlineAlign } from './inline'
 
 export default {
     title: 'Design system/Inline',
     component: Inline,
+    argTypes: {
+        space: selectSize('medium'),
+        align: selectWithNone<InlineAlign>(['left', 'center', 'right']),
+        ...reusableBoxProps(),
+    },
 }
 
 function renderInlineContent() {
@@ -36,16 +42,10 @@ function renderInlineContent() {
     )
 }
 
-export function InteractivePropsStory() {
+export function InteractivePropsStory(args: PartialProps<typeof Inline>) {
     return (
         <Wrapper title="Change the viewport width to see how it wraps content" border={true}>
-            <Inline
-                space={selectSize('space', 'medium')}
-                align={selectWithNone<InlineAlign>('align', ['left', 'center', 'right'])}
-                {...reusableBoxProps()}
-            >
-                {renderInlineContent()}
-            </Inline>
+            <Inline {...args}>{renderInlineContent()}</Inline>
         </Wrapper>
     )
 }
@@ -71,8 +71,13 @@ export function ResponsiveStory() {
     )
 }
 
-export function NestedStackStory() {
-    const space = selectSize('space', 'xlarge')
+ResponsiveStory.argTypes = {
+    space: { control: false },
+    align: { control: false },
+    ...disableResponsiveProps,
+}
+
+export function NestedStackStory({ space }: PartialProps<typeof Inline>) {
     return (
         <>
             <Stack space={space}>
@@ -82,4 +87,10 @@ export function NestedStackStory() {
             </Stack>
         </>
     )
+}
+
+NestedStackStory.argTypes = {
+    space: selectSize('xlarge'),
+    align: { control: false },
+    ...disableResponsiveProps,
 }

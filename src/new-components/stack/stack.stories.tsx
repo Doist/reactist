@@ -4,10 +4,12 @@ import {
     selectCount,
     times,
     reusableBoxProps,
+    disableResponsiveProps,
     Placeholder,
     ResponsiveWidthRef,
     Wrapper,
     selectWithNone,
+    PartialProps,
 } from '../storybook-helper'
 import { Heading } from '../heading'
 import { Stack } from './stack'
@@ -17,17 +19,21 @@ import type { DividerWeight } from '../divider'
 export default {
     title: 'Design system/Stack',
     component: Stack,
+    argTypes: {
+        space: selectSize(),
+        dividers: selectWithNone<DividerWeight>(['regular', 'strong']),
+        ...reusableBoxProps(),
+    },
 }
 
-export function InteractivePropsStory() {
+export function InteractivePropsStory({
+    itemCount,
+    ...args
+}: PartialProps<typeof Stack> & { itemCount: number }) {
     return (
         <Wrapper border={true}>
-            <Stack
-                space={selectSize('space')}
-                dividers={selectWithNone<DividerWeight>('dividers', ['regular', 'strong']) || false}
-                {...reusableBoxProps()}
-            >
-                {times(selectCount('Item Count')).map((i) => (
+            <Stack {...args}>
+                {times(itemCount).map((i) => (
                     <Placeholder key={i} label={i + 1} />
                 ))}
             </Stack>
@@ -35,13 +41,17 @@ export function InteractivePropsStory() {
     )
 }
 
-export function ResponsiveStory() {
+InteractivePropsStory.argTypes = {
+    itemCount: selectCount('Item count', 5),
+}
+
+export function ResponsiveStory({ itemCount }: { itemCount: number }) {
     return (
         <>
             <ResponsiveWidthRef />
             <Wrapper>
                 <Stack space={['xsmall', 'medium', 'xlarge']}>
-                    {times(selectCount('Item Count')).map((i) => (
+                    {times(itemCount).map((i) => (
                         <Placeholder key={i} label={i + 1} />
                     ))}
                 </Stack>
@@ -50,12 +60,20 @@ export function ResponsiveStory() {
     )
 }
 
-export function NestedStacksStory() {
-    const space = selectSize('space', 'xlarge')
+ResponsiveStory.argTypes = {
+    itemCount: selectCount('Item count'),
+    space: { control: false },
+    dividers: { control: false },
+    ...disableResponsiveProps,
+}
+
+export function NestedStacksStory(args: PartialProps<typeof Stack>) {
     return (
         <>
-            <Stack space={space}>
-                <Heading level="1">Parent stack with space=&ldquo;{space ?? 'none'}&rdquo;</Heading>
+            <Stack {...args}>
+                <Heading level="1">
+                    Parent stack with space=&ldquo;{args.space ?? 'none'}&rdquo;
+                </Heading>
                 <Stack space="xsmall">
                     <Heading level="2">Nested stack with space=&ldquo;xsmall&rdquo;</Heading>
                     <Placeholder />
@@ -72,4 +90,10 @@ export function NestedStacksStory() {
             </Stack>
         </>
     )
+}
+
+NestedStacksStory.argTypes = {
+    space: selectSize('xlarge'),
+    dividers: { control: false },
+    ...disableResponsiveProps,
 }
