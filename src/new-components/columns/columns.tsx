@@ -42,6 +42,7 @@ const Column = forwardRefWithAs<ColumnProps>(function Column(
             width={width !== 'content' ? 'full' : undefined}
             flexShrink={width === 'content' ? 0 : undefined}
             ref={ref}
+            component={component}
             {...props}
         >
             {children}
