@@ -9,7 +9,7 @@ import type { ButtonProps } from '../../src/components/button'
 // Story setup ================================================================
 
 export default {
-    title: 'Tooltip',
+    title: 'Components/Tooltip',
 }
 
 const ExampleButton = React.forwardRef<HTMLButtonElement, ButtonProps>(function ExampleButton(

@@ -6,7 +6,7 @@ import { withKnobs } from '@storybook/addon-knobs'
 import Avatar from '../../src/components/avatar'
 
 export default {
-    title: 'Avatar',
+    title: 'Components/Avatar',
     decorators: [withKnobs],
     component: Avatar,
 }

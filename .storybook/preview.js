@@ -7,7 +7,7 @@ export const parameters = {
     options: {
         storySort: {
             method: 'alphabetical',
-            order: ['Reactist'],
+            order: ['Reactist', 'Design tokens', 'Design system', 'Components'],
         },
     },
     decorators,

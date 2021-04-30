@@ -6,7 +6,7 @@ import './styles/loading_story.less'
 // Story setup ================================================================
 
 export default {
-    title: 'Loading',
+    title: 'Components/Loading',
     component: Loading,
 }
 

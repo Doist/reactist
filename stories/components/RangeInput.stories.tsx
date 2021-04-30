@@ -3,7 +3,7 @@ import RangeInput from '../../src/components/range-input'
 
 // Story setup ================================================================
 export default {
-    title: 'RangeInput',
+    title: 'Components/RangeInput',
     component: RangeInput,
 }
 

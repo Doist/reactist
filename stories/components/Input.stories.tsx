@@ -6,7 +6,7 @@ import './styles/input_story.less'
 // Story setup ================================================================
 
 export default {
-    title: 'Input',
+    title: 'Components/Input',
     component: Input,
 }
 

@@ -23,7 +23,7 @@ const getStory = (text, modal, title) => (
 // Story setup ===============================================================
 
 export default {
-    title: 'Modal',
+    title: 'Components/Modal',
     docs: {
         page: './Modal.mdx',
     },

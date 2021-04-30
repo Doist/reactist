@@ -9,7 +9,7 @@ import './styles/notification_story.less'
 // Story setup ================================================================
 
 export default {
-    title: 'Notification',
+    title: 'Components/Notification',
     component: Notification,
 }
 

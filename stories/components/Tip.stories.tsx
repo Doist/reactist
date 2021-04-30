@@ -7,7 +7,7 @@ import Tip from '../../src/components/tip'
 // Story setup ================================================================
 
 export default {
-    title: 'Tip',
+    title: 'Components/Tip',
     component: Tip,
 }
 
