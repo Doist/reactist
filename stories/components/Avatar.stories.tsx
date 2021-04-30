@@ -52,7 +52,7 @@ const exampleData = [
         user: { name: 'Igor Kh', email: 'igor@foo.com' },
         image: 'https://loremflickr.com/320/320',
     },
-]
+] as const
 
 // Story Definitions ==========================================================
 

@@ -24,30 +24,6 @@ module.exports = {
                 ],
             },
             {
-                test: /\.module\.css$/i,
-                use: [
-                    'style-loader',
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            modules: {
-                                mode: 'local',
-                                localIdentName:
-                                    process.env.NODE_ENV === 'production'
-                                        ? '[hash:base64:8]'
-                                        : '[path][name]__[local]',
-                            },
-                            esModule: false,
-                        },
-                    },
-                ],
-            },
-            {
-                test: /\.css$/,
-                exclude: /\.module\.css$/,
-                loader: 'style-loader!css-loader',
-            },
-            {
                 test: /\.svg$/,
                 loader: 'svg-url-loader',
             },

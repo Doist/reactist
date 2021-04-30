@@ -1,19 +1,15 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { withKnobs, select, text } from '@storybook/addon-knobs'
+import { select, text } from '@storybook/addon-knobs'
 
 import { Stack } from '../stack'
 import { Heading } from './heading'
 
-const HeadingChapter = {
-    subtitle: 'Heading',
-    sections: [
-        { sectionFn: HeadingStory, options: { showPropTables: false } },
-        { sectionFn: TruncatedHeadingStory, options: { showPropTables: false } },
-    ],
+export default {
+    title: 'Design system/Heading',
+    component: Heading,
 }
 
-function HeadingStory() {
+export function HeadingStory() {
     return (
         <section className="story">
             <Stack dividers space="medium">
@@ -70,7 +66,7 @@ function HeadingStory() {
     )
 }
 
-function TruncatedHeadingStory() {
+export function TruncatedHeadingStory() {
     return (
         <section className="story">
             <Heading level={1} size="largest" lineClamp={1}>
@@ -88,7 +84,7 @@ function TruncatedHeadingStory() {
     )
 }
 
-function HeadingPlaygroundStory() {
+export function HeadingPlaygroundStory() {
     const level = select('level', ['1', '2', '3', '4', '5', '6'], '1')
     const size = select(
         'size',
@@ -112,16 +108,3 @@ function HeadingPlaygroundStory() {
         </section>
     )
 }
-
-// Not too sure what's going on in this block, might be an issue with bad typings.
-// These should all be reworked once we upgrade to Storybook 6 so we won't spend
-// time on fixing the types now
-
-// eslint-disable-next-line
-storiesOf('Heading', module)
-    .addDecorator(withKnobs)
-    // @ts-expect-error
-    .addWithChapters('Component Overview', {
-        chapters: [HeadingChapter],
-    })
-    .add('Component Playground', HeadingPlaygroundStory)

@@ -5,15 +5,12 @@ import { withKnobs, select, text } from '@storybook/addon-knobs'
 import { Stack } from '../stack'
 import { Text } from './text'
 
-const TextChapter = {
-    subtitle: 'Text',
-    sections: [
-        { sectionFn: TextStory, options: { showPropTables: false } },
-        { sectionFn: TruncatedTextStory, options: { showPropTables: false } },
-    ],
+export default {
+    title: 'Design system/Text',
+    component: Text,
 }
 
-function TextStory() {
+export function TextStory() {
     return (
         <section className="story">
             <Stack space="medium">
@@ -101,7 +98,7 @@ function TextStory() {
     )
 }
 
-function TruncatedTextStory() {
+export function TruncatedTextStory() {
     return (
         <section className="story">
             <Stack space="medium">
@@ -135,7 +132,7 @@ function TruncatedTextStory() {
     )
 }
 
-function TextPlaygroundStory() {
+export function TextPlaygroundStory() {
     const size = select('size', ['xsmall', 'small', 'standard', 'large', 'xlarge'], 'standard')
     const weight = select('weight', ['regular', 'medium', 'strong'], 'regular')
     const tone = select('tone', ['normal', 'secondary', 'danger'], 'normal')
@@ -150,16 +147,3 @@ function TextPlaygroundStory() {
         </section>
     )
 }
-
-// Not too sure what's going on in this block, might be an issue with bad typings.
-// These should all be reworked once we upgrade to Storybook 6 so we won't spend
-// time on fixing the types now
-
-// eslint-disable-next-line
-storiesOf('Text', module)
-    .addDecorator(withKnobs)
-    // @ts-expect-error
-    .addWithChapters('Component Overview', {
-        chapters: [TextChapter],
-    })
-    .add('Component Playground', TextPlaygroundStory)

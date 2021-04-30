@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { storiesOf } from '@storybook/react'
-import { select } from '@storybook/addon-knobs'
+import { withKnobs, select } from '@storybook/addon-knobs'
 import {
     selectWithNone,
     reusableBoxProps,
@@ -18,8 +17,14 @@ import type {
     BoxJustifyContent,
 } from './box'
 
-storiesOf('Box', module)
-    .add('Interactive props', () => (
+export default {
+    title: 'Design system/Box',
+    decorators: [withKnobs],
+    component: Box,
+}
+
+export function InteractivePropsStory() {
+    return (
         <Wrapper border={true}>
             <Box
                 style={{ backgroundColor: 'lightgreen' }}
@@ -51,9 +56,11 @@ storiesOf('Box', module)
                 <div>Three</div>
             </Box>
         </Wrapper>
-    ))
+    )
+}
 
-    .add('Responsive', () => (
+export function ResponsiveStory() {
+    return (
         <>
             <ResponsiveWidthRef />
             <Stack space="large" dividers>
@@ -88,4 +95,5 @@ storiesOf('Box', module)
                 </Wrapper>
             </Stack>
         </>
-    ))
+    )
+}

@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { storiesOf } from '@storybook/react'
 import {
     selectSize,
     reusableBoxProps,
@@ -12,6 +11,11 @@ import { Stack } from '../stack'
 import { Heading } from '../heading'
 import { Inline } from './inline'
 import type { InlineAlign } from './inline'
+
+export default {
+    title: 'Design system/Inline',
+    component: Inline,
+}
 
 function renderInlineContent() {
     return (
@@ -32,8 +36,8 @@ function renderInlineContent() {
     )
 }
 
-storiesOf('Inline', module)
-    .add('Interactive props', () => (
+export function InteractivePropsStory() {
+    return (
         <Wrapper title="Change the viewport width to see how it wraps content" border={true}>
             <Inline
                 space={selectSize('space', 'medium')}
@@ -43,9 +47,11 @@ storiesOf('Inline', module)
                 {renderInlineContent()}
             </Inline>
         </Wrapper>
-    ))
+    )
+}
 
-    .add('Responsive', () => (
+export function ResponsiveStory() {
+    return (
         <>
             <ResponsiveWidthRef />
             <Stack space="medium">
@@ -62,19 +68,18 @@ storiesOf('Inline', module)
                 </Wrapper>
             </Stack>
         </>
-    ))
+    )
+}
 
-    .add('Nested inside a Stack', () => {
-        const space = selectSize('space', 'xlarge')
-        return (
-            <>
-                <Stack space={space}>
-                    <Heading level="1">
-                        Parent stack with space=&ldquo;{space ?? 'none'}&rdquo;
-                    </Heading>
-                    <Inline space="xsmall">{renderInlineContent()}</Inline>
-                    <Inline space="xsmall">{renderInlineContent()}</Inline>
-                </Stack>
-            </>
-        )
-    })
+export function NestedStackStory() {
+    const space = selectSize('space', 'xlarge')
+    return (
+        <>
+            <Stack space={space}>
+                <Heading level="1">Parent stack with space=&ldquo;{space ?? 'none'}&rdquo;</Heading>
+                <Inline space="xsmall">{renderInlineContent()}</Inline>
+                <Inline space="xsmall">{renderInlineContent()}</Inline>
+            </Stack>
+        </>
+    )
+}

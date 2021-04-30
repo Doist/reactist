@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { storiesOf } from '@storybook/react'
 import {
     selectSize,
     selectCount,
@@ -15,8 +14,13 @@ import { Stack } from './stack'
 
 import type { DividerWeight } from '../divider'
 
-storiesOf('Stack', module)
-    .add('Stack (interactive props)', () => (
+export default {
+    title: 'Design system/Stack',
+    component: Stack,
+}
+
+export function InteractivePropsStory() {
+    return (
         <Wrapper border={true}>
             <Stack
                 space={selectSize('space')}
@@ -28,9 +32,11 @@ storiesOf('Stack', module)
                 ))}
             </Stack>
         </Wrapper>
-    ))
+    )
+}
 
-    .add('Stack (responsive)', () => (
+export function ResponsiveStory() {
+    return (
         <>
             <ResponsiveWidthRef />
             <Wrapper>
@@ -41,30 +47,29 @@ storiesOf('Stack', module)
                 </Stack>
             </Wrapper>
         </>
-    ))
+    )
+}
 
-    .add('Nested stacks', () => {
-        const space = selectSize('space', 'xlarge')
-        return (
-            <>
-                <Stack space={space}>
-                    <Heading level="1">
-                        Parent stack with space=&ldquo;{space ?? 'none'}&rdquo;
-                    </Heading>
-                    <Stack space="xsmall">
-                        <Heading level="2">Nested stack with space=&ldquo;xsmall&rdquo;</Heading>
-                        <Placeholder />
-                        <Placeholder />
-                        <Placeholder />
-                    </Stack>
-                    <Stack space="xsmall">
-                        <Heading level="2">Nested stack with space=&ldquo;xsmall&rdquo;</Heading>
-                        <Placeholder />
-                        <Placeholder />
-                        <Placeholder />
-                        <Placeholder />
-                    </Stack>
+export function NestedStacksStory() {
+    const space = selectSize('space', 'xlarge')
+    return (
+        <>
+            <Stack space={space}>
+                <Heading level="1">Parent stack with space=&ldquo;{space ?? 'none'}&rdquo;</Heading>
+                <Stack space="xsmall">
+                    <Heading level="2">Nested stack with space=&ldquo;xsmall&rdquo;</Heading>
+                    <Placeholder />
+                    <Placeholder />
+                    <Placeholder />
                 </Stack>
-            </>
-        )
-    })
+                <Stack space="xsmall">
+                    <Heading level="2">Nested stack with space=&ldquo;xsmall&rdquo;</Heading>
+                    <Placeholder />
+                    <Placeholder />
+                    <Placeholder />
+                    <Placeholder />
+                </Stack>
+            </Stack>
+        </>
+    )
+}
