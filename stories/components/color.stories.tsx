@@ -1,16 +1,13 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
 
 import { Columns, Column } from '../../src/new-components/columns'
 import { Stack } from '../../src/new-components/stack'
 import { Heading } from '../../src/new-components/heading'
 import { Box } from '../../src/new-components/box'
-import { optionsSourceOnly } from '../utils/StoryUtils'
 import './styles/color-story.less'
 
-const ColorSwatchesChapter = {
-    subtitle: 'Color',
-    sections: [{ sectionFn: ColorSwatchesStory, options: optionsSourceOnly }],
+export default {
+    title: 'Design tokens/Colors',
 }
 
 const frameworkFillColors = [
@@ -90,41 +87,35 @@ function Swatch({ color }: { color: string }) {
     )
 }
 
-function ColorSwatchesStory() {
+export function Colors() {
     return (
-        <section className="story">
-            <Heading level={1} size="larger" paddingBottom="medium">
+        <Stack space="xlarge" className="story">
+            <Heading level={1} size="larger">
                 Framework
             </Heading>
 
-            <Heading level={2} paddingBottom="medium">
-                Framework-Fill
-            </Heading>
+            <Heading level={2}>Framework-Fill</Heading>
             <Stack space="small">
                 {frameworkFillColors.map((color) => (
                     <Swatch color={color} key={color} />
                 ))}
             </Stack>
 
-            <Heading level={2} paddingTop="xlarge" paddingBottom="medium">
-                Framework-Separator
-            </Heading>
+            <Heading level={2}>Framework-Separator</Heading>
             <Stack space="small">
                 {frameworkSeparatorColors.map((color) => (
                     <Swatch color={color} key={color} />
                 ))}
             </Stack>
 
-            <Heading level={2} paddingTop="xlarge" paddingBottom="medium">
-                Framework-Border
-            </Heading>
+            <Heading level={2}>Framework-Border</Heading>
             <Stack space="small">
                 {frameworkBorderColors.map((color) => (
                     <Swatch color={color} key={color} />
                 ))}
             </Stack>
 
-            <Heading level={1} size="larger" paddingTop="xlarge" paddingBottom="medium">
+            <Heading level={1} size="larger">
                 Content
             </Heading>
             <Stack space="small">
@@ -133,46 +124,30 @@ function ColorSwatchesStory() {
                 ))}
             </Stack>
 
-            <Heading level={1} size="larger" paddingTop="xlarge" paddingBottom="medium">
+            <Heading level={1} size="larger">
                 Chromatic
             </Heading>
 
-            <Heading level={2} paddingBottom="medium">
-                Chromatic-Fill
-            </Heading>
+            <Heading level={2}>Chromatic-Fill</Heading>
             <Stack space="small">
                 {chromaticFillColors.map((color) => (
                     <Swatch color={color} key={color} />
                 ))}
             </Stack>
 
-            <Heading level={2} paddingTop="xlarge" paddingBottom="medium">
-                Chromatic-Content
-            </Heading>
+            <Heading level={2}>Chromatic-Content</Heading>
             <Stack space="small">
                 {chromaticContentColors.map((color) => (
                     <Swatch color={color} key={color} />
                 ))}
             </Stack>
 
-            <Heading level={2} paddingTop="xlarge" paddingBottom="medium">
-                Chromatic-Highlight
-            </Heading>
+            <Heading level={2}>Chromatic-Highlight</Heading>
             <Stack space="small">
                 {chromaticHighlightColors.map((color) => (
                     <Swatch color={color} key={color} />
                 ))}
             </Stack>
-        </section>
+        </Stack>
     )
 }
-
-function ColorStory() {
-    storiesOf('Color', module)
-        // @ts-expect-error
-        .addWithChapters('Swatches', {
-            chapters: [ColorSwatchesChapter],
-        })
-}
-
-export { ColorStory }
