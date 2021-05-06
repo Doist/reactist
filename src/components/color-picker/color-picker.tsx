@@ -61,7 +61,7 @@ function ColorPicker({ color = 0, small, onChange, colorList = COLORS }: Props) 
             </Dropdown.Trigger>
             <Dropdown.Body>
                 <div className="color_options">
-                    {colorList.reduce((items, currentColor, currentIndex) => {
+                    {colorList.reduce<React.ReactNode[]>((items, currentColor, currentIndex) => {
                         items.push(
                             <ColorItem
                                 isActive={
@@ -79,7 +79,7 @@ function ColorPicker({ color = 0, small, onChange, colorList = COLORS }: Props) 
                             />,
                         )
                         return items
-                    }, [] as React.ReactNode[])}
+                    }, [])}
                 </div>
             </Dropdown.Body>
         </Dropdown.Box>
