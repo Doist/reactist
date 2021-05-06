@@ -100,7 +100,7 @@ function ColorItem({ color, colorIndex, isActive, onClick, tooltip }: ColorItemP
         <span
             className={'reactist color_item' + (isActive ? ' active' : '')}
             style={{ backgroundColor: color }}
-            onClick={() => onClick && onClick(colorIndex)}
+            onClick={() => onClick?.(colorIndex)}
         >
             <span className="color_item--inner_ring" />
         </span>

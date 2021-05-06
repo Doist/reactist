@@ -46,16 +46,15 @@ function Select({
             defaultValue={defaultValue}
             {...otherProps}
         >
-            {options &&
-                options.map((option) => (
-                    <option
-                        key={option.key || option.value}
-                        value={option.value}
-                        disabled={option.disabled}
-                    >
-                        {option.text}
-                    </option>
-                ))}
+            {options?.map((option) => (
+                <option
+                    key={option.key || option.value}
+                    value={option.value}
+                    disabled={option.disabled}
+                >
+                    {option.text}
+                </option>
+            ))}
         </select>
     )
 }
