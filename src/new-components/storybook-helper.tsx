@@ -135,6 +135,8 @@ function Placeholder({
 }
 
 type PartialProps<
+    // Parent type of T is the same as React.ComponentProps<T>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>
 > = Partial<React.ComponentProps<T>>
 
