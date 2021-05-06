@@ -18,7 +18,7 @@ function MenuIndicator() {
 // Story setup ================================================================
 
 export default {
-    title: 'Menu',
+    title: 'Components/Menu',
     component: Menu,
 }
 //

@@ -1,19 +1,27 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { withKnobs, select, text } from '@storybook/addon-knobs'
 
 import { Stack } from '../stack'
 import { Text } from './text'
+import { select } from '../storybook-helper'
 
-const TextChapter = {
-    subtitle: 'Text',
-    sections: [
-        { sectionFn: TextStory, options: { showPropTables: false } },
-        { sectionFn: TruncatedTextStory, options: { showPropTables: false } },
-    ],
+export default {
+    title: 'Design system/Text',
+    component: Text,
+    argTypes: {
+        size: select(['xsmall', 'small', 'standard', 'large', 'xlarge'], 'standard'),
+        weight: select(['regular', 'medium', 'strong'], 'regular'),
+        lineClamp: select([1, 2, 3, 4, 5], 1),
+        children: {
+            control: {
+                type: 'text',
+            },
+            defaultValue: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit',
+        },
+        tone: select(['normal', 'secondary', 'danger'], 'normal'),
+    },
 }
 
-function TextStory() {
+export function TextStory() {
     return (
         <section className="story">
             <Stack space="medium">
@@ -101,7 +109,7 @@ function TextStory() {
     )
 }
 
-function TruncatedTextStory() {
+export function TruncatedTextStory() {
     return (
         <section className="story">
             <Stack space="medium">
@@ -135,31 +143,10 @@ function TruncatedTextStory() {
     )
 }
 
-function TextPlaygroundStory() {
-    const size = select('size', ['xsmall', 'small', 'standard', 'large', 'xlarge'], 'standard')
-    const weight = select('weight', ['regular', 'medium', 'strong'], 'regular')
-    const tone = select('tone', ['normal', 'secondary', 'danger'], 'normal')
-    const lineClamp = select('lineClamp', { none: undefined, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 }, 1)
-    const children = text('children', 'Lorem ipsum dolor sit amet consectetur, adipisicing elit')
-
+export function TextPlaygroundStory({ children, ...args }: React.ComponentProps<typeof Text>) {
     return (
         <section className="story playground">
-            <Text tone={tone} size={size} weight={weight} lineClamp={lineClamp}>
-                {children}
-            </Text>
+            <Text {...args}>{children}</Text>
         </section>
     )
 }
-
-// Not too sure what's going on in this block, might be an issue with bad typings.
-// These should all be reworked once we upgrade to Storybook 6 so we won't spend
-// time on fixing the types now
-
-// eslint-disable-next-line
-storiesOf('Text', module)
-    .addDecorator(withKnobs)
-    // @ts-expect-error
-    .addWithChapters('Component Overview', {
-        chapters: [TextChapter],
-    })
-    .add('Component Playground', TextPlaygroundStory)

@@ -1,19 +1,28 @@
 import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { withKnobs, select, text } from '@storybook/addon-knobs'
 
 import { Stack } from '../stack'
 import { Heading } from './heading'
+import { select, selectWithNone } from '../storybook-helper'
 
-const HeadingChapter = {
-    subtitle: 'Heading',
-    sections: [
-        { sectionFn: HeadingStory, options: { showPropTables: false } },
-        { sectionFn: TruncatedHeadingStory, options: { showPropTables: false } },
-    ],
+export default {
+    title: 'Design system/Heading',
+    component: Heading,
+    argTypes: {
+        level: select(['1', '2', '3', '4', '5', '6'], '1'),
+        size: selectWithNone(['largest', 'larger', 'smaller']),
+        weight: select(['regular', 'light'], 'regular'),
+        lineClamp: select([1, 2, 3, 4, 5], 1),
+        children: {
+            control: {
+                type: 'text',
+            },
+            defaultValue: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit',
+        },
+        tone: select(['normal', 'secondary', 'danger'], 'normal'),
+    },
 }
 
-function HeadingStory() {
+export function HeadingStory() {
     return (
         <section className="story">
             <Stack dividers space="medium">
@@ -70,7 +79,16 @@ function HeadingStory() {
     )
 }
 
-function TruncatedHeadingStory() {
+HeadingStory.argTypes = {
+    level: { control: false },
+    size: { control: false },
+    weight: { control: false },
+    lineClamp: { control: false },
+    children: { control: false },
+    tone: { control: false },
+}
+
+export function TruncatedHeadingStory() {
     return (
         <section className="story">
             <Heading level={1} size="largest" lineClamp={1}>
@@ -88,40 +106,22 @@ function TruncatedHeadingStory() {
     )
 }
 
-function HeadingPlaygroundStory() {
-    const level = select('level', ['1', '2', '3', '4', '5', '6'], '1')
-    const size = select(
-        'size',
-        {
-            largest: 'largest',
-            larger: 'larger',
-            'default (undefined)': undefined,
-            smaller: 'smaller',
-        },
-        undefined,
-    )
-    const weight = select('weight', ['regular', 'light'], 'regular')
-    const lineClamp = select('lineClamp', { none: undefined, 1: 1, 2: 2, 3: 3, 4: 4, 5: 5 }, 1)
-    const children = text('children', 'Lorem ipsum dolor, sit amet consectetur adipisicing elit')
+TruncatedHeadingStory.argTypes = {
+    level: { control: false },
+    size: { control: false },
+    weight: { control: false },
+    lineClamp: { control: false },
+    children: { control: false },
+    tone: { control: false },
+}
 
+export function HeadingPlaygroundStory({
+    children,
+    ...args
+}: React.ComponentProps<typeof Heading>) {
     return (
         <section className="story playground">
-            <Heading level={level} size={size} weight={weight} lineClamp={lineClamp}>
-                {children}
-            </Heading>
+            <Heading {...args}>{children}</Heading>
         </section>
     )
 }
-
-// Not too sure what's going on in this block, might be an issue with bad typings.
-// These should all be reworked once we upgrade to Storybook 6 so we won't spend
-// time on fixing the types now
-
-// eslint-disable-next-line
-storiesOf('Heading', module)
-    .addDecorator(withKnobs)
-    // @ts-expect-error
-    .addWithChapters('Component Overview', {
-        chapters: [HeadingChapter],
-    })
-    .add('Component Playground', HeadingPlaygroundStory)

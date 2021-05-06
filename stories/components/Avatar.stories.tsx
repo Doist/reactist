@@ -6,7 +6,7 @@ import { withKnobs } from '@storybook/addon-knobs'
 import Avatar from '../../src/components/avatar'
 
 export default {
-    title: 'Avatar',
+    title: 'Components/Avatar',
     decorators: [withKnobs],
     component: Avatar,
 }
@@ -52,7 +52,7 @@ const exampleData = [
         user: { name: 'Igor Kh', email: 'igor@foo.com' },
         image: 'https://loremflickr.com/320/320',
     },
-]
+] as const
 
 // Story Definitions ==========================================================
 

@@ -4,7 +4,7 @@ import Dropdown from '../../src/components/dropdown'
 import Button from '../../src/components/button'
 
 export default {
-    title: 'Dropdown',
+    title: 'Components/Dropdown',
     component: Dropdown,
 }
 

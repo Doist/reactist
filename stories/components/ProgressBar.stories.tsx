@@ -6,7 +6,7 @@ import ProgressBar from '../../src/components/progress-bar'
 
 // Story setup ================================================================
 export default {
-    title: 'ProgressBar',
+    title: 'Components/ProgressBar',
     component: ProgressBar,
 }
 

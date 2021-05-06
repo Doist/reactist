@@ -2,49 +2,53 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v9.2.0-beta.9
+
+-   [Docs] Upgraded all beta storybook docs to work with Storybook 6
+
 ## 9.1.3
 
-- [Tweak] Upgrade Storybook to version v6.2.1. Migrate stories to new version.
+-   [Tweak] Upgrade Storybook to version v6.2.1. Migrate stories to new version.
 
 ## v9.2.0-beta.8
 
-- Fix `Columns` styles, broken by the changes to `Stack` styling. This release now removes the interdependency of `Column's styles relying on `Stack` styles.
+-   Fix `Columns` styles, broken by the changes to `Stack` styling. This release now removes the interdependency of `Column's styles relying on `Stack` styles.
 
 ## v9.2.0-beta.7
 
 Various fixes to the new experimental components
 
-- Adds a right padding to the `SelectField` to make sure the chevron never appears on top of the `select` content.
-- Use for the checked `CheckboxField` the same colour variable we use for the `SwitchField`.
-- Add a wrapper `div` around what `Inline` renders, to avoid conflicts with margin applied from the outside by `Stack` (when `Inline` is nested in `Stack`).
-- Simplify the CSS for `Stack` leveraging the `:not(:first-child)` selector.
-- Add one more story to each of `Stack` and `Inline` to showcase that these new changes did not break their expected behaviour.
+-   Adds a right padding to the `SelectField` to make sure the chevron never appears on top of the `select` content.
+-   Use for the checked `CheckboxField` the same colour variable we use for the `SwitchField`.
+-   Add a wrapper `div` around what `Inline` renders, to avoid conflicts with margin applied from the outside by `Stack` (when `Inline` is nested in `Stack`).
+-   Simplify the CSS for `Stack` leveraging the `:not(:first-child)` selector.
+-   Add one more story to each of `Stack` and `Inline` to showcase that these new changes did not break their expected behaviour.
 
 ## v9.2.0-beta.6
 
 Various fixes to the new experimental components
 
-- Add explicit link styles to `TextLink`
-- `SwitchField` now properly animates the handle moving left or right.
-- Style fixes to the `PasswordField`.
-- Added ref forwarding to `TextField`, `PasswordField` and `Heading`.
+-   Add explicit link styles to `TextLink`
+-   `SwitchField` now properly animates the handle moving left or right.
+-   Style fixes to the `PasswordField`.
+-   Added ref forwarding to `TextField`, `PasswordField` and `Heading`.
 
 ## v9.2.0-beta.5
 
-- Change Stack and Inline elements to not generate one container element per child element.
-- Fix ButtonLink styling
-- Adds a new `display="inlineFlex"` value to the `display` property of `Box`. This makes the `Box` use `display: inline-flex`.
+-   Change Stack and Inline elements to not generate one container element per child element.
+-   Fix ButtonLink styling
+-   Adds a new `display="inlineFlex"` value to the `display` property of `Box`. This makes the `Box` use `display: inline-flex`.
 
 ## v9.2.0-beta.4
 
 Various fixes to the new experimental components
 
-- The `SelectField` now has its native appearance reset (i.e. `appearance: none`).
-- Fixed a typo in an internal css variable in the `SelectField` that made it not have the proper height.
-- Text in `Alert` and `Notice` is now properly aligned vertically with the icon.
-- Fixed some css module classes that were incorrect in the JS code.
-- `Alert` colours did not have the transparency properly set.
-- The `SwitchField` now has a new dedicated css variable for theming its background when checked.
+-   The `SelectField` now has its native appearance reset (i.e. `appearance: none`).
+-   Fixed a typo in an internal css variable in the `SelectField` that made it not have the proper height.
+-   Text in `Alert` and `Notice` is now properly aligned vertically with the icon.
+-   Fixed some css module classes that were incorrect in the JS code.
+-   `Alert` colours did not have the transparency properly set.
+-   The `SwitchField` now has a new dedicated css variable for theming its background when checked.
 
 ## v9.2.0-beta.3
 

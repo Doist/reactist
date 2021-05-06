@@ -1,5 +1,7 @@
-// we don't want the modal playground to be fixed and in the centre for the docs tab
-#story--modal--modal-playground-story {
+// We don't want the modal playground to be fixed and in the centre for the docs tab
+// The selector targets just the suffix of the story's id in case we change our
+// stories' hierarchy in the future
+[id$='-modal--modal-playground-story'] {
     .reactist {
         &_overlay {
             position: inherit;

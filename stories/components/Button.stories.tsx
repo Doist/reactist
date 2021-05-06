@@ -6,7 +6,7 @@ import Button from '../../src/components/button'
 import { alternateBrandingText } from './ButtonStory.md'
 
 export default {
-    title: 'Button',
+    title: 'Components/Button',
     component: Button,
 }
 

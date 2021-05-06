@@ -1,14 +1,14 @@
 import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
 import { default as Modal } from '../../src/components/modal'
-import { 
-    ModalHeaderOnlyStory, 
-    ModalHeaderAndBodyStory, 
-    ModalHeaderBodyAndActionsStory, 
+import {
+    ModalHeaderOnlyStory,
+    ModalHeaderAndBodyStory,
+    ModalHeaderBodyAndActionsStory,
     ModalScrollableBodyStory,
     PlainMediumModalStory,
     ModalPlaygroundStory } from './ModalStoryHelper'
 
-<Meta title="Modal" component={Modal} />
+<Meta title="Components/Modal" component={Modal} />
 
 <!-- Documentation -->
 
@@ -36,7 +36,7 @@ The **Modal.Box** component simply acts as a container for the Modal and is resp
 The **Modal.Box** accepts an optional property *closeOnOverlayClick* when set to **true** a click on the overlay will close the modal. Defaults to **false**.
 
 
-### Modal Header 
+### Modal Header
 ---
 The **Modal.Header** component shows the Header of the Modal. It always show a close icon on the right side to close the Modal. It can display arbitrary content you pass to it as children. However, the recommended usage pattern is to supply the *title* and *subtitle* (string) properties. This displays nicely formatted headings inside the Header.
 
@@ -49,7 +49,7 @@ Nevertheless, the **Modal.Header** will look the same whether you go for option 
 <Modal.Header title='A Fancy Title' />;
 ```
 
-### Modal Body 
+### Modal Body
 ---
 In the simplest case the **Modal.Body** just wraps all its children. However, it can be used to implement a more complex Dialog (i.e. if you do not want to render a Header). You can specify the *icon* property (any node, e.g. an *&lt;img /&gt;* or your custom *&lt;Icon /&gt;* component) which will be displayed on the left side of the Dialog's Body. When you set the *showCloseIcon* property to **true** the Body will display a close icon to dismiss the Dialog again. This should only be used when no Header is used.
 

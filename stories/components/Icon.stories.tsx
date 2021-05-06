@@ -6,7 +6,7 @@ import CloseIcon from '../../src/components/icons/CloseIcon.svg'
 // Story setup ================================================================
 
 export default {
-    title: 'Icon',
+    title: 'Components/Icon',
     component: Icon,
 }
 // Story Definitions ==========================================================

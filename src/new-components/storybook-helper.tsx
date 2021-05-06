@@ -1,38 +1,59 @@
 import * as React from 'react'
-import { number, select as selectKnob } from '@storybook/addon-knobs'
 import { Box } from './box'
 import { Heading } from './heading'
 import { Stack } from './stack'
 
 import './default-styles.less'
 
-import type { SelectTypeKnobValue } from '@storybook/addon-knobs/dist/components/types'
 import type { BoxProps } from './box'
 import type { Space } from './common-types'
 
-type SelectTypeOptionsProp<T extends SelectTypeKnobValue = SelectTypeKnobValue> =
+type SelectTypeOptionsProp<T extends unknown> =
     | Extract<T, PropertyKey>[]
     | readonly Extract<T, PropertyKey>[]
 
+function select<T extends string | number>(options: SelectTypeOptionsProp<T>, defaultValue?: T) {
+    return {
+        control: {
+            type: 'select',
+        },
+        options,
+        defaultValue,
+    }
+}
+
 function selectWithNone<T extends string | number>(
-    label: string,
     options: SelectTypeOptionsProp<T>,
     defaultValue: T | 'none' = 'none',
 ) {
-    const value = selectKnob(label, ['none', ...options], defaultValue)
-    return value === 'none' ? undefined : (value as Exclude<T, 'none'>)
+    return {
+        control: {
+            type: 'select',
+        },
+        options: ['none', ...options],
+        defaultValue,
+        mapping: {
+            none: undefined,
+        },
+    }
 }
 
-function selectSize(label: string, defaultValue: Space | 'none' = 'none') {
+function selectSize(defaultValue: Space | 'none' = 'none') {
     return selectWithNone<Space>(
-        label,
         ['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge'],
         defaultValue,
     )
 }
 
 function selectCount(label: string, defaultValue = 5) {
-    return Math.max(1, number(label, defaultValue))
+    return {
+        control: {
+            type: 'number',
+            min: 1,
+        },
+        name: label,
+        defaultValue,
+    }
 }
 
 function times(count: number): number[] {
@@ -40,18 +61,23 @@ function times(count: number): number[] {
     return Array.apply(null, Array(count)).map((_x, i) => i)
 }
 
-function reusableBoxProps(): Partial<BoxProps> {
+function reusableBoxProps(): Partial<Record<keyof BoxProps, ReturnType<typeof selectWithNone>>> {
     return {
-        maxWidth: selectWithNone('maxWidth', ['xsmall', 'small', 'medium', 'large', 'xlarge']),
-        padding: selectSize('padding'),
-        paddingX: selectSize('paddingX'),
-        paddingY: selectSize('paddingY'),
-        paddingTop: selectSize('paddingTop'),
-        paddingRight: selectSize('paddingRight'),
-        paddingBottom: selectSize('paddingBottom'),
-        paddingLeft: selectSize('paddingLeft'),
+        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge']),
+        padding: selectSize(),
+        paddingX: selectSize(),
+        paddingY: selectSize(),
+        paddingTop: selectSize(),
+        paddingRight: selectSize(),
+        paddingBottom: selectSize(),
+        paddingLeft: selectSize(),
     }
 }
+
+const disableResponsiveProps = Object.keys(reusableBoxProps()).reduce(
+    (accumulator, key) => ({ ...accumulator, [key]: { control: false } }),
+    {},
+)
 
 function Wrapper({
     title,
@@ -108,13 +134,23 @@ function Placeholder({
     )
 }
 
+type PartialProps<
+    // Parent type of T is the same as React.ComponentProps<T>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>
+> = Partial<React.ComponentProps<T>>
+
 export {
+    select,
     selectWithNone,
     selectSize,
     selectCount,
     times,
     reusableBoxProps,
+    disableResponsiveProps,
     Wrapper,
     ResponsiveWidthRef,
     Placeholder,
 }
+
+export type { PartialProps }
