@@ -25,68 +25,68 @@ export function TextStory() {
     return (
         <section className="story">
             <Stack space="medium">
-                <Text size="subtitle" weight="bold" tone="secondary">
-                    Text, subtitle, bold, secondary (16px)
+                <Text size="subtitle" weight="regular">
+                    Subtitle Regular
                 </Text>
-                <Text size="subtitle" weight="bold" tone="danger">
-                    Text, subtitle, bold, danger
+                <Text size="subtitle" tone="secondary">
+                    Subtitle Secondary
                 </Text>
-                <Text size="subtitle" weight="bold">
-                    Text, subtitle, bold
+                <Text size="subtitle" tone="danger">
+                    Subtitle Danger
                 </Text>
                 <Text size="subtitle" weight="semibold">
-                    Text, subtitle, semibold
+                    Subtitle Semibold
                 </Text>
-                <Text size="subtitle" weight="regular">
-                    Text, subtitle, regular
+                <Text size="subtitle" weight="bold">
+                    Subtitle Bold
                 </Text>
 
-                <Text size="body" weight="bold" tone="secondary">
-                    Text, body, bold, secondary (14px)
+                <Text size="body" weight="regular">
+                    Body Regular
                 </Text>
-                <Text size="body" weight="bold" tone="danger">
-                    Text, body, bold, danger
+                <Text size="body" tone="secondary">
+                    Body Secondary
                 </Text>
-                <Text size="body" weight="bold">
-                    Text, body, bold
+                <Text size="body" tone="danger">
+                    Body Danger
                 </Text>
                 <Text size="body" weight="semibold">
-                    Text, body, semibold
+                    Body Semibold
                 </Text>
-                <Text size="body" weight="regular">
-                    Text, body, regular
+                <Text size="body" weight="bold">
+                    Body Bold
                 </Text>
 
-                <Text size="copy" weight="bold" tone="secondary">
-                    Text, copy, bold, secondary (13px)
+                <Text size="copy" weight="regular">
+                    Copy Regular
                 </Text>
-                <Text size="copy" weight="bold" tone="danger">
-                    Text, copy, bold, danger
+                <Text size="copy" tone="secondary">
+                    Copy Secondary
                 </Text>
-                <Text size="copy" weight="bold">
-                    Text, copy, bold
+                <Text size="copy" tone="danger">
+                    Copy Danger
                 </Text>
                 <Text size="copy" weight="semibold">
-                    Text, copy, semibold
+                    Copy Semibold
                 </Text>
-                <Text size="copy" weight="regular">
-                    Text, copy, regular
+                <Text size="copy" weight="bold">
+                    Copy Bold
                 </Text>
 
-                <Text size="caption" weight="bold" tone="secondary">
-                    Text, caption, bold, secondary (12px)
+                <Text size="caption" weight="regular">
+                    Caption Regular
                 </Text>
-                <Text size="caption" weight="bold" tone="danger">
-                    Text, caption, bold, danger
+                <Text size="caption" tone="secondary">
+                    Caption Secondary
                 </Text>
-                <Text size="caption" weight="bold">
-                    Text, caption, bold
+                <Text size="caption" tone="danger">
+                    Caption Danger
                 </Text>
                 <Text size="caption" weight="semibold">
-                    Text, caption, semibold
+                    Caption Semibold
                 </Text>
-                <Text size="caption" weight="regular">
-                    Text, caption, regular
+                <Text size="caption" weight="bold">
+                    Caption Bold
                 </Text>
             </Stack>
         </section>
