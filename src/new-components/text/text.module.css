@@ -1,26 +1,26 @@
 .text {
-    font-size: var(--reactist-font-size-normal);
+    font-size: var(--reactist-font-size-body);
     font-weight: var(--reactist-font-weight-regular);
     color: var(--reactist-content-primary);
 }
 
-.size-xsmall {
-    font-size: var(--reactist-font-size-xsmall);
+.size-caption {
+    font-size: var(--reactist-font-size-caption);
 }
-.size-small {
-    font-size: var(--reactist-font-size-small);
+.size-copy {
+    font-size: var(--reactist-font-size-copy);
 }
-.size-large {
-    font-size: var(--reactist-font-size-large);
+.size-body {
+    font-size: var(--reactist-font-size-body);
 }
-.size-xlarge {
-    font-size: var(--reactist-font-size-large);
+.size-subtitle {
+    font-size: var(--reactist-font-size-subtitle);
 }
 
-.weight-medium {
+.weight-semibold {
     font-weight: var(--reactist-font-weight-medium);
 }
-.weight-strong {
+.weight-bold {
     font-weight: var(--reactist-font-weight-strong);
 }
 

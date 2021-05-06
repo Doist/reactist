@@ -8,8 +8,8 @@ export default {
     title: 'Design system/Text',
     component: Text,
     argTypes: {
-        size: select(['xsmall', 'small', 'standard', 'large', 'xlarge'], 'standard'),
-        weight: select(['regular', 'medium', 'strong'], 'regular'),
+        size: select(['caption', 'copy', 'body', 'subtitle'], 'body'),
+        weight: select(['regular', 'semibold', 'bold'], 'regular'),
         lineClamp: select([1, 2, 3, 4, 5], 1),
         children: {
             control: {
@@ -25,84 +25,68 @@ export function TextStory() {
     return (
         <section className="story">
             <Stack space="medium">
-                <Text size="xlarge" weight="strong" tone="secondary">
-                    Text, xlarge, strong, secondary (16px)
+                <Text size="subtitle" weight="bold" tone="secondary">
+                    Text, subtitle, bold, secondary (16px)
                 </Text>
-                <Text size="xlarge" weight="strong" tone="danger">
-                    Text, xlarge, strong, danger
+                <Text size="subtitle" weight="bold" tone="danger">
+                    Text, subtitle, bold, danger
                 </Text>
-                <Text size="xlarge" weight="strong">
-                    Text, xlarge, strong
+                <Text size="subtitle" weight="bold">
+                    Text, subtitle, bold
                 </Text>
-                <Text size="xlarge" weight="medium">
-                    Text, xlarge, medium
+                <Text size="subtitle" weight="semibold">
+                    Text, subtitle, semibold
                 </Text>
-                <Text size="xlarge" weight="regular">
-                    Text, xlarge, regular
-                </Text>
-
-                <Text size="large" weight="strong" tone="secondary">
-                    Text, large, strong, secondary (16px)
-                </Text>
-                <Text size="large" weight="strong" tone="danger">
-                    Text, large, strong, danger
-                </Text>
-                <Text size="large" weight="strong">
-                    Text, large, strong
-                </Text>
-                <Text size="large" weight="medium">
-                    Text, large, medium
-                </Text>
-                <Text size="large" weight="regular">
-                    Text, large, regular
+                <Text size="subtitle" weight="regular">
+                    Text, subtitle, regular
                 </Text>
 
-                <Text size="standard" weight="strong" tone="secondary">
-                    Text, standard, strong, secondary (14px)
+                <Text size="body" weight="bold" tone="secondary">
+                    Text, body, bold, secondary (14px)
                 </Text>
-                <Text size="standard" weight="strong" tone="danger">
-                    Text, standard, strong, danger
+                <Text size="body" weight="bold" tone="danger">
+                    Text, body, bold, danger
                 </Text>
-                <Text size="standard" weight="strong">
-                    Text, standard, strong
+                <Text size="body" weight="bold">
+                    Text, body, bold
                 </Text>
-                <Text size="standard" weight="medium">
-                    Text, standard, medium
+                <Text size="body" weight="semibold">
+                    Text, body, semibold
                 </Text>
-                <Text size="standard" weight="regular">
-                    Text, standard, regular
-                </Text>
-
-                <Text size="small" weight="strong" tone="secondary">
-                    Text, small, strong, secondary (12px)
-                </Text>
-                <Text size="small" weight="strong" tone="danger">
-                    Text, small, strong, danger
-                </Text>
-                <Text size="small" weight="strong">
-                    Text, small, strong
-                </Text>
-                <Text size="small" weight="medium">
-                    Text, small, medium
-                </Text>
-                <Text size="small" weight="regular">
-                    Text, small, regular
+                <Text size="body" weight="regular">
+                    Text, body, regular
                 </Text>
 
-                <Text size="xsmall" weight="strong" tone="secondary">
-                    Text, xsmall, strong, secondary (10px)
+                <Text size="copy" weight="bold" tone="secondary">
+                    Text, copy, bold, secondary (13px)
                 </Text>
-                <Text size="xsmall" weight="strong" tone="danger">
-                    Text, xsmall, strong, danger
+                <Text size="copy" weight="bold" tone="danger">
+                    Text, copy, bold, danger
                 </Text>
-                <Text size="xsmall" weight="strong">
-                    Text, xsmall, strong
+                <Text size="copy" weight="bold">
+                    Text, copy, bold
                 </Text>
-                <Text size="xsmall" weight="medium">
-                    Text, xsmall, medium
+                <Text size="copy" weight="semibold">
+                    Text, copy, semibold
                 </Text>
-                <Text size="xsmall" weight="regular">
-                    Text, ssmall, regular
+                <Text size="copy" weight="regular">
+                    Text, copy, regular
+                </Text>
+
+                <Text size="caption" weight="bold" tone="secondary">
+                    Text, caption, bold, secondary (12px)
+                </Text>
+                <Text size="caption" weight="bold" tone="danger">
+                    Text, caption, bold, danger
+                </Text>
+                <Text size="caption" weight="bold">
+                    Text, caption, bold
+                </Text>
+                <Text size="caption" weight="semibold">
+                    Text, caption, semibold
+                </Text>
+                <Text size="caption" weight="regular">
+                    Text, caption, regular
                 </Text>
             </Stack>
         </section>

@@ -10,8 +10,8 @@ import styles from './text.module.css'
 type TextProps = {
     component?: ComponentTypes
     children: React.ReactNode
-    size?: 'xsmall' | 'small' | 'standard' | 'large' | 'xlarge'
-    weight?: 'regular' | 'medium' | 'strong'
+    size?: 'caption' | 'copy' | 'body' | 'subtitle'
+    weight?: 'regular' | 'semibold' | 'bold'
     tone?: Tone
     lineClamp?: 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
 }
@@ -19,7 +19,7 @@ type TextProps = {
 const Text = forwardRefWithAs<TextProps>(function Text(
     {
         component = 'span',
-        size = 'standard',
+        size = 'body',
         weight = 'regular',
         tone = 'normal',
         children,
@@ -37,7 +37,7 @@ const Text = forwardRefWithAs<TextProps>(function Text(
             component={component}
             className={[
                 styles.text,
-                size !== 'standard' ? getClassNames(styles, 'size', size) : null,
+                size !== 'body' ? getClassNames(styles, 'size', size) : null,
                 weight !== 'regular' ? getClassNames(styles, 'weight', weight) : null,
                 tone !== 'normal' ? getClassNames(styles, 'tone', tone) : null,
                 lineClampMultipleLines ? styles.lineClamp : null,

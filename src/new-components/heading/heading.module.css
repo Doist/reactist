@@ -28,11 +28,11 @@ h1.size-larger {
     font-size: var(--reactist-font-size-header-large);
 }
 h1.size-smaller {
-    font-size: var(--reactist-font-size-large);
+    font-size: var(--reactist-font-size-subtitle);
 }
 
 h2.heading {
-    font-size: var(--reactist-font-size-large);
+    font-size: var(--reactist-font-size-subtitle);
 }
 h2.size-largest {
     font-size: var(--reactist-font-size-header-large);
@@ -41,20 +41,20 @@ h2.size-larger {
     font-size: var(--reactist-font-size-header);
 }
 h2.size-smaller {
-    font-size: var(--reactist-font-size-normal);
+    font-size: var(--reactist-font-size-body);
 }
 
 h3.heading {
-    font-size: var(--reactist-font-size-normal);
+    font-size: var(--reactist-font-size-body);
 }
 h3.size-largest {
     font-size: var(--reactist-font-size-header);
 }
 h3.size-larger {
-    font-size: var(--reactist-font-size-large);
+    font-size: var(--reactist-font-size-subtitle);
 }
 h3.size-smaller {
-    font-size: var(--reactist-font-size-small);
+    font-size: var(--reactist-font-size-caption);
 }
 
 h4.heading,
@@ -64,7 +64,7 @@ h6.heading {
      * unlike at higher levels, this one is kept as the same size as h3's
      * you can make it two levels larger visually, but making it smaller has no effect
      */
-    font-size: var(--reactist-font-size-normal);
+    font-size: var(--reactist-font-size-body);
 }
 
 h4.size-largest,
@@ -76,7 +76,7 @@ h6.size-largest {
 h4.size-larger,
 h5.size-larger,
 h6.size-larger {
-    font-size: var(--reactist-font-size-large);
+    font-size: var(--reactist-font-size-subtitle);
 }
 
 /* h4/h5/h6 can't be made smaller, maybe we reconsider this? */

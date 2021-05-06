@@ -8,7 +8,7 @@ import styles from './base-field.module.css'
 
 function FieldHint({ id, children }: { id: string; children: React.ReactNode }) {
     return (
-        <Text component="p" tone="secondary" size="small" id={id} className={styles.fieldHint}>
+        <Text component="p" tone="secondary" size="copy" id={id} className={styles.fieldHint}>
             {children}
         </Text>
     )
