@@ -138,6 +138,14 @@ MacOS users might need to upgrade watchman with `brew install watchman` when exp
 
 # Releasing
 
-A new version of reactist is published both on npm and GitHub Package Registry whenever a new release on GitHub is created. A GitHub Action will automatically perform all the necessary steps.
+A new version of reactist is published both on npm and GitHub Package Registry whenever a new release on GitHub is created. 
 
-The Action will release the version number that's specified inside the `package.json`'s `version` field so make sure that it reflects the version you want to publish.
+To begin the process, update CHANGELOG.md with the new version and its changes
+
+To update the version in both `package.json` and `package-lock.json`:
+```sh
+npm --no-git-tag-version version <major|minor|patch>
+```
+Once these changes have been pushed and merged, create a release. 
+
+A GitHub Action will automatically perform all the necessary steps and will release the version number that's specified inside the `package.json`'s `version` field so make sure that the release tag reflects the version you want to publish.

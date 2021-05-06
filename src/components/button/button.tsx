@@ -64,8 +64,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
             ref={ref}
             type={type}
             className={className}
-            disabled={disabled || loading}
-            onClick={onClick}
+            aria-disabled={disabled || loading}
+            onClick={disabled || loading ? undefined : onClick}
         >
             {children}
         </button>
