@@ -11,6 +11,7 @@ import {
     disableResponsiveProps,
 } from '../storybook-helper'
 import { Stack } from '../stack'
+import { Box } from '../box'
 import { Columns, Column } from './columns'
 
 import type {
@@ -270,6 +271,32 @@ export function ResponsiveStory(args: PartialProps<typeof Columns>) {
 ResponsiveStory.argTypes = {
     space: selectSize('medium'),
     collapseBelow: selectWithNone<ColumnsCollapseBelow>(['tablet', 'desktop'], 'tablet'),
+    align: { control: false },
+    alignY: { control: false },
+    ...disableResponsiveProps,
+}
+
+export function FlexChildStory(args: PartialProps<typeof Columns>) {
+    return (
+        <Wrapper title="As a flex child">
+            <Box display="flex" alignItems="center">
+                <Box>
+                    <Placeholder label="Element outside of Columns" />
+                </Box>
+                <Columns {...args}>
+                    {times(5).map((i) => (
+                        <Column key={i}>
+                            <Placeholder label={i + 1} height={50} />
+                        </Column>
+                    ))}
+                </Columns>
+            </Box>
+        </Wrapper>
+    )
+}
+
+FlexChildStory.argTypes = {
+    space: selectSize('medium'),
     align: { control: false },
     alignY: { control: false },
     ...disableResponsiveProps,
