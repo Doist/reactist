@@ -78,7 +78,7 @@ class Box extends React.Component<React.PropsWithChildren<BoxProps>, BoxState> {
     }
 
     _getTriggerComponent() {
-        const _trigger = this.props.children && this.props.children[0]
+        const _trigger = this.props.children?.[0]
         return _trigger
             ? React.cloneElement(_trigger, { onClick: this._toggleShowBody })
             : undefined
@@ -138,7 +138,7 @@ class Box extends React.Component<React.PropsWithChildren<BoxProps>, BoxState> {
             bottom: !top,
         })
 
-        const body = children && children[1]
+        const body = children?.[1]
 
         const contentMarkup =
             typeof body === 'function'

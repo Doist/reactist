@@ -210,7 +210,7 @@ class Actions extends React.Component<ActionProps> {
             // @ts-expect-error Children cannot be typed properly yet in React
             this.props.children,
             (child: React.ReactElement<ActionChildrenProps>) => {
-                if (child && child.props && child.props.close) {
+                if (child?.props?.close) {
                     return React.cloneElement(child, {
                         onClick: () => this._onClick(child.props.onClick),
                     })

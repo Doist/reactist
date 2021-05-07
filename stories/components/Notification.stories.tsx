@@ -21,7 +21,7 @@ export const StandardNotificationStory = () => {
             <p>Standard Notification</p>
             <Notification
                 id="standard-notification"
-                icon={<span className="notification-story-notification-dot"></span>}
+                icon={<span className="notification-story-notification-dot" />}
                 title="You have a new message!"
                 subtitle="Click here to view."
                 onClose={action('onClose')}
