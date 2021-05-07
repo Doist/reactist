@@ -4,6 +4,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 ## v9.2.0-beta.10
 
+-   [Breaking] `Text` component now has its `size` attribute changed to accept `caption`, `copy`, `body`, and `subtitle`.
 -   [Fix] `Columns` component will now stretch within a flex container
 
 ## v9.2.0-beta.9
