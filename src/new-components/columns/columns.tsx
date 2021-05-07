@@ -82,6 +82,7 @@ const Columns = forwardRefWithAs<ColumnsProps>(function Columns(
             justifyContent={mapResponsiveProp(align, (align) =>
                 align === 'left' ? 'flexStart' : align === 'right' ? 'flexEnd' : 'center',
             )}
+            flexGrow={1}
             ref={ref}
         >
             {children}
