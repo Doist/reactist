@@ -118,7 +118,7 @@ function KeyboardShortcut({
     children,
     className,
     translateKey = globalTranslateKey,
-    isMac = navigator.platform?.toUpperCase().includes('MAC'),
+    isMac = navigator.platform?.toUpperCase().includes('MAC') ?? false,
     ...props
 }: Props) {
     const shortcuts = typeof children === 'string' ? [children] : children
