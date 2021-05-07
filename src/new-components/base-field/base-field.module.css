@@ -1,7 +1,7 @@
 .container label {
     box-sizing: border-box;
     display: block;
-    font-size: var(--reactist-font-size-normal);
+    font-size: var(--reactist-font-size-body);
 }
 
 .primaryLabel {

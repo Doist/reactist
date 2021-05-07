@@ -23,7 +23,7 @@
     --tmp-line-height-increase: 4px;
     --tmp-vertical-padding: calc(
         (
-                var(--tmp-desired-height) - var(--reactist-font-size-normal) -
+                var(--tmp-desired-height) - var(--reactist-font-size-body) -
                     var(--tmp-line-height-increase)
             ) / 2
     );
@@ -36,8 +36,8 @@
     background: none;
     border-radius: var(--reactist-border-radius-small);
     border: 1px solid var(--reactist-framework-border);
-    font-size: var(--reactist-font-size-normal);
-    line-height: calc(var(--reactist-font-size-normal) + 4px);
+    font-size: var(--reactist-font-size-body);
+    line-height: calc(var(--reactist-font-size-body) + 4px);
     margin: 0;
 }
 

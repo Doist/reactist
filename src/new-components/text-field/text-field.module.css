@@ -31,13 +31,13 @@
     --tmp-line-height-increase: 4px;
     --tmp-vertical-padding: calc(
         (
-                var(--tmp-desired-height) - var(--reactist-font-size-normal) -
+                var(--tmp-desired-height) - var(--reactist-font-size-body) -
                     var(--tmp-line-height-increase)
             ) / 2
     );
 
-    font-size: var(--reactist-font-size-normal);
-    line-height: calc(var(--reactist-font-size-normal) + 4px);
+    font-size: var(--reactist-font-size-body);
+    line-height: calc(var(--reactist-font-size-body) + 4px);
     padding: var(--tmp-vertical-padding) 10px;
     margin: 0;
 }
