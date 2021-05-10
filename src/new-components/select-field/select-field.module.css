@@ -33,12 +33,17 @@
     appearance: none;
     box-sizing: border-box;
     width: 100%;
+    color: var(--reactist-content-primary);
     background: none;
     border-radius: var(--reactist-border-radius-small);
     border: 1px solid var(--reactist-framework-border);
     font-size: var(--reactist-font-size-body);
     line-height: calc(var(--reactist-font-size-body) + 4px);
     margin: 0;
+}
+
+.selectWrapper option {
+    background-color: var(--reactist-bg-aside);
 }
 
 .selectWrapper select:focus {

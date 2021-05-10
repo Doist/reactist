@@ -2,6 +2,11 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v9.2.0-beta.11
+
+-   [Fix] Incorrect styles in `Button` which affected dark mode themes
+-   [Fix] Incorrect styles in `SelectField` which affected dark mode themes
+
 ## v9.2.0-beta.10
 
 -   [Breaking] `Text` component now has its `size` attribute changed to accept `caption`, `copy`, `body`, and `subtitle`.
