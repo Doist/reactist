@@ -1,9 +1,11 @@
 import ReactDOM from 'react-dom'
 import ReactMarkdown from 'react-markdown'
-import { Meta, Story, Canvas, Preview } from '@storybook/addon-docs/blocks'
+import { Meta, Story, Canvas, Preview, ArgsTable, Props } from '@storybook/addon-docs/blocks'
+
 import { default as Modal } from '../../src/components/modal'
-import './styles/modal_story.less'
 import Button from '../../src/components/button'
+import './styles/modal_story.less'
+
 
 <Meta 
   title="Modal" 
@@ -22,7 +24,7 @@ import Button from '../../src/components/button'
   }}
 />
 
-<!-- Documentation -->
+<!-- Any custom documentation -->
 
 # Component Documentation
 ### How to use
@@ -209,6 +211,15 @@ export const PlainMediumText = `The Body of a Modal can contain whatever you lik
                 the release of Letraset sheets containing Lorem Ipsum passages, and more recently
                 with desktop publishing software like Aldus PageMaker including versions of Lorem
                 Ipsum.`;
+
+
+<!-- Prop type tables -->
+<!-- 
+Modal story is made up of several components, each with their own arguments,
+so <ArgsTable of={Modal} /> wouldn't work in this case. Instead, we specify the
+props of one story i.e. Playground
+-->
+<ArgsTable story="ModalPlaygroundStory" />
 
 <!-- Stories -->
 
