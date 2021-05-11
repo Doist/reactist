@@ -1,14 +1,26 @@
-import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import ReactDOM from 'react-dom'
+import ReactMarkdown from 'react-markdown'
+import { Meta, Story, Canvas, Preview } from '@storybook/addon-docs/blocks'
 import { default as Modal } from '../../src/components/modal'
-import { 
-    ModalHeaderOnlyStory, 
-    ModalHeaderAndBodyStory, 
-    ModalHeaderBodyAndActionsStory, 
-    ModalScrollableBodyStory,
-    PlainMediumModalStory,
-    ModalPlaygroundStory } from './ModalStoryHelper'
+import './styles/modal_story.less'
+import Button from '../../src/components/button'
 
-<Meta title="Modal" component={Modal} />
+<Meta 
+  title="Modal" 
+  component={Modal}
+  argTypes={{
+    text: {
+      control: {
+        type: null
+      }
+    },
+    body: {
+      control: {
+        type: null
+      }
+    }
+  }}
+/>
 
 <!-- Documentation -->
 
@@ -16,7 +28,7 @@ import {
 ### How to use
 ---
 
-The **Modal** component consist of four subcomponents *Box, Header, Body, Actions* which are exported as keys of the Modal object. Hence, to use a Modal your code should look like this:
+The **Modal** component consists of four subcomponents *Box, Header, Body, Actions* which are exported as keys of the Modal object. Hence, to use a Modal your code should look like this:
 ```
 import { Modal } from 'reactist';
 ...
@@ -63,47 +75,214 @@ The **Modal.Actions** displays an action bar on the bottom of the Modal. It work
 </Modal.Actions>
 ```
 
-export const Template = ({ data, ...args }) => (
-  <ModalPlaygroundStory {...args} />
+<!-- Helpers -->
+
+export const renderModal = (modal) => {
+    ReactDOM.render(modal, document.getElementById('modal_box'))
+}
+export const getStory = (text, modal, title) => (
+    <section className="story">
+        <p>{title}</p>
+        <div id="modal_box" />
+        <Button variant="primary" onClick={() => renderModal(modal)}>
+            {text}
+        </Button>
+    </section>
+)
+
+<!-- Templates -->
+
+export const WithPlaygroundTemplate = ({ data, ...args }) => (
+   <section>
+            <div id="modal_box" />
+            <Modal.Box {...args} closeOnOverlayClick>
+                <Modal.Header {...args} />
+                <Modal.Body {...args}>Some Content</Modal.Body>
+                <Modal.Actions>
+                    <Button variant="secondary">Action 1</Button>
+                    <Button variant="primary">Action 2</Button>
+                </Modal.Actions>
+            </Modal.Box>
+        </section>
 );
 
 
+export const ModalTemplate = ({ body = "", title, subtitle = "", buttonTitle, buttonText, medium = false, plain = false }) => {
+    const modal = (
+        <Modal.Box medium={medium} closeOnOverlayClick>
+            <Modal.Header title={title} subtitle={subtitle} />
+            <Modal.Body plain={plain}><ReactMarkdown children={body} /></Modal.Body>
+        </Modal.Box>
+    )
+    return getStory(buttonText, modal, buttonTitle)
+}
+
+
+export const WithActionsTemplate = () => {
+  const modal = (
+    <Modal.Box closeOnOverlayClick>
+        <Modal.Header title="Header of Modal" subtitle="This is a smaller description" />
+        <Modal.Body>
+            The Body of a Modal can contain whatever you like! Like this very long Lorem Ipsum
+            <br />
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+            Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+            unknown printer took a galley of type and scrambled it to make a type specimen book.
+            It has survived not only five centuries, but also the leap into electronic
+            typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+            the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+            with desktop publishing software like Aldus PageMaker including versions of Lorem
+            Ipsum.
+        </Modal.Body>
+        <Modal.Actions>
+            <Button variant="secondary">Does nothing</Button>
+            <Button variant="primary" close>
+                Close the Modal
+            </Button>
+        </Modal.Actions>
+    </Modal.Box>
+  )
+  return getStory(
+      'Click me to launch a Modal with Header, Body and Actions',
+      modal,
+      'Header, Body and Actions',
+  )
+}
+
+export const ScrollableText = `The Body of a Modal can contain whatever you like! Like this very long Lorem Ipsum  
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.  
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.  
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.  
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.  
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.    
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.`;
+
+
+export const PlainMediumText = `The Body of a Modal can contain whatever you like! Like this very long Lorem Ipsum  
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.`;
+
 <!-- Stories -->
 
-<Canvas>
-  <Story name="ModalHeaderOnlyStory">
-    <ModalHeaderOnlyStory />
+<Preview withToolbar>
+  <Story
+    parameters={{ docs: { source: { type: "code"} }}}
+    name="ModalHeaderOnlyStory" 
+    args={{
+      title: 'Header of Modal', 
+      buttonTitle: 'Header Only',
+      buttonText: 'Click me to launch a Modal with Header'
+    }}>
+      {ModalTemplate.bind({})}
    </Story>
-</Canvas>
+</Preview>
 
-<Canvas>
-  <Story name="ModalHeaderAndBodyStory">
-    <ModalHeaderAndBodyStory />
+<Preview withToolbar>
+    <Story
+      parameters={{ docs: { source: { type: "code"} }}} 
+      name="ModalHeaderAndBodyStory" 
+      args={{
+      body: 'The Body of a Modal can contain whatever you like!',
+      title: 'Header of Modal', 
+      subtitle: 'This is a smaller description', 
+      buttonTitle: 'Header and Body',
+      buttonText: 'Click me to launch a Modal with Header and Body'
+    }}>
+      {ModalTemplate.bind({})}
    </Story>
-</Canvas>
+</Preview>
 
-
-<Canvas>
-  <Story name="ModalHeaderBodyAndActionsStory">
-    <ModalHeaderBodyAndActionsStory />
+<Preview withToolbar>
+  <Story
+    parameters={{ docs: { source: { type: "code"} }}} 
+    name="ModalHeaderBodyAndActionsStory">
+    {WithActionsTemplate.bind({})}
    </Story>
-</Canvas>
+</Preview>
 
+<Preview withToolbar>
+  <Story
+    parameters={{ docs: { source: { type: "code"} }}}
+    name="ModalScrollableBodyStory" 
+    args={{
+    body:  ScrollableText,
+    title: 'Header of Modal with Scrollable Body',
+    buttonTitle: 'Scrollable Body',
+    buttonText: 'Click me to launch a Modal with Scrollable Body',
+  }}>
+    {ModalTemplate.bind({})}
+  </Story>
+</Preview>
 
-<Canvas>
-  <Story name="ModalScrollableBodyStory">
-    <ModalScrollableBodyStory />
-   </Story>
-</Canvas>
+<Preview withToolbar>
+  <Story
+    parameters={{ docs: { source: { type: "code"} }}} 
+    name="PlainMediumModalStory" 
+    args={{
+    body: PlainMediumText,
+    title: 'Header of Modal',
+    buttonTitle: 'Header, Body and Actions',
+    buttonText: 'Click me to launch a medium-sized Modal with Header and plain Body',
+    medium: true,
+    plain: true,
+  }}>
+    {ModalTemplate.bind({})}
+  </Story>
+</Preview>
 
-<Canvas>
-  <Story name="PlainMediumModalStory">
-    <PlainMediumModalStory />
-   </Story>
-</Canvas>
-
-<Canvas>
-    <Story name="ModalPlaygroundStory" args={{
+<Preview withToolbar>
+    <Story
+      parameters={{ docs: { source: { type: "code"} }}} 
+      name="ModalPlaygroundStory" 
+      args={{
         plain: false,
         showCloseIcon: false,
         medium: false,
@@ -111,6 +290,6 @@ export const Template = ({ data, ...args }) => (
         title: 'Header of Modal',
         subtitle: 'This is a smaller description',
     }}>
-     {Template.bind({})}
+     {WithPlaygroundTemplate.bind({})}
    </Story>
-</Canvas>
+</Preview>
