@@ -16,6 +16,14 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 -   [Docs] Upgraded all beta storybook docs to work with Storybook 6
 
+## 9.1.5
+
+-   [Fix] Prevent menu items with `aria-disabled` set to `false` from being disabled
+
+## 9.1.4
+
+-   [Perf] Make the disabled Button component visible to screen readers by swapping `disabled` for `aria-disabled`
+
 ## 9.1.3
 
 -   [Tweak] Upgrade Storybook to version v6.2.1. Migrate stories to new version.

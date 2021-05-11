@@ -10,7 +10,7 @@ import Button from '../../src/components/button'
 function MenuIndicator() {
     return (
         <svg viewBox="0 0 50 43.3">
-            <polygon points="25 43.3 50 0 0 0 25 43.3"></polygon>
+            <polygon points="25 43.3 50 0 0 0 25 43.3" />
         </svg>
     )
 }
