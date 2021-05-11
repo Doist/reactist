@@ -301,3 +301,36 @@ FlexChildStory.argTypes = {
     alignY: { control: false },
     ...disableResponsiveProps,
 }
+
+export function NestedColumnsStory(args: PartialProps<typeof Columns>) {
+    return (
+        <Wrapper title="Inner Columns retain their own spacing">
+            <Columns space="xlarge">
+                <Column>
+                    <Placeholder label={0} height={50} />
+                </Column>
+
+                <Column>
+                    <Columns {...args}>
+                        {times(5).map((i) => (
+                            <Column key={i}>
+                                <Placeholder label={i + 1} height={50} />
+                            </Column>
+                        ))}
+                    </Columns>
+                </Column>
+
+                <Column>
+                    <Placeholder label={6} height={50} />
+                </Column>
+            </Columns>
+        </Wrapper>
+    )
+}
+
+NestedColumnsStory.argTypes = {
+    space: selectSize('medium'),
+    align: { control: false },
+    alignY: { control: false },
+    ...disableResponsiveProps,
+}
