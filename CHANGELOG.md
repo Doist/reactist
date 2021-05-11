@@ -2,13 +2,17 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## 9.1.5
+
+-   [Fix] Prevent menu items with `aria-disabled` set to `false` from being disabled
+
 ## 9.1.4
 
-- [Perf] Make the disabled Button component visible to screen readers by swapping `disabled` for `aria-disabled`
+-   [Perf] Make the disabled Button component visible to screen readers by swapping `disabled` for `aria-disabled`
 
 ## 9.1.3
 
-- [Tweak] Upgrade Storybook to version v6.2.1. Migrate stories to new version.
+-   [Tweak] Upgrade Storybook to version v6.2.1. Migrate stories to new version.
 
 ## 9.1.2
 
