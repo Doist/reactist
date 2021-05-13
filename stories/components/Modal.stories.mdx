@@ -6,55 +6,61 @@ import { default as Modal } from '../../src/components/modal'
 import Button from '../../src/components/button'
 import './styles/modal_story.less'
 
-
-<Meta 
-  title="Modal" 
-  component={Modal}
-  argTypes={{
-    text: {
-      control: {
-        type: null
-      }
-    },
-    body: {
-      control: {
-        type: null
-      }
-    }
-  }}
+<Meta
+    title="Modal"
+    component={Modal}
+    argTypes={{
+        text: {
+            control: {
+                type: null,
+            },
+        },
+        body: {
+            control: {
+                type: null,
+            },
+        },
+    }}
 />
 
 <!-- Any custom documentation -->
 
 # Component Documentation
+
 ### How to use
+
 ---
 
-The **Modal** component consists of four subcomponents *Box, Header, Body, Actions* which are exported as keys of the Modal object. Hence, to use a Modal your code should look like this:
+The **Modal** component consists of four subcomponents _Box, Header, Body, Actions_ which are exported as keys of the Modal object. Hence, to use a Modal your code should look like this:
+
 ```
 import { Modal } from 'reactist';
 ...
-&lt;Modal.Box&gt;
-    &lt;Modal.Header&gt;...&lt;/Modal.Header&gt;
-    &lt;Modal.Body&gt;...&lt;/Modal.Body&gt;
-    &lt;Modal.Actions&gt;...&lt;/Modal.Actions&gt;
-&lt;/Modal.Box&gt;
+<Modal.Box>
+    <Modal.Header>...</Modal.Header>
+   <Modal.Body>...</Modal.Body>
+    <Modal.Actions>...</Modal.Actions>
+</Modal.Box>
 ```
 
 The Modal is always attached to an element with the id **modal_box**. You need to add this somewhere in your component hierarchy in order for the Modal to work correctly. It is sufficient to add this once near the top of your component hierarchy.
 
 ### Modal Box
+
 ---
-The **Modal.Box** component simply acts as a container for the Modal and is responsible for rendering the dark overlay and all children components. You can pass it an optional *className* property to apply additional styles.
 
-The **Modal.Box** accepts an optional property *closeOnOverlayClick* when set to **true** a click on the overlay will close the modal. Defaults to **false**.
+The **Modal.Box** component simply acts as a container for the Modal and is responsible for rendering the dark overlay and all children components. You can pass it an optional _className_ property to apply additional styles.
 
+The **Modal.Box** accepts an optional property _closeOnOverlayClick_ when set to **true** a click on the overlay will close the modal. Defaults to **false**.
 
-### Modal Header 
+### Modal Header
+
 ---
-The **Modal.Header** component shows the Header of the Modal. It always show a close icon on the right side to close the Modal. It can display arbitrary content you pass to it as children. However, the recommended usage pattern is to supply the *title* and *subtitle* (string) properties. This displays nicely formatted headings inside the Header.
+
+The **Modal.Header** component shows the Header of the Modal. It always show a close icon on the right side to close the Modal. It can display arbitrary content you pass to it as children. However, the recommended usage pattern is to supply the _title_ and _subtitle_ (string) properties. This displays nicely formatted headings inside the Header.
 
 Nevertheless, the **Modal.Header** will look the same whether you go for option 1 or option 2:
+
 ```
 // Option 1
 <Modal.Header>A Fancy Title</Modal.Header>;
@@ -63,13 +69,17 @@ Nevertheless, the **Modal.Header** will look the same whether you go for option 
 <Modal.Header title='A Fancy Title' />;
 ```
 
-### Modal Body 
+### Modal Body
+
 ---
-In the simplest case the **Modal.Body** just wraps all its children. However, it can be used to implement a more complex Dialog (i.e. if you do not want to render a Header). You can specify the *icon* property (any node, e.g. an *&lt;img /&gt;* or your custom *&lt;Icon /&gt;* component) which will be displayed on the left side of the Dialog's Body. When you set the *showCloseIcon* property to **true** the Body will display a close icon to dismiss the Dialog again. This should only be used when no Header is used.
+
+In the simplest case the **Modal.Body** just wraps all its children. However, it can be used to implement a more complex Dialog (i.e. if you do not want to render a Header). You can specify the _icon_ property (any node, e.g. an _&lt;img /&gt;_ or your custom _&lt;Icon /&gt;_ component) which will be displayed on the left side of the Dialog's Body. When you set the _showCloseIcon_ property to **true** the Body will display a close icon to dismiss the Dialog again. This should only be used when no Header is used.
 
 ### Modal Actions
+
 ---
-The **Modal.Actions** displays an action bar on the bottom of the Modal. It works best with the Reactist Buttons. If you set the *close* property to **true** on any of the supplied children it's *onClick* function will close the modal.
+
+The **Modal.Actions** displays an action bar on the bottom of the Modal. It works best with the Reactist Buttons. If you set the _close_ property to **true** on any of the supplied children it's _onClick_ function will close the modal.
 
 ```
 <Modal.Actions>
@@ -95,60 +105,68 @@ export const getStory = (text, modal, title) => (
 <!-- Templates -->
 
 export const WithPlaygroundTemplate = ({ data, ...args }) => (
-   <section>
-            <div id="modal_box" />
-            <Modal.Box {...args} closeOnOverlayClick>
-                <Modal.Header {...args} />
-                <Modal.Body {...args}>Some Content</Modal.Body>
-                <Modal.Actions>
-                    <Button variant="secondary">Action 1</Button>
-                    <Button variant="primary">Action 2</Button>
-                </Modal.Actions>
-            </Modal.Box>
-        </section>
-);
+    <section>
+        <div id="modal_box" />
+        <Modal.Box {...args} closeOnOverlayClick>
+            <Modal.Header {...args} />
+            <Modal.Body {...args}>Some Content</Modal.Body>
+            <Modal.Actions>
+                <Button variant="secondary">Action 1</Button>
+                <Button variant="primary">Action 2</Button>
+            </Modal.Actions>
+        </Modal.Box>
+    </section>
+)
 
-
-export const ModalTemplate = ({ body = "", title, subtitle = "", buttonTitle, buttonText, medium = false, plain = false }) => {
+export const ModalTemplate = ({
+    body = '',
+    title,
+    subtitle = '',
+    buttonTitle,
+    buttonText,
+    medium = false,
+    plain = false,
+}) => {
     const modal = (
         <Modal.Box medium={medium} closeOnOverlayClick>
             <Modal.Header title={title} subtitle={subtitle} />
-            <Modal.Body plain={plain}><ReactMarkdown children={body} /></Modal.Body>
+            <Modal.Body plain={plain}>
+                <ReactMarkdown children={body} />
+            </Modal.Body>
         </Modal.Box>
     )
     return getStory(buttonText, modal, buttonTitle)
 }
 
-
 export const WithActionsTemplate = () => {
-  const modal = (
-    <Modal.Box closeOnOverlayClick>
-        <Modal.Header title="Header of Modal" subtitle="This is a smaller description" />
-        <Modal.Body>
-            The Body of a Modal can contain whatever you like! Like this very long Lorem Ipsum
-            <br />
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-            Ipsum has been the industrys standard dummy text ever since the 1500s, when an
-            unknown printer took a galley of type and scrambled it to make a type specimen book.
-            It has survived not only five centuries, but also the leap into electronic
-            typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-            the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-            with desktop publishing software like Aldus PageMaker including versions of Lorem
-            Ipsum.
-        </Modal.Body>
-        <Modal.Actions>
-            <Button variant="secondary">Does nothing</Button>
-            <Button variant="primary" close>
-                Close the Modal
-            </Button>
-        </Modal.Actions>
-    </Modal.Box>
-  )
-  return getStory(
-      'Click me to launch a Modal with Header, Body and Actions',
-      modal,
-      'Header, Body and Actions',
-  )
+    const modal = (
+        <Modal.Box closeOnOverlayClick>
+            <Modal.Header title="Header of Modal" subtitle="This is a smaller description" />
+            <Modal.Body>
+                The Body of a Modal can contain whatever you like! Like this very long Lorem Ipsum
+                <br />
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                Ipsum has been the industrys standard dummy text ever since the 1500s, when an
+                unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic
+                typesetting, remaining essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum passages, and more recently
+                with desktop publishing software like Aldus PageMaker including versions of Lorem
+                Ipsum.
+            </Modal.Body>
+            <Modal.Actions>
+                <Button variant="secondary">Does nothing</Button>
+                <Button variant="primary" close>
+                    Close the Modal
+                </Button>
+            </Modal.Actions>
+        </Modal.Box>
+    )
+    return getStory(
+        'Click me to launch a Modal with Header, Body and Actions',
+        modal,
+        'Header, Body and Actions',
+    )
 }
 
 export const ScrollableText = `The Body of a Modal can contain whatever you like! Like this very long Lorem Ipsum  
@@ -199,8 +217,7 @@ export const ScrollableText = `The Body of a Modal can contain whatever you like
                 typesetting, remaining essentially unchanged. It was popularised in the 1960s with
                 the release of Letraset sheets containing Lorem Ipsum passages, and more recently
                 with desktop publishing software like Aldus PageMaker including versions of Lorem
-                Ipsum.`;
-
+                Ipsum.`
 
 export const PlainMediumText = `The Body of a Modal can contain whatever you like! Like this very long Lorem Ipsum  
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
@@ -210,97 +227,103 @@ export const PlainMediumText = `The Body of a Modal can contain whatever you lik
                 typesetting, remaining essentially unchanged. It was popularised in the 1960s with
                 the release of Letraset sheets containing Lorem Ipsum passages, and more recently
                 with desktop publishing software like Aldus PageMaker including versions of Lorem
-                Ipsum.`;
-
+                Ipsum.`
 
 <!-- Prop type tables -->
-<!-- 
+<!--
 Modal story is made up of several components, each with their own arguments,
 so <ArgsTable of={Modal} /> wouldn't work in this case. Instead, we specify the
 props of one story i.e. Playground
 -->
+
 <ArgsTable story="ModalPlaygroundStory" />
 
 <!-- Stories -->
 
 <Preview withToolbar>
-  <Story
-    parameters={{ docs: { source: { type: "code"} }}}
-    name="ModalHeaderOnlyStory" 
-    args={{
-      title: 'Header of Modal', 
-      buttonTitle: 'Header Only',
-      buttonText: 'Click me to launch a Modal with Header'
-    }}>
-      {ModalTemplate.bind({})}
-   </Story>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="ModalHeaderOnlyStory"
+        args={{
+            title: 'Header of Modal',
+            buttonTitle: 'Header Only',
+            buttonText: 'Click me to launch a Modal with Header',
+        }}
+    >
+        {ModalTemplate.bind({})}
+    </Story>
 </Preview>
 
 <Preview withToolbar>
     <Story
-      parameters={{ docs: { source: { type: "code"} }}} 
-      name="ModalHeaderAndBodyStory" 
-      args={{
-      body: 'The Body of a Modal can contain whatever you like!',
-      title: 'Header of Modal', 
-      subtitle: 'This is a smaller description', 
-      buttonTitle: 'Header and Body',
-      buttonText: 'Click me to launch a Modal with Header and Body'
-    }}>
-      {ModalTemplate.bind({})}
-   </Story>
-</Preview>
-
-<Preview withToolbar>
-  <Story
-    parameters={{ docs: { source: { type: "code"} }}} 
-    name="ModalHeaderBodyAndActionsStory">
-    {WithActionsTemplate.bind({})}
-   </Story>
-</Preview>
-
-<Preview withToolbar>
-  <Story
-    parameters={{ docs: { source: { type: "code"} }}}
-    name="ModalScrollableBodyStory" 
-    args={{
-    body:  ScrollableText,
-    title: 'Header of Modal with Scrollable Body',
-    buttonTitle: 'Scrollable Body',
-    buttonText: 'Click me to launch a Modal with Scrollable Body',
-  }}>
-    {ModalTemplate.bind({})}
-  </Story>
-</Preview>
-
-<Preview withToolbar>
-  <Story
-    parameters={{ docs: { source: { type: "code"} }}} 
-    name="PlainMediumModalStory" 
-    args={{
-    body: PlainMediumText,
-    title: 'Header of Modal',
-    buttonTitle: 'Header, Body and Actions',
-    buttonText: 'Click me to launch a medium-sized Modal with Header and plain Body',
-    medium: true,
-    plain: true,
-  }}>
-    {ModalTemplate.bind({})}
-  </Story>
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="ModalHeaderAndBodyStory"
+        args={{
+            body: 'The Body of a Modal can contain whatever you like!',
+            title: 'Header of Modal',
+            subtitle: 'This is a smaller description',
+            buttonTitle: 'Header and Body',
+            buttonText: 'Click me to launch a Modal with Header and Body',
+        }}
+    >
+        {ModalTemplate.bind({})}
+    </Story>
 </Preview>
 
 <Preview withToolbar>
     <Story
-      parameters={{ docs: { source: { type: "code"} }}} 
-      name="ModalPlaygroundStory" 
-      args={{
-        plain: false,
-        showCloseIcon: false,
-        medium: false,
-        large: false,
-        title: 'Header of Modal',
-        subtitle: 'This is a smaller description',
-    }}>
-     {WithPlaygroundTemplate.bind({})}
-   </Story>
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="ModalHeaderBodyAndActionsStory"
+    >
+        {WithActionsTemplate.bind({})}
+    </Story>
+</Preview>
+
+<Preview withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="ModalScrollableBodyStory"
+        args={{
+            body: ScrollableText,
+            title: 'Header of Modal with Scrollable Body',
+            buttonTitle: 'Scrollable Body',
+            buttonText: 'Click me to launch a Modal with Scrollable Body',
+        }}
+    >
+        {ModalTemplate.bind({})}
+    </Story>
+</Preview>
+
+<Preview withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="PlainMediumModalStory"
+        args={{
+            body: PlainMediumText,
+            title: 'Header of Modal',
+            buttonTitle: 'Header, Body and Actions',
+            buttonText: 'Click me to launch a medium-sized Modal with Header and plain Body',
+            medium: true,
+            plain: true,
+        }}
+    >
+        {ModalTemplate.bind({})}
+    </Story>
+</Preview>
+
+<Preview withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="ModalPlaygroundStory"
+        args={{
+            plain: false,
+            showCloseIcon: false,
+            medium: false,
+            large: false,
+            title: 'Header of Modal',
+            subtitle: 'This is a smaller description',
+        }}
+    >
+        {WithPlaygroundTemplate.bind({})}
+    </Story>
 </Preview>
