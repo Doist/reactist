@@ -236,14 +236,31 @@ so <ArgsTable of={Modal} /> wouldn't work in this case. Instead, we specify the
 props of one story i.e. Playground
 -->
 
-<ArgsTable story="ModalPlaygroundStory" />
+<ArgsTable story="Playground" />
 
 <!-- Stories -->
 
 <Preview withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
-        name="ModalHeaderOnlyStory"
+        name="Playground"
+        args={{
+            plain: false,
+            showCloseIcon: false,
+            medium: false,
+            large: false,
+            title: 'Header of Modal',
+            subtitle: 'This is a smaller description',
+        }}
+    >
+        {WithPlaygroundTemplate.bind({})}
+    </Story>
+</Preview>
+
+<Preview withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="Modal Header"
         args={{
             title: 'Header of Modal',
             buttonTitle: 'Header Only',
@@ -257,7 +274,7 @@ props of one story i.e. Playground
 <Preview withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
-        name="ModalHeaderAndBodyStory"
+        name="Modal Header And Body"
         args={{
             body: 'The Body of a Modal can contain whatever you like!',
             title: 'Header of Modal',
@@ -273,7 +290,7 @@ props of one story i.e. Playground
 <Preview withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
-        name="ModalHeaderBodyAndActionsStory"
+        name="Modal Header Body with Actions"
     >
         {WithActionsTemplate.bind({})}
     </Story>
@@ -282,7 +299,7 @@ props of one story i.e. Playground
 <Preview withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
-        name="ModalScrollableBodyStory"
+        name="Modal Scrollable Body"
         args={{
             body: ScrollableText,
             title: 'Header of Modal with Scrollable Body',
@@ -297,7 +314,7 @@ props of one story i.e. Playground
 <Preview withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
-        name="PlainMediumModalStory"
+        name="Plain Medium Modal"
         args={{
             body: PlainMediumText,
             title: 'Header of Modal',
@@ -308,22 +325,5 @@ props of one story i.e. Playground
         }}
     >
         {ModalTemplate.bind({})}
-    </Story>
-</Preview>
-
-<Preview withToolbar>
-    <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
-        name="ModalPlaygroundStory"
-        args={{
-            plain: false,
-            showCloseIcon: false,
-            medium: false,
-            large: false,
-            title: 'Header of Modal',
-            subtitle: 'This is a smaller description',
-        }}
-    >
-        {WithPlaygroundTemplate.bind({})}
     </Story>
 </Preview>
