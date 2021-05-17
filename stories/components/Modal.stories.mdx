@@ -104,9 +104,8 @@ export const getStory = (text, modal, title) => (
 
 <!-- Templates -->
 
-export const WithPlaygroundTemplate = ({ data, ...args }) => (
+export const WithPlaygroundTemplate = ({ ...args }) => (
     <section>
-        <div id="modal_box" />
         <Modal.Box {...args} closeOnOverlayClick>
             <Modal.Header {...args} />
             <Modal.Body {...args}>Some Content</Modal.Body>
@@ -126,6 +125,7 @@ export const ModalTemplate = ({
     buttonText,
     medium = false,
     plain = false,
+    large = false,
 }) => {
     const modal = (
         <Modal.Box medium={medium} closeOnOverlayClick>
@@ -247,8 +247,8 @@ props of one story i.e. Playground
         args={{
             plain: false,
             showCloseIcon: false,
-            medium: false,
             large: false,
+            medium: false,
             title: 'Header of Modal',
             subtitle: 'This is a smaller description',
         }}
@@ -260,7 +260,7 @@ props of one story i.e. Playground
 <Preview withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
-        name="Modal Header"
+        name="Modal header"
         args={{
             title: 'Header of Modal',
             buttonTitle: 'Header Only',
@@ -274,7 +274,7 @@ props of one story i.e. Playground
 <Preview withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
-        name="Modal Header And Body"
+        name="Modal header and body"
         args={{
             body: 'The Body of a Modal can contain whatever you like!',
             title: 'Header of Modal',
@@ -290,7 +290,7 @@ props of one story i.e. Playground
 <Preview withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
-        name="Modal Header Body with Actions"
+        name="Modal header body with actions"
     >
         {WithActionsTemplate.bind({})}
     </Story>
@@ -299,10 +299,10 @@ props of one story i.e. Playground
 <Preview withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
-        name="Modal Scrollable Body"
+        name="Modal scrollable body"
         args={{
             body: ScrollableText,
-            title: 'Header of Modal with Scrollable Body',
+            title: 'Header of modal with scrollable body',
             buttonTitle: 'Scrollable Body',
             buttonText: 'Click me to launch a Modal with Scrollable Body',
         }}
@@ -314,7 +314,7 @@ props of one story i.e. Playground
 <Preview withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
-        name="Plain Medium Modal"
+        name="Plain medium modal"
         args={{
             body: PlainMediumText,
             title: 'Header of Modal',
