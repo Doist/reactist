@@ -27,7 +27,7 @@ interface ColumnProps {
 }
 
 const Column = forwardRefWithAs<ColumnProps>(function Column(
-    { component, width = 'auto', children, ...props },
+    { width = 'auto', children, ...props },
     ref,
 ) {
     return (
