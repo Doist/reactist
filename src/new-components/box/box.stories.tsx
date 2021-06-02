@@ -26,7 +26,10 @@ export default {
         display: select<BoxDisplay>(['block', 'inlineBlock', 'inline', 'flex', 'none'], 'block'),
         flexDirection: selectWithNone<BoxFlexDirection>(['column', 'row'], 'row'),
         flexWrap: selectWithNone<BoxFlexWrap>(['wrap', 'nowrap'], 'nowrap'),
-        alignItems: selectWithNone<BoxAlignItems>(['center', 'flexEnd', 'flexStart'], 'none'),
+        alignItems: selectWithNone<BoxAlignItems>(
+            ['center', 'flexEnd', 'flexStart', 'baseline'],
+            'none',
+        ),
         justifyContent: selectWithNone<BoxJustifyContent>(
             ['center', 'flexEnd', 'flexStart', 'spaceBetween'],
             'none',

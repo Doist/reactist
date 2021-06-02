@@ -22,7 +22,7 @@ type BoxMaxMinWidth = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
 type BoxDisplay = 'block' | 'flex' | 'inline' | 'inlineBlock' | 'inlineFlex' | 'none'
 type BoxFlexDirection = 'column' | 'row'
 type BoxFlexWrap = 'nowrap' | 'wrap'
-type BoxAlignItems = 'center' | 'flexEnd' | 'flexStart'
+type BoxAlignItems = 'center' | 'flexEnd' | 'flexStart' | 'baseline'
 type BoxJustifyContent = 'center' | 'flexEnd' | 'flexStart' | 'spaceBetween'
 type BoxOverflow = 'hidden' | 'auto' | 'visible' | 'scroll'
 
