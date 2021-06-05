@@ -1,0 +1,23 @@
+name: 'Default Branch Migration'
+description: "Cleanly transition when changing the repository's default branch"
+author: 'Liyan David Chang (@liyanchang)'
+branding:
+    icon: fast-forward
+    color: black
+inputs:
+    github_token:
+        description: 'Token for the repo. Required. Mostly commonly, "$\{{ secrets.GITHUB_TOKEN }}"'
+        required: true
+    previous_default:
+        description: 'The default branch name you are moving away from. Required. Most commonly, "master"'
+        required: true
+    new_default:
+        description: 'The default branch name you are using going forward. Required. Most commonly, "main"'
+        required: true
+runs:
+    using: 'docker'
+    image: 'Dockerfile'
+    args:
+        - ${{ inputs.github_token }}
+        - ${{ inputs.previous_default }}
+        - ${{ inputs.new_default }}
