@@ -11,8 +11,11 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+
             - name: Migrate default branch
-              uses: liyanchang/default-branch-migration@v1.0.2
+              uses: ./.github/actions/default-branch-migration
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
                   previous_default: dev
