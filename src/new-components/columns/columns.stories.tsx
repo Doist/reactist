@@ -27,7 +27,7 @@ export default {
     argTypes: {
         space: selectSize(),
         align: selectWithNone<ColumnsHorizontalAlignment>(['left', 'center', 'right']),
-        alignY: selectWithNone<ColumnsVerticalAlignment>(['top', 'center', 'bottom']),
+        alignY: selectWithNone<ColumnsVerticalAlignment>(['top', 'center', 'bottom', 'baseline']),
         ...reusableBoxProps(),
     },
 }

@@ -50,7 +50,7 @@ const Column = forwardRefWithAs<ColumnProps>(function Column(
 })
 
 type ColumnsHorizontalAlignment = 'left' | 'center' | 'right'
-type ColumnsVerticalAlignment = 'top' | 'center' | 'bottom'
+type ColumnsVerticalAlignment = 'top' | 'center' | 'bottom' | 'baseline'
 type ColumnsCollapseBelow = ResponsiveBreakpoints
 
 interface ColumnsProps extends ReusableBoxProps {
@@ -76,9 +76,22 @@ const Columns = forwardRefWithAs<ColumnsProps>(function Columns(
                     : 'row'
             }
             display="flex"
-            alignItems={mapResponsiveProp(alignY, (alignY) =>
-                alignY === 'top' ? 'flexStart' : alignY === 'bottom' ? 'flexEnd' : 'center',
-            )}
+            alignItems={mapResponsiveProp(alignY, (alignY) => {
+                switch (alignY) {
+                    case 'top':
+                        return 'flexStart'
+
+                    case 'bottom':
+                        return 'flexEnd'
+
+                    case 'baseline':
+                        return 'baseline'
+
+                    case 'center':
+                    default:
+                        return 'center'
+                }
+            })}
             justifyContent={mapResponsiveProp(align, (align) =>
                 align === 'left' ? 'flexStart' : align === 'right' ? 'flexEnd' : 'center',
             )}

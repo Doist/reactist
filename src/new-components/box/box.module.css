@@ -203,6 +203,9 @@
 .alignItems-flexEnd {
     align-items: flex-end;
 }
+.alignItems-baseline {
+    align-items: baseline;
+}
 @media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-alignItems-flexStart {
         align-items: flex-start;
@@ -212,6 +215,9 @@
     }
     .tablet-alignItems-flexEnd {
         align-items: flex-end;
+    }
+    .tablet-alignItems-baseline {
+        align-items: baseline;
     }
 }
 @media (min-width: 992px /* --reactist-breakpoint-desktop */) {
@@ -223,6 +229,9 @@
     }
     .desktop-alignItems-flexEnd {
         align-items: flex-end;
+    }
+    .desktop-alignItems-baseline {
+        align-items: baseline;
     }
 }
 
