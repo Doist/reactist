@@ -43,6 +43,7 @@ const Text = forwardRefWithAs<TextProps>(function Text(
                 lineClampMultipleLines ? styles.lineClamp : null,
                 lineClamp ? getClassNames(styles, 'line-clamp', lineClamp.toString()) : null,
             ]}
+            paddingRight={lineClamp ? 'xsmall' : undefined}
             ref={ref}
         >
             {children}
