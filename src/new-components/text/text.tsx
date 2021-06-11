@@ -43,6 +43,9 @@ const Text = forwardRefWithAs<TextProps>(function Text(
                 lineClampMultipleLines ? styles.lineClamp : null,
                 lineClamp ? getClassNames(styles, 'line-clamp', lineClamp.toString()) : null,
             ]}
+            // Prevents emojis from being cut-off
+            // See https://github.com/Doist/reactist/pull/528
+            paddingRight={lineClamp ? 'xsmall' : undefined}
             ref={ref}
         >
             {children}
