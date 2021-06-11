@@ -5,6 +5,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 ## v9.2.0-beta.15
 
 -   [Fix] Add default padding to `Text` component when used with `lineClamp` prop, in order to prevent emojis from being cutoff
+-   [Fix] Allow the `Column` component to leverage the `component` prop to render as another element other than the default `div`
 
 ## v9.2.0-beta.14
 
