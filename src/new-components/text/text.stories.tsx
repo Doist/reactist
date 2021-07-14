@@ -24,7 +24,7 @@ export default {
 export function TextStory() {
     return (
         <section className="story">
-            <Stack space="medium">
+            <Stack space="medium" paddingBottom="xlarge">
                 <Text size="subtitle" weight="regular">
                     Subtitle Regular
                 </Text>
@@ -40,7 +40,16 @@ export function TextStory() {
                 <Text size="subtitle" weight="bold">
                     Subtitle Bold
                 </Text>
+                <Text size="subtitle" lineHeight="paragraph">
+                    Subtitle with the lineHeight prop set to paragraph. Lorem ipsum dolor sit, amet
+                    consectetur adipisicing elit. Provident cumque recusandae quibusdam, veniam cum
+                    illo? Inventore, doloremque necessitatibus! Sequi porro alias mollitia,
+                    temporibus quidem, aut modi tempora placeat laborum eos sapiente necessitatibus
+                    autem ipsum officia rerum distinctio consectetur tenetur qui!
+                </Text>
+            </Stack>
 
+            <Stack space="medium" paddingBottom="xlarge">
                 <Text size="body" weight="regular">
                     Body Regular
                 </Text>
@@ -56,7 +65,16 @@ export function TextStory() {
                 <Text size="body" weight="bold">
                     Body Bold
                 </Text>
+                <Text size="body" lineHeight="paragraph">
+                    Body with the lineHeight prop set to paragraph. Lorem ipsum dolor sit, amet
+                    consectetur adipisicing elit. Provident cumque recusandae quibusdam, veniam cum
+                    illo? Inventore, doloremque necessitatibus! Sequi porro alias mollitia,
+                    temporibus quidem, aut modi tempora placeat laborum eos sapiente necessitatibus
+                    autem ipsum officia rerum distinctio consectetur tenetur qui!
+                </Text>
+            </Stack>
 
+            <Stack space="medium" paddingBottom="xlarge">
                 <Text size="copy" weight="regular">
                     Copy Regular
                 </Text>
@@ -72,7 +90,16 @@ export function TextStory() {
                 <Text size="copy" weight="bold">
                     Copy Bold
                 </Text>
+                <Text size="copy" lineHeight="paragraph">
+                    Copy with the lineHeight prop set to paragraph. Lorem ipsum dolor sit, amet
+                    consectetur adipisicing elit. Provident cumque recusandae quibusdam, veniam cum
+                    illo? Inventore, doloremque necessitatibus! Sequi porro alias mollitia,
+                    temporibus quidem, aut modi tempora placeat laborum eos sapiente necessitatibus
+                    autem ipsum officia rerum distinctio consectetur tenetur qui!
+                </Text>
+            </Stack>
 
+            <Stack space="medium" paddingBottom="xlarge">
                 <Text size="caption" weight="regular">
                     Caption Regular
                 </Text>
@@ -87,6 +114,13 @@ export function TextStory() {
                 </Text>
                 <Text size="caption" weight="bold">
                     Caption Bold
+                </Text>
+                <Text size="caption" lineHeight="paragraph">
+                    Caption with the lineHeight prop set to paragraph. Lorem ipsum dolor sit, amet
+                    consectetur adipisicing elit. Provident cumque recusandae quibusdam, veniam cum
+                    illo? Inventore, doloremque necessitatibus! Sequi porro alias mollitia,
+                    temporibus quidem, aut modi tempora placeat laborum eos sapiente necessitatibus
+                    autem ipsum officia rerum distinctio consectetur tenetur qui!
                 </Text>
             </Stack>
         </section>

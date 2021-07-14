@@ -11,6 +11,7 @@ type TextProps = {
     component?: ComponentTypes
     children: React.ReactNode
     size?: 'caption' | 'copy' | 'body' | 'subtitle'
+    lineHeight?: 'paragraph' | 'unset'
     weight?: 'regular' | 'semibold' | 'bold'
     tone?: Tone
     lineClamp?: 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
@@ -21,6 +22,7 @@ const Text = forwardRefWithAs<TextProps>(function Text(
         component = 'span',
         size = 'body',
         weight = 'regular',
+        lineHeight = 'unset',
         tone = 'normal',
         children,
         lineClamp,
@@ -39,6 +41,9 @@ const Text = forwardRefWithAs<TextProps>(function Text(
                 styles.text,
                 size !== 'body' ? getClassNames(styles, 'size', size) : null,
                 weight !== 'regular' ? getClassNames(styles, 'weight', weight) : null,
+                lineHeight !== 'unset'
+                    ? getClassNames(styles, 'lineHeight', `${size}-${lineHeight}`)
+                    : null,
                 tone !== 'normal' ? getClassNames(styles, 'tone', tone) : null,
                 lineClampMultipleLines ? styles.lineClamp : null,
                 lineClamp ? getClassNames(styles, 'line-clamp', lineClamp.toString()) : null,

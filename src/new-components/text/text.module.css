@@ -31,6 +31,22 @@
     color: var(--reactist-chromatic-content-red);
 }
 
+.lineHeight-caption-paragraph {
+    line-height: var(--reactist-line-height-caption);
+}
+
+.lineHeight-copy-paragraph {
+    line-height: var(--reactist-line-height-copy);
+}
+
+.lineHeight-body-paragraph {
+    line-height: var(--reactist-line-height-body);
+}
+
+.lineHeight-subtitle-paragraph {
+    line-height: var(--reactist-line-height-subtitle);
+}
+
 /* truncated text */
 
 .line-clamp-1 {
