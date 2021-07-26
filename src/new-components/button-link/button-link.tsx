@@ -14,6 +14,7 @@ const ButtonLink = forwardRefWithAs<ButtonLinkProps>(function ButtonLink(
     { component = 'a', variant, size = 'default', openInNewTab = false, ...props },
     ref,
 ) {
+    const { className } = props
     return (
         <Box
             {...props}
@@ -22,6 +23,7 @@ const ButtonLink = forwardRefWithAs<ButtonLinkProps>(function ButtonLink(
             alignItems="center"
             justifyContent="center"
             className={[
+                className,
                 styles.container,
                 'reactist_button',
                 variant ? `reactist_button--${variant}` : null,
