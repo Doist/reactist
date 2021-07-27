@@ -11,10 +11,9 @@ interface ButtonLinkProps extends OpenInNewTab {
 }
 
 const ButtonLink = forwardRefWithAs<ButtonLinkProps>(function ButtonLink(
-    { component = 'a', variant, size = 'default', openInNewTab = false, ...props },
+    { component = 'a', variant, size = 'default', openInNewTab = false, className, ...props },
     ref,
 ) {
-    const { className } = props
     return (
         <Box
             {...props}
