@@ -11,7 +11,7 @@ interface ButtonLinkProps extends OpenInNewTab {
 }
 
 const ButtonLink = forwardRefWithAs<ButtonLinkProps>(function ButtonLink(
-    { component = 'a', variant, size = 'default', openInNewTab = false, ...props },
+    { component = 'a', variant, size = 'default', openInNewTab = false, className, ...props },
     ref,
 ) {
     return (
@@ -22,6 +22,7 @@ const ButtonLink = forwardRefWithAs<ButtonLinkProps>(function ButtonLink(
             alignItems="center"
             justifyContent="center"
             className={[
+                className,
                 styles.container,
                 'reactist_button',
                 variant ? `reactist_button--${variant}` : null,
