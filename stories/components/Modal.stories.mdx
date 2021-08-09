@@ -151,47 +151,67 @@ The **Modal.Actions** displays an action bar on the bottom of the Modal. It work
 
 <!-- Helpers -->
 
-export const renderModal = (modal) => {
+export function renderModal(modal) {
     ReactDOM.render(modal, document.getElementById('modal_box'))
 }
-export const getStory = (text, modal, title) => (
-    <section className="story">
-        <p>{title}</p>
-        <div id="modal_box" />
-        <Button variant="primary" onClick={() => renderModal(modal)}>
-            {text}
-        </Button>
-    </section>
-)
+
+export function getStory(text, modal, title) {
+    return (
+        <section className="story">
+            <p>{title}</p>
+            <div id="modal_box" />
+            <Button variant="primary" onClick={() => renderModal(modal)}>
+                {text}
+            </Button>
+        </section>
+    )
+}
 
 <!-- Templates -->
 
-export const WithPlaygroundTemplate = ({ ...args }) => (
-    <section>
-        <Modal.Box {...args} closeOnOverlayClick>
-            <Modal.Header {...args} />
-            <Modal.Body {...args}>Some Content</Modal.Body>
-            <Modal.Actions>
-                <Button variant="secondary">Action 1</Button>
-                <Button variant="primary">Action 2</Button>
-            </Modal.Actions>
-        </Modal.Box>
-    </section>
-)
+export function WithPlaygroundTemplate(args) {
+    const { title, subtitle, plain, medium, large, showCloseIcon, closeOnOverlayClick } = args
+    return (
+        <section>
+            <Modal.Box large={large} medium={medium} closeOnOverlayClick={closeOnOverlayClick}>
+                <Modal.Header title={title} subtitle={subtitle} />
+                <Modal.Body plain={plain} showCloseIcon={showCloseIcon}>
+                    Some Content
+                </Modal.Body>
+                <Modal.Actions>
+                    <Button variant="secondary">Action 1</Button>
+                    <Button variant="primary">Action 2</Button>
+                </Modal.Actions>
+            </Modal.Box>
+        </section>
+    )
+}
 
-export const ModalTemplate = (args) => {
+export function ModalTemplate(args) {
+    const {
+        title,
+        subtitle,
+        body,
+        buttonTitle,
+        buttonText,
+        medium,
+        plain,
+        large,
+        showCloseIcon,
+        closeOnOverlayClick,
+    } = args
     const modal = (
-        <Modal.Box {...args} closeOnOverlayClick>
-            <Modal.Header {...args} />
-            <Modal.Body {...args}>
-                <ReactMarkdown children={args.body} />
+        <Modal.Box large={large} medium={medium} closeOnOverlayClick={closeOnOverlayClick}>
+            <Modal.Header title={title} subtitle={subtitle} />
+            <Modal.Body plain={plain} showCloseIcon={showCloseIcon}>
+                <ReactMarkdown children={body} />
             </Modal.Body>
         </Modal.Box>
     )
-    return getStory(args.buttonText, modal, args.buttonTitle)
+    return getStory(buttonText, modal, buttonTitle)
 }
 
-export const WithActionsTemplate = () => {
+export function WithActionsTemplate() {
     const modal = (
         <Modal.Box closeOnOverlayClick>
             <Modal.Header title="Header of Modal" subtitle="This is a smaller description" />
