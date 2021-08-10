@@ -10,14 +10,76 @@ import './styles/modal_story.less'
     title="Modal"
     component={Modal}
     argTypes={{
-        text: {
+        title: {
+            name: 'title',
+            description: "The modal's title",
             control: {
-                type: null,
+                type: 'text',
+            },
+            table: {
+                type: {
+                    summary: 'string',
+                },
             },
         },
-        body: {
+        subtitle: {
+            name: 'subtitle',
+            description: "The modal's subtitle",
             control: {
-                type: null,
+                type: 'text',
+            },
+            table: {
+                type: {
+                    summary: 'string',
+                },
+            },
+        },
+        showCloseIcon: {
+            name: 'showCloseIcon',
+            description: "The modal's close icon",
+            control: {
+                type: 'boolean',
+            },
+            table: {
+                type: {
+                    summary: 'boolean',
+                },
+            },
+        },
+        medium: {
+            name: 'medium',
+            description: 'Medium sized modal',
+            control: {
+                type: 'boolean',
+            },
+            table: {
+                type: {
+                    summary: 'boolean',
+                },
+            },
+        },
+        large: {
+            name: 'large',
+            description: 'Large sized modal',
+            control: {
+                type: 'boolean',
+            },
+            table: {
+                type: {
+                    summary: 'boolean',
+                },
+            },
+        },
+        plain: {
+            name: 'plain',
+            description: 'A plain modal without styles',
+            control: {
+                type: 'boolean',
+            },
+            table: {
+                type: {
+                    summary: 'boolean',
+                },
             },
         },
     }}
@@ -89,48 +151,59 @@ The **Modal.Actions** displays an action bar on the bottom of the Modal. It work
 
 <!-- Helpers -->
 
-export const renderModal = (modal) => {
+export function renderModal(modal) {
     ReactDOM.render(modal, document.getElementById('modal_box'))
 }
-export const getStory = (text, modal, title) => (
-    <section className="story">
-        <p>{title}</p>
-        <div id="modal_box" />
-        <Button variant="primary" onClick={() => renderModal(modal)}>
-            {text}
-        </Button>
-    </section>
-)
+
+export function getStory(text, modal, title) {
+    return (
+        <section className="story">
+            <p>{title}</p>
+            <div id="modal_box" />
+            <Button variant="primary" onClick={() => renderModal(modal)}>
+                {text}
+            </Button>
+        </section>
+    )
+}
 
 <!-- Templates -->
 
-export const WithPlaygroundTemplate = ({ ...args }) => (
-    <section>
-        <Modal.Box {...args} closeOnOverlayClick>
-            <Modal.Header {...args} />
-            <Modal.Body {...args}>Some Content</Modal.Body>
-            <Modal.Actions>
-                <Button variant="secondary">Action 1</Button>
-                <Button variant="primary">Action 2</Button>
-            </Modal.Actions>
-        </Modal.Box>
-    </section>
-)
+export function WithPlaygroundTemplate(args) {
+    const { title, subtitle, plain, medium, large, showCloseIcon, closeOnOverlayClick } = args
+    return (
+        <section>
+            <Modal.Box large={large} medium={medium} closeOnOverlayClick={closeOnOverlayClick}>
+                <Modal.Header title={title} subtitle={subtitle} />
+                <Modal.Body plain={plain} showCloseIcon={showCloseIcon}>
+                    Some Content
+                </Modal.Body>
+                <Modal.Actions>
+                    <Button variant="secondary">Action 1</Button>
+                    <Button variant="primary">Action 2</Button>
+                </Modal.Actions>
+            </Modal.Box>
+        </section>
+    )
+}
 
-export const ModalTemplate = ({
-    body = '',
-    title,
-    subtitle = '',
-    buttonTitle,
-    buttonText,
-    medium = false,
-    plain = false,
-    large = false,
-}) => {
+export function ModalTemplate(args) {
+    const {
+        title,
+        subtitle,
+        body,
+        buttonTitle,
+        buttonText,
+        medium,
+        plain,
+        large,
+        showCloseIcon,
+        closeOnOverlayClick,
+    } = args
     const modal = (
-        <Modal.Box medium={medium} closeOnOverlayClick>
+        <Modal.Box large={large} medium={medium} closeOnOverlayClick={closeOnOverlayClick}>
             <Modal.Header title={title} subtitle={subtitle} />
-            <Modal.Body plain={plain}>
+            <Modal.Body plain={plain} showCloseIcon={showCloseIcon}>
                 <ReactMarkdown children={body} />
             </Modal.Body>
         </Modal.Box>
@@ -138,7 +211,7 @@ export const ModalTemplate = ({
     return getStory(buttonText, modal, buttonTitle)
 }
 
-export const WithActionsTemplate = () => {
+export function WithActionsTemplate() {
     const modal = (
         <Modal.Box closeOnOverlayClick>
             <Modal.Header title="Header of Modal" subtitle="This is a smaller description" />
@@ -229,18 +302,9 @@ export const PlainMediumText = `The Body of a Modal can contain whatever you lik
                 with desktop publishing software like Aldus PageMaker including versions of Lorem
                 Ipsum.`
 
-<!-- Prop type tables -->
-<!--
-Modal story is made up of several components, each with their own arguments,
-so <ArgsTable of={Modal} /> wouldn't work in this case. Instead, we specify the
-props of one story i.e. Playground
--->
-
-<ArgsTable story="Playground" />
-
 <!-- Stories -->
 
-<Preview withToolbar>
+<Canvas withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
         name="Playground"
@@ -255,9 +319,11 @@ props of one story i.e. Playground
     >
         {WithPlaygroundTemplate.bind({})}
     </Story>
-</Preview>
+</Canvas>
 
-<Preview withToolbar>
+<ArgsTable story="Playground" />
+
+<Canvas withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
         name="Modal header"
@@ -269,9 +335,9 @@ props of one story i.e. Playground
     >
         {ModalTemplate.bind({})}
     </Story>
-</Preview>
+</Canvas>
 
-<Preview withToolbar>
+<Canvas withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
         name="Modal header and body"
@@ -285,18 +351,18 @@ props of one story i.e. Playground
     >
         {ModalTemplate.bind({})}
     </Story>
-</Preview>
+</Canvas>
 
-<Preview withToolbar>
+<Canvas withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
         name="Modal header body with actions"
     >
         {WithActionsTemplate.bind({})}
     </Story>
-</Preview>
+</Canvas>
 
-<Preview withToolbar>
+<Canvas withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
         name="Modal scrollable body"
@@ -306,12 +372,16 @@ props of one story i.e. Playground
             buttonTitle: 'Scrollable Body',
             buttonText: 'Click me to launch a Modal with Scrollable Body',
         }}
+        table={{
+            type: { summary: 'string' },
+            defaultValue: { summary: 'Hello' },
+        }}
     >
         {ModalTemplate.bind({})}
     </Story>
-</Preview>
+</Canvas>
 
-<Preview withToolbar>
+<Canvas withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
         name="Plain medium modal"
@@ -326,4 +396,4 @@ props of one story i.e. Playground
     >
         {ModalTemplate.bind({})}
     </Story>
-</Preview>
+</Canvas>
