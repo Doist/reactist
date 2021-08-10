@@ -2,13 +2,12 @@ import * as React from 'react'
 import { getClassNames } from '../responsive-props'
 import { Box } from '../box'
 
-import { ComponentTypes, forwardRefWithAs } from '../type-helpers'
+import { forwardRefComponent } from '../../utils/polymorphism'
 import type { Tone } from '../common-types'
 
 import styles from './text.module.css'
 
 type TextProps = {
-    component?: ComponentTypes
     children: React.ReactNode
     size?: 'caption' | 'copy' | 'body' | 'subtitle'
     weight?: 'regular' | 'semibold' | 'bold'
@@ -16,9 +15,9 @@ type TextProps = {
     lineClamp?: 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
 }
 
-const Text = forwardRefWithAs<TextProps>(function Text(
+const Text = forwardRefComponent<'span', TextProps>(function Text(
     {
-        component = 'span',
+        as = 'span',
         size = 'body',
         weight = 'regular',
         tone = 'normal',
@@ -34,7 +33,7 @@ const Text = forwardRefWithAs<TextProps>(function Text(
     return (
         <Box
             {...rest}
-            component={component}
+            as={as}
             className={[
                 styles.text,
                 size !== 'body' ? getClassNames(styles, 'size', size) : null,

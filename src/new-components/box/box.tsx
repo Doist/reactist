@@ -1,6 +1,6 @@
 import * as React from 'react'
 import classNames from 'classnames'
-import { forwardRefWithAs } from '../type-helpers'
+import { forwardRefComponent } from '../../utils/polymorphism'
 import { getClassNames } from '../responsive-props'
 
 import type { ResponsiveProp } from '../responsive-props'
@@ -53,9 +53,9 @@ interface BoxProps extends WithEnhancedClassName, ReusableBoxProps {
     height?: 'full'
 }
 
-const Box = forwardRefWithAs<BoxProps>(function Box(
+const Box = forwardRefComponent<'div', BoxProps>(function Box(
     {
-        component = 'div',
+        as: component = 'div',
         position = 'static',
         display = 'block',
         flexDirection = 'row',

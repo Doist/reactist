@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { forwardRefWithAs } from '../type-helpers'
+import { forwardRefComponent } from '../../utils/polymorphism'
 import { getClassNames, mapResponsiveProp } from '../responsive-props'
 import { Box } from '../box'
 
@@ -26,7 +26,7 @@ interface ColumnProps {
     width?: ColumnWidth
 }
 
-const Column = forwardRefWithAs<ColumnProps>(function Column(
+const Column = forwardRefComponent<'div', ColumnProps>(function Column(
     { width = 'auto', children, ...props },
     ref,
 ) {
@@ -60,7 +60,7 @@ interface ColumnsProps extends ReusableBoxProps {
     collapseBelow?: ResponsiveBreakpoints
 }
 
-const Columns = forwardRefWithAs<ColumnsProps>(function Columns(
+const Columns = forwardRefComponent<'div', ColumnsProps>(function Columns(
     { space, align, alignY, collapseBelow, children, ...props },
     ref,
 ) {

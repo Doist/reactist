@@ -42,7 +42,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(function Head
                 lineClampMultipleLines ? styles.lineClamp : null,
                 lineClamp ? getClassNames(styles, 'line-clamp', lineClamp.toString()) : null,
             ]}
-            component={headingElementName}
+            as={headingElementName}
             ref={ref}
         >
             {children}

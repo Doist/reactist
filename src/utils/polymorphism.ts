@@ -73,7 +73,7 @@ interface ForwardRefFunction<ComponentType extends As, ComponentProps = {}> {
     displayName?: string
 }
 
-export interface ForwardRefComponentWithAs<ComponentType extends As, ComponentProps> {
+interface ForwardRefComponent<ComponentType extends As, ComponentProps> {
     <TT extends As = ComponentType>(
         props: PropsWithAs<TT, ComponentProps>,
     ): React.ReactElement | null
@@ -83,8 +83,11 @@ export interface ForwardRefComponentWithAs<ComponentType extends As, ComponentPr
     displayName?: string
 }
 
-export function forwardRefWithAs<ComponentType extends As = 'div', ComponentProps = {}>(
+function forwardRefComponent<ComponentType extends As = 'div', ComponentProps = {}>(
     render: ForwardRefFunction<ComponentType, ComponentProps>,
 ) {
-    return React.forwardRef(render) as ForwardRefComponentWithAs<ComponentType, ComponentProps>
+    return React.forwardRef(render) as ForwardRefComponent<ComponentType, ComponentProps>
 }
+
+export type { ForwardRefComponent }
+export { forwardRefComponent }

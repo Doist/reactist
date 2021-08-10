@@ -13,7 +13,7 @@ interface DividerProps {
 function Divider({ weight = 'regular', ...props }: DividerProps) {
     return (
         <Box
-            component="hr"
+            as="hr"
             className={[
                 styles.divider,
                 weight !== 'regular' ? getClassNames(styles, 'weight', weight) : null,

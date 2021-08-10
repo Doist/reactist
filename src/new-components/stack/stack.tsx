@@ -1,6 +1,6 @@
 import * as React from 'react'
 import flattenChildren from 'react-keyed-flatten-children'
-import { forwardRefWithAs } from '../type-helpers'
+import { forwardRefComponent } from '../../utils/polymorphism'
 import { getClassNames } from '../responsive-props'
 import { Box } from '../box'
 import { Divider } from '../divider'
@@ -17,13 +17,13 @@ interface StackProps extends ReusableBoxProps {
     dividers?: boolean | DividerWeight
 }
 
-const Stack = forwardRefWithAs<StackProps>(function Stack(
-    { component, space, dividers = false, children, className, ...props },
+const Stack = forwardRefComponent<'div', StackProps>(function Stack(
+    { as, space, dividers = false, children, className, ...props },
     ref,
 ) {
     return (
         <Box
-            component={component}
+            as={as}
             className={[className, getClassNames(styles, 'space', space)]}
             ref={ref}
             {...props}

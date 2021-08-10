@@ -1,6 +1,6 @@
 import * as React from 'react'
 import classNames from 'classnames'
-import { forwardRefWithAs } from './type-helpers'
+import { forwardRefComponent } from '../../utils/polymorphism'
 
 //
 // Reactist menu is a thin wrapper around Reakit's menu components. This may or may not be
@@ -85,7 +85,7 @@ function Menu({ children, onItemSelect, ...props }: MenuProps) {
 /**
  * A button to toggle a dropdown menu open or closed.
  */
-const MenuButton = forwardRefWithAs<'button'>(function MenuButton({ className, ...props }, ref) {
+const MenuButton = forwardRefComponent<'button'>(function MenuButton({ className, ...props }, ref) {
     const { handleItemSelect, ...state } = React.useContext(MenuContext)
     return (
         <Reakit.MenuButton
@@ -144,7 +144,7 @@ function MenuBackdrop({
 /**
  * The dropdown menu itself, containing a list of menu items.
  */
-const MenuList = forwardRefWithAs<'div'>(function MenuList({ className, ...props }, ref) {
+const MenuList = forwardRefComponent<'div'>(function MenuList({ className, ...props }, ref) {
     const { handleItemSelect, ...state } = React.useContext(MenuContext)
     return state.visible ? (
         <MenuBackdrop {...state}>
@@ -221,7 +221,7 @@ type MenuItemProps = {
  * A menu item inside a menu list. It can be selected by the user, triggering the `onSelect`
  * callback.
  */
-const MenuItem = forwardRefWithAs<'button', MenuItemProps>(function MenuItem(
+const MenuItem = forwardRefComponent<'button', MenuItemProps>(function MenuItem(
     { value, children, onSelect, hideOnSelect = true, onClick, ...props },
     ref,
 ) {
@@ -324,7 +324,7 @@ type MenuGroupProps = NativeProps<HTMLDivElement> & {
  * This group does not add any visual separator. You can do that yourself adding `<hr />` elements
  * before and/or after the group if you so wish.
  */
-const MenuGroup = forwardRefWithAs<'div', MenuGroupProps>(function MenuGroud(
+const MenuGroup = forwardRefComponent<'div', MenuGroupProps>(function MenuGroud(
     { label, children, ...props },
     ref,
 ) {

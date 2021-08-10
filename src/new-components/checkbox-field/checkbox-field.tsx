@@ -35,7 +35,7 @@ function CheckboxField({
 
     return (
         <Box
-            component="label"
+            as="label"
             display="flex"
             alignItems="center"
             className={[

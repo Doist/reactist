@@ -8,7 +8,7 @@ import styles from './base-field.module.css'
 
 function FieldHint({ id, children }: { id: string; children: React.ReactNode }) {
     return (
-        <Text component="p" tone="secondary" size="copy" id={id} className={styles.fieldHint}>
+        <Text as="p" tone="secondary" size="copy" id={id} className={styles.fieldHint}>
             {children}
         </Text>
     )
@@ -57,13 +57,13 @@ function BaseField({
     return (
         <Box className={[className, styles.container]} maxWidth={maxWidth} hidden={hidden}>
             <Box
-                component="span"
+                as="span"
                 display="flex"
                 justifyContent="spaceBetween"
                 alignItems="flexEnd"
                 paddingBottom="small"
             >
-                <Text component="label" htmlFor={id}>
+                <Text as="label" htmlFor={id}>
                     {label ? <span className={styles.primaryLabel}>{label}</span> : null}
                     {secondaryLabel ? (
                         <span className={styles.secondaryLabel}>&nbsp;({secondaryLabel})</span>
