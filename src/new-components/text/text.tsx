@@ -2,7 +2,7 @@ import * as React from 'react'
 import { getClassNames } from '../responsive-props'
 import { Box } from '../box'
 
-import { forwardRefComponent } from '../../utils/polymorphism'
+import { polymorphicComponent } from '../../utils/polymorphism'
 import type { Tone } from '../common-types'
 
 import styles from './text.module.css'
@@ -15,7 +15,7 @@ type TextProps = {
     lineClamp?: 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
 }
 
-const Text = forwardRefComponent<'span', TextProps>(function Text(
+const Text = polymorphicComponent<'span', TextProps>(function Text(
     {
         as = 'span',
         size = 'body',
@@ -23,6 +23,7 @@ const Text = forwardRefComponent<'span', TextProps>(function Text(
         tone = 'normal',
         children,
         lineClamp,
+        exceptionallySetClassName,
         ...rest
     },
     ref,
@@ -35,6 +36,7 @@ const Text = forwardRefComponent<'span', TextProps>(function Text(
             {...rest}
             as={as}
             className={[
+                exceptionallySetClassName,
                 styles.text,
                 size !== 'body' ? getClassNames(styles, 'size', size) : null,
                 weight !== 'regular' ? getClassNames(styles, 'weight', weight) : null,

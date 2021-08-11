@@ -19,10 +19,20 @@ type HeadingProps = SupportedHeadingElementProps & {
     tone?: Tone
     children: React.ReactNode
     lineClamp?: 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
+    exceptionallySetClassName?: string
 }
 
 const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(function Heading(
-    { level, weight = 'regular', size, tone = 'normal', children, lineClamp, ...props },
+    {
+        level,
+        weight = 'regular',
+        size,
+        tone = 'normal',
+        children,
+        lineClamp,
+        exceptionallySetClassName,
+        ...props
+    },
     ref,
 ) {
     // In TypeScript v4.1, this would be properly recognized without needing the type assertion
@@ -35,6 +45,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(function Head
         <Box
             {...props}
             className={[
+                exceptionallySetClassName,
                 styles.heading,
                 weight !== 'regular' ? getClassNames(styles, 'weight', weight) : null,
                 tone !== 'normal' ? getClassNames(styles, 'tone', tone) : null,

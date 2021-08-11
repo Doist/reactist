@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { forwardRefComponent } from '../../utils/polymorphism'
+import { polymorphicComponent } from '../../utils/polymorphism'
 import { getClassNames, mapResponsiveProp } from '../responsive-props'
 import { Box } from '../box'
 
@@ -26,13 +26,14 @@ interface ColumnProps {
     width?: ColumnWidth
 }
 
-const Column = forwardRefComponent<'div', ColumnProps>(function Column(
-    { width = 'auto', children, ...props },
+const Column = polymorphicComponent<'div', ColumnProps>(function Column(
+    { width = 'auto', children, exceptionallySetClassName, ...props },
     ref,
 ) {
     return (
         <Box
             className={[
+                exceptionallySetClassName,
                 styles.column,
                 width !== 'content'
                     ? getClassNames(styles, 'columnWidth', width.replace('/', '-'))
@@ -60,14 +61,14 @@ interface ColumnsProps extends ReusableBoxProps {
     collapseBelow?: ResponsiveBreakpoints
 }
 
-const Columns = forwardRefComponent<'div', ColumnsProps>(function Columns(
-    { space, align, alignY, collapseBelow, children, ...props },
+const Columns = polymorphicComponent<'div', ColumnsProps>(function Columns(
+    { space, align, alignY, collapseBelow, children, exceptionallySetClassName, ...props },
     ref,
 ) {
     return (
         <Box
             {...props}
-            className={getClassNames(styles, 'space', space)}
+            className={[exceptionallySetClassName, getClassNames(styles, 'space', space)]}
             flexDirection={
                 collapseBelow === 'desktop'
                     ? ['column', 'column', 'row']

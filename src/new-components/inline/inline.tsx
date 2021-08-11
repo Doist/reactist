@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { forwardRefComponent } from '../../utils/polymorphism'
+import { polymorphicComponent } from '../../utils/polymorphism'
 import { getClassNames, mapResponsiveProp } from '../responsive-props'
 import { Box } from '../box'
 
@@ -17,8 +17,8 @@ interface InlineProps extends ReusableBoxProps {
     alignY?: ResponsiveProp<'top' | 'center' | 'bottom'>
 }
 
-const Inline = forwardRefComponent<'div', InlineProps>(function Inline(
-    { as, space, align = 'left', alignY = 'center', children, ...props },
+const Inline = polymorphicComponent<'div', InlineProps>(function Inline(
+    { as, space, align = 'left', alignY = 'center', children, exceptionallySetClassName, ...props },
     ref,
 ) {
     return (
@@ -27,7 +27,7 @@ const Inline = forwardRefComponent<'div', InlineProps>(function Inline(
                 as={as}
                 display="flex"
                 flexWrap="wrap"
-                className={getClassNames(styles, 'space', space)}
+                className={[exceptionallySetClassName, getClassNames(styles, 'space', space)]}
                 ref={ref}
                 alignItems={mapResponsiveProp(alignY, (alignY) =>
                     alignY === 'top' ? 'flexStart' : alignY === 'bottom' ? 'flexEnd' : 'center',

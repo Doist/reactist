@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Box } from '../box'
-import { forwardRefComponent } from '../../utils/polymorphism'
+import { polymorphicComponent } from '../../utils/polymorphism'
 import type { OpenInNewTab } from '../common-types'
 
 import styles from './button-link.module.css'
@@ -10,8 +10,15 @@ interface ButtonLinkProps extends OpenInNewTab {
     size?: 'default' | 'small' | 'large'
 }
 
-const ButtonLink = forwardRefComponent<'a', ButtonLinkProps>(function ButtonLink(
-    { as = 'a', variant, size = 'default', openInNewTab = false, className, ...props },
+const ButtonLink = polymorphicComponent<'a', ButtonLinkProps>(function ButtonLink(
+    {
+        as = 'a',
+        variant,
+        size = 'default',
+        openInNewTab = false,
+        exceptionallySetClassName,
+        ...props
+    },
     ref,
 ) {
     return (
@@ -22,7 +29,7 @@ const ButtonLink = forwardRefComponent<'a', ButtonLinkProps>(function ButtonLink
             alignItems="center"
             justifyContent="center"
             className={[
-                className,
+                exceptionallySetClassName,
                 styles.container,
                 'reactist_button',
                 variant ? `reactist_button--${variant}` : null,

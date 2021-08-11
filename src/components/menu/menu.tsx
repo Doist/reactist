@@ -1,6 +1,6 @@
 import * as React from 'react'
 import classNames from 'classnames'
-import { forwardRefComponent } from '../../utils/polymorphism'
+import { polymorphicComponent } from '../../utils/polymorphism'
 
 //
 // Reactist menu is a thin wrapper around Reakit's menu components. This may or may not be
@@ -82,17 +82,22 @@ function Menu({ children, onItemSelect, ...props }: MenuProps) {
 // MenuButton
 //
 
+type MenuButtonProps = Omit<Reakit.MenuButtonProps, keyof Reakit.MenuStateReturn>
+
 /**
  * A button to toggle a dropdown menu open or closed.
  */
-const MenuButton = forwardRefComponent<'button'>(function MenuButton({ className, ...props }, ref) {
+const MenuButton = polymorphicComponent<'button', MenuButtonProps>(function MenuButton(
+    { exceptionallySetClassName, ...props },
+    ref,
+) {
     const { handleItemSelect, ...state } = React.useContext(MenuContext)
     return (
         <Reakit.MenuButton
             {...props}
             {...state}
             ref={ref}
-            className={classNames('reactist_menubutton', className)}
+            className={classNames('reactist_menubutton', exceptionallySetClassName)}
         />
     )
 })
@@ -141,10 +146,15 @@ function MenuBackdrop({
     )
 }
 
+type MenuListProps = Omit<Reakit.MenuProps, keyof Reakit.MenuStateReturn>
+
 /**
  * The dropdown menu itself, containing a list of menu items.
  */
-const MenuList = forwardRefComponent<'div'>(function MenuList({ className, ...props }, ref) {
+const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
+    { exceptionallySetClassName, ...props },
+    ref,
+) {
     const { handleItemSelect, ...state } = React.useContext(MenuContext)
     return state.visible ? (
         <MenuBackdrop {...state}>
@@ -152,7 +162,7 @@ const MenuList = forwardRefComponent<'div'>(function MenuList({ className, ...pr
                 {...props}
                 {...state}
                 ref={ref}
-                className={classNames('reactist_menulist', className)}
+                className={classNames('reactist_menulist', exceptionallySetClassName)}
             />
         </MenuBackdrop>
     ) : null
@@ -221,8 +231,16 @@ type MenuItemProps = {
  * A menu item inside a menu list. It can be selected by the user, triggering the `onSelect`
  * callback.
  */
-const MenuItem = forwardRefComponent<'button', MenuItemProps>(function MenuItem(
-    { value, children, onSelect, hideOnSelect = true, onClick, ...props },
+const MenuItem = polymorphicComponent<'button', MenuItemProps>(function MenuItem(
+    {
+        value,
+        children,
+        onSelect,
+        hideOnSelect = true,
+        onClick,
+        exceptionallySetClassName,
+        ...props
+    },
     ref,
 ) {
     const { handleItemSelect, ...state } = React.useContext(MenuContext)
@@ -241,7 +259,13 @@ const MenuItem = forwardRefComponent<'button', MenuItemProps>(function MenuItem(
     )
 
     return (
-        <Reakit.MenuItem {...props} {...state} ref={ref} onClick={handleClick}>
+        <Reakit.MenuItem
+            {...props}
+            {...state}
+            ref={ref}
+            onClick={handleClick}
+            className={exceptionallySetClassName}
+        >
             {children}
         </Reakit.MenuItem>
     )
@@ -324,13 +348,13 @@ type MenuGroupProps = NativeProps<HTMLDivElement> & {
  * This group does not add any visual separator. You can do that yourself adding `<hr />` elements
  * before and/or after the group if you so wish.
  */
-const MenuGroup = forwardRefComponent<'div', MenuGroupProps>(function MenuGroud(
-    { label, children, ...props },
+const MenuGroup = polymorphicComponent<'div', MenuGroupProps>(function MenuGroud(
+    { label, children, exceptionallySetClassName, ...props },
     ref,
 ) {
     const { handleItemSelect, ...state } = React.useContext(MenuContext)
     return (
-        <Reakit.MenuGroup ref={ref} {...props} {...state}>
+        <Reakit.MenuGroup ref={ref} {...props} {...state} className={exceptionallySetClassName}>
             {label ? (
                 <div role="presentation" className="reactist_menugroup__label">
                     {label}
@@ -342,4 +366,4 @@ const MenuGroup = forwardRefComponent<'div', MenuGroupProps>(function MenuGroud(
 })
 
 export { Menu, MenuButton, MenuList, MenuItem, SubMenu, MenuGroup }
-export type { MenuItemProps, SubMenuProps, MenuGroupProps }
+export type { MenuButtonProps, MenuListProps, MenuItemProps, SubMenuProps, MenuGroupProps }

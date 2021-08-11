@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { Box } from '../box'
-import { forwardRefComponent } from '../../utils/polymorphism'
+import { polymorphicComponent } from '../../utils/polymorphism'
 import styles from './text-link.module.css'
 import type { OpenInNewTab } from '../common-types'
 
 type TextLinkProps = OpenInNewTab
 
-const TextLink = forwardRefComponent<'a', TextLinkProps>(function TextLink(
-    { as = 'a', openInNewTab = false, ...props },
+const TextLink = polymorphicComponent<'a', TextLinkProps>(function TextLink(
+    { as = 'a', openInNewTab = false, exceptionallySetClassName, ...props },
     ref,
 ) {
     return (
@@ -15,7 +15,7 @@ const TextLink = forwardRefComponent<'a', TextLinkProps>(function TextLink(
             {...props}
             as={as}
             display="inline"
-            className={styles.container}
+            className={[exceptionallySetClassName, styles.container]}
             ref={ref}
             target={openInNewTab ? '_blank' : undefined}
             rel={openInNewTab ? 'noopener noreferrer' : undefined}

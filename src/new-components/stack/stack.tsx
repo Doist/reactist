@@ -1,6 +1,6 @@
 import * as React from 'react'
 import flattenChildren from 'react-keyed-flatten-children'
-import { forwardRefComponent } from '../../utils/polymorphism'
+import { polymorphicComponent } from '../../utils/polymorphism'
 import { getClassNames } from '../responsive-props'
 import { Box } from '../box'
 import { Divider } from '../divider'
@@ -17,14 +17,14 @@ interface StackProps extends ReusableBoxProps {
     dividers?: boolean | DividerWeight
 }
 
-const Stack = forwardRefComponent<'div', StackProps>(function Stack(
-    { as, space, dividers = false, children, className, ...props },
+const Stack = polymorphicComponent<'div', StackProps>(function Stack(
+    { as, space, dividers = false, children, exceptionallySetClassName, ...props },
     ref,
 ) {
     return (
         <Box
             as={as}
-            className={[className, getClassNames(styles, 'space', space)]}
+            className={[exceptionallySetClassName, getClassNames(styles, 'space', space)]}
             ref={ref}
             {...props}
         >
