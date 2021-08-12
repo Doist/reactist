@@ -23,10 +23,10 @@ const Stack = polymorphicComponent<'div', StackProps>(function Stack(
 ) {
     return (
         <Box
+            {...props}
             as={as}
             className={[exceptionallySetClassName, getClassNames(styles, 'space', space)]}
             ref={ref}
-            {...props}
         >
             {dividers
                 ? React.Children.map(flattenChildren(children), (child, index) =>

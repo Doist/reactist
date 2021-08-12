@@ -24,7 +24,7 @@ const Text = polymorphicComponent<'span', TextProps>(function Text(
         children,
         lineClamp,
         exceptionallySetClassName,
-        ...rest
+        ...props
     },
     ref,
 ) {
@@ -33,7 +33,7 @@ const Text = polymorphicComponent<'span', TextProps>(function Text(
 
     return (
         <Box
-            {...rest}
+            {...props}
             as={as}
             className={[
                 exceptionallySetClassName,

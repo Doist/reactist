@@ -32,6 +32,7 @@ const Column = polymorphicComponent<'div', ColumnProps>(function Column(
 ) {
     return (
         <Box
+            {...props}
             className={[
                 exceptionallySetClassName,
                 styles.column,
@@ -43,7 +44,6 @@ const Column = polymorphicComponent<'div', ColumnProps>(function Column(
             width={width !== 'content' ? 'full' : undefined}
             flexShrink={width === 'content' ? 0 : undefined}
             ref={ref}
-            {...props}
         >
             {children}
         </Box>

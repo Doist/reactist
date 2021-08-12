@@ -24,6 +24,7 @@ const Inline = polymorphicComponent<'div', InlineProps>(function Inline(
     return (
         <Box>
             <Box
+                {...props}
                 as={as}
                 display="flex"
                 flexWrap="wrap"
@@ -35,7 +36,6 @@ const Inline = polymorphicComponent<'div', InlineProps>(function Inline(
                 justifyContent={mapResponsiveProp(align, (align) =>
                     align === 'left' ? 'flexStart' : align === 'right' ? 'flexEnd' : 'center',
                 )}
-                {...props}
             >
                 {children}
             </Box>
