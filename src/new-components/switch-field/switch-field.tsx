@@ -23,7 +23,7 @@ function SwitchField({
     const hintId = useId()
     return (
         <Box className={[styles.container, disabled ? styles.disabled : null]} maxWidth={maxWidth}>
-            <Box component="label" display="flex" alignItems="center">
+            <Box as="label" display="flex" alignItems="center">
                 <Box className={[styles.inputWrapper, checked ? styles.checked : null]}>
                     <input
                         id={id}

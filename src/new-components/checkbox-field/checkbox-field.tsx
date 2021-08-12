@@ -5,14 +5,13 @@ import { CheckboxIcon } from './checkbox-icon'
 
 import styles from './checkbox-field.module.css'
 
-type CheckboxFieldProps = Omit<JSX.IntrinsicElements['input'], 'type'> & {
+type CheckboxFieldProps = Omit<JSX.IntrinsicElements['input'], 'type' | 'className'> & {
     label?: string
     indeterminate?: boolean
 }
 
 function CheckboxField({
     label,
-    className,
     style,
     checked,
     indeterminate = false,
@@ -35,11 +34,10 @@ function CheckboxField({
 
     return (
         <Box
-            component="label"
+            as="label"
             display="flex"
             alignItems="center"
             className={[
-                className,
                 styles.container,
                 { [styles.checked]: checked },
                 'focus-marker-enabled-within',
