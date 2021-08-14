@@ -21,9 +21,20 @@ export default {
     component: Stack,
     argTypes: {
         space: selectSize(),
+        align: selectWithNone(['left', 'center', 'right']),
         dividers: selectWithNone<DividerWeight>(['regular', 'strong']),
         ...reusableBoxProps(),
     },
+}
+
+const widths = [300, 360, 430, 280, 600, 490, 400]
+const heights = [80, 40, 60, 70, 90, 30, 100]
+
+function size(index: number) {
+    return {
+        width: widths[index % widths.length],
+        height: heights[index % heights.length],
+    }
 }
 
 export function InteractivePropsStory({
@@ -34,7 +45,7 @@ export function InteractivePropsStory({
         <Wrapper border={true}>
             <Stack {...args}>
                 {times(itemCount).map((i) => (
-                    <Placeholder key={i} label={i + 1} />
+                    <Placeholder key={i} label={i + 1} {...size(i)} />
                 ))}
             </Stack>
         </Wrapper>
@@ -49,10 +60,10 @@ export function ResponsiveStory({ itemCount }: { itemCount: number }) {
     return (
         <>
             <ResponsiveWidthRef />
-            <Wrapper>
-                <Stack space={['xsmall', 'medium', 'xlarge']}>
+            <Wrapper border title="Alignment and spacing changes as the viewport width changes">
+                <Stack space={['xsmall', 'medium', 'xxlarge']} align={['left', 'center', 'right']}>
                     {times(itemCount).map((i) => (
-                        <Placeholder key={i} label={i + 1} />
+                        <Placeholder key={i} label={i + 1} {...size(i)} />
                     ))}
                 </Stack>
             </Wrapper>
@@ -63,6 +74,7 @@ export function ResponsiveStory({ itemCount }: { itemCount: number }) {
 ResponsiveStory.argTypes = {
     itemCount: selectCount('Item count'),
     space: { control: false },
+    align: { control: false },
     dividers: { control: false },
     ...disableResponsiveProps,
 }
