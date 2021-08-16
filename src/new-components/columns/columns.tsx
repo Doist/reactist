@@ -62,7 +62,15 @@ interface ColumnsProps extends ReusableBoxProps {
 }
 
 const Columns = polymorphicComponent<'div', ColumnsProps>(function Columns(
-    { space, align, alignY, collapseBelow, children, exceptionallySetClassName, ...props },
+    {
+        space,
+        align = 'left',
+        alignY = 'top',
+        collapseBelow,
+        children,
+        exceptionallySetClassName,
+        ...props
+    },
     ref,
 ) {
     return (
@@ -77,24 +85,11 @@ const Columns = polymorphicComponent<'div', ColumnsProps>(function Columns(
                     : 'row'
             }
             display="flex"
-            alignItems={mapResponsiveProp(alignY, (alignY) => {
-                switch (alignY) {
-                    case 'top':
-                        return 'flexStart'
-
-                    case 'bottom':
-                        return 'flexEnd'
-
-                    case 'baseline':
-                        return 'baseline'
-
-                    case 'center':
-                    default:
-                        return 'center'
-                }
-            })}
+            alignItems={mapResponsiveProp(alignY, (alignY) =>
+                alignY === 'top' ? 'flexStart' : alignY === 'bottom' ? 'flexEnd' : alignY,
+            )}
             justifyContent={mapResponsiveProp(align, (align) =>
-                align === 'left' ? 'flexStart' : align === 'right' ? 'flexEnd' : 'center',
+                align === 'left' ? 'flexStart' : align === 'right' ? 'flexEnd' : align,
             )}
             flexGrow={1}
             ref={ref}
