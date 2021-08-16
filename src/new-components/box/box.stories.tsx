@@ -36,7 +36,7 @@ export default {
 export function InteractivePropsStory(args: PartialProps<typeof Box>) {
     return (
         <Wrapper border={true}>
-            <Box style={{ backgroundColor: 'lightgreen' }} {...args}>
+            <Box background="selected" {...args}>
                 <div>One</div>
                 <div>Two</div>
                 <div>Three</div>

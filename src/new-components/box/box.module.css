@@ -147,6 +147,9 @@
 .maxWidth-xlarge {
     max-width: 1280px;
 }
+.maxWidth-full {
+    max-width: 100%;
+}
 
 /* flex-direction */
 .flexDirection-column {

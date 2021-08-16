@@ -45,7 +45,7 @@ interface BorderProps {
 
 interface ReusableBoxProps extends BorderProps, BoxPaddingProps {
     minWidth?: 0 | BoxMaxMinWidth
-    maxWidth?: BoxMaxMinWidth
+    maxWidth?: BoxMaxMinWidth | 'full'
     background?: 'default' | 'aside' | 'highlight' | 'selected'
 }
 
