@@ -91,7 +91,9 @@ function Wrapper({
     return (
         <Stack space="small">
             {title ? <Heading level="2">{title}</Heading> : null}
-            <Box style={border ? { border: '1px dotted black' } : undefined}>{children}</Box>
+            <Box width="full" style={border ? { border: '1px dotted black' } : undefined}>
+                {children}
+            </Box>
         </Stack>
     )
 }

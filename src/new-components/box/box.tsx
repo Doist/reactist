@@ -89,7 +89,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
     const resolvedPaddingRight = paddingRight ?? paddingX ?? padding
     const resolvedPaddingBottom = paddingBottom ?? paddingY ?? padding
     const resolvedPaddingLeft = paddingLeft ?? paddingX ?? padding
-    const isFlex = display === 'flex' || display === 'inlineFlex'
+    const omitFlex = typeof display === 'string' && display !== 'flex' && display !== 'inlineFlex'
 
     return React.createElement(
         component,
@@ -107,10 +107,10 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
                     getClassNames(styles, 'paddingRight', resolvedPaddingRight),
                     getClassNames(styles, 'paddingBottom', resolvedPaddingBottom),
                     getClassNames(styles, 'paddingLeft', resolvedPaddingLeft),
-                    isFlex ? getClassNames(styles, 'flexDirection', flexDirection) : null,
-                    isFlex ? getClassNames(styles, 'flexWrap', flexWrap) : null,
-                    isFlex ? getClassNames(styles, 'alignItems', alignItems) : null,
-                    isFlex ? getClassNames(styles, 'justifyContent', justifyContent) : null,
+                    omitFlex ? null : getClassNames(styles, 'flexDirection', flexDirection),
+                    omitFlex ? null : getClassNames(styles, 'flexWrap', flexWrap),
+                    omitFlex ? null : getClassNames(styles, 'alignItems', alignItems),
+                    omitFlex ? null : getClassNames(styles, 'justifyContent', justifyContent),
                     flexShrink != null
                         ? getClassNames(styles, 'flexShrink', String(flexShrink))
                         : null,
