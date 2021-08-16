@@ -10,14 +10,14 @@ import {
     PartialProps,
 } from '../storybook-helper'
 import { Stack } from '../stack'
-import { Box } from './box'
+import { Box } from './'
 import type {
     BoxDisplay,
     BoxFlexDirection,
     BoxFlexWrap,
     BoxAlignItems,
     BoxJustifyContent,
-} from './box'
+} from './'
 
 export default {
     title: 'Design system/Box',

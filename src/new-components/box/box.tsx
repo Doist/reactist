@@ -7,8 +7,9 @@ import type { ResponsiveProp } from '../responsive-props'
 import type { Space, WithEnhancedClassName } from '../common-types'
 
 import styles from './box.module.css'
+import paddingStyles from './padding.module.css'
 
-interface PaddingProps {
+interface BoxPaddingProps {
     padding?: ResponsiveProp<Space>
     paddingX?: ResponsiveProp<Space>
     paddingY?: ResponsiveProp<Space>
@@ -31,7 +32,7 @@ interface BorderProps {
     border?: 'standard' | 'none' // to be extended with more options
 }
 
-interface ReusableBoxProps extends BorderProps, PaddingProps {
+interface ReusableBoxProps extends BorderProps, BoxPaddingProps {
     minWidth?: 0 | BoxMaxMinWidth
     maxWidth?: BoxMaxMinWidth
     background?: 'default' | 'aside' | 'highlight' | 'selected'
@@ -103,10 +104,12 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
                     position !== 'static' ? getClassNames(styles, 'position', position) : null,
                     minWidth != null ? getClassNames(styles, 'minWidth', String(minWidth)) : null,
                     getClassNames(styles, 'maxWidth', maxWidth),
-                    getClassNames(styles, 'paddingTop', resolvedPaddingTop),
-                    getClassNames(styles, 'paddingRight', resolvedPaddingRight),
-                    getClassNames(styles, 'paddingBottom', resolvedPaddingBottom),
-                    getClassNames(styles, 'paddingLeft', resolvedPaddingLeft),
+                    // padding
+                    getClassNames(paddingStyles, 'paddingTop', resolvedPaddingTop),
+                    getClassNames(paddingStyles, 'paddingRight', resolvedPaddingRight),
+                    getClassNames(paddingStyles, 'paddingBottom', resolvedPaddingBottom),
+                    getClassNames(paddingStyles, 'paddingLeft', resolvedPaddingLeft),
+                    // flex props
                     omitFlex ? null : getClassNames(styles, 'flexDirection', flexDirection),
                     omitFlex ? null : getClassNames(styles, 'flexWrap', flexWrap),
                     omitFlex ? null : getClassNames(styles, 'alignItems', alignItems),
@@ -115,6 +118,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
                         ? getClassNames(styles, 'flexShrink', String(flexShrink))
                         : null,
                     flexGrow != null ? getClassNames(styles, 'flexGrow', String(flexGrow)) : null,
+                    // other props
                     getClassNames(styles, 'overflow', overflow),
                     getClassNames(styles, 'width', width),
                     getClassNames(styles, 'height', height),
@@ -132,6 +136,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
 
 export type {
     BoxProps,
+    BoxPaddingProps,
     ReusableBoxProps,
     BoxMaxMinWidth,
     BoxDisplay,
