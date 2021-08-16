@@ -22,9 +22,11 @@ import type {
     BoxFlexWrap,
     BoxAlignItems,
     BoxJustifyContent,
+    BoxMarginProps,
     BoxPaddingProps,
 } from './'
-import type { Space } from '../common-types'
+import type { Space, SpaceWithNegatives } from '../common-types'
+import { Heading } from '../heading'
 
 export default {
     title: 'Design system/Box',
@@ -100,9 +102,9 @@ export function ResponsiveStory() {
 function PaddedBox({ prop, value }: { prop: keyof BoxPaddingProps; value: Space }) {
     const paddingProp = { [prop]: value }
     return (
-        <Box borderRadius="standard" style={{ backgroundColor: '#83A9F2' }} {...paddingProp}>
-            <Box borderRadius="standard" padding="medium" style={{ backgroundColor: '#1D438C' }}>
-                <Text style={{ color: 'white', fontFamily: 'sans-serif' }}>{prop}</Text>
+        <Box borderRadius="standard" border="standard" {...paddingProp}>
+            <Box borderRadius="standard" padding="medium" background="selected">
+                <Text>{prop}</Text>
             </Box>
         </Box>
     )
@@ -111,6 +113,7 @@ function PaddedBox({ prop, value }: { prop: keyof BoxPaddingProps; value: Space 
 export function PaddingStory({ padding }: { padding: Space }) {
     return (
         <Stack space="large">
+            <Heading level="2">The transparent bordered box has padding</Heading>
             <Inline space="large" align="center" alignY="center">
                 <PaddedBox prop="padding" value={padding} />
                 <PaddedBox prop="paddingX" value={padding} />
@@ -128,4 +131,91 @@ export function PaddingStory({ padding }: { padding: Space }) {
 
 PaddingStory.argTypes = {
     padding: selectSize('medium'),
+}
+
+const marginToPadding: Record<keyof BoxMarginProps, keyof BoxPaddingProps> = {
+    margin: 'padding',
+    marginX: 'paddingX',
+    marginY: 'paddingY',
+    marginTop: 'paddingTop',
+    marginRight: 'paddingRight',
+    marginBottom: 'paddingBottom',
+    marginLeft: 'paddingLeft',
+}
+
+const marginBoxStyle: React.CSSProperties = { opacity: 0.5, minHeight: 100, minWidth: 100 }
+
+function MarginBox({ prop, value }: { prop: keyof BoxMarginProps; value: Space }) {
+    const marginProp = { [prop]: value }
+    const outerPaddingToCompensateNegativeMargin = value.startsWith('-')
+        ? { [marginToPadding[prop]]: value.slice(1) }
+        : undefined
+    return (
+        <Box>
+            <Box {...outerPaddingToCompensateNegativeMargin}>
+                <Box borderRadius="standard" border="standard">
+                    <Box
+                        borderRadius="standard"
+                        padding="medium"
+                        background="selected"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        style={marginBoxStyle}
+                        {...marginProp}
+                    >
+                        <Text>{prop}</Text>
+                    </Box>
+                </Box>
+            </Box>
+        </Box>
+    )
+}
+
+export function MarginStory({ margin }: { margin: Space }) {
+    return (
+        <Stack space="large">
+            <Heading level="2">The shaded box has margin</Heading>
+            <Text>
+                When margin is negative, you will see the outer bordered box appear to be inside the
+                shaded box.
+            </Text>
+            <Box padding="large">
+                <Inline space="large" align="center" alignY="center">
+                    <MarginBox prop="margin" value={margin} />
+                    <MarginBox prop="marginX" value={margin} />
+                    <MarginBox prop="marginY" value={margin} />
+                </Inline>
+            </Box>
+            <Box padding="large">
+                <Inline space="large" align="center" alignY="center">
+                    <MarginBox prop="marginTop" value={margin} />
+                    <MarginBox prop="marginRight" value={margin} />
+                    <MarginBox prop="marginBottom" value={margin} />
+                    <MarginBox prop="marginLeft" value={margin} />
+                </Inline>
+            </Box>
+        </Stack>
+    )
+}
+
+MarginStory.argTypes = {
+    margin: select<SpaceWithNegatives | 'none'>(
+        [
+            'xxlarge',
+            'xlarge',
+            'large',
+            'medium',
+            'small',
+            'xsmall',
+            'none',
+            '-xsmall',
+            '-small',
+            '-medium',
+            '-large',
+            '-xlarge',
+            '-xxlarge',
+        ],
+        'medium',
+    ),
 }

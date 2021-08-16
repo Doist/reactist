@@ -148,4 +148,71 @@ describe('Box', () => {
             )
         })
     })
+
+    describe('margin', () => {
+        it('allows to apply margin in all directions at once', () => {
+            render(<Box data-testid="box" margin="small" />)
+            expect(screen.getByTestId('box')).toHaveClass(
+                'marginTop-small',
+                'marginRight-small',
+                'marginBottom-small',
+                'marginLeft-small',
+            )
+        })
+
+        it('allows to apply margin to the horizontal and vertical directions separately', () => {
+            render(<Box data-testid="box" marginX="xlarge" marginY="xsmall" />)
+            expect(screen.getByTestId('box')).toHaveClass(
+                'marginTop-xsmall',
+                'marginRight-xlarge',
+                'marginBottom-xsmall',
+                'marginLeft-xlarge',
+            )
+        })
+
+        it('allows to apply margin to each direction individually', () => {
+            render(
+                <Box
+                    data-testid="box"
+                    marginTop="xsmall"
+                    marginRight="small"
+                    marginBottom="medium"
+                    marginLeft="large"
+                />,
+            )
+            expect(screen.getByTestId('box')).toHaveClass(
+                'marginTop-xsmall',
+                'marginRight-small',
+                'marginBottom-medium',
+                'marginLeft-large',
+            )
+        })
+
+        it('overrides more general margin settings with individual ones when given', () => {
+            const { rerender } = render(
+                <Box
+                    data-testid="box"
+                    margin="medium"
+                    marginX="large"
+                    marginY="small"
+                    marginTop="xsmall"
+                    marginRight="xlarge"
+                />,
+            )
+            expect(screen.getByTestId('box')).toHaveClass(
+                'marginTop-xsmall', // set via marginTop explicitly, overrides marginY and margin
+                'marginRight-xlarge', // set via marginRight explicitly, overrides marginX and margin
+                'marginBottom-small', // set via marginY
+                'marginLeft-large', // set via marginX
+            )
+
+            rerender(<Box data-testid="box" margin="medium" marginRight="xsmall" />)
+            expect(screen.getByTestId('box')).toHaveClass(
+                'marginTop-medium',
+                'marginRight-xsmall', // set via marginRight explicitly, overrides margin
+                'marginBottom-medium',
+                'marginLeft-medium',
+            )
+        })
+    })
 })
