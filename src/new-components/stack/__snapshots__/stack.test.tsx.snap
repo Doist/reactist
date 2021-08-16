@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Stack renders dividers when instructed to do so: dividers="regular" 1`] = `
+<div
+  class="box display-block"
+  data-testid="stack"
+>
+  <div>
+    one
+  </div>
+  <hr
+    class="divider box display-block"
+  />
+  <div>
+    two
+  </div>
+  <hr
+    class="divider box display-block"
+  />
+  <div>
+    three
+  </div>
+</div>
+`;
+
+exports[`Stack renders dividers when instructed to do so: dividers="strong" 1`] = `
+<div
+  class="box display-block"
+  data-testid="stack"
+>
+  <div>
+    one
+  </div>
+  <hr
+    class="divider weight-strong box display-block"
+  />
+  <div>
+    two
+  </div>
+  <hr
+    class="divider weight-strong box display-block"
+  />
+  <div>
+    three
+  </div>
+</div>
+`;
+
+exports[`Stack renders dividers when instructed to do so: dividers={true} 1`] = `
+<div
+  class="box display-block"
+  data-testid="stack"
+>
+  <div>
+    one
+  </div>
+  <hr
+    class="divider box display-block"
+  />
+  <div>
+    two
+  </div>
+  <hr
+    class="divider box display-block"
+  />
+  <div>
+    three
+  </div>
+</div>
+`;
