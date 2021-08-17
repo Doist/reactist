@@ -27,11 +27,50 @@ type HtmlInputProps<T extends HTMLElement> = React.DetailedHTMLProps<
 
 type BaseFieldProps = WithEnhancedClassName &
     Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'aria-describedby'> & {
+        /**
+         * The main label for this field element.
+         *
+         * Avoid providing interactive elements in the label. Prefer `auxiliaryLabel` for that.
+         *
+         * @see secondaryLabel
+         * @see auxiliaryLabel
+         */
         label: React.ReactNode
+        /**
+         * An optional secondary label for this field element. It is combined with the `label` to
+         * form the field's entire accessible name (unless the field label is overriden by using
+         * `aria-label` or `aria-labelledby`).
+         *
+         * Avoid providing interactive elements in the label. Prefer `auxiliaryLabel` for that.
+         *
+         * @see label
+         * @see auxiliaryLabel
+         */
         secondaryLabel?: React.ReactNode
+        /**
+         * An optional extra element to be placed to the right of the main and secondary labels.
+         *
+         * This extra element is not included in the accessible name of the field element. Its only
+         * purpose is either visual, or functional (if you include interactive elements in it).
+         *
+         * @see label
+         * @see secondaryLabel
+         */
         auxiliaryLabel?: React.ReactNode
+        /**
+         * A hint or help-like content associated as the accessible description of the field. It is
+         * generally rendered below it, and with a visual style that reduces its prominence (i.e.
+         * as secondary text).
+         */
         hint?: React.ReactNode
+        /**
+         * The maximum width that the input field can expand to.
+         */
         maxWidth?: BoxProps['maxWidth']
+        /**
+         * Used internally by components composed using `BaseField`. It is not exposed as part of
+         * the public props of such components.
+         */
         children: (props: { id: string; 'aria-describedby'?: string }) => React.ReactNode
     }
 
