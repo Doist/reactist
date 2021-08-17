@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { render, screen } from '@testing-library/react'
-import { PasswordField } from './'
 import userEvent from '@testing-library/user-event'
+import { PasswordField } from './'
 
 describe('PasswordField', () => {
     it('supports having an externally provided id attribute', () => {
