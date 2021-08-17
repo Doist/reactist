@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { BaseField, BaseFieldProps } from '../base-field'
+import { BaseField, FieldComponentProps } from '../base-field'
 import { Box } from '../box'
 import styles from './select-field.module.css'
 
-type SelectFieldProps = BaseFieldProps<HTMLSelectElement>
+type SelectFieldProps = FieldComponentProps<HTMLSelectElement>
 
 function SelectField({
     id,

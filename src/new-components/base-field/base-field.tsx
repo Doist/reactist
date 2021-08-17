@@ -1,5 +1,4 @@
 import * as React from 'react'
-import classNames from 'classnames'
 import { Box, BoxProps } from '../box'
 import { useId } from '../common-helpers'
 import { Text } from '../text'
@@ -29,18 +28,18 @@ type HtmlInputProps<T extends HTMLElement> = React.DetailedHTMLProps<
     T
 >
 
-interface BaseFieldChildren {
-    children: (props: { id: string; 'aria-describedby'?: string }) => React.ReactNode
-}
+type BaseFieldProps = WithEnhancedClassName &
+    Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'aria-describedby'> & {
+        label: React.ReactNode
+        secondaryLabel?: React.ReactNode
+        auxiliaryLabel?: React.ReactNode
+        hint?: React.ReactNode
+        maxWidth?: BoxProps['maxWidth']
+        children: (props: { id: string; 'aria-describedby'?: string }) => React.ReactNode
+    }
 
-interface BaseFieldProps<T extends HTMLElement = HTMLInputElement>
-    extends Omit<HtmlInputProps<T>, 'className' | 'style'> {
-    label?: React.ReactNode
-    secondaryLabel?: React.ReactNode
-    auxiliaryLabel?: React.ReactNode
-    hint?: React.ReactNode
-    maxWidth?: BoxProps['maxWidth']
-}
+type FieldComponentProps<T extends HTMLElement> = Omit<BaseFieldProps, 'children' | 'className'> &
+    Omit<HtmlInputProps<T>, 'className' | 'style'>
 
 function BaseField({
     label,
@@ -51,14 +50,13 @@ function BaseField({
     children,
     maxWidth,
     hidden,
-    ...props
-}: BaseFieldProps & BaseFieldChildren & WithEnhancedClassName) {
-    const id = useId(props.id)
+    'aria-describedby': originalAriaDescribedBy,
+    id: originalId,
+}: BaseFieldProps & WithEnhancedClassName) {
+    const id = useId(originalId)
     const hintId = useId()
 
-    const ariaDescribedBy = hint
-        ? classNames(hintId, props['aria-describedby'])
-        : props['aria-describedby']
+    const ariaDescribedBy = originalAriaDescribedBy ?? (hint ? hintId : undefined)
 
     return (
         <Box className={[className, styles.container]} maxWidth={maxWidth} hidden={hidden}>
@@ -86,4 +84,4 @@ function BaseField({
 }
 
 export { BaseField, FieldHint }
-export { BaseFieldProps }
+export type { FieldComponentProps }

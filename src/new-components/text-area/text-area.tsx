@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { BaseField, BaseFieldProps } from '../base-field'
+import { BaseField, FieldComponentProps } from '../base-field'
 import { Box } from '../box'
 import styles from './text-area.module.css'
 
-type TextAreaProps = BaseFieldProps<HTMLTextAreaElement>
+type TextAreaProps = FieldComponentProps<HTMLTextAreaElement>
 
 function TextArea({
     id,
