@@ -46,4 +46,4 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
 })
 
 export { TextField }
-export type { TextFieldProps }
+export type { TextFieldProps, TextFieldType }

@@ -7,6 +7,5 @@
 }
 
 .auxiliaryLabel {
-    padding-left: var(--reactist-spacing-small);
     text-align: right;
 }
