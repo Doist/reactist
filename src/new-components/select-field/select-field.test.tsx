@@ -80,17 +80,33 @@ describe('SelectField', () => {
 
     it('is hidden when hidden={true}', () => {
         const { rerender } = render(
-            <SelectField data-testid="select-field" label="Province" hidden />,
+            <SelectField
+                data-testid="select-field"
+                label="Province"
+                hint="We need it for billing purposes"
+                hidden
+            />,
         )
 
+        const selectField = screen.getByTestId('select-field')
+        const hintElement = screen.getByText('We need it for billing purposes')
+
         // check that it is rendered but not visible
-        expect(screen.getByTestId('select-field')).not.toBeVisible()
+        expect(selectField).not.toBeVisible()
+        expect(hintElement).not.toBeVisible()
         expect(screen.queryByRole('combobox', { name: 'Province' })).not.toBeInTheDocument()
         expect(screen.getByText('Province')).toBeInTheDocument()
 
         // check that it becomes visible when hidden is removed
-        rerender(<SelectField data-testid="select-field" label="Province" />)
-        expect(screen.getByTestId('select-field')).toBeVisible()
+        rerender(
+            <SelectField
+                data-testid="select-field"
+                label="Province"
+                hint="We need it for billing purposes"
+            />,
+        )
+        expect(selectField).toBeVisible()
+        expect(hintElement).toBeVisible()
         expect(screen.getByRole('combobox', { name: 'Province' })).toBeInTheDocument()
         expect(screen.getByText('Province')).toBeInTheDocument()
     })

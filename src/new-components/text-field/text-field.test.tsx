@@ -87,19 +87,35 @@ describe('TextField', () => {
 
     it('is hidden when hidden={true}', () => {
         const { rerender } = render(
-            <TextField data-testid="text-field" label="Whatʼs your name?" hidden />,
+            <TextField
+                data-testid="text-field"
+                label="Whatʼs your name?"
+                hint="We need it for billing purposes"
+                hidden
+            />,
         )
 
+        const inputField = screen.getByTestId('text-field')
+        const hintElement = screen.getByText(/we need it for billing purposes/i)
+
         // check that it is rendered but not visible
-        expect(screen.getByTestId('text-field')).not.toBeVisible()
+        expect(inputField).not.toBeVisible()
         expect(screen.queryByRole('textbox', { name: 'Whatʼs your name?' })).not.toBeInTheDocument()
         expect(screen.getByText(/your name/i)).toBeInTheDocument()
+        expect(hintElement).not.toBeVisible()
 
         // check that it becomes visible when hidden is removed
-        rerender(<TextField data-testid="text-field" label="Whatʼs your name?" />)
-        expect(screen.getByTestId('text-field')).toBeVisible()
+        rerender(
+            <TextField
+                data-testid="text-field"
+                label="Whatʼs your name?"
+                hint="We need it for billing purposes"
+            />,
+        )
+        expect(inputField).toBeVisible()
         expect(screen.getByRole('textbox', { name: 'Whatʼs your name?' })).toBeInTheDocument()
         expect(screen.getByText(/your name/i)).toBeInTheDocument()
+        expect(hintElement).toBeVisible()
     })
 
     it('forwards to the input element any extra props provided to it', () => {

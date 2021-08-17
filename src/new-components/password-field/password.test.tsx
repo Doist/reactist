@@ -140,15 +140,31 @@ describe('PasswordField', () => {
 
     it('is hidden when hidden={true}', () => {
         const { rerender } = render(
-            <PasswordField data-testid="password-field" label="New Password" hidden />,
+            <PasswordField
+                data-testid="password-field"
+                label="New Password"
+                hint="Must be at least 8 characters long"
+                hidden
+            />,
         )
 
+        const inputField = screen.getByTestId('password-field')
+        const hintElement = screen.getByText('Must be at least 8 characters long')
+
         // check that it is rendered but not visible
-        expect(screen.getByTestId('password-field')).not.toBeVisible()
+        expect(inputField).not.toBeVisible()
+        expect(hintElement).not.toBeVisible()
 
         // check that it becomes visible when hidden is removed
-        rerender(<PasswordField data-testid="password-field" label="New Password" />)
-        expect(screen.getByTestId('password-field')).toBeVisible()
+        rerender(
+            <PasswordField
+                data-testid="password-field"
+                label="New Password"
+                hint="Must be at least 8 characters long"
+            />,
+        )
+        expect(inputField).toBeVisible()
+        expect(hintElement).toBeVisible()
     })
 
     it('forwards to the input element any extra props provided to it', () => {

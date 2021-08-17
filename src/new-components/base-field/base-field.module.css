@@ -1,9 +1,3 @@
-.container label {
-    box-sizing: border-box;
-    display: block;
-    font-size: var(--reactist-font-size-body);
-}
-
 .primaryLabel {
     font-weight: var(--reactist-font-weight-strong);
 }
