@@ -245,8 +245,20 @@ export function ResponsiveStory(args: PartialProps<typeof Columns>) {
         <>
             <ResponsiveWidthRef />
             <Stack space="large" dividers>
+                <Wrapper title="Columns alignment changes as the viewport size changes">
+                    <Columns
+                        space="medium"
+                        align={{ mobile: 'left', tablet: 'center', desktop: 'right' }}
+                    >
+                        {times(5).map((i) => (
+                            <Column width="content" key={i}>
+                                <Placeholder label={i + 1} height={50} />
+                            </Column>
+                        ))}
+                    </Columns>
+                </Wrapper>
                 <Wrapper title="Space between columns reduces on smaller screen sizes">
-                    <Columns space={['xsmall', 'medium', 'xlarge']}>
+                    <Columns space={{ mobile: 'xsmall', tablet: 'medium', desktop: 'xlarge' }}>
                         {times(5).map((i) => (
                             <Column key={i}>
                                 <Placeholder label={i + 1} height={50} />

@@ -70,11 +70,19 @@ describe('Box', () => {
 
         rerender(<Box data-testid="box" display="inline" {...flexProps} />)
         expect(screen.getByTestId('box')).toHaveClass('display-inline')
-        expect(screen.getByTestId('box')).not.toHaveClass('display-flex', ...classNames)
+        expect(screen.getByTestId('box')).not.toHaveClass('display-flex')
+        for (const className of classNames) {
+            expect(screen.getByTestId('box')).not.toHaveClass(className)
+        }
     })
 
     it('applies different class names when a responsive prop is given', () => {
-        render(<Box data-testid="box" display={['none', 'block', 'inline']} />)
+        render(
+            <Box
+                data-testid="box"
+                display={{ mobile: 'none', tablet: 'block', desktop: 'inline' }}
+            />,
+        )
         expect(screen.getByTestId('box')).toHaveClass(
             'display-none',
             'tablet-display-block',

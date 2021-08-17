@@ -52,7 +52,7 @@ const Column = polymorphicComponent<'div', ColumnProps>(function Column(
 
 type ColumnsHorizontalAlignment = 'left' | 'center' | 'right'
 type ColumnsVerticalAlignment = 'top' | 'center' | 'bottom' | 'baseline'
-type ColumnsCollapseBelow = ResponsiveBreakpoints
+type ColumnsCollapseBelow = Exclude<ResponsiveBreakpoints, 'mobile'>
 
 interface ColumnsProps extends ReusableBoxProps {
     space?: ResponsiveProp<Space>
@@ -79,9 +79,9 @@ const Columns = polymorphicComponent<'div', ColumnsProps>(function Columns(
             className={[exceptionallySetClassName, getClassNames(styles, 'space', space)]}
             flexDirection={
                 collapseBelow === 'desktop'
-                    ? ['column', 'column', 'row']
+                    ? { mobile: 'column', tablet: 'column', desktop: 'row' }
                     : collapseBelow === 'tablet'
-                    ? ['column', 'row']
+                    ? { mobile: 'column', tablet: 'row' }
                     : 'row'
             }
             display="flex"

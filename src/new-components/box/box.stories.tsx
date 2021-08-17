@@ -56,7 +56,7 @@ export function ResponsiveStory() {
             <ResponsiveWidthRef />
             <Stack space="large" dividers>
                 <Wrapper title="Stacks elements on mobile">
-                    <Box display="flex" flexDirection={['column', 'row']}>
+                    <Box display="flex" flexDirection={{ mobile: 'column', tablet: 'row' }}>
                         <Placeholder label="One" height={30} />
                         <Placeholder label="Two" height={30} />
                         <Placeholder label="Three" height={30} />
@@ -66,7 +66,11 @@ export function ResponsiveStory() {
                     <Box
                         style={{ backgroundColor: 'lightgreen' }}
                         display="flex"
-                        justifyContent={['flexStart', 'center', 'flexEnd']}
+                        justifyContent={{
+                            mobile: 'flexStart',
+                            tablet: 'center',
+                            desktop: 'flexEnd',
+                        }}
                     >
                         <div>One</div>
                         <div>Two</div>
@@ -77,7 +81,11 @@ export function ResponsiveStory() {
                     <Box
                         style={{ height: '120px' }}
                         display="flex"
-                        alignItems={['flexEnd', 'center', 'flexStart']}
+                        alignItems={{
+                            mobile: 'flexEnd',
+                            tablet: 'center',
+                            desktop: 'flexStart',
+                        }}
                     >
                         <Placeholder label="One" height={30} />
                         <Placeholder label="Two" height={60} />
