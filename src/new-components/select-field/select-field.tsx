@@ -5,16 +5,21 @@ import styles from './select-field.module.css'
 
 type SelectFieldProps = FieldComponentProps<HTMLSelectElement>
 
-function SelectField({
-    id,
-    label,
-    secondaryLabel,
-    auxiliaryLabel,
-    hint,
-    maxWidth,
-    children,
-    ...props
-}: SelectFieldProps) {
+const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(function SelectField(
+    {
+        id,
+        label,
+        secondaryLabel,
+        auxiliaryLabel,
+        hint,
+        maxWidth,
+        children,
+        hidden,
+        'aria-describedby': ariaDescribedBy,
+        ...props
+    },
+    ref,
+) {
     return (
         <BaseField
             id={id}
@@ -23,10 +28,12 @@ function SelectField({
             auxiliaryLabel={auxiliaryLabel}
             hint={hint}
             maxWidth={maxWidth}
+            hidden={hidden}
+            aria-describedby={ariaDescribedBy}
         >
             {(extraProps) => (
                 <Box className={styles.selectWrapper}>
-                    <select {...props} {...extraProps}>
+                    <select {...props} {...extraProps} ref={ref}>
                         {children}
                     </select>
                     <SelectChevron aria-hidden />
@@ -34,7 +41,7 @@ function SelectField({
             )}
         </BaseField>
     )
-}
+})
 
 function SelectChevron(props: JSX.IntrinsicElements['svg']) {
     return (
