@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks'
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks'
 import { Tabs, TabList, Tab, TabPanel } from './tabs'
 
 <Meta
@@ -8,8 +8,48 @@ import { Tabs, TabList, Tab, TabPanel } from './tabs'
 
 # Tabs
 
-TBD
+A set of components that allow tabs to be rendered, which controls the visibility of their corresponding tab panels.
+This component is powered by [Reakit's Tab component](https://reakit.io/docs/tab). For more details of its expected
+behaviour, see [ARIA: tab role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role).
 
+```TypeScript
+import { Tabs, TabList, Tab, TabPanel } from '@doist/reactist'
+
+<Tabs>
+    <TabList aria-label="Tabs">
+        <Tab>Tab 1</Tab>
+        <Tab>Tab 2</Tab>
+        <Tab>Tab 3</Tab>
+    </TabList>
+    <TabPanel>Tab 1</TabPanel>
+    <TabPanel>Tab 2</TabPanel>
+    <TabPanel>Tab 3</TabPanel>
+</Tabs>
+```
+
+## `<Tabs>`
+
+Used to group components that compose a set of tabs. There can only be one active tab within the same `<Tabs>` group.
+
+<ArgsTable of={Tabs} />
+
+## `<TabList>`
+
+A component used to group `<Tab>` elements together.
+
+<ArgsTable of={TabList} />
+
+## `<Tab>`
+
+Represents the individual tab elements within the group. Each `<Tab>` must have a corresponding `<TabPanel>` component.
+
+<ArgsTable of={Tab} />
+
+## `<TabPanel>`
+
+Used to define the content to be rendered when a tab is active. Each `<TabPanel>` must have a corresponding `<Tab>` component.
+
+<ArgsTable of={TabPanel} />
 
 <Canvas withToolbar>
     <Story

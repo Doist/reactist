@@ -10,6 +10,7 @@ import {
 const TabsContext = React.createContext<TabStateReturn | null>(null)
 
 type TabsProps = {
+    /** The `<Tabs>` component must be composed from a `<TabList>` and corresponding `<TabPanel>` components */
     children: React.ReactElement
 }
 
@@ -29,6 +30,7 @@ function Tabs({ children }: TabsProps): React.ReactElement {
 }
 
 type TabProps = {
+    /** The content to render inside of the tab button */
     children: React.ReactElement
 }
 
@@ -37,7 +39,18 @@ function Tab({ children }: TabProps): React.ReactElement {
     return <BaseTab {...tabState}>{children}</BaseTab>
 }
 
-type TabListProps = { 'aria-label': string } | { 'aria-labelledby': string }
+type TabListProps =
+    | {
+          /** Label the tab list for assistive technologies. This must be provided if `aria-labelledby` is omitted */
+          'aria-label': string
+      }
+    | {
+          /**
+           * One or more element ID's used to label the tab list for assistive technologies. Required if
+           * `aria-label` is omitted
+           * */
+          'aria-labelledby': string
+      }
 
 function TabList(props: TabListProps): React.ReactElement {
     const tabState = React.useContext(TabsContext)
@@ -45,6 +58,7 @@ function TabList(props: TabListProps): React.ReactElement {
 }
 
 type TabPanelProps = {
+    /** The content to be rendered as the content of the tab */
     children: React.ReactElement
 }
 
