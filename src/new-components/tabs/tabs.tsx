@@ -16,6 +16,9 @@ type TabsProps = {
     children: React.ReactElement
 }
 
+/**
+ * Used to group components that compose a set of tabs. There can only be one active tab within the same `<Tabs>` group.
+ */
 function Tabs({ children }: TabsProps): React.ReactElement {
     const tabState = useTabState()
     const memoizedTabState = React.useMemo(
@@ -36,6 +39,9 @@ type TabProps = {
     children: React.ReactElement
 }
 
+/**
+ * Represents the individual tab elements within the group. Each `<Tab>` must have a corresponding `<TabPanel>` component.
+ */
 function Tab({ children }: TabProps): React.ReactElement {
     const tabState = React.useContext(TabsContext)
     return (
@@ -58,6 +64,9 @@ type TabListProps =
           'aria-labelledby': string
       }
 
+/**
+ * A component used to group `<Tab>` elements together.
+ */
 function TabList(props: TabListProps): React.ReactElement {
     const tabState = React.useContext(TabsContext)
     return <BaseTabList {...props} {...tabState} />
@@ -68,6 +77,9 @@ type TabPanelProps = {
     children: React.ReactElement
 }
 
+/**
+ * Used to define the content to be rendered when a tab is active. Each `<TabPanel>` must have a corresponding `<Tab>` component.
+ */
 function TabPanel({ children }: TabPanelProps): React.ReactElement {
     const tabState = React.useContext(TabsContext)
     return <BaseTabPanel {...tabState}>{children}</BaseTabPanel>

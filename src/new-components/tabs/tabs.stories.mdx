@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks'
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
 import { Tabs, TabList, Tab, TabPanel } from './tabs'
 
 <Meta
@@ -29,27 +29,25 @@ import { Tabs, TabList, Tab, TabPanel } from '@doist/reactist'
 
 ## `<Tabs>`
 
-Used to group components that compose a set of tabs. There can only be one active tab within the same `<Tabs>` group.
-
+<Description of={Tabs} />
 <ArgsTable of={Tabs} />
 
 ## `<TabList>`
 
-A component used to group `<Tab>` elements together.
-
+<Description of={TabList} />
 <ArgsTable of={TabList} />
 
 ## `<Tab>`
 
-Represents the individual tab elements within the group. Each `<Tab>` must have a corresponding `<TabPanel>` component.
-
+<Description of={Tab} />
 <ArgsTable of={Tab} />
 
 ## `<TabPanel>`
 
-Used to define the content to be rendered when a tab is active. Each `<TabPanel>` must have a corresponding `<Tab>` component.
-
+<Description of={TabPanel} />
 <ArgsTable of={TabPanel} />
+
+## Demo
 
 <Canvas withToolbar>
     <Story
