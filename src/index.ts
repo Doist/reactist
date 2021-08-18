@@ -28,6 +28,9 @@ export * from './new-components/switch-field'
 export * from './new-components/text-area'
 export * from './new-components/text-field'
 
+// other components
+export * from './new-components/tabs'
+
 //
 // components not yet integrated with the design system
 //

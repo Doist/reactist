@@ -1,0 +1,30 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks'
+import { Tabs, TabList, Tab, TabPanel } from './tabs'
+
+<Meta
+    title="Components/Tabs"
+    component={Tabs}
+/>
+
+# Tabs
+
+TBD
+
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="Playground"
+    >
+        <Tabs>
+            <TabList aria-label="Tabs">
+                <Tab>Tab 1</Tab>
+                <Tab>Tab 2</Tab>
+                <Tab>Tab 3</Tab>
+            </TabList>
+            <TabPanel>Tab 1</TabPanel>
+            <TabPanel>Tab 2</TabPanel>
+            <TabPanel>Tab 3</TabPanel>
+        </Tabs>
+    </Story>
+</Canvas>
