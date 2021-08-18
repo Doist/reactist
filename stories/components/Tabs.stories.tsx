@@ -8,7 +8,7 @@ import { Tabs, Tab } from '../../src/components/tabs'
 // Story setup ================================================================
 
 export default {
-    title: 'Components/Tabs',
+    title: 'Components/Tabs (Deprecated)',
     component: Tabs,
 }
 
