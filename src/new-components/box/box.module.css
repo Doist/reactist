@@ -9,6 +9,10 @@
     background-color: transparent;
 }
 
+.box[hidden] {
+    display: none !important;
+}
+
 /* position */
 .position-absolute {
     position: absolute;
