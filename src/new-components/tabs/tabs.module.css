@@ -1,0 +1,14 @@
+.tab {
+    color: var(--reactist-content-secondary);
+    font-size: var(--reactist-font-size-large);
+    font-weight: bold;
+    border: none;
+    border-radius: var(--reactist-border-radius-small);
+    background: none;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.tab[aria-selected='true'] {
+    color: var(--reactist-content-primary);
+}

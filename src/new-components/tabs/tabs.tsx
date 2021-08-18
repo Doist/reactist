@@ -7,6 +7,8 @@ import {
     TabStateReturn,
 } from 'reakit/Tab'
 
+import styles from './tabs.module.css'
+
 const TabsContext = React.createContext<TabStateReturn | null>(null)
 
 type TabsProps = {
@@ -36,7 +38,11 @@ type TabProps = {
 
 function Tab({ children }: TabProps): React.ReactElement {
     const tabState = React.useContext(TabsContext)
-    return <BaseTab {...tabState}>{children}</BaseTab>
+    return (
+        <BaseTab className={styles.tab} {...tabState}>
+            {children}
+        </BaseTab>
+    )
 }
 
 type TabListProps =
