@@ -61,7 +61,10 @@ export function ResponsiveStory({ itemCount }: { itemCount: number }) {
         <>
             <ResponsiveWidthRef />
             <Wrapper border title="Alignment and spacing changes as the viewport width changes">
-                <Stack space={['xsmall', 'medium', 'xxlarge']} align={['left', 'center', 'right']}>
+                <Stack
+                    space={{ mobile: 'xsmall', tablet: 'medium', desktop: 'xlarge' }}
+                    align={{ mobile: 'left', tablet: 'center', desktop: 'right' }}
+                >
                     {times(itemCount).map((i) => (
                         <Placeholder key={i} label={i + 1} {...size(i)} />
                     ))}
@@ -81,26 +84,24 @@ ResponsiveStory.argTypes = {
 
 export function NestedStacksStory(args: PartialProps<typeof Stack>) {
     return (
-        <>
-            <Stack {...args}>
-                <Heading level="1">
-                    Parent stack with space=&ldquo;{args.space ?? 'none'}&rdquo;
-                </Heading>
-                <Stack space="xsmall">
-                    <Heading level="2">Nested stack with space=&ldquo;xsmall&rdquo;</Heading>
-                    <Placeholder />
-                    <Placeholder />
-                    <Placeholder />
-                </Stack>
-                <Stack space="xsmall">
-                    <Heading level="2">Nested stack with space=&ldquo;xsmall&rdquo;</Heading>
-                    <Placeholder />
-                    <Placeholder />
-                    <Placeholder />
-                    <Placeholder />
-                </Stack>
+        <Stack {...args}>
+            <Heading level="1">
+                Parent stack with space=&ldquo;{args.space ?? 'none'}&rdquo;
+            </Heading>
+            <Stack space="xsmall">
+                <Heading level="2">Nested stack with space=&ldquo;xsmall&rdquo;</Heading>
+                <Placeholder />
+                <Placeholder />
+                <Placeholder />
             </Stack>
-        </>
+            <Stack space="xsmall">
+                <Heading level="2">Nested stack with space=&ldquo;xsmall&rdquo;</Heading>
+                <Placeholder />
+                <Placeholder />
+                <Placeholder />
+                <Placeholder />
+            </Stack>
+        </Stack>
     )
 }
 

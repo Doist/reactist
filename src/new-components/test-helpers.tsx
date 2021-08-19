@@ -28,7 +28,7 @@ function runSpaceTests<Props extends PropsWithSpace>(Component: React.ComponentT
         })
 
         it('allows to specify different spacing rules for different screen sizes', () => {
-            const subject = renderTestCase(['small', 'medium', 'large'])
+            const subject = renderTestCase({ mobile: 'small', tablet: 'medium', desktop: 'large' })
             expect(getSpaceClassNames(subject)).toEqual([
                 'space-small',
                 'tablet-space-medium',
