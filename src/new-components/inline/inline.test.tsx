@@ -60,5 +60,73 @@ describe('Inline', () => {
         )
     })
 
+    describe('align', () => {
+        it('specifies how to align items horizontally', () => {
+            // test with no explicit alignment first
+            const { rerender } = render(<Inline data-testid="container" />)
+            expect(screen.getByTestId('container')).toHaveClass('justifyContent-flexStart')
+
+            // left-aligned horizontally
+            rerender(<Inline data-testid="container" align="left" />)
+            expect(screen.getByTestId('container')).toHaveClass('justifyContent-flexStart')
+
+            // centered horizontally
+            rerender(<Inline data-testid="container" align="center" />)
+            expect(screen.getByTestId('container')).toHaveClass('justifyContent-center')
+
+            // right-aligned horizontally
+            rerender(<Inline data-testid="container" align="right" />)
+            expect(screen.getByTestId('container')).toHaveClass('justifyContent-flexEnd')
+        })
+
+        it('supports specifying a responsive value', () => {
+            render(
+                <Inline
+                    data-testid="container"
+                    align={{ mobile: 'left', tablet: 'center', desktop: 'right' }}
+                />,
+            )
+            expect(screen.getByTestId('container')).toHaveClass(
+                'justifyContent-flexStart',
+                'tablet-justifyContent-center',
+                'desktop-justifyContent-flexEnd',
+            )
+        })
+    })
+
+    describe('alignY', () => {
+        it('specifies how to align items vertically', () => {
+            // test with no explicit alignment first
+            const { rerender } = render(<Inline data-testid="container" />)
+            expect(screen.getByTestId('container')).toHaveClass('alignItems-center')
+
+            // top-aligned vertically
+            rerender(<Inline data-testid="container" alignY="top" />)
+            expect(screen.getByTestId('container')).toHaveClass('alignItems-flexStart')
+
+            // centered vertically
+            rerender(<Inline data-testid="container" alignY="center" />)
+            expect(screen.getByTestId('container')).toHaveClass('alignItems-center')
+
+            // bottom-aligned vertically
+            rerender(<Inline data-testid="container" alignY="bottom" />)
+            expect(screen.getByTestId('container')).toHaveClass('alignItems-flexEnd')
+        })
+
+        it('supports specifying a responsive value', () => {
+            render(
+                <Inline
+                    data-testid="container"
+                    alignY={{ mobile: 'top', tablet: 'center', desktop: 'bottom' }}
+                />,
+            )
+            expect(screen.getByTestId('container')).toHaveClass(
+                'alignItems-flexStart',
+                'tablet-alignItems-center',
+                'desktop-alignItems-flexEnd',
+            )
+        })
+    })
+
     runSpaceTests(Inline)
 })
