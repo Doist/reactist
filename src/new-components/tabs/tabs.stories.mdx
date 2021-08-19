@@ -23,21 +23,21 @@ export const Template = ({ color, variant, space, 'aria-label': ariaLabel, 'aria
             aria-labelledby={ariaLabelledby}
             space={space}
         >
-            <Tab>Tab 1</Tab>
-            <Tab>Tab 2</Tab>
-            <Tab>Tab 3</Tab>
+            <Tab id="tab1">Tab 1</Tab>
+            <Tab id="tab2">Tab 2</Tab>
+            <Tab id="tab3">Tab 3</Tab>
         </TabList>
-        <TabPanel>
+        <TabPanel id="tab1">
             <Box paddingX="small" paddingY="xlarge">
                 <Text>Content of tab 1</Text>
             </Box>
         </TabPanel>
-        <TabPanel>
+        <TabPanel id="tab2">
             <Box paddingX="small" paddingY="xlarge">
                 <Text>Content of tab 2</Text>
             </Box>
         </TabPanel>
-        <TabPanel>
+        <TabPanel id="tab3">
             <Box paddingX="small" paddingY="xlarge">
                 <Text>Content of tab 3</Text>
             </Box>

@@ -53,12 +53,15 @@ function Tabs({ children, color = 'primary', variant = 'normal' }: TabsProps): R
 type TabProps = {
     /** The content to render inside of the tab button */
     children: React.ReactNode
+
+    /** The tab's identifier. This must match its corresponding `<TabPanel>`'s id */
+    id: string
 }
 
 /**
  * Represents the individual tab elements within the group. Each `<Tab>` must have a corresponding `<TabPanel>` component.
  */
-function Tab({ children }: TabProps): React.ReactElement | null {
+function Tab({ children, id }: TabProps): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
 
     if (!tabContextValue) {
@@ -74,6 +77,7 @@ function Tab({ children }: TabProps): React.ReactElement | null {
                 styles[`tab-${variant ?? ''}`],
                 styles[`tab-${color ?? ''}`],
             )}
+            id={id}
             {...tabState}
         >
             {children}
@@ -131,12 +135,22 @@ function TabList({
 type TabPanelProps = {
     /** The content to be rendered inside the tab */
     children: React.ReactNode
+
+    /** The tabPanel's identifier. This must match its corresponding `<Tab>`'s id */
+    id: string
+
+    /**
+     * By default, the tab panel's content is not rendered unless its tab is active. This behaviour can be overridden
+     * by setting `lazyload={false}`. Note that the children component tree will still execute, including any side
+     * effects.
+     */
+    lazyload?: boolean
 }
 
 /**
  * Used to define the content to be rendered when a tab is active. Each `<TabPanel>` must have a corresponding `<Tab>` component.
  */
-function TabPanel({ children }: TabPanelProps): React.ReactElement | null {
+function TabPanel({ children, id, lazyload = true }: TabPanelProps): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
 
     if (!tabContextValue) {
@@ -145,7 +159,11 @@ function TabPanel({ children }: TabPanelProps): React.ReactElement | null {
 
     const { color, variant, ...tabState } = tabContextValue
 
-    return <BaseTabPanel {...tabState}>{children}</BaseTabPanel>
+    return (
+        <BaseTabPanel tabId={id} {...tabState}>
+            {lazyload && tabState.selectedId !== id ? null : children}
+        </BaseTabPanel>
+    )
 }
 
 export { Tabs, TabList, Tab, TabPanel }
