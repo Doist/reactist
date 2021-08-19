@@ -90,6 +90,35 @@ describe('Box', () => {
         )
     })
 
+    describe('textAlign="…"', () => {
+        it('adds the appropriate class names', () => {
+            const { rerender } = render(<Box data-testid="box" textAlign="start" />)
+            const boxElement = screen.getByTestId('box')
+            expect(boxElement).not.toHaveClass('textAlign-start')
+            expect(boxElement).not.toHaveClass('textAlign-center')
+            expect(boxElement).not.toHaveClass('textAlign-end')
+            expect(boxElement).not.toHaveClass('textAlign-justify')
+
+            for (const align of ['center', 'end', 'justify'] as const) {
+                rerender(<Box data-testid="box" textAlign={align} />)
+                expect(boxElement).toHaveClass(`textAlign-${align}`)
+            }
+        })
+
+        it('supports responsive values', () => {
+            render(
+                <Box
+                    data-testid="box"
+                    textAlign={{ mobile: 'start', tablet: 'center', desktop: 'end' }}
+                />,
+            )
+            const boxElement = screen.getByTestId('box')
+            expect(boxElement).toHaveClass('textAlign-start')
+            expect(boxElement).toHaveClass('tablet-textAlign-center')
+            expect(boxElement).toHaveClass('desktop-textAlign-end')
+        })
+    })
+
     describe('padding', () => {
         it('allows to apply padding in all directions at once', () => {
             render(<Box data-testid="box" padding="small" />)

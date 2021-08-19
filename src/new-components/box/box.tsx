@@ -63,6 +63,7 @@ interface BoxProps extends WithEnhancedClassName, ReusableBoxProps, BoxMarginPro
     overflow?: BoxOverflow
     width?: 'full'
     height?: 'full'
+    textAlign?: ResponsiveProp<'start' | 'center' | 'end' | 'justify'>
 }
 
 const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
@@ -84,6 +85,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
         borderRadius,
         minWidth,
         maxWidth,
+        textAlign = 'start',
         padding,
         paddingY,
         paddingX,
@@ -128,6 +130,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
                     position !== 'static' ? getClassNames(styles, 'position', position) : null,
                     minWidth != null ? getClassNames(styles, 'minWidth', String(minWidth)) : null,
                     getClassNames(styles, 'maxWidth', maxWidth),
+                    textAlign !== 'start' ? getClassNames(styles, 'textAlign', textAlign) : null,
                     // padding
                     getClassNames(paddingStyles, 'paddingTop', resolvedPaddingTop),
                     getClassNames(paddingStyles, 'paddingRight', resolvedPaddingRight),
