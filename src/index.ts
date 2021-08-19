@@ -7,6 +7,7 @@ export * from './new-components/divider'
 export * from './new-components/inline'
 export * from './new-components/stack'
 export * from './new-components/hidden'
+export * from './new-components/hidden-visually'
 
 // alerts, notifications, etc.
 export * from './new-components/alert'
