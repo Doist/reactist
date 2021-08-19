@@ -56,6 +56,14 @@ export const Template = ({ color, variant, space, selectedId, 'aria-label': aria
               options: ['tab1', 'tab2', 'tab3', null, undefined],
               control: { type: 'inline-radio' },
           },
+          variant: {
+              options: ['normal', 'plain'],
+              control: { type: 'inline-radio' },
+          },
+          color: {
+              options: ['primary', 'secondary', 'tertiary'],
+              control: { type: 'inline-radio' },
+          },
         }}
         name="Main demo"
     >
