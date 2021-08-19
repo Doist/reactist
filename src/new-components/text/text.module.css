@@ -10,9 +10,6 @@
 .size-copy {
     font-size: var(--reactist-font-size-copy);
 }
-.size-body {
-    font-size: var(--reactist-font-size-body);
-}
 .size-subtitle {
     font-size: var(--reactist-font-size-subtitle);
 }
@@ -33,27 +30,27 @@
 
 /* truncated text */
 
-.line-clamp-1 {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.lineClamp {
+.lineClampMultipleLines {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.line-clamp-2 {
+.lineClamp-1 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.lineClamp-2 {
     -webkit-line-clamp: 2;
 }
-.line-clamp-3 {
+.lineClamp-3 {
     -webkit-line-clamp: 3;
 }
-.line-clamp-4 {
+.lineClamp-4 {
     -webkit-line-clamp: 4;
 }
-.line-clamp-5 {
+.lineClamp-5 {
     -webkit-line-clamp: 5;
 }

@@ -2,23 +2,11 @@ import React from 'react'
 
 import { Stack } from '../stack'
 import { Text } from './text'
-import { select } from '../storybook-helper'
+import { ResponsiveWidthRef, select, selectWithNone } from '../storybook-helper'
 
 export default {
     title: 'Design system/Text',
     component: Text,
-    argTypes: {
-        size: select(['caption', 'copy', 'body', 'subtitle'], 'body'),
-        weight: select(['regular', 'semibold', 'bold'], 'regular'),
-        lineClamp: select([1, 2, 3, 4, 5], 1),
-        children: {
-            control: {
-                type: 'text',
-            },
-            defaultValue: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit',
-        },
-        tone: select(['normal', 'secondary', 'danger'], 'normal'),
-    },
 }
 
 export function TextStory() {
@@ -127,10 +115,43 @@ export function TruncatedTextStory() {
     )
 }
 
-export function TextPlaygroundStory({ children, ...args }: React.ComponentProps<typeof Text>) {
+export function ResponsiveTextStory(props: React.ComponentProps<typeof Text>) {
+    return (
+        <>
+            <ResponsiveWidthRef />
+            <Text {...props} align={{ mobile: 'end', tablet: 'center', desktop: 'start' }} />
+        </>
+    )
+}
+
+ResponsiveTextStory.argTypes = {
+    size: select(['caption', 'copy', 'body', 'subtitle'], 'body'),
+    weight: select(['regular', 'semibold', 'bold'], 'regular'),
+    lineClamp: selectWithNone([1, 2, 3, 4, 5], 'none'),
+    tone: select(['normal', 'secondary', 'danger'], 'normal'),
+    align: { control: false },
+    children: {
+        control: { type: 'text' },
+        defaultValue: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit',
+    },
+}
+
+export function TextPlaygroundStory(props: React.ComponentProps<typeof Text>) {
     return (
         <section className="story playground">
-            <Text {...args}>{children}</Text>
+            <Text {...props} />
         </section>
     )
+}
+
+TextPlaygroundStory.argTypes = {
+    size: select(['caption', 'copy', 'body', 'subtitle'], 'body'),
+    weight: select(['regular', 'semibold', 'bold'], 'regular'),
+    lineClamp: selectWithNone([1, 2, 3, 4, 5], 'none'),
+    tone: select(['normal', 'secondary', 'danger'], 'normal'),
+    align: select(['start', 'center', 'end', 'justify'], 'start'),
+    children: {
+        control: { type: 'text' },
+        defaultValue: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit',
+    },
 }
