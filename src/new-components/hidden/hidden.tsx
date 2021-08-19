@@ -49,6 +49,8 @@ type HiddenProps = CommonProps & (AboveProp | BelowProp | Required<Pick<CommonPr
  * print media.
  *
  * @see HiddenProps
+ * @see HiddenVisually for hiding content only visually, while keeping it available for assistive
+ *   technologies.
  */
 const Hidden = polymorphicComponent<'div', HiddenProps>(function Hidden(
     { display = 'block', children, exceptionallySetClassName, ...props },
