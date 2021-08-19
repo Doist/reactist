@@ -17,15 +17,15 @@ const TabsContext = React.createContext<(TabStateReturn & Omit<TabsProps, 'child
 
 type TabsProps = {
     /** The `<Tabs>` component must be composed from a `<TabList>` and corresponding `<TabPanel>` components */
-    children: React.ReactElement
+    children: React.ReactNode
     /**
      * Determines the primary colour of the tabs
      */
-    color: 'primary' | 'secondary' | 'tertiary'
+    color?: 'primary' | 'secondary' | 'tertiary'
     /**
      * Determines the style of the tabs
      */
-    variant: 'normal' | 'plain'
+    variant?: 'normal' | 'plain'
 }
 
 /**
@@ -52,7 +52,7 @@ function Tabs({ children, color = 'primary', variant = 'normal' }: TabsProps): R
 
 type TabProps = {
     /** The content to render inside of the tab button */
-    children: React.ReactElement
+    children: React.ReactNode
 }
 
 /**
@@ -69,7 +69,11 @@ function Tab({ children }: TabProps): React.ReactElement | null {
 
     return (
         <BaseTab
-            className={classNames(styles.tab, styles[`tab-${variant}`], styles[`tab-${color}`])}
+            className={classNames(
+                styles.tab,
+                styles[`tab-${variant ?? ''}`],
+                styles[`tab-${color ?? ''}`],
+            )}
             {...tabState}
         >
             {children}
@@ -93,7 +97,7 @@ type TabListProps = (
     /**
      * A list of `<Tab>` elements
      */
-    children: React.ReactElement
+    children: React.ReactNode
 
     /**
      * Controls the spacing between tabs
@@ -104,8 +108,19 @@ type TabListProps = (
 /**
  * A component used to group `<Tab>` elements together.
  */
-function TabList({ children, space = 'medium', ...props }: TabListProps): React.ReactElement {
-    const tabState = React.useContext(TabsContext)
+function TabList({
+    children,
+    space = 'medium',
+    ...props
+}: TabListProps): React.ReactElement | null {
+    const tabContextValue = React.useContext(TabsContext)
+
+    if (!tabContextValue) {
+        return null
+    }
+
+    const { color, variant, ...tabState } = tabContextValue
+
     return (
         <BaseTabList {...props} {...tabState}>
             <Inline space={space}>{children}</Inline>
@@ -115,14 +130,21 @@ function TabList({ children, space = 'medium', ...props }: TabListProps): React.
 
 type TabPanelProps = {
     /** The content to be rendered inside the tab */
-    children: React.ReactElement
+    children: React.ReactNode
 }
 
 /**
  * Used to define the content to be rendered when a tab is active. Each `<TabPanel>` must have a corresponding `<Tab>` component.
  */
-function TabPanel({ children }: TabPanelProps): React.ReactElement {
-    const tabState = React.useContext(TabsContext)
+function TabPanel({ children }: TabPanelProps): React.ReactElement | null {
+    const tabContextValue = React.useContext(TabsContext)
+
+    if (!tabContextValue) {
+        return null
+    }
+
+    const { color, variant, ...tabState } = tabContextValue
+
     return <BaseTabPanel {...tabState}>{children}</BaseTabPanel>
 }
 
