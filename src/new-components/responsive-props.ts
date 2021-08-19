@@ -12,17 +12,9 @@ type Atom = string | number | boolean
  */
 type ResponsiveProp<AtomType extends Atom> =
     | AtomType
-    | Readonly<[AtomType, AtomType]>
-    | Readonly<[AtomType, AtomType, AtomType]>
     | Readonly<{ [key in ResponsiveBreakpoints]?: AtomType }>
 
 const DEBUG = process.env.NODE_ENV === 'development'
-
-function isResponsivePropArray<AtomType extends Atom>(
-    responsiveProp: ResponsiveProp<AtomType>,
-): responsiveProp is Readonly<[AtomType, AtomType]> | Readonly<[AtomType, AtomType, AtomType]> {
-    return Array.isArray(responsiveProp)
-}
 
 /**
  * Builds a css module class name for a given prop + prop-value combination.
@@ -51,14 +43,6 @@ function getClassNames(
     }
 
     const classList: string[] = []
-
-    if (isResponsivePropArray(value)) {
-        value = {
-            mobile: value[0],
-            tablet: value[1],
-            desktop: value[2],
-        }
-    }
 
     if (typeof value === 'string') {
         classList.push(styles[`${property}-${value}`])
@@ -96,14 +80,6 @@ function mapResponsiveProp<From extends Atom, To extends Atom>(
 
     if (typeof fromValue !== 'object') {
         return mapper(fromValue)
-    }
-
-    if (isResponsivePropArray(fromValue)) {
-        fromValue = {
-            mobile: fromValue[0],
-            tablet: fromValue[1],
-            desktop: fromValue[2],
-        }
     }
 
     return {
