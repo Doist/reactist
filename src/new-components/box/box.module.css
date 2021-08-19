@@ -328,3 +328,45 @@
 .border-standard {
     border: 1px solid var(--reactist-framework-border);
 }
+
+/* text-align */
+.textAlign-start {
+    text-align: start;
+}
+.textAlign-center {
+    text-align: center;
+}
+.textAlign-end {
+    text-align: end;
+}
+.textAlign-justify {
+    text-align: justify;
+}
+@media (min-width: 768px /* --reactist-breakpoint-tablet */) {
+    .tablet-textAlign-start {
+        text-align: start;
+    }
+    .tablet-textAlign-center {
+        text-align: center;
+    }
+    .tablet-textAlign-end {
+        text-align: end;
+    }
+    .tablet-textAlign-justify {
+        text-align: justify;
+    }
+}
+@media (min-width: 992px /* --reactist-breakpoint-desktop */) {
+    .desktop-textAlign-start {
+        text-align: start;
+    }
+    .desktop-textAlign-center {
+        text-align: center;
+    }
+    .desktop-textAlign-end {
+        text-align: end;
+    }
+    .desktop-textAlign-justify {
+        text-align: justify;
+    }
+}
