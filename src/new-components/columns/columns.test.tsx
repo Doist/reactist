@@ -59,79 +59,6 @@ describe('Columns', () => {
         )
     })
 
-    it('sets the columns horizontal alignment', () => {
-        // test with no explicit alignment first
-        const { rerender } = render(<Columns data-testid="container" />)
-        expect(screen.getByTestId('container')).toHaveClass('justifyContent-flexStart')
-
-        // left-aligned horizontally
-        rerender(<Columns data-testid="container" align="left" />)
-        expect(screen.getByTestId('container')).toHaveClass('justifyContent-flexStart')
-
-        // centered horizontally
-        rerender(<Columns data-testid="container" align="center" />)
-        expect(screen.getByTestId('container')).toHaveClass('justifyContent-center')
-
-        // right-aligned horizontally
-        rerender(<Columns data-testid="container" align="right" />)
-        expect(screen.getByTestId('container')).toHaveClass('justifyContent-flexEnd')
-    })
-
-    it('sets the columns vertical alignment', () => {
-        // test with no explicit alignment first
-        const { rerender } = render(<Columns data-testid="container" />)
-        expect(screen.getByTestId('container')).toHaveClass('alignItems-flexStart')
-
-        // top-aligned vertically
-        rerender(<Columns data-testid="container" alignY="top" />)
-        expect(screen.getByTestId('container')).toHaveClass('alignItems-flexStart')
-
-        // centered vertically
-        rerender(<Columns data-testid="container" alignY="center" />)
-        expect(screen.getByTestId('container')).toHaveClass('alignItems-center')
-
-        // bottom-aligned vertically
-        rerender(<Columns data-testid="container" alignY="bottom" />)
-        expect(screen.getByTestId('container')).toHaveClass('alignItems-flexEnd')
-    })
-
-    it('is set to render stacked when instructed to collapse below a certain responsive viewport width', () => {
-        const { rerender } = render(<Columns data-testid="container" />)
-        const container = screen.getByTestId('container')
-
-        // never collapses by default
-        expect(container).toHaveClass('display-flex', 'flexDirection-row')
-        expect(container).not.toHaveClass('flexDirection-column')
-        expect(container).not.toHaveClass('tablet-flexDirection-row')
-        expect(container).not.toHaveClass('tablet-flexDirection-column')
-        expect(container).not.toHaveClass('desktop-flexDirection-row')
-        expect(container).not.toHaveClass('desktop-flexDirection-column')
-
-        // collapses on screens of tablet-like sizes or smaller
-        rerender(<Columns data-testid="container" collapseBelow="tablet" />)
-        expect(container).toHaveClass(
-            'display-flex',
-            'flexDirection-column',
-            'tablet-flexDirection-row',
-        )
-        expect(container).not.toHaveClass('flexDirection-row')
-        expect(container).not.toHaveClass('tablet-flexDirection-column')
-        expect(container).not.toHaveClass('desktop-flexDirection-row')
-        expect(container).not.toHaveClass('desktop-flexDirection-column')
-
-        // collapses on screens of tablet-like sizes or smaller
-        rerender(<Columns data-testid="container" collapseBelow="desktop" />)
-        expect(container).toHaveClass(
-            'display-flex',
-            'flexDirection-column',
-            'tablet-flexDirection-column',
-            'desktop-flexDirection-row',
-        )
-        expect(container).not.toHaveClass('flexDirection-row')
-        expect(container).not.toHaveClass('tablet-flexDirection-row')
-        expect(container).not.toHaveClass('desktop-flexDirection-column')
-    })
-
     it('applies some extra class names corresponding to other layout-related props', () => {
         render(
             <Columns
@@ -158,10 +85,110 @@ describe('Columns', () => {
         )
     })
 
-    describe('space', () => {
-        it('applies the class names to space child elements out', () => {
-            render(<Columns data-testid="stack" space="medium" />)
-            expect(screen.getByTestId('stack')).toHaveClass('space-medium')
+    describe('align', () => {
+        it('sets the columns horizontal alignment', () => {
+            // test with no explicit alignment first
+            const { rerender } = render(<Columns data-testid="container" />)
+            expect(screen.getByTestId('container')).toHaveClass('justifyContent-flexStart')
+
+            // left-aligned horizontally
+            rerender(<Columns data-testid="container" align="left" />)
+            expect(screen.getByTestId('container')).toHaveClass('justifyContent-flexStart')
+
+            // centered horizontally
+            rerender(<Columns data-testid="container" align="center" />)
+            expect(screen.getByTestId('container')).toHaveClass('justifyContent-center')
+
+            // right-aligned horizontally
+            rerender(<Columns data-testid="container" align="right" />)
+            expect(screen.getByTestId('container')).toHaveClass('justifyContent-flexEnd')
+        })
+
+        it('supports specifying a responsive value', () => {
+            render(
+                <Columns
+                    data-testid="container"
+                    align={{ mobile: 'left', tablet: 'center', desktop: 'right' }}
+                />,
+            )
+            expect(screen.getByTestId('container')).toHaveClass(
+                'justifyContent-flexStart',
+                'tablet-justifyContent-center',
+                'desktop-justifyContent-flexEnd',
+            )
+        })
+    })
+
+    describe('alignY', () => {
+        it('sets the columns vertical alignment', () => {
+            // test with no explicit alignment first
+            const { rerender } = render(<Columns data-testid="container" />)
+            expect(screen.getByTestId('container')).toHaveClass('alignItems-flexStart')
+
+            // top-aligned vertically
+            rerender(<Columns data-testid="container" alignY="top" />)
+            expect(screen.getByTestId('container')).toHaveClass('alignItems-flexStart')
+
+            // centered vertically
+            rerender(<Columns data-testid="container" alignY="center" />)
+            expect(screen.getByTestId('container')).toHaveClass('alignItems-center')
+
+            // bottom-aligned vertically
+            rerender(<Columns data-testid="container" alignY="bottom" />)
+            expect(screen.getByTestId('container')).toHaveClass('alignItems-flexEnd')
+        })
+
+        it('supports specifying a responsive value', () => {
+            render(
+                <Columns
+                    data-testid="container"
+                    alignY={{ mobile: 'top', tablet: 'center', desktop: 'bottom' }}
+                />,
+            )
+            expect(screen.getByTestId('container')).toHaveClass(
+                'alignItems-flexStart',
+                'tablet-alignItems-center',
+                'desktop-alignItems-flexEnd',
+            )
+        })
+    })
+
+    describe('collapseBellow', () => {
+        it('is set to render stacked when instructed to collapse below a certain responsive viewport width', () => {
+            const { rerender } = render(<Columns data-testid="container" />)
+            const container = screen.getByTestId('container')
+
+            // never collapses by default
+            expect(container).toHaveClass('display-flex', 'flexDirection-row')
+            expect(container).not.toHaveClass('flexDirection-column')
+            expect(container).not.toHaveClass('tablet-flexDirection-row')
+            expect(container).not.toHaveClass('tablet-flexDirection-column')
+            expect(container).not.toHaveClass('desktop-flexDirection-row')
+            expect(container).not.toHaveClass('desktop-flexDirection-column')
+
+            // collapses on screens of tablet-like sizes or smaller
+            rerender(<Columns data-testid="container" collapseBelow="tablet" />)
+            expect(container).toHaveClass(
+                'display-flex',
+                'flexDirection-column',
+                'tablet-flexDirection-row',
+            )
+            expect(container).not.toHaveClass('flexDirection-row')
+            expect(container).not.toHaveClass('tablet-flexDirection-column')
+            expect(container).not.toHaveClass('desktop-flexDirection-row')
+            expect(container).not.toHaveClass('desktop-flexDirection-column')
+
+            // collapses on screens of tablet-like sizes or smaller
+            rerender(<Columns data-testid="container" collapseBelow="desktop" />)
+            expect(container).toHaveClass(
+                'display-flex',
+                'flexDirection-column',
+                'tablet-flexDirection-column',
+                'desktop-flexDirection-row',
+            )
+            expect(container).not.toHaveClass('flexDirection-row')
+            expect(container).not.toHaveClass('tablet-flexDirection-row')
+            expect(container).not.toHaveClass('desktop-flexDirection-column')
         })
     })
 

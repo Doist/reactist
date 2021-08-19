@@ -123,7 +123,12 @@ describe('Stack', () => {
         })
 
         it('supports specifying alignment based on viewport size', () => {
-            render(<Stack data-testid="stack" align={['left', 'center', 'right']} />)
+            render(
+                <Stack
+                    data-testid="stack"
+                    align={{ mobile: 'left', tablet: 'center', desktop: 'right' }}
+                />,
+            )
             expect(screen.getByTestId('stack')).toHaveClass('display-flex')
             expect(screen.getByTestId('stack')).toHaveClass('flexDirection-column')
             expect(screen.getByTestId('stack')).toHaveClass('alignItems-flexStart')

@@ -1,27 +1,28 @@
-type ResponsiveBreakpoints = 'tablet' | 'desktop'
+type ResponsiveBreakpoints = 'mobile' | 'tablet' | 'desktop'
 
 type Atom = string | number | boolean
 
 /**
- * A responsive prop supports receiving values of its given base type, or tuples (arrays) of 2 or 3
- * different values from its base type.
+ * A responsive prop supports receiving values of its given base type, or an object mapping a
+ * responsive breakpoint name to a value from the prop's base type.
  *
- * This is interpreted as follows:
+ * Some examples:
  *
- * - A value `'x'` means the prop should behave according to that value for any viewport size.
- * - A value `['x', 'y']` means the prop should behave according to the `'x'` value in mobile
- *   devices and according to the `'y'` value for any viewport size larger than mobile screens.
- * - A value `['x', 'y', 'z']` means the prop should behave according to the `'x'` value in mobile
- *   devices, according to the `'y'` value in tablet-like viewport sizes, and as `'z'` for any
- *   viewport size larger than mobile screens.
+ * - `align={{ mobile: 'left', tablet: 'center', desktop: 'right' }}`
  */
 type ResponsiveProp<AtomType extends Atom> =
     | AtomType
     | Readonly<[AtomType, AtomType]>
     | Readonly<[AtomType, AtomType, AtomType]>
+    | Readonly<{ [key in ResponsiveBreakpoints]?: AtomType }>
 
-const prefix = ['', 'tablet-', 'desktop-']
 const DEBUG = process.env.NODE_ENV === 'development'
+
+function isResponsivePropArray<AtomType extends Atom>(
+    responsiveProp: ResponsiveProp<AtomType>,
+): responsiveProp is Readonly<[AtomType, AtomType]> | Readonly<[AtomType, AtomType, AtomType]> {
+    return Array.isArray(responsiveProp)
+}
 
 /**
  * Builds a css module class name for a given prop + prop-value combination.
@@ -44,26 +45,43 @@ function getClassNames(
     styles: Record<string, string>,
     property: string,
     value: ResponsiveProp<string> | null | undefined,
-): string[] | string | null {
+): string[] | null {
     if (!value) {
         return null
     }
-    const classList =
-        typeof value === 'string'
-            ? [styles[`${property}-${value}`]]
-            : value.map((s, i) => styles[`${prefix[i]}${property}-${s}`])
+
+    const classList: string[] = []
+
+    if (isResponsivePropArray(value)) {
+        value = {
+            mobile: value[0],
+            tablet: value[1],
+            desktop: value[2],
+        }
+    }
+
+    if (typeof value === 'string') {
+        classList.push(styles[`${property}-${value}`])
+    } else {
+        if (value.mobile) classList.push(styles[`${property}-${value.mobile}`])
+        if (value.tablet) classList.push(styles[`tablet-${property}-${value.tablet}`])
+        if (value.desktop) classList.push(styles[`desktop-${property}-${value.desktop}`])
+    }
+
     if (DEBUG && !classList.every(Boolean)) {
         // eslint-disable-next-line no-console
         console.warn('Not all generated class names were found', { property, value, classList })
     }
+
     return classList
 }
 
 /**
  * A mapping over a responsive prop value.
  *
- * Since response values can be a tuple (array) but also a scalar value, this helper makes it easier
- * to .map over this "array" but keeps it consistent for the case when it is a scalar value as well.
+ * Since response values can be an object but also a scalar value, this helper makes it easier to
+ * to map the values when it's an object but keeps it consistent for the case when it is a scalar
+ * value as well.
  *
  * @param fromValue the responsive prop value
  * @param mapper the mapping function
@@ -72,17 +90,27 @@ function mapResponsiveProp<From extends Atom, To extends Atom>(
     fromValue: ResponsiveProp<From> | undefined,
     mapper: (from: From) => To,
 ): ResponsiveProp<To> | undefined {
-    if (
-        typeof fromValue === 'string' ||
-        typeof fromValue === 'number' ||
-        typeof fromValue === 'boolean'
-    ) {
+    if (!fromValue) {
+        return undefined
+    }
+
+    if (typeof fromValue !== 'object') {
         return mapper(fromValue)
     }
-    if (Array.isArray(fromValue)) {
-        return (fromValue.map(mapper) as unknown) as ResponsiveProp<To>
+
+    if (isResponsivePropArray(fromValue)) {
+        fromValue = {
+            mobile: fromValue[0],
+            tablet: fromValue[1],
+            desktop: fromValue[2],
+        }
     }
-    return undefined
+
+    return {
+        mobile: fromValue.mobile ? mapper(fromValue.mobile) : undefined,
+        tablet: fromValue.tablet ? mapper(fromValue.tablet) : undefined,
+        desktop: fromValue.desktop ? mapper(fromValue.desktop) : undefined,
+    }
 }
 
 export type { ResponsiveProp, ResponsiveBreakpoints }

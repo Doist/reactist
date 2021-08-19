@@ -56,13 +56,18 @@ export function ResponsiveStory() {
             <ResponsiveWidthRef />
             <Stack space="medium">
                 <Wrapper title="Change the viewport width to see how spacing changes" border={true}>
-                    <Inline space={['xsmall', 'medium', 'xlarge']}>{renderInlineContent()}</Inline>
+                    <Inline space={{ mobile: 'xsmall', tablet: 'medium', desktop: 'xlarge' }}>
+                        {renderInlineContent()}
+                    </Inline>
                 </Wrapper>
                 <Wrapper
                     title="Change the viewport width to see how alignment changes"
                     border={true}
                 >
-                    <Inline space="xsmall" align={['left', 'center', 'right']}>
+                    <Inline
+                        space="xsmall"
+                        align={{ mobile: 'left', tablet: 'center', desktop: 'right' }}
+                    >
                         {renderInlineContent()}
                     </Inline>
                 </Wrapper>
