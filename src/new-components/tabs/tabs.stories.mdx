@@ -1,5 +1,7 @@
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
 import { Tabs, TabList, Tab, TabPanel } from './tabs'
+import { Box } from '../box'
+import { Text } from '../text'
 
 <Meta
     title="Components/Tabs"
@@ -14,20 +16,46 @@ behaviour, see [ARIA: tab role](https://developer.mozilla.org/en-US/docs/Web/Acc
 
 🎨 [Figma](https://www.figma.com/file/LYlWNzvhMDh907l07mPPQk/Product-Web?node-id=4693%3A175143)
 
-```TypeScript
-import { Tabs, TabList, Tab, TabPanel } from '@doist/reactist'
+export const Template = ({ color, variant, space, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby }) => (
+    <Tabs color={color} variant={variant}>
+        <TabList
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledby}
+            space={space}
+        >
+            <Tab>Tab 1</Tab>
+            <Tab>Tab 2</Tab>
+            <Tab>Tab 3</Tab>
+        </TabList>
+        <TabPanel>
+            <Box paddingX="small" paddingY="xlarge">
+                <Text>Content of tab 1</Text>
+            </Box>
+        </TabPanel>
+        <TabPanel>
+            <Box paddingX="small" paddingY="xlarge">
+                <Text>Content of tab 2</Text>
+            </Box>
+        </TabPanel>
+        <TabPanel>
+            <Box paddingX="small" paddingY="xlarge">
+                <Text>Content of tab 3</Text>
+            </Box>
+        </TabPanel>
+    </Tabs>
+)
 
-<Tabs>
-    <TabList aria-label="Tabs">
-        <Tab>Tab 1</Tab>
-        <Tab>Tab 2</Tab>
-        <Tab>Tab 3</Tab>
-    </TabList>
-    <TabPanel>Tab 1</TabPanel>
-    <TabPanel>Tab 2</TabPanel>
-    <TabPanel>Tab 3</TabPanel>
-</Tabs>
-```
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        args={{
+            'aria-label': 'Main demo for Tabs',
+        }}
+        name="Main demo"
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
 
 ## `<Tabs>`
 
@@ -49,22 +77,81 @@ import { Tabs, TabList, Tab, TabPanel } from '@doist/reactist'
 <Description of={TabPanel} />
 <ArgsTable of={TabPanel} />
 
-## Demo
+## Colours
+
+The following CSS custom properties are available so that the tabs' colours can be customized:
+
+```
+--reactist-tab-primary-background
+--reactist-tab-primary-foreground
+--reactist-tab-primary-unselected
+
+--reactist-tab-secondary-background
+--reactist-tab-secondary-foreground
+--reactist-tab-secondary-unselected
+
+--reactist-tab-tertiary-background
+--reactist-tab-tertiary-foreground
+--reactist-tab-tertiary-unselected
+```
+
+## Stories
+
+### Primary color
 
 <Canvas withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
-        name="Playground"
+        args={{
+            'aria-label': 'Tabs with primary color style',
+        }}
+        name="Primary color"
     >
-        <Tabs>
-            <TabList aria-label="Tabs">
-                <Tab>Tab 1</Tab>
-                <Tab>Tab 2</Tab>
-                <Tab>Tab 3</Tab>
-            </TabList>
-            <TabPanel>Tab 1</TabPanel>
-            <TabPanel>Tab 2</TabPanel>
-            <TabPanel>Tab 3</TabPanel>
-        </Tabs>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+### Secondary color
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        args={{
+            'aria-label': 'Tabs with secondary color style',
+            color: 'secondary',
+        }}
+        name="Secondary color"
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+### Tertiary color
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        args={{
+            'aria-label': 'Tabs with tertiary color style',
+            color: 'tertiary',
+        }}
+        name="Tertiary color"
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+### Plain variant
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        args={{
+            'aria-label': 'Tabs with plain variant style',
+            variant: 'plain',
+        }}
+        name="Plain variant"
+    >
+        {Template.bind({})}
     </Story>
 </Canvas>
