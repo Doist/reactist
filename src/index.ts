@@ -6,6 +6,7 @@ export * from './new-components/columns'
 export * from './new-components/divider'
 export * from './new-components/inline'
 export * from './new-components/stack'
+export * from './new-components/hidden'
 
 // alerts, notifications, etc.
 export * from './new-components/alert'
