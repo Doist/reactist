@@ -16,8 +16,8 @@ behaviour, see [ARIA: tab role](https://developer.mozilla.org/en-US/docs/Web/Acc
 
 🎨 [Figma](https://www.figma.com/file/LYlWNzvhMDh907l07mPPQk/Product-Web?node-id=4693%3A175143)
 
-export const Template = ({ color, variant, space, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby }) => (
-    <Tabs color={color} variant={variant}>
+export const Template = ({ color, variant, space, selectedId, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby }) => (
+    <Tabs color={color} variant={variant} selectedId={selectedId}>
         <TabList
             aria-label={ariaLabel}
             aria-labelledby={ariaLabelledby}
@@ -50,6 +50,12 @@ export const Template = ({ color, variant, space, 'aria-label': ariaLabel, 'aria
         parameters={{ docs: { source: { type: 'code' } } }}
         args={{
             'aria-label': 'Main demo for Tabs',
+        }}
+        argTypes={{
+          selectedId: {
+              options: ['tab1', 'tab2', 'tab3', null, undefined],
+              control: { type: 'inline-radio' },
+          },
         }}
         name="Main demo"
     >

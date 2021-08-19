@@ -73,4 +73,57 @@ describe('Tabs', () => {
         expect(screen.getByRole('tabpanel', { name: 'Tab 3' })).toBeVisible()
         expect(screen.getByText('Content of tab 3')).toBeVisible()
     })
+
+    it('allows the selected tab to be set programmatically', () => {
+        const { rerender } = render(
+            <Tabs>
+                <TabList aria-label="test-tabs">
+                    <Tab id="tab1">Tab 1</Tab>
+                    <Tab id="tab2">Tab 2</Tab>
+                    <Tab id="tab3">Tab 3</Tab>
+                </TabList>
+                <TabPanel id="tab1">Content of tab 1</TabPanel>
+                <TabPanel id="tab2">Content of tab 2</TabPanel>
+                <TabPanel id="tab3">Content of tab 3</TabPanel>
+            </Tabs>,
+        )
+
+        expect(screen.getByText('Content of tab 1')).toBeVisible()
+        expect(screen.queryByText('Content of tab 2')).not.toBeInTheDocument()
+        expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
+
+        rerender(
+            <Tabs selectedId="tab2">
+                <TabList aria-label="test-tabs">
+                    <Tab id="tab1">Tab 1</Tab>
+                    <Tab id="tab2">Tab 2</Tab>
+                    <Tab id="tab3">Tab 3</Tab>
+                </TabList>
+                <TabPanel id="tab1">Content of tab 1</TabPanel>
+                <TabPanel id="tab2">Content of tab 2</TabPanel>
+                <TabPanel id="tab3">Content of tab 3</TabPanel>
+            </Tabs>,
+        )
+
+        expect(screen.queryByText('Content of tab 1')).not.toBeInTheDocument()
+        expect(screen.getByText('Content of tab 2')).toBeVisible()
+        expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
+
+        rerender(
+            <Tabs selectedId="tab3">
+                <TabList aria-label="test-tabs">
+                    <Tab id="tab1">Tab 1</Tab>
+                    <Tab id="tab2">Tab 2</Tab>
+                    <Tab id="tab3">Tab 3</Tab>
+                </TabList>
+                <TabPanel id="tab1">Content of tab 1</TabPanel>
+                <TabPanel id="tab2">Content of tab 2</TabPanel>
+                <TabPanel id="tab3">Content of tab 3</TabPanel>
+            </Tabs>,
+        )
+
+        expect(screen.queryByText('Content of tab 1')).not.toBeInTheDocument()
+        expect(screen.queryByText('Content of tab 2')).not.toBeInTheDocument()
+        expect(screen.getByText('Content of tab 3')).toBeVisible()
+    })
 })

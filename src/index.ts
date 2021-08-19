@@ -31,6 +31,9 @@ export * from './new-components/text-field'
 // other components
 export * from './new-components/tabs'
 
+// hooks
+export * from './hooks/use-previous'
+
 //
 // components not yet integrated with the design system
 //

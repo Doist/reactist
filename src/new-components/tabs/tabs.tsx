@@ -8,12 +8,15 @@ import {
     TabStateReturn,
 } from 'reakit/Tab'
 import { Inline } from '../inline'
+import { usePrevious } from '../../hooks/use-previous'
 import type { ResponsiveProp } from '../responsive-props'
 import type { Space } from '../common-types'
 
 import styles from './tabs.module.css'
 
-const TabsContext = React.createContext<(TabStateReturn & Omit<TabsProps, 'children'>) | null>(null)
+const TabsContext = React.createContext<
+    (TabStateReturn & Omit<TabsProps, 'children' | 'selectedId'>) | null
+>(null)
 
 type TabsProps = {
     /** The `<Tabs>` component must be composed from a `<TabList>` and corresponding `<TabPanel>` components */
@@ -26,13 +29,38 @@ type TabsProps = {
      * Determines the style of the tabs
      */
     variant?: 'normal' | 'plain'
+    /**
+     * The id of the selected tab
+     */
+    selectedId?: string | null
 }
 
 /**
  * Used to group components that compose a set of tabs. There can only be one active tab within the same `<Tabs>` group.
  */
-function Tabs({ children, color = 'primary', variant = 'normal' }: TabsProps): React.ReactElement {
-    const tabState = useTabState()
+function Tabs({
+    children,
+    selectedId,
+    color = 'primary',
+    variant = 'normal',
+}: TabsProps): React.ReactElement {
+    const tabState = useTabState({ selectedId })
+    const previousSelectedId = usePrevious(selectedId)
+    const { selectedId: actualSelectedId, select } = tabState
+
+    React.useEffect(
+        function selectTab() {
+            if (
+                previousSelectedId !== selectedId &&
+                selectedId !== actualSelectedId &&
+                selectedId !== undefined
+            ) {
+                select(selectedId)
+            }
+        },
+        [selectedId, actualSelectedId, select, previousSelectedId],
+    )
+
     const memoizedTabState = React.useMemo(
         function memoizeTabState() {
             return {
