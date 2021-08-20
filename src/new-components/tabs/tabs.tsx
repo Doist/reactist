@@ -168,18 +168,29 @@ type TabPanelProps = {
     id: string
 
     /**
-     * By default, the tab panel's content is not rendered unless its tab is active. This behaviour can be overridden
-     * by setting `lazyload={false}`. Note that the children component tree will still execute, including any side
-     * effects.
+     * By default, the tab panel's content is always rendered even when they are not active. This behaviour can be changed to
+     * 'active', which renders only when the tab is active, and 'lazy', meaning while inactive tab panels will not be rendered
+     * initially, they will remain mounted once they are active until the entire Tabs tree is unmounted.
      */
-    lazyload?: boolean
+    render?: 'always' | 'active' | 'lazy'
 }
 
 /**
  * Used to define the content to be rendered when a tab is active. Each `<TabPanel>` must have a corresponding `<Tab>` component.
  */
-function TabPanel({ children, id, lazyload = true }: TabPanelProps): React.ReactElement | null {
+function TabPanel({ children, id, render = 'always' }: TabPanelProps): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
+    const [tabRendered, setTabRendered] = React.useState(false)
+    const tabIsActive = tabContextValue?.selectedId === id
+
+    React.useEffect(
+        function trackTabRenderedState() {
+            if (!tabRendered && tabIsActive) {
+                setTabRendered(true)
+            }
+        },
+        [tabRendered, tabIsActive],
+    )
 
     if (!tabContextValue) {
         return null
@@ -189,7 +200,9 @@ function TabPanel({ children, id, lazyload = true }: TabPanelProps): React.React
 
     return (
         <BaseTabPanel tabId={id} {...tabState}>
-            {lazyload && tabState.selectedId !== id ? null : children}
+            {render === 'always' ? children : null}
+            {render === 'active' && tabIsActive ? children : null}
+            {render === 'lazy' && (tabIsActive || tabRendered) ? children : null}
         </BaseTabPanel>
     )
 }

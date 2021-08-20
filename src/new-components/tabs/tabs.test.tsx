@@ -20,6 +20,44 @@ describe('Tabs', () => {
 
         expect(screen.getByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
         expect(screen.getByText('Content of tab 1')).toBeVisible()
+        expect(screen.getByText('Content of tab 2')).not.toBeVisible()
+        expect(screen.getByText('Content of tab 3')).not.toBeVisible()
+
+        userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        expect(screen.getByText('Content of tab 1')).not.toBeVisible()
+        expect(screen.getByRole('tabpanel', { name: 'Tab 2' })).toBeVisible()
+        expect(screen.getByText('Content of tab 2')).toBeVisible()
+        expect(screen.getByText('Content of tab 3')).not.toBeVisible()
+
+        userEvent.click(screen.getByRole('tab', { name: 'Tab 3' }))
+        expect(screen.getByText('Content of tab 1')).not.toBeVisible()
+        expect(screen.getByText('Content of tab 2')).not.toBeVisible()
+        expect(screen.getByRole('tabpanel', { name: 'Tab 3' })).toBeVisible()
+        expect(screen.getByText('Content of tab 3')).toBeVisible()
+    })
+
+    it("renders a tab's content only when they're active when each TabPanel's `render` prop is set to 'active'", () => {
+        render(
+            <Tabs>
+                <TabList aria-label="test-tabs">
+                    <Tab id="tab1">Tab 1</Tab>
+                    <Tab id="tab2">Tab 2</Tab>
+                    <Tab id="tab3">Tab 3</Tab>
+                </TabList>
+                <TabPanel id="tab1" render="active">
+                    Content of tab 1
+                </TabPanel>
+                <TabPanel id="tab2" render="active">
+                    Content of tab 2
+                </TabPanel>
+                <TabPanel id="tab3" render="active">
+                    Content of tab 3
+                </TabPanel>
+            </Tabs>,
+        )
+
+        expect(screen.getByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
+        expect(screen.getByText('Content of tab 1')).toBeVisible()
         expect(screen.queryByText('Content of tab 2')).not.toBeInTheDocument()
         expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
 
@@ -36,7 +74,7 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 3')).toBeVisible()
     })
 
-    it("setting each TabPanel's lazyload prop to false renders tabs even when they aren't active", () => {
+    it("doesn't render inactive tabs until they have become active once when each TabPanel's `render` prop is set to 'lazy'", () => {
         render(
             <Tabs>
                 <TabList aria-label="test-tabs">
@@ -44,13 +82,13 @@ describe('Tabs', () => {
                     <Tab id="tab2">Tab 2</Tab>
                     <Tab id="tab3">Tab 3</Tab>
                 </TabList>
-                <TabPanel id="tab1" lazyload={false}>
+                <TabPanel id="tab1" render="lazy">
                     Content of tab 1
                 </TabPanel>
-                <TabPanel id="tab2" lazyload={false}>
+                <TabPanel id="tab2" render="lazy">
                     Content of tab 2
                 </TabPanel>
-                <TabPanel id="tab3" lazyload={false}>
+                <TabPanel id="tab3" render="lazy">
                     Content of tab 3
                 </TabPanel>
             </Tabs>,
@@ -58,14 +96,14 @@ describe('Tabs', () => {
 
         expect(screen.getByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
         expect(screen.getByText('Content of tab 1')).toBeVisible()
-        expect(screen.getByText('Content of tab 2')).not.toBeVisible()
-        expect(screen.getByText('Content of tab 3')).not.toBeVisible()
+        expect(screen.queryByText('Content of tab 2')).not.toBeInTheDocument()
+        expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
 
         userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
         expect(screen.getByText('Content of tab 1')).not.toBeVisible()
         expect(screen.getByRole('tabpanel', { name: 'Tab 2' })).toBeVisible()
         expect(screen.getByText('Content of tab 2')).toBeVisible()
-        expect(screen.getByText('Content of tab 3')).not.toBeVisible()
+        expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
 
         userEvent.click(screen.getByRole('tab', { name: 'Tab 3' }))
         expect(screen.getByText('Content of tab 1')).not.toBeVisible()
@@ -89,8 +127,8 @@ describe('Tabs', () => {
         )
 
         expect(screen.getByText('Content of tab 1')).toBeVisible()
-        expect(screen.queryByText('Content of tab 2')).not.toBeInTheDocument()
-        expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
+        expect(screen.getByText('Content of tab 2')).not.toBeVisible()
+        expect(screen.getByText('Content of tab 3')).not.toBeVisible()
 
         rerender(
             <Tabs selectedId="tab2">
@@ -105,9 +143,9 @@ describe('Tabs', () => {
             </Tabs>,
         )
 
-        expect(screen.queryByText('Content of tab 1')).not.toBeInTheDocument()
+        expect(screen.getByText('Content of tab 1')).not.toBeVisible()
         expect(screen.getByText('Content of tab 2')).toBeVisible()
-        expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
+        expect(screen.getByText('Content of tab 3')).not.toBeVisible()
 
         rerender(
             <Tabs selectedId="tab3">
@@ -122,8 +160,8 @@ describe('Tabs', () => {
             </Tabs>,
         )
 
-        expect(screen.queryByText('Content of tab 1')).not.toBeInTheDocument()
-        expect(screen.queryByText('Content of tab 2')).not.toBeInTheDocument()
+        expect(screen.getByText('Content of tab 1')).not.toBeVisible()
+        expect(screen.getByText('Content of tab 2')).not.toBeVisible()
         expect(screen.getByText('Content of tab 3')).toBeVisible()
     })
 })

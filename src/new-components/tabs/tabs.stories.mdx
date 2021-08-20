@@ -16,7 +16,15 @@ behaviour, see [ARIA: tab role](https://developer.mozilla.org/en-US/docs/Web/Acc
 
 🎨 [Figma](https://www.figma.com/file/LYlWNzvhMDh907l07mPPQk/Product-Web?node-id=4693%3A175143)
 
-export const Template = ({ color, variant, space, selectedId, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby }) => (
+export const Template = ({
+    color,
+    variant,
+    space,
+    selectedId,
+    render,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledby
+}) => (
     <Tabs color={color} variant={variant} selectedId={selectedId}>
         <TabList
             aria-label={ariaLabel}
@@ -27,17 +35,17 @@ export const Template = ({ color, variant, space, selectedId, 'aria-label': aria
             <Tab id="tab2">Tab 2</Tab>
             <Tab id="tab3">Tab 3</Tab>
         </TabList>
-        <TabPanel id="tab1">
+        <TabPanel id="tab1" render={render}>
             <Box paddingX="small" paddingY="xlarge">
                 <Text>Content of tab 1</Text>
             </Box>
         </TabPanel>
-        <TabPanel id="tab2">
+        <TabPanel id="tab2" render={render}>
             <Box paddingX="small" paddingY="xlarge">
                 <Text>Content of tab 2</Text>
             </Box>
         </TabPanel>
-        <TabPanel id="tab3">
+        <TabPanel id="tab3" render={render}>
             <Box paddingX="small" paddingY="xlarge">
                 <Text>Content of tab 3</Text>
             </Box>
@@ -66,6 +74,10 @@ export const Template = ({ color, variant, space, selectedId, 'aria-label': aria
           },
           space: {
               options: ['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge'],
+              control: { type: 'inline-radio' },
+          },
+          render: {
+              options: ['always', 'active', 'lazy'],
               control: { type: 'inline-radio' },
           },
         }}
