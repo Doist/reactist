@@ -134,7 +134,35 @@ describe('PasswordField', () => {
         userEvent.click(togglePasswordButton)
         expect(passwordField).toHaveAttribute('type', 'text')
 
-        userEvent.click(screen.getByRole('button', { name: 'Toggle password visibility' }))
+        userEvent.click(togglePasswordButton)
+        expect(passwordField).toHaveAttribute('type', 'password')
+    })
+
+    it('allows to customize the toggle password visibility button', () => {
+        render(
+            <PasswordField
+                data-testid="password-field"
+                label="Password"
+                togglePasswordLabel="Switch password visibility on/off"
+            />,
+        )
+
+        const passwordField = screen.getByTestId('password-field')
+
+        expect(
+            screen.queryByRole('button', { name: 'Toggle password visibility' }),
+        ).not.toBeInTheDocument()
+
+        const togglePasswordButton = screen.getByRole('button', {
+            name: 'Switch password visibility on/off',
+        })
+
+        expect(passwordField).toHaveAttribute('type', 'password')
+
+        userEvent.click(togglePasswordButton)
+        expect(passwordField).toHaveAttribute('type', 'text')
+
+        userEvent.click(togglePasswordButton)
         expect(passwordField).toHaveAttribute('type', 'password')
     })
 

@@ -94,35 +94,6 @@ function BaseField({
 
     const ariaDescribedBy = originalAriaDescribedBy ?? (hint ? hintId : undefined)
 
-    const fieldBox = (
-        <Box className={className} maxWidth={maxWidth} hidden={hidden}>
-            <Box
-                as="span"
-                display="flex"
-                justifyContent="spaceBetween"
-                alignItems="flexEnd"
-                paddingBottom="small"
-            >
-                <Text size="body" as="label" htmlFor={id}>
-                    {label ? <span className={styles.primaryLabel}>{label}</span> : null}
-                    {secondaryLabel ? (
-                        <span className={styles.secondaryLabel}>&nbsp;({secondaryLabel})</span>
-                    ) : null}
-                </Text>
-                {auxiliaryLabel ? (
-                    <Box className={styles.auxiliaryLabel} paddingLeft="small">
-                        {auxiliaryLabel}
-                    </Box>
-                ) : null}
-            </Box>
-            {children(ariaDescribedBy ? { id, 'aria-describedby': ariaDescribedBy } : { id })}
-        </Box>
-    )
-
-    if (!hint) {
-        return fieldBox
-    }
-
     return (
         <Stack space="small">
             <Box className={className} maxWidth={maxWidth} hidden={hidden}>
