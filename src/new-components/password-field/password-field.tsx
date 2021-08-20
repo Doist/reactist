@@ -14,7 +14,7 @@ import textFieldStyles from '../text-field/text-field.module.css'
 import type { TextFieldProps } from '../text-field'
 
 type PasswordFieldProps = Omit<TextFieldProps, 'type'> & {
-    togglePasswordLabel: string
+    togglePasswordLabel?: string
 }
 
 const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(function PasswordField(
@@ -24,8 +24,9 @@ const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(fun
         auxiliaryLabel,
         hint,
         maxWidth,
-        togglePasswordLabel,
+        togglePasswordLabel = 'Toggle password visibility',
         hidden,
+        'aria-describedby': ariaDescribedBy,
         ...props
     },
     ref,
@@ -50,6 +51,7 @@ const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(fun
             hint={hint}
             maxWidth={maxWidth}
             hidden={hidden}
+            aria-describedby={ariaDescribedBy}
         >
             {(extraProps) => (
                 <Box
