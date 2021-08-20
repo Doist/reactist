@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { VisuallyHidden } from 'reakit/VisuallyHidden'
+import { useForkRef } from 'reakit-utils'
 import { Box } from '../box'
 import { CheckboxIcon } from './checkbox-icon'
 
@@ -10,23 +11,31 @@ type CheckboxFieldProps = Omit<JSX.IntrinsicElements['input'], 'type' | 'classNa
     indeterminate?: boolean
 }
 
-function CheckboxField({
-    label,
-    style,
-    checked,
-    indeterminate = false,
-    ...props
-}: CheckboxFieldProps) {
+const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(function CheckboxField(
+    { label, disabled, indeterminate, defaultChecked, onChange, ...props },
+    ref,
+) {
+    const isControlledComponent = typeof props.checked === 'boolean'
+    if (typeof indeterminate === 'boolean' && !isControlledComponent) {
+        // eslint-disable-next-line no-console
+        console.warn('Cannot use indeterminate on an uncontrolled checkbox')
+        indeterminate = undefined
+    }
+
     if (!label && !props['aria-label'] && !props['aria-labelledby']) {
         // eslint-disable-next-line no-console
         console.warn('A Checkbox needs a label')
     }
 
-    const checkboxRef = React.useRef<HTMLInputElement>(null)
+    const [checkedState, setChecked] = React.useState(props.checked ?? defaultChecked ?? false)
+    const isChecked = props.checked ?? checkedState
+
+    const internalRef = React.useRef<HTMLInputElement>(null)
+    const combinedRef = useForkRef(internalRef, ref)
     React.useEffect(
         function setIndeterminate() {
-            if (checkboxRef.current) {
-                checkboxRef.current.indeterminate = indeterminate
+            if (internalRef.current && typeof indeterminate === 'boolean') {
+                internalRef.current.indeterminate = indeterminate
             }
         },
         [indeterminate],
@@ -39,24 +48,36 @@ function CheckboxField({
             alignItems="center"
             className={[
                 styles.container,
-                { [styles.checked]: checked },
+                disabled ? styles.disabled : null,
+                isChecked ? styles.checked : null,
                 'focus-marker-enabled-within',
             ]}
-            style={style}
         >
             <VisuallyHidden>
-                <input {...props} ref={checkboxRef} type="checkbox" checked={checked} />
+                <input
+                    {...props}
+                    ref={combinedRef}
+                    type="checkbox"
+                    checked={isChecked}
+                    disabled={disabled}
+                    onChange={(event) => {
+                        onChange?.(event)
+                        if (!event.defaultPrevented) {
+                            setChecked(event.currentTarget.checked)
+                        }
+                    }}
+                />
             </VisuallyHidden>
             <CheckboxIcon
                 aria-hidden
-                checked={checked}
+                checked={isChecked}
                 indeterminate={indeterminate}
-                disabled={props.disabled}
+                disabled={disabled}
             />
             {label ? <span>{label}</span> : null}
         </Box>
     )
-}
+})
 
 export { CheckboxField }
 export type { CheckboxFieldProps }
