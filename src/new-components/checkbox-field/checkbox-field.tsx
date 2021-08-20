@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { VisuallyHidden } from 'reakit/VisuallyHidden'
 import { useForkRef } from 'reakit-utils'
+import { HiddenVisually } from '../hidden-visually'
 import { Box } from '../box'
 import { CheckboxIcon } from './checkbox-icon'
 
@@ -53,7 +53,7 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
                 'focus-marker-enabled-within',
             ]}
         >
-            <VisuallyHidden>
+            <HiddenVisually>
                 <input
                     {...props}
                     ref={combinedRef}
@@ -67,7 +67,7 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
                         }
                     }}
                 />
-            </VisuallyHidden>
+            </HiddenVisually>
             <CheckboxIcon
                 aria-hidden
                 checked={isChecked}

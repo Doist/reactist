@@ -1,10 +1,10 @@
 import * as React from 'react'
-import { VisuallyHidden } from 'reakit/VisuallyHidden'
 import { Box } from '../box'
-import { FieldComponentProps, FieldHint } from '../base-field'
-import styles from './switch-field.module.css'
-import { useId } from '../common-helpers'
 import { Stack } from '../stack'
+import { HiddenVisually } from '../hidden-visually'
+import { FieldComponentProps, FieldHint } from '../base-field'
+import { useId } from '../common-helpers'
+import styles from './switch-field.module.css'
 
 type SwitchFieldProps = Omit<
     FieldComponentProps<HTMLInputElement>,
@@ -50,7 +50,7 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
                     flexShrink={0}
                     className={styles.toggle}
                 >
-                    <VisuallyHidden>
+                    <HiddenVisually>
                         <input
                             {...props}
                             id={id}
@@ -66,7 +66,7 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
                                 }
                             }}
                         />
-                    </VisuallyHidden>
+                    </HiddenVisually>
                     <span className={styles.handle} />
                 </Box>
                 <span className={styles.label}>{label}</span>
