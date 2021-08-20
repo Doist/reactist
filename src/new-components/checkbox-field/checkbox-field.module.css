@@ -1,3 +1,17 @@
+.container,
+.container * {
+    cursor: pointer;
+}
+
+.container.disabled,
+.container.disabled * {
+    cursor: not-allowed;
+}
+
+.container.disabled {
+    opacity: 0.5;
+}
+
 .container svg {
     color: var(--reactist-content-secondary);
     border-radius: 5px;
