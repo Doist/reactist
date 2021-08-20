@@ -125,6 +125,12 @@ type TabListProps = (
            */
           'aria-labelledby': string
       }
+    | {
+          /**
+           * For cases where multiple instances of the tab list exists, the duplicates may be marked as aria-hidden
+           */
+          'aria-hidden': boolean
+      }
 ) & {
     /**
      * A list of `<Tab>` elements

@@ -242,3 +242,42 @@ The following CSS custom properties are available so that the tabs' colors can b
         </Tabs>
     </Story>
 </Canvas>
+
+### Multiple `<TabList>` instances
+
+As long as they exist within the same `<Tabs>` component tree, multiple `<TabList>` instances can be rendered.
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="Multiple TabList instances"
+    >
+        <Tabs>
+            <TabList aria-label="Multiple tablist example tabs">
+                <Tab id="tab1">Tab 1</Tab>
+                <Tab id="tab2">Tab 2</Tab>
+                <Tab id="tab3">Tab 3</Tab>
+            </TabList>
+            <TabPanel id="tab1">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 1</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab2">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 2</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab3">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 3</Text>
+                </Box>
+            </TabPanel>
+            <TabList aria-hidden>
+                <Tab id="tab1">Tab 1</Tab>
+                <Tab id="tab2">Tab 2</Tab>
+                <Tab id="tab3">Tab 3</Tab>
+            </TabList>
+        </Tabs>
+    </Story>
+</Canvas>
