@@ -115,14 +115,14 @@ function Tab({ children, id }: TabProps): React.ReactElement | null {
 
 type TabListProps = (
     | {
-          /** Label the tab list for assistive technologies. This must be provided if `aria-labelledby` is omitted */
+          /** Labels the tab list for assistive technologies. This must be provided if `aria-labelledby` is omitted. */
           'aria-label': string
       }
     | {
           /**
-           * One or more element ID's used to label the tab list for assistive technologies. Required if
-           * `aria-label` is omitted
-           * */
+           * One or more element IDs used to label the tab list for assistive technologies. Required if
+           * `aria-label` is omitted.
+           */
           'aria-labelledby': string
       }
 ) & {

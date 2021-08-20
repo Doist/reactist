@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { Tabs, Tab, TabList, TabPanel } from './'
 
 describe('Tabs', () => {
-    it("allows each TabPanel's visibility controlled by each tab", () => {
+    it("allows each TabPanel's visibility to be controlled by its corresponding tab", () => {
         render(
             <Tabs>
                 <TabList aria-label="test-tabs">
