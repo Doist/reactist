@@ -1,9 +1,20 @@
-.container.disabled label {
-    opacity: 0.5;
+.container,
+.container * {
+    cursor: pointer;
+}
+
+.container.disabled,
+.container.disabled * {
     cursor: not-allowed;
 }
 
-.inputWrapper {
+/* when disabled we dim the label, but we only dim the toggle if it's checked */
+.container.disabled .label,
+.container.disabled.checked .toggle {
+    opacity: 0.5;
+}
+
+.toggle {
     --tmp-switch-width: 32px;
     --tmp-switch-height: 18px; /* should never be much more than half the width */
     --tmp-inner-padding: 3px; /* should always be really small, probably never more than 4px */
@@ -12,23 +23,12 @@
         var(--tmp-switch-width) - var(--tmp-handle-size) - var(--tmp-inner-padding)
     );
 
-    position: relative;
-    display: inline-block;
-    overflow: visible;
-    margin-right: 10px;
     width: var(--tmp-switch-width);
     height: var(--tmp-switch-height);
     min-height: auto;
     border-radius: calc(var(--tmp-switch-height) / 2);
     background-color: var(--reactist-framework-fill-summit);
     cursor: pointer;
-    flex-shrink: 0;
-}
-
-/* hide input only visually, keep it visible for screen readers and keyboard access */
-.inputWrapper input {
-    position: absolute;
-    opacity: 0;
 }
 
 .handle {
@@ -45,10 +45,10 @@
     transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.inputWrapper.checked {
+.checked .toggle {
     background-color: var(--reactist-switch-checked);
 }
 
-.inputWrapper.checked .handle {
+.checked .toggle .handle {
     left: var(--tmp-slide-length);
 }
