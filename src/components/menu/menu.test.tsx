@@ -90,7 +90,7 @@ it("calls the onSelect and the menu's onItemSelect with the value when menu item
     expect(onSelect).toHaveBeenCalledTimes(2)
 })
 
-it('allows to navigate through the menu items using the keyboard', async () => {
+it('allows to navigate through the menu items using the keyboard', () => {
     const onItemSelect = jest.fn()
     const onSelect = jest.fn<void, [string]>()
 
@@ -111,7 +111,7 @@ it('allows to navigate through the menu items using the keyboard', async () => {
         </Menu>,
     )
 
-    await userEvent.type(screen.getByRole('button', { name: 'Options menu' }), '{enter}')
+    userEvent.type(screen.getByRole('button', { name: 'Options menu' }), '{enter}')
     fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
     expect(screen.getByRole('menuitem', { name: '1st option' })).toHaveFocus()
     fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })

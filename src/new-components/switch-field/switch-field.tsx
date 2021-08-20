@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Box } from '../box'
-import { BaseFieldProps, FieldHint } from '../base-field'
+import { FieldComponentProps, FieldHint } from '../base-field'
 import styles from './switch-field.module.css'
 import { useId } from '../common-helpers'
 
@@ -9,7 +9,7 @@ function join(...args: Array<string | null | undefined>) {
     return list.length > 0 ? list.join(' ') : undefined
 }
 
-type SwitchFieldProps = BaseFieldProps<HTMLInputElement>
+type SwitchFieldProps = FieldComponentProps<HTMLInputElement>
 
 function SwitchField({
     label,
