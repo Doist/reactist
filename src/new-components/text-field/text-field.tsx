@@ -1,12 +1,28 @@
 import * as React from 'react'
-import { BaseField, BaseFieldProps } from '../base-field'
+import { BaseField } from '../base-field'
 import { Box } from '../box'
 import styles from './text-field.module.css'
+import type { FieldComponentProps } from '../base-field'
 
-type TextFieldProps = BaseFieldProps<HTMLInputElement>
+type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
+
+type TextFieldProps = Omit<FieldComponentProps<HTMLInputElement>, 'type'> & {
+    type?: TextFieldType
+}
 
 const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
-    { id, label, secondaryLabel, auxiliaryLabel, hint, type = 'text', maxWidth, hidden, ...props },
+    {
+        id,
+        label,
+        secondaryLabel,
+        auxiliaryLabel,
+        hint,
+        type = 'text',
+        maxWidth,
+        hidden,
+        'aria-describedby': ariaDescribedBy,
+        ...props
+    },
     ref,
 ) {
     return (
@@ -18,6 +34,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
             hint={hint}
             maxWidth={maxWidth}
             hidden={hidden}
+            aria-describedby={ariaDescribedBy}
         >
             {(extraProps) => (
                 <Box className={styles.inputWrapper}>
@@ -29,4 +46,4 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
 })
 
 export { TextField }
-export type { TextFieldProps }
+export type { TextFieldProps, TextFieldType }
