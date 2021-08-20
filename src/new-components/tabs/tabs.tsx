@@ -207,4 +207,22 @@ function TabPanel({ children, id, render = 'always' }: TabPanelProps): React.Rea
     )
 }
 
-export { Tabs, TabList, Tab, TabPanel }
+type TabAwareSlotProps = {
+    /**
+     * Render prop used to provide the content to be rendered inside the slot. The render prop will be
+     * called with the current `selectedId`
+     */
+    children: (provided: { selectedId?: string | null }) => React.ReactElement | null
+}
+
+/**
+ * Allows content to be rendered based on the current tab being selected while outside of the TabPanel
+ * component. Can be placed freely within the main `<Tabs>` component.
+ */
+function TabAwareSlot({ children }: TabAwareSlotProps): React.ReactElement | null {
+    const tabContextValue = React.useContext(TabsContext)
+
+    return tabContextValue ? children({ selectedId: tabContextValue.selectedId }) : null
+}
+
+export { Tabs, TabList, Tab, TabPanel, TabAwareSlot }

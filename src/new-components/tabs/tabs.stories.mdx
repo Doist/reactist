@@ -1,7 +1,8 @@
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
-import { Tabs, TabList, Tab, TabPanel } from './tabs'
+import { Tabs, TabList, Tab, TabPanel, TabAwareSlot } from './tabs'
 import { Box } from '../box'
 import { Text } from '../text'
+import { Columns, Column } from '../columns'
 
 <Meta
     title="Components/Tabs"
@@ -107,6 +108,12 @@ export const Template = ({
 <Description of={TabPanel} />
 <ArgsTable of={TabPanel} />
 
+
+## `<TabAwareSlot>`
+
+<Description of={TabAwareSlot} />
+<ArgsTable of={TabAwareSlot} />
+
 ## Colors
 
 The following CSS custom properties are available so that the tabs' colors can be customized:
@@ -183,5 +190,55 @@ The following CSS custom properties are available so that the tabs' colors can b
         name="Plain variant"
     >
         {Template.bind({})}
+    </Story>
+</Canvas>
+
+### Using the `<TabAwareSlot>` component
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="Using the TabAwareSlot component"
+    >
+        <Tabs>
+            <Columns>
+                <Column width="content">
+                    <TabList  aria-label="TabAwareSlot example tabs">
+                        <Tab id="tab1">Tab 1</Tab>
+                        <Tab id="tab2">Tab 2</Tab>
+                        <Tab id="tab3">Tab 3</Tab>
+                    </TabList>
+                </Column>
+                <Column>
+                    <TabAwareSlot>
+                        {({ selectedId }) => (
+                            <Box
+                                height="full"
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="flexEnd"
+                            >
+                                <Text>Currently showing the {selectedId} tab</Text>
+                            </Box>
+                        )}
+                    </TabAwareSlot>
+                </Column>
+            </Columns>
+            <TabPanel id="tab1">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 1</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab2">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 2</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab3">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 3</Text>
+                </Box>
+            </TabPanel>
+        </Tabs>
     </Story>
 </Canvas>

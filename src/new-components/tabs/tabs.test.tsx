@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { screen, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Tabs, Tab, TabList, TabPanel } from './'
+import { Tabs, Tab, TabList, TabPanel, TabAwareSlot } from './'
 
 describe('Tabs', () => {
     it("allows each TabPanel's visibility to be controlled by its corresponding tab", () => {
@@ -163,5 +163,32 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 1')).not.toBeVisible()
         expect(screen.getByText('Content of tab 2')).not.toBeVisible()
         expect(screen.getByText('Content of tab 3')).toBeVisible()
+    })
+
+    it("calls TabAwareSlot's render prop with the current selectedId", () => {
+        render(
+            <Tabs>
+                <TabList aria-label="test-tabs">
+                    <Tab id="tab1">Tab 1</Tab>
+                    <Tab id="tab2">Tab 2</Tab>
+                    <Tab id="tab3">Tab 3</Tab>
+                </TabList>
+                <TabAwareSlot>
+                    {({ selectedId }) => <p>Currently rendering {selectedId}</p>}
+                </TabAwareSlot>
+                <TabPanel id="tab1">Content of tab 1</TabPanel>
+                <TabPanel id="tab2">Content of tab 2</TabPanel>
+                <TabPanel id="tab3">Content of tab 3</TabPanel>
+            </Tabs>,
+        )
+
+        expect(screen.getByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
+        expect(screen.getByText('Currently rendering tab1')).toBeVisible()
+
+        userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        expect(screen.getByText('Currently rendering tab2')).toBeVisible()
+
+        userEvent.click(screen.getByRole('tab', { name: 'Tab 3' }))
+        expect(screen.getByText('Currently rendering tab3')).toBeVisible()
     })
 })
