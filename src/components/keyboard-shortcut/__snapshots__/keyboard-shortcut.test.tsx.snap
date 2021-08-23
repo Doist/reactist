@@ -82,6 +82,35 @@ exports[`KeyboardShortcut only capitalizes a non-modifier part if the overall sh
 </div>
 `;
 
+exports[`KeyboardShortcut recognizes "Super" as a special key to be translated 1`] = `
+<div>
+  <span
+    class="reactist_keyboard_shortcut"
+  >
+    <kbd>
+      <kbd>
+        [super]
+      </kbd>
+      <kbd>
+        q
+      </kbd>
+    </kbd>
+  </span>
+  <span
+    class="reactist_keyboard_shortcut reactist_keyboard_shortcut--macos"
+  >
+    <kbd>
+      <kbd>
+        Super
+      </kbd>
+      <kbd>
+        q
+      </kbd>
+    </kbd>
+  </span>
+</div>
+`;
+
 exports[`KeyboardShortcut recognizes mod/cmd as a modifier that behaves differently in macOS and outside macOS 1`] = `
 <div>
   <span

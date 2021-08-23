@@ -45,7 +45,7 @@ function hasModifiers(str: string) {
 }
 
 function isSpecialKey(str: string) {
-    return /^(mod|cmd|ctrl|control|alt|shift|space)$/i.test(str)
+    return /^(mod|cmd|ctrl|control|alt|shift|space|super)$/i.test(str)
 }
 
 function parseKeys(shortcut: string, isMac: boolean, translateKey: TranslateKey) {

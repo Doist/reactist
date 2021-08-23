@@ -37,6 +37,10 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 -   [Docs] Upgraded all beta storybook docs to work with Storybook 6
 
+## 9.1.6
+
+-   [Feature] Change `KeyboardShortcut` to treat `Super` as a key to be translated
+
 ## 9.1.5
 
 -   [Fix] Prevent menu items with `aria-disabled` set to `false` from being disabled
