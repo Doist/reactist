@@ -1,0 +1,24 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import { usePrevious } from './use-previous'
+
+<Meta
+    title="Hooks/usePrevious"
+    component={usePrevious}
+/>
+
+# usePrevious
+
+`usePrevious` tracks the change of the given value - when a given value has been changed
+from a previous call, it will return the value prior to the change.
+
+```TypeScript
+import { usePrevious } from '@doist/reactist'
+
+const [x, setX] = useState(1)
+const prevX = usePrevious(x)
+
+setX(2)
+
+console.log(x) // -> 2
+console.log(prevX) // -> 1
+```

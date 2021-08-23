@@ -1,0 +1,283 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
+import { Tabs, TabList, Tab, TabPanel, TabAwareSlot } from './tabs'
+import { Box } from '../box'
+import { Text } from '../text'
+import { Columns, Column } from '../columns'
+
+<Meta
+    title="Design system/Tabs"
+    component={Tabs}
+/>
+
+# Tabs
+
+A set of components that allow tabs to be rendered, which controls the visibility of their corresponding tab panels.
+This component is powered by [Reakit's Tab component](https://reakit.io/docs/tab). For more details of its expected
+behaviour, see [ARIA: tab role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role).
+
+🎨 [Figma](https://www.figma.com/file/LYlWNzvhMDh907l07mPPQk/Product-Web?node-id=4693%3A175143)
+
+export const Template = ({
+    color,
+    variant,
+    space,
+    selectedId,
+    render,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledby
+}) => (
+    <Tabs color={color} variant={variant} selectedId={selectedId}>
+        <TabList
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledby}
+            space={space}
+        >
+            <Tab id="tab1">Tab 1</Tab>
+            <Tab id="tab2">Tab 2</Tab>
+            <Tab id="tab3">Tab 3</Tab>
+        </TabList>
+        <TabPanel id="tab1" render={render}>
+            <Box paddingX="small" paddingY="xlarge">
+                <Text>Content of tab 1</Text>
+            </Box>
+        </TabPanel>
+        <TabPanel id="tab2" render={render}>
+            <Box paddingX="small" paddingY="xlarge">
+                <Text>Content of tab 2</Text>
+            </Box>
+        </TabPanel>
+        <TabPanel id="tab3" render={render}>
+            <Box paddingX="small" paddingY="xlarge">
+                <Text>Content of tab 3</Text>
+            </Box>
+        </TabPanel>
+    </Tabs>
+)
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        args={{
+            'aria-label': 'Main demo for Tabs',
+        }}
+        argTypes={{
+          selectedId: {
+              options: ['tab1', 'tab2', 'tab3', null, undefined],
+              control: { type: 'inline-radio' },
+          },
+          variant: {
+              options: ['normal', 'plain'],
+              control: { type: 'inline-radio' },
+          },
+          color: {
+              options: ['primary', 'secondary', 'tertiary'],
+              control: { type: 'inline-radio' },
+          },
+          space: {
+              options: ['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge'],
+              control: { type: 'inline-radio' },
+          },
+          render: {
+              options: ['always', 'active', 'lazy'],
+              control: { type: 'inline-radio' },
+          },
+        }}
+        name="Main demo"
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## `<Tabs>`
+
+<Description of={Tabs} />
+<ArgsTable of={Tabs} />
+
+## `<TabList>`
+
+<Description of={TabList} />
+<ArgsTable of={TabList} />
+
+## `<Tab>`
+
+<Description of={Tab} />
+<ArgsTable of={Tab} />
+
+## `<TabPanel>`
+
+<Description of={TabPanel} />
+<ArgsTable of={TabPanel} />
+
+
+## `<TabAwareSlot>`
+
+<Description of={TabAwareSlot} />
+<ArgsTable of={TabAwareSlot} />
+
+## Colors
+
+The following CSS custom properties are available so that the tabs' colors can be customized:
+
+```
+--reactist-tab-primary-background
+--reactist-tab-primary-foreground
+--reactist-tab-primary-unselected
+
+--reactist-tab-secondary-background
+--reactist-tab-secondary-foreground
+--reactist-tab-secondary-unselected
+
+--reactist-tab-tertiary-background
+--reactist-tab-tertiary-foreground
+--reactist-tab-tertiary-unselected
+```
+
+## Stories
+
+### Primary color
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        args={{
+            'aria-label': 'Tabs with primary color style',
+        }}
+        name="Primary color"
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+### Secondary color
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        args={{
+            'aria-label': 'Tabs with secondary color style',
+            color: 'secondary',
+        }}
+        name="Secondary color"
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+### Tertiary color
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        args={{
+            'aria-label': 'Tabs with tertiary color style',
+            color: 'tertiary',
+        }}
+        name="Tertiary color"
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+### Plain variant
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        args={{
+            'aria-label': 'Tabs with plain variant style',
+            variant: 'plain',
+        }}
+        name="Plain variant"
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+### Using the `<TabAwareSlot>` component
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="Using the TabAwareSlot component"
+    >
+        <Tabs>
+            <Columns>
+                <Column width="content">
+                    <TabList  aria-label="TabAwareSlot example tabs">
+                        <Tab id="tab1">Tab 1</Tab>
+                        <Tab id="tab2">Tab 2</Tab>
+                        <Tab id="tab3">Tab 3</Tab>
+                    </TabList>
+                </Column>
+                <Column>
+                    <TabAwareSlot>
+                        {({ selectedId }) => (
+                            <Box
+                                height="full"
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="flexEnd"
+                            >
+                                <Text>Currently showing the {selectedId} tab</Text>
+                            </Box>
+                        )}
+                    </TabAwareSlot>
+                </Column>
+            </Columns>
+            <TabPanel id="tab1">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 1</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab2">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 2</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab3">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 3</Text>
+                </Box>
+            </TabPanel>
+        </Tabs>
+    </Story>
+</Canvas>
+
+### Multiple `<TabList>` instances
+
+As long as they exist within the same `<Tabs>` component tree, multiple `<TabList>` instances can be rendered.
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="Multiple TabList instances"
+    >
+        <Tabs>
+            <TabList aria-label="Multiple tablist example tabs">
+                <Tab id="tab1">Tab 1</Tab>
+                <Tab id="tab2">Tab 2</Tab>
+                <Tab id="tab3">Tab 3</Tab>
+            </TabList>
+            <TabPanel id="tab1">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 1</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab2">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 2</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab3">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 3</Text>
+                </Box>
+            </TabPanel>
+            <TabList aria-hidden>
+                <Tab id="tab1">Tab 1</Tab>
+                <Tab id="tab2">Tab 2</Tab>
+                <Tab id="tab3">Tab 3</Tab>
+            </TabList>
+        </Tabs>
+    </Story>
+</Canvas>

@@ -28,6 +28,12 @@ export * from './new-components/switch-field'
 export * from './new-components/text-area'
 export * from './new-components/text-field'
 
+// other components
+export * from './new-components/tabs'
+
+// hooks
+export * from './hooks/use-previous'
+
 //
 // components not yet integrated with the design system
 //
@@ -51,6 +57,5 @@ export { default as Select } from './components/select'
 export { default as Time } from './components/time'
 export { default as Tip } from './components/tip'
 export { Notification } from './components/notification/notification'
-export { Tabs, Tab } from './components/tabs'
 export { Tooltip, TooltipProps } from './components/tooltip'
 export * from './components/menu'
