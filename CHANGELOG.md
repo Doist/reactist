@@ -2,6 +2,12 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v9.2.0-beta.17
+
+-   [Feature] Introduces a new `Tabs` component based on [Reakit/Tab](https://reakit.io/docs/tab/)
+
+Also included are changes from https://github.com/Doist/reactist/releases/tag/v9.1.6
+
 ## v9.2.0-beta.16
 
 -   [Fix] Allows classname to be passed through on ButtonLink.
