@@ -2,6 +2,23 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v9.2.0-beta.18
+
+-   [Breaking] Component composition changed to use prop `as="…"` instead of `component="…"`.
+-   [Breaking] Most design system components no longer support receiving a `className` attribute.
+-   [Breaking] Some design system components now support a custom class name via a `exceptionallySetClassName` prop.
+-   [Breaking] Responsive props are now provided via an object instead of an array.
+-   [Feature] The `Box` component now has a various `margin*` props to provide its margins similar to paddings.
+-   [Feature] The `Box` component now has a new `maxWidth` value `full` (i.e.`maxWidth="full"`).
+-   [Feature] The `Box` component now has a new `textAlign` prop to control its `text-align` style.
+-   [Feature] The `Text` and `Heading` components now have a `align` prop to align its content horizontally.
+-   [Feature] The `Stack` component now has a `align` prop to align its items horizontally.
+-   [Feature] Add new component `Hidden` to hide content under certain media conditions.
+-   [Feature] Add new component `HiddenVisually` to hide content visually while keeping it accessible.
+-   [Feature] The `SwitchField` and `CheckboxField` components can now be controlled or uncontrolled.
+-   [Fix] The `SwitchField` hover state is no longer flaky.
+-   [Fix] The hint text in various field components (`TextField`, `PasswordField`, `SelectField`) now renders outside the max-width container.
+
 ## v9.2.0-beta.17
 
 -   [Feature] Introduces a new `Tabs` component based on [Reakit/Tab](https://reakit.io/docs/tab/)
