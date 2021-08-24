@@ -126,6 +126,7 @@
     },
     "dependencies": {
         "@types/testing-library__jest-dom": "^5.14.1",
+        "@reach/dialog": "^0.16.0",
         "dayjs": "^1.8.10",
         "patch-package": "^6.4.6",
         "react-keyed-flatten-children": "^1.3.0",
