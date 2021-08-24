@@ -50,13 +50,9 @@ describe('Columns', () => {
         expect(screen.getByTestId('container')).toHaveClass('right')
     })
 
-    it('renders as a flex row container that grows to fill the width if inside a flex parent', () => {
+    it('renders as a flex row container', () => {
         render(<Columns data-testid="container" />)
-        expect(screen.getByTestId('container')).toHaveClass(
-            'display-flex',
-            'flexDirection-row',
-            'flexGrow-1',
-        )
+        expect(screen.getByTestId('container')).toHaveClass('display-flex', 'flexDirection-row')
     })
 
     it('applies some extra class names corresponding to other layout-related props', () => {
