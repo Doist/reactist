@@ -53,6 +53,10 @@ interface ReusableBoxProps extends BorderProps, BoxPaddingProps {
     minWidth?: 0 | BoxMaxMinWidth
     maxWidth?: BoxMaxMinWidth | 'full'
     background?: 'default' | 'aside' | 'highlight' | 'selected'
+    flexGrow?: 0 | 1
+    flexShrink?: 0
+    width?: 'full'
+    height?: 'full'
 }
 
 type BoxPosition = 'absolute' | 'fixed' | 'relative' | 'static' | 'sticky'
@@ -62,8 +66,6 @@ interface BoxProps extends WithEnhancedClassName, ReusableBoxProps, BoxMarginPro
     display?: ResponsiveProp<BoxDisplay>
     flexDirection?: ResponsiveProp<BoxFlexDirection>
     flexWrap?: BoxFlexWrap
-    flexGrow?: 0 | 1
-    flexShrink?: 0
     alignItems?: ResponsiveProp<BoxAlignItems>
     justifyContent?: ResponsiveProp<BoxJustifyContent>
     overflow?: BoxOverflow
