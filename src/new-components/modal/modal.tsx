@@ -115,6 +115,7 @@ function Modal({
             onDismiss={onDismiss}
             dangerouslyBypassFocusLock // We're setting up our own focus lock below
             className={classNames(styles.overlay, styles[height], styles[width])}
+            data-testid="modal-overlay"
         >
             <FocusLock autoFocus={autoFocus} whiteList={isInternalFrame}>
                 <DialogContent

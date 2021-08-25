@@ -11,7 +11,7 @@ describe('Modal', () => {
                 <button type="button" onClick={() => setOpen(true)}>
                     Click me
                 </button>
-                <Modal isOpen={isOpen} aria-label="modal">
+                <Modal isOpen={isOpen} onDismiss={() => setOpen(false)} aria-label="modal">
                     <button type="button" onClick={() => setOpen(false)}>
                         Close me
                     </button>
@@ -79,9 +79,7 @@ describe('Modal', () => {
         expect(screen.getByRole('button', { name: 'Click me' })).toBeInTheDocument()
     })
 
-    // The test below should work, but it isn't
-    // eslint-disable-next-line jest/no-disabled-tests
-    it.skip('is dismissed when clicking in the overlay', () => {
+    it('is dismissed when clicking in the overlay', () => {
         render(<TestCaseWithState />)
         userEvent.click(screen.getByRole('button', { name: 'Click me' }))
         expect(screen.getByRole('dialog', { name: 'modal' })).toBeInTheDocument()
