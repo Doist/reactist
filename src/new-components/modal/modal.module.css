@@ -26,6 +26,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: var(--reactist-stacking-order-modal, 1);
 }
 
 [data-reach-dialog-overlay] > [data-focus-lock-disabled] {

@@ -1,0 +1,262 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
+
+import { Column, Columns } from '../columns'
+import { Text } from '../text'
+import { Heading } from '../heading'
+import { Inline } from '../inline'
+import { Stack } from '../stack'
+import { Box } from '../box'
+import { Tabs, Tab, TabList, TabPanel } from '../tabs'
+
+import * as ModalComponents from './modal'
+
+import {
+    ModalStoryStateProvider,
+    ModalOptionsForm,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    ModalActions,
+    Button,
+    Link,
+    ScrollableContent,
+} from './modal-stories-components'
+
+<Meta title="Design system/Modal" component={ModalComponents.Modal} />
+
+# Modal
+
+A set of components that allow tabs to be rendered, which controls the visibility of their corresponding tab panels.
+This component is powered by [Reach UI's Dialog](https://reach.tech/dialog/). For more details of its expected
+behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/dialog_role).
+
+🎨 [Figma](https://www.figma.com/file/LYlWNzvhMDh907l07mPPQk/Product-Web?node-id=1802%3A648)
+
+## `<Modal>`
+
+<Description of={ModalComponents.Modal} />
+<ArgsTable of={ModalComponents.Modal} />
+
+## `<ModalHeader>`
+
+<Description of={ModalComponents.ModalHeader} />
+<ArgsTable of={ModalComponents.ModalHeader} />
+
+## `<ModalCloseButton>`
+
+<Description of={ModalComponents.ModalCloseButton} />
+<ArgsTable of={ModalComponents.ModalCloseButton} />
+
+## `<ModalBody>`
+
+<Description of={ModalComponents.ModalBody} />
+<ArgsTable of={ModalComponents.ModalBody} />
+
+## `<ModalFooter>`
+
+<Description of={ModalComponents.ModalFooter} />
+<ArgsTable of={ModalComponents.ModalFooter} />
+
+## `<ModalActions>`
+
+<Description of={ModalComponents.ModalActions} />
+<ArgsTable of={ModalComponents.ModalActions} />
+
+## Stories
+
+### Modal with standard actions footer
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="Modal with standard actions footer"
+    >
+        <ModalStoryStateProvider>
+            <Button variant="primary">Open modal</Button>
+            <Modal aria-label="Modal with standard actions footer">
+                <ModalHeader>
+                    <Heading level="1">Modal with standard actions footer</Heading>
+                </ModalHeader>
+                <ModalBody>
+                    <ModalOptionsForm title={<Heading level="2">Customize modal</Heading>} />
+                </ModalBody>
+                <ModalActions>
+                    <Button variant="primary">Save</Button>
+                    <Button variant="secondary">Cancel</Button>
+                </ModalActions>
+            </Modal>
+        </ModalStoryStateProvider>
+    </Story>
+</Canvas>
+
+### Modal with header, body and custom footer
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="Modal with header, body and custom footer"
+    >
+        <ModalStoryStateProvider>
+            <Button variant="primary">Open modal</Button>
+            <Modal aria-label="Modal with header, body and custom footer">
+                <ModalHeader>
+                    <Heading level="1">Modal with header, body and custom footer</Heading>
+                </ModalHeader>
+                <ModalBody>
+                    <ModalOptionsForm title={<Heading level="2">Customize modal</Heading>} />
+                </ModalBody>
+                <ModalFooter>
+                    <Columns alignY="center">
+                        <Column width="auto">
+                            <Text weight="bold" size="subtitle">
+                                Do whatever you want down here
+                            </Text>
+                        </Column>
+                        <Column width="content">
+                            <Button variant="primary">Close</Button>
+                        </Column>
+                    </Columns>
+                </ModalFooter>
+            </Modal>
+        </ModalStoryStateProvider>
+    </Story>
+</Canvas>
+
+### Modal with a sidebar
+
+<Canvas withToolbar>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Modal with a sidebar">
+        <ModalStoryStateProvider>
+            <Button variant="primary">Open modal</Button>
+            <Modal aria-label="Modal with a settings-like custom layout">
+                <Columns height="full">
+                    <Column width="content">
+                        <Box height="full" background="selected">
+                            <Box padding="medium">
+                                <Heading level="1">Settings</Heading>
+                            </Box>
+                            <Stack as="ul" space="small" padding="medium" paddingRight="xxlarge">
+                                <li>
+                                    <Link href="/account">Account</Link>
+                                </li>
+                                <li>
+                                    <Link href="/subscription">Subscription</Link>
+                                </li>
+                                <li>
+                                    <Link href="/preferences">Preferences</Link>
+                                </li>
+                            </Stack>
+                        </Box>
+                    </Column>
+                    <Column width="auto">
+                        <Box height="full" display="flex" flexDirection="column">
+                            <ModalHeader>
+                                <Heading level="2">Customize modal</Heading>
+                            </ModalHeader>
+                            <ModalBody>
+                                <ModalOptionsForm />
+                            </ModalBody>
+                            <ModalActions>
+                                <Button variant="primary">Close</Button>
+                            </ModalActions>
+                        </Box>
+                    </Column>
+                </Columns>
+            </Modal>
+        </ModalStoryStateProvider>
+    </Story>
+</Canvas>
+
+### Modal with scrollable tab panels
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="Modal with scrollable tab panels"
+    >
+        <ModalStoryStateProvider>
+            <Button variant="primary">Open modal</Button>
+            <Modal aria-label="Modal with scrollable tab panels">
+                <ModalHeader>
+                    <Link href="/">Project name</Link>
+                </ModalHeader>
+                <Box
+                    overflow="hidden"
+                    height="full"
+                    padding="large"
+                    paddingTop="small"
+                    display="flex"
+                    flexDirection="column"
+                >
+                    <Stack space="medium" paddingBottom="xxlarge">
+                        <Heading level="1">Task content goest here</Heading>
+                        <Inline space="medium">
+                            <button type="button">Schedule</button>
+                            <button type="button">Labels</button>
+                            <button type="button">Project</button>
+                            <button type="button">Priority</button>
+                        </Inline>
+                    </Stack>
+                    <Tabs variant="plain">
+                        <Box
+                            paddingBottom="large"
+                            style={{
+                                borderBottom: '1px solid var(--reactist-framework-separator)',
+                            }}
+                        >
+                            <TabList aria-label="Multiple tablist example tabs">
+                                <Tab id="tab1">Sub-tasks</Tab>
+                                <Tab id="tab2">Comments</Tab>
+                                <Tab id="tab3">Activity</Tab>
+                            </TabList>
+                        </Box>
+                        <Box height="full" overflow="auto">
+                            <TabPanel id="tab1">
+                                <Box paddingX="small" paddingY="xlarge">
+                                    <ScrollableContent label="Task" count={20} />
+                                </Box>
+                            </TabPanel>
+                            <TabPanel id="tab2">
+                                <Box paddingX="small" paddingY="xlarge">
+                                    <ScrollableContent label="Comment" count={10} />
+                                </Box>
+                            </TabPanel>
+                            <TabPanel id="tab3">
+                                <Box paddingX="small" paddingY="xlarge">
+                                    <ScrollableContent label="Activity" count={5} />
+                                </Box>
+                            </TabPanel>
+                        </Box>
+                    </Tabs>
+                </Box>
+            </Modal>
+        </ModalStoryStateProvider>
+    </Story>
+</Canvas>
+
+### Minimalistic confirmation dialog
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="Minimalistic confirmation dialog"
+    >
+        <ModalStoryStateProvider>
+            <Button variant="primary">Open modal</Button>
+            <Modal aria-label="Confirmation dialog" width="small">
+                <Box padding="large">
+                    <Text size="subtitle">Are you sure you want to leave?</Text>
+                </Box>
+                <ModalActions>
+                    <Button variant="primary" size="small">
+                        Yes, leave
+                    </Button>
+                    <Button variant="secondary" size="small">
+                        Cancel
+                    </Button>
+                </ModalActions>
+            </Modal>
+        </ModalStoryStateProvider>
+    </Story>
+</Canvas>

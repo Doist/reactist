@@ -114,7 +114,6 @@ function Modal({
             isOpen={isOpen}
             onDismiss={onDismiss}
             dangerouslyBypassFocusLock // We're setting up our own focus lock below
-            onClick={onDismiss}
             className={classNames(styles.overlay, styles[height], styles[width])}
         >
             <FocusLock autoFocus={autoFocus} whiteList={isInternalFrame}>
@@ -188,6 +187,7 @@ type ModalHeaderProps = DivProps & {
     button?: React.ReactNode | boolean
     /**
      * Whether to render a divider line below the header.
+     * @default false
      */
     withDivider?: boolean
     /**
@@ -290,6 +290,7 @@ type ModalFooterProps = DivProps & {
     children: React.ReactNode
     /**
      * Whether to render a divider line below the footer.
+     * @default false
      */
     withDivider?: boolean
     /**
