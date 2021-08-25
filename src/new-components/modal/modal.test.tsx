@@ -143,9 +143,9 @@ describe('ModalHeader', () => {
 
     it('optionally renders a divider', () => {
         const { rerender } = render(<ModalHeader>Hello</ModalHeader>)
-        expect(screen.getByRole('separator')).toBeInTheDocument()
-        rerender(<ModalHeader withDivider={false}>Hello</ModalHeader>)
         expect(screen.queryByRole('separator')).not.toBeInTheDocument()
+        rerender(<ModalHeader withDivider>Hello</ModalHeader>)
+        expect(screen.getByRole('separator')).toBeInTheDocument()
     })
 })
 
@@ -184,9 +184,9 @@ describe('ModalFooter', () => {
 
     it('optionally renders a divider', () => {
         const { rerender } = render(<ModalFooter>Hello</ModalFooter>)
-        expect(screen.getByRole('separator')).toBeInTheDocument()
-        rerender(<ModalFooter withDivider={false}>Hello</ModalFooter>)
         expect(screen.queryByRole('separator')).not.toBeInTheDocument()
+        rerender(<ModalFooter withDivider>Hello</ModalFooter>)
+        expect(screen.getByRole('separator')).toBeInTheDocument()
     })
 })
 

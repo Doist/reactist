@@ -37,6 +37,7 @@ function useModalState() {
 
 type CustomizableModalProps = Pick<ModalProps, 'width' | 'height'> & {
     button: 'true' | 'false' | 'custom'
+    withScrollableContent: boolean
 }
 
 function useModalProps() {
@@ -44,16 +45,19 @@ function useModalProps() {
         width: 'medium',
         height: 'expand',
         button: 'true',
+        withScrollableContent: false,
     })
 
     const onChange = React.useCallback(function onChange(
         event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     ) {
-        const { name, value } = event.currentTarget
-        setProps((props) => ({
-            ...props,
-            [name]: value, // eslint-disable-line @typescript-eslint/no-unsafe-assignment
-        }))
+        const element = event.currentTarget
+        const name = element.name
+        const value =
+            element instanceof HTMLInputElement && element.type === 'checkbox'
+                ? element.checked
+                : element.value
+        setProps((props) => ({ ...props, [name]: value }))
     },
     [])
 
@@ -78,8 +82,6 @@ function ModalPropsFields({
     title?: React.ReactNode
     onChange: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement>
 }) {
-    const [scrollableContent, setScrollableContent] = React.useState(false)
-
     return (
         <Stack space="large">
             {title}
@@ -107,13 +109,14 @@ function ModalPropsFields({
             </SelectField>
 
             <SwitchField
+                name="withScrollableContent"
                 label="Extra content to scroll"
                 hint='When height="expanded" you can select to generate artificial content to make the body scroll'
-                checked={scrollableContent}
-                onChange={(event) => setScrollableContent(event.currentTarget.checked)}
+                checked={props.withScrollableContent}
+                onChange={onChange}
             />
 
-            {scrollableContent ? <ScrollableContent /> : null}
+            {props.withScrollableContent ? <ScrollableContent /> : null}
         </Stack>
     )
 }
@@ -135,7 +138,7 @@ function renderHeaderButton(button: CustomizableModalProps['button']) {
 
 export function WithHeaderBodyAndActions() {
     const modal = useModalState()
-    const { onChange, button, ...props } = useModalProps()
+    const { onChange, button, withScrollableContent, ...props } = useModalProps()
 
     return (
         <>
@@ -149,7 +152,10 @@ export function WithHeaderBodyAndActions() {
                 onDismiss={modal.close}
                 aria-label="Modal with standard actions footer"
             >
-                <ModalHeader button={renderHeaderButton(button)}>
+                <ModalHeader
+                    button={renderHeaderButton(button)}
+                    withDivider={withScrollableContent}
+                >
                     <Heading level="1">Modal with standard actions footer</Heading>
                 </ModalHeader>
 
@@ -158,11 +164,12 @@ export function WithHeaderBodyAndActions() {
                         {...props}
                         title={<Heading level="2">Customize modal</Heading>}
                         button={button}
+                        withScrollableContent={withScrollableContent}
                         onChange={onChange}
                     />
                 </ModalBody>
 
-                <ModalActions>
+                <ModalActions withDivider={withScrollableContent}>
                     <Button variant="primary" onClick={modal.close}>
                         Save
                     </Button>
@@ -177,7 +184,7 @@ export function WithHeaderBodyAndActions() {
 
 export function WithHeaderBodyAndFooter() {
     const modal = useModalState()
-    const { onChange, button, ...props } = useModalProps()
+    const { onChange, button, withScrollableContent, ...props } = useModalProps()
 
     return (
         <>
@@ -191,7 +198,10 @@ export function WithHeaderBodyAndFooter() {
                 onDismiss={modal.close}
                 aria-label="Modal with custom footer"
             >
-                <ModalHeader button={renderHeaderButton(button)}>
+                <ModalHeader
+                    button={renderHeaderButton(button)}
+                    withDivider={withScrollableContent}
+                >
                     <Heading level="1">Modal with custom footer</Heading>
                 </ModalHeader>
 
@@ -200,11 +210,12 @@ export function WithHeaderBodyAndFooter() {
                         {...props}
                         title={<Heading level="2">Customize modal</Heading>}
                         button={button}
+                        withScrollableContent={withScrollableContent}
                         onChange={onChange}
                     />
                 </ModalBody>
 
-                <ModalFooter>
+                <ModalFooter withDivider={withScrollableContent}>
                     <Columns space="medium">
                         <Column width="auto">
                             <Button variant="secondary">Reset</Button>
@@ -228,7 +239,7 @@ export function WithHeaderBodyAndFooter() {
 
 export function WithSettingsLayout() {
     const modal = useModalState()
-    const { onChange, button, ...props } = useModalProps()
+    const { onChange, button, withScrollableContent, ...props } = useModalProps()
 
     return (
         <>
@@ -270,13 +281,21 @@ export function WithSettingsLayout() {
 
                     <Column width="auto">
                         <Box height="full" display="flex" flexDirection="column">
-                            <ModalHeader button={renderHeaderButton(button)}>
+                            <ModalHeader
+                                button={renderHeaderButton(button)}
+                                withDivider={withScrollableContent}
+                            >
                                 <Heading level="2">Customize modal</Heading>
                             </ModalHeader>
                             <ModalBody>
-                                <ModalPropsFields {...props} button={button} onChange={onChange} />
+                                <ModalPropsFields
+                                    {...props}
+                                    button={button}
+                                    withScrollableContent={withScrollableContent}
+                                    onChange={onChange}
+                                />
                             </ModalBody>
-                            <ModalActions>
+                            <ModalActions withDivider={withScrollableContent}>
                                 <Button variant="primary" onClick={modal.close}>
                                     Close
                                 </Button>
@@ -291,7 +310,6 @@ export function WithSettingsLayout() {
 
 export function WithTaskDetailsLayout() {
     const modal = useModalState()
-    const { onChange, button, ...props } = useModalProps()
 
     return (
         <>
@@ -300,12 +318,11 @@ export function WithTaskDetailsLayout() {
             </Button>
 
             <Modal
-                {...props}
                 isOpen={modal.isOpen}
                 onDismiss={modal.close}
                 aria-label="Modal with a tabbed interface"
             >
-                <ModalHeader withDivider={false} button={renderHeaderButton(button)}>
+                <ModalHeader>
                     <a href="/" onClick={preventDefault}>
                         Project name
                     </a>

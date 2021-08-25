@@ -206,7 +206,7 @@ type ModalHeaderProps = DivProps & {
 function ModalHeader({
     children,
     button = true,
-    withDivider = true,
+    withDivider = false,
     exceptionallySetClassName,
     ...props
 }: ModalHeaderProps) {
@@ -307,7 +307,7 @@ type ModalFooterProps = DivProps & {
  */
 function ModalFooter({
     exceptionallySetClassName,
-    withDivider = true,
+    withDivider = false,
     ...props
 }: ModalFooterProps) {
     return (
