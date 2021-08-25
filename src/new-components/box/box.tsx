@@ -35,7 +35,13 @@ type BoxDisplay = 'block' | 'flex' | 'inline' | 'inlineBlock' | 'inlineFlex' | '
 type BoxFlexDirection = 'column' | 'row'
 type BoxFlexWrap = 'nowrap' | 'wrap'
 type BoxAlignItems = 'center' | 'flexEnd' | 'flexStart' | 'baseline'
-type BoxJustifyContent = 'center' | 'flexEnd' | 'flexStart' | 'spaceBetween'
+type BoxJustifyContent =
+    | 'center'
+    | 'flexEnd'
+    | 'flexStart'
+    | 'spaceAround'
+    | 'spaceBetween'
+    | 'spaceEvenly'
 type BoxOverflow = 'hidden' | 'auto' | 'visible' | 'scroll'
 
 interface BorderProps {

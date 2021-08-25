@@ -7,16 +7,7 @@
     }
 }
 
-.container {
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    align-content: center;
-    justify-content: center;
-    flex: 1 1 auto;
-}
-
-.container svg {
+.svg {
     animation-name: spinner;
     animation-duration: 1.2s;
     animation-iteration-count: infinite;
@@ -24,7 +15,7 @@
 }
 
 .spinner {
-    fill: var(--reactist-chromatic-content-red);
+    fill: var(--reactist-bg-brand);
 }
 
 .spinnerBackground {

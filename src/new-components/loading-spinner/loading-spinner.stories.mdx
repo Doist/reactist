@@ -1,0 +1,43 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
+import { Box } from '../box'
+import { Text } from '../text'
+import { Stack } from '../stack'
+import { LoadingSpinner } from './loading-spinner'
+
+<Meta title="Design system/LoadingSpinner" component={LoadingSpinner} />
+
+# LoadingSpinner
+
+export function Template({ label, size }) {
+    return <LoadingSpinner label={label || 'Loading…'} size={size} />
+}
+
+export function Example({ children, size }) {
+    return (
+        <Stack space="xxlarge" align="center">
+            <Box>{children}</Box>
+            <Box as="pre">size="{size}"</Box>
+        </Stack>
+    )
+}
+
+<Canvas withToolbar>
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="All sizes">
+        <Box display="flex" flexDirection="row" justifyContent="spaceEvenly" alignItems="flexEnd">
+            <Example size="small">
+                <LoadingSpinner label="Loading…" size="small" />
+            </Example>
+            <Example size="medium">
+                <LoadingSpinner label="Loading…" size="medium" />
+            </Example>
+            <Example size="large">
+                <LoadingSpinner label="Loading…" size="large" />
+            </Example>
+        </Box>
+    </Story>
+</Canvas>
+
+## `<LoadingSpinner />`
+
+<Description of={LoadingSpinner} />
+<ArgsTable of={LoadingSpinner} />
