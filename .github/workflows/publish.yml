@@ -12,7 +12,7 @@ jobs:
             - uses: actions/checkout@v1
             - uses: actions/setup-node@v1
               with:
-                  node-version: 14
+                  node-version: 16
             - run: npm ci
             - run: npm run lint
             - run: npm run type-check
@@ -24,7 +24,7 @@ jobs:
             # Publish to GitHub package registry
             - uses: actions/setup-node@v1
               with:
-                  node-version: 14
+                  node-version: 16
                   registry-url: https://npm.pkg.github.com/
                   scope: '@doist'
             - run: npm publish
@@ -34,7 +34,7 @@ jobs:
             # Publish to npm registry
             - uses: actions/setup-node@v1
               with:
-                  node-version: 14
+                  node-version: 16
                   registry-url: https://registry.npmjs.org/
                   scope: '@doist'
             - run: npm publish
