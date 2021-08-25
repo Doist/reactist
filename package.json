@@ -21,8 +21,8 @@
         "styles"
     ],
     "engines": {
-        "node": "^14.5.5",
-        "npm": "^6.14.11"
+        "node": "^16.0.0",
+        "npm": "^7.0.0"
     },
     "scripts": {
         "postinstall": "patch-package",
@@ -111,8 +111,6 @@
         "react-docgen-typescript-loader": "^3.7.2",
         "react-dom": "^16.13.1",
         "react-is": "^16.13.1",
-        "react-markdown": "^5.0.3",
-        "react-storybook-addon-chapters": "^3.1.7",
         "react-svg-loader": "^3.0.3",
         "react-test-renderer": "^16.13.1",
         "rimraf": "^3.0.2",
