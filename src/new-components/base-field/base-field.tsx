@@ -96,7 +96,7 @@ function BaseField({
 
     return (
         <Stack space="small">
-            <Box className={className} maxWidth={maxWidth} hidden={hidden}>
+            <Box className={[className, styles.container]} maxWidth={maxWidth} hidden={hidden}>
                 <Box
                     as="span"
                     display="flex"

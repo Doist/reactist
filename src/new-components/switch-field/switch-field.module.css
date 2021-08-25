@@ -1,5 +1,6 @@
 .container,
 .container * {
+    font-family: var(--reactist-font-family);
     cursor: pointer;
 }
 

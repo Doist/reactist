@@ -1,3 +1,7 @@
+.container {
+    font-family: var(--reactist-font-family);
+}
+
 .primaryLabel {
     font-weight: var(--reactist-font-weight-strong);
 }

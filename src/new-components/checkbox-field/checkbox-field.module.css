@@ -1,6 +1,7 @@
 .container,
 .container * {
     cursor: pointer;
+    font-family: var(--reactist-font-family);
 }
 
 .container.disabled,
