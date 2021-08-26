@@ -222,4 +222,23 @@ describe('Tabs', () => {
         )
         expect(screen.getByText('Content of tab 2')).toBeVisible()
     })
+
+    // eslint-disable-next-line jest/expect-expect
+    it('disallows className prop on TabPanel', () => {
+        render(
+            <Tabs>
+                <TabList aria-label="test-tabs">
+                    <Tab id="tab1">Tab 1</Tab>
+                    <Tab id="tab2">Tab 2</Tab>
+                    <Tab id="tab3">Tab 3</Tab>
+                </TabList>
+                {/* @ts-expect-error */}
+                <TabPanel id="tab1" className="foo">
+                    Content of tab 1
+                </TabPanel>
+                <TabPanel id="tab2">Content of tab 2</TabPanel>
+                <TabPanel id="tab3">Content of tab 3</TabPanel>
+            </Tabs>,
+        )
+    })
 })
