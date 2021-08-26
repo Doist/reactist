@@ -9,6 +9,7 @@ import {
 } from 'reakit/Tab'
 import { Inline } from '../inline'
 import { usePrevious } from '../../hooks/use-previous'
+import { polymorphicComponent } from '../../utils/polymorphism'
 import type { ResponsiveProp } from '../responsive-props'
 import type { Space } from '../common-types'
 
@@ -184,7 +185,10 @@ type TabPanelProps = {
 /**
  * Used to define the content to be rendered when a tab is active. Each `<TabPanel>` must have a corresponding `<Tab>` component.
  */
-function TabPanel({ children, id, render = 'always' }: TabPanelProps): React.ReactElement | null {
+const TabPanel = polymorphicComponent<'div', TabPanelProps, 'omitClassName'>(function TabPanel(
+    { children, id, as, render = 'always', ...props },
+    ref,
+): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
     const [tabRendered, setTabRendered] = React.useState(false)
     const tabIsActive = tabContextValue?.selectedId === id
@@ -205,13 +209,13 @@ function TabPanel({ children, id, render = 'always' }: TabPanelProps): React.Rea
     const { color, variant, ...tabState } = tabContextValue
 
     return (
-        <BaseTabPanel tabId={id} {...tabState}>
+        <BaseTabPanel tabId={id} {...tabState} {...props} as={as} ref={ref}>
             {render === 'always' ? children : null}
             {render === 'active' && tabIsActive ? children : null}
             {render === 'lazy' && (tabIsActive || tabRendered) ? children : null}
         </BaseTabPanel>
     )
-}
+})
 
 type TabAwareSlotProps = {
     /**

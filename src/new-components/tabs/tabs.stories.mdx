@@ -4,10 +4,7 @@ import { Box } from '../box'
 import { Text } from '../text'
 import { Columns, Column } from '../columns'
 
-<Meta
-    title="Design system/Tabs"
-    component={Tabs}
-/>
+<Meta title="Design system/Tabs" component={Tabs} />
 
 # Tabs
 
@@ -24,14 +21,10 @@ export const Template = ({
     selectedId,
     render,
     'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledby
+    'aria-labelledby': ariaLabelledby,
 }) => (
     <Tabs color={color} variant={variant} selectedId={selectedId}>
-        <TabList
-            aria-label={ariaLabel}
-            aria-labelledby={ariaLabelledby}
-            space={space}
-        >
+        <TabList aria-label={ariaLabel} aria-labelledby={ariaLabelledby} space={space}>
             <Tab id="tab1">Tab 1</Tab>
             <Tab id="tab2">Tab 2</Tab>
             <Tab id="tab3">Tab 3</Tab>
@@ -61,26 +54,26 @@ export const Template = ({
             'aria-label': 'Main demo for Tabs',
         }}
         argTypes={{
-          selectedId: {
-              options: ['tab1', 'tab2', 'tab3', null, undefined],
-              control: { type: 'inline-radio' },
-          },
-          variant: {
-              options: ['normal', 'plain'],
-              control: { type: 'inline-radio' },
-          },
-          color: {
-              options: ['primary', 'secondary', 'tertiary'],
-              control: { type: 'inline-radio' },
-          },
-          space: {
-              options: ['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge'],
-              control: { type: 'inline-radio' },
-          },
-          render: {
-              options: ['always', 'active', 'lazy'],
-              control: { type: 'inline-radio' },
-          },
+            selectedId: {
+                options: ['tab1', 'tab2', 'tab3', null, undefined],
+                control: { type: 'inline-radio' },
+            },
+            variant: {
+                options: ['normal', 'plain'],
+                control: { type: 'inline-radio' },
+            },
+            color: {
+                options: ['primary', 'secondary', 'tertiary'],
+                control: { type: 'inline-radio' },
+            },
+            space: {
+                options: ['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge'],
+                control: { type: 'inline-radio' },
+            },
+            render: {
+                options: ['always', 'active', 'lazy'],
+                control: { type: 'inline-radio' },
+            },
         }}
         name="Main demo"
     >
@@ -107,7 +100,6 @@ export const Template = ({
 
 <Description of={TabPanel} />
 <ArgsTable of={TabPanel} />
-
 
 ## `<TabAwareSlot>`
 
@@ -203,7 +195,7 @@ The following CSS custom properties are available so that the tabs' colors can b
         <Tabs>
             <Columns>
                 <Column width="content">
-                    <TabList  aria-label="TabAwareSlot example tabs">
+                    <TabList aria-label="TabAwareSlot example tabs">
                         <Tab id="tab1">Tab 1</Tab>
                         <Tab id="tab2">Tab 2</Tab>
                         <Tab id="tab3">Tab 3</Tab>
@@ -248,10 +240,7 @@ The following CSS custom properties are available so that the tabs' colors can b
 As long as they exist within the same `<Tabs>` component tree, multiple `<TabList>` instances can be rendered.
 
 <Canvas withToolbar>
-    <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
-        name="Multiple TabList instances"
-    >
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Multiple TabList instances">
         <Tabs>
             <TabList aria-label="Multiple tablist example tabs">
                 <Tab id="tab1">Tab 1</Tab>
@@ -278,6 +267,39 @@ As long as they exist within the same `<Tabs>` component tree, multiple `<TabLis
                 <Tab id="tab2">Tab 2</Tab>
                 <Tab id="tab3">Tab 3</Tab>
             </TabList>
+        </Tabs>
+    </Story>
+</Canvas>
+
+### Polymorphism
+
+By default, the `TabPanel` renders an unstyled div. When more control is needed, an element type or component
+can be specified with the `as` prop.
+
+Note that when combined with the `render="active"` prop, only the tabpanel's
+children are prevented from rendering, and not the actual polymorphic component/element itself.
+
+<Canvas withToolbar>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Polymorphism">
+        <Tabs>
+            <TabList aria-label="Multiple tablist example tabs">
+                <Tab id="tab1">Tab 1</Tab>
+                <Tab id="tab2">Tab 2</Tab>
+                <Tab id="tab3">Tab 3</Tab>
+            </TabList>
+            <TabPanel id="tab1" as={Box} paddingX="small" paddingY="xlarge" render="active">
+                <Text>Content of tab 1</Text>
+            </TabPanel>
+            <TabPanel id="tab2" as="section" render="active">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 2</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab3" as={Columns} paddingX="small" paddingY="xlarge" render="active">
+                <Column>Column 1</Column>
+                <Column>Column 2</Column>
+                <Column>Column 3</Column>
+            </TabPanel>
         </Tabs>
     </Story>
 </Canvas>
