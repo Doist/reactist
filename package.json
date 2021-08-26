@@ -2,7 +2,7 @@
     "name": "@doist/reactist",
     "description": "Open source React components by Doist",
     "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",
-    "version": "9.2.0-beta.18",
+    "version": "10.0.0-beta.1",
     "license": "MIT",
     "homepage": "https://github.com/Doist/reactist#readme",
     "repository": "git+https://github.com/Doist/reactist.git",
@@ -43,9 +43,9 @@
     },
     "peerDependencies": {
         "classnames": "^2.2.5",
+        "prop-types": "^15.6.2",
         "react": "^15.5.4 || ^16.2.0",
-        "react-dom": "^15.5.4 || ^16.2.0",
-        "prop-types": "^15.6.2"
+        "react-dom": "^15.5.4 || ^16.2.0"
     },
     "devDependencies": {
         "@babel/core": "^7.9.6",
@@ -125,6 +125,7 @@
         "webpack": "^4.43.0"
     },
     "dependencies": {
+        "@types/testing-library__jest-dom": "^5.14.1",
         "dayjs": "^1.8.10",
         "patch-package": "^6.4.6",
         "react-keyed-flatten-children": "^1.3.0",
