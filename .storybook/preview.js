@@ -4,6 +4,7 @@ import '../stories/components/styles/story.less'
 export const decorators = [BaseDecorator]
 
 export const parameters = {
+    viewMode: 'docs',
     options: {
         storySort: {
             method: 'alphabetical',
