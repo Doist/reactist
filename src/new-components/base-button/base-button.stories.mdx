@@ -1,0 +1,50 @@
+import { Meta, ArgsTable, Description } from '@storybook/addon-docs/blocks'
+import { BaseButton } from '../base-button'
+
+<Meta title="Design system/BaseButton" component={BaseButton} />
+
+# BaseButton
+
+The component that powers `Button` and `ButtonLink`, where the button styling logic and some common
+functionality resides. This component is internal to Reactist.
+
+🎨 [Figma](https://www.figma.com/file/LYlWNzvhMDh907l07mPPQk/Product-Web?node-id=4693%3A175143)
+
+## `<BaseButton>`
+
+<Description of={BaseButton} />
+<ArgsTable of={BaseButton} />
+
+## Colors
+
+The following CSS custom properties are available to customize the button-like element appearance.
+
+```
+--reactist-actionable-primary-idle-tint
+--reactist-actionable-primary-idle-fill
+--reactist-actionable-primary-hover-tint
+--reactist-actionable-primary-hover-fill
+--reactist-actionable-primary-disabled-tint
+--reactist-actionable-primary-disabled-fill
+
+--reactist-actionable-secondary-idle-tint
+--reactist-actionable-secondary-idle-fill
+--reactist-actionable-secondary-hover-tint
+--reactist-actionable-secondary-hover-fill
+--reactist-actionable-secondary-disabled-tint
+--reactist-actionable-secondary-disabled-fill
+
+--reactist-actionable-tertiary-idle-tint
+--reactist-actionable-tertiary-idle-fill
+--reactist-actionable-tertiary-hover-tint
+--reactist-actionable-tertiary-hover-fill
+--reactist-actionable-tertiary-disabled-tint
+--reactist-actionable-tertiary-disabled-fill
+
+--reactist-actionable-destructive-idle-tint
+--reactist-actionable-destructive-idle-fill
+--reactist-actionable-destructive-hover-tint
+--reactist-actionable-destructive-hover-fill
+--reactist-actionable-destructive-disabled-tint
+--reactist-actionable-destructive-disabled-fill
+```
