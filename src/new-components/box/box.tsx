@@ -69,7 +69,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
     {
         as: component = 'div',
         position = 'static',
-        display = 'block',
+        display,
         flexDirection = 'row',
         flexWrap,
         flexGrow,
@@ -114,7 +114,8 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
     const resolvedMarginBottom = marginBottom ?? marginY ?? margin
     const resolvedMarginLeft = marginLeft ?? marginX ?? margin
 
-    const omitFlex = typeof display === 'string' && display !== 'flex' && display !== 'inlineFlex'
+    const omitFlex =
+        !display || (typeof display === 'string' && display !== 'flex' && display !== 'inlineFlex')
 
     return React.createElement(
         component,
@@ -124,7 +125,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
                 classNames(
                     className,
                     styles.box,
-                    getClassNames(styles, 'display', display),
+                    display ? getClassNames(styles, 'display', display) : null,
                     position !== 'static' ? getClassNames(styles, 'position', position) : null,
                     minWidth != null ? getClassNames(styles, 'minWidth', String(minWidth)) : null,
                     getClassNames(styles, 'maxWidth', maxWidth),
