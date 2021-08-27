@@ -2,20 +2,20 @@
 
 exports[`Stack renders dividers when instructed to do so: dividers="regular" 1`] = `
 <div
-  class="box display-block"
+  class="box"
   data-testid="stack"
 >
   <div>
     one
   </div>
   <hr
-    class="divider box display-block"
+    class="divider box"
   />
   <div>
     two
   </div>
   <hr
-    class="divider box display-block"
+    class="divider box"
   />
   <div>
     three
@@ -25,20 +25,20 @@ exports[`Stack renders dividers when instructed to do so: dividers="regular" 1`]
 
 exports[`Stack renders dividers when instructed to do so: dividers="strong" 1`] = `
 <div
-  class="box display-block"
+  class="box"
   data-testid="stack"
 >
   <div>
     one
   </div>
   <hr
-    class="divider weight-strong box display-block"
+    class="divider weight-strong box"
   />
   <div>
     two
   </div>
   <hr
-    class="divider weight-strong box display-block"
+    class="divider weight-strong box"
   />
   <div>
     three
@@ -48,20 +48,20 @@ exports[`Stack renders dividers when instructed to do so: dividers="strong" 1`] 
 
 exports[`Stack renders dividers when instructed to do so: dividers={true} 1`] = `
 <div
-  class="box display-block"
+  class="box"
   data-testid="stack"
 >
   <div>
     one
   </div>
   <hr
-    class="divider box display-block"
+    class="divider box"
   />
   <div>
     two
   </div>
   <hr
-    class="divider box display-block"
+    class="divider box"
   />
   <div>
     three
