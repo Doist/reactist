@@ -10,10 +10,13 @@ type NativeButtonProps = React.DetailedHTMLProps<
     HTMLButtonElement
 >
 
+/** @deprecated */
 export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'link'
 
+/** @deprecated */
 export type ButtonSize = 'default' | 'small' | 'large'
 
+/** @deprecated */
 export type ButtonProps = Omit<NativeButtonProps, 'title' | 'ref'> & {
     /**
      * Loading style. When true it disables the button, but it also adds a visual indication of
@@ -36,6 +39,9 @@ export type ButtonProps = Omit<NativeButtonProps, 'title' | 'ref'> & {
     tooltip?: React.ReactNode
 }
 
+/**
+ * @deprecated
+ */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     {
         type = 'button',
