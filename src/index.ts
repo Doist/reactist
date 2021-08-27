@@ -19,6 +19,7 @@ export * from './new-components/heading'
 export * from './new-components/text'
 
 // links
+export * from './new-components/button'
 export * from './new-components/button-link'
 export * from './new-components/text-link'
 
@@ -42,7 +43,7 @@ export * from './hooks/use-previous'
 //
 
 export { default as Avatar } from './components/avatar'
-export { default as Button } from './components/button'
+export { default as DeprecatedButton } from './components/button'
 export { default as Checkbox } from './components/checkbox'
 export { default as ColorPicker, COLORS } from './components/color-picker'
 export { default as Dropdown } from './components/dropdown'
