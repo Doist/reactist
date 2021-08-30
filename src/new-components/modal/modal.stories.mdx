@@ -69,7 +69,7 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
 
 <Canvas withToolbar>
     <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
         name="Modal with standard actions footer"
     >
         <ModalStoryStateProvider>
@@ -94,7 +94,7 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
 
 <Canvas withToolbar>
     <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
         name="Modal with header, body and custom footer"
     >
         <ModalStoryStateProvider>
@@ -126,7 +126,7 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
 ### Modal with a sidebar
 
 <Canvas withToolbar>
-    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Modal with a sidebar">
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Modal with a sidebar">
         <ModalStoryStateProvider>
             <Button variant="primary">Open modal</Button>
             <Modal aria-label="Modal with a settings-like custom layout">
@@ -172,7 +172,7 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
 
 <Canvas withToolbar>
     <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
         name="Modal with scrollable tab panels"
     >
         <ModalStoryStateProvider>
@@ -235,16 +235,16 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
     </Story>
 </Canvas>
 
-### Minimalistic confirmation dialog
+### Minimalistic confirmation modal
 
 <Canvas withToolbar>
     <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
-        name="Minimalistic confirmation dialog"
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
+        name="Minimalistic confirmation modal"
     >
         <ModalStoryStateProvider>
             <Button variant="primary">Open modal</Button>
-            <Modal aria-label="Confirmation dialog" width="small">
+            <Modal height="fitContent" aria-label="Confirmation modal" width="small">
                 <Box padding="large">
                     <Text size="subtitle">Are you sure you want to leave?</Text>
                 </Box>
@@ -255,6 +255,38 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
                     <Button variant="secondary" size="small">
                         Cancel
                     </Button>
+                </ModalActions>
+            </Modal>
+        </ModalStoryStateProvider>
+    </Story>
+</Canvas>
+
+### Enriched confirmation modal
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
+        name="Enriched confirmation modal"
+    >
+        <ModalStoryStateProvider>
+            <Button variant="primary">Open modal</Button>
+            <Modal height="fitContent" aria-label="Confirmation modal" width="small">
+                <ModalHeader withDivider button={null}>
+                    <Heading level="1">Please confirm</Heading>
+                </ModalHeader>
+                <ModalBody>
+                    <Stack space="medium">
+                        <Text size="subtitle" weight="bold">
+                            Are you sure you want to leave?
+                        </Text>
+                        <Text size="subtitle" tone="danger">
+                            This action cannot be undone!
+                        </Text>
+                    </Stack>
+                </ModalBody>
+                <ModalActions withDivider>
+                    <Button variant="danger">Yes, leave</Button>
+                    <Button variant="secondary">Cancel</Button>
                 </ModalActions>
             </Modal>
         </ModalStoryStateProvider>

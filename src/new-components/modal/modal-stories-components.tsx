@@ -139,53 +139,60 @@ function renderHeaderButton(button: ModalStoryState['button']) {
 
 function ModalButton({
     variant,
+    size,
     children,
 }: {
     variant: 'primary' | 'secondary'
+    size?: 'small'
     children: React.ReactNode
 }) {
     const { toggle } = React.useContext(ModalStoryContext)
     return (
-        <Button variant={variant} onClick={toggle}>
+        <Button variant={variant} size={size} onClick={toggle}>
             {children}
         </Button>
     )
 }
 
-function Modal(props: Omit<ModalProps, 'isOpen' | 'onDismiss' | 'width' | 'height'>) {
+// So that it appers as Button in storybook "show code" section
+ModalButton.displayName = 'Button'
+
+type WithOptionals<Props, Keys extends keyof Props> = Omit<Props, Keys> & Partial<Pick<Props, Keys>>
+
+function Modal(props: WithOptionals<ModalProps, 'isOpen' | 'onDismiss' | 'width' | 'height'>) {
     const { isOpen, toggle, width, height } = React.useContext(ModalStoryContext)
     return (
         <ModalComponents.Modal
-            {...props}
             isOpen={isOpen}
             onDismiss={toggle}
             width={width}
             height={height}
+            {...props}
         />
     )
 }
 
-function ModalHeader(props: Omit<ModalHeaderProps, 'withDivider' | 'button'>) {
+function ModalHeader(props: WithOptionals<ModalHeaderProps, 'withDivider' | 'button'>) {
     const { button, withScrollableContent } = React.useContext(ModalStoryContext)
     return (
         <ModalComponents.ModalHeader
-            {...props}
             withDivider={withScrollableContent}
             button={renderHeaderButton(button)}
+            {...props}
         />
     )
 }
 
 const ModalBody = ModalComponents.ModalBody
 
-function ModalFooter(props: Omit<ModalFooterProps, 'withDivider' | 'button'>) {
+function ModalFooter(props: WithOptionals<ModalFooterProps, 'withDivider'>) {
     const { withScrollableContent } = React.useContext(ModalStoryContext)
-    return <ModalComponents.ModalFooter {...props} withDivider={withScrollableContent} />
+    return <ModalComponents.ModalFooter withDivider={withScrollableContent} {...props} />
 }
 
-function ModalActions(props: Omit<ModalFooterProps, 'withDivider' | 'button'>) {
+function ModalActions(props: WithOptionals<ModalFooterProps, 'withDivider'>) {
     const { withScrollableContent } = React.useContext(ModalStoryContext)
-    return <ModalComponents.ModalActions {...props} withDivider={withScrollableContent} />
+    return <ModalComponents.ModalActions withDivider={withScrollableContent} {...props} />
 }
 
 export { Link, ModalStoryStateProvider, ModalOptionsForm, ModalButton as Button, ScrollableContent }
