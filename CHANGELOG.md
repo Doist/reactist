@@ -5,6 +5,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 ## v10.0.0-beta.2
 
 -   [Feature] All the tab components are now polymorphic (i.e. they can use the `as="element"` prop).
+-   [Feature] The `Box` component now has a new `textAlign` prop to control its `text-align` style.
+-   [Feature] The `Text` and `Heading` components now have a `align` prop to align its content horizontally.
 
 ## v10.0.0-beta.1
 
@@ -18,8 +20,6 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 -   [Breaking] Responsive props are now provided via an object instead of an array.
 -   [Feature] The `Box` component now has a various `margin*` props to provide its margins similar to paddings.
 -   [Feature] The `Box` component now has a new `maxWidth` value `full` (i.e.`maxWidth="full"`).
--   [Feature] The `Box` component now has a new `textAlign` prop to control its `text-align` style.
--   [Feature] The `Text` and `Heading` components now have a `align` prop to align its content horizontally.
 -   [Feature] The `Stack` component now has a `align` prop to align its items horizontally.
 -   [Feature] Add new component `Hidden` to hide content under certain media conditions.
 -   [Feature] Add new component `HiddenVisually` to hide content visually while keeping it accessible.
