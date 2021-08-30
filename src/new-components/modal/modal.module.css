@@ -12,6 +12,10 @@
     --reactist-modal-overlay-fill: rgba(0, 0, 0, 0.5);
 }
 
+.reach-portal {
+    isolation: isolate;
+}
+
 [data-reach-dialog-overlay] {
     position: fixed;
     top: 0;
