@@ -54,38 +54,27 @@
     transition: transform 0.2s cubic-bezier(0.02, 1.505, 0.745, 1.235);
 }
 
-/* to precisely calculate the size of the button */
-/* it starts with a desired height and font-size, and calculates the needed padding off of it */
 .baseButton {
-    --reactist-btn-desired-height: 32px;
+    --reactist-btn-height: 32px;
     --reactist-btn-font-size: var(--reactist-font-size-copy);
-    --reactist-btn-line-height-increase: 4px;
     --reactist-btn-padding-x: 10px;
     --reactist-btn-flex-gap: 8px;
 
-    /* the -2px at the end in the calc below are for the extra top and bottom border pixels */
-    --reactist-btn-vertical-padding: calc(
-        (
-                var(--reactist-btn-desired-height) - var(--reactist-btn-font-size) -
-                    var(--reactist-btn-line-height-increase) - 2px
-            ) / 2
-    );
-
-    padding: var(--reactist-btn-vertical-padding) var(--reactist-btn-padding-x);
-    line-height: calc(var(--reactist-btn-font-size) + 4px);
+    padding: 0 var(--reactist-btn-padding-x);
     font-size: var(--reactist-btn-font-size);
-    height: var(--reactist-btn-desired-height);
+    height: var(--reactist-btn-height);
+    line-height: var(--reactist-btn-height);
     gap: var(--reactist-btn-flex-gap);
 }
 
 .baseButton.size-small {
-    --reactist-btn-desired-height: 28px;
+    --reactist-btn-height: 28px;
     --reactist-btn-padding-x: 8px;
     --reactist-btn-font-size: var(--reactist-font-size-caption);
 }
 
 .baseButton.size-large {
-    --reactist-btn-desired-height: 40px;
+    --reactist-btn-height: 40px;
     --reactist-btn-padding-x: 14px;
     --reactist-btn-font-size: var(--reactist-font-size-subtitle);
     --reactist-btn-flex-gap: 12px;
