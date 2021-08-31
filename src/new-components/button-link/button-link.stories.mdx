@@ -2,9 +2,10 @@ import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-do
 import { Inline } from '../inline'
 import { Stack } from '../stack'
 import { Text } from '../text'
+import * as ButtonLinkModule from './button-link'
 import { ButtonLink } from './button-link-story-wrapper'
 
-<Meta title="Design system/ButtonLink" component={ButtonLink} />
+<Meta title="Design system/ButtonLink" component={ButtonLinkModule.ButtonLink} />
 
 export function Icon() {
     return (
@@ -27,7 +28,7 @@ aspects.
 
 <Canvas>
     <Story parameters={{ docs: { source: { type: 'code' } } }} name="Main demo">
-        <Inline space="xxlarge">
+        <Stack space="xxlarge">
             <Stack space="large">
                 <pre>tone="normal"</pre>
                 <Inline space="large">
@@ -96,7 +97,7 @@ aspects.
                     </Box>
                 </Inline>
             </Stack>
-        </Inline>
+        </Stack>
     </Story>
 </Canvas>
 
@@ -111,143 +112,111 @@ Check out `BaseButton` for documentation about how to customize it visually.
 
 ## Stories
 
-### With icons
+### With label and icon
+
+To have icons rendered before or after the label, you can use the `startIcon` or `endIcon` prop for
+this purpose.
+
+Nothing prevents you from passing both a `startIcon` and an `endIcon` at the same time. However,
+this is discouraged, and not guaranteed to be supported in the future.
 
 <Canvas>
-    <Story parameters={{ docs: { source: { type: 'code' } } }} name="With icons">
-        <Inline space="xxlarge">
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="With label and icon">
+        <Stack space="xxlarge">
             <Stack space="large">
-                <Text>On the left</Text>
+                <Text>Icon before the label</Text>
                 <Inline space="large">
                     <Box>
-                        <ButtonLink variant="primary">
-                            <Icon />
+                        <ButtonLink variant="primary" startIcon={<Icon />}>
                             Primary
                         </ButtonLink>
                     </Box>
                     <Box>
-                        <ButtonLink variant="secondary">
-                            <Icon />
+                        <ButtonLink variant="secondary" startIcon={<Icon />}>
                             Secondary
                         </ButtonLink>
                     </Box>
                     <Box>
-                        <ButtonLink variant="tertiary">
-                            <Icon />
-                            Tertiary
-                        </ButtonLink>
-                    </Box>
-                </Inline>
-                <Inline space="large">
-                    <Box>
-                        <ButtonLink variant="primary" tone="destructive">
-                            <Icon />
-                            Primary
-                        </ButtonLink>
-                    </Box>
-                    <Box>
-                        <ButtonLink variant="secondary" tone="destructive">
-                            <Icon />
-                            Secondary
-                        </ButtonLink>
-                    </Box>
-                    <Box>
-                        <ButtonLink variant="tertiary" tone="destructive">
-                            <Icon />
+                        <ButtonLink variant="tertiary" startIcon={<Icon />}>
                             Tertiary
                         </ButtonLink>
                     </Box>
                 </Inline>
             </Stack>
             <Stack space="large">
-                <Text>On the right</Text>
+                <Text>Icon after the label</Text>
                 <Inline space="large">
                     <Box>
-                        <ButtonLink variant="primary">
+                        <ButtonLink variant="primary" endIcon={<Icon />}>
                             Primary
-                            <Icon />
                         </ButtonLink>
                     </Box>
                     <Box>
-                        <ButtonLink variant="secondary">
+                        <ButtonLink variant="secondary" endIcon={<Icon />}>
                             Secondary
-                            <Icon />
                         </ButtonLink>
                     </Box>
                     <Box>
-                        <ButtonLink variant="tertiary">
+                        <ButtonLink variant="tertiary" endIcon={<Icon />}>
                             Tertiary
-                            <Icon />
-                        </ButtonLink>
-                    </Box>
-                </Inline>
-                <Inline space="large">
-                    <Box>
-                        <ButtonLink variant="primary" tone="destructive">
-                            Primary
-                            <Icon />
-                        </ButtonLink>
-                    </Box>
-                    <Box>
-                        <ButtonLink variant="secondary" tone="destructive">
-                            Secondary
-                            <Icon />
-                        </ButtonLink>
-                    </Box>
-                    <Box>
-                        <ButtonLink variant="tertiary" tone="destructive" debug>
-                            Tertiary
-                            <Icon />
                         </ButtonLink>
                     </Box>
                 </Inline>
             </Stack>
-            <Stack space="large">
-                <Text>Icon only</Text>
-                <Inline space="large">
-                    <Box>
-                        <ButtonLink variant="primary" tooltip="Add task" debug>
-                            <Icon />
-                        </ButtonLink>
-                    </Box>
-                    <Box>
-                        <ButtonLink variant="secondary" tooltip="Add task">
-                            <Icon />
-                        </ButtonLink>
-                    </Box>
-                    <Box>
-                        <ButtonLink variant="tertiary" tooltip="Add task">
-                            <Icon />
-                        </ButtonLink>
-                    </Box>
-                </Inline>
-                <Inline space="large">
-                    <Box>
-                        <ButtonLink variant="primary" tone="destructive" tooltip="Add task">
-                            <Icon />
-                        </ButtonLink>
-                    </Box>
-                    <Box>
-                        <ButtonLink variant="secondary" tone="destructive" tooltip="Add task">
-                            <Icon />
-                        </ButtonLink>
-                    </Box>
-                    <Box>
-                        <ButtonLink variant="tertiary" tone="destructive" tooltip="Add task">
-                            <Icon />
-                        </ButtonLink>
-                    </Box>
-                </Inline>
-            </Stack>
-        </Inline>
+        </Stack>
+    </Story>
+</Canvas>
+
+## Icon-only buttons
+
+Alternatively, you can render an icon-only `ButtonLink`. To do so use the `icon` prop.
+
+Icon-only buttons do not support receiving the `children` prop, or any of the `startIcon` or
+`endIcon` props. They also force you to pass a `aria-label` prop. The `aria-label` will also be used
+as a tooltip if no tooltip is provided.
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Icon-only buttons">
+        <Stack space="large">
+            <Inline space="large">
+                <Box>
+                    <ButtonLink variant="primary" aria-label="Add task" icon={<Icon />} />
+                </Box>
+                <Box>
+                    <ButtonLink variant="secondary" aria-label="Add task" icon={<Icon />} />
+                </Box>
+                <Box>
+                    <ButtonLink variant="tertiary" aria-label="Add task" icon={<Icon />} />
+                </Box>
+            </Inline>
+            <Inline space="large">
+                <Box>
+                    <ButtonLink variant="primary" aria-label="Add task" icon={<Icon />} disabled />
+                </Box>
+                <Box>
+                    <ButtonLink
+                        variant="secondary"
+                        aria-label="Add task"
+                        icon={<Icon />}
+                        disabled
+                    />
+                </Box>
+                <Box>
+                    <ButtonLink variant="tertiary" aria-label="Add task" icon={<Icon />} disabled />
+                </Box>
+            </Inline>
+        </Stack>
     </Story>
 </Canvas>
 
 ### With different size
 
+Buttons have a default `normal` size, but they can also be larger or smaller. Use the `size` prop
+for this purpose.
+
 <Canvas>
     <Story parameters={{ docs: { source: { type: 'code' } } }} name="With different size">
-        <Inline space="xxlarge">
+        <Stack space="xxlarge">
             <Stack space="large">
                 <pre>size="small"</pre>
                 <Inline space="large">
@@ -359,14 +328,14 @@ Check out `BaseButton` for documentation about how to customize it visually.
                     </Box>
                 </Inline>
             </Stack>
-        </Inline>
+        </Stack>
     </Story>
 </Canvas>
 
 ### Customized colors
 
 Though probably not the final official way to do it, this is a way to achieve one-off alternative
-styles for `ButtonLink`s.
+styles for buttons.
 
 ```jsx
 <ButtonLink
@@ -427,6 +396,15 @@ And here's how that look like:
 ### Playground
 
 export function Template({ label, variant, tone, size }) {
+    let textLabel = label
+    if (label === 'Click me <em>now</em>') {
+        label = (
+            <>
+                Click me <em>now</em>
+            </>
+        )
+        textLabel = 'Click me now'
+    }
     return (
         <Inline space="large">
             <Stack space="large">
@@ -443,42 +421,61 @@ export function Template({ label, variant, tone, size }) {
             </Stack>
             <Stack space="large">
                 <Box>
-                    <ButtonLink variant={variant} tone={tone} size={size}>
-                        <Icon />
+                    <ButtonLink variant={variant} tone={tone} size={size} startIcon={<Icon />}>
                         {label}
                     </ButtonLink>
                 </Box>
                 <Box>
-                    <ButtonLink variant={variant} tone={tone} size={size} disabled>
-                        <Icon />
+                    <ButtonLink
+                        variant={variant}
+                        tone={tone}
+                        size={size}
+                        startIcon={<Icon />}
+                        disabled
+                    >
                         {label}
                     </ButtonLink>
                 </Box>
             </Stack>
             <Stack space="large">
                 <Box>
-                    <ButtonLink variant={variant} tone={tone} size={size}>
+                    <ButtonLink variant={variant} tone={tone} size={size} endIcon={<Icon />}>
                         {label}
-                        <Icon />
                     </ButtonLink>
                 </Box>
                 <Box>
-                    <ButtonLink variant={variant} tone={tone} size={size} disabled>
+                    <ButtonLink
+                        variant={variant}
+                        tone={tone}
+                        size={size}
+                        endIcon={<Icon />}
+                        disabled
+                    >
                         {label}
-                        <Icon />
                     </ButtonLink>
                 </Box>
             </Stack>
             <Stack space="large">
                 <Box>
-                    <ButtonLink variant={variant} tone={tone} size={size} tooltip={label}>
-                        <Icon />
-                    </ButtonLink>
+                    <ButtonLink
+                        variant={variant}
+                        tone={tone}
+                        size={size}
+                        aria-label={textLabel}
+                        tooltip={label}
+                        icon={<Icon />}
+                    />
                 </Box>
                 <Box>
-                    <ButtonLink variant={variant} tone={tone} size={size} disabled tooltip={label}>
-                        <Icon />
-                    </ButtonLink>
+                    <ButtonLink
+                        variant={variant}
+                        tone={tone}
+                        size={size}
+                        aria-label={textLabel}
+                        tooltip={label}
+                        icon={<Icon />}
+                        disabled
+                    />
                 </Box>
             </Stack>
         </Inline>
@@ -491,7 +488,12 @@ export function Template({ label, variant, tone, size }) {
         argTypes={{
             label: {
                 control: { type: 'select' },
-                options: ['Submit', 'Mark as done', 'Yes, cancel my subscription'],
+                options: [
+                    'Submit',
+                    'Mark as done',
+                    'Yes, cancel my subscription',
+                    'Click me <em>now</em>',
+                ],
                 defaultValue: 'Submit',
             },
             variant: {
@@ -510,6 +512,10 @@ export function Template({ label, variant, tone, size }) {
                 defaultValue: 'normal',
             },
             disabled: { control: false },
+            startIcon: { control: false },
+            endIcon: { control: false },
+            icon: { control: false },
+            tooltip: { control: false },
             exceptionallySetClassName: { control: false },
         }}
         name="Playground"

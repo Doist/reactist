@@ -58,13 +58,13 @@
     --reactist-btn-height: 32px;
     --reactist-btn-font-size: var(--reactist-font-size-copy);
     --reactist-btn-padding-x: 10px;
-    --reactist-btn-flex-gap: 8px;
+    --reactist-btn-icon-gap: 8px;
+    --reactist-btn-icon-size: 12px;
 
     padding: 0 var(--reactist-btn-padding-x);
     font-size: var(--reactist-btn-font-size);
     height: var(--reactist-btn-height);
     line-height: var(--reactist-btn-height);
-    gap: var(--reactist-btn-flex-gap);
 }
 
 .baseButton.size-small {
@@ -77,7 +77,8 @@
     --reactist-btn-height: 40px;
     --reactist-btn-padding-x: 14px;
     --reactist-btn-font-size: var(--reactist-font-size-subtitle);
-    --reactist-btn-flex-gap: 12px;
+    --reactist-btn-icon-gap: 12px;
+    --reactist-btn-icon-size: 14px;
 }
 
 /* setup the color variables for all the different states */
@@ -97,6 +98,29 @@
     cursor: not-allowed;
     color: var(--reactist-btn-disabled-tint);
     background-color: var(--reactist-btn-disabled-fill);
+}
+
+/* icons */
+
+.baseButton.iconButton {
+    width: var(--reactist-btn-height);
+    height: var(--reactist-btn-height);
+    padding: 0;
+}
+
+.baseButton .startIcon {
+    margin-right: var(--reactist-btn-icon-gap);
+}
+
+.baseButton .endIcon {
+    margin-left: var(--reactist-btn-icon-gap);
+}
+
+.baseButton .startIcon,
+.baseButton .endIcon,
+.baseButton.baseButton.iconButton > * {
+    width: var(--reactist-btn-icon-size);
+    height: var(--reactist-btn-icon-size);
 }
 
 /* variants with normal tone */

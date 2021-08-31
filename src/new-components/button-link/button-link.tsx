@@ -4,9 +4,12 @@ import { BaseButton } from '../base-button'
 import type { BaseButtonProps } from '../base-button'
 import type { OpenInNewTab } from '../common-types'
 
-type ButtonLinkProps = BaseButtonProps &
-    OpenInNewTab &
-    Omit<JSX.IntrinsicElements['a'], 'aria-disabled' | 'target' | 'rel' | 'className'>
+type NativeLinkProps = Omit<
+    JSX.IntrinsicElements['a'],
+    'aria-disabled' | 'target' | 'rel' | 'className'
+>
+
+type ButtonLinkProps = NativeLinkProps & BaseButtonProps & OpenInNewTab
 
 /**
  * A semantic link that looks like a button, exactly matching the `Button` component in all visual

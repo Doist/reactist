@@ -2,8 +2,14 @@ import * as React from 'react'
 import { BaseButton } from '../base-button'
 import type { BaseButtonProps } from '../base-button'
 
-type ButtonProps = BaseButtonProps &
-    Omit<JSX.IntrinsicElements['button'], 'aria-disabled' | 'className'> & {
+type NativeButtonProps = Omit<
+    React.AllHTMLAttributes<HTMLButtonElement>,
+    'aria-disabled' | 'className' | keyof BaseButtonProps
+>
+
+type ButtonProps = NativeButtonProps &
+    BaseButtonProps & {
+        type?: 'button' | 'submit' | 'reset'
         exceptionallySetClassName?: string
     }
 

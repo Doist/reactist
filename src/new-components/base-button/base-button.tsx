@@ -11,8 +11,9 @@ function preventDefault(event: React.SyntheticEvent) {
 type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
 type ButtonTone = 'normal' | 'destructive'
 type ButtonSize = 'small' | 'normal' | 'large'
+type IconElement = React.ReactChild
 
-type BaseButtonProps = {
+type CommonProps = {
     /**
      * The button's variant.
      */
@@ -37,6 +38,23 @@ type BaseButtonProps = {
     tooltip?: TooltipProps['content']
 }
 
+type IconButtonProps = {
+    icon: IconElement
+    'aria-label': string
+    children?: never
+    startIcon?: never
+    endIcon?: never
+}
+
+type LabelledButtonProps = {
+    children: NonNullable<React.ReactNode>
+    startIcon?: IconElement
+    endIcon?: IconElement
+    icon?: never
+}
+
+type BaseButtonProps = CommonProps & (IconButtonProps | LabelledButtonProps)
+
 /**
  * The component that powers `Button` and `ButtonLink`, where the button styling logic and some
  * common functionality resides. This component is internal to Reactist.
@@ -56,6 +74,10 @@ const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function BaseBut
         tooltip,
         onClick,
         exceptionallySetClassName,
+        children,
+        startIcon,
+        endIcon,
+        icon,
         ...props
     },
     ref,
@@ -73,11 +95,34 @@ const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function BaseBut
                 styles[`variant-${variant}`],
                 styles[`tone-${tone}`],
                 styles[`size-${size}`],
+                icon ? styles.iconButton : null,
             ]}
-        />
+        >
+            {icon ?? (
+                <>
+                    {startIcon ? (
+                        <Box display="flex" className={styles.startIcon} aria-hidden>
+                            {startIcon}
+                        </Box>
+                    ) : null}
+                    {children ? <span>{children}</span> : null}
+                    {endIcon ? (
+                        <Box display="flex" className={styles.endIcon} aria-hidden>
+                            {endIcon}
+                        </Box>
+                    ) : null}
+                </>
+            )}
+        </Box>
     )
 
-    return tooltip ? <Tooltip content={tooltip}>{buttonElement}</Tooltip> : buttonElement
+    // If it's an icon-only button, make sure it uses the aria-label as tooltip if no tooltip was provided
+    const tooltipContent = icon ? tooltip ?? props['aria-label'] : tooltip
+    return tooltipContent ? (
+        <Tooltip content={tooltipContent}>{buttonElement}</Tooltip>
+    ) : (
+        buttonElement
+    )
 })
 
 export { BaseButton }

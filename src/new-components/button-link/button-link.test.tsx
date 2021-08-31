@@ -88,8 +88,9 @@ describe('ButtonLink', () => {
                 Click me <strong>now</strong>
             </ButtonLink>,
         )
-        expect(screen.getByRole('link', { name: 'Click me now' }).innerHTML).toMatchInlineSnapshot(
-            `"Click me <strong>now</strong>"`,
+        const buttonLink = screen.getByRole('link', { name: 'Click me now' })
+        expect(buttonLink.innerHTML).toMatchInlineSnapshot(
+            `"<span>Click me <strong>now</strong></span>"`,
         )
     })
 
@@ -195,5 +196,53 @@ describe('ButtonLink', () => {
         expect(link).toHaveClass('variant-tertiary', 'tone-normal', 'size-large')
         expect(link).not.toHaveClass('size-normal')
         expect(link).not.toHaveClass('size-small')
+    })
+
+    describe('with icons', () => {
+        it('renders an icon before the label when startIcon is given', () => {
+            render(
+                <ButtonLink href="/" variant="primary" startIcon="😄">
+                    Smile
+                </ButtonLink>,
+            )
+            const buttonLink = screen.getByRole('link', { name: 'Smile' })
+            expect(buttonLink.textContent).toMatchInlineSnapshot(`"😄Smile"`)
+        })
+
+        it('renders an icon after the label when endIcon is given', () => {
+            render(
+                <ButtonLink href="/" variant="primary" endIcon="😄">
+                    Smile
+                </ButtonLink>,
+            )
+            const buttonLink = screen.getByRole('link', { name: 'Smile' })
+            expect(buttonLink.textContent).toMatchInlineSnapshot(`"Smile😄"`)
+        })
+    })
+
+    describe('icon-only mode', () => {
+        it('renders an icon-only ButtonLink with the given non-visual label', () => {
+            render(<ButtonLink href="/" variant="primary" icon="😄" aria-label="Smile" />)
+            const buttonLink = screen.getByRole('link', { name: 'Smile' })
+            expect(buttonLink.textContent).toMatchInlineSnapshot(`"😄"`)
+        })
+
+        it('does not support receiving any of the props "children", "startIcon" and "endIcon"', () => {
+            render(
+                // @ts-expect-error invalid props on purpose
+                <ButtonLink
+                    href="/"
+                    variant="primary"
+                    icon="😄"
+                    aria-label="Smile"
+                    startIcon="😢"
+                    endIcon="😢"
+                >
+                    Cry
+                </ButtonLink>,
+            )
+            const buttonLink = screen.getByRole('link', { name: 'Smile' })
+            expect(buttonLink.textContent).toMatchInlineSnapshot(`"😄"`)
+        })
     })
 })

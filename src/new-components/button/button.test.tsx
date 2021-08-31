@@ -106,10 +106,10 @@ describe('Button', () => {
         )
         expect(
             screen.getByRole('button', { name: 'Click me now' }).innerHTML,
-        ).toMatchInlineSnapshot(`"Click me <strong>now</strong>"`)
+        ).toMatchInlineSnapshot(`"<span>Click me <strong>now</strong></span>"`)
     })
 
-    it('renders a tooltip when prop is supplied', async () => {
+    it('renders a tooltip when the tooltip prop is given', async () => {
         render(
             <Button variant="primary" tooltip="tooltip content here">
                 Click me
@@ -195,5 +195,46 @@ describe('Button', () => {
         expect(button).toHaveClass('variant-tertiary', 'tone-normal', 'size-large')
         expect(button).not.toHaveClass('size-normal')
         expect(button).not.toHaveClass('size-small')
+    })
+
+    describe('with icons', () => {
+        it('renders an icon before the label when startIcon is given', () => {
+            render(
+                <Button variant="primary" startIcon="😄">
+                    Smile
+                </Button>,
+            )
+            const button = screen.getByRole('button', { name: 'Smile' })
+            expect(button.textContent).toMatchInlineSnapshot(`"😄Smile"`)
+        })
+
+        it('renders an icon after the label when endIcon is given', () => {
+            render(
+                <Button variant="primary" endIcon="😄">
+                    Smile
+                </Button>,
+            )
+            const button = screen.getByRole('button', { name: 'Smile' })
+            expect(button.textContent).toMatchInlineSnapshot(`"Smile😄"`)
+        })
+    })
+
+    describe('icon-only mode', () => {
+        it('renders an icon-only button with the given non-visual label', () => {
+            render(<Button variant="primary" icon="😄" aria-label="Smile" />)
+            const button = screen.getByRole('button', { name: 'Smile' })
+            expect(button.textContent).toMatchInlineSnapshot(`"😄"`)
+        })
+
+        it('does not support receiving any of the props "children", "startIcon" and "endIcon"', () => {
+            render(
+                // @ts-expect-error invalid props on purpose
+                <Button variant="primary" icon="😄" aria-label="Smile" startIcon="😢" endIcon="😢">
+                    Cry
+                </Button>,
+            )
+            const button = screen.getByRole('button', { name: 'Smile' })
+            expect(button.textContent).toMatchInlineSnapshot(`"😄"`)
+        })
     })
 })
