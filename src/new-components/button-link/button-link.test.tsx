@@ -129,6 +129,7 @@ describe('ButtonLink', () => {
         expect(link).toHaveClass('variant-primary', 'tone-normal', 'size-normal')
         expect(link).not.toHaveClass('variant-secondary')
         expect(link).not.toHaveClass('variant-tertiary')
+        expect(link).not.toHaveClass('variant-quaternary')
 
         rerender(
             <ButtonLink href="/" variant="secondary">
@@ -138,6 +139,7 @@ describe('ButtonLink', () => {
         expect(link).toHaveClass('variant-secondary', 'tone-normal', 'size-normal')
         expect(link).not.toHaveClass('variant-primary')
         expect(link).not.toHaveClass('variant-tertiary')
+        expect(link).not.toHaveClass('variant-quaternary')
 
         rerender(
             <ButtonLink href="/" variant="tertiary">
@@ -147,6 +149,17 @@ describe('ButtonLink', () => {
         expect(link).toHaveClass('variant-tertiary', 'tone-normal', 'size-normal')
         expect(link).not.toHaveClass('variant-primary')
         expect(link).not.toHaveClass('variant-secondary')
+        expect(link).not.toHaveClass('variant-quaternary')
+
+        rerender(
+            <ButtonLink href="/" variant="quaternary">
+                Click me
+            </ButtonLink>,
+        )
+        expect(link).toHaveClass('variant-quaternary', 'tone-normal', 'size-normal')
+        expect(link).not.toHaveClass('variant-primary')
+        expect(link).not.toHaveClass('variant-secondary')
+        expect(link).not.toHaveClass('variant-tertiary')
     })
 
     it('applies different class names based on tone', () => {

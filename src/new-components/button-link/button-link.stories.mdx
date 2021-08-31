@@ -21,8 +21,8 @@ export function Icon() {
 
 # ButtonLink
 
-A semantic link that looks like a button, exactly matching the `Button` component in all visual
-aspects.
+'A semantic link that looks like a button, exactly matching the `ButtonLink` component in all visual
+aspects.'
 
 🎨 [Figma](https://www.figma.com/file/LYlWNzvhMDh907l07mPPQk/Product-Web?node-id=4693%3A175143)
 
@@ -41,6 +41,9 @@ aspects.
                     <Box>
                         <ButtonLink variant="tertiary">Tertiary</ButtonLink>
                     </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary">Quaternary</ButtonLink>
+                    </Box>
                 </Inline>
                 <Inline space="large">
                     <Box>
@@ -56,6 +59,11 @@ aspects.
                     <Box>
                         <ButtonLink variant="tertiary" disabled>
                             Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" disabled>
+                            Quaternary
                         </ButtonLink>
                     </Box>
                 </Inline>
@@ -78,6 +86,11 @@ aspects.
                             Tertiary
                         </ButtonLink>
                     </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" tone="destructive">
+                            Quaternary
+                        </ButtonLink>
+                    </Box>
                 </Inline>
                 <Inline space="large">
                     <Box>
@@ -93,6 +106,11 @@ aspects.
                     <Box>
                         <ButtonLink variant="tertiary" tone="destructive" disabled>
                             Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" tone="destructive" disabled>
+                            Quaternary
                         </ButtonLink>
                     </Box>
                 </Inline>
@@ -141,6 +159,11 @@ this is discouraged, and not guaranteed to be supported in the future.
                             Tertiary
                         </ButtonLink>
                     </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" startIcon={<Icon />}>
+                            Quaternary
+                        </ButtonLink>
+                    </Box>
                 </Inline>
             </Stack>
             <Stack space="large">
@@ -159,6 +182,11 @@ this is discouraged, and not guaranteed to be supported in the future.
                     <Box>
                         <ButtonLink variant="tertiary" endIcon={<Icon />}>
                             Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" endIcon={<Icon />}>
+                            Quaternary
                         </ButtonLink>
                     </Box>
                 </Inline>
@@ -188,6 +216,9 @@ as a tooltip if no tooltip is provided.
                 <Box>
                     <ButtonLink variant="tertiary" aria-label="Add task" icon={<Icon />} />
                 </Box>
+                <Box>
+                    <ButtonLink variant="quaternary" aria-label="Add task" icon={<Icon />} />
+                </Box>
             </Inline>
             <Inline space="large">
                 <Box>
@@ -203,6 +234,14 @@ as a tooltip if no tooltip is provided.
                 </Box>
                 <Box>
                     <ButtonLink variant="tertiary" aria-label="Add task" icon={<Icon />} disabled />
+                </Box>
+                <Box>
+                    <ButtonLink
+                        variant="quaternary"
+                        aria-label="Add task"
+                        icon={<Icon />}
+                        disabled
+                    />
                 </Box>
             </Inline>
         </Stack>
@@ -235,6 +274,11 @@ for this purpose.
                             Tertiary
                         </ButtonLink>
                     </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" size="small">
+                            Quaternary
+                        </ButtonLink>
+                    </Box>
                 </Inline>
                 <Inline space="large">
                     <Box>
@@ -252,41 +296,56 @@ for this purpose.
                             Tertiary
                         </ButtonLink>
                     </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" size="small" disabled>
+                            Quaternary
+                        </ButtonLink>
+                    </Box>
                 </Inline>
             </Stack>
             <Stack space="large">
                 <pre>size="normal"</pre>
                 <Inline space="large">
                     <Box>
-                        <ButtonLink variant="primary" size="normal" tone="destructive">
+                        <ButtonLink variant="primary" size="normal">
                             Primary
                         </ButtonLink>
                     </Box>
                     <Box>
-                        <ButtonLink variant="secondary" size="normal" tone="destructive">
+                        <ButtonLink variant="secondary" size="normal">
                             Secondary
                         </ButtonLink>
                     </Box>
                     <Box>
-                        <ButtonLink variant="tertiary" size="normal" tone="destructive">
+                        <ButtonLink variant="tertiary" size="normal">
                             Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" size="normal">
+                            Quaternary
                         </ButtonLink>
                     </Box>
                 </Inline>
                 <Inline space="large">
                     <Box>
-                        <ButtonLink variant="primary" size="normal" tone="destructive" disabled>
+                        <ButtonLink variant="primary" size="normal" disabled>
                             Primary
                         </ButtonLink>
                     </Box>
                     <Box>
-                        <ButtonLink variant="secondary" size="normal" tone="destructive" disabled>
+                        <ButtonLink variant="secondary" size="normal" disabled>
                             Secondary
                         </ButtonLink>
                     </Box>
                     <Box>
-                        <ButtonLink variant="tertiary" size="normal" tone="destructive" disabled>
+                        <ButtonLink variant="tertiary" size="normal" disabled>
                             Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" size="normal" disabled>
+                            Quaternary
                         </ButtonLink>
                     </Box>
                 </Inline>
@@ -295,35 +354,45 @@ for this purpose.
                 <pre>size="large"</pre>
                 <Inline space="large">
                     <Box>
-                        <ButtonLink variant="primary" size="large" tone="destructive">
+                        <ButtonLink variant="primary" size="large">
                             Primary
                         </ButtonLink>
                     </Box>
                     <Box>
-                        <ButtonLink variant="secondary" size="large" tone="destructive">
+                        <ButtonLink variant="secondary" size="large">
                             Secondary
                         </ButtonLink>
                     </Box>
                     <Box>
-                        <ButtonLink variant="tertiary" size="large" tone="destructive">
+                        <ButtonLink variant="tertiary" size="large">
                             Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" size="large">
+                            Quaternary
                         </ButtonLink>
                     </Box>
                 </Inline>
                 <Inline space="large">
                     <Box>
-                        <ButtonLink variant="primary" size="large" tone="destructive" disabled>
+                        <ButtonLink variant="primary" size="large" disabled>
                             Primary
                         </ButtonLink>
                     </Box>
                     <Box>
-                        <ButtonLink variant="secondary" size="large" tone="destructive" disabled>
+                        <ButtonLink variant="secondary" size="large" disabled>
                             Secondary
                         </ButtonLink>
                     </Box>
                     <Box>
-                        <ButtonLink variant="tertiary" size="large" tone="destructive" disabled>
+                        <ButtonLink variant="tertiary" size="large" disabled>
                             Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" size="large" disabled>
+                            Quaternary
                         </ButtonLink>
                     </Box>
                 </Inline>
@@ -497,8 +566,8 @@ export function Template({ label, variant, tone, size }) {
                 defaultValue: 'Submit',
             },
             variant: {
-                options: ['primary', 'secondary', 'tertiary'],
-                control: { type: 'inline-radio' },
+                options: ['primary', 'secondary', 'tertiary', 'quaternary'],
+                control: { type: 'select' },
                 defaultValue: 'primary',
             },
             tone: {

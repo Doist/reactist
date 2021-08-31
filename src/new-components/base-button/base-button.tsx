@@ -8,7 +8,7 @@ function preventDefault(event: React.SyntheticEvent) {
     event.preventDefault()
 }
 
-type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
+type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'quaternary'
 type ButtonTone = 'normal' | 'destructive'
 type ButtonSize = 'small' | 'normal' | 'large'
 type IconElement = React.ReactChild

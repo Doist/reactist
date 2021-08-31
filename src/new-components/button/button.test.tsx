@@ -140,16 +140,25 @@ describe('Button', () => {
         expect(button).toHaveClass('variant-primary', 'tone-normal', 'size-normal')
         expect(button).not.toHaveClass('variant-secondary')
         expect(button).not.toHaveClass('variant-tertiary')
+        expect(button).not.toHaveClass('variant-quaternary')
 
         rerender(<Button variant="secondary">Click me</Button>)
         expect(button).toHaveClass('variant-secondary', 'tone-normal', 'size-normal')
         expect(button).not.toHaveClass('variant-primary')
         expect(button).not.toHaveClass('variant-tertiary')
+        expect(button).not.toHaveClass('variant-quaternary')
 
         rerender(<Button variant="tertiary">Click me</Button>)
         expect(button).toHaveClass('variant-tertiary', 'tone-normal', 'size-normal')
         expect(button).not.toHaveClass('variant-primary')
         expect(button).not.toHaveClass('variant-secondary')
+        expect(button).not.toHaveClass('variant-quaternary')
+
+        rerender(<Button variant="quaternary">Click me</Button>)
+        expect(button).toHaveClass('variant-quaternary', 'tone-normal', 'size-normal')
+        expect(button).not.toHaveClass('variant-primary')
+        expect(button).not.toHaveClass('variant-secondary')
+        expect(button).not.toHaveClass('variant-tertiary')
     })
 
     it('applies different class names based on tone', () => {

@@ -40,6 +40,9 @@ A semantic button that provides all the necessary visual variants. It follows th
                     <Box>
                         <Button variant="tertiary">Tertiary</Button>
                     </Box>
+                    <Box>
+                        <Button variant="quaternary">Quaternary</Button>
+                    </Box>
                 </Inline>
                 <Inline space="large">
                     <Box>
@@ -55,6 +58,11 @@ A semantic button that provides all the necessary visual variants. It follows th
                     <Box>
                         <Button variant="tertiary" disabled>
                             Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" disabled>
+                            Quaternary
                         </Button>
                     </Box>
                 </Inline>
@@ -77,6 +85,11 @@ A semantic button that provides all the necessary visual variants. It follows th
                             Tertiary
                         </Button>
                     </Box>
+                    <Box>
+                        <Button variant="quaternary" tone="destructive">
+                            Quaternary
+                        </Button>
+                    </Box>
                 </Inline>
                 <Inline space="large">
                     <Box>
@@ -92,6 +105,11 @@ A semantic button that provides all the necessary visual variants. It follows th
                     <Box>
                         <Button variant="tertiary" tone="destructive" disabled>
                             Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" tone="destructive" disabled>
+                            Quaternary
                         </Button>
                     </Box>
                 </Inline>
@@ -140,6 +158,11 @@ this is discouraged, and not guaranteed to be supported in the future.
                             Tertiary
                         </Button>
                     </Box>
+                    <Box>
+                        <Button variant="quaternary" startIcon={<Icon />}>
+                            Quaternary
+                        </Button>
+                    </Box>
                 </Inline>
             </Stack>
             <Stack space="large">
@@ -158,6 +181,11 @@ this is discouraged, and not guaranteed to be supported in the future.
                     <Box>
                         <Button variant="tertiary" endIcon={<Icon />}>
                             Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" endIcon={<Icon />}>
+                            Quaternary
                         </Button>
                     </Box>
                 </Inline>
@@ -187,6 +215,9 @@ as a tooltip if no tooltip is provided.
                 <Box>
                     <Button variant="tertiary" aria-label="Add task" icon={<Icon />} />
                 </Box>
+                <Box>
+                    <Button variant="quaternary" aria-label="Add task" icon={<Icon />} />
+                </Box>
             </Inline>
             <Inline space="large">
                 <Box>
@@ -197,6 +228,9 @@ as a tooltip if no tooltip is provided.
                 </Box>
                 <Box>
                     <Button variant="tertiary" aria-label="Add task" icon={<Icon />} disabled />
+                </Box>
+                <Box>
+                    <Button variant="quaternary" aria-label="Add task" icon={<Icon />} disabled />
                 </Box>
             </Inline>
         </Stack>
@@ -229,6 +263,11 @@ for this purpose.
                             Tertiary
                         </Button>
                     </Box>
+                    <Box>
+                        <Button variant="quaternary" size="small">
+                            Quaternary
+                        </Button>
+                    </Box>
                 </Inline>
                 <Inline space="large">
                     <Box>
@@ -246,41 +285,56 @@ for this purpose.
                             Tertiary
                         </Button>
                     </Box>
+                    <Box>
+                        <Button variant="quaternary" size="small" disabled>
+                            Quaternary
+                        </Button>
+                    </Box>
                 </Inline>
             </Stack>
             <Stack space="large">
                 <pre>size="normal"</pre>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary" size="normal" tone="destructive">
+                        <Button variant="primary" size="normal">
                             Primary
                         </Button>
                     </Box>
                     <Box>
-                        <Button variant="secondary" size="normal" tone="destructive">
+                        <Button variant="secondary" size="normal">
                             Secondary
                         </Button>
                     </Box>
                     <Box>
-                        <Button variant="tertiary" size="normal" tone="destructive">
+                        <Button variant="tertiary" size="normal">
                             Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" size="normal">
+                            Quaternary
                         </Button>
                     </Box>
                 </Inline>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary" size="normal" tone="destructive" disabled>
+                        <Button variant="primary" size="normal" disabled>
                             Primary
                         </Button>
                     </Box>
                     <Box>
-                        <Button variant="secondary" size="normal" tone="destructive" disabled>
+                        <Button variant="secondary" size="normal" disabled>
                             Secondary
                         </Button>
                     </Box>
                     <Box>
-                        <Button variant="tertiary" size="normal" tone="destructive" disabled>
+                        <Button variant="tertiary" size="normal" disabled>
                             Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" size="normal" disabled>
+                            Quaternary
                         </Button>
                     </Box>
                 </Inline>
@@ -289,35 +343,45 @@ for this purpose.
                 <pre>size="large"</pre>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary" size="large" tone="destructive">
+                        <Button variant="primary" size="large">
                             Primary
                         </Button>
                     </Box>
                     <Box>
-                        <Button variant="secondary" size="large" tone="destructive">
+                        <Button variant="secondary" size="large">
                             Secondary
                         </Button>
                     </Box>
                     <Box>
-                        <Button variant="tertiary" size="large" tone="destructive">
+                        <Button variant="tertiary" size="large">
                             Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" size="large">
+                            Quaternary
                         </Button>
                     </Box>
                 </Inline>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary" size="large" tone="destructive" disabled>
+                        <Button variant="primary" size="large" disabled>
                             Primary
                         </Button>
                     </Box>
                     <Box>
-                        <Button variant="secondary" size="large" tone="destructive" disabled>
+                        <Button variant="secondary" size="large" disabled>
                             Secondary
                         </Button>
                     </Box>
                     <Box>
-                        <Button variant="tertiary" size="large" tone="destructive" disabled>
+                        <Button variant="tertiary" size="large" disabled>
                             Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" size="large" disabled>
+                            Quaternary
                         </Button>
                     </Box>
                 </Inline>
@@ -479,8 +543,8 @@ export function Template({ label, variant, tone, size }) {
                 defaultValue: 'Submit',
             },
             variant: {
-                options: ['primary', 'secondary', 'tertiary'],
-                control: { type: 'inline-radio' },
+                options: ['primary', 'secondary', 'tertiary', 'quaternary'],
+                control: { type: 'select' },
                 defaultValue: 'primary',
             },
             tone: {
