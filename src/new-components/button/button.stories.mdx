@@ -427,6 +427,13 @@ And here's how that look like:
 ### Playground
 
 export function Template({ label, variant, tone, size }) {
+    if (label === 'Click me <strong>now</strong>') {
+        label = (
+            <span>
+                Click me <strong key="strong">now</strong>
+            </span>
+        )
+    }
     return (
         <Inline space="large">
             <Stack space="large">
@@ -491,7 +498,12 @@ export function Template({ label, variant, tone, size }) {
         argTypes={{
             label: {
                 control: { type: 'select' },
-                options: ['Submit', 'Mark as done', 'Yes, cancel my subscription'],
+                options: [
+                    'Submit',
+                    'Mark as done',
+                    'Yes, cancel my subscription',
+                    'Click me <strong>now</strong>',
+                ],
                 defaultValue: 'Submit',
             },
             variant: {
