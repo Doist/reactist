@@ -11,8 +11,8 @@ export * from './new-components/hidden-visually'
 
 // alerts, notifications, etc.
 export * from './new-components/alert'
-export * from './new-components/notice'
 export * from './new-components/loading-spinner'
+export * from './new-components/notice'
 
 // text and typography
 export * from './new-components/heading'
