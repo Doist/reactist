@@ -51,7 +51,7 @@
     font-family: var(--reactist-font-family);
     font-weight: var(--reactist-font-weight-medium);
     text-decoration: none;
-    /* border is always on, but transparent, so that it does not enlarges buttons when we actually color it */
+    /* border is always on, but transparent, so that it does not enlarge buttons when we actually color it */
     border: 1px solid transparent;
 }
 
@@ -63,10 +63,10 @@
 
 .baseButton {
     --reactist-btn-height: 32px;
+    --reactist-btn-padding-x: 12px;
     --reactist-btn-font-size: var(--reactist-font-size-copy);
-    --reactist-btn-padding-x: 10px;
-    --reactist-btn-icon-gap: 8px;
-    --reactist-btn-icon-size: 12px;
+    --reactist-btn-icon-gap: 12px;
+    --reactist-btn-icon-size: 16px;
 
     padding: 0 var(--reactist-btn-padding-x);
     font-size: var(--reactist-btn-font-size);
@@ -78,14 +78,16 @@
     --reactist-btn-height: 28px;
     --reactist-btn-padding-x: 8px;
     --reactist-btn-font-size: var(--reactist-font-size-caption);
+    --reactist-btn-icon-gap: 8px;
+    --reactist-btn-icon-size: 12px;
 }
 
 .baseButton.size-large {
     --reactist-btn-height: 40px;
     --reactist-btn-padding-x: 14px;
     --reactist-btn-font-size: var(--reactist-font-size-subtitle);
-    --reactist-btn-icon-gap: 12px;
-    --reactist-btn-icon-size: 14px;
+    --reactist-btn-icon-gap: 16px;
+    --reactist-btn-icon-size: 20px;
 }
 
 /* setup the color variables for all the different states */
@@ -124,8 +126,10 @@
 }
 
 .baseButton .startIcon,
+.baseButton .startIcon > svg,
 .baseButton .endIcon,
-.baseButton.baseButton.iconButton > * {
+.baseButton .endIcon > svg,
+.baseButton.baseButton.iconButton > svg {
     width: var(--reactist-btn-icon-size);
     height: var(--reactist-btn-icon-size);
 }
