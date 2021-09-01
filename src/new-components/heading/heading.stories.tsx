@@ -2,24 +2,11 @@ import React from 'react'
 
 import { Stack } from '../stack'
 import { Heading } from './heading'
-import { select, selectWithNone } from '../storybook-helper'
+import { ResponsiveWidthRef, select, selectWithNone } from '../storybook-helper'
 
 export default {
     title: 'Design system/Heading',
     component: Heading,
-    argTypes: {
-        level: select(['1', '2', '3', '4', '5', '6'], '1'),
-        size: selectWithNone(['largest', 'larger', 'smaller']),
-        weight: select(['regular', 'light'], 'regular'),
-        lineClamp: select([1, 2, 3, 4, 5], 1),
-        children: {
-            control: {
-                type: 'text',
-            },
-            defaultValue: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit',
-        },
-        tone: select(['normal', 'secondary', 'danger'], 'normal'),
-    },
 }
 
 export function HeadingStory() {
@@ -79,15 +66,6 @@ export function HeadingStory() {
     )
 }
 
-HeadingStory.argTypes = {
-    level: { control: false },
-    size: { control: false },
-    weight: { control: false },
-    lineClamp: { control: false },
-    children: { control: false },
-    tone: { control: false },
-}
-
 export function TruncatedHeadingStory() {
     return (
         <section className="story">
@@ -106,22 +84,45 @@ export function TruncatedHeadingStory() {
     )
 }
 
-TruncatedHeadingStory.argTypes = {
-    level: { control: false },
-    size: { control: false },
-    weight: { control: false },
-    lineClamp: { control: false },
-    children: { control: false },
-    tone: { control: false },
+export function ResponsiveHeadingStory(props: React.ComponentProps<typeof Heading>) {
+    return (
+        <>
+            <ResponsiveWidthRef />
+            <Heading {...props} align={{ mobile: 'end', tablet: 'center', desktop: 'start' }} />
+        </>
+    )
 }
 
-export function HeadingPlaygroundStory({
-    children,
-    ...args
-}: React.ComponentProps<typeof Heading>) {
+ResponsiveHeadingStory.argTypes = {
+    level: select(['1', '2', '3', '4', '5', '6'], '1'),
+    size: selectWithNone(['largest', 'larger', 'smaller'], 'none'),
+    weight: select(['regular', 'light'], 'regular'),
+    lineClamp: selectWithNone([1, 2, 3, 4, 5], 'none'),
+    tone: select(['normal', 'secondary', 'danger'], 'normal'),
+    align: { control: false },
+    children: {
+        control: { type: 'text' },
+        defaultValue: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit',
+    },
+}
+
+export function HeadingPlaygroundStory(props: React.ComponentProps<typeof Heading>) {
     return (
         <section className="story playground">
-            <Heading {...args}>{children}</Heading>
+            <Heading {...props} />
         </section>
     )
+}
+
+HeadingPlaygroundStory.argTypes = {
+    level: select(['1', '2', '3', '4', '5', '6'], '1'),
+    size: selectWithNone(['largest', 'larger', 'smaller'], 'none'),
+    weight: select(['regular', 'light'], 'regular'),
+    lineClamp: selectWithNone([1, 2, 3, 4, 5], 'none'),
+    tone: select(['normal', 'secondary', 'danger'], 'normal'),
+    align: select(['start', 'center', 'end', 'justify'], 'start'),
+    children: {
+        control: { type: 'text' },
+        defaultValue: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit',
+    },
 }

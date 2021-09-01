@@ -214,5 +214,5 @@ function polymorphicComponent<
     >
 }
 
-export type { PolymorphicComponent }
+export type { PolymorphicComponent, ObfuscatedClassName }
 export { polymorphicComponent }
