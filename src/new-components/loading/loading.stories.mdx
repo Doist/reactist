@@ -2,14 +2,14 @@ import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-do
 import { Box } from '../box'
 import { Text } from '../text'
 import { Stack } from '../stack'
-import { LoadingSpinner } from './loading-spinner'
+import { Loading } from './loading'
 
-<Meta title="Design system/LoadingSpinner" component={LoadingSpinner} />
+<Meta title="Design system/Loading" component={Loading} />
 
-# LoadingSpinner
+# Loading
 
 export function Template({ label, size }) {
-    return <LoadingSpinner label={label || 'Loading…'} size={size} />
+    return <Loading label={label || 'Loading…'} size={size} />
 }
 
 export function Example({ children, size }) {
@@ -25,19 +25,19 @@ export function Example({ children, size }) {
     <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="All sizes">
         <Box display="flex" flexDirection="row" justifyContent="spaceEvenly" alignItems="flexEnd">
             <Example size="small">
-                <LoadingSpinner label="Loading…" size="small" />
+                <Loading label="Loading…" size="small" />
             </Example>
             <Example size="medium">
-                <LoadingSpinner label="Loading…" size="medium" />
+                <Loading label="Loading…" size="medium" />
             </Example>
             <Example size="large">
-                <LoadingSpinner label="Loading…" size="large" />
+                <Loading label="Loading…" size="large" />
             </Example>
         </Box>
     </Story>
 </Canvas>
 
-## `<LoadingSpinner />`
+## `<Loading />`
 
-<Description of={LoadingSpinner} />
-<ArgsTable of={LoadingSpinner} />
+<Description of={Loading} />
+<ArgsTable of={Loading} />

@@ -1,10 +1,10 @@
 import React from 'react'
 import { Box } from '../box'
-import styles from './loading-spinner.module.css'
+import styles from './loading.module.css'
 
 type Size = 'small' | 'medium' | 'large'
 
-type LoadingSpinnerProps = {
+type LoaderProps = {
     /**
      * The non-visual label used for assistive technologies.
      */
@@ -22,7 +22,7 @@ const sizeMapping: Record<Size, number> = {
     large: 48,
 }
 
-function LoadingSpinner({ size = 'small', label }: LoadingSpinnerProps) {
+function Loading({ size = 'small', label }: LoaderProps) {
     const numericSize = sizeMapping[size]
     return (
         <Box
@@ -54,5 +54,5 @@ function LoadingSpinner({ size = 'small', label }: LoadingSpinnerProps) {
     )
 }
 
-export { LoadingSpinner }
-export type { LoadingSpinnerProps }
+export { Loading }
+export type { LoaderProps }
