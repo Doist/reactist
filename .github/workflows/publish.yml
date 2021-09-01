@@ -11,8 +11,12 @@ jobs:
         steps:
             - uses: actions/checkout@v1
             - uses: actions/setup-node@v1
+            - name: Read Node.js version from '.nvmrc'
+              id: nvmrc
+              run: |
+                  echo "::set-output name=NODE_VERSION::$(cat .nvmrc)"
               with:
-                  node-version: 16
+                  node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
             - run: npm ci
             - run: npm run lint
             - run: npm run type-check
@@ -24,7 +28,7 @@ jobs:
             # Publish to GitHub package registry
             - uses: actions/setup-node@v1
               with:
-                  node-version: 16
+                  node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
                   registry-url: https://npm.pkg.github.com/
                   scope: '@doist'
             - run: npm publish
@@ -34,7 +38,7 @@ jobs:
             # Publish to npm registry
             - uses: actions/setup-node@v1
               with:
-                  node-version: 16
+                  node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
                   registry-url: https://registry.npmjs.org/
                   scope: '@doist'
             - run: npm publish
