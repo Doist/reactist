@@ -41,3 +41,32 @@ export function Example({ children, size }) {
 
 <Description of={Loading} />
 <ArgsTable of={Loading} />
+
+## Stories
+
+### Customized color
+
+The loading indicator adopts the current brand background color defined in the `--reactist-bg-brand`
+CSS variable.
+
+<Canvas withToolbar>
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Customize color">
+        <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="spaceEvenly"
+            alignItems="flexEnd"
+            style={{ '--reactist-bg-brand': 'red' }}
+        >
+            <Example size="small">
+                <Loading label="Loading…" size="small" />
+            </Example>
+            <Example size="medium">
+                <Loading label="Loading…" size="medium" />
+            </Example>
+            <Example size="large">
+                <Loading label="Loading…" size="large" />
+            </Example>
+        </Box>
+    </Story>
+</Canvas>
