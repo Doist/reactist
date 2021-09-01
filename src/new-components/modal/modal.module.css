@@ -1,0 +1,158 @@
+.modalBox {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    overflow-x: hidden;
+    width: 580px;
+    border-radius: 3px;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);
+}
+
+.modalBox-medium {
+    width: 680px;
+}
+
+.modalBox-large {
+    width: 60%;
+    max-width: 1000px;
+}
+
+.reactistOverlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    overflow: auto;
+    animation: fadein 0.25s;
+}
+
+.reactistOverlayInner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0;
+    width: 100%;
+}
+
+/* Modal Header */
+.reactistModalBoxHeader {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    /* background-color: @color_grey_9; */
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    /* border-bottom: 1px solid @color_grey_11; */
+}
+
+.reactistModalBoxHeader p {
+    margin: 0 0 0 25px;
+    padding: 10px 0;
+    /* .normal_text(@weight: @bold); */
+}
+
+.reactistModalBoxHeaderTitle {
+    /* .heading_two_text(); */
+    display: block;
+    margin-top: 5px;
+}
+
+.reactistModalBoxHeaderSubtitle {
+    /* .smaller_text(@color: @secondary_font_color); */
+    display: block;
+    margin-top: 5px;
+}
+
+.reactistModalBoxHeaderClose {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    margin-left: auto;
+    margin-right: 8px;
+}
+
+/* Modal Body */
+.reactistModalBoxBody {
+    flex-grow: 1;
+    overflow: auto;
+    padding: 20px 25px 25px 25px;
+    background-color: white;
+    /* .normal_text(); */
+}
+
+.reactistModalBoxBody-plain {
+    padding: 0;
+}
+
+.reactistModalBoxBody:after {
+    /* used to clear the floating icon while still enabling scrolling */
+    clear: both;
+    content: '';
+    display: block;
+}
+
+.reactistModalBoxBodyClose {
+    float: right;
+}
+
+.reactistModalBoxBodyDialog {
+    overflow: auto; /* contain the floating elements correctly */
+}
+
+.reactistModalBoxBodyDialog .reactistIcon {
+    width: 42px;
+    float: left;
+    margin-right: 20px;
+}
+
+.reactistModalBoxBodyDialog .reactistIcon > * {
+    max-height: 42px;
+    max-width: 100%;
+}
+
+.reactistModalBoxBodyContent {
+    float: right;
+    /* modal size minus the (icon + margin) */
+    width: calc(100% - 62px);
+}
+
+.reactistModalBoxBodyContent h1 {
+    /* when used as dialog this can be used as header inside the modal body */
+    margin: 0;
+    /* .normal_text(@weight: @bold); */
+    line-height: 1;
+}
+
+/* Modal Actions */
+.reactistModalBoxActions {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: flex-end;
+    padding: 20px 25px;
+    background-color: white;
+    /* border-top: 1px solid @color_grey_10; */
+}
+
+.reactistModalBoxActions button {
+    margin-left: 10px;
+}
+
+/* TODO: Migrate @small_screen variable */
+@media only screen and (max-width: 992px) {
+    .modalBox {
+        width: calc(100% - 80px); /* 40px on each side (incl. top via padding) */
+        max-width: 580px;
+    }
+
+    .modalBox-large {
+        width: calc(100% - 80px); /* 40px on each side (incl. top via padding) */
+    }
+}

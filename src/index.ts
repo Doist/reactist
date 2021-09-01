@@ -32,6 +32,7 @@ export * from './new-components/text-area'
 export * from './new-components/text-field'
 
 // other components
+export * from './new-components/modal'
 export * from './new-components/tabs'
 
 // hooks
@@ -52,7 +53,7 @@ export { default as Input } from './components/input'
 export { default as KeyboardShortcut } from './components/keyboard-shortcut'
 export { default as KeyCapturer, SUPPORTED_KEYS } from './components/key-capturer'
 export { default as Loading } from './components/loading'
-export { default as Modal } from './components/modal'
+export { default as DeprecatedModal } from './components/modal'
 export { default as Popover } from './components/popover'
 export { default as ProgressBar } from './components/progress-bar'
 export { default as RangeInput } from './components/range-input'
