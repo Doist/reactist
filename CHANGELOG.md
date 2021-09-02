@@ -12,6 +12,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
     components.
 -   [Breaking] Rename the `Button` as `DeprecatedButton`.
 -   [Feature] New `Button` component following the latest standards of the design system.
+-   [Docs] The storybook examples now open the "Docs" tab by default.
 
 ## v10.0.0-beta.2
 
