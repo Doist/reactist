@@ -43,7 +43,7 @@ export * from './hooks/use-previous'
 //
 
 export { default as Avatar } from './components/avatar'
-export { default as DeprecatedButton } from './components/button'
+export { default as DeprecatedButton } from './components/deprecated-button'
 export { default as Checkbox } from './components/checkbox'
 export { default as ColorPicker, COLORS } from './components/color-picker'
 export { default as Dropdown } from './components/dropdown'

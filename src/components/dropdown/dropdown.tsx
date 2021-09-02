@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 
-import Button from '../button'
+import Button from '../deprecated-button'
 
 import './dropdown.less'
 

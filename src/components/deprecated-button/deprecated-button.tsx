@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 import { Tooltip } from '../tooltip'
 
-import './button.less'
+import './deprecated-button.less'
 
 type NativeButtonProps = React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
