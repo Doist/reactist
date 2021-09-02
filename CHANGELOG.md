@@ -10,6 +10,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 -   [Feature] A new `Modal` component is introduced, that replaces the old one, with much better
     accessibility features and integrated into the new styling approach of the new design system
     components.
+-   [Breaking] Rename the `Button` as `DeprecatedButton`.
+-   [Feature] New `Button` component following the latest standards of the design system.
 
 ## v10.0.0-beta.2
 
