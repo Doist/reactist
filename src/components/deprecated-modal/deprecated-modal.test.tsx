@@ -5,7 +5,7 @@ import toJson from 'enzyme-to-json'
 
 import { default as Modal } from '.'
 import type { Modal as ModalType } from '.'
-import Button from '../button' // for more descriptive snapshots
+import Button from '../deprecated-button' // for more descriptive snapshots
 
 jest.mock('react-dom')
 

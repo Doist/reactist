@@ -1,0 +1,571 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
+import { Inline } from '../inline'
+import { Stack } from '../stack'
+import { Text } from '../text'
+import { Button } from './button'
+
+<Meta title="Design system/Button" component={Button} />
+
+export function Icon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+            <path
+                fill="currentColor"
+                fillRule="evenodd"
+                d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"
+            />
+        </svg>
+    )
+}
+
+# Button
+
+A semantic button that provides all the necessary visual variants. It follows the
+[WAI-ARIA Button Pattern](https://www.w3.org/TR/wai-aria-practices/#button).
+
+🎨 [Figma](https://www.figma.com/file/LYlWNzvhMDh907l07mPPQk/Product-Web?node-id=4693%3A175143)
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Main demo">
+        <Stack space="xxlarge">
+            <Stack space="large">
+                <pre>tone="normal"</pre>
+                <Inline space="large">
+                    <Box>
+                        <Button variant="primary">Primary</Button>
+                    </Box>
+                    <Box>
+                        <Button variant="secondary">Secondary</Button>
+                    </Box>
+                    <Box>
+                        <Button variant="tertiary">Tertiary</Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary">Quaternary</Button>
+                    </Box>
+                </Inline>
+                <Inline space="large">
+                    <Box>
+                        <Button variant="primary" disabled>
+                            Primary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="secondary" disabled>
+                            Secondary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="tertiary" disabled>
+                            Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" disabled>
+                            Quaternary
+                        </Button>
+                    </Box>
+                </Inline>
+            </Stack>
+            <Stack space="large">
+                <pre>tone="destructive"</pre>
+                <Inline space="large">
+                    <Box>
+                        <Button variant="primary" tone="destructive">
+                            Primary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="secondary" tone="destructive">
+                            Secondary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="tertiary" tone="destructive">
+                            Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" tone="destructive">
+                            Quaternary
+                        </Button>
+                    </Box>
+                </Inline>
+                <Inline space="large">
+                    <Box>
+                        <Button variant="primary" tone="destructive" disabled>
+                            Primary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="secondary" tone="destructive" disabled>
+                            Secondary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="tertiary" tone="destructive" disabled>
+                            Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" tone="destructive" disabled>
+                            Quaternary
+                        </Button>
+                    </Box>
+                </Inline>
+            </Stack>
+        </Stack>
+    </Story>
+</Canvas>
+
+## `<Button>`
+
+<Description of={Button} />
+<ArgsTable of={Button} />
+
+## Style customization
+
+Check out `BaseButton` for documentation about how to customize it visually.
+
+## Stories
+
+### With label and icon
+
+To have icons rendered before or after the label, you can use the `startIcon` or `endIcon` prop for
+this purpose.
+
+Nothing prevents you from passing both a `startIcon` and an `endIcon` at the same time. However,
+this is discouraged, and not guaranteed to be supported in the future.
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="With label and icon">
+        <Stack space="xxlarge">
+            <Stack space="large">
+                <Text>Icon before the label</Text>
+                <Inline space="large">
+                    <Box>
+                        <Button variant="primary" startIcon={<Icon />}>
+                            Primary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="secondary" startIcon={<Icon />}>
+                            Secondary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="tertiary" startIcon={<Icon />}>
+                            Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" startIcon={<Icon />}>
+                            Quaternary
+                        </Button>
+                    </Box>
+                </Inline>
+            </Stack>
+            <Stack space="large">
+                <Text>Icon after the label</Text>
+                <Inline space="large">
+                    <Box>
+                        <Button variant="primary" endIcon={<Icon />}>
+                            Primary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="secondary" endIcon={<Icon />}>
+                            Secondary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="tertiary" endIcon={<Icon />}>
+                            Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" endIcon={<Icon />}>
+                            Quaternary
+                        </Button>
+                    </Box>
+                </Inline>
+            </Stack>
+        </Stack>
+    </Story>
+</Canvas>
+
+## Icon-only buttons
+
+Alternatively, you can render an icon-only `Button`. To do so use the `icon` prop.
+
+Icon-only buttons do not support receiving the `children` prop, or any of the `startIcon` or
+`endIcon` props. They also force you to pass a `aria-label` prop. The `aria-label` will also be used
+as a tooltip if no tooltip is provided.
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Icon-only buttons">
+        <Stack space="large">
+            <Inline space="large">
+                <Box>
+                    <Button variant="primary" aria-label="Add task" icon={<Icon />} />
+                </Box>
+                <Box>
+                    <Button variant="secondary" aria-label="Add task" icon={<Icon />} />
+                </Box>
+                <Box>
+                    <Button variant="tertiary" aria-label="Add task" icon={<Icon />} />
+                </Box>
+                <Box>
+                    <Button variant="quaternary" aria-label="Add task" icon={<Icon />} />
+                </Box>
+            </Inline>
+            <Inline space="large">
+                <Box>
+                    <Button variant="primary" aria-label="Add task" icon={<Icon />} disabled />
+                </Box>
+                <Box>
+                    <Button variant="secondary" aria-label="Add task" icon={<Icon />} disabled />
+                </Box>
+                <Box>
+                    <Button variant="tertiary" aria-label="Add task" icon={<Icon />} disabled />
+                </Box>
+                <Box>
+                    <Button variant="quaternary" aria-label="Add task" icon={<Icon />} disabled />
+                </Box>
+            </Inline>
+        </Stack>
+    </Story>
+</Canvas>
+
+### With different size
+
+Buttons have a default `normal` size, but they can also be larger or smaller. Use the `size` prop
+for this purpose.
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="With different size">
+        <Stack space="xxlarge">
+            <Stack space="large">
+                <pre>size="small"</pre>
+                <Inline space="large">
+                    <Box>
+                        <Button variant="primary" size="small">
+                            Primary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="secondary" size="small">
+                            Secondary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="tertiary" size="small">
+                            Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" size="small">
+                            Quaternary
+                        </Button>
+                    </Box>
+                </Inline>
+                <Inline space="large">
+                    <Box>
+                        <Button variant="primary" size="small" disabled>
+                            Primary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="secondary" size="small" disabled>
+                            Secondary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="tertiary" size="small" disabled>
+                            Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" size="small" disabled>
+                            Quaternary
+                        </Button>
+                    </Box>
+                </Inline>
+            </Stack>
+            <Stack space="large">
+                <pre>size="normal"</pre>
+                <Inline space="large">
+                    <Box>
+                        <Button variant="primary" size="normal">
+                            Primary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="secondary" size="normal">
+                            Secondary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="tertiary" size="normal">
+                            Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" size="normal">
+                            Quaternary
+                        </Button>
+                    </Box>
+                </Inline>
+                <Inline space="large">
+                    <Box>
+                        <Button variant="primary" size="normal" disabled>
+                            Primary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="secondary" size="normal" disabled>
+                            Secondary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="tertiary" size="normal" disabled>
+                            Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" size="normal" disabled>
+                            Quaternary
+                        </Button>
+                    </Box>
+                </Inline>
+            </Stack>
+            <Stack space="large">
+                <pre>size="large"</pre>
+                <Inline space="large">
+                    <Box>
+                        <Button variant="primary" size="large">
+                            Primary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="secondary" size="large">
+                            Secondary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="tertiary" size="large">
+                            Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" size="large">
+                            Quaternary
+                        </Button>
+                    </Box>
+                </Inline>
+                <Inline space="large">
+                    <Box>
+                        <Button variant="primary" size="large" disabled>
+                            Primary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="secondary" size="large" disabled>
+                            Secondary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="tertiary" size="large" disabled>
+                            Tertiary
+                        </Button>
+                    </Box>
+                    <Box>
+                        <Button variant="quaternary" size="large" disabled>
+                            Quaternary
+                        </Button>
+                    </Box>
+                </Inline>
+            </Stack>
+        </Stack>
+    </Story>
+</Canvas>
+
+### Customized colors
+
+Though probably not the final official way to do it, this is a way to achieve one-off alternative
+styles for buttons.
+
+```jsx
+<Button
+    variant="primary"
+    style={{
+        '--reactist-btn-idle-tint': '#eee',
+        '--reactist-btn-idle-fill': '#666',
+        '--reactist-btn-hover-tint': '#fff',
+        '--reactist-btn-hover-fill': '#777',
+        '--reactist-btn-disabled-tint': '#fff',
+        '--reactist-btn-disabled-fill': '#ccc',
+    }}
+>
+    Click me
+</Button>
+```
+
+And here's how that look like:
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Customized colors">
+        <Inline space="large">
+            <Box>
+                <Button
+                    variant="primary"
+                    style={{
+                        '--reactist-btn-idle-tint': '#eee',
+                        '--reactist-btn-idle-fill': '#666',
+                        '--reactist-btn-hover-tint': '#fff',
+                        '--reactist-btn-hover-fill': '#777',
+                        '--reactist-btn-disabled-tint': '#fff',
+                        '--reactist-btn-disabled-fill': '#ccc',
+                    }}
+                >
+                    Enabled
+                </Button>
+            </Box>
+            <Box>
+                <Button
+                    variant="primary"
+                    disabled
+                    style={{
+                        '--reactist-btn-idle-tint': '#eee',
+                        '--reactist-btn-idle-fill': '#666',
+                        '--reactist-btn-hover-tint': '#fff',
+                        '--reactist-btn-hover-fill': '#777',
+                        '--reactist-btn-disabled-tint': '#fff',
+                        '--reactist-btn-disabled-fill': '#ccc',
+                    }}
+                >
+                    Disabled
+                </Button>
+            </Box>
+        </Inline>
+    </Story>
+</Canvas>
+
+### Playground
+
+export function Template({ label, variant, tone, size }) {
+    let textLabel = label
+    if (label === 'Click me <em>now</em>') {
+        label = (
+            <>
+                Click me <em>now</em>
+            </>
+        )
+        textLabel = 'Click me now'
+    }
+    return (
+        <Inline space="large">
+            <Stack space="large">
+                <Box>
+                    <Button variant={variant} tone={tone} size={size}>
+                        {label}
+                    </Button>
+                </Box>
+                <Box>
+                    <Button variant={variant} tone={tone} size={size} disabled>
+                        {label}
+                    </Button>
+                </Box>
+            </Stack>
+            <Stack space="large">
+                <Box>
+                    <Button variant={variant} tone={tone} size={size} startIcon={<Icon />}>
+                        {label}
+                    </Button>
+                </Box>
+                <Box>
+                    <Button variant={variant} tone={tone} size={size} startIcon={<Icon />} disabled>
+                        {label}
+                    </Button>
+                </Box>
+            </Stack>
+            <Stack space="large">
+                <Box>
+                    <Button variant={variant} tone={tone} size={size} endIcon={<Icon />}>
+                        {label}
+                    </Button>
+                </Box>
+                <Box>
+                    <Button variant={variant} tone={tone} size={size} endIcon={<Icon />} disabled>
+                        {label}
+                    </Button>
+                </Box>
+            </Stack>
+            <Stack space="large">
+                <Box>
+                    <Button
+                        variant={variant}
+                        tone={tone}
+                        size={size}
+                        aria-label={textLabel}
+                        tooltip={label}
+                        icon={<Icon />}
+                    />
+                </Box>
+                <Box>
+                    <Button
+                        variant={variant}
+                        tone={tone}
+                        size={size}
+                        aria-label={textLabel}
+                        tooltip={label}
+                        icon={<Icon />}
+                        disabled
+                    />
+                </Box>
+            </Stack>
+        </Inline>
+    )
+}
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        argTypes={{
+            label: {
+                control: { type: 'select' },
+                options: [
+                    'Submit',
+                    'Mark as done',
+                    'Yes, cancel my subscription',
+                    'Click me <em>now</em>',
+                ],
+                defaultValue: 'Submit',
+            },
+            variant: {
+                options: ['primary', 'secondary', 'tertiary', 'quaternary'],
+                control: { type: 'select' },
+                defaultValue: 'primary',
+            },
+            tone: {
+                options: ['normal', 'destructive'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'normal',
+            },
+            size: {
+                options: ['small', 'normal', 'large'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'normal',
+            },
+            disabled: { control: false },
+            startIcon: { control: false },
+            endIcon: { control: false },
+            icon: { control: false },
+            tooltip: { control: false },
+            exceptionallySetClassName: { control: false },
+        }}
+        name="Playground"
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

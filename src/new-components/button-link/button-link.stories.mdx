@@ -1,0 +1,594 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
+import { Inline } from '../inline'
+import { Stack } from '../stack'
+import { Text } from '../text'
+import * as ButtonLinkModule from './button-link'
+import { ButtonLink } from './button-link-story-wrapper'
+
+<Meta title="Design system/ButtonLink" component={ButtonLinkModule.ButtonLink} />
+
+export function Icon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+            <path
+                fill="currentColor"
+                fillRule="evenodd"
+                d="M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z"
+            />
+        </svg>
+    )
+}
+
+# ButtonLink
+
+'A semantic link that looks like a button, exactly matching the `ButtonLink` component in all visual
+aspects.'
+
+🎨 [Figma](https://www.figma.com/file/LYlWNzvhMDh907l07mPPQk/Product-Web?node-id=4693%3A175143)
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Main demo">
+        <Stack space="xxlarge">
+            <Stack space="large">
+                <pre>tone="normal"</pre>
+                <Inline space="large">
+                    <Box>
+                        <ButtonLink variant="primary">Primary</ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="secondary">Secondary</ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="tertiary">Tertiary</ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary">Quaternary</ButtonLink>
+                    </Box>
+                </Inline>
+                <Inline space="large">
+                    <Box>
+                        <ButtonLink variant="primary" disabled>
+                            Primary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="secondary" disabled>
+                            Secondary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="tertiary" disabled>
+                            Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" disabled>
+                            Quaternary
+                        </ButtonLink>
+                    </Box>
+                </Inline>
+            </Stack>
+            <Stack space="large">
+                <pre>tone="destructive"</pre>
+                <Inline space="large">
+                    <Box>
+                        <ButtonLink variant="primary" tone="destructive">
+                            Primary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="secondary" tone="destructive">
+                            Secondary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="tertiary" tone="destructive">
+                            Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" tone="destructive">
+                            Quaternary
+                        </ButtonLink>
+                    </Box>
+                </Inline>
+                <Inline space="large">
+                    <Box>
+                        <ButtonLink variant="primary" tone="destructive" disabled>
+                            Primary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="secondary" tone="destructive" disabled>
+                            Secondary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="tertiary" tone="destructive" disabled>
+                            Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" tone="destructive" disabled>
+                            Quaternary
+                        </ButtonLink>
+                    </Box>
+                </Inline>
+            </Stack>
+        </Stack>
+    </Story>
+</Canvas>
+
+## `<ButtonLink>`
+
+<Description of={ButtonLink} />
+<ArgsTable of={ButtonLink} />
+
+## Style customization
+
+Check out `BaseButton` for documentation about how to customize it visually.
+
+## Stories
+
+### With label and icon
+
+To have icons rendered before or after the label, you can use the `startIcon` or `endIcon` prop for
+this purpose.
+
+Nothing prevents you from passing both a `startIcon` and an `endIcon` at the same time. However,
+this is discouraged, and not guaranteed to be supported in the future.
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="With label and icon">
+        <Stack space="xxlarge">
+            <Stack space="large">
+                <Text>Icon before the label</Text>
+                <Inline space="large">
+                    <Box>
+                        <ButtonLink variant="primary" startIcon={<Icon />}>
+                            Primary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="secondary" startIcon={<Icon />}>
+                            Secondary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="tertiary" startIcon={<Icon />}>
+                            Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" startIcon={<Icon />}>
+                            Quaternary
+                        </ButtonLink>
+                    </Box>
+                </Inline>
+            </Stack>
+            <Stack space="large">
+                <Text>Icon after the label</Text>
+                <Inline space="large">
+                    <Box>
+                        <ButtonLink variant="primary" endIcon={<Icon />}>
+                            Primary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="secondary" endIcon={<Icon />}>
+                            Secondary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="tertiary" endIcon={<Icon />}>
+                            Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" endIcon={<Icon />}>
+                            Quaternary
+                        </ButtonLink>
+                    </Box>
+                </Inline>
+            </Stack>
+        </Stack>
+    </Story>
+</Canvas>
+
+## Icon-only buttons
+
+Alternatively, you can render an icon-only `ButtonLink`. To do so use the `icon` prop.
+
+Icon-only buttons do not support receiving the `children` prop, or any of the `startIcon` or
+`endIcon` props. They also force you to pass a `aria-label` prop. The `aria-label` will also be used
+as a tooltip if no tooltip is provided.
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Icon-only buttons">
+        <Stack space="large">
+            <Inline space="large">
+                <Box>
+                    <ButtonLink variant="primary" aria-label="Add task" icon={<Icon />} />
+                </Box>
+                <Box>
+                    <ButtonLink variant="secondary" aria-label="Add task" icon={<Icon />} />
+                </Box>
+                <Box>
+                    <ButtonLink variant="tertiary" aria-label="Add task" icon={<Icon />} />
+                </Box>
+                <Box>
+                    <ButtonLink variant="quaternary" aria-label="Add task" icon={<Icon />} />
+                </Box>
+            </Inline>
+            <Inline space="large">
+                <Box>
+                    <ButtonLink variant="primary" aria-label="Add task" icon={<Icon />} disabled />
+                </Box>
+                <Box>
+                    <ButtonLink
+                        variant="secondary"
+                        aria-label="Add task"
+                        icon={<Icon />}
+                        disabled
+                    />
+                </Box>
+                <Box>
+                    <ButtonLink variant="tertiary" aria-label="Add task" icon={<Icon />} disabled />
+                </Box>
+                <Box>
+                    <ButtonLink
+                        variant="quaternary"
+                        aria-label="Add task"
+                        icon={<Icon />}
+                        disabled
+                    />
+                </Box>
+            </Inline>
+        </Stack>
+    </Story>
+</Canvas>
+
+### With different size
+
+Buttons have a default `normal` size, but they can also be larger or smaller. Use the `size` prop
+for this purpose.
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="With different size">
+        <Stack space="xxlarge">
+            <Stack space="large">
+                <pre>size="small"</pre>
+                <Inline space="large">
+                    <Box>
+                        <ButtonLink variant="primary" size="small">
+                            Primary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="secondary" size="small">
+                            Secondary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="tertiary" size="small">
+                            Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" size="small">
+                            Quaternary
+                        </ButtonLink>
+                    </Box>
+                </Inline>
+                <Inline space="large">
+                    <Box>
+                        <ButtonLink variant="primary" size="small" disabled>
+                            Primary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="secondary" size="small" disabled>
+                            Secondary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="tertiary" size="small" disabled>
+                            Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" size="small" disabled>
+                            Quaternary
+                        </ButtonLink>
+                    </Box>
+                </Inline>
+            </Stack>
+            <Stack space="large">
+                <pre>size="normal"</pre>
+                <Inline space="large">
+                    <Box>
+                        <ButtonLink variant="primary" size="normal">
+                            Primary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="secondary" size="normal">
+                            Secondary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="tertiary" size="normal">
+                            Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" size="normal">
+                            Quaternary
+                        </ButtonLink>
+                    </Box>
+                </Inline>
+                <Inline space="large">
+                    <Box>
+                        <ButtonLink variant="primary" size="normal" disabled>
+                            Primary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="secondary" size="normal" disabled>
+                            Secondary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="tertiary" size="normal" disabled>
+                            Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" size="normal" disabled>
+                            Quaternary
+                        </ButtonLink>
+                    </Box>
+                </Inline>
+            </Stack>
+            <Stack space="large">
+                <pre>size="large"</pre>
+                <Inline space="large">
+                    <Box>
+                        <ButtonLink variant="primary" size="large">
+                            Primary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="secondary" size="large">
+                            Secondary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="tertiary" size="large">
+                            Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" size="large">
+                            Quaternary
+                        </ButtonLink>
+                    </Box>
+                </Inline>
+                <Inline space="large">
+                    <Box>
+                        <ButtonLink variant="primary" size="large" disabled>
+                            Primary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="secondary" size="large" disabled>
+                            Secondary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="tertiary" size="large" disabled>
+                            Tertiary
+                        </ButtonLink>
+                    </Box>
+                    <Box>
+                        <ButtonLink variant="quaternary" size="large" disabled>
+                            Quaternary
+                        </ButtonLink>
+                    </Box>
+                </Inline>
+            </Stack>
+        </Stack>
+    </Story>
+</Canvas>
+
+### Customized colors
+
+Though probably not the final official way to do it, this is a way to achieve one-off alternative
+styles for buttons.
+
+```jsx
+<ButtonLink
+    variant="primary"
+    style={{
+        '--reactist-btn-idle-tint': '#eee',
+        '--reactist-btn-idle-fill': '#666',
+        '--reactist-btn-hover-tint': '#fff',
+        '--reactist-btn-hover-fill': '#777',
+        '--reactist-btn-disabled-tint': '#fff',
+        '--reactist-btn-disabled-fill': '#ccc',
+    }}
+>
+    Click me
+</ButtonLink>
+```
+
+And here's how that look like:
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Customized colors">
+        <Inline space="large">
+            <Box>
+                <ButtonLink
+                    variant="primary"
+                    style={{
+                        '--reactist-btn-idle-tint': '#eee',
+                        '--reactist-btn-idle-fill': '#666',
+                        '--reactist-btn-hover-tint': '#fff',
+                        '--reactist-btn-hover-fill': '#777',
+                        '--reactist-btn-disabled-tint': '#fff',
+                        '--reactist-btn-disabled-fill': '#ccc',
+                    }}
+                >
+                    Enabled
+                </ButtonLink>
+            </Box>
+            <Box>
+                <ButtonLink
+                    variant="primary"
+                    disabled
+                    style={{
+                        '--reactist-btn-idle-tint': '#eee',
+                        '--reactist-btn-idle-fill': '#666',
+                        '--reactist-btn-hover-tint': '#fff',
+                        '--reactist-btn-hover-fill': '#777',
+                        '--reactist-btn-disabled-tint': '#fff',
+                        '--reactist-btn-disabled-fill': '#ccc',
+                    }}
+                >
+                    Disabled
+                </ButtonLink>
+            </Box>
+        </Inline>
+    </Story>
+</Canvas>
+
+### Playground
+
+export function Template({ label, variant, tone, size }) {
+    let textLabel = label
+    if (label === 'Click me <em>now</em>') {
+        label = (
+            <>
+                Click me <em>now</em>
+            </>
+        )
+        textLabel = 'Click me now'
+    }
+    return (
+        <Inline space="large">
+            <Stack space="large">
+                <Box>
+                    <ButtonLink variant={variant} tone={tone} size={size}>
+                        {label}
+                    </ButtonLink>
+                </Box>
+                <Box>
+                    <ButtonLink variant={variant} tone={tone} size={size} disabled>
+                        {label}
+                    </ButtonLink>
+                </Box>
+            </Stack>
+            <Stack space="large">
+                <Box>
+                    <ButtonLink variant={variant} tone={tone} size={size} startIcon={<Icon />}>
+                        {label}
+                    </ButtonLink>
+                </Box>
+                <Box>
+                    <ButtonLink
+                        variant={variant}
+                        tone={tone}
+                        size={size}
+                        startIcon={<Icon />}
+                        disabled
+                    >
+                        {label}
+                    </ButtonLink>
+                </Box>
+            </Stack>
+            <Stack space="large">
+                <Box>
+                    <ButtonLink variant={variant} tone={tone} size={size} endIcon={<Icon />}>
+                        {label}
+                    </ButtonLink>
+                </Box>
+                <Box>
+                    <ButtonLink
+                        variant={variant}
+                        tone={tone}
+                        size={size}
+                        endIcon={<Icon />}
+                        disabled
+                    >
+                        {label}
+                    </ButtonLink>
+                </Box>
+            </Stack>
+            <Stack space="large">
+                <Box>
+                    <ButtonLink
+                        variant={variant}
+                        tone={tone}
+                        size={size}
+                        aria-label={textLabel}
+                        tooltip={label}
+                        icon={<Icon />}
+                    />
+                </Box>
+                <Box>
+                    <ButtonLink
+                        variant={variant}
+                        tone={tone}
+                        size={size}
+                        aria-label={textLabel}
+                        tooltip={label}
+                        icon={<Icon />}
+                        disabled
+                    />
+                </Box>
+            </Stack>
+        </Inline>
+    )
+}
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        argTypes={{
+            label: {
+                control: { type: 'select' },
+                options: [
+                    'Submit',
+                    'Mark as done',
+                    'Yes, cancel my subscription',
+                    'Click me <em>now</em>',
+                ],
+                defaultValue: 'Submit',
+            },
+            variant: {
+                options: ['primary', 'secondary', 'tertiary', 'quaternary'],
+                control: { type: 'select' },
+                defaultValue: 'primary',
+            },
+            tone: {
+                options: ['normal', 'destructive'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'normal',
+            },
+            size: {
+                options: ['small', 'normal', 'large'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'normal',
+            },
+            disabled: { control: false },
+            startIcon: { control: false },
+            endIcon: { control: false },
+            icon: { control: false },
+            tooltip: { control: false },
+            exceptionallySetClassName: { control: false },
+        }}
+        name="Playground"
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

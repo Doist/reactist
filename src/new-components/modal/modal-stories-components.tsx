@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Button from '../../components/button'
+import Button from '../../components/deprecated-button'
 import { Placeholder, times } from '../storybook-helper'
 import { SelectField } from '../select-field'
 import { SwitchField } from '../switch-field'

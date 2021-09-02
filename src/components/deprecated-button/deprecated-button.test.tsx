@@ -2,9 +2,9 @@ import React from 'react'
 import userEvent from '@testing-library/user-event'
 import { render, screen } from '@testing-library/react'
 
-import { Button } from './button'
+import { Button } from './deprecated-button'
 
-describe('Button', () => {
+describe('Button (deprecated)', () => {
     it('renders children as button text', () => {
         render(<Button variant="primary">Click me</Button>)
         expect(screen.getByRole('button')).toHaveTextContent('Click me')

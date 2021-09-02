@@ -95,28 +95,24 @@ describe('Stack', () => {
         it('allows to align its children to the left, center or right', () => {
             // no explicit alignment
             const { rerender } = render(<Stack data-testid="stack" />)
-            expect(screen.getByTestId('stack')).toHaveClass('display-block')
             expect(screen.getByTestId('stack')).not.toHaveClass('display-flex')
             expect(screen.getByTestId('stack')).not.toHaveClass('flexDirection-column')
             expect(screen.getByTestId('stack')).not.toHaveClass('alignItems-center')
 
             // aligned to the left (same as when there's no explicit alignment)
             rerender(<Stack data-testid="stack" align="left" />)
-            expect(screen.getByTestId('stack')).toHaveClass('display-block')
             expect(screen.getByTestId('stack')).not.toHaveClass('display-flex')
             expect(screen.getByTestId('stack')).not.toHaveClass('flexDirection-column')
             expect(screen.getByTestId('stack')).not.toHaveClass('alignItems-center')
 
             // aligned to the center
             rerender(<Stack data-testid="stack" align="center" />)
-            expect(screen.getByTestId('stack')).not.toHaveClass('display-block')
             expect(screen.getByTestId('stack')).toHaveClass('display-flex')
             expect(screen.getByTestId('stack')).toHaveClass('flexDirection-column')
             expect(screen.getByTestId('stack')).toHaveClass('alignItems-center')
 
             // aligned to the right
             rerender(<Stack data-testid="stack" align="right" />)
-            expect(screen.getByTestId('stack')).not.toHaveClass('display-block')
             expect(screen.getByTestId('stack')).toHaveClass('display-flex')
             expect(screen.getByTestId('stack')).toHaveClass('flexDirection-column')
             expect(screen.getByTestId('stack')).toHaveClass('alignItems-flexEnd')

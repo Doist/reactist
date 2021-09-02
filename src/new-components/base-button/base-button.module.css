@@ -1,0 +1,214 @@
+:root {
+    --reactist-actionable-primary-idle-tint: #ffffff;
+    --reactist-actionable-primary-idle-fill: #008aa6;
+    --reactist-actionable-primary-hover-tint: #ffffff;
+    --reactist-actionable-primary-hover-fill: #007992;
+    --reactist-actionable-primary-disabled-tint: #ffffff;
+    --reactist-actionable-primary-disabled-fill: #99d0db;
+
+    --reactist-actionable-secondary-idle-tint: #282f30;
+    --reactist-actionable-secondary-idle-fill: #f2f6f7;
+    --reactist-actionable-secondary-hover-tint: #282f30;
+    --reactist-actionable-secondary-hover-fill: #e3e7e8;
+    --reactist-actionable-secondary-disabled-tint: #a9acac;
+    --reactist-actionable-secondary-disabled-fill: #f2f6f7;
+
+    --reactist-actionable-tertiary-idle-tint: #006f85;
+    /* --reactist-actionable-tertiary-idle-fill: transparent; */
+    --reactist-actionable-tertiary-hover-tint: #006f85;
+    --reactist-actionable-tertiary-hover-fill: #f2f6f7;
+    --reactist-actionable-tertiary-disabled-tint: #99c5ce;
+    /* --reactist-actionable-tertiary-disabled-fill: transparent; */
+
+    --reactist-actionable-quaternary-idle-tint: ##6c777a;
+    /* --reactist-actionable-quaternary-idle-fill: transparent; */
+    --reactist-actionable-quaternary-hover-tint: #282f30;
+    --reactist-actionable-quaternary-hover-fill: #e0e7e8;
+    --reactist-actionable-quaternary-disabled-tint: #c4c9ca;
+    /* --reactist-actionable-quaternary-disabled-fill: transparent; */
+
+    --reactist-actionable-destructive-idle-tint: #ffffff;
+    --reactist-actionable-destructive-idle-fill: #dc4c3e;
+    --reactist-actionable-destructive-hover-tint: #ffffff;
+    --reactist-actionable-destructive-hover-fill: #b03d32;
+    --reactist-actionable-destructive-disabled-tint: #ffffff;
+    --reactist-actionable-destructive-disabled-fill: #f1b7b2;
+}
+
+/* general styles for all buttons */
+.baseButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    color: inherit;
+    border: none;
+    background-color: transparent;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-family: var(--reactist-font-family);
+    font-weight: var(--reactist-font-weight-medium);
+    text-decoration: none;
+    /* border is always on, but transparent, so that it does not enlarge buttons when we actually color it */
+    border: 1px solid transparent;
+}
+
+/* nice little animation when clicked to give some visual feedback */
+.baseButton:active:not([aria-disabled='true']) {
+    transform: scale(0.97);
+    transition: transform 0.2s cubic-bezier(0.02, 1.505, 0.745, 1.235);
+}
+
+.baseButton {
+    --reactist-btn-height: 32px;
+    --reactist-btn-padding-x: 12px;
+    --reactist-btn-font-size: var(--reactist-font-size-copy);
+    --reactist-btn-icon-gap: 12px;
+    --reactist-btn-icon-size: 16px;
+
+    padding: 0 var(--reactist-btn-padding-x);
+    font-size: var(--reactist-btn-font-size);
+    height: var(--reactist-btn-height);
+    line-height: var(--reactist-btn-height);
+}
+
+.baseButton.size-small {
+    --reactist-btn-height: 28px;
+    --reactist-btn-padding-x: 8px;
+    --reactist-btn-font-size: var(--reactist-font-size-caption);
+    --reactist-btn-icon-gap: 8px;
+    --reactist-btn-icon-size: 12px;
+}
+
+.baseButton.size-large {
+    --reactist-btn-height: 40px;
+    --reactist-btn-padding-x: 14px;
+    --reactist-btn-font-size: var(--reactist-font-size-subtitle);
+    --reactist-btn-icon-gap: 16px;
+    --reactist-btn-icon-size: 20px;
+}
+
+/* setup the color variables for all the different states */
+/* variables are then set per variant and tone so that we do not repeat these definitions below */
+
+.baseButton:not([aria-disabled='true']) {
+    color: var(--reactist-btn-idle-tint);
+    background-color: var(--reactist-btn-idle-fill);
+}
+
+.baseButton:hover:not([aria-disabled='true']) {
+    color: var(--reactist-btn-hover-tint);
+    background-color: var(--reactist-btn-hover-fill);
+}
+
+.baseButton[aria-disabled='true'] {
+    cursor: not-allowed;
+    color: var(--reactist-btn-disabled-tint);
+    background-color: var(--reactist-btn-disabled-fill);
+}
+
+/* icons */
+
+.baseButton.iconButton {
+    width: var(--reactist-btn-height);
+    height: var(--reactist-btn-height);
+    padding: 0;
+}
+
+.baseButton .startIcon {
+    margin-right: var(--reactist-btn-icon-gap);
+}
+
+.baseButton .endIcon {
+    margin-left: var(--reactist-btn-icon-gap);
+}
+
+.baseButton .startIcon,
+.baseButton .startIcon > svg,
+.baseButton .endIcon,
+.baseButton .endIcon > svg,
+.baseButton.baseButton.iconButton > svg {
+    width: var(--reactist-btn-icon-size);
+    height: var(--reactist-btn-icon-size);
+}
+
+/* variants with normal tone */
+
+.variant-primary {
+    --reactist-btn-idle-tint: var(--reactist-actionable-primary-idle-tint);
+    --reactist-btn-idle-fill: var(--reactist-actionable-primary-idle-fill);
+    --reactist-btn-hover-tint: var(--reactist-actionable-primary-hover-tint);
+    --reactist-btn-hover-fill: var(--reactist-actionable-primary-hover-fill);
+    --reactist-btn-disabled-tint: var(--reactist-actionable-primary-disabled-tint);
+    --reactist-btn-disabled-fill: var(--reactist-actionable-primary-disabled-fill);
+}
+
+.variant-secondary {
+    --reactist-btn-idle-tint: var(--reactist-actionable-secondary-idle-tint);
+    --reactist-btn-idle-fill: var(--reactist-actionable-secondary-idle-fill);
+    --reactist-btn-hover-tint: var(--reactist-actionable-secondary-hover-tint);
+    --reactist-btn-hover-fill: var(--reactist-actionable-secondary-hover-fill);
+    --reactist-btn-disabled-tint: var(--reactist-actionable-secondary-disabled-tint);
+    --reactist-btn-disabled-fill: var(--reactist-actionable-secondary-disabled-fill);
+}
+
+.variant-tertiary {
+    --reactist-btn-idle-tint: var(--reactist-actionable-tertiary-idle-tint);
+    --reactist-btn-idle-fill: transparent;
+    --reactist-btn-hover-tint: var(--reactist-actionable-tertiary-hover-tint);
+    --reactist-btn-hover-fill: var(--reactist-actionable-tertiary-hover-fill);
+    --reactist-btn-disabled-tint: var(--reactist-actionable-tertiary-disabled-tint);
+    --reactist-btn-disabled-fill: transparent;
+}
+
+.variant-quaternary {
+    --reactist-btn-idle-tint: var(--reactist-actionable-quaternary-idle-tint);
+    --reactist-btn-idle-fill: transparent;
+    --reactist-btn-hover-tint: var(--reactist-actionable-quaternary-hover-tint);
+    --reactist-btn-hover-fill: var(--reactist-actionable-quaternary-hover-fill);
+    --reactist-btn-disabled-tint: var(--reactist-actionable-quaternary-disabled-tint);
+    --reactist-btn-disabled-fill: transparent;
+}
+
+/* variants with destructive tone */
+
+.variant-primary.tone-destructive {
+    --reactist-btn-idle-tint: var(--reactist-actionable-destructive-idle-tint);
+    --reactist-btn-idle-fill: var(--reactist-actionable-destructive-idle-fill);
+    --reactist-btn-hover-tint: var(--reactist-actionable-destructive-hover-tint);
+    --reactist-btn-hover-fill: var(--reactist-actionable-destructive-hover-fill);
+    --reactist-btn-disabled-tint: var(--reactist-actionable-destructive-disabled-tint);
+    --reactist-btn-disabled-fill: var(--reactist-actionable-destructive-disabled-fill);
+}
+
+.variant-secondary.tone-destructive {
+    --reactist-btn-idle-tint: var(--reactist-actionable-destructive-idle-fill);
+    --reactist-btn-idle-fill: var(--reactist-actionable-destructive-idle-tint);
+    --reactist-btn-hover-tint: var(--reactist-actionable-destructive-hover-fill);
+    --reactist-btn-hover-fill: var(--reactist-actionable-destructive-hover-tint);
+    --reactist-btn-disabled-tint: var(--reactist-actionable-destructive-disabled-fill);
+    --reactist-btn-disabled-fill: var(--reactist-actionable-destructive-disabled-tint);
+}
+
+/* the secondary destructive variant has border around it */
+.variant-secondary.tone-destructive {
+    border-color: var(--reactist-actionable-destructive-idle-fill);
+}
+.variant-secondary.tone-destructive:hover {
+    border-color: var(--reactist-actionable-destructive-hover-fill);
+}
+.variant-secondary.tone-destructive[aria-disabled='true'] {
+    border-color: var(--reactist-actionable-destructive-disabled-fill);
+}
+
+.variant-tertiary.tone-destructive,
+.variant-quaternary.tone-destructive {
+    --reactist-btn-idle-tint: var(--reactist-actionable-destructive-idle-fill);
+    --reactist-btn-idle-fill: transparent;
+    --reactist-btn-hover-tint: var(--reactist-actionable-destructive-hover-fill);
+    --reactist-btn-hover-fill: var(--reactist-actionable-tertiary-hover-fill);
+    --reactist-btn-disabled-tint: var(--reactist-actionable-destructive-disabled-fill);
+    --reactist-btn-disabled-fill: transparent;
+}

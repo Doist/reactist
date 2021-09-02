@@ -3,17 +3,20 @@ import classNames from 'classnames'
 
 import { Tooltip } from '../tooltip'
 
-import './button.less'
+import './deprecated-button.less'
 
 type NativeButtonProps = React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
 >
 
+/** @deprecated */
 export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'link'
 
+/** @deprecated */
 export type ButtonSize = 'default' | 'small' | 'large'
 
+/** @deprecated */
 export type ButtonProps = Omit<NativeButtonProps, 'title' | 'ref'> & {
     /**
      * Loading style. When true it disables the button, but it also adds a visual indication of
@@ -36,6 +39,9 @@ export type ButtonProps = Omit<NativeButtonProps, 'title' | 'ref'> & {
     tooltip?: React.ReactNode
 }
 
+/**
+ * @deprecated
+ */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     {
         type = 'button',

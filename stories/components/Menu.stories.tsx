@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions'
 
 import { Menu, MenuButton, MenuList, MenuItem, MenuGroup, SubMenu } from '../../src/components/menu'
 import KeyboardShortcut from '../../src/components/keyboard-shortcut'
-import Button from '../../src/components/button'
+import Button from '../../src/components/deprecated-button'
 
 function MenuIndicator() {
     return (
