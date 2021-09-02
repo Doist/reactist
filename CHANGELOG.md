@@ -6,6 +6,10 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 -   [Breaking] The `Loading` component has been reimplemented based on the beta `LoadingSpinner`.
 -   [Breaking] The `LoadingSpinner` was renamed as `Loading`, and significantly changed.
+-   [Breaking] The `Modal` has been renamed `DeprecatedModal`.
+-   [Feature] A new `Modal` component is introduced, that replaces the old one, with much better
+    accessibility features and integrated into the new styling approach of the new design system
+    components.
 
 ## v10.0.0-beta.2
 
