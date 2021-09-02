@@ -37,4 +37,17 @@ describe('Loading', () => {
         expect(smallSize).toBeLessThan(mediumSize)
         expect(mediumSize).toBeLessThan(largeSize)
     })
+
+    it('renders in small size if an invalid size is given', () => {
+        const { rerender } = render(<Loading label="Loading…" size="small" />)
+        const smallSize = getSize()
+        rerender(
+            <Loading
+                label="Loading…"
+                // @ts-expect-error invalid value given on purpose
+                size="wrong"
+            />,
+        )
+        expect(getSize()).toEqual(smallSize)
+    })
 })

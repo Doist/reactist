@@ -23,7 +23,7 @@ const sizeMapping: Record<Size, number> = {
 }
 
 function Loading({ size = 'small', label }: LoaderProps) {
-    const numericSize = sizeMapping[size]
+    const numericSize = sizeMapping[size] ?? sizeMapping.small
     return (
         <Box
             display="flex"
