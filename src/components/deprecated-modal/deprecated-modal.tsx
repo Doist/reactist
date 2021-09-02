@@ -4,7 +4,7 @@ import classnames from 'classnames'
 
 import CloseIcon from '../icons/CloseIcon.svg'
 
-import './modal.less'
+import './deprecated-modal.less'
 
 type Props = {
     /** Additional css class applied to the Modal.Box. */
@@ -19,6 +19,7 @@ type Props = {
     closeOnOverlayClick: boolean
 }
 
+/** @deprecated */
 class Box extends React.Component<React.PropsWithChildren<Props>> {
     public static displayName: string
     public static defaultProps: Props
@@ -89,6 +90,7 @@ type HeaderProps = {
     beforeClose?: () => void
 }
 
+/** @deprecated */
 class Header extends React.Component<HeaderProps> {
     public static displayName: string
     public static defaultProps: HeaderProps
@@ -137,6 +139,8 @@ type BodyProps = {
      */
     showCloseIcon?: boolean
 }
+
+/** @deprecated */
 class Body extends React.Component<BodyProps> {
     public static displayName: string
     public static defaultProps: BodyProps
@@ -191,6 +195,7 @@ type ActionChildrenProps = {
     onClick?: () => void
 }
 
+/** @deprecated */
 class Actions extends React.Component<ActionProps> {
     public static displayName: string
 
@@ -222,8 +227,10 @@ class Actions extends React.Component<ActionProps> {
         return <div className="reactist_modal_box__actions">{children}</div>
     }
 }
+
 Actions.displayName = 'Modal.Actions'
 
+/** @deprecated */
 type Modal = {
     Box: Box
     Header: Header

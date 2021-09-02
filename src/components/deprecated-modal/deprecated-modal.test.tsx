@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import { shallow, mount } from 'enzyme'
 import toJson from 'enzyme-to-json'
 
-import { default as Modal } from '../modal'
-import type { Modal as ModalType } from '../modal'
+import { default as Modal } from '.'
+import type { Modal as ModalType } from '.'
 import Button from '../button' // for more descriptive snapshots
 
 jest.mock('react-dom')

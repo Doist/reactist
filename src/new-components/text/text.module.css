@@ -1,4 +1,5 @@
 .text {
+    font-family: var(--reactist-font-family);
     font-size: var(--reactist-font-size-body);
     font-weight: var(--reactist-font-weight-regular);
     color: var(--reactist-content-primary);

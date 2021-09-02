@@ -42,6 +42,7 @@ const Column = polymorphicComponent<'div', ColumnProps>(function Column(
             ]}
             minWidth={0}
             width={width !== 'content' ? 'full' : undefined}
+            height="full"
             flexShrink={width === 'content' ? 0 : undefined}
             ref={ref}
         >
@@ -77,6 +78,7 @@ const Columns = polymorphicComponent<'div', ColumnsProps>(function Columns(
         <Box
             {...props}
             className={[exceptionallySetClassName, getClassNames(styles, 'space', space)]}
+            display="flex"
             flexDirection={
                 collapseBelow === 'desktop'
                     ? { mobile: 'column', tablet: 'column', desktop: 'row' }
@@ -84,14 +86,12 @@ const Columns = polymorphicComponent<'div', ColumnsProps>(function Columns(
                     ? { mobile: 'column', tablet: 'row' }
                     : 'row'
             }
-            display="flex"
             alignItems={mapResponsiveProp(alignY, (alignY) =>
                 alignY === 'top' ? 'flexStart' : alignY === 'bottom' ? 'flexEnd' : alignY,
             )}
             justifyContent={mapResponsiveProp(align, (align) =>
                 align === 'left' ? 'flexStart' : align === 'right' ? 'flexEnd' : align,
             )}
-            flexGrow={1}
             ref={ref}
         >
             {children}

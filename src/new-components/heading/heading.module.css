@@ -1,6 +1,7 @@
 .heading {
     color: var(--reactist-content-primary);
     font-weight: var(--reactist-font-weight-strong);
+    font-family: var(--reactist-font-family);
 }
 
 .weight-light {
