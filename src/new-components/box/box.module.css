@@ -9,6 +9,10 @@
     background-color: transparent;
 }
 
+pre.box {
+    font-family: monospace;
+}
+
 .box[hidden] {
     display: none !important;
 }
@@ -252,8 +256,14 @@
 .justifyContent-flexEnd {
     justify-content: flex-end;
 }
+.justifyContent-spaceAround {
+    justify-content: space-around;
+}
 .justifyContent-spaceBetween {
     justify-content: space-between;
+}
+.justifyContent-spaceEvenly {
+    justify-content: space-evenly;
 }
 @media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-justifyContent-flexStart {
@@ -265,8 +275,14 @@
     .tablet-justifyContent-flexEnd {
         justify-content: flex-end;
     }
+    .tablet-justifyContent-spaceAround {
+        justify-content: space-around;
+    }
     .tablet-justifyContent-spaceBetween {
         justify-content: space-between;
+    }
+    .tablet-justifyContent-spaceEvenly {
+        justify-content: space-evenly;
     }
 }
 @media (min-width: 992px /* --reactist-breakpoint-desktop */) {
@@ -279,8 +295,14 @@
     .desktop-justifyContent-flexEnd {
         justify-content: flex-end;
     }
+    .tablet-justifyContent-spaceAround {
+        justify-content: space-around;
+    }
     .desktop-justifyContent-spaceBetween {
         justify-content: space-between;
+    }
+    .tablet-justifyContent-spaceEvenly {
+        justify-content: space-evenly;
     }
 }
 

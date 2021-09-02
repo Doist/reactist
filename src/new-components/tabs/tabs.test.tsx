@@ -2,7 +2,6 @@ import * as React from 'react'
 import { screen, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { LoadingSpinner } from '../loading-spinner'
 import { Tabs, Tab, TabList, TabPanel, TabAwareSlot } from './'
 
 describe('Tabs', () => {
@@ -195,15 +194,25 @@ describe('Tabs', () => {
     })
 
     it('allows different elements to be rendered in place of the TabPanel', () => {
+        const CustomTabPanel = React.forwardRef<
+            HTMLDivElement,
+            React.AllHTMLAttributes<HTMLDivElement>
+        >(function CustomTabPanel({ children, ...props }, ref) {
+            return (
+                <div data-testid="custom-tab-panel" {...props} ref={ref}>
+                    {children}
+                </div>
+            )
+        })
+
         render(
             <Tabs>
                 <TabList aria-label="Multiple tablist example tabs">
                     <Tab id="tab1">Tab 1</Tab>
                     <Tab id="tab2">Tab 2</Tab>
                 </TabList>
-                <TabPanel id="tab1" as={LoadingSpinner} label="Loading">
-                    It makes no sense to render a loading spinner here, but it's an easier component
-                    to query for to make sure we're rendering our custom element
+                <TabPanel id="tab1" as={CustomTabPanel}>
+                    Content of tab 1
                 </TabPanel>
                 <TabPanel id="tab2" as="section">
                     Content of tab 2
@@ -211,9 +220,9 @@ describe('Tabs', () => {
             </Tabs>,
         )
 
-        // The LoadingSpinner doesn't allow its role to be overridden nor render children
-        expect(screen.getByRole('alert', { name: 'Loading' })).toBeVisible()
-        expect(screen.queryByText(/It makes no sense/)).not.toBeInTheDocument()
+        const customTabPanel = screen.getByTestId('custom-tab-panel')
+        expect(customTabPanel).toBeVisible()
+        expect(screen.getByText('Content of tab 1')).toBe(customTabPanel)
 
         userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
         expect(screen.getByRole('tabpanel', { name: 'Tab 2' })).toBeVisible()

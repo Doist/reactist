@@ -11,7 +11,7 @@ export * from './new-components/hidden-visually'
 
 // alerts, notifications, etc.
 export * from './new-components/alert'
-export * from './new-components/loading-spinner'
+export * from './new-components/loading'
 export * from './new-components/notice'
 
 // text and typography
@@ -50,7 +50,6 @@ export { default as Icon } from './components/icon'
 export { default as Input } from './components/input'
 export { default as KeyboardShortcut } from './components/keyboard-shortcut'
 export { default as KeyCapturer, SUPPORTED_KEYS } from './components/key-capturer'
-export { default as Loading } from './components/loading'
 export { default as Modal } from './components/modal'
 export { default as Popover } from './components/popover'
 export { default as ProgressBar } from './components/progress-bar'

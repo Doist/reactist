@@ -2,6 +2,11 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v10.0.0-beta.3
+
+-   [Breaking] The `Loading` component has been reimplemented based on the beta `LoadingSpinner`.
+-   [Breaking] The `LoadingSpinner` was renamed as `Loading`, and significantly changed.
+
 ## v10.0.0-beta.2
 
 -   [Feature] All the tab components are now polymorphic (i.e. they can use the `as="element"` prop).
