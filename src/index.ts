@@ -43,7 +43,6 @@ export * from './hooks/use-previous'
 //
 
 export { default as Avatar } from './components/avatar'
-export { default as DeprecatedButton } from './components/deprecated-button'
 export { default as Checkbox } from './components/checkbox'
 export { default as ColorPicker, COLORS } from './components/color-picker'
 export { default as Dropdown } from './components/dropdown'
@@ -52,7 +51,6 @@ export { default as Icon } from './components/icon'
 export { default as Input } from './components/input'
 export { default as KeyboardShortcut } from './components/keyboard-shortcut'
 export { default as KeyCapturer, SUPPORTED_KEYS } from './components/key-capturer'
-export { default as DeprecatedModal } from './components/deprecated-modal'
 export { default as Popover } from './components/popover'
 export { default as ProgressBar } from './components/progress-bar'
 export { default as RangeInput } from './components/range-input'
@@ -62,3 +60,11 @@ export { default as Tip } from './components/tip'
 export { Notification } from './components/notification/notification'
 export { Tooltip, TooltipProps } from './components/tooltip'
 export * from './components/menu'
+
+//
+// Deprecated components
+//
+
+export { default as DeprecatedButton } from './components/deprecated-button'
+export { default as DeprecatedModal } from './components/deprecated-modal'
+export { DeprecatedLoading } from './components/deprecated-loading'
