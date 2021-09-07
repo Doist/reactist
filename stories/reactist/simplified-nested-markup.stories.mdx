@@ -45,7 +45,7 @@ We explain below why this change made sense.
 
 ## Why we made the change
 
-A good deal of the time, what we nest inside a `Stack` is already a block element. Also, we favour having components without outward margin in the out-most container. So **there's no concern that the margin that the `Stack` applies to its child elements will clash with margin that the child elements themselves may have**. So it seems a waste of resources to have a UI language that could potentially generate lots of useless extra containers around a relatively simple UI.
+A good deal of the time, what we nest inside a `Stack` is already a block element. Also, we favour having components without outward margin in the out-most container. So **there's no concern that the margin that the `Stack` applies to its child elements will clash with the margin that the child elements themselves may have**. So it seems a waste of resources to have a UI language that could potentially generate lots of useless extra containers around a relatively simple UI.
 
 ### How it looks like with the extra container in place
 
@@ -69,7 +69,7 @@ If we generated extra containers for each child, this would generate a markup si
 ```html
 <div class="stack space-xlarge">
   <div class="stack child-wrapper">
-    <div class="stack space-small>
+    <div class="stack space-small">
       <div class="stack child-wrapper">
         <label>Username</label>
       </div>
@@ -79,7 +79,7 @@ If we generated extra containers for each child, this would generate a markup si
     </div>
   </div>
   <div class="stack child-wrapper">
-    <div class="stack space-small>
+    <div class="stack space-small">
       <div class="stack child-wrapper">
         <label>Password</label>
       </div>
@@ -97,11 +97,11 @@ And just imagine if inside the inner stack we rendered a `Inline` element, which
 
 ```html
 <div class="stack space-xlarge">
-    <div class="stack space-small>
+    <div class="stack space-small">
         <label>Username</label>
         <input name="username" />
     </div>
-    <div class="stack space-small>
+    <div class="stack space-small">
         <label>Password</label>
         <input name="password" type="password" />
     </div>
