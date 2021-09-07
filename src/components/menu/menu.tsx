@@ -82,7 +82,7 @@ function Menu({ children, onItemSelect, ...props }: MenuProps) {
 // MenuButton
 //
 
-type MenuButtonProps = Omit<Reakit.MenuButtonProps, keyof Reakit.MenuStateReturn>
+type MenuButtonProps = Omit<Reakit.MenuButtonProps, keyof Reakit.MenuStateReturn | 'className'>
 
 /**
  * A button to toggle a dropdown menu open or closed.
@@ -146,7 +146,7 @@ function MenuBackdrop({
     )
 }
 
-type MenuListProps = Omit<Reakit.MenuProps, keyof Reakit.MenuStateReturn>
+type MenuListProps = Omit<Reakit.MenuProps, keyof Reakit.MenuStateReturn | 'className'>
 
 /**
  * The dropdown menu itself, containing a list of menu items.
@@ -190,10 +190,6 @@ type MenuItemProps = {
      * @default true
      */
     disabled?: boolean
-    /**
-     * A class name to apply to the menu item element.
-     */
-    className?: string
     /**
      * When `true` the menu will close when the menu item is selected, in addition to performing the
      * action that the menu item is set out to do.
@@ -335,7 +331,7 @@ const SubMenu = React.forwardRef<HTMLButtonElement, SubMenuProps>(function SubMe
 // MenuGroup
 //
 
-type MenuGroupProps = NativeProps<HTMLDivElement> & {
+type MenuGroupProps = Omit<NativeProps<HTMLDivElement>, 'className'> & {
     /**
      * A label to be shown visually and also used to semantically label the group.
      */
