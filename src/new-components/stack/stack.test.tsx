@@ -92,15 +92,15 @@ describe('Stack', () => {
     })
 
     describe('align', () => {
-        it('allows to align its children to the left, center or right', () => {
+        it('allows to align its children to the start, center or end', () => {
             // no explicit alignment
             const { rerender } = render(<Stack data-testid="stack" />)
             expect(screen.getByTestId('stack')).not.toHaveClass('display-flex')
             expect(screen.getByTestId('stack')).not.toHaveClass('flexDirection-column')
             expect(screen.getByTestId('stack')).not.toHaveClass('alignItems-center')
 
-            // aligned to the left (same as when there's no explicit alignment)
-            rerender(<Stack data-testid="stack" align="left" />)
+            // aligned to the start (same as when there's no explicit alignment)
+            rerender(<Stack data-testid="stack" align="start" />)
             expect(screen.getByTestId('stack')).not.toHaveClass('display-flex')
             expect(screen.getByTestId('stack')).not.toHaveClass('flexDirection-column')
             expect(screen.getByTestId('stack')).not.toHaveClass('alignItems-center')
@@ -112,7 +112,7 @@ describe('Stack', () => {
             expect(screen.getByTestId('stack')).toHaveClass('alignItems-center')
 
             // aligned to the right
-            rerender(<Stack data-testid="stack" align="right" />)
+            rerender(<Stack data-testid="stack" align="end" />)
             expect(screen.getByTestId('stack')).toHaveClass('display-flex')
             expect(screen.getByTestId('stack')).toHaveClass('flexDirection-column')
             expect(screen.getByTestId('stack')).toHaveClass('alignItems-flexEnd')
@@ -122,7 +122,7 @@ describe('Stack', () => {
             render(
                 <Stack
                     data-testid="stack"
-                    align={{ mobile: 'left', tablet: 'center', desktop: 'right' }}
+                    align={{ mobile: 'start', tablet: 'center', desktop: 'end' }}
                 />,
             )
             expect(screen.getByTestId('stack')).toHaveClass('display-flex')
