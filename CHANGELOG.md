@@ -2,6 +2,18 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v10.0.0-beta.5
+
+-   [Breaking] The various `Menu*` components props no longer consider `className` as a valid prop.
+-   [Breaking] The `Stack` component's `align` prop type is now `'start' | 'center' | 'end'` instead
+    of `'left' | 'center' | 'right'`.
+-   [Fix] Colour of quaternary button is now correct.
+-   [Docs] Improvements to the storybook examples for the `Menu` components.
+-   [Fix] Modal focus lock is now working correctly.
+-   [Fix] Modals are now aligned to the top of the viewport.
+-   [Fix] The labels of the `SwitchField` and `CheckboxField` components now follow the standard
+    `Text` styling.
+
 ## v10.0.0-beta.4
 
 -   [Breaking] The new `Loading` component now supports `aria-label` or `aria-labelledby`, and it
