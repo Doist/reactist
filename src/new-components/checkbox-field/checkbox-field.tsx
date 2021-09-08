@@ -2,6 +2,7 @@ import * as React from 'react'
 import { useForkRef } from 'reakit-utils'
 import { HiddenVisually } from '../hidden-visually'
 import { Box } from '../box'
+import { Text } from '../text'
 import { CheckboxIcon } from './checkbox-icon'
 
 import styles from './checkbox-field.module.css'
@@ -74,7 +75,7 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
                 indeterminate={indeterminate}
                 disabled={disabled}
             />
-            {label ? <span>{label}</span> : null}
+            {label ? <Text>{label}</Text> : null}
         </Box>
     )
 })
