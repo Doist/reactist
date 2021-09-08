@@ -81,8 +81,8 @@ type ModalProps = DivProps & {
     exceptionallySetClassName?: string
 }
 
-function isInternalFrame(element: HTMLElement) {
-    return element.ownerDocument === document && element.tagName.toLowerCase() === 'iframe'
+function isNotInternalFrame(element: HTMLElement) {
+    return !(element.ownerDocument === document && element.tagName.toLowerCase() === 'iframe')
 }
 
 /**
@@ -117,7 +117,7 @@ function Modal({
             className={classNames(styles.overlay, styles[height], styles[width])}
             data-testid="modal-overlay"
         >
-            <FocusLock autoFocus={autoFocus} whiteList={isInternalFrame}>
+            <FocusLock autoFocus={autoFocus} whiteList={isNotInternalFrame}>
                 <DialogContent
                     {...props}
                     as={Box}
