@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Box } from '../box'
 import { Stack } from '../stack'
+import { Text } from '../text'
 import { HiddenVisually } from '../hidden-visually'
 import { FieldComponentProps, FieldHint } from '../base-field'
 import { useId } from '../common-helpers'
@@ -69,7 +70,7 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
                     </HiddenVisually>
                     <span className={styles.handle} />
                 </Box>
-                <span className={styles.label}>{label}</span>
+                <Text exceptionallySetClassName={styles.label}>{label}</Text>
             </Box>
             {hint ? <FieldHint id={hintId}>{hint}</FieldHint> : null}
         </Stack>

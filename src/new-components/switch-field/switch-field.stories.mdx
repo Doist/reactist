@@ -1,0 +1,41 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
+import { SwitchField } from './switch-field'
+
+<Meta title="Design system/SwitchField" component={SwitchField} />
+
+# SwitchField
+
+A checkbox that visually looks like a toggle on/off switch.
+
+## `<SwitchField>`
+
+<Description of={SwitchField} />
+<ArgsTable of={SwitchField} />
+
+export function Template({ label, hint, disabled }) {
+    return <SwitchField label={label || 'Default label'} hint={hint} disabled={disabled} />
+}
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
+        argTypes={{
+            label: {
+                control: { type: 'text' },
+                defaultValue: 'Show unread badge',
+            },
+            hint: {
+                control: { type: 'text' },
+                defaultValue:
+                    'Show an icon badge to indicate that there are new threads and messages.',
+            },
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+        }}
+        name="Playground"
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

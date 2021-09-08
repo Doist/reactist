@@ -12,28 +12,30 @@ import type { DividerWeight } from '../divider'
 
 import styles from './stack.module.css'
 
+type Align = 'start' | 'center' | 'end'
+
 interface StackProps extends ReusableBoxProps {
     /** Space between items */
     space?: ResponsiveProp<Space>
     /** Align items horizontally */
-    align?: ResponsiveProp<'left' | 'center' | 'right'>
+    align?: ResponsiveProp<Align>
     /** Add dividers if `true`, or specify the weight of the dividers to add */
     dividers?: boolean | DividerWeight
 }
 
 const Stack = polymorphicComponent<'div', StackProps>(function Stack(
-    { as, space, align = 'left', dividers = false, children, exceptionallySetClassName, ...props },
+    { as, space, align = 'start', dividers = false, children, exceptionallySetClassName, ...props },
     ref,
 ) {
     const alignProps: BoxProps | undefined =
-        align === 'left'
+        align === 'start'
             ? undefined
             : {
                   width: 'full',
                   flexDirection: 'column',
                   display: 'flex',
                   alignItems: mapResponsiveProp(align, (align) =>
-                      align === 'left' ? 'flexStart' : align === 'right' ? 'flexEnd' : 'center',
+                      align === 'start' ? 'flexStart' : align === 'end' ? 'flexEnd' : 'center',
                   ),
               }
 

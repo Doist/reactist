@@ -21,7 +21,7 @@ export default {
     component: Stack,
     argTypes: {
         space: selectSize(),
-        align: selectWithNone(['left', 'center', 'right']),
+        align: selectWithNone(['start', 'center', 'end']),
         dividers: selectWithNone<DividerWeight>(['regular', 'strong']),
         ...reusableBoxProps(),
     },
@@ -63,7 +63,7 @@ export function ResponsiveStory({ itemCount }: { itemCount: number }) {
             <Wrapper border title="Alignment and spacing changes as the viewport width changes">
                 <Stack
                     space={{ mobile: 'xsmall', tablet: 'medium', desktop: 'xlarge' }}
-                    align={{ mobile: 'left', tablet: 'center', desktop: 'right' }}
+                    align={{ mobile: 'start', tablet: 'center', desktop: 'end' }}
                 >
                     {times(itemCount).map((i) => (
                         <Placeholder key={i} label={i + 1} {...size(i)} />
