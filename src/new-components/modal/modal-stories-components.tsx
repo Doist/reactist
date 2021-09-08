@@ -1,9 +1,9 @@
 import * as React from 'react'
-import Button from '../../components/deprecated-button'
 import { Placeholder, times } from '../storybook-helper'
 import { SelectField } from '../select-field'
 import { SwitchField } from '../switch-field'
 import { Stack } from '../stack'
+import { Button } from '../button'
 import * as ModalComponents from './modal'
 import type { ModalProps, ModalHeaderProps, ModalFooterProps } from './modal'
 
@@ -144,7 +144,7 @@ function ModalButton({
 }: {
     variant: 'primary' | 'secondary'
     size?: 'small'
-    children: React.ReactNode
+    children: NonNullable<React.ReactNode>
 }) {
     const { toggle } = React.useContext(ModalStoryContext)
     return (
