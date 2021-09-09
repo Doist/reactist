@@ -2,6 +2,14 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v10.0.0-beta.6
+
+-   [Feature] Add a new `loading` prop for `Button` and `ButtonLink`, to set them as busy, and
+    visually show a loading indicator.
+-   [Fix] Fully support secondary destructive buttons in a way that are customizable via CSS
+    variables.
+-   [Docs] New storybook examples showcasing how to customize buttons for dark mode.
+
 ## v10.0.0-beta.5
 
 -   [Breaking] The various `Menu*` components props no longer consider `className` as a valid prop.
