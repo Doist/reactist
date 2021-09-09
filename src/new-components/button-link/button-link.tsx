@@ -25,7 +25,6 @@ const ButtonLink = polymorphicComponent<'a', ButtonLinkProps>(function ButtonLin
         variant,
         tone = 'normal',
         size = 'normal',
-        disabled = false,
         exceptionallySetClassName,
         openInNewTab = false,
         ...props
@@ -40,7 +39,6 @@ const ButtonLink = polymorphicComponent<'a', ButtonLinkProps>(function ButtonLin
             variant={variant}
             tone={tone}
             size={size}
-            disabled={disabled}
             exceptionallySetClassName={exceptionallySetClassName}
             target={openInNewTab ? '_blank' : undefined}
             rel={openInNewTab ? 'noopener noreferrer' : undefined}

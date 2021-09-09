@@ -3,6 +3,12 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ButtonLink } from './button-link'
 
+jest.mock('../spinner', () => ({
+    Spinner() {
+        return '⏳'
+    },
+}))
+
 describe('ButtonLink', () => {
     it('renders a semantic link', () => {
         render(
