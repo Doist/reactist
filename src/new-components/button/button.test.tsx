@@ -3,6 +3,12 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Button } from './button'
 
+jest.mock('../spinner', () => ({
+    Spinner() {
+        return '⏳'
+    },
+}))
+
 describe('Button', () => {
     it('renders a semantic button', () => {
         render(<Button variant="primary">Click me</Button>)
@@ -61,6 +67,7 @@ describe('Button', () => {
         )
         const button = screen.getByRole('button', { name: 'Submit' })
         expect(button).not.toHaveAttribute('aria-disabled', 'true')
+        expect(button).toHaveAttribute('type', 'submit')
         expect(onSubmit).not.toHaveBeenCalled()
         userEvent.click(button)
         expect(onSubmit).toHaveBeenCalledTimes(1)
@@ -244,6 +251,98 @@ describe('Button', () => {
             )
             const button = screen.getByRole('button', { name: 'Smile' })
             expect(button.textContent).toMatchInlineSnapshot(`"😄"`)
+        })
+    })
+
+    describe('when loading={true}', () => {
+        it('ignores clicks', () => {
+            const onClick = jest.fn()
+            render(
+                <Button variant="primary" loading onClick={onClick}>
+                    Click me
+                </Button>,
+            )
+            userEvent.click(screen.getByRole('button', { name: 'Click me' }))
+            expect(onClick).not.toHaveBeenCalled()
+        })
+
+        it('does not submit a form', () => {
+            const onSubmit = jest.fn().mockImplementation((event) => event.preventDefault())
+            render(
+                <form onSubmit={onSubmit}>
+                    <Button variant="primary" type="submit" loading>
+                        Submit
+                    </Button>
+                </form>,
+            )
+            const button = screen.getByRole('button', { name: 'Submit' })
+            expect(button).toHaveAttribute('aria-disabled', 'true')
+            expect(button).toHaveAttribute('type', 'submit')
+            expect(onSubmit).not.toHaveBeenCalled()
+            userEvent.click(button)
+            expect(onSubmit).not.toHaveBeenCalled()
+        })
+
+        it('renders the button with both aria-disabled and aria-busy being true', () => {
+            render(
+                <Button variant="primary" loading>
+                    Click me
+                </Button>,
+            )
+            const button = screen.getByRole('button', { name: 'Click me' })
+            expect(button).toHaveAttribute('aria-disabled', 'true')
+            expect(button).toHaveAttribute('aria-busy', 'true')
+        })
+
+        it('renders a loading spinner after the end of the label by default', () => {
+            render(
+                <Button variant="primary" loading>
+                    Click me
+                </Button>,
+            )
+            expect(
+                screen.getByRole('button', { name: 'Click me' }).textContent,
+            ).toMatchInlineSnapshot(`"Click me⏳"`)
+        })
+
+        it('renders a loading spinner before the start of the label if a startIcon is given', () => {
+            render(
+                <Button variant="primary" startIcon="😄" loading>
+                    Click me
+                </Button>,
+            )
+            expect(
+                screen.getByRole('button', { name: 'Click me' }).textContent,
+            ).toMatchInlineSnapshot(`"⏳Click me"`)
+        })
+
+        it('renders a loading spinner after the end of the label if an endIcon is given', () => {
+            render(
+                <Button variant="primary" endIcon="😄" loading>
+                    Click me
+                </Button>,
+            )
+            expect(
+                screen.getByRole('button', { name: 'Click me' }).textContent,
+            ).toMatchInlineSnapshot(`"Click me⏳"`)
+        })
+
+        it('renders a loading spinner after the end of the label if both startIcon and endIcon are given', () => {
+            render(
+                <Button variant="primary" startIcon="😄" endIcon="😄" loading>
+                    Click me
+                </Button>,
+            )
+            expect(
+                screen.getByRole('button', { name: 'Click me' }).textContent,
+            ).toMatchInlineSnapshot(`"😄Click me⏳"`)
+        })
+
+        it('renders a loading spinner in place of the icon when rendering in single-icon mode', () => {
+            render(<Button variant="primary" icon="😄" aria-label="Click me" loading />)
+            expect(
+                screen.getByRole('button', { name: 'Click me' }).textContent,
+            ).toMatchInlineSnapshot(`"⏳"`)
         })
     })
 })

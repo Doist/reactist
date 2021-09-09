@@ -80,6 +80,9 @@
     font-size: var(--reactist-btn-font-size);
     height: var(--reactist-btn-height);
     line-height: var(--reactist-btn-height);
+    /* spinner */
+    --reactist-spinner-tint: var(--reactist-btn-idle-tint);
+    --reactist-spinner-fill: var(--reactist-btn-idle-fill);
 }
 
 .baseButton.size-small {
@@ -101,7 +104,7 @@
 /* setup the color variables for all the different states */
 /* variables are then set per variant and tone so that we do not repeat these definitions below */
 
-.baseButton:not([aria-disabled='true']) {
+.baseButton:not(.disabled) {
     color: var(--reactist-btn-idle-tint);
     background-color: var(--reactist-btn-idle-fill);
 }
@@ -111,10 +114,14 @@
     background-color: var(--reactist-btn-hover-fill);
 }
 
-.baseButton[aria-disabled='true'] {
+.baseButton.disabled {
     cursor: not-allowed;
     color: var(--reactist-btn-disabled-tint);
     background-color: var(--reactist-btn-disabled-fill);
+}
+
+.baseButton[aria-busy='true'] {
+    cursor: wait;
 }
 
 /* icons */
@@ -207,7 +214,7 @@
 .variant-secondary.tone-destructive:hover {
     border-color: var(--reactist-btn-hover-tint);
 }
-.variant-secondary.tone-destructive[aria-disabled='true'] {
+.variant-secondary.tone-destructive.disabled {
     border-color: var(--reactist-btn-disabled-tint);
 }
 

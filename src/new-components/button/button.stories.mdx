@@ -1,8 +1,10 @@
+import { useEffect, useState } from 'react'
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
 import { Box } from '../box'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
 import { Text } from '../text'
+import { Heading } from '../heading'
 import { Button } from './button'
 
 <Meta title="Design system/Button" component={Button} />
@@ -452,6 +454,16 @@ And here's how that look like:
     </Story>
 </Canvas>
 
+export function LoadingButton(props) {
+    const [loading, setLoading] = useState(false)
+    useEffect(() => {
+        if (!loading) return undefined
+        const timeout = setTimeout(() => setLoading(false), 3000)
+        return () => clearTimeout(timeout)
+    }, [loading])
+    return <Button {...props} loading={loading} onClick={() => setLoading(true)} />
+}
+
 ### Playground
 
 export function Template({ label, variant, tone, size }) {
@@ -465,67 +477,87 @@ export function Template({ label, variant, tone, size }) {
         textLabel = 'Click me now'
     }
     return (
-        <Inline space="large">
-            <Stack space="large">
-                <Box>
-                    <Button variant={variant} tone={tone} size={size}>
-                        {label}
-                    </Button>
-                </Box>
-                <Box>
-                    <Button variant={variant} tone={tone} size={size} disabled>
-                        {label}
-                    </Button>
-                </Box>
-            </Stack>
-            <Stack space="large">
-                <Box>
-                    <Button variant={variant} tone={tone} size={size} startIcon={<Icon />}>
-                        {label}
-                    </Button>
-                </Box>
-                <Box>
-                    <Button variant={variant} tone={tone} size={size} startIcon={<Icon />} disabled>
-                        {label}
-                    </Button>
-                </Box>
-            </Stack>
-            <Stack space="large">
-                <Box>
-                    <Button variant={variant} tone={tone} size={size} endIcon={<Icon />}>
-                        {label}
-                    </Button>
-                </Box>
-                <Box>
-                    <Button variant={variant} tone={tone} size={size} endIcon={<Icon />} disabled>
-                        {label}
-                    </Button>
-                </Box>
-            </Stack>
-            <Stack space="large">
-                <Box>
-                    <Button
-                        variant={variant}
-                        tone={tone}
-                        size={size}
-                        aria-label={textLabel}
-                        tooltip={label}
-                        icon={<Icon />}
-                    />
-                </Box>
-                <Box>
-                    <Button
-                        variant={variant}
-                        tone={tone}
-                        size={size}
-                        aria-label={textLabel}
-                        tooltip={label}
-                        icon={<Icon />}
-                        disabled
-                    />
-                </Box>
-            </Stack>
-        </Inline>
+        <Stack space="large">
+            <Heading level="2">Click on the buttons to see the loading state</Heading>
+            <Inline space="large">
+                <Stack space="large">
+                    <Box>
+                        <LoadingButton variant={variant} tone={tone} size={size}>
+                            {label}
+                        </LoadingButton>
+                    </Box>
+                    <Box>
+                        <LoadingButton variant={variant} tone={tone} size={size} disabled>
+                            {label}
+                        </LoadingButton>
+                    </Box>
+                </Stack>
+                <Stack space="large">
+                    <Box>
+                        <LoadingButton
+                            variant={variant}
+                            tone={tone}
+                            size={size}
+                            startIcon={<Icon />}
+                        >
+                            {label}
+                        </LoadingButton>
+                    </Box>
+                    <Box>
+                        <LoadingButton
+                            variant={variant}
+                            tone={tone}
+                            size={size}
+                            startIcon={<Icon />}
+                            disabled
+                        >
+                            {label}
+                        </LoadingButton>
+                    </Box>
+                </Stack>
+                <Stack space="large">
+                    <Box>
+                        <LoadingButton variant={variant} tone={tone} size={size} endIcon={<Icon />}>
+                            {label}
+                        </LoadingButton>
+                    </Box>
+                    <Box>
+                        <LoadingButton
+                            variant={variant}
+                            tone={tone}
+                            size={size}
+                            endIcon={<Icon />}
+                            disabled
+                        >
+                            {label}
+                        </LoadingButton>
+                    </Box>
+                </Stack>
+                <Stack space="large">
+                    <Box>
+                        <LoadingButton
+                            variant={variant}
+                            tone={tone}
+                            size={size}
+                            aria-label={textLabel}
+                            tooltip={label}
+                            icon={<Icon />}
+                        />
+                    </Box>
+                    <Box>
+                        <LoadingButton
+                            variant={variant}
+                            tone={tone}
+                            size={size}
+                            aria-label={textLabel}
+                            tooltip={label}
+                            icon={<Icon />}
+                            disabled
+                        />
+                    </Box>
+                </Stack>
+            </Inline>
+        </Stack>
     )
 }
 
@@ -579,6 +611,7 @@ export function DarkModeTemplate(props) {
             padding="xlarge"
             style={{
                 backgroundColor: 'rgb(31, 31, 31)',
+                '--reactist-content-primary': 'rgba(255, 255, 255, 0.88)',
                 // variant="primary"
                 '--reactist-actionable-primary-idle-tint': '#eceeee',
                 '--reactist-actionable-primary-idle-fill': '#008099',
