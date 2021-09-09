@@ -1,12 +1,23 @@
 :root {
-    /* size-related variables */
-    --reactist-btn-height: 32px;
-    --reactist-btn-padding-x: 8px;
-    --reactist-btn-font-size: var(--reactist-font-size-copy);
-    --reactist-btn-icon-gap: 8px;
-    --reactist-btn-icon-size: 24px;
+    /* size="small" */
+    --reactist-button-small-font-size: var(--reactist-font-size-caption);
+    --reactist-button-small-spacing: var(--reactist-spacing-xsmall);
+    --reactist-button-small-height: 28px;
+    --reactist-button-small-icon-size: 16px;
 
-    /* primary button colors */
+    /* size="normal" (default) */
+    --reactist-button-normal-font-size: var(--reactist-font-size-copy);
+    --reactist-button-normal-spacing: var(--reactist-spacing-small);
+    --reactist-button-normal-height: 32px;
+    --reactist-button-normal-icon-size: 20px;
+
+    /* size="large" */
+    --reactist-button-large-font-size: var(--reactist-font-size-body);
+    --reactist-button-large-spacing: var(--reactist-spacing-medium);
+    --reactist-button-large-height: 36px;
+    --reactist-button-large-icon-size: 24px;
+
+    /* variant="primary" */
     --reactist-actionable-primary-idle-tint: #ffffff;
     --reactist-actionable-primary-idle-fill: #008aa6;
     --reactist-actionable-primary-hover-tint: #ffffff;
@@ -14,7 +25,7 @@
     --reactist-actionable-primary-disabled-tint: #ffffff;
     --reactist-actionable-primary-disabled-fill: #99d0db;
 
-    /* secondary button colors */
+    /* variant="secondary" */
     --reactist-actionable-secondary-idle-tint: #282f30;
     --reactist-actionable-secondary-idle-fill: #f2f6f7;
     --reactist-actionable-secondary-hover-tint: #282f30;
@@ -22,19 +33,19 @@
     --reactist-actionable-secondary-disabled-tint: #a9acac;
     --reactist-actionable-secondary-disabled-fill: #f2f6f7;
 
-    /* tertiary button colors (only has fill when hovered) */
+    /* variant="tertiary" (only has fill when hovered) */
     --reactist-actionable-tertiary-idle-tint: #006f85;
     --reactist-actionable-tertiary-hover-tint: #006f85;
     --reactist-actionable-tertiary-hover-fill: #f2f6f7;
     --reactist-actionable-tertiary-disabled-tint: #99c5ce;
 
-    /* quaternary button colors (only has fill when hovered) */
+    /* variant="quaternary" (only has fill when hovered) */
     --reactist-actionable-quaternary-idle-tint: #6c777a;
     --reactist-actionable-quaternary-hover-tint: #282f30;
     --reactist-actionable-quaternary-hover-fill: #e0e7e8;
     --reactist-actionable-quaternary-disabled-tint: #c4c9ca;
 
-    /* primary destructive button colors */
+    /* variant="primary" tone="destructive" */
     --reactist-actionable-primary-destructive-idle-tint: #ffffff;
     --reactist-actionable-primary-destructive-idle-fill: #dc4c3e;
     --reactist-actionable-primary-destructive-hover-tint: #ffffff;
@@ -42,7 +53,7 @@
     --reactist-actionable-primary-destructive-disabled-tint: #ffffff;
     --reactist-actionable-primary-destructive-disabled-fill: #f1b7b2;
 
-    /* secondary destructive button colors (optionally filled only when hovered) */
+    /* variant="secondary" tone="destructive" (optionally filled only when hovered) */
     --reactist-actionable-secondary-destructive-idle-tint: #dc4c3e;
     --reactist-actionable-secondary-destructive-hover-tint: #b03d32;
     --reactist-actionable-secondary-destructive-hover-fill: transparent;
@@ -76,7 +87,7 @@
 }
 
 .baseButton {
-    padding: 0 var(--reactist-btn-padding-x);
+    padding: 0 var(--reactist-btn-spacing);
     font-size: var(--reactist-btn-font-size);
     height: var(--reactist-btn-height);
     line-height: var(--reactist-btn-height);
@@ -86,19 +97,24 @@
 }
 
 .baseButton.size-small {
-    --reactist-btn-height: 28px;
-    --reactist-btn-padding-x: 4px;
-    --reactist-btn-font-size: var(--reactist-font-size-caption);
-    --reactist-btn-icon-gap: 4px;
-    --reactist-btn-icon-size: 16px;
+    --reactist-btn-height: var(--reactist-button-small-height);
+    --reactist-btn-spacing: var(--reactist-button-small-spacing);
+    --reactist-btn-font-size: var(--reactist-button-small-font-size);
+    --reactist-btn-icon-size: var(--reactist-button-small-icon-size);
+}
+
+.baseButton.size-normal {
+    --reactist-btn-height: var(--reactist-button-normal-height);
+    --reactist-btn-spacing: var(--reactist-button-normal-spacing);
+    --reactist-btn-font-size: var(--reactist-button-normal-font-size);
+    --reactist-btn-icon-size: var(--reactist-button-normal-icon-size);
 }
 
 .baseButton.size-large {
-    --reactist-btn-height: 40px;
-    --reactist-btn-padding-x: 12px;
-    --reactist-btn-font-size: var(--reactist-font-size-subtitle);
-    --reactist-btn-icon-gap: 12px;
-    --reactist-btn-icon-size: 32px;
+    --reactist-btn-height: var(--reactist-button-large-height);
+    --reactist-btn-spacing: var(--reactist-button-large-spacing);
+    --reactist-btn-font-size: var(--reactist-button-large-font-size);
+    --reactist-btn-icon-size: var(--reactist-button-large-icon-size);
 }
 
 /* setup the color variables for all the different states */
@@ -133,18 +149,18 @@
 }
 
 .baseButton .startIcon {
-    margin-right: var(--reactist-btn-icon-gap);
+    margin-right: var(--reactist-btn-spacing);
 }
 
 .baseButton .endIcon {
-    margin-left: var(--reactist-btn-icon-gap);
+    margin-left: var(--reactist-btn-spacing);
 }
 
 .baseButton .startIcon,
 .baseButton .startIcon > svg,
 .baseButton .endIcon,
 .baseButton .endIcon > svg,
-.baseButton.baseButton.iconButton > svg {
+.baseButton.iconButton > svg {
     width: var(--reactist-btn-icon-size);
     height: var(--reactist-btn-icon-size);
 }
