@@ -1,10 +1,10 @@
 :root {
     /* size-related variables */
     --reactist-btn-height: 32px;
-    --reactist-btn-padding-x: 12px;
+    --reactist-btn-padding-x: 8px;
     --reactist-btn-font-size: var(--reactist-font-size-copy);
-    --reactist-btn-icon-gap: 12px;
-    --reactist-btn-icon-size: 16px;
+    --reactist-btn-icon-gap: 8px;
+    --reactist-btn-icon-size: 24px;
 
     /* primary button colors */
     --reactist-actionable-primary-idle-tint: #ffffff;
@@ -87,18 +87,18 @@
 
 .baseButton.size-small {
     --reactist-btn-height: 28px;
-    --reactist-btn-padding-x: 8px;
+    --reactist-btn-padding-x: 4px;
     --reactist-btn-font-size: var(--reactist-font-size-caption);
-    --reactist-btn-icon-gap: 8px;
-    --reactist-btn-icon-size: 12px;
+    --reactist-btn-icon-gap: 4px;
+    --reactist-btn-icon-size: 16px;
 }
 
 .baseButton.size-large {
     --reactist-btn-height: 40px;
-    --reactist-btn-padding-x: 14px;
+    --reactist-btn-padding-x: 12px;
     --reactist-btn-font-size: var(--reactist-font-size-subtitle);
-    --reactist-btn-icon-gap: 16px;
-    --reactist-btn-icon-size: 20px;
+    --reactist-btn-icon-gap: 12px;
+    --reactist-btn-icon-size: 32px;
 }
 
 /* setup the color variables for all the different states */
