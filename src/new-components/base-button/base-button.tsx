@@ -64,7 +64,7 @@ type LabelledButtonProps = {
     icon?: never
 }
 
-type BaseButtonProps = CommonProps & (IconButtonProps | LabelledButtonProps)
+export type BaseButtonProps = CommonProps & (IconButtonProps | LabelledButtonProps)
 
 /**
  * The component that powers `Button` and `ButtonLink`, where the button styling logic and some
@@ -75,7 +75,7 @@ type BaseButtonProps = CommonProps & (IconButtonProps | LabelledButtonProps)
  * @see Button
  * @see ButtonLink
  */
-const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function BaseButton(
+export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function BaseButton(
     {
         as = 'div',
         variant,
@@ -140,6 +140,3 @@ const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function BaseBut
         buttonElement
     )
 })
-
-export { BaseButton }
-export type { BaseButtonProps }
