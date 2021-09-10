@@ -8,6 +8,7 @@ import { Column, Columns } from '../columns'
 import { Inline } from '../inline'
 import { Divider } from '../divider'
 import { Box } from '../box'
+import { Button, ButtonProps } from '../button'
 
 import styles from './modal.module.css'
 
@@ -142,13 +143,13 @@ function Modal({
 //
 
 type ModalCloseButtonProps = Omit<
-    JSX.IntrinsicElements['button'],
-    'type' | 'className' | 'onClick' | 'aria-label' | 'aria-labelledby' | 'children'
+    ButtonProps,
+    'type' | 'children' | 'variant' | 'icon' | 'startIcon' | 'endIcon' | 'disabled' | 'loading'
 > & {
     /**
      * The descriptive label of the button. Used as its aria-label attribute.
      */
-    label: string
+    'aria-label': string
 }
 
 /**
@@ -157,18 +158,15 @@ type ModalCloseButtonProps = Omit<
  *
  * @see ModalHeader
  */
-function ModalCloseButton({ label, ...props }: ModalCloseButtonProps) {
+function ModalCloseButton(props: ModalCloseButtonProps) {
     const { onDismiss } = React.useContext(ModalContext)
     return (
-        <button
+        <Button
             {...props}
-            type="button"
+            variant="quaternary"
             onClick={onDismiss}
-            className={styles.closeButton}
-            aria-label={label}
-        >
-            <CloseIcon />
-        </button>
+            icon={<CloseIcon className={styles.closeButtonIcon} />}
+        />
     )
 }
 
@@ -216,7 +214,8 @@ function ModalHeader({
             <Box
                 {...props}
                 as="header"
-                paddingX="large"
+                paddingLeft="large"
+                paddingRight="small"
                 paddingY="small"
                 className={exceptionallySetClassName}
             >
@@ -226,7 +225,7 @@ function ModalHeader({
                         {typeof button !== 'boolean' ? (
                             button
                         ) : button === true ? (
-                            <ModalCloseButton label="Close dialog" />
+                            <ModalCloseButton aria-label="Close modal" />
                         ) : null}
                     </Column>
                 </Columns>

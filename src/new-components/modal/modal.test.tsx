@@ -129,13 +129,13 @@ describe('ModalHeader', () => {
             </Modal>,
         )
         expect(onDismiss).not.toHaveBeenCalled()
-        userEvent.click(screen.getByRole('button', { name: 'Close dialog' }))
+        userEvent.click(screen.getByRole('button', { name: 'Close modal' }))
         expect(onDismiss).toHaveBeenCalledTimes(1)
     })
 
     it('allows to render custom content in place of the button', () => {
         render(<ModalHeader button={<a href="/help">Help</a>}>Hello</ModalHeader>)
-        expect(screen.queryByRole('button', { name: 'Close dialog' })).not.toBeInTheDocument()
+        expect(screen.queryByRole('button', { name: 'Close modal' })).not.toBeInTheDocument()
         expect(screen.getByRole('link', { name: 'Help' })).toBeInTheDocument()
     })
 
@@ -243,7 +243,7 @@ describe('ModalCloseButton', () => {
         const onDismiss = jest.fn()
         const renderResult = render(
             <Modal isOpen onDismiss={onDismiss} aria-label="modal">
-                <ModalHeader button={<ModalCloseButton label="Cerrar ventana" />}>
+                <ModalHeader button={<ModalCloseButton aria-label="Cerrar ventana" />}>
                     Hello
                 </ModalHeader>
             </Modal>,
@@ -257,7 +257,7 @@ describe('ModalCloseButton', () => {
 
     it('can be used to render a customized button in place of the default one', () => {
         renderTestCase()
-        expect(screen.queryByRole('button', { name: 'Close dialog' })).not.toBeInTheDocument()
+        expect(screen.queryByRole('button', { name: 'Close modal' })).not.toBeInTheDocument()
         expect(screen.getByRole('button', { name: 'Cerrar ventana' })).toBeInTheDocument()
     })
 

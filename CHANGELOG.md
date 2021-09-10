@@ -8,6 +8,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
     visually show a loading indicator.
 -   [Fix] Fully support secondary destructive buttons in a way that is customizable via CSS
     variables.
+-   [Fix] Use the `Button` component to power the default modal close button. This makes it possible
+    for consumer apps to have these buttons follow their customized button styles.
 -   [Feature] Improves the ability to fully customize all sizing and spacing by apps via CSS
     variables.
 -   [Docs] New storybook examples showcasing how to customize buttons for dark mode.
