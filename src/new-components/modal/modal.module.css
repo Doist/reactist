@@ -10,6 +10,7 @@
 :root {
     --reach-dialog: 1;
     --reactist-modal-overlay-fill: rgba(0, 0, 0, 0.5);
+    --reactist-modal-padding-top: 13vh;
 }
 
 .reach-portal {
@@ -41,6 +42,13 @@
     height: 100%;
     box-sizing: border-box;
     padding: var(--reactist-spacing-xxlarge);
+}
+
+[data-reach-dialog-overlay].fitContent > [data-focus-lock-disabled] {
+    padding-top: var(--reactist-modal-padding-top);
+}
+[data-reach-dialog-overlay].fitContent > [data-focus-lock-disabled] .container {
+    max-height: calc(100vh - 2 * var(--reactist-modal-padding-top));
 }
 
 [data-reach-dialog-content] {
