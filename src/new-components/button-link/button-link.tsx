@@ -9,7 +9,7 @@ type NativeLinkProps = Omit<
     'aria-disabled' | 'target' | 'rel' | 'className'
 >
 
-type ButtonLinkProps = NativeLinkProps & BaseButtonProps & OpenInNewTab
+export type ButtonLinkProps = NativeLinkProps & BaseButtonProps & OpenInNewTab
 
 /**
  * A semantic link that looks like a button, exactly matching the `Button` component in all visual
@@ -19,13 +19,12 @@ type ButtonLinkProps = NativeLinkProps & BaseButtonProps & OpenInNewTab
  *
  * @see Button
  */
-const ButtonLink = polymorphicComponent<'a', ButtonLinkProps>(function ButtonLink(
+export const ButtonLink = polymorphicComponent<'a', ButtonLinkProps>(function ButtonLink(
     {
         as = 'a',
         variant,
         tone = 'normal',
         size = 'normal',
-        disabled = false,
         exceptionallySetClassName,
         openInNewTab = false,
         ...props
@@ -40,13 +39,9 @@ const ButtonLink = polymorphicComponent<'a', ButtonLinkProps>(function ButtonLin
             variant={variant}
             tone={tone}
             size={size}
-            disabled={disabled}
             exceptionallySetClassName={exceptionallySetClassName}
             target={openInNewTab ? '_blank' : undefined}
             rel={openInNewTab ? 'noopener noreferrer' : undefined}
         />
     )
 })
-
-export { ButtonLink }
-export type { ButtonLinkProps }

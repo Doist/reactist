@@ -7,7 +7,7 @@ type NativeButtonProps = Omit<
     'aria-disabled' | 'className' | keyof BaseButtonProps
 >
 
-type ButtonProps = NativeButtonProps &
+export type ButtonProps = NativeButtonProps &
     BaseButtonProps & {
         type?: 'button' | 'submit' | 'reset'
         exceptionallySetClassName?: string
@@ -21,7 +21,7 @@ type ButtonProps = NativeButtonProps &
  *
  * @see ButtonLink
  */
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     {
         variant,
         tone = 'normal',
@@ -47,6 +47,3 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
         />
     )
 })
-
-export { Button }
-export type { ButtonProps }

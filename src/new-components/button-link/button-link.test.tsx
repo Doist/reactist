@@ -3,6 +3,12 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ButtonLink } from './button-link'
 
+jest.mock('../spinner', () => ({
+    Spinner() {
+        return '⏳'
+    },
+}))
+
 describe('ButtonLink', () => {
     it('renders a semantic link', () => {
         render(
@@ -256,6 +262,84 @@ describe('ButtonLink', () => {
             )
             const buttonLink = screen.getByRole('link', { name: 'Smile' })
             expect(buttonLink.textContent).toMatchInlineSnapshot(`"😄"`)
+        })
+    })
+
+    describe('when loading={true}', () => {
+        it('ignores clicks', () => {
+            const onClick = jest.fn()
+            render(
+                <ButtonLink href="/" variant="primary" loading onClick={onClick}>
+                    Click me
+                </ButtonLink>,
+            )
+            userEvent.click(screen.getByRole('link', { name: 'Click me' }))
+            expect(onClick).not.toHaveBeenCalled()
+        })
+
+        it('renders the link with aria-disabled="true"', () => {
+            render(
+                <ButtonLink href="/" variant="primary" loading>
+                    Click me
+                </ButtonLink>,
+            )
+            expect(screen.getByRole('link', { name: 'Click me' })).toHaveAttribute(
+                'aria-disabled',
+                'true',
+            )
+        })
+
+        it('renders a loading spinner after the end of the label by default', () => {
+            render(
+                <ButtonLink href="/" variant="primary" loading>
+                    Click me
+                </ButtonLink>,
+            )
+            expect(
+                screen.getByRole('link', { name: 'Click me' }).textContent,
+            ).toMatchInlineSnapshot(`"Click me⏳"`)
+        })
+
+        it('renders a loading spinner before the start of the label if a startIcon is given', () => {
+            render(
+                <ButtonLink href="/" variant="primary" startIcon="😄" loading>
+                    Click me
+                </ButtonLink>,
+            )
+            expect(
+                screen.getByRole('link', { name: 'Click me' }).textContent,
+            ).toMatchInlineSnapshot(`"⏳Click me"`)
+        })
+
+        it('renders a loading spinner after the end of the label if an endIcon is given', () => {
+            render(
+                <ButtonLink href="/" variant="primary" endIcon="😄" loading>
+                    Click me
+                </ButtonLink>,
+            )
+            expect(
+                screen.getByRole('link', { name: 'Click me' }).textContent,
+            ).toMatchInlineSnapshot(`"Click me⏳"`)
+        })
+
+        it('renders a loading spinner after the end of the label if both startIcon and endIcon are given', () => {
+            render(
+                <ButtonLink href="/" variant="primary" startIcon="😄" endIcon="😄" loading>
+                    Click me
+                </ButtonLink>,
+            )
+            expect(
+                screen.getByRole('link', { name: 'Click me' }).textContent,
+            ).toMatchInlineSnapshot(`"😄Click me⏳"`)
+        })
+
+        it('renders a loading spinner in place of the icon when rendering in single-icon mode', () => {
+            render(
+                <ButtonLink href="/" variant="primary" icon="😄" aria-label="Click me" loading />,
+            )
+            expect(
+                screen.getByRole('link', { name: 'Click me' }).textContent,
+            ).toMatchInlineSnapshot(`"⏳"`)
         })
     })
 })

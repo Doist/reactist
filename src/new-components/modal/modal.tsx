@@ -8,6 +8,7 @@ import { Column, Columns } from '../columns'
 import { Inline } from '../inline'
 import { Divider } from '../divider'
 import { Box } from '../box'
+import { Button, ButtonProps } from '../button'
 
 import styles from './modal.module.css'
 
@@ -37,7 +38,7 @@ type DivProps = Omit<
     'className' | 'children'
 >
 
-type ModalProps = DivProps & {
+export type ModalProps = DivProps & {
     /**
      * The content of the modal.
      */
@@ -94,7 +95,7 @@ function isNotInternalFrame(element: HTMLElement) {
  * @see ModalFooter
  * @see ModalBody
  */
-function Modal({
+export function Modal({
     isOpen,
     onDismiss,
     height = 'fitContent',
@@ -141,14 +142,14 @@ function Modal({
 // ModalCloseButton
 //
 
-type ModalCloseButtonProps = Omit<
-    JSX.IntrinsicElements['button'],
-    'type' | 'className' | 'onClick' | 'aria-label' | 'aria-labelledby' | 'children'
+export type ModalCloseButtonProps = Omit<
+    ButtonProps,
+    'type' | 'children' | 'variant' | 'icon' | 'startIcon' | 'endIcon' | 'disabled' | 'loading'
 > & {
     /**
-     * The descriptive label of the button. Used as its aria-label attribute.
+     * The descriptive label of the button.
      */
-    label: string
+    'aria-label': string
 }
 
 /**
@@ -157,18 +158,15 @@ type ModalCloseButtonProps = Omit<
  *
  * @see ModalHeader
  */
-function ModalCloseButton({ label, ...props }: ModalCloseButtonProps) {
+export function ModalCloseButton(props: ModalCloseButtonProps) {
     const { onDismiss } = React.useContext(ModalContext)
     return (
-        <button
+        <Button
             {...props}
-            type="button"
+            variant="quaternary"
             onClick={onDismiss}
-            className={styles.closeButton}
-            aria-label={label}
-        >
-            <CloseIcon />
-        </button>
+            icon={<CloseIcon className={styles.closeButtonIcon} />}
+        />
     )
 }
 
@@ -176,7 +174,7 @@ function ModalCloseButton({ label, ...props }: ModalCloseButtonProps) {
 // ModalHeader
 //
 
-type ModalHeaderProps = DivProps & {
+export type ModalHeaderProps = DivProps & {
     /**
      * The content of the header.
      */
@@ -204,7 +202,7 @@ type ModalHeaderProps = DivProps & {
  * @see ModalFooter
  * @see ModalBody
  */
-function ModalHeader({
+export function ModalHeader({
     children,
     button = true,
     withDivider = false,
@@ -216,7 +214,8 @@ function ModalHeader({
             <Box
                 {...props}
                 as="header"
-                paddingX="large"
+                paddingLeft="large"
+                paddingRight="small"
                 paddingY="small"
                 className={exceptionallySetClassName}
             >
@@ -226,7 +225,7 @@ function ModalHeader({
                         {typeof button !== 'boolean' ? (
                             button
                         ) : button === true ? (
-                            <ModalCloseButton label="Close dialog" />
+                            <ModalCloseButton aria-label="Close modal" />
                         ) : null}
                     </Column>
                 </Columns>
@@ -240,7 +239,7 @@ function ModalHeader({
 // ModalBody
 //
 
-type ModalBodyProps = DivProps & {
+export type ModalBodyProps = DivProps & {
     /**
      * The content of the modal body.
      */
@@ -263,7 +262,7 @@ type ModalBodyProps = DivProps & {
  * @see ModalHeader
  * @see ModalFooter
  */
-function ModalBody({ exceptionallySetClassName, children, ...props }: ModalBodyProps) {
+export function ModalBody({ exceptionallySetClassName, children, ...props }: ModalBodyProps) {
     const { height } = React.useContext(ModalContext)
     return (
         <Box
@@ -284,7 +283,7 @@ function ModalBody({ exceptionallySetClassName, children, ...props }: ModalBodyP
 // ModalFooter
 //
 
-type ModalFooterProps = DivProps & {
+export type ModalFooterProps = DivProps & {
     /**
      * The contant of the modal footer.
      */
@@ -307,7 +306,7 @@ type ModalFooterProps = DivProps & {
  * @see ModalHeader
  * @see ModalBody
  */
-function ModalFooter({
+export function ModalFooter({
     exceptionallySetClassName,
     withDivider = false,
     ...props
@@ -328,7 +327,7 @@ function ModalFooter({
  * A specific version of the ModalFooter, tailored to showing an inline list of actions (buttons).
  * @see ModalFooter
  */
-function ModalActions({ children, ...props }: ModalFooterProps) {
+export function ModalActions({ children, ...props }: ModalFooterProps) {
     return (
         <ModalFooter {...props}>
             <Inline align="right" space="large">
@@ -338,14 +337,4 @@ function ModalActions({ children, ...props }: ModalFooterProps) {
             </Inline>
         </ModalFooter>
     )
-}
-
-export { Modal, ModalHeader, ModalBody, ModalFooter, ModalActions, ModalCloseButton }
-
-export type {
-    ModalProps,
-    ModalHeaderProps,
-    ModalBodyProps,
-    ModalFooterProps,
-    ModalCloseButtonProps,
 }

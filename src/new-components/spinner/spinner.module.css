@@ -1,3 +1,8 @@
+:root {
+    --reactist-spinner-tint: var(--reactist-bg-brand);
+    --reactist-spinner-fill: var(--reactist-framework-fill-crest);
+}
+
 @keyframes spinner {
     0% {
         transform: rotate(0deg);
@@ -14,10 +19,10 @@
     animation-timing-function: linear;
 }
 
-.spinner {
-    fill: var(--reactist-bg-brand);
+.tint {
+    fill: var(--reactist-spinner-tint);
 }
 
-.spinnerBackground {
-    fill: var(--reactist-framework-fill-crest);
+.fill {
+    fill: var(--reactist-spinner-fill);
 }

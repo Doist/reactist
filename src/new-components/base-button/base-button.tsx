@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Tooltip, TooltipProps } from '../../components/tooltip'
 import { polymorphicComponent } from '../../utils/polymorphism'
 import { Box } from '../box'
+import { Spinner } from '../spinner'
 import styles from './base-button.module.css'
 
 function preventDefault(event: React.SyntheticEvent) {
@@ -29,9 +30,19 @@ type CommonProps = {
      */
     size?: ButtonSize
     /**
+     * Whether the button is disabled or not.
      * @default false
      */
     disabled?: boolean
+    /**
+     * Whether the button is busy/loading.
+     *
+     * A button in this state is functionally and semantically disabled. Visually is does not look
+     * dimmed (as disabled buttons normally do), but it shows a loading spinner instead.
+     *
+     * @default false
+     */
+    loading?: boolean
     /**
      * A tooltip linked to the button element.
      */
@@ -53,7 +64,7 @@ type LabelledButtonProps = {
     icon?: never
 }
 
-type BaseButtonProps = CommonProps & (IconButtonProps | LabelledButtonProps)
+export type BaseButtonProps = CommonProps & (IconButtonProps | LabelledButtonProps)
 
 /**
  * The component that powers `Button` and `ButtonLink`, where the button styling logic and some
@@ -64,13 +75,14 @@ type BaseButtonProps = CommonProps & (IconButtonProps | LabelledButtonProps)
  * @see Button
  * @see ButtonLink
  */
-const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function BaseButton(
+export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function BaseButton(
     {
         as = 'div',
         variant,
         tone = 'normal',
         size = 'normal',
         disabled = false,
+        loading = false,
         tooltip,
         onClick,
         exceptionallySetClassName,
@@ -82,13 +94,14 @@ const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function BaseBut
     },
     ref,
 ) {
+    const isDisabled = loading || disabled
     const buttonElement = (
         <Box
             {...props}
             as={as}
             ref={ref}
-            aria-disabled={disabled}
-            onClick={disabled ? preventDefault : onClick}
+            aria-disabled={isDisabled}
+            onClick={isDisabled ? preventDefault : onClick}
             className={[
                 exceptionallySetClassName,
                 styles.baseButton,
@@ -96,19 +109,22 @@ const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function BaseBut
                 styles[`tone-${tone}`],
                 styles[`size-${size}`],
                 icon ? styles.iconButton : null,
+                disabled ? styles.disabled : null,
             ]}
         >
-            {icon ?? (
+            {icon ? (
+                (loading && <Spinner />) || icon
+            ) : (
                 <>
                     {startIcon ? (
                         <Box display="flex" className={styles.startIcon} aria-hidden>
-                            {startIcon}
+                            {loading && !endIcon ? <Spinner /> : startIcon}
                         </Box>
                     ) : null}
                     {children ? <span>{children}</span> : null}
-                    {endIcon ? (
+                    {endIcon || (loading && !startIcon) ? (
                         <Box display="flex" className={styles.endIcon} aria-hidden>
-                            {endIcon}
+                            {loading ? <Spinner /> : endIcon}
                         </Box>
                     ) : null}
                 </>
@@ -124,6 +140,3 @@ const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function BaseBut
         buttonElement
     )
 })
-
-export { BaseButton }
-export type { BaseButtonProps }

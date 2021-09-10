@@ -5,7 +5,10 @@ function ButtonLinkStoryWrapper(props: ButtonLinkProps) {
     return (
         <ButtonLink
             {...props}
-            onClick={(event) => event.preventDefault()}
+            onClick={(event) => {
+                event.preventDefault()
+                props.onClick?.(event)
+            }}
             href="https://doist.com"
         />
     )

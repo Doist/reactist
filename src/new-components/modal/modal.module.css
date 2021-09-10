@@ -130,21 +130,7 @@
     height: 32px;
 }
 
-.closeButton {
-    outline: none;
-    width: 32px;
-    height: 32px;
-    padding: 0;
-    border-radius: var(--reactist-border-radius-small);
-    background-color: transparent;
-    color: var(--reactist-content-secondary);
-    cursor: pointer;
-    border: none;
-    line-height: 0;
-    margin-right: -8px;
-}
-.closeButton:hover,
-.closeButton:focus {
-    background-color: var(--reactist-framework-fill-crest);
-    color: var(--reactist-content-primary);
+.closeButtonIcon {
+    margin-left: -4px;
+    margin-top: -3px;
 }
