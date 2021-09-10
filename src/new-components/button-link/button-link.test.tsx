@@ -277,15 +277,16 @@ describe('ButtonLink', () => {
             expect(onClick).not.toHaveBeenCalled()
         })
 
-        it('renders the link with both aria-disabled and aria-busy being true', () => {
+        it('renders the link with aria-disabled="true"', () => {
             render(
                 <ButtonLink href="/" variant="primary" loading>
                     Click me
                 </ButtonLink>,
             )
-            const link = screen.getByRole('link', { name: 'Click me' })
-            expect(link).toHaveAttribute('aria-disabled', 'true')
-            expect(link).toHaveAttribute('aria-busy', 'true')
+            expect(screen.getByRole('link', { name: 'Click me' })).toHaveAttribute(
+                'aria-disabled',
+                'true',
+            )
         })
 
         it('renders a loading spinner after the end of the label by default', () => {

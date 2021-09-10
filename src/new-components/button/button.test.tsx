@@ -283,15 +283,16 @@ describe('Button', () => {
             expect(onSubmit).not.toHaveBeenCalled()
         })
 
-        it('renders the button with both aria-disabled and aria-busy being true', () => {
+        it('renders the button with aria-disabled="true"', () => {
             render(
                 <Button variant="primary" loading>
                     Click me
                 </Button>,
             )
-            const button = screen.getByRole('button', { name: 'Click me' })
-            expect(button).toHaveAttribute('aria-disabled', 'true')
-            expect(button).toHaveAttribute('aria-busy', 'true')
+            expect(screen.getByRole('button', { name: 'Click me' })).toHaveAttribute(
+                'aria-disabled',
+                'true',
+            )
         })
 
         it('renders a loading spinner after the end of the label by default', () => {

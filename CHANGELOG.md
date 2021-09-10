@@ -6,7 +6,9 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 -   [Feature] Add a new `loading` prop for `Button` and `ButtonLink`, to set them as busy, and
     visually show a loading indicator.
--   [Fix] Fully support secondary destructive buttons in a way that are customizable via CSS
+-   [Fix] Fully support secondary destructive buttons in a way that is customizable via CSS
+    variables.
+-   [Feature] Improves the ability to fully customize all sizing and spacing by apps via CSS
     variables.
 -   [Docs] New storybook examples showcasing how to customize buttons for dark mode.
 

@@ -37,9 +37,8 @@ type CommonProps = {
     /**
      * Whether the button is busy/loading.
      *
-     * A button in this state is functionally and semantically disabled, but it is also marked with
-     * aria-busy="true". Visually is does not look dimmed (as disabled buttons normally do), but it
-     * shows a loading spinner instead.
+     * A button in this state is functionally and semantically disabled. Visually is does not look
+     * dimmed (as disabled buttons normally do), but it shows a loading spinner instead.
      *
      * @default false
      */
@@ -102,7 +101,6 @@ const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function BaseBut
             as={as}
             ref={ref}
             aria-disabled={isDisabled}
-            aria-busy={loading ? 'true' : undefined}
             onClick={isDisabled ? preventDefault : onClick}
             className={[
                 exceptionallySetClassName,

@@ -136,10 +136,6 @@
     background-color: var(--reactist-btn-disabled-fill);
 }
 
-.baseButton[aria-busy='true'] {
-    cursor: wait;
-}
-
 /* icons */
 
 .baseButton.iconButton {
