@@ -160,14 +160,7 @@ export type ModalCloseButtonProps = Omit<
  */
 export function ModalCloseButton(props: ModalCloseButtonProps) {
     const { onDismiss } = React.useContext(ModalContext)
-    return (
-        <Button
-            {...props}
-            variant="quaternary"
-            onClick={onDismiss}
-            icon={<CloseIcon className={styles.closeButtonIcon} />}
-        />
-    )
+    return <Button {...props} variant="quaternary" onClick={onDismiss} icon={<CloseIcon />} />
 }
 
 //
