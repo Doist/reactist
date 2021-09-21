@@ -2,10 +2,16 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-## next
+## v10.0.0-beta.7
 
 -   [Fix] Modals that fit their content's height now expand their height only downwards, and are not
     kept vertically centered, but slightly towards the top of the screen.
+-   [Fix] Modal close button alignment is no longer inconsistent.
+-   [Breaking] Button icon size is no longer controlled based on the button size. It is your
+    responsibility to make sure your SVG icons have the proper size and alignment to fit in a button
+    depending on its size.
+-   [Fix] Button labels are now clamped when they do not fit inside the button. Buttons will never
+    be wider than the width of their container.
 
 ## v10.0.0-beta.6
 

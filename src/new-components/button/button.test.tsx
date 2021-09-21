@@ -113,7 +113,7 @@ describe('Button', () => {
         )
         expect(
             screen.getByRole('button', { name: 'Click me now' }).innerHTML,
-        ).toMatchInlineSnapshot(`"<span>Click me <strong>now</strong></span>"`)
+        ).toMatchInlineSnapshot(`"<span class=\\"label\\">Click me <strong>now</strong></span>"`)
     })
 
     it('renders a tooltip when the tooltip prop is given', async () => {

@@ -3,19 +3,16 @@
     --reactist-button-small-font-size: var(--reactist-font-size-caption);
     --reactist-button-small-spacing: var(--reactist-spacing-xsmall);
     --reactist-button-small-height: 28px;
-    --reactist-button-small-icon-size: 16px;
 
     /* size="normal" (default) */
     --reactist-button-normal-font-size: var(--reactist-font-size-copy);
     --reactist-button-normal-spacing: var(--reactist-spacing-small);
     --reactist-button-normal-height: 32px;
-    --reactist-button-normal-icon-size: 20px;
 
     /* size="large" */
     --reactist-button-large-font-size: var(--reactist-font-size-body);
     --reactist-button-large-spacing: var(--reactist-spacing-medium);
     --reactist-button-large-height: 36px;
-    --reactist-button-large-icon-size: 24px;
 
     /* variant="primary" */
     --reactist-actionable-primary-idle-tint: #ffffff;
@@ -60,8 +57,15 @@
     --reactist-actionable-secondary-destructive-disabled-tint: #f1b7b2;
 }
 
+.label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 /* general styles for all buttons */
 .baseButton {
+    max-width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -100,21 +104,18 @@
     --reactist-btn-height: var(--reactist-button-small-height);
     --reactist-btn-spacing: var(--reactist-button-small-spacing);
     --reactist-btn-font-size: var(--reactist-button-small-font-size);
-    --reactist-btn-icon-size: var(--reactist-button-small-icon-size);
 }
 
 .baseButton.size-normal {
     --reactist-btn-height: var(--reactist-button-normal-height);
     --reactist-btn-spacing: var(--reactist-button-normal-spacing);
     --reactist-btn-font-size: var(--reactist-button-normal-font-size);
-    --reactist-btn-icon-size: var(--reactist-button-normal-icon-size);
 }
 
 .baseButton.size-large {
     --reactist-btn-height: var(--reactist-button-large-height);
     --reactist-btn-spacing: var(--reactist-button-large-spacing);
     --reactist-btn-font-size: var(--reactist-button-large-font-size);
-    --reactist-btn-icon-size: var(--reactist-button-large-icon-size);
 }
 
 /* setup the color variables for all the different states */
@@ -150,15 +151,6 @@
 
 .baseButton .endIcon {
     margin-left: var(--reactist-btn-spacing);
-}
-
-.baseButton .startIcon,
-.baseButton .startIcon > svg,
-.baseButton .endIcon,
-.baseButton .endIcon > svg,
-.baseButton.iconButton > svg {
-    width: var(--reactist-btn-icon-size);
-    height: var(--reactist-btn-icon-size);
 }
 
 /* variants with normal tone */

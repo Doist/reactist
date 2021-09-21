@@ -121,7 +121,7 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
                             {loading && !endIcon ? <Spinner /> : startIcon}
                         </Box>
                     ) : null}
-                    {children ? <span>{children}</span> : null}
+                    {children ? <span className={styles.label}>{children}</span> : null}
                     {endIcon || (loading && !startIcon) ? (
                         <Box display="flex" className={styles.endIcon} aria-hidden>
                             {loading ? <Spinner /> : endIcon}
