@@ -10,6 +10,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 -   [Breaking] Button icon size is no longer controlled based on the button size. It is your
     responsibility to make sure your SVG icons have the proper size and alignment to fit in a button
     depending on its size.
+-   [Fix] Button labels are now clamped when they do not fit inside the button. Buttons will never
+    be wider than the width of their container.
 
 ## v10.0.0-beta.6
 

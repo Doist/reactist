@@ -96,7 +96,7 @@ describe('ButtonLink', () => {
         )
         const buttonLink = screen.getByRole('link', { name: 'Click me now' })
         expect(buttonLink.innerHTML).toMatchInlineSnapshot(
-            `"<span>Click me <strong>now</strong></span>"`,
+            `"<span class=\\"label\\">Click me <strong>now</strong></span>"`,
         )
     })
 

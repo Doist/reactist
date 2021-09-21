@@ -57,8 +57,15 @@
     --reactist-actionable-secondary-destructive-disabled-tint: #f1b7b2;
 }
 
+.label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 /* general styles for all buttons */
 .baseButton {
+    max-width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
