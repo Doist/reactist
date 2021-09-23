@@ -1,17 +1,17 @@
 :root {
     /* size="small" */
     --reactist-button-small-font-size: var(--reactist-font-size-caption);
-    --reactist-button-small-spacing: var(--reactist-spacing-xsmall);
+    --reactist-button-small-spacing: var(--reactist-spacing-small);
     --reactist-button-small-height: 28px;
 
     /* size="normal" (default) */
     --reactist-button-normal-font-size: var(--reactist-font-size-copy);
-    --reactist-button-normal-spacing: var(--reactist-spacing-small);
+    --reactist-button-normal-spacing: var(--reactist-spacing-medium);
     --reactist-button-normal-height: 32px;
 
     /* size="large" */
     --reactist-button-large-font-size: var(--reactist-font-size-body);
-    --reactist-button-large-spacing: var(--reactist-spacing-medium);
+    --reactist-button-large-spacing: var(--reactist-spacing-large);
     --reactist-button-large-height: 36px;
 
     /* variant="primary" */
@@ -146,11 +146,13 @@
 }
 
 .baseButton .startIcon {
-    margin-right: var(--reactist-btn-spacing);
+    margin-right: calc(var(--reactist-btn-spacing) - 6px);
+    margin-left: -6px;
 }
 
 .baseButton .endIcon {
-    margin-left: var(--reactist-btn-spacing);
+    margin-left: calc(var(--reactist-btn-spacing) - 6px);
+    margin-right: -6px;
 }
 
 /* variants with normal tone */
