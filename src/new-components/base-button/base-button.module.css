@@ -82,6 +82,11 @@
     text-decoration: none;
     /* border is always on, but transparent, so that it does not enlarge buttons when we actually color it */
     border: 1px solid transparent;
+
+    /* smooth color transitions */
+    transition-duration: 0.3s;
+    transition-property: color, background-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* nice little animation when clicked to give some visual feedback */
