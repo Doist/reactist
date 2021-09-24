@@ -6,6 +6,9 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 -   [Fix] Better adjust spacing inside buttons, so that the side with an icon has a similar padding
     than the side with no icon.
+-   [Tweak] Button hover styles are now also used when the button is focused, or it is expanded
+    (e.g. in the case of menu buttons).
+-   [Tweak] Make button colors transition smoothly.
 
 ## v10.0.0-beta.7
 
