@@ -12,6 +12,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
     (e.g. in the case of menu buttons).
 -   [Tweak] Make button colors transition smoothly.
 -   [Tweak] Adjust modal widths to the new design system defaults.
+-   [Tweak] Buttons with a visual text label (i.e. buttons that are not icon-only buttons) now have
+    a minimum width set, so they don't get too small for extremely short labels.
 
 ## v10.0.0-beta.7
 

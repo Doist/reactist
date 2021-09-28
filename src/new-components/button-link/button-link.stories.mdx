@@ -491,19 +491,19 @@ export function Template({ label, variant, tone, size }) {
             <Heading level="2">Click on the buttons to see the loading state</Heading>
             <Inline space="large">
                 <Stack space="large">
-                    <Box>
+                    <Box maxWidth="xsmall">
                         <LoadingButtonLink variant={variant} tone={tone} size={size}>
                             {label}
                         </LoadingButtonLink>
                     </Box>
-                    <Box>
+                    <Box maxWidth="xsmall">
                         <LoadingButtonLink variant={variant} tone={tone} size={size} disabled>
                             {label}
                         </LoadingButtonLink>
                     </Box>
                 </Stack>
                 <Stack space="large">
-                    <Box>
+                    <Box maxWidth="xsmall">
                         <LoadingButtonLink
                             variant={variant}
                             tone={tone}
@@ -513,7 +513,7 @@ export function Template({ label, variant, tone, size }) {
                             {label}
                         </LoadingButtonLink>
                     </Box>
-                    <Box>
+                    <Box maxWidth="xsmall">
                         <LoadingButtonLink
                             variant={variant}
                             tone={tone}
@@ -526,7 +526,7 @@ export function Template({ label, variant, tone, size }) {
                     </Box>
                 </Stack>
                 <Stack space="large">
-                    <Box>
+                    <Box maxWidth="xsmall">
                         <LoadingButtonLink
                             variant={variant}
                             tone={tone}
@@ -536,7 +536,7 @@ export function Template({ label, variant, tone, size }) {
                             {label}
                         </LoadingButtonLink>
                     </Box>
-                    <Box>
+                    <Box maxWidth="xsmall">
                         <LoadingButtonLink
                             variant={variant}
                             tone={tone}
@@ -583,10 +583,12 @@ export function Template({ label, variant, tone, size }) {
             label: {
                 control: { type: 'select' },
                 options: [
+                    'OK',
                     'Submit',
                     'Mark as done',
                     'Yes, cancel my subscription',
                     'Click me <em>now</em>',
+                    'If you click me now, youʼll take away the biggest part of me',
                 ],
                 defaultValue: 'Submit',
             },
@@ -610,6 +612,10 @@ export function Template({ label, variant, tone, size }) {
             endIcon: { control: false },
             icon: { control: false },
             tooltip: { control: false },
+            openInNewTab: { control: false },
+            target: { control: false },
+            rel: { control: false },
+            as: { control: false },
             exceptionallySetClassName: { control: false },
         }}
         name="Playground"
