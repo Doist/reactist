@@ -36,33 +36,33 @@ describe('Stack', () => {
 
     it('renders dividers when instructed to do so', () => {
         const { rerender } = render(
-            <Stack data-testid="stack" dividers>
+            <Stack data-testid="stack" dividers="primary">
                 <div>one</div>
                 <div>two</div>
                 <div>three</div>
             </Stack>,
         )
-        expect(screen.getByTestId('stack')).toMatchSnapshot('dividers={true}')
+        expect(screen.getByTestId('stack')).toMatchSnapshot('dividers="primary"')
 
         // regular dividers
         rerender(
-            <Stack data-testid="stack" dividers="regular">
+            <Stack data-testid="stack" dividers="secondary">
                 <div>one</div>
                 <div>two</div>
                 <div>three</div>
             </Stack>,
         )
-        expect(screen.getByTestId('stack')).toMatchSnapshot('dividers="regular"')
+        expect(screen.getByTestId('stack')).toMatchSnapshot('dividers="secondary"')
 
         // strong dividers
         rerender(
-            <Stack data-testid="stack" dividers="strong">
+            <Stack data-testid="stack" dividers="tertiary">
                 <div>one</div>
                 <div>two</div>
                 <div>three</div>
             </Stack>,
         )
-        expect(screen.getByTestId('stack')).toMatchSnapshot('dividers="strong"')
+        expect(screen.getByTestId('stack')).toMatchSnapshot('dividers="tertiary"')
     })
 
     it('applies some extra class names corresponding to other layout-related props', () => {
@@ -72,7 +72,7 @@ describe('Stack', () => {
                 maxWidth="large"
                 minWidth="small"
                 padding="medium"
-                border="standard"
+                border="primary"
                 borderRadius="standard"
                 background="highlight"
             />,
@@ -87,7 +87,7 @@ describe('Stack', () => {
             'paddingLeft-medium',
             'bg-highlight',
             'borderRadius-standard',
-            'border-standard',
+            'border-primary',
         )
     })
 

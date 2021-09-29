@@ -34,7 +34,7 @@ export function IndeterminateCheckboxStory(props: PartialProps<typeof CheckboxFi
     const indeterminate = checkedCount > 0 && checkedCount < state.length
 
     return (
-        <Stack space="medium" dividers>
+        <Stack space="medium" dividers="primary">
             <CheckboxField
                 {...props}
                 checked={checkedCount === state.length}

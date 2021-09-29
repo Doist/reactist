@@ -62,7 +62,7 @@ describe('Columns', () => {
                 maxWidth="large"
                 minWidth="small"
                 padding="medium"
-                border="standard"
+                border="primary"
                 borderRadius="standard"
                 background="highlight"
             />,
@@ -77,7 +77,7 @@ describe('Columns', () => {
             'paddingLeft-medium',
             'bg-highlight',
             'borderRadius-standard',
-            'border-standard',
+            'border-primary',
         )
     })
 

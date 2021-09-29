@@ -60,7 +60,7 @@ export function AlignmentStory(args: PartialProps<typeof Columns>) {
 
 export function WidthsStory({ space }: PartialProps<typeof Columns>) {
     return (
-        <Stack space="large" dividers>
+        <Stack space="large" dividers="primary">
             <Wrapper>
                 <Stack space="large">
                     <Columns space={space}>
@@ -244,7 +244,7 @@ export function ResponsiveStory(args: PartialProps<typeof Columns>) {
     return (
         <>
             <ResponsiveWidthRef />
-            <Stack space="large" dividers>
+            <Stack space="large" dividers="primary">
                 <Wrapper title="Columns alignment changes as the viewport size changes">
                     <Columns
                         space="medium"

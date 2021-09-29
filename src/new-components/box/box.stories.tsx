@@ -64,7 +64,7 @@ export function ResponsiveStory() {
     return (
         <>
             <ResponsiveWidthRef />
-            <Stack space="large" dividers>
+            <Stack space="large" dividers="primary">
                 <Wrapper title="Stacks elements on mobile">
                     <Box display="flex" flexDirection={{ mobile: 'column', tablet: 'row' }}>
                         <Placeholder label="One" height={30} />
@@ -110,7 +110,7 @@ export function ResponsiveStory() {
 function PaddedBox({ prop, value }: { prop: keyof BoxPaddingProps; value: Space }) {
     const paddingProp = { [prop]: value }
     return (
-        <Box borderRadius="standard" border="standard" {...paddingProp}>
+        <Box borderRadius="standard" border="primary" {...paddingProp}>
             <Box borderRadius="standard" padding="medium" background="selected">
                 <Text>{prop}</Text>
             </Box>
@@ -161,7 +161,7 @@ function MarginBox({ prop, value }: { prop: keyof BoxMarginProps; value: Space }
     return (
         <Box>
             <Box {...outerPaddingToCompensateNegativeMargin}>
-                <Box borderRadius="standard" border="standard">
+                <Box borderRadius="standard" border="primary">
                     <Box
                         borderRadius="standard"
                         padding="medium"

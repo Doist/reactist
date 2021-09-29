@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Stack renders dividers when instructed to do so: dividers="regular" 1`] = `
+exports[`Stack renders dividers when instructed to do so: dividers="primary" 1`] = `
 <div
   class="box"
   data-testid="stack"
@@ -9,13 +9,13 @@ exports[`Stack renders dividers when instructed to do so: dividers="regular" 1`]
     one
   </div>
   <hr
-    class="divider box"
+    class="weight-primary box"
   />
   <div>
     two
   </div>
   <hr
-    class="divider box"
+    class="weight-primary box"
   />
   <div>
     three
@@ -23,7 +23,7 @@ exports[`Stack renders dividers when instructed to do so: dividers="regular" 1`]
 </div>
 `;
 
-exports[`Stack renders dividers when instructed to do so: dividers="strong" 1`] = `
+exports[`Stack renders dividers when instructed to do so: dividers="secondary" 1`] = `
 <div
   class="box"
   data-testid="stack"
@@ -32,13 +32,13 @@ exports[`Stack renders dividers when instructed to do so: dividers="strong" 1`] 
     one
   </div>
   <hr
-    class="divider weight-strong box"
+    class="weight-secondary box"
   />
   <div>
     two
   </div>
   <hr
-    class="divider weight-strong box"
+    class="weight-secondary box"
   />
   <div>
     three
@@ -46,7 +46,7 @@ exports[`Stack renders dividers when instructed to do so: dividers="strong" 1`] 
 </div>
 `;
 
-exports[`Stack renders dividers when instructed to do so: dividers={true} 1`] = `
+exports[`Stack renders dividers when instructed to do so: dividers="tertiary" 1`] = `
 <div
   class="box"
   data-testid="stack"
@@ -55,13 +55,13 @@ exports[`Stack renders dividers when instructed to do so: dividers={true} 1`] = 
     one
   </div>
   <hr
-    class="divider box"
+    class="weight-tertiary box"
   />
   <div>
     two
   </div>
   <hr
-    class="divider box"
+    class="weight-tertiary box"
   />
   <div>
     three

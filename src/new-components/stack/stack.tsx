@@ -6,9 +6,8 @@ import { Box } from '../box'
 import { Divider } from '../divider'
 
 import type { ResponsiveProp } from '../responsive-props'
-import type { Space } from '../common-types'
+import type { DividerWeight, Space } from '../common-types'
 import type { BoxProps, ReusableBoxProps } from '../box'
-import type { DividerWeight } from '../divider'
 
 import styles from './stack.module.css'
 
@@ -19,12 +18,20 @@ interface StackProps extends ReusableBoxProps {
     space?: ResponsiveProp<Space>
     /** Align items horizontally */
     align?: ResponsiveProp<Align>
-    /** Add dividers if `true`, or specify the weight of the dividers to add */
-    dividers?: boolean | DividerWeight
+    /** The weight of the dividers to add. Defaults to 'none', which means no dividers are added */
+    dividers?: DividerWeight
 }
 
 const Stack = polymorphicComponent<'div', StackProps>(function Stack(
-    { as, space, align = 'start', dividers = false, children, exceptionallySetClassName, ...props },
+    {
+        as,
+        space,
+        align = 'start',
+        dividers = 'none',
+        children,
+        exceptionallySetClassName,
+        ...props
+    },
     ref,
 ) {
     const alignProps: BoxProps | undefined =
@@ -47,13 +54,11 @@ const Stack = polymorphicComponent<'div', StackProps>(function Stack(
             className={[exceptionallySetClassName, getClassNames(styles, 'space', space)]}
             ref={ref}
         >
-            {dividers
+            {dividers !== 'none'
                 ? React.Children.map(flattenChildren(children), (child, index) =>
                       index > 0 ? (
                           <>
-                              <Divider
-                                  weight={typeof dividers === 'string' ? dividers : undefined}
-                              />
+                              <Divider weight={dividers} />
                               {child}
                           </>
                       ) : (

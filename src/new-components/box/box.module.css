@@ -352,8 +352,14 @@ pre.box {
 }
 
 /* border */
-.border-standard {
-    border: 1px solid var(--reactist-framework-border);
+.border-primary {
+    border: 1px solid var(--reactist-divider-primary);
+}
+.border-secondary {
+    border: 1px solid var(--reactist-divider-secondary);
+}
+.border-tertiary {
+    border: 1px solid var(--reactist-divider-tertiary);
 }
 
 /* text-align */

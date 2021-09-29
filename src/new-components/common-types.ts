@@ -17,6 +17,8 @@ export type SpaceWithNegatives =
 export type Tone = 'normal' | 'secondary' | 'danger'
 export type AlertTone = 'info' | 'positive' | 'caution' | 'critical'
 
+export type DividerWeight = 'primary' | 'secondary' | 'tertiary' | 'none'
+
 type ClassValue = Parameters<typeof classNames>[number]
 
 export type WithEnhancedClassName<T = unknown> = T extends HTMLElement

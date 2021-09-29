@@ -181,7 +181,7 @@ function Item({ value, name }: { value: string; name: string }) {
     }
     const ariaLabel = getLabel('Options menu for')
     return (
-        <Columns as="li" border="standard" borderRadius="standard" padding="small" alignY="center">
+        <Columns as="li" border="primary" borderRadius="standard" padding="small" alignY="center">
             <Column width="auto">{name}</Column>
             <Column width="content">
                 <Menu onItemSelect={(itemValue) => action(`${String(itemValue)} '${name}'`)(value)}>
