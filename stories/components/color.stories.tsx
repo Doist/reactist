@@ -27,12 +27,10 @@ const frameworkFillColors = [
     '--reactist-framework-fill-summit',
 ]
 
-const frameworkSeparatorColors = ['--reactist-framework-separator']
-
 const frameworkBorderColors = [
-    '--reactist-framework-border',
-    '--reactist-framework-border-focus',
-    '--reactist-framework-border-alpha',
+    '--reactist-divider-primary',
+    '--reactist-divider-secondary',
+    '--reactist-divider-tertiary',
 ]
 
 const contentColors = [
@@ -89,7 +87,7 @@ function Swatch({ color }: { color: string }) {
 
 export function Colors() {
     return (
-        <Stack space="xlarge" className="story">
+        <Stack space="xlarge" exceptionallySetClassName="story">
             <Heading level={1} size="larger">
                 Framework
             </Heading>
@@ -97,13 +95,6 @@ export function Colors() {
             <Heading level={2}>Framework-Fill</Heading>
             <Stack space="small">
                 {frameworkFillColors.map((color) => (
-                    <Swatch color={color} key={color} />
-                ))}
-            </Stack>
-
-            <Heading level={2}>Framework-Separator</Heading>
-            <Stack space="small">
-                {frameworkSeparatorColors.map((color) => (
                     <Swatch color={color} key={color} />
                 ))}
             </Stack>

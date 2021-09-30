@@ -36,7 +36,7 @@
     color: var(--reactist-content-primary);
     background: none;
     border-radius: var(--reactist-border-radius-small);
-    border: 1px solid var(--reactist-framework-border);
+    border: 1px solid var(--reactist-divider-secondary);
     font-size: var(--reactist-font-size-body);
     line-height: calc(var(--reactist-font-size-body) + 4px);
     margin: 0;
@@ -47,5 +47,5 @@
 }
 
 .selectWrapper select:focus {
-    border-color: var(--reactist-framework-border-focus);
+    border-color: var(--reactist-divider-primary);
 }
