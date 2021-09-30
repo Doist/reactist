@@ -11,6 +11,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 -   [Tweak] Button hover styles are now also used when the button is focused, or it is expanded
     (e.g. in the case of menu buttons).
 -   [Tweak] Make button colors transition smoothly.
+-   [Tweak] Adjust modal widths to the new design system defaults.
 
 ## v10.0.0-beta.7
 

@@ -66,10 +66,10 @@
 /* responsive styles */
 
 .medium .container {
-    width: 750px;
+    width: 580px;
 }
 .small .container {
-    width: 400px;
+    width: 450px;
 }
 
 @media (min-width: 992px) {
@@ -90,7 +90,7 @@
     }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 580px) {
     .medium .container,
     .large .container {
         width: 100% !important;
