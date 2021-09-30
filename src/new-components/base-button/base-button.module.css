@@ -146,6 +146,10 @@
 
 /* icons */
 
+.baseButton:not(.iconButton) {
+    min-width: 68px;
+}
+
 .baseButton.iconButton {
     width: var(--reactist-btn-height);
     height: var(--reactist-btn-height);
