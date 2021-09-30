@@ -12,7 +12,7 @@ export default {
 export function HeadingStory() {
     return (
         <section className="story">
-            <Stack dividers space="medium">
+            <Stack dividers="primary" space="medium">
                 <Stack space="small">
                     <Heading level={1} size="largest">
                         Heading level 1, largest

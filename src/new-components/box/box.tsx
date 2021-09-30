@@ -4,7 +4,12 @@ import { polymorphicComponent } from '../../utils/polymorphism'
 import { getClassNames } from '../responsive-props'
 
 import type { ResponsiveProp } from '../responsive-props'
-import type { Space, SpaceWithNegatives, WithEnhancedClassName } from '../common-types'
+import type {
+    DividerWeight,
+    Space,
+    SpaceWithNegatives,
+    WithEnhancedClassName,
+} from '../common-types'
 
 import styles from './box.module.css'
 import paddingStyles from './padding.module.css'
@@ -46,7 +51,7 @@ type BoxOverflow = 'hidden' | 'auto' | 'visible' | 'scroll'
 
 interface BorderProps {
     borderRadius?: 'standard' | 'none' | 'full'
-    border?: 'standard' | 'none' // to be extended with more options
+    border?: DividerWeight
 }
 
 interface ReusableBoxProps extends BorderProps, BoxPaddingProps {

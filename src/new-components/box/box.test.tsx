@@ -31,7 +31,7 @@ describe('Box', () => {
                 display="inlineBlock"
                 maxWidth="xlarge"
                 minWidth="xsmall"
-                border="standard"
+                border="primary"
                 borderRadius="full"
                 background="aside"
                 overflow="hidden"
@@ -44,7 +44,7 @@ describe('Box', () => {
             'maxWidth-xlarge',
             'bg-aside',
             'borderRadius-full',
-            'border-standard',
+            'border-primary',
             'overflow-hidden',
         )
     })

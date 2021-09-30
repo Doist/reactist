@@ -1,26 +1,16 @@
 import * as React from 'react'
 import { getClassNames } from '../responsive-props'
 import { Box } from '../box'
+import type { DividerWeight } from '../common-types'
 
 import styles from './divider.module.css'
 
-type DividerWeight = 'regular' | 'strong'
-
 interface DividerProps {
-    weight?: DividerWeight
+    weight?: Exclude<DividerWeight, 'none'>
 }
 
-function Divider({ weight = 'regular', ...props }: DividerProps) {
-    return (
-        <Box
-            as="hr"
-            className={[
-                styles.divider,
-                weight !== 'regular' ? getClassNames(styles, 'weight', weight) : null,
-            ]}
-            {...props}
-        />
-    )
+function Divider({ weight = 'primary', ...props }: DividerProps) {
+    return <Box as="hr" className={getClassNames(styles, 'weight', weight)} {...props} />
 }
 
 export type { DividerProps, DividerWeight }

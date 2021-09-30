@@ -4,6 +4,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 ## next
 
+-   [Breaking] Standardize box borders and divider colors under a new primary/secondary/tertiary
+    system.
 -   [Fix] Better adjust spacing inside buttons, so that the side with an icon has a similar padding
     than the side with no icon.
 -   [Tweak] Button hover styles are now also used when the button is focused, or it is expanded

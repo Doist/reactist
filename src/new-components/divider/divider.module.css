@@ -1,8 +1,9 @@
-.divider {
-    border: none;
-    border-bottom: 1px solid var(--reactist-framework-separator);
+.weight-primary {
+    border-bottom: 1px solid var(--reactist-divider-primary);
 }
-
-.weight-strong {
-    border-color: var(--reactist-framework-border-focus);
+.weight-secondary {
+    border-bottom: 1px solid var(--reactist-divider-secondary);
+}
+.weight-tertiary {
+    border-bottom: 1px solid var(--reactist-divider-tertiary);
 }

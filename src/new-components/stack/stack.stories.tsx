@@ -22,7 +22,7 @@ export default {
     argTypes: {
         space: selectSize(),
         align: selectWithNone(['start', 'center', 'end']),
-        dividers: selectWithNone<DividerWeight>(['regular', 'strong']),
+        dividers: selectWithNone<DividerWeight>(['primary', 'secondary', 'tertiary']),
         ...reusableBoxProps(),
     },
 }
