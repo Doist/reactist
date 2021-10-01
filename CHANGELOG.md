@@ -2,6 +2,11 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v10.0.0-beta.9
+
+-   [Breaking] Divider weight is no longer an optional prop.
+-   [Fix] Modal dividers (in the header or footer) are tertiary dividers.
+
 ## v10.0.0-beta.8
 
 -   [Breaking] Standardize box borders and divider colors under a new primary/secondary/tertiary
