@@ -9,7 +9,7 @@ interface DividerProps {
     weight?: Exclude<DividerWeight, 'none'>
 }
 
-function Divider({ weight = 'primary', ...props }: DividerProps) {
+function Divider({ weight = 'tertiary', ...props }: DividerProps) {
     return <Box as="hr" className={getClassNames(styles, 'weight', weight)} {...props} />
 }
 
