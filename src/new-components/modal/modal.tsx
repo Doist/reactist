@@ -223,7 +223,7 @@ export function ModalHeader({
                     </Column>
                 </Columns>
             </Box>
-            {withDivider ? <Divider weight="tertiary" /> : null}
+            {withDivider ? <Divider /> : null}
         </>
     )
 }
@@ -306,7 +306,7 @@ export function ModalFooter({
 }: ModalFooterProps) {
     return (
         <>
-            {withDivider ? <Divider weight="tertiary" /> : null}
+            {withDivider ? <Divider /> : null}
             <Box as="footer" {...props} className={exceptionallySetClassName} padding="large" />
         </>
     )

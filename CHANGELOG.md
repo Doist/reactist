@@ -4,7 +4,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 ## v10.0.0-beta.9
 
--   [Breaking] Divider weight is no longer an optional prop.
+-   [Tweak] Divider weight now defaults to "tertiary"
 -   [Fix] Modal dividers (in the header or footer) are tertiary dividers.
 
 ## v10.0.0-beta.8
