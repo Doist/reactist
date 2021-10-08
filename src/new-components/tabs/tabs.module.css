@@ -1,14 +1,8 @@
-.tab {
-    box-sizing: border-box;
-    border: none;
-    border-radius: var(--reactist-border-radius-small);
-    background: none;
-    cursor: pointer;
-
+:root {
     /*
-     * These are not the actual colours defined in the mocks. Until we have a colour system aligned with
-     * our product libraries, these variables should be documented and customized in the consuming apps.
-     */
+    * These are not the actual colours defined in the mocks. Until we have a colour system aligned with
+    * our product libraries, these variables should be documented and customized in the consuming apps.
+    */
     --reactist-tab-primary-background: var(--reactist-chromatic-fill-blue);
     --reactist-tab-primary-foreground: var(--reactist-content-light-on-dark);
     --reactist-tab-primary-unselected: var(--reactist-chromatic-content-blue);
@@ -18,6 +12,14 @@
     --reactist-tab-tertiary-background: var(--reactist-chromatic-fill-grey);
     --reactist-tab-tertiary-foreground: var(--reactist-content-light-on-dark);
     --reactist-tab-tertiary-unselected: var(--reactist-content-tertiary);
+}
+
+.tab {
+    box-sizing: border-box;
+    border: none;
+    border-radius: var(--reactist-border-radius-small);
+    background: none;
+    cursor: pointer;
 }
 
 /*
