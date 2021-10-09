@@ -61,10 +61,17 @@
 .container {
     box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);
     transition: width 0.2s ease-in-out;
+    max-width: 100%;
 }
 
 /* responsive styles */
 
+.full .container {
+    width: 100%;
+}
+.large .container {
+    width: 768px;
+}
 .medium .container {
     width: 580px;
 }
@@ -73,42 +80,36 @@
 }
 
 @media (min-width: 992px) {
-    .large .container {
+    .xlarge .container {
         width: 960px;
     }
 }
 
 @media (min-width: 1200px) {
-    .large .container {
+    .xlarge .container {
         width: 1060px;
     }
 }
 
 @media (max-width: 1000px) {
-    .large .container {
-        width: 750px;
+    .xlarge .container {
+        width: 768px;
     }
 }
 
 @media (max-width: 580px) {
-    .medium .container,
-    .large .container {
+    .overlay:not(.small) .container {
         width: 100% !important;
         max-height: none;
     }
-    .overlay.expand.medium > [data-focus-lock-disabled],
-    .overlay.expand.large > [data-focus-lock-disabled] {
+    .overlay.expand:not(.small) > [data-focus-lock-disabled] {
         padding-left: 0;
         padding-right: 0;
+        padding-bottom: 0;
     }
-    .overlay.expand.medium .container,
-    .overlay.expand.large .container {
+    .overlay.expand:not(.small) .container {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
-    }
-    .overlay.expand.medium > [data-focus-lock-disabled],
-    .overlay.expand.large > [data-focus-lock-disabled] {
-        padding-bottom: 0;
     }
 }
 
@@ -120,13 +121,11 @@
     .overlay.expand > [data-focus-lock-disabled] {
         padding-left: 0;
         padding-right: 0;
+        padding-bottom: 0;
     }
     .overlay.expand .container {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
-    }
-    .overlay.expand > [data-focus-lock-disabled] {
-        padding-bottom: 0;
     }
 }
 

@@ -106,6 +106,8 @@ function ModalOptionsForm({ title }: { title?: React.ReactNode }) {
                 <option value="small">small</option>
                 <option value="medium">medium</option>
                 <option value="large">large</option>
+                <option value="xlarge">xlarge</option>
+                <option value="full">full</option>
             </SelectField>
 
             <SelectField label="height" name="height" value={height} onChange={onChange}>
