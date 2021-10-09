@@ -2,6 +2,14 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v10.0.0-beta.11
+
+-   [Feat] More modal widths:
+    -   Previous width `large` is now called `xlarge`
+    -   New width `large` sitting in between `medium` and `xlarge`
+    -   New width `full`, that always fill the entire viewport width (keeping the standard margin
+        around).
+
 ## v10.0.0-beta.10
 
 -   [Fix] Reduce specificity of the Tab component's CSS variables
