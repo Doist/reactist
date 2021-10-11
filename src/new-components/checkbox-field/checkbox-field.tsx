@@ -7,7 +7,19 @@ import { CheckboxIcon } from './checkbox-icon'
 import styles from './checkbox-field.module.css'
 
 type CheckboxFieldProps = Omit<JSX.IntrinsicElements['input'], 'type' | 'className'> & {
+    /** Identifies the set of checkboxes controlled by the mixed checkbox for assistive technologies. */
+    ariaControls?: string
+    /** Identifies the element (or elements) that describes the checkbox for assistive technologies. */
+    ariaDescribedby?: string
+    /** Defines a string value that labels the current checkbox for assistive technologies. */
+    ariaLabel?: string
+    /** Identifies the element (or elements) that labels the current checkbox for assistive technologies. */
+    ariaLabelledby?: string
+    /** Defines whether or not the checkbox is disabled. */
+    disabled?: boolean
+    /** The label for the checkbox element. */
     label?: string
+    /** Defines whether or not the checkbox can be of a `mixed` state. */
     indeterminate?: boolean
 }
 

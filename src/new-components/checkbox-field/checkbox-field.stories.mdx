@@ -1,0 +1,89 @@
+import { useEffect, useState } from 'react'
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
+
+import { PartialProps } from '../storybook-helper'
+import { CheckboxField } from '.'
+import { Stack } from '../stack'
+import { Text } from '../text'
+import { Inline } from '../inline'
+
+<Meta title="Design system/CheckboxField" component={CheckboxField} />
+
+# CheckboxField
+
+A checkbox field with a built-in label element.
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
+        name="Basic Example"
+        args={{
+            label: 'Default label',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## `<CheckboxField>`
+
+<Description of={CheckboxField} />
+<ArgsTable of={CheckboxField} />
+
+## Stories
+
+export const Template = ({
+    disabled,
+    indeterminate,
+    label,
+    'aria-controls': ariaControls,
+    'aria-describedby': ariaDescribedby,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledby,
+}) => <CheckboxField disabled={disabled} indeterminate={indeterminate} label={label} />
+
+### Indeterminate Example
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Indeterminate Example">
+        {() => {
+            const [state, setState] = useState([false, true, false, false, false])
+            const checkedCount = state.filter(Boolean).length
+            const indeterminate = checkedCount > 0 && checkedCount < state.length
+            return (
+                <Stack space="medium" dividers="primary">
+                    <CheckboxField
+                        checked={checkedCount === state.length}
+                        onChange={(event) => {
+                            const { checked } = event.currentTarget
+                            setState((state) => state.map(() => checked))
+                        }}
+                        indeterminate={indeterminate}
+                        label={`Check/uncheck all (${checkedCount} / ${state.length})`}
+                    />
+                    <Inline space="medium">
+                        {state.map((checked, index) => (
+                            <CheckboxField
+                                key={`${index}-${String(checked)}`}
+                                label={String(index + 1)}
+                                checked={checked}
+                                onChange={(event) => {
+                                    const { checked } = event.currentTarget
+                                    setState((state) => {
+                                        const newState = [...state]
+                                        newState[index] = checked
+                                        return newState
+                                    })
+                                }}
+                            />
+                        ))}
+                    </Inline>
+                    <Text tone="secondary">
+                        Mark some (but not all) numbered checkboxes to see the one at the top as
+                        indeterminate.
+                    </Text>
+                </Stack>
+            )
+        }}
+    </Story>
+</Canvas>
