@@ -2,6 +2,11 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## v10.0.0-beta.12
+
+-   [Tweak] Upgrade Storybook to version v6.3.10
+-   [Tweak] Limit node version to <=16.10.0
+
 ## v10.0.0-beta.11
 
 -   [Feat] More modal widths:
