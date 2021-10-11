@@ -21,8 +21,8 @@
         "styles"
     ],
     "engines": {
-        "node": "^16.0.0",
-        "npm": "^7.0.0"
+        "node": "16.8.0",
+        "npm": "7.21.0"
     },
     "scripts": {
         "postinstall": "patch-package",
