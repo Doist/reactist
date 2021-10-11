@@ -12,7 +12,7 @@ import { Button, ButtonProps } from '../button'
 
 import styles from './modal.module.css'
 
-type ModalWidth = 'small' | 'medium' | 'large'
+type ModalWidth = 'small' | 'medium' | 'large' | 'xlarge' | 'full'
 type ModalHeightMode = 'expand' | 'fitContent'
 
 //
