@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { useForkRef } from 'reakit-utils'
-import { HiddenVisually } from '../hidden-visually'
 import { Box } from '../box'
 import { Text } from '../text'
 import { CheckboxIcon } from './checkbox-icon'
@@ -54,26 +53,25 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
                 'focus-marker-enabled-within',
             ]}
         >
-            <HiddenVisually>
-                <input
-                    {...props}
-                    ref={combinedRef}
-                    type="checkbox"
-                    checked={isChecked}
-                    disabled={disabled}
-                    onChange={(event) => {
-                        onChange?.(event)
-                        if (!event.defaultPrevented) {
-                            setChecked(event.currentTarget.checked)
-                        }
-                    }}
-                />
-            </HiddenVisually>
-            <CheckboxIcon
-                aria-hidden
+            <input
+                {...props}
+                ref={combinedRef}
+                type="checkbox"
                 checked={isChecked}
-                indeterminate={indeterminate}
                 disabled={disabled}
+                tabIndex={0}
+                onChange={(event) => {
+                    onChange?.(event)
+                    if (!event.defaultPrevented) {
+                        setChecked(event.currentTarget.checked)
+                    }
+                }}
+            />
+            <CheckboxIcon
+                checked={isChecked}
+                disabled={disabled}
+                indeterminate={indeterminate}
+                aria-hidden
             />
             {label ? <Text>{label}</Text> : null}
         </Box>

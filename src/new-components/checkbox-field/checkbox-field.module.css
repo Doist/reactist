@@ -1,3 +1,7 @@
+.container {
+    position: relative;
+}
+
 .container,
 .container * {
     cursor: pointer;
@@ -20,4 +24,16 @@
 
 .container.checked svg {
     color: var(--reactist-switch-checked);
+}
+
+.container input[type='checkbox'] {
+    border-radius: 5px;
+    clip: rect(0 0 0 0);
+    display: block;
+    height: 16px;
+    left: 0;
+    margin: 4px;
+    position: absolute;
+    top: 0;
+    width: 16px;
 }
