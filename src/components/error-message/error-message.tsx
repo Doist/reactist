@@ -45,7 +45,7 @@ class ErrorMessage extends React.Component<Props, State> {
 
     _triggerDelayedHide = () => {
         this._clearTimeout()
-        this.timeout = setTimeout(this._hide, this.props.timeout)
+        setTimeout(this._hide, this.props.timeout)
     }
 
     _hide = () => {
