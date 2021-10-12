@@ -87,3 +87,30 @@ export const Template = ({
         }}
     </Story>
 </Canvas>
+
+### Accessibility Examples
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Accessibility Examples">
+        <Stack space="medium" dividers="primary">
+            <Stack space="medium">
+                <CheckboxField aria-label="Golden Retriever" label="aria-label" />
+                <Text tone="secondary">
+                    A screen reader will announce the checkbox as "Golden Retriever".
+                </Text>
+            </Stack>
+            <Stack space="medium">
+                <CheckboxField aria-labelledby="shibainu-text" label="aria-labelledby" />
+                <Text id="shibainu-text">Shiba Inu</Text>
+                <Text tone="secondary">
+                    A screen reader will announce the checkbox as "Shiba Inu".
+                </Text>
+            </Stack>
+            <Stack space="medium">
+                <CheckboxField aria-describedby="husky-text" label="aria-describedby" />
+                <Text id="husky-text">Husky</Text>
+                <Text tone="secondary">A screen reader will describe the checkbox as "Husky".</Text>
+            </Stack>
+        </Stack>
+    </Story>
+</Canvas>
