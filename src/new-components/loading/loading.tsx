@@ -6,7 +6,7 @@ type Size = 'small' | 'medium' | 'large'
 
 type NativeProps = Omit<
     JSX.IntrinsicElements['div'],
-    'className' | 'aria-label' | 'aria-labelledby' | 'role' | 'size'
+    'className' | 'aria-describedby' | 'aria-label' | 'aria-labelledby' | 'role' | 'size'
 >
 
 type LoadingProps = NativeProps & {
@@ -15,19 +15,20 @@ type LoadingProps = NativeProps & {
      * @default 'small'
      */
     size?: Size
+    /**
+     * A escape hatch in case you need to provide a custom class name to the container element.
+     */
     exceptionallySetClassName?: string
+    /** Identifies the element (or elements) that describes the checkbox for assistive technologies. */
+    'aria-describedby'?: string
 } & (
         | {
-              /**
-               * The non-visual label used for assistive technologies.
-               */
+              /** Defines a string value that labels the current checkbox for assistive technologies. */
               'aria-label': string
               'aria-labelledby'?: never
           }
         | {
-              /**
-               * The non-visual label used for assistive technologies.
-               */
+              /** Identifies the element (or elements) that labels the current checkbox for assistive technologies. */
               'aria-labelledby': string
               'aria-label'?: never
           }
@@ -50,7 +51,7 @@ function Loading({ size = 'small', exceptionallySetClassName, ...props }: Loadin
             justifyContent="center"
             role="progressbar"
         >
-            <Spinner size={numericSize} />
+            <Spinner size={numericSize} aria-hidden />
         </Box>
     )
 }
