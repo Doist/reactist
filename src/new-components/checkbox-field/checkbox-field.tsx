@@ -69,6 +69,7 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
                 {...props}
                 ref={combinedRef}
                 type="checkbox"
+                aria-checked={indeterminate ? 'mixed' : isChecked}
                 checked={isChecked}
                 disabled={disabled}
                 tabIndex={0}
