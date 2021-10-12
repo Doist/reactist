@@ -72,7 +72,6 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
                 aria-checked={indeterminate ? 'mixed' : isChecked}
                 checked={isChecked}
                 disabled={disabled}
-                tabIndex={0}
                 onChange={(event) => {
                     onChange?.(event)
                     if (!event.defaultPrevented) {
