@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
+import { BADGE } from '@geometricpanda/storybook-addon-badges'
 
 import { PartialProps } from '../storybook-helper'
 import { CheckboxField } from '.'
@@ -7,7 +8,13 @@ import { Stack } from '../stack'
 import { Text } from '../text'
 import { Inline } from '../inline'
 
-<Meta title="Design system/CheckboxField" component={CheckboxField} />
+<Meta
+    title="Design system/CheckboxField"
+    component={CheckboxField}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
 
 # CheckboxField
 
