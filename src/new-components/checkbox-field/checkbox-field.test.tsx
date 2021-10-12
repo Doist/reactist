@@ -224,7 +224,7 @@ describe('CheckboxField', () => {
     })
 
     describe('a11y', () => {
-        it('supports aria-label', () => {
+        it('supports the `aria-label` attribute', () => {
             render(
                 <CheckboxField
                     data-testid="checkbox-field"
@@ -237,7 +237,7 @@ describe('CheckboxField', () => {
             )
         })
 
-        it('supports aria-labelledby', () => {
+        it('supports the `aria-labelledby` attribute', () => {
             render(
                 <>
                     <CheckboxField
@@ -253,7 +253,7 @@ describe('CheckboxField', () => {
             )
         })
 
-        it('supports aria-describedby', () => {
+        it('supports the `aria-describedby` attribute', () => {
             render(
                 <>
                     <CheckboxField
@@ -269,7 +269,7 @@ describe('CheckboxField', () => {
             )
         })
 
-        it('supports aria-controls', () => {
+        it('supports the `aria-controls` attribute', () => {
             render(
                 <>
                     <CheckboxField
