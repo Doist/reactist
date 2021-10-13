@@ -4,7 +4,13 @@ import { Text } from '../text'
 import { Stack } from '../stack'
 import { Loading } from './loading'
 
-<Meta title="Design system/Loading" component={Loading} />
+<Meta
+    title="Design system/Loading"
+    component={Loading}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
 
 # Loading
 
@@ -24,7 +30,7 @@ export function Example({ children, size }) {
 }
 
 <Canvas>
-    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="All sizes">
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="All Sizes">
         <Box display="flex" flexDirection="row" justifyContent="spaceEvenly" alignItems="flexEnd">
             <Example size="small">
                 <Loading aria-label="Loading Demo" size="small" />
@@ -39,6 +45,8 @@ export function Example({ children, size }) {
     </Story>
 </Canvas>
 
+---
+
 <Description of={Loading} />
 <ArgsTable of={Loading} />
 
@@ -50,7 +58,7 @@ The loading indicator adopts the current brand background color defined in the `
 CSS variable.
 
 <Canvas withToolbar>
-    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Customize color">
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Customize Color">
         <Box
             display="flex"
             flexDirection="row"
