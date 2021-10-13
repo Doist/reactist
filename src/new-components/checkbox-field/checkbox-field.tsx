@@ -49,6 +49,7 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
         console.warn('A Checkbox needs a label')
     }
 
+    const [keyFocused, setKeyFocused] = React.useState(false)
     const [checkedState, setChecked] = React.useState(props.checked ?? defaultChecked ?? false)
     const isChecked = props.checked ?? checkedState
 
@@ -72,6 +73,7 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
                 styles.container,
                 disabled ? styles.disabled : null,
                 isChecked ? styles.checked : null,
+                keyFocused ? styles.keyFocused : null,
                 'focus-marker-enabled-within',
             ]}
         >
@@ -88,6 +90,8 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
                         setChecked(event.currentTarget.checked)
                     }
                 }}
+                onBlur={() => setKeyFocused(false)}
+                onKeyUp={() => setKeyFocused(true)}
             />
             <CheckboxIcon
                 checked={isChecked}
