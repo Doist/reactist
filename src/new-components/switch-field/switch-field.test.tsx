@@ -141,7 +141,7 @@ describe('SwitchField', () => {
     })
 
     describe('a11y', () => {
-        it('can be labelled via aria-label', () => {
+        it('supports the `aria-label` attribute', () => {
             render(
                 <SwitchField
                     data-testid="switch-field"
@@ -154,7 +154,7 @@ describe('SwitchField', () => {
             )
         })
 
-        it('can be labelled via aria-labelledby', () => {
+        it('supports the `aria-labelledby` attribute', () => {
             render(
                 <>
                     <SwitchField
@@ -170,7 +170,7 @@ describe('SwitchField', () => {
             )
         })
 
-        it('can be described by something else via aria-describedby', () => {
+        it('supports the `aria-describedby` attribute', () => {
             render(
                 <>
                     <SwitchField
