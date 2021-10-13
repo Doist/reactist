@@ -54,20 +54,20 @@ export function Template({ label, hint, disabled }) {
     <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Accessibility Attributes">
         <Stack space="medium" dividers="primary">
             <Stack space="medium">
-                <SwitchField aria-label="Golden Retriever" />
+                <SwitchField aria-label="Golden Retriever" label="aria-label" />
                 <Text tone="secondary">
                     A screen reader will announce the switch as "Golden Retriever".
                 </Text>
             </Stack>
             <Stack space="medium">
-                <SwitchField aria-labelledby="shibainu-text" />
+                <SwitchField aria-labelledby="shibainu-text" label="aria-labelledby" />
                 <Text id="shibainu-text">Shiba Inu</Text>
                 <Text tone="secondary">
                     A screen reader will announce the switch as "Shiba Inu".
                 </Text>
             </Stack>
             <Stack space="medium">
-                <SwitchField aria-describedby="husky-text" />
+                <SwitchField aria-describedby="husky-text" label="aria-describedby" />
                 <Text id="husky-text">Husky</Text>
                 <Text tone="secondary">A screen reader will describe the switch as "Husky".</Text>
             </Stack>

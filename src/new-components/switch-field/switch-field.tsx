@@ -45,9 +45,8 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
     const hintId = useId()
 
     const ariaDescribedBy = originalAriaDescribedBy ?? (hint ? hintId : undefined)
-    const ariaLabel = label ? undefined : originalAriaLabel ? originalAriaLabel : undefined
-    const ariaLabelledBy =
-        label || ariaLabel ? undefined : originalAriaLabelledby ? originalAriaLabelledby : undefined
+    const ariaLabel = originalAriaLabel ? originalAriaLabel : label ? label : undefined
+    const ariaLabelledBy = originalAriaLabelledby ?? undefined
 
     const [keyFocused, setKeyFocused] = React.useState(false)
     const [checkedState, setChecked] = React.useState(props.checked ?? defaultChecked ?? false)
