@@ -19,16 +19,16 @@ type LoadingProps = NativeProps & {
      * A escape hatch in case you need to provide a custom class name to the container element.
      */
     exceptionallySetClassName?: string
-    /** Identifies the element (or elements) that describes the checkbox for assistive technologies. */
+    /** Identifies the element (or elements) that describes the loading component for assistive technologies. */
     'aria-describedby'?: string
 } & (
         | {
-              /** Defines a string value that labels the current checkbox for assistive technologies. */
+              /** Defines a string value that labels the current loading component for assistive technologies. */
               'aria-label': string
               'aria-labelledby'?: never
           }
         | {
-              /** Identifies the element (or elements) that labels the current checkbox for assistive technologies. */
+              /** Identifies the element (or elements) that labels the current loading component for assistive technologies. */
               'aria-labelledby': string
               'aria-label'?: never
           }
