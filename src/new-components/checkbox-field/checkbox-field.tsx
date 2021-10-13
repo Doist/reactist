@@ -91,11 +91,11 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
                 }}
                 onBlur={(event) => {
                     setKeyFocused(false)
-                    props?.onBlur(event)
+                    props?.onBlur?.(event)
                 }}
                 onKeyUp={(event) => {
                     setKeyFocused(true)
-                    props?.onKeyUp(event)
+                    props?.onKeyUp?.(event)
                 }}
             />
             <CheckboxIcon
