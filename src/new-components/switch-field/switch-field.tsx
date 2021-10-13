@@ -9,8 +9,21 @@ import styles from './switch-field.module.css'
 
 type SwitchFieldProps = Omit<
     FieldComponentProps<HTMLInputElement>,
-    'type' | 'secondaryLabel' | 'auxiliaryLabel' | 'maxWidth'
->
+    | 'type'
+    | 'secondaryLabel'
+    | 'auxiliaryLabel'
+    | 'maxWidth'
+    | 'aria-describedby'
+    | 'aria-label'
+    | 'aria-labelledby'
+> & {
+    /** Identifies the element (or elements) that describes the switch for assistive technologies. */
+    'aria-describedby'?: string
+    /** Defines a string value that labels the current switch for assistive technologies. */
+    'aria-label'?: string
+    /** Identifies the element (or elements) that labels the current switch for assistive technologies. */
+    'aria-labelledby'?: string
+}
 
 const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(function SwitchField(
     {
@@ -21,6 +34,8 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
         defaultChecked,
         id: originalId,
         'aria-describedby': originalAriaDescribedBy,
+        'aria-label': originalAriaLabel,
+        'aria-labelledby': originalAriaLabelledby,
         onChange,
         ...props
     },
@@ -28,7 +43,12 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
 ) {
     const id = useId(originalId)
     const hintId = useId()
+
     const ariaDescribedBy = originalAriaDescribedBy ?? (hint ? hintId : undefined)
+    const ariaLabel = label ? undefined : originalAriaLabel ? originalAriaLabel : undefined
+    const ariaLabelledBy =
+        label || ariaLabel ? undefined : originalAriaLabelledby ? originalAriaLabelledby : undefined
+
     const [keyFocused, setKeyFocused] = React.useState(false)
     const [checkedState, setChecked] = React.useState(props.checked ?? defaultChecked ?? false)
     const isChecked = props.checked ?? checkedState
@@ -61,6 +81,8 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
                             type="checkbox"
                             disabled={disabled}
                             aria-describedby={ariaDescribedBy}
+                            aria-label={ariaLabel}
+                            aria-labelledby={ariaLabelledBy}
                             ref={ref}
                             checked={isChecked}
                             onChange={(event) => {
