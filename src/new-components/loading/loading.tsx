@@ -42,10 +42,16 @@ const sizeMapping: Record<Size, number> = {
 
 function Loading({ size = 'small', exceptionallySetClassName, ...props }: LoadingProps) {
     const numericSize = sizeMapping[size] ?? sizeMapping.small
+    const ariaLabel = props['aria-label']
+        ? props['aria-label']
+        : !props['aria-labelledby']
+        ? 'Loading…'
+        : undefined
+
     return (
         <Box
             {...props}
-            aria-label={props['aria-label'] ?? !props['aria-labelledby'] ? 'Loading…' : undefined}
+            aria-label={ariaLabel}
             className={exceptionallySetClassName}
             display="flex"
             alignItems="center"
