@@ -14,6 +14,7 @@ module.exports = {
             },
         },
         '@storybook/addon-controls',
+        '@geometricpanda/storybook-addon-badges',
     ],
     typescript: {
         check: true,

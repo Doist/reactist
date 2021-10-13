@@ -4,6 +4,46 @@ import { CheckboxField } from '.'
 import userEvent from '@testing-library/user-event'
 
 describe('CheckboxField', () => {
+    function IndeterminateTestCase({ initialState }: { initialState: boolean[] }) {
+        const [state, setState] = React.useState<boolean[]>(initialState)
+        const checkedCount = state.filter(Boolean).length
+        const indeterminate = checkedCount > 0 && checkedCount < state.length
+
+        return (
+            <div>
+                <CheckboxField
+                    data-testid="main-checkbox"
+                    checked={checkedCount === state.length}
+                    onChange={(event) => {
+                        const { checked } = event.currentTarget
+                        setState((state) => state.map(() => checked))
+                    }}
+                    indeterminate={indeterminate}
+                    label={`Check/uncheck all (${checkedCount} / ${state.length})`}
+                />
+
+                <div>
+                    {state.map((checked, index) => (
+                        <CheckboxField
+                            key={`${index}-${String(checked)}`}
+                            data-testid="checkbox-item"
+                            label={String(index + 1)}
+                            checked={checked}
+                            onChange={(event) => {
+                                const { checked } = event.currentTarget
+                                setState((state) => {
+                                    const newState = [...state]
+                                    newState[index] = checked
+                                    return newState
+                                })
+                            }}
+                        />
+                    ))}
+                </div>
+            </div>
+        )
+    }
+
     it('supports having an externally provided id attribute', () => {
         render(
             <CheckboxField data-testid="checkbox-field" id="custom-id" label="Show unread badge" />,
@@ -18,35 +58,6 @@ describe('CheckboxField', () => {
         expect(screen.getByTestId('checkbox-field')).toHaveAccessibleName('Show completed tasks')
     })
 
-    it('can be labelled via aria-label', () => {
-        render(
-            <CheckboxField
-                data-testid="checkbox-field"
-                label="Show completed tasks"
-                aria-label="Show completed tasks by default"
-            />,
-        )
-        expect(screen.getByTestId('checkbox-field')).toHaveAccessibleName(
-            'Show completed tasks by default',
-        )
-    })
-
-    it('can be labelled via aria-labelledby', () => {
-        render(
-            <>
-                <CheckboxField
-                    data-testid="checkbox-field"
-                    label="Show completed tasks"
-                    aria-labelledby="custom-label"
-                />
-                <div id="custom-label">Show completed tasks by default</div>
-            </>,
-        )
-        expect(screen.getByTestId('checkbox-field')).toHaveAccessibleName(
-            'Show completed tasks by default',
-        )
-    })
-
     it('issues a warning if no label is given', () => {
         /* eslint-disable no-console */
         const originalConsoleWarn = console.warn
@@ -57,22 +68,6 @@ describe('CheckboxField', () => {
 
         console.warn = originalConsoleWarn
         /* eslint-enable no-console */
-    })
-
-    it('can be described via aria-describedby', () => {
-        render(
-            <>
-                <CheckboxField
-                    data-testid="checkbox-field"
-                    label="Show completed tasks"
-                    aria-describedby="custom-hint"
-                />
-                <div id="custom-hint">Always show your completed tasks by default</div>
-            </>,
-        )
-        expect(screen.getByTestId('checkbox-field')).toHaveAccessibleDescription(
-            'Always show your completed tasks by default',
-        )
     })
 
     it('is hidden when hidden={true}', () => {
@@ -171,52 +166,12 @@ describe('CheckboxField', () => {
     })
 
     describe('indeterminate', () => {
-        function TestCase({ initialState }: { initialState: boolean[] }) {
-            const [state, setState] = React.useState<boolean[]>(initialState)
-            const checkedCount = state.filter(Boolean).length
-            const indeterminate = checkedCount > 0 && checkedCount < state.length
-
-            return (
-                <div>
-                    <CheckboxField
-                        data-testid="main-checkbox"
-                        checked={checkedCount === state.length}
-                        onChange={(event) => {
-                            const { checked } = event.currentTarget
-                            setState((state) => state.map(() => checked))
-                        }}
-                        indeterminate={indeterminate}
-                        label={`Check/uncheck all (${checkedCount} / ${state.length})`}
-                    />
-
-                    <div>
-                        {state.map((checked, index) => (
-                            <CheckboxField
-                                key={`${index}-${String(checked)}`}
-                                data-testid="checkbox-item"
-                                label={String(index + 1)}
-                                checked={checked}
-                                onChange={(event) => {
-                                    const { checked } = event.currentTarget
-                                    setState((state) => {
-                                        const newState = [...state]
-                                        newState[index] = checked
-                                        return newState
-                                    })
-                                }}
-                            />
-                        ))}
-                    </div>
-                </div>
-            )
-        }
-
         function getCheckboxItem(index: number) {
             return screen.getAllByTestId('checkbox-item')[index]
         }
 
         it('can be set as indeterminate when it is a controlled component', () => {
-            render(<TestCase initialState={[false, true, false]} />)
+            render(<IndeterminateTestCase initialState={[false, true, false]} />)
             const mainCheckbox = screen.getByTestId('main-checkbox')
 
             // it's initially indeterminate
@@ -265,6 +220,86 @@ describe('CheckboxField', () => {
 
             console.warn = originalConsoleWarn
             /* eslint-enable no-console */
+        })
+    })
+
+    describe('a11y', () => {
+        it('supports the `aria-label` attribute', () => {
+            render(
+                <CheckboxField
+                    data-testid="checkbox-field"
+                    label="Show completed tasks"
+                    aria-label="Show completed tasks by default"
+                />,
+            )
+            expect(screen.getByTestId('checkbox-field')).toHaveAccessibleName(
+                'Show completed tasks by default',
+            )
+        })
+
+        it('supports the `aria-labelledby` attribute', () => {
+            render(
+                <>
+                    <CheckboxField
+                        data-testid="checkbox-field"
+                        label="Show completed tasks"
+                        aria-labelledby="custom-label"
+                    />
+                    <div id="custom-label">Show completed tasks by default</div>
+                </>,
+            )
+            expect(screen.getByTestId('checkbox-field')).toHaveAccessibleName(
+                'Show completed tasks by default',
+            )
+        })
+
+        it('supports the `aria-describedby` attribute', () => {
+            render(
+                <>
+                    <CheckboxField
+                        data-testid="checkbox-field"
+                        label="Show completed tasks"
+                        aria-describedby="custom-hint"
+                    />
+                    <div id="custom-hint">Always show your completed tasks by default</div>
+                </>,
+            )
+            expect(screen.getByTestId('checkbox-field')).toHaveAccessibleDescription(
+                'Always show your completed tasks by default',
+            )
+        })
+
+        it('supports the `aria-controls` attribute', () => {
+            render(
+                <>
+                    <CheckboxField
+                        data-testid="checkbox-field"
+                        label="Parent checkbox"
+                        aria-controls="child-checkbox"
+                    />
+                    <CheckboxField id="child-checkbox" label="Child checkbox" />
+                </>,
+            )
+            expect(screen.getByTestId('checkbox-field')).toHaveAttribute(
+                'aria-controls',
+                'child-checkbox',
+            )
+        })
+
+        it('updates the `aria-checked` attribute correctly', () => {
+            render(<IndeterminateTestCase initialState={[false, true, false]} />)
+            const mainCheckbox = screen.getByTestId('main-checkbox')
+
+            // it's initially indeterminate
+            expect(mainCheckbox).toHaveAttribute('aria-checked', 'mixed')
+
+            // updates to 'true' when clicked while mixed
+            userEvent.click(mainCheckbox)
+            expect(mainCheckbox).toHaveAttribute('aria-checked', 'true')
+
+            // updates to 'false' when clicked while true
+            userEvent.click(mainCheckbox)
+            expect(mainCheckbox).toHaveAttribute('aria-checked', 'false')
         })
     })
 })

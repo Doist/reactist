@@ -1,14 +1,35 @@
 import * as React from 'react'
 import { useForkRef } from 'reakit-utils'
-import { HiddenVisually } from '../hidden-visually'
 import { Box } from '../box'
 import { Text } from '../text'
 import { CheckboxIcon } from './checkbox-icon'
 
 import styles from './checkbox-field.module.css'
 
-type CheckboxFieldProps = Omit<JSX.IntrinsicElements['input'], 'type' | 'className'> & {
+type CheckboxFieldProps = Omit<
+    JSX.IntrinsicElements['input'],
+    | 'type'
+    | 'className'
+    | 'disabled'
+    | 'aria-controls'
+    | 'aria-describedby'
+    | 'aria-label'
+    | 'aria-labelledby'
+> & {
+    'aria-checked'?: never
+    /** Identifies the set of checkboxes controlled by the mixed checkbox for assistive technologies. */
+    'aria-controls'?: string
+    /** Identifies the element (or elements) that describes the checkbox for assistive technologies. */
+    'aria-describedby'?: string
+    /** Defines a string value that labels the current checkbox for assistive technologies. */
+    'aria-label'?: string
+    /** Identifies the element (or elements) that labels the current checkbox for assistive technologies. */
+    'aria-labelledby'?: string
+    /** Defines whether or not the checkbox is disabled. */
+    disabled?: boolean
+    /** The label for the checkbox element. */
     label?: string
+    /** Defines whether or not the checkbox can be of a `mixed` state. */
     indeterminate?: boolean
 }
 
@@ -28,6 +49,7 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
         console.warn('A Checkbox needs a label')
     }
 
+    const [keyFocused, setKeyFocused] = React.useState(false)
     const [checkedState, setChecked] = React.useState(props.checked ?? defaultChecked ?? false)
     const isChecked = props.checked ?? checkedState
 
@@ -51,29 +73,36 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
                 styles.container,
                 disabled ? styles.disabled : null,
                 isChecked ? styles.checked : null,
-                'focus-marker-enabled-within',
+                keyFocused ? styles.keyFocused : null,
             ]}
         >
-            <HiddenVisually>
-                <input
-                    {...props}
-                    ref={combinedRef}
-                    type="checkbox"
-                    checked={isChecked}
-                    disabled={disabled}
-                    onChange={(event) => {
-                        onChange?.(event)
-                        if (!event.defaultPrevented) {
-                            setChecked(event.currentTarget.checked)
-                        }
-                    }}
-                />
-            </HiddenVisually>
-            <CheckboxIcon
-                aria-hidden
+            <input
+                {...props}
+                ref={combinedRef}
+                type="checkbox"
+                aria-checked={indeterminate ? 'mixed' : isChecked}
                 checked={isChecked}
-                indeterminate={indeterminate}
                 disabled={disabled}
+                onChange={(event) => {
+                    onChange?.(event)
+                    if (!event.defaultPrevented) {
+                        setChecked(event.currentTarget.checked)
+                    }
+                }}
+                onBlur={(event) => {
+                    setKeyFocused(false)
+                    props?.onBlur?.(event)
+                }}
+                onKeyUp={(event) => {
+                    setKeyFocused(true)
+                    props?.onKeyUp?.(event)
+                }}
+            />
+            <CheckboxIcon
+                checked={isChecked}
+                disabled={disabled}
+                indeterminate={indeterminate}
+                aria-hidden
             />
             {label ? <Text>{label}</Text> : null}
         </Box>
