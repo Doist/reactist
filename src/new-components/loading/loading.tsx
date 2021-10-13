@@ -45,6 +45,7 @@ function Loading({ size = 'small', exceptionallySetClassName, ...props }: Loadin
     return (
         <Box
             {...props}
+            aria-label={props['aria-label'] ?? 'Loading…'}
             className={exceptionallySetClassName}
             display="flex"
             alignItems="center"
