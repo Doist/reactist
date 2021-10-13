@@ -1,22 +1,19 @@
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
 import { SwitchField } from './switch-field'
 
-<Meta title="Design system/SwitchField" component={SwitchField} />
+<Meta
+    title="Design system/SwitchField"
+    component={SwitchField}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
 
 # SwitchField
 
-A checkbox that visually looks like a toggle on/off switch.
+A checkbox with a built-in label element that visually looks like a toggle switch.
 
-## `<SwitchField>`
-
-<Description of={SwitchField} />
-<ArgsTable of={SwitchField} />
-
-export function Template({ label, hint, disabled }) {
-    return <SwitchField label={label || 'Default label'} hint={hint} disabled={disabled} />
-}
-
-<Canvas withToolbar>
+<Canvas>
     <Story
         parameters={{ docs: { source: { type: 'dynamic' } } }}
         argTypes={{
@@ -39,3 +36,12 @@ export function Template({ label, hint, disabled }) {
         {Template.bind({})}
     </Story>
 </Canvas>
+
+---
+
+<Description of={SwitchField} />
+<ArgsTable of={SwitchField} />
+
+export function Template({ label, hint, disabled }) {
+    return <SwitchField label={label || 'Default label'} hint={hint} disabled={disabled} />
+}
