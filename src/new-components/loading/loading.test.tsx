@@ -65,13 +65,40 @@ describe('Loading', () => {
         expect(getSize()).toEqual(smallSize)
     })
 
-    it('supports having its label set via aria-labelledby', () => {
-        render(
-            <>
-                <Loading aria-labelledby="label-id" />
-                <div id="label-id">Loading data…</div>
-            </>,
-        )
-        expect(screen.getByRole('progressbar', { name: 'Loading data…' })).toBeInTheDocument()
+    describe('a11y', () => {
+        it('adds a default `aria-label` attribute if not provided', () => {
+            // @ts-expect-error prop missing on purpose
+            render(<Loading />)
+            expect(screen.getByRole('progressbar', { name: 'Loading…' })).toBeInTheDocument()
+        })
+
+        it('supports the `aria-label` attribute', () => {
+            render(<Loading aria-label="Custom loading label" />)
+            expect(
+                screen.getByRole('progressbar', { name: 'Custom loading label' }),
+            ).toBeInTheDocument()
+        })
+
+        it('supports the `aria-labelledby` attribute', () => {
+            render(
+                <>
+                    <Loading aria-labelledby="label-id" />
+                    <div id="label-id">Loading data…</div>
+                </>,
+            )
+            expect(screen.getByRole('progressbar', { name: 'Loading data…' })).toBeInTheDocument()
+        })
+
+        it('supports the `aria-describedby` attribute', () => {
+            render(
+                <>
+                    <Loading aria-label="Description test" aria-describedby="description-id" />
+                    <div id="description-id">50% complete</div>
+                </>,
+            )
+            expect(
+                screen.getByRole('progressbar', { name: 'Description test' }),
+            ).toHaveAccessibleDescription('50% complete')
+        })
     })
 })
