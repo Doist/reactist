@@ -1,5 +1,7 @@
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
 import { SwitchField } from './switch-field'
+import { Stack } from '../stack'
+import { Text } from '../text'
 
 <Meta
     title="Design system/SwitchField"
@@ -45,3 +47,30 @@ A checkbox with a built-in label element that visually looks like a toggle switc
 export function Template({ label, hint, disabled }) {
     return <SwitchField label={label || 'Default label'} hint={hint} disabled={disabled} />
 }
+
+## Accessibility
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Accessibility Attributes">
+        <Stack space="medium" dividers="primary">
+            <Stack space="medium">
+                <SwitchField aria-label="Golden Retriever" />
+                <Text tone="secondary">
+                    A screen reader will announce the switch as "Golden Retriever".
+                </Text>
+            </Stack>
+            <Stack space="medium">
+                <SwitchField aria-labelledby="shibainu-text" />
+                <Text id="shibainu-text">Shiba Inu</Text>
+                <Text tone="secondary">
+                    A screen reader will announce the switch as "Shiba Inu".
+                </Text>
+            </Stack>
+            <Stack space="medium">
+                <SwitchField aria-describedby="husky-text" />
+                <Text id="husky-text">Husky</Text>
+                <Text tone="secondary">A screen reader will describe the switch as "Husky".</Text>
+            </Stack>
+        </Stack>
+    </Story>
+</Canvas>
