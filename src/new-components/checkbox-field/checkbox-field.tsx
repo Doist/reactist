@@ -74,7 +74,6 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
                 disabled ? styles.disabled : null,
                 isChecked ? styles.checked : null,
                 keyFocused ? styles.keyFocused : null,
-                'focus-marker-enabled-within',
             ]}
         >
             <input
@@ -90,8 +89,14 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
                         setChecked(event.currentTarget.checked)
                     }
                 }}
-                onBlur={() => setKeyFocused(false)}
-                onKeyUp={() => setKeyFocused(true)}
+                onBlur={(event) => {
+                    setKeyFocused(false)
+                    props?.onBlur(event)
+                }}
+                onKeyUp={(event) => {
+                    setKeyFocused(true)
+                    props?.onKeyUp(event)
+                }}
             />
             <CheckboxIcon
                 checked={isChecked}
