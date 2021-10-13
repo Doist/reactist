@@ -32,6 +32,12 @@
     cursor: pointer;
 }
 
+.toggle > div,
+.toggle input[type='checkbox'] {
+    height: var(--tmp-switch-height);
+    width: var(--tmp-switch-width);
+}
+
 .handle {
     display: block;
     position: absolute;
@@ -52,4 +58,8 @@
 
 .checked .toggle .handle {
     left: var(--tmp-slide-length);
+}
+
+.container.keyFocused .toggle {
+    box-shadow: inset 0px 0px 0px 2px var(--reactist-actionable-primary-idle-fill);
 }

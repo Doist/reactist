@@ -29,8 +29,10 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
     const id = useId(originalId)
     const hintId = useId()
     const ariaDescribedBy = originalAriaDescribedBy ?? (hint ? hintId : undefined)
+    const [keyFocused, setKeyFocused] = React.useState(false)
     const [checkedState, setChecked] = React.useState(props.checked ?? defaultChecked ?? false)
     const isChecked = props.checked ?? checkedState
+
     return (
         <Stack space="small" hidden={hidden}>
             <Box
@@ -38,6 +40,7 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
                     styles.container,
                     disabled ? styles.disabled : null,
                     isChecked ? styles.checked : null,
+                    keyFocused ? styles.keyFocused : null,
                 ]}
                 as="label"
                 display="flex"
@@ -65,6 +68,14 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
                                 if (!event.defaultPrevented) {
                                     setChecked(event.currentTarget.checked)
                                 }
+                            }}
+                            onBlur={(event) => {
+                                setKeyFocused(false)
+                                props?.onBlur?.(event)
+                            }}
+                            onKeyUp={(event) => {
+                                setKeyFocused(true)
+                                props?.onKeyUp?.(event)
                             }}
                         />
                     </HiddenVisually>
