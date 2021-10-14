@@ -1,7 +1,7 @@
 import * as React from 'react'
 import classNames from 'classnames'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
-import FocusLock from 'react-focus-lock'
+import FocusLock, { AutoFocusInside } from 'react-focus-lock'
 
 import { CloseIcon } from '../icons/close-icon'
 import { Column, Columns } from '../columns'
@@ -258,17 +258,19 @@ export type ModalBodyProps = DivProps & {
 export function ModalBody({ exceptionallySetClassName, children, ...props }: ModalBodyProps) {
     const { height } = React.useContext(ModalContext)
     return (
-        <Box
-            {...props}
-            className={exceptionallySetClassName}
-            flexGrow={height === 'expand' ? 1 : 0}
-            height={height === 'expand' ? 'full' : undefined}
-            overflow="auto"
-        >
-            <Box padding="large" paddingBottom="xxlarge">
-                {children}
+        <AutoFocusInside>
+            <Box
+                {...props}
+                className={exceptionallySetClassName}
+                flexGrow={height === 'expand' ? 1 : 0}
+                height={height === 'expand' ? 'full' : undefined}
+                overflow="auto"
+            >
+                <Box padding="large" paddingBottom="xxlarge">
+                    {children}
+                </Box>
             </Box>
-        </Box>
+        </AutoFocusInside>
     )
 }
 
