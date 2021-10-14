@@ -30,6 +30,13 @@
     border-radius: calc(var(--tmp-switch-height) / 2);
     background-color: var(--reactist-framework-fill-summit);
     cursor: pointer;
+    position: relative;
+}
+
+.toggle > div,
+.toggle input[type='checkbox'] {
+    height: var(--tmp-switch-height);
+    width: var(--tmp-switch-width);
 }
 
 .handle {
@@ -52,4 +59,15 @@
 
 .checked .toggle .handle {
     left: var(--tmp-slide-length);
+}
+
+.container.keyFocused .toggle:after {
+    border-radius: calc(var(--tmp-switch-height) + 8px / 2);
+    border: 2px solid var(--reactist-actionable-primary-idle-fill);
+    bottom: -4px;
+    content: '';
+    left: -4px;
+    position: absolute;
+    right: -4px;
+    top: -4px;
 }
