@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { Loading } from './loading'
+import { axe } from 'jest-axe'
 
 function getSize() {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -66,6 +67,13 @@ describe('Loading', () => {
     })
 
     describe('a11y', () => {
+        test('renders with no a11y violations', async () => {
+            const { container } = render(<Loading aria-label="Loading…" />)
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
+
         it('adds a default `aria-label` attribute if not provided', () => {
             // @ts-expect-error prop missing on purpose
             render(<Loading />)

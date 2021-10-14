@@ -2,6 +2,7 @@ import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { SwitchField } from './'
 import userEvent from '@testing-library/user-event'
+import { axe } from 'jest-axe'
 
 describe('SwitchField', () => {
     it('supports having an externally provided id attribute', () => {
@@ -141,6 +142,13 @@ describe('SwitchField', () => {
     })
 
     describe('a11y', () => {
+        test('renders with no a11y violations', async () => {
+            const { container } = render(<SwitchField label="Show completed tasks" />)
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
+
         it('supports the `aria-label` attribute', () => {
             render(
                 <SwitchField
