@@ -1,6 +1,7 @@
 import * as React from 'react'
 import classNames from 'classnames'
 import { polymorphicComponent } from '../../utils/polymorphism'
+import { usePrevious } from '../../hooks/use-previous'
 
 //
 // Reactist menu is a thin wrapper around Reakit's menu components. This may or may not be
@@ -156,6 +157,17 @@ const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
     ref,
 ) {
     const { handleItemSelect, ...state } = React.useContext(MenuContext)
+    const previousVisible = usePrevious(state.visible)
+
+    React.useEffect(
+        function focusTriggerOnClose() {
+            if (state.visible === false && previousVisible === true) {
+                state.unstable_referenceRef?.current?.focus()
+            }
+        },
+        [state.visible, previousVisible, state.unstable_referenceRef],
+    )
+
     return state.visible ? (
         <MenuBackdrop {...state}>
             <Reakit.Menu
