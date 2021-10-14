@@ -2,6 +2,7 @@ import * as React from 'react'
 import { render, screen, within } from '@testing-library/react'
 import { Modal, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from './modal'
 import userEvent from '@testing-library/user-event'
+import { axe } from 'jest-axe'
 
 describe('Modal', () => {
     function TestCaseWithState() {
@@ -276,5 +277,20 @@ describe('ModalCloseButton', () => {
     it('renders a svg icon as its content', () => {
         const { button } = renderTestCase()
         expect(button.firstElementChild?.tagName).toBe('svg')
+    })
+
+    describe('a11y', () => {
+        test('renders with no a11y violations', async () => {
+            const { container } = render(
+                <Modal isOpen={true} aria-label="modal">
+                    <ModalHeader>Header</ModalHeader>
+                    <ModalBody>Body</ModalBody>
+                    <ModalFooter>Footer</ModalFooter>
+                </Modal>,
+            )
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
     })
 })
