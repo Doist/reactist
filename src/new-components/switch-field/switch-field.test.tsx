@@ -16,35 +16,6 @@ describe('SwitchField', () => {
         expect(screen.getByTestId('switch-field')).toHaveAccessibleName('Show completed tasks')
     })
 
-    it('can be labelled via aria-label', () => {
-        render(
-            <SwitchField
-                data-testid="switch-field"
-                label="Show completed tasks"
-                aria-label="Show completed tasks by default"
-            />,
-        )
-        expect(screen.getByTestId('switch-field')).toHaveAccessibleName(
-            'Show completed tasks by default',
-        )
-    })
-
-    it('can be labelled via aria-labelledby', () => {
-        render(
-            <>
-                <SwitchField
-                    data-testid="switch-field"
-                    label="Show completed tasks"
-                    aria-labelledby="custom-label"
-                />
-                <div id="custom-label">Show completed tasks by default</div>
-            </>,
-        )
-        expect(screen.getByTestId('switch-field')).toHaveAccessibleName(
-            'Show completed tasks by default',
-        )
-    })
-
     it('is described by its hint when provided', () => {
         render(
             <SwitchField
@@ -55,23 +26,6 @@ describe('SwitchField', () => {
         )
         expect(screen.getByTestId('switch-field')).toHaveAccessibleDescription(
             'Show completed tasks by default',
-        )
-    })
-
-    it('can be described by something else via aria-describedby', () => {
-        render(
-            <>
-                <SwitchField
-                    data-testid="switch-field"
-                    label="Show completed tasks"
-                    hint="Show completed tasks by default"
-                    aria-describedby="custom-hint"
-                />
-                <div id="custom-hint">Always show your completed tasks by default</div>
-            </>,
-        )
-        expect(screen.getByTestId('switch-field')).toHaveAccessibleDescription(
-            'Always show your completed tasks by default',
         )
     })
 
@@ -184,5 +138,53 @@ describe('SwitchField', () => {
         userEvent.click(switchElement)
         expect(switchElement).not.toBeChecked()
         expect(screen.getByTestId('value')).toHaveTextContent('off')
+    })
+
+    describe('a11y', () => {
+        it('supports the `aria-label` attribute', () => {
+            render(
+                <SwitchField
+                    data-testid="switch-field"
+                    label="Show completed tasks"
+                    aria-label="Show completed tasks by default"
+                />,
+            )
+            expect(screen.getByTestId('switch-field')).toHaveAccessibleName(
+                'Show completed tasks by default',
+            )
+        })
+
+        it('supports the `aria-labelledby` attribute', () => {
+            render(
+                <>
+                    <SwitchField
+                        data-testid="switch-field"
+                        label="Show completed tasks"
+                        aria-labelledby="custom-label"
+                    />
+                    <div id="custom-label">Show completed tasks by default</div>
+                </>,
+            )
+            expect(screen.getByTestId('switch-field')).toHaveAccessibleName(
+                'Show completed tasks by default',
+            )
+        })
+
+        it('supports the `aria-describedby` attribute', () => {
+            render(
+                <>
+                    <SwitchField
+                        data-testid="switch-field"
+                        label="Show completed tasks"
+                        hint="Show completed tasks by default"
+                        aria-describedby="custom-hint"
+                    />
+                    <div id="custom-hint">Always show your completed tasks by default</div>
+                </>,
+            )
+            expect(screen.getByTestId('switch-field')).toHaveAccessibleDescription(
+                'Always show your completed tasks by default',
+            )
+        })
     })
 })
