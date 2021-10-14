@@ -172,7 +172,7 @@ describe('Menu', () => {
     })
 
     describe('a11y', () => {
-        test('renders with no a11y violations', async () => {
+        it('renders with no a11y violations', async () => {
             const { container } = render(
                 <Menu>
                     <MenuButton>Options menu</MenuButton>
@@ -184,6 +184,42 @@ describe('Menu', () => {
             const results = await axe(container)
 
             expect(results).toHaveNoViolations()
+        })
+
+        it('renders with no a11y violations while open', async () => {
+            const { container } = render(
+                <Menu>
+                    <MenuButton>Options menu</MenuButton>
+                    <MenuList aria-label="Some options">
+                        <MenuItem onSelect={() => undefined}>First option</MenuItem>
+                    </MenuList>
+                </Menu>,
+            )
+
+            // Open menu
+            userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+
+            const results = await axe(container)
+            expect(results).toHaveNoViolations()
+        })
+
+        it('focuses on the MenuButton when Menu closes', () => {
+            const { container } = render(
+                <Menu>
+                    <MenuButton>Options menu</MenuButton>
+                    <MenuList aria-label="Some options">
+                        <MenuItem onSelect={() => undefined}>First option</MenuItem>
+                    </MenuList>
+                </Menu>,
+            )
+
+            // Open menu
+            userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+
+            // Close menu
+            userEvent.type(container, '{esc}')
+
+            expect(screen.getByRole('button', { name: 'Options menu' })).toHaveFocus()
         })
     })
 })
