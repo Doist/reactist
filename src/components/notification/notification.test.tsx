@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
-
+import { axe } from 'jest-axe'
 import { Notification } from './notification'
 
 describe('Notification', () => {
@@ -75,5 +75,23 @@ describe('Notification', () => {
         expect(screen.queryByText("I'm a subtitle")).not.toBeInTheDocument()
         expect(screen.getByText("I'm an icon")).toBeVisible()
         expect(screen.getByRole('dialog', { name: "I'm what gets rendered instead" })).toBeVisible()
+    })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(
+                <Notification
+                    id="notification-test"
+                    title="I'm a title"
+                    subtitle="I'm a subtitle"
+                    icon={<div>I'm an icon</div>}
+                >
+                    I'm what gets rendered instead
+                </Notification>,
+            )
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
     })
 })
