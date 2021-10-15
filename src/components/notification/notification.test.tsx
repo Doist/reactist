@@ -74,7 +74,7 @@ describe('Notification', () => {
         expect(screen.queryByText("I'm a title")).not.toBeInTheDocument()
         expect(screen.queryByText("I'm a subtitle")).not.toBeInTheDocument()
         expect(screen.getByText("I'm an icon")).toBeVisible()
-        expect(screen.getByRole('dialog', { name: "I'm what gets rendered instead" })).toBeVisible()
+        expect(screen.getByRole('alert', { name: "I'm what gets rendered instead" })).toBeVisible()
     })
 
     describe('a11y', () => {
