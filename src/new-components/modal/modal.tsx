@@ -115,6 +115,7 @@ export function Modal({
     return (
         <Dialog
             isOpen={isOpen}
+            onDismiss={onDismiss}
             className={classNames(styles.overlay, styles[height], styles[width])}
             data-testid="modal-overlay"
         >
