@@ -29,6 +29,9 @@ function MenuIndicator() {
 export default {
     title: 'Components/Menu',
     component: Menu,
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 //
