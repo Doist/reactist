@@ -1,7 +1,7 @@
 import * as React from 'react'
 import classNames from 'classnames'
-import { DialogOverlay, DialogContent } from '@reach/dialog'
-import FocusLock, { AutoFocusInside } from 'react-focus-lock'
+import { Dialog, DialogContent } from '@reach/dialog'
+import { AutoFocusInside } from 'react-focus-lock'
 
 import { CloseIcon } from '../icons/close-icon'
 import { Column, Columns } from '../columns'
@@ -82,10 +82,6 @@ export type ModalProps = DivProps & {
     exceptionallySetClassName?: string
 }
 
-function isNotInternalFrame(element: HTMLElement) {
-    return !(element.ownerDocument === document && element.tagName.toLowerCase() === 'iframe')
-}
-
 /**
  * Renders a modal that sits on top of the rest of the content in the entire page.
  *
@@ -110,31 +106,34 @@ export function Modal({
         height,
     ])
 
+    function handleKeyDown(event: React.KeyboardEvent) {
+        if (event.key === 'Escape') {
+            onDismiss?.()
+        }
+    }
+
     return (
-        <DialogOverlay
+        <Dialog
             isOpen={isOpen}
-            onDismiss={onDismiss}
-            dangerouslyBypassFocusLock // We're setting up our own focus lock below
             className={classNames(styles.overlay, styles[height], styles[width])}
             data-testid="modal-overlay"
         >
-            <FocusLock autoFocus={autoFocus} whiteList={isNotInternalFrame}>
-                <DialogContent
-                    {...props}
-                    as={Box}
-                    borderRadius="full"
-                    background="default"
-                    display="flex"
-                    flexDirection="column"
-                    overflow="hidden"
-                    height={height === 'expand' ? 'full' : undefined}
-                    flexGrow={height === 'expand' ? 1 : 0}
-                    className={[exceptionallySetClassName, styles.container]}
-                >
-                    <ModalContext.Provider value={contextValue}>{children}</ModalContext.Provider>
-                </DialogContent>
-            </FocusLock>
-        </DialogOverlay>
+            <DialogContent
+                {...props}
+                as={Box}
+                borderRadius="full"
+                background="default"
+                display="flex"
+                flexDirection="column"
+                overflow="hidden"
+                height={height === 'expand' ? 'full' : undefined}
+                flexGrow={height === 'expand' ? 1 : 0}
+                className={[exceptionallySetClassName, styles.container]}
+                onKeyUp={handleKeyDown}
+            >
+                <ModalContext.Provider value={contextValue}>{children}</ModalContext.Provider>
+            </DialogContent>
+        </Dialog>
     )
 }
 
