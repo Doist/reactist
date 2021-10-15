@@ -129,7 +129,7 @@ export function Modal({
                 height={height === 'expand' ? 'full' : undefined}
                 flexGrow={height === 'expand' ? 1 : 0}
                 className={[exceptionallySetClassName, styles.container]}
-                onKeyUp={handleKeyDown}
+                onKeyDown={handleKeyDown}
             >
                 <ModalContext.Provider value={contextValue}>{children}</ModalContext.Provider>
             </DialogContent>

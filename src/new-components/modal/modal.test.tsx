@@ -282,7 +282,7 @@ describe('ModalCloseButton', () => {
     })
 
     describe('a11y', () => {
-        test('renders with no a11y violations', async () => {
+        it('renders with no a11y violations', async () => {
             const { container } = render(
                 <Modal isOpen={true} aria-label="modal">
                     <ModalHeader>Header</ModalHeader>
@@ -293,6 +293,20 @@ describe('ModalCloseButton', () => {
             const results = await axe(container)
 
             expect(results).toHaveNoViolations()
+        })
+
+        it("calls the modal's onDismiss callback when 'Esc' is pressed", () => {
+            const onDismiss = jest.fn()
+            render(
+                <Modal isOpen onDismiss={onDismiss} aria-label="modal">
+                    <ModalHeader>Hello</ModalHeader>
+                </Modal>,
+            )
+            const modal = screen.getByRole('dialog', { name: 'modal' })
+
+            expect(onDismiss).not.toHaveBeenCalled()
+            userEvent.type(modal, '{esc}')
+            expect(onDismiss).toHaveBeenCalledTimes(1)
         })
     })
 })
