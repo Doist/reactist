@@ -84,7 +84,9 @@ describe('Modal', () => {
         render(<TestCaseWithState />)
         userEvent.click(screen.getByRole('button', { name: 'Click me' }))
         expect(screen.getByRole('dialog', { name: 'modal' })).toBeInTheDocument()
-        userEvent.click(screen.getByTestId('modal-overlay'))
+
+        const overlayElement = document.querySelector('[data-reach-dialog-overlay]') as Element
+        userEvent.click(overlayElement)
         expect(screen.queryByRole('dialog', { name: 'modal' })).not.toBeInTheDocument()
     })
 })
