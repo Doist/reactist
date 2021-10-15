@@ -35,7 +35,7 @@ const ModalContext = React.createContext<ModalContextValue>({
 
 type DivProps = Omit<
     React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-    'className' | 'children'
+    'className' | 'children' | `aria-label` | `aria-labelledby`
 >
 
 export type ModalProps = DivProps & {
@@ -80,6 +80,10 @@ export type ModalProps = DivProps & {
      * A escape hatch in case you need to provide a custom class name to the container element.
      */
     exceptionallySetClassName?: string
+    /** Defines a string value that labels the current modal for assistive technologies. */
+    'aria-label'?: string
+    /** Identifies the element (or elements) that labels the current modal for assistive technologies. */
+    'aria-labelledby'?: string
 }
 
 /**
