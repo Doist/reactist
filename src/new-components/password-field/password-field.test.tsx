@@ -2,6 +2,7 @@ import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { PasswordField } from './'
+import { axe } from 'jest-axe'
 
 describe('PasswordField', () => {
     it('supports having an externally provided id attribute', () => {
@@ -259,5 +260,16 @@ describe('PasswordField', () => {
         userEvent.type(inputElement, 'password value')
         expect(inputElement).toHaveValue('password value')
         expect(screen.getByTestId('value')).toHaveTextContent('password value')
+    })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(
+                <PasswordField data-testid="password-field" id="custom-id" label="New Password" />,
+            )
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
     })
 })
