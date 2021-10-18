@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { Box, BoxProps } from './'
+import { axe } from 'jest-axe'
 
 describe('Box', () => {
     it('renders its children as its content', () => {
@@ -250,6 +251,15 @@ describe('Box', () => {
                 'marginBottom-medium',
                 'marginLeft-medium',
             )
+        })
+    })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(<Box>Hello world!</Box>)
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
         })
     })
 })
