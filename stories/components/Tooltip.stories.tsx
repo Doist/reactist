@@ -10,6 +10,9 @@ import type { ButtonProps } from '../../src/components/deprecated-button'
 
 export default {
     title: 'Components/Tooltip',
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 const ExampleButton = React.forwardRef<HTMLButtonElement, ButtonProps>(function ExampleButton(
