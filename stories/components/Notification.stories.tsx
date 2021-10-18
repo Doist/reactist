@@ -1,6 +1,10 @@
 import React from 'react'
 import { action } from '@storybook/addon-actions'
 
+import { Box } from '../../src/new-components/box'
+import { Button } from '../../src/new-components/button'
+import { Text } from '../../src/new-components/text'
+import { TextField } from '../../src/new-components/text-field'
 import Avatar from '../../src/components/avatar'
 import Tip from '../../src/components/tip'
 import { Notification } from '../../src/components/notification/notification'
@@ -98,6 +102,102 @@ export const NotificationPlaygroundStory = (args) => {
             >
                 {children}
             </Notification>
+        </section>
+    )
+}
+
+export const AccessibilityExample = () => {
+    const [textContent, setTextContent] = React.useState('Test message')
+    const [notificationContent, setNotificationContent] = React.useState(textContent)
+    const [currentAriaLive, setCurrentAriaLive] = React.useState<'off' | 'polite' | 'assertive'>(
+        'assertive',
+    )
+
+    function onChangeValue(event) {
+        setCurrentAriaLive(event.target.value)
+    }
+
+    return (
+        <section className="story">
+            <Notification
+                id="notification-off"
+                aria-live={currentAriaLive}
+                title={notificationContent}
+                onClose={action('onClose')}
+            />
+
+            <Box
+                display="flex"
+                flexDirection="row"
+                justifyContent="spaceBetween"
+                marginTop="xlarge"
+            >
+                <Box>
+                    <Box
+                        marginTop="medium"
+                        display="flex"
+                        flexDirection="row"
+                        alignItems="center"
+                        onChange={onChangeValue}
+                    >
+                        <input
+                            type="radio"
+                            id="off"
+                            name="aria-live"
+                            value="off"
+                            checked={currentAriaLive === 'off'}
+                        />
+                        <label htmlFor="off">aria-live="off"</label>
+                        <input
+                            type="radio"
+                            id="polite"
+                            name="aria-live"
+                            value="polite"
+                            checked={currentAriaLive === 'polite'}
+                        />
+                        <label htmlFor="polite">aria-live="polite"</label>
+                        <input
+                            type="radio"
+                            id="assertive"
+                            name="aria-live"
+                            value="assertive"
+                            checked={currentAriaLive === 'assertive'}
+                        />
+                        <label htmlFor="assertive">aria-live="assertive"</label>
+                    </Box>
+
+                    <br />
+
+                    {currentAriaLive === 'off' ? (
+                        <Text tone="secondary">
+                            Changes will not be announced by a screen reader
+                        </Text>
+                    ) : null}
+                    {currentAriaLive === 'polite' ? (
+                        <Text tone="secondary">
+                            Changes will be announced by a screen reader after the current content.
+                        </Text>
+                    ) : null}
+
+                    {currentAriaLive === 'assertive' ? (
+                        <Text tone="secondary">
+                            Changes will be announced by a screen reader immediately.
+                        </Text>
+                    ) : null}
+                </Box>
+
+                <Box display="flex" flexDirection="row" alignItems="flexEnd">
+                    <TextField
+                        label="Content"
+                        value={textContent}
+                        onChange={(event) => setTextContent(event.currentTarget.value)}
+                    />
+                    &nbsp;
+                    <Button variant="primary" onClick={() => setNotificationContent(textContent)}>
+                        Submit
+                    </Button>
+                </Box>
+            </Box>
         </section>
     )
 }
