@@ -170,7 +170,7 @@ export const AccessibilityExample = () => {
 
                     {currentAriaLive === 'off' ? (
                         <Text tone="secondary">
-                            Changes will not be announced by a screen reader
+                            Changes will not be announced by a screen reader.
                         </Text>
                     ) : null}
                     {currentAriaLive === 'polite' ? (
