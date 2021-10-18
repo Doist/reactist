@@ -25,6 +25,9 @@ export default {
         dividers: selectWithNone<DividerWeight>(['primary', 'secondary', 'tertiary']),
         ...reusableBoxProps(),
     },
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 const widths = [300, 360, 430, 280, 600, 490, 400]
