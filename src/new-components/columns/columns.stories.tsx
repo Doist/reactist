@@ -30,6 +30,9 @@ export default {
         alignY: selectWithNone<ColumnsVerticalAlignment>(['top', 'center', 'bottom', 'baseline']),
         ...reusableBoxProps(),
     },
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 export function AlignmentStory(args: PartialProps<typeof Columns>) {

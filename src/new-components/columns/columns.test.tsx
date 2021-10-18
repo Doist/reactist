@@ -2,6 +2,7 @@ import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { runSpaceTests } from '../test-helpers'
 import { Columns, Column, ColumnWidth } from './'
+import { axe } from 'jest-axe'
 
 const columnWidths: Array<ColumnWidth> = [
     '1/2',
@@ -189,6 +190,15 @@ describe('Columns', () => {
     })
 
     runSpaceTests(Columns)
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(<Columns />)
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
+    })
 })
 
 describe('Column', () => {
@@ -328,5 +338,18 @@ describe('Column', () => {
             )
             expect(column).not.toHaveClass('flexShrink-0')
         }
+    })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(
+                <Columns>
+                    <Column>Test</Column>
+                </Columns>,
+            )
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
     })
 })
