@@ -2,6 +2,7 @@ import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { runSpaceTests } from '../test-helpers'
 import { Inline } from './'
+import { axe } from 'jest-axe'
 
 describe('Inline', () => {
     it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {
@@ -129,4 +130,13 @@ describe('Inline', () => {
     })
 
     runSpaceTests(Inline)
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(<Inline />)
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
+    })
 })

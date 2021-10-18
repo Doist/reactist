@@ -21,6 +21,9 @@ export default {
         align: selectWithNone<InlineAlign>(['left', 'center', 'right']),
         ...reusableBoxProps(),
     },
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 function renderInlineContent() {
