@@ -2,6 +2,7 @@ import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { TextField } from './'
 import userEvent from '@testing-library/user-event'
+import { axe } from 'jest-axe'
 
 describe('TextField', () => {
     it('supports having an externally provided id attribute', () => {
@@ -181,5 +182,16 @@ describe('TextField', () => {
         userEvent.type(inputElement, 'Software developer')
         expect(inputElement).toHaveValue('Software developer')
         expect(screen.getByTestId('value')).toHaveTextContent('Software developer')
+    })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(
+                <TextField label="Whatʼs your name?" hint="We need it for billing purposes" />,
+            )
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
     })
 })
