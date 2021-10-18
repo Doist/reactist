@@ -15,6 +15,9 @@ import './styles/notification_story.less'
 export default {
     title: 'Components/Notification',
     component: Notification,
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 // Story Definitions ==========================================================
