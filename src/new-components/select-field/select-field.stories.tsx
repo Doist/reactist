@@ -7,6 +7,9 @@ import type { BoxMaxMinWidth } from '../box'
 export default {
     title: 'Design system/SelectField',
     component: SelectField,
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 function preventDefault(event: React.SyntheticEvent) {

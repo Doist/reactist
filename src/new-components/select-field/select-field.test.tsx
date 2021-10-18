@@ -2,6 +2,7 @@ import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { SelectField } from './'
 import userEvent from '@testing-library/user-event'
+import { axe } from 'jest-axe'
 
 describe('SelectField', () => {
     it('supports having an externally provided id attribute', () => {
@@ -192,5 +193,16 @@ describe('SelectField', () => {
         expect(selectElement).toHaveValue('light')
         expect(selectElement).toHaveDisplayValue('Light theme')
         expect(screen.getByTestId('container')).toHaveAttribute('data-theme', 'light')
+    })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(
+                <SelectField data-testid="select-field" id="custom-id" label="Province" />,
+            )
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
     })
 })
