@@ -7,9 +7,6 @@ import Checkbox from '../../src/components/checkbox'
 export default {
     title: 'Components/Checkbox',
     component: Checkbox,
-    parameters: {
-        badges: ['deprecated'],
-    },
 }
 
 // Story Definitions ==========================================================
