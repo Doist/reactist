@@ -7,6 +7,9 @@ import { ResponsiveWidthRef, select, selectWithNone } from '../storybook-helper'
 export default {
     title: 'Design system/Heading',
     component: Heading,
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 export function HeadingStory() {
