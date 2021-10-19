@@ -2,7 +2,6 @@ import React from 'react'
 import { action } from '@storybook/addon-actions'
 
 import Avatar from '../../src/components/avatar'
-import Tip from '../../src/components/tip'
 import { Notification } from '../../src/components/notification/notification'
 import './styles/notification_story.less'
 
@@ -57,13 +56,7 @@ export const CustomContentNotificationStory = () => {
             >
                 <div className="notification-story-content">
                     <p className="notification-story-text">You received a message from Brock</p>
-                    <h4 className="notification-story-heading">
-                        Better not leave him hanging
-                        <Tip
-                            title="Using the notification component"
-                            message="Content will be laid out horizontally by default, but you can render any custom content in here, as well as provide your own custom CSS class names."
-                        />
-                    </h4>
+                    <h4 className="notification-story-heading">Better not leave him hanging</h4>
                 </div>
             </Notification>
         </section>
