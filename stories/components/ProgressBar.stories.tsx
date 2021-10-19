@@ -8,6 +8,9 @@ import ProgressBar from '../../src/components/progress-bar'
 export default {
     title: 'Components/ProgressBar',
     component: ProgressBar,
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 // Story Definitions ==========================================================
