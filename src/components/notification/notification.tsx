@@ -29,7 +29,7 @@ function Notification({
     onClose,
     closeAltText = 'Close',
     className,
-    'aria-live': ariaLive = 'assertive',
+    'aria-live': ariaLive = 'polite',
     ...rest
 }: NotificationProps) {
     const titleId = title ? `${id}-title` : null

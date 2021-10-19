@@ -94,14 +94,16 @@ describe('Notification', () => {
             expect(results).toHaveNoViolations()
         })
 
-        it('renders `aria-live="assertive"` by default', () => {
+        it('renders `aria-live="polite"` by default', () => {
             render(<Notification id="notification-test" title="I'm a title" />)
-            expect(screen.getByRole('alert')).toHaveAttribute('aria-live', 'assertive')
+            expect(screen.getByRole('alert')).toHaveAttribute('aria-live', 'polite')
         })
 
         it('supports the `aria-live` attribute', () => {
-            render(<Notification id="notification-test" title="I'm a title" aria-live="polite" />)
-            expect(screen.getByRole('alert')).toHaveAttribute('aria-live', 'polite')
+            render(
+                <Notification id="notification-test" title="I'm a title" aria-live="assertive" />,
+            )
+            expect(screen.getByRole('alert')).toHaveAttribute('aria-live', 'assertive')
         })
     })
 })
