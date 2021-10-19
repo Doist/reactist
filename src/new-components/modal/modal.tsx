@@ -1,7 +1,7 @@
 import * as React from 'react'
 import classNames from 'classnames'
 import { Dialog, DialogContent } from '@reach/dialog'
-import { AutoFocusInside } from 'react-focus-lock'
+import FocusLock from 'react-focus-lock'
 
 import { CloseIcon } from '../icons/close-icon'
 import { Column, Columns } from '../columns'
@@ -86,6 +86,10 @@ export type ModalProps = DivProps & {
     'aria-labelledby'?: string
 }
 
+function isNotInternalFrame(element: HTMLElement) {
+    return !(element.ownerDocument === document && element.tagName.toLowerCase() === 'iframe')
+}
+
 /**
  * Renders a modal that sits on top of the rest of the content in the entire page.
  *
@@ -110,33 +114,28 @@ export function Modal({
         height,
     ])
 
-    function handleKeyDown(event: React.KeyboardEvent) {
-        if (event.key === 'Escape') {
-            onDismiss?.()
-        }
-    }
-
     return (
         <Dialog
             isOpen={isOpen}
             onDismiss={onDismiss}
             className={classNames(styles.overlay, styles[height], styles[width])}
         >
-            <DialogContent
-                {...props}
-                as={Box}
-                borderRadius="full"
-                background="default"
-                display="flex"
-                flexDirection="column"
-                overflow="hidden"
-                height={height === 'expand' ? 'full' : undefined}
-                flexGrow={height === 'expand' ? 1 : 0}
-                className={[exceptionallySetClassName, styles.container]}
-                onKeyDown={handleKeyDown}
-            >
-                <ModalContext.Provider value={contextValue}>{children}</ModalContext.Provider>
-            </DialogContent>
+            <FocusLock autoFocus={autoFocus} whiteList={isNotInternalFrame} returnFocus={true}>
+                <DialogContent
+                    {...props}
+                    as={Box}
+                    borderRadius="full"
+                    background="default"
+                    display="flex"
+                    flexDirection="column"
+                    overflow="hidden"
+                    height={height === 'expand' ? 'full' : undefined}
+                    flexGrow={height === 'expand' ? 1 : 0}
+                    className={[exceptionallySetClassName, styles.container]}
+                >
+                    <ModalContext.Provider value={contextValue}>{children}</ModalContext.Provider>
+                </DialogContent>
+            </FocusLock>
         </Dialog>
     )
 }
@@ -163,7 +162,26 @@ export type ModalCloseButtonProps = Omit<
  */
 export function ModalCloseButton(props: ModalCloseButtonProps) {
     const { onDismiss } = React.useContext(ModalContext)
-    return <Button {...props} variant="quaternary" onClick={onDismiss} icon={<CloseIcon />} />
+    const [includeInTabIndex, setIncludeInTabIndex] = React.useState(false)
+    const [isMounted, setIsMounted] = React.useState(false)
+
+    React.useEffect(
+        function skipAutoFocus() {
+            if (isMounted) setIncludeInTabIndex(true)
+            setIsMounted(true)
+        },
+        [isMounted],
+    )
+
+    return (
+        <Button
+            {...props}
+            variant="quaternary"
+            onClick={onDismiss}
+            icon={<CloseIcon />}
+            tabIndex={includeInTabIndex ? 0 : -1}
+        />
+    )
 }
 
 //
@@ -221,7 +239,7 @@ export function ModalHeader({
                         {typeof button !== 'boolean' ? (
                             button
                         ) : button === true ? (
-                            <ModalCloseButton aria-label="Close modal" />
+                            <ModalCloseButton aria-label="Close modal" autoFocus={false} />
                         ) : null}
                     </Column>
                 </Columns>
@@ -261,19 +279,17 @@ export type ModalBodyProps = DivProps & {
 export function ModalBody({ exceptionallySetClassName, children, ...props }: ModalBodyProps) {
     const { height } = React.useContext(ModalContext)
     return (
-        <AutoFocusInside>
-            <Box
-                {...props}
-                className={exceptionallySetClassName}
-                flexGrow={height === 'expand' ? 1 : 0}
-                height={height === 'expand' ? 'full' : undefined}
-                overflow="auto"
-            >
-                <Box padding="large" paddingBottom="xxlarge">
-                    {children}
-                </Box>
+        <Box
+            {...props}
+            className={exceptionallySetClassName}
+            flexGrow={height === 'expand' ? 1 : 0}
+            height={height === 'expand' ? 'full' : undefined}
+            overflow="auto"
+        >
+            <Box padding="large" paddingBottom="xxlarge">
+                {children}
             </Box>
-        </AutoFocusInside>
+        </Box>
     )
 }
 

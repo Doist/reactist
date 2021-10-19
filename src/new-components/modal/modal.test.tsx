@@ -280,33 +280,33 @@ describe('ModalCloseButton', () => {
         const { button } = renderTestCase()
         expect(button.firstElementChild?.tagName).toBe('svg')
     })
+})
 
-    describe('a11y', () => {
-        it('renders with no a11y violations', async () => {
-            const { container } = render(
-                <Modal isOpen={true} aria-label="modal">
-                    <ModalHeader>Header</ModalHeader>
-                    <ModalBody>Body</ModalBody>
-                    <ModalFooter>Footer</ModalFooter>
-                </Modal>,
-            )
-            const results = await axe(container)
+describe('a11y', () => {
+    it('renders with no a11y violations', async () => {
+        const { container } = render(
+            <Modal isOpen={true} aria-label="modal">
+                <ModalHeader>Header</ModalHeader>
+                <ModalBody>Body</ModalBody>
+                <ModalFooter>Footer</ModalFooter>
+            </Modal>,
+        )
+        const results = await axe(container)
 
-            expect(results).toHaveNoViolations()
-        })
+        expect(results).toHaveNoViolations()
+    })
 
-        it("calls the modal's onDismiss callback when 'Esc' is pressed", () => {
-            const onDismiss = jest.fn()
-            render(
-                <Modal isOpen onDismiss={onDismiss} aria-label="modal">
-                    <ModalHeader>Hello</ModalHeader>
-                </Modal>,
-            )
-            const modal = screen.getByRole('dialog', { name: 'modal' })
+    it("calls the modal's onDismiss callback when 'Esc' is pressed", () => {
+        const onDismiss = jest.fn()
+        render(
+            <Modal isOpen onDismiss={onDismiss} aria-label="modal">
+                <ModalHeader>Hello</ModalHeader>
+            </Modal>,
+        )
+        const modal = screen.getByRole('dialog', { name: 'modal' })
 
-            expect(onDismiss).not.toHaveBeenCalled()
-            userEvent.type(modal, '{esc}')
-            expect(onDismiss).toHaveBeenCalledTimes(1)
-        })
+        expect(onDismiss).not.toHaveBeenCalled()
+        userEvent.type(modal, '{esc}')
+        expect(onDismiss).toHaveBeenCalledTimes(1)
     })
 })
