@@ -1,6 +1,6 @@
 import * as React from 'react'
 import classNames from 'classnames'
-import { Dialog, DialogContent } from '@reach/dialog'
+import { DialogOverlay, DialogContent } from '@reach/dialog'
 import FocusLock from 'react-focus-lock'
 
 import { CloseIcon } from '../icons/close-icon'
@@ -115,10 +115,11 @@ export function Modal({
     ])
 
     return (
-        <Dialog
+        <DialogOverlay
             isOpen={isOpen}
             onDismiss={onDismiss}
             className={classNames(styles.overlay, styles[height], styles[width])}
+            data-testid="modal-overlay"
         >
             <FocusLock autoFocus={autoFocus} whiteList={isNotInternalFrame} returnFocus={true}>
                 <DialogContent
@@ -136,7 +137,7 @@ export function Modal({
                     <ModalContext.Provider value={contextValue}>{children}</ModalContext.Provider>
                 </DialogContent>
             </FocusLock>
-        </Dialog>
+        </DialogOverlay>
     )
 }
 
