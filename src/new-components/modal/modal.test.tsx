@@ -283,7 +283,19 @@ describe('ModalCloseButton', () => {
 })
 
 describe('a11y', () => {
-    it('renders with no a11y violations', async () => {
+    it('renders with no a11y violations with custom content', async () => {
+        const { container } = render(
+            <Modal isOpen={true} aria-label="modal">
+                <input type="text" aria-labelledby="test-label" />
+                <label id="test-label">Test Input</label>
+            </Modal>,
+        )
+        const results = await axe(container)
+
+        expect(results).toHaveNoViolations()
+    })
+
+    it('renders with no a11y violations when using inner-structure components', async () => {
         const { container } = render(
             <Modal isOpen={true} aria-label="modal">
                 <ModalHeader>Header</ModalHeader>
