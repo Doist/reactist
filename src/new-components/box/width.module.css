@@ -39,6 +39,9 @@
 }
 
 /* width */
+.width-0 {
+    width: 0px;
+}
 .width-full {
     width: 100%;
 }
@@ -56,4 +59,19 @@
 .width-fitContent {
     width: -moz-fit-content;
     width: fit-content;
+}
+.width-xsmall {
+    width: var(--reactist-width-xsmall);
+}
+.width-small {
+    width: var(--reactist-width-small);
+}
+.width-medium {
+    width: var(--reactist-width-medium);
+}
+.width-large {
+    width: var(--reactist-width-large);
+}
+.width-xlarge {
+    width: var(--reactist-width-xlarge);
 }
