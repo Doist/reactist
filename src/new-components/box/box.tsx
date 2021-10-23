@@ -14,6 +14,7 @@ import type {
 import styles from './box.module.css'
 import paddingStyles from './padding.module.css'
 import marginStyles from './margin.module.css'
+import widthStyles from './width.module.css'
 
 interface BoxPaddingProps {
     padding?: ResponsiveProp<Space>
@@ -142,8 +143,10 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
                     styles.box,
                     display ? getClassNames(styles, 'display', display) : null,
                     position !== 'static' ? getClassNames(styles, 'position', position) : null,
-                    minWidth != null ? getClassNames(styles, 'minWidth', String(minWidth)) : null,
-                    getClassNames(styles, 'maxWidth', maxWidth),
+                    minWidth != null
+                        ? getClassNames(widthStyles, 'minWidth', String(minWidth))
+                        : null,
+                    getClassNames(widthStyles, 'maxWidth', maxWidth),
                     textAlign !== 'start' ? getClassNames(styles, 'textAlign', textAlign) : null,
                     // padding
                     getClassNames(paddingStyles, 'paddingTop', resolvedPaddingTop),
