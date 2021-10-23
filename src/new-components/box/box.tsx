@@ -36,7 +36,6 @@ interface BoxMarginProps {
     marginLeft?: ResponsiveProp<SpaceWithNegatives>
 }
 
-type BoxMaxMinWidth = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
 type BoxDisplay = 'block' | 'flex' | 'inline' | 'inlineBlock' | 'inlineFlex' | 'none'
 type BoxFlexDirection = 'column' | 'row'
 type BoxFlexWrap = 'nowrap' | 'wrap'
@@ -50,14 +49,18 @@ type BoxJustifyContent =
     | 'spaceEvenly'
 type BoxOverflow = 'hidden' | 'auto' | 'visible' | 'scroll'
 
+type BoxMaxMinWidth = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
+type BoxMinWidth = 0 | BoxMaxMinWidth
+type BoxMaxWidth = BoxMaxMinWidth | 'full'
+
 interface BorderProps {
     borderRadius?: 'standard' | 'none' | 'full'
     border?: DividerWeight
 }
 
 interface ReusableBoxProps extends BorderProps, BoxPaddingProps {
-    minWidth?: 0 | BoxMaxMinWidth
-    maxWidth?: BoxMaxMinWidth | 'full'
+    minWidth?: BoxMinWidth
+    maxWidth?: BoxMaxWidth
     background?: 'default' | 'aside' | 'highlight' | 'selected'
     flexGrow?: 0 | 1
     flexShrink?: 0
@@ -188,7 +191,8 @@ export type {
     BoxPaddingProps,
     BoxMarginProps,
     ReusableBoxProps,
-    BoxMaxMinWidth,
+    BoxMinWidth,
+    BoxMaxWidth,
     BoxDisplay,
     BoxPosition,
     BoxFlexDirection,
