@@ -3,36 +3,36 @@
     min-width: 0px;
 }
 .minWidth-xsmall {
-    min-width: 220px;
+    min-width: var(--reactist-width-xsmall);
 }
 .minWidth-small {
-    min-width: 400px;
+    min-width: var(--reactist-width-small);
 }
 .minWidth-medium {
-    min-width: 660px;
+    min-width: var(--reactist-width-medium);
 }
 .minWidth-large {
-    max-width: 940px;
+    min-width: var(--reactist-width-large);
 }
 .minWidth-xlarge {
-    min-width: 1280px;
+    min-width: var(--reactist-width-xlarge);
 }
 
 /* max-width */
 .maxWidth-xsmall {
-    max-width: 220px;
+    max-width: var(--reactist-width-xsmall);
 }
 .maxWidth-small {
-    max-width: 400px;
+    max-width: var(--reactist-width-small);
 }
 .maxWidth-medium {
-    max-width: 660px;
+    max-width: var(--reactist-width-medium);
 }
 .maxWidth-large {
-    max-width: 940px;
+    max-width: var(--reactist-width-large);
 }
 .maxWidth-xlarge {
-    max-width: 1280px;
+    max-width: var(--reactist-width-xlarge);
 }
 .maxWidth-full {
     max-width: 100%;
