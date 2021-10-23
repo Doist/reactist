@@ -281,10 +281,7 @@ pre.box {
     overflow: scroll;
 }
 
-/* full width and height */
-.width-full {
-    width: 100%;
-}
+/* height */
 .height-full {
     height: 100%;
 }

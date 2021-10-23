@@ -64,6 +64,7 @@ function times(count: number): number[] {
 function reusableBoxProps(): Partial<Record<keyof BoxProps, ReturnType<typeof selectWithNone>>> {
     return {
         maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full']),
+        width: selectWithNone(['full', 'auto', 'maxContent', 'minContent', 'fitContent']),
         padding: selectSize(),
         paddingX: selectSize(),
         paddingY: selectSize(),

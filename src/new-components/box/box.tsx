@@ -52,6 +52,7 @@ type BoxOverflow = 'hidden' | 'auto' | 'visible' | 'scroll'
 type BoxMaxMinWidth = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
 type BoxMinWidth = 0 | BoxMaxMinWidth
 type BoxMaxWidth = BoxMaxMinWidth | 'full'
+type BoxWidth = 'full' | 'auto' | 'maxContent' | 'minContent' | 'fitContent'
 
 interface BorderProps {
     borderRadius?: 'standard' | 'none' | 'full'
@@ -61,11 +62,10 @@ interface BorderProps {
 interface ReusableBoxProps extends BorderProps, BoxPaddingProps {
     minWidth?: BoxMinWidth
     maxWidth?: BoxMaxWidth
+    width?: BoxWidth
     background?: 'default' | 'aside' | 'highlight' | 'selected'
     flexGrow?: 0 | 1
     flexShrink?: 0
-    width?: 'full'
-    height?: 'full'
 }
 
 type BoxPosition = 'absolute' | 'fixed' | 'relative' | 'static' | 'sticky'
@@ -78,7 +78,6 @@ interface BoxProps extends WithEnhancedClassName, ReusableBoxProps, BoxMarginPro
     alignItems?: ResponsiveProp<BoxAlignItems>
     justifyContent?: ResponsiveProp<BoxJustifyContent>
     overflow?: BoxOverflow
-    width?: 'full'
     height?: 'full'
     textAlign?: ResponsiveProp<'start' | 'center' | 'end' | 'justify'>
 }
@@ -172,7 +171,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
                     flexGrow != null ? getClassNames(styles, 'flexGrow', String(flexGrow)) : null,
                     // other props
                     getClassNames(styles, 'overflow', overflow),
-                    getClassNames(styles, 'width', width),
+                    getClassNames(widthStyles, 'width', width),
                     getClassNames(styles, 'height', height),
                     getClassNames(styles, 'bg', background),
                     borderRadius !== 'none'

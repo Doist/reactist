@@ -37,3 +37,23 @@
 .maxWidth-full {
     max-width: 100%;
 }
+
+/* width */
+.width-full {
+    width: 100%;
+}
+.width-auto {
+    width: auto;
+}
+.width-maxContent {
+    width: -moz-max-content;
+    width: max-content;
+}
+.width-minContent {
+    width: -moz-min-content;
+    width: min-content;
+}
+.width-fitContent {
+    width: -moz-fit-content;
+    width: fit-content;
+}
