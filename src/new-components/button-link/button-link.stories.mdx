@@ -8,7 +8,13 @@ import { Heading } from '../heading'
 import * as ButtonLinkModule from './button-link'
 import { ButtonLink } from './button-link-story-wrapper'
 
-<Meta title="Design system/ButtonLink" component={ButtonLinkModule.ButtonLink} />
+<Meta
+    title="Design system/ButtonLink"
+    component={ButtonLinkModule.ButtonLink}
+    parameters={{
+        badges: ['partiallyAccessible'],
+    }}
+/>
 
 export function Icon() {
     return (
