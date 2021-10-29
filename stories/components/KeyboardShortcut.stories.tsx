@@ -8,6 +8,9 @@ import KeyboardShortcut from '../../src/components/keyboard-shortcut'
 
 export default {
     title: 'Components/KeyboardShortcut',
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 // Story Definitions ================================================================

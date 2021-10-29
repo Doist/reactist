@@ -10,6 +10,9 @@ import Time from '../../src/components/time'
 export default {
     title: 'Components/Time',
     component: Time,
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 const exampleTimes = [
