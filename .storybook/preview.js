@@ -32,5 +32,10 @@ addParameters({
             color: 'rgb(209, 69, 59)',
             title: '✖ Not accessible',
         },
+        deprecated: {
+            contrast: 'rgba(209, 69, 59, 0.1)',
+            color: 'rgb(209, 69, 59)',
+            title: '✖ Deprecated',
+        },
     },
 })
