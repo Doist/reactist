@@ -2,6 +2,7 @@ import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Button } from './button'
+import { axe } from 'jest-axe'
 
 jest.mock('../spinner', () => ({
     Spinner() {
@@ -344,6 +345,24 @@ describe('Button', () => {
             expect(
                 screen.getByRole('button', { name: 'Click me' }).textContent,
             ).toMatchInlineSnapshot(`"⏳"`)
+        })
+    })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(
+                <>
+                    <Button variant="primary" tone="normal">
+                        Normal
+                    </Button>
+                    <Button variant="primary" tone="destructive">
+                        Destructive
+                    </Button>
+                </>,
+            )
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
         })
     })
 })
