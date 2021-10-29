@@ -118,6 +118,7 @@ export function Modal({
         <DialogOverlay
             isOpen={isOpen}
             onDismiss={onDismiss}
+            dangerouslyBypassFocusLock // We're setting up our own focus lock below
             className={classNames(styles.overlay, styles[height], styles[width])}
             data-testid="modal-overlay"
         >
@@ -147,7 +148,15 @@ export function Modal({
 
 export type ModalCloseButtonProps = Omit<
     ButtonProps,
-    'type' | 'children' | 'variant' | 'icon' | 'startIcon' | 'endIcon' | 'disabled' | 'loading'
+    | 'type'
+    | 'children'
+    | 'variant'
+    | 'icon'
+    | 'startIcon'
+    | 'endIcon'
+    | 'disabled'
+    | 'loading'
+    | 'tabIndex'
 > & {
     /**
      * The descriptive label of the button.
@@ -163,13 +172,16 @@ export type ModalCloseButtonProps = Omit<
  */
 export function ModalCloseButton(props: ModalCloseButtonProps) {
     const { onDismiss } = React.useContext(ModalContext)
-    const [includeInTabIndex, setIncludeInTabIndex] = React.useState(false)
+    const [includeInTabOrder, setincludeInTabOrder] = React.useState(false)
     const [isMounted, setIsMounted] = React.useState(false)
 
     React.useEffect(
         function skipAutoFocus() {
-            if (isMounted) setIncludeInTabIndex(true)
-            setIsMounted(true)
+            if (isMounted) {
+                setincludeInTabOrder(true)
+            } else {
+                setIsMounted(true)
+            }
         },
         [isMounted],
     )
@@ -180,7 +192,7 @@ export function ModalCloseButton(props: ModalCloseButtonProps) {
             variant="quaternary"
             onClick={onDismiss}
             icon={<CloseIcon />}
-            tabIndex={includeInTabIndex ? 0 : -1}
+            tabIndex={includeInTabOrder ? 0 : -1}
         />
     )
 }
