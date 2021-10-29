@@ -35,7 +35,7 @@ const ModalContext = React.createContext<ModalContextValue>({
 
 type DivProps = Omit<
     React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement>,
-    'className' | 'children'
+    'className' | 'children' | `aria-label` | `aria-labelledby`
 >
 
 export type ModalProps = DivProps & {
@@ -80,6 +80,10 @@ export type ModalProps = DivProps & {
      * A escape hatch in case you need to provide a custom class name to the container element.
      */
     exceptionallySetClassName?: string
+    /** Defines a string value that labels the current modal for assistive technologies. */
+    'aria-label'?: string
+    /** Identifies the element (or elements) that labels the current modal for assistive technologies. */
+    'aria-labelledby'?: string
 }
 
 function isNotInternalFrame(element: HTMLElement) {
@@ -118,7 +122,7 @@ export function Modal({
             className={classNames(styles.overlay, styles[height], styles[width])}
             data-testid="modal-overlay"
         >
-            <FocusLock autoFocus={autoFocus} whiteList={isNotInternalFrame}>
+            <FocusLock autoFocus={autoFocus} whiteList={isNotInternalFrame} returnFocus={true}>
                 <DialogContent
                     {...props}
                     as={Box}
@@ -144,7 +148,15 @@ export function Modal({
 
 export type ModalCloseButtonProps = Omit<
     ButtonProps,
-    'type' | 'children' | 'variant' | 'icon' | 'startIcon' | 'endIcon' | 'disabled' | 'loading'
+    | 'type'
+    | 'children'
+    | 'variant'
+    | 'icon'
+    | 'startIcon'
+    | 'endIcon'
+    | 'disabled'
+    | 'loading'
+    | 'tabIndex'
 > & {
     /**
      * The descriptive label of the button.
@@ -160,7 +172,29 @@ export type ModalCloseButtonProps = Omit<
  */
 export function ModalCloseButton(props: ModalCloseButtonProps) {
     const { onDismiss } = React.useContext(ModalContext)
-    return <Button {...props} variant="quaternary" onClick={onDismiss} icon={<CloseIcon />} />
+    const [includeInTabOrder, setincludeInTabOrder] = React.useState(false)
+    const [isMounted, setIsMounted] = React.useState(false)
+
+    React.useEffect(
+        function skipAutoFocus() {
+            if (isMounted) {
+                setincludeInTabOrder(true)
+            } else {
+                setIsMounted(true)
+            }
+        },
+        [isMounted],
+    )
+
+    return (
+        <Button
+            {...props}
+            variant="quaternary"
+            onClick={onDismiss}
+            icon={<CloseIcon />}
+            tabIndex={includeInTabOrder ? 0 : -1}
+        />
+    )
 }
 
 //
@@ -218,7 +252,7 @@ export function ModalHeader({
                         {typeof button !== 'boolean' ? (
                             button
                         ) : button === true ? (
-                            <ModalCloseButton aria-label="Close modal" />
+                            <ModalCloseButton aria-label="Close modal" autoFocus={false} />
                         ) : null}
                     </Column>
                 </Columns>
