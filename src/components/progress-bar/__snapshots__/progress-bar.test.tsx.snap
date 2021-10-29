@@ -1,16 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ProgressBar renders without crashing 1`] = `
-<div
-  className="reactist_progress_bar"
->
+<div>
   <div
-    className="inner"
-    style={
-      Object {
-        "width": "0%",
-      }
-    }
-  />
+    class="reactist_progress_bar"
+  >
+    <div
+      class="inner"
+      style="width: 0%;"
+    />
+    <div
+      class="hiddenVisually box position-absolute overflow-hidden"
+    >
+      <progress
+        max="100"
+        value="0"
+      />
+    </div>
+  </div>
 </div>
 `;
