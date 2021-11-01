@@ -349,7 +349,7 @@ describe('Button', () => {
     })
 
     describe('a11y', () => {
-        it('renders with no a11y violations', async () => {
+        it('renders text buttons with no a11y violations', async () => {
             const { container } = render(
                 <>
                     <Button variant="primary" tone="normal">
@@ -358,6 +358,67 @@ describe('Button', () => {
                     <Button variant="primary" tone="destructive">
                         Destructive
                     </Button>
+
+                    <Button variant="primary" tone="normal" disabled>
+                        Normal (Disabled)
+                    </Button>
+                    <Button variant="primary" tone="destructive" disabled>
+                        Destructive (Disabled)
+                    </Button>
+
+                    <Button variant="primary" tone="normal" loading>
+                        Normal (Loading)
+                    </Button>
+                    <Button variant="primary" tone="destructive" loading>
+                        Destructive (Loading)
+                    </Button>
+                </>,
+            )
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
+
+        it('renders icon-only buttons with no a11y violations', async () => {
+            const { container } = render(
+                <>
+                    <Button variant="primary" tone="normal" icon="😄" aria-label="Normal" />
+                    <Button
+                        variant="primary"
+                        tone="destructive"
+                        icon="😄"
+                        aria-label="Destructive"
+                    />
+
+                    <Button
+                        variant="primary"
+                        tone="normal"
+                        icon="😄"
+                        disabled
+                        aria-label="Normal (Disabled)"
+                    />
+                    <Button
+                        variant="primary"
+                        tone="destructive"
+                        icon="😄"
+                        disabled
+                        aria-label="Destructive (Disabled)"
+                    />
+
+                    <Button
+                        variant="primary"
+                        tone="normal"
+                        icon="😄"
+                        loading
+                        aria-label="Normal (Loading)"
+                    />
+                    <Button
+                        variant="primary"
+                        tone="destructive"
+                        icon="😄"
+                        loading
+                        aria-label="Destructive (Loading)"
+                    />
                 </>,
             )
             const results = await axe(container)
