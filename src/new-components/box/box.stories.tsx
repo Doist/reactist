@@ -15,6 +15,7 @@ import { Box } from './box'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
 import { Text } from '../text'
+import { Heading } from '../heading'
 
 import type {
     BoxDisplay,
@@ -26,7 +27,6 @@ import type {
     BoxPaddingProps,
 } from './'
 import type { Space, SpaceWithNegatives } from '../common-types'
-import { Heading } from '../heading'
 
 export default {
     title: 'Design system/Box',
@@ -39,16 +39,16 @@ export default {
 export function InteractivePropsStory(args: PartialProps<typeof Box>) {
     return (
         <Wrapper border={true}>
-            <Box background="selected" {...args}>
-                <div>One</div>
-                <div>Two</div>
-                <div>Three</div>
-            </Box>
+            <Box background="selected" {...args} />
         </Wrapper>
     )
 }
 
 InteractivePropsStory.argTypes = {
+    children: {
+        control: { type: 'text' },
+        defaultValue: 'The quick brown fox jumps over the lazy dog.',
+    },
     display: select<BoxDisplay>(['block', 'inlineBlock', 'inline', 'flex', 'none'], 'block'),
     flexDirection: selectWithNone<BoxFlexDirection>(['column', 'row'], 'row'),
     flexWrap: selectWithNone<BoxFlexWrap>(['wrap', 'nowrap'], 'nowrap'),

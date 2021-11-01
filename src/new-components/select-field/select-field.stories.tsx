@@ -2,7 +2,7 @@ import * as React from 'react'
 import { selectWithNone, PartialProps } from '../storybook-helper'
 import { SelectField } from './'
 
-import type { BoxMaxMinWidth } from '../box'
+import type { BoxMaxWidth } from '../box'
 
 export default {
     title: 'Design system/SelectField',
@@ -68,7 +68,7 @@ InteractivePropsStory.argTypes = {
         defaultValue:
             'The theme you select will be applied immediately. If you upgrade to premium you will have more themes to choose from.',
     },
-    maxWidth: selectWithNone<BoxMaxMinWidth>(
+    maxWidth: selectWithNone<BoxMaxWidth>(
         ['xsmall', 'small', 'medium', 'large', 'xlarge'],
         'small',
     ),

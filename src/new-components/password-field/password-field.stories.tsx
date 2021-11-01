@@ -2,7 +2,7 @@ import * as React from 'react'
 import { selectWithNone, PartialProps } from '../storybook-helper'
 import { PasswordField } from './'
 
-import type { BoxMaxMinWidth } from '../box'
+import type { BoxMaxWidth } from '../box'
 
 export default {
     title: 'Design system/PasswordField',
@@ -59,7 +59,7 @@ InteractivePropsStory.argTypes = {
         control: { type: 'text' },
         defaultValue: 'Type your password',
     },
-    maxWidth: selectWithNone<BoxMaxMinWidth>(
+    maxWidth: selectWithNone<BoxMaxWidth>(
         ['xsmall', 'small', 'medium', 'large', 'xlarge'],
         'small',
     ),

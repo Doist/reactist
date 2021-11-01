@@ -2,7 +2,7 @@ import * as React from 'react'
 import { selectWithNone, PartialProps } from '../storybook-helper'
 import { TextField } from './'
 
-import type { BoxMaxMinWidth } from '../box'
+import type { BoxMaxWidth } from '../box'
 
 export default {
     title: 'Design system/TextField',
@@ -59,7 +59,7 @@ InteractivePropsStory.argTypes = {
         control: { type: 'text' },
         defaultValue: 'Enter your name as it appears in your ID',
     },
-    maxWidth: selectWithNone<BoxMaxMinWidth>(
+    maxWidth: selectWithNone<BoxMaxWidth>(
         ['xsmall', 'small', 'medium', 'large', 'xlarge'],
         'small',
     ),
