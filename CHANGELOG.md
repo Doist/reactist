@@ -2,11 +2,26 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-## next
+## v11.0.0
 
 -   [Feat] Box maxWidth and minWidth are now driven by configurable CSS variables.
 -   [Feat] Box width prop now supports new values (`maxContent`, `minContent`, `fitContent`, `auto`,
     `full`, and values from `xsmall` to `xlarge`).
+-   [Breaking] Removes the `RangeInput` component
+-   [Breaking] Removes the `Tip` component
+-   [Breaking] Removes the `Icon` component
+-   [Breaking] Removes the `ErrorMessage` component
+-   [Docs] Adds a11y badges to component stories
+-   [Docs] Adds `jest-axe` package and automated a11y checks
+-   [Tweak] Makes a11y improvements to `CheckboxField`
+-   [Tweak] Makes a11y improvements to `Switchfield`
+-   [Tweak] Makes a11y improvements to `Loading`
+-   [Tweak] Makes a11y improvements to `Menu`
+-   [Tweak] Makes a11y improvements to `ProgressBar`
+-   [Tweak] Makes a11y improvements to `Notification`
+-   [Tweak] Makes a11y improvements to `Modal`
+-   [Tweak] Makes a11y improvements to `Notification`
+-   [Build] Updates peer deps to include React v17.0
 
 ## v10.0.0-beta.12
 
