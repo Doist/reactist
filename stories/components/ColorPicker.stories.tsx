@@ -7,6 +7,9 @@ import ColorPicker from '../../src/components/color-picker'
 export default {
     title: 'Components/ColorPicker',
     component: ColorPicker,
+    parameters: {
+        badges: ['notAccessible'],
+    },
 }
 
 // Story Definitions ==========================================================

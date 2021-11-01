@@ -7,7 +7,13 @@ import { Text } from '../text'
 import { Heading } from '../heading'
 import { Button } from './button'
 
-<Meta title="Design system/Button" component={Button} />
+<Meta
+    title="Design system/Button"
+    component={Button}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
 
 export function Icon() {
     return (

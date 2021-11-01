@@ -31,6 +31,9 @@ import type { Space, SpaceWithNegatives } from '../common-types'
 export default {
     title: 'Design system/Box',
     component: Box,
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 export function InteractivePropsStory(args: PartialProps<typeof Box>) {

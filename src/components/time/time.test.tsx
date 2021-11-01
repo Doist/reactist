@@ -1,5 +1,7 @@
 import dayjs from 'dayjs'
 import React from 'react'
+import { render } from '@testing-library/react'
+import { axe } from 'jest-axe'
 import { shallow, ShallowWrapper } from 'enzyme'
 import toJson from 'enzyme-to-json'
 
@@ -85,6 +87,15 @@ describe('Time', () => {
               moments ago
             </span>
         `)
+    })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(<Time time={dayjs().unix()} />)
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
     })
 
     // Helper functions ///////////////////////////////////////////////////////

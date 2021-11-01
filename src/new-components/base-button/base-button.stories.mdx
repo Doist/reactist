@@ -1,7 +1,13 @@
 import { Meta, ArgsTable, Description } from '@storybook/addon-docs/blocks'
 import { BaseButton } from '../base-button'
 
-<Meta title="Design system/BaseButton" component={BaseButton} />
+<Meta
+    title="Design system/BaseButton"
+    component={BaseButton}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
 
 # BaseButton
 

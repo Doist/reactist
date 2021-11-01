@@ -6,6 +6,9 @@ import { Hidden } from './hidden'
 export default {
     title: 'Design system/Hidden',
     component: Hidden,
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 export function ResponsiveStory() {

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { screen, render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { axe } from 'jest-axe'
 
 import { Tabs, Tab, TabList, TabPanel, TabAwareSlot } from './'
 
@@ -249,5 +250,25 @@ describe('Tabs', () => {
                 <TabPanel id="tab3">Content of tab 3</TabPanel>
             </Tabs>,
         )
+    })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(
+                <Tabs>
+                    <TabList aria-label="test-tabs">
+                        <Tab id="tab1">Tab 1</Tab>
+                        <Tab id="tab2">Tab 2</Tab>
+                        <Tab id="tab3">Tab 3</Tab>
+                    </TabList>
+                    <TabPanel id="tab1">Content of tab 1</TabPanel>
+                    <TabPanel id="tab2">Content of tab 2</TabPanel>
+                    <TabPanel id="tab3">Content of tab 3</TabPanel>
+                </Tabs>,
+            )
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
     })
 })

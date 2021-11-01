@@ -6,6 +6,9 @@ import Button from '../../src/components/deprecated-button'
 export default {
     title: 'Components/Dropdown',
     component: Dropdown,
+    parameters: {
+        badges: ['notAccessible', 'deprecated'],
+    },
 }
 
 // Story Definitions ==========================================================

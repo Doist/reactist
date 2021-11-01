@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { Heading } from './heading'
+import { axe } from 'jest-axe'
 
 describe('Heading', () => {
     it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {
@@ -186,6 +187,24 @@ describe('Heading', () => {
                 expect(textElement).toHaveClass(`lineClampMultipleLines`)
                 expect(textElement).toHaveClass('paddingRight-xsmall')
             }
+        })
+    })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(
+                <>
+                    <Heading level={1}>Heading</Heading>
+                    <Heading level={2}>Heading</Heading>
+                    <Heading level={3}>Heading</Heading>
+                    <Heading level={4}>Heading</Heading>
+                    <Heading level={5}>Heading</Heading>
+                    <Heading level={6}>Heading</Heading>
+                </>,
+            )
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
         })
     })
 })
