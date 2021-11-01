@@ -14,7 +14,9 @@ type NotificationProps = {
     onClose?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
     closeAltText?: string
     className?: string
-} & JSX.IntrinsicElements['div']
+    /** Indicates that the notification will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region. */
+    'aria-live'?: 'off' | 'polite' | 'assertive'
+} & Omit<JSX.IntrinsicElements['div'], 'aria-live'>
 
 function Notification({
     id,
@@ -27,6 +29,7 @@ function Notification({
     onClose,
     closeAltText = 'Close',
     className,
+    'aria-live': ariaLive = 'polite',
     ...rest
 }: NotificationProps) {
     const titleId = title ? `${id}-title` : null
@@ -70,11 +73,12 @@ function Notification({
     return (
         <div
             id={id}
-            role="dialog"
+            role="alert"
             className={classNames('reactist-notification', className, {
                 'reactist-notification--with-button': Boolean(onClick),
                 'reactist-notification--with-close-button': Boolean(onClose),
             })}
+            aria-live={ariaLive}
             {...ariaLabelledBy}
             {...ariaDescribedBy}
             {...rest}
