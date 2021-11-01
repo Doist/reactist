@@ -14,6 +14,7 @@ import type {
 import styles from './box.module.css'
 import paddingStyles from './padding.module.css'
 import marginStyles from './margin.module.css'
+import widthStyles from './width.module.css'
 
 interface BoxPaddingProps {
     padding?: ResponsiveProp<Space>
@@ -35,7 +36,6 @@ interface BoxMarginProps {
     marginLeft?: ResponsiveProp<SpaceWithNegatives>
 }
 
-type BoxMaxMinWidth = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
 type BoxDisplay = 'block' | 'flex' | 'inline' | 'inlineBlock' | 'inlineFlex' | 'none'
 type BoxFlexDirection = 'column' | 'row'
 type BoxFlexWrap = 'nowrap' | 'wrap'
@@ -49,19 +49,23 @@ type BoxJustifyContent =
     | 'spaceEvenly'
 type BoxOverflow = 'hidden' | 'auto' | 'visible' | 'scroll'
 
+type BoxMaxMinWidth = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
+type BoxMinWidth = 0 | BoxMaxMinWidth
+type BoxMaxWidth = BoxMaxMinWidth | 'full'
+type BoxWidth = 0 | BoxMaxMinWidth | 'full' | 'auto' | 'maxContent' | 'minContent' | 'fitContent'
+
 interface BorderProps {
     borderRadius?: 'standard' | 'none' | 'full'
     border?: DividerWeight
 }
 
 interface ReusableBoxProps extends BorderProps, BoxPaddingProps {
-    minWidth?: 0 | BoxMaxMinWidth
-    maxWidth?: BoxMaxMinWidth | 'full'
+    minWidth?: BoxMinWidth
+    maxWidth?: BoxMaxWidth
+    width?: BoxWidth
     background?: 'default' | 'aside' | 'highlight' | 'selected'
     flexGrow?: 0 | 1
     flexShrink?: 0
-    width?: 'full'
-    height?: 'full'
 }
 
 type BoxPosition = 'absolute' | 'fixed' | 'relative' | 'static' | 'sticky'
@@ -74,7 +78,6 @@ interface BoxProps extends WithEnhancedClassName, ReusableBoxProps, BoxMarginPro
     alignItems?: ResponsiveProp<BoxAlignItems>
     justifyContent?: ResponsiveProp<BoxJustifyContent>
     overflow?: BoxOverflow
-    width?: 'full'
     height?: 'full'
     textAlign?: ResponsiveProp<'start' | 'center' | 'end' | 'justify'>
 }
@@ -142,8 +145,10 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
                     styles.box,
                     display ? getClassNames(styles, 'display', display) : null,
                     position !== 'static' ? getClassNames(styles, 'position', position) : null,
-                    minWidth != null ? getClassNames(styles, 'minWidth', String(minWidth)) : null,
-                    getClassNames(styles, 'maxWidth', maxWidth),
+                    minWidth != null
+                        ? getClassNames(widthStyles, 'minWidth', String(minWidth))
+                        : null,
+                    getClassNames(widthStyles, 'maxWidth', maxWidth),
                     textAlign !== 'start' ? getClassNames(styles, 'textAlign', textAlign) : null,
                     // padding
                     getClassNames(paddingStyles, 'paddingTop', resolvedPaddingTop),
@@ -166,7 +171,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
                     flexGrow != null ? getClassNames(styles, 'flexGrow', String(flexGrow)) : null,
                     // other props
                     getClassNames(styles, 'overflow', overflow),
-                    getClassNames(styles, 'width', width),
+                    width != null ? getClassNames(widthStyles, 'width', String(width)) : null,
                     getClassNames(styles, 'height', height),
                     getClassNames(styles, 'bg', background),
                     borderRadius !== 'none'
@@ -185,7 +190,8 @@ export type {
     BoxPaddingProps,
     BoxMarginProps,
     ReusableBoxProps,
-    BoxMaxMinWidth,
+    BoxMinWidth,
+    BoxMaxWidth,
     BoxDisplay,
     BoxPosition,
     BoxFlexDirection,

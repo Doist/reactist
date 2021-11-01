@@ -1,0 +1,77 @@
+/* min-width */
+.minWidth-0 {
+    min-width: 0px;
+}
+.minWidth-xsmall {
+    min-width: var(--reactist-width-xsmall);
+}
+.minWidth-small {
+    min-width: var(--reactist-width-small);
+}
+.minWidth-medium {
+    min-width: var(--reactist-width-medium);
+}
+.minWidth-large {
+    min-width: var(--reactist-width-large);
+}
+.minWidth-xlarge {
+    min-width: var(--reactist-width-xlarge);
+}
+
+/* max-width */
+.maxWidth-xsmall {
+    max-width: var(--reactist-width-xsmall);
+}
+.maxWidth-small {
+    max-width: var(--reactist-width-small);
+}
+.maxWidth-medium {
+    max-width: var(--reactist-width-medium);
+}
+.maxWidth-large {
+    max-width: var(--reactist-width-large);
+}
+.maxWidth-xlarge {
+    max-width: var(--reactist-width-xlarge);
+}
+.maxWidth-full {
+    max-width: 100%;
+}
+
+/* width */
+.width-0 {
+    width: 0px;
+}
+.width-full {
+    width: 100%;
+}
+.width-auto {
+    width: auto;
+}
+.width-maxContent {
+    width: -moz-max-content;
+    width: max-content;
+}
+.width-minContent {
+    width: -moz-min-content;
+    width: min-content;
+}
+.width-fitContent {
+    width: -moz-fit-content;
+    width: fit-content;
+}
+.width-xsmall {
+    width: var(--reactist-width-xsmall);
+}
+.width-small {
+    width: var(--reactist-width-small);
+}
+.width-medium {
+    width: var(--reactist-width-medium);
+}
+.width-large {
+    width: var(--reactist-width-large);
+}
+.width-xlarge {
+    width: var(--reactist-width-xlarge);
+}
