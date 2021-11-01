@@ -7,7 +7,7 @@ export default {
     title: 'Components/Dropdown',
     component: Dropdown,
     parameters: {
-        badges: ['notAccessible'],
+        badges: ['notAccessible', 'deprecated'],
     },
 }
 
