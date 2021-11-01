@@ -2,6 +2,7 @@ import * as React from 'react'
 import { render, screen, within } from '@testing-library/react'
 import { Modal, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from './modal'
 import userEvent from '@testing-library/user-event'
+import { axe } from 'jest-axe'
 
 describe('Modal', () => {
     function TestCaseWithState() {
@@ -276,5 +277,46 @@ describe('ModalCloseButton', () => {
     it('renders a svg icon as its content', () => {
         const { button } = renderTestCase()
         expect(button.firstElementChild?.tagName).toBe('svg')
+    })
+})
+
+describe('a11y', () => {
+    it('renders with no a11y violations with custom content', async () => {
+        const { container } = render(
+            <Modal isOpen={true} aria-label="modal">
+                <input type="text" aria-labelledby="test-label" />
+                <label id="test-label">Test Input</label>
+            </Modal>,
+        )
+        const results = await axe(container)
+
+        expect(results).toHaveNoViolations()
+    })
+
+    it('renders with no a11y violations when using inner-structure components', async () => {
+        const { container } = render(
+            <Modal isOpen={true} aria-label="modal">
+                <ModalHeader>Header</ModalHeader>
+                <ModalBody>Body</ModalBody>
+                <ModalFooter>Footer</ModalFooter>
+            </Modal>,
+        )
+        const results = await axe(container)
+
+        expect(results).toHaveNoViolations()
+    })
+
+    it("calls the modal's onDismiss callback when 'Esc' is pressed", () => {
+        const onDismiss = jest.fn()
+        render(
+            <Modal isOpen onDismiss={onDismiss} aria-label="modal">
+                <ModalHeader>Hello</ModalHeader>
+            </Modal>,
+        )
+        const modal = screen.getByRole('dialog', { name: 'modal' })
+
+        expect(onDismiss).not.toHaveBeenCalled()
+        userEvent.type(modal, '{esc}')
+        expect(onDismiss).toHaveBeenCalledTimes(1)
     })
 })
