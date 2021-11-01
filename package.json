@@ -2,7 +2,7 @@
     "name": "@doist/reactist",
     "description": "Open source React components by Doist",
     "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",
-    "version": "10.0.0-beta.12",
+    "version": "10.0.0",
     "license": "MIT",
     "homepage": "https://github.com/Doist/reactist#readme",
     "repository": "git+https://github.com/Doist/reactist.git",
@@ -43,9 +43,9 @@
     },
     "peerDependencies": {
         "classnames": "^2.2.5",
-        "prop-types": "^15.6.2",
-        "react": "^15.5.4 || ^16.2.0",
-        "react-dom": "^15.5.4 || ^16.2.0"
+        "react": "^15.5.4 || ^16.2.0 || ^17.0.0",
+        "react-dom": "^15.5.4 || ^16.2.0 || ^17.0.0",
+        "prop-types": "^15.6.2"
     },
     "devDependencies": {
         "@babel/core": "^7.9.6",

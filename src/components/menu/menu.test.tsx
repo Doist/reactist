@@ -63,6 +63,41 @@ describe('Menu', () => {
         expect(screen.getByRole('menu')).toBeInTheDocument()
     })
 
+    it('allows to navigate through the menu items using the keyboard', () => {
+        const onItemSelect = jest.fn()
+        const onSelect = jest.fn<void, [string]>()
+
+        render(
+            <Menu onItemSelect={onItemSelect}>
+                <MenuButton>Options menu</MenuButton>
+                <MenuList aria-label="Some options">
+                    <MenuItem value="1st" onSelect={() => onSelect('1st option')}>
+                        1st option
+                    </MenuItem>
+                    <MenuItem value="2nd" onSelect={() => onSelect('2nd option')}>
+                        2nd option
+                    </MenuItem>
+                    <MenuItem value="3rd" onSelect={() => onSelect('3rd option')}>
+                        3rd option
+                    </MenuItem>
+                </MenuList>
+            </Menu>,
+        )
+
+        userEvent.type(screen.getByRole('button', { name: 'Options menu' }), '{enter}')
+        fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
+        expect(screen.getByRole('menuitem', { name: '1st option' })).toHaveFocus()
+        fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
+        fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
+        expect(screen.getByRole('menuitem', { name: '3rd option' })).toHaveFocus()
+        fireEvent.keyDown(getFocusedElement(), { key: 'ArrowUp' })
+        expect(screen.getByRole('menuitem', { name: '2nd option' })).toHaveFocus()
+        fireEvent.keyDown(getFocusedElement(), { key: 'Enter' })
+        expect(onSelect).toHaveBeenCalledWith('2nd option')
+        expect(onItemSelect).toHaveBeenCalledWith('2nd')
+        expect(screen.queryByRole('menu')).not.toBeInTheDocument()
+    })
+
     it("calls the onSelect and the menu's onItemSelect with the value when menu items are selected", () => {
         const onItemSelect = jest.fn()
         const onSelect = jest.fn<void, [string]>()

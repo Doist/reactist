@@ -107,6 +107,10 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 -   [Build] The project now requires node v16.0.0+ and npm v7.0.0+ to install and run.
 
+## 10.0.0
+
+-   [Build] The project now requires node v16.0.0+ and npm v7.0.0+ to install and run.
+
 ## v9.2.0-beta.18
 
 -   [Breaking] Component composition changed to use prop `as="…"` instead of `component="…"`.
