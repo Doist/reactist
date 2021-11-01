@@ -2,6 +2,12 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+## next
+
+-   [Feat] Box maxWidth and minWidth are now driven by configurable CSS variables.
+-   [Feat] Box width prop now supports new values (`maxContent`, `minContent`, `fitContent`, `auto`,
+    `full`, and values from `xsmall` to `xlarge`).
+
 ## v10.0.0-beta.12
 
 -   [Tweak] Upgrade Storybook to version v6.3.10
