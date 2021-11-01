@@ -187,7 +187,11 @@ describe('TextField', () => {
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = render(
-                <TextField label="Whatʼs your name?" hint="We need it for billing purposes" />,
+                <>
+                    <TextField label="Whatʼs your name?" />
+                    <TextField label="Whatʼs your name?" disabled />
+                    <TextField label="Whatʼs your name?" hint="We need it for billing purposes" />
+                </>,
             )
             const results = await axe(container)
 

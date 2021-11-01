@@ -198,7 +198,11 @@ describe('SelectField', () => {
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = render(
-                <SelectField data-testid="select-field" id="custom-id" label="Province" />,
+                <>
+                    <SelectField label="Province" />
+                    <SelectField label="Province" disabled />
+                    <SelectField label="Province" hint="Select a province" />
+                </>,
             )
             const results = await axe(container)
 

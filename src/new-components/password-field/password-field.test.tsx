@@ -265,7 +265,11 @@ describe('PasswordField', () => {
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = render(
-                <PasswordField data-testid="password-field" id="custom-id" label="New Password" />,
+                <>
+                    <PasswordField label="New Password" />
+                    <PasswordField label="New Password" disabled />
+                    <PasswordField label="New Password" hint="Enter a new password" />
+                </>,
             )
             const results = await axe(container)
 
