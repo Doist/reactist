@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, screen, act } from '@testing-library/react'
+import { axe } from 'jest-axe'
 import userEvent from '@testing-library/user-event'
 import { Tooltip, SHOW_DELAY, HIDE_DELAY } from './tooltip'
 
@@ -162,5 +163,27 @@ describe('Tooltip', () => {
             jest.advanceTimersByTime(SHOW_DELAY * 2)
         })
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+    })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(
+                <Tooltip content="tooltip content here">
+                    <button>Click me</button>
+                </Tooltip>,
+            )
+
+            const button = screen.getByRole('button', { name: 'Click me' })
+            userEvent.hover(button)
+
+            act(() => {
+                jest.advanceTimersByTime(SHOW_DELAY * 2)
+            })
+
+            jest.useRealTimers()
+
+            const results = await axe(container)
+            expect(results).toHaveNoViolations()
+        })
     })
 })
