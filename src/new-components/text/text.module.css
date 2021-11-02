@@ -26,7 +26,7 @@
     color: var(--reactist-content-secondary);
 }
 .tone-danger {
-    color: var(--reactist-chromatic-content-red);
+    color: rgb(209, 69, 59);
 }
 
 /* truncated text */

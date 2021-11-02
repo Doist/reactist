@@ -3,13 +3,13 @@
     * These are not the actual colours defined in the mocks. Until we have a colour system aligned with
     * our product libraries, these variables should be documented and customized in the consuming apps.
     */
-    --reactist-tab-primary-background: var(--reactist-chromatic-fill-blue);
+    --reactist-tab-primary-background: rgb(36, 111, 224);
     --reactist-tab-primary-foreground: var(--reactist-content-light-on-dark);
-    --reactist-tab-primary-unselected: var(--reactist-chromatic-content-blue);
+    --reactist-tab-primary-unselected: rgb(36, 111, 224);
     --reactist-tab-secondary-background: var(--reactist-framework-fill-selected);
-    --reactist-tab-secondary-foreground: var(--reactist-chromatic-content-blue);
-    --reactist-tab-secondary-unselected: var(--reactist-chromatic-content-blue);
-    --reactist-tab-tertiary-background: var(--reactist-chromatic-fill-grey);
+    --reactist-tab-secondary-foreground: rgb(36, 111, 224);
+    --reactist-tab-secondary-unselected: rgb(36, 111, 224);
+    --reactist-tab-tertiary-background: rgb(128, 128, 128);
     --reactist-tab-tertiary-foreground: var(--reactist-content-light-on-dark);
     --reactist-tab-tertiary-unselected: var(--reactist-content-tertiary);
 }
