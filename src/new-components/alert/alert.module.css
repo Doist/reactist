@@ -1,8 +1,10 @@
 .container {
-    border-radius: var(--reactist-border-radius-small);
     border-style: solid;
     border-width: 1px;
     color: var(--reactist-content-primary);
+    padding: var(--reactist-spacing-small);
+    /* this is to make sure it always has the same minimum height, whether it has a close button or not */
+    min-height: calc(2 * var(--reactist-spacing-small) + var(--reactist-button-small-height) + 2px);
 }
 
 .tone-info {

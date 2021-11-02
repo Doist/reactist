@@ -2,6 +2,7 @@ import * as React from 'react'
 import { AlertTone } from '../common-types'
 import { getClassNames } from '../responsive-props'
 import { Box } from '../box'
+import { Button } from '../button'
 import { Columns, Column } from '../columns'
 
 import { AlertIcon } from '../icons/alert-icon'
@@ -28,19 +29,34 @@ function Alert({ id, children, tone, closeLabel, onClose }: AlertProps) {
             id={id}
             role="alert"
             aria-live="polite"
-            padding="small"
+            borderRadius="standard"
             className={[styles.container, getClassNames(styles, 'tone', tone)]}
         >
             <Columns space="small" alignY="top">
                 <Column width="content">
                     <AlertIcon tone={tone} />
                 </Column>
-                <Column>{children}</Column>
-                {onClose != null ? (
+                <Column>
+                    <Box
+                        paddingY="xsmall"
+                        paddingRight={onClose != null && closeLabel != null ? undefined : 'small'}
+                    >
+                        {children}
+                    </Box>
+                </Column>
+                {onClose != null && closeLabel != null ? (
                     <Column width="content">
-                        <button type="button" onClick={onClose} aria-label={closeLabel}>
-                            <CloseIcon />
-                        </button>
+                        <Button
+                            variant="quaternary"
+                            size="small"
+                            onClick={onClose}
+                            aria-label={closeLabel}
+                            icon={<CloseIcon />}
+                            style={{
+                                // @ts-expect-error not sure how to make TypeScript understand custom CSS properties
+                                '--reactist-btn-hover-fill': 'transparent',
+                            }}
+                        />
                     </Column>
                 ) : null}
             </Columns>
