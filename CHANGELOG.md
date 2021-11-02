@@ -4,22 +4,26 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 ## v11.0.0
 
--   [Feat] Box maxWidth and minWidth are now driven by configurable CSS variables.
--   [Feat] Box width prop now supports new values (`maxContent`, `minContent`, `fitContent`, `auto`,
-    `full`, and values from `xsmall` to `xlarge`).
+-   [Feat] New approach to styling components based on CSS variables
+-   [Feat] New approach to supporting rendering some components as another HTML element or as another component.
+-   [Feat] New components for layout (`Box`, `Columns`, `Column`, `Inline`, `Stack`)
+-   [Feat] New field components (`TextField`, `PasswordField`, `SelectField`, `CheckboxField`, `SwitchField`, `TextArea`)
+-   [Feat] New tabs components (`Tabs`, `Tab`, `TabList`, `TabPanel`, `TabAwareSlot`)
+-   [Feat] New components for typography (`Text`, `Heading`, `TextLink`)
+-   [Feat] Various other new components (`Alert`, `Notice`, `Hidden`, `HiddenVisually`)
+-   [Feat] New set of modal component (`Modal`, `ModalHeader`, `ModalBody`, `ModalFooter`, `ModalActions`) replacing the old set of `Modal.*` components.
+-   [Feat] New `Button` and `ButtonLink` components, replacing the old `Button` component.
+-   [Breaking] Old set of modal components are now exported as `DeprecatedModal` instead of as `Modal`.
+-   [Breaking] Old `Button` component is now exported as `DeprecatedButton` instead of as `Button`.
+-   [Breaking] Old `Loading` component is now exported as `DeprecatedLoading` instead of as `Loading`.
 -   [Breaking] Removes the `RangeInput` component
 -   [Breaking] Removes the `Tip` component
 -   [Breaking] Removes the `Icon` component
 -   [Breaking] Removes the `ErrorMessage` component
 -   [Docs] Adds a11y badges to component stories
 -   [Docs] Adds `jest-axe` package and automated a11y checks
--   [Tweak] Makes a11y improvements to `CheckboxField`
--   [Tweak] Makes a11y improvements to `Switchfield`
--   [Tweak] Makes a11y improvements to `Loading`
 -   [Tweak] Makes a11y improvements to `Menu`
 -   [Tweak] Makes a11y improvements to `ProgressBar`
--   [Tweak] Makes a11y improvements to `Notification`
--   [Tweak] Makes a11y improvements to `Modal`
 -   [Tweak] Makes a11y improvements to `Notification`
 -   [Build] Updates peer deps to include React v17.0
 
