@@ -1,0 +1,77 @@
+:root {
+    /*
+    * These are not the actual colours defined in the mocks. Until we have a colour system aligned with
+    * our product libraries, these variables should be documented and customized in the consuming apps.
+    */
+    --reactist-tab-primary-background: var(--reactist-chromatic-fill-blue);
+    --reactist-tab-primary-foreground: var(--reactist-content-light-on-dark);
+    --reactist-tab-primary-unselected: var(--reactist-chromatic-content-blue);
+    --reactist-tab-secondary-background: var(--reactist-framework-fill-selected);
+    --reactist-tab-secondary-foreground: var(--reactist-chromatic-content-blue);
+    --reactist-tab-secondary-unselected: var(--reactist-chromatic-content-blue);
+    --reactist-tab-tertiary-background: var(--reactist-chromatic-fill-grey);
+    --reactist-tab-tertiary-foreground: var(--reactist-content-light-on-dark);
+    --reactist-tab-tertiary-unselected: var(--reactist-content-tertiary);
+}
+
+.tab {
+    box-sizing: border-box;
+    border: none;
+    border-radius: var(--reactist-border-radius-small);
+    background: none;
+    cursor: pointer;
+}
+
+/*
+ * Normal variant
+ * See https://www.figma.com/file/LYlWNzvhMDh907l07mPPQk/Product-Web?node-id=4693%3A175143
+ */
+
+.tab-normal {
+    padding: 0 var(--reactist-spacing-medium);
+    font-size: var(--reactist-font-size-body);
+    line-height: 32px;
+    border-radius: 20px;
+}
+
+.tab-normal.tab-primary {
+    color: var(--reactist-tab-primary-unselected);
+}
+
+.tab-normal.tab-primary[aria-selected='true'] {
+    background-color: var(--reactist-tab-primary-background);
+    color: var(--reactist-tab-primary-foreground);
+}
+
+.tab-normal.tab-secondary {
+    color: var(--reactist-tab-secondary-unselected);
+}
+
+.tab-normal.tab-secondary[aria-selected='true'] {
+    background-color: var(--reactist-tab-secondary-background);
+    color: var(--reactist-tab-secondary-foreground);
+}
+
+.tab-normal.tab-tertiary {
+    color: var(--reactist-tab-tertiary-unselected);
+}
+
+.tab-normal.tab-tertiary[aria-selected='true'] {
+    background-color: var(--reactist-tab-tertiary-background);
+    color: var(--reactist-tab-tertiary-foreground);
+}
+
+/*
+ * Plain variant
+ */
+
+.tab-plain {
+    padding: var(--reactist-spacing-xsmall);
+    color: var(--reactist-content-secondary);
+    font-size: var(--reactist-font-size-subtitle);
+    font-weight: var(--reactist-font-weight-strong);
+}
+
+.tab-plain[aria-selected='true'] {
+    color: var(--reactist-content-primary);
+}

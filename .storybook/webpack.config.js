@@ -23,7 +23,10 @@ module.exports = {
                     'less-loader',
                 ],
             },
-            { test: /\.css$/, loader: 'style-loader!css-loader' },
+            {
+                test: /\.svg$/,
+                loader: 'svg-url-loader',
+            },
         ],
     },
     resolve: {

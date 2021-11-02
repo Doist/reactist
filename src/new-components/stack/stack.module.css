@@ -1,0 +1,78 @@
+/* Default vertical spacing */
+.space-xsmall > :not(:first-child) {
+    margin-top: var(--reactist-spacing-xsmall);
+}
+
+.space-small > :not(:first-child) {
+    margin-top: var(--reactist-spacing-small);
+}
+
+.space-medium > :not(:first-child) {
+    margin-top: var(--reactist-spacing-medium);
+}
+
+.space-large > :not(:first-child) {
+    margin-top: var(--reactist-spacing-large);
+}
+
+.space-xlarge > :not(:first-child) {
+    margin-top: var(--reactist-spacing-xlarge);
+}
+
+.space-xxlarge > :not(:first-child) {
+    margin-top: var(--reactist-spacing-xxlarge);
+}
+
+/* Vertical spacing in tablet */
+@media (min-width: 768px /* --reactist-breakpoint-tablet */) {
+    .tablet-space-xsmall > :not(:first-child) {
+        margin-top: var(--reactist-spacing-xsmall);
+    }
+
+    .tablet-space-small > :not(:first-child) {
+        margin-top: var(--reactist-spacing-small);
+    }
+
+    .tablet-space-medium > :not(:first-child) {
+        margin-top: var(--reactist-spacing-medium);
+    }
+
+    .tablet-space-large > :not(:first-child) {
+        margin-top: var(--reactist-spacing-large);
+    }
+
+    .tablet-space-xlarge > :not(:first-child) {
+        margin-top: var(--reactist-spacing-xlarge);
+    }
+
+    .tablet-space-xxlarge > :not(:first-child) {
+        margin-top: var(--reactist-spacing-xxlarge);
+    }
+}
+
+/* Vertical spacing in desktop */
+@media (min-width: 992px /* --reactist-breakpoint-desktop */) {
+    .desktop-space-xsmall > :not(:first-child) {
+        margin-top: var(--reactist-spacing-xsmall);
+    }
+
+    .desktop-space-small > :not(:first-child) {
+        margin-top: var(--reactist-spacing-small);
+    }
+
+    .desktop-space-medium > :not(:first-child) {
+        margin-top: var(--reactist-spacing-medium);
+    }
+
+    .desktop-space-large > :not(:first-child) {
+        margin-top: var(--reactist-spacing-large);
+    }
+
+    .desktop-space-xlarge > :not(:first-child) {
+        margin-top: var(--reactist-spacing-xlarge);
+    }
+
+    .desktop-space-xxlarge > :not(:first-child) {
+        margin-top: var(--reactist-spacing-xxlarge);
+    }
+}

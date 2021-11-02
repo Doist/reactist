@@ -5,8 +5,11 @@ import Checkbox from '../../src/components/checkbox'
 // Story setup ================================================================
 
 export default {
-    title: 'Checkbox',
+    title: 'Components/Checkbox',
     component: Checkbox,
+    parameters: {
+        badges: ['deprecated'],
+    },
 }
 
 // Story Definitions ==========================================================

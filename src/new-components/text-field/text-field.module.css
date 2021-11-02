@@ -1,0 +1,43 @@
+.inputWrapper {
+    border-radius: var(--reactist-border-radius-small);
+    border: 1px solid var(--reactist-divider-secondary);
+    overflow: clip;
+}
+
+.inputWrapper:focus-within {
+    border-color: var(--reactist-divider-primary);
+}
+
+.inputWrapper input {
+    color: var(--reactist-content-primary);
+    flex: 1;
+    outline: none; /* we take care of the focus state above */
+    box-sizing: border-box;
+    width: 100%;
+    background: transparent;
+    border: none;
+
+    /**
+      * The desired height below is 30px. This is so that, with +2px from the wrapper borders
+      * we obtain a 32px height on the wrapper.
+      *
+      * Unlike with buttons, the `input` does not own the visible border, as this is set in
+      * the parent container. This is so that we can place other stuff to appear to be
+      * "inside" the input (e.g. the toggle password visibility button). So in order to have
+      * the perceived text field be of height 32px we need the actual `input` to be of height
+      * 30px.
+      */
+    --tmp-desired-height: 30px;
+    --tmp-line-height-increase: 4px;
+    --tmp-vertical-padding: calc(
+        (
+                var(--tmp-desired-height) - var(--reactist-font-size-body) -
+                    var(--tmp-line-height-increase)
+            ) / 2
+    );
+
+    font-size: var(--reactist-font-size-body);
+    line-height: calc(var(--reactist-font-size-body) + 4px);
+    padding: var(--tmp-vertical-padding) 10px;
+    margin: 0;
+}

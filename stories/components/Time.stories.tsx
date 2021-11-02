@@ -8,8 +8,11 @@ import Time from '../../src/components/time'
 // Story setup ================================================================
 
 export default {
-    title: 'Time',
+    title: 'Components/Time',
     component: Time,
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 const exampleTimes = [

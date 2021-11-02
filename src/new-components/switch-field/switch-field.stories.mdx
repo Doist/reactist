@@ -1,0 +1,76 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
+import { SwitchField } from './switch-field'
+import { Stack } from '../stack'
+import { Text } from '../text'
+
+<Meta
+    title="Design system/SwitchField"
+    component={SwitchField}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
+
+# SwitchField
+
+A checkbox with a built-in label element that visually looks like a toggle switch.
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
+        argTypes={{
+            label: {
+                control: { type: 'text' },
+                defaultValue: 'Show unread badge',
+            },
+            hint: {
+                control: { type: 'text' },
+                defaultValue:
+                    'Show an icon badge to indicate that there are new threads and messages.',
+            },
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+        }}
+        name="Playground"
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+---
+
+<Description of={SwitchField} />
+<ArgsTable of={SwitchField} />
+
+export function Template({ label, hint, disabled }) {
+    return <SwitchField label={label || 'Default label'} hint={hint} disabled={disabled} />
+}
+
+## Accessibility
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Accessibility Attributes">
+        <Stack space="medium" dividers="primary">
+            <Stack space="medium">
+                <SwitchField aria-label="Golden Retriever" label="aria-label" />
+                <Text tone="secondary">
+                    A screen reader will announce the switch as "Golden Retriever".
+                </Text>
+            </Stack>
+            <Stack space="medium">
+                <SwitchField aria-labelledby="shibainu-text" label="aria-labelledby" />
+                <Text id="shibainu-text">Shiba Inu</Text>
+                <Text tone="secondary">
+                    A screen reader will announce the switch as "Shiba Inu".
+                </Text>
+            </Stack>
+            <Stack space="medium">
+                <SwitchField aria-describedby="husky-text" label="aria-describedby" />
+                <Text id="husky-text">Husky</Text>
+                <Text tone="secondary">A screen reader will describe the switch as "Husky".</Text>
+            </Stack>
+        </Stack>
+    </Story>
+</Canvas>

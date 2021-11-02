@@ -14,8 +14,11 @@ const options = [
 // Story setup ================================================================
 
 export default {
-    title: 'Select',
+    title: 'Components/Select',
     component: Select,
+    parameters: {
+        badges: ['deprecated'],
+    },
 }
 
 // Story Definitions ==========================================================

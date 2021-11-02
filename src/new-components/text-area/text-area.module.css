@@ -1,0 +1,11 @@
+.container textarea {
+    padding: var(--reactist-spacing-small);
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: var(--reactist-border-radius-small);
+    border: 1px solid var(--reactist-divider-secondary);
+}
+
+.container textarea:focus {
+    border-color: var(--reactist-divider-primary);
+}

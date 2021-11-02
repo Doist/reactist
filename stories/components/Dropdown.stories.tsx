@@ -1,11 +1,14 @@
 import React from 'react'
 
 import Dropdown from '../../src/components/dropdown'
-import Button from '../../src/components/button'
+import Button from '../../src/components/deprecated-button'
 
 export default {
-    title: 'Dropdown',
+    title: 'Components/Dropdown',
     component: Dropdown,
+    parameters: {
+        badges: ['notAccessible', 'deprecated'],
+    },
 }
 
 // Story Definitions ==========================================================
