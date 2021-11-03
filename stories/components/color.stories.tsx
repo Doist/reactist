@@ -11,19 +11,9 @@ export default {
 }
 
 const frameworkFillColors = [
-    '--reactist-framework-fill-accent',
-    '--reactist-framework-fill-aside',
     '--reactist-framework-fill-background',
-    '--reactist-framework-fill-base',
-    '--reactist-framework-fill-crater',
     '--reactist-framework-fill-crest',
-    '--reactist-framework-fill-elevated',
     '--reactist-framework-fill-selected',
-    '--reactist-framework-fill-highlight',
-    '--reactist-framework-fill-ledge',
-    '--reactist-framework-fill-peak',
-    '--reactist-framework-fill-pinnacle',
-    '--reactist-framework-fill-ridge',
     '--reactist-framework-fill-summit',
 ]
 
@@ -37,39 +27,7 @@ const contentColors = [
     '--reactist-content-primary',
     '--reactist-content-secondary',
     '--reactist-content-tertiary',
-    '--reactist-content-quaternary',
     '--reactist-content-light-on-dark',
-]
-
-const chromaticFillColors = [
-    '--reactist-chromatic-fill-red',
-    '--reactist-chromatic-fill-orange',
-    '--reactist-chromatic-fill-green',
-    '--reactist-chromatic-fill-teal',
-    '--reactist-chromatic-fill-blue',
-    '--reactist-chromatic-fill-purple',
-    '--reactist-chromatic-fill-charcoal',
-    '--reactist-chromatic-fill-grey',
-    '--reactist-chromatic-fill-midnight',
-]
-
-const chromaticContentColors = [
-    '--reactist-chromatic-content-red',
-    '--reactist-chromatic-content-orange',
-    '--reactist-chromatic-content-green',
-    '--reactist-chromatic-content-green-background',
-    '--reactist-chromatic-content-green-background-highlight',
-    '--reactist-chromatic-content-teal',
-    '--reactist-chromatic-content-blue',
-    '--reactist-chromatic-content-purple',
-    '--reactist-chromatic-content-charcoal',
-    '--reactist-chromatic-content-grey',
-]
-
-const chromaticHighlightColors = [
-    '--reactist-chromatic-highlight-blue',
-    '--reactist-chromatic-highlight-green',
-    '--reactist-chromatic-highlight-red',
 ]
 
 function Swatch({ color }: { color: string }) {
@@ -111,31 +69,6 @@ export function Colors() {
             </Heading>
             <Stack space="small">
                 {contentColors.map((color) => (
-                    <Swatch color={color} key={color} />
-                ))}
-            </Stack>
-
-            <Heading level={1} size="larger">
-                Chromatic
-            </Heading>
-
-            <Heading level={2}>Chromatic-Fill</Heading>
-            <Stack space="small">
-                {chromaticFillColors.map((color) => (
-                    <Swatch color={color} key={color} />
-                ))}
-            </Stack>
-
-            <Heading level={2}>Chromatic-Content</Heading>
-            <Stack space="small">
-                {chromaticContentColors.map((color) => (
-                    <Swatch color={color} key={color} />
-                ))}
-            </Stack>
-
-            <Heading level={2}>Chromatic-Highlight</Heading>
-            <Stack space="small">
-                {chromaticHighlightColors.map((color) => (
                     <Swatch color={color} key={color} />
                 ))}
             </Stack>

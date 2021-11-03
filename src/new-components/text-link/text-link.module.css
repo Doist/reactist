@@ -3,7 +3,7 @@
     font-weight: inherit;
     font-family: inherit;
     text-decoration: none;
-    color: var(--reactist-chromatic-content-blue);
+    color: rgb(36, 111, 224);
     cursor: pointer;
 }
 
