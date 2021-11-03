@@ -24,7 +24,9 @@ function Notice({ id, children, tone }: NoticeProps) {
                 <Column width="content">
                     <AlertIcon tone={tone} />
                 </Column>
-                <Column>{children}</Column>
+                <Column>
+                    <Box paddingY="xsmall">{children}</Box>
+                </Column>
             </Columns>
         </Box>
     )

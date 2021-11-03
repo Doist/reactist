@@ -16,10 +16,6 @@ import { Loading } from './loading'
 
 A loading indicator that comes in three sizes.
 
-export function Template({ label, size }) {
-    return <Loading label={label || 'Loading…'} size={size} />
-}
-
 export function Example({ children, size }) {
     return (
         <Stack space="xxlarge" align="center">
