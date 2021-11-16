@@ -5,6 +5,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 # next
 
 -   [Fix] Adds margin to Menu's viewport positioning
+-   [Feat] Updates Avatar to support responsive patterns
 
 ## v11.0.0
 
