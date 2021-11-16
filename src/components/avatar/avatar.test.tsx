@@ -27,12 +27,19 @@ describe('Avatar', () => {
         expect(avatar.text()).toBe('H')
     })
 
-    it('falls back to size `l` when invalid value is supplied', () => {
-        // eslint-disable-next-line
-        console.error = jest.fn()
-        // @ts-expect-error we are deliberately calling an invalid value here
-        const avatar = shallow(getAvatar({ size: 'medium' }))
-        expect(avatar.hasClass('reactist_avatar_size--l')).toBe(true)
+    it('supports responsive values', () => {
+        const avatar = shallow(
+            getAvatar({
+                size: {
+                    mobile: 's',
+                    desktop: 'xl',
+                    tablet: 'xxl',
+                },
+            }),
+        )
+        expect(avatar.hasClass('size-s')).toBe(true)
+        expect(avatar.hasClass('desktop-size-xl')).toBe(true)
+        expect(avatar.hasClass('tablet-size-xxl')).toBe(true)
     })
 
     // Helpers ================================================================
