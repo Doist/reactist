@@ -3,8 +3,7 @@ import './styles/avatar_story.less'
 import React from 'react'
 import { withKnobs } from '@storybook/addon-knobs'
 
-import Avatar from '../../src/components/avatar'
-import { Box, Inline } from '../../src'
+import { Avatar, Box, Inline } from '../../src'
 
 export default {
     title: 'Components/Avatar',

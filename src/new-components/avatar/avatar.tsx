@@ -4,9 +4,9 @@ import classNames from 'classnames'
 import { getInitials, emailToIndex } from './utils'
 
 // import './avatar.less'
-import { getClassNames, ResponsiveProp } from '../../new-components/responsive-props'
+import { getClassNames, ResponsiveProp } from '../responsive-props'
 import styles from './avatar.module.css'
-import { Box } from '../..'
+import { Box } from '../box'
 
 const AVATAR_COLORS = [
     '#fcc652',
