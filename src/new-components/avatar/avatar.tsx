@@ -1,5 +1,4 @@
 import React from 'react'
-import classNames from 'classnames'
 
 import { getInitials, emailToIndex } from './utils'
 
@@ -31,14 +30,16 @@ const AVATAR_COLORS = [
 type AvatarSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl'
 
 type Props = {
+    /** @deprecated Please use `exceptionallySetClassName` */
     className?: string
+    exceptionallySetClassName?: string
     colorList?: string[]
     size?: ResponsiveProp<AvatarSize>
     avatarUrl?: string
     user: { name?: string; email: string }
 }
 
-function Avatar({ user, avatarUrl, size = 'l', className, colorList = AVATAR_COLORS }: Props) {
+function Avatar({ user, avatarUrl, size = 'l', className, exceptionallySetClassName }: Props) {
     const userInitials = getInitials(user.name) || getInitials(user.email)
     const avatarSize = size ? size : 'l'
 
@@ -48,13 +49,16 @@ function Avatar({ user, avatarUrl, size = 'l', className, colorList = AVATAR_COL
               textIndent: '-9999px', // hide the initials
           }
         : {
-              backgroundColor: colorList[emailToIndex(user.email, colorList.length)],
+              backgroundColor: AVATAR_COLORS[emailToIndex(user.email, AVATAR_COLORS.length)],
           }
 
     const sizeClassName = getClassNames(styles, 'size', avatarSize)
 
     return (
-        <Box className={classNames(className, styles.avatar, sizeClassName)} style={style}>
+        <Box
+            className={[className, styles.avatar, sizeClassName, exceptionallySetClassName]}
+            style={style}
+        >
             {userInitials}
         </Box>
     )

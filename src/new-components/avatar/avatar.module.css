@@ -57,7 +57,7 @@
     --reactist-avatar-size: var(--reactist-avatar-size-xxxlarge);
 }
 
-/* padding-top for tablet */
+/* avatar size for tablet */
 @media (min-width: 768px /* --reactist-breakpoint-tablet */) {
     .tablet-size-xxs {
         --reactist-avatar-size: var(--reactist-avatar-size-xxsmall);
@@ -92,7 +92,7 @@
     }
 }
 
-/* padding-top for desktop */
+/* avatar size for desktop */
 @media (min-width: 992px /* --reactist-breakpoint-desktop */) {
     .desktop-size-xxs {
         --reactist-avatar-size: var(--reactist-avatar-size-xxsmall);

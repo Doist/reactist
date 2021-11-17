@@ -34,7 +34,7 @@ export * from './new-components/text-field'
 // other components
 export * from './new-components/tabs'
 export * from './new-components/modal'
-export { default as Avatar } from './new-components/avatar'
+export * from './new-components/avatar'
 
 // hooks
 export * from './hooks/use-previous'
