@@ -66,6 +66,7 @@ function Avatar({
         <Box
             className={[className, styles.avatar, sizeClassName, exceptionallySetClassName]}
             style={style}
+            data-testid="avatar"
         >
             {userInitials}
         </Box>

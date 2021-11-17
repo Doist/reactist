@@ -1,90 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Avatar renders a background image when avatarUrl is supplied 1`] = `
-<ForwardRef(Box)
-  className={
-    Array [
-      undefined,
-      "avatar",
-      Array [
-        "size-xl",
-      ],
-      undefined,
-    ]
-  }
-  style={
-    Object {
-      "backgroundImage": "url(https://foo.bar/com.png)",
-      "textIndent": "-9999px",
-    }
-  }
+<div
+  class="avatar size-xl box"
+  data-testid="avatar"
+  style="background-image: url(https://foo.bar/com.png); text-indent: -9999px;"
 >
   HM
-</ForwardRef(Box)>
+</div>
 `;
 
 exports[`Avatar renders initials of user email when avatarUrl is not supplied 1`] = `
-<ForwardRef(Box)
-  className={
-    Array [
-      undefined,
-      "avatar",
-      Array [
-        "size-xl",
-      ],
-      undefined,
-    ]
-  }
-  style={
-    Object {
-      "backgroundColor": "#98be2f",
-    }
-  }
+<div
+  class="avatar size-xl box"
+  data-testid="avatar"
+  style="background-color: rgb(152, 190, 47);"
 >
   H
-</ForwardRef(Box)>
+</div>
 `;
 
 exports[`Avatar renders initials of user name when avatarUrl is not supplied 1`] = `
-<ForwardRef(Box)
-  className={
-    Array [
-      undefined,
-      "avatar",
-      Array [
-        "size-xl",
-      ],
-      undefined,
-    ]
-  }
-  style={
-    Object {
-      "backgroundColor": "#98be2f",
-    }
-  }
+<div
+  class="avatar size-xl box"
+  data-testid="avatar"
+  style="background-color: rgb(152, 190, 47);"
 >
   HM
-</ForwardRef(Box)>
+</div>
 `;
 
 exports[`Avatar renders initials on custom color 1`] = `
-<ForwardRef(Box)
-  className={
-    Array [
-      undefined,
-      "avatar",
-      Array [
-        "size-xl",
-      ],
-      undefined,
-    ]
-  }
-  style={
-    Object {
-      "backgroundColor": "#98be2f",
-    }
-  }
+<div
+  class="avatar size-xl box"
+  data-testid="avatar"
+  style="background-color: red;"
 >
   HM
-</ForwardRef(Box)>
+</div>
 `;

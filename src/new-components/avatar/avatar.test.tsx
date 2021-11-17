@@ -1,34 +1,46 @@
+import { render, screen } from '@testing-library/react'
 import React from 'react'
-import { shallow } from 'enzyme'
 
 import { Avatar } from './avatar'
 
 describe('Avatar', () => {
     it('renders a background image when avatarUrl is supplied', () => {
-        const avatar = shallow(getAvatar({ avatarUrl: 'https://foo.bar/com.png' }))
+        render(getAvatar({ avatarUrl: 'https://foo.bar/com.png' }))
+
+        const avatar = screen.getByTestId('avatar')
+
         expect(avatar).toMatchSnapshot()
     })
 
     it('renders initials of user name when avatarUrl is not supplied', () => {
-        const avatar = shallow(getAvatar())
+        render(getAvatar())
+
+        const avatar = screen.getByTestId('avatar')
+
         expect(avatar).toMatchSnapshot()
-        expect(avatar.text()).toBe('HM')
+        expect(avatar.textContent).toBe('HM')
     })
 
     it('renders initials on custom color', () => {
-        const avatar = shallow(getAvatar({ colorList: ['red', 'green', '#0000FF'] }))
+        render(getAvatar({ colorList: ['red', 'green', '#0000FF'] }))
+
+        const avatar = screen.getByTestId('avatar')
+
         expect(avatar).toMatchSnapshot()
-        expect(avatar.text()).toBe('HM')
+        expect(avatar.textContent).toBe('HM')
     })
 
     it('renders initials of user email when avatarUrl is not supplied', () => {
-        const avatar = shallow(getAvatar({ user: { email: 'henning@doist.com' } }))
+        render(getAvatar({ user: { email: 'henning@doist.com' } }))
+
+        const avatar = screen.getByTestId('avatar')
+
         expect(avatar).toMatchSnapshot()
-        expect(avatar.text()).toBe('H')
+        expect(avatar.textContent).toBe('H')
     })
 
     it('supports responsive values', () => {
-        const avatar = shallow(
+        render(
             getAvatar({
                 size: {
                     mobile: 's',
@@ -37,9 +49,11 @@ describe('Avatar', () => {
                 },
             }),
         )
-        expect(avatar.hasClass('size-s')).toBe(true)
-        expect(avatar.hasClass('desktop-size-xl')).toBe(true)
-        expect(avatar.hasClass('tablet-size-xxl')).toBe(true)
+        const avatar = screen.getByTestId('avatar')
+
+        expect(avatar).toHaveClass('size-s')
+        expect(avatar).toHaveClass('desktop-size-xl')
+        expect(avatar).toHaveClass('tablet-size-xxl')
     })
 
     // Helpers ================================================================
