@@ -33,13 +33,21 @@ type Props = {
     /** @deprecated Please use `exceptionallySetClassName` */
     className?: string
     exceptionallySetClassName?: string
+    /** @deprecated */
     colorList?: string[]
     size?: ResponsiveProp<AvatarSize>
     avatarUrl?: string
     user: { name?: string; email: string }
 }
 
-function Avatar({ user, avatarUrl, size = 'l', className, exceptionallySetClassName }: Props) {
+function Avatar({
+    user,
+    avatarUrl,
+    size = 'l',
+    className,
+    colorList = AVATAR_COLORS,
+    exceptionallySetClassName,
+}: Props) {
     const userInitials = getInitials(user.name) || getInitials(user.email)
     const avatarSize = size ? size : 'l'
 
@@ -49,7 +57,7 @@ function Avatar({ user, avatarUrl, size = 'l', className, exceptionallySetClassN
               textIndent: '-9999px', // hide the initials
           }
         : {
-              backgroundColor: AVATAR_COLORS[emailToIndex(user.email, AVATAR_COLORS.length)],
+              backgroundColor: colorList[emailToIndex(user.email, colorList.length)],
           }
 
     const sizeClassName = getClassNames(styles, 'size', avatarSize)
