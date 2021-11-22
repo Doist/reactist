@@ -47,6 +47,7 @@ function Avatar({
     className,
     colorList = AVATAR_COLORS,
     exceptionallySetClassName,
+    ...props
 }: Props) {
     const userInitials = getInitials(user.name) || getInitials(user.email)
     const avatarSize = size ? size : 'l'
@@ -66,7 +67,7 @@ function Avatar({
         <Box
             className={[className, styles.avatar, sizeClassName, exceptionallySetClassName]}
             style={style}
-            data-testid="avatar"
+            {...props}
         >
             {userInitials}
         </Box>

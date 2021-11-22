@@ -17,17 +17,7 @@ describe('Avatar', () => {
 
         const avatar = screen.getByTestId('avatar')
 
-        expect(avatar).toMatchSnapshot()
-        expect(avatar.textContent).toBe('HM')
-    })
-
-    it('renders initials on custom color', () => {
-        render(getAvatar({ colorList: ['red', 'green', '#0000FF'] }))
-
-        const avatar = screen.getByTestId('avatar')
-
-        expect(avatar).toMatchSnapshot()
-        expect(avatar.textContent).toBe('HM')
+        expect(avatar).toHaveTextContent('HM')
     })
 
     it('renders initials of user email when avatarUrl is not supplied', () => {
@@ -35,8 +25,7 @@ describe('Avatar', () => {
 
         const avatar = screen.getByTestId('avatar')
 
-        expect(avatar).toMatchSnapshot()
-        expect(avatar.textContent).toBe('H')
+        expect(avatar).toHaveTextContent('H')
     })
 
     it('supports responsive values', () => {
@@ -61,5 +50,12 @@ describe('Avatar', () => {
         props?: Omit<React.ComponentProps<typeof Avatar>, 'user'> & {
             user?: { name?: string; email: string }
         },
-    ) => <Avatar user={{ name: 'Henning Mus', email: 'henning@doist.com' }} size="xl" {...props} />
+    ) => (
+        <Avatar
+            data-testid="avatar"
+            user={{ name: 'Henning Mus', email: 'henning@doist.com' }}
+            size="xl"
+            {...props}
+        />
+    )
 })
