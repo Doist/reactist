@@ -5,7 +5,7 @@ import { Box } from '../../src/new-components/box'
 import { Button } from '../../src/new-components/button'
 import { Text } from '../../src/new-components/text'
 import { TextField } from '../../src/new-components/text-field'
-import Avatar from '../../src/components/avatar'
+import { Avatar } from '../../src'
 import { Notification } from '../../src/components/notification/notification'
 import './styles/notification_story.less'
 

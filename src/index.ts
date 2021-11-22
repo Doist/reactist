@@ -34,6 +34,7 @@ export * from './new-components/text-field'
 // other components
 export * from './new-components/tabs'
 export * from './new-components/modal'
+export * from './new-components/avatar'
 
 // hooks
 export * from './hooks/use-previous'
@@ -42,7 +43,6 @@ export * from './hooks/use-previous'
 // components not yet integrated with the design system
 //
 
-export { default as Avatar } from './components/avatar'
 export { default as Checkbox } from './components/checkbox'
 export { default as ColorPicker, COLORS } from './components/color-picker'
 export { default as Dropdown } from './components/dropdown'
