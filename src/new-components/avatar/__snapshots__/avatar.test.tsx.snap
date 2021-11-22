@@ -9,33 +9,3 @@ exports[`Avatar renders a background image when avatarUrl is supplied 1`] = `
   HM
 </div>
 `;
-
-exports[`Avatar renders initials of user email when avatarUrl is not supplied 1`] = `
-<div
-  class="avatar size-xl box"
-  data-testid="avatar"
-  style="background-color: rgb(152, 190, 47);"
->
-  H
-</div>
-`;
-
-exports[`Avatar renders initials of user name when avatarUrl is not supplied 1`] = `
-<div
-  class="avatar size-xl box"
-  data-testid="avatar"
-  style="background-color: rgb(152, 190, 47);"
->
-  HM
-</div>
-`;
-
-exports[`Avatar renders initials on custom color 1`] = `
-<div
-  class="avatar size-xl box"
-  data-testid="avatar"
-  style="background-color: red;"
->
-  HM
-</div>
-`;
