@@ -1,9 +1,8 @@
 import * as React from 'react'
 import { render, screen, within } from '@testing-library/react'
-import { Modal, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from './modal'
+import { Modal, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, ModalActions } from './modal'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
-import { ModalActions } from '../..'
 import { Button } from '../button'
 
 describe('Modal', () => {
