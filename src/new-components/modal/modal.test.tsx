@@ -3,6 +3,8 @@ import { render, screen, within } from '@testing-library/react'
 import { Modal, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from './modal'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
+import { ModalActions } from '../..'
+import { Button } from '../button'
 
 describe('Modal', () => {
     function TestCaseWithState() {
@@ -277,6 +279,42 @@ describe('ModalCloseButton', () => {
     it('renders a svg icon as its content', () => {
         const { button } = renderTestCase()
         expect(button.firstElementChild?.tagName).toBe('svg')
+    })
+})
+
+describe('ModalActions', () => {
+    it('renders buttons with large spacing', () => {
+        render(
+            <ModalActions data-testid="modal-actions">
+                <Button variant="primary" data-testid="button">
+                    Button
+                </Button>
+            </ModalActions>,
+        )
+
+        expect(
+            within(screen.getByTestId('modal-actions')).getByTestId('button'),
+        ).toBeInTheDocument()
+    })
+
+    it('does not render children that are null', () => {
+        const { container } = render(
+            <ModalActions data-testid="modal-actions">
+                <Button variant="primary">Button</Button>
+                {null}
+            </ModalActions>,
+        )
+
+        // This gets the Inline element that contains the buttons
+        const inline = container.getElementsByClassName('space-large').item(0)
+
+        expect(inline?.childNodes.length).toEqual(1)
+    })
+
+    it('does not render the footer if all children are none', () => {
+        render(<ModalActions data-testid="modal-actions">{null}</ModalActions>)
+
+        expect(screen.queryByTestId('modal-actions')).not.toBeInTheDocument()
     })
 })
 

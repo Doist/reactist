@@ -355,12 +355,14 @@ export function ModalFooter({
  * @see ModalFooter
  */
 export function ModalActions({ children, ...props }: ModalFooterProps) {
-    return (
+    const childItems = React.Children.toArray(children).filter((child) => Boolean(child))
+
+    // If all child items are null/undefined, then don't show the footer at all and alleviate any
+    // excess spacing within the modal.
+    return childItems.length === 0 ? null : (
         <ModalFooter {...props}>
             <Inline align="right" space="large">
-                {React.Children.map(children, (child) => (
-                    <div>{child}</div>
-                ))}
+                {childItems.map((child) => (child ? <div>{child}</div> : null))}
             </Inline>
         </ModalFooter>
     )
