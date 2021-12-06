@@ -362,7 +362,9 @@ export function ModalActions({ children, ...props }: ModalFooterProps) {
     return childItems.length === 0 ? null : (
         <ModalFooter {...props}>
             <Inline align="right" space="large">
-                {childItems.map((child, i) => (child ? <div key={i}>{child}</div> : null))}
+                {childItems.map((child, i) => (
+                    <div key={i}>{child}</div>
+                ))}
             </Inline>
         </ModalFooter>
     )
