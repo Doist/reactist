@@ -4,6 +4,10 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # next
 
+-   [Fix] `ModalActions` now ignores `null` child elements
+-   [Fix] `ModalActions` no longer wraps each child element inside a wrapper `div`
+-   [Fix] `ModalActions` flattens children inside React fragments
+-   [Fix] `Inline` no longer adds an unneeded extra wrapper `div` around it
 -   [Fix] Adds margin to Menu's viewport positioning
 -   [Feat] Updates Avatar to support responsive patterns
 

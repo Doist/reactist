@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { render, screen, within } from '@testing-library/react'
-import { Modal, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from './modal'
+import { Modal, ModalHeader, ModalFooter, ModalActions, ModalBody, ModalCloseButton } from './modal'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
@@ -189,6 +189,86 @@ describe('ModalFooter', () => {
     })
 })
 
+describe('ModalActions', () => {
+    it('renders a semantic contentinfo', () => {
+        render(<ModalActions data-testid="modal-actions">Hello</ModalActions>)
+        expect(screen.getByRole('contentinfo')).toBe(screen.getByTestId('modal-actions'))
+    })
+
+    it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {
+        render(
+            <ModalActions
+                data-testid="modal-actions"
+                // @ts-expect-error
+                className="wrong"
+                exceptionallySetClassName="right"
+            >
+                Hello
+            </ModalActions>,
+        )
+        const modalFooter = screen.getByTestId('modal-actions')
+        expect(modalFooter).toHaveClass('right')
+        expect(modalFooter).not.toHaveClass('wrong')
+    })
+
+    it('renders its children inlined inside it', () => {
+        render(
+            <ModalActions data-testid="modal-actions">
+                <button>OK</button>
+                <button>Cancel</button>
+            </ModalActions>,
+        )
+        expect(screen.getByTestId('modal-actions')).toMatchInlineSnapshot(`
+            <footer
+              class="box paddingTop-large paddingRight-large paddingBottom-large paddingLeft-large"
+              data-testid="modal-actions"
+            >
+              <div
+                class="space-large box display-flex flexDirection-row flexWrap-wrap alignItems-center justifyContent-flexEnd"
+              >
+                <button>
+                  OK
+                </button>
+                <button>
+                  Cancel
+                </button>
+              </div>
+            </footer>
+        `)
+    })
+
+    it('optionally renders a divider', () => {
+        const { rerender } = render(<ModalActions>Hello</ModalActions>)
+        expect(screen.queryByRole('separator')).not.toBeInTheDocument()
+        rerender(<ModalActions withDivider>Hello</ModalActions>)
+        expect(screen.getByRole('separator')).toBeInTheDocument()
+    })
+
+    it('ignores null children', () => {
+        render(
+            <ModalActions data-testid="modal-actions">
+                <button>OK</button>
+                <button>Cancel</button>
+                {null}
+            </ModalActions>,
+        )
+        expect(screen.getByTestId('modal-actions').firstChild?.childNodes).toHaveLength(2)
+    })
+
+    it('flattens fragments', () => {
+        render(
+            <ModalActions data-testid="modal-actions">
+                <>
+                    <button>Overwrite</button>
+                    <button>Keep copy</button>
+                </>
+                <button>Cancel</button>
+            </ModalActions>,
+        )
+        expect(screen.getByTestId('modal-actions').firstChild?.childNodes).toHaveLength(3)
+    })
+})
+
 describe('ModalBody', () => {
     it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {
         render(
@@ -277,6 +357,11 @@ describe('ModalCloseButton', () => {
     it('renders a svg icon as its content', () => {
         const { button } = renderTestCase()
         expect(button.firstElementChild?.tagName).toBe('svg')
+    })
+
+    it('does not get focus initially', () => {
+        const { button } = renderTestCase()
+        expect(button).not.toHaveFocus()
     })
 })
 
