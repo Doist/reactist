@@ -22,23 +22,21 @@ const Inline = polymorphicComponent<'div', InlineProps>(function Inline(
     ref,
 ) {
     return (
-        <Box>
-            <Box
-                {...props}
-                as={as}
-                display="flex"
-                flexWrap="wrap"
-                className={[exceptionallySetClassName, getClassNames(styles, 'space', space)]}
-                ref={ref}
-                alignItems={mapResponsiveProp(alignY, (alignY) =>
-                    alignY === 'top' ? 'flexStart' : alignY === 'bottom' ? 'flexEnd' : 'center',
-                )}
-                justifyContent={mapResponsiveProp(align, (align) =>
-                    align === 'left' ? 'flexStart' : align === 'right' ? 'flexEnd' : 'center',
-                )}
-            >
-                {children}
-            </Box>
+        <Box
+            {...props}
+            as={as}
+            display="flex"
+            flexWrap="wrap"
+            className={[exceptionallySetClassName, getClassNames(styles, 'space', space)]}
+            ref={ref}
+            alignItems={mapResponsiveProp(alignY, (alignY) =>
+                alignY === 'top' ? 'flexStart' : alignY === 'bottom' ? 'flexEnd' : 'center',
+            )}
+            justifyContent={mapResponsiveProp(align, (align) =>
+                align === 'left' ? 'flexStart' : align === 'right' ? 'flexEnd' : 'center',
+            )}
+        >
+            {children}
         </Box>
     )
 })
