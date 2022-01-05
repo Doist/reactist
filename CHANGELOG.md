@@ -2,7 +2,7 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-# next
+# v11.1.0
 
 -   [Tweak] Tabs now are styled with medium font-weight
 -   [Tweak] Updates the default medium font-weight from `500` to `600`
