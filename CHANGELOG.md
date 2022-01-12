@@ -4,6 +4,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # next
 
+-   [Fix] `MenuList` popovers are now rendered via React portal by default ([#619](https://github.com/Doist/reactist/pull/619))
 -   [Fix] `ModalActions` now ignores `null` child elements
 -   [Fix] `ModalActions` no longer wraps each child element inside a wrapper `div`
 -   [Fix] `ModalActions` flattens children inside React fragments

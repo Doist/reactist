@@ -59,7 +59,12 @@ type MenuProps = Omit<Reakit.MenuInitialState, 'visible'> & {
  * management for the menu components inside it.
  */
 function Menu({ children, onItemSelect, ...props }: MenuProps) {
-    const state = Reakit.useMenuState({ loop: true, unstable_offset: [8, 8], ...props })
+    const state = Reakit.useMenuState({
+        loop: true,
+        modal: true,
+        unstable_offset: [8, 8],
+        ...props,
+    })
 
     const handleItemSelect = React.useCallback(
         function handleItemSelect(value: string | null | undefined) {
