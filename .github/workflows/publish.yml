@@ -8,6 +8,7 @@ on:
 jobs:
     publish:
         runs-on: ubuntu-latest
+        # Based on historical data
         timeout-minutes: 60
         steps:
             - uses: actions/checkout@v1
