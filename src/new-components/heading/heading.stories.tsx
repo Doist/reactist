@@ -123,7 +123,7 @@ HeadingPlaygroundStory.argTypes = {
     weight: select(['regular', 'light'], 'regular'),
     lineClamp: selectWithNone([1, 2, 3, 4, 5], 'none'),
     tone: select(['normal', 'secondary', 'danger'], 'normal'),
-    align: select(['start', 'center', 'end', 'justify'], 'start'),
+    align: selectWithNone(['start', 'center', 'end', 'justify'], 'none'),
     children: {
         control: { type: 'text' },
         defaultValue: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit',

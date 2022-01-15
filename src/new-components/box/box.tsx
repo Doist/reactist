@@ -69,6 +69,7 @@ interface ReusableBoxProps extends BorderProps, BoxPaddingProps {
 }
 
 type BoxPosition = 'absolute' | 'fixed' | 'relative' | 'static' | 'sticky'
+type BoxTextAlign = 'start' | 'center' | 'end' | 'justify'
 
 interface BoxProps extends WithEnhancedClassName, ReusableBoxProps, BoxMarginProps {
     position?: ResponsiveProp<BoxPosition>
@@ -79,7 +80,7 @@ interface BoxProps extends WithEnhancedClassName, ReusableBoxProps, BoxMarginPro
     justifyContent?: ResponsiveProp<BoxJustifyContent>
     overflow?: BoxOverflow
     height?: 'full'
-    textAlign?: ResponsiveProp<'start' | 'center' | 'end' | 'justify'>
+    textAlign?: ResponsiveProp<BoxTextAlign>
 }
 
 const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
@@ -101,7 +102,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
         borderRadius,
         minWidth,
         maxWidth,
-        textAlign = 'start',
+        textAlign,
         padding,
         paddingY,
         paddingX,
@@ -149,7 +150,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
                         ? getClassNames(widthStyles, 'minWidth', String(minWidth))
                         : null,
                     getClassNames(widthStyles, 'maxWidth', maxWidth),
-                    textAlign !== 'start' ? getClassNames(styles, 'textAlign', textAlign) : null,
+                    getClassNames(styles, 'textAlign', textAlign),
                     // padding
                     getClassNames(paddingStyles, 'paddingTop', resolvedPaddingTop),
                     getClassNames(paddingStyles, 'paddingRight', resolvedPaddingRight),
@@ -199,6 +200,7 @@ export type {
     BoxAlignItems,
     BoxJustifyContent,
     BoxOverflow,
+    BoxTextAlign,
 }
 
 export { Box }

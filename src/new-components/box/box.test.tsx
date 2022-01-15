@@ -93,14 +93,14 @@ describe('Box', () => {
 
     describe('textAlign="…"', () => {
         it('adds the appropriate class names', () => {
-            const { rerender } = render(<Box data-testid="box" textAlign="start" />)
+            const { rerender } = render(<Box data-testid="box" />)
             const boxElement = screen.getByTestId('box')
             expect(boxElement).not.toHaveClass('textAlign-start')
             expect(boxElement).not.toHaveClass('textAlign-center')
             expect(boxElement).not.toHaveClass('textAlign-end')
             expect(boxElement).not.toHaveClass('textAlign-justify')
 
-            for (const align of ['center', 'end', 'justify'] as const) {
+            for (const align of ['start', 'center', 'end', 'justify'] as const) {
                 rerender(<Box data-testid="box" textAlign={align} />)
                 expect(boxElement).toHaveClass(`textAlign-${align}`)
             }
