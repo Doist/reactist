@@ -4,6 +4,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # next
 
+-   [Tweak] Tabs now are styled with medium font-weight
+-   [Tweak] Updates the default medium font-weight from `500` to `600`
 -   [Fix] `ModalActions` now ignores `null` child elements
 -   [Fix] `ModalActions` no longer wraps each child element inside a wrapper `div`
 -   [Fix] `ModalActions` flattens children inside React fragments
