@@ -3,7 +3,9 @@ import { BaseField, FieldComponentProps } from '../base-field'
 import { Box } from '../box'
 import styles from './text-area.module.css'
 
-type TextAreaProps = FieldComponentProps<HTMLTextAreaElement>
+type TextAreaProps = FieldComponentProps<HTMLTextAreaElement> & {
+    rows?: number
+}
 
 function TextArea({
     id,
