@@ -140,6 +140,15 @@ describe('ModalHeader', () => {
         expect(screen.getByRole('link', { name: 'Help' })).toBeInTheDocument()
     })
 
+    it('hides the button if its content is set to `false` or `null`', () => {
+        const { rerender } = render(<ModalHeader button={false}>Hello</ModalHeader>)
+        expect(screen.queryByRole('button', { name: 'Close modal' })).not.toBeInTheDocument()
+        expect(screen.queryByTestId('button-container')).not.toBeInTheDocument()
+        rerender(<ModalHeader button={null}>Hello</ModalHeader>)
+        expect(screen.queryByRole('button', { name: 'Close modal' })).not.toBeInTheDocument()
+        expect(screen.queryByTestId('button-container')).not.toBeInTheDocument()
+    })
+
     it('optionally renders a divider', () => {
         const { rerender } = render(<ModalHeader>Hello</ModalHeader>)
         expect(screen.queryByRole('separator')).not.toBeInTheDocument()
