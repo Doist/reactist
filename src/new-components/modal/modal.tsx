@@ -248,13 +248,19 @@ export function ModalHeader({
             >
                 <Columns space="large" alignY="center">
                     <Column width="auto">{children}</Column>
-                    <Column width="content" exceptionallySetClassName={styles.buttonContainer}>
-                        {typeof button !== 'boolean' ? (
-                            button
-                        ) : button === true ? (
-                            <ModalCloseButton aria-label="Close modal" autoFocus={false} />
-                        ) : null}
-                    </Column>
+                    {button === false || button === null ? null : (
+                        <Column
+                            width="content"
+                            exceptionallySetClassName={styles.buttonContainer}
+                            data-testid="button-container"
+                        >
+                            {typeof button === 'boolean' ? (
+                                <ModalCloseButton aria-label="Close modal" autoFocus={false} />
+                            ) : (
+                                button
+                            )}
+                        </Column>
+                    )}
                 </Columns>
             </Box>
             {withDivider ? <Divider /> : null}
