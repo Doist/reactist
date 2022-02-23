@@ -23,11 +23,12 @@ type ColumnWidth =
     | '4/5'
 
 interface ColumnProps {
+    height?: 'full' | 'content'
     width?: ColumnWidth
 }
 
 const Column = polymorphicComponent<'div', ColumnProps>(function Column(
-    { width = 'auto', children, exceptionallySetClassName, ...props },
+    { width = 'auto', height = 'content', children, exceptionallySetClassName, ...props },
     ref,
 ) {
     return (
@@ -42,7 +43,7 @@ const Column = polymorphicComponent<'div', ColumnProps>(function Column(
             ]}
             minWidth={0}
             width={width !== 'content' ? 'full' : undefined}
-            height="full"
+            height={height === 'full' ? 'full' : undefined}
             flexShrink={width === 'content' ? 0 : undefined}
             ref={ref}
         >

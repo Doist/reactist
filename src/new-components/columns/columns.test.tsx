@@ -194,9 +194,7 @@ describe('Columns', () => {
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = render(<Columns />)
-            const results = await axe(container)
-
-            expect(results).toHaveNoViolations()
+            expect(await axe(container)).toHaveNoViolations()
         })
     })
 })
@@ -340,6 +338,33 @@ describe('Column', () => {
         }
     })
 
+    it('allows to set the height to full to expand vertically', () => {
+        const { rerender } = render(
+            <Columns>
+                <Column data-testid="column" height="full" />
+            </Columns>,
+        )
+        const column = screen.getByTestId('column')
+        expect(column).toHaveClass('height-full')
+        expect(column.className).toContain('height')
+
+        rerender(
+            <Columns>
+                <Column data-testid="column" height="content" />
+            </Columns>,
+        )
+        expect(column).not.toHaveClass('height-full')
+        expect(column.className).not.toContain('height')
+
+        rerender(
+            <Columns>
+                <Column data-testid="column" />
+            </Columns>,
+        )
+        expect(column).not.toHaveClass('height-full')
+        expect(column.className).not.toContain('height')
+    })
+
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = render(
@@ -347,9 +372,7 @@ describe('Column', () => {
                     <Column>Test</Column>
                 </Columns>,
             )
-            const results = await axe(container)
-
-            expect(results).toHaveNoViolations()
+            expect(await axe(container)).toHaveNoViolations()
         })
     })
 })
