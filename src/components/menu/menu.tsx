@@ -59,7 +59,13 @@ type MenuProps = Omit<Reakit.MenuInitialState, 'visible'> & {
  * management for the menu components inside it.
  */
 function Menu({ children, onItemSelect, ...props }: MenuProps) {
-    const state = Reakit.useMenuState({ loop: true, unstable_offset: [8, 8], ...props })
+    const state = Reakit.useMenuState({
+        loop: true,
+        modal: true,
+        unstable_fixed: true,
+        unstable_offset: [8, 8],
+        ...props,
+    })
 
     const handleItemSelect = React.useCallback(
         function handleItemSelect(value: string | null | undefined) {
@@ -107,9 +113,7 @@ const MenuButton = polymorphicComponent<'button', MenuButtonProps>(function Menu
 // MenuList
 //
 
-type MenuBackdropProps = Reakit.MenuStateReturn & {
-    children: React.ReactNode
-}
+type MenuBackdropProps = Reakit.MenuStateReturn
 
 const BACKDROP_STYLE: React.CSSProperties = {
     width: '100%',
@@ -130,7 +134,6 @@ function MenuBackdrop({
     animating,
     stopAnimation,
     modal,
-    children,
 }: MenuBackdropProps) {
     return (
         <PopoverBackdrop
@@ -141,9 +144,7 @@ function MenuBackdrop({
             stopAnimation={stopAnimation}
             modal={modal}
             style={BACKDROP_STYLE}
-        >
-            {children}
-        </PopoverBackdrop>
+        />
     )
 }
 
@@ -169,14 +170,15 @@ const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
     )
 
     return state.visible ? (
-        <MenuBackdrop {...state}>
+        <>
+            <MenuBackdrop {...state} />
             <Reakit.Menu
                 {...props}
                 {...state}
                 ref={ref}
                 className={classNames('reactist_menulist', exceptionallySetClassName)}
             />
-        </MenuBackdrop>
+        </>
     ) : null
 })
 
