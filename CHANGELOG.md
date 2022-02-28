@@ -7,6 +7,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 -   [Fix] Hiding `ModalHeader` close button no longer renders the button wrapper column
 -   [Fix] Using `start` as a value for `Box`'s `textAlign` now adds a class to properly set the `text-align` value
 -   [Fix] `TextArea`'s `rows` prop is not added to the component's type definition
+-   [Feat] Updates `Button` to support `gapSize` from `Tooltip` (as `tooltipGapSize`)
 
 # v11.1.0
 
