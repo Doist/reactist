@@ -2,7 +2,11 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-# next
+# Next
+
+-   n/a
+
+# v11.2.0
 
 -   [Fix] Hiding `ModalHeader` close button no longer renders the button wrapper column
 -   [Fix] Using `start` as a value for `Box`'s `textAlign` now adds a class to properly set the `text-align` value
