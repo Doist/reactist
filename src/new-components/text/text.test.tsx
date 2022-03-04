@@ -110,18 +110,14 @@ describe('Text', () => {
 
     describe('align="…"', () => {
         it('adds the appropriate class names', () => {
-            const { rerender } = render(
-                <Text data-testid="text-element" align="start">
-                    Text
-                </Text>,
-            )
+            const { rerender } = render(<Text data-testid="text-element">Text</Text>)
             const textElement = screen.getByTestId('text-element')
             expect(textElement).not.toHaveClass('textAlign-start')
             expect(textElement).not.toHaveClass('textAlign-center')
             expect(textElement).not.toHaveClass('textAlign-end')
             expect(textElement).not.toHaveClass('textAlign-justify')
 
-            for (const align of ['center', 'end', 'justify'] as const) {
+            for (const align of ['start', 'center', 'end', 'justify'] as const) {
                 rerender(
                     <Text data-testid="text-element" align={align}>
                         Text

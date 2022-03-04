@@ -172,13 +172,13 @@ export type ModalCloseButtonProps = Omit<
  */
 export function ModalCloseButton(props: ModalCloseButtonProps) {
     const { onDismiss } = React.useContext(ModalContext)
-    const [includeInTabOrder, setincludeInTabOrder] = React.useState(false)
+    const [includeInTabOrder, setIncludeInTabOrder] = React.useState(false)
     const [isMounted, setIsMounted] = React.useState(false)
 
     React.useEffect(
         function skipAutoFocus() {
             if (isMounted) {
-                setincludeInTabOrder(true)
+                setIncludeInTabOrder(true)
             } else {
                 setIsMounted(true)
             }
@@ -248,13 +248,19 @@ export function ModalHeader({
             >
                 <Columns space="large" alignY="center">
                     <Column width="auto">{children}</Column>
-                    <Column width="content" exceptionallySetClassName={styles.buttonContainer}>
-                        {typeof button !== 'boolean' ? (
-                            button
-                        ) : button === true ? (
-                            <ModalCloseButton aria-label="Close modal" autoFocus={false} />
-                        ) : null}
-                    </Column>
+                    {button === false || button === null ? null : (
+                        <Column
+                            width="content"
+                            exceptionallySetClassName={styles.buttonContainer}
+                            data-testid="button-container"
+                        >
+                            {typeof button === 'boolean' ? (
+                                <ModalCloseButton aria-label="Close modal" autoFocus={false} />
+                            ) : (
+                                button
+                            )}
+                        </Column>
+                    )}
                 </Columns>
             </Box>
             {withDivider ? <Divider /> : null}
@@ -350,17 +356,17 @@ export function ModalFooter({
 // ModalActions
 //
 
+export type ModalActionsProps = ModalFooterProps
+
 /**
  * A specific version of the ModalFooter, tailored to showing an inline list of actions (buttons).
  * @see ModalFooter
  */
-export function ModalActions({ children, ...props }: ModalFooterProps) {
+export function ModalActions({ children, ...props }: ModalActionsProps) {
     return (
         <ModalFooter {...props}>
             <Inline align="right" space="large">
-                {React.Children.map(children, (child) => (
-                    <div>{child}</div>
-                ))}
+                {children}
             </Inline>
         </ModalFooter>
     )

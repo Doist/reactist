@@ -25,6 +25,7 @@ import type {
     BoxJustifyContent,
     BoxMarginProps,
     BoxPaddingProps,
+    BoxTextAlign,
 } from './'
 import type { Space, SpaceWithNegatives } from '../common-types'
 
@@ -60,6 +61,7 @@ InteractivePropsStory.argTypes = {
         ['center', 'flexEnd', 'flexStart', 'spaceBetween'],
         'none',
     ),
+    textAlign: selectWithNone<BoxTextAlign>(['start', 'center', 'end', 'justify'], 'none'),
     ...reusableBoxProps(),
 }
 

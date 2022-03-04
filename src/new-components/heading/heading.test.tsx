@@ -118,7 +118,7 @@ describe('Heading', () => {
     describe('align="…"', () => {
         it('adds the appropriate class names', () => {
             const { rerender } = render(
-                <Heading level="1" data-testid="heading-element" align="start">
+                <Heading level="1" data-testid="heading-element">
                     Heading
                 </Heading>,
             )
@@ -128,7 +128,7 @@ describe('Heading', () => {
             expect(textElement).not.toHaveClass('textAlign-end')
             expect(textElement).not.toHaveClass('textAlign-justify')
 
-            for (const align of ['center', 'end', 'justify'] as const) {
+            for (const align of ['start', 'center', 'end', 'justify'] as const) {
                 rerender(
                     <Heading level="1" data-testid="heading-element" align={align}>
                         Heading

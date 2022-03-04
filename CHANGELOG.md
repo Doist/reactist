@@ -2,9 +2,27 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-# next
+# Next
 
+-   n/a
+
+# v11.2.0
+
+-   [Fix] Hiding `ModalHeader` close button no longer renders the button wrapper column
+-   [Fix] Using `start` as a value for `Box`'s `textAlign` now adds a class to properly set the `text-align` value
+-   [Fix] `TextArea`'s `rows` prop is not added to the component's type definition
+-   [Feat] Updates `Button` to support `gapSize` from `Tooltip` (as `tooltipGapSize`)
+
+# v11.1.0
+
+-   [Tweak] Tabs now are styled with medium font-weight
+-   [Tweak] Updates the default medium font-weight from `500` to `600`
+-   [Fix] `ModalActions` now ignores `null` child elements
+-   [Fix] `ModalActions` no longer wraps each child element inside a wrapper `div`
+-   [Fix] `ModalActions` flattens children inside React fragments
+-   [Fix] `Inline` no longer adds an unneeded extra wrapper `div` around it
 -   [Fix] Adds margin to Menu's viewport positioning
+-   [Feat] Updates Avatar to support responsive patterns
 
 ## v11.0.0
 

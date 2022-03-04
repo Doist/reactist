@@ -1,9 +1,10 @@
 import React from 'react'
-import classNames from 'classnames'
 
 import { getInitials, emailToIndex } from './utils'
 
-import './avatar.less'
+import { getClassNames, ResponsiveProp } from '../responsive-props'
+import styles from './avatar.module.css'
+import { Box } from '../box'
 
 const AVATAR_COLORS = [
     '#fcc652',
@@ -28,20 +29,28 @@ const AVATAR_COLORS = [
 
 type AvatarSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl'
 
-const AVATAR_SIZES: AvatarSize[] = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl']
-
 type Props = {
+    /** @deprecated Please use `exceptionallySetClassName` */
     className?: string
+    exceptionallySetClassName?: string
+    /** @deprecated */
     colorList?: string[]
-    size?: AvatarSize
+    size?: ResponsiveProp<AvatarSize>
     avatarUrl?: string
     user: { name?: string; email: string }
 }
 
-function Avatar({ user, avatarUrl, size = 'l', className, colorList = AVATAR_COLORS }: Props) {
+function Avatar({
+    user,
+    avatarUrl,
+    size = 'l',
+    className,
+    colorList = AVATAR_COLORS,
+    exceptionallySetClassName,
+    ...props
+}: Props) {
     const userInitials = getInitials(user.name) || getInitials(user.email)
-    const avatarSize = size && AVATAR_SIZES.includes(size) ? size : 'l'
-    const avatarClass = classNames(`reactist_avatar reactist_avatar_size--${avatarSize}`, className)
+    const avatarSize = size ? size : 'l'
 
     const style = avatarUrl
         ? {
@@ -52,10 +61,16 @@ function Avatar({ user, avatarUrl, size = 'l', className, colorList = AVATAR_COL
               backgroundColor: colorList[emailToIndex(user.email, colorList.length)],
           }
 
+    const sizeClassName = getClassNames(styles, 'size', avatarSize)
+
     return (
-        <div className={avatarClass} style={style}>
+        <Box
+            className={[className, styles.avatar, sizeClassName, exceptionallySetClassName]}
+            style={style}
+            {...props}
+        >
             {userInitials}
-        </div>
+        </Box>
     )
 }
 Avatar.displayName = 'Avatar'

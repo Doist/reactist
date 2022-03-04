@@ -9,6 +9,8 @@ on:
 jobs:
     coverage-reporting:
         runs-on: ubuntu-latest
+        # Based on historical data
+        timeout-minutes: 5
         steps:
             - uses: actions/checkout@v2
             - name: Read Node.js version from '.nvmrc'
