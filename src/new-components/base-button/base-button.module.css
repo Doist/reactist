@@ -278,23 +278,6 @@
     );
 }
 
-/* the secondary destructive variant has border around it */
-/* .variant-secondary.tone-destructive {
-    --reactist-btn-idle-border-color: var(
-        --reactist-actionable-secondary-destructive-idle-border-color
-    );
-}
-.variant-secondary.tone-destructive:hover {
-    --reactist-btn-hover-border-color: var(
-        --reactist-actionable-secondary-destructive-hover-border-color
-    );
-}
-.variant-secondary.tone-destructive.disabled {
-    --reactist-btn-disabled-border-color: var(
-        --reactist-actionable-secondary-destructive-disabled-border-color
-    );
-} */
-
 .variant-tertiary.tone-destructive,
 .variant-quaternary.tone-destructive {
     --reactist-btn-idle-tint: var(--reactist-actionable-secondary-destructive-idle-tint);
