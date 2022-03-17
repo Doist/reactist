@@ -74,8 +74,6 @@ export type BaseButtonProps = CommonProps & (IconButtonProps | LabelledButtonPro
  * The component that powers `Button` and `ButtonLink`, where the button styling logic and some
  * common functionality resides. This component is internal to Reactist.
  *
- * 🎨 [Figma](https://www.figma.com/file/LYlWNzvhMDh907l07mPPQk/Product-Web?node-id=4693%3A175143)
- *
  * @see Button
  * @see ButtonLink
  */

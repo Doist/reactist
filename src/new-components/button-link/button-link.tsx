@@ -15,8 +15,6 @@ export type ButtonLinkProps = NativeLinkProps & BaseButtonProps & OpenInNewTab
  * A semantic link that looks like a button, exactly matching the `Button` component in all visual
  * aspects.
  *
- *🎨 [Figma](https://www.figma.com/file/LYlWNzvhMDh907l07mPPQk/Product-Web?node-id=4693%3A175143)
- *
  * @see Button
  */
 export const ButtonLink = polymorphicComponent<'a', ButtonLinkProps>(function ButtonLink(
