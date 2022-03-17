@@ -17,8 +17,6 @@ export type ButtonProps = NativeButtonProps &
  * A semantic button that also looks like a button, and provides all the necessary visual variants.
  * It follows the [WAI-ARIA Button Pattern](https://www.w3.org/TR/wai-aria-practices/#button).
  *
- * 🎨 [Figma](https://www.figma.com/file/LYlWNzvhMDh907l07mPPQk/Product-Web?node-id=4693%3A175143)
- *
  * @see ButtonLink
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
