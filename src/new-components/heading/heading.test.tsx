@@ -82,13 +82,19 @@ describe('Heading', () => {
             const textElement = screen.getByTestId('heading-element')
             expect(textElement).not.toHaveClass('weight-regular')
             expect(textElement).not.toHaveClass('weight-light')
+            expect(textElement).not.toHaveClass('weight-semibold')
 
             rerender(
                 <Heading level="1" data-testid="heading-element" weight="light">
                     Heading
                 </Heading>,
             )
-            expect(textElement).toHaveClass('weight-light')
+            rerender(
+                <Heading level="1" data-testid="heading-element" weight="semibold">
+                    Heading
+                </Heading>,
+            )
+            expect(textElement).toHaveClass('weight-semibold')
         })
     })
 

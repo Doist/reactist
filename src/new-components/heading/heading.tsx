@@ -25,7 +25,7 @@ type HeadingProps = SupportedHeadingElementProps & {
      *
      * @default 'regular'
      */
-    weight?: 'regular' | 'light'
+    weight?: 'regular' | 'light' | 'semibold'
     /**
      * Shifts the default heading visual text size up or down, depending on the original size
      * imposed by the `level`. The heading continues to be semantically at the given level.

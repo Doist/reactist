@@ -4,7 +4,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
--   n/a
+-   [Feat] Updates `Heading` to support `semibold` weight prop value.
 
 # v11.2.0
 

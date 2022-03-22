@@ -7,6 +7,9 @@
 .weight-light {
     font-weight: var(--reactist-font-weight-regular);
 }
+.weight-semibold {
+    font-weight: var(--reactist-font-weight-medium);
+}
 
 /* tone */
 
