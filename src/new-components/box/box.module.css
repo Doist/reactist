@@ -267,6 +267,57 @@ pre.box {
     }
 }
 
+/* align-self */
+.alignSelf-stretch {
+    align-self: stretch;
+}
+.alignSelf-flexStart {
+    align-self: flex-start;
+}
+.alignSelf-center {
+    align-self: center;
+}
+.alignSelf-flexEnd {
+    align-self: flex-end;
+}
+.alignSelf-baseline {
+    align-self: baseline;
+}
+@media (min-width: 768px /* --reactist-breakpoint-tablet */) {
+    .tablet-alignSelf-stretch {
+        align-self: stretch;
+    }
+    .tablet-alignSelf-flexStart {
+        align-self: flex-start;
+    }
+    .tablet-alignSelf-center {
+        align-self: center;
+    }
+    .tablet-alignSelf-flexEnd {
+        align-self: flex-end;
+    }
+    .tablet-alignSelf-baseline {
+        align-self: baseline;
+    }
+}
+@media (min-width: 992px /* --reactist-breakpoint-desktop */) {
+    .desktop-alignSelf-stretch {
+        align-self: stretch;
+    }
+    .desktop-alignSelf-flexStart {
+        align-self: flex-start;
+    }
+    .desktop-alignSelf-center {
+        align-self: center;
+    }
+    .desktop-alignSelf-flexEnd {
+        align-self: flex-end;
+    }
+    .desktop-alignSelf-baseline {
+        align-self: baseline;
+    }
+}
+
 /* overflow */
 .overflow-hidden {
     overflow: hidden;
