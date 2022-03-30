@@ -4,6 +4,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+# v11.3.0
+
 -   [Feat] Added `alignSelf` prop to `Box`
 
 # v11.2.0
