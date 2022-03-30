@@ -47,6 +47,7 @@ type BoxJustifyContent =
     | 'spaceAround'
     | 'spaceBetween'
     | 'spaceEvenly'
+type BoxAlignSelf = 'flexStart' | 'flexEnd' | 'center' | 'baseline' | 'stretch'
 type BoxOverflow = 'hidden' | 'auto' | 'visible' | 'scroll'
 
 type BoxMaxMinWidth = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
@@ -77,6 +78,7 @@ interface BoxProps extends WithEnhancedClassName, ReusableBoxProps, BoxMarginPro
     flexDirection?: ResponsiveProp<BoxFlexDirection>
     flexWrap?: BoxFlexWrap
     alignItems?: ResponsiveProp<BoxAlignItems>
+    alignSelf?: ResponsiveProp<BoxAlignSelf>
     justifyContent?: ResponsiveProp<BoxJustifyContent>
     overflow?: BoxOverflow
     height?: 'full'
@@ -94,6 +96,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
         flexShrink,
         alignItems,
         justifyContent,
+        alignSelf,
         overflow,
         width,
         height,
@@ -166,6 +169,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
                     omitFlex ? null : getClassNames(styles, 'flexWrap', flexWrap),
                     omitFlex ? null : getClassNames(styles, 'alignItems', alignItems),
                     omitFlex ? null : getClassNames(styles, 'justifyContent', justifyContent),
+                    alignSelf != null ? getClassNames(styles, 'alignSelf', alignSelf) : null,
                     flexShrink != null
                         ? getClassNames(styles, 'flexShrink', String(flexShrink))
                         : null,
