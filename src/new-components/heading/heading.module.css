@@ -21,6 +21,8 @@
 
 h1.heading {
     font-size: var(--reactist-font-size-header);
+    font-weight: var(--reactist-font-weight-strong);
+    line-height: 43px;
 }
 h1.size-largest {
     font-size: var(--reactist-font-size-header-xlarge);
@@ -33,7 +35,9 @@ h1.size-smaller {
 }
 
 h2.heading {
-    font-size: var(--reactist-font-size-subtitle);
+    font-size: calc(var(--reactist-font-size-header-large) + 2px);
+    font-weight: var(--reactist-font-weight-medium);
+    line-height: 35px;
 }
 h2.size-largest {
     font-size: var(--reactist-font-size-header-large);
@@ -46,7 +50,9 @@ h2.size-smaller {
 }
 
 h3.heading {
-    font-size: var(--reactist-font-size-body);
+    font-size: var(--reactist-font-size-header);
+    font-weight: var(--reactist-font-weight-medium);
+    line-height: 27px;
 }
 h3.size-largest {
     font-size: var(--reactist-font-size-header);

@@ -4,6 +4,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+-   [Feat] Updates the default `Heading` sizes, weights and line-heights to align with the product library
+
 # v11.3.0
 
 -   [Feat] Added `alignSelf` prop to `Box`
