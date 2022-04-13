@@ -137,10 +137,6 @@
     --reactist-btn-font-size: var(--reactist-button-large-font-size);
 }
 
-.baseButton.width-full {
-    width: 100%;
-}
-
 /* setup the color variables for all the different states */
 /* variables are then set per variant and tone so that we do not repeat these definitions below */
 

@@ -54,7 +54,7 @@ type CommonProps = {
 }
 
 type AlignmentProps = {
-    width: 'full'
+    width: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'full'
     align?: 'left' | 'center' | 'right'
 }
 
@@ -119,6 +119,7 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
             ref={ref}
             aria-disabled={isDisabled}
             onClick={isDisabled ? preventDefault : onClick}
+            width={icon ? undefined : width}
             className={[
                 exceptionallySetClassName,
                 styles.baseButton,
@@ -126,7 +127,6 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
                 styles[`tone-${tone}`],
                 styles[`size-${size}`],
                 width !== 'auto' && icon == null && align != null ? styles[`align-${align}`] : null,
-                width !== 'auto' && icon == null ? styles[`width-${width}`] : null,
                 icon ? styles.iconButton : null,
                 disabled ? styles.disabled : null,
             ]}

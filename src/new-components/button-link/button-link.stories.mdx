@@ -480,7 +480,7 @@ export function LoadingButtonLink(props) {
 
 ### Full-width
 
-export function FullWidthTemplate({ label, variant, tone, size }) {
+export function FullWidthTemplate({ label, variant, tone, size, width }) {
     if (label === 'Click me <em>now</em>') {
         label = (
             <>
@@ -492,7 +492,7 @@ export function FullWidthTemplate({ label, variant, tone, size }) {
         variant,
         tone,
         size,
-        width: 'full',
+        width,
         startIcon: <Icon />,
         endIcon: <Icon />,
     }
@@ -500,10 +500,10 @@ export function FullWidthTemplate({ label, variant, tone, size }) {
         <Stack space="medium">
             <Heading level="2">Full-width buttons and label alignment</Heading>
             <Text>
-                When buttons have <code>width="full"</code> they can also customize how the label is
-                aligned horizontally.
+                When buttons have `width` other than the default `auto` they can also customize how
+                the label is aligned horizontally.
             </Text>
-            <Box width="small">
+            <Box width="full" padding="medium" style={{ border: '1px solid gray' }}>
                 <Stack space="medium">
                     <LoadingButtonLink {...props} align="left">
                         {label}
@@ -551,6 +551,12 @@ export function FullWidthTemplate({ label, variant, tone, size }) {
                 control: { type: 'inline-radio' },
                 defaultValue: 'normal',
             },
+            width: {
+                options: ['none', 'xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+                control: { type: 'select' },
+                defaultValue: 'full',
+            },
+            align: { control: false },
             disabled: { control: false },
             startIcon: { control: false },
             endIcon: { control: false },
