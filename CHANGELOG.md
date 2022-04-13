@@ -4,6 +4,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+-   [Feat] Button can now have a width set (except icon-only buttons). When having a width, the label aligment can also be customized
 -   [Fix] Button focus styles should only be shown when interacting with the button via keyboard (using CSS's `:focus-visible`)
 
 # v11.3.0
