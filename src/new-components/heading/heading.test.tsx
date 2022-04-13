@@ -49,29 +49,6 @@ describe('Heading', () => {
         )
     })
 
-    describe('size="…"', () => {
-        it('adds the appropriate class names', () => {
-            const { rerender } = render(
-                <Heading level="1" data-testid="heading-element">
-                    Heading
-                </Heading>,
-            )
-            const textElement = screen.getByTestId('heading-element')
-            expect(textElement).not.toHaveClass('size-smaller')
-            expect(textElement).not.toHaveClass('size-larger')
-            expect(textElement).not.toHaveClass('size-largest')
-
-            for (const size of ['smaller', 'larger', 'largest'] as const) {
-                rerender(
-                    <Heading level={1} data-testid="heading-element" size={size}>
-                        Heading
-                    </Heading>,
-                )
-                expect(textElement).toHaveClass(`size-${size}`)
-            }
-        })
-    })
-
     describe('weight="…"', () => {
         it('adds the appropriate class names', () => {
             const { rerender } = render(

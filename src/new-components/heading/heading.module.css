@@ -20,48 +20,21 @@
 /* font size */
 
 h1.heading {
-    font-size: var(--reactist-font-size-header);
+    font-size: 32px;
     font-weight: var(--reactist-font-weight-strong);
     line-height: 43px;
 }
-h1.size-largest {
-    font-size: var(--reactist-font-size-header-xlarge);
-}
-h1.size-larger {
-    font-size: var(--reactist-font-size-header-large);
-}
-h1.size-smaller {
-    font-size: var(--reactist-font-size-subtitle);
-}
 
 h2.heading {
-    font-size: calc(var(--reactist-font-size-header-large) + 2px);
+    font-size: 26px;
     font-weight: var(--reactist-font-weight-medium);
     line-height: 35px;
 }
-h2.size-largest {
-    font-size: var(--reactist-font-size-header-large);
-}
-h2.size-larger {
-    font-size: var(--reactist-font-size-header);
-}
-h2.size-smaller {
-    font-size: var(--reactist-font-size-body);
-}
 
 h3.heading {
-    font-size: var(--reactist-font-size-header);
+    font-size: 20px;
     font-weight: var(--reactist-font-weight-medium);
     line-height: 27px;
-}
-h3.size-largest {
-    font-size: var(--reactist-font-size-header);
-}
-h3.size-larger {
-    font-size: var(--reactist-font-size-subtitle);
-}
-h3.size-smaller {
-    font-size: var(--reactist-font-size-caption);
 }
 
 h4.heading,
@@ -72,18 +45,6 @@ h6.heading {
      * you can make it two levels larger visually, but making it smaller has no effect
      */
     font-size: var(--reactist-font-size-body);
-}
-
-h4.size-largest,
-h5.size-largest,
-h6.size-largest {
-    font-size: var(--reactist-font-size-header);
-}
-
-h4.size-larger,
-h5.size-larger,
-h6.size-larger {
-    font-size: var(--reactist-font-size-subtitle);
 }
 
 /* h4/h5/h6 can't be made smaller, maybe we reconsider this? */

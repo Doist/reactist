@@ -4,7 +4,9 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
--   [Feat] Updates the default `Heading` sizes, weights and line-heights to align with the product library
+-   [Feat] Aligning the `Heading` component with the product library styles:
+    -   Deprecates the `size` prop, and `-larger`, `-largest`, `-smaller` classes.
+    -   Sets fixed `font-size`, `font-weight` and `line-height` for each heading.
 
 # v11.3.0
 

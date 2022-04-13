@@ -39,6 +39,7 @@ type HeadingProps = SupportedHeadingElementProps & {
      * scale.
      * - 'largest' can be thought of as applying 'larger' twice.
      *
+     * @deprecated Headers now have set font sizes following alignment with product library.
      * @see level
      * @default undefined
      */
