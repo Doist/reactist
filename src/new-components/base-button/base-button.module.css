@@ -132,7 +132,7 @@
 }
 
 .baseButton[aria-expanded='true'],
-.baseButton:focus:not([aria-disabled='true']),
+.baseButton:focus-visible:not([aria-disabled='true']),
 .baseButton:hover:not([aria-disabled='true']) {
     color: var(--reactist-btn-hover-tint);
     background-color: var(--reactist-btn-hover-fill);
