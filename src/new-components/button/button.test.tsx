@@ -214,6 +214,27 @@ describe('Button', () => {
         expect(button).not.toHaveClass('size-small')
     })
 
+    it('applies different class names based on width and alignment', () => {
+        render(
+            <Button variant="primary" width="full" align="right">
+                Click me
+            </Button>,
+        )
+        const button = screen.getByRole('button', { name: 'Click me' })
+        expect(button).toHaveClass('align-right')
+        expect(button).toHaveClass('width-full')
+    })
+
+    it('ignores align when width is not full', () => {
+        render(
+            <Button variant="primary" align="right">
+                Click me
+            </Button>,
+        )
+        const button = screen.getByRole('button', { name: 'Click me' })
+        expect(button).not.toHaveClass('align-right')
+    })
+
     describe('with icons', () => {
         it('renders an icon before the label when startIcon is given', () => {
             render(
@@ -252,6 +273,22 @@ describe('Button', () => {
             )
             const button = screen.getByRole('button', { name: 'Smile' })
             expect(button.textContent).toMatchInlineSnapshot(`"😄"`)
+        })
+
+        it('does not support receiving any of the props "width" and "align"', () => {
+            render(
+                // @ts-expect-error invalid props on purpose
+                <Button
+                    variant="primary"
+                    icon="😄"
+                    aria-label="Smile"
+                    width="full"
+                    align="right"
+                />,
+            )
+            const button = screen.getByRole('button', { name: 'Smile' })
+            expect(button.className).not.toMatch(/align/)
+            expect(button.className).not.toMatch(/width/)
         })
     })
 

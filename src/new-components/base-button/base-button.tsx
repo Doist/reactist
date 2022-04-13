@@ -59,6 +59,8 @@ type IconButtonProps = {
     children?: never
     startIcon?: never
     endIcon?: never
+    width?: never
+    align?: never
 }
 
 type LabelledButtonProps = {
@@ -66,6 +68,8 @@ type LabelledButtonProps = {
     startIcon?: IconElement
     endIcon?: IconElement
     icon?: never
+    width?: 'auto' | 'full'
+    align?: 'left' | 'center' | 'right'
 }
 
 export type BaseButtonProps = CommonProps & (IconButtonProps | LabelledButtonProps)
@@ -93,6 +97,8 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
         startIcon,
         endIcon,
         icon,
+        width = 'auto',
+        align,
         ...props
     },
     ref,
@@ -111,6 +117,8 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
                 styles[`variant-${variant}`],
                 styles[`tone-${tone}`],
                 styles[`size-${size}`],
+                width !== 'auto' && icon == null && align != null ? styles[`align-${align}`] : null,
+                width !== 'auto' && icon == null ? styles[`width-${width}`] : null,
                 icon ? styles.iconButton : null,
                 disabled ? styles.disabled : null,
             ]}

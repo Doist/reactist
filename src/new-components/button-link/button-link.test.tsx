@@ -217,6 +217,27 @@ describe('ButtonLink', () => {
         expect(link).not.toHaveClass('size-small')
     })
 
+    it('applies different class names based on width and alignment', () => {
+        render(
+            <ButtonLink href="/" variant="primary" width="full" align="right">
+                Click me
+            </ButtonLink>,
+        )
+        const buttonLink = screen.getByRole('link', { name: 'Click me' })
+        expect(buttonLink).toHaveClass('align-right')
+        expect(buttonLink).toHaveClass('width-full')
+    })
+
+    it('ignores align when width is not full', () => {
+        render(
+            <ButtonLink href="/" variant="primary" align="right">
+                Click me
+            </ButtonLink>,
+        )
+        const buttonLink = screen.getByRole('link', { name: 'Click me' })
+        expect(buttonLink).not.toHaveClass('align-right')
+    })
+
     describe('with icons', () => {
         it('renders an icon before the label when startIcon is given', () => {
             render(
@@ -262,6 +283,23 @@ describe('ButtonLink', () => {
             )
             const buttonLink = screen.getByRole('link', { name: 'Smile' })
             expect(buttonLink.textContent).toMatchInlineSnapshot(`"😄"`)
+        })
+
+        it('does not support receiving any of the props "width" and "align"', () => {
+            render(
+                // @ts-expect-error invalid props on purpose
+                <ButtonLink
+                    href="/"
+                    variant="primary"
+                    icon="😄"
+                    aria-label="Smile"
+                    width="full"
+                    align="right"
+                />,
+            )
+            const buttonLink = screen.getByRole('link', { name: 'Smile' })
+            expect(buttonLink.className).not.toMatch(/align/)
+            expect(buttonLink.className).not.toMatch(/width/)
         })
     })
 

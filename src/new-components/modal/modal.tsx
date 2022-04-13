@@ -157,6 +157,8 @@ export type ModalCloseButtonProps = Omit<
     | 'disabled'
     | 'loading'
     | 'tabIndex'
+    | 'width'
+    | 'align'
 > & {
     /**
      * The descriptive label of the button.

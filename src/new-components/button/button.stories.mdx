@@ -467,9 +467,95 @@ export function LoadingButton(props) {
     return <Button {...props} loading={loading} onClick={() => setLoading(true)} />
 }
 
+### Full-width
+
+export function FullWidthTemplate({ label, variant, tone, size }) {
+    if (label === 'Click me <em>now</em>') {
+        label = (
+            <>
+                Click me <em>now</em>
+            </>
+        )
+    }
+    const props = {
+        variant,
+        tone,
+        size,
+        width: 'full',
+        startIcon: <Icon />,
+        endIcon: <Icon />,
+    }
+    return (
+        <Stack space="medium">
+            <Heading level="2">Full-width buttons and label alignment</Heading>
+            <Text>
+                When buttons have <code>width="full"</code> they can also customize how the label is
+                aligned horizontally.
+            </Text>
+            <Box width="small">
+                <Stack space="medium">
+                    <LoadingButton {...props} align="left">
+                        {label}
+                    </LoadingButton>
+                    <LoadingButton {...props} align="center">
+                        {label}
+                    </LoadingButton>
+                    <LoadingButton {...props} align="right">
+                        {label}
+                    </LoadingButton>
+                </Stack>
+            </Box>
+        </Stack>
+    )
+}
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        argTypes={{
+            label: {
+                control: { type: 'select' },
+                options: [
+                    'OK',
+                    'Submit',
+                    'Mark as done',
+                    'Yes, cancel my subscription',
+                    'Click me <em>now</em>',
+                    'If you click me now, youʼll take away the biggest part of me',
+                ],
+                defaultValue: 'Submit',
+            },
+            variant: {
+                options: ['primary', 'secondary', 'tertiary', 'quaternary'],
+                control: { type: 'select' },
+                defaultValue: 'primary',
+            },
+            tone: {
+                options: ['normal', 'destructive'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'normal',
+            },
+            size: {
+                options: ['small', 'normal', 'large'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'normal',
+            },
+            disabled: { control: false },
+            startIcon: { control: false },
+            endIcon: { control: false },
+            icon: { control: false },
+            tooltip: { control: false },
+            exceptionallySetClassName: { control: false },
+        }}
+        name="Full-width"
+    >
+        {FullWidthTemplate.bind({})}
+    </Story>
+</Canvas>
+
 ### Playground
 
-export function Template({ label, variant, tone, size }) {
+export function PlaygroundTemplate({ label, variant, tone, size }) {
     let textLabel = label
     if (label === 'Click me <em>now</em>') {
         label = (
@@ -604,7 +690,7 @@ export function Template({ label, variant, tone, size }) {
         }}
         name="Playground"
     >
-        {Template.bind({})}
+        {PlaygroundTemplate.bind({})}
     </Story>
 </Canvas>
 
@@ -654,7 +740,7 @@ export function DarkModeTemplate(props) {
                 '--reactist-actionable-secondary-destructive-disabled-tint': '#8a5853',
             }}
         >
-            <Template {...props} />
+            <PlaygroundTemplate {...props} />
         </Box>
     )
 }
