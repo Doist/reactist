@@ -91,16 +91,16 @@
     text-align: center;
 }
 
-.align-left .label {
-    text-align: left;
+.align-start .label {
+    text-align: start;
 }
 
 .align-center .label {
     text-align: center;
 }
 
-.align-right .label {
-    text-align: right;
+.align-end .label {
+    text-align: end;
 }
 
 /* nice little animation when clicked to give some visual feedback */

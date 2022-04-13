@@ -216,24 +216,24 @@ describe('Button', () => {
 
     it('applies different class names based on width and alignment', () => {
         render(
-            <Button variant="primary" width="full" align="right">
+            <Button variant="primary" width="full" align="end">
                 Click me
             </Button>,
         )
         const button = screen.getByRole('button', { name: 'Click me' })
-        expect(button).toHaveClass('align-right')
+        expect(button).toHaveClass('align-end')
         expect(button).toHaveClass('width-full')
     })
 
     it('ignores align when width is not full', () => {
         render(
             // @ts-expect-error invalid props on purpose
-            <Button variant="primary" align="right">
+            <Button variant="primary" align="end">
                 Click me
             </Button>,
         )
         const button = screen.getByRole('button', { name: 'Click me' })
-        expect(button).not.toHaveClass('align-right')
+        expect(button).not.toHaveClass('align-end')
     })
 
     describe('with icons', () => {
@@ -279,13 +279,7 @@ describe('Button', () => {
         it('does not support receiving any of the props "width" and "align"', () => {
             render(
                 // @ts-expect-error invalid props on purpose
-                <Button
-                    variant="primary"
-                    icon="😄"
-                    aria-label="Smile"
-                    width="full"
-                    align="right"
-                />,
+                <Button variant="primary" icon="😄" aria-label="Smile" width="full" align="end" />,
             )
             const button = screen.getByRole('button', { name: 'Smile' })
             expect(button.className).not.toMatch(/align/)

@@ -55,7 +55,7 @@ type CommonProps = {
 
 type AlignmentProps = {
     width: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'full'
-    align?: 'left' | 'center' | 'right'
+    align?: 'start' | 'center' | 'end'
 }
 
 type AutoWidthProps = {

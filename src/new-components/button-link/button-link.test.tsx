@@ -219,24 +219,24 @@ describe('ButtonLink', () => {
 
     it('applies different class names based on width and alignment', () => {
         render(
-            <ButtonLink href="/" variant="primary" width="full" align="right">
+            <ButtonLink href="/" variant="primary" width="full" align="end">
                 Click me
             </ButtonLink>,
         )
         const buttonLink = screen.getByRole('link', { name: 'Click me' })
-        expect(buttonLink).toHaveClass('align-right')
+        expect(buttonLink).toHaveClass('align-end')
         expect(buttonLink).toHaveClass('width-full')
     })
 
     it('ignores align when width is not full', () => {
         render(
             // @ts-expect-error invalid props on purpose
-            <ButtonLink href="/" variant="primary" align="right">
+            <ButtonLink href="/" variant="primary" align="end">
                 Click me
             </ButtonLink>,
         )
         const buttonLink = screen.getByRole('link', { name: 'Click me' })
-        expect(buttonLink).not.toHaveClass('align-right')
+        expect(buttonLink).not.toHaveClass('align-end')
     })
 
     describe('with icons', () => {
@@ -295,7 +295,7 @@ describe('ButtonLink', () => {
                     icon="😄"
                     aria-label="Smile"
                     width="full"
-                    align="right"
+                    align="end"
                 />,
             )
             const buttonLink = screen.getByRole('link', { name: 'Smile' })
