@@ -230,6 +230,7 @@ describe('ButtonLink', () => {
 
     it('ignores align when width is not full', () => {
         render(
+            // @ts-expect-error invalid props on purpose
             <ButtonLink href="/" variant="primary" align="right">
                 Click me
             </ButtonLink>,

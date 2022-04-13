@@ -53,6 +53,16 @@ type CommonProps = {
     tooltipGapSize?: TooltipProps['gapSize']
 }
 
+type AlignmentProps = {
+    width: 'full'
+    align?: 'left' | 'center' | 'right'
+}
+
+type AutoWidthProps = {
+    width?: 'auto'
+    align?: never
+}
+
 type IconButtonProps = {
     icon: IconElement
     'aria-label': string
@@ -68,9 +78,7 @@ type LabelledButtonProps = {
     startIcon?: IconElement
     endIcon?: IconElement
     icon?: never
-    width?: 'auto' | 'full'
-    align?: 'left' | 'center' | 'right'
-}
+} & (AutoWidthProps | AlignmentProps)
 
 export type BaseButtonProps = CommonProps & (IconButtonProps | LabelledButtonProps)
 

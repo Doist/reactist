@@ -227,6 +227,7 @@ describe('Button', () => {
 
     it('ignores align when width is not full', () => {
         render(
+            // @ts-expect-error invalid props on purpose
             <Button variant="primary" align="right">
                 Click me
             </Button>,
