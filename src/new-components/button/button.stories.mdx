@@ -4,6 +4,7 @@ import { Box } from '../box'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
 import { Text } from '../text'
+import { Tooltip } from '../tooltip'
 import { Heading } from '../heading'
 import { Button } from './button'
 
@@ -209,7 +210,7 @@ Icon-only buttons do not support receiving the `children` prop, or any of the `s
 as a tooltip if no tooltip is provided.
 
 <Canvas>
-    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Icon-only buttons">
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Icon-only buttons">
         <Stack space="large">
             <Inline space="large">
                 <Box>
@@ -240,6 +241,26 @@ as a tooltip if no tooltip is provided.
                 </Box>
             </Inline>
         </Stack>
+    </Story>
+</Canvas>
+
+### Icon-only button with custom tooltip
+
+You can suppress the automatically-generated tooltip in icon-only buttons by explicitly passing `tooltip={null}`.
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
+        name="Icon-only button with custom tooltip"
+    >
+        <Tooltip content="Add task now">
+            <Button
+                variant="primary"
+                aria-label="Add task"
+                icon={<Icon />}
+                tooltip={null} // This is the key
+            />
+        </Tooltip>
     </Story>
 </Canvas>
 

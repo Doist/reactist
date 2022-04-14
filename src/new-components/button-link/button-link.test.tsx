@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { Tooltip } from '../tooltip'
 import { ButtonLink } from './button-link'
 
 jest.mock('../spinner', () => ({
@@ -262,6 +263,42 @@ describe('ButtonLink', () => {
             )
             const buttonLink = screen.getByRole('link', { name: 'Smile' })
             expect(buttonLink.textContent).toMatchInlineSnapshot(`"😄"`)
+        })
+
+        it('renders a tooltip with the aria-label if no tooltip is provided', async () => {
+            render(<ButtonLink href="/" variant="primary" icon="😄" aria-label="Smile" />)
+            userEvent.tab()
+            expect(await screen.findByRole('tooltip', { name: 'Smile' })).toBeInTheDocument()
+        })
+
+        it('renders an explicitly provided tooltip if given, instead of using the aria-label', async () => {
+            render(
+                <ButtonLink
+                    href="/"
+                    variant="primary"
+                    icon="😄"
+                    aria-label="Smile"
+                    tooltip="Laugh"
+                />,
+            )
+            userEvent.tab()
+            expect(await screen.findByRole('tooltip', { name: 'Laugh' })).toBeInTheDocument()
+        })
+
+        it('supresses the internal tooltip when null, allowing to render the tooltip ourselves', async () => {
+            render(
+                <Tooltip content="Laugh harder">
+                    <ButtonLink
+                        href="/"
+                        variant="primary"
+                        icon="😄"
+                        aria-label="Smile"
+                        tooltip={null}
+                    />
+                </Tooltip>,
+            )
+            userEvent.tab()
+            expect(await screen.findByRole('tooltip', { name: 'Laugh harder' })).toBeInTheDocument()
         })
     })
 

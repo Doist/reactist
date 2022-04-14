@@ -44,7 +44,15 @@ type CommonProps = {
      */
     loading?: boolean
     /**
-     * A tooltip linked to the button element.
+     * The content for a tooltip linked to the button element.
+     *
+     * This is provided for convenience, so that consumers do not need to manually wrap the buttons
+     * inside a `<Tooltip>` element all the time.
+     *
+     * In icon-only buttons, a tooltip is generated even if this prop is omitted. The button will
+     * use the `aria-label` prop in that case. But this behavior can be supressed by explicitly
+     * passing `tooltip={null}`, which will make it so that no tooltip will be rendered. Not even
+     * the one with the `aria-label` text.
      */
     tooltip?: TooltipProps['content']
 }
@@ -130,8 +138,15 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
         </Box>
     )
 
-    // If it's an icon-only button, make sure it uses the aria-label as tooltip if no tooltip was provided
-    const tooltipContent = icon ? tooltip ?? props['aria-label'] : tooltip
+    // If it's an icon-only button, make sure it uses the aria-label as tooltip if no tooltip was
+    // provided. This can be overridden by explicitly passing tooltip={null}, which will suppress
+    // the implicit tooltip entirely.
+    const tooltipContent = icon
+        ? tooltip !== null
+            ? tooltip ?? props['aria-label']
+            : null
+        : tooltip
+
     return tooltipContent ? (
         <Tooltip content={tooltipContent}>{buttonElement}</Tooltip>
     ) : (

@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Button } from './button'
 import { axe } from 'jest-axe'
+import { Tooltip } from '../tooltip'
 
 jest.mock('../spinner', () => ({
     Spinner() {
@@ -252,6 +253,28 @@ describe('Button', () => {
             )
             const button = screen.getByRole('button', { name: 'Smile' })
             expect(button.textContent).toMatchInlineSnapshot(`"😄"`)
+        })
+
+        it('renders a tooltip with the aria-label if no tooltip is provided', async () => {
+            render(<Button variant="primary" icon="😄" aria-label="Smile" />)
+            userEvent.tab()
+            expect(await screen.findByRole('tooltip', { name: 'Smile' })).toBeInTheDocument()
+        })
+
+        it('renders an explicitly provided tooltip if given, instead of using the aria-label', async () => {
+            render(<Button variant="primary" icon="😄" aria-label="Smile" tooltip="Laugh" />)
+            userEvent.tab()
+            expect(await screen.findByRole('tooltip', { name: 'Laugh' })).toBeInTheDocument()
+        })
+
+        it('supresses the internal tooltip when null, allowing to render the tooltip ourselves', async () => {
+            render(
+                <Tooltip content="Laugh harder">
+                    <Button variant="primary" icon="😄" aria-label="Smile" tooltip={null} />
+                </Tooltip>,
+            )
+            userEvent.tab()
+            expect(await screen.findByRole('tooltip', { name: 'Laugh harder' })).toBeInTheDocument()
         })
     })
 
