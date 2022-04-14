@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Tooltip, TooltipProps } from '../../components/tooltip'
 import { polymorphicComponent } from '../../utils/polymorphism'
+import { Tooltip, TooltipProps } from '../tooltip'
 import { Box } from '../box'
 import { Spinner } from '../spinner'
 import styles from './base-button.module.css'
@@ -47,10 +47,6 @@ type CommonProps = {
      * A tooltip linked to the button element.
      */
     tooltip?: TooltipProps['content']
-    /**
-     * The distance between the button element and the linked tooltip.
-     */
-    tooltipGapSize?: TooltipProps['gapSize']
 }
 
 type IconButtonProps = {
@@ -86,7 +82,6 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
         disabled = false,
         loading = false,
         tooltip,
-        tooltipGapSize,
         onClick,
         exceptionallySetClassName,
         children,
@@ -138,9 +133,7 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
     // If it's an icon-only button, make sure it uses the aria-label as tooltip if no tooltip was provided
     const tooltipContent = icon ? tooltip ?? props['aria-label'] : tooltip
     return tooltipContent ? (
-        <Tooltip content={tooltipContent} gapSize={tooltipGapSize}>
-            {buttonElement}
-        </Tooltip>
+        <Tooltip content={tooltipContent}>{buttonElement}</Tooltip>
     ) : (
         buttonElement
     )

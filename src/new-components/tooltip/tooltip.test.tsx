@@ -2,38 +2,8 @@ import React from 'react'
 import { render, screen, act } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import userEvent from '@testing-library/user-event'
-import { Tooltip, SHOW_DELAY, HIDE_DELAY } from './tooltip'
-
-// Runs the same test abstracting how the tooltip is triggered (can be via mouse or keyboard)
-function testShowHide({
-    triggerShow,
-    triggerHide,
-}: {
-    triggerShow: () => void
-    triggerHide: () => void
-}) {
-    triggerShow()
-
-    // tooltip is not immediately visible
-    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-    // wait a bit
-    act(() => {
-        jest.advanceTimersByTime(SHOW_DELAY)
-    })
-    // tooltip is now visible
-    expect(screen.getByRole('tooltip', { name: 'tooltip content here' })).toBeInTheDocument()
-
-    triggerHide()
-
-    // tooltip is not immediately removed
-    expect(screen.getByRole('tooltip', { name: 'tooltip content here' })).toBeInTheDocument()
-    // wait a bit
-    act(() => {
-        jest.advanceTimersByTime(HIDE_DELAY)
-    })
-    // tooltip is gone
-    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-}
+import { MOUSE_REST_TIMEOUT, LEAVE_TIMEOUT } from '@reach/tooltip'
+import { Tooltip } from './tooltip'
 
 describe('Tooltip', () => {
     beforeEach(() => {
@@ -51,19 +21,45 @@ describe('Tooltip', () => {
         )
         const button = screen.getByRole('button', { name: 'Click me' })
 
-        testShowHide({
-            triggerShow() {
-                userEvent.tab()
-                expect(button).toHaveFocus()
-            },
-            triggerHide() {
-                userEvent.tab()
-            },
+        userEvent.tab()
+        expect(button).toHaveFocus()
+
+        // tooltip is now visible
+        expect(screen.getByRole('tooltip', { name: 'tooltip content here' })).toBeInTheDocument()
+
+        userEvent.tab()
+
+        // tooltip is not immediately removed
+        expect(screen.getByRole('tooltip', { name: 'tooltip content here' })).toBeInTheDocument()
+        // wait a bit
+        act(() => {
+            jest.advanceTimersByTime(LEAVE_TIMEOUT)
         })
+        // tooltip is gone
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
     })
 
-    // Calls into testShowHide subtest.
-    // eslint-disable-next-line jest/expect-expect
+    it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {
+        render(
+            <Tooltip
+                content="tooltip content here"
+                // @ts-expect-error
+                className="wrong"
+                exceptionallySetClassName="right"
+            >
+                <button>Click me</button>
+            </Tooltip>,
+        )
+        const button = screen.getByRole('button', { name: 'Click me' })
+
+        userEvent.tab()
+        expect(button).toHaveFocus()
+
+        const tooltip = screen.getByRole('tooltip', { name: 'tooltip content here' })
+        expect(tooltip).toHaveClass('right')
+        expect(tooltip).not.toHaveClass('wrong')
+    })
+
     it('renders a tooltip when the button is hovered, hides it when unhovered', () => {
         render(
             <Tooltip content="tooltip content here">
@@ -71,14 +67,27 @@ describe('Tooltip', () => {
             </Tooltip>,
         )
         const button = screen.getByRole('button', { name: 'Click me' })
-        testShowHide({
-            triggerShow() {
-                userEvent.hover(button)
-            },
-            triggerHide() {
-                userEvent.unhover(button)
-            },
+        userEvent.hover(button)
+
+        // tooltip is not immediately visible
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+        // wait a bit
+        act(() => {
+            jest.advanceTimersByTime(MOUSE_REST_TIMEOUT)
         })
+        // tooltip is now visible
+        expect(screen.getByRole('tooltip', { name: 'tooltip content here' })).toBeInTheDocument()
+
+        userEvent.unhover(button)
+
+        // tooltip is not immediately removed
+        expect(screen.getByRole('tooltip', { name: 'tooltip content here' })).toBeInTheDocument()
+        // wait a bit
+        act(() => {
+            jest.advanceTimersByTime(LEAVE_TIMEOUT)
+        })
+        // tooltip is gone
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
     })
 
     it('does not render a tooltip if the content is empty', () => {
@@ -92,7 +101,7 @@ describe('Tooltip', () => {
         // mouse over and wait more than enough
         userEvent.hover(button)
         act(() => {
-            jest.advanceTimersByTime(SHOW_DELAY * 2)
+            jest.advanceTimersByTime(MOUSE_REST_TIMEOUT * 2)
         })
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
 
@@ -100,7 +109,7 @@ describe('Tooltip', () => {
         userEvent.tab()
         expect(button).toHaveFocus()
         act(() => {
-            jest.advanceTimersByTime(SHOW_DELAY * 2)
+            jest.advanceTimersByTime(MOUSE_REST_TIMEOUT * 2)
         })
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
     })
@@ -117,7 +126,12 @@ describe('Tooltip', () => {
     })
 
     it('can render content generated by a function only called when needed', () => {
-        const content = jest.fn(() => 'tooltip content generated dynamically')
+        const spy = jest.fn()
+        function content() {
+            spy()
+            return 'tooltip content generated dynamically'
+        }
+
         render(
             <Tooltip content={content}>
                 <button>Click me</button>
@@ -127,16 +141,16 @@ describe('Tooltip', () => {
 
         // assert that content has not been generated internally even, not even after a delay
         act(() => {
-            jest.advanceTimersByTime(SHOW_DELAY * 2)
+            jest.advanceTimersByTime(MOUSE_REST_TIMEOUT * 2)
         })
-        expect(content).not.toHaveBeenCalled()
+        expect(spy).not.toHaveBeenCalled()
 
         // content is generated when the tooltip is needed to be shown
         userEvent.hover(button)
         act(() => {
-            jest.advanceTimersByTime(SHOW_DELAY)
+            jest.advanceTimersByTime(MOUSE_REST_TIMEOUT)
         })
-        expect(content).toHaveBeenCalled()
+        expect(spy).toHaveBeenCalled()
     })
 
     /**
@@ -160,7 +174,7 @@ describe('Tooltip', () => {
         expect(getTooltipButton()).toHaveFocus()
 
         act(() => {
-            jest.advanceTimersByTime(SHOW_DELAY * 2)
+            jest.advanceTimersByTime(MOUSE_REST_TIMEOUT * 2)
         })
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
     })
@@ -177,7 +191,7 @@ describe('Tooltip', () => {
             userEvent.hover(button)
 
             act(() => {
-                jest.advanceTimersByTime(SHOW_DELAY * 2)
+                jest.advanceTimersByTime(MOUSE_REST_TIMEOUT * 2)
             })
 
             jest.useRealTimers()

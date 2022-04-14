@@ -35,6 +35,7 @@ export * from './new-components/text-field'
 export * from './new-components/tabs'
 export * from './new-components/modal'
 export * from './new-components/avatar'
+export * from './new-components/tooltip'
 
 // hooks
 export * from './hooks/use-previous'
@@ -54,7 +55,6 @@ export { default as ProgressBar } from './components/progress-bar'
 export { default as Select } from './components/select'
 export { default as Time } from './components/time'
 export { Notification } from './components/notification/notification'
-export { Tooltip, TooltipProps } from './components/tooltip'
 export * from './components/menu'
 
 //

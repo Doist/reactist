@@ -43,9 +43,9 @@
     },
     "peerDependencies": {
         "classnames": "^2.2.5",
+        "prop-types": "^15.6.2",
         "react": "^15.5.4 || ^16.2.0 || ^17.0.0",
-        "react-dom": "^15.5.4 || ^16.2.0 || ^17.0.0",
-        "prop-types": "^15.6.2"
+        "react-dom": "^15.5.4 || ^16.2.0 || ^17.0.0"
     },
     "devDependencies": {
         "@babel/core": "^7.9.6",
@@ -128,7 +128,8 @@
         "webpack": "^4.43.0"
     },
     "dependencies": {
-        "@reach/dialog": "^0.16.0",
+        "@reach/dialog": "0.16.2",
+        "@reach/tooltip": "0.16.2",
         "@types/testing-library__jest-dom": "^5.14.1",
         "dayjs": "^1.8.10",
         "patch-package": "^6.4.6",

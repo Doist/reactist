@@ -2,7 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 
 import Dropdown from '../dropdown'
-import { Tooltip } from '../tooltip'
+import { Tooltip } from '../../new-components/tooltip'
 
 import './color-picker.less'
 

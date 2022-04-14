@@ -4,6 +4,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+-   [Breaking] The Tooltip compoment has been re-implemented, keeping it mostly backwards-compatible, but not entirely so
 -   [Fix] Button focus styles should only be shown when interacting with the button via keyboard (using CSS's `:focus-visible`)
 
 # v11.3.0

@@ -1,0 +1,77 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs/blocks'
+import { Box } from '../box'
+import { Button } from '../button'
+import { Text } from '../text'
+import { Stack } from '../stack'
+import { Tooltip } from './tooltip'
+
+<Meta
+    title="Design system/Tooltip"
+    component={Tooltip}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
+
+# Tooltip
+
+A component that attaches a tooltip to the element it wraps.
+
+export function Template({ content }) {
+    const text =
+        content === 'long' ? (
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non gravida lacus. Sed sit amet congue diam, ac ultrices elit.'
+        ) : content === 'short' ? (
+            'Lorem ipsum dolor sit amet.'
+        ) : (
+            <Stack space="medium">
+                <Text>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non gravida
+                    lacus. Sed sit amet congue diam, ac ultrices elit.
+                </Text>
+                <Text>
+                    Suspendisse at neque leo. Duis facilisis nulla non lectus malesuada, vitae
+                    scelerisque massa hendrerit. Nulla lacinia luctus risus, dapibus semper turpis
+                    vestibulum eu.
+                </Text>
+            </Stack>
+        )
+    return (
+        <Stack align="center" space="xxlarge" width="full">
+            <Tooltip content={text} position="top">
+                <Button variant="secondary">Top ⬆️</Button>
+            </Tooltip>
+            <Tooltip content={text} position="right">
+                <Button variant="secondary">Right ➡️</Button>
+            </Tooltip>
+            <Tooltip content={text} position="bottom">
+                <Button variant="secondary">Bottom ⬇️</Button>
+            </Tooltip>
+            <Tooltip content={text} position="left">
+                <Button variant="secondary">⬅️ Left</Button>
+            </Tooltip>
+        </Stack>
+    )
+}
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        argTypes={{
+            content: {
+                control: { type: 'inline-radio' },
+                options: ['short', 'long', 'longer'],
+                defaultValue: 'short',
+            },
+            id: { control: false },
+        }}
+        name="Playground"
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+---
+
+<Description of={Tooltip} />
+<ArgsTable of={Tooltip} />

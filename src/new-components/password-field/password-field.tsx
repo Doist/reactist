@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useForkRef } from 'reakit-utils'
-import { Tooltip } from '../../components/tooltip'
+import { Tooltip } from '../tooltip'
 import { BaseField } from '../base-field'
 import { Box } from '../box'
 import { useId } from '../common-helpers'

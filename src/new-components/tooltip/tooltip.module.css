@@ -1,0 +1,24 @@
+:root {
+    --reach-tooltip: 1;
+    --reactist-tooltip-tint: #fff;
+    --reactist-tooltip-fill: #282f30;
+}
+
+[data-reach-tooltip].tooltip {
+    pointer-events: none;
+    z-index: 1;
+    position: absolute;
+    box-shadow: 2px 2px 10px hsla(0, 0%, 0%, 0.1);
+    border: none;
+    border-radius: var(--reactist-border-radius-small);
+    background-color: var(--reactist-tooltip-fill);
+    color: var(--reactist-tooltip-tint);
+    font-size: 0.81rem;
+    font-weight: 400;
+    line-height: 1.6;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    padding: 5px 10px;
+}
