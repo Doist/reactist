@@ -2,7 +2,7 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-# Next
+# v11.4.0
 
 -   [Feat] Button can now have a width set (except icon-only buttons). When having a width, the label aligment can also be customized
 -   [Fix] Button focus styles should only be shown when interacting with the button via keyboard (using CSS's `:focus-visible`)
