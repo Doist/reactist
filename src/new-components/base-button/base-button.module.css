@@ -57,12 +57,6 @@
     --reactist-actionable-secondary-destructive-disabled-tint: #f1b7b2;
 }
 
-.label {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
 /* general styles for all buttons */
 .baseButton {
     max-width: 100%;
@@ -87,6 +81,26 @@
     transition-duration: 0.3s;
     transition-property: color, background-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.label {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+}
+
+.align-start .label {
+    text-align: start;
+}
+
+.align-center .label {
+    text-align: center;
+}
+
+.align-end .label {
+    text-align: end;
 }
 
 /* nice little animation when clicked to give some visual feedback */

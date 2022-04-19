@@ -53,12 +53,24 @@ type CommonProps = {
     tooltipGapSize?: TooltipProps['gapSize']
 }
 
+type AlignmentProps = {
+    width: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'full'
+    align?: 'start' | 'center' | 'end'
+}
+
+type AutoWidthProps = {
+    width?: 'auto'
+    align?: never
+}
+
 type IconButtonProps = {
     icon: IconElement
     'aria-label': string
     children?: never
     startIcon?: never
     endIcon?: never
+    width?: never
+    align?: never
 }
 
 type LabelledButtonProps = {
@@ -66,7 +78,7 @@ type LabelledButtonProps = {
     startIcon?: IconElement
     endIcon?: IconElement
     icon?: never
-}
+} & (AutoWidthProps | AlignmentProps)
 
 export type BaseButtonProps = CommonProps & (IconButtonProps | LabelledButtonProps)
 
@@ -93,6 +105,8 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
         startIcon,
         endIcon,
         icon,
+        width = 'auto',
+        align,
         ...props
     },
     ref,
@@ -105,12 +119,14 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
             ref={ref}
             aria-disabled={isDisabled}
             onClick={isDisabled ? preventDefault : onClick}
+            width={icon ? undefined : width}
             className={[
                 exceptionallySetClassName,
                 styles.baseButton,
                 styles[`variant-${variant}`],
                 styles[`tone-${tone}`],
                 styles[`size-${size}`],
+                width !== 'auto' && icon == null && align != null ? styles[`align-${align}`] : null,
                 icon ? styles.iconButton : null,
                 disabled ? styles.disabled : null,
             ]}

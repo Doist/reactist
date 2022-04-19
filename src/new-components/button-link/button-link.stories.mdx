@@ -478,6 +478,98 @@ export function LoadingButtonLink(props) {
     return <ButtonLink {...props} loading={loading} onClick={(event) => setLoading(true)} />
 }
 
+### Full-width
+
+export function FullWidthTemplate({ label, variant, tone, size, width }) {
+    if (label === 'Click me <em>now</em>') {
+        label = (
+            <>
+                Click me <em>now</em>
+            </>
+        )
+    }
+    const props = {
+        variant,
+        tone,
+        size,
+        width,
+        startIcon: <Icon />,
+        endIcon: <Icon />,
+    }
+    return (
+        <Stack space="medium">
+            <Heading level="2">Full-width buttons and label alignment</Heading>
+            <Text>
+                When buttons have `width` other than the default `auto` they can also customize how
+                the label is aligned horizontally.
+            </Text>
+            <Box width="full" padding="medium" style={{ border: '1px solid gray' }}>
+                <Stack space="medium">
+                    <LoadingButtonLink {...props} align="start">
+                        {label}
+                    </LoadingButtonLink>
+                    <LoadingButtonLink {...props} align="center">
+                        {label}
+                    </LoadingButtonLink>
+                    <LoadingButtonLink {...props} align="end">
+                        {label}
+                    </LoadingButtonLink>
+                </Stack>
+            </Box>
+        </Stack>
+    )
+}
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        argTypes={{
+            label: {
+                control: { type: 'select' },
+                options: [
+                    'OK',
+                    'Submit',
+                    'Mark as done',
+                    'Yes, cancel my subscription',
+                    'Click me <em>now</em>',
+                    'If you click me now, youʼll take away the biggest part of me',
+                ],
+                defaultValue: 'Submit',
+            },
+            variant: {
+                options: ['primary', 'secondary', 'tertiary', 'quaternary'],
+                control: { type: 'select' },
+                defaultValue: 'primary',
+            },
+            tone: {
+                options: ['normal', 'destructive'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'normal',
+            },
+            size: {
+                options: ['small', 'normal', 'large'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'normal',
+            },
+            width: {
+                options: ['none', 'xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+                control: { type: 'select' },
+                defaultValue: 'full',
+            },
+            align: { control: false },
+            disabled: { control: false },
+            startIcon: { control: false },
+            endIcon: { control: false },
+            icon: { control: false },
+            tooltip: { control: false },
+            exceptionallySetClassName: { control: false },
+        }}
+        name="Full-width"
+    >
+        {FullWidthTemplate.bind({})}
+    </Story>
+</Canvas>
+
 ### Playground
 
 export function Template({ label, variant, tone, size }) {
