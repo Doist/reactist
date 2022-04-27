@@ -239,6 +239,39 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
     </Story>
 </Canvas>
 
+### Nested modals
+
+<Canvas withToolbar>
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Nested modals">
+        <ModalStoryStateProvider>
+            <Button variant="primary">Open modal</Button>
+            <Modal width="large" height="expand" aria-label="Outer modal">
+                <ModalHeader>
+                    <Heading level="1">Outer modal title</Heading>
+                </ModalHeader>
+                <ModalBody>
+                    <ModalStoryStateProvider>
+                        <Button variant="primary">Open nested modal</Button>
+                        <Modal width="small" height="fitContent" aria-label="Outer modal">
+                            <ModalHeader>
+                                <Heading level="1">Nested modal title</Heading>
+                            </ModalHeader>
+                            <ModalBody>Nothing to see here</ModalBody>
+                            <ModalActions>
+                                <Button variant="secondary">Close</Button>
+                            </ModalActions>
+                        </Modal>
+                    </ModalStoryStateProvider>
+                </ModalBody>
+                <ModalActions>
+                    <Button variant="primary">Save</Button>
+                    <Button variant="secondary">Cancel</Button>
+                </ModalActions>
+            </Modal>
+        </ModalStoryStateProvider>
+    </Story>
+</Canvas>
+
 ### Minimalistic confirmation modal
 
 <Canvas withToolbar>
