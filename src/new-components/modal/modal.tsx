@@ -244,13 +244,15 @@ export function ModalHeader({
                 {...props}
                 as="header"
                 paddingLeft="large"
-                paddingRight="small"
+                paddingRight={button === false || button === null ? 'large' : 'small'}
                 paddingY="small"
                 className={exceptionallySetClassName}
             >
                 <Columns space="large" alignY="center">
                     <Column width="auto">{children}</Column>
-                    {button === false || button === null ? null : (
+                    {button === false || button === null ? (
+                        <div className={styles.headerContent} />
+                    ) : (
                         <Column
                             width="content"
                             exceptionallySetClassName={styles.buttonContainer}

@@ -129,10 +129,16 @@
     }
 }
 
-/* header button */
+/* header */
 
 .buttonContainer {
     display: flex;
     align-items: center;
     height: 32px;
+}
+
+.headerContent {
+    /* This ensures that the min-height is always applied to the header content, */
+    /* regardless of the modal having a button or not. */
+    min-height: 32px; /* must be the same as the .buttonContainer height above */
 }
