@@ -5,6 +5,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 # Upcoming
 
 -   [Feat] Add `positive` tone to `Text`
+-   [Fix] Apply TextLink color through `--reactist-text-link-color`
 -   [Feat] Add `xsmall` size to `Loading`
 
 # v11.5.1
