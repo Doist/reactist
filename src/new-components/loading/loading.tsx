@@ -2,7 +2,7 @@ import React from 'react'
 import { Box } from '../box'
 import { Spinner } from '../spinner'
 
-type Size = 'small' | 'medium' | 'large'
+type Size = 'xsmall' | 'small' | 'medium' | 'large'
 
 type NativeProps = Omit<
     JSX.IntrinsicElements['div'],
@@ -35,6 +35,7 @@ type LoadingProps = NativeProps & {
     )
 
 const sizeMapping: Record<Size, number> = {
+    xsmall: 16,
     small: 24,
     medium: 36,
     large: 48,

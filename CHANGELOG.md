@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# Upcoming
+
+-   [Feat] Add `xsmall` size to `Loading`
+
 # v11.5.1
 
 -   [Fix] Modal header's min-height is now applied when header has no button
