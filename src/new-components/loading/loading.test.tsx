@@ -43,12 +43,16 @@ describe('Loading', () => {
         const { rerender } = render(<Loading aria-label="Loading…" size="small" />)
         const smallSize = getSize()
 
+        rerender(<Loading aria-label="Loading…" size="xsmall" />)
+        const xsmallSize = getSize()
+
         rerender(<Loading aria-label="Loading…" size="medium" />)
         const mediumSize = getSize()
 
         rerender(<Loading aria-label="Loading…" size="large" />)
         const largeSize = getSize()
 
+        expect(xsmallSize).toBeLessThan(smallSize)
         expect(smallSize).toBeLessThan(mediumSize)
         expect(mediumSize).toBeLessThan(largeSize)
     })

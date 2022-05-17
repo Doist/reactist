@@ -28,6 +28,9 @@ export function Example({ children, size }) {
 <Canvas>
     <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="All Sizes">
         <Box display="flex" flexDirection="row" justifyContent="spaceEvenly" alignItems="flexEnd">
+            <Example size="xsmall">
+                <Loading aria-label="Loading Demo" size="xsmall" />
+            </Example>
             <Example size="small">
                 <Loading aria-label="Loading Demo" size="small" />
             </Example>
@@ -62,6 +65,9 @@ CSS variable.
             alignItems="flexEnd"
             style={{ '--reactist-spinner-tint': 'red' }}
         >
+            <Example size="xsmall">
+                <Loading aria-label="Loading Demo" size="xsmall" />
+            </Example>
             <Example size="small">
                 <Loading aria-label="Loading Demo" size="small" />
             </Example>
