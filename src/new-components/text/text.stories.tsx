@@ -25,6 +25,9 @@ export function TextStory() {
                 <Text size="subtitle" tone="danger">
                     Subtitle Danger
                 </Text>
+                <Text size="subtitle" tone="positive">
+                    Subtitle Positive
+                </Text>
                 <Text size="subtitle" weight="semibold">
                     Subtitle Semibold
                 </Text>
@@ -40,6 +43,9 @@ export function TextStory() {
                 </Text>
                 <Text size="body" tone="danger">
                     Body Danger
+                </Text>
+                <Text size="body" tone="positive">
+                    Body Positive
                 </Text>
                 <Text size="body" weight="semibold">
                     Body Semibold
@@ -57,6 +63,9 @@ export function TextStory() {
                 <Text size="copy" tone="danger">
                     Copy Danger
                 </Text>
+                <Text size="copy" tone="positive">
+                    Copy Positive
+                </Text>
                 <Text size="copy" weight="semibold">
                     Copy Semibold
                 </Text>
@@ -72,6 +81,9 @@ export function TextStory() {
                 </Text>
                 <Text size="caption" tone="danger">
                     Caption Danger
+                </Text>
+                <Text size="caption" tone="positive">
+                    Caption Positive
                 </Text>
                 <Text size="caption" weight="semibold">
                     Caption Semibold

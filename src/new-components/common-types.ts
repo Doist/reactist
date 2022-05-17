@@ -14,7 +14,7 @@ export type SpaceWithNegatives =
     | '-xlarge'
     | '-xxlarge'
 
-export type Tone = 'normal' | 'secondary' | 'danger'
+export type Tone = 'normal' | 'secondary' | 'danger' | 'positive'
 export type AlertTone = 'info' | 'positive' | 'caution' | 'critical'
 
 export type DividerWeight = 'primary' | 'secondary' | 'tertiary' | 'none'
