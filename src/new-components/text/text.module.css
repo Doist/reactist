@@ -28,6 +28,9 @@
 .tone-danger {
     color: rgb(209, 69, 59);
 }
+.tone-positive {
+    color: var(--reactist-content-positive);
+}
 
 /* truncated text */
 
