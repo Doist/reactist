@@ -20,6 +20,11 @@ function FieldHint(props: FieldHintProps) {
 // BaseField
 //
 
+type ChildrenRenderProps = {
+    id: string
+    'aria-describedby'?: string
+}
+
 type HtmlInputProps<T extends HTMLElement> = React.DetailedHTMLProps<
     React.InputHTMLAttributes<T>,
     T
@@ -71,7 +76,7 @@ type BaseFieldProps = WithEnhancedClassName &
          * Used internally by components composed using `BaseField`. It is not exposed as part of
          * the public props of such components.
          */
-        children: (props: { id: string; 'aria-describedby'?: string }) => React.ReactNode
+        children: (props: ChildrenRenderProps) => React.ReactNode
     }
 
 type FieldComponentProps<T extends HTMLElement> = Omit<BaseFieldProps, 'children' | 'className'> &
