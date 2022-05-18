@@ -13,3 +13,8 @@
 .auxiliaryLabel {
     text-align: right;
 }
+
+.errorMessageIcon {
+    vertical-align: bottom;
+    margin-right: var(--reactist-spacing-xsmall);
+}

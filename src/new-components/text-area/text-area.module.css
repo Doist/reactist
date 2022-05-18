@@ -6,6 +6,10 @@
     border: 1px solid var(--reactist-divider-secondary);
 }
 
-.container textarea:focus {
+.container.error textarea {
+    border-color: var(--reactist-alert-tone-critical-border) !important;
+}
+
+.container textarea:focus-visible {
     border-color: var(--reactist-divider-primary);
 }

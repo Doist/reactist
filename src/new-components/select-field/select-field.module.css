@@ -42,6 +42,10 @@
     margin: 0;
 }
 
+.selectWrapper.error select {
+    border-color: var(--reactist-alert-tone-critical-border) !important;
+}
+
 .selectWrapper option {
     background-color: var(--reactist-bg-aside);
 }

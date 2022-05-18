@@ -8,6 +8,10 @@
     border-color: var(--reactist-divider-primary);
 }
 
+.inputWrapper.error {
+    border-color: var(--reactist-alert-tone-critical-border) !important;
+}
+
 .inputWrapper input {
     color: var(--reactist-content-primary);
     flex: 1;

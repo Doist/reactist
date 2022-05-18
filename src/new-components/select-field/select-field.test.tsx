@@ -63,6 +63,11 @@ describe('SelectField', () => {
         )
     })
 
+    it('is marked as invalid and with an error message if an error message is given', () => {
+        render(<SelectField data-testid="select-field" label="Gender" error="Must select one" />)
+        expect(screen.getByTestId('select-field')).toHaveErrorMessage('Must select one')
+    })
+
     it('renders its auxiliary label', () => {
         render(<SelectField label="Theme" auxiliaryLabel={<a href="/help">About themes</a>} />)
         expect(screen.getByRole('link', { name: 'About themes' })).toBeInTheDocument()

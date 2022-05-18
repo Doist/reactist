@@ -30,6 +30,17 @@ describe('SwitchField', () => {
         )
     })
 
+    it('is marked as invalid and with an error message if an error message is given', () => {
+        render(
+            <SwitchField
+                data-testid="switch-field"
+                label="Accept terms and conditions?"
+                error="You must check this"
+            />,
+        )
+        expect(screen.getByTestId('switch-field')).toHaveErrorMessage('You must check this')
+    })
+
     it('is hidden when hidden={true}', () => {
         const { rerender } = render(
             <SwitchField

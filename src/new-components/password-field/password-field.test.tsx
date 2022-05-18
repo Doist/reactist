@@ -71,6 +71,11 @@ describe('PasswordField', () => {
         )
     })
 
+    it('is marked as invalid and with an error message if an error message is given', () => {
+        render(<PasswordField data-testid="password-field" label="Password" error="Too short" />)
+        expect(screen.getByTestId('password-field')).toHaveErrorMessage('Too short')
+    })
+
     it('renders its auxiliary label', () => {
         render(
             <PasswordField

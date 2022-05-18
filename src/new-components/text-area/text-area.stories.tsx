@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { selectWithNone, PartialProps } from '../storybook-helper'
-import { PasswordField } from './'
+import { TextArea } from './'
 
 import type { BoxMaxWidth } from '../box'
 
 export default {
-    title: 'Design system/PasswordField',
-    component: PasswordField,
+    title: 'Design system/TextArea',
+    component: TextArea,
     parameters: {
         badges: ['accessible'],
     },
@@ -20,9 +20,9 @@ export function InteractivePropsStory({
     label,
     auxiliaryLabel,
     ...props
-}: PartialProps<typeof PasswordField>) {
+}: PartialProps<typeof TextArea>) {
     return (
-        <PasswordField
+        <TextArea
             {...props}
             label={label}
             auxiliaryLabel={
@@ -40,7 +40,7 @@ export function InteractivePropsStory({
 InteractivePropsStory.argTypes = {
     label: {
         control: { type: 'text' },
-        defaultValue: 'Password',
+        defaultValue: 'User bio',
     },
     secondaryLabel: {
         control: { type: 'text' },
@@ -48,12 +48,12 @@ InteractivePropsStory.argTypes = {
     },
     auxiliaryLabel: {
         control: { type: 'text' },
-        defaultValue: 'Forgot your password?',
+        defaultValue: 'Need help?',
     },
     hint: {
         control: { type: 'text' },
         defaultValue:
-            'Must be at least 100 characters long, and it should include each letter of the alphabet',
+            'You’ll have a better experience in our community if others get to know a little bit about you.',
     },
     error: {
         control: { type: 'text' },
@@ -61,7 +61,7 @@ InteractivePropsStory.argTypes = {
     },
     placeholder: {
         control: { type: 'text' },
-        defaultValue: 'Type your password',
+        defaultValue: 'Tell us something about yourself. Don’t be shy.',
     },
     maxWidth: selectWithNone<BoxMaxWidth>(
         ['xsmall', 'small', 'medium', 'large', 'xlarge'],

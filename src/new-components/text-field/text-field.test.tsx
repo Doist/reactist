@@ -57,6 +57,11 @@ describe('TextField', () => {
         )
     })
 
+    it('is marked as invalid and with an error message if an error message is given', () => {
+        render(<TextField data-testid="text-field" label="Phone" error="Invalid phone number" />)
+        expect(screen.getByTestId('text-field')).toHaveErrorMessage('Invalid phone number')
+    })
+
     it('renders its auxiliary label', () => {
         render(<TextField label="VAT ID" auxiliaryLabel={<a href="/help">Whatʼs this?</a>} />)
         expect(screen.getByRole('link', { name: 'Whatʼs this?' })).toBeInTheDocument()

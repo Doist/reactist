@@ -3,7 +3,7 @@ import { Box } from '../box'
 import { Stack } from '../stack'
 import { Text } from '../text'
 import { HiddenVisually } from '../hidden-visually'
-import { FieldComponentProps, FieldHint } from '../base-field'
+import { FieldComponentProps, FieldHint, FieldError } from '../base-field'
 import { useId } from '../common-helpers'
 import styles from './switch-field.module.css'
 
@@ -29,10 +29,12 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
     {
         label,
         hint,
+        error,
         disabled = false,
         hidden,
         defaultChecked,
         id: originalId,
+        'aria-errormessage': originalAriaErrorMessage,
         'aria-describedby': originalAriaDescribedBy,
         'aria-label': originalAriaLabel,
         'aria-labelledby': originalAriaLabelledby,
@@ -43,7 +45,9 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
 ) {
     const id = useId(originalId)
     const hintId = useId()
+    const errorId = useId()
 
+    const ariaErrorMessage = originalAriaErrorMessage ?? (error ? errorId : undefined)
     const ariaDescribedBy = originalAriaDescribedBy ?? (hint ? hintId : undefined)
     const ariaLabel = originalAriaLabel ?? undefined
     const ariaLabelledBy = originalAriaLabelledby ?? undefined
@@ -79,6 +83,8 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
                             id={id}
                             type="checkbox"
                             disabled={disabled}
+                            aria-errormessage={ariaErrorMessage}
+                            aria-invalid={error ? true : undefined}
                             aria-describedby={ariaDescribedBy}
                             aria-label={ariaLabel}
                             aria-labelledby={ariaLabelledBy}
@@ -104,6 +110,7 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
                 </Box>
                 <Text exceptionallySetClassName={styles.label}>{label}</Text>
             </Box>
+            {error ? <FieldError id={errorId}>{error}</FieldError> : null}
             {hint ? <FieldHint id={hintId}>{hint}</FieldHint> : null}
         </Stack>
     )

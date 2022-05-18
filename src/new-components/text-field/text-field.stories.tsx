@@ -55,6 +55,10 @@ InteractivePropsStory.argTypes = {
         defaultValue:
             'We need your name for billing and shipping purposes. Make sure to enter it correctly.',
     },
+    error: {
+        control: { type: 'text' },
+        defaultValue: '',
+    },
     placeholder: {
         control: { type: 'text' },
         defaultValue: 'Enter your name as it appears in your ID',

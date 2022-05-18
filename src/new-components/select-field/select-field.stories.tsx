@@ -68,6 +68,10 @@ InteractivePropsStory.argTypes = {
         defaultValue:
             'The theme you select will be applied immediately. If you upgrade to premium you will have more themes to choose from.',
     },
+    error: {
+        control: { type: 'text' },
+        defaultValue: '',
+    },
     maxWidth: selectWithNone<BoxMaxWidth>(
         ['xsmall', 'small', 'medium', 'large', 'xlarge'],
         'small',
