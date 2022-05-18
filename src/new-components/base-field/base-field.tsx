@@ -10,7 +10,6 @@ import type { WithEnhancedClassName } from '../common-types'
 type FieldHintProps = {
     id: string
     children: React.ReactNode
-    hidden?: boolean
 }
 
 function FieldHint(props: FieldHintProps) {
@@ -101,8 +100,8 @@ function BaseField({
     const ariaDescribedBy = originalAriaDescribedBy ?? (hint ? hintId : undefined)
 
     return (
-        <Stack space="small">
-            <Box className={[className, styles.container]} maxWidth={maxWidth} hidden={hidden}>
+        <Stack space="small" hidden={hidden}>
+            <Box className={[className, styles.container]} maxWidth={maxWidth}>
                 <Box
                     as="span"
                     display="flex"
@@ -124,11 +123,7 @@ function BaseField({
                 </Box>
                 {children(ariaDescribedBy ? { id, 'aria-describedby': ariaDescribedBy } : { id })}
             </Box>
-            {hint ? (
-                <FieldHint hidden={hidden} id={hintId}>
-                    {hint}
-                </FieldHint>
-            ) : null}
+            {hint ? <FieldHint id={hintId}>{hint}</FieldHint> : null}
         </Stack>
     )
 }
