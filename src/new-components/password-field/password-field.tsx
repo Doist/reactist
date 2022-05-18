@@ -23,6 +23,8 @@ const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(fun
         secondaryLabel,
         auxiliaryLabel,
         hint,
+        message,
+        tone,
         maxWidth,
         togglePasswordLabel = 'Toggle password visibility',
         hidden,
@@ -49,6 +51,8 @@ const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(fun
             secondaryLabel={secondaryLabel}
             auxiliaryLabel={auxiliaryLabel}
             hint={hint}
+            message={message}
+            tone={tone}
             maxWidth={maxWidth}
             hidden={hidden}
             aria-describedby={ariaDescribedBy}
@@ -57,7 +61,11 @@ const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(fun
                 <Box
                     display="flex"
                     alignItems="center"
-                    className={[styles.inputWrapper, textFieldStyles.inputWrapper]}
+                    className={[
+                        styles.inputWrapper,
+                        textFieldStyles.inputWrapper,
+                        tone === 'error' ? textFieldStyles.error : null,
+                    ]}
                 >
                     <input
                         {...props}

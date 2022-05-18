@@ -63,6 +63,47 @@ describe('SelectField', () => {
         )
     })
 
+    it('is marked as invalid and with an error message if an error message is given', () => {
+        render(
+            <SelectField
+                data-testid="select-field"
+                label="Theme"
+                message="You must select one"
+                tone="error"
+            />,
+        )
+        expect(screen.getByTestId('select-field')).toHaveErrorMessage('You must select one')
+    })
+
+    it('uses the message as the description, whenever the tone is not error', () => {
+        render(
+            <SelectField
+                data-testid="select-field"
+                label="Theme"
+                message="Your theme preference has been saved"
+                tone="success"
+            />,
+        )
+        expect(screen.getByTestId('select-field')).toHaveAccessibleDescription(
+            'Your theme preference has been saved',
+        )
+    })
+
+    it('adds the message as part of the description, whenever the tone is not error', () => {
+        render(
+            <SelectField
+                data-testid="select-field"
+                label="Theme"
+                hint="Select the theme that you like"
+                message="Your theme preference has been saved"
+                tone="success"
+            />,
+        )
+        expect(screen.getByTestId('select-field')).toHaveAccessibleDescription(
+            'Your theme preference has been saved Select the theme that you like',
+        )
+    })
+
     it('renders its auxiliary label', () => {
         render(<SelectField label="Theme" auxiliaryLabel={<a href="/help">About themes</a>} />)
         expect(screen.getByRole('link', { name: 'About themes' })).toBeInTheDocument()

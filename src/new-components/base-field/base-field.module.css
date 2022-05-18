@@ -13,3 +13,7 @@
 .auxiliaryLabel {
     text-align: right;
 }
+
+.messageIcon {
+    vertical-align: bottom;
+}

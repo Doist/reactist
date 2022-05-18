@@ -4,8 +4,13 @@
     box-sizing: border-box;
     border-radius: var(--reactist-border-radius-small);
     border: 1px solid var(--reactist-divider-secondary);
+    font-family: var(--reactist-font-family);
 }
 
-.container textarea:focus {
+.container.error textarea {
+    border-color: var(--reactist-alert-tone-critical-border) !important;
+}
+
+.container textarea:focus-visible {
     border-color: var(--reactist-divider-primary);
 }

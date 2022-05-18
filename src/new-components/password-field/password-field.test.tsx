@@ -71,6 +71,47 @@ describe('PasswordField', () => {
         )
     })
 
+    it('is marked as invalid and with an error message if an error message is given', () => {
+        render(
+            <PasswordField
+                data-testid="password-field"
+                label="Password confirmation"
+                message="Does not match the password"
+                tone="error"
+            />,
+        )
+        expect(screen.getByTestId('password-field')).toHaveErrorMessage(
+            'Does not match the password',
+        )
+    })
+
+    it('uses the message as the description, whenever the tone is not error', () => {
+        render(
+            <PasswordField
+                data-testid="password-field"
+                label="Password confirmation"
+                message="Matches password"
+                tone="success"
+            />,
+        )
+        expect(screen.getByTestId('password-field')).toHaveAccessibleDescription('Matches password')
+    })
+
+    it('adds the message as part of the description, whenever the tone is not error', () => {
+        render(
+            <PasswordField
+                data-testid="password-field"
+                label="Password confirmation"
+                hint="Type your password one more time"
+                message="Matches password"
+                tone="success"
+            />,
+        )
+        expect(screen.getByTestId('password-field')).toHaveAccessibleDescription(
+            'Matches password Type your password one more time',
+        )
+    })
+
     it('renders its auxiliary label', () => {
         render(
             <PasswordField
