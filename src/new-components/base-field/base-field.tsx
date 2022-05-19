@@ -2,9 +2,10 @@ import * as React from 'react'
 import { Box, BoxProps } from '../box'
 import { useId } from '../common-helpers'
 import { Text } from '../text'
-import { WithEnhancedClassName } from '../common-types'
 import styles from './base-field.module.css'
 import { Stack } from '../stack'
+
+import type { WithEnhancedClassName } from '../common-types'
 
 type FieldHintProps = {
     id: string

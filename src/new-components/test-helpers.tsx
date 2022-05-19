@@ -2,8 +2,8 @@
 /* eslint-disable jest/valid-title */
 import * as React from 'react'
 import { render, screen } from '@testing-library/react'
-import { ResponsiveProp } from './responsive-props'
-import { Space } from './common-types'
+import type { ResponsiveProp } from './responsive-props'
+import type { Space } from './common-types'
 
 type PropsWithSpace = { space?: ResponsiveProp<Space>; 'data-testid'?: string }
 

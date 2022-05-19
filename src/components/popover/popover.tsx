@@ -132,23 +132,29 @@ class Popover extends React.Component<Props> {
 
         for (let index = 0; index < positionsToTry.length; index++) {
             const currentPosition = positionsToTry[index]
-            const enoughSpaceAtPosition = hasEnoughSpace(
-                windowDimensions,
-                popoverDimensions,
-                wrapperDimensions,
-                wrapperPositionRelative,
-                currentPosition,
-                gapSize,
-            )
+            const enoughSpaceAtPosition =
+                currentPosition != null
+                    ? hasEnoughSpace(
+                          windowDimensions,
+                          popoverDimensions,
+                          wrapperDimensions,
+                          wrapperPositionRelative,
+                          currentPosition,
+                          gapSize,
+                      )
+                    : false
 
             if (enoughSpaceAtPosition || index === positionsToTry.length - 1) {
-                const popoverPosition = calculatePosition(
-                    currentPosition,
-                    wrapperDimensions,
-                    wrapperPositionAbsolute,
-                    popoverDimensions,
-                    gapSize,
-                )
+                const popoverPosition =
+                    currentPosition != null
+                        ? calculatePosition(
+                              currentPosition,
+                              wrapperDimensions,
+                              wrapperPositionAbsolute,
+                              popoverDimensions,
+                              gapSize,
+                          )
+                        : wrapperPositionAbsolute
                 this.popover.style.top = `${popoverPosition.y}px`
                 this.popover.style.left = `${popoverPosition.x}px`
 
@@ -178,7 +184,7 @@ class Popover extends React.Component<Props> {
         }
     }
 
-    _getClassNameForPosition = (position: Position) => {
+    _getClassNameForPosition = (position: Position | undefined) => {
         const { visible, withArrow, arrowClassName } = this.props
         const className = classNames('reactist_popover', { visible })
 

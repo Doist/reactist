@@ -37,12 +37,12 @@ function getClassNames(
     styles: Record<string, string>,
     property: string,
     value: ResponsiveProp<string> | null | undefined,
-): string[] | null {
+): Array<string | undefined> | null {
     if (!value) {
         return null
     }
 
-    const classList: string[] = []
+    const classList: Array<string | undefined> = []
 
     if (typeof value === 'string') {
         classList.push(styles[`${property}-${value}`])

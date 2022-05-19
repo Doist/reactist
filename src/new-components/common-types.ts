@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import type classNames from 'classnames'
 import type { HTMLAttributes } from 'react'
 
 export type Space = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'
