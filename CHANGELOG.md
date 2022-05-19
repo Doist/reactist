@@ -2,10 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-# Upcoming
+# v11.6.0
 
--   [Feat] Add `positive` tone to `Text`
 -   [Fix] Apply TextLink color through `--reactist-text-link-color`
+-   [Feat] Add `positive` tone to `Text`
 -   [Feat] Add `xsmall` size to `Loading`
 
 # v11.5.1
