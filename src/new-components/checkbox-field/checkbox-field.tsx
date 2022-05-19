@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useForkRef } from 'reakit-utils'
+import { useForkRef } from 'ariakit-utils'
 import { Box } from '../box'
 import { Text } from '../text'
 import { CheckboxIcon } from './checkbox-icon'
