@@ -29,9 +29,6 @@ const ExampleButton = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
 })
 
 const positions: Array<TooltipProps['position']> = [
-    'auto-start',
-    'auto',
-    'auto-end',
     'top-start',
     'top',
     'top-end',

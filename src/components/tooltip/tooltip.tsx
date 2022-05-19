@@ -2,29 +2,33 @@ import React from 'react'
 import classNames from 'classnames'
 
 import {
-    useTooltipState,
-    TooltipInitialState,
-    Tooltip as ReakitTooltip,
-    TooltipReference,
-    TooltipProps as ReakitTooltipProps,
-} from 'reakit/Tooltip'
-import type { PopoverState } from 'reakit/Popover'
+    useTooltipState as useAriakitTooltipState,
+    TooltipStateProps as AriakitTooltipStateProps,
+    Tooltip as AriakitTooltip,
+    TooltipProps as AriakitTooltipProps,
+    TooltipAnchor,
+} from 'ariakit/tooltip'
+import type { PopoverState } from 'ariakit/popover'
 
 import './tooltip.less'
 
-type TooltipProps = Omit<ReakitTooltipProps, 'children'> & {
+type TooltipProps = Omit<AriakitTooltipProps, 'children' | 'state'> & {
     children: React.ReactNode
     content: React.ReactNode | (() => React.ReactNode)
     position?: PopoverState['placement']
     gapSize?: number
 }
 
+type AnchorProps = {
+    onFocus?: (event: React.FocusEvent<HTMLDivElement>) => void
+} & React.RefAttributes<HTMLDivElement>
+
 // These are exported to be used in the tests, they are not meant to be exported publicly
 export const SHOW_DELAY = 500
 export const HIDE_DELAY = 100
 
-function useDelayedTooltipState(initialState: TooltipInitialState) {
-    const tooltipState = useTooltipState(initialState)
+function useDelayedTooltipState(initialState: AriakitTooltipStateProps) {
+    const tooltipState = useAriakitTooltipState(initialState)
     const delay = useDelay()
     return React.useMemo(
         () => ({
@@ -44,9 +48,11 @@ function Tooltip({
     className,
     ...props
 }: TooltipProps) {
-    const tooltip = useDelayedTooltipState({ placement: position, gutter: gapSize })
+    const state = useDelayedTooltipState({ placement: position, gutter: gapSize })
 
-    const child = React.Children.only<React.ReactElement>(children as React.ReactElement)
+    const child = React.Children.only<React.FunctionComponentElement<AnchorProps>>(
+        children as React.FunctionComponentElement<AnchorProps>,
+    )
     if (!content) {
         return child
     }
@@ -57,7 +63,7 @@ function Tooltip({
      * it opened was closed. See link below for more details.
      * @see https://github.com/reakit/reakit/discussions/749
      */
-    function handleFocus(event: React.FocusEvent) {
+    function handleFocus(event: React.FocusEvent<HTMLDivElement>) {
         // If focus is not followed by a key up event, does it mean that it's not
         // an intentional keyboard focus? Not sure but it seems to work.
         // This may be resolved soon in an upcoming version of reakit:
@@ -65,35 +71,28 @@ function Tooltip({
         function handleKeyUp(e: Event) {
             const eventKey = (e as KeyboardEvent).key
             if (eventKey !== 'Escape' && eventKey !== 'Enter' && eventKey !== 'Space') {
-                tooltip.show()
+                state.show()
             }
         }
         event.currentTarget.addEventListener('keyup', handleKeyUp, { once: true })
         // Prevent tooltip.show from being called by TooltipReference
         event.preventDefault()
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-        if (typeof child.props.onFocus === 'function') child.props.onFocus(event)
+        child.props.onFocus?.(event)
     }
 
     return (
         <>
-            <TooltipReference
-                {...tooltip}
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-                ref={(child as any).ref}
-                {...child.props}
-                onFocus={handleFocus}
-            >
-                {(referenceProps) => React.cloneElement(child, referenceProps)}
-            </TooltipReference>
-            {tooltip.visible ? (
-                <ReakitTooltip
-                    {...tooltip}
+            <TooltipAnchor state={state} ref={child.ref} onFocus={handleFocus}>
+                {(anchorProps) => React.cloneElement(child, { ...anchorProps, ...child.props })}
+            </TooltipAnchor>
+            {state.visible ? (
+                <AriakitTooltip
                     {...props}
+                    state={state}
                     className={classNames('reactist_tooltip', className)}
                 >
                     {typeof content === 'function' ? content() : content}
-                </ReakitTooltip>
+                </AriakitTooltip>
             ) : null}
         </>
     )
