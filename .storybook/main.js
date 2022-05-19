@@ -1,12 +1,11 @@
 const customWebpack = require('./webpack.config.js')
 
 module.exports = {
-    stories: ['../src/**/*.stories.(tsx|mdx)', '../stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
+    stories: ['../src/**/*.stories.@(tsx|mdx)', '../stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
     siteUrl: 'https://github.com/Doist/reactist',
     addons: [
         '@storybook/addon-postcss',
-        '@storybook/addon-options/register',
-        '@storybook/addon-actions/register',
+        '@storybook/addon-actions',
         {
             name: '@storybook/addon-docs',
             options: {
