@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Menu, MenuButton, MenuList, MenuItem } from './menu'
 import { axe } from 'jest-axe'
+import { act } from 'react-dom/test-utils'
 
 function getFocusedElement() {
     if (!document.activeElement) {
@@ -92,7 +93,7 @@ describe('Menu', () => {
         expect(onSelect).toHaveBeenCalledTimes(2)
     })
 
-    it('allows to navigate through the menu items using the keyboard', () => {
+    it('allows to navigate through the menu items using the keyboard', async () => {
         const onItemSelect = jest.fn()
         const onSelect = jest.fn<void, [string]>()
 
@@ -116,12 +117,18 @@ describe('Menu', () => {
         userEvent.type(screen.getByRole('button', { name: 'Options menu' }), '{enter}')
         fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
         expect(screen.getByRole('menuitem', { name: '1st option' })).toHaveFocus()
+
         fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
         fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
         expect(screen.getByRole('menuitem', { name: '3rd option' })).toHaveFocus()
+
         fireEvent.keyDown(getFocusedElement(), { key: 'ArrowUp' })
         expect(screen.getByRole('menuitem', { name: '2nd option' })).toHaveFocus()
-        fireEvent.keyDown(getFocusedElement(), { key: 'Enter' })
+
+        userEvent.keyboard('{Enter}')
+        // Ariakit performs state changes asynchronously that needs to be flushed
+        await act(() => Promise.resolve())
+
         expect(onSelect).toHaveBeenCalledWith('2nd option')
         expect(onItemSelect).toHaveBeenCalledWith('2nd')
         expect(screen.queryByRole('menu')).not.toBeInTheDocument()
@@ -146,7 +153,7 @@ describe('Menu', () => {
         // supported in jsdom, so we'd need to mock window.location or something
     })
 
-    it('allows to intercept clicks and prevent the onSelect action to occur', () => {
+    it('allows to intercept clicks and prevent the onSelect action to occur', async () => {
         const onSelect = jest.fn()
         render(
             <Menu>
@@ -164,6 +171,10 @@ describe('Menu', () => {
 
         userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
         userEvent.click(screen.getByRole('menuitem', { name: 'Click me' }))
+
+        // Ariakit performs state changes asynchronously that needs to be flushed
+        await act(() => Promise.resolve())
+
         expect(onSelect).not.toHaveBeenCalled()
 
         // Check that it closed the menu anyway
