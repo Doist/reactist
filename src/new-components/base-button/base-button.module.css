@@ -86,21 +86,6 @@
 .label {
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden;
-    width: 100%;
-    text-align: center;
-}
-
-.align-start .label {
-    text-align: start;
-}
-
-.align-center .label {
-    text-align: center;
-}
-
-.align-end .label {
-    text-align: end;
 }
 
 /* nice little animation when clicked to give some visual feedback */
