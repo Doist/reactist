@@ -121,7 +121,7 @@
         "style-loader": "^0.23.1",
         "svg-url-loader": "^6.0.0",
         "ts-loader": "^8.0.2",
-        "tsdx": "^0.13.3",
+        "tsdx": "^0.14.1",
         "tslib": "^2.0.0",
         "typescript": "^4.6.4",
         "webpack": "^4.43.0"
