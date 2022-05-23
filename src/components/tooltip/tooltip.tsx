@@ -7,6 +7,7 @@ import {
     Tooltip as AriakitTooltip,
     TooltipProps as AriakitTooltipProps,
     TooltipAnchor,
+    TooltipAnchorProps,
 } from 'ariakit/tooltip'
 import type { PopoverState } from 'ariakit/popover'
 
@@ -18,10 +19,6 @@ type TooltipProps = Omit<AriakitTooltipProps, 'children' | 'state'> & {
     position?: PopoverState['placement']
     gapSize?: number
 }
-
-type AnchorProps = {
-    onFocus?: (event: React.FocusEvent<HTMLDivElement>) => void
-} & React.RefAttributes<HTMLDivElement>
 
 // These are exported to be used in the tests, they are not meant to be exported publicly
 export const SHOW_DELAY = 500
@@ -50,8 +47,8 @@ function Tooltip({
 }: TooltipProps) {
     const state = useDelayedTooltipState({ placement: position, gutter: gapSize })
 
-    const child = React.Children.only<React.FunctionComponentElement<AnchorProps>>(
-        children as React.FunctionComponentElement<AnchorProps>,
+    const child = React.Children.only<React.FunctionComponentElement<TooltipAnchorProps>>(
+        children as React.FunctionComponentElement<TooltipAnchorProps>,
     )
     if (!content) {
         return child
@@ -82,8 +79,20 @@ function Tooltip({
 
     return (
         <>
-            <TooltipAnchor state={state} ref={child.ref} onFocus={handleFocus}>
-                {(anchorProps) => React.cloneElement(child, { ...anchorProps, ...child.props })}
+            <TooltipAnchor state={state} onFocus={handleFocus}>
+                {(anchorProps: TooltipAnchorProps) => {
+                    const { onFocus, onBlur } = anchorProps
+                    return React.cloneElement(child, {
+                        ...anchorProps,
+                        // Ensure that the children's props can override TooltipAnchor's
+                        // props, as properties like `autoFocus` can get lost otherwise.
+                        // The focus and blur handlers however are the core functionality
+                        // the tooltip needs to provide, so they should not be overridden
+                        ...child.props,
+                        onFocus,
+                        onBlur,
+                    })
+                }}
             </TooltipAnchor>
             {state.visible ? (
                 <AriakitTooltip
