@@ -1,5 +1,9 @@
 module.exports = {
-    collectCoverageFrom: ['src/**/*.{ts,tsx,js,jsx}'],
+    collectCoverageFrom: [
+        'src/**/*.{ts,tsx,js,jsx}',
+        '!**/*.stories.{js,jsx,ts,tsx}',
+        '!**/*storybook*.{js,jsx,ts,tsx}',
+    ],
     setupFilesAfterEnv: ['./scripts/jestSetup.ts'],
     snapshotSerializers: ['enzyme-to-json/serializer'],
     moduleNameMapper: {

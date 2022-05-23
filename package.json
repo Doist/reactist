@@ -35,7 +35,7 @@
         "clean": "rimraf es lib styles dist",
         "test": "jest --passWithNoTests",
         "test:watch": "npm run test -- --watch",
-        "test:coverage": "npm run test --coverage",
+        "test:coverage": "npm run test -- --coverage",
         "type-check": "tsc --noEmit -p ./tsconfig.json",
         "lint": "eslint --format codeframe --cache --ext js,jsx,ts,tsx ./",
         "storybook": "start-storybook -p 6006",
