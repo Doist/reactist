@@ -1,4 +1,5 @@
 module.exports = {
+    collectCoverageFrom: ['src/**/*.{ts,tsx,js,jsx}'],
     setupFilesAfterEnv: ['./scripts/jestSetup.ts'],
     snapshotSerializers: ['enzyme-to-json/serializer'],
     moduleNameMapper: {
@@ -6,4 +7,8 @@ module.exports = {
     },
     testURL: 'http://localhost',
     testEnvironment: 'jest-environment-jsdom-sixteen',
+    watchPlugins: [
+        require.resolve('jest-watch-typeahead/filename'),
+        require.resolve('jest-watch-typeahead/testname'),
+    ],
 }
