@@ -33,9 +33,19 @@ type TabsProps = {
      */
     variant?: 'normal' | 'plain'
     /**
-     * The id of the selected tab
+     * The id of the selected tab. Assigning a value makes this a
+     * controlled component
      */
     selectedId?: string | null
+    /**
+     * The tab to initially select. This can be used if the component should not
+     * be a controlled component but needs to have a tab selected
+     */
+    defaultSelectedId?: string | null
+    /**
+     * Called with the tab id when a tab is selected
+     */
+    onSelectedIdChange?: (selectedId: string | null | undefined) => void
 }
 
 /**
@@ -44,24 +54,27 @@ type TabsProps = {
 export function Tabs({
     children,
     selectedId,
+    defaultSelectedId,
     color = 'primary',
     variant = 'normal',
+    onSelectedIdChange,
 }: TabsProps): React.ReactElement {
-    const tabState = useTabState({ selectedId })
-    const previousSelectedId = usePrevious(selectedId)
+    const tabState = useTabState({ selectedId, setSelectedId: onSelectedIdChange })
+    const previousDefaultSelectedId = usePrevious(defaultSelectedId)
     const { selectedId: actualSelectedId, select } = tabState
 
     React.useEffect(
-        function selectTab() {
+        function selectDefaultTab() {
             if (
-                previousSelectedId !== selectedId &&
-                selectedId !== actualSelectedId &&
-                selectedId !== undefined
+                !selectedId &&
+                defaultSelectedId !== previousDefaultSelectedId &&
+                defaultSelectedId !== actualSelectedId &&
+                defaultSelectedId !== undefined
             ) {
-                select(selectedId)
+                select(defaultSelectedId)
             }
         },
-        [selectedId, actualSelectedId, select, previousSelectedId],
+        [selectedId, defaultSelectedId, actualSelectedId, select, previousDefaultSelectedId],
     )
 
     const memoizedTabState = React.useMemo(

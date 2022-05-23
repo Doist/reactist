@@ -23,11 +23,19 @@ export const Template = ({
     variant,
     space,
     selectedId,
+    defaultSelectedId,
     render,
+    onSelectedIdChange,
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledby,
 }) => (
-    <Tabs color={color} variant={variant} selectedId={selectedId}>
+    <Tabs
+        color={color}
+        variant={variant}
+        selectedId={selectedId}
+        defaultSelectedId={defaultSelectedId}
+        onSelectedIdChange={onSelectedIdChange}
+    >
         <TabList aria-label={ariaLabel} aria-labelledby={ariaLabelledby} space={space}>
             <Tab id="tab1">Tab 1</Tab>
             <Tab id="tab2">Tab 2</Tab>
@@ -53,12 +61,20 @@ export const Template = ({
 
 <Canvas>
     <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
+        parameters={{
+            docs: { source: { type: 'code' } },
+            controls: { exclude: ['children'] },
+        }}
         args={{
             'aria-label': 'Main demo for Tabs',
+            defaultSelectedId: 'tab3',
         }}
         argTypes={{
             selectedId: {
+                options: ['tab1', 'tab2', 'tab3', null, undefined],
+                control: { type: 'inline-radio' },
+            },
+            defaultSelectedId: {
                 options: ['tab1', 'tab2', 'tab3', null, undefined],
                 control: { type: 'inline-radio' },
             },
@@ -78,6 +94,7 @@ export const Template = ({
                 options: ['always', 'active', 'lazy'],
                 control: { type: 'inline-radio' },
             },
+            onSelectedIdChange: { action: 'onSelectedIdChange' },
         }}
         name="Main demo"
     >
