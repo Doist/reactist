@@ -39,18 +39,21 @@ describe('Time', () => {
 
     it('renders relative time when not hovered', () => {
         const time = shallow(<Time time={dayjs().unix()} />)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         expect(getRenderedTime(time)).toBe('moments ago')
     })
 
     it('renders full absolute time when hovered and expandedFullOnHover is set', () => {
         const time = shallow(<Time time={testDate} expandFullyOnHover />)
         time.simulate('mouseEnter', getMouseEvent())
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         expect(getRenderedTime(time)).toBe('March 22, 1991, 1:37 PM')
     })
 
     it('renders short absolute time when hovered and expandedOnHover is set', () => {
         const time = shallow(<Time time={testDate} expandOnHover />)
         time.simulate('mouseEnter', getMouseEvent())
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         expect(getRenderedTime(time)).toBe('March 22, 1991')
     })
 

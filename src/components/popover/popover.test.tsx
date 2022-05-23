@@ -161,12 +161,14 @@ describe('Popover', () => {
     })
 
     // Helpers ================================================================
-    const getPopover = (props = {}) => (
-        <Popover
-            trigger={<span>Trigger Content</span>}
-            content="Popover Content"
-            visible
-            {...props}
-        />
-    )
+    function getPopover(props = {}) {
+        return (
+            <Popover
+                trigger={<span>Trigger Content</span>}
+                content="Popover Content"
+                visible
+                {...props}
+            />
+        )
+    }
 })
