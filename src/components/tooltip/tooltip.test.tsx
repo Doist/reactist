@@ -3,6 +3,7 @@ import { render, screen, act } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import userEvent from '@testing-library/user-event'
 import { Tooltip, SHOW_DELAY, HIDE_DELAY } from './tooltip'
+import { flushPromises } from '../../new-components/test-helpers'
 
 // Runs the same test abstracting how the tooltip is triggered (can be via mouse or keyboard)
 function testShowHide({
@@ -141,7 +142,7 @@ describe('Tooltip', () => {
         })
 
         // Ariakit performs state changes asynchronously that needs to be flushed
-        await act(() => Promise.resolve())
+        await flushPromises()
 
         expect(content).toHaveBeenCalled()
     })
@@ -188,7 +189,7 @@ describe('Tooltip', () => {
             })
 
             // Ariakit performs state changes asynchronously that needs to be flushed
-            await act(() => Promise.resolve())
+            await flushPromises()
 
             jest.useRealTimers()
 

@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Menu, MenuButton, MenuList, MenuItem } from './menu'
 import { axe } from 'jest-axe'
-import { act } from 'react-dom/test-utils'
+import { flushPromises } from '../../new-components/test-helpers'
 
 function getFocusedElement() {
     if (!document.activeElement) {
@@ -127,7 +127,7 @@ describe('Menu', () => {
 
         userEvent.keyboard('{Enter}')
         // Ariakit performs state changes asynchronously that needs to be flushed
-        await act(() => Promise.resolve())
+        await flushPromises()
 
         expect(onSelect).toHaveBeenCalledWith('2nd option')
         expect(onItemSelect).toHaveBeenCalledWith('2nd')
@@ -173,7 +173,7 @@ describe('Menu', () => {
         userEvent.click(screen.getByRole('menuitem', { name: 'Click me' }))
 
         // Ariakit performs state changes asynchronously that needs to be flushed
-        await act(() => Promise.resolve())
+        await flushPromises()
 
         expect(onSelect).not.toHaveBeenCalled()
 
