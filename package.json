@@ -37,7 +37,7 @@
         "test:watch": "npm run test -- --watch",
         "test:coverage": "npm run test --coverage",
         "type-check": "tsc --noEmit -p ./tsconfig.json",
-        "lint": "tsdx lint src stories",
+        "lint": "eslint --format codeframe --cache --ext js,jsx,ts,tsx ./",
         "storybook": "start-storybook -p 6006",
         "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md,mdx}\""
     },
@@ -94,6 +94,7 @@
         "eslint": "^7.25.0",
         "eslint-config-prettier": "^6.12.0",
         "eslint-plugin-jest": "^24.1.0",
+        "eslint-plugin-jsx-a11y": "^6.5.1",
         "eslint-plugin-prettier": "^3.1.4",
         "eslint-plugin-react": "^7.23.2",
         "husky": "^4.3.0",
