@@ -54,7 +54,8 @@ export { default as ProgressBar } from './components/progress-bar'
 export { default as Select } from './components/select'
 export { default as Time } from './components/time'
 export { Notification } from './components/notification/notification'
-export { Tooltip, TooltipProps } from './components/tooltip'
+export { Tooltip } from './components/tooltip'
+export type { TooltipProps } from './components/tooltip'
 export * from './components/menu'
 
 //
