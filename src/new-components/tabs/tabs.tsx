@@ -102,7 +102,10 @@ type TabProps = {
 /**
  * Represents the individual tab elements within the group. Each `<Tab>` must have a corresponding `<TabPanel>` component.
  */
-export function Tab({ children, id }: TabProps): React.ReactElement | null {
+export const Tab = polymorphicComponent<'button', TabProps>(function Tab(
+    { as, children, id, exceptionallySetClassName, ...props },
+    ref,
+): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
 
     if (!tabContextValue) {
@@ -113,18 +116,22 @@ export function Tab({ children, id }: TabProps): React.ReactElement | null {
 
     return (
         <BaseTab
+            {...props}
+            as={as}
             className={classNames(
+                exceptionallySetClassName,
                 styles.tab,
                 styles[`tab-${variant ?? ''}`],
                 styles[`tab-${color ?? ''}`],
             )}
             id={id}
             state={tabState}
+            ref={ref}
         >
             {children}
         </BaseTab>
     )
-}
+})
 
 type TabListProps = (
     | {
