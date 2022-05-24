@@ -21,6 +21,7 @@
     background: none;
     cursor: pointer;
     font-weight: var(--reactist-font-weight-medium);
+    text-decoration: none;
 }
 
 /*
