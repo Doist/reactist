@@ -1,7 +1,7 @@
 /* eslint-disable jest/no-export */
 /* eslint-disable jest/valid-title */
 import * as React from 'react'
-import { render, screen } from '@testing-library/react'
+import { act, render, screen } from '@testing-library/react'
 import type { ResponsiveProp } from './responsive-props'
 import type { Space } from './common-types'
 
@@ -38,4 +38,8 @@ function runSpaceTests<Props extends PropsWithSpace>(Component: React.ComponentT
     })
 }
 
-export { runSpaceTests }
+async function flushPromises() {
+    await act(() => Promise.resolve())
+}
+
+export { runSpaceTests, flushPromises }

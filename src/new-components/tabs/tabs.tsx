@@ -5,8 +5,8 @@ import {
     Tab as BaseTab,
     TabList as BaseTabList,
     TabPanel as BaseTabPanel,
-    TabStateReturn,
-} from 'reakit/Tab'
+    TabState,
+} from 'ariakit/tab'
 import { Inline } from '../inline'
 import { usePrevious } from '../../hooks/use-previous'
 import { polymorphicComponent } from '../../utils/polymorphism'
@@ -15,9 +15,11 @@ import type { Space } from '../common-types'
 
 import styles from './tabs.module.css'
 
-const TabsContext = React.createContext<
-    (TabStateReturn & Omit<TabsProps, 'children' | 'selectedId'>) | null
->(null)
+type TabsContextValue = {
+    tabState: TabState
+} & Pick<TabsProps, 'color' | 'variant'>
+
+const TabsContext = React.createContext<TabsContextValue | null>(null)
 
 type TabsProps = {
     /** The `<Tabs>` component must be composed from a `<TabList>` and corresponding `<TabPanel>` components */
@@ -31,9 +33,19 @@ type TabsProps = {
      */
     variant?: 'normal' | 'plain'
     /**
-     * The id of the selected tab
+     * The id of the selected tab. Assigning a value makes this a
+     * controlled component
      */
     selectedId?: string | null
+    /**
+     * The tab to initially select. This can be used if the component should not
+     * be a controlled component but needs to have a tab selected
+     */
+    defaultSelectedId?: string | null
+    /**
+     * Called with the tab id when a tab is selected
+     */
+    onSelectedIdChange?: (selectedId: string | null | undefined) => void
 }
 
 /**
@@ -42,38 +54,38 @@ type TabsProps = {
 export function Tabs({
     children,
     selectedId,
+    defaultSelectedId,
     color = 'primary',
     variant = 'normal',
+    onSelectedIdChange,
 }: TabsProps): React.ReactElement {
-    const tabState = useTabState({ selectedId })
-    const previousSelectedId = usePrevious(selectedId)
+    const tabState = useTabState({ selectedId, setSelectedId: onSelectedIdChange })
+    const previousDefaultSelectedId = usePrevious(defaultSelectedId)
     const { selectedId: actualSelectedId, select } = tabState
 
     React.useEffect(
-        function selectTab() {
+        function selectDefaultTab() {
             if (
-                previousSelectedId !== selectedId &&
-                selectedId !== actualSelectedId &&
-                selectedId !== undefined
+                !selectedId &&
+                defaultSelectedId !== previousDefaultSelectedId &&
+                defaultSelectedId !== actualSelectedId &&
+                defaultSelectedId !== undefined
             ) {
-                select(selectedId)
+                select(defaultSelectedId)
             }
         },
-        [selectedId, actualSelectedId, select, previousSelectedId],
+        [selectedId, defaultSelectedId, actualSelectedId, select, previousDefaultSelectedId],
     )
 
     const memoizedTabState = React.useMemo(
         function memoizeTabState() {
             return {
-                ...tabState,
+                tabState,
                 color,
                 variant,
             }
         },
-        // There is no guarantee that useTabState returns a stable object when there are no changes, so
-        // following reakit/Tab's example we only return a new objet when any of its values have changed
-        // eslint-disable-next-line
-        [color, variant, ...Object.values(tabState)],
+        [color, variant, tabState],
     )
 
     return <TabsContext.Provider value={memoizedTabState}>{children}</TabsContext.Provider>
@@ -90,29 +102,36 @@ type TabProps = {
 /**
  * Represents the individual tab elements within the group. Each `<Tab>` must have a corresponding `<TabPanel>` component.
  */
-export function Tab({ children, id }: TabProps): React.ReactElement | null {
+export const Tab = polymorphicComponent<'button', TabProps>(function Tab(
+    { as, children, id, exceptionallySetClassName, ...props },
+    ref,
+): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
 
     if (!tabContextValue) {
         return null
     }
 
-    const { color, variant, ...tabState } = tabContextValue
+    const { color, variant, tabState } = tabContextValue
 
     return (
         <BaseTab
+            {...props}
+            as={as}
             className={classNames(
+                exceptionallySetClassName,
                 styles.tab,
                 styles[`tab-${variant ?? ''}`],
                 styles[`tab-${color ?? ''}`],
             )}
             id={id}
-            {...tabState}
+            state={tabState}
+            ref={ref}
         >
             {children}
         </BaseTab>
     )
-}
+})
 
 type TabListProps = (
     | {
@@ -158,10 +177,10 @@ export function TabList({
         return null
     }
 
-    const { color, variant, ...tabState } = tabContextValue
+    const { tabState } = tabContextValue
 
     return (
-        <BaseTabList {...props} {...tabState}>
+        <BaseTabList state={tabState} {...props}>
             <Inline space={space}>{children}</Inline>
         </BaseTabList>
     )
@@ -192,7 +211,7 @@ export const TabPanel = polymorphicComponent<'div', TabPanelProps, 'omitClassNam
     ): React.ReactElement | null {
         const tabContextValue = React.useContext(TabsContext)
         const [tabRendered, setTabRendered] = React.useState(false)
-        const tabIsActive = tabContextValue?.selectedId === id
+        const tabIsActive = tabContextValue?.tabState.selectedId === id
 
         React.useEffect(
             function trackTabRenderedState() {
@@ -207,10 +226,10 @@ export const TabPanel = polymorphicComponent<'div', TabPanelProps, 'omitClassNam
             return null
         }
 
-        const { color, variant, ...tabState } = tabContextValue
+        const { tabState } = tabContextValue
 
         return (
-            <BaseTabPanel tabId={id} {...tabState} {...props} as={as} ref={ref}>
+            <BaseTabPanel tabId={id} {...props} state={tabState} as={as} ref={ref}>
                 {render === 'always' ? children : null}
                 {render === 'active' && tabIsActive ? children : null}
                 {render === 'lazy' && (tabIsActive || tabRendered) ? children : null}
@@ -234,5 +253,5 @@ type TabAwareSlotProps = {
 export function TabAwareSlot({ children }: TabAwareSlotProps): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
 
-    return tabContextValue ? children({ selectedId: tabContextValue.selectedId }) : null
+    return tabContextValue ? children({ selectedId: tabContextValue?.tabState.selectedId }) : null
 }

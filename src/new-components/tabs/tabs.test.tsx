@@ -114,7 +114,7 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 3')).toBeVisible()
     })
 
-    it('allows the selected tab to be set programmatically', () => {
+    it('becomes a controlled component when selectedId is provided', () => {
         const { rerender } = render(
             <Tabs>
                 <TabList aria-label="test-tabs">
@@ -128,29 +128,15 @@ describe('Tabs', () => {
             </Tabs>,
         )
 
-        expect(screen.getByText('Content of tab 1')).toBeVisible()
-        expect(screen.getByText('Content of tab 2')).not.toBeVisible()
-        expect(screen.getByText('Content of tab 3')).not.toBeVisible()
+        userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
 
-        rerender(
-            <Tabs selectedId="tab2">
-                <TabList aria-label="test-tabs">
-                    <Tab id="tab1">Tab 1</Tab>
-                    <Tab id="tab2">Tab 2</Tab>
-                    <Tab id="tab3">Tab 3</Tab>
-                </TabList>
-                <TabPanel id="tab1">Content of tab 1</TabPanel>
-                <TabPanel id="tab2">Content of tab 2</TabPanel>
-                <TabPanel id="tab3">Content of tab 3</TabPanel>
-            </Tabs>,
-        )
-
-        expect(screen.getByText('Content of tab 1')).not.toBeVisible()
         expect(screen.getByText('Content of tab 2')).toBeVisible()
+        expect(screen.getByText('Content of tab 1')).not.toBeVisible()
         expect(screen.getByText('Content of tab 3')).not.toBeVisible()
 
+        const onSelectedIdChange = jest.fn()
         rerender(
-            <Tabs selectedId="tab3">
+            <Tabs selectedId="tab3" onSelectedIdChange={onSelectedIdChange}>
                 <TabList aria-label="test-tabs">
                     <Tab id="tab1">Tab 1</Tab>
                     <Tab id="tab2">Tab 2</Tab>
@@ -162,9 +148,39 @@ describe('Tabs', () => {
             </Tabs>,
         )
 
+        expect(onSelectedIdChange).not.toHaveBeenCalled()
         expect(screen.getByText('Content of tab 1')).not.toBeVisible()
         expect(screen.getByText('Content of tab 2')).not.toBeVisible()
         expect(screen.getByText('Content of tab 3')).toBeVisible()
+
+        userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
+
+        expect(onSelectedIdChange).toHaveBeenCalledTimes(1)
+        expect(onSelectedIdChange).toHaveBeenCalledWith('tab2')
+        // The active tab is not set automatically
+        expect(screen.getByText('Content of tab 1')).not.toBeVisible()
+        expect(screen.getByText('Content of tab 2')).not.toBeVisible()
+        expect(screen.getByText('Content of tab 3')).toBeVisible()
+
+        onSelectedIdChange.mockReset()
+
+        rerender(
+            <Tabs selectedId="tab2" onSelectedIdChange={onSelectedIdChange}>
+                <TabList aria-label="test-tabs">
+                    <Tab id="tab1">Tab 1</Tab>
+                    <Tab id="tab2">Tab 2</Tab>
+                    <Tab id="tab3">Tab 3</Tab>
+                </TabList>
+                <TabPanel id="tab1">Content of tab 1</TabPanel>
+                <TabPanel id="tab2">Content of tab 2</TabPanel>
+                <TabPanel id="tab3">Content of tab 3</TabPanel>
+            </Tabs>,
+        )
+
+        expect(onSelectedIdChange).not.toHaveBeenCalled()
+        expect(screen.getByText('Content of tab 1')).not.toBeVisible()
+        expect(screen.getByText('Content of tab 2')).toBeVisible()
+        expect(screen.getByText('Content of tab 3')).not.toBeVisible()
     })
 
     it("calls TabAwareSlot's render prop with the current selectedId", () => {
