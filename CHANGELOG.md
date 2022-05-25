@@ -4,6 +4,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+# v12.0.0
+
 -   [Breaking] Dropped support for React 16
     -   Internally, Reactist will now use React 17 and TypeScript v4.6. Targets for `@babel/preset-env` have also been set, reducing the total build size by about 8-10%.
 -   [Breaking] Replace Reakit with Ariakit
