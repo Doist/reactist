@@ -4,6 +4,10 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+# v12.0.1
+
+-   [Fix] Fix publishing flow
+
 # v12.0.0
 
 -   [Breaking] Dropped support for React 16
