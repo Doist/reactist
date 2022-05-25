@@ -19,6 +19,10 @@ jobs:
             - uses: actions/setup-node@v1
               with:
                   node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
+
+            # Remove any registry configurations from .npmrc
+            - run: sed -i "/@doist/d" ./.npmrc
+
             - run: npm ci
             - run: npm run lint
             - run: npm run type-check
