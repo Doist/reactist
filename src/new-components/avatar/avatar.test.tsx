@@ -46,16 +46,18 @@ describe('Avatar', () => {
     })
 
     // Helpers ================================================================
-    const getAvatar = (
+    function getAvatar(
         props?: Omit<React.ComponentProps<typeof Avatar>, 'user'> & {
             user?: { name?: string; email: string }
         },
-    ) => (
-        <Avatar
-            data-testid="avatar"
-            user={{ name: 'Henning Mus', email: 'henning@doist.com' }}
-            size="xl"
-            {...props}
-        />
-    )
+    ) {
+        return (
+            <Avatar
+                data-testid="avatar"
+                user={{ name: 'Henning Mus', email: 'henning@doist.com' }}
+                size="xl"
+                {...props}
+            />
+        )
+    }
 })

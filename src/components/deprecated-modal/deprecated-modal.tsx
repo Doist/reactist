@@ -91,7 +91,7 @@ type HeaderProps = {
 }
 
 /** @deprecated */
-class Header extends React.Component<HeaderProps> {
+class Header extends React.Component<React.PropsWithChildren<HeaderProps>> {
     public static displayName: string
     public static defaultProps: HeaderProps
 
@@ -141,7 +141,7 @@ type BodyProps = {
 }
 
 /** @deprecated */
-class Body extends React.Component<BodyProps> {
+class Body extends React.Component<React.PropsWithChildren<BodyProps>> {
     public static displayName: string
     public static defaultProps: BodyProps
 

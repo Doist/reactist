@@ -109,8 +109,10 @@ export const AccessibilityExample = () => {
         'assertive',
     )
 
-    function onChangeValue(event) {
-        setCurrentAriaLive(event.target.value)
+    function onChangeValue(event: React.FormEvent<HTMLInputElement>) {
+        setCurrentAriaLive(
+            (event.target as HTMLInputElement).value as 'off' | 'polite' | 'assertive',
+        )
     }
 
     return (

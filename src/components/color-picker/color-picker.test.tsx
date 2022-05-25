@@ -43,10 +43,11 @@ describe('ColorPicker', () => {
     })
 
     // Helpers ================================================================
-    const getColorPicker = (props?: React.ComponentProps<typeof ColorPicker>) => (
-        <ColorPicker {...props} />
-    )
-    const getColorItem = (props?: React.ComponentProps<typeof ColorItem>) => (
-        <ColorItem color="#606060" colorIndex={0} {...props} />
-    )
+    function getColorPicker(props?: React.ComponentProps<typeof ColorPicker>) {
+        return <ColorPicker {...props} />
+    }
+
+    function getColorItem(props?: React.ComponentProps<typeof ColorItem>) {
+        return <ColorItem color="#606060" colorIndex={0} {...props} />
+    }
 })

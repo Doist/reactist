@@ -31,7 +31,7 @@ describe('Checkbox', () => {
     })
 
     // Helpers ================================================================
-    const getCheckbox = (props?: React.ComponentProps<typeof Checkbox>) => (
-        <Checkbox label="Checkbox Label" checked={false} onChange={jest.fn()} {...props} />
-    )
+    function getCheckbox(props?: React.ComponentProps<typeof Checkbox>) {
+        return <Checkbox label="Checkbox Label" checked={false} onChange={jest.fn()} {...props} />
+    }
 })

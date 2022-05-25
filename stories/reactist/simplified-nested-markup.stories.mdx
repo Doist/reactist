@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/addon-docs/blocks'
+import { Story, Meta } from '@storybook/addon-docs'
 
 <Meta title="Tips and tricks/Simplified markup of the Stack and Inline components" />
 
@@ -68,26 +68,26 @@ If we generated extra containers for each child, this would generate a markup si
 
 ```html
 <div class="stack space-xlarge">
-  <div class="stack child-wrapper">
-    <div class="stack space-small">
-      <div class="stack child-wrapper">
-        <label>Username</label>
-      </div>
-      <div class="stack child-wrapper">
-        <input name="username" />
-      </div>
+    <div class="stack child-wrapper">
+        <div class="stack space-small">
+            <div class="stack child-wrapper">
+                <label>Username</label>
+            </div>
+            <div class="stack child-wrapper">
+                <input name="username" />
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="stack child-wrapper">
-    <div class="stack space-small">
-      <div class="stack child-wrapper">
-        <label>Password</label>
-      </div>
-      <div class="stack child-wrapper">
-        <input name="password" type="password" />
-      </div>
+    <div class="stack child-wrapper">
+        <div class="stack space-small">
+            <div class="stack child-wrapper">
+                <label>Password</label>
+            </div>
+            <div class="stack child-wrapper">
+                <input name="password" type="password" />
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 ```
 

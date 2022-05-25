@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { AlertTone } from '../common-types'
+import type { AlertTone } from '../common-types'
 
 const alertIconForTone: Record<AlertTone, typeof AlertInfoIcon> = {
     info: AlertInfoIcon,

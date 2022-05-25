@@ -1,4 +1,5 @@
 {
+    "extends": "@doist/tsconfig",
     "include": ["src", "types"],
     "compilerOptions": {
         "allowJs": true,
@@ -8,12 +9,8 @@
         "declaration": true,
         "sourceMap": true,
         "rootDir": "src",
-        "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
-        "noImplicitAny": true,
         "moduleResolution": "node",
         "baseUrl": "./",
         "paths": {
@@ -21,7 +18,8 @@
             "*": ["src/*", "node_modules/*"]
         },
         "jsx": "react",
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "skipLibCheck": true
     },
     "exclude": ["node_modules", "dist"]
 }

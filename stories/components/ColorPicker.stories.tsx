@@ -17,7 +17,7 @@ export default {
 export const ColorPickersStory = () => {
     const [color, setColor] = useState<number>(0)
 
-    const handleChange = (color) => {
+    function handleChange(color: number) {
         setColor(color)
     }
 
@@ -32,7 +32,7 @@ export const ColorPickersStory = () => {
 export const CustomColorPickersStory = () => {
     const [color, setColor] = useState<number>(0)
 
-    const handleChange = (color) => {
+    function handleChange(color: number) {
         setColor(color)
     }
 
@@ -51,7 +51,7 @@ export const CustomColorPickersStory = () => {
 export const NamedColorPickersStory = () => {
     const [color, setColor] = useState<number>(0)
 
-    const handleChange = (color) => {
+    function handleChange(color: number) {
         setColor(color)
     }
 
@@ -76,7 +76,7 @@ export const NamedColorPickersStory = () => {
 export const SmallColorPickerStory = () => {
     const [color, setColor] = useState<number>(0)
 
-    const handleChange = (color) => {
+    function handleChange(color: number) {
         setColor(color)
     }
 

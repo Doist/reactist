@@ -1,9 +1,17 @@
 module.exports = {
+    collectCoverageFrom: [
+        'src/**/*.{ts,tsx,js,jsx}',
+        '!**/*.stories.{js,jsx,ts,tsx}',
+        '!**/*storybook*.{js,jsx,ts,tsx}',
+    ],
     setupFilesAfterEnv: ['./scripts/jestSetup.ts'],
     snapshotSerializers: ['enzyme-to-json/serializer'],
     moduleNameMapper: {
         '\\.(css|less)$': '<rootDir>/src/__mocks__/styleMock.ts',
     },
-    testURL: 'http://localhost',
-    testEnvironment: 'jest-environment-jsdom-sixteen',
+    testEnvironment: 'jsdom',
+    watchPlugins: [
+        require.resolve('jest-watch-typeahead/filename'),
+        require.resolve('jest-watch-typeahead/testname'),
+    ],
 }

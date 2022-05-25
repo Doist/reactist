@@ -51,25 +51,19 @@ const hasEnoughSpace: HasEnoughSpaceFn = (
     return false
 }
 
-type VerticalHorizontalPositionFn = (
+function _calculateVerticalPosition(
     wrapperPosition: AbsolutePosition,
     wrapperDimensions: Dimensions,
     elementDimensions: Dimensions,
-) => number
-
-const _calculateVerticalPosition: VerticalHorizontalPositionFn = (
-    wrapperPosition,
-    wrapperDimensions,
-    elementDimensions,
-) => {
+): number {
     return wrapperPosition.x + (wrapperDimensions.width - elementDimensions.width) / 2
 }
 
-const _calculateHorizontalPosition: VerticalHorizontalPositionFn = (
-    wrapperPosition,
-    wrapperDimensions,
-    elementDimensions,
-) => {
+function _calculateHorizontalPosition(
+    wrapperPosition: AbsolutePosition,
+    wrapperDimensions: Dimensions,
+    elementDimensions: Dimensions,
+): number {
     return wrapperPosition.y + (wrapperDimensions.height - elementDimensions.height) / 2
 }
 

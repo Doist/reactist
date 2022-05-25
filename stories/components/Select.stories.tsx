@@ -26,7 +26,7 @@ export default {
 export const SelectStory = () => {
     const [value, setValue] = useState<string>(options[0].value)
 
-    const handleChange = (val) => {
+    const handleChange = (val: string) => {
         setValue(val)
     }
 
@@ -40,7 +40,7 @@ export const SelectStory = () => {
 export const SelectPlaygroundStory = (args) => {
     const [value, setValue] = useState<string>(options[0].value)
 
-    const handleChange = (val) => {
+    const handleChange = (val: string) => {
         setValue(val)
     }
 

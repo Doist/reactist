@@ -24,7 +24,8 @@ const COLORS = [
     '#CCCCCC',
 ]
 
-const _isNamedColor = (color: string | NamedColor): color is NamedColor => typeof color !== 'string'
+const _isNamedColor = (color: string | NamedColor | undefined): color is NamedColor =>
+    typeof color !== 'string'
 
 const _getColor = (colorList: (string | NamedColor)[], colorIndex: number) => {
     const index = colorIndex >= colorList.length ? 0 : colorIndex

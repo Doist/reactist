@@ -8,7 +8,7 @@ import {
     TooltipReference,
     TooltipProps as ReakitTooltipProps,
 } from 'reakit/Tooltip'
-import { PopoverState } from 'reakit/Popover'
+import type { PopoverState } from 'reakit/Popover'
 
 import './tooltip.less'
 

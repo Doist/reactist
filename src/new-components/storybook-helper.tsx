@@ -8,9 +8,7 @@ import './default-styles.less'
 import type { BoxProps } from './box'
 import type { Space } from './common-types'
 
-type SelectTypeOptionsProp<T extends unknown> =
-    | Extract<T, PropertyKey>[]
-    | readonly Extract<T, PropertyKey>[]
+type SelectTypeOptionsProp<T> = Extract<T, PropertyKey>[] | readonly Extract<T, PropertyKey>[]
 
 function select<T extends string | number>(options: SelectTypeOptionsProp<T>, defaultValue?: T) {
     return {

@@ -167,8 +167,12 @@ describe('CheckboxField', () => {
     })
 
     describe('indeterminate', () => {
-        function getCheckboxItem(index: number) {
-            return screen.getAllByTestId('checkbox-item')[index]
+        function getCheckboxItem(index: number): HTMLElement {
+            const checkbox = screen.getAllByTestId('checkbox-item')[index]
+
+            if (!checkbox) throw new Error('Checkbox not found')
+
+            return checkbox
         }
 
         it('can be set as indeterminate when it is a controlled component', () => {

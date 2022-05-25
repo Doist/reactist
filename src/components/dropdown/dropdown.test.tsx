@@ -206,13 +206,13 @@ describe('Dropdown', () => {
 
     // Helpers ================================================================
 
-    const openDropdown = (rootElement: ReactWrapper | ShallowWrapper) => {
+    function openDropdown(rootElement: ReactWrapper | ShallowWrapper) {
         const trigger = rootElement.find(Dropdown.Trigger)
         simulateClick(trigger)
         expect(rootElement.find(Dropdown.Body)).toHaveLength(1)
     }
 
-    const simulateClick = (element: ReactWrapper | ShallowWrapper) => {
+    function simulateClick(element: ReactWrapper | ShallowWrapper) {
         element.simulate('click', {
             preventDefault: jest.fn(),
             stopPropagation: jest.fn(),

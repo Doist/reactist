@@ -120,7 +120,7 @@ describe('KeyCapturer', () => {
             fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Enter' })
 
             // Instance of React synthetic event
-            expect(Object.keys(onEnter.mock.calls[0][0])).toEqual(
+            expect(Object.keys(onEnter.mock.calls[0]?.[0] ?? {})).toEqual(
                 expect.arrayContaining(['key', 'target', 'isPropagationStopped']),
             )
         })

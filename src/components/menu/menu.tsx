@@ -314,7 +314,7 @@ const SubMenu = React.forwardRef<HTMLButtonElement, SubMenuProps>(function SubMe
     const { hide: parentMenuHide } = state
 
     const handleSubItemSelect = React.useCallback(
-        function handleSubItemSelect(value) {
+        function handleSubItemSelect(value: string | null | undefined) {
             if (onItemSelect) onItemSelect(value)
             parentMenuItemSelect(value)
             parentMenuHide()
