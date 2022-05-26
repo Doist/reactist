@@ -173,6 +173,20 @@ describe('Tooltip', () => {
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
     })
 
+    it("does not interfere with the trigger element's ref forwarding", () => {
+        const buttonRef = React.createRef<HTMLButtonElement>()
+
+        render(
+            <>
+                <Tooltip content="tooltip content here">
+                    <button ref={buttonRef}>Click me</button>
+                </Tooltip>
+            </>,
+        )
+
+        expect(buttonRef.current).toBe(screen.getByRole('button'))
+    })
+
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = render(
