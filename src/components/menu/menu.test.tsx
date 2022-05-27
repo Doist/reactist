@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { Menu, MenuButton, MenuList, MenuItem } from './menu'
 import { axe } from 'jest-axe'
 import { flushPromises } from '../../new-components/test-helpers'
+import { act } from 'react-dom/test-utils'
 
 function getFocusedElement() {
     if (!document.activeElement) {
@@ -34,7 +35,7 @@ describe('Menu', () => {
         expect(screen.queryByText('First option')).not.toBeInTheDocument()
     })
 
-    it('closes the menu when a menu item is selected (unless the onSelect handler returns false or hideOnSelect is false)', () => {
+    it('closes the menu when a menu item is selected (unless the onSelect handler returns false or hideOnSelect is false)', async () => {
         render(
             <Menu>
                 <MenuButton>Options menu</MenuButton>
@@ -50,12 +51,16 @@ describe('Menu', () => {
 
         // 'First option' closes the menu
         userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+        await act(() => flushPromises())
+
         userEvent.click(screen.getByRole('menuitem', { name: 'First option' }))
         expect(screen.queryByRole('menu')).not.toBeInTheDocument()
         expect(screen.queryByRole('menuitem')).not.toBeInTheDocument()
 
         // 'Second option' does not close the menu
         userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+        await act(() => flushPromises())
+
         userEvent.click(screen.getByRole('menuitem', { name: 'Second option' }))
         expect(screen.getByRole('menu')).toBeInTheDocument()
 
@@ -134,7 +139,7 @@ describe('Menu', () => {
         expect(screen.queryByRole('menu')).not.toBeInTheDocument()
     })
 
-    it('allows to render a menu item as a link', () => {
+    it('allows to render a menu item as a link', async () => {
         render(
             <Menu>
                 <MenuButton>Links</MenuButton>
@@ -146,6 +151,10 @@ describe('Menu', () => {
             </Menu>,
         )
         userEvent.click(screen.getByRole('button', { name: 'Links' }))
+
+        // Prevent act warning
+        await act(() => flushPromises())
+
         const menuItem = screen.getByRole('menuitem', { name: 'Github repo' })
         expect(menuItem).toHaveAttribute('href', 'https://github.com/Doist/reactist')
         expect(menuItem.tagName).toEqual('A')

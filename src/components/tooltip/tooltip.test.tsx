@@ -6,7 +6,7 @@ import { Tooltip, SHOW_DELAY, HIDE_DELAY } from './tooltip'
 import { flushPromises } from '../../new-components/test-helpers'
 
 // Runs the same test abstracting how the tooltip is triggered (can be via mouse or keyboard)
-function testShowHide({
+async function testShowHide({
     triggerShow,
     triggerHide,
 }: {
@@ -18,8 +18,9 @@ function testShowHide({
     // tooltip is not immediately visible
     expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
     // wait a bit
-    act(() => {
+    await act(() => {
         jest.advanceTimersByTime(SHOW_DELAY)
+        return flushPromises()
     })
     // tooltip is now visible
     expect(screen.getByRole('tooltip', { name: 'tooltip content here' })).toBeInTheDocument()
@@ -44,7 +45,7 @@ describe('Tooltip', () => {
         jest.useRealTimers()
     })
 
-    it('renders a tooltip when the button gets focus, hides it when blurred', () => {
+    it('renders a tooltip when the button gets focus, hides it when blurred', async () => {
         render(
             <Tooltip content="tooltip content here">
                 <button>Click me</button>
@@ -52,7 +53,7 @@ describe('Tooltip', () => {
         )
         const button = screen.getByRole('button', { name: 'Click me' })
 
-        testShowHide({
+        await testShowHide({
             triggerShow() {
                 userEvent.tab()
                 expect(button).toHaveFocus()
@@ -65,14 +66,14 @@ describe('Tooltip', () => {
 
     // Calls into testShowHide subtest.
     // eslint-disable-next-line jest/expect-expect
-    it('renders a tooltip when the button is hovered, hides it when unhovered', () => {
+    it('renders a tooltip when the button is hovered, hides it when unhovered', async () => {
         render(
             <Tooltip content="tooltip content here">
                 <button>Click me</button>
             </Tooltip>,
         )
         const button = screen.getByRole('button', { name: 'Click me' })
-        testShowHide({
+        await testShowHide({
             triggerShow() {
                 userEvent.hover(button)
             },
