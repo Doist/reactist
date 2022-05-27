@@ -47,8 +47,8 @@ function Tooltip({
 }: TooltipProps) {
     const state = useDelayedTooltipState({ placement: position, gutter: gapSize })
 
-    const child = React.Children.only<React.FunctionComponentElement<TooltipAnchorProps>>(
-        children as React.FunctionComponentElement<TooltipAnchorProps>,
+    const child = React.Children.only(
+        children as React.FunctionComponentElement<JSX.IntrinsicElements['div'] | null>,
     )
     if (!content) {
         return child
@@ -74,24 +74,14 @@ function Tooltip({
         event.currentTarget.addEventListener('keyup', handleKeyUp, { once: true })
         // Prevent tooltip.show from being called by TooltipReference
         event.preventDefault()
-        child.props.onFocus?.(event)
+        child?.props?.onFocus?.(event)
     }
 
     return (
         <>
-            <TooltipAnchor state={state} onFocus={handleFocus}>
+            <TooltipAnchor state={state} {...child.props} ref={child.ref} onFocus={handleFocus}>
                 {(anchorProps: TooltipAnchorProps) => {
-                    const { onFocus, onBlur } = anchorProps
-                    return React.cloneElement(child, {
-                        ...anchorProps,
-                        // Ensure that the children's props can override TooltipAnchor's
-                        // props, as properties like `autoFocus` can get lost otherwise.
-                        // The focus and blur handlers however are the core functionality
-                        // the tooltip needs to provide, so they should not be overridden
-                        ...child.props,
-                        onFocus,
-                        onBlur,
-                    })
+                    return React.cloneElement(child, anchorProps)
                 }}
             </TooltipAnchor>
             {state.visible ? (
