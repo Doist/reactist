@@ -1,6 +1,9 @@
 @import '../styles/constants.less';
 
-.reactist_menulist[role='menu'] {
+// Ariakit renders the menu as menubar on Safari
+// Ref: https://github.com/ariakit/ariakit/blob/454aef1237ada31e8292ee4966adca3ed0f6e299/packages/ariakit/src/menu/menu-list.ts#L150
+.reactist_menulist[role='menu'],
+.reactist_menulist[role='menubar'] {
     display: block;
     white-space: nowrap;
     background: hsla(0, 100%, 100%, 0.99);
@@ -70,7 +73,8 @@
     }
 
     // sub-menus need to be shifted a bit towards the top to be aligned with its menu item
-    [role='menu'] {
+    [role='menu'],
+    [role='menubar'] {
         margin-top: -5px;
     }
 
