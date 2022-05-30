@@ -4,6 +4,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+    [Fix] Missing styling for `MenuList` in Safari
+
 # v12.0.2
 
 -   [Fix] `Tooltip` was overriding its anchor's `ref`, preventing it from successfully forwarding its ref
