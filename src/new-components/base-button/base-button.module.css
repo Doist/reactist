@@ -86,6 +86,7 @@
 .label {
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size: inherit;
 }
 
 /* nice little animation when clicked to give some visual feedback */
