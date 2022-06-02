@@ -2,8 +2,35 @@
     font-family: var(--reactist-font-family);
 }
 
-.primaryLabel {
+.container.bordered {
+    border-radius: var(--reactist-border-radius-large);
+    border: 1px solid var(--reactist-divider-secondary);
+    padding: var(--reactist-spacing-small);
+    overflow: clip;
+}
+
+.container.bordered:focus-within {
+    border-color: var(--reactist-divider-primary) !important;
+}
+
+.container.bordered.error {
+    border-color: var(--reactist-alert-tone-critical-border) !important;
+}
+
+.container.bordered .primaryLabel {
+    font-weight: 500;
+}
+
+.container.bordered .auxiliaryLabel {
+    font-size: var(--reactist-font-size-caption);
+}
+
+.container:not(.bordered) .primaryLabel {
     font-weight: var(--reactist-font-weight-strong);
+}
+
+.container:not(.bordered) .auxiliaryLabel {
+    font-size: var(--reactist-font-size-body);
 }
 
 .secondaryLabel {

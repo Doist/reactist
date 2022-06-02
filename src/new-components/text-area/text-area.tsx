@@ -8,6 +8,7 @@ type TextAreaProps = FieldComponentProps<HTMLTextAreaElement> & {
 }
 
 function TextArea({
+    variant = 'normal',
     id,
     label,
     secondaryLabel,
@@ -20,6 +21,7 @@ function TextArea({
 }: TextAreaProps) {
     return (
         <BaseField
+            variant={variant}
             id={id}
             label={label}
             secondaryLabel={secondaryLabel}
@@ -27,7 +29,11 @@ function TextArea({
             hint={hint}
             message={message}
             tone={tone}
-            className={[styles.container, tone === 'error' ? styles.error : null]}
+            className={[
+                styles.container,
+                tone === 'error' ? styles.error : null,
+                variant === 'bordered' ? styles.bordered : null,
+            ]}
             maxWidth={maxWidth}
         >
             {(extraProps) => (

@@ -1,14 +1,14 @@
-.inputWrapper {
+.inputWrapper:not(.bordered) {
     border-radius: var(--reactist-border-radius-small);
     border: 1px solid var(--reactist-divider-secondary);
     overflow: clip;
 }
 
-.inputWrapper:focus-within {
+.inputWrapper:not(.bordered):focus-within {
     border-color: var(--reactist-divider-primary);
 }
 
-.inputWrapper.error {
+.inputWrapper:not(.bordered).error {
     border-color: var(--reactist-alert-tone-critical-border) !important;
 }
 
@@ -42,6 +42,9 @@
 
     font-size: var(--reactist-font-size-body);
     line-height: calc(var(--reactist-font-size-body) + 4px);
-    padding: var(--tmp-vertical-padding) 10px;
     margin: 0;
+}
+
+.inputWrapper:not(.bordered) input {
+    padding: var(--tmp-vertical-padding) 10px;
 }

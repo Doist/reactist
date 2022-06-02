@@ -65,6 +65,11 @@ InteractivePropsStory.argTypes = {
         control: { type: 'inline-radio' },
         defaultValue: 'neutral',
     },
+    variant: {
+        options: ['normal', 'bordered'],
+        control: { type: 'inline-radio' },
+        defaultValue: 'normal',
+    },
     placeholder: {
         control: { type: 'text' },
         defaultValue: 'Tell us something about yourself. Don’t be shy.',

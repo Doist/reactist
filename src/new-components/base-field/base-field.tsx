@@ -72,6 +72,8 @@ type HtmlInputProps<T extends HTMLElement> = React.DetailedHTMLProps<
 
 type BaseFieldProps = WithEnhancedClassName &
     Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'aria-describedby'> & {
+        variant?: 'normal' | 'bordered'
+
         /**
          * The main label for this field element.
          *
@@ -165,6 +167,7 @@ type FieldComponentProps<T extends HTMLElement> = Omit<BaseFieldProps, 'children
     Omit<HtmlInputProps<T>, 'className' | 'style'>
 
 function BaseField({
+    variant = 'normal',
     label,
     secondaryLabel,
     auxiliaryLabel,
@@ -193,7 +196,15 @@ function BaseField({
 
     return (
         <Stack space="small" hidden={hidden}>
-            <Box className={[className, styles.container]} maxWidth={maxWidth}>
+            <Box
+                className={[
+                    className,
+                    styles.container,
+                    tone === 'error' ? styles.error : null,
+                    variant === 'bordered' ? styles.bordered : null,
+                ]}
+                maxWidth={maxWidth}
+            >
                 <Box
                     as="span"
                     display="flex"
@@ -201,7 +212,11 @@ function BaseField({
                     alignItems="flexEnd"
                     paddingBottom="small"
                 >
-                    <Text size="body" as="label" htmlFor={id}>
+                    <Text
+                        size={variant === 'bordered' ? 'caption' : 'body'}
+                        as="label"
+                        htmlFor={id}
+                    >
                         {label ? <span className={styles.primaryLabel}>{label}</span> : null}
                         {secondaryLabel ? (
                             <span className={styles.secondaryLabel}>&nbsp;({secondaryLabel})</span>

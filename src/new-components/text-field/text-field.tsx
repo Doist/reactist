@@ -12,6 +12,7 @@ type TextFieldProps = Omit<FieldComponentProps<HTMLInputElement>, 'type'> & {
 
 const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
     {
+        variant = 'normal',
         id,
         label,
         secondaryLabel,
@@ -29,6 +30,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
 ) {
     return (
         <BaseField
+            variant={variant}
             id={id}
             label={label}
             secondaryLabel={secondaryLabel}
@@ -41,7 +43,13 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
             aria-describedby={ariaDescribedBy}
         >
             {(extraProps) => (
-                <Box className={[styles.inputWrapper, tone === 'error' ? styles.error : null]}>
+                <Box
+                    className={[
+                        styles.inputWrapper,
+                        tone === 'error' ? styles.error : null,
+                        variant === 'bordered' ? styles.bordered : null,
+                    ]}
+                >
                     <input {...props} {...extraProps} type={type} ref={ref} />
                 </Box>
             )}

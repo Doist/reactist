@@ -19,6 +19,7 @@ type PasswordFieldProps = Omit<TextFieldProps, 'type'> & {
 
 const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(function PasswordField(
     {
+        variant = 'normal',
         label,
         secondaryLabel,
         auxiliaryLabel,
@@ -46,6 +47,7 @@ const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(fun
 
     return (
         <BaseField
+            variant={variant}
             id={id}
             label={label}
             secondaryLabel={secondaryLabel}
@@ -65,6 +67,7 @@ const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(fun
                         styles.inputWrapper,
                         textFieldStyles.inputWrapper,
                         tone === 'error' ? textFieldStyles.error : null,
+                        variant === 'bordered' ? textFieldStyles.bordered : null,
                     ]}
                 >
                     <input
