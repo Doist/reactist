@@ -1,14 +1,15 @@
 import * as React from 'react'
-import { BaseField, FieldComponentProps } from '../base-field'
+import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-field'
 import { Box } from '../box'
 import styles from './text-area.module.css'
 
-type TextAreaProps = FieldComponentProps<HTMLTextAreaElement> & {
-    rows?: number
-}
+type TextAreaProps = FieldComponentProps<HTMLTextAreaElement> &
+    BaseFieldVariantProps & {
+        rows?: number
+    }
 
 function TextArea({
-    variant = 'normal',
+    variant = 'default',
     id,
     label,
     secondaryLabel,

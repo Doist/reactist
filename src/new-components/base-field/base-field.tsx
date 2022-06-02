@@ -70,11 +70,26 @@ type HtmlInputProps<T extends HTMLElement> = React.DetailedHTMLProps<
     T
 >
 
+type BaseFieldVariant = 'default' | 'bordered'
+type BaseFieldVariantProps = {
+    /**
+     * Provides alternative visual layouts or modes that the field can be rendered in.
+     *
+     * Namely, there are two variants supported:
+     *
+     * - the default one
+     * - a "bordered" variant, where the border of the field surrounds also the labels, instead
+     *   of just surrounding the actual field element
+     *
+     * In both cases, the message and description texts for the field lie outside the bordered
+     * area.
+     */
+    variant?: BaseFieldVariant
+}
+
 type BaseFieldProps = WithEnhancedClassName &
     Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'aria-describedby'> & {
         _fieldType?: 'text'
-
-        variant?: 'normal' | 'bordered'
 
         /**
          * The main label for this field element.
@@ -167,13 +182,13 @@ type BaseFieldProps = WithEnhancedClassName &
 
 type FieldComponentProps<T extends HTMLElement> = Omit<
     BaseFieldProps,
-    'children' | 'className' | '_fieldType'
+    'children' | 'className' | '_fieldType' | 'variant'
 > &
     Omit<HtmlInputProps<T>, 'className' | 'style'>
 
 function BaseField({
     _fieldType,
-    variant = 'normal',
+    variant = 'default',
     label,
     secondaryLabel,
     auxiliaryLabel,
@@ -186,7 +201,7 @@ function BaseField({
     hidden,
     'aria-describedby': originalAriaDescribedBy,
     id: originalId,
-}: BaseFieldProps & WithEnhancedClassName) {
+}: BaseFieldProps & BaseFieldVariantProps & WithEnhancedClassName) {
     const id = useId(originalId)
     const hintId = useId()
     const messageId = useId()
@@ -248,4 +263,4 @@ function BaseField({
 }
 
 export { BaseField, FieldHint, FieldMessage }
-export type { FieldComponentProps }
+export type { BaseFieldVariant, BaseFieldVariantProps, FieldComponentProps }

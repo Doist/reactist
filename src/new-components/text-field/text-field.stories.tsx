@@ -66,9 +66,9 @@ InteractivePropsStory.argTypes = {
         defaultValue: 'neutral',
     },
     variant: {
-        options: ['normal', 'bordered'],
+        options: ['default', 'bordered'],
         control: { type: 'inline-radio' },
-        defaultValue: 'normal',
+        defaultValue: 'default',
     },
     placeholder: {
         control: { type: 'text' },

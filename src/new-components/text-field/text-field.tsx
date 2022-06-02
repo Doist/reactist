@@ -1,18 +1,19 @@
 import * as React from 'react'
-import { BaseField } from '../base-field'
+import { BaseField, BaseFieldVariantProps } from '../base-field'
 import { Box } from '../box'
 import styles from './text-field.module.css'
 import type { FieldComponentProps } from '../base-field'
 
 type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 
-type TextFieldProps = Omit<FieldComponentProps<HTMLInputElement>, 'type'> & {
-    type?: TextFieldType
-}
+type TextFieldProps = Omit<FieldComponentProps<HTMLInputElement>, 'type'> &
+    BaseFieldVariantProps & {
+        type?: TextFieldType
+    }
 
 const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
     {
-        variant = 'normal',
+        variant = 'default',
         id,
         label,
         secondaryLabel,
