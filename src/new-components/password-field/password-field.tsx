@@ -47,6 +47,7 @@ const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(fun
 
     return (
         <BaseField
+            _fieldType="text"
             variant={variant}
             id={id}
             label={label}

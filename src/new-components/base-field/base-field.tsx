@@ -72,6 +72,8 @@ type HtmlInputProps<T extends HTMLElement> = React.DetailedHTMLProps<
 
 type BaseFieldProps = WithEnhancedClassName &
     Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'aria-describedby'> & {
+        _fieldType?: 'text'
+
         variant?: 'normal' | 'bordered'
 
         /**
@@ -163,10 +165,14 @@ type BaseFieldProps = WithEnhancedClassName &
         children: (props: ChildrenRenderProps) => React.ReactNode
     }
 
-type FieldComponentProps<T extends HTMLElement> = Omit<BaseFieldProps, 'children' | 'className'> &
+type FieldComponentProps<T extends HTMLElement> = Omit<
+    BaseFieldProps,
+    'children' | 'className' | '_fieldType'
+> &
     Omit<HtmlInputProps<T>, 'className' | 'style'>
 
 function BaseField({
+    _fieldType,
     variant = 'normal',
     label,
     secondaryLabel,
@@ -202,6 +208,7 @@ function BaseField({
                     styles.container,
                     tone === 'error' ? styles.error : null,
                     variant === 'bordered' ? styles.bordered : null,
+                    _fieldType === 'text' ? styles.text : null,
                 ]}
                 maxWidth={maxWidth}
             >

@@ -30,6 +30,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
 ) {
     return (
         <BaseField
+            _fieldType="text"
             variant={variant}
             id={id}
             label={label}

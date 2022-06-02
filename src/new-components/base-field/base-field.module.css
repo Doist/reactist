@@ -9,6 +9,21 @@
     overflow: clip;
 }
 
+.container.bordered label {
+    /* so that clicking in blank areas to the right of the label will focus the field element */
+    flex-grow: 1;
+}
+
+.container.bordered.text label {
+    /* to convey that clicking in blank area to the right of the label places focus on the text field */
+    cursor: text;
+}
+
+.container.bordered.text label span {
+    /* overrides the cursor set above, so that hovering over the non-blank parts of the label stay unaffected */
+    cursor: default;
+}
+
 .container.bordered:focus-within {
     border-color: var(--reactist-divider-primary) !important;
 }
