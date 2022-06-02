@@ -1,9 +1,11 @@
 .container textarea {
+    outline: none; /* we're taking care of the outline styles ourselves */
     border: none;
     padding: 0;
     width: 100%;
     box-sizing: border-box;
     font-family: var(--reactist-font-family);
+    resize: vertical;
 }
 
 .container:not(.bordered) textarea {
@@ -20,8 +22,8 @@
     border: 1px solid var(--reactist-divider-secondary);
 }
 
-.container:not(.bordered) textarea:focus-visible,
-.container.bordered:focus-within:focus-visible {
+.container:not(.bordered) textarea:focus,
+.container.bordered:focus-within {
     border-color: var(--reactist-divider-primary);
 }
 

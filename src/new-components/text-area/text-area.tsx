@@ -39,7 +39,7 @@ function TextArea({
             maxWidth={maxWidth}
         >
             {(extraProps) => (
-                <Box width="full">
+                <Box width="full" display="flex">
                     <textarea {...props} {...extraProps} />
                 </Box>
             )}

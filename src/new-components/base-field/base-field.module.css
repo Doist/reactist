@@ -6,6 +6,7 @@
     border-radius: var(--reactist-border-radius-large);
     border: 1px solid var(--reactist-divider-secondary);
     padding: var(--reactist-spacing-small);
+    padding-bottom: var(--reactist-spacing-xsmall);
     overflow: clip;
 }
 

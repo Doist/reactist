@@ -4,6 +4,10 @@
     overflow: clip;
 }
 
+.inputWrapper.bordered input {
+    height: 24px;
+}
+
 .inputWrapper:not(.bordered):focus-within {
     border-color: var(--reactist-divider-primary);
 }
