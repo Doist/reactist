@@ -4,7 +4,9 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
-    [Fix] Missing styling for `MenuList` in Safari
+# v12.0.3
+
+-   [Fix] Missing styling for `MenuList` in Safari
 
 # v12.0.2
 
