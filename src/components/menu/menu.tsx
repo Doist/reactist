@@ -61,7 +61,7 @@ type MenuProps = Omit<Ariakit.MenuStateProps, 'visible'> & {
  * attribute to style the menu list, it is applied a `menubar` role instead in Safari.
  */
 function Menu({ children, onItemSelect, ...props }: MenuProps) {
-    const state = Ariakit.useMenuState({ focusLoop: true, gutter: 8, shift: 8, ...props })
+    const state = Ariakit.useMenuState({ focusLoop: true, gutter: 8, shift: 4, ...props })
 
     const handleItemSelect = React.useCallback(
         function handleItemSelect(value: string | null | undefined) {
