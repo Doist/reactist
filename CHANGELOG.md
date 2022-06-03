@@ -4,6 +4,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+# v12.0.4
+
 -   [Fix] Better default alignment between the `MenuList` and the `MenuButton`
 
 # v12.0.3
