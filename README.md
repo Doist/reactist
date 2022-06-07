@@ -151,3 +151,5 @@ npm --no-git-tag-version version <major|minor|patch>
 Once these changes have been pushed and merged, create a release.
 
 A GitHub Action will automatically perform all the necessary steps and will release the version number that's specified inside the `package.json`'s `version` field so make sure that the release tag reflects the version you want to publish.
+
+Finally, once the release has been created be sure to update both [todoist-web](https://github.com/Doist/todoist-web) and [twist-web](https://github.com/Doist/twist-web) to use the new version.
