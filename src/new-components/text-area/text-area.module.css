@@ -1,11 +1,13 @@
+.container {
+    width: min-content;
+}
+
 .container textarea {
     outline: none; /* we're taking care of the outline styles ourselves */
     border: none;
     padding: 0;
-    width: 100%;
     box-sizing: border-box;
     font-family: var(--reactist-font-family);
-    resize: vertical;
 }
 
 .container:not(.bordered) textarea {
