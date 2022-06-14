@@ -17,7 +17,7 @@ function FieldHint(props: FieldHintProps) {
     return <Text as="p" tone="secondary" size="copy" {...props} />
 }
 
-function ErrorMessageIcon(props: React.SVGProps<SVGSVGElement>) {
+function MessageIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
         <svg
             width="16"
@@ -37,24 +37,6 @@ function ErrorMessageIcon(props: React.SVGProps<SVGSVGElement>) {
     )
 }
 
-function SuccessMessageIcon(props: React.SVGProps<SVGSVGElement>) {
-    return (
-        <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            {...props}
-        >
-            <path
-                d="M5.63807 7.86191C5.37772 7.60156 4.95561 7.60156 4.69526 7.86191C4.43491 8.12226 4.43491 8.54437 4.69526 8.80472L6.36193 10.4714C6.62228 10.7317 7.04439 10.7317 7.30474 10.4714L11.3047 6.47138C11.5651 6.21103 11.5651 5.78892 11.3047 5.52858C11.0444 5.26823 10.6223 5.26823 10.3619 5.52858L6.83333 9.05717L5.63807 7.86191Z"
-                fill="currentColor"
-            />
-        </svg>
-    )
-}
-
 type FieldTone = 'neutral' | 'success' | 'error' | 'loading'
 
 type FieldMessageProps = FieldHintProps & {
@@ -65,22 +47,9 @@ function FieldMessage({ id, children, tone }: FieldMessageProps) {
     const textTone = tone === 'error' ? 'danger' : tone === 'success' ? 'positive' : 'normal'
     return (
         <Text as="p" tone={textTone} size="copy" id={id}>
-            {tone && tone !== 'neutral' ? (
-                <Box
-                    as="span"
-                    marginRight="xsmall"
-                    display="inlineFlex"
-                    className={styles.messageIcon}
-                >
-                    {tone === 'error' ? (
-                        <ErrorMessageIcon aria-hidden />
-                    ) : tone === 'success' ? (
-                        <SuccessMessageIcon aria-hidden />
-                    ) : tone === 'loading' ? (
-                        <Spinner size={16} />
-                    ) : null}
-                </Box>
-            ) : null}
+            <Box as="span" marginRight="xsmall" display="inlineFlex" className={styles.messageIcon}>
+                {tone === 'loading' ? <Spinner size={16} /> : <MessageIcon aria-hidden />}
+            </Box>
             {children}
         </Text>
     )
@@ -93,7 +62,6 @@ function FieldMessage({ id, children, tone }: FieldMessageProps) {
 type ChildrenRenderProps = {
     id: string
     'aria-describedby'?: string
-    'aria-errormessage'?: string
     'aria-invalid'?: true
 }
 
@@ -103,10 +71,7 @@ type HtmlInputProps<T extends HTMLElement> = React.DetailedHTMLProps<
 >
 
 type BaseFieldProps = WithEnhancedClassName &
-    Pick<
-        HtmlInputProps<HTMLInputElement>,
-        'id' | 'hidden' | 'aria-describedby' | 'aria-errormessage'
-    > & {
+    Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'aria-describedby'> & {
         /**
          * The main label for this field element.
          *
@@ -145,9 +110,12 @@ type BaseFieldProps = WithEnhancedClassName &
          * appearance that conveys the tone of the field (e.g. coloured red for errors, green for
          * success, etc).
          *
-         * When the tone is `"error"`, the message element is associated to the field via the
-         * `aria-errormessage` attribute. Otherwise it is associated as an extra description,
-         * alongside the `hint` element, if any.
+         * The message element is associated to the field via the `aria-describedby` attribute. If a
+         * `hint` is provided, both the hint and the message are associated as the field accessible
+         * description.
+         *
+         * In the future, when `aria-errormessage` gets better user agent support, we should use it
+         * to associate the filed with a message when tone is `"error"`.
          *
          * @see tone
          * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage
@@ -159,11 +127,7 @@ type BaseFieldProps = WithEnhancedClassName &
          * The tone with which the message, if any, is presented.
          *
          * If the tone is `"error"`, the field border turns red, and the message, if any, is also
-         * red. The message will also be associated to the field via the `aria-errormessage`
-         * attribute.
-         *
-         * If the tone is not `"error"`, the message, if present, acts as an extra description,
-         * alongside the `hint` element, if any.
+         * red.
          *
          * When the tone is `"loading"`, it is recommended that you also disable the field. However,
          * this is not enforced by the component. It is only a recommendation.
@@ -178,8 +142,8 @@ type BaseFieldProps = WithEnhancedClassName &
          * generally rendered below it, and with a visual style that reduces its prominence (i.e.
          * as secondary text).
          *
-         * It sets the `aria-describedby` attribute pointing to the element that holds the error
-         * message.
+         * It sets the `aria-describedby` attribute pointing to the element that holds the hint
+         * content.
          *
          * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby
          */
@@ -212,7 +176,6 @@ function BaseField({
     maxWidth,
     hidden,
     'aria-describedby': originalAriaDescribedBy,
-    'aria-errormessage': originalAriaErrorMessage,
     id: originalId,
 }: BaseFieldProps & WithEnhancedClassName) {
     const id = useId(originalId)
@@ -220,15 +183,11 @@ function BaseField({
     const messageId = useId()
 
     const ariaDescribedBy =
-        originalAriaDescribedBy ??
-        [message && tone !== 'error' ? messageId : null, hintId].filter(Boolean).join(' ')
-    const ariaErrorMessage =
-        originalAriaErrorMessage ?? (tone === 'error' && message ? messageId : undefined)
+        originalAriaDescribedBy ?? [message ? messageId : null, hintId].filter(Boolean).join(' ')
 
     const childrenProps: ChildrenRenderProps = {
         id,
         'aria-describedby': ariaDescribedBy,
-        'aria-errormessage': ariaErrorMessage,
         'aria-invalid': tone === 'error' ? true : undefined,
     }
 

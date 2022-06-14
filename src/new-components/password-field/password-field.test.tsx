@@ -71,31 +71,27 @@ describe('PasswordField', () => {
         )
     })
 
-    it('is marked as invalid and with an error message if an error message is given', () => {
-        render(
-            <PasswordField
-                data-testid="password-field"
-                label="Password confirmation"
-                message="Does not match the password"
-                tone="error"
-            />,
-        )
-        expect(screen.getByTestId('password-field')).toHaveErrorMessage(
-            'Does not match the password',
-        )
+    it('is marked as invalid and when tone="error"', () => {
+        render(<PasswordField data-testid="password-field" label="Password" tone="error" />)
+        expect(screen.getByTestId('password-field')).toBeInvalid()
     })
 
-    it('uses the message as the description, whenever the tone is not error', () => {
-        render(
-            <PasswordField
-                data-testid="password-field"
-                label="Password confirmation"
-                message="Matches password"
-                tone="success"
-            />,
-        )
-        expect(screen.getByTestId('password-field')).toHaveAccessibleDescription('Matches password')
-    })
+    it.each([['success' as const], ['loading' as const], ['neutral' as const], ['error' as const]])(
+        'uses the message as the description, when tone="%s"',
+        (tone) => {
+            render(
+                <PasswordField
+                    data-testid="password-field"
+                    label="Password confirmation"
+                    message={`Message with ${tone} tone`}
+                    tone={tone}
+                />,
+            )
+            expect(screen.getByTestId('password-field')).toHaveAccessibleDescription(
+                `Message with ${tone} tone`,
+            )
+        },
+    )
 
     it('adds the message as part of the description, whenever the tone is not error', () => {
         render(

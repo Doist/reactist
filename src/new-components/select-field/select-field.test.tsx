@@ -63,16 +63,9 @@ describe('SelectField', () => {
         )
     })
 
-    it('is marked as invalid and with an error message if an error message is given', () => {
-        render(
-            <SelectField
-                data-testid="select-field"
-                label="Theme"
-                message="You must select one"
-                tone="error"
-            />,
-        )
-        expect(screen.getByTestId('select-field')).toHaveErrorMessage('You must select one')
+    it('is marked as invalid and when tone="error"', () => {
+        render(<SelectField data-testid="select-field" label="Theme" tone="error" />)
+        expect(screen.getByTestId('select-field')).toBeInvalid()
     })
 
     it('uses the message as the description, whenever the tone is not error', () => {
@@ -88,6 +81,23 @@ describe('SelectField', () => {
             'Your theme preference has been saved',
         )
     })
+
+    it.each([['success' as const], ['loading' as const], ['neutral' as const], ['error' as const]])(
+        'uses the message as the description, when tone="%s"',
+        (tone) => {
+            render(
+                <SelectField
+                    data-testid="select-field"
+                    label="Theme"
+                    message={`Message with ${tone} tone`}
+                    tone={tone}
+                />,
+            )
+            expect(screen.getByTestId('select-field')).toHaveAccessibleDescription(
+                `Message with ${tone} tone`,
+            )
+        },
+    )
 
     it('adds the message as part of the description, whenever the tone is not error', () => {
         render(

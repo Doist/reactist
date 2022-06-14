@@ -57,19 +57,12 @@ describe('TextField', () => {
         )
     })
 
-    it('is marked as invalid and with an error message if a message with tone="error" is given', () => {
-        render(
-            <TextField
-                data-testid="text-field"
-                label="Phone"
-                message="Invalid phone number"
-                tone="error"
-            />,
-        )
-        expect(screen.getByTestId('text-field')).toHaveErrorMessage('Invalid phone number')
+    it('is marked as invalid and when tone="error"', () => {
+        render(<TextField data-testid="text-field" label="Verification code" tone="error" />)
+        expect(screen.getByTestId('text-field')).toBeInvalid()
     })
 
-    it.each([['success' as const], ['loading' as const], ['neutral' as const]])(
+    it.each([['success' as const], ['loading' as const], ['neutral' as const], ['error' as const]])(
         'uses the message as the description, when tone="%s"',
         (tone) => {
             render(
