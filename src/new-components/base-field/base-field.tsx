@@ -223,13 +223,7 @@ function BaseField({
                 ]}
                 maxWidth={maxWidth}
             >
-                <Box
-                    as="span"
-                    display="flex"
-                    justifyContent="spaceBetween"
-                    alignItems="flexEnd"
-                    paddingBottom="small"
-                >
+                <Box as="span" display="flex" justifyContent="spaceBetween" alignItems="flexEnd">
                     <Text
                         size={variant === 'bordered' ? 'caption' : 'body'}
                         as="label"

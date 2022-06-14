@@ -2,6 +2,11 @@
     font-family: var(--reactist-font-family);
 }
 
+.container label,
+.container .auxiliaryLabel {
+    padding-bottom: var(--reactist-spacing-small);
+}
+
 .container.bordered {
     border-radius: var(--reactist-border-radius-large);
     border: 1px solid var(--reactist-divider-secondary);
