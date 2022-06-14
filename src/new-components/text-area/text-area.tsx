@@ -22,7 +22,6 @@ function TextArea({
 }: TextAreaProps) {
     return (
         <BaseField
-            _fieldType="text"
             variant={variant}
             id={id}
             label={label}

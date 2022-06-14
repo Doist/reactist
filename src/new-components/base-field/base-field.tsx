@@ -89,8 +89,6 @@ type BaseFieldVariantProps = {
 
 type BaseFieldProps = WithEnhancedClassName &
     Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'aria-describedby'> & {
-        _fieldType?: 'text'
-
         /**
          * The main label for this field element.
          *
@@ -182,12 +180,11 @@ type BaseFieldProps = WithEnhancedClassName &
 
 type FieldComponentProps<T extends HTMLElement> = Omit<
     BaseFieldProps,
-    'children' | 'className' | '_fieldType' | 'variant'
+    'children' | 'className' | 'variant'
 > &
     Omit<HtmlInputProps<T>, 'className' | 'style'>
 
 function BaseField({
-    _fieldType,
     variant = 'default',
     label,
     secondaryLabel,
@@ -223,7 +220,6 @@ function BaseField({
                     styles.container,
                     tone === 'error' ? styles.error : null,
                     variant === 'bordered' ? styles.bordered : null,
-                    _fieldType === 'text' ? styles.text : null,
                 ]}
                 maxWidth={maxWidth}
             >
