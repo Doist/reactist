@@ -4,6 +4,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+-   [Feat] New `message` and `tone` props that allow to associate a visual and semantic message to various field components. Supported in `TextField`, `PasswordField`, `TextArea` and `SelectField`.
+
 # v12.0.4
 
 -   [Fix] Better default alignment between the `MenuList` and the `MenuButton`

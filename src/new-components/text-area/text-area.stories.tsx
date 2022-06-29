@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { selectWithNone, PartialProps } from '../storybook-helper'
-import { SelectField } from './'
+import { TextArea } from './'
 
 import type { BoxMaxWidth } from '../box'
 import { Stack } from '../stack'
 
 export default {
-    title: 'Design system/SelectField',
-    component: SelectField,
+    title: 'Design system/TextArea',
+    component: TextArea,
     parameters: {
         badges: ['accessible'],
     },
@@ -21,9 +21,9 @@ export function InteractivePropsStory({
     label,
     auxiliaryLabel,
     ...props
-}: PartialProps<typeof SelectField>) {
+}: PartialProps<typeof TextArea>) {
     return (
-        <SelectField
+        <TextArea
             {...props}
             label={label}
             auxiliaryLabel={
@@ -34,27 +34,14 @@ export function InteractivePropsStory({
                     </a>
                 ) : undefined
             }
-            defaultValue="-"
-        >
-            <option value="-" disabled>
-                Select theme
-            </option>
-            <optgroup label="Light themes">
-                <option value="default">Default theme</option>
-                <option value="bright">Extra bright</option>
-            </optgroup>
-            <optgroup label="Dark themes">
-                <option value="contrast">High contrast</option>
-                <option value="dark">Dark mode</option>
-            </optgroup>
-        </SelectField>
+        />
     )
 }
 
 InteractivePropsStory.argTypes = {
     label: {
         control: { type: 'text' },
-        defaultValue: 'Theme',
+        defaultValue: 'User bio',
     },
     secondaryLabel: {
         control: { type: 'text' },
@@ -67,7 +54,7 @@ InteractivePropsStory.argTypes = {
     hint: {
         control: { type: 'text' },
         defaultValue:
-            'The theme you select will be applied immediately. If you upgrade to premium you will have more themes to choose from.',
+            'You’ll have a better experience in our community if others get to know a little bit about you.',
     },
     message: {
         control: { type: 'text' },
@@ -78,6 +65,10 @@ InteractivePropsStory.argTypes = {
         control: { type: 'inline-radio' },
         defaultValue: 'neutral',
     },
+    placeholder: {
+        control: { type: 'text' },
+        defaultValue: 'Tell us something about yourself. Don’t be shy.',
+    },
     maxWidth: selectWithNone<BoxMaxWidth>(
         ['xsmall', 'small', 'medium', 'large', 'xlarge'],
         'small',
@@ -87,51 +78,32 @@ InteractivePropsStory.argTypes = {
 export function MessageToneStory() {
     return (
         <Stack space="xxlarge" dividers="secondary">
-            <SelectField
-                label="Country of residence"
-                message="Saving…"
+            <TextArea
+                label="Profile bio"
+                message="Saving changes…"
                 tone="loading"
                 disabled
                 maxWidth="small"
-            >
-                <option value="none" disabled>
-                    –
-                </option>
-            </SelectField>
-
-            <SelectField
-                label="Country of residence"
-                message="Something went wrong. Please, try again."
+            />
+            <TextArea
+                label="Profile bio"
+                message="Too short. Don't be shy, tell us a bit more."
                 tone="error"
                 maxWidth="small"
-            >
-                <option value="none" disabled>
-                    –
-                </option>
-            </SelectField>
-
-            <SelectField
-                label="Country of residence"
-                message="Saved successfully!"
+            />
+            <TextArea
+                label="Profile bio"
+                message="Changes saved successfully!"
                 tone="success"
                 maxWidth="small"
-            >
-                <option value="none" disabled>
-                    –
-                </option>
-            </SelectField>
-
-            <SelectField
-                label="Country of residence"
+            />
+            <TextArea
+                label="Profile bio"
                 message="Message with neutral tone (used as description, but still prefer the hint prop for that)"
                 hint="This is the primary description of the field, provided by the hint prop"
                 tone="neutral"
                 maxWidth="small"
-            >
-                <option value="none" disabled>
-                    –
-                </option>
-            </SelectField>
+            />
         </Stack>
     )
 }

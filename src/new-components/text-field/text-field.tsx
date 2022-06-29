@@ -17,6 +17,8 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         secondaryLabel,
         auxiliaryLabel,
         hint,
+        message,
+        tone,
         type = 'text',
         maxWidth,
         hidden,
@@ -32,12 +34,14 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
             secondaryLabel={secondaryLabel}
             auxiliaryLabel={auxiliaryLabel}
             hint={hint}
+            message={message}
+            tone={tone}
             maxWidth={maxWidth}
             hidden={hidden}
             aria-describedby={ariaDescribedBy}
         >
             {(extraProps) => (
-                <Box className={styles.inputWrapper}>
+                <Box className={[styles.inputWrapper, tone === 'error' ? styles.error : null]}>
                     <input {...props} {...extraProps} type={type} ref={ref} />
                 </Box>
             )}

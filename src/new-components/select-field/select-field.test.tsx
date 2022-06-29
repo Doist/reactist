@@ -63,6 +63,57 @@ describe('SelectField', () => {
         )
     })
 
+    it('is marked as invalid and when tone="error"', () => {
+        render(<SelectField data-testid="select-field" label="Theme" tone="error" />)
+        expect(screen.getByTestId('select-field')).toBeInvalid()
+    })
+
+    it('uses the message as the description, whenever the tone is not error', () => {
+        render(
+            <SelectField
+                data-testid="select-field"
+                label="Theme"
+                message="Your theme preference has been saved"
+                tone="success"
+            />,
+        )
+        expect(screen.getByTestId('select-field')).toHaveAccessibleDescription(
+            'Your theme preference has been saved',
+        )
+    })
+
+    it.each([['success' as const], ['loading' as const], ['neutral' as const], ['error' as const]])(
+        'uses the message as the description, when tone="%s"',
+        (tone) => {
+            render(
+                <SelectField
+                    data-testid="select-field"
+                    label="Theme"
+                    message={`Message with ${tone} tone`}
+                    tone={tone}
+                />,
+            )
+            expect(screen.getByTestId('select-field')).toHaveAccessibleDescription(
+                `Message with ${tone} tone`,
+            )
+        },
+    )
+
+    it('adds the message as part of the description, whenever the tone is not error', () => {
+        render(
+            <SelectField
+                data-testid="select-field"
+                label="Theme"
+                hint="Select the theme that you like"
+                message="Your theme preference has been saved"
+                tone="success"
+            />,
+        )
+        expect(screen.getByTestId('select-field')).toHaveAccessibleDescription(
+            'Your theme preference has been saved Select the theme that you like',
+        )
+    })
+
     it('renders its auxiliary label', () => {
         render(<SelectField label="Theme" auxiliaryLabel={<a href="/help">About themes</a>} />)
         expect(screen.getByRole('link', { name: 'About themes' })).toBeInTheDocument()

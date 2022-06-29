@@ -13,6 +13,8 @@ function TextArea({
     secondaryLabel,
     auxiliaryLabel,
     hint,
+    message,
+    tone,
     maxWidth,
     ...props
 }: TextAreaProps) {
@@ -23,7 +25,9 @@ function TextArea({
             secondaryLabel={secondaryLabel}
             auxiliaryLabel={auxiliaryLabel}
             hint={hint}
-            className={styles.container}
+            message={message}
+            tone={tone}
+            className={[styles.container, tone === 'error' ? styles.error : null]}
             maxWidth={maxWidth}
         >
             {(extraProps) => (

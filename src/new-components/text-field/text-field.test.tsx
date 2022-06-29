@@ -57,6 +57,43 @@ describe('TextField', () => {
         )
     })
 
+    it('is marked as invalid and when tone="error"', () => {
+        render(<TextField data-testid="text-field" label="Verification code" tone="error" />)
+        expect(screen.getByTestId('text-field')).toBeInvalid()
+    })
+
+    it.each([['success' as const], ['loading' as const], ['neutral' as const], ['error' as const]])(
+        'uses the message as the description, when tone="%s"',
+        (tone) => {
+            render(
+                <TextField
+                    data-testid="text-field"
+                    label="Verification code"
+                    message={`Message with ${tone} tone`}
+                    tone={tone}
+                />,
+            )
+            expect(screen.getByTestId('text-field')).toHaveAccessibleDescription(
+                `Message with ${tone} tone`,
+            )
+        },
+    )
+
+    it('adds the message as part of the description, whenever the tone is not error', () => {
+        render(
+            <TextField
+                data-testid="text-field"
+                label="Verification code"
+                hint="Paste in the verification code"
+                message="Verification successful"
+                tone="success"
+            />,
+        )
+        expect(screen.getByTestId('text-field')).toHaveAccessibleDescription(
+            'Verification successful Paste in the verification code',
+        )
+    })
+
     it('renders its auxiliary label', () => {
         render(<TextField label="VAT ID" auxiliaryLabel={<a href="/help">Whatʼs this?</a>} />)
         expect(screen.getByRole('link', { name: 'Whatʼs this?' })).toBeInTheDocument()

@@ -12,6 +12,8 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
         secondaryLabel,
         auxiliaryLabel,
         hint,
+        message,
+        tone,
         maxWidth,
         children,
         hidden,
@@ -27,12 +29,14 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
             secondaryLabel={secondaryLabel}
             auxiliaryLabel={auxiliaryLabel}
             hint={hint}
+            message={message}
+            tone={tone}
             maxWidth={maxWidth}
             hidden={hidden}
             aria-describedby={ariaDescribedBy}
         >
             {(extraProps) => (
-                <Box className={styles.selectWrapper}>
+                <Box className={[styles.selectWrapper, tone === 'error' ? styles.error : null]}>
                     <select {...props} {...extraProps} ref={ref}>
                         {children}
                     </select>
