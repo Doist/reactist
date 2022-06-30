@@ -1,16 +1,35 @@
+.container {
+    width: min-content;
+}
+
 .container textarea {
-    padding: var(--reactist-spacing-small);
-    width: 100%;
+    outline: none; /* we're taking care of the outline styles ourselves */
+    border: none;
+    padding: 0;
     box-sizing: border-box;
-    border-radius: var(--reactist-border-radius-small);
-    border: 1px solid var(--reactist-divider-secondary);
     font-family: var(--reactist-font-family);
 }
 
-.container.error textarea {
-    border-color: var(--reactist-alert-tone-critical-border) !important;
+.container:not(.bordered) textarea {
+    border-radius: var(--reactist-border-radius-small);
+    padding: var(--reactist-spacing-small);
 }
 
-.container textarea:focus-visible {
+.container.bordered {
+    border-radius: var(--reactist-border-radius-large);
+}
+
+.container:not(.bordered) textarea,
+.container.bordered {
+    border: 1px solid var(--reactist-divider-secondary);
+}
+
+.container:not(.bordered) textarea:focus,
+.container.bordered:focus-within {
     border-color: var(--reactist-divider-primary);
+}
+
+.container.error:not(.bordered) textarea,
+.container.bordered.error {
+    border-color: var(--reactist-alert-tone-critical-border) !important;
 }

@@ -70,6 +70,23 @@ type HtmlInputProps<T extends HTMLElement> = React.DetailedHTMLProps<
     T
 >
 
+type BaseFieldVariant = 'default' | 'bordered'
+type BaseFieldVariantProps = {
+    /**
+     * Provides alternative visual layouts or modes that the field can be rendered in.
+     *
+     * Namely, there are two variants supported:
+     *
+     * - the default one
+     * - a "bordered" variant, where the border of the field surrounds also the labels, instead
+     *   of just surrounding the actual field element
+     *
+     * In both cases, the message and description texts for the field lie outside the bordered
+     * area.
+     */
+    variant?: BaseFieldVariant
+}
+
 type BaseFieldProps = WithEnhancedClassName &
     Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'aria-describedby'> & {
         /**
@@ -161,10 +178,14 @@ type BaseFieldProps = WithEnhancedClassName &
         children: (props: ChildrenRenderProps) => React.ReactNode
     }
 
-type FieldComponentProps<T extends HTMLElement> = Omit<BaseFieldProps, 'children' | 'className'> &
+type FieldComponentProps<T extends HTMLElement> = Omit<
+    BaseFieldProps,
+    'children' | 'className' | 'variant'
+> &
     Omit<HtmlInputProps<T>, 'className' | 'style'>
 
 function BaseField({
+    variant = 'default',
     label,
     secondaryLabel,
     auxiliaryLabel,
@@ -177,7 +198,7 @@ function BaseField({
     hidden,
     'aria-describedby': originalAriaDescribedBy,
     id: originalId,
-}: BaseFieldProps & WithEnhancedClassName) {
+}: BaseFieldProps & BaseFieldVariantProps & WithEnhancedClassName) {
     const id = useId(originalId)
     const hintId = useId()
     const messageId = useId()
@@ -193,15 +214,21 @@ function BaseField({
 
     return (
         <Stack space="small" hidden={hidden}>
-            <Box className={[className, styles.container]} maxWidth={maxWidth}>
-                <Box
-                    as="span"
-                    display="flex"
-                    justifyContent="spaceBetween"
-                    alignItems="flexEnd"
-                    paddingBottom="small"
-                >
-                    <Text size="body" as="label" htmlFor={id}>
+            <Box
+                className={[
+                    className,
+                    styles.container,
+                    tone === 'error' ? styles.error : null,
+                    variant === 'bordered' ? styles.bordered : null,
+                ]}
+                maxWidth={maxWidth}
+            >
+                <Box as="span" display="flex" justifyContent="spaceBetween" alignItems="flexEnd">
+                    <Text
+                        size={variant === 'bordered' ? 'caption' : 'body'}
+                        as="label"
+                        htmlFor={id}
+                    >
                         {label ? <span className={styles.primaryLabel}>{label}</span> : null}
                         {secondaryLabel ? (
                             <span className={styles.secondaryLabel}>&nbsp;({secondaryLabel})</span>
@@ -226,4 +253,4 @@ function BaseField({
 }
 
 export { BaseField, FieldHint, FieldMessage }
-export type { FieldComponentProps }
+export type { BaseFieldVariant, BaseFieldVariantProps, FieldComponentProps }

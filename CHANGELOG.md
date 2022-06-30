@@ -5,6 +5,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 # Next
 
 -   [Feat] New `message` and `tone` props that allow to associate a visual and semantic message to various field components. Supported in `TextField`, `PasswordField`, `TextArea` and `SelectField`.
+-   [Feat] New `variant="bordered"` supported in `TextField`, `PasswordField` and `TextArea`. It renders the field and its labels enclosed in an outer border, rather than having a border around the editing area only.
 
 # v12.0.4
 

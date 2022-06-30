@@ -65,6 +65,11 @@ InteractivePropsStory.argTypes = {
         control: { type: 'inline-radio' },
         defaultValue: 'neutral',
     },
+    variant: {
+        options: ['default', 'bordered'],
+        control: { type: 'inline-radio' },
+        defaultValue: 'default',
+    },
     placeholder: {
         control: { type: 'text' },
         defaultValue: 'Enter your name as it appears in your ID',

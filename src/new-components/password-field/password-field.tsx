@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useForkRef } from 'ariakit-utils'
 import { Tooltip } from '../../components/tooltip'
-import { BaseField } from '../base-field'
+import { BaseField, BaseFieldVariantProps } from '../base-field'
 import { Box } from '../box'
 import { useId } from '../common-helpers'
 
@@ -13,12 +13,14 @@ import textFieldStyles from '../text-field/text-field.module.css'
 
 import type { TextFieldProps } from '../text-field'
 
-type PasswordFieldProps = Omit<TextFieldProps, 'type'> & {
-    togglePasswordLabel?: string
-}
+type PasswordFieldProps = Omit<TextFieldProps, 'type'> &
+    BaseFieldVariantProps & {
+        togglePasswordLabel?: string
+    }
 
 const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(function PasswordField(
     {
+        variant = 'default',
         label,
         secondaryLabel,
         auxiliaryLabel,
@@ -46,6 +48,7 @@ const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(fun
 
     return (
         <BaseField
+            variant={variant}
             id={id}
             label={label}
             secondaryLabel={secondaryLabel}
@@ -65,6 +68,7 @@ const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(fun
                         styles.inputWrapper,
                         textFieldStyles.inputWrapper,
                         tone === 'error' ? textFieldStyles.error : null,
+                        variant === 'bordered' ? textFieldStyles.bordered : null,
                     ]}
                 >
                     <input

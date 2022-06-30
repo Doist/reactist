@@ -1,13 +1,15 @@
 import * as React from 'react'
-import { BaseField, FieldComponentProps } from '../base-field'
+import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-field'
 import { Box } from '../box'
 import styles from './text-area.module.css'
 
-type TextAreaProps = FieldComponentProps<HTMLTextAreaElement> & {
-    rows?: number
-}
+type TextAreaProps = FieldComponentProps<HTMLTextAreaElement> &
+    BaseFieldVariantProps & {
+        rows?: number
+    }
 
 function TextArea({
+    variant = 'default',
     id,
     label,
     secondaryLabel,
@@ -20,6 +22,7 @@ function TextArea({
 }: TextAreaProps) {
     return (
         <BaseField
+            variant={variant}
             id={id}
             label={label}
             secondaryLabel={secondaryLabel}
@@ -27,11 +30,15 @@ function TextArea({
             hint={hint}
             message={message}
             tone={tone}
-            className={[styles.container, tone === 'error' ? styles.error : null]}
+            className={[
+                styles.container,
+                tone === 'error' ? styles.error : null,
+                variant === 'bordered' ? styles.bordered : null,
+            ]}
             maxWidth={maxWidth}
         >
             {(extraProps) => (
-                <Box width="full">
+                <Box width="full" display="flex">
                     <textarea {...props} {...extraProps} />
                 </Box>
             )}
