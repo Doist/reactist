@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 
-import Select from '../../src/components/select'
+import Select from '../../src/components/deprecated-select'
+import { Alert } from '../../src/new-components/alert'
+import { Stack } from '../../src/new-components/stack'
 
 const options = [
     { value: 'intro', text: 'Select a fruit', disabled: true },
@@ -31,9 +33,14 @@ export const SelectStory = () => {
     }
 
     return (
-        <section className="story">
+        <Stack as="section" exceptionallySetClassName="story" space="large">
+            <Alert tone="critical">
+                <strong>Deprecated:</strong> Please use{' '}
+                <a href="/?path=/docs/design-system-selectfield">SelectField</a> instead
+            </Alert>
+
             <Select value={value} options={options} onChange={handleChange} />
-        </section>
+        </Stack>
     )
 }
 
