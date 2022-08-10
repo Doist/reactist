@@ -44,7 +44,6 @@ export * from './hooks/use-previous'
 //
 
 export { default as ColorPicker, COLORS } from './components/color-picker'
-export { default as Dropdown } from './components/dropdown'
 export { default as Input } from './components/input'
 export { default as KeyboardShortcut } from './components/keyboard-shortcut'
 export { default as KeyCapturer, SUPPORTED_KEYS } from './components/key-capturer'
@@ -62,3 +61,4 @@ export * from './components/menu'
 //
 
 export { default as DeprecatedButton } from './components/deprecated-button'
+export { default as DeprecatedDropdown } from './components/deprecated-dropdown'

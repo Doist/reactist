@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Dropdown from '../../src/components/dropdown'
 import Button from '../../src/components/deprecated-button'
+import Dropdown from '../../src/components/deprecated-dropdown'
 
 export default {
     title: 'Components/Dropdown',
