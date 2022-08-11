@@ -79,7 +79,7 @@ export const Template = ({
                 control: { type: 'inline-radio' },
             },
             variant: {
-                options: ['normal', 'plain'],
+                options: ['normal', 'tracked', 'plain'],
                 control: { type: 'inline-radio' },
             },
             color: {
@@ -143,9 +143,42 @@ The following CSS custom properties are available so that the tabs' colors can b
 --reactist-tab-tertiary-background
 --reactist-tab-tertiary-foreground
 --reactist-tab-tertiary-unselected
+
+--reactist-tab-track
+--reactist-tab-border
 ```
 
 ## Stories
+
+### Tracked variant
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        args={{
+            'aria-label': 'Tabs with tracked variant style',
+            variant: 'tracked',
+        }}
+        name="Tracked variant"
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+### Plain variant
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        args={{
+            'aria-label': 'Tabs with plain variant style',
+            variant: 'plain',
+        }}
+        name="Plain variant"
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
 
 ### Primary color
 
@@ -186,21 +219,6 @@ The following CSS custom properties are available so that the tabs' colors can b
             color: 'tertiary',
         }}
         name="Tertiary color"
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
-### Plain variant
-
-<Canvas withToolbar>
-    <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
-        args={{
-            'aria-label': 'Tabs with plain variant style',
-            variant: 'plain',
-        }}
-        name="Plain variant"
     >
         {Template.bind({})}
     </Story>
