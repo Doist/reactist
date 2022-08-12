@@ -1,20 +1,15 @@
 :root {
-    /*
-    * These are not the actual colours defined in the mocks. Until we have a colour system aligned with
-    * our product libraries, these variables should be documented and customized in the consuming apps.
-    */
-    --reactist-tab-primary-background: rgb(36, 111, 224);
-    --reactist-tab-primary-foreground: var(--reactist-content-light-on-dark);
-    --reactist-tab-primary-unselected: rgb(36, 111, 224);
-    --reactist-tab-secondary-background: var(--reactist-framework-fill-selected);
-    --reactist-tab-secondary-foreground: rgb(36, 111, 224);
-    --reactist-tab-secondary-unselected: rgb(36, 111, 224);
-    --reactist-tab-tertiary-background: rgb(128, 128, 128);
-    --reactist-tab-tertiary-foreground: var(--reactist-content-light-on-dark);
-    --reactist-tab-tertiary-unselected: var(--reactist-content-tertiary);
+    --reactist-tab-themed-background: var(--reactist-bg-default);
+    --reactist-tab-themed-foreground: #006f85;
+    --reactist-tab-themed-unselected: #006f85;
+    --reactist-tab-themed-track: rgb(242, 246, 247);
+    --reactist-tab-themed-border: var(--reactist-divider-secondary);
 
-    --reactist-tab-track: var(--reactist-framework-fill-crest);
-    --reactist-tab-border: var(--reactist-divider-primary);
+    --reactist-tab-neutral-background: var(--reactist-bg-default);
+    --reactist-tab-neutral-foreground: var(--reactist-content-primary);
+    --reactist-tab-neutral-unselected: var(--reactist-content-tertiary);
+    --reactist-tab-neutral-track: var(--reactist-framework-fill-selected);
+    --reactist-tab-neutral-border: var(--reactist-divider-primary);
 
     --reactist-tab-track-border-width: 2px;
     --reactist-tab-border-radius: 20px;
@@ -23,73 +18,17 @@
 
 .tab {
     box-sizing: border-box;
+    padding: 0 var(--reactist-spacing-medium);
     border: none;
-    border-radius: var(--reactist-border-radius-small);
     background: none;
     cursor: pointer;
-    font-weight: var(--reactist-font-weight-medium);
-    text-decoration: none;
-}
-
-/*
- * Base styles
- */
-
-.tab-normal,
-.tab-tracked {
-    padding: 0 var(--reactist-spacing-medium);
     font-size: var(--reactist-font-size-body);
+    font-weight: var(--reactist-font-weight-medium);
     line-height: 32px;
-    border-radius: var(--reactist-tab-border-radius);
-}
-
-/*
- * Colour options
- */
-
-.tab-normal.tab-primary,
-.tab-tracked.tab-primary {
-    color: var(--reactist-tab-primary-unselected);
-}
-
-.tab-normal.tab-primary[aria-selected='true'],
-.tab-tracked.tab-primary[aria-selected='true'] {
-    background-color: var(--reactist-tab-primary-background);
-    color: var(--reactist-tab-primary-foreground);
-}
-
-.tab-normal.tab-secondary,
-.tab-tracked.tab-secondary {
-    color: var(--reactist-tab-secondary-unselected);
-}
-
-.tab-normal.tab-secondary[aria-selected='true'],
-.tab-tracked.tab-secondary[aria-selected='true'] {
-    background-color: var(--reactist-tab-secondary-background);
-    color: var(--reactist-tab-secondary-foreground);
-}
-
-.tab-normal.tab-tertiary,
-.tab-tracked.tab-tertiary {
-    color: var(--reactist-tab-tertiary-unselected);
-}
-
-.tab-normal.tab-tertiary[aria-selected='true'],
-.tab-tracked.tab-tertiary[aria-selected='true'] {
-    background-color: var(--reactist-tab-tertiary-background);
-    color: var(--reactist-tab-tertiary-foreground);
-}
-
-/*
- * 'Tracked' variant
- */
-.tab-tracked {
     z-index: 1;
+    text-decoration: none;
     border: var(--reactist-tab-border-width) solid transparent;
-}
-
-.tab-tracked[aria-selected='true'] {
-    border-color: var(--reactist-tab-border);
+    border-radius: var(--reactist-tab-border-radius);
 }
 
 .track {
@@ -99,32 +38,68 @@
     bottom: calc(-1 * var(--reactist-tab-track-border-width));
     left: calc(-1 * var(--reactist-tab-track-border-width));
     margin-top: var(--reactist-spacing-large);
-
     border-radius: var(--reactist-tab-border-radius);
-    background: var(--reactist-tab-track);
-    border: var(--reactist-tab-track-border-width) solid var(--reactist-tab-track);
+    border-width: var(--reactist-tab-track-border-width);
+    border-style: solid;
 }
 
-.tab-track-xsmall {
+/*
+ * Variant options
+ */
+
+.tab,
+.tab-neutral {
+    color: var(--reactist-tab-neutral-unselected);
+}
+
+.tab[aria-selected='true'],
+.tab-neutral[aria-selected='true'] {
+    background-color: var(--reactist-tab-neutral-background);
+    color: var(--reactist-tab-neutral-foreground);
+    border-color: var(--reactist-tab-neutral-border);
+}
+
+.tab-themed {
+    color: var(--reactist-tab-themed-unselected);
+}
+
+.tab-themed[aria-selected='true'] {
+    background-color: var(--reactist-tab-themed-background);
+    color: var(--reactist-tab-themed-foreground);
+    border-color: var(--reactist-tab-themed-border);
+}
+
+.track,
+.track-neutral {
+    background: var(--reactist-tab-neutral-track);
+    border-color: var(--reactist-tab-neutral-track);
+}
+
+.track-themed {
+    background: var(--reactist-tab-themed-track);
+    border-color: var(--reactist-tab-themed-track);
+}
+
+.track-xsmall {
     margin-top: var(--reactist-spacing-xsmall);
 }
 
-.tab-track-small {
+.track-small {
     margin-top: var(--reactist-spacing-small);
 }
 
-.tab-track-medium {
+.track-medium {
     margin-top: var(--reactist-spacing-medium);
 }
 
-.tab-track-large {
+.track-large {
     margin-top: var(--reactist-spacing-large);
 }
 
-.tab-track-xlarge {
+.track-xlarge {
     margin-top: var(--reactist-spacing-xlarge);
 }
 
-.tab-track-xxlarge {
+.track-xxlarge {
     margin-top: var(--reactist-spacing-xxlarge);
 }
