@@ -31,7 +31,7 @@ type TabsProps = {
     /**
      * Determines the style of the tabs
      */
-    variant?: 'normal' | 'tracked' | 'plain'
+    variant?: 'normal' | 'tracked'
     /**
      * The id of the selected tab. Assigning a value makes this a
      * controlled component

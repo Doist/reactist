@@ -128,18 +128,3 @@
 .tab-track-xxlarge {
     margin-top: var(--reactist-spacing-xxlarge);
 }
-
-/*
- * Plain variant
- */
-
-.tab-plain {
-    padding: var(--reactist-spacing-xsmall);
-    color: var(--reactist-content-secondary);
-    font-size: var(--reactist-font-size-subtitle);
-    font-weight: var(--reactist-font-weight-strong);
-}
-
-.tab-plain[aria-selected='true'] {
-    color: var(--reactist-content-primary);
-}
