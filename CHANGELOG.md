@@ -4,6 +4,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+-   [Breaking] The `color` prop has been removed from `Tabs`, and `variant` now only supports `themed` and `neutral` as options.
 -   [Fix] `Tooltip` will now correctly use an anchor component with an `as` prop
 
 # v13.0.0
