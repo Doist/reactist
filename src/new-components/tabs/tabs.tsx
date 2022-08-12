@@ -169,16 +169,26 @@ export function TabList({
     const { tabState, variant } = tabContextValue
 
     return (
-        <BaseTabList state={tabState} as={Box} position="relative" width="maxContent" {...props}>
-            <Box
-                className={classNames(
-                    styles.track,
-                    styles[`track-${space}`],
-                    styles[`track-${variant}`],
-                )}
-            />
-            <Inline space={space}>{children}</Inline>
-        </BaseTabList>
+        // The extra <Box> prevents <Inline>'s negative margins from collapsing when used in a flex container
+        // which will render the track with the wrong height
+        <Box>
+            <BaseTabList
+                state={tabState}
+                as={Box}
+                position="relative"
+                width="maxContent"
+                {...props}
+            >
+                <Box
+                    className={classNames(
+                        styles.track,
+                        styles[`track-${space}`],
+                        styles[`track-${variant}`],
+                    )}
+                />
+                <Inline space={space}>{children}</Inline>
+            </BaseTabList>
+        </Box>
     )
 }
 
