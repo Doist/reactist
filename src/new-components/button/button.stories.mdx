@@ -469,7 +469,7 @@ export function LoadingButton(props) {
 
 ### Full-width
 
-export function FullWidthTemplate({ label, variant, tone, size, width }) {
+export function FullWidthTemplate({ label, ...otherProps }) {
     if (label === 'Click me <em>now</em>') {
         label = (
             <>
@@ -478,10 +478,7 @@ export function FullWidthTemplate({ label, variant, tone, size, width }) {
         )
     }
     const props = {
-        variant,
-        tone,
-        size,
-        width,
+        ...otherProps,
         startIcon: <Icon />,
         endIcon: <Icon />,
     }
@@ -540,6 +537,11 @@ export function FullWidthTemplate({ label, variant, tone, size, width }) {
                 control: { type: 'inline-radio' },
                 defaultValue: 'normal',
             },
+            shape: {
+                options: ['normal', 'rounded'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'normal',
+            },
             width: {
                 options: ['none', 'xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
                 control: { type: 'select' },
@@ -561,7 +563,7 @@ export function FullWidthTemplate({ label, variant, tone, size, width }) {
 
 ### Playground
 
-export function PlaygroundTemplate({ label, variant, tone, size }) {
+export function PlaygroundTemplate({ label, ...props }) {
     let textLabel = label
     if (label === 'Click me <em>now</em>') {
         label = (
@@ -575,82 +577,67 @@ export function PlaygroundTemplate({ label, variant, tone, size }) {
         <Stack space="large">
             <Heading level="2">Click on the buttons to see the loading state</Heading>
             <Inline space="large">
-                <Stack space="large">
-                    <Box maxWidth="xsmall">
-                        <LoadingButton variant={variant} tone={tone} size={size}>
-                            {label}
-                        </LoadingButton>
-                    </Box>
-                    <Box maxWidth="xsmall">
-                        <LoadingButton variant={variant} tone={tone} size={size} disabled>
-                            {label}
-                        </LoadingButton>
-                    </Box>
-                </Stack>
-                <Stack space="large">
-                    <Box maxWidth="xsmall">
-                        <LoadingButton
-                            variant={variant}
-                            tone={tone}
-                            size={size}
-                            startIcon={<Icon />}
-                        >
-                            {label}
-                        </LoadingButton>
-                    </Box>
-                    <Box maxWidth="xsmall">
-                        <LoadingButton
-                            variant={variant}
-                            tone={tone}
-                            size={size}
-                            startIcon={<Icon />}
-                            disabled
-                        >
-                            {label}
-                        </LoadingButton>
-                    </Box>
-                </Stack>
-                <Stack space="large">
-                    <Box maxWidth="xsmall">
-                        <LoadingButton variant={variant} tone={tone} size={size} endIcon={<Icon />}>
-                            {label}
-                        </LoadingButton>
-                    </Box>
-                    <Box maxWidth="xsmall">
-                        <LoadingButton
-                            variant={variant}
-                            tone={tone}
-                            size={size}
-                            endIcon={<Icon />}
-                            disabled
-                        >
-                            {label}
-                        </LoadingButton>
-                    </Box>
-                </Stack>
-                <Stack space="large">
-                    <Box>
-                        <LoadingButton
-                            variant={variant}
-                            tone={tone}
-                            size={size}
-                            aria-label={textLabel}
-                            tooltip={label}
-                            icon={<Icon />}
-                        />
-                    </Box>
-                    <Box>
-                        <LoadingButton
-                            variant={variant}
-                            tone={tone}
-                            size={size}
-                            aria-label={textLabel}
-                            tooltip={label}
-                            icon={<Icon />}
-                            disabled
-                        />
-                    </Box>
-                </Stack>
+                <Box>
+                    <Stack space="large">
+                        <Box maxWidth="xsmall">
+                            <LoadingButton {...props}>{label}</LoadingButton>
+                        </Box>
+                        <Box maxWidth="xsmall">
+                            <LoadingButton {...props} disabled>
+                                {label}
+                            </LoadingButton>
+                        </Box>
+                    </Stack>
+                </Box>
+                <Box>
+                    <Stack space="large">
+                        <Box maxWidth="xsmall">
+                            <LoadingButton {...props} startIcon={<Icon />}>
+                                {label}
+                            </LoadingButton>
+                        </Box>
+                        <Box maxWidth="xsmall">
+                            <LoadingButton {...props} startIcon={<Icon />} disabled>
+                                {label}
+                            </LoadingButton>
+                        </Box>
+                    </Stack>
+                </Box>
+                <Box>
+                    <Stack space="large">
+                        <Box maxWidth="xsmall">
+                            <LoadingButton {...props} endIcon={<Icon />}>
+                                {label}
+                            </LoadingButton>
+                        </Box>
+                        <Box maxWidth="xsmall">
+                            <LoadingButton {...props} endIcon={<Icon />} disabled>
+                                {label}
+                            </LoadingButton>
+                        </Box>
+                    </Stack>
+                </Box>
+                <Box>
+                    <Stack space="large">
+                        <Box>
+                            <LoadingButton
+                                {...props}
+                                aria-label={textLabel}
+                                tooltip={label}
+                                icon={<Icon />}
+                            />
+                        </Box>
+                        <Box>
+                            <LoadingButton
+                                {...props}
+                                aria-label={textLabel}
+                                tooltip={label}
+                                icon={<Icon />}
+                                disabled
+                            />
+                        </Box>
+                    </Stack>
+                </Box>
             </Inline>
         </Stack>
     )
@@ -684,6 +671,11 @@ export function PlaygroundTemplate({ label, variant, tone, size }) {
             },
             size: {
                 options: ['small', 'normal', 'large'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'normal',
+            },
+            shape: {
+                options: ['normal', 'rounded'],
                 control: { type: 'inline-radio' },
                 defaultValue: 'normal',
             },

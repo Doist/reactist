@@ -19,21 +19,33 @@ type CommonProps = {
      * The button's variant.
      */
     variant: ButtonVariant
+
     /**
      * The button's tone.
      * @default 'normal'
      */
     tone?: ButtonTone
+
     /**
      * The button's size.
      * @default 'normal'
      */
     size?: ButtonSize
+
+    /**
+     * Controls the shape of the button. Specifically, it allows to make it have slightly curved
+     * corners (the default) vs. having them fully curved to the point that they are as round as
+     * possible. In icon-only buttons this allows to have the button be circular.
+     * @default 'normal'
+     */
+    shape?: 'normal' | 'rounded'
+
     /**
      * Whether the button is disabled or not.
      * @default false
      */
     disabled?: boolean
+
     /**
      * Whether the button is busy/loading.
      *
@@ -43,10 +55,12 @@ type CommonProps = {
      * @default false
      */
     loading?: boolean
+
     /**
      * A tooltip linked to the button element.
      */
     tooltip?: TooltipProps['content']
+
     /**
      * The distance between the button element and the linked tooltip.
      */
@@ -95,6 +109,7 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
         variant,
         tone = 'normal',
         size = 'normal',
+        shape = 'normal',
         disabled = false,
         loading = false,
         tooltip,
@@ -126,6 +141,7 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
                 styles[`variant-${variant}`],
                 styles[`tone-${tone}`],
                 styles[`size-${size}`],
+                shape === 'rounded' ? styles['shape-rounded'] : null,
                 width !== 'auto' && icon == null && align != null ? styles[`align-${align}`] : null,
                 icon ? styles.iconButton : null,
                 disabled ? styles.disabled : null,
