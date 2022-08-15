@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 
-import Dropdown from '../dropdown'
+import DeprecatedDropdown from '../deprecated-dropdown'
 import { Tooltip } from '../tooltip'
 
 import './color-picker.less'
@@ -41,8 +41,8 @@ type Props = {
 
 function ColorPicker({ color = 0, small, onChange, colorList = COLORS }: Props) {
     return (
-        <Dropdown.Box right className="reactist_color_picker">
-            <Dropdown.Trigger>
+        <DeprecatedDropdown.Box right className="reactist_color_picker">
+            <DeprecatedDropdown.Trigger>
                 {(() => {
                     const backgroundColor = _getColor(colorList, color)
 
@@ -59,8 +59,8 @@ function ColorPicker({ color = 0, small, onChange, colorList = COLORS }: Props) 
                         </span>
                     )
                 })()}
-            </Dropdown.Trigger>
-            <Dropdown.Body>
+            </DeprecatedDropdown.Trigger>
+            <DeprecatedDropdown.Body>
                 <div className="color_options">
                     {colorList.reduce<React.ReactNode[]>((items, currentColor, currentIndex) => {
                         items.push(
@@ -82,8 +82,8 @@ function ColorPicker({ color = 0, small, onChange, colorList = COLORS }: Props) 
                         return items
                     }, [])}
                 </div>
-            </Dropdown.Body>
-        </Dropdown.Box>
+            </DeprecatedDropdown.Body>
+        </DeprecatedDropdown.Box>
     )
 }
 ColorPicker.displayName = 'ColorPicker'

@@ -1,7 +1,9 @@
 import React from 'react'
 
-import Dropdown from '../../src/components/dropdown'
 import Button from '../../src/components/deprecated-button'
+import Dropdown from '../../src/components/deprecated-dropdown'
+import { Alert } from '../../src/new-components/alert'
+import { Stack } from '../../src/new-components/stack'
 
 export default {
     title: 'Components/Dropdown',
@@ -14,21 +16,28 @@ export default {
 // Story Definitions ==========================================================
 export const DropdownStory = () => (
     <section className="story">
-        <Dropdown.Box>
-            <Dropdown.Trigger>
-                <Button variant="primary">Trigger: Click to show dropdown</Button>
-            </Dropdown.Trigger>
-            <Dropdown.Body>
-                <div>
-                    <h2>Dropdown Content</h2>
-                    <ul>
-                        <li>You can add anything</li>
-                        <li>you want to a dropdown</li>
-                        <li>(e.g. lists and headings)</li>
-                    </ul>
-                </div>
-            </Dropdown.Body>
-        </Dropdown.Box>
+        <Stack as="section" exceptionallySetClassName="story" space="large">
+            <Alert tone="critical">
+                <strong>Deprecated:</strong> While not a 1:1 replacement, consider using{' '}
+                <a href="/?path=/docs/components-menu">Menu</a> as an alternative
+            </Alert>
+
+            <Dropdown.Box>
+                <Dropdown.Trigger>
+                    <Button variant="primary">Trigger: Click to show dropdown</Button>
+                </Dropdown.Trigger>
+                <Dropdown.Body>
+                    <div>
+                        <h2>Dropdown Content</h2>
+                        <ul>
+                            <li>You can add anything</li>
+                            <li>you want to a dropdown</li>
+                            <li>(e.g. lists and headings)</li>
+                        </ul>
+                    </div>
+                </Dropdown.Body>
+            </Dropdown.Box>
+        </Stack>
     </section>
 )
 

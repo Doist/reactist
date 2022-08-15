@@ -1,6 +1,7 @@
 import React from 'react'
 
-import Input from '../../src/components/input'
+import Input from '../../src/components/deprecated-input'
+import { Alert } from '../../src/new-components/alert'
 import './styles/input_story.less'
 
 // Story setup ================================================================
@@ -8,6 +9,9 @@ import './styles/input_story.less'
 export default {
     title: 'Components/Input',
     component: Input,
+    parameters: {
+        badges: ['deprecated'],
+    },
 }
 
 // Story Definitions ==========================================================
@@ -15,6 +19,10 @@ export default {
 export const InputStory = () => (
     <section className="story">
         <div className="story-info">
+            <Alert tone="critical">
+                <strong>Deprecated:</strong> Please use{' '}
+                <a href="/?path=/docs/design-system-textfield">TextField</a> instead
+            </Alert>
             <p>
                 This component is a dumb wrapper around the
                 <code> &lt;input /&gt;</code> element which justs add a class name to give it is
