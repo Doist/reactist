@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { render, screen, within } from '@testing-library/react'
+import { act, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Button } from './button'
 import { axe } from 'jest-axe'
@@ -287,6 +287,39 @@ describe('Button', () => {
             const button = screen.getByRole('button', { name: 'Smile' })
             expect(button.className).not.toMatch(/align/)
             expect(button.className).not.toMatch(/width/)
+        })
+
+        it('renders with the aria-label implicitly used as its tooltip', async () => {
+            render(<Button variant="primary" icon="😄" aria-label="Smile" />)
+            expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+            userEvent.tab()
+            expect(screen.getByRole('button', { name: 'Smile' })).toHaveFocus()
+            expect(await screen.findByRole('tooltip', { name: 'Smile' })).toBeInTheDocument()
+        })
+
+        it('renders a different tooltip if given explicitly', async () => {
+            render(<Button variant="primary" icon="😄" aria-label="Smile" tooltip="Say cheese!" />)
+            expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+            userEvent.tab()
+            expect(screen.getByRole('button', { name: 'Smile' })).toHaveFocus()
+            expect(await screen.findByRole('tooltip', { name: 'Say cheese!' })).toBeInTheDocument()
+        })
+
+        it('allows to supress the implicit "aria-label as tooltip" behaviour by passing tooltip={null}', () => {
+            jest.useFakeTimers()
+
+            render(<Button variant="primary" icon="😄" aria-label="Smile" tooltip={null} />)
+            expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+            userEvent.tab()
+            expect(screen.getByRole('button', { name: 'Smile' })).toHaveFocus()
+
+            act(() => {
+                jest.advanceTimersByTime(2000) // More than enough time for a potential tooltip appearance
+            })
+
+            expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+
+            jest.useRealTimers()
         })
     })
 
