@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# Next
+
+-   [Feat] Allow buttons to have fully rounded/circular corners.
+
 # v12.1.1
 
 -   [Fix] Reset input padding for `variant="bordered"` `TextField`.
@@ -10,7 +14,6 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 -   [Feat] New `message` and `tone` props that allow to associate a visual and semantic message to various field components. Supported in `TextField`, `PasswordField`, `TextArea` and `SelectField`.
 -   [Feat] New `variant="bordered"` supported in `TextField`, `PasswordField` and `TextArea`. It renders the field and its labels enclosed in an outer border, rather than having a border around the editing area only.
--   [Feat] Allow buttons to have fully rounded/circular corners.
 
 # v12.0.4
 
