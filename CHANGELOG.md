@@ -10,7 +10,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 -   [Breaking] Icon-only buttons can have their implicit "aria-label as tooltip" behaviour suppressed by passing `tooltip={null}`. Useful when wanting to get full control over rendering the tooltip manually.
 -   [Breaking] Remove deprecated components `Checkbox`, `DeprecatedLoading` and `DeprecatedModal`.
 -   [Breaking] Remove `Popover`
--   [Deprecation] The following components have been renamed and will be removed in a future major release:
+-   [Breaking] The following components have been renamed and will be removed in a future major release:
     -   `Dropdown` -> `DeprecatedDropdown`
     -   `Input` -> `DeprecatedInput`, use `TextField` instead.
     -   `Select` -> `DeprecatedSelect`, use `SelectField` instead.
