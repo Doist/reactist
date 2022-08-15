@@ -43,7 +43,6 @@ export * from './hooks/use-previous'
 // components not yet integrated with the design system
 //
 
-export { default as Checkbox } from './components/checkbox'
 export { default as ColorPicker, COLORS } from './components/color-picker'
 export { default as Dropdown } from './components/dropdown'
 export { default as Input } from './components/input'
@@ -63,5 +62,3 @@ export * from './components/menu'
 //
 
 export { default as DeprecatedButton } from './components/deprecated-button'
-export { default as DeprecatedModal } from './components/deprecated-modal'
-export { DeprecatedLoading } from './components/deprecated-loading'
