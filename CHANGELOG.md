@@ -5,6 +5,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 # Next-Next
 
 -   [Feat] Fields without label show no spacing above the field
+-   [Fix] `TextArea` can now be hidden
+-   [Fix] `TextArea` now properly support receiving an explicit alternative aria-describedby attribute
 
 # Next
 
