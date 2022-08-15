@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Button } from './button'
 import { axe } from 'jest-axe'
@@ -114,7 +114,9 @@ describe('Button', () => {
         )
         expect(
             screen.getByRole('button', { name: 'Click me now' }).innerHTML,
-        ).toMatchInlineSnapshot(`"<span class=\\"label\\">Click me <strong>now</strong></span>"`)
+        ).toMatchInlineSnapshot(
+            `"<span class=\\"label box textAlign-center overflow-hidden\\">Click me <strong>now</strong></span>"`,
+        )
     })
 
     it('renders a tooltip when the tooltip prop is given', async () => {
@@ -214,15 +216,16 @@ describe('Button', () => {
         expect(button).not.toHaveClass('size-small')
     })
 
-    it('applies different class names based on width and alignment', () => {
+    it('applies different class names to the label based on width and alignment', () => {
         render(
             <Button variant="primary" width="full" align="end">
                 Click me
             </Button>,
         )
         const button = screen.getByRole('button', { name: 'Click me' })
-        expect(button).toHaveClass('align-end')
-        expect(button).toHaveClass('width-full')
+        const buttonLabel = within(button).getByText('Click me')
+        expect(buttonLabel).toHaveClass('textAlign-end')
+        expect(buttonLabel).toHaveClass('width-full')
     })
 
     it('ignores align when width is not full', () => {

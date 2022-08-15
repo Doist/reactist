@@ -121,7 +121,7 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
         endIcon,
         icon,
         width = 'auto',
-        align,
+        align = 'center',
         ...props
     },
     ref,
@@ -142,7 +142,6 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
                 styles[`tone-${tone}`],
                 styles[`size-${size}`],
                 shape === 'rounded' ? styles['shape-rounded'] : null,
-                width !== 'auto' && icon == null && align != null ? styles[`align-${align}`] : null,
                 icon ? styles.iconButton : null,
                 disabled ? styles.disabled : null,
             ]}
@@ -156,7 +155,17 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
                             {loading && !endIcon ? <Spinner /> : startIcon}
                         </Box>
                     ) : null}
-                    {children ? <span className={styles.label}>{children}</span> : null}
+                    {children ? (
+                        <Box
+                            as="span"
+                            className={styles.label}
+                            overflow="hidden"
+                            width={width === 'full' ? 'full' : undefined}
+                            textAlign={width === 'auto' ? 'center' : align}
+                        >
+                            {children}
+                        </Box>
+                    ) : null}
                     {endIcon || (loading && !startIcon) ? (
                         <Box display="flex" className={styles.endIcon} aria-hidden>
                             {loading ? <Spinner /> : endIcon}

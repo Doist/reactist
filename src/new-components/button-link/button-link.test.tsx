@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ButtonLink } from './button-link'
 
@@ -96,7 +96,7 @@ describe('ButtonLink', () => {
         )
         const buttonLink = screen.getByRole('link', { name: 'Click me now' })
         expect(buttonLink.innerHTML).toMatchInlineSnapshot(
-            `"<span class=\\"label\\">Click me <strong>now</strong></span>"`,
+            `"<span class=\\"label box textAlign-center overflow-hidden\\">Click me <strong>now</strong></span>"`,
         )
     })
 
@@ -217,15 +217,16 @@ describe('ButtonLink', () => {
         expect(link).not.toHaveClass('size-small')
     })
 
-    it('applies different class names based on width and alignment', () => {
+    it('applies different class names to the label based on width and alignment', () => {
         render(
             <ButtonLink href="/" variant="primary" width="full" align="end">
                 Click me
             </ButtonLink>,
         )
         const buttonLink = screen.getByRole('link', { name: 'Click me' })
-        expect(buttonLink).toHaveClass('align-end')
-        expect(buttonLink).toHaveClass('width-full')
+        const buttonLabel = within(buttonLink).getByText('Click me')
+        expect(buttonLabel).toHaveClass('textAlign-end')
+        expect(buttonLabel).toHaveClass('width-full')
     })
 
     it('ignores align when width is not full', () => {

@@ -5,6 +5,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 # Next
 
 -   [Feat] Allow buttons to have fully rounded/circular corners.
+-   [Fix] Only apply full width labels when the button is full width
 
 # v12.1.1
 
