@@ -4,6 +4,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+-   [Fix] `Tooltip` will now correctly use an anchor component with an `as` prop
+
 # v13.0.0
 
 -   [Breaking] Button's `tooltipGapSize` prop is no longer supported. When wanting to customize the tooltip appearance, consumers should take ownership of rendering the tooltip manually.
