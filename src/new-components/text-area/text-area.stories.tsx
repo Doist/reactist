@@ -115,7 +115,7 @@ export function MessageToneStory() {
     )
 }
 
-export function TextAreaWithoutLabelStory() {
+export function WithoutLabelStory() {
     return (
         <Stack space="xlarge" dividers="secondary">
             <Stack as="label" htmlFor="custom-textarea" space="small">
