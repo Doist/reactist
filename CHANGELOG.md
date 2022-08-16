@@ -4,8 +4,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
--   [Feat] Allow buttons to have fully rounded/circular corners.
--   [Fix] Only apply full width labels when the button is full width
+# v13.0.0
+
 -   [Breaking] Button's `tooltipGapSize` prop is no longer supported. When wanting to customize the tooltip appearance, consumers should take ownership of rendering the tooltip manually.
 -   [Breaking] Icon-only buttons can have their implicit "aria-label as tooltip" behaviour suppressed by passing `tooltip={null}`. Useful when wanting to get full control over rendering the tooltip manually.
 -   [Breaking] Remove deprecated components `Checkbox`, `DeprecatedLoading` and `DeprecatedModal`.
@@ -14,6 +14,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
     -   `Dropdown` -> `DeprecatedDropdown`
     -   `Input` -> `DeprecatedInput`, use `TextField` instead.
     -   `Select` -> `DeprecatedSelect`, use `SelectField` instead.
+-   [Feat] Allow buttons to have fully rounded/circular corners.
+-   [Fix] Only apply full width labels when the button is full width
 
 # v12.1.1
 
