@@ -48,10 +48,15 @@ function Tooltip({
     const state = useDelayedTooltipState({ placement: position, gutter: gapSize })
 
     const child = React.Children.only(
-        children as React.FunctionComponentElement<JSX.IntrinsicElements['div'] | null>,
+        children as React.FunctionComponentElement<JSX.IntrinsicElements['div']> | null,
     )
-    if (!content) {
+
+    if (!content || !child) {
         return child
+    }
+
+    if (typeof child.ref === 'string') {
+        throw new Error('Tooltip: String refs cannot be used as they cannot be forwarded')
     }
 
     /**
@@ -79,9 +84,12 @@ function Tooltip({
 
     return (
         <>
-            <TooltipAnchor state={state} {...child.props} ref={child.ref} onFocus={handleFocus}>
+            <TooltipAnchor state={state} ref={child.ref} onFocus={handleFocus}>
                 {(anchorProps: TooltipAnchorProps) => {
-                    return React.cloneElement(child, anchorProps)
+                    // Let child props override anchor props so user can specify attributes like tabIndex
+                    // Also, do not apply the child's props to TooltipAnchor as props like `as` can create problems
+                    // by applying the replacement component/element twice
+                    return React.cloneElement(child, { ...anchorProps, ...child.props })
                 }}
             </TooltipAnchor>
             {state.visible ? (
