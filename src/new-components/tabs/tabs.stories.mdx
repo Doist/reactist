@@ -247,8 +247,7 @@ As long as they exist within the same `<Tabs>` component tree, multiple `<TabLis
 By default, the `TabPanel` renders an unstyled div. When more control is needed, an element type or component
 can be specified with the `as` prop.
 
-Note that when combined with the `render="active"` prop, only the tabpanel's
-children are prevented from rendering, and not the actual polymorphic component/element itself.
+Note that when combined with the `render="active"` prop, the entire tabpanel will be affected, including the actual polymorphic component/element passed into `as`.
 
 <Canvas withToolbar>
     <Story parameters={{ docs: { source: { type: 'code' } } }} name="Polymorphism">

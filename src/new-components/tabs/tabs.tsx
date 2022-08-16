@@ -233,14 +233,16 @@ export const TabPanel = polymorphicComponent<'div', TabPanelProps, 'omitClassNam
         }
 
         const { tabState } = tabContextValue
+        const shouldRender =
+            render === 'always' ||
+            (render === 'active' && tabIsActive) ||
+            (render === 'lazy' && (tabIsActive || tabRendered))
 
-        return (
+        return shouldRender ? (
             <BaseTabPanel tabId={id} {...props} state={tabState} as={as} ref={ref}>
-                {render === 'always' ? children : null}
-                {render === 'active' && tabIsActive ? children : null}
-                {render === 'lazy' && (tabIsActive || tabRendered) ? children : null}
+                {children}
             </BaseTabPanel>
-        )
+        ) : null
     },
 )
 
