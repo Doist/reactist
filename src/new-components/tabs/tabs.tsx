@@ -194,7 +194,7 @@ export function TabList({
 
 type TabPanelProps = {
     /** The content to be rendered inside the tab */
-    children: React.ReactNode
+    children?: React.ReactNode
 
     /** The tabPanel's identifier. This must match its corresponding `<Tab>`'s id */
     id: string
