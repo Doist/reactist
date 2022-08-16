@@ -99,6 +99,7 @@ type ColorItemProps = {
 function ColorItem({ color, colorIndex, isActive, onClick, tooltip }: ColorItemProps) {
     const item = (
         <span
+            data-testid="reactist-color-item"
             className={'reactist color_item' + (isActive ? ' active' : '')}
             style={{ backgroundColor: color }}
             onClick={() => onClick?.(colorIndex)}
