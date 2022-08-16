@@ -92,6 +92,11 @@ type BaseFieldProps = WithEnhancedClassName &
         /**
          * The main label for this field element.
          *
+         * This prop is not optional. Consumers of field components must be explicit about not
+         * wanting a label by passing `label=""` or `label={null}`. In those situations, consumers
+         * should make sure that fields are properly labelled semantically by other means (e.g using
+         * `aria-labelledby`, or rendering a `<label />` element referencing the field by id).
+         *
          * Avoid providing interactive elements in the label. Prefer `auxiliaryLabel` for that.
          *
          * @see BaseFieldProps['secondaryLabel']
