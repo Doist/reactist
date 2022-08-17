@@ -18,6 +18,7 @@ exports[`ColorPicker renders with custom colorList 1`] = `
 <div>
   <div
     class="reactist_dropdown reactist_color_picker"
+    data-testid="reactist-dropdown-box"
     style="display: inline-block;"
   >
     <button
@@ -40,6 +41,7 @@ exports[`ColorPicker renders with custom colorList 1`] = `
     >
       <div
         class="body"
+        data-testid="reactist-dropdown-body"
         id="reactist-dropdown-body"
         style="position: absolute; top: 0px; left: 0px;"
       >
@@ -84,6 +86,7 @@ exports[`ColorPicker renders without crashing 1`] = `
 <div>
   <div
     class="reactist_dropdown reactist_color_picker"
+    data-testid="reactist-dropdown-box"
     style="display: inline-block;"
   >
     <button
@@ -106,6 +109,7 @@ exports[`ColorPicker renders without crashing 1`] = `
     >
       <div
         class="body"
+        data-testid="reactist-dropdown-body"
         id="reactist-dropdown-body"
         style="position: absolute; top: 0px; left: 0px;"
       >
