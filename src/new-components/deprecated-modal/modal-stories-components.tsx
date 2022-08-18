@@ -5,7 +5,11 @@ import { SwitchField } from '../switch-field'
 import { Stack } from '../stack'
 import { Button } from '../button'
 import * as ModalComponents from './modal'
-import type { ModalProps, ModalHeaderProps, ModalFooterProps } from './modal'
+import type {
+    DeprecatedModalProps,
+    DeprecatedModalHeaderProps,
+    DeprecatedModalFooterProps,
+} from './modal'
 
 function Link({ children, ...props }: JSX.IntrinsicElements['a']) {
     return (
@@ -15,7 +19,7 @@ function Link({ children, ...props }: JSX.IntrinsicElements['a']) {
     )
 }
 
-type ModalStoryState = Pick<ModalProps, 'width' | 'height'> & {
+type ModalStoryState = Pick<DeprecatedModalProps, 'width' | 'height'> & {
     button: 'true' | 'false' | 'custom'
     withScrollableContent: boolean
 }
@@ -161,10 +165,12 @@ ModalButton.displayName = 'Button'
 
 type WithOptionals<Props, Keys extends keyof Props> = Omit<Props, Keys> & Partial<Pick<Props, Keys>>
 
-function Modal(props: WithOptionals<ModalProps, 'isOpen' | 'onDismiss' | 'width' | 'height'>) {
+function Modal(
+    props: WithOptionals<DeprecatedModalProps, 'isOpen' | 'onDismiss' | 'width' | 'height'>,
+) {
     const { isOpen, toggle, width, height } = React.useContext(ModalStoryContext)
     return (
-        <ModalComponents.Modal
+        <ModalComponents.DeprecatedModal
             isOpen={isOpen}
             onDismiss={toggle}
             width={width}
@@ -174,10 +180,10 @@ function Modal(props: WithOptionals<ModalProps, 'isOpen' | 'onDismiss' | 'width'
     )
 }
 
-function ModalHeader(props: WithOptionals<ModalHeaderProps, 'withDivider' | 'button'>) {
+function ModalHeader(props: WithOptionals<DeprecatedModalHeaderProps, 'withDivider' | 'button'>) {
     const { button, withScrollableContent } = React.useContext(ModalStoryContext)
     return (
-        <ModalComponents.ModalHeader
+        <ModalComponents.DeprecatedModalHeader
             withDivider={withScrollableContent}
             button={renderHeaderButton(button)}
             {...props}
@@ -185,16 +191,16 @@ function ModalHeader(props: WithOptionals<ModalHeaderProps, 'withDivider' | 'but
     )
 }
 
-const ModalBody = ModalComponents.ModalBody
+const ModalBody = ModalComponents.DeprecatedModalBody
 
-function ModalFooter(props: WithOptionals<ModalFooterProps, 'withDivider'>) {
+function ModalFooter(props: WithOptionals<DeprecatedModalFooterProps, 'withDivider'>) {
     const { withScrollableContent } = React.useContext(ModalStoryContext)
-    return <ModalComponents.ModalFooter withDivider={withScrollableContent} {...props} />
+    return <ModalComponents.DeprecatedModalFooter withDivider={withScrollableContent} {...props} />
 }
 
-function ModalActions(props: WithOptionals<ModalFooterProps, 'withDivider'>) {
+function ModalActions(props: WithOptionals<DeprecatedModalFooterProps, 'withDivider'>) {
     const { withScrollableContent } = React.useContext(ModalStoryContext)
-    return <ModalComponents.ModalActions withDivider={withScrollableContent} {...props} />
+    return <ModalComponents.DeprecatedModalActions withDivider={withScrollableContent} {...props} />
 }
 
 export { Link, ModalStoryStateProvider, ModalOptionsForm, ModalButton as Button, ScrollableContent }

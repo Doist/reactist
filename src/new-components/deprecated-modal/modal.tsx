@@ -38,7 +38,7 @@ type DivProps = Omit<
     'className' | 'children' | `aria-label` | `aria-labelledby`
 >
 
-export type ModalProps = DivProps & {
+export type DeprecatedModalProps = DivProps & {
     /**
      * The content of the modal.
      */
@@ -95,11 +95,12 @@ function isNotInternalFrame(element: HTMLElement) {
  *
  * Follows the WAI-ARIA Dialog (Modal) Pattern.
  *
- * @see ModalHeader
- * @see ModalFooter
- * @see ModalBody
+ * @see DeprecatedModalHeader
+ * @see DeprecatedModalFooter
+ * @see DeprecatedModalBody
+ * @deprecated
  */
-export function Modal({
+export function DeprecatedModal({
     isOpen,
     onDismiss,
     height = 'fitContent',
@@ -108,7 +109,7 @@ export function Modal({
     autoFocus = true,
     children,
     ...props
-}: ModalProps) {
+}: DeprecatedModalProps) {
     const contextValue: ModalContextValue = React.useMemo(() => ({ onDismiss, height }), [
         onDismiss,
         height,
@@ -146,7 +147,7 @@ export function Modal({
 // ModalCloseButton
 //
 
-export type ModalCloseButtonProps = Omit<
+export type DeprecatedModalCloseButtonProps = Omit<
     ButtonProps,
     | 'type'
     | 'children'
@@ -170,9 +171,9 @@ export type ModalCloseButtonProps = Omit<
  * The close button rendered by ModalHeader. Provided independently so that consumers can customize
  * the button's label.
  *
- * @see ModalHeader
+ * @see DeprecatedModalHeader
  */
-export function ModalCloseButton(props: ModalCloseButtonProps) {
+export function DeprecatedModalCloseButton(props: DeprecatedModalCloseButtonProps) {
     const { onDismiss } = React.useContext(ModalContext)
     const [includeInTabOrder, setIncludeInTabOrder] = React.useState(false)
     const [isMounted, setIsMounted] = React.useState(false)
@@ -203,14 +204,14 @@ export function ModalCloseButton(props: ModalCloseButtonProps) {
 // ModalHeader
 //
 
-export type ModalHeaderProps = DivProps & {
+export type DeprecatedModalHeaderProps = DivProps & {
     /**
      * The content of the header.
      */
     children: React.ReactNode
     /**
      * Allows to provide a custom button element, or to omit the close button if set to false.
-     * @see ModalCloseButton
+     * @see DeprecatedModalCloseButton
      */
     button?: React.ReactNode | boolean
     /**
@@ -227,17 +228,17 @@ export type ModalHeaderProps = DivProps & {
 /**
  * Renders a standard modal header area with an optional close button.
  *
- * @see Modal
- * @see ModalFooter
- * @see ModalBody
+ * @see DeprecatedModal
+ * @see DeprecatedModalFooter
+ * @see DeprecatedModalBody
  */
-export function ModalHeader({
+export function DeprecatedModalHeader({
     children,
     button = true,
     withDivider = false,
     exceptionallySetClassName,
     ...props
-}: ModalHeaderProps) {
+}: DeprecatedModalHeaderProps) {
     return (
         <>
             <Box
@@ -259,7 +260,10 @@ export function ModalHeader({
                             data-testid="button-container"
                         >
                             {typeof button === 'boolean' ? (
-                                <ModalCloseButton aria-label="Close modal" autoFocus={false} />
+                                <DeprecatedModalCloseButton
+                                    aria-label="Close modal"
+                                    autoFocus={false}
+                                />
                             ) : (
                                 button
                             )}
@@ -276,7 +280,7 @@ export function ModalHeader({
 // ModalBody
 //
 
-export type ModalBodyProps = DivProps & {
+export type DeprecatedModalBodyProps = DivProps & {
     /**
      * The content of the modal body.
      */
@@ -295,11 +299,15 @@ export type ModalBodyProps = DivProps & {
  * setting or the size of the content. The body content also automatically scrolls when it's too
  * large to fit the available space.
  *
- * @see Modal
- * @see ModalHeader
- * @see ModalFooter
+ * @see DeprecatedModal
+ * @see DeprecatedModalHeader
+ * @see DeprecatedModalFooter
  */
-export function ModalBody({ exceptionallySetClassName, children, ...props }: ModalBodyProps) {
+export function DeprecatedModalBody({
+    exceptionallySetClassName,
+    children,
+    ...props
+}: DeprecatedModalBodyProps) {
     const { height } = React.useContext(ModalContext)
     return (
         <Box
@@ -320,7 +328,7 @@ export function ModalBody({ exceptionallySetClassName, children, ...props }: Mod
 // ModalFooter
 //
 
-export type ModalFooterProps = DivProps & {
+export type DeprecatedModalFooterProps = DivProps & {
     /**
      * The contant of the modal footer.
      */
@@ -339,15 +347,15 @@ export type ModalFooterProps = DivProps & {
 /**
  * Renders a standard modal footer area.
  *
- * @see Modal
- * @see ModalHeader
- * @see ModalBody
+ * @see DeprecatedModal
+ * @see DeprecatedModalHeader
+ * @see DeprecatedModalBody
  */
-export function ModalFooter({
+export function DeprecatedModalFooter({
     exceptionallySetClassName,
     withDivider = false,
     ...props
-}: ModalFooterProps) {
+}: DeprecatedModalFooterProps) {
     return (
         <>
             {withDivider ? <Divider /> : null}
@@ -360,18 +368,18 @@ export function ModalFooter({
 // ModalActions
 //
 
-export type ModalActionsProps = ModalFooterProps
+export type DeprecatedModalActionsProps = DeprecatedModalFooterProps
 
 /**
  * A specific version of the ModalFooter, tailored to showing an inline list of actions (buttons).
- * @see ModalFooter
+ * @see DeprecatedModalFooter
  */
-export function ModalActions({ children, ...props }: ModalActionsProps) {
+export function DeprecatedModalActions({ children, ...props }: DeprecatedModalActionsProps) {
     return (
-        <ModalFooter {...props}>
+        <DeprecatedModalFooter {...props}>
             <Inline align="right" space="large">
                 {children}
             </Inline>
-        </ModalFooter>
+        </DeprecatedModalFooter>
     )
 }
