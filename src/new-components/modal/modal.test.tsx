@@ -38,6 +38,7 @@ describe('Modal', () => {
                 // @ts-expect-error
                 className="wrong"
                 exceptionallySetClassName="right"
+                isOpen
             >
                 Hello
             </Modal>,

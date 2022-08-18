@@ -32,8 +32,9 @@ export * from './new-components/text-area'
 export * from './new-components/text-field'
 
 // other components
-export * from './new-components/tabs'
 export * from './new-components/avatar'
+export * from './new-components/modal'
+export * from './new-components/tabs'
 
 // hooks
 export * from './hooks/use-previous'

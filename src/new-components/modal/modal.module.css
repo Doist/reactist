@@ -8,16 +8,12 @@
 }
 
 :root {
-    --reach-dialog: 1;
     --reactist-modal-overlay-fill: rgba(0, 0, 0, 0.5);
     --reactist-modal-padding-top: 13vh;
 }
 
-.reach-portal {
+.overlay {
     isolation: isolate;
-}
-
-[data-reach-dialog-overlay] {
     position: fixed;
     top: 0;
     right: 0;
@@ -34,7 +30,7 @@
     z-index: var(--reactist-stacking-order-modal, 1);
 }
 
-[data-reach-dialog-overlay] > [data-focus-lock-disabled] {
+.overlay > [data-focus-lock-disabled] {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,23 +40,16 @@
     padding: var(--reactist-spacing-xxlarge);
 }
 
-[data-reach-dialog-overlay].fitContent > [data-focus-lock-disabled] {
+.overlay.fitContent > [data-focus-lock-disabled] {
     padding-top: var(--reactist-modal-padding-top);
 }
-[data-reach-dialog-overlay].fitContent > [data-focus-lock-disabled] .container {
+.overlay.fitContent > [data-focus-lock-disabled] .container {
     max-height: calc(100vh - 2 * var(--reactist-modal-padding-top));
-}
-
-[data-reach-dialog-content] {
-    background: var(--reactist-bg-default);
-    padding: 0;
-    outline: none;
-    transition: box-shadow 0.5s;
 }
 
 .container {
     box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);
-    transition: width 0.2s ease-in-out;
+    transition: width 0.2s ease-in-out, box-shadow 0.5s;
     max-width: 100%;
 }
 

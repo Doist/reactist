@@ -1,7 +1,10 @@
 import * as React from 'react'
 import classNames from 'classnames'
-import { DialogOverlay, DialogContent } from '@reach/dialog'
 import FocusLock from 'react-focus-lock'
+import { hideOthers } from 'aria-hidden'
+
+import { Dialog, useDialogState } from 'ariakit/dialog'
+import { Portal } from 'ariakit/portal'
 
 import { CloseIcon } from '../icons/close-icon'
 import { Column, Columns } from '../columns'
@@ -109,36 +112,84 @@ export function Modal({
     children,
     ...props
 }: ModalProps) {
+    const setVisible = React.useCallback(
+        (visible: boolean) => {
+            if (!visible) {
+                onDismiss?.()
+            }
+        },
+        [onDismiss],
+    )
+    const state = useDialogState({ visible: isOpen, setVisible })
+
     const contextValue: ModalContextValue = React.useMemo(() => ({ onDismiss, height }), [
         onDismiss,
         height,
     ])
 
+    const portalRef = React.useRef<HTMLElement>()
+    const dialogRef = React.useRef<HTMLDivElement>()
+    const handleBackdropClick = React.useCallback(
+        (event: React.MouseEvent) => {
+            if (!dialogRef.current?.contains(event.target as Node)) {
+                onDismiss?.()
+            }
+        },
+        [onDismiss],
+    )
+
+    React.useLayoutEffect(() => {
+        if (!isOpen || !portalRef.current) {
+            return
+        }
+
+        return hideOthers(portalRef.current)
+    }, [isOpen])
+
+    if (!isOpen) {
+        return null
+    }
+
     return (
-        <DialogOverlay
-            isOpen={isOpen}
-            onDismiss={onDismiss}
-            dangerouslyBypassFocusLock // We're setting up our own focus lock below
-            className={classNames(styles.overlay, styles[height], styles[width])}
-            data-testid="modal-overlay"
+        <Portal
+            // @ts-expect-error `portalRef` doesn't accept MutableRefObject initialized as undefined
+            portalRef={portalRef}
         >
-            <FocusLock autoFocus={autoFocus} whiteList={isNotInternalFrame} returnFocus={true}>
-                <DialogContent
-                    {...props}
-                    as={Box}
-                    borderRadius="full"
-                    background="default"
-                    display="flex"
-                    flexDirection="column"
-                    overflow="hidden"
-                    height={height === 'expand' ? 'full' : undefined}
-                    flexGrow={height === 'expand' ? 1 : 0}
-                    className={[exceptionallySetClassName, styles.container]}
-                >
-                    <ModalContext.Provider value={contextValue}>{children}</ModalContext.Provider>
-                </DialogContent>
-            </FocusLock>
-        </DialogOverlay>
+            <Box
+                data-testid="modal-overlay"
+                data-overlay
+                className={classNames(styles.overlay, styles[height], styles[width])}
+                onClick={handleBackdropClick}
+            >
+                <FocusLock autoFocus={autoFocus} whiteList={isNotInternalFrame} returnFocus={true}>
+                    <Dialog
+                        {...props}
+                        ref={dialogRef}
+                        as={Box}
+                        state={state}
+                        hideOnEscape
+                        borderRadius="full"
+                        background="default"
+                        display="flex"
+                        flexDirection="column"
+                        overflow="hidden"
+                        height={height === 'expand' ? 'full' : undefined}
+                        flexGrow={height === 'expand' ? 1 : 0}
+                        className={[exceptionallySetClassName, styles.container]}
+                        // Disable focus lock as we conditionally set up our own using ReactFocusLock
+                        modal={false}
+                        // Disable portal and backdrop as we control their markup
+                        portal={false}
+                        backdrop={false}
+                        hideOnInteractOutside={false}
+                    >
+                        <ModalContext.Provider value={contextValue}>
+                            {children}
+                        </ModalContext.Provider>
+                    </Dialog>
+                </FocusLock>
+            </Box>
+        </Portal>
     )
 }
 

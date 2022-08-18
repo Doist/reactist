@@ -34,7 +34,7 @@ import {
 # Modal
 
 A set of components that allow tabs to be rendered, which controls the visibility of their corresponding tab panels.
-This component is powered by [Reach UI's Dialog](https://reach.tech/dialog/). For more details of its expected
+This component is powered by [Ariakit's Dialog](https://ariakit.org/components/dialog). For more details of its expected
 behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/dialog_role).
 
 ## `<Modal>`
@@ -77,7 +77,9 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
         name="Modal with standard actions footer"
     >
         <ModalStoryStateProvider>
-            <Button variant="primary">Open modal</Button>
+            <Button variant="primary" action="open">
+                Open modal
+            </Button>
             <Modal aria-label="Modal with standard actions footer">
                 <ModalHeader>
                     <Heading level="1">Modal with standard actions footer</Heading>
@@ -102,7 +104,9 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
         name="Modal with header, body and custom footer"
     >
         <ModalStoryStateProvider>
-            <Button variant="primary">Open modal</Button>
+            <Button variant="primary" action="open">
+                Open modal
+            </Button>
             <Modal aria-label="Modal with header, body and custom footer">
                 <ModalHeader>
                     <Heading level="1">Modal with header, body and custom footer</Heading>
@@ -132,7 +136,9 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
 <Canvas withToolbar>
     <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Modal with a sidebar">
         <ModalStoryStateProvider>
-            <Button variant="primary">Open modal</Button>
+            <Button variant="primary" action="open">
+                Open modal
+            </Button>
             <Modal aria-label="Modal with a settings-like custom layout">
                 <Columns height="full">
                     <Column width="content">
@@ -180,7 +186,9 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
         name="Modal with scrollable tab panels"
     >
         <ModalStoryStateProvider>
-            <Button variant="primary">Open modal</Button>
+            <Button variant="primary" action="open">
+                Open modal
+            </Button>
             <Modal aria-label="Modal with scrollable tab panels">
                 <ModalHeader>
                     <Link href="/">Project name</Link>
@@ -247,7 +255,9 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
         name="Minimalistic confirmation modal"
     >
         <ModalStoryStateProvider>
-            <Button variant="primary">Open modal</Button>
+            <Button variant="primary" action="open">
+                Open modal
+            </Button>
             <Modal height="fitContent" aria-label="Confirmation modal" width="small">
                 <Box padding="large">
                     <Text size="subtitle">Are you sure you want to leave?</Text>
@@ -273,7 +283,9 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
         name="Enriched confirmation modal"
     >
         <ModalStoryStateProvider>
-            <Button variant="primary">Open modal</Button>
+            <Button variant="primary" action="open">
+                Open modal
+            </Button>
             <Modal height="fitContent" aria-label="Confirmation modal" width="small">
                 <ModalHeader withDivider button={null}>
                     <Heading level="1">Please confirm</Heading>

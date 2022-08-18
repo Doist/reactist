@@ -29,14 +29,16 @@ const defaultInitialState: ModalStoryState = {
 
 type ModalStoryContextValue = ModalStoryState & {
     isOpen: boolean
-    toggle: () => void
+    openModal: () => void
+    closeModal: () => void
     onChange: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement>
 }
 
 const ModalStoryContext = React.createContext<ModalStoryContextValue>({
     ...defaultInitialState,
     isOpen: false,
-    toggle: () => undefined,
+    openModal: () => undefined,
+    closeModal: () => undefined,
     onChange: () => undefined,
 })
 
@@ -48,8 +50,12 @@ function ModalStoryStateProvider({
     children: React.ReactNode
 }) {
     const [isOpen, setOpen] = React.useState(false)
-    const toggle = React.useCallback(() => setOpen((v) => !v), [])
-
+    const openModal = React.useCallback(() => {
+        setOpen(true)
+    }, [])
+    const closeModal = React.useCallback(() => {
+        setOpen(false)
+    }, [])
     const [props, setProps] = React.useState<ModalStoryState>(initialState)
 
     const onChange = React.useCallback(function onChange(
@@ -68,11 +74,12 @@ function ModalStoryStateProvider({
     const value = React.useMemo(
         () => ({
             isOpen,
-            toggle,
+            openModal,
+            closeModal,
             onChange,
             ...props,
         }),
-        [isOpen, toggle, onChange, props],
+        [isOpen, openModal, closeModal, onChange, props],
     )
 
     return <ModalStoryContext.Provider value={value}>{children}</ModalStoryContext.Provider>
@@ -143,30 +150,32 @@ function ModalButton({
     variant,
     size,
     children,
+    action = 'close',
 }: {
     variant: 'primary' | 'secondary'
+    action: 'open' | 'close'
     size?: 'small'
     children: NonNullable<React.ReactNode>
 }) {
-    const { toggle } = React.useContext(ModalStoryContext)
+    const { openModal, closeModal } = React.useContext(ModalStoryContext)
     return (
-        <Button variant={variant} size={size} onClick={toggle}>
+        <Button variant={variant} size={size} onClick={action === 'open' ? openModal : closeModal}>
             {children}
         </Button>
     )
 }
 
-// So that it appers as Button in storybook "show code" section
+// So that it appears as Button in storybook "show code" section
 ModalButton.displayName = 'Button'
 
 type WithOptionals<Props, Keys extends keyof Props> = Omit<Props, Keys> & Partial<Pick<Props, Keys>>
 
 function Modal(props: WithOptionals<ModalProps, 'isOpen' | 'onDismiss' | 'width' | 'height'>) {
-    const { isOpen, toggle, width, height } = React.useContext(ModalStoryContext)
+    const { isOpen, closeModal, width, height } = React.useContext(ModalStoryContext)
     return (
         <ModalComponents.Modal
             isOpen={isOpen}
-            onDismiss={toggle}
+            onDismiss={closeModal}
             width={width}
             height={height}
             {...props}
