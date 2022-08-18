@@ -129,6 +129,7 @@
     },
     "dependencies": {
         "@reach/dialog": "^0.16.0",
+        "aria-hidden": "^1.2.1",
         "ariakit": "2.0.0-next.27",
         "ariakit-utils": "0.17.0-next.18",
         "dayjs": "^1.8.10",
