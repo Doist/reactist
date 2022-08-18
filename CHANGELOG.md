@@ -4,6 +4,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+-   [Breaking] The `Modal` has its internals replaced with Ariakit. This should not introduce any user-facing changes, but the old modal will be available as `DeprecatedModal` to help with the transition.
 -   [Fix] Set `min-height` and `max-height` on `.reactist_menulist`.
 
 # v14.1.1
