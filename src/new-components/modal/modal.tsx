@@ -138,13 +138,16 @@ export function Modal({
         [onDismiss],
     )
 
-    React.useLayoutEffect(() => {
-        if (!isOpen || !portalRef.current) {
-            return
-        }
+    React.useLayoutEffect(
+        function disableAccessibilityTreeOutside() {
+            if (!isOpen || !portalRef.current) {
+                return
+            }
 
-        return hideOthers(portalRef.current)
-    }, [isOpen])
+            return hideOthers(portalRef.current)
+        },
+        [isOpen],
+    )
 
     if (!isOpen) {
         return null
@@ -168,6 +171,7 @@ export function Modal({
                         as={Box}
                         state={state}
                         hideOnEscape
+                        preventBodyScroll
                         borderRadius="full"
                         background="default"
                         display="flex"
