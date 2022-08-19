@@ -19,7 +19,6 @@ This component is powered by [Ariakit's Tab component](https://ariakit.org/examp
 behaviour, see [ARIA: tab role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role).
 
 export const Template = ({
-    color,
     variant,
     space,
     selectedId,
@@ -30,7 +29,6 @@ export const Template = ({
     'aria-labelledby': ariaLabelledby,
 }) => (
     <Tabs
-        color={color}
         variant={variant}
         selectedId={selectedId}
         defaultSelectedId={defaultSelectedId}
@@ -79,11 +77,7 @@ export const Template = ({
                 control: { type: 'inline-radio' },
             },
             variant: {
-                options: ['normal', 'plain'],
-                control: { type: 'inline-radio' },
-            },
-            color: {
-                options: ['primary', 'secondary', 'tertiary'],
+                options: ['themed', 'neutral'],
                 control: { type: 'inline-radio' },
             },
             space: {
@@ -132,75 +126,31 @@ export const Template = ({
 The following CSS custom properties are available so that the tabs' colors can be customized:
 
 ```
---reactist-tab-primary-background
---reactist-tab-primary-foreground
---reactist-tab-primary-unselected
+--reactist-tab-neutral-background
+--reactist-tab-neutral-foreground
+--reactist-tab-neutral-unselected
+--reactist-tab-neutral-track
+--reactist-tab-neutral-border
 
---reactist-tab-secondary-background
---reactist-tab-secondary-foreground
---reactist-tab-secondary-unselected
-
---reactist-tab-tertiary-background
---reactist-tab-tertiary-foreground
---reactist-tab-tertiary-unselected
+--reactist-tab-themed-background
+--reactist-tab-themed-foreground
+--reactist-tab-themed-unselected
+--reactist-tab-themed-track
+--reactist-tab-themed-border
 ```
 
 ## Stories
 
-### Primary color
+### Themed variant
 
 <Canvas withToolbar>
     <Story
         parameters={{ docs: { source: { type: 'code' } } }}
         args={{
-            'aria-label': 'Tabs with primary color style',
+            'aria-label': 'Tabs with themed variant style',
+            variant: 'themed',
         }}
-        name="Primary color"
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
-### Secondary color
-
-<Canvas withToolbar>
-    <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
-        args={{
-            'aria-label': 'Tabs with secondary color style',
-            color: 'secondary',
-        }}
-        name="Secondary color"
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
-### Tertiary color
-
-<Canvas withToolbar>
-    <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
-        args={{
-            'aria-label': 'Tabs with tertiary color style',
-            color: 'tertiary',
-        }}
-        name="Tertiary color"
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
-### Plain variant
-
-<Canvas withToolbar>
-    <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
-        args={{
-            'aria-label': 'Tabs with plain variant style',
-            variant: 'plain',
-        }}
-        name="Plain variant"
+        name="Themed variant"
     >
         {Template.bind({})}
     </Story>
@@ -297,8 +247,7 @@ As long as they exist within the same `<Tabs>` component tree, multiple `<TabLis
 By default, the `TabPanel` renders an unstyled div. When more control is needed, an element type or component
 can be specified with the `as` prop.
 
-Note that when combined with the `render="active"` prop, only the tabpanel's
-children are prevented from rendering, and not the actual polymorphic component/element itself.
+Note that when combined with the `render="active"` prop, the entire tabpanel will be affected, including the actual polymorphic component/element passed into `as`.
 
 <Canvas withToolbar>
     <Story parameters={{ docs: { source: { type: 'code' } } }} name="Polymorphism">

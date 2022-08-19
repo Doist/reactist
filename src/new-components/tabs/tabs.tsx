@@ -10,14 +10,14 @@ import {
 import { Inline } from '../inline'
 import { usePrevious } from '../../hooks/use-previous'
 import { polymorphicComponent } from '../../utils/polymorphism'
-import type { ResponsiveProp } from '../responsive-props'
 import type { Space } from '../common-types'
 
 import styles from './tabs.module.css'
+import { Box } from '../box'
 
 type TabsContextValue = {
     tabState: TabState
-} & Pick<TabsProps, 'color' | 'variant'>
+} & Required<Pick<TabsProps, 'variant'>>
 
 const TabsContext = React.createContext<TabsContextValue | null>(null)
 
@@ -25,13 +25,9 @@ type TabsProps = {
     /** The `<Tabs>` component must be composed from a `<TabList>` and corresponding `<TabPanel>` components */
     children: React.ReactNode
     /**
-     * Determines the primary colour of the tabs
+     * Determines the look and feel of the tabs.
      */
-    color?: 'primary' | 'secondary' | 'tertiary'
-    /**
-     * Determines the style of the tabs
-     */
-    variant?: 'normal' | 'plain'
+    variant?: 'themed' | 'neutral'
     /**
      * The id of the selected tab. Assigning a value makes this a
      * controlled component
@@ -55,8 +51,7 @@ export function Tabs({
     children,
     selectedId,
     defaultSelectedId,
-    color = 'primary',
-    variant = 'normal',
+    variant = 'neutral',
     onSelectedIdChange,
 }: TabsProps): React.ReactElement {
     const tabState = useTabState({ selectedId, setSelectedId: onSelectedIdChange })
@@ -81,11 +76,10 @@ export function Tabs({
         function memoizeTabState() {
             return {
                 tabState,
-                color,
                 variant,
             }
         },
-        [color, variant, tabState],
+        [variant, tabState],
     )
 
     return <TabsContext.Provider value={memoizedTabState}>{children}</TabsContext.Provider>
@@ -112,18 +106,13 @@ export const Tab = polymorphicComponent<'button', TabProps>(function Tab(
         return null
     }
 
-    const { color, variant, tabState } = tabContextValue
+    const { variant, tabState } = tabContextValue
 
     return (
         <BaseTab
             {...props}
             as={as}
-            className={classNames(
-                exceptionallySetClassName,
-                styles.tab,
-                styles[`tab-${variant ?? ''}`],
-                styles[`tab-${color ?? ''}`],
-            )}
+            className={classNames(exceptionallySetClassName, styles.tab, styles[`tab-${variant}`])}
             id={id}
             state={tabState}
             ref={ref}
@@ -160,7 +149,7 @@ type TabListProps = (
     /**
      * Controls the spacing between tabs
      */
-    space?: ResponsiveProp<Space>
+    space?: Space
 }
 
 /**
@@ -168,7 +157,7 @@ type TabListProps = (
  */
 export function TabList({
     children,
-    space = 'medium',
+    space = 'xsmall',
     ...props
 }: TabListProps): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
@@ -177,18 +166,35 @@ export function TabList({
         return null
     }
 
-    const { tabState } = tabContextValue
+    const { tabState, variant } = tabContextValue
 
     return (
-        <BaseTabList state={tabState} {...props}>
-            <Inline space={space}>{children}</Inline>
-        </BaseTabList>
+        // The extra <Box> prevents <Inline>'s negative margins from collapsing when used in a flex container
+        // which will render the track with the wrong height
+        <Box>
+            <BaseTabList
+                state={tabState}
+                as={Box}
+                position="relative"
+                width="maxContent"
+                {...props}
+            >
+                <Box
+                    className={classNames(
+                        styles.track,
+                        styles[`track-${space}`],
+                        styles[`track-${variant}`],
+                    )}
+                />
+                <Inline space={space}>{children}</Inline>
+            </BaseTabList>
+        </Box>
     )
 }
 
 type TabPanelProps = {
     /** The content to be rendered inside the tab */
-    children: React.ReactNode
+    children?: React.ReactNode
 
     /** The tabPanel's identifier. This must match its corresponding `<Tab>`'s id */
     id: string
@@ -227,14 +233,16 @@ export const TabPanel = polymorphicComponent<'div', TabPanelProps, 'omitClassNam
         }
 
         const { tabState } = tabContextValue
+        const shouldRender =
+            render === 'always' ||
+            (render === 'active' && tabIsActive) ||
+            (render === 'lazy' && (tabIsActive || tabRendered))
 
-        return (
+        return shouldRender ? (
             <BaseTabPanel tabId={id} {...props} state={tabState} as={as} ref={ref}>
-                {render === 'always' ? children : null}
-                {render === 'active' && tabIsActive ? children : null}
-                {render === 'lazy' && (tabIsActive || tabRendered) ? children : null}
+                {children}
             </BaseTabPanel>
-        )
+        ) : null
     },
 )
 
