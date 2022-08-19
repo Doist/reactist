@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Input renders without crashing 1`] = `
-<input
-  className="reactist_input"
-/>
+<div>
+  <input
+    class="reactist_input"
+  />
+</div>
 `;

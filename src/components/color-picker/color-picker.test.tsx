@@ -1,53 +1,41 @@
 import React from 'react'
-import { shallow } from 'enzyme'
 
 import { ColorPicker, ColorItem } from './color-picker'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 describe('ColorPicker', () => {
     it('renders without crashing', () => {
-        const colorPicker = shallow(getColorPicker())
-        expect(colorPicker).toMatchSnapshot()
+        const { container } = render(<ColorPicker />)
+        userEvent.click(screen.getByRole('button'))
+        expect(container).toMatchSnapshot()
     })
 
     it('renders with custom colorList', () => {
-        const colorPicker = shallow(getColorPicker({ colorList: ['red', 'green', '#0000FF'] }))
-        expect(colorPicker).toMatchSnapshot()
+        const { container } = render(<ColorPicker colorList={['red', 'green', '#0000FF']} />)
+        userEvent.click(screen.getByRole('button'))
+        expect(container).toMatchSnapshot()
     })
 
     describe('ColorItem', () => {
         it('renders given color and does nothing when clicked without specified onClick handler', () => {
-            const colorItem = shallow(getColorItem())
-            colorItem.simulate('click')
-            expect(colorItem).toMatchSnapshot()
+            const { container } = render(<ColorItem color="#606060" colorIndex={0} />)
+            userEvent.click(screen.getByTestId('reactist-color-item'))
+            expect(container).toMatchSnapshot()
         })
 
         it('adds active class when prop is supplied', () => {
-            const colorItem = shallow(
-                getColorItem({ isActive: true, colorIndex: 5, color: '#fff' }),
-            )
-            expect(colorItem.hasClass('active')).toBe(true)
+            render(<ColorItem color="#fff" colorIndex={5} isActive />)
+            expect(screen.getByTestId('reactist-color-item')).toHaveClass('active')
         })
 
         it('calls onClick after clicking it', () => {
-            const onClickSpy = jest.fn()
-            const colorItem = shallow(
-                getColorItem({
-                    colorIndex: 5,
-                    onClick: onClickSpy,
-                    color: '#fff',
-                }),
-            )
-            colorItem.simulate('click')
-            expect(onClickSpy).toHaveBeenLastCalledWith(5)
+            const onClick = jest.fn()
+            render(<ColorItem color="#fff" colorIndex={5} onClick={onClick} />)
+
+            userEvent.click(screen.getByTestId('reactist-color-item'))
+
+            expect(onClick).toHaveBeenLastCalledWith(5)
         })
     })
-
-    // Helpers ================================================================
-    function getColorPicker(props?: React.ComponentProps<typeof ColorPicker>) {
-        return <ColorPicker {...props} />
-    }
-
-    function getColorItem(props?: React.ComponentProps<typeof ColorItem>) {
-        return <ColorItem color="#606060" colorIndex={0} {...props} />
-    }
 })

@@ -1,26 +1,25 @@
 import React from 'react'
-import { shallow } from 'enzyme'
 
 import { Input } from './input'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 describe('Input', () => {
     it('renders without crashing', () => {
-        const input = shallow(<Input />)
-        expect(input).toMatchSnapshot()
+        const { container } = render(<Input />)
+        expect(container).toMatchSnapshot()
     })
 
     it('adds arbitrary props to the underlying input element', () => {
-        const onChangeSpy = jest.fn()
-        const input = shallow(<Input onChange={onChangeSpy} />)
+        const onChange = jest.fn()
+        render(<Input onChange={onChange} />)
 
-        input.simulate('change')
-        expect(onChangeSpy).toHaveBeenCalled()
+        userEvent.type(screen.getByRole('textbox'), 'Hello')
+        expect(onChange).toHaveBeenCalled()
     })
 
     it('adds additional className when supplied', () => {
-        const input = shallow(<Input className="very-complex classnames-are-added" />)
-        expect(input.hasClass('reactist_input')).toBe(true)
-        expect(input.hasClass('very-complex')).toBe(true)
-        expect(input.hasClass('classnames-are-added')).toBe(true)
+        render(<Input className="very-complex classnames-are-added" />)
+        expect(screen.getByRole('textbox')).toHaveClass('very-complex classnames-are-added')
     })
 })

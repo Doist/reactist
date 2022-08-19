@@ -1,112 +1,93 @@
 import React, { SyntheticEvent } from 'react'
-import { shallow } from 'enzyme'
 import { screen, render, fireEvent } from '@testing-library/react'
 
 import { KeyCapturer, KeyCapturerResolver, SUPPORTED_KEYS } from './key-capturer'
+import userEvent from '@testing-library/user-event'
 
 describe('KeyCapturer', () => {
     describe('Capturer', () => {
         it('captures arrow down and cancels event', () => {
+            const parentSpy = jest.fn()
             const spy = jest.fn()
-            const event = {
-                key: 'ArrowDown',
-                preventDefault: jest.fn(),
-                stopPropagation: jest.fn(),
-            }
 
-            const wrapped = _getWrappedComponent({ onArrowDown: spy })
-            wrapped.simulate('keydown', event)
+            render(
+                <div onKeyDown={parentSpy}>
+                    <KeyCapturer eventName="onKeyDown" onArrowDown={spy}>
+                        <input type="text" />
+                    </KeyCapturer>
+                </div>,
+            )
+
+            userEvent.type(screen.getByRole('textbox'), '{arrowdown}')
 
             expect(spy).toHaveBeenCalledTimes(1)
-            expect(event.preventDefault).toHaveBeenCalledTimes(1)
-            expect(event.stopPropagation).toHaveBeenCalledTimes(1)
+            expect(parentSpy).not.toHaveBeenCalled()
         })
 
         it('does not cancel event when propagate prop is set', () => {
+            const parentSpy = jest.fn()
             const spy = jest.fn()
-            const event = {
-                key: 'ArrowDown',
-                preventDefault: jest.fn(),
-                stopPropagation: jest.fn(),
-            }
 
-            const wrapped = _getWrappedComponent({
-                onArrowDown: spy,
-                propagateArrowDown: true,
-            })
-            wrapped.simulate('keydown', event)
+            render(
+                <div onKeyDown={parentSpy}>
+                    <KeyCapturer eventName="onKeyDown" onArrowDown={spy} propagateArrowDown>
+                        <input type="text" />
+                    </KeyCapturer>
+                </div>,
+            )
+
+            userEvent.type(screen.getByRole('textbox'), '{arrowdown}')
 
             expect(spy).toHaveBeenCalledTimes(1)
-            expect(event.preventDefault).toHaveBeenCalledTimes(0)
-            expect(event.stopPropagation).toHaveBeenCalledTimes(0)
+            expect(parentSpy).toHaveBeenCalledTimes(1)
         })
 
         it('does not crash when no callback is supplied', () => {
             const spy = jest.fn()
-            const event = {
-                key: 'ArrowDown',
-                preventDefault: jest.fn(),
-                stopPropagation: jest.fn(),
-            }
 
-            const wrapped = _getWrappedComponent({ onArrowUp: spy })
-            wrapped.simulate('keydown', event)
+            render(
+                <KeyCapturer eventName="onKeyDown" onArrowUp={spy}>
+                    <input type="text" />
+                </KeyCapturer>,
+            )
 
-            expect(spy).toHaveBeenCalledTimes(0)
-            expect(event.preventDefault).toHaveBeenCalledTimes(0)
-            expect(event.stopPropagation).toHaveBeenCalledTimes(0)
+            userEvent.type(screen.getByRole('textbox'), '{arrowdown}')
+
+            expect(spy).not.toHaveBeenCalled()
         })
 
         it('does not crash on unknown keys', () => {
             const spy = jest.fn()
-            const event = {
-                key: 'fooKey',
-                preventDefault: jest.fn(),
-                stopPropagation: jest.fn(),
-            }
 
-            const wrapped = _getWrappedComponent()
-            wrapped.simulate('keydown', event)
+            render(
+                <KeyCapturer eventName="onKeyDown" onArrowUp={spy}>
+                    <input type="text" />
+                </KeyCapturer>,
+            )
 
-            expect(spy).toHaveBeenCalledTimes(0)
-            expect(event.preventDefault).toHaveBeenCalledTimes(0)
-            expect(event.stopPropagation).toHaveBeenCalledTimes(0)
+            fireEvent(
+                screen.getByRole('textbox'),
+                new KeyboardEvent('keydown', { key: 'fooKey', bubbles: true }),
+            )
+
+            expect(spy).not.toHaveBeenCalled()
         })
 
         it('captures event without key but keyCode', () => {
             const spy = jest.fn()
-            const event = {
-                keyCode: 40,
-                preventDefault: jest.fn(),
-                stopPropagation: jest.fn(),
-            }
 
-            const wrapped = _getWrappedComponent({ onArrowDown: spy })
-            wrapped.simulate('keydown', event)
+            render(
+                <KeyCapturer eventName="onKeyDown" onArrowDown={spy}>
+                    <input type="text" />
+                </KeyCapturer>,
+            )
 
-            expect(spy).toHaveBeenCalledTimes(1)
-            expect(event.preventDefault).toHaveBeenCalledTimes(1)
-            expect(event.stopPropagation).toHaveBeenCalledTimes(1)
-        })
-
-        it('captures custom event names', () => {
-            const spy = jest.fn()
-            const event = {
-                key: 'ArrowDown',
-                preventDefault: jest.fn(),
-                stopPropagation: jest.fn(),
-            }
-
-            const wrapped = _getWrappedComponent({
-                onArrowDown: spy,
-                // @ts-expect-error We are using a custom event name here deliberately.
-                eventName: 'onKeyPress',
-            })
-            wrapped.simulate('keypress', event)
+            fireEvent(
+                screen.getByRole('textbox'),
+                new KeyboardEvent('keydown', { keyCode: 40, bubbles: true }),
+            )
 
             expect(spy).toHaveBeenCalledTimes(1)
-            expect(event.preventDefault).toHaveBeenCalledTimes(1)
-            expect(event.stopPropagation).toHaveBeenCalledTimes(1)
         })
 
         it('forwards the event to the handler', () => {
@@ -117,7 +98,7 @@ describe('KeyCapturer', () => {
                     <input type="text" />
                 </KeyCapturer>,
             )
-            fireEvent.keyDown(screen.getByRole('textbox'), { key: 'Enter' })
+            userEvent.type(screen.getByRole('textbox'), '{Enter}')
 
             // Instance of React synthetic event
             expect(Object.keys(onEnter.mock.calls[0]?.[0] ?? {})).toEqual(
@@ -135,7 +116,7 @@ describe('KeyCapturer', () => {
 
             const input = screen.getByRole('textbox')
             fireEvent.compositionStart(input)
-            fireEvent.keyDown(input, { key: 'Enter', keyCode: 13 })
+            userEvent.type(screen.getByRole('textbox'), '{Enter}')
 
             expect(onEnter).not.toHaveBeenCalled()
         })
@@ -151,7 +132,7 @@ describe('KeyCapturer', () => {
             const input = screen.getByRole('textbox')
             fireEvent.compositionStart(input)
             fireEvent.compositionEnd(input)
-            fireEvent.keyDown(input, { key: 'Enter', keyCode: 13 })
+            userEvent.type(screen.getByRole('textbox'), '{Enter}')
 
             expect(onEnter).toHaveBeenCalledTimes(1)
         })
@@ -164,24 +145,13 @@ describe('KeyCapturer', () => {
                 </KeyCapturer>,
             )
 
-            fireEvent.keyDown(screen.getByRole('textbox'), {
-                key: 'Enter',
-                keyCode: 229,
-            })
+            fireEvent(
+                screen.getByRole('textbox'),
+                new KeyboardEvent('keydown', { key: 'Enter', keyCode: 229, bubbles: true }),
+            )
 
             expect(onEnter).not.toHaveBeenCalled()
         })
-
-        // Helpers ////////////////////////////////////////////////////////////////
-        function _getWrappedComponent(
-            props: Omit<React.ComponentProps<typeof KeyCapturer>, 'children'> = {},
-        ) {
-            return shallow(
-                <KeyCapturer eventName="onKeyDown" {...props}>
-                    <div>Hello World</div>
-                </KeyCapturer>,
-            )
-        }
     })
 
     describe('Resolver', () => {

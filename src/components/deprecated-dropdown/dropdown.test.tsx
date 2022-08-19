@@ -1,221 +1,130 @@
 import React from 'react'
-import { mount, shallow, ReactWrapper, ShallowWrapper } from 'enzyme'
-import toJson from 'enzyme-to-json'
 
 import { Dropdown } from './dropdown'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 describe('Dropdown', () => {
     describe('Dropdown.Box', () => {
         it('renders the Trigger component without crashing', () => {
-            const box = mount(
+            const { container } = render(
                 <Dropdown.Box>
                     <Dropdown.Trigger />
                     <Dropdown.Body />
                 </Dropdown.Box>,
             )
 
-            expect(toJson(box)).toMatchSnapshot()
+            expect(container).toMatchSnapshot()
         })
 
         it('applies additionally provided class name', () => {
-            const box = shallow(
+            render(
                 <Dropdown.Box className="additional class">
                     <Dropdown.Trigger />
                     <Dropdown.Body />
                 </Dropdown.Box>,
             )
 
-            expect(box.hasClass('additional')).toBe(true)
-            expect(box.hasClass('class')).toBe(true)
+            const box = screen.getByTestId('reactist-dropdown-box')
+
+            expect(box).toHaveClass('additional class')
         })
 
-        it('passes onClick props to the Trigger component', () => {
-            const box = shallow(
-                <Dropdown.Box>
-                    <Dropdown.Trigger />
-                    <Dropdown.Body />
-                </Dropdown.Box>,
-            )
-
-            expect(box.find(Dropdown.Trigger).prop('onClick')).not.toEqual(undefined)
-        })
-
-        it('passes top, right, and setPosition props down to the Body component', () => {
-            const box = shallow(
+        it('sets the correct positioning style attributes to the Body component', () => {
+            render(
                 <Dropdown.Box top right>
-                    <Dropdown.Trigger onClick={jest.fn()} />
+                    <Dropdown.Trigger>Click me</Dropdown.Trigger>
                     <Dropdown.Body />
                 </Dropdown.Box>,
             )
 
-            openDropdown(box)
+            userEvent.click(screen.getByRole('button', { name: 'Click me' }))
 
-            const body = box.find(Dropdown.Body)
+            const body = screen.getByTestId('reactist-dropdown-body')
 
-            expect(body.prop('top')).toEqual(true)
-            expect(body.prop('right')).toEqual(true)
-            expect(body.prop('setPosition')).not.toEqual(undefined)
+            expect(body).toHaveStyle({ top: 'auto', right: 'auto', left: 0, bottom: 0 })
         })
 
         it('toggles the Body component with each Trigger click', () => {
-            const box = shallow(
+            render(
                 <Dropdown.Box>
-                    <Dropdown.Trigger onClick={jest.fn()} />
-                    <Dropdown.Body />
+                    <Dropdown.Trigger>Click me</Dropdown.Trigger>
+                    <Dropdown.Body>My content</Dropdown.Body>
                 </Dropdown.Box>,
             )
-            expect(box.find(Dropdown.Body)).toHaveLength(0)
 
-            const trigger = box.find(Dropdown.Trigger)
+            expect(screen.queryByTestId('reactist-dropdown-body')).not.toBeInTheDocument()
 
-            simulateClick(trigger)
-            expect(box.find(Dropdown.Body)).toHaveLength(1)
+            userEvent.click(screen.getByRole('button', { name: 'Click me' }))
+            expect(screen.getByTestId('reactist-dropdown-body')).toBeVisible()
+            expect(screen.getByText('My content')).toBeVisible()
 
-            simulateClick(trigger)
-            expect(box.find(Dropdown.Body)).toHaveLength(0)
+            userEvent.click(screen.getByRole('button', { name: 'Click me' }))
+            expect(screen.queryByTestId('reactist-dropdown-body')).not.toBeInTheDocument()
+            expect(screen.queryByText('My content')).not.toBeInTheDocument()
         })
 
         it('toggles the Body component as a function with each Trigger click', () => {
-            const box = shallow(
+            render(
                 <Dropdown.Box>
-                    <Dropdown.Trigger onClick={jest.fn()} />
-                    {(props) => <Dropdown.Body {...props} />}
+                    <Dropdown.Trigger>Click me</Dropdown.Trigger>
+                    {(props) => <Dropdown.Body {...props}>My content</Dropdown.Body>}
                 </Dropdown.Box>,
             )
-            expect(box.find(Dropdown.Body)).toHaveLength(0)
 
-            const trigger = box.find(Dropdown.Trigger)
+            expect(screen.queryByTestId('reactist-dropdown-body')).not.toBeInTheDocument()
 
-            simulateClick(trigger)
-            expect(box.find(Dropdown.Body)).toHaveLength(1)
+            userEvent.click(screen.getByRole('button', { name: 'Click me' }))
+            expect(screen.getByTestId('reactist-dropdown-body')).toBeVisible()
 
-            simulateClick(trigger)
-            expect(box.find(Dropdown.Body)).toHaveLength(0)
+            userEvent.click(screen.getByRole('button', { name: 'Click me' }))
+            expect(screen.queryByTestId('reactist-dropdown-body')).not.toBeInTheDocument()
         })
 
         it('renders the Trigger component first when top prop is not provided', () => {
-            const box = mount(
+            const { container } = render(
                 <Dropdown.Box>
-                    <Dropdown.Trigger onClick={jest.fn()} />
+                    <Dropdown.Trigger>Click me</Dropdown.Trigger>
                     <Dropdown.Body />
                 </Dropdown.Box>,
             )
 
-            openDropdown(box)
-            expect(box).toMatchSnapshot()
+            userEvent.click(screen.getByRole('button', { name: 'Click me' }))
+
+            expect(container).toMatchSnapshot()
         })
 
         it('renders the Body component first when top prop is provided', () => {
-            const box = mount(
+            const { container } = render(
                 <Dropdown.Box top>
-                    <Dropdown.Trigger onClick={jest.fn()} />
+                    <Dropdown.Trigger>Click me</Dropdown.Trigger>
                     <Dropdown.Body />
                 </Dropdown.Box>,
             )
 
-            openDropdown(box)
-            expect(box).toMatchSnapshot()
+            userEvent.click(screen.getByRole('button', { name: 'Click me' }))
+
+            expect(container).toMatchSnapshot()
         })
 
         it('calls onShowBody and onHideBody callbacks when the Body component is shown and hidden', () => {
             const onShowBodySpy = jest.fn()
             const onHideBodySpy = jest.fn()
 
-            const box = shallow(
+            render(
                 <Dropdown.Box onShowBody={onShowBodySpy} onHideBody={onHideBodySpy}>
-                    <Dropdown.Trigger onClick={jest.fn()} />
+                    <Dropdown.Trigger>Click me</Dropdown.Trigger>
                     <Dropdown.Body />
                 </Dropdown.Box>,
             )
 
-            const trigger = box.find(Dropdown.Trigger)
+            userEvent.click(screen.getByRole('button', { name: 'Click me' }))
+            expect(onShowBodySpy).toHaveBeenCalledTimes(1)
+            expect(onHideBodySpy).not.toHaveBeenCalled()
 
-            simulateClick(trigger)
-            expect(onShowBodySpy).toHaveBeenCalled()
-
-            simulateClick(trigger)
-            expect(onHideBodySpy).toHaveBeenCalled()
+            userEvent.click(screen.getByRole('button', { name: 'Click me' }))
+            expect(onShowBodySpy).toHaveBeenCalledTimes(1)
+            expect(onHideBodySpy).toHaveBeenCalledTimes(1)
         })
     })
-
-    describe('Dropdown.Trigger', () => {
-        it('renders empty without crashing', () => {
-            const trigger = shallow(<Dropdown.Trigger />)
-            expect(toJson(trigger)).toMatchSnapshot()
-        })
-
-        it('renders all children without crashing', () => {
-            const simpleTrigger = shallow(<Dropdown.Trigger>Trigger Content</Dropdown.Trigger>)
-
-            expect(toJson(simpleTrigger)).toMatchSnapshot()
-
-            const complexTrigger = shallow(
-                <Dropdown.Trigger>
-                    <div>
-                        <img src="" alt="" />
-                        Some additional text as well
-                    </div>
-                </Dropdown.Trigger>,
-            )
-
-            expect(toJson(complexTrigger)).toMatchSnapshot()
-        })
-
-        it('calls onClick callback', () => {
-            const onClickSpy = jest.fn()
-            const trigger = shallow(<Dropdown.Trigger onClick={onClickSpy} />)
-            simulateClick(trigger)
-
-            expect(onClickSpy).toHaveBeenCalledTimes(1)
-        })
-    })
-
-    describe('Dropdown.Body', () => {
-        it('renders empty without crashing', () => {
-            const body = shallow(<Dropdown.Body />)
-            expect(toJson(body)).toMatchSnapshot()
-        })
-
-        it('renders all children without crashing', () => {
-            const simpleBody = shallow(<Dropdown.Body>Body Content</Dropdown.Body>)
-            expect(toJson(simpleBody)).toMatchSnapshot()
-
-            const complexBody = shallow(
-                <Dropdown.Body>
-                    <div>
-                        <img src="" alt="" />
-                        Some additional text as well
-                    </div>
-                </Dropdown.Body>,
-            )
-            expect(toJson(complexBody)).toMatchSnapshot()
-        })
-
-        it('opens to the top when top is supplied', () => {
-            const body = shallow(<Dropdown.Body top />)
-            expect(body.props().style.top).toBe('auto')
-            expect(body.props().style.bottom).toBe(0)
-        })
-
-        it('opens to the right when top is supplied', () => {
-            const body = shallow(<Dropdown.Body right />)
-            expect(body.props().style.right).toBe('auto')
-            expect(body.props().style.left).toBe(0)
-        })
-    })
-
-    // Helpers ================================================================
-
-    function openDropdown(rootElement: ReactWrapper | ShallowWrapper) {
-        const trigger = rootElement.find(Dropdown.Trigger)
-        simulateClick(trigger)
-        expect(rootElement.find(Dropdown.Body)).toHaveLength(1)
-    }
-
-    function simulateClick(element: ReactWrapper | ShallowWrapper) {
-        element.simulate('click', {
-            preventDefault: jest.fn(),
-            stopPropagation: jest.fn(),
-        })
-    }
 })

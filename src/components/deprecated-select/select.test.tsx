@@ -1,45 +1,34 @@
 import React from 'react'
-import { shallow } from 'enzyme'
 
 import { Select } from './select'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 describe('Select', () => {
     it('renders without crashing', () => {
-        const select = shallow(getSelect())
-        expect(select).toMatchSnapshot()
-    })
-
-    it('uses key of option when supplied', () => {
-        const select = shallow(
-            getSelect({
-                options: [{ value: 'test', text: 'test', key: 'test-key' }],
-            }),
-        )
-        expect(select.find('option').get(0).key).toBe('test-key')
-    })
-
-    it('calls onChange handler with selected value', () => {
-        const onChangeSpy = jest.fn()
-        const select = shallow(
-            getSelect({
-                onChange: onChangeSpy,
-                options: [{ value: 'test2', text: 'test2' }],
-            }),
-        )
-
-        select.simulate('change', { target: { value: 'test2' } })
-        expect(onChangeSpy).toHaveBeenLastCalledWith('test2')
-    })
-
-    // helpers
-    function getSelect(props: React.ComponentProps<typeof Select> = {}) {
-        return (
+        const { container } = render(
             <Select
                 onChange={jest.fn()}
                 value="test"
                 options={[{ value: 'test', text: 'test' }]}
-                {...props}
-            />
+            />,
         )
-    }
+        expect(container).toMatchSnapshot()
+    })
+
+    it('calls onChange handler with selected value', () => {
+        const onChangeSpy = jest.fn()
+
+        render(
+            <Select
+                onChange={onChangeSpy}
+                value="test"
+                options={[{ value: 'test2', text: 'test2' }]}
+            />,
+        )
+
+        userEvent.selectOptions(screen.getByRole('combobox'), 'test2')
+
+        expect(onChangeSpy).toHaveBeenLastCalledWith('test2')
+    })
 })

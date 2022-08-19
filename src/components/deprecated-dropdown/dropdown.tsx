@@ -158,7 +158,11 @@ class Box extends React.Component<React.PropsWithChildren<BoxProps>, BoxState> {
         const { top } = this.state
 
         return (
-            <div style={{ display: 'inline-block' }} className={className}>
+            <div
+                style={{ display: 'inline-block' }}
+                className={className}
+                data-testid="reactist-dropdown-box"
+            >
                 {top && this._getBodyComponent()}
                 {this._getTriggerComponent()}
                 {!top && this._getBodyComponent()}
@@ -174,8 +178,12 @@ type NativeButtonProps = React.DetailedHTMLProps<
     HTMLButtonElement
 >
 
-type TriggerProps = Omit<NativeButtonProps, 'title'> & {
+type TriggerProps = Omit<NativeButtonProps, 'title' | 'onClick'> & {
     tooltip?: React.ReactNode
+    /**
+     * @private the onClick prop is not to be used externally
+     */
+    onClick?: NativeButtonProps['onClick']
 }
 
 const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(function Trigger(
@@ -224,7 +232,13 @@ function Body({ top, right, children, setPosition }: BodyProps) {
     }
 
     return (
-        <div ref={setPosition} style={style} className="body" id="reactist-dropdown-body">
+        <div
+            ref={setPosition}
+            style={style}
+            className="body"
+            id="reactist-dropdown-body"
+            data-testid="reactist-dropdown-body"
+        >
             {children}
         </div>
     )
