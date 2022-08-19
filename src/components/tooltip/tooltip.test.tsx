@@ -4,6 +4,8 @@ import { axe } from 'jest-axe'
 import userEvent from '@testing-library/user-event'
 import { Tooltip, SHOW_DELAY, HIDE_DELAY } from './tooltip'
 import { flushPromises } from '../../new-components/test-helpers'
+import { Box } from '../../new-components/box'
+import { Button } from '../../new-components/button'
 
 // Runs the same test abstracting how the tooltip is triggered (can be via mouse or keyboard)
 async function testShowHide({
@@ -178,14 +180,34 @@ describe('Tooltip', () => {
         const buttonRef = React.createRef<HTMLButtonElement>()
 
         render(
-            <>
-                <Tooltip content="tooltip content here">
-                    <button ref={buttonRef}>Click me</button>
-                </Tooltip>
-            </>,
+            <Tooltip content="tooltip content here">
+                <button ref={buttonRef}>Click me</button>
+            </Tooltip>,
         )
 
         expect(buttonRef.current).toBe(screen.getByRole('button'))
+    })
+
+    it('supports components with an "as" prop as the anchor', async () => {
+        render(
+            <Tooltip content="tooltip content here">
+                <Box as={Button} variant="primary">
+                    Click me
+                </Box>
+            </Tooltip>,
+        )
+
+        const button = screen.getByRole('button', { name: 'Click me' })
+        expect(button).toBeVisible()
+
+        await testShowHide({
+            triggerShow() {
+                userEvent.hover(button)
+            },
+            triggerHide() {
+                userEvent.unhover(button)
+            },
+        })
     })
 
     describe('a11y', () => {
