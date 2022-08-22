@@ -18,24 +18,44 @@ export const parameters = {
 addParameters({
     badgesConfig: {
         accessible: {
-            contrast: 'rgba(5, 133, 39, 0.1)',
-            color: 'rgb(5, 133, 39)',
             title: '✔ Accessible (WCAG 2.0 AA)',
+            styles: {
+                backgroundColor: 'rgba(5, 133, 39, 0.1)',
+                borderColor: 'rgb(5, 133, 39)',
+                color: 'rgb(5, 133, 39)',
+                fontSize: '12px',
+                lineHeight: '14px',
+            },
         },
         partiallyAccessible: {
-            contrast: 'rgba(235, 141, 19, 0.1)',
-            color: 'rgb(235, 141, 19)',
             title: '⚠ Partially Accessible',
+            styles: {
+                backgroundColor: 'rgba(235, 141, 19, 0.1)',
+                borderColor: 'rgb(235, 141, 19)',
+                color: 'rgb(235, 141, 19)',
+                fontSize: '12px',
+                lineHeight: '14px',
+            },
         },
         notAccessible: {
-            contrast: 'rgba(209, 69, 59, 0.1)',
-            color: 'rgb(209, 69, 59)',
             title: '✖ Not accessible',
+            styles: {
+                backgroundColor: 'rgba(209, 69, 59, 0.1)',
+                borderColor: 'rgb(209, 69, 59)',
+                color: 'rgb(209, 69, 59)',
+                fontSize: '12px',
+                lineHeight: '14px',
+            },
         },
         deprecated: {
-            contrast: 'rgba(209, 69, 59, 0.1)',
-            color: 'rgb(209, 69, 59)',
             title: '✖ Deprecated',
+            styles: {
+                backgroundColor: 'rgba(209, 69, 59, 0.1)',
+                borderColor: 'rgb(209, 69, 59)',
+                color: 'rgb(209, 69, 59)',
+                fontSize: '12px',
+                lineHeight: '14px',
+            },
         },
     },
 })
