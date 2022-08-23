@@ -4,6 +4,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+-   [Fix] Set `min-height` and `max-height` on `.reactist_menulist`.
+
 # v14.1.1
 
 -   [Fix] Pins the ariakit dependencies.
