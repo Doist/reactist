@@ -4,6 +4,10 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+-   [Feat] `Tabs` by default have a shorter height, but this can be customized by overriding an exposed css variable
+
+# v14.0.0
+
 -   [Breaking] The `color` prop has been removed from `Tabs`, and `variant` now only supports `themed` and `neutral` as options.
 -   [Fix] `Tooltip` will now correctly use an anchor component with an `as` prop
 
