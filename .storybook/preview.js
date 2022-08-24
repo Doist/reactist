@@ -15,6 +15,11 @@ export const parameters = {
     decorators,
 }
 
+const badgeFontStyles = {
+    fontSize: '12px',
+    lineHeight: '14px',
+}
+
 addParameters({
     badgesConfig: {
         accessible: {
@@ -23,8 +28,7 @@ addParameters({
                 backgroundColor: 'rgba(5, 133, 39, 0.1)',
                 borderColor: 'rgb(5, 133, 39)',
                 color: 'rgb(5, 133, 39)',
-                fontSize: '12px',
-                lineHeight: '14px',
+                ...badgeFontStyles,
             },
         },
         partiallyAccessible: {
@@ -33,8 +37,7 @@ addParameters({
                 backgroundColor: 'rgba(235, 141, 19, 0.1)',
                 borderColor: 'rgb(235, 141, 19)',
                 color: 'rgb(235, 141, 19)',
-                fontSize: '12px',
-                lineHeight: '14px',
+                ...badgeFontStyles,
             },
         },
         notAccessible: {
@@ -43,8 +46,7 @@ addParameters({
                 backgroundColor: 'rgba(209, 69, 59, 0.1)',
                 borderColor: 'rgb(209, 69, 59)',
                 color: 'rgb(209, 69, 59)',
-                fontSize: '12px',
-                lineHeight: '14px',
+                ...badgeFontStyles,
             },
         },
         deprecated: {
@@ -53,8 +55,7 @@ addParameters({
                 backgroundColor: 'rgba(209, 69, 59, 0.1)',
                 borderColor: 'rgb(209, 69, 59)',
                 color: 'rgb(209, 69, 59)',
-                fontSize: '12px',
-                lineHeight: '14px',
+                ...badgeFontStyles,
             },
         },
     },
