@@ -14,6 +14,7 @@
     --reactist-tab-track-border-width: 2px;
     --reactist-tab-border-radius: 20px;
     --reactist-tab-border-width: 1px;
+    --reactist-tab-height: 30px;
 }
 
 .tab {
@@ -24,7 +25,7 @@
     cursor: pointer;
     font-size: var(--reactist-font-size-body);
     font-weight: var(--reactist-font-weight-medium);
-    line-height: 32px;
+    line-height: var(--reactist-tab-height);
     z-index: 1;
     text-decoration: none;
     border: var(--reactist-tab-border-width) solid transparent;
