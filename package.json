@@ -62,7 +62,7 @@
         "@doist/eslint-config": "^7.1.2",
         "@doist/prettier-config": "^3.0.5",
         "@doist/tsconfig": "^1.0.0",
-        "@geometricpanda/storybook-addon-badges": "^0.0.4",
+        "@geometricpanda/storybook-addon-badges": "^0.2.2",
         "@storybook/addon-actions": "^6.5.3",
         "@storybook/addon-controls": "^6.5.3",
         "@storybook/addon-docs": "^6.5.3",
