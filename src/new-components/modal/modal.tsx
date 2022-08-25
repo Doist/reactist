@@ -131,6 +131,8 @@ export function Modal({
     const dialogRef = React.useRef<HTMLDivElement>()
     const handleBackdropClick = React.useCallback(
         (event: React.MouseEvent) => {
+            event.stopPropagation()
+
             if (!dialogRef.current?.contains(event.target as Node)) {
                 onDismiss?.()
             }
