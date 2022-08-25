@@ -4,6 +4,10 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+# v14.1.1
+
+-   [Fix] Pins the ariakit dependencies.
+
 # v14.1.0
 
 -   [Feat] `Tabs` by default have a shorter height, but this can be customized by overriding an exposed css variable
