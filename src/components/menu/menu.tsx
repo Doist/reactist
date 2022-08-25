@@ -1,5 +1,7 @@
 import * as React from 'react'
 import classNames from 'classnames'
+import FocusLock from 'react-focus-lock'
+
 import { polymorphicComponent } from '../../utils/polymorphism'
 
 //
@@ -122,12 +124,14 @@ const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
 
     return state.visible ? (
         <Portal preserveTabOrder>
-            <Ariakit.Menu
-                {...props}
-                state={state}
-                ref={ref}
-                className={classNames('reactist_menulist', exceptionallySetClassName)}
-            />
+            <FocusLock returnFocus>
+                <Ariakit.Menu
+                    {...props}
+                    state={state}
+                    ref={ref}
+                    className={classNames('reactist_menulist', exceptionallySetClassName)}
+                />
+            </FocusLock>
         </Portal>
     ) : null
 })
