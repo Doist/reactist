@@ -308,3 +308,36 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
         </ModalStoryStateProvider>
     </Story>
 </Canvas>
+
+### Stacking modals
+
+<Canvas withToolbar>
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Stacking modals">
+        <ModalStoryStateProvider>
+            <Button variant="primary" action="open">
+                Open modal
+            </Button>
+            <Modal aria-label="Modal 1">
+                <ModalHeader />
+                <ModalBody>
+                    <Text>
+                        Use the form to customize this modal, or open an additional modal with the
+                        button below.
+                    </Text>
+                    <ModalOptionsForm />
+                    <ModalStoryStateProvider>
+                        <Button variant="primary" action="open">
+                            Open second modal
+                        </Button>
+                        <Modal aria-label="Modal 2">
+                            <ModalHeader />
+                            <ModalBody>
+                                <ModalOptionsForm />
+                            </ModalBody>
+                        </Modal>
+                    </ModalStoryStateProvider>
+                </ModalBody>
+            </Modal>
+        </ModalStoryStateProvider>
+    </Story>
+</Canvas>
