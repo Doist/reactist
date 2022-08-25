@@ -127,13 +127,19 @@ export function Modal({
         height,
     ])
 
-    const portalRef = React.useRef<HTMLElement>()
-    const dialogRef = React.useRef<HTMLDivElement>()
+    const portalRef = React.useRef<HTMLElement | null>(null)
+    const dialogRef = React.useRef<HTMLDivElement | null>(null)
+    const backdropRef = React.useRef<HTMLDivElement | null>(null)
     const handleBackdropClick = React.useCallback(
         (event: React.MouseEvent) => {
-            event.stopPropagation()
-
-            if (!dialogRef.current?.contains(event.target as Node)) {
+            if (
+                // The focus lock element takes up the same space as the backdrop and is where the event bubbles up from,
+                // so instead of checking the backdrop as the event target, we need to make sure it's just above the dialog
+                !dialogRef.current?.contains(event.target as Node) &&
+                // Events fired from other portals will bubble up to the backdrop, even if it isn't a child in the DOM
+                backdropRef.current?.contains(event.target as Node)
+            ) {
+                event.stopPropagation()
                 onDismiss?.()
             }
         },
@@ -157,7 +163,7 @@ export function Modal({
 
     return (
         <Portal
-            // @ts-expect-error `portalRef` doesn't accept MutableRefObject initialized as undefined
+            // @ts-expect-error `portalRef` doesn't accept MutableRefObject initialized as null
             portalRef={portalRef}
         >
             <Box
@@ -165,6 +171,7 @@ export function Modal({
                 data-overlay
                 className={classNames(styles.overlay, styles[height], styles[width])}
                 onClick={handleBackdropClick}
+                ref={backdropRef}
             >
                 <FocusLock autoFocus={autoFocus} whiteList={isNotInternalFrame} returnFocus={true}>
                     <Dialog
