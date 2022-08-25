@@ -1,5 +1,7 @@
+import { action } from '@storybook/addon-actions'
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
 
+import { Button as ReactistButton } from '../button'
 import { Column, Columns } from '../columns'
 import { Text } from '../text'
 import { Heading } from '../heading'
@@ -7,6 +9,8 @@ import { Inline } from '../inline'
 import { Stack } from '../stack'
 import { Box } from '../box'
 import { Tabs, Tab, TabList, TabPanel } from '../tabs'
+import { Menu, MenuButton, MenuList, MenuItem } from '../../components/menu'
+import ThreeDotsIcon from '../../components/icons/ThreeDotsIcon.svg'
 
 import * as ModalComponents from './modal'
 
@@ -82,7 +86,25 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
             </Button>
             <Modal aria-label="Modal with standard actions footer">
                 <ModalHeader>
-                    <Heading level="1">Modal with standard actions footer</Heading>
+                    <Columns>
+                        <Column width="auto">
+                            <Heading level="1">Modal with standard actions footer</Heading>
+                        </Column>
+                        <Column width="content">
+                            <Menu>
+                                <MenuButton
+                                    as={ReactistButton}
+                                    variant="tertiary"
+                                    icon={<ThreeDotsIcon />}
+                                />
+                                <MenuList aria-label="Simple menu">
+                                    <MenuItem onSelect={action('Edit')}>Edit</MenuItem>
+                                    <MenuItem onSelect={action('Duplicate')}>Duplicate</MenuItem>
+                                    <MenuItem onSelect={action('Remove')}>Remove</MenuItem>
+                                </MenuList>
+                            </Menu>
+                        </Column>
+                    </Columns>
                 </ModalHeader>
                 <ModalBody>
                     <ModalOptionsForm title={<Heading level="2">Customize modal</Heading>} />
