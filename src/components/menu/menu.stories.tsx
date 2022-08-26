@@ -78,6 +78,8 @@ export function SimpleMenuExample() {
                     </MenuButton>
                     <MenuList aria-label="Simple menu">
                         <MenuItem onSelect={action('Edit')}>Edit</MenuItem>
+                        <MenuItem onSelect={action('Copy')}>Copy</MenuItem>
+                        <MenuItem onSelect={action('Paste')}>Paste</MenuItem>
                         <MenuItem onSelect={action('Duplicate')}>Duplicate</MenuItem>
                         <MenuItem onSelect={action('Remove')}>Remove</MenuItem>
                     </MenuList>
