@@ -88,6 +88,45 @@ describe('Modal', () => {
         userEvent.click(screen.getByTestId('modal-overlay'))
         expect(screen.queryByRole('dialog', { name: 'modal' })).not.toBeInTheDocument()
     })
+
+    it('focuses on the first focusable element', () => {
+        render(
+            <Modal isOpen>
+                <button type="button">Close me</button>
+                <button type="button">Another button</button>
+            </Modal>,
+        )
+
+        expect(screen.getByRole('button', { name: 'Close me' })).toHaveFocus()
+    })
+
+    it("doesn't focus on the modal if autoFocus is false", () => {
+        render(
+            <Modal isOpen autoFocus={false}>
+                <button type="button">Close me</button>
+                <button type="button" data-autofocus>
+                    Another button
+                </button>
+            </Modal>,
+        )
+
+        expect(screen.getByRole('button', { name: 'Close me' })).not.toHaveFocus()
+        expect(screen.getByRole('dialog')).not.toHaveFocus()
+    })
+
+    it('focuses on the element with the data-autofocus attribute', () => {
+        render(
+            <Modal isOpen>
+                <button type="button">Close me</button>
+                <button type="button" data-autofocus>
+                    Another button
+                </button>
+            </Modal>,
+        )
+
+        expect(screen.getByRole('button', { name: 'Close me' })).not.toHaveFocus()
+        expect(screen.getByRole('button', { name: 'Another button' })).toHaveFocus()
+    })
 })
 
 describe('ModalHeader', () => {

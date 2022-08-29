@@ -1,15 +1,16 @@
 import { action } from '@storybook/addon-actions'
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
 
+import { Box } from '../box'
 import { Button as ReactistButton } from '../button'
 import { Column, Columns } from '../columns'
-import { Text } from '../text'
 import { Heading } from '../heading'
 import { Inline } from '../inline'
-import { Stack } from '../stack'
-import { Box } from '../box'
-import { Tabs, Tab, TabList, TabPanel } from '../tabs'
 import { Menu, MenuButton, MenuList, MenuItem } from '../../components/menu'
+import { Stack } from '../stack'
+import { Tabs, Tab, TabList, TabPanel } from '../tabs'
+import { Text } from '../text'
+import { TextField } from '../text-field'
 import ThreeDotsIcon from '../../components/icons/ThreeDotsIcon.svg'
 
 import * as ModalComponents from './modal'
@@ -331,7 +332,43 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
     </Story>
 </Canvas>
 
+### Autofocus
+
+By default the `autoFocus` prop is `true`, which shifts the focus onto the first focusable element in the modal. You can further refine this
+by using the `data-autofocus` attribute if you wish to focus on elements other than the first one. This is made possible using React Focus Lock, please see its [documentation](https://github.com/theKashey/react-focus-lock/tree/v2.9.1#autofocus) for more details.
+
+<Canvas withToolbar>
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Autofocus">
+        <ModalStoryStateProvider>
+            <Button variant="primary" action="open">
+                Open modal
+            </Button>
+            <Modal height="fitContent" aria-label="Confirmation modal" width="small">
+                <ModalHeader>
+                    <Heading level={1}>Update your info</Heading>
+                </ModalHeader>
+                <ModalBody>
+                    <Stack space="large">
+                        <TextField label="Name" value="Bob Odenkirk" />
+                        <TextField label="Address" data-autofocus />
+                    </Stack>
+                </ModalBody>
+                <ModalActions>
+                    <Button variant="primary" size="small">
+                        Save
+                    </Button>
+                    <Button variant="secondary" size="small">
+                        Cancel
+                    </Button>
+                </ModalActions>
+            </Modal>
+        </ModalStoryStateProvider>
+    </Story>
+</Canvas>
+
 ### Stacking modals
+
+Modals may be stacked on top of one another, with each of them having their independent states, e.g. `width` and `height`.
 
 <Canvas withToolbar>
     <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Stacking modals">
@@ -340,7 +377,9 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
                 Open modal
             </Button>
             <Modal aria-label="Modal 1">
-                <ModalHeader />
+                <ModalHeader>
+                    <Heading level={1}>Bottom modal</Heading>
+                </ModalHeader>
                 <ModalBody>
                     <Text>
                         Use the form to customize this modal, or open an additional modal with the
@@ -352,7 +391,9 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
                             Open second modal
                         </Button>
                         <Modal aria-label="Modal 2">
-                            <ModalHeader />
+                            <ModalHeader>
+                                <Heading level={1}>Top modal</Heading>
+                            </ModalHeader>
                             <ModalBody>
                                 <ModalOptionsForm />
                             </ModalBody>

@@ -189,8 +189,11 @@ export function Modal({
                         height={height === 'expand' ? 'full' : undefined}
                         flexGrow={height === 'expand' ? 1 : 0}
                         className={[exceptionallySetClassName, styles.container]}
-                        // Disable focus lock as we conditionally set up our own using ReactFocusLock
+                        // Disable focus lock as we set up our own using ReactFocusLock
                         modal={false}
+                        autoFocus={false}
+                        autoFocusOnShow={false}
+                        autoFocusOnHide={false}
                         // Disable portal and backdrop as we control their markup
                         portal={false}
                         backdrop={false}
