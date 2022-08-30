@@ -86,26 +86,32 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
                 Open modal
             </Button>
             <Modal aria-label="Modal with standard actions footer">
-                <ModalHeader>
-                    <Columns>
-                        <Column width="auto">
-                            <Heading level="1">Modal with standard actions footer</Heading>
-                        </Column>
-                        <Column width="content">
-                            <Menu>
-                                <MenuButton
-                                    as={ReactistButton}
-                                    variant="tertiary"
-                                    icon={<ThreeDotsIcon />}
-                                />
-                                <MenuList aria-label="Simple menu">
-                                    <MenuItem onSelect={action('Edit')}>Edit</MenuItem>
-                                    <MenuItem onSelect={action('Duplicate')}>Duplicate</MenuItem>
-                                    <MenuItem onSelect={action('Remove')}>Remove</MenuItem>
-                                </MenuList>
-                            </Menu>
-                        </Column>
-                    </Columns>
+                <ModalHeader
+                    button={
+                        <Columns>
+                            <Column>
+                                <Menu>
+                                    <MenuButton
+                                        as={ReactistButton}
+                                        variant="tertiary"
+                                        icon={<ThreeDotsIcon />}
+                                    />
+                                    <MenuList aria-label="Simple menu">
+                                        <MenuItem onSelect={action('Edit')}>Edit</MenuItem>
+                                        <MenuItem onSelect={action('Duplicate')}>
+                                            Duplicate
+                                        </MenuItem>
+                                        <MenuItem onSelect={action('Remove')}>Remove</MenuItem>
+                                    </MenuList>
+                                </Menu>
+                            </Column>
+                            <Column>
+                                <ModalComponents.ModalCloseButton />
+                            </Column>
+                        </Columns>
+                    }
+                >
+                    <Heading level="1">Modal with standard actions footer</Heading>
                 </ModalHeader>
                 <ModalBody>
                     <ModalOptionsForm title={<Heading level="2">Customize modal</Heading>} />
@@ -349,7 +355,7 @@ by using the `data-autofocus` attribute if you wish to focus on elements other t
                 </ModalHeader>
                 <ModalBody>
                     <Stack space="large">
-                        <TextField label="Name" value="Bob Odenkirk" />
+                        <TextField label="Name" value="Bob Odenkirk" onChange={() => undefined} />
                         <TextField label="Address" data-autofocus />
                     </Stack>
                 </ModalBody>
