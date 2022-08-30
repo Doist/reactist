@@ -392,7 +392,9 @@ Modals may be stacked on top of one another, with each of them having their inde
                         button below.
                     </Text>
                     <ModalOptionsForm />
-                    <ModalStoryStateProvider>
+                    <ModalStoryStateProvider
+                        initialState={{ width: 'small', height: 'fitContent' }}
+                    >
                         <Button variant="primary" action="open">
                             Open second modal
                         </Button>

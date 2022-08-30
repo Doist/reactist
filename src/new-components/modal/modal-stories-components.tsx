@@ -43,7 +43,7 @@ const ModalStoryContext = React.createContext<ModalStoryContextValue>({
 })
 
 function ModalStoryStateProvider({
-    initialState = defaultInitialState,
+    initialState,
     children,
 }: {
     initialState?: ModalStoryState
@@ -56,7 +56,10 @@ function ModalStoryStateProvider({
     const closeModal = React.useCallback(() => {
         setOpen(false)
     }, [])
-    const [props, setProps] = React.useState<ModalStoryState>(initialState)
+    const [props, setProps] = React.useState<ModalStoryState>({
+        ...defaultInitialState,
+        ...initialState,
+    })
 
     const onChange = React.useCallback(function onChange(
         event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
