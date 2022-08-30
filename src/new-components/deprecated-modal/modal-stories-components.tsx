@@ -5,7 +5,11 @@ import { SwitchField } from '../switch-field'
 import { Stack } from '../stack'
 import { Button } from '../button'
 import * as ModalComponents from './modal'
-import type { ModalProps, ModalHeaderProps, ModalFooterProps } from './modal'
+import type {
+    DeprecatedModalProps,
+    DeprecatedModalHeaderProps,
+    DeprecatedModalFooterProps,
+} from './modal'
 
 function Link({ children, ...props }: JSX.IntrinsicElements['a']) {
     return (
@@ -15,7 +19,7 @@ function Link({ children, ...props }: JSX.IntrinsicElements['a']) {
     )
 }
 
-type ModalStoryState = Pick<ModalProps, 'width' | 'height'> & {
+type ModalStoryState = Pick<DeprecatedModalProps, 'width' | 'height'> & {
     button: 'true' | 'false' | 'custom'
     withScrollableContent: boolean
 }
@@ -29,37 +33,28 @@ const defaultInitialState: ModalStoryState = {
 
 type ModalStoryContextValue = ModalStoryState & {
     isOpen: boolean
-    openModal: () => void
-    closeModal: () => void
+    toggle: () => void
     onChange: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement>
 }
 
 const ModalStoryContext = React.createContext<ModalStoryContextValue>({
     ...defaultInitialState,
     isOpen: false,
-    openModal: () => undefined,
-    closeModal: () => undefined,
+    toggle: () => undefined,
     onChange: () => undefined,
 })
 
 function ModalStoryStateProvider({
-    initialState,
+    initialState = defaultInitialState,
     children,
 }: {
     initialState?: ModalStoryState
     children: React.ReactNode
 }) {
     const [isOpen, setOpen] = React.useState(false)
-    const openModal = React.useCallback(() => {
-        setOpen(true)
-    }, [])
-    const closeModal = React.useCallback(() => {
-        setOpen(false)
-    }, [])
-    const [props, setProps] = React.useState<ModalStoryState>({
-        ...defaultInitialState,
-        ...initialState,
-    })
+    const toggle = React.useCallback(() => setOpen((v) => !v), [])
+
+    const [props, setProps] = React.useState<ModalStoryState>(initialState)
 
     const onChange = React.useCallback(function onChange(
         event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -77,12 +72,11 @@ function ModalStoryStateProvider({
     const value = React.useMemo(
         () => ({
             isOpen,
-            openModal,
-            closeModal,
+            toggle,
             onChange,
             ...props,
         }),
-        [isOpen, openModal, closeModal, onChange, props],
+        [isOpen, toggle, onChange, props],
     )
 
     return <ModalStoryContext.Provider value={value}>{children}</ModalStoryContext.Provider>
@@ -153,32 +147,32 @@ function ModalButton({
     variant,
     size,
     children,
-    action = 'close',
 }: {
     variant: 'primary' | 'secondary'
-    action: 'open' | 'close'
     size?: 'small'
     children: NonNullable<React.ReactNode>
 }) {
-    const { openModal, closeModal } = React.useContext(ModalStoryContext)
+    const { toggle } = React.useContext(ModalStoryContext)
     return (
-        <Button variant={variant} size={size} onClick={action === 'open' ? openModal : closeModal}>
+        <Button variant={variant} size={size} onClick={toggle}>
             {children}
         </Button>
     )
 }
 
-// So that it appears as Button in storybook "show code" section
+// So that it appers as Button in storybook "show code" section
 ModalButton.displayName = 'Button'
 
 type WithOptionals<Props, Keys extends keyof Props> = Omit<Props, Keys> & Partial<Pick<Props, Keys>>
 
-function Modal(props: WithOptionals<ModalProps, 'isOpen' | 'onDismiss' | 'width' | 'height'>) {
-    const { isOpen, closeModal, width, height } = React.useContext(ModalStoryContext)
+function Modal(
+    props: WithOptionals<DeprecatedModalProps, 'isOpen' | 'onDismiss' | 'width' | 'height'>,
+) {
+    const { isOpen, toggle, width, height } = React.useContext(ModalStoryContext)
     return (
-        <ModalComponents.Modal
+        <ModalComponents.DeprecatedModal
             isOpen={isOpen}
-            onDismiss={closeModal}
+            onDismiss={toggle}
             width={width}
             height={height}
             {...props}
@@ -186,10 +180,10 @@ function Modal(props: WithOptionals<ModalProps, 'isOpen' | 'onDismiss' | 'width'
     )
 }
 
-function ModalHeader(props: WithOptionals<ModalHeaderProps, 'withDivider' | 'button'>) {
+function ModalHeader(props: WithOptionals<DeprecatedModalHeaderProps, 'withDivider' | 'button'>) {
     const { button, withScrollableContent } = React.useContext(ModalStoryContext)
     return (
-        <ModalComponents.ModalHeader
+        <ModalComponents.DeprecatedModalHeader
             withDivider={withScrollableContent}
             button={renderHeaderButton(button)}
             {...props}
@@ -197,16 +191,16 @@ function ModalHeader(props: WithOptionals<ModalHeaderProps, 'withDivider' | 'but
     )
 }
 
-const ModalBody = ModalComponents.ModalBody
+const ModalBody = ModalComponents.DeprecatedModalBody
 
-function ModalFooter(props: WithOptionals<ModalFooterProps, 'withDivider'>) {
+function ModalFooter(props: WithOptionals<DeprecatedModalFooterProps, 'withDivider'>) {
     const { withScrollableContent } = React.useContext(ModalStoryContext)
-    return <ModalComponents.ModalFooter withDivider={withScrollableContent} {...props} />
+    return <ModalComponents.DeprecatedModalFooter withDivider={withScrollableContent} {...props} />
 }
 
-function ModalActions(props: WithOptionals<ModalFooterProps, 'withDivider'>) {
+function ModalActions(props: WithOptionals<DeprecatedModalFooterProps, 'withDivider'>) {
     const { withScrollableContent } = React.useContext(ModalStoryContext)
-    return <ModalComponents.ModalActions withDivider={withScrollableContent} {...props} />
+    return <ModalComponents.DeprecatedModalActions withDivider={withScrollableContent} {...props} />
 }
 
 export { Link, ModalStoryStateProvider, ModalOptionsForm, ModalButton as Button, ScrollableContent }

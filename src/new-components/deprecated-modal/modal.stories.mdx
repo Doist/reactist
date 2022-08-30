@@ -1,17 +1,12 @@
-import { action } from '@storybook/addon-actions'
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
 
-import { Box } from '../box'
-import { Button as ReactistButton } from '../button'
 import { Column, Columns } from '../columns'
+import { Text } from '../text'
 import { Heading } from '../heading'
 import { Inline } from '../inline'
-import { Menu, MenuButton, MenuList, MenuItem } from '../../components/menu'
 import { Stack } from '../stack'
+import { Box } from '../box'
 import { Tabs, Tab, TabList, TabPanel } from '../tabs'
-import { Text } from '../text'
-import { TextField } from '../text-field'
-import ThreeDotsIcon from '../../components/icons/ThreeDotsIcon.svg'
 
 import * as ModalComponents from './modal'
 
@@ -29,17 +24,17 @@ import {
 } from './modal-stories-components'
 
 <Meta
-    title="Design system/Modal"
+    title="Components/Modal"
     component={ModalComponents.Modal}
     parameters={{
-        badges: ['accessible'],
+        badges: ['accessible', 'deprecated'],
     }}
 />
 
 # Modal
 
 A set of components that allow tabs to be rendered, which controls the visibility of their corresponding tab panels.
-This component is powered by [Ariakit's Dialog](https://ariakit.org/components/dialog). For more details of its expected
+This component is powered by [Reach UI's Dialog](https://reach.tech/dialog/). For more details of its expected
 behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/dialog_role).
 
 ## `<Modal>`
@@ -82,35 +77,9 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
         name="Modal with standard actions footer"
     >
         <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
+            <Button variant="primary">Open modal</Button>
             <Modal aria-label="Modal with standard actions footer">
-                <ModalHeader
-                    button={
-                        <Columns>
-                            <Column>
-                                <Menu>
-                                    <MenuButton
-                                        as={ReactistButton}
-                                        variant="tertiary"
-                                        icon={<ThreeDotsIcon />}
-                                    />
-                                    <MenuList aria-label="Simple menu">
-                                        <MenuItem onSelect={action('Edit')}>Edit</MenuItem>
-                                        <MenuItem onSelect={action('Duplicate')}>
-                                            Duplicate
-                                        </MenuItem>
-                                        <MenuItem onSelect={action('Remove')}>Remove</MenuItem>
-                                    </MenuList>
-                                </Menu>
-                            </Column>
-                            <Column>
-                                <ModalComponents.ModalCloseButton />
-                            </Column>
-                        </Columns>
-                    }
-                >
+                <ModalHeader>
                     <Heading level="1">Modal with standard actions footer</Heading>
                 </ModalHeader>
                 <ModalBody>
@@ -133,9 +102,7 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
         name="Modal with header, body and custom footer"
     >
         <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
+            <Button variant="primary">Open modal</Button>
             <Modal aria-label="Modal with header, body and custom footer">
                 <ModalHeader>
                     <Heading level="1">Modal with header, body and custom footer</Heading>
@@ -165,9 +132,7 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
 <Canvas withToolbar>
     <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Modal with a sidebar">
         <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
+            <Button variant="primary">Open modal</Button>
             <Modal aria-label="Modal with a settings-like custom layout">
                 <Columns height="full">
                     <Column width="content">
@@ -215,9 +180,7 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
         name="Modal with scrollable tab panels"
     >
         <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
+            <Button variant="primary">Open modal</Button>
             <Modal aria-label="Modal with scrollable tab panels">
                 <ModalHeader>
                     <Link href="/">Project name</Link>
@@ -284,9 +247,7 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
         name="Minimalistic confirmation modal"
     >
         <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
+            <Button variant="primary">Open modal</Button>
             <Modal height="fitContent" aria-label="Confirmation modal" width="small">
                 <Box padding="large">
                     <Text size="subtitle">Are you sure you want to leave?</Text>
@@ -312,9 +273,7 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
         name="Enriched confirmation modal"
     >
         <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
+            <Button variant="primary">Open modal</Button>
             <Modal height="fitContent" aria-label="Confirmation modal" width="small">
                 <ModalHeader withDivider button={null}>
                     <Heading level="1">Please confirm</Heading>
@@ -333,81 +292,6 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
                     <Button variant="danger">Yes, leave</Button>
                     <Button variant="secondary">Cancel</Button>
                 </ModalActions>
-            </Modal>
-        </ModalStoryStateProvider>
-    </Story>
-</Canvas>
-
-### Autofocus
-
-By default the `autoFocus` prop is `true`, which shifts the focus onto the first focusable element in the modal. You can further refine this
-by using the `data-autofocus` attribute if you wish to focus on elements other than the first one. This is made possible using React Focus Lock, please see its [documentation](https://github.com/theKashey/react-focus-lock/tree/v2.9.1#autofocus) for more details.
-
-<Canvas withToolbar>
-    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Autofocus">
-        <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
-            <Modal height="fitContent" aria-label="Confirmation modal" width="small">
-                <ModalHeader>
-                    <Heading level={1}>Update your info</Heading>
-                </ModalHeader>
-                <ModalBody>
-                    <Stack space="large">
-                        <TextField label="Name" value="Bob Odenkirk" onChange={() => undefined} />
-                        <TextField label="Address" data-autofocus />
-                    </Stack>
-                </ModalBody>
-                <ModalActions>
-                    <Button variant="primary" size="small">
-                        Save
-                    </Button>
-                    <Button variant="secondary" size="small">
-                        Cancel
-                    </Button>
-                </ModalActions>
-            </Modal>
-        </ModalStoryStateProvider>
-    </Story>
-</Canvas>
-
-### Stacking modals
-
-Modals may be stacked on top of one another, with each of them having their independent states, e.g. `width` and `height`.
-
-<Canvas withToolbar>
-    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Stacking modals">
-        <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
-            <Modal aria-label="Modal 1">
-                <ModalHeader>
-                    <Heading level={1}>Bottom modal</Heading>
-                </ModalHeader>
-                <ModalBody>
-                    <Text>
-                        Use the form to customize this modal, or open an additional modal with the
-                        button below.
-                    </Text>
-                    <ModalOptionsForm />
-                    <ModalStoryStateProvider
-                        initialState={{ width: 'small', height: 'fitContent' }}
-                    >
-                        <Button variant="primary" action="open">
-                            Open second modal
-                        </Button>
-                        <Modal aria-label="Modal 2">
-                            <ModalHeader>
-                                <Heading level={1}>Top modal</Heading>
-                            </ModalHeader>
-                            <ModalBody>
-                                <ModalOptionsForm />
-                            </ModalBody>
-                        </Modal>
-                    </ModalStoryStateProvider>
-                </ModalBody>
             </Modal>
         </ModalStoryStateProvider>
     </Story>

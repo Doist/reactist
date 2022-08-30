@@ -32,9 +32,9 @@ export * from './new-components/text-area'
 export * from './new-components/text-field'
 
 // other components
-export * from './new-components/tabs'
-export * from './new-components/modal'
 export * from './new-components/avatar'
+export * from './new-components/modal'
+export * from './new-components/tabs'
 
 // hooks
 export * from './hooks/use-previous'
@@ -61,3 +61,4 @@ export { default as DeprecatedButton } from './components/deprecated-button'
 export { default as DeprecatedDropdown } from './components/deprecated-dropdown'
 export { default as DeprecatedInput } from './components/deprecated-input'
 export { default as DeprecatedSelect } from './components/deprecated-select'
+export * from './new-components/deprecated-modal'

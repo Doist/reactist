@@ -1,10 +1,7 @@
 import * as React from 'react'
 import classNames from 'classnames'
+import { DialogOverlay, DialogContent } from '@reach/dialog'
 import FocusLock from 'react-focus-lock'
-import { hideOthers } from 'aria-hidden'
-
-import { Dialog, useDialogState } from 'ariakit/dialog'
-import { Portal } from 'ariakit/portal'
 
 import { CloseIcon } from '../icons/close-icon'
 import { Column, Columns } from '../columns'
@@ -41,7 +38,7 @@ type DivProps = Omit<
     'className' | 'children' | `aria-label` | `aria-labelledby`
 >
 
-export type ModalProps = DivProps & {
+export type DeprecatedModalProps = DivProps & {
     /**
      * The content of the modal.
      */
@@ -98,11 +95,12 @@ function isNotInternalFrame(element: HTMLElement) {
  *
  * Follows the WAI-ARIA Dialog (Modal) Pattern.
  *
- * @see ModalHeader
- * @see ModalFooter
- * @see ModalBody
+ * @see DeprecatedModalHeader
+ * @see DeprecatedModalFooter
+ * @see DeprecatedModalBody
+ * @deprecated
  */
-export function Modal({
+export function DeprecatedModal({
     isOpen,
     onDismiss,
     height = 'fitContent',
@@ -111,101 +109,37 @@ export function Modal({
     autoFocus = true,
     children,
     ...props
-}: ModalProps) {
-    const setVisible = React.useCallback(
-        (visible: boolean) => {
-            if (!visible) {
-                onDismiss?.()
-            }
-        },
-        [onDismiss],
-    )
-    const state = useDialogState({ visible: isOpen, setVisible })
-
+}: DeprecatedModalProps) {
     const contextValue: ModalContextValue = React.useMemo(() => ({ onDismiss, height }), [
         onDismiss,
         height,
     ])
 
-    const portalRef = React.useRef<HTMLElement | null>(null)
-    const dialogRef = React.useRef<HTMLDivElement | null>(null)
-    const backdropRef = React.useRef<HTMLDivElement | null>(null)
-    const handleBackdropClick = React.useCallback(
-        (event: React.MouseEvent) => {
-            if (
-                // The focus lock element takes up the same space as the backdrop and is where the event bubbles up from,
-                // so instead of checking the backdrop as the event target, we need to make sure it's just above the dialog
-                !dialogRef.current?.contains(event.target as Node) &&
-                // Events fired from other portals will bubble up to the backdrop, even if it isn't a child in the DOM
-                backdropRef.current?.contains(event.target as Node)
-            ) {
-                event.stopPropagation()
-                onDismiss?.()
-            }
-        },
-        [onDismiss],
-    )
-
-    React.useLayoutEffect(
-        function disableAccessibilityTreeOutside() {
-            if (!isOpen || !portalRef.current) {
-                return
-            }
-
-            return hideOthers(portalRef.current)
-        },
-        [isOpen],
-    )
-
-    if (!isOpen) {
-        return null
-    }
-
     return (
-        <Portal
-            // @ts-expect-error `portalRef` doesn't accept MutableRefObject initialized as null
-            portalRef={portalRef}
+        <DialogOverlay
+            isOpen={isOpen}
+            onDismiss={onDismiss}
+            dangerouslyBypassFocusLock // We're setting up our own focus lock below
+            className={classNames(styles.overlay, styles[height], styles[width])}
+            data-testid="modal-overlay"
         >
-            <Box
-                data-testid="modal-overlay"
-                data-overlay
-                className={classNames(styles.overlay, styles[height], styles[width])}
-                onClick={handleBackdropClick}
-                ref={backdropRef}
-            >
-                <FocusLock autoFocus={autoFocus} whiteList={isNotInternalFrame} returnFocus={true}>
-                    <Dialog
-                        {...props}
-                        ref={dialogRef}
-                        as={Box}
-                        state={state}
-                        hideOnEscape
-                        preventBodyScroll
-                        borderRadius="full"
-                        background="default"
-                        display="flex"
-                        flexDirection="column"
-                        overflow="hidden"
-                        height={height === 'expand' ? 'full' : undefined}
-                        flexGrow={height === 'expand' ? 1 : 0}
-                        className={[exceptionallySetClassName, styles.container]}
-                        // Disable focus lock as we set up our own using ReactFocusLock
-                        modal={false}
-                        autoFocus={false}
-                        autoFocusOnShow={false}
-                        autoFocusOnHide={false}
-                        // Disable portal and backdrop as we control their markup
-                        portal={false}
-                        backdrop={false}
-                        hideOnInteractOutside={false}
-                    >
-                        <ModalContext.Provider value={contextValue}>
-                            {children}
-                        </ModalContext.Provider>
-                    </Dialog>
-                </FocusLock>
-            </Box>
-        </Portal>
+            <FocusLock autoFocus={autoFocus} whiteList={isNotInternalFrame} returnFocus={true}>
+                <DialogContent
+                    {...props}
+                    as={Box}
+                    borderRadius="full"
+                    background="default"
+                    display="flex"
+                    flexDirection="column"
+                    overflow="hidden"
+                    height={height === 'expand' ? 'full' : undefined}
+                    flexGrow={height === 'expand' ? 1 : 0}
+                    className={[exceptionallySetClassName, styles.container]}
+                >
+                    <ModalContext.Provider value={contextValue}>{children}</ModalContext.Provider>
+                </DialogContent>
+            </FocusLock>
+        </DialogOverlay>
     )
 }
 
@@ -213,7 +147,7 @@ export function Modal({
 // ModalCloseButton
 //
 
-export type ModalCloseButtonProps = Omit<
+export type DeprecatedModalCloseButtonProps = Omit<
     ButtonProps,
     | 'type'
     | 'children'
@@ -237,9 +171,9 @@ export type ModalCloseButtonProps = Omit<
  * The close button rendered by ModalHeader. Provided independently so that consumers can customize
  * the button's label.
  *
- * @see ModalHeader
+ * @see DeprecatedModalHeader
  */
-export function ModalCloseButton(props: ModalCloseButtonProps) {
+export function DeprecatedModalCloseButton(props: DeprecatedModalCloseButtonProps) {
     const { onDismiss } = React.useContext(ModalContext)
     const [includeInTabOrder, setIncludeInTabOrder] = React.useState(false)
     const [isMounted, setIsMounted] = React.useState(false)
@@ -270,14 +204,14 @@ export function ModalCloseButton(props: ModalCloseButtonProps) {
 // ModalHeader
 //
 
-export type ModalHeaderProps = DivProps & {
+export type DeprecatedModalHeaderProps = DivProps & {
     /**
      * The content of the header.
      */
     children: React.ReactNode
     /**
      * Allows to provide a custom button element, or to omit the close button if set to false.
-     * @see ModalCloseButton
+     * @see DeprecatedModalCloseButton
      */
     button?: React.ReactNode | boolean
     /**
@@ -294,17 +228,17 @@ export type ModalHeaderProps = DivProps & {
 /**
  * Renders a standard modal header area with an optional close button.
  *
- * @see Modal
- * @see ModalFooter
- * @see ModalBody
+ * @see DeprecatedModal
+ * @see DeprecatedModalFooter
+ * @see DeprecatedModalBody
  */
-export function ModalHeader({
+export function DeprecatedModalHeader({
     children,
     button = true,
     withDivider = false,
     exceptionallySetClassName,
     ...props
-}: ModalHeaderProps) {
+}: DeprecatedModalHeaderProps) {
     return (
         <>
             <Box
@@ -326,7 +260,10 @@ export function ModalHeader({
                             data-testid="button-container"
                         >
                             {typeof button === 'boolean' ? (
-                                <ModalCloseButton aria-label="Close modal" autoFocus={false} />
+                                <DeprecatedModalCloseButton
+                                    aria-label="Close modal"
+                                    autoFocus={false}
+                                />
                             ) : (
                                 button
                             )}
@@ -343,7 +280,7 @@ export function ModalHeader({
 // ModalBody
 //
 
-export type ModalBodyProps = DivProps & {
+export type DeprecatedModalBodyProps = DivProps & {
     /**
      * The content of the modal body.
      */
@@ -362,11 +299,15 @@ export type ModalBodyProps = DivProps & {
  * setting or the size of the content. The body content also automatically scrolls when it's too
  * large to fit the available space.
  *
- * @see Modal
- * @see ModalHeader
- * @see ModalFooter
+ * @see DeprecatedModal
+ * @see DeprecatedModalHeader
+ * @see DeprecatedModalFooter
  */
-export function ModalBody({ exceptionallySetClassName, children, ...props }: ModalBodyProps) {
+export function DeprecatedModalBody({
+    exceptionallySetClassName,
+    children,
+    ...props
+}: DeprecatedModalBodyProps) {
     const { height } = React.useContext(ModalContext)
     return (
         <Box
@@ -387,7 +328,7 @@ export function ModalBody({ exceptionallySetClassName, children, ...props }: Mod
 // ModalFooter
 //
 
-export type ModalFooterProps = DivProps & {
+export type DeprecatedModalFooterProps = DivProps & {
     /**
      * The contant of the modal footer.
      */
@@ -406,15 +347,15 @@ export type ModalFooterProps = DivProps & {
 /**
  * Renders a standard modal footer area.
  *
- * @see Modal
- * @see ModalHeader
- * @see ModalBody
+ * @see DeprecatedModal
+ * @see DeprecatedModalHeader
+ * @see DeprecatedModalBody
  */
-export function ModalFooter({
+export function DeprecatedModalFooter({
     exceptionallySetClassName,
     withDivider = false,
     ...props
-}: ModalFooterProps) {
+}: DeprecatedModalFooterProps) {
     return (
         <>
             {withDivider ? <Divider /> : null}
@@ -427,18 +368,18 @@ export function ModalFooter({
 // ModalActions
 //
 
-export type ModalActionsProps = ModalFooterProps
+export type DeprecatedModalActionsProps = DeprecatedModalFooterProps
 
 /**
  * A specific version of the ModalFooter, tailored to showing an inline list of actions (buttons).
- * @see ModalFooter
+ * @see DeprecatedModalFooter
  */
-export function ModalActions({ children, ...props }: ModalActionsProps) {
+export function DeprecatedModalActions({ children, ...props }: DeprecatedModalActionsProps) {
     return (
-        <ModalFooter {...props}>
+        <DeprecatedModalFooter {...props}>
             <Inline align="right" space="large">
                 {children}
             </Inline>
-        </ModalFooter>
+        </DeprecatedModalFooter>
     )
 }
