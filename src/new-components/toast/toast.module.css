@@ -1,0 +1,8 @@
+.container {
+    pointer-events: all;
+    gap: var(--reactist-spacing-medium);
+}
+
+.icon {
+    color: var(--reactist-content-primary);
+}

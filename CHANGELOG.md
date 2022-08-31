@@ -23,6 +23,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 -   [Breaking] The `Notification` component is renamed as `DeprecatedNotification`.
 -   [Feat] The `Box` component now supports a new `background="toast"`.
+-   [Feat] A new `Toast` component.
+-   [Feat] A new notifications feature to trigger notification toasts, and render them stacked and floating in the viewport. It consists of a `NotificationsProvider` and a `useNotifications` hook.
 
 # v15.0.0
 
