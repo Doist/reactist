@@ -1,9 +1,9 @@
 import * as React from 'react'
 import classNames from 'classnames'
 import CloseIcon from '../icons/CloseIcon.svg'
-import './notification.less'
+import './deprecated-notification.less'
 
-type NotificationProps = {
+type DeprecatedNotificationProps = {
     id: string
     icon?: React.ReactNode
     title?: React.ReactNode
@@ -18,7 +18,7 @@ type NotificationProps = {
     'aria-live'?: 'off' | 'polite' | 'assertive'
 } & Omit<JSX.IntrinsicElements['div'], 'aria-live'>
 
-function Notification({
+function DeprecatedNotification({
     id,
     icon,
     title,
@@ -31,7 +31,7 @@ function Notification({
     className,
     'aria-live': ariaLive = 'polite',
     ...rest
-}: NotificationProps) {
+}: DeprecatedNotificationProps) {
     const titleId = title ? `${id}-title` : null
     const titleIdAttribute = titleId ? { id: titleId } : null
     const subtitleId = subtitle ? `${id}-subtitle` : null
@@ -104,4 +104,4 @@ function Notification({
     )
 }
 
-export { Notification }
+export { DeprecatedNotification }

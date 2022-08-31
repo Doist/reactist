@@ -21,6 +21,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 -   [Fix] `TextArea` now properly support receiving an explicit alternative aria-describedby attribute
 -   [Fix] TextArea is changed to only allow resizing vertically. This ensures that the consumer of the component can control the width via the maxWidth prop.
 
+-   [Breaking] The `Notification` component is renamed as `DeprecatedNotification`.
+
 # v15.0.0
 
 -   [Breaking] The `Modal` has its internals replaced with Ariakit. This should not introduce any user-facing changes, but the old modal will be available as `DeprecatedModal` to help with the transition.
