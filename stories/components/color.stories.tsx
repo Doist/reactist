@@ -27,7 +27,7 @@ const contentColors = [
     '--reactist-content-primary',
     '--reactist-content-secondary',
     '--reactist-content-tertiary',
-    '--reactist-content-light-on-dark',
+    '--reactist-content-toast',
 ]
 
 function Swatch({ color }: { color: string }) {

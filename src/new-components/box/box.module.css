@@ -350,6 +350,16 @@ pre.box {
 .bg-selected {
     background-color: var(--reactist-bg-selected);
 }
+.bg-toast {
+    --reactist-content-primary: var(--reactist-content-toast);
+    --reactist-actionable-tertiary-idle-tint: var(--reactist-toast-actionable-primary-tint);
+    --reactist-actionable-tertiary-hover-tint: var(--reactist-toast-actionable-primary-tint);
+    --reactist-actionable-tertiary-hover-fill: var(--reactist-toast-actionable-hover-fill);
+    --reactist-actionable-quaternary-idle-tint: var(--reactist-toast-actionable-secondary-tint);
+    --reactist-actionable-quaternary-hover-tint: var(--reactist-toast-actionable-secondary-tint);
+    --reactist-actionable-quaternary-hover-fill: var(--reactist-toast-actionable-hover-fill);
+    background-color: var(--reactist-bg-toast);
+}
 
 /* border radius */
 .borderRadius-standard {

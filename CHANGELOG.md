@@ -22,6 +22,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 -   [Fix] TextArea is changed to only allow resizing vertically. This ensures that the consumer of the component can control the width via the maxWidth prop.
 
 -   [Breaking] The `Notification` component is renamed as `DeprecatedNotification`.
+-   [Feat] The `Box` component now supports a new `background="toast"`.
 
 # v15.0.0
 
