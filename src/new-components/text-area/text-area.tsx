@@ -35,7 +35,7 @@ function TextArea({
             hidden={hidden}
             aria-describedby={ariaDescribedBy}
             className={[
-                styles.container,
+                styles.textAreaContainer,
                 tone === 'error' ? styles.error : null,
                 variant === 'bordered' ? styles.bordered : null,
             ]}

@@ -7,6 +7,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 -   [Feat] Fields without label show no spacing above the field
 -   [Fix] `TextArea` can now be hidden
 -   [Fix] `TextArea` now properly support receiving an explicit alternative aria-describedby attribute
+-   [Fix] TextArea is changed to only allow resizing vertically. This ensures that the consumer of the component can control the width via the maxWidth prop.
 
 # v15.0.0
 

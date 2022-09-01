@@ -1,35 +1,33 @@
-.container {
-    width: min-content;
-}
-
-.container textarea {
+.textAreaContainer textarea {
     outline: none; /* we're taking care of the outline styles ourselves */
     border: none;
     padding: 0;
     box-sizing: border-box;
     font-family: var(--reactist-font-family);
+    width: 100%;
+    resize: vertical;
 }
 
-.container:not(.bordered) textarea {
+.textAreaContainer:not(.bordered) textarea {
     border-radius: var(--reactist-border-radius-small);
     padding: var(--reactist-spacing-small);
 }
 
-.container.bordered {
+.textAreaContainer.bordered {
     border-radius: var(--reactist-border-radius-large);
 }
 
-.container:not(.bordered) textarea,
-.container.bordered {
+.textAreaContainer:not(.bordered) textarea,
+.textAreaContainer.bordered {
     border: 1px solid var(--reactist-divider-secondary);
 }
 
-.container:not(.bordered) textarea:focus,
-.container.bordered:focus-within {
+.textAreaContainer:not(.bordered) textarea:focus,
+.textAreaContainer.bordered:focus-within {
     border-color: var(--reactist-divider-primary);
 }
 
-.container.error:not(.bordered) textarea,
-.container.bordered.error {
+.textAreaContainer.error:not(.bordered) textarea,
+.textAreaContainer.bordered.error {
     border-color: var(--reactist-alert-tone-critical-border) !important;
 }
