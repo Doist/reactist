@@ -2,8 +2,10 @@ import * as React from 'react'
 import { selectWithNone, PartialProps } from '../storybook-helper'
 import { SelectField } from './'
 
-import type { BoxMaxWidth } from '../box'
 import { Stack } from '../stack'
+import { Text } from '../text'
+
+import type { BoxMaxWidth } from '../box'
 
 export default {
     title: 'Design system/SelectField',
@@ -132,6 +134,32 @@ export function MessageToneStory() {
                     –
                 </option>
             </SelectField>
+        </Stack>
+    )
+}
+
+export function WithoutLabelStory() {
+    return (
+        <Stack space="xlarge" dividers="secondary" maxWidth="small">
+            <Stack as="label" htmlFor="custom-textarea" space="small">
+                <Text size="subtitle">Custom label is up here</Text>
+                <Text size="caption" tone="secondary" aria-hidden>
+                    <em>(click me to focus the select element)</em>
+                </Text>
+            </Stack>
+            <SelectField label={null} id="custom-textarea" aria-describedby="custom-description">
+                <option value="none" disabled>
+                    –
+                </option>
+            </SelectField>
+            <Stack space="small" id="custom-description">
+                <Text size="body">Custom description is down here</Text>
+                <Text size="caption" tone="secondary" aria-hidden>
+                    <em>
+                        (inspect the select element accessibility properties if you are curious)
+                    </em>
+                </Text>
+            </Stack>
         </Stack>
     )
 }

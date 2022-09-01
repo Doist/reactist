@@ -100,9 +100,10 @@ describe('TextField', () => {
     })
 
     it('does not use the auxiliary label for semantic labelling purposes', () => {
-        render(<TextField label="VAT ID" auxiliaryLabel={<a href="/help">Whatʼs this?</a>} />)
-        expect(screen.getByRole('textbox', { name: 'VAT ID' })).toHaveAccessibleName('VAT ID')
-        expect(screen.getByRole('textbox', { name: 'VAT ID' })).not.toHaveAccessibleDescription()
+        render(<TextField label="VAT ID" auxiliaryLabel={<a href="/help">What is this?</a>} />)
+        expect(screen.queryByRole('textbox', { name: /what is this/i })).not.toBeInTheDocument()
+        expect(screen.getByRole('textbox')).toHaveAccessibleName('VAT ID')
+        expect(screen.getByRole('textbox')).not.toHaveAccessibleDescription()
     })
 
     it('can have a placeholder text', () => {

@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { selectWithNone, PartialProps } from '../storybook-helper'
+
+import { Stack } from '../stack'
+import { Text } from '../text'
 import { TextField } from './'
 
 import type { BoxMaxWidth } from '../box'
-import { Stack } from '../stack'
 
 export default {
     title: 'Design system/TextField',
@@ -109,6 +111,31 @@ export function MessageToneStory() {
                 tone="neutral"
                 maxWidth="small"
             />
+        </Stack>
+    )
+}
+
+export function WithoutLabelStory() {
+    return (
+        <Stack space="xlarge" dividers="secondary" maxWidth="small">
+            <Stack as="label" htmlFor="custom-textarea" space="small">
+                <Text size="subtitle">Custom label is up here</Text>
+                <Text size="caption" tone="secondary" aria-hidden>
+                    <em>(click me to focus the input element)</em>
+                </Text>
+            </Stack>
+            <TextField
+                label={null}
+                id="custom-textarea"
+                aria-describedby="custom-description"
+                placeholder="Text field without a built-in label"
+            />
+            <Stack space="small" id="custom-description">
+                <Text size="body">Custom description is down here</Text>
+                <Text size="caption" tone="secondary" aria-hidden>
+                    <em>(inspect the input element accessibility properties if you are curious)</em>
+                </Text>
+            </Stack>
         </Stack>
     )
 }

@@ -18,6 +18,8 @@ function TextArea({
     message,
     tone,
     maxWidth,
+    hidden,
+    'aria-describedby': ariaDescribedBy,
     ...props
 }: TextAreaProps) {
     return (
@@ -30,6 +32,8 @@ function TextArea({
             hint={hint}
             message={message}
             tone={tone}
+            hidden={hidden}
+            aria-describedby={ariaDescribedBy}
             className={[
                 styles.container,
                 tone === 'error' ? styles.error : null,

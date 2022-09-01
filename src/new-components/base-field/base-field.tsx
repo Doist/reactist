@@ -92,10 +92,15 @@ type BaseFieldProps = WithEnhancedClassName &
         /**
          * The main label for this field element.
          *
+         * This prop is not optional. Consumers of field components must be explicit about not
+         * wanting a label by passing `label=""` or `label={null}`. In those situations, consumers
+         * should make sure that fields are properly labelled semantically by other means (e.g using
+         * `aria-labelledby`, or rendering a `<label />` element referencing the field by id).
+         *
          * Avoid providing interactive elements in the label. Prefer `auxiliaryLabel` for that.
          *
-         * @see secondaryLabel
-         * @see auxiliaryLabel
+         * @see BaseFieldProps['secondaryLabel']
+         * @see BaseFieldProps['auxiliaryLabel']
          */
         label: React.ReactNode
 
@@ -106,8 +111,8 @@ type BaseFieldProps = WithEnhancedClassName &
          *
          * Avoid providing interactive elements in the label. Prefer `auxiliaryLabel` for that.
          *
-         * @see label
-         * @see auxiliaryLabel
+         * @see BaseFieldProps['label']
+         * @see BaseFieldProps['auxiliaryLabel']
          */
         secondaryLabel?: React.ReactNode
 
@@ -117,8 +122,8 @@ type BaseFieldProps = WithEnhancedClassName &
          * This extra element is not included in the accessible name of the field element. Its only
          * purpose is either visual, or functional (if you include interactive elements in it).
          *
-         * @see label
-         * @see secondaryLabel
+         * @see BaseFieldProps['label']
+         * @see BaseFieldProps['secondaryLabel']
          */
         auxiliaryLabel?: React.ReactNode
 
@@ -134,7 +139,7 @@ type BaseFieldProps = WithEnhancedClassName &
          * In the future, when `aria-errormessage` gets better user agent support, we should use it
          * to associate the filed with a message when tone is `"error"`.
          *
-         * @see tone
+         * @see BaseFieldProps['tone']
          * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage
          * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-invalid
          */
@@ -149,8 +154,8 @@ type BaseFieldProps = WithEnhancedClassName &
          * When the tone is `"loading"`, it is recommended that you also disable the field. However,
          * this is not enforced by the component. It is only a recommendation.
          *
-         * @see message
-         * @see hint
+         * @see BaseFieldProps['message']
+         * @see BaseFieldProps['hint']
          */
         tone?: FieldTone
 
@@ -223,23 +228,32 @@ function BaseField({
                 ]}
                 maxWidth={maxWidth}
             >
-                <Box as="span" display="flex" justifyContent="spaceBetween" alignItems="flexEnd">
-                    <Text
-                        size={variant === 'bordered' ? 'caption' : 'body'}
-                        as="label"
-                        htmlFor={id}
+                {label || secondaryLabel || auxiliaryLabel ? (
+                    <Box
+                        as="span"
+                        display="flex"
+                        justifyContent="spaceBetween"
+                        alignItems="flexEnd"
                     >
-                        {label ? <span className={styles.primaryLabel}>{label}</span> : null}
-                        {secondaryLabel ? (
-                            <span className={styles.secondaryLabel}>&nbsp;({secondaryLabel})</span>
+                        <Text
+                            size={variant === 'bordered' ? 'caption' : 'body'}
+                            as="label"
+                            htmlFor={id}
+                        >
+                            {label ? <span className={styles.primaryLabel}>{label}</span> : null}
+                            {secondaryLabel ? (
+                                <span className={styles.secondaryLabel}>
+                                    &nbsp;({secondaryLabel})
+                                </span>
+                            ) : null}
+                        </Text>
+                        {auxiliaryLabel ? (
+                            <Box className={styles.auxiliaryLabel} paddingLeft="small">
+                                {auxiliaryLabel}
+                            </Box>
                         ) : null}
-                    </Text>
-                    {auxiliaryLabel ? (
-                        <Box className={styles.auxiliaryLabel} paddingLeft="small">
-                            {auxiliaryLabel}
-                        </Box>
-                    ) : null}
-                </Box>
+                    </Box>
+                ) : null}
                 {children(childrenProps)}
             </Box>
             {message ? (

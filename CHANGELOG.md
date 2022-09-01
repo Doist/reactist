@@ -4,6 +4,10 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+-   [Feat] Fields without label show no spacing above the field
+-   [Fix] `TextArea` can now be hidden
+-   [Fix] `TextArea` now properly support receiving an explicit alternative aria-describedby attribute
+
 # v15.0.0
 
 -   [Breaking] The `Modal` has its internals replaced with Ariakit. This should not introduce any user-facing changes, but the old modal will be available as `DeprecatedModal` to help with the transition.
