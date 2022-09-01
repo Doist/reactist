@@ -3,8 +3,9 @@ import { action } from '@storybook/addon-actions'
 import { Box } from '../box'
 import { Button } from '../button'
 import { Stack } from '../stack'
+import { SwitchField } from '../switch-field'
 
-import { NotificationsProvider, useNotifications } from './notifications'
+import { Notification, NotificationsProvider, useNotifications } from './notifications'
 
 export default {
     title: 'Design system/Notifications',
@@ -41,9 +42,10 @@ function getRandom<T>(list: Array<T>): T {
 export function NotificationsStory() {
     const showNotification = useNotifications()
     const count = React.useRef(0)
+    const [showSticky, setShowSticky] = React.useState(false)
     return (
         <Box padding="large">
-            <Stack space="large">
+            <Stack space="xxlarge">
                 <Button
                     variant="primary"
                     onClick={() =>
@@ -67,7 +69,26 @@ export function NotificationsStory() {
                 >
                     Show notification with action
                 </Button>
+                <SwitchField
+                    label="Show sticky notification?"
+                    checked={showSticky}
+                    onChange={(event) => setShowSticky(event.target.checked)}
+                    hint={
+                        <>
+                            Using the <code>&lt;Notification/&gt;</code> component, you can achieve
+                            having a notification that remains in view, and you control when it goes
+                            away.
+                        </>
+                    }
+                />
             </Stack>
+            {showSticky ? (
+                <Notification
+                    message="This is a sticky notification"
+                    showDismissButton={false}
+                    autoDismissDelay={false}
+                />
+            ) : null}
         </Box>
     )
 }

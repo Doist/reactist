@@ -4,6 +4,7 @@ import { act, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TestIcon } from '../test-helpers'
 import {
+    Notification,
     NotificationProps,
     NotificationsProvider,
     NotificationsProviderProps,
@@ -52,7 +53,7 @@ function renderTestCase(providerProps?: Omit<NotificationsProviderProps, 'childr
     }
 }
 
-describe('Notification', () => {
+describe('useNotification', () => {
     it('renders a semantic alert with the given message', () => {
         const { showNotification } = renderTestCase()
         showNotification({ message: 'Project has been published' })
@@ -151,6 +152,12 @@ describe('Notification', () => {
             )
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         })
+
+        it('can be hidden', () => {
+            const { showNotification } = renderTestCase()
+            showNotification({ showDismissButton: false })
+            expect(within(screen.getByRole('alert')).queryByRole('button')).not.toBeInTheDocument()
+        })
     })
 
     describe('autoDismissDelay', () => {
@@ -233,6 +240,17 @@ describe('Notification', () => {
             })
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         })
+
+        it('can be disabled', () => {
+            const { showNotification } = renderTestCase()
+            showNotification({ autoDismissDelay: false })
+            jest.advanceTimersByTime(9500)
+            expect(screen.getByRole('alert')).toBeInTheDocument()
+            jest.advanceTimersByTime(500)
+            expect(screen.getByRole('alert')).toBeInTheDocument()
+            jest.advanceTimersByTime(5000)
+            expect(screen.getByRole('alert')).toBeInTheDocument()
+        })
     })
 
     describe('Accessibility', () => {
@@ -260,5 +278,38 @@ describe('Notification', () => {
 
             expect(await axe(container)).toHaveNoViolations()
         })
+    })
+})
+
+describe('Notification', () => {
+    it('renders a notification', () => {
+        render(
+            <NotificationsProvider>
+                <Notification message="Link copied to clipboard" />
+            </NotificationsProvider>,
+        )
+        expect(screen.getByRole('alert')).toHaveTextContent('Link copied to clipboard')
+    })
+
+    it('is removed when unmounted', () => {
+        function TestCase() {
+            const [show, setShow] = React.useState(false)
+            return (
+                <>
+                    <button onClick={() => setShow((s) => !s)}>Toggle</button>
+                    {show ? <Notification message="Notification that can be toggled" /> : null}
+                </>
+            )
+        }
+        render(
+            <NotificationsProvider>
+                <TestCase />
+            </NotificationsProvider>,
+        )
+        expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+        userEvent.click(screen.getByRole('button', { name: 'Toggle' }))
+        expect(screen.getByRole('alert')).toHaveTextContent('Notification that can be toggled')
+        userEvent.click(screen.getByRole('button', { name: 'Toggle' }))
+        expect(screen.queryByRole('alert')).not.toBeInTheDocument()
     })
 })
