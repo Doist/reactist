@@ -32,6 +32,10 @@ module.exports = {
         return {
             ...config,
             resolve: resolveConfig,
+            // Storybook does not compile on WSL2 without this
+            node: {
+                fs: 'empty',
+            },
             module: {
                 ...config.module,
                 rules: [
