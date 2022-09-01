@@ -54,9 +54,11 @@ type BoxMaxMinWidth = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
 type BoxMinWidth = 0 | BoxMaxMinWidth
 type BoxMaxWidth = BoxMaxMinWidth | 'full'
 type BoxWidth = 0 | BoxMaxMinWidth | 'full' | 'auto' | 'maxContent' | 'minContent' | 'fitContent'
+type BoxBackground = 'default' | 'aside' | 'highlight' | 'selected' | 'toast'
+type BoxBorderRadius = 'standard' | 'none' | 'full'
 
 interface BorderProps {
-    borderRadius?: 'standard' | 'none' | 'full'
+    borderRadius?: BoxBorderRadius
     border?: DividerWeight
 }
 
@@ -64,7 +66,7 @@ interface ReusableBoxProps extends BorderProps, BoxPaddingProps {
     minWidth?: BoxMinWidth
     maxWidth?: BoxMaxWidth
     width?: BoxWidth
-    background?: 'default' | 'aside' | 'highlight' | 'selected' | 'toast'
+    background?: BoxBackground
     flexGrow?: 0 | 1
     flexShrink?: 0
 }
@@ -205,6 +207,8 @@ export type {
     BoxJustifyContent,
     BoxOverflow,
     BoxTextAlign,
+    BoxBackground,
+    BoxBorderRadius,
 }
 
 export { Box }

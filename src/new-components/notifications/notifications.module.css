@@ -6,5 +6,4 @@
 
 .notification {
     pointer-events: all;
-    gap: var(--reactist-spacing-medium);
 }

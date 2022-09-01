@@ -11,7 +11,7 @@ import {
     selectSize,
 } from '../storybook-helper'
 
-import { Box } from './box'
+import { Box, BoxBorderRadius } from './box'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
 import { Text } from '../text'
@@ -26,6 +26,7 @@ import type {
     BoxMarginProps,
     BoxPaddingProps,
     BoxTextAlign,
+    BoxBackground,
 } from './'
 import type { Space, SpaceWithNegatives } from '../common-types'
 
@@ -37,10 +38,12 @@ export default {
     },
 }
 
-export function InteractivePropsStory(args: PartialProps<typeof Box>) {
+export function InteractivePropsStory({ children, ...props }: PartialProps<typeof Box>) {
     return (
-        <Wrapper border={true}>
-            <Box background="selected" {...args} />
+        <Wrapper>
+            <Box {...props}>
+                <Text>{children}</Text>
+            </Box>
         </Wrapper>
     )
 }
@@ -62,6 +65,11 @@ InteractivePropsStory.argTypes = {
         'none',
     ),
     textAlign: selectWithNone<BoxTextAlign>(['start', 'center', 'end', 'justify'], 'none'),
+    background: selectWithNone<BoxBackground>(
+        ['default', 'aside', 'highlight', 'selected', 'toast'],
+        'none',
+    ),
+    borderRadius: select<BoxBorderRadius>(['standard', 'none', 'full'], 'none'),
     ...reusableBoxProps(),
 }
 

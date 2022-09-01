@@ -238,7 +238,12 @@ function InternalNotification({
     )
 
     return (
-        <Box width="fitContent" onMouseEnter={stopTimeout} onMouseLeave={startTimeout}>
+        <Box
+            width="fitContent"
+            onMouseEnter={stopTimeout}
+            onMouseLeave={startTimeout}
+            className={styles.notification}
+        >
             <Toast
                 message={message}
                 description={description}
