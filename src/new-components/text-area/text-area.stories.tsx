@@ -77,7 +77,7 @@ InteractivePropsStory.argTypes = {
         defaultValue: 'Tell us something about yourself. Don’t be shy.',
     },
     maxWidth: selectWithNone<BoxMaxWidth>(
-        ['xsmall', 'small', 'medium', 'large', 'xlarge'],
+        ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
         'small',
     ),
 }
