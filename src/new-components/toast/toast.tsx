@@ -42,8 +42,20 @@ type ToastProps = {
 
     /**
      * What to render in the action slot. Usually a button or link.
+     *
+     * You can also pass an object that containst the action label, and a function that performs the
+     * action. This is used by the toast component to render a button for you.
+     *
+     * In general, you should prefer the action object most of the time. But it is possible to pass
+     * a React element instead, if you need more control over what to render. For instance, you may
+     * want to render a link instead of a button.
+     *
+     * Keep in mind, though, that the default button rendered uses `variant="tertiary"` and
+     * `size="small"`. In most cases you should stick to the variants `tertiary` or `primary`, which
+     * are the ones that look better in the toast's dark background. And in all cases you should use
+     * size `small`.
      */
-    action?: React.ReactNode | ToastActionObject
+    action?: React.ReactElement | ToastActionObject
 }
 
 /**
@@ -105,8 +117,13 @@ function Toast({
             </Box>
 
             {action ? (
-                <Box>
-                    <ToastActionButton action={action} />
+                <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    className={styles.action}
+                >
+                    <ToastActionSlot action={action} />
                 </Box>
             ) : null}
 
@@ -136,7 +153,7 @@ function isActionObject(action: ToastProps['action']): action is ToastActionObje
     )
 }
 
-function ToastActionButton({ action }: Pick<ToastProps, 'action'>) {
+function ToastActionSlot({ action }: Pick<ToastProps, 'action'>) {
     if (React.isValidElement(action)) {
         return action
     }
