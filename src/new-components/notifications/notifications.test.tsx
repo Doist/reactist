@@ -1,8 +1,9 @@
 import React from 'react'
 import { axe } from 'jest-axe'
-import { act, render, screen, within } from '@testing-library/react'
+import { act, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TestIcon } from '../test-helpers'
+import { ANIMATION_TIMEOUT } from './notifications-animation'
 import {
     Notification,
     NotificationProps,
@@ -71,7 +72,7 @@ describe('useNotification', () => {
         )
     })
 
-    it('allows to show more than one notification at once, and dismiss them individually', () => {
+    it('allows to show more than one notification at once, and dismiss them individually', async () => {
         const { showNotification } = renderTestCase()
 
         showNotification({ message: 'Your comment was sent' })
@@ -88,10 +89,12 @@ describe('useNotification', () => {
             within(getNotification('Task was created')).getByRole('button', { name: 'Close' }),
         )
 
-        expect(screen.getAllByRole('alert').map((node) => node.textContent)).toEqual([
-            'Your comment was sent',
-            'The project could not be deleted',
-        ])
+        await waitFor(() => {
+            expect(screen.getAllByRole('alert').map((node) => node.textContent)).toEqual([
+                'Your comment was sent',
+                'The project could not be deleted',
+            ])
+        })
     })
 
     it('allows to render an action button that performs the action when clicked', () => {
@@ -144,13 +147,15 @@ describe('useNotification', () => {
             ).toBeInTheDocument()
         })
 
-        it('removes the notification from view when clicked', () => {
+        it('removes the notification from view when clicked', async () => {
             const { showNotification } = renderTestCase()
             showNotification()
             userEvent.click(
                 within(screen.getByRole('alert')).getByRole('button', { name: 'Close' }),
             )
-            expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+            await waitFor(() => {
+                expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+            })
         })
 
         it('can be hidden', () => {
@@ -175,7 +180,7 @@ describe('useNotification', () => {
             jest.advanceTimersByTime(9500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
             act(() => {
-                jest.advanceTimersByTime(500)
+                jest.advanceTimersByTime(500 + ANIMATION_TIMEOUT)
             })
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         })
@@ -186,7 +191,7 @@ describe('useNotification', () => {
             jest.advanceTimersByTime(4500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
             act(() => {
-                jest.advanceTimersByTime(500)
+                jest.advanceTimersByTime(500 + ANIMATION_TIMEOUT)
             })
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         })
@@ -201,7 +206,7 @@ describe('useNotification', () => {
             jest.advanceTimersByTime(500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
             act(() => {
-                jest.advanceTimersByTime(5000)
+                jest.advanceTimersByTime(5000 + ANIMATION_TIMEOUT)
             })
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
 
@@ -210,7 +215,7 @@ describe('useNotification', () => {
             jest.advanceTimersByTime(9500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
             act(() => {
-                jest.advanceTimersByTime(500)
+                jest.advanceTimersByTime(500 + ANIMATION_TIMEOUT)
             })
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         })
@@ -236,7 +241,7 @@ describe('useNotification', () => {
             jest.advanceTimersByTime(9500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
             act(() => {
-                jest.advanceTimersByTime(500)
+                jest.advanceTimersByTime(500 + ANIMATION_TIMEOUT)
             })
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         })
@@ -291,7 +296,7 @@ describe('Notification', () => {
         expect(screen.getByRole('alert')).toHaveTextContent('Link copied to clipboard')
     })
 
-    it('is removed when unmounted', () => {
+    it('is removed when unmounted', async () => {
         function TestCase() {
             const [show, setShow] = React.useState(false)
             return (
@@ -310,6 +315,8 @@ describe('Notification', () => {
         userEvent.click(screen.getByRole('button', { name: 'Toggle' }))
         expect(screen.getByRole('alert')).toHaveTextContent('Notification that can be toggled')
         userEvent.click(screen.getByRole('button', { name: 'Toggle' }))
-        expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+        await waitFor(() => {
+            expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+        })
     })
 })

@@ -72,17 +72,13 @@ type ToastProps = {
  *
  * @see useNotifications
  */
-function Toast({
-    message,
-    description,
-    icon,
-    action,
-    onDismiss,
-    dismissLabel = 'Close',
-    ...props
-}: ToastProps) {
+const Toast = React.forwardRef<HTMLDivElement, ToastProps>(function Toast(
+    { message, description, icon, action, onDismiss, dismissLabel = 'Close', ...props },
+    ref,
+) {
     return (
         <Box
+            ref={ref}
             role="alert"
             aria-live="polite"
             borderRadius="full"
@@ -132,7 +128,7 @@ function Toast({
             ) : null}
         </Box>
     )
-}
+})
 
 function isActionObject(action: ToastProps['action']): action is ToastActionObject {
     return (

@@ -9,6 +9,7 @@ import { Toast, ToastProps } from '../toast'
 import styles from './notifications.module.css'
 
 import type { Space } from '../common-types'
+import { useNotificationsAnimation } from './notifications-animation'
 
 /**
  * The props needed to fire up a new notification
@@ -61,19 +62,93 @@ type NotificationProps = {
     showDismissButton?: boolean
 }
 
+//
+// InternalNotification component and its props
+//
+
 type InternalNotificationProps = Omit<NotificationProps, 'autoDismissDelay' | 'dismissLabel'> &
     Required<Pick<NotificationProps, 'autoDismissDelay' | 'dismissLabel'>> & {
         notificationId: string
+        onDismiss: (notificationId: string) => void
     }
 
-type NotificationsList = readonly InternalNotificationProps[]
+/** @private */
+const InternalNotification = React.forwardRef<HTMLDivElement, InternalNotificationProps>(
+    function InternalNotification(
+        {
+            message,
+            description,
+            icon,
+            action,
+            autoDismissDelay,
+            dismissLabel,
+            showDismissButton = true,
+            notificationId,
+            onDismiss,
+        },
+        ref,
+    ) {
+        const [timeoutRunning, setTimeoutRunning] = React.useState(Boolean(autoDismissDelay))
+        const timeoutRef = React.useRef<number | undefined>()
 
-type NotificationActions = {
-    showNotification: (props: NotificationProps) => () => void
-    dismissNotification: (notificationId: string) => void
-}
+        const startTimeout = React.useCallback(function startTimeout() {
+            setTimeoutRunning(true)
+        }, [])
 
-type NotificationsConfig = {
+        const stopTimeout = React.useCallback(function stopTimeout() {
+            setTimeoutRunning(false)
+            clearTimeout(timeoutRef.current)
+            timeoutRef.current = undefined
+        }, [])
+
+        React.useEffect(
+            function setupAutoDismiss() {
+                if (!timeoutRunning || !autoDismissDelay) return
+                timeoutRef.current = window.setTimeout(() => {
+                    onDismiss(notificationId)
+                }, autoDismissDelay * 1000)
+                return stopTimeout
+            },
+            [autoDismissDelay, onDismiss, notificationId, stopTimeout, timeoutRunning],
+        )
+
+        return (
+            <Box
+                ref={ref}
+                width="fitContent"
+                onMouseEnter={stopTimeout}
+                onMouseLeave={startTimeout}
+                className={styles.notification}
+            >
+                <Toast
+                    message={message}
+                    description={description}
+                    icon={icon}
+                    action={action}
+                    onDismiss={showDismissButton ? () => onDismiss(notificationId) : undefined}
+                    dismissLabel={dismissLabel}
+                />
+            </Box>
+        )
+    },
+)
+
+//
+// Internal state and context
+//
+
+type InternalNotificationEntry = Omit<InternalNotificationProps, 'onDismiss'>
+type NotificationsList = readonly InternalNotificationEntry[]
+
+type ShowNotificationAction = (props: NotificationProps) => () => void
+const NotificationContext = React.createContext<ShowNotificationAction>(() => () => undefined)
+
+/**
+ * The props needed by the NotificationsProvider component.
+ *
+ * @see NotificationsProvider
+ */
+type NotificationsProviderProps = {
     /**
      * The default label to apply to notification dismiss buttons.
      *
@@ -85,7 +160,7 @@ type NotificationsConfig = {
      *
      * @default 'Close'
      */
-    defaultDismissLabel: string
+    defaultDismissLabel?: string
 
     /**
      * The default number of seconds after which the notification will be dismissed automatically.
@@ -96,17 +171,19 @@ type NotificationsConfig = {
      *
      * @default 10 (seconds)
      */
-    defaultAutoDismissDelay: number
-}
+    defaultAutoDismissDelay?: number
 
-const NotificationContext = React.createContext<NotificationActions>({
-    showNotification: () => () => undefined,
-    dismissNotification: () => undefined,
-})
-
-type NotificationsProviderProps = Partial<NotificationsConfig> & {
-    children: NonNullable<React.ReactNode>
+    /**
+     * The padding used to separate the notifications from the viewport borders.
+     *
+     * @default 'large'
+     */
     padding?: Space
+
+    /**
+     * The app wrapped by the provider.
+     */
+    children: NonNullable<React.ReactNode>
 }
 
 /**
@@ -123,21 +200,27 @@ function NotificationsProvider({
     defaultDismissLabel = 'Close',
 }: NotificationsProviderProps) {
     const [notifications, setNotifications] = React.useState<NotificationsList>([])
+    const { mappedRef, animateRemove } = useNotificationsAnimation()
 
-    const value: NotificationActions = React.useMemo(() => {
-        function dismissNotification(notificationId: string) {
-            setNotifications((list) => {
-                const index = list.findIndex((n) => n.notificationId === notificationId)
-                if (index < 0) return list
-                const copy = [...list]
-                copy.splice(index, 1)
-                return copy
+    const dismissNotification = React.useCallback(
+        function onDismiss(notificationId: string) {
+            animateRemove(notificationId, () => {
+                setNotifications((list) => {
+                    const index = list.findIndex((n) => n.notificationId === notificationId)
+                    if (index < 0) return list
+                    const copy = [...list]
+                    copy.splice(index, 1)
+                    return copy
+                })
             })
-        }
+        },
+        [animateRemove],
+    )
 
+    const showNotification = React.useCallback(
         function showNotification(props: ToastProps) {
             const notificationId = generateElementId('notification')
-            const newNotification: InternalNotificationProps = {
+            const newNotification: InternalNotificationEntry = {
                 autoDismissDelay: defaultAutoDismissDelay,
                 dismissLabel: defaultDismissLabel,
                 ...props,
@@ -145,47 +228,37 @@ function NotificationsProvider({
             }
             setNotifications((list) => [...list, newNotification])
             return () => dismissNotification(notificationId)
-        }
-
-        return { showNotification, dismissNotification }
-    }, [defaultDismissLabel, defaultAutoDismissDelay])
+        },
+        [defaultAutoDismissDelay, defaultDismissLabel, dismissNotification],
+    )
 
     return (
-        <NotificationContext.Provider value={value}>
+        <NotificationContext.Provider value={showNotification}>
             {children}
             <Portal>
-                <StackedNotificationsView notifications={notifications} padding={padding} />
+                {notifications.length === 0 ? null : (
+                    <Box
+                        className={styles.stackedView}
+                        position="fixed"
+                        width="full"
+                        paddingLeft={padding}
+                        paddingBottom={padding}
+                    >
+                        <Stack space="medium">
+                            {notifications.map(({ notificationId, ...props }) => (
+                                <InternalNotification
+                                    key={notificationId}
+                                    ref={mappedRef(notificationId)}
+                                    notificationId={notificationId}
+                                    onDismiss={dismissNotification}
+                                    {...props}
+                                />
+                            ))}
+                        </Stack>
+                    </Box>
+                )}
             </Portal>
         </NotificationContext.Provider>
-    )
-}
-
-/** @private */
-function StackedNotificationsView({
-    notifications,
-    padding,
-}: {
-    notifications: NotificationsList
-    padding: Space
-}) {
-    return notifications.length === 0 ? null : (
-        <Box
-            className={styles.stackedView}
-            position="fixed"
-            width="full"
-            paddingLeft={padding}
-            paddingBottom={padding}
-        >
-            <Stack space="medium">
-                {notifications.map(({ notificationId, ...props }) => (
-                    <InternalNotification
-                        key={notificationId}
-                        notificationId={notificationId}
-                        {...props}
-                    />
-                ))}
-            </Stack>
-        </Box>
     )
 }
 
@@ -197,65 +270,7 @@ function StackedNotificationsView({
  * @see NotificationsProvider
  */
 function useNotifications() {
-    return React.useContext(NotificationContext).showNotification
-}
-
-/** @private */
-function InternalNotification({
-    notificationId,
-    message,
-    description,
-    icon,
-    action,
-    autoDismissDelay,
-    dismissLabel,
-    showDismissButton = true,
-}: InternalNotificationProps) {
-    const { dismissNotification } = React.useContext(NotificationContext)
-
-    const [timeoutRunning, setTimeoutRunning] = React.useState(Boolean(autoDismissDelay))
-    const timeoutRef = React.useRef<number | undefined>()
-
-    const startTimeout = React.useCallback(function startTimeout() {
-        setTimeoutRunning(true)
-    }, [])
-
-    const stopTimeout = React.useCallback(function stopTimeout() {
-        setTimeoutRunning(false)
-        clearTimeout(timeoutRef.current)
-        timeoutRef.current = undefined
-    }, [])
-
-    React.useEffect(
-        function setupAutoDismiss() {
-            if (!timeoutRunning || !autoDismissDelay) return
-            timeoutRef.current = window.setTimeout(() => {
-                dismissNotification(notificationId)
-            }, autoDismissDelay * 1000)
-            return stopTimeout
-        },
-        [autoDismissDelay, dismissNotification, notificationId, stopTimeout, timeoutRunning],
-    )
-
-    return (
-        <Box
-            width="fitContent"
-            onMouseEnter={stopTimeout}
-            onMouseLeave={startTimeout}
-            className={styles.notification}
-        >
-            <Toast
-                message={message}
-                description={description}
-                icon={icon}
-                action={action}
-                onDismiss={
-                    showDismissButton ? () => dismissNotification(notificationId) : undefined
-                }
-                dismissLabel={dismissLabel}
-            />
-        </Box>
-    )
+    return React.useContext(NotificationContext)
 }
 
 /**
