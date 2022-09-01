@@ -2,7 +2,6 @@
     gap: var(--reactist-spacing-medium);
 }
 
-.icon,
-.action {
+.slot {
     color: var(--reactist-content-primary);
 }

@@ -94,16 +94,7 @@ function Toast({
             className={styles.container}
             {...props}
         >
-            {icon ? (
-                <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    className={styles.icon}
-                >
-                    {icon}
-                </Box>
-            ) : null}
+            {icon ? <ToastContentSlot>{icon}</ToastContentSlot> : null}
 
             <Box flexGrow={1} maxWidth="small">
                 {description ? (
@@ -117,18 +108,19 @@ function Toast({
             </Box>
 
             {action ? (
-                <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    className={styles.action}
-                >
-                    <ToastActionSlot action={action} />
-                </Box>
+                <ToastContentSlot>
+                    {isActionObject(action) ? (
+                        <Button variant="tertiary" size="small" onClick={action.onClick}>
+                            {action.label}
+                        </Button>
+                    ) : (
+                        action
+                    )}
+                </ToastContentSlot>
             ) : null}
 
             {onDismiss ? (
-                <Box display="flex" alignItems="center" justifyContent="center" margin="-small">
+                <ToastContentSlot>
                     <Button
                         variant="quaternary"
                         size="small"
@@ -136,7 +128,7 @@ function Toast({
                         aria-label={dismissLabel}
                         icon={<CloseIcon />}
                     />
-                </Box>
+                </ToastContentSlot>
             ) : null}
         </Box>
     )
@@ -153,20 +145,19 @@ function isActionObject(action: ToastProps['action']): action is ToastActionObje
     )
 }
 
-function ToastActionSlot({ action }: Pick<ToastProps, 'action'>) {
-    if (React.isValidElement(action)) {
-        return action
-    }
-
-    if (isActionObject(action)) {
-        return (
-            <Button variant="tertiary" size="small" onClick={action.onClick}>
-                {action.label}
-            </Button>
-        )
-    }
-
-    return null
+function ToastContentSlot({ children }: { children: React.ReactNode }) {
+    return (
+        <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            marginX="-xsmall"
+            marginY="-medium"
+            className={styles.slot}
+        >
+            {children}
+        </Box>
+    )
 }
 
 export { Toast }

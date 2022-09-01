@@ -22,13 +22,8 @@ export function ToastsStory() {
     const [showIcon, setShowIcon] = React.useState(false)
     const [showDismiss, setShowDismiss] = React.useState(false)
     const [actionVariant, setActionVariant] = React.useState<
-        ButtonProps['variant'] | 'default' | 'loading' | 'icon-button'
-    >('default')
-
-    const commonProps = {
-        icon: showIcon ? <AlertIcon tone="info" /> : undefined,
-        onDismiss: showDismiss ? () => undefined : undefined,
-    }
+        ButtonProps['variant'] | 'default' | 'loading' | 'icon-button' | 'none'
+    >('none')
 
     const onClick = storybookAction('Toast action')
     const action: ToastProps['action'] =
@@ -44,11 +39,17 @@ export function ToastsStory() {
                 size="small"
                 onClick={onClick}
             />
-        ) : (
+        ) : actionVariant !== 'none' ? (
             <Button variant={actionVariant} onClick={onClick}>
                 Accept invitation
             </Button>
-        )
+        ) : undefined
+
+    const commonProps = {
+        icon: showIcon ? <AlertIcon tone="info" /> : undefined,
+        onDismiss: showDismiss ? () => undefined : undefined,
+        action,
+    }
 
     return (
         <Stack space="xxlarge">
@@ -67,9 +68,13 @@ export function ToastsStory() {
             <SelectField
                 label="Action button variant"
                 value={actionVariant}
-                onChange={(event) => setActionVariant(event.target.value as ButtonProps['variant'])}
+                onChange={(event) => {
+                    // @ts-expect-error
+                    setActionVariant(event.target.value)
+                }}
                 maxWidth="xsmall"
             >
+                <option value="none">none</option>
                 <option value="default">default</option>
                 <optgroup label="Custom button">
                     <option value="primary">primary</option>
@@ -85,33 +90,23 @@ export function ToastsStory() {
 
             <Stack space="medium">
                 <Heading level="2">Message only</Heading>
-                <Toast message="Task was completed successfully" {...commonProps} />
+                <Toast message="Someone invited you to collaborate on a project" {...commonProps} />
             </Stack>
 
             <Stack space="medium">
                 <Heading level="2">Message and description</Heading>
                 <Toast
-                    message="No connection"
-                    description="You'll be able to post comments when online."
-                    {...commonProps}
-                />
-            </Stack>
-
-            <Stack space="medium">
-                <Heading level="2">Message and action button</Heading>
-                <Toast
-                    message="Someone invited you to collaborate on a project"
-                    action={action}
-                    {...commonProps}
-                />
-            </Stack>
-
-            <Stack space="medium">
-                <Heading level="2">Message, description, and action button</Heading>
-                <Toast
                     message="Someone invited you to collaborate on a project"
                     description="You need to accept the invitation in order to collaborate."
-                    action={action}
+                    {...commonProps}
+                />
+            </Stack>
+
+            <Stack space="medium">
+                <Heading level="2">Very long content</Heading>
+                <Toast
+                    message="The project you were invited to could not be loaded into your workspace at this time"
+                    description="Please, try to access the project again in a few minutes. If the problem persists, contact our support team"
                     {...commonProps}
                 />
             </Stack>
