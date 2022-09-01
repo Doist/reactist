@@ -2,13 +2,11 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-# Next-Next
+# Next
 
 -   [Feat] Fields without label show no spacing above the field
 -   [Fix] `TextArea` can now be hidden
 -   [Fix] `TextArea` now properly support receiving an explicit alternative aria-describedby attribute
-
-# Next
 
 # v15.0.0
 
