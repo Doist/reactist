@@ -7,6 +7,7 @@
 .toastContainer {
     pointer-events: all; /* to revert the pointer-events:none value set in the stacked toasts container */
     gap: var(--reactist-spacing-medium);
+    box-shadow: var(--reactist-toast-box-shadow);
 }
 
 .slot {
