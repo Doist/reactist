@@ -1,9 +1,0 @@
-.stackedView {
-    bottom: 0;
-    pointer-events: none;
-    z-index: var(--reactist-stacking-order-notification, 400);
-}
-
-.notification {
-    pointer-events: all;
-}

@@ -87,31 +87,31 @@ function animate({
     })
 }
 
-type NotificationsAnimationToolkit = {
+type ToastsAnimationToolkit = {
     /**
-     * Used for gathering all the active notification toast elements. Should be used by passing
-     * `ref={mappedRef(notificationId)}` to the stacked notifications.
+     * Used for gathering all the active stacked toast elements. Should be used by passing
+     * `ref={mappedRef(toastId)}` to the stacked toasts.
      */
-    mappedRef: (notificationId: string) => (ref: HTMLElement | null) => void
+    mappedRef: (toastId: string) => (ref: HTMLElement | null) => void
 
     /**
-     * The notifications stack should use this callback when it needs to remove a notification,
-     * instead of removing it right away. The actual removal from the state (and consequently, from
-     * the DOM) should happen in the `onAnimationDone` instead.
+     * The stacked toasts view should use this callback when it needs to remove a toast, instead of
+     * removing it right away. The actual removal from the state (and consequently, from the DOM)
+     * should happen in the `onAnimationDone` instead.
      */
-    animateRemove: (notificationId: string, onAnimationDone: () => void) => void
+    animateRemove: (toastId: string, onAnimationDone: () => void) => void
 }
 
 /**
- * Provides the functionality of animating the stacked notification toasts when they appear and
- * before they disappear.
+ * Provides the functionality of animating the stacked toasts when they appear and before they
+ * disappear.
  *
- * It works by keeping a mapping from notification IDs to the notification elements, and keeping a
- * mapping from notification IDs to their top position. Then, on every single re-render, it compares
- * the new DOM situation with the previously stored one in these mappings. With this information, it
- * applies animations that smoothly transitions between both states.
+ * It works by keeping a mapping from toast IDs to the toast elements, and keeping a mapping from
+ * toast IDs to their top position. Then, on every single re-render, it compares the new DOM
+ * situation with the previously stored one in these mappings. With this information, it applies
+ * animations that smoothly transitions between both states.
  */
-function useNotificationsAnimation(): NotificationsAnimationToolkit {
+function useToastsAnimation(): ToastsAnimationToolkit {
     const refs = useMemo(() => new Map<string, HTMLElement | null>(), [])
     const positions = useMemo(() => new Map<string, number>(), [])
 
@@ -184,4 +184,4 @@ function useNotificationsAnimation(): NotificationsAnimationToolkit {
     return { mappedRef, animateRemove }
 }
 
-export { ANIMATION_TIMEOUT, useNotificationsAnimation }
+export { ANIMATION_TIMEOUT, useToastsAnimation }

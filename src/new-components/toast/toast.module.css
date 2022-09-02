@@ -1,4 +1,11 @@
-.container {
+.stackedToastsView {
+    bottom: 0;
+    pointer-events: none;
+    z-index: var(--reactist-stacking-order-toast, 400);
+}
+
+.toastContainer {
+    pointer-events: all; /* to revert the pointer-events:none value set in the stacked toasts container */
     gap: var(--reactist-spacing-medium);
 }
 

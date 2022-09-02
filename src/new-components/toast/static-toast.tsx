@@ -13,14 +13,14 @@ type ToastActionObject = {
     onClick: () => void
 }
 
-type ToastProps = {
+type StaticToastProps = {
     /**
-     * The message shown in the notification.
+     * The message shown in the toast.
      */
     message: NonNullable<React.ReactNode>
 
     /**
-     * An optional extra description that complements the main message shown in the notification.
+     * An optional extra description that complements the main message shown in the toast.
      */
     description?: React.ReactNode
 
@@ -62,17 +62,17 @@ type ToastProps = {
  * A toast that shows a message, and an optional action associated with it.
  *
  * This component is generally not meant to be used directly. Most of the time you'll want to use
- * notifications instead (see `useNotifications`). However, the component is available in case you
- * need to take control of rendering a toast under different circumstances than that of notification
- * toasts.
+ * toasts generated via `useToasts` instead. However, this component is available in case you need
+ * to take control of rendering a toast under different circumstances than that of notification-like
+ * floating toasts.
  *
  * This component makes no assumptions outwardly about how it is positioned on the screen. That is,
  * it will not be shown floating or fixed to the viewport edges, as toasts normally show up. It only
  * provides the toast look and feel, but you are responsible for positioning it as you want.
  *
- * @see useNotifications
+ * @see useToasts
  */
-const Toast = React.forwardRef<HTMLDivElement, ToastProps>(function Toast(
+const StaticToast = React.forwardRef<HTMLDivElement, StaticToastProps>(function Toast(
     { message, description, icon, action, onDismiss, dismissLabel = 'Close', ...props },
     ref,
 ) {
@@ -87,7 +87,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(function Toast(
             display="flex"
             padding="large"
             alignItems="center"
-            className={styles.container}
+            className={styles.toastContainer}
             {...props}
         >
             {icon ? <ToastContentSlot>{icon}</ToastContentSlot> : null}
@@ -130,7 +130,7 @@ const Toast = React.forwardRef<HTMLDivElement, ToastProps>(function Toast(
     )
 })
 
-function isActionObject(action: ToastProps['action']): action is ToastActionObject {
+function isActionObject(action: StaticToastProps['action']): action is ToastActionObject {
     return (
         action != null &&
         typeof action === 'object' &&
@@ -156,5 +156,5 @@ function ToastContentSlot({ children }: { children: React.ReactNode }) {
     )
 }
 
-export { Toast }
-export type { ToastProps }
+export { StaticToast }
+export type { StaticToastProps }

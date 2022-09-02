@@ -14,7 +14,6 @@ export * from './new-components/alert'
 export * from './new-components/loading'
 export * from './new-components/notice'
 export * from './new-components/toast'
-export * from './new-components/notifications'
 
 // text and typography
 export * from './new-components/heading'
