@@ -104,7 +104,7 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
                 indeterminate={indeterminate}
                 aria-hidden
             />
-            {label ? typeof label === 'string' ? <Text>{label}</Text> : label : null}
+            {label ? <Text>{label}</Text> : null}
         </Box>
     )
 })

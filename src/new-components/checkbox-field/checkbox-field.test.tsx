@@ -54,12 +54,12 @@ describe('CheckboxField', () => {
         expect(screen.getByTestId('checkbox-field')).toHaveAccessibleName('Show unread badge')
     })
 
-    it('is labelled by its `String` label', () => {
+    it('is labelled by its label (string)', () => {
         render(<CheckboxField data-testid="checkbox-field" label="Show completed tasks" />)
         expect(screen.getByTestId('checkbox-field')).toHaveAccessibleName('Show completed tasks')
     })
 
-    it('is labelled by its `ReactNode` label', () => {
+    it('is labelled by its label (ReactNode)', () => {
         render(
             <CheckboxField
                 data-testid="checkbox-field"
@@ -67,7 +67,7 @@ describe('CheckboxField', () => {
             />,
         )
         expect(screen.getByTestId('checkbox-field')).toHaveAccessibleName('Show completed tasks')
-        expect(screen.getByTestId('react-node-label')).toHaveTextContent('Show completed tasks')
+        expect(screen.getByTestId('react-node-label')).toBeInTheDocument()
     })
 
     it('issues a warning if no label is given', () => {
