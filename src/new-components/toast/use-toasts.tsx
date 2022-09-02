@@ -213,7 +213,7 @@ function ToastsProvider({
                         className={styles.stackedToastsView}
                         position="fixed"
                         width="full"
-                        paddingLeft={padding}
+                        paddingX={padding}
                         paddingBottom={padding}
                     >
                         <Stack space="medium">

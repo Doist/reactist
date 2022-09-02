@@ -12,3 +12,9 @@
 .slot {
     color: var(--reactist-content-primary);
 }
+
+@media (max-width: 500px) {
+    .toastContainer {
+        width: 100% !important;
+    }
+}
