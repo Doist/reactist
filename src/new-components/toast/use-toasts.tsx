@@ -259,12 +259,16 @@ function useToasts() {
 /**
  * Adds a toast to be rendered, stacked alongside any other currently active toasts.
  *
+ * For most situations, you should prefer to use the `showToast` function obtained from `useToasts`.
+ * This component is provided for convenience to render toasts in the markup, but it has some
+ * peculiarities, which are discussed below.
+ *
  * Internally, this calls `showToast`. It is provided for two reasons:
  *
  * 1. Convenience, when you want to fire a toast in markup/jsx code. Keep in mind, though, that
- *    toasts rendered in this way will be removed from view when ithe context where it is rendered
+ *    toasts rendered in this way will be removed from view when the context where it is rendered
  *    is unmounted. Unlike toasts fired with `showToast`, which will normally be dismissed, either
- *    by the user or after a delay.
+ *    by the user or after a delay. They'll still be animated on their way out, though.
  * 2. When combined with disabling dismissing it (e.g. `showDismissButton={false}` and
  *    `autoDismissDelay={false}` it provides a way to show "permanent" toasts that only go away when
  *    the component ceases to be rendered).
