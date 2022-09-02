@@ -28,7 +28,7 @@ type CheckboxFieldProps = Omit<
     /** Defines whether or not the checkbox is disabled. */
     disabled?: boolean
     /** The label for the checkbox element. */
-    label?: string
+    label?: React.ReactNode
     /** Defines whether or not the checkbox can be of a `mixed` state. */
     indeterminate?: boolean
 }
