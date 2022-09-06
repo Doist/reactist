@@ -1,6 +1,6 @@
 import './styles/tooltip_story.less'
 
-import React from 'react'
+import * as React from 'react'
 
 import { Tooltip, TooltipProps } from '../../src/components/tooltip'
 import Button from '../../src/components/deprecated-button'

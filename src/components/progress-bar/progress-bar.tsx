@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { HiddenVisually } from '../../new-components/hidden-visually'
 import classNames from 'classnames'
 

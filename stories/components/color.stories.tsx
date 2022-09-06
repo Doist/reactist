@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import { Columns, Column } from '../../src/new-components/columns'
 import { Stack } from '../../src/new-components/stack'
