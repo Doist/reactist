@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import * as React from 'react'
 
 import ColorPicker from '../../src/components/color-picker'
 
@@ -14,53 +14,41 @@ export default {
 
 // Story Definitions ==========================================================
 
-export const ColorPickersStory = () => {
-    const [color, setColor] = useState<number>(0)
-
-    function handleChange(color: number) {
-        setColor(color)
-    }
+export function ColorPickersStory() {
+    const [color, setColor] = React.useState<number>(0)
 
     return (
         <section className="story">
             <p>Color Picker</p>
-            <ColorPicker color={color} onChange={handleChange} />
+            <ColorPicker color={color} onChange={setColor} />
         </section>
     )
 }
 
-export const CustomColorPickersStory = () => {
-    const [color, setColor] = useState<number>(0)
-
-    function handleChange(color: number) {
-        setColor(color)
-    }
+export function CustomColorPickersStory() {
+    const [color, setColor] = React.useState<number>(0)
 
     return (
         <section className="story">
             <p>Custom Colors Color Picker</p>
             <ColorPicker
                 color={color}
-                onChange={handleChange}
+                onChange={setColor}
                 colorList={['red', 'green', 'palegoldenrod', '#FF00FF']}
             />
         </section>
     )
 }
 
-export const NamedColorPickersStory = () => {
-    const [color, setColor] = useState<number>(0)
-
-    function handleChange(color: number) {
-        setColor(color)
-    }
+export function NamedColorPickersStory() {
+    const [color, setColor] = React.useState<number>(0)
 
     return (
         <section className="story">
             <p>Named Colors Color Picker</p>
             <ColorPicker
                 color={color}
-                onChange={handleChange}
+                onChange={setColor}
                 colorList={[
                     { color: 'red', name: 'Red' },
                     { color: 'green', name: 'Green' },
@@ -73,17 +61,13 @@ export const NamedColorPickersStory = () => {
     )
 }
 
-export const SmallColorPickerStory = () => {
-    const [color, setColor] = useState<number>(0)
-
-    function handleChange(color: number) {
-        setColor(color)
-    }
+export function SmallColorPickerStory() {
+    const [color, setColor] = React.useState<number>(0)
 
     return (
         <section className="story">
             <p>Small Color Picker</p>
-            <ColorPicker small color={color} onChange={handleChange} />
+            <ColorPicker small color={color} onChange={setColor} />
         </section>
     )
 }

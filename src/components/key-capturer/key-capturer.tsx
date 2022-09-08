@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import * as React from 'react'
 
 type Key = 'ArrowUp' | 'ArrowRight' | 'ArrowDown' | 'ArrowLeft' | 'Enter' | 'Backspace' | 'Escape'
 
@@ -135,7 +135,7 @@ type KeyCapturerProps = EventHandlerProps &
  */
 function KeyCapturer(props: KeyCapturerProps) {
     const { children, eventName = 'onKeyDown' } = props
-    const composingRef = useRef(false)
+    const composingRef = React.useRef(false)
     const composingEventHandlers = props.onEnter
         ? {
               onCompositionStart: () => {
