@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import * as React from 'react'
 
 import Select from '../../src/components/deprecated-select'
 import { Alert } from '../../src/new-components/alert'
@@ -25,12 +25,8 @@ export default {
 
 // Story Definitions ==========================================================
 
-export const SelectStory = () => {
-    const [value, setValue] = useState<string>(options[0].value)
-
-    const handleChange = (val: string) => {
-        setValue(val)
-    }
+export function SelectStory() {
+    const [value, setValue] = React.useState<string>(options[0].value)
 
     return (
         <Stack as="section" exceptionallySetClassName="story" space="large">
@@ -39,21 +35,17 @@ export const SelectStory = () => {
                 <a href="/?path=/docs/design-system-selectfield">SelectField</a> instead
             </Alert>
 
-            <Select value={value} options={options} onChange={handleChange} />
+            <Select value={value} options={options} onChange={setValue} />
         </Stack>
     )
 }
 
-export const SelectPlaygroundStory = (args) => {
-    const [value, setValue] = useState<string>(options[0].value)
-
-    const handleChange = (val: string) => {
-        setValue(val)
-    }
+export function SelectPlaygroundStory(args) {
+    const [value, setValue] = React.useState<string>(options[0].value)
 
     return (
         <section className="story">
-            <Select {...args} value={value} options={options} onChange={handleChange} />
+            <Select {...args} value={value} options={options} onChange={setValue} />
         </section>
     )
 }
@@ -64,28 +56,18 @@ SelectPlaygroundStory.args = {
 
 SelectPlaygroundStory.argTypes = {
     disabled: {
-        control: {
-            type: 'boolean',
-        },
+        control: { type: 'boolean' },
     },
     value: {
-        control: {
-            type: null,
-        },
+        control: { type: null },
     },
     defaultValue: {
-        control: {
-            type: null,
-        },
+        control: { type: null },
     },
     className: {
-        control: {
-            type: null,
-        },
+        control: { type: null },
     },
     options: {
-        control: {
-            type: null,
-        },
+        control: { type: null },
     },
 }
