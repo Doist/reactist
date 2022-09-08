@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import Input from '../../src/components/deprecated-input'
 import { Alert } from '../../src/new-components/alert'

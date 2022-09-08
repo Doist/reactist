@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 const ThinQuestionMark = () => (
     <svg width="18px" height="18px" viewBox="0 0 18 18">
