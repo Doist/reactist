@@ -9,12 +9,17 @@ import styles from './badge.module.css'
 
 type Props = {
     variant: 'neutral' | 'positive' | 'color'
+    'aria-label'?: string
 }
 
-function Badge({ variant = 'neutral', children }: PropsWithChildren<Props>) {
+function Badge({ variant = 'neutral', children, ...rest }: PropsWithChildren<Props>) {
     const variantClassName = styles[`badge-${variant}`]
 
-    return <Box className={classNames(styles.badge, variantClassName)}>{children}</Box>
+    return (
+        <Box {...rest} className={classNames(styles.badge, variantClassName)}>
+            {children}
+        </Box>
+    )
 }
 
 export { Badge }
