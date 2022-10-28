@@ -1,0 +1,43 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+
+import { Columns, Column } from '../columns'
+import { Badge } from './badge'
+
+<Meta title="Design system/Badge" component={Badge} />
+
+# Badge
+
+A badge used to bring attention to a particular UI element or functionality.
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Main demo">
+        <Columns space="large">
+            <Column width="content">
+                <Badge variant="neutral">Upgrade</Badge>
+            </Column>
+            <Column width="content">
+                <Badge variant="positive">Experiment</Badge>
+            </Column>
+            <Column width="content">
+                <Badge variant="color">Beta</Badge>
+            </Column>
+        </Columns>
+    </Story>
+</Canvas>
+
+<ArgsTable of={Badge} />
+
+## Colors
+
+The following CSS custom properties are available so that the badge's colors can be customized:
+
+```
+--reactist-badge-neutral-background
+--reactist-badge-neutral-foreground
+
+--reactist-badge-positive-background
+--reactist-badge-positive-foreground
+
+--reactist-badge-color-background
+--reactist-badge-color-foreground
+```

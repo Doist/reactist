@@ -33,6 +33,7 @@ export * from './new-components/text-field'
 
 // other components
 export * from './new-components/avatar'
+export * from './new-components/badge'
 export * from './new-components/modal'
 export * from './new-components/tabs'
 
