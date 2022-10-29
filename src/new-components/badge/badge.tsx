@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import * as React from 'react'
 
 import { Box } from '../box'
@@ -16,7 +15,7 @@ function Badge({ variant = 'neutral', children, ...rest }: PropsWithChildren<Pro
     const variantClassName = styles[`badge-${variant}`]
 
     return (
-        <Box {...rest} className={classNames(styles.badge, variantClassName)}>
+        <Box {...rest} className={[styles.badge, variantClassName]}>
             {children}
         </Box>
     )
