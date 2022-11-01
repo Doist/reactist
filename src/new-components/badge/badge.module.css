@@ -1,0 +1,33 @@
+:root {
+    --reactist-badge-neutral-background: rgb(238, 238, 238);
+    --reactist-badge-neutral-foreground: rgb(102, 102, 102);
+
+    --reactist-badge-positive-background: rgba(5, 133, 39, 0.1);
+    --reactist-badge-positive-foreground: rgb(5, 133, 39);
+
+    --reactist-badge-color-background: rgb(250, 234, 209);
+    --reactist-badge-color-foreground: rgb(143, 71, 0);
+}
+
+.badge {
+    font-family: var(--reactist-font-family);
+    font-size: 10px;
+    border-radius: 3px;
+    padding: 3px var(--reactist-spacing-xsmall);
+    text-transform: uppercase;
+}
+
+.badge-neutral {
+    color: var(--reactist-badge-neutral-foreground);
+    background-color: var(--reactist-badge-neutral-background);
+}
+
+.badge-positive {
+    color: var(--reactist-badge-positive-foreground);
+    background-color: var(--reactist-badge-positive-background);
+}
+
+.badge-color {
+    color: var(--reactist-badge-color-foreground);
+    background-color: var(--reactist-badge-color-background);
+}
