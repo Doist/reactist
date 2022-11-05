@@ -12,6 +12,7 @@
 .badge {
     font-family: var(--reactist-font-family);
     font-size: 10px;
+    font-weight: var(--reactist-font-weight-medium);
     border-radius: 3px;
     padding: 3px var(--reactist-spacing-xsmall);
     text-transform: uppercase;
