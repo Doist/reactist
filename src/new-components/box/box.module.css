@@ -358,6 +358,7 @@ pre.box {
     --reactist-actionable-quaternary-idle-tint: var(--reactist-toast-actionable-secondary-tint);
     --reactist-actionable-quaternary-hover-tint: var(--reactist-toast-actionable-secondary-tint);
     --reactist-actionable-quaternary-hover-fill: var(--reactist-toast-actionable-hover-fill);
+    --reactist-text-link-color: var(--reactist-toast-actionable-primary-tint);
     background-color: var(--reactist-bg-toast);
 }
 

@@ -14,7 +14,7 @@ import { useToastsAnimation } from './toast-animation'
 /**
  * The props needed to fire up a new notification toast.
  */
-type ToastProps = Omit<StaticToastProps, 'onDismiss'> & {
+type ToastProps = StaticToastProps & {
     /**
      * The number of seconds the toast is expected to be shown before it is dismissed automatically,
      * or false to disable auto-dismiss.
@@ -48,7 +48,7 @@ type ToastProps = Omit<StaticToastProps, 'onDismiss'> & {
 type InternalToastProps = Omit<ToastProps, 'autoDismissDelay' | 'dismissLabel'> &
     Required<Pick<ToastProps, 'autoDismissDelay' | 'dismissLabel'>> & {
         toastId: string
-        onDismiss: (toastId: string) => void
+        onRemoveToast: (toastId: string) => void
     }
 
 /** @private */
@@ -63,6 +63,7 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
         showDismissButton = true,
         toastId,
         onDismiss,
+        onRemoveToast,
     },
     ref,
 ) {
@@ -83,11 +84,12 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
         function setupAutoDismiss() {
             if (!timeoutRunning || !autoDismissDelay) return
             timeoutRef.current = window.setTimeout(() => {
-                onDismiss(toastId)
+                onRemoveToast(toastId)
+                onDismiss?.()
             }, autoDismissDelay * 1000)
             return stopTimeout
         },
-        [autoDismissDelay, onDismiss, toastId, stopTimeout, timeoutRunning],
+        [autoDismissDelay, onDismiss, onRemoveToast, toastId, stopTimeout, timeoutRunning],
     )
 
     return (
@@ -97,7 +99,14 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
             description={description}
             icon={icon}
             action={action}
-            onDismiss={showDismissButton ? () => onDismiss(toastId) : undefined}
+            onDismiss={
+                showDismissButton
+                    ? () => {
+                          onDismiss?.()
+                          onRemoveToast(toastId)
+                      }
+                    : undefined
+            }
             dismissLabel={dismissLabel}
             // @ts-expect-error
             onMouseEnter={stopTimeout}
@@ -110,7 +119,7 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
 // Internal state and context
 //
 
-type InternalToastEntry = Omit<InternalToastProps, 'onDismiss'>
+type InternalToastEntry = Omit<InternalToastProps, 'onRemoveToast'>
 type ToastsList = readonly InternalToastEntry[]
 
 type ShowToastAction = (props: ToastProps) => () => void
@@ -174,8 +183,8 @@ function ToastsProvider({
     const [toasts, setToasts] = React.useState<ToastsList>([])
     const { mappedRef, animateRemove } = useToastsAnimation()
 
-    const dismissToast = React.useCallback(
-        function onDismiss(toastId: string) {
+    const removeToast = React.useCallback(
+        function onRemoveToast(toastId: string) {
             animateRemove(toastId, () => {
                 setToasts((list) => {
                     const index = list.findIndex((n) => n.toastId === toastId)
@@ -199,9 +208,9 @@ function ToastsProvider({
                 toastId,
             }
             setToasts((list) => [...list, newToast])
-            return () => dismissToast(toastId)
+            return () => removeToast(toastId)
         },
-        [defaultAutoDismissDelay, defaultDismissLabel, dismissToast],
+        [defaultAutoDismissDelay, defaultDismissLabel, removeToast],
     )
 
     return (
@@ -222,7 +231,7 @@ function ToastsProvider({
                                     key={toastId}
                                     ref={mappedRef(toastId)}
                                     toastId={toastId}
-                                    onDismiss={dismissToast}
+                                    onRemoveToast={removeToast}
                                     {...props}
                                 />
                             ))}

@@ -153,6 +153,18 @@ describe('useToast', () => {
             showToast({ showDismissButton: false })
             expect(within(screen.getByRole('alert')).queryByRole('button')).not.toBeInTheDocument()
         })
+
+        it('calls the onDismiss callback, if given', () => {
+            const onDismiss = jest.fn()
+            const { showToast } = renderTestCase()
+            showToast({ onDismiss })
+
+            expect(onDismiss).not.toHaveBeenCalled()
+            userEvent.click(
+                within(screen.getByRole('alert')).getByRole('button', { name: 'Close' }),
+            )
+            expect(onDismiss).toHaveBeenCalledTimes(1)
+        })
     })
 
     describe('autoDismissDelay', () => {
