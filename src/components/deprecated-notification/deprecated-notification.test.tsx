@@ -1,12 +1,16 @@
 import * as React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { axe } from 'jest-axe'
-import { Notification } from './notification'
+import { DeprecatedNotification } from './deprecated-notification'
 
 describe('Notification', () => {
     it('renders the provided title and subtitle', () => {
         render(
-            <Notification id="notification-test" title="I'm a title" subtitle="I'm a subtitle" />,
+            <DeprecatedNotification
+                id="notification-test"
+                title="I'm a title"
+                subtitle="I'm a subtitle"
+            />,
         )
 
         expect(screen.getByText("I'm a title")).toBeVisible()
@@ -15,7 +19,11 @@ describe('Notification', () => {
 
     it("doesn't render a button or close button by default", () => {
         render(
-            <Notification id="notification-test" title="I'm a title" subtitle="I'm a subtitle" />,
+            <DeprecatedNotification
+                id="notification-test"
+                title="I'm a title"
+                subtitle="I'm a subtitle"
+            />,
         )
 
         expect(screen.queryAllByRole('button')).toHaveLength(0)
@@ -25,7 +33,7 @@ describe('Notification', () => {
         const onClose = jest.fn()
 
         render(
-            <Notification
+            <DeprecatedNotification
                 id="notification-test"
                 title="I'm a title"
                 onClose={onClose}
@@ -40,7 +48,9 @@ describe('Notification', () => {
     it('renders a button around the content when onClick is provided', () => {
         const onClick = jest.fn()
 
-        render(<Notification id="notification-test" title="I'm a title" onClick={onClick} />)
+        render(
+            <DeprecatedNotification id="notification-test" title="I'm a title" onClick={onClick} />,
+        )
         fireEvent.click(screen.getByRole('button', { name: "I'm a title" }))
 
         expect(onClick).toHaveBeenCalledTimes(1)
@@ -48,7 +58,7 @@ describe('Notification', () => {
 
     it('renders a provided custom icon', () => {
         render(
-            <Notification
+            <DeprecatedNotification
                 id="notification-test"
                 title="I'm a title"
                 icon={<div>I'm an icon</div>}
@@ -61,14 +71,14 @@ describe('Notification', () => {
 
     it('renders children in place of the title and subtitle', () => {
         render(
-            <Notification
+            <DeprecatedNotification
                 id="notification-test"
                 title="I'm a title"
                 subtitle="I'm a subtitle"
                 icon={<div>I'm an icon</div>}
             >
                 I'm what gets rendered instead
-            </Notification>,
+            </DeprecatedNotification>,
         )
 
         expect(screen.queryByText("I'm a title")).not.toBeInTheDocument()
@@ -80,14 +90,14 @@ describe('Notification', () => {
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = render(
-                <Notification
+                <DeprecatedNotification
                     id="notification-test"
                     title="I'm a title"
                     subtitle="I'm a subtitle"
                     icon={<div>I'm an icon</div>}
                 >
                     I'm what gets rendered instead
-                </Notification>,
+                </DeprecatedNotification>,
             )
             const results = await axe(container)
 
@@ -95,13 +105,17 @@ describe('Notification', () => {
         })
 
         it('renders `aria-live="polite"` by default', () => {
-            render(<Notification id="notification-test" title="I'm a title" />)
+            render(<DeprecatedNotification id="notification-test" title="I'm a title" />)
             expect(screen.getByRole('alert')).toHaveAttribute('aria-live', 'polite')
         })
 
         it('supports the `aria-live` attribute', () => {
             render(
-                <Notification id="notification-test" title="I'm a title" aria-live="assertive" />,
+                <DeprecatedNotification
+                    id="notification-test"
+                    title="I'm a title"
+                    aria-live="assertive"
+                />,
             )
             expect(screen.getByRole('alert')).toHaveAttribute('aria-live', 'assertive')
         })

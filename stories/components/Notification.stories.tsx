@@ -6,26 +6,26 @@ import { Button } from '../../src/new-components/button'
 import { Text } from '../../src/new-components/text'
 import { TextField } from '../../src/new-components/text-field'
 import { Avatar } from '../../src'
-import { Notification } from '../../src/components/notification/notification'
+import { DeprecatedNotification } from '../../src/components/deprecated-notification'
 import './styles/notification_story.less'
 
 // Story setup ================================================================
 
 export default {
-    title: 'Components/Notification',
-    component: Notification,
+    title: 'Components/DeprecatedNotification',
+    component: DeprecatedNotification,
     parameters: {
-        badges: ['accessible'],
+        badges: ['accessible', 'deprecated'],
     },
 }
 
 // Story Definitions ==========================================================
 
-export const StandardNotificationStory = () => {
+export function StandardNotificationStory() {
     return (
         <section className="story">
             <p>Standard Notification</p>
-            <Notification
+            <DeprecatedNotification
                 id="standard-notification"
                 icon={<span className="notification-story-notification-dot" />}
                 title="You have a new message!"
@@ -37,11 +37,11 @@ export const StandardNotificationStory = () => {
     )
 }
 
-export const NonClickableNotificationStory = () => {
+export function NonClickableNotificationStory() {
     return (
         <section className="story">
             <p>Non-clickable Notification</p>
-            <Notification
+            <DeprecatedNotification
                 id="non-clickable-notification"
                 title="Your task is due in 5 hours"
                 subtitle="Keep going!"
@@ -51,11 +51,11 @@ export const NonClickableNotificationStory = () => {
     )
 }
 
-export const CustomContentNotificationStory = () => {
+export function CustomContentNotificationStory() {
     return (
         <section className="story">
             <p>Custom Content Notification</p>
-            <Notification
+            <DeprecatedNotification
                 id="custom-content-notification"
                 icon={<Avatar size="s" user={{ name: 'Brock Lesnar', email: 'brock@twist.com' }} />}
                 onClose={action('onClose')}
@@ -65,12 +65,12 @@ export const CustomContentNotificationStory = () => {
                     <p className="notification-story-text">You received a message from Brock</p>
                     <h4 className="notification-story-heading">Better not leave him hanging</h4>
                 </div>
-            </Notification>
+            </DeprecatedNotification>
         </section>
     )
 }
 
-export const NotificationPlaygroundStory = (args) => {
+export function NotificationPlaygroundStory(args) {
     const onClose = args.onClose ? action('onClose') : undefined
     const onClick = args.onClick ? action('onClick') : undefined
     const icon = args.icon ? (
@@ -89,7 +89,7 @@ export const NotificationPlaygroundStory = (args) => {
 
     return (
         <section className="story playground">
-            <Notification
+            <DeprecatedNotification
                 id="playground-notification"
                 {...args}
                 onClose={onClose}
@@ -97,12 +97,12 @@ export const NotificationPlaygroundStory = (args) => {
                 icon={icon}
             >
                 {children}
-            </Notification>
+            </DeprecatedNotification>
         </section>
     )
 }
 
-export const AccessibilityExample = () => {
+export function AccessibilityExample() {
     const [textContent, setTextContent] = React.useState('Test message')
     const [notificationContent, setNotificationContent] = React.useState(textContent)
     const [currentAriaLive, setCurrentAriaLive] = React.useState<'off' | 'polite' | 'assertive'>(
@@ -117,7 +117,7 @@ export const AccessibilityExample = () => {
 
     return (
         <section className="story">
-            <Notification
+            <DeprecatedNotification
                 id="notification-off"
                 aria-live={currentAriaLive}
                 title={notificationContent}

@@ -2,9 +2,12 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-# Next
+# next
 
--   [Feat] Sets `Badge` to semibold
+-   [Breaking] The `Notification` component is renamed as `DeprecatedNotification`.
+-   [Feat] The `Box` component now supports a new `background="toast"`.
+-   [Feat] A new `Toast` component and `useToasts` hook.
+-   [Fix] Sets `Badge` to semibold
 
 # v15.3.0
 

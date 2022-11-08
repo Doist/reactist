@@ -42,4 +42,24 @@ async function flushPromises() {
     await act(() => Promise.resolve())
 }
 
-export { runSpaceTests, flushPromises }
+function TestIcon() {
+    return (
+        <svg
+            width="24"
+            height="24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden
+            data-testid="test-icon"
+        >
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zm0-1a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm1.18-11.84a.84.84 0 1 1-1.68 0 .84.84 0 0 1 1.68 0zM12.5 10a.5.5 0 0 1 .5.5V15h1a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1h1v-4h-1a.5.5 0 0 1 0-1h1.5z"
+                fill="currentColor"
+            />
+        </svg>
+    )
+}
+
+export { runSpaceTests, flushPromises, TestIcon }
