@@ -1,18 +1,22 @@
 :root {
-    --reactist-text-link-color: rgb(36, 111, 224);
+    --reactist-text-link-idle-tint: rgb(36, 111, 224);
+    --reactist-text-link-hover-tint: var(--reactist-text-link-idle-tint);
+    --reactist-text-link-idle-decoration: none;
+    --reactist-text-link-hover-decoration: underline;
 }
 
 .container {
     font-size: inherit;
     font-weight: inherit;
     font-family: inherit;
-    text-decoration: none;
-    color: var(--reactist-text-link-color);
+    text-decoration: var(--reactist-text-link-idle-decoration);
+    color: var(--reactist-text-link-idle-tint);
     cursor: pointer;
 }
 
 .container:hover {
-    text-decoration: underline;
+    text-decoration: var(--reactist-text-link-hover-decoration);
+    color: var(--reactist-text-link-hover-tint);
 }
 
 .container svg {
