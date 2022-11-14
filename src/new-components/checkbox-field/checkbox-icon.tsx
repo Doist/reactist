@@ -46,7 +46,6 @@ function CheckboxIcon({ checked, indeterminate, disabled, ...props }: Props) {
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            style={{ minWidth: '24' }}
             {...props}
         >
             <path fill="currentColor" fillRule="nonzero" d={svgPath[pathKey]} />
