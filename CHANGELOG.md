@@ -4,7 +4,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # v17.0.1
 
--   [Fix] Enforces minimum width for the checkbox icon in the `CheckboxField` element
+-   [Fix] Enforce minimum width for the checkbox icon in the `CheckboxField` element
 
 # v17.0.0
 
