@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem } from './menu'
+import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, SubMenu } from './menu'
 import { axe } from 'jest-axe'
 import { flushPromises } from '../../new-components/test-helpers'
 import { act } from 'react-dom/test-utils'
@@ -210,6 +210,36 @@ describe('Menu', () => {
 
         // Close menu to avoid act warning after test ends
         userEvent.keyboard('{Escape}')
+    })
+
+    it('renders a submenu when a nested menu button is clicked', () => {
+        const handleSave = jest.fn()
+        render(
+            <Menu>
+                <MenuButton>Options menu</MenuButton>
+                <MenuList aria-label="Some options">
+                    <MenuItem>New</MenuItem>
+                    <SubMenu>
+                        <MenuButton>More options</MenuButton>
+                        <MenuList>
+                            <MenuItem onSelect={handleSave}>Save</MenuItem>
+                            <MenuItem>Discard</MenuItem>
+                            <MenuItem>Exit</MenuItem>
+                        </MenuList>
+                    </SubMenu>
+                </MenuList>
+            </Menu>,
+        )
+
+        userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+        userEvent.click(screen.getByRole('menuitem', { name: 'More options' }))
+
+        expect(screen.getByRole('menuitem', { name: 'Save' })).toBeVisible()
+
+        userEvent.click(screen.getByRole('menuitem', { name: 'Save' }))
+
+        expect(handleSave).toHaveBeenCalled()
+        expect(screen.queryByText('More options')).not.toBeInTheDocument()
     })
 
     describe('a11y', () => {
