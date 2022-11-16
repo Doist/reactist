@@ -123,9 +123,9 @@ const MenuButton = polymorphicComponent<'button', MenuButtonProps>(function Menu
 })
 
 //
-// MenuContextMenuTrigger
+// ContextMenuTrigger
 //
-const MenuContextMenuTrigger = polymorphicComponent<'div', unknown>(function MenuContextMenuTrigger(
+const ContextMenuTrigger = polymorphicComponent<'div', unknown>(function ContextMenuTrigger(
     { as: component = 'div', ...props },
     ref,
 ) {
@@ -366,5 +366,5 @@ const MenuGroup = polymorphicComponent<'div', MenuGroupProps>(function MenuGroup
     )
 })
 
-export { Menu, MenuButton, MenuContextMenuTrigger, MenuList, MenuItem, SubMenu, MenuGroup }
+export { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, SubMenu, MenuGroup }
 export type { MenuButtonProps, MenuListProps, MenuItemProps, SubMenuProps, MenuGroupProps }

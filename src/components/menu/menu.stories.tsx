@@ -5,7 +5,7 @@ import { Button } from '../../new-components/button'
 import { Inline } from '../../new-components/inline'
 import { Stack } from '../../new-components/stack'
 import { Columns, Column } from '../../new-components/columns'
-import { Menu, MenuButton, MenuContextMenuTrigger, MenuList, MenuItem, MenuGroup, SubMenu } from '.'
+import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, MenuGroup, SubMenu } from '.'
 import { ButtonLink } from '../../new-components/button-link'
 import { Text } from '../../new-components/text'
 
@@ -241,7 +241,7 @@ export function ContextMenuExample() {
                 <Text>Right click on the Settings button, or click on the more button:</Text>
                 <Menu>
                     <Inline space="xsmall">
-                        <MenuContextMenuTrigger
+                        <ContextMenuTrigger
                             as={ButtonLink}
                             variant="primary"
                             width="xsmall"
@@ -249,7 +249,7 @@ export function ContextMenuExample() {
                             openInNewTab
                         >
                             Settings
-                        </MenuContextMenuTrigger>
+                        </ContextMenuTrigger>
 
                         <MenuButton
                             as={Button}

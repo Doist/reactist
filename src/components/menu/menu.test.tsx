@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Menu, MenuButton, MenuList, MenuItem, MenuContextMenuTrigger } from './menu'
+import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem } from './menu'
 import { axe } from 'jest-axe'
 import { flushPromises } from '../../new-components/test-helpers'
 import { act } from 'react-dom/test-utils'
@@ -191,10 +191,10 @@ describe('Menu', () => {
         expect(screen.queryByRole('menuitem')).not.toBeInTheDocument()
     })
 
-    it('renders a context menu when used with a MenuContextMenuTrigger', () => {
+    it('renders a context menu when used with a ContextMenuTrigger', () => {
         render(
             <Menu>
-                <MenuContextMenuTrigger>Options menu</MenuContextMenuTrigger>
+                <ContextMenuTrigger>Options menu</ContextMenuTrigger>
                 <MenuList aria-label="Some options">
                     <MenuItem>First option</MenuItem>
                 </MenuList>

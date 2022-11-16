@@ -3,7 +3,7 @@ import type { MenuItemProps, SubMenuProps, MenuGroupProps } from './menu'
 export {
     Menu,
     MenuButton,
-    MenuContextMenuTrigger,
+    ContextMenuTrigger,
     MenuList,
     MenuItem,
     SubMenu,
