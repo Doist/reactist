@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Menu, MenuButton, MenuList, MenuItem } from './menu'
+import { Menu, MenuButton, MenuList, MenuItem, MenuContextMenuTrigger } from './menu'
 import { axe } from 'jest-axe'
 import { flushPromises } from '../../new-components/test-helpers'
 import { act } from 'react-dom/test-utils'
@@ -189,6 +189,27 @@ describe('Menu', () => {
         // Check that it closed the menu anyway
         expect(screen.queryByRole('menu')).not.toBeInTheDocument()
         expect(screen.queryByRole('menuitem')).not.toBeInTheDocument()
+    })
+
+    it('renders a context menu when used with a MenuContextMenuTrigger', () => {
+        render(
+            <Menu>
+                <MenuContextMenuTrigger>Options menu</MenuContextMenuTrigger>
+                <MenuList aria-label="Some options">
+                    <MenuItem>First option</MenuItem>
+                </MenuList>
+            </Menu>,
+        )
+
+        expect(screen.queryByText('First option')).not.toBeInTheDocument()
+
+        userEvent.click(screen.getByText('Options menu'), { button: 2 })
+
+        expect(screen.getByRole('menu')).toBeInTheDocument()
+        expect(screen.getByRole('menuitem', { name: 'First option' })).toBeInTheDocument()
+
+        // Close menu to avoid act warning after test ends
+        userEvent.keyboard('{Escape}')
     })
 
     describe('a11y', () => {
