@@ -5,6 +5,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 # Next
 
 -   [Feat] Add support for `Menu` as a context menu
+-   [Fix] Allow `SubMenu`s to be rendered and support keyboard navigation
 
 # v17.0.1
 
