@@ -242,6 +242,41 @@ describe('Menu', () => {
         expect(screen.queryByText('More options')).not.toBeInTheDocument()
     })
 
+    it('focuses on the submenu when the right arrow key is pressed', () => {
+        const handleSave = jest.fn()
+        render(
+            <Menu>
+                <MenuButton>Options menu</MenuButton>
+                <MenuList aria-label="Some options">
+                    <MenuItem>New</MenuItem>
+                    <SubMenu>
+                        <MenuButton>More options</MenuButton>
+                        <MenuList>
+                            <MenuItem onSelect={handleSave}>Save</MenuItem>
+                            <MenuItem>Discard</MenuItem>
+                            <MenuItem>Exit</MenuItem>
+                        </MenuList>
+                    </SubMenu>
+                </MenuList>
+            </Menu>,
+        )
+
+        userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+        userEvent.keyboard('{ArrowDown}')
+        userEvent.keyboard('{ArrowDown}')
+
+        expect(screen.getByRole('menuitem', { name: 'More options' })).toHaveFocus()
+
+        userEvent.keyboard('{ArrowRight}')
+
+        expect(screen.getByRole('menuitem', { name: 'Save' })).toHaveFocus()
+
+        userEvent.keyboard('{Enter}')
+
+        expect(handleSave).toHaveBeenCalled()
+        expect(screen.queryByText('More options')).not.toBeInTheDocument()
+    })
+
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = render(
