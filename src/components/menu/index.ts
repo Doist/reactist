@@ -1,5 +1,3 @@
-import type { MenuItemProps, SubMenuProps, MenuGroupProps } from './menu'
-
 export {
     Menu,
     MenuButton,
@@ -9,4 +7,4 @@ export {
     SubMenu,
     MenuGroup,
 } from './menu'
-export type { MenuItemProps, SubMenuProps, MenuGroupProps }
+export type { MenuItemProps, MenuGroupProps } from './menu'

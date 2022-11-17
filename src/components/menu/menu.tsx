@@ -1,6 +1,5 @@
 import * as React from 'react'
 import classNames from 'classnames'
-import FocusLock from 'react-focus-lock'
 
 import { polymorphicComponent } from '../../utils/polymorphism'
 
@@ -18,7 +17,6 @@ import * as Ariakit from 'ariakit/menu'
 import { Portal } from 'ariakit/portal'
 
 import './menu.less'
-import { useMenuItem } from 'ariakit/menu'
 
 type NativeProps<E extends HTMLElement> = React.DetailedHTMLProps<React.HTMLAttributes<E>, E>
 
@@ -159,14 +157,12 @@ const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
 
     return state.visible ? (
         <Portal preserveTabOrder>
-            <FocusLock returnFocus>
-                <Ariakit.Menu
-                    {...props}
-                    state={state}
-                    ref={ref}
-                    className={classNames('reactist_menulist', exceptionallySetClassName)}
-                />
-            </FocusLock>
+            <Ariakit.Menu
+                {...props}
+                state={state}
+                ref={ref}
+                className={classNames('reactist_menulist', exceptionallySetClassName)}
+            />
         </Portal>
     ) : null
 })
@@ -300,7 +296,7 @@ type SubMenuProps = Pick<MenuProps, 'children' | 'onItemSelect'>
  * The `MenuButton` will become a menu item in the current menu items list, and it will lead to
  * opening a sub-menu with the menu items list below it.
  */
-const SubMenu = React.forwardRef<HTMLButtonElement, SubMenuProps>(function SubMenu(
+const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
     { children, onItemSelect },
     ref,
 ) {
@@ -318,15 +314,20 @@ const SubMenu = React.forwardRef<HTMLButtonElement, SubMenuProps>(function SubMe
 
     const [button, list] = React.Children.toArray(children)
 
-    const menuProps = useMenuItem({ state })
+    // Ariakit needs to be able to pass props to the MenuButton
+    // and combine it with the MenuItem component
+    const renderMenuButton = React.useCallback(
+        function renderMenuButton(props: MenuButtonProps) {
+            return React.cloneElement(button as React.ReactElement, props)
+        },
+        [button],
+    )
 
     return (
         <Menu onItemSelect={handleSubItemSelect}>
-            {React.cloneElement(button as React.ReactElement, {
-                ...menuProps,
-                className: classNames(menuProps.className, 'reactist_submenu_button'),
-                ref,
-            })}
+            <Ariakit.MenuItem as="div" state={state} ref={ref} hideOnClick={false}>
+                {renderMenuButton}
+            </Ariakit.MenuItem>
             {list}
         </Menu>
     )
@@ -367,4 +368,4 @@ const MenuGroup = polymorphicComponent<'div', MenuGroupProps>(function MenuGroup
 })
 
 export { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, SubMenu, MenuGroup }
-export type { MenuButtonProps, MenuListProps, MenuItemProps, SubMenuProps, MenuGroupProps }
+export type { MenuButtonProps, MenuListProps, MenuItemProps, MenuGroupProps }
