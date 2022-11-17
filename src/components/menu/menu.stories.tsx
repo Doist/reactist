@@ -5,7 +5,9 @@ import { Button } from '../../new-components/button'
 import { Inline } from '../../new-components/inline'
 import { Stack } from '../../new-components/stack'
 import { Columns, Column } from '../../new-components/columns'
-import { Menu, MenuButton, MenuList, MenuItem, MenuGroup, SubMenu } from '.'
+import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, MenuGroup, SubMenu } from '.'
+import { ButtonLink } from '../../new-components/button-link'
+import { Text } from '../../new-components/text'
 
 function MenuIndicator() {
     return (
@@ -227,6 +229,42 @@ export function OverflowMenuExample() {
                 {items.map((item, index) => (
                     <Item key={index} {...item} />
                 ))}
+            </Stack>
+        </section>
+    )
+}
+
+export function ContextMenuExample() {
+    return (
+        <section className="story">
+            <Stack space="small">
+                <Text>Right click on the Settings button, or click on the more button:</Text>
+                <Menu>
+                    <Inline space="xsmall">
+                        <ContextMenuTrigger
+                            as={ButtonLink}
+                            variant="primary"
+                            width="xsmall"
+                            href="https://todoist.com/app/settings"
+                            openInNewTab
+                        >
+                            Settings
+                        </ContextMenuTrigger>
+
+                        <MenuButton
+                            as={Button}
+                            variant="secondary"
+                            icon={<MenuIndicator />}
+                            aria-label="More"
+                        />
+                    </Inline>
+
+                    <MenuList aria-label="Settings menu">
+                        <MenuItem onSelect={action('Account')}>Account</MenuItem>
+                        <MenuItem onSelect={action('General')}>General</MenuItem>
+                        <MenuItem onSelect={action('Advanced')}>Advanced</MenuItem>
+                    </MenuList>
+                </Menu>
             </Stack>
         </section>
     )

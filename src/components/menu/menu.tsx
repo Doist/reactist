@@ -25,6 +25,7 @@ type NativeProps<E extends HTMLElement> = React.DetailedHTMLProps<React.HTMLAttr
 type MenuContextState = {
     state: Ariakit.MenuState
     handleItemSelect: (value: string | null | undefined) => void
+    handleAnchorRectChange: (value: { x: number; y: number } | null) => void
 }
 
 const MenuContext = React.createContext<MenuContextState>(
@@ -63,7 +64,20 @@ type MenuProps = Omit<Ariakit.MenuStateProps, 'visible'> & {
  * attribute to style the menu list, it is applied a `menubar` role instead in Safari.
  */
 function Menu({ children, onItemSelect, ...props }: MenuProps) {
-    const state = Ariakit.useMenuState({ focusLoop: true, gutter: 8, shift: 4, ...props })
+    const [anchorRect, handleAnchorRectChange] = React.useState<{ x: number; y: number } | null>(
+        null,
+    )
+    const getAnchorRect = React.useMemo(() => {
+        return anchorRect ? () => anchorRect : undefined
+    }, [anchorRect])
+
+    const state = Ariakit.useMenuState({
+        focusLoop: true,
+        gutter: 8,
+        shift: 4,
+        getAnchorRect,
+        ...props,
+    })
 
     const handleItemSelect = React.useCallback(
         function handleItemSelect(value: string | null | undefined) {
@@ -76,6 +90,7 @@ function Menu({ children, onItemSelect, ...props }: MenuProps) {
         () => ({
             state,
             handleItemSelect,
+            handleAnchorRectChange,
         }),
         [state, handleItemSelect],
     )
@@ -105,6 +120,26 @@ const MenuButton = polymorphicComponent<'button', MenuButtonProps>(function Menu
             className={classNames('reactist_menubutton', exceptionallySetClassName)}
         />
     )
+})
+
+//
+// ContextMenuTrigger
+//
+const ContextMenuTrigger = polymorphicComponent<'div', unknown>(function ContextMenuTrigger(
+    { as: component = 'div', ...props },
+    ref,
+) {
+    const { handleAnchorRectChange, state } = React.useContext(MenuContext)
+    const handleContextMenu = React.useCallback(
+        (event: React.MouseEvent) => {
+            event.preventDefault()
+            handleAnchorRectChange({ x: event.clientX, y: event.clientY })
+            state.show()
+        },
+        [handleAnchorRectChange, state],
+    )
+
+    return React.createElement(component, { ...props, onContextMenu: handleContextMenu, ref })
 })
 
 //
@@ -331,5 +366,5 @@ const MenuGroup = polymorphicComponent<'div', MenuGroupProps>(function MenuGroup
     )
 })
 
-export { Menu, MenuButton, MenuList, MenuItem, SubMenu, MenuGroup }
+export { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, SubMenu, MenuGroup }
 export type { MenuButtonProps, MenuListProps, MenuItemProps, SubMenuProps, MenuGroupProps }
