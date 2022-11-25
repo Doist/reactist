@@ -53,3 +53,9 @@
 .inputWrapper:not(.bordered) input {
     padding: var(--tmp-vertical-padding) 10px;
 }
+
+.startIcon {
+    margin-right: calc(var(--reactist-spacing-xsmall) * -1);
+    padding-left: 10px;
+    cursor: text;
+}
