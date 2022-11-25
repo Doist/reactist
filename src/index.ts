@@ -39,6 +39,7 @@ export * from './new-components/modal'
 export * from './new-components/tabs'
 
 // hooks
+export * from './hooks/use-combined-refs'
 export * from './hooks/use-previous'
 
 //
