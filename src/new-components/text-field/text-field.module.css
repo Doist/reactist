@@ -1,12 +1,22 @@
+.inputWrapper {
+    height: var(--reactist-input-wrapper-height);
+}
+
 .inputWrapper:not(.bordered) {
+    --reactist-input-wrapper-height: 32px;
+
     border-radius: var(--reactist-border-radius-small);
     border: 1px solid var(--reactist-divider-secondary);
     overflow: clip;
 }
 
+.inputWrapper.bordered {
+    --reactist-input-wrapper-height: 24px;
+}
+
 .inputWrapper.bordered input {
     padding: 0;
-    height: 24px;
+    height: var(--reactist-input-wrapper-height);
 }
 
 .inputWrapper:not(.bordered):focus-within {
