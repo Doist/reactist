@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { selectWithNone, PartialProps } from '../storybook-helper'
 
+import { Box } from '../box'
 import { Stack } from '../stack'
 import { Text } from '../text'
 import { TextField } from './'
@@ -153,11 +154,13 @@ function Icon() {
 
 export function IconStory() {
     return (
-        <TextField
-            label="Search"
-            startIcon={<Icon />}
-            id="textfield-with-icon"
-            placeholder="Text field with an icon"
-        />
+        <Box maxWidth="small">
+            <TextField
+                label="Search"
+                startIcon={<Icon />}
+                id="textfield-with-icon"
+                placeholder="Text field with an icon"
+            />
+        </Box>
     )
 }
