@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
 import { BADGE } from '@geometricpanda/storybook-addon-badges'
 
+import { Notice } from './../notice/notice'
 import { PartialProps } from '../storybook-helper'
 import { CheckboxField } from '.'
 import { Stack } from '../stack'
@@ -54,15 +55,52 @@ export const Template = ({
     disabled,
     indeterminate,
     label,
+    icon,
     'aria-controls': ariaControls,
     'aria-describedby': ariaDescribedby,
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledby,
-}) => <CheckboxField disabled={disabled} indeterminate={indeterminate} label={label} />
+}) => <CheckboxField disabled={disabled} indeterminate={indeterminate} label={label} icon={icon} />
+
+### Checkbox with icon
+
+A checkbox field with an icon and a string. The icon is rendered to the left of the label.
+
+#### Image as Icon
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
+        name="Image as icon"
+        args={{
+            label: 'Label with icon',
+            icon: '😄',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+#### ReactChild as Icon
+
+In this example we are passing an SVG image as icon.
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
+        name="ReactChild as icon"
+        args={{
+            label: 'Label with icon',
+            icon: <Icon />,
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
 
 ### ReactNode as Label
 
-A checkbox field with an icon and a string for the built-in label element.
+A checkbox field with a `ReactNode` as label (in this example the `ReactNode` contains an icon and a string).
 
 <Canvas>
     <Story
@@ -79,6 +117,11 @@ A checkbox field with an icon and a string for the built-in label element.
         {Template.bind({})}
     </Story>
 </Canvas>
+
+<Notice tone="info">
+    If you want to render an icon, please pass in the icon via the appropriate icon attribute
+    instead.
+</Notice>
 
 ### Indeterminate Example
 

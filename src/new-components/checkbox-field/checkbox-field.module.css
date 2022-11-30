@@ -41,3 +41,11 @@
 .container.keyFocused svg {
     border: 2px solid var(--reactist-actionable-primary-idle-fill);
 }
+
+.icon {
+    margin-left: 12px;
+}
+
+.label {
+    margin-left: 6px;
+}
