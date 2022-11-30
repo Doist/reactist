@@ -3,7 +3,7 @@ import { BaseField, BaseFieldVariantProps } from '../base-field'
 import { Box } from '../box'
 import styles from './text-field.module.css'
 import type { FieldComponentProps } from '../base-field'
-import { useCombinedRefs } from '../../hooks/use-combined-refs'
+import { useMergeRefs } from 'use-callback-ref'
 
 type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 
@@ -32,8 +32,8 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
     },
     ref,
 ) {
-    const internalRef = React.useRef<HTMLInputElement>()
-    const combinedRef = useCombinedRefs(ref, internalRef)
+    const internalRef = React.useRef<HTMLInputElement>(null)
+    const combinedRef = useMergeRefs([ref, internalRef])
 
     function focusOnIconClick() {
         internalRef.current?.focus()
