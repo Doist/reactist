@@ -68,6 +68,8 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                             display="flex"
                             className={styles.startIcon}
                             onClick={focusOnIconClick}
+                            marginRight="-xsmall"
+                            marginLeft="small"
                             aria-hidden
                         >
                             {startIcon}

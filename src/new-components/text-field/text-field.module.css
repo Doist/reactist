@@ -65,7 +65,5 @@
 }
 
 .startIcon {
-    margin-right: calc(var(--reactist-spacing-xsmall) * -1);
-    padding-left: 10px;
     cursor: text;
 }
