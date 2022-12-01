@@ -80,9 +80,13 @@ export type ModalProps = DivProps & {
      */
     autoFocus?: boolean
     /**
-     * A escape hatch in case you need to provide a custom class name to the container element.
+     * An escape hatch in case you need to provide a custom class name to the container element.
      */
     exceptionallySetClassName?: string
+    /**
+     * An escape hatch in case you need to provide a custom class name to the overlay element.
+     */
+    exceptionallySetOverlayClassName?: string
     /** Defines a string value that labels the current modal for assistive technologies. */
     'aria-label'?: string
     /** Identifies the element (or elements) that labels the current modal for assistive technologies. */
@@ -108,6 +112,7 @@ export function Modal({
     height = 'fitContent',
     width = 'medium',
     exceptionallySetClassName,
+    exceptionallySetOverlayClassName,
     autoFocus = true,
     children,
     ...props
@@ -169,7 +174,12 @@ export function Modal({
             <Box
                 data-testid="modal-overlay"
                 data-overlay
-                className={classNames(styles.overlay, styles[height], styles[width])}
+                className={classNames(
+                    styles.overlay,
+                    styles[height],
+                    styles[width],
+                    exceptionallySetOverlayClassName,
+                )}
                 onClick={handleBackdropClick}
                 ref={backdropRef}
             >

@@ -48,6 +48,17 @@ describe('Modal', () => {
         expect(modal).not.toHaveClass('wrong')
     })
 
+    it('allows to exceptionally set a class on the overlay', () => {
+        render(
+            <Modal isOpen exceptionallySetOverlayClassName="customClass">
+                Hello
+            </Modal>,
+        )
+
+        const overlay = screen.getByTestId('modal-overlay')
+        expect(overlay).toHaveClass('customClass')
+    })
+
     it('renders its children as its content', () => {
         render(
             <Modal isOpen aria-label="modal">
