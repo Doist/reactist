@@ -1,11 +1,18 @@
 {
     "name": "@doist/reactist",
     "description": "Open source React components by Doist",
-    "author": "Henning Muszynski <henning@doist.com> (http://doist.com)",
+    "author": {
+        "name": "Henning Muszynski",
+        "email": "henning@doist.com",
+        "url": "http://doist.com"
+    },
     "version": "17.7.0",
     "license": "MIT",
     "homepage": "https://github.com/Doist/reactist#readme",
-    "repository": "git+https://github.com/Doist/reactist.git",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Doist/reactist.git"
+    },
     "prettier": "@doist/prettier-config",
     "main": "lib/index.js",
     "module": "es/index.js",
@@ -66,11 +73,14 @@
         "@storybook/addon-actions": "^6.5.3",
         "@storybook/addon-controls": "^6.5.3",
         "@storybook/addon-docs": "^6.5.3",
+        "@storybook/addon-interactions": "^6.5.15",
         "@storybook/addon-knobs": "^6.3.1",
         "@storybook/addon-links": "^6.5.3",
         "@storybook/addon-postcss": "^2.0.0",
         "@storybook/addons": "^6.5.3",
+        "@storybook/jest": "^0.0.10",
         "@storybook/react": "^6.5.3",
+        "@storybook/testing-library": "^0.0.13",
         "@testing-library/jest-dom": "^5.14.1",
         "@testing-library/react": "^12.0.0",
         "@testing-library/user-event": "^13.2.1",
@@ -143,5 +153,8 @@
         "tsdx": {
             "typescript": "^4.6.4"
         }
+    },
+    "bugs": {
+        "url": "https://github.com/Doist/reactist/issues"
     }
 }

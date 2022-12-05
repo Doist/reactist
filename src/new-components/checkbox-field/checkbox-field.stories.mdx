@@ -6,7 +6,6 @@ import { PartialProps } from '../storybook-helper'
 import { CheckboxField } from '.'
 import { Stack } from '../stack'
 import { Text } from '../text'
-import { Inline } from '../inline'
 
 <Meta
     title="Design system/CheckboxField"
@@ -128,8 +127,15 @@ A checkbox field with a `ReactNode` as label.
 ### Indeterminate Example
 
 <Canvas>
-    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Indeterminate Example">
+    <Story
+        name="Indeterminate Example"
+        parameters={{
+            docs: { source: { type: 'dynamic' } },
+        }}
+    >
         {() => {
+            const labels = ['One', 'Two', 'Three', 'Four', 'Five']
+            const icons = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣']
             const [state, setState] = useState([false, true, false, false, false])
             const checkedCount = state.filter(Boolean).length
             const indeterminate = checkedCount > 0 && checkedCount < state.length
@@ -144,11 +150,12 @@ A checkbox field with a `ReactNode` as label.
                         indeterminate={indeterminate}
                         label={`Check/uncheck all (${checkedCount} / ${state.length})`}
                     />
-                    <Inline space="medium">
+                    <Stack space="medium">
                         {state.map((checked, index) => (
                             <CheckboxField
                                 key={`${index}-${String(checked)}`}
-                                label={String(index + 1)}
+                                label={labels[index]}
+                                icon={icons[index]}
                                 checked={checked}
                                 onChange={(event) => {
                                     const { checked } = event.currentTarget
@@ -160,7 +167,7 @@ A checkbox field with a `ReactNode` as label.
                                 }}
                             />
                         ))}
-                    </Inline>
+                    </Stack>
                     <Text tone="secondary">
                         Mark some (but not all) numbered checkboxes to see the one at the top as
                         indeterminate.

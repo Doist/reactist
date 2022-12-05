@@ -1,10 +1,16 @@
 import * as React from 'react'
+
+import { within, userEvent } from '@storybook/testing-library'
+import { expect } from '@storybook/jest'
+
 import { Placeholder, times } from '../storybook-helper'
 import { SelectField } from '../select-field'
 import { SwitchField } from '../switch-field'
 import { Stack } from '../stack'
 import { Button } from '../button'
+
 import * as ModalComponents from './modal'
+
 import type { ModalProps, ModalHeaderProps, ModalFooterProps } from './modal'
 
 function Link({ children, ...props }: JSX.IntrinsicElements['a']) {
@@ -48,7 +54,7 @@ function ModalStoryStateProvider({
     initialState,
     children,
 }: {
-    initialState?: ModalStoryState
+    initialState?: Partial<ModalStoryState>
     children: React.ReactNode
 }) {
     const [isOpen, setOpen] = React.useState(false)
@@ -136,7 +142,7 @@ function ModalOptionsForm({ title }: { title?: React.ReactNode }) {
             <SwitchField
                 name="withScrollableContent"
                 label="Extra content to scroll"
-                hint='When height="expanded" you can select to generate artificial content to make the body scroll'
+                hint="When enabled, it renders extra content below to make the modal body scroll"
                 checked={withScrollableContent}
                 onChange={onChange}
             />
@@ -163,14 +169,19 @@ function ModalButton({
     children,
     action = 'close',
 }: {
-    variant: 'primary' | 'secondary'
-    action: 'open' | 'close'
+    variant: 'primary' | 'secondary' | 'danger'
+    action?: 'open' | 'close'
     size?: 'small'
     children: NonNullable<React.ReactNode>
 }) {
     const { openModal, closeModal } = React.useContext(ModalStoryContext)
     return (
-        <Button variant={variant} size={size} onClick={action === 'open' ? openModal : closeModal}>
+        <Button
+            variant={variant === 'danger' ? 'primary' : variant}
+            tone={variant === 'danger' ? 'destructive' : undefined}
+            size={size}
+            onClick={action === 'open' ? openModal : closeModal}
+        >
             {children}
         </Button>
     )
@@ -183,6 +194,17 @@ type WithOptionals<Props, Keys extends keyof Props> = Omit<Props, Keys> & Partia
 
 function Modal(props: WithOptionals<ModalProps, 'isOpen' | 'onDismiss' | 'width' | 'height'>) {
     const { isOpen, closeModal, width, height, hideOn } = React.useContext(ModalStoryContext)
+
+    /**
+     * Needed to make sure the modals are mounted inside the story's #root element
+     */
+    const getPortalElement = React.useCallback(() => {
+        const div = document.createElement('div')
+        const portalRoot = document.getElementById('root') ?? document.body
+        portalRoot.appendChild(div)
+        return div
+    }, [])
+
     return (
         <ModalComponents.Modal
             isOpen={isOpen}
@@ -191,6 +213,7 @@ function Modal(props: WithOptionals<ModalProps, 'isOpen' | 'onDismiss' | 'width'
             height={height}
             hideOnEscape={hideOn === 'escapeAndOverlay' || hideOn === 'escape'}
             hideOnInteractOutside={hideOn === 'escapeAndOverlay' || hideOn === 'overlay'}
+            portalElement={getPortalElement}
             {...props}
         />
     )
@@ -217,6 +240,19 @@ function ModalFooter(props: WithOptionals<ModalFooterProps, 'withDivider'>) {
 function ModalActions(props: WithOptionals<ModalFooterProps, 'withDivider'>) {
     const { withScrollableContent } = React.useContext(ModalStoryContext)
     return <ModalComponents.ModalActions withDivider={withScrollableContent} {...props} />
+}
+
+/**
+ * Used by stories in storybooks to programmatically open the modal on each story.
+ *
+ * Not only that, but it also serves the purpose of testing that the modal actually opens.
+ *
+ * @see https://storybook.js.org/docs/react/writing-tests/interaction-testing
+ */
+export async function openModal({ canvasElement }: { canvasElement: HTMLElement }) {
+    const canvas = within(canvasElement)
+    userEvent.click(canvas.getByRole('button', { name: 'Open modal' }))
+    expect(await canvas.findByRole('dialog')).toBeInTheDocument()
 }
 
 export { Link, ModalStoryStateProvider, ModalOptionsForm, ModalButton as Button, ScrollableContent }
