@@ -69,6 +69,10 @@ export function HeadingStory() {
     )
 }
 
+HeadingStory.parameters = {
+    chromatic: { disableSnapshot: false },
+}
+
 export function TruncatedHeadingStory() {
     return (
         <section className="story">
@@ -85,6 +89,10 @@ export function TruncatedHeadingStory() {
             </Heading>
         </section>
     )
+}
+
+TruncatedHeadingStory.parameters = {
+    chromatic: { disableSnapshot: false },
 }
 
 export function ResponsiveHeadingStory(props: React.ComponentProps<typeof Heading>) {

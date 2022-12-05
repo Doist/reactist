@@ -69,6 +69,7 @@ export function PlaygroundTemplate() {
         name="Main demo"
         parameters={{
             docs: { source: { type: 'dynamic' } },
+            chromatic: { disableSnapshot: false },
         }}
     >
         {PlaygroundTemplate.bind({})}

@@ -4,7 +4,9 @@ module.exports = {
     stories: ['../src/**/*.stories.@(tsx|mdx)', '../stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
     siteUrl: 'https://github.com/Doist/reactist',
     features: {
+        // Needed for Chromatic/Storybooks interactive tests
         // See https://storybook.js.org/docs/react/writing-tests/interaction-testing
+        // See https://www.chromatic.com/docs/interactions#how-to-write-interaction-tests
         interactionsDebugger: true,
     },
     addons: [

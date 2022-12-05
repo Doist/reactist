@@ -13,6 +13,11 @@ export const parameters = {
         },
     },
     decorators,
+    chromatic: {
+        // This allows us to opt-in to Chromatic snapshots per story
+        // See https://www.chromatic.com/docs/ignoring-elements#ignore-stories
+        disableSnapshot: true,
+    },
 }
 
 const badgeFontStyles = {
