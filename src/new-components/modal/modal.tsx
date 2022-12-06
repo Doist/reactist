@@ -80,6 +80,10 @@ export type ModalProps = DivProps & {
      */
     autoFocus?: boolean
     /**
+     * Controls if the modal is dismissed when clicking outside the modal body, on the overlay.
+     */
+    hideOnOverlayClick?: boolean
+    /**
      * An escape hatch in case you need to provide a custom class name to the container element.
      */
     exceptionallySetClassName?: string
@@ -114,6 +118,7 @@ export function Modal({
     exceptionallySetClassName,
     exceptionallySetOverlayClassName,
     autoFocus = true,
+    hideOnOverlayClick = true,
     children,
     ...props
 }: ModalProps) {
@@ -180,7 +185,7 @@ export function Modal({
                     styles[width],
                     exceptionallySetOverlayClassName,
                 )}
-                onClick={handleBackdropClick}
+                onClick={hideOnOverlayClick ? handleBackdropClick : undefined}
                 ref={backdropRef}
             >
                 <FocusLock autoFocus={autoFocus} whiteList={isNotInternalFrame} returnFocus={true}>

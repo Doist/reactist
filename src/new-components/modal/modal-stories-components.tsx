@@ -17,6 +17,7 @@ function Link({ children, ...props }: JSX.IntrinsicElements['a']) {
 
 type ModalStoryState = Pick<ModalProps, 'width' | 'height'> & {
     button: 'true' | 'false' | 'custom'
+    hideOnOverlayClick: boolean
     withScrollableContent: boolean
 }
 
@@ -24,6 +25,7 @@ const defaultInitialState: ModalStoryState = {
     width: 'medium',
     height: 'expand',
     button: 'true',
+    hideOnOverlayClick: true,
     withScrollableContent: false,
 }
 
@@ -99,9 +101,14 @@ function ScrollableContent({ label = 'Item', count = 20 }: { label?: string; cou
 }
 
 function ModalOptionsForm({ title }: { title?: React.ReactNode }) {
-    const { button, width, height, withScrollableContent, onChange } = React.useContext(
-        ModalStoryContext,
-    )
+    const {
+        button,
+        width,
+        height,
+        hideOnOverlayClick,
+        withScrollableContent,
+        onChange,
+    } = React.useContext(ModalStoryContext)
     return (
         <Stack space="large">
             {title}
@@ -124,6 +131,13 @@ function ModalOptionsForm({ title }: { title?: React.ReactNode }) {
                 <option value="fitContent">fitContent</option>
                 <option value="expand">expand</option>
             </SelectField>
+
+            <SwitchField
+                name="hideOnOverlayClick"
+                label="Hide on overlay click"
+                checked={hideOnOverlayClick}
+                onChange={onChange}
+            />
 
             <SwitchField
                 name="withScrollableContent"
@@ -174,13 +188,16 @@ ModalButton.displayName = 'Button'
 type WithOptionals<Props, Keys extends keyof Props> = Omit<Props, Keys> & Partial<Pick<Props, Keys>>
 
 function Modal(props: WithOptionals<ModalProps, 'isOpen' | 'onDismiss' | 'width' | 'height'>) {
-    const { isOpen, closeModal, width, height } = React.useContext(ModalStoryContext)
+    const { isOpen, closeModal, width, height, hideOnOverlayClick } = React.useContext(
+        ModalStoryContext,
+    )
     return (
         <ModalComponents.Modal
             isOpen={isOpen}
             onDismiss={closeModal}
             width={width}
             height={height}
+            hideOnOverlayClick={hideOnOverlayClick}
             {...props}
         />
     )

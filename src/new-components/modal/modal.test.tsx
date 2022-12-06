@@ -100,6 +100,17 @@ describe('Modal', () => {
         expect(screen.queryByRole('dialog', { name: 'modal' })).not.toBeInTheDocument()
     })
 
+    it('is not dismissed when clicking in the overlay if hideOnOverlayClick="false"', () => {
+        const onDismiss = jest.fn()
+        render(
+            <Modal isOpen hideOnOverlayClick={false} onDismiss={onDismiss}>
+                <button type="button">Close me</button>
+            </Modal>,
+        )
+        userEvent.click(screen.getByTestId('modal-overlay'))
+        expect(onDismiss).not.toHaveBeenCalled()
+    })
+
     it('focuses on the first focusable element', () => {
         render(
             <Modal isOpen>
