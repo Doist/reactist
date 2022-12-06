@@ -179,7 +179,7 @@ describe('CheckboxField', () => {
     })
 
     it('renders an icon if icon is provided', () => {
-        render(<CheckboxField data-testid="checkbox-field" label="Smile" icon="😄" />)
+        render(<CheckboxField label="Smile" icon="😄" />)
         expect(screen.getByText('😄')).toBeInTheDocument()
     })
 
