@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
 import { BADGE } from '@geometricpanda/storybook-addon-badges'
 
-import { Notice } from './../notice/notice'
 import { PartialProps } from '../storybook-helper'
 import { CheckboxField } from '.'
 import { Stack } from '../stack'
@@ -100,7 +99,7 @@ In this example we are passing an SVG image as icon.
 
 ### ReactNode as Label
 
-A checkbox field with a `ReactNode` as label (in this example the `ReactNode` contains an icon and a string).
+A checkbox field with a `ReactNode` as label.
 
 <Canvas>
     <Story
@@ -109,7 +108,7 @@ A checkbox field with a `ReactNode` as label (in this example the `ReactNode` co
         args={{
             label: (
                 <>
-                    <Icon /> Label with icon
+                    Accept our <strong>terms of service</strong>
                 </>
             ),
         }}
@@ -118,10 +117,13 @@ A checkbox field with a `ReactNode` as label (in this example the `ReactNode` co
     </Story>
 </Canvas>
 
-<Notice tone="info">
-    If you want to render an icon, please pass in the icon via the appropriate icon attribute
-    instead.
-</Notice>
+<CheckboxField
+    label={
+        <>
+            Accept our <strong>terms of service</strong>
+        </>
+    }
+/>
 
 ### Indeterminate Example
 

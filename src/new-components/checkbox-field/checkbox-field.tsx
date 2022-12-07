@@ -6,8 +6,6 @@ import { CheckboxIcon } from './checkbox-icon'
 
 import styles from './checkbox-field.module.css'
 
-type IconElement = React.ReactChild
-
 type CheckboxFieldProps = Omit<
     JSX.IntrinsicElements['input'],
     | 'type'
@@ -32,7 +30,7 @@ type CheckboxFieldProps = Omit<
     /** The label for the checkbox element. */
     label?: React.ReactNode
     /** The icon that should be added to the checkbox label. */
-    icon?: IconElement
+    icon?: React.ReactChild
     /** Defines whether or not the checkbox can be of a `mixed` state. */
     indeterminate?: boolean
 }
