@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react'
 import { CheckboxField } from '.'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
+import { TestIcon } from '../test-helpers'
 
 describe('CheckboxField', () => {
     function IndeterminateTestCase({ initialState }: { initialState: boolean[] }) {
@@ -175,6 +176,18 @@ describe('CheckboxField', () => {
         userEvent.click(switchElement)
         expect(switchElement).not.toBeChecked()
         expect(screen.getByTestId('value')).toHaveTextContent('off')
+    })
+
+    it('renders an icon if icon is provided', () => {
+        render(<CheckboxField label="Smile" icon="😄" />)
+        expect(screen.getByText('😄')).toBeInTheDocument()
+    })
+
+    it('supports SVG icons if provided', () => {
+        render(
+            <CheckboxField data-testid="checkbox-field" label="Test label" icon={<TestIcon />} />,
+        )
+        expect(screen.getByTestId('test-icon')).toBeInTheDocument()
     })
 
     describe('indeterminate', () => {

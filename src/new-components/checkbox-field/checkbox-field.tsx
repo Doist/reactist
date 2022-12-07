@@ -29,12 +29,14 @@ type CheckboxFieldProps = Omit<
     disabled?: boolean
     /** The label for the checkbox element. */
     label?: React.ReactNode
+    /** The icon that should be added to the checkbox label. */
+    icon?: React.ReactChild
     /** Defines whether or not the checkbox can be of a `mixed` state. */
     indeterminate?: boolean
 }
 
 const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(function CheckboxField(
-    { label, disabled, indeterminate, defaultChecked, onChange, ...props },
+    { label, icon, disabled, indeterminate, defaultChecked, onChange, ...props },
     ref,
 ) {
     const isControlledComponent = typeof props.checked === 'boolean'
@@ -104,7 +106,16 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
                 indeterminate={indeterminate}
                 aria-hidden
             />
-            {label ? <Text>{label}</Text> : null}
+            {icon ? (
+                <Box display="flex" className={styles.icon} aria-hidden>
+                    {icon}
+                </Box>
+            ) : null}
+            {label ? (
+                <Box display="flex" className={styles.label}>
+                    <Text>{label}</Text>
+                </Box>
+            ) : null}
         </Box>
     )
 })
