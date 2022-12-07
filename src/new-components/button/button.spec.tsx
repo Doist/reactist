@@ -4,7 +4,7 @@ import { Button } from './button'
 
 test.use({ viewport: { width: 500, height: 500 } })
 
-test('renders a button with the given label', async ({ mount }) => {
-    const component = await mount(<Button variant="primary">Click me</Button>)
-    expect(component.getByRole('button', { name: 'Click me' })).toBeDefined()
+test('renders a button with the given label', async ({ mount, page }) => {
+    await mount(<Button variant="primary">Click me</Button>)
+    expect(await page.screenshot()).toMatchSnapshot()
 })

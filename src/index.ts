@@ -1,4 +1,4 @@
-import './new-components/default-styles.less'
+import './new-components/default-styles.css'
 
 // layout components
 export * from './new-components/box'
