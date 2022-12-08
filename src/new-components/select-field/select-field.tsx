@@ -39,6 +39,7 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
         >
             {(extraProps) => (
                 <Box
+                    data-testid="select-wrapper"
                     className={[
                         styles.selectWrapper,
                         tone === 'error' ? styles.error : null,
