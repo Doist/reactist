@@ -1,12 +1,13 @@
 import * as React from 'react'
-import { BaseField, FieldComponentProps } from '../base-field'
+import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-field'
 import { Box } from '../box'
 import styles from './select-field.module.css'
 
-type SelectFieldProps = FieldComponentProps<HTMLSelectElement>
+type SelectFieldProps = FieldComponentProps<HTMLSelectElement> & BaseFieldVariantProps
 
 const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(function SelectField(
     {
+        variant = 'default',
         id,
         label,
         secondaryLabel,
@@ -24,6 +25,7 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
 ) {
     return (
         <BaseField
+            variant={variant}
             id={id}
             label={label}
             secondaryLabel={secondaryLabel}
@@ -36,7 +38,13 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
             aria-describedby={ariaDescribedBy}
         >
             {(extraProps) => (
-                <Box className={[styles.selectWrapper, tone === 'error' ? styles.error : null]}>
+                <Box
+                    className={[
+                        styles.selectWrapper,
+                        tone === 'error' ? styles.error : null,
+                        variant === 'bordered' ? styles.bordered : null,
+                    ]}
+                >
                     <select {...props} {...extraProps} ref={ref}>
                         {children}
                     </select>

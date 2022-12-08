@@ -3,6 +3,13 @@
     position: relative;
 }
 
+.selectWrapper.bordered select {
+    padding: 0;
+    height: 24px;
+    border-color: transparent;
+    outline: none;
+}
+
 .selectWrapper svg {
     position: absolute;
     right: 10px;
@@ -42,14 +49,14 @@
     margin: 0;
 }
 
-.selectWrapper.error select {
+.selectWrapper:not(.bordered).error select {
     border-color: var(--reactist-alert-tone-critical-border) !important;
 }
 
-.selectWrapper option {
+.selectWrapper:not(.bordered) option {
     background-color: var(--reactist-bg-aside);
 }
 
-.selectWrapper select:focus {
+.selectWrapper:not(.bordered) select:focus {
     border-color: var(--reactist-divider-primary);
 }
