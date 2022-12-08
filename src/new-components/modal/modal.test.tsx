@@ -476,7 +476,7 @@ describe('a11y', () => {
         expect(onDismiss).toHaveBeenCalledTimes(1)
     })
 
-    it("doesn't call the modal's onDismiss callback when 'Esc' is pressed and hideOnEscape='false'", () => {
+    it("doesn't call the modal's onDismiss callback when 'Esc' is pressed and hideOnEscape is false", () => {
         const onDismiss = jest.fn()
         render(
             <Modal isOpen onDismiss={onDismiss} aria-label="modal" hideOnEscape={false}>
