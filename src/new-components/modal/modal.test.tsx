@@ -100,7 +100,7 @@ describe('Modal', () => {
         expect(screen.queryByRole('dialog', { name: 'modal' })).not.toBeInTheDocument()
     })
 
-    it('is not dismissed when clicking in the overlay if hideOnInteractOutside="false"', () => {
+    it('is not dismissed when clicking in the overlay if hideOnInteractOutside is false', () => {
         const onDismiss = jest.fn()
         render(
             <Modal isOpen hideOnInteractOutside={false} onDismiss={onDismiss}>
