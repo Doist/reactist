@@ -17,6 +17,7 @@ function Link({ children, ...props }: JSX.IntrinsicElements['a']) {
 
 type ModalStoryState = Pick<ModalProps, 'width' | 'height'> & {
     button: 'true' | 'false' | 'custom'
+    hideOn: 'escapeAndOverlay' | 'escape' | 'overlay'
     withScrollableContent: boolean
 }
 
@@ -24,6 +25,7 @@ const defaultInitialState: ModalStoryState = {
     width: 'medium',
     height: 'expand',
     button: 'true',
+    hideOn: 'escapeAndOverlay',
     withScrollableContent: false,
 }
 
@@ -99,7 +101,7 @@ function ScrollableContent({ label = 'Item', count = 20 }: { label?: string; cou
 }
 
 function ModalOptionsForm({ title }: { title?: React.ReactNode }) {
-    const { button, width, height, withScrollableContent, onChange } = React.useContext(
+    const { button, width, height, hideOn, withScrollableContent, onChange } = React.useContext(
         ModalStoryContext,
     )
     return (
@@ -123,6 +125,12 @@ function ModalOptionsForm({ title }: { title?: React.ReactNode }) {
             <SelectField label="height" name="height" value={height} onChange={onChange}>
                 <option value="fitContent">fitContent</option>
                 <option value="expand">expand</option>
+            </SelectField>
+
+            <SelectField label="Hide on" name="hideOn" value={hideOn} onChange={onChange}>
+                <option value="escapeAndOverlay">escape and overlay click</option>
+                <option value="overlay">overlay click</option>
+                <option value="escape">escape</option>
             </SelectField>
 
             <SwitchField
@@ -174,13 +182,15 @@ ModalButton.displayName = 'Button'
 type WithOptionals<Props, Keys extends keyof Props> = Omit<Props, Keys> & Partial<Pick<Props, Keys>>
 
 function Modal(props: WithOptionals<ModalProps, 'isOpen' | 'onDismiss' | 'width' | 'height'>) {
-    const { isOpen, closeModal, width, height } = React.useContext(ModalStoryContext)
+    const { isOpen, closeModal, width, height, hideOn } = React.useContext(ModalStoryContext)
     return (
         <ModalComponents.Modal
             isOpen={isOpen}
             onDismiss={closeModal}
             width={width}
             height={height}
+            hideOnEscape={hideOn === 'escapeAndOverlay' || hideOn === 'escape'}
+            hideOnInteractOutside={hideOn === 'escapeAndOverlay' || hideOn === 'overlay'}
             {...props}
         />
     )

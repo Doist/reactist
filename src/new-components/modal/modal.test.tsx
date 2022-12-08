@@ -100,6 +100,17 @@ describe('Modal', () => {
         expect(screen.queryByRole('dialog', { name: 'modal' })).not.toBeInTheDocument()
     })
 
+    it('is not dismissed when clicking in the overlay if hideOnInteractOutside is false', () => {
+        const onDismiss = jest.fn()
+        render(
+            <Modal isOpen hideOnInteractOutside={false} onDismiss={onDismiss}>
+                <button type="button">Close me</button>
+            </Modal>,
+        )
+        userEvent.click(screen.getByTestId('modal-overlay'))
+        expect(onDismiss).not.toHaveBeenCalled()
+    })
+
     it('focuses on the first focusable element', () => {
         render(
             <Modal isOpen>
@@ -463,5 +474,19 @@ describe('a11y', () => {
         expect(onDismiss).not.toHaveBeenCalled()
         userEvent.type(modal, '{esc}')
         expect(onDismiss).toHaveBeenCalledTimes(1)
+    })
+
+    it("doesn't call the modal's onDismiss callback when 'Esc' is pressed and hideOnEscape is false", () => {
+        const onDismiss = jest.fn()
+        render(
+            <Modal isOpen onDismiss={onDismiss} aria-label="modal" hideOnEscape={false}>
+                <ModalHeader>Hello</ModalHeader>
+            </Modal>,
+        )
+        const modal = screen.getByRole('dialog', { name: 'modal' })
+
+        expect(onDismiss).not.toHaveBeenCalled()
+        userEvent.type(modal, '{esc}')
+        expect(onDismiss).not.toHaveBeenCalled()
     })
 })

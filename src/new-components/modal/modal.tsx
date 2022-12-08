@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import FocusLock from 'react-focus-lock'
 import { hideOthers } from 'aria-hidden'
 
-import { Dialog, useDialogState } from 'ariakit/dialog'
+import { Dialog, DialogOptions, useDialogState } from 'ariakit/dialog'
 import { Portal } from 'ariakit/portal'
 
 import { CloseIcon } from '../icons/close-icon'
@@ -80,6 +80,14 @@ export type ModalProps = DivProps & {
      */
     autoFocus?: boolean
     /**
+     * Controls if the modal is dismissed when pressing "Escape".
+     */
+    hideOnEscape?: DialogOptions['hideOnEscape']
+    /**
+     * Controls if the modal is dismissed when clicking outside the modal body, on the overlay.
+     */
+    hideOnInteractOutside?: DialogOptions['hideOnInteractOutside']
+    /**
      * An escape hatch in case you need to provide a custom class name to the container element.
      */
     exceptionallySetClassName?: string
@@ -114,6 +122,8 @@ export function Modal({
     exceptionallySetClassName,
     exceptionallySetOverlayClassName,
     autoFocus = true,
+    hideOnEscape = true,
+    hideOnInteractOutside = true,
     children,
     ...props
 }: ModalProps) {
@@ -180,7 +190,7 @@ export function Modal({
                     styles[width],
                     exceptionallySetOverlayClassName,
                 )}
-                onClick={handleBackdropClick}
+                onClick={hideOnInteractOutside ? handleBackdropClick : undefined}
                 ref={backdropRef}
             >
                 <FocusLock autoFocus={autoFocus} whiteList={isNotInternalFrame} returnFocus={true}>
@@ -189,7 +199,7 @@ export function Modal({
                         ref={dialogRef}
                         as={Box}
                         state={state}
-                        hideOnEscape
+                        hideOnEscape={hideOnEscape}
                         preventBodyScroll
                         borderRadius="full"
                         background="default"
