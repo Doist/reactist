@@ -140,16 +140,60 @@ MacOS users might need to upgrade watchman with `brew install watchman` when exp
 
 A new version of reactist is published both on npm and GitHub Package Registry whenever a new release on GitHub is created.
 
-To begin the process, update CHANGELOG.md with the new version and its changes
+## Before merging your changes
 
-To update the version in both `package.json` and `package-lock.json`:
+In the GitHub PR that contains your new changes, make sure that you also include the following:
+
+1. Add tests for bugs and new feature
+
+2. Update relevant docs (storybooks, readme)
+
+3. Execute:
+
+```sh
+npm run validate
+```
+
+and make sure no errors nor warnings are shown
+
+4. Describe your changes in [`CHANGELOG.md`](CHANGELOG.md)
+
+5. Bump the version in [`package.json`](package.json) and [`package-lock.json`](package-lock.json) by running:
 
 ```sh
 npm --no-git-tag-version version <major|minor|patch>
 ```
 
-Once these changes have been pushed and merged, create a release.
+[ref](https://docs.npmjs.com/cli/v6/commands/npm-version)
 
-A GitHub Action will automatically perform all the necessary steps and will release the version number that's specified inside the `package.json`'s `version` field so make sure that the release tag reflects the version you want to publish.
+6. Update all static build artifacts:
 
-Finally, once the release has been created be sure to update both [todoist-web](https://github.com/Doist/todoist-web) and [twist-web](https://github.com/Doist/twist-web) to use the new version.
+```sh
+npm run build-all
+```
+
+Note that the steps above are also documented in the [PR template](.github/PULL_REQUEST_TEMPLATE.md) that you will be prompted with whenever you open a new reactist GitHub PR.
+
+## After merging your changes
+
+Once your changes have been merged to `main`, create a new GitHub release:
+
+1. Visit https://github.com/Doist/reactist/releases/new
+
+2. In the "Choose a tag" dropdown, type the new release version (i.e. vX.Y.Z) and select "Create new tag: vX.Y.Z on publish"
+
+3. In the "Release title" field, type the new release version (i.e. vX.Y.Z)
+
+4. In the "Describe the release" box, paste the same content you added to the [`CHANGELOG.md`](CHANGELOG.md), but without the title header
+
+5. Make sure the "Set as the latest release" checkbox is checked
+
+6. Click "Publish release"
+
+7. Visit https://github.com/Doist/reactist/actions
+
+8. Make sure that a new GitHub action is now running (this will automatically perform all the necessary steps to publish the package)
+
+9. Once the action is complete, check https://npmjs.com/package/@doist/reactist and verify that there's a new public release
+
+Finally, be sure to update both [todoist-web](https://github.com/Doist/todoist-web) and [twist-web](https://github.com/Doist/twist-web) to use the new reactist version you just published.
