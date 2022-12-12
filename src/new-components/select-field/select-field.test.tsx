@@ -246,6 +246,12 @@ describe('SelectField', () => {
         expect(screen.getByTestId('container')).toHaveAttribute('data-theme', 'light')
     })
 
+    it('supports providing a variant', () => {
+        render(<SelectField label="Email" type="email" variant="bordered" />)
+
+        expect(screen.getByTestId('select-wrapper')).toHaveClass('bordered')
+    })
+
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = render(

@@ -80,6 +80,11 @@ InteractivePropsStory.argTypes = {
         control: { type: 'inline-radio' },
         defaultValue: 'neutral',
     },
+    variant: {
+        options: ['default', 'bordered'],
+        control: { type: 'inline-radio' },
+        defaultValue: 'default',
+    },
     maxWidth: selectWithNone<BoxMaxWidth>(
         ['xsmall', 'small', 'medium', 'large', 'xlarge'],
         'small',
