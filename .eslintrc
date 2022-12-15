@@ -46,7 +46,9 @@
         {
             "files": ["*.spec.*"],
             "rules": {
-                "jest/no-standalone-expect": "off"
+                "jest/no-standalone-expect": "off",
+                "@typescript-eslint/no-unsafe-member-access": "off",
+                "@typescript-eslint/no-unsafe-call": "off"
             }
         }
     ],
