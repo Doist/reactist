@@ -41,7 +41,7 @@
         "storybook": "start-storybook -p 6006",
         "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md,mdx}\"",
         "test-ct": "playwright test -c playwright-ct.config.ts",
-        "test-report": "playwright show-report"
+        "visual-tests": "docker compose up"
     },
     "peerDependencies": {
         "classnames": "^2.2.5",

@@ -12,4 +12,6 @@ coverage/
 /test-results/
 /playwright-report/
 /playwright/.cache/
+!/playwright/__snapshots__/
+!/playwright/__snapshots__/**/*-linux.png
 *.tsbuildinfo

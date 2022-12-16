@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  playwright:
+    build: .
+    volumes:
+      - ./:/app:cached
+      - /app/node_modules
+    command: npx playwright test -c playwright-ct.config.ts
