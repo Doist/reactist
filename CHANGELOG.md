@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# v17.6.0
+
+-   [Tweak] Upgrade Ariakit version to 2.0.0-next.30
+
 # v17.5.0
 
 -   [Feat] Add `variant` prop support to `SelectField` component.
