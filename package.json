@@ -130,8 +130,8 @@
     "dependencies": {
         "@reach/dialog": "^0.16.0",
         "aria-hidden": "^1.2.1",
-        "ariakit": "2.0.0-next.27",
-        "ariakit-utils": "0.17.0-next.18",
+        "ariakit": "2.0.0-next.30",
+        "ariakit-utils": "0.17.0-next.21",
         "dayjs": "^1.8.10",
         "patch-package": "^6.4.6",
         "react-focus-lock": "^2.9.1",
