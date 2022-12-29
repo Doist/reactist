@@ -4,4 +4,4 @@ RUN apt-get update && apt-get -y install libnss3 libatk-bridge2.0-0 libdrm-dev l
  
 WORKDIR /app
 COPY package.json .
-RUN npm install
+RUN npm install --quiet

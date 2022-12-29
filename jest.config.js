@@ -1,6 +1,7 @@
 module.exports = {
     collectCoverageFrom: [
         'src/**/*.{ts,tsx,js,jsx}',
+        '!**/*.spec.{js,jsx,ts,tsx}',
         '!**/*.stories.{js,jsx,ts,tsx}',
         '!**/*storybook*.{js,jsx,ts,tsx}',
     ],

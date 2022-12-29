@@ -1,5 +1,6 @@
-import type { PlaywrightTestConfig } from '@playwright/experimental-ct-react'
 import { devices } from '@playwright/experimental-ct-react'
+
+import type { PlaywrightTestConfig } from '@playwright/experimental-ct-react'
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -32,9 +33,22 @@ const config: PlaywrightTestConfig = {
 
     /* Configure projects for major browsers */
     projects: [
-        { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-        { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
-        { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+        {
+            name: 'chromium',
+            use: { ...devices['Desktop Chrome'] },
+        },
+
+        {
+            name: 'webkit',
+            use: { ...devices['Desktop Safari'] },
+        },
+
+        //
+        // Firefox tests are disabled, hopefully temporarily. For some reason they only work when
+        // running tests locally on macOS, but they get stuck without failing or passing when
+        // running locally on Windows, or when tests are run on CI.
+        //
+        // { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
     ],
 }
 

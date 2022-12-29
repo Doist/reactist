@@ -1,6 +1,6 @@
 {
     "extends": "@doist/tsconfig",
-    "include": ["src", "types", "*.config.ts", "playwright"],
+    "include": ["src", "types"],
     "compilerOptions": {
         "allowJs": true,
         "module": "esnext",
@@ -8,7 +8,7 @@
         "importHelpers": true,
         "declaration": true,
         "sourceMap": true,
-        "rootDir": "./",
+        "rootDir": "src",
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "moduleResolution": "node",
