@@ -3,7 +3,7 @@ import { Box } from './box'
 import { Heading } from './heading'
 import { Stack } from './stack'
 
-import './default-styles.less'
+import './default-styles.css'
 
 import type { BoxProps } from './box'
 import type { Space } from './common-types'

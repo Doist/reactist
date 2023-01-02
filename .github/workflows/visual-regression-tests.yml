@@ -1,0 +1,18 @@
+name: Visual Regression Tests
+
+on: pull_request
+
+jobs:
+    visual-regression-tests:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '16'
+                  cache: 'npm'
+            - name: Run Playwright inside Docker
+              uses: isbang/compose-action@v1.4.1
+              with:
+                  up-flags: '--exit-code-from playwright --abort-on-container-exit'

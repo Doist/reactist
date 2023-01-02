@@ -27,7 +27,7 @@
     "scripts": {
         "postinstall": "patch-package",
         "setup": "npm install && npm run validate",
-        "validate": "npm run lint && npm run type-check && npm run test",
+        "validate": "npm run lint && npm run type-check && npm run test && npm run visual-tests",
         "start": "tsdx watch --onSuccess \"./scripts/organize-styles.sh\"",
         "build-all": "npm run build && npm run build:storybook",
         "build": "scripts/build.sh",
@@ -39,7 +39,9 @@
         "type-check": "tsc --noEmit -p ./tsconfig.json",
         "lint": "eslint --format codeframe --cache --ext js,jsx,ts,tsx ./",
         "storybook": "start-storybook -p 6006",
-        "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md,mdx}\""
+        "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md,mdx}\"",
+        "test-ct": "playwright test -c playwright-ct.config.ts",
+        "visual-tests": "docker compose up --exit-code-from playwright"
     },
     "peerDependencies": {
         "classnames": "^2.2.5",
@@ -63,6 +65,7 @@
         "@doist/prettier-config": "^3.0.5",
         "@doist/tsconfig": "^1.0.0",
         "@geometricpanda/storybook-addon-badges": "^0.2.2",
+        "@playwright/experimental-ct-react": "^1.28.1",
         "@storybook/addon-actions": "^6.5.3",
         "@storybook/addon-controls": "^6.5.3",
         "@storybook/addon-docs": "^6.5.3",
