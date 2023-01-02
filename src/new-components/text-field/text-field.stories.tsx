@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { selectWithNone, PartialProps } from '../storybook-helper'
 
+import { Box } from '../box'
 import { Stack } from '../stack'
 import { Text } from '../text'
 import { TextField } from './'
@@ -118,7 +119,7 @@ export function MessageToneStory() {
 export function WithoutLabelStory() {
     return (
         <Stack space="xlarge" dividers="secondary" maxWidth="small">
-            <Stack as="label" htmlFor="custom-textarea" space="small">
+            <Stack as="label" htmlFor="custom-textfield" space="small">
                 <Text size="subtitle">Custom label is up here</Text>
                 <Text size="caption" tone="secondary" aria-hidden>
                     <em>(click me to focus the input element)</em>
@@ -126,7 +127,7 @@ export function WithoutLabelStory() {
             </Stack>
             <TextField
                 label={null}
-                id="custom-textarea"
+                id="custom-textfield"
                 aria-describedby="custom-description"
                 placeholder="Text field without a built-in label"
             />
@@ -137,5 +138,29 @@ export function WithoutLabelStory() {
                 </Text>
             </Stack>
         </Stack>
+    )
+}
+
+function Icon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+            <path
+                d="M10.5 3a7.5 7.5 0 015.645 12.438l4.709 4.708a.502.502 0 01-.708.708l-4.708-4.709A7.5 7.5 0 1110.5 3zm0 1a6.5 6.5 0 100 13 6.5 6.5 0 000-13z"
+                fill="currentColor"
+            />
+        </svg>
+    )
+}
+
+export function IconStory() {
+    return (
+        <Box maxWidth="small">
+            <TextField
+                label="Search"
+                startIcon={<Icon />}
+                id="textfield-with-icon"
+                placeholder="Text field with an icon"
+            />
+        </Box>
     )
 }

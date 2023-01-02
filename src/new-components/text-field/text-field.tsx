@@ -3,12 +3,14 @@ import { BaseField, BaseFieldVariantProps } from '../base-field'
 import { Box } from '../box'
 import styles from './text-field.module.css'
 import type { FieldComponentProps } from '../base-field'
+import { useMergeRefs } from 'use-callback-ref'
 
 type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 
 type TextFieldProps = Omit<FieldComponentProps<HTMLInputElement>, 'type'> &
     BaseFieldVariantProps & {
         type?: TextFieldType
+        startIcon?: React.ReactChild
     }
 
 const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
@@ -25,10 +27,18 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         maxWidth,
         hidden,
         'aria-describedby': ariaDescribedBy,
+        startIcon,
         ...props
     },
     ref,
 ) {
+    const internalRef = React.useRef<HTMLInputElement>(null)
+    const combinedRef = useMergeRefs([ref, internalRef])
+
+    function focusOnIconClick() {
+        internalRef.current?.focus()
+    }
+
     return (
         <BaseField
             variant={variant}
@@ -45,13 +55,27 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         >
             {(extraProps) => (
                 <Box
+                    display="flex"
+                    alignItems="center"
                     className={[
                         styles.inputWrapper,
                         tone === 'error' ? styles.error : null,
                         variant === 'bordered' ? styles.bordered : null,
                     ]}
                 >
-                    <input {...props} {...extraProps} type={type} ref={ref} />
+                    {startIcon ? (
+                        <Box
+                            display="flex"
+                            className={styles.startIcon}
+                            onClick={focusOnIconClick}
+                            marginRight="-xsmall"
+                            marginLeft="small"
+                            aria-hidden
+                        >
+                            {startIcon}
+                        </Box>
+                    ) : null}
+                    <input {...props} {...extraProps} type={type} ref={combinedRef} />
                 </Box>
             )}
         </BaseField>

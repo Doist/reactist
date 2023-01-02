@@ -222,6 +222,16 @@ describe('TextField', () => {
         expect(screen.getByTestId('value')).toHaveTextContent('Software developer')
     })
 
+    it('supports rendering an icon which focuses on the input field on click', () => {
+        render(<TextField label="Whatʼs your job title?" startIcon={<div>💼</div>} />)
+
+        const inputElement = screen.getByRole('textbox', { name: 'Whatʼs your job title?' })
+        expect(inputElement).not.toHaveFocus()
+
+        userEvent.click(screen.getByText('💼'))
+        expect(inputElement).toHaveFocus()
+    })
+
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = render(
