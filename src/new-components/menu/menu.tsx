@@ -58,8 +58,7 @@ type MenuProps = Omit<Ariakit.MenuStateProps, 'visible'> & {
 
 /**
  * Wrapper component to control a menu. It does not render anything, only providing the state
- * management for the menu components inside it. Note that if you are relying on the `[role='menu']`
- * attribute to style the menu list, it is applied a `menubar` role instead in Safari.
+ * management for the menu components inside it.
  */
 function Menu({ children, onItemSelect, ...props }: MenuProps) {
     const [anchorRect, handleAnchorRectChange] = React.useState<{ x: number; y: number } | null>(
