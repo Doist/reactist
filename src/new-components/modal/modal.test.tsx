@@ -1,10 +1,42 @@
 import * as React from 'react'
-import { render, screen, within } from '@testing-library/react'
+import { act, render, screen, within } from '@testing-library/react'
 import { Modal, ModalHeader, ModalFooter, ModalActions, ModalBody, ModalCloseButton } from './modal'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
+// Ariakit's dialog performs async updates and must be wrapped in an act to prevent warnings
+function renderModal(children: React.ReactElement) {
+    jest.useFakeTimers()
+
+    const results = render(children)
+
+    act(() => {
+        jest.runOnlyPendingTimers()
+    })
+
+    jest.useRealTimers()
+
+    return results
+}
+
+function closeModal() {
+    const modal = screen.queryByRole('dialog')
+
+    if (modal) {
+        jest.useFakeTimers()
+        userEvent.type(modal, '{Esc}')
+
+        act(() => {
+            jest.runOnlyPendingTimers()
+        })
+
+        jest.useRealTimers()
+    }
+}
+
 describe('Modal', () => {
+    afterEach(closeModal)
+
     function TestCaseWithState() {
         const [isOpen, setOpen] = React.useState(false)
         return (
@@ -23,16 +55,17 @@ describe('Modal', () => {
     }
 
     it('renders a semantic accessible dialog', () => {
-        render(
+        renderModal(
             <Modal isOpen aria-label="I'm an accessible dialog">
                 Hello
             </Modal>,
         )
+
         expect(screen.getByRole('dialog', { name: "I'm an accessible dialog" })).toBeInTheDocument()
     })
 
     it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {
-        render(
+        renderModal(
             <Modal
                 aria-label="modal"
                 // @ts-expect-error
@@ -43,13 +76,14 @@ describe('Modal', () => {
                 Hello
             </Modal>,
         )
+
         const modal = screen.getByRole('dialog', { name: 'modal' })
         expect(modal).toHaveClass('right')
         expect(modal).not.toHaveClass('wrong')
     })
 
     it('allows to exceptionally set a class on the overlay', () => {
-        render(
+        renderModal(
             <Modal isOpen exceptionallySetOverlayClassName="customClass">
                 Hello
             </Modal>,
@@ -60,7 +94,7 @@ describe('Modal', () => {
     })
 
     it('renders its children as its content', () => {
-        render(
+        renderModal(
             <Modal isOpen aria-label="modal">
                 <div>one</div>
                 <div>two</div>
@@ -71,7 +105,7 @@ describe('Modal', () => {
     })
 
     it('is dismissed if isOpen="false"', () => {
-        render(<TestCaseWithState />)
+        renderModal(<TestCaseWithState />)
         expect(screen.queryByRole('dialog', { name: 'modal' })).not.toBeInTheDocument()
         userEvent.click(screen.getByRole('button', { name: 'Click me' }))
         expect(screen.getByRole('dialog', { name: 'modal' })).toBeInTheDocument()
@@ -80,7 +114,7 @@ describe('Modal', () => {
     })
 
     it('hides the content underneath from assistive technologies', () => {
-        render(<TestCaseWithState />)
+        renderModal(<TestCaseWithState />)
         userEvent.click(screen.getByRole('button', { name: 'Click me' }))
 
         // Button is present, but not found by role
@@ -93,7 +127,7 @@ describe('Modal', () => {
     })
 
     it('is dismissed when clicking in the overlay', () => {
-        render(<TestCaseWithState />)
+        renderModal(<TestCaseWithState />)
         userEvent.click(screen.getByRole('button', { name: 'Click me' }))
         expect(screen.getByRole('dialog', { name: 'modal' })).toBeInTheDocument()
         userEvent.click(screen.getByTestId('modal-overlay'))
@@ -102,7 +136,7 @@ describe('Modal', () => {
 
     it('is not dismissed when clicking in the overlay if hideOnInteractOutside is false', () => {
         const onDismiss = jest.fn()
-        render(
+        renderModal(
             <Modal isOpen hideOnInteractOutside={false} onDismiss={onDismiss}>
                 <button type="button">Close me</button>
             </Modal>,
@@ -112,7 +146,7 @@ describe('Modal', () => {
     })
 
     it('focuses on the first focusable element', () => {
-        render(
+        renderModal(
             <Modal isOpen>
                 <button type="button">Close me</button>
                 <button type="button">Another button</button>
@@ -123,7 +157,7 @@ describe('Modal', () => {
     })
 
     it("doesn't focus on the modal if autoFocus is false", () => {
-        render(
+        renderModal(
             <Modal isOpen autoFocus={false}>
                 <button type="button">Close me</button>
                 <button type="button" data-autofocus>
@@ -137,7 +171,7 @@ describe('Modal', () => {
     })
 
     it('focuses on the element with the data-autofocus attribute', () => {
-        render(
+        renderModal(
             <Modal isOpen>
                 <button type="button">Close me</button>
                 <button type="button" data-autofocus>
@@ -152,13 +186,15 @@ describe('Modal', () => {
 })
 
 describe('ModalHeader', () => {
+    afterEach(closeModal)
+
     it('renders a semantic banner', () => {
-        render(<ModalHeader>Hello</ModalHeader>)
+        renderModal(<ModalHeader>Hello</ModalHeader>)
         expect(screen.getByRole('banner')).toBeInTheDocument()
     })
 
     it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {
-        render(
+        renderModal(
             <ModalHeader
                 data-testid="modal-header"
                 // @ts-expect-error
@@ -174,7 +210,7 @@ describe('ModalHeader', () => {
     })
 
     it('renders its children as its content', () => {
-        render(
+        renderModal(
             <ModalHeader data-testid="modal-header">
                 <div data-testid="modal-header-content">Hello</div>
             </ModalHeader>,
@@ -186,7 +222,7 @@ describe('ModalHeader', () => {
 
     it("renders a button that calls the modal's onDismiss callback when clicked", () => {
         const onDismiss = jest.fn()
-        render(
+        renderModal(
             <Modal isOpen onDismiss={onDismiss} aria-label="modal">
                 <ModalHeader>Hello</ModalHeader>
             </Modal>,
@@ -197,13 +233,13 @@ describe('ModalHeader', () => {
     })
 
     it('allows to render custom content in place of the button', () => {
-        render(<ModalHeader button={<a href="/help">Help</a>}>Hello</ModalHeader>)
+        renderModal(<ModalHeader button={<a href="/help">Help</a>}>Hello</ModalHeader>)
         expect(screen.queryByRole('button', { name: 'Close modal' })).not.toBeInTheDocument()
         expect(screen.getByRole('link', { name: 'Help' })).toBeInTheDocument()
     })
 
     it('hides the button if its content is set to `false` or `null`', () => {
-        const { rerender } = render(<ModalHeader button={false}>Hello</ModalHeader>)
+        const { rerender } = renderModal(<ModalHeader button={false}>Hello</ModalHeader>)
         expect(screen.queryByRole('button', { name: 'Close modal' })).not.toBeInTheDocument()
         expect(screen.queryByTestId('button-container')).not.toBeInTheDocument()
         rerender(<ModalHeader button={null}>Hello</ModalHeader>)
@@ -212,7 +248,7 @@ describe('ModalHeader', () => {
     })
 
     it('optionally renders a divider', () => {
-        const { rerender } = render(<ModalHeader>Hello</ModalHeader>)
+        const { rerender } = renderModal(<ModalHeader>Hello</ModalHeader>)
         expect(screen.queryByRole('separator')).not.toBeInTheDocument()
         rerender(<ModalHeader withDivider>Hello</ModalHeader>)
         expect(screen.getByRole('separator')).toBeInTheDocument()
@@ -220,13 +256,15 @@ describe('ModalHeader', () => {
 })
 
 describe('ModalFooter', () => {
+    afterEach(closeModal)
+
     it('renders a semantic contentinfo', () => {
-        render(<ModalFooter>Hello</ModalFooter>)
+        renderModal(<ModalFooter>Hello</ModalFooter>)
         expect(screen.getByRole('contentinfo')).toBeInTheDocument()
     })
 
     it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {
-        render(
+        renderModal(
             <ModalFooter
                 data-testid="modal-footer"
                 // @ts-expect-error
@@ -242,7 +280,7 @@ describe('ModalFooter', () => {
     })
 
     it('renders its children as its content', () => {
-        render(
+        renderModal(
             <ModalFooter data-testid="modal-footer">
                 <div data-testid="modal-footer-content">Hello</div>
             </ModalFooter>,
@@ -253,7 +291,7 @@ describe('ModalFooter', () => {
     })
 
     it('optionally renders a divider', () => {
-        const { rerender } = render(<ModalFooter>Hello</ModalFooter>)
+        const { rerender } = renderModal(<ModalFooter>Hello</ModalFooter>)
         expect(screen.queryByRole('separator')).not.toBeInTheDocument()
         rerender(<ModalFooter withDivider>Hello</ModalFooter>)
         expect(screen.getByRole('separator')).toBeInTheDocument()
@@ -261,13 +299,15 @@ describe('ModalFooter', () => {
 })
 
 describe('ModalActions', () => {
+    afterEach(closeModal)
+
     it('renders a semantic contentinfo', () => {
-        render(<ModalActions data-testid="modal-actions">Hello</ModalActions>)
+        renderModal(<ModalActions data-testid="modal-actions">Hello</ModalActions>)
         expect(screen.getByRole('contentinfo')).toBe(screen.getByTestId('modal-actions'))
     })
 
     it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {
-        render(
+        renderModal(
             <ModalActions
                 data-testid="modal-actions"
                 // @ts-expect-error
@@ -283,7 +323,7 @@ describe('ModalActions', () => {
     })
 
     it('renders its children inlined inside it', () => {
-        render(
+        renderModal(
             <ModalActions data-testid="modal-actions">
                 <button>OK</button>
                 <button>Cancel</button>
@@ -309,14 +349,14 @@ describe('ModalActions', () => {
     })
 
     it('optionally renders a divider', () => {
-        const { rerender } = render(<ModalActions>Hello</ModalActions>)
+        const { rerender } = renderModal(<ModalActions>Hello</ModalActions>)
         expect(screen.queryByRole('separator')).not.toBeInTheDocument()
         rerender(<ModalActions withDivider>Hello</ModalActions>)
         expect(screen.getByRole('separator')).toBeInTheDocument()
     })
 
     it('ignores null children', () => {
-        render(
+        renderModal(
             <ModalActions data-testid="modal-actions">
                 <button>OK</button>
                 <button>Cancel</button>
@@ -327,7 +367,7 @@ describe('ModalActions', () => {
     })
 
     it('flattens fragments', () => {
-        render(
+        renderModal(
             <ModalActions data-testid="modal-actions">
                 <>
                     <button>Overwrite</button>
@@ -341,8 +381,10 @@ describe('ModalActions', () => {
 })
 
 describe('ModalBody', () => {
+    afterEach(closeModal)
+
     it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {
-        render(
+        renderModal(
             <ModalBody
                 data-testid="modal-body"
                 // @ts-expect-error
@@ -358,7 +400,7 @@ describe('ModalBody', () => {
     })
 
     it('renders its children as its content', () => {
-        render(
+        renderModal(
             <ModalBody data-testid="modal-body">
                 <div data-testid="modal-body-content">Hello</div>
             </ModalBody>,
@@ -369,7 +411,7 @@ describe('ModalBody', () => {
     })
 
     it('adapts its styles to the height prop of the outer Modal', () => {
-        const { rerender } = render(
+        const { rerender } = renderModal(
             <Modal isOpen height="fitContent" aria-label="modal">
                 <ModalBody data-testid="modal-body">Content</ModalBody>
             </Modal>,
@@ -391,9 +433,11 @@ describe('ModalBody', () => {
 })
 
 describe('ModalCloseButton', () => {
+    afterEach(closeModal)
+
     function renderTestCase() {
         const onDismiss = jest.fn()
-        const renderResult = render(
+        const renderResult = renderModal(
             <Modal isOpen onDismiss={onDismiss} aria-label="modal">
                 <ModalHeader button={<ModalCloseButton aria-label="Cerrar ventana" />}>
                     Hello
@@ -415,8 +459,11 @@ describe('ModalCloseButton', () => {
 
     it("calls the modal's onDismiss callback when clicked", () => {
         const { button, onDismiss } = renderTestCase()
+        jest.useFakeTimers()
         expect(onDismiss).not.toHaveBeenCalled()
+
         userEvent.click(button)
+
         expect(onDismiss).toHaveBeenCalledTimes(1)
     })
 
@@ -437,8 +484,10 @@ describe('ModalCloseButton', () => {
 })
 
 describe('a11y', () => {
+    afterEach(closeModal)
+
     it('renders with no a11y violations with custom content', async () => {
-        const { container } = render(
+        const { container } = renderModal(
             <Modal isOpen={true} aria-label="modal">
                 <input type="text" aria-labelledby="test-label" />
                 <label id="test-label">Test Input</label>
@@ -450,7 +499,7 @@ describe('a11y', () => {
     })
 
     it('renders with no a11y violations when using inner-structure components', async () => {
-        const { container } = render(
+        const { container } = renderModal(
             <Modal isOpen={true} aria-label="modal">
                 <ModalHeader>Header</ModalHeader>
                 <ModalBody>Body</ModalBody>
@@ -464,7 +513,7 @@ describe('a11y', () => {
 
     it("calls the modal's onDismiss callback when 'Esc' is pressed", () => {
         const onDismiss = jest.fn()
-        render(
+        renderModal(
             <Modal isOpen onDismiss={onDismiss} aria-label="modal">
                 <ModalHeader>Hello</ModalHeader>
             </Modal>,
@@ -478,7 +527,7 @@ describe('a11y', () => {
 
     it("doesn't call the modal's onDismiss callback when 'Esc' is pressed and hideOnEscape is false", () => {
         const onDismiss = jest.fn()
-        render(
+        renderModal(
             <Modal isOpen onDismiss={onDismiss} aria-label="modal" hideOnEscape={false}>
                 <ModalHeader>Hello</ModalHeader>
             </Modal>,

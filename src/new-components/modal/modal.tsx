@@ -200,11 +200,7 @@ export function Modal({
     }
 
     return (
-        <Portal
-            // @ts-expect-error `portalRef` doesn't accept MutableRefObject initialized as null
-            portalRef={portalRef}
-            portalElement={portalElement}
-        >
+        <Portal portalRef={portalRef} portalElement={portalElement}>
             <Box
                 data-testid="modal-overlay"
                 data-overlay

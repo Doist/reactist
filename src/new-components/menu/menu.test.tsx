@@ -1,10 +1,8 @@
 import * as React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, SubMenu } from './menu'
 import { axe } from 'jest-axe'
-import { flushPromises } from '../test-helpers'
-import { act } from 'react-dom/test-utils'
 
 function getFocusedElement() {
     if (!document.activeElement) {
@@ -14,10 +12,6 @@ function getFocusedElement() {
 }
 
 describe('Menu', () => {
-    afterEach(() => {
-        jest.useRealTimers()
-    })
-
     it('renders a button that opens and closes the menu when clicked', () => {
         render(
             <Menu>
@@ -45,7 +39,7 @@ describe('Menu', () => {
         expect(screen.queryByText('First option')).not.toBeInTheDocument()
     })
 
-    it('closes the menu when a menu item is selected (unless the onSelect handler returns false or hideOnSelect is false)', async () => {
+    it('closes the menu when a menu item is selected (unless the onSelect handler returns false or hideOnSelect is false)', () => {
         render(
             <Menu>
                 <MenuButton>Options menu</MenuButton>
@@ -61,7 +55,7 @@ describe('Menu', () => {
 
         // 'First option' closes the menu
         userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
-        await act(() => flushPromises())
+        expect(screen.getByRole('menuitem', { name: 'First option' })).toBeVisible()
 
         userEvent.click(screen.getByRole('menuitem', { name: 'First option' }))
         expect(screen.queryByRole('menu')).not.toBeInTheDocument()
@@ -69,7 +63,7 @@ describe('Menu', () => {
 
         // 'Second option' does not close the menu
         userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
-        await act(() => flushPromises())
+        expect(screen.getByRole('menuitem', { name: 'Second option' })).toBeVisible()
 
         userEvent.click(screen.getByRole('menuitem', { name: 'Second option' }))
         expect(screen.getByRole('menu')).toBeInTheDocument()
@@ -111,7 +105,6 @@ describe('Menu', () => {
     it('allows to navigate through the menu items using the keyboard', async () => {
         const onItemSelect = jest.fn()
         const onSelect = jest.fn<void, [string]>()
-        jest.useFakeTimers()
 
         render(
             <Menu onItemSelect={onItemSelect}>
@@ -130,17 +123,17 @@ describe('Menu', () => {
             </Menu>,
         )
 
-        userEvent.type(screen.getByRole('button', { name: 'Options menu' }), '{enter}')
-        fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
+        screen.getByRole('button', { name: 'Options menu' }).focus()
+        userEvent.keyboard('{Enter}')
 
-        // Allow ariakit's scheduled focus to execute
-        act(() => {
-            jest.runOnlyPendingTimers()
+        await waitFor(() => {
+            expect(screen.getByRole('menu')).toBeVisible()
+            expect(screen.getByRole('menuitem', { name: '1st option' })).toHaveFocus()
         })
 
-        expect(screen.getByRole('menuitem', { name: '1st option' })).toHaveFocus()
-
         fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
+        expect(screen.getByRole('menuitem', { name: '2nd option' })).toHaveFocus()
+
         fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
         expect(screen.getByRole('menuitem', { name: '3rd option' })).toHaveFocus()
 
@@ -148,12 +141,12 @@ describe('Menu', () => {
         expect(screen.getByRole('menuitem', { name: '2nd option' })).toHaveFocus()
 
         userEvent.keyboard('{Enter}')
-        // Ariakit performs state changes asynchronously that needs to be flushed
-        await flushPromises()
 
-        expect(onSelect).toHaveBeenCalledWith('2nd option')
-        expect(onItemSelect).toHaveBeenCalledWith('2nd')
-        expect(screen.queryByRole('menu')).not.toBeInTheDocument()
+        await waitFor(() => {
+            expect(onSelect).toHaveBeenCalledWith('2nd option')
+            expect(onItemSelect).toHaveBeenCalledWith('2nd')
+            expect(screen.queryByRole('menu')).not.toBeInTheDocument()
+        })
     })
 
     it('allows to render a menu item as a link', async () => {
@@ -170,7 +163,9 @@ describe('Menu', () => {
         userEvent.click(screen.getByRole('button', { name: 'Links' }))
 
         // Prevent act warning
-        await act(() => flushPromises())
+        await waitFor(() => {
+            expect(screen.getByRole('menuitem', { name: 'Github repo' })).toBeVisible()
+        })
 
         const menuItem = screen.getByRole('menuitem', { name: 'Github repo' })
         expect(menuItem).toHaveAttribute('href', 'https://github.com/Doist/reactist')
@@ -198,14 +193,12 @@ describe('Menu', () => {
         userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
         userEvent.click(screen.getByRole('menuitem', { name: 'Click me' }))
 
-        // Ariakit performs state changes asynchronously that needs to be flushed
-        await flushPromises()
+        await waitFor(() => {
+            expect(screen.queryByRole('menu')).not.toBeInTheDocument()
+            expect(screen.queryByRole('menuitem')).not.toBeInTheDocument()
+        })
 
         expect(onSelect).not.toHaveBeenCalled()
-
-        // Check that it closed the menu anyway
-        expect(screen.queryByRole('menu')).not.toBeInTheDocument()
-        expect(screen.queryByRole('menuitem')).not.toBeInTheDocument()
     })
 
     it('renders a context menu when used with a ContextMenuTrigger', () => {
@@ -229,7 +222,7 @@ describe('Menu', () => {
         userEvent.keyboard('{Escape}')
     })
 
-    it('renders a submenu when a nested menu button is clicked', () => {
+    it('renders a submenu when a nested menu button is clicked', async () => {
         const handleSave = jest.fn()
         render(
             <Menu>
@@ -238,7 +231,7 @@ describe('Menu', () => {
                     <MenuItem>New</MenuItem>
                     <SubMenu>
                         <MenuButton>More options</MenuButton>
-                        <MenuList>
+                        <MenuList aria-label="More options">
                             <MenuItem onSelect={handleSave}>Save</MenuItem>
                             <MenuItem>Discard</MenuItem>
                             <MenuItem>Exit</MenuItem>
@@ -251,7 +244,9 @@ describe('Menu', () => {
         userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
         userEvent.click(screen.getByRole('menuitem', { name: 'More options' }))
 
-        expect(screen.getByRole('menuitem', { name: 'Save' })).toBeVisible()
+        await waitFor(() => {
+            expect(screen.getByRole('menuitem', { name: 'Save' })).toBeVisible()
+        })
 
         userEvent.click(screen.getByRole('menuitem', { name: 'Save' }))
 
@@ -259,9 +254,8 @@ describe('Menu', () => {
         expect(screen.queryByText('More options')).not.toBeInTheDocument()
     })
 
-    it('focuses on the submenu when the right arrow key is pressed', () => {
+    it('focuses on the submenu when the right arrow key is pressed', async () => {
         const handleSave = jest.fn()
-        jest.useFakeTimers()
 
         render(
             <Menu>
@@ -282,29 +276,28 @@ describe('Menu', () => {
 
         userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
 
-        // Allow ariakit's scheduled focus to execute
-        act(() => {
-            jest.runOnlyPendingTimers()
+        await waitFor(() => {
+            expect(screen.getByRole('menu')).toHaveFocus()
         })
 
         userEvent.keyboard('{ArrowDown}')
-        userEvent.keyboard('{ArrowDown}')
+        expect(screen.getByRole('menuitem', { name: 'New' })).toHaveFocus()
 
+        userEvent.keyboard('{ArrowDown}')
         expect(screen.getByRole('menuitem', { name: 'More options' })).toHaveFocus()
 
         userEvent.keyboard('{ArrowRight}')
 
-        // Allow ariakit's scheduled focus to execute
-        act(() => {
-            jest.runOnlyPendingTimers()
+        await waitFor(() => {
+            expect(screen.getByRole('menuitem', { name: 'Save' })).toHaveFocus()
         })
-
-        expect(screen.getByRole('menuitem', { name: 'Save' })).toHaveFocus()
 
         userEvent.keyboard('{Enter}')
 
-        expect(handleSave).toHaveBeenCalled()
-        expect(screen.queryByText('More options')).not.toBeInTheDocument()
+        await waitFor(() => {
+            expect(handleSave).toHaveBeenCalled()
+            expect(screen.queryByText('More options')).not.toBeInTheDocument()
+        })
     })
 
     describe('a11y', () => {
@@ -339,9 +332,7 @@ describe('Menu', () => {
             expect(results).toHaveNoViolations()
         })
 
-        it('focuses on the MenuButton when Menu closes', () => {
-            jest.useFakeTimers()
-
+        it('focuses on the MenuButton when Menu closes', async () => {
             const { container } = render(
                 <Menu>
                     <MenuButton>Options menu</MenuButton>
@@ -354,15 +345,16 @@ describe('Menu', () => {
             // Open menu
             userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
 
-            // Allow ariakit's scheduled focus to execute
-            act(() => {
-                jest.runOnlyPendingTimers()
+            await waitFor(() => {
+                expect(screen.getByRole('menu')).toHaveFocus()
             })
 
             // Close menu
             userEvent.type(container, '{esc}')
 
-            expect(screen.getByRole('button', { name: 'Options menu' })).toHaveFocus()
+            await waitFor(() => {
+                expect(screen.getByRole('button', { name: 'Options menu' })).toHaveFocus()
+            })
         })
     })
 })
