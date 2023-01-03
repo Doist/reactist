@@ -4,7 +4,7 @@ import FocusLock from 'react-focus-lock'
 import { hideOthers } from 'aria-hidden'
 
 import { Dialog, DialogOptions, useDialogState } from 'ariakit/dialog'
-import { Portal } from 'ariakit/portal'
+import { Portal, PortalOptions } from 'ariakit/portal'
 
 import { CloseIcon } from '../icons/close-icon'
 import { Column, Columns } from '../columns'
@@ -99,6 +99,28 @@ export type ModalProps = DivProps & {
     'aria-label'?: string
     /** Identifies the element (or elements) that labels the current modal for assistive technologies. */
     'aria-labelledby'?: string
+    /**
+     * An HTML element or a memoized callback function that returns an HTML element to be used as
+     * the portal element. By default, the portal element will be a `div` element appended to the
+     * `document.body`.
+     *
+     * @default HTMLDivElement
+     *
+     * @example
+     * const [portal, setPortal] = useState(null);
+     * <Portal portalElement={portal} />;
+     * <div ref={setPortal} />;
+     *
+     * @example
+     * const getPortalElement = useCallback(() => {
+     *   const div = document.createElement("div");
+     *   const portalRoot = document.getElementById("portal-root");
+     *   portalRoot.appendChild(div);
+     *   return div;
+     * }, []);
+     * <Portal portalElement={getPortalElement} />;
+     */
+    portalElement?: PortalOptions['portalElement']
 }
 
 function isNotInternalFrame(element: HTMLElement) {
@@ -125,6 +147,7 @@ export function Modal({
     hideOnEscape = true,
     hideOnInteractOutside = true,
     children,
+    portalElement,
     ...props
 }: ModalProps) {
     const setVisible = React.useCallback(
@@ -180,6 +203,7 @@ export function Modal({
         <Portal
             // @ts-expect-error `portalRef` doesn't accept MutableRefObject initialized as null
             portalRef={portalRef}
+            portalElement={portalElement}
         >
             <Box
                 data-testid="modal-overlay"

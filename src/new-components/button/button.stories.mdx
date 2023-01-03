@@ -32,7 +32,12 @@ A semantic button that provides all the necessary visual variants. It follows th
 [WAI-ARIA Button Pattern](https://www.w3.org/TR/wai-aria-practices/#button).
 
 <Canvas>
-    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Main demo">
+    <Story
+        name="Main demo"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
         <Stack space="xxlarge">
             <Stack space="large">
                 <pre>tone="normal"</pre>
@@ -144,7 +149,12 @@ Nothing prevents you from passing both a `startIcon` and an `endIcon` at the sam
 this is discouraged, and not guaranteed to be supported in the future.
 
 <Canvas>
-    <Story parameters={{ docs: { source: { type: 'code' } } }} name="With label and icon">
+    <Story
+        name="With label and icon"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
         <Stack space="xxlarge">
             <Stack space="large">
                 <Text>Icon before the label</Text>
@@ -209,7 +219,12 @@ Icon-only buttons do not support receiving the `children` prop, or any of the `s
 as a tooltip if no tooltip is provided.
 
 <Canvas>
-    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Icon-only buttons">
+    <Story
+        name="Icon-only buttons"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
         <Stack space="large">
             <Inline space="large">
                 <Box>
@@ -249,7 +264,12 @@ Buttons have a default `normal` size, but they can also be larger or smaller. Us
 for this purpose.
 
 <Canvas>
-    <Story parameters={{ docs: { source: { type: 'code' } } }} name="With different size">
+    <Story
+        name="With different size"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
         <Stack space="xxlarge">
             <Stack space="large">
                 <pre>size="small"</pre>
@@ -508,7 +528,10 @@ export function FullWidthTemplate({ label, ...otherProps }) {
 
 <Canvas>
     <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
+        name="Full-width"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
         argTypes={{
             label: {
                 control: { type: 'select' },
@@ -555,7 +578,6 @@ export function FullWidthTemplate({ label, ...otherProps }) {
             tooltip: { control: false },
             exceptionallySetClassName: { control: false },
         }}
-        name="Full-width"
     >
         {FullWidthTemplate.bind({})}
     </Story>

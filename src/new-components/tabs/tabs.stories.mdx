@@ -59,6 +59,7 @@ export const Template = ({
 
 <Canvas>
     <Story
+        name="Main demo"
         parameters={{
             docs: { source: { type: 'code' } },
             controls: { exclude: ['children'] },
@@ -90,7 +91,6 @@ export const Template = ({
             },
             onSelectedIdChange: { action: 'onSelectedIdChange' },
         }}
-        name="Main demo"
     >
         {Template.bind({})}
     </Story>

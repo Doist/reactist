@@ -1,5 +1,5 @@
+import * as React from 'react'
 import { action } from '@storybook/addon-actions'
-import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
 
 import { Box } from '../box'
 import { Button as ReactistButton } from '../button'
@@ -16,6 +16,7 @@ import ThreeDotsIcon from '../../components/icons/ThreeDotsIcon.svg'
 import * as ModalComponents from './modal'
 
 import {
+    openModal,
     ModalStoryStateProvider,
     ModalOptionsForm,
     Modal,
@@ -28,63 +29,35 @@ import {
     ScrollableContent,
 } from './modal-stories-components'
 
-<Meta
-    title="Design system/Modal"
-    component={ModalComponents.Modal}
-    parameters={{
+export default {
+    title: 'Design system/Modal/Examples',
+    component: ModalComponents.Modal,
+    parameters: {
+        viewMode: 'story',
         badges: ['accessible'],
-    }}
-/>
+        layout: 'fullscreen',
+    },
+    decorators: [
+        (Story: () => JSX.Element) => (
+            <div style={{ height: '800px' }}>
+                <Story />
+            </div>
+        ),
+    ],
+}
 
-# Modal
+//
+// Modal with standard actions footer
+//
 
-A set of components that allow tabs to be rendered, which controls the visibility of their corresponding tab panels.
-This component is powered by [Ariakit's Dialog](https://ariakit.org/components/dialog). For more details of its expected
-behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/dialog_role).
-
-## `<Modal>`
-
-<Description of={ModalComponents.Modal} />
-<ArgsTable of={ModalComponents.Modal} />
-
-## `<ModalHeader>`
-
-<Description of={ModalComponents.ModalHeader} />
-<ArgsTable of={ModalComponents.ModalHeader} />
-
-## `<ModalCloseButton>`
-
-<Description of={ModalComponents.ModalCloseButton} />
-<ArgsTable of={ModalComponents.ModalCloseButton} />
-
-## `<ModalBody>`
-
-<Description of={ModalComponents.ModalBody} />
-<ArgsTable of={ModalComponents.ModalBody} />
-
-## `<ModalFooter>`
-
-<Description of={ModalComponents.ModalFooter} />
-<ArgsTable of={ModalComponents.ModalFooter} />
-
-## `<ModalActions>`
-
-<Description of={ModalComponents.ModalActions} />
-<ArgsTable of={ModalComponents.ModalActions} />
-
-## Stories
-
-### Modal with standard actions footer
-
-<Canvas withToolbar>
-    <Story
-        parameters={{ docs: { source: { type: 'dynamic' } } }}
-        name="Modal with standard actions footer"
-    >
+export function ModalWithStandardActionsFooter() {
+    return (
         <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
+            <Box padding="large">
+                <Button variant="primary" action="open">
+                    Open modal
+                </Button>
+            </Box>
             <Modal aria-label="Modal with standard actions footer">
                 <ModalHeader
                     button={
@@ -106,7 +79,7 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
                                 </Menu>
                             </Column>
                             <Column>
-                                <ModalComponents.ModalCloseButton />
+                                <ModalComponents.ModalCloseButton aria-label="Close" />
                             </Column>
                         </Columns>
                     }
@@ -122,20 +95,27 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
                 </ModalActions>
             </Modal>
         </ModalStoryStateProvider>
-    </Story>
-</Canvas>
+    )
+}
 
-### Modal with header, body and custom footer
+ModalWithStandardActionsFooter.storyName = 'Modal with standard actions footer'
+ModalWithStandardActionsFooter.play = openModal
+ModalWithStandardActionsFooter.parameters = {
+    docs: { source: { type: 'dynamic' } },
+}
 
-<Canvas withToolbar>
-    <Story
-        parameters={{ docs: { source: { type: 'dynamic' } } }}
-        name="Modal with header, body and custom footer"
-    >
+//
+// Modal with header, body and custom footer
+//
+
+export function ModalWithHeaderBodyAndCustomFooter() {
+    return (
         <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
+            <Box padding="large">
+                <Button variant="primary" action="open">
+                    Open modal
+                </Button>
+            </Box>
             <Modal aria-label="Modal with header, body and custom footer">
                 <ModalHeader>
                     <Heading level="1">Modal with header, body and custom footer</Heading>
@@ -157,19 +137,29 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
                 </ModalFooter>
             </Modal>
         </ModalStoryStateProvider>
-    </Story>
-</Canvas>
+    )
+}
 
-### Modal with a sidebar
+ModalWithHeaderBodyAndCustomFooter.storyName = 'Modal with header, body and custom footer'
+ModalWithHeaderBodyAndCustomFooter.play = openModal
+ModalWithHeaderBodyAndCustomFooter.parameters = {
+    docs: { source: { type: 'dynamic' } },
+}
 
-<Canvas withToolbar>
-    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Modal with a sidebar">
+//
+// Modal with a sidebar
+//
+
+export function ModalWithSidebar() {
+    return (
         <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
+            <Box padding="large">
+                <Button variant="primary" action="open">
+                    Open modal
+                </Button>
+            </Box>
             <Modal aria-label="Modal with a settings-like custom layout">
-                <Columns height="full">
+                <Columns>
                     <Column width="content">
                         <Box height="full" background="selected">
                             <Box padding="medium">
@@ -204,20 +194,27 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
                 </Columns>
             </Modal>
         </ModalStoryStateProvider>
-    </Story>
-</Canvas>
+    )
+}
 
-### Modal with scrollable tab panels
+ModalWithSidebar.storyName = 'Modal with a sidebar'
+ModalWithSidebar.play = openModal
+ModalWithSidebar.parameters = {
+    docs: { source: { type: 'dynamic' } },
+}
 
-<Canvas withToolbar>
-    <Story
-        parameters={{ docs: { source: { type: 'dynamic' } } }}
-        name="Modal with scrollable tab panels"
-    >
+//
+// Modal with scrollable tab panels
+//
+
+export function ModalWithScrollableTabPanels() {
+    return (
         <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
+            <Box padding="large">
+                <Button variant="primary" action="open">
+                    Open modal
+                </Button>
+            </Box>
             <Modal aria-label="Modal with scrollable tab panels">
                 <ModalHeader>
                     <Link href="/">Project name</Link>
@@ -239,7 +236,7 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
                             <button type="button">Priority</button>
                         </Inline>
                     </Stack>
-                    <Tabs variant="plain">
+                    <Tabs>
                         <Box
                             paddingBottom="large"
                             style={{
@@ -273,20 +270,27 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
                 </Box>
             </Modal>
         </ModalStoryStateProvider>
-    </Story>
-</Canvas>
+    )
+}
 
-### Minimalistic confirmation modal
+ModalWithScrollableTabPanels.storyName = 'Modal with scrollable tab panels'
+ModalWithScrollableTabPanels.play = openModal
+ModalWithScrollableTabPanels.parameters = {
+    docs: { source: { type: 'dynamic' } },
+}
 
-<Canvas withToolbar>
-    <Story
-        parameters={{ docs: { source: { type: 'dynamic' } } }}
-        name="Minimalistic confirmation modal"
-    >
+//
+// Minimalistic confirmation modal
+//
+
+export function MinimalisticConfirmationModal() {
+    return (
         <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
+            <Box padding="large">
+                <Button variant="primary" action="open">
+                    Open modal
+                </Button>
+            </Box>
             <Modal height="fitContent" aria-label="Confirmation modal" width="small">
                 <Box padding="large">
                     <Text size="subtitle">Are you sure you want to leave?</Text>
@@ -301,20 +305,27 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
                 </ModalActions>
             </Modal>
         </ModalStoryStateProvider>
-    </Story>
-</Canvas>
+    )
+}
 
-### Enriched confirmation modal
+MinimalisticConfirmationModal.storyName = 'Minimalistic confirmation modal'
+MinimalisticConfirmationModal.play = openModal
+MinimalisticConfirmationModal.parameters = {
+    docs: { source: { type: 'dynamic' } },
+}
 
-<Canvas withToolbar>
-    <Story
-        parameters={{ docs: { source: { type: 'dynamic' } } }}
-        name="Enriched confirmation modal"
-    >
+//
+// Enriched confirmation modal
+//
+
+export function EnrichedConfirmationModal() {
+    return (
         <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
+            <Box padding="large">
+                <Button variant="primary" action="open">
+                    Open modal
+                </Button>
+            </Box>
             <Modal height="fitContent" aria-label="Confirmation modal" width="small">
                 <ModalHeader withDivider button={null}>
                     <Heading level="1">Please confirm</Heading>
@@ -335,20 +346,41 @@ behaviour, see [ARIA: dialog role](https://developer.mozilla.org/en-US/docs/Web/
                 </ModalActions>
             </Modal>
         </ModalStoryStateProvider>
-    </Story>
-</Canvas>
+    )
+}
 
-### Autofocus
+EnrichedConfirmationModal.storyName = 'Enriched confirmation modal'
+EnrichedConfirmationModal.play = openModal
+EnrichedConfirmationModal.parameters = {
+    docs: { source: { type: 'dynamic' } },
+}
 
-By default the `autoFocus` prop is `true`, which shifts the focus onto the first focusable element in the modal. You can further refine this
-by using the `data-autofocus` attribute if you wish to focus on elements other than the first one. This is made possible using React Focus Lock, please see its [documentation](https://github.com/theKashey/react-focus-lock/tree/v2.9.1#autofocus) for more details.
+//
+// Autofocus
+//
 
-<Canvas withToolbar>
-    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Autofocus">
+export function ModalAutofocus() {
+    return (
         <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
+            <Stack padding="large" space="large">
+                <Button variant="primary" action="open">
+                    Open modal
+                </Button>
+                <Text size="subtitle">
+                    By default the `autoFocus` prop is `true`, which shifts the focus onto the first
+                    focusable element in the modal. You can further refine this by using the
+                    `data-autofocus` attribute if you wish to focus on elements other than the first
+                    one. This is made possible using React Focus Lock, please see its{' '}
+                    <a
+                        target="_blank"
+                        rel="noreferrer"
+                        href="https://github.com/theKashey/react-focus-lock/tree/v2.9.1#autofocus"
+                    >
+                        documentation
+                    </a>{' '}
+                    for more details.
+                </Text>
+            </Stack>
             <Modal height="fitContent" aria-label="Confirmation modal" width="small">
                 <ModalHeader>
                     <Heading level={1}>Update your info</Heading>
@@ -369,46 +401,65 @@ by using the `data-autofocus` attribute if you wish to focus on elements other t
                 </ModalActions>
             </Modal>
         </ModalStoryStateProvider>
-    </Story>
-</Canvas>
+    )
+}
 
-### Stacking modals
+ModalAutofocus.storyName = 'Autofocus'
+ModalAutofocus.play = openModal
+ModalAutofocus.parameters = {
+    docs: { source: { type: 'dynamic' } },
+}
 
-Modals may be stacked on top of one another, with each of them having their independent states, e.g. `width` and `height`.
+//
+// Stacking modals
+//
 
-<Canvas withToolbar>
-    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Stacking modals">
+export function StackingModals() {
+    return (
         <ModalStoryStateProvider>
-            <Button variant="primary" action="open">
-                Open modal
-            </Button>
+            <Stack padding="large" space="large">
+                <Button variant="primary" action="open">
+                    Open modal
+                </Button>
+                <Text size="subtitle">
+                    Modals may be stacked on top of one another, with each of them having their
+                    independent states, e.g. `width` and `height`.
+                </Text>
+            </Stack>
             <Modal aria-label="Modal 1">
                 <ModalHeader>
-                    <Heading level={1}>Bottom modal</Heading>
+                    <Heading level={1}>Parent modal</Heading>
                 </ModalHeader>
                 <ModalBody>
-                    <Text>
-                        Use the form to customize this modal, or open an additional modal with the
-                        button below.
-                    </Text>
-                    <ModalOptionsForm />
-                    <ModalStoryStateProvider
-                        initialState={{ width: 'small', height: 'fitContent' }}
-                    >
-                        <Button variant="primary" action="open">
-                            Open second modal
-                        </Button>
-                        <Modal aria-label="Modal 2">
-                            <ModalHeader>
-                                <Heading level={1}>Top modal</Heading>
-                            </ModalHeader>
-                            <ModalBody>
-                                <ModalOptionsForm />
-                            </ModalBody>
-                        </Modal>
-                    </ModalStoryStateProvider>
+                    <Stack space="large">
+                        <Text size="subtitle">
+                            Modals may be stacked on top of one another, with each of them having
+                            their independent states, e.g. `width` and `height`.
+                        </Text>
+                        <ModalStoryStateProvider
+                            initialState={{ width: 'small', height: 'fitContent' }}
+                        >
+                            <Button variant="primary" action="open">
+                                Open nested modal
+                            </Button>
+                            <Modal aria-label="Modal 2">
+                                <ModalHeader>
+                                    <Heading level={1}>Nested modal</Heading>
+                                </ModalHeader>
+                                <ModalBody>
+                                    <ModalOptionsForm />
+                                </ModalBody>
+                            </Modal>
+                        </ModalStoryStateProvider>
+                    </Stack>
                 </ModalBody>
             </Modal>
         </ModalStoryStateProvider>
-    </Story>
-</Canvas>
+    )
+}
+
+StackingModals.storyName = 'Stacking modals'
+StackingModals.play = openModal
+StackingModals.parameters = {
+    docs: { source: { type: 'dynamic' } },
+}

@@ -18,7 +18,12 @@ A badge used to bring attention to a particular UI element or functionality.
 The use of variants does not provide extra semantic meaning and is strictly visual. Ensure your content provides the necessary context for users by using the `aria-label` prop if needed.
 
 <Canvas>
-    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Main demo">
+    <Story
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+        name="Main demo"
+    >
         <Columns space="large">
             <Column width="content">
                 <Badge variant="neutral">Neutral</Badge>

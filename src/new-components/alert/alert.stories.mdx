@@ -12,31 +12,61 @@ import { Alert } from './alert'
     }}
 />
 
+export function getContent(content) {
+    return content === 'long' ? (
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non gravida lacus. Sed sit amet congue diam, ac ultrices elit.'
+    ) : content === 'short' ? (
+        'Lorem ipsum dolor sit amet.'
+    ) : (
+        <Stack space="medium">
+            <Text>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non gravida lacus.
+                Sed sit amet congue diam, ac ultrices elit.
+            </Text>
+            <Text>
+                Suspendisse at neque leo. Duis facilisis nulla non lectus malesuada, vitae
+                scelerisque massa hendrerit. Nulla lacinia luctus risus, dapibus semper turpis
+                vestibulum eu.
+            </Text>
+        </Stack>
+    )
+}
+
 # Alert
+
+export function AlertWrapper({ tone, content }) {
+    return (
+        <Alert tone={tone} closeLabel="Close" onClose={() => undefined}>
+            {getContent(content)}
+        </Alert>
+    )
+}
 
 A simple Alert component.
 
-export function Template({ tone, content, closeLabel }) {
-    const text =
-        content === 'long' ? (
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non gravida lacus. Sed sit amet congue diam, ac ultrices elit.'
-        ) : content === 'short' ? (
-            'Lorem ipsum dolor sit amet.'
-        ) : (
-            <Stack space="medium">
-                <Text>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non gravida
-                    lacus. Sed sit amet congue diam, ac ultrices elit.
-                </Text>
-                <Text>
-                    Suspendisse at neque leo. Duis facilisis nulla non lectus malesuada, vitae
-                    scelerisque massa hendrerit. Nulla lacinia luctus risus, dapibus semper turpis
-                    vestibulum eu.
-                </Text>
+<Canvas>
+    <Story
+        name="Main demo"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
+        <Stack space="xxlarge">
+            <Stack space="large">
+                {['info', 'positive', 'caution', 'critical'].map((tone) => (
+                    <AlertWrapper tone={tone} content="longer" />
+                ))}
             </Stack>
-        )
+        </Stack>
+    </Story>
+</Canvas>
+
+## Playground
+
+export function Template({ tone, content, closeLabel }) {
+    const text = getContent(content)
     return (
-        <Stack space="xxlarge" maxWidth="medium">
+        <Stack space="large" maxWidth="medium">
             <Alert tone={tone}>{text}</Alert>
             <Alert tone={tone} closeLabel={closeLabel} onClose={() => undefined}>
                 {text}
@@ -47,6 +77,7 @@ export function Template({ tone, content, closeLabel }) {
 
 <Canvas>
     <Story
+        name="Playground"
         parameters={{ docs: { source: { type: 'code' } } }}
         argTypes={{
             content: {
@@ -66,7 +97,6 @@ export function Template({ tone, content, closeLabel }) {
             id: { control: false },
             onClose: { control: false },
         }}
-        name="Playground"
     >
         {Template.bind({})}
     </Story>
