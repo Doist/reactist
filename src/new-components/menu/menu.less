@@ -8,7 +8,7 @@
     white-space: nowrap;
     background: hsla(0, 100%, 100%, 0.99);
     outline: none;
-    font-size: @smaller_font_size;
+    font-size: var(--reactist-font-size-copy);
     padding: 4px 0;
     min-width: 180px;
     border: 1px solid @color_border_grey;
@@ -27,11 +27,13 @@
         color: inherit;
         border: none;
         background-color: transparent;
+        font-family: var(--reactist-font-family);
+        font-size: var(--reactist-font-size-copy);
     }
 
     .reactist_menugroup__label {
         color: @secondary_font_color;
-        font-size: @tiny_font_size;
+        font-size: var(--reactist-font-size-copy);
     }
 
     .reactist_submenu_button {

@@ -6,6 +6,7 @@ import { Stack } from '../stack'
 import { Columns, Column } from '../columns'
 import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, MenuGroup, SubMenu } from '.'
 import { ButtonLink } from '../button-link'
+import { Text } from '../text'
 
 <Meta
     title="Design system/Menu"
@@ -255,7 +256,7 @@ export function StructuredMenuItem({ icon, label, shortcut }) {
                 </Column>
             ) : null}
             <Column width="auto">
-                <div>{label}</div>
+                <Text size="copy">{label}</Text>
             </Column>
             {shortcut ? (
                 <Column width="content">

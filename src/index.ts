@@ -38,6 +38,7 @@ export * from './new-components/badge'
 export * from './new-components/modal'
 export * from './new-components/tabs'
 export * from './new-components/tooltip'
+export * from './new-components/menu'
 
 // hooks
 export * from './hooks/use-previous'
@@ -51,7 +52,6 @@ export { default as KeyboardShortcut } from './components/keyboard-shortcut'
 export { default as KeyCapturer, SUPPORTED_KEYS } from './components/key-capturer'
 export { default as ProgressBar } from './components/progress-bar'
 export { default as Time } from './components/time'
-export * from './new-components/menu'
 
 //
 // Deprecated components
