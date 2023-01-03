@@ -155,7 +155,7 @@ const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
 ) {
     const { state } = React.useContext(MenuContext)
 
-    return state.visible ? (
+    return state.open ? (
         <Portal preserveTabOrder>
             <Ariakit.Menu
                 {...props}

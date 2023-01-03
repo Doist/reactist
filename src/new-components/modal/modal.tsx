@@ -150,7 +150,7 @@ export function Modal({
     portalElement,
     ...props
 }: ModalProps) {
-    const setVisible = React.useCallback(
+    const setOpen = React.useCallback(
         (visible: boolean) => {
             if (!visible) {
                 onDismiss?.()
@@ -158,7 +158,7 @@ export function Modal({
         },
         [onDismiss],
     )
-    const state = useDialogState({ visible: isOpen, setVisible })
+    const state = useDialogState({ open: isOpen, setOpen })
 
     const contextValue: ModalContextValue = React.useMemo(() => ({ onDismiss, height }), [
         onDismiss,

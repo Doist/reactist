@@ -14,6 +14,10 @@ function getFocusedElement() {
 }
 
 describe('Menu', () => {
+    afterEach(() => {
+        jest.useRealTimers()
+    })
+
     it('renders a button that opens and closes the menu when clicked', () => {
         render(
             <Menu>
@@ -107,6 +111,7 @@ describe('Menu', () => {
     it('allows to navigate through the menu items using the keyboard', async () => {
         const onItemSelect = jest.fn()
         const onSelect = jest.fn<void, [string]>()
+        jest.useFakeTimers()
 
         render(
             <Menu onItemSelect={onItemSelect}>
@@ -127,6 +132,12 @@ describe('Menu', () => {
 
         userEvent.type(screen.getByRole('button', { name: 'Options menu' }), '{enter}')
         fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
+
+        // Allow ariakit's scheduled focus to execute
+        act(() => {
+            jest.runOnlyPendingTimers()
+        })
+
         expect(screen.getByRole('menuitem', { name: '1st option' })).toHaveFocus()
 
         fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
@@ -250,6 +261,8 @@ describe('Menu', () => {
 
     it('focuses on the submenu when the right arrow key is pressed', () => {
         const handleSave = jest.fn()
+        jest.useFakeTimers()
+
         render(
             <Menu>
                 <MenuButton>Options menu</MenuButton>
@@ -268,12 +281,23 @@ describe('Menu', () => {
         )
 
         userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+
+        // Allow ariakit's scheduled focus to execute
+        act(() => {
+            jest.runOnlyPendingTimers()
+        })
+
         userEvent.keyboard('{ArrowDown}')
         userEvent.keyboard('{ArrowDown}')
 
         expect(screen.getByRole('menuitem', { name: 'More options' })).toHaveFocus()
 
         userEvent.keyboard('{ArrowRight}')
+
+        // Allow ariakit's scheduled focus to execute
+        act(() => {
+            jest.runOnlyPendingTimers()
+        })
 
         expect(screen.getByRole('menuitem', { name: 'Save' })).toHaveFocus()
 
@@ -316,6 +340,8 @@ describe('Menu', () => {
         })
 
         it('focuses on the MenuButton when Menu closes', () => {
+            jest.useFakeTimers()
+
             const { container } = render(
                 <Menu>
                     <MenuButton>Options menu</MenuButton>
@@ -327,6 +353,11 @@ describe('Menu', () => {
 
             // Open menu
             userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+
+            // Allow ariakit's scheduled focus to execute
+            act(() => {
+                jest.runOnlyPendingTimers()
+            })
 
             // Close menu
             userEvent.type(container, '{esc}')

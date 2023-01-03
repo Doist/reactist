@@ -157,7 +157,7 @@ function Tooltip({
                     })
                 }}
             </TooltipAnchor>
-            {state.visible ? (
+            {state.open ? (
                 <Box
                     as={AriakitTooltip}
                     state={state}
