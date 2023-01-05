@@ -214,7 +214,12 @@ export function Modal({
                     styles[width],
                     exceptionallySetOverlayClassName,
                 )}
-                onClick={hideOnInteractOutside ? handleBackdropClick : undefined}
+                /**
+                 * We're using `onPointerDown` instead of `onClick` to prevent
+                 * the modal from closing when the click starts inside the modal
+                 * and ends on the backdrop.
+                 */
+                onPointerDown={hideOnInteractOutside ? handleBackdropClick : undefined}
                 ref={backdropRef}
             >
                 <FocusLock autoFocus={autoFocus} whiteList={isNotInternalFrame} returnFocus={true}>
