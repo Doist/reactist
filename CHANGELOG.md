@@ -5,6 +5,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 # next
 
 -   [Feat] New `Modal` prop `portalElement`, to enable consumers of the `Modal` component to have some control on where the modal portal is rendered.
+-   [Feat] The `Badge` component now supports being rendered inside other elements. It renders as an inline element, which also makes it more versatile in common situations when it's needed.
 
 # v17.7.0
 

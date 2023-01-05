@@ -2,23 +2,28 @@ import * as React from 'react'
 
 import { Box } from '../box'
 
-import type { PropsWithChildren } from 'react'
-
 import styles from './badge.module.css'
+import { polymorphicComponent } from '../../utils/polymorphism'
 
-type Props = {
+type BadgeProps = {
     variant: 'neutral' | 'positive' | 'color'
-    'aria-label'?: string
 }
 
-function Badge({ variant = 'neutral', children, ...rest }: PropsWithChildren<Props>) {
-    const variantClassName = styles[`badge-${variant}`]
-
+const Badge = polymorphicComponent<'div', BadgeProps>(function Badge(
+    { variant = 'neutral', children, exceptionallySetClassName, ...rest },
+    ref,
+) {
     return (
-        <Box {...rest} className={[styles.badge, variantClassName]}>
+        <Box
+            {...rest}
+            ref={ref}
+            display="inline"
+            className={[styles.badge, styles[`badge-${variant}`], exceptionallySetClassName]}
+        >
             {children}
         </Box>
     )
-}
+})
 
 export { Badge }
+export type { BadgeProps }
