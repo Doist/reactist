@@ -1,6 +1,11 @@
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
 
+import { Box } from '../box'
+import { Button } from '../button'
 import { Columns, Column } from '../columns'
+import { Stack } from '../stack'
+import { TextLink } from '../text-link'
+
 import { Badge } from './badge'
 
 <Meta
@@ -19,10 +24,10 @@ The use of variants does not provide extra semantic meaning and is strictly visu
 
 <Canvas>
     <Story
+        name="Main demo"
         parameters={{
             docs: { source: { type: 'code' } },
         }}
-        name="Main demo"
     >
         <Columns space="large">
             <Column width="content">
@@ -37,6 +42,34 @@ The use of variants does not provide extra semantic meaning and is strictly visu
         </Columns>
     </Story>
 </Canvas>
+
+## Inside other elements
+
+<Canvas>
+    <Story
+        name="Inside other elements"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
+        <Stack space="medium" paddingX="medium">
+            <Box marginX="-large">
+                <Button variant="quaternary" size="large">
+                    Reminders <Badge variant="positive">Pro</Badge>
+                </Button>
+            </Box>
+            <div>
+                You can have badges inside{' '}
+                <TextLink>
+                    links <Badge variant="positive">nice</Badge>
+                </TextLink>
+                .
+            </div>
+        </Stack>
+    </Story>
+</Canvas>
+
+## Props
 
 <ArgsTable of={Badge} />
 
