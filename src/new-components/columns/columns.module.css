@@ -1,30 +1,75 @@
+/**
+ * A generic columns system is hard to style with flexbox gap and get it 100% right.
+ * You would expect it's about telling the container what its gap is, and that's it. But that does
+ * not work well with percentage-based column widths.
+ *
+ * The approach below is inspired by this StackOverflow answer, but with a few improvements to not
+ * need any use of margins: https://stackoverflow.com/a/73592903/621809
+ *
+ * See also https://github.com/Doist/reactist/pull/739#issuecomment-1373825792
+ */
+
+.container {
+    --reactist-columns-gap: 0px;
+}
+
+/* This makes sure that the gap subtraction done to columns below is never applied to the last column */
+/* This is what overcomes the need to use margins, unlike the StackOverflow answer linked above */
+.container > *:last-child {
+    --reactist-columns-gap: 0px;
+}
+
+/* Set the gap in the container as a CSS variable, so it can be used in width calculations inside column child elements below */
+.container-xsmall {
+    --reactist-columns-gap: var(--reactist-spacing-xsmall);
+}
+.container-small {
+    --reactist-columns-gap: var(--reactist-spacing-small);
+}
+.container-medium {
+    --reactist-columns-gap: var(--reactist-spacing-medium);
+}
+.container-large {
+    --reactist-columns-gap: var(--reactist-spacing-large);
+}
+.container-xlarge {
+    --reactist-columns-gap: var(--reactist-spacing-xlarge);
+}
+.container-xxlarge {
+    --reactist-columns-gap: var(--reactist-spacing-xxlarge);
+}
+
+/* compute percentage-based column widths while also subtracting the gap size from them */
+.columnWidth-content {
+    flex-basis: content;
+}
 .columnWidth-auto {
-    width: 100%;
+    flex-basis: auto;
 }
 .columnWidth-1-2 {
-    flex: 0 0 50%;
+    flex-basis: calc(100% / 2 - var(--reactist-columns-gap));
 }
 .columnWidth-1-3 {
-    flex: 0 0 calc(100% / 3);
+    flex-basis: calc(100% / 3 - var(--reactist-columns-gap));
 }
 .columnWidth-2-3 {
-    flex: 0 0 calc(100% * 2 / 3);
+    flex-basis: calc(100% * 2 / 3 - var(--reactist-columns-gap));
 }
 .columnWidth-1-4 {
-    flex: 0 0 25%;
+    flex-basis: calc(100% / 4 - var(--reactist-columns-gap));
 }
 .columnWidth-3-4 {
-    flex: 0 0 75%;
+    flex-basis: calc(100% * 3 / 4 - var(--reactist-columns-gap));
 }
 .columnWidth-1-5 {
-    flex: 0 0 20%;
+    flex-basis: calc(100% / 5 - var(--reactist-columns-gap));
 }
 .columnWidth-2-5 {
-    flex: 0 0 40%;
+    flex-basis: calc(100% * 2 / 5 - var(--reactist-columns-gap));
 }
 .columnWidth-3-5 {
-    flex: 0 0 60%;
+    flex-basis: calc(100% * 3 / 5 - var(--reactist-columns-gap));
 }
 .columnWidth-4-5 {
-    flex: 0 0 80%;
+    flex-basis: calc(100% * 4 / 5 - var(--reactist-columns-gap));
 }
