@@ -1,15 +1,13 @@
 import * as React from 'react'
 import flattenChildren from 'react-keyed-flatten-children'
 import { polymorphicComponent } from '../../utils/polymorphism'
-import { getClassNames, mapResponsiveProp } from '../responsive-props'
+import { mapResponsiveProp } from '../responsive-props'
 import { Box } from '../box'
 import { Divider } from '../divider'
 
 import type { ResponsiveProp } from '../responsive-props'
 import type { DividerWeight, Space } from '../common-types'
 import type { BoxProps, ReusableBoxProps } from '../box'
-
-import styles from './stack.module.css'
 
 type Align = 'start' | 'center' | 'end'
 
@@ -26,32 +24,32 @@ const Stack = polymorphicComponent<'div', StackProps>(function Stack(
     {
         as,
         space,
-        align = 'start',
+        align,
         dividers = 'none',
+        width = 'full',
         children,
         exceptionallySetClassName,
         ...props
     },
     ref,
 ) {
-    const alignProps: BoxProps | undefined =
-        align === 'start'
+    const alignItems: BoxProps['alignItems'] =
+        align === undefined
             ? undefined
-            : {
-                  width: 'full',
-                  flexDirection: 'column',
-                  display: 'flex',
-                  alignItems: mapResponsiveProp(align, (align) =>
-                      align === 'start' ? 'flexStart' : align === 'end' ? 'flexEnd' : 'center',
-                  ),
-              }
+            : mapResponsiveProp(align, (align) =>
+                  align === 'start' ? 'flexStart' : align === 'end' ? 'flexEnd' : 'center',
+              )
 
     return (
         <Box
             {...props}
-            {...alignProps}
+            display="flex"
+            flexDirection="column"
+            width={width}
+            alignItems={alignItems}
+            gap={space}
             as={as}
-            className={[exceptionallySetClassName, getClassNames(styles, 'space', space)]}
+            className={exceptionallySetClassName}
             ref={ref}
         >
             {dividers !== 'none'
