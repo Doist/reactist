@@ -36,6 +36,7 @@ describe('Box', () => {
                 borderRadius="full"
                 background="aside"
                 overflow="hidden"
+                gap="medium"
             />,
         )
         expect(screen.getByTestId('box')).toHaveClass(
@@ -47,6 +48,7 @@ describe('Box', () => {
             'borderRadius-full',
             'border-primary',
             'overflow-hidden',
+            'gap-medium',
         )
     })
 
