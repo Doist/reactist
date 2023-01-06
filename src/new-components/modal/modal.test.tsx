@@ -295,7 +295,7 @@ describe('ModalActions', () => {
               data-testid="modal-actions"
             >
               <div
-                class="space-large box display-flex flexDirection-row flexWrap-wrap alignItems-center justifyContent-flexEnd"
+                class="box display-flex flexDirection-row flexWrap-wrap alignItems-center justifyContent-flexEnd gap-large"
               >
                 <button>
                   OK
