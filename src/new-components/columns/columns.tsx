@@ -35,7 +35,6 @@ const Column = polymorphicComponent<'div', ColumnProps>(function Column(
             {...props}
             className={[
                 exceptionallySetClassName,
-                styles.column,
                 width !== 'content'
                     ? getClassNames(styles, 'columnWidth', width.replace('/', '-'))
                     : null,
@@ -77,8 +76,9 @@ const Columns = polymorphicComponent<'div', ColumnsProps>(function Columns(
     return (
         <Box
             {...props}
-            className={[exceptionallySetClassName, getClassNames(styles, 'space', space)]}
+            className={exceptionallySetClassName}
             display="flex"
+            gap={space}
             flexDirection={
                 collapseBelow === 'desktop'
                     ? { mobile: 'column', tablet: 'column', desktop: 'row' }
