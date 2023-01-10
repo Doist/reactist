@@ -2,6 +2,11 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# v17.9.0
+
+-   [Feat] New `gap` prop in the `Box` component, implementing support for the CSS `gap` property.
+-   [Tweak] Use CSS `gap` for implementing spacing in the `Columns`, `Inline`, and `Stack` components.
+
 # v17.8.1
 
 -   [Fix] When clicking inside a modal, holding and releasing the click outside the modal no longer closes the modal
