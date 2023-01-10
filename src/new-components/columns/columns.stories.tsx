@@ -63,7 +63,11 @@ export function AlignmentStory(args: PartialProps<typeof Columns>) {
 
 export function WidthsStory({ space }: PartialProps<typeof Columns>) {
     return (
-        <Stack space="large" dividers="primary">
+        <Stack
+            space="large"
+            dividers="primary"
+            paddingRight="xxlarge" // to make sure we see if columns ever overflow the container
+        >
             <Wrapper>
                 <Stack space="large">
                     <Columns space={space}>
@@ -76,6 +80,7 @@ export function WidthsStory({ space }: PartialProps<typeof Columns>) {
                     </Columns>
                 </Stack>
             </Wrapper>
+
             <Wrapper>
                 <Stack space="large">
                     <Columns space={space}>
@@ -99,6 +104,7 @@ export function WidthsStory({ space }: PartialProps<typeof Columns>) {
                     </Columns>
                 </Stack>
             </Wrapper>
+
             <Wrapper>
                 <Stack space="large">
                     <Columns space={space}>
@@ -125,6 +131,45 @@ export function WidthsStory({ space }: PartialProps<typeof Columns>) {
                     </Columns>
                 </Stack>
             </Wrapper>
+
+            <Wrapper>
+                <Stack space="large">
+                    <Columns space={space}>
+                        <Column width="2/5">
+                            <Placeholder label="2/5" />
+                        </Column>
+                        <Column width="3/5">
+                            <Placeholder label="3/5" />
+                        </Column>
+                    </Columns>
+                    <Columns space={space}>
+                        <Column width="1/5">
+                            <Placeholder label="1/5" />
+                        </Column>
+                        <Column width="4/5">
+                            <Placeholder label="4/5" />
+                        </Column>
+                    </Columns>
+                    <Columns space={space}>
+                        <Column width="1/5">
+                            <Placeholder label="1/5" />
+                        </Column>
+                        <Column width="1/5">
+                            <Placeholder label="1/5" />
+                        </Column>
+                        <Column width="1/5">
+                            <Placeholder label="1/5" />
+                        </Column>
+                        <Column width="1/5">
+                            <Placeholder label="1/5" />
+                        </Column>
+                        <Column width="1/5">
+                            <Placeholder label="1/5" />
+                        </Column>
+                    </Columns>
+                </Stack>
+            </Wrapper>
+
             <Wrapper>
                 <Stack space="large">
                     <Columns space={space}>
@@ -148,6 +193,7 @@ export function WidthsStory({ space }: PartialProps<typeof Columns>) {
                     </Columns>
                 </Stack>
             </Wrapper>
+
             <Wrapper>
                 <Stack space="medium">
                     <Columns space={space}>

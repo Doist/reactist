@@ -1,13 +1,11 @@
 import * as React from 'react'
 import { polymorphicComponent } from '../../utils/polymorphism'
-import { getClassNames, mapResponsiveProp } from '../responsive-props'
+import { mapResponsiveProp } from '../responsive-props'
 import { Box } from '../box'
 
 import type { ResponsiveProp } from '../responsive-props'
 import type { Space } from '../common-types'
 import type { ReusableBoxProps } from '../box'
-
-import styles from './inline.module.css'
 
 type InlineAlign = 'left' | 'center' | 'right'
 
@@ -27,7 +25,8 @@ const Inline = polymorphicComponent<'div', InlineProps>(function Inline(
             as={as}
             display="flex"
             flexWrap="wrap"
-            className={[exceptionallySetClassName, getClassNames(styles, 'space', space)]}
+            gap={space}
+            className={exceptionallySetClassName}
             ref={ref}
             alignItems={mapResponsiveProp(alignY, (alignY) =>
                 alignY === 'top' ? 'flexStart' : alignY === 'bottom' ? 'flexEnd' : 'center',

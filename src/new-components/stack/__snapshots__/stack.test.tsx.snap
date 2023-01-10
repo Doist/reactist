@@ -2,7 +2,7 @@
 
 exports[`Stack renders dividers when instructed to do so: dividers="primary" 1`] = `
 <div
-  class="box"
+  class="box display-flex flexDirection-column width-full"
   data-testid="stack"
 >
   <div>
@@ -25,7 +25,7 @@ exports[`Stack renders dividers when instructed to do so: dividers="primary" 1`]
 
 exports[`Stack renders dividers when instructed to do so: dividers="secondary" 1`] = `
 <div
-  class="box"
+  class="box display-flex flexDirection-column width-full"
   data-testid="stack"
 >
   <div>
@@ -48,7 +48,7 @@ exports[`Stack renders dividers when instructed to do so: dividers="secondary" 1
 
 exports[`Stack renders dividers when instructed to do so: dividers="tertiary" 1`] = `
 <div
-  class="box"
+  class="box display-flex flexDirection-column width-full"
   data-testid="stack"
 >
   <div>

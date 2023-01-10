@@ -11,7 +11,7 @@ const spaceValues: Array<Space> = ['xsmall', 'small', 'medium', 'large', 'xlarge
 const testCases = spaceValues.map((space) => [space])
 
 function getSpaceClassNames(element: HTMLElement) {
-    return Array.from(element.classList).filter((className) => className.includes('space-'))
+    return Array.from(element.classList).filter((className) => className.includes('gap-'))
 }
 
 function runSpaceTests<Props extends PropsWithSpace>(Component: React.ComponentType<Props>) {
@@ -24,15 +24,15 @@ function runSpaceTests<Props extends PropsWithSpace>(Component: React.ComponentT
     describe('space', () => {
         test.each(testCases)('it applies the styles needed for space="%s"', (space) => {
             const subject = renderTestCase(space)
-            expect(getSpaceClassNames(subject)).toEqual([`space-${space}`])
+            expect(getSpaceClassNames(subject)).toEqual([`gap-${space}`])
         })
 
         it('allows to specify different spacing rules for different screen sizes', () => {
             const subject = renderTestCase({ mobile: 'small', tablet: 'medium', desktop: 'large' })
             expect(getSpaceClassNames(subject)).toEqual([
-                'space-small',
-                'tablet-space-medium',
-                'desktop-space-large',
+                'gap-small',
+                'tablet-gap-medium',
+                'desktop-gap-large',
             ])
         })
     })

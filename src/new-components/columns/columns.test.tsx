@@ -246,7 +246,7 @@ describe('Column', () => {
             </Columns>,
         )
         const column = screen.getByTestId('column')
-        expect(column).toHaveClass('columnWidth-auto')
+        // We have no better way to check this than checking that no other columnWidth class is applied
         for (const width of columnWidths) {
             if (width === 'auto') continue
             expect(column).not.toHaveClass(`columnWidth-${width.replace('/', '-')}`)
@@ -274,19 +274,18 @@ describe('Column', () => {
     it('is set to the specified width', () => {
         const { rerender } = render(
             <Columns>
-                <Column data-testid="column" width="content" />
+                <Column data-testid="column" />
             </Columns>,
         )
         const column = screen.getByTestId('column')
 
-        // for width="content" no css class is added
-        for (const width of columnWidths) {
-            expect(column).not.toHaveClass(`columnWidth-${width.replace('/', '-')}`)
-        }
+        // // for width="content" no css class is added
+        // for (const width of columnWidths) {
+        //     expect(column).not.toHaveClass(`columnWidth-${width.replace('/', '-')}`)
+        // }
 
         // for all non-content widths, a single corresponding css class is added
         for (const actualWidth of columnWidths) {
-            if (actualWidth === 'content') continue
             rerender(
                 <Columns>
                     <Column data-testid="column" width={actualWidth} />
@@ -297,26 +296,6 @@ describe('Column', () => {
                 expect(column).not.toHaveClass(`columnWidth-${width.replace('/', '-')}`)
             }
             expect(column).toHaveClass(`columnWidth-${actualWidth.replace('/', '-')}`)
-        }
-    })
-
-    it('is set to fill the available width unless width="content"', () => {
-        const { rerender } = render(
-            <Columns>
-                <Column data-testid="column" width="content" />
-            </Columns>,
-        )
-        const column = screen.getByTestId('column')
-        expect(column).not.toHaveClass('width-full')
-
-        for (const width of columnWidths) {
-            if (width === 'content') continue
-            rerender(
-                <Columns>
-                    <Column data-testid="column" width={width} />
-                </Columns>,
-            )
-            expect(column).toHaveClass('width-full')
         }
     })
 

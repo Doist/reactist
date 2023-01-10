@@ -15,6 +15,7 @@ import styles from './box.module.css'
 import paddingStyles from './padding.module.css'
 import marginStyles from './margin.module.css'
 import widthStyles from './width.module.css'
+import gapStyles from './gap.module.css'
 
 interface BoxPaddingProps {
     padding?: ResponsiveProp<Space>
@@ -79,6 +80,7 @@ interface BoxProps extends WithEnhancedClassName, ReusableBoxProps, BoxMarginPro
     display?: ResponsiveProp<BoxDisplay>
     flexDirection?: ResponsiveProp<BoxFlexDirection>
     flexWrap?: BoxFlexWrap
+    gap?: ResponsiveProp<Space | 'none'>
     alignItems?: ResponsiveProp<BoxAlignItems>
     alignSelf?: ResponsiveProp<BoxAlignSelf>
     justifyContent?: ResponsiveProp<BoxJustifyContent>
@@ -96,6 +98,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
         flexWrap,
         flexGrow,
         flexShrink,
+        gap,
         alignItems,
         justifyContent,
         alignSelf,
@@ -176,6 +179,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
                         ? getClassNames(styles, 'flexShrink', String(flexShrink))
                         : null,
                     flexGrow != null ? getClassNames(styles, 'flexGrow', String(flexGrow)) : null,
+                    gap ? getClassNames(gapStyles, 'gap', gap) : null,
                     // other props
                     getClassNames(styles, 'overflow', overflow),
                     width != null ? getClassNames(widthStyles, 'width', String(width)) : null,
