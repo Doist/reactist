@@ -47,7 +47,7 @@ type TabsProps = {
 /**
  * Used to group components that compose a set of tabs. There can only be one active tab within the same `<Tabs>` group.
  */
-export function Tabs({
+function Tabs({
     children,
     selectedId,
     defaultSelectedId,
@@ -96,7 +96,7 @@ type TabProps = {
 /**
  * Represents the individual tab elements within the group. Each `<Tab>` must have a corresponding `<TabPanel>` component.
  */
-export const Tab = polymorphicComponent<'button', TabProps>(function Tab(
+const Tab = polymorphicComponent<'button', TabProps>(function Tab(
     { as, children, id, exceptionallySetClassName, ...props },
     ref,
 ): React.ReactElement | null {
@@ -155,7 +155,7 @@ type TabListProps = (
 /**
  * A component used to group `<Tab>` elements together.
  */
-export function TabList({
+function TabList({
     children,
     space = 'xsmall',
     ...props
@@ -179,13 +179,7 @@ export function TabList({
                 width="maxContent"
                 {...props}
             >
-                <Box
-                    className={classNames(
-                        styles.track,
-                        styles[`track-${space}`],
-                        styles[`track-${variant}`],
-                    )}
-                />
+                <Box className={[styles.track, styles[`track-${variant}`]]} />
                 <Inline space={space}>{children}</Inline>
             </BaseTabList>
         </Box>
@@ -210,41 +204,39 @@ type TabPanelProps = {
 /**
  * Used to define the content to be rendered when a tab is active. Each `<TabPanel>` must have a corresponding `<Tab>` component.
  */
-export const TabPanel = polymorphicComponent<'div', TabPanelProps, 'omitClassName'>(
-    function TabPanel(
-        { children, id, as, render = 'always', ...props },
-        ref,
-    ): React.ReactElement | null {
-        const tabContextValue = React.useContext(TabsContext)
-        const [tabRendered, setTabRendered] = React.useState(false)
-        const tabIsActive = tabContextValue?.tabState.selectedId === id
+const TabPanel = polymorphicComponent<'div', TabPanelProps, 'omitClassName'>(function TabPanel(
+    { children, id, as, render = 'always', ...props },
+    ref,
+): React.ReactElement | null {
+    const tabContextValue = React.useContext(TabsContext)
+    const [tabRendered, setTabRendered] = React.useState(false)
+    const tabIsActive = tabContextValue?.tabState.selectedId === id
 
-        React.useEffect(
-            function trackTabRenderedState() {
-                if (!tabRendered && tabIsActive) {
-                    setTabRendered(true)
-                }
-            },
-            [tabRendered, tabIsActive],
-        )
+    React.useEffect(
+        function trackTabRenderedState() {
+            if (!tabRendered && tabIsActive) {
+                setTabRendered(true)
+            }
+        },
+        [tabRendered, tabIsActive],
+    )
 
-        if (!tabContextValue) {
-            return null
-        }
+    if (!tabContextValue) {
+        return null
+    }
 
-        const { tabState } = tabContextValue
-        const shouldRender =
-            render === 'always' ||
-            (render === 'active' && tabIsActive) ||
-            (render === 'lazy' && (tabIsActive || tabRendered))
+    const { tabState } = tabContextValue
+    const shouldRender =
+        render === 'always' ||
+        (render === 'active' && tabIsActive) ||
+        (render === 'lazy' && (tabIsActive || tabRendered))
 
-        return shouldRender ? (
-            <BaseTabPanel tabId={id} {...props} state={tabState} as={as} ref={ref}>
-                {children}
-            </BaseTabPanel>
-        ) : null
-    },
-)
+    return shouldRender ? (
+        <BaseTabPanel tabId={id} {...props} state={tabState} as={as} ref={ref}>
+            {children}
+        </BaseTabPanel>
+    ) : null
+})
 
 type TabAwareSlotProps = {
     /**
@@ -258,8 +250,9 @@ type TabAwareSlotProps = {
  * Allows content to be rendered based on the current tab being selected while outside of the TabPanel
  * component. Can be placed freely within the main `<Tabs>` component.
  */
-export function TabAwareSlot({ children }: TabAwareSlotProps): React.ReactElement | null {
+function TabAwareSlot({ children }: TabAwareSlotProps): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
-
     return tabContextValue ? children({ selectedId: tabContextValue?.tabState.selectedId }) : null
 }
+
+export { Tab, Tabs, TabList, TabPanel, TabAwareSlot }
