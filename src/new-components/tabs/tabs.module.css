@@ -38,7 +38,6 @@
     right: calc(-1 * var(--reactist-tab-track-border-width));
     bottom: calc(-1 * var(--reactist-tab-track-border-width));
     left: calc(-1 * var(--reactist-tab-track-border-width));
-    margin-top: var(--reactist-spacing-large);
     border-radius: var(--reactist-tab-border-radius);
     border-width: var(--reactist-tab-track-border-width);
     border-style: solid;
@@ -79,28 +78,4 @@
 .track-themed {
     background: var(--reactist-tab-themed-track);
     border-color: var(--reactist-tab-themed-track);
-}
-
-.track-xsmall {
-    margin-top: var(--reactist-spacing-xsmall);
-}
-
-.track-small {
-    margin-top: var(--reactist-spacing-small);
-}
-
-.track-medium {
-    margin-top: var(--reactist-spacing-medium);
-}
-
-.track-large {
-    margin-top: var(--reactist-spacing-large);
-}
-
-.track-xlarge {
-    margin-top: var(--reactist-spacing-xlarge);
-}
-
-.track-xxlarge {
-    margin-top: var(--reactist-spacing-xxlarge);
 }
