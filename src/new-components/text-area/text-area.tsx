@@ -8,20 +8,23 @@ type TextAreaProps = FieldComponentProps<HTMLTextAreaElement> &
         rows?: number
     }
 
-function TextArea({
-    variant = 'default',
-    id,
-    label,
-    secondaryLabel,
-    auxiliaryLabel,
-    hint,
-    message,
-    tone,
-    maxWidth,
-    hidden,
-    'aria-describedby': ariaDescribedBy,
-    ...props
-}: TextAreaProps) {
+const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
+    {
+        variant = 'default',
+        id,
+        label,
+        secondaryLabel,
+        auxiliaryLabel,
+        hint,
+        message,
+        tone,
+        maxWidth,
+        hidden,
+        'aria-describedby': ariaDescribedBy,
+        ...props
+    },
+    ref,
+) {
     return (
         <BaseField
             variant={variant}
@@ -43,12 +46,12 @@ function TextArea({
         >
             {(extraProps) => (
                 <Box width="full" display="flex">
-                    <textarea {...props} {...extraProps} />
+                    <textarea {...props} {...extraProps} ref={ref} />
                 </Box>
             )}
         </BaseField>
     )
-}
+})
 
 export { TextArea }
 export type { TextAreaProps }
