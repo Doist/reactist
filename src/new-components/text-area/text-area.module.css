@@ -1,13 +1,35 @@
+/***************************************
+
+Auto-grow works thanks to some aspects of the .innerContainer
+
+- .innerContainer::after styles need to be at all times the same as styles on the textarea.
+- .innerContainer needs to have the value of the textarea stored in a data- attribute (js React
+  effect keeps it in sync)
+- .innerContainer::after and the textarea are positioned one on top of the other, overlapping at
+  all times.
+- The fact that .innerContainer is a grid layout (and that the content and styles are in sync)
+  allows them both to grow and shrink in sync.
+
+See https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
+
+***************************************/
+
+.textAreaContainer {
+    font-family: var(--reactist-font-family);
+}
+
+.innerContainer::after,
 .textAreaContainer textarea {
     outline: none; /* we're taking care of the outline styles ourselves */
     border: none;
     padding: 0;
     box-sizing: border-box;
-    font-family: var(--reactist-font-family);
+    font: inherit;
     width: 100%;
     resize: vertical;
 }
 
+.textAreaContainer:not(.bordered) .innerContainer::after,
 .textAreaContainer:not(.bordered) textarea {
     border-radius: var(--reactist-border-radius-small);
     padding: var(--reactist-spacing-small);
@@ -17,6 +39,7 @@
     border-radius: var(--reactist-border-radius-large);
 }
 
+.textAreaContainer:not(.bordered) .innerContainer::after,
 .textAreaContainer:not(.bordered) textarea,
 .textAreaContainer.bordered {
     border: 1px solid var(--reactist-divider-secondary);
@@ -27,7 +50,35 @@
     border-color: var(--reactist-divider-primary);
 }
 
+.textAreaContainer.error:not(.bordered) .innerContainer::after,
 .textAreaContainer.error:not(.bordered) textarea,
 .textAreaContainer.bordered.error {
     border-color: var(--reactist-alert-tone-critical-border) !important;
+}
+
+.innerContainer {
+    /* easy way to plop the elements on top of each other and have them both sized based on the tallest one's height */
+    display: grid;
+}
+
+.innerContainer::after {
+    /* Note the weird space! Needed to preventy jumpy behavior */
+    content: attr(data-replicated-value) ' ';
+
+    /* This is how textarea text behaves */
+    white-space: pre-wrap;
+
+    /* Hidden from view, clicks, and screen readers */
+    visibility: hidden;
+}
+
+.innerContainer > textarea,
+.innerContainer::after {
+    /* Place on top of each other */
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+textarea.autoGrow {
+    resize: none; /* You could leave this, but after a user resizes, then it ruins the auto sizing */
+    overflow: hidden; /* Firefox shows scrollbar on growth, you can hide like this. */
 }
