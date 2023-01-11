@@ -9,14 +9,20 @@ type TextAreaProps = FieldComponentProps<HTMLTextAreaElement> &
         /**
          * The number of visible text lines for the text area.
          *
-         * If it is specified, it must be a positive integer or the string `"auto"`. When it's
-         * `"auto"`, the textarea will automatically expand or shrink its height to fit the content.
+         * If it is specified, it must be a positive integer. If it is not specified, the default
+         * value is 2 (set by the browser).
          *
-         * If it is not specified, the default value is 2 (set by the browser).
+         * When `autoExpand` is true, this value serves the purpose of specifying the minimum number
+         * of rows that the textarea will shrink to when the content is not large enough to make it
+         * expand.
          *
          * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#attr-rows
          */
-        rows?: number | 'auto'
+        rows?: number
+        /**
+         * If `true`, the textarea will auto-expand or shrink vertically to fit the content.
+         */
+        autoExpand?: boolean
     }
 
 const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
@@ -33,6 +39,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
         hidden,
         'aria-describedby': ariaDescribedBy,
         rows,
+        autoExpand = false,
         ...props
     },
     ref,
@@ -42,7 +49,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
     const combinedRef = useMergeRefs([ref, internalRef])
 
     React.useEffect(
-        function setupAutoGrow() {
+        function setupAutoExpand() {
             const containerElement = containerRef.current
             function handleInput(event: Event) {
                 if (containerElement) {
@@ -51,11 +58,11 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
             }
 
             const textAreaElement = internalRef.current
-            if (!textAreaElement || rows !== 'auto') return undefined
+            if (!textAreaElement || !autoExpand) return undefined
             textAreaElement.addEventListener('input', handleInput)
             return () => textAreaElement.removeEventListener('input', handleInput)
         },
-        [rows],
+        [autoExpand],
     )
 
     return (
@@ -88,8 +95,8 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
                         {...props}
                         {...extraProps}
                         ref={combinedRef}
-                        rows={rows === 'auto' ? undefined : rows}
-                        className={rows === 'auto' ? styles.autoGrow : undefined}
+                        rows={rows}
+                        className={autoExpand ? styles.autoExpand : undefined}
                     />
                 </Box>
             )}

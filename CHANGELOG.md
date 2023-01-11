@@ -4,7 +4,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # next
 
--   [Feat] Passing `rows="auto"` to the `TextArea` component makes it auto-grow its height to fit the content as you type.
+-   [Feat] Passing `autoExpand` to the `TextArea` component makes it auto-expand its height to fit the content as you type.
 -   [Feat] The `TextArea` component now supports receiving a ref that's forwarded to the `textarea` element.
 
 # v17.9.1

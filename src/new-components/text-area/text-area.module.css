@@ -1,6 +1,6 @@
 /***************************************
 
-Auto-grow works thanks to some aspects of the .innerContainer
+Auto-expand works thanks to some aspects of the .innerContainer
 
 - .innerContainer::after styles need to be at all times the same as styles on the textarea.
 - .innerContainer needs to have the value of the textarea stored in a data- attribute (js React
@@ -8,7 +8,7 @@ Auto-grow works thanks to some aspects of the .innerContainer
 - .innerContainer::after and the textarea are positioned one on top of the other, overlapping at
   all times.
 - The fact that .innerContainer is a grid layout (and that the content and styles are in sync)
-  allows them both to grow and shrink in sync.
+  allows them both to expand and shrink in sync.
 
 See https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
 
@@ -78,7 +78,7 @@ See https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
     grid-area: 1 / 1 / 2 / 2;
 }
 
-textarea.autoGrow {
+textarea.autoExpand {
     resize: none; /* You could leave this, but after a user resizes, then it ruins the auto sizing */
     overflow: hidden; /* Firefox shows scrollbar on growth, you can hide like this. */
 }

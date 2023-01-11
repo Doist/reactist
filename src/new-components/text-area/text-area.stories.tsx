@@ -140,32 +140,35 @@ export function WithoutLabelStory() {
     )
 }
 
-export function AutoGrowStory(props: PartialProps<typeof TextArea>) {
+export function AutoExpandStory(props: PartialProps<typeof TextArea>) {
     return (
         <Stack space="xxlarge" dividers="secondary" maxWidth="medium">
             <TextArea
                 {...props}
                 label="What do you want to accomplish?"
-                secondaryLabel="auto-grow enabled"
+                secondaryLabel="auto-expand enabled"
                 hint="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
-                rows="auto"
+                autoExpand
             />
             <TextArea
                 {...props}
                 label="What do you want to accomplish?"
-                secondaryLabel="No auto-grow"
+                secondaryLabel="No auto-expand"
                 hint="This one will not auto-expand."
+                autoExpand={false}
             />
         </Stack>
     )
 }
 
-AutoGrowStory.argTypes = {
+AutoExpandStory.argTypes = {
     label: { control: false },
     secondaryLabel: { control: false },
     auxiliaryLabel: { control: false },
     hint: { control: false },
-    rows: { control: false },
+    rows: {
+        control: { type: 'number' },
+    },
     message: {
         control: { type: 'text' },
         defaultValue: '',
