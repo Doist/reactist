@@ -2,6 +2,13 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# next
+
+-   [BREAKING] The `Tooltip` component no longer accepts generic props to be forwarded as generic HTML attributes to the tooltip content container. In particular, it no longer accepts a `className` to customize its appearance.
+-   [Tweak] Modernizes the implementation of the tooltip, specifically by making it based on the new styling approach based on CSS variables.
+-   [Feat] Adds the ability to render tooltips with an arrow pointing to the trigger element.
+-   [Fix] The tooltip content is set as the accessible description of the trigger element.
+
 # v17.10.1
 
 -   [Fix] Ensure that any element inside a `Button` or `ButtonLink` is non-clickable, to facilitate event tracking with tools such as Google Analytics.
