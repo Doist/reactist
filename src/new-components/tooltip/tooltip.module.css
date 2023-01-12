@@ -1,0 +1,4 @@
+.tooltip {
+    text-overflow: ellipsis;
+    z-index: 1000;
+}

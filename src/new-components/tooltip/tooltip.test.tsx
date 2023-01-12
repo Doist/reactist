@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { render, screen, act } from '@testing-library/react'
+import { render, screen, act, waitFor } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import userEvent from '@testing-library/user-event'
 import { Tooltip, SHOW_DELAY, HIDE_DELAY } from './tooltip'
@@ -232,6 +232,23 @@ describe('Tooltip', () => {
 
             const results = await axe(container)
             expect(results).toHaveNoViolations()
+        })
+    })
+
+    it('sets the tooltip content as the trigger element’s accessible description', async () => {
+        render(
+            <Tooltip content="tooltip content here">
+                <button>Click me</button>
+            </Tooltip>,
+        )
+
+        // Since the content is only rendered when the tooltip appears, this description is only
+        // available when we hover or focus the button, and not before.
+        const button = screen.getByRole('button', { name: 'Click me' })
+        userEvent.tab()
+
+        await waitFor(() => {
+            expect(button).toHaveAccessibleDescription('tooltip content here')
         })
     })
 })
