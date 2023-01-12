@@ -76,6 +76,7 @@ TooltipPlaygroundStory.args = {
     content: 'You did it!',
     position: 'top',
     gapSize: 5,
+    withArrow: false,
 }
 
 TooltipPlaygroundStory.argTypes = {
@@ -91,11 +92,13 @@ TooltipPlaygroundStory.argTypes = {
 export function TooltipRichContentStory({
     position,
     gapSize,
-}: Pick<TooltipProps, 'position' | 'gapSize'>) {
+    withArrow,
+}: Pick<TooltipProps, 'position' | 'gapSize' | 'withArrow'>) {
     return (
         <StoryTemplate
             position={position}
             gapSize={gapSize}
+            withArrow={withArrow}
             content={
                 <Stack space="medium" padding="small">
                     <Text weight="bold" size="subtitle" align="center">
@@ -116,6 +119,7 @@ export function TooltipRichContentStory({
 TooltipRichContentStory.args = {
     position: 'bottom',
     gapSize: 10,
+    withArrow: true,
 }
 
 TooltipRichContentStory.argTypes = {

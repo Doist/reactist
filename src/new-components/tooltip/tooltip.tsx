@@ -4,6 +4,7 @@ import {
     useTooltipState as useAriakitTooltipState,
     Tooltip as AriakitTooltip,
     TooltipAnchor,
+    TooltipArrow,
 } from 'ariakit/tooltip'
 import { Box } from '../box'
 
@@ -61,6 +62,13 @@ type TooltipProps = {
      * @default 3
      */
     gapSize?: number
+
+    /**
+     * Whether to show an arrow-like element attached to the tooltip, and pointing towards the
+     * trigger element.
+     * @default false
+     */
+    withArrow?: boolean
 }
 
 // These are exported to be used in the tests, they are not meant to be exported publicly
@@ -80,7 +88,13 @@ function useDelayedTooltipState(initialState: AriakitTooltipStateProps) {
     )
 }
 
-function Tooltip({ children, content, position = 'top', gapSize = 3 }: TooltipProps) {
+function Tooltip({
+    children,
+    content,
+    position = 'top',
+    gapSize = 3,
+    withArrow = false,
+}: TooltipProps) {
     const state = useDelayedTooltipState({ placement: position, gutter: gapSize })
 
     const child = React.Children.only(
@@ -141,6 +155,7 @@ function Tooltip({ children, content, position = 'top', gapSize = 3 }: TooltipPr
                     overflow="hidden"
                     textAlign="center"
                 >
+                    {withArrow ? <TooltipArrow /> : null}
                     {typeof content === 'function' ? content() : content}
                 </Box>
             ) : null}
