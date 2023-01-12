@@ -139,3 +139,56 @@ export function WithoutLabelStory() {
         </Stack>
     )
 }
+
+export function AutoExpandStory(props: PartialProps<typeof TextArea>) {
+    return (
+        <Stack space="xxlarge" dividers="secondary" maxWidth="medium">
+            <TextArea
+                {...props}
+                label="What do you want to accomplish?"
+                secondaryLabel="auto-expand enabled"
+                hint="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
+                autoExpand
+            />
+            <TextArea
+                {...props}
+                label="What do you want to accomplish?"
+                secondaryLabel="No auto-expand"
+                hint="This one will not auto-expand."
+                autoExpand={false}
+            />
+        </Stack>
+    )
+}
+
+AutoExpandStory.argTypes = {
+    label: { control: false },
+    secondaryLabel: { control: false },
+    auxiliaryLabel: { control: false },
+    hint: { control: false },
+    rows: {
+        control: { type: 'number' },
+    },
+    message: {
+        control: { type: 'text' },
+        defaultValue: '',
+    },
+    tone: {
+        options: ['neutral', 'success', 'error', 'loading'],
+        control: { type: 'inline-radio' },
+        defaultValue: 'neutral',
+    },
+    variant: {
+        options: ['default', 'bordered'],
+        control: { type: 'inline-radio' },
+        defaultValue: 'default',
+    },
+    placeholder: {
+        control: { type: 'text' },
+        defaultValue: '',
+    },
+    maxWidth: selectWithNone<BoxMaxWidth>(
+        ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+        'small',
+    ),
+}

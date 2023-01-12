@@ -2,6 +2,11 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# v17.10.0
+
+-   [Feat] Passing `autoExpand` to the `TextArea` component makes it auto-expand its height to fit the content as you type.
+-   [Feat] The `TextArea` component now supports receiving a ref that's forwarded to the `textarea` element.
+
 # v17.9.1
 
 -   [Fix] Tabs layout got broken after the `Inline` element switched to use `gap` for spacing.

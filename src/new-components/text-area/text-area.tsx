@@ -1,27 +1,70 @@
 import * as React from 'react'
+import { useMergeRefs } from 'use-callback-ref'
 import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-field'
 import { Box } from '../box'
 import styles from './text-area.module.css'
 
 type TextAreaProps = FieldComponentProps<HTMLTextAreaElement> &
     BaseFieldVariantProps & {
+        /**
+         * The number of visible text lines for the text area.
+         *
+         * If it is specified, it must be a positive integer. If it is not specified, the default
+         * value is 2 (set by the browser).
+         *
+         * When `autoExpand` is true, this value serves the purpose of specifying the minimum number
+         * of rows that the textarea will shrink to when the content is not large enough to make it
+         * expand.
+         *
+         * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#attr-rows
+         */
         rows?: number
+        /**
+         * If `true`, the textarea will auto-expand or shrink vertically to fit the content.
+         */
+        autoExpand?: boolean
     }
 
-function TextArea({
-    variant = 'default',
-    id,
-    label,
-    secondaryLabel,
-    auxiliaryLabel,
-    hint,
-    message,
-    tone,
-    maxWidth,
-    hidden,
-    'aria-describedby': ariaDescribedBy,
-    ...props
-}: TextAreaProps) {
+const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
+    {
+        variant = 'default',
+        id,
+        label,
+        secondaryLabel,
+        auxiliaryLabel,
+        hint,
+        message,
+        tone,
+        maxWidth,
+        hidden,
+        'aria-describedby': ariaDescribedBy,
+        rows,
+        autoExpand = false,
+        ...props
+    },
+    ref,
+) {
+    const containerRef = React.useRef<HTMLDivElement>(null)
+    const internalRef = React.useRef<HTMLTextAreaElement>(null)
+    const combinedRef = useMergeRefs([ref, internalRef])
+
+    React.useEffect(
+        function setupAutoExpand() {
+            const containerElement = containerRef.current
+            function handleInput(event: Event) {
+                if (containerElement) {
+                    containerElement.dataset.replicatedValue = (event.currentTarget as HTMLTextAreaElement).value
+                }
+            }
+
+            const textAreaElement = internalRef.current
+            if (!textAreaElement || !autoExpand) return undefined
+            textAreaElement.addEventListener('input', handleInput)
+            return () => textAreaElement.removeEventListener('input', handleInput)
+        },
+        [autoExpand],
+    )
+
     return (
         <BaseField
             variant={variant}
@@ -42,13 +85,24 @@ function TextArea({
             maxWidth={maxWidth}
         >
             {(extraProps) => (
-                <Box width="full" display="flex">
-                    <textarea {...props} {...extraProps} />
+                <Box
+                    width="full"
+                    display="flex"
+                    className={styles.innerContainer}
+                    ref={containerRef}
+                >
+                    <textarea
+                        {...props}
+                        {...extraProps}
+                        ref={combinedRef}
+                        rows={rows}
+                        className={autoExpand ? styles.autoExpand : undefined}
+                    />
                 </Box>
             )}
         </BaseField>
     )
-}
+})
 
 export { TextArea }
 export type { TextAreaProps }
