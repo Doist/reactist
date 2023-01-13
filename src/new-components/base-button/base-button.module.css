@@ -170,6 +170,14 @@
     margin-right: -6px;
 }
 
+/**
+ * Make sure that any `span` nested inside our button elements is non-clickable.
+ * This ultimately ensures that GA tracking works successfully for button elements.
+ */
+.baseButton span {
+    pointer-events: none;
+}
+
 /* variants with normal tone */
 
 .variant-primary {
