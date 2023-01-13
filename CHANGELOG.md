@@ -4,6 +4,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # next
 
+-   [BREAKING] Renames the CSS variable for primary text content inside toasts and tooltip. Previous name was `--reactist-content-toast`, now replaced with the new name `--reactist-toast-content-primary`.
+-   [Feat] New CSS variable to control the color of secondary text inside toasts and tooltip: `--reactist-toast-content-secondary`.
 -   [BREAKING] The `Tooltip` component no longer accepts generic props to be forwarded as generic HTML attributes to the tooltip content container. In particular, it no longer accepts a `className` to customize its appearance.
 -   [Tweak] Modernizes the implementation of the tooltip, specifically by making it based on the new styling approach based on CSS variables.
 -   [Feat] Adds the ability to render tooltips with an arrow pointing to the trigger element.

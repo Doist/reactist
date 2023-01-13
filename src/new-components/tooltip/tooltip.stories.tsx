@@ -100,16 +100,16 @@ export function TooltipRichContentStory({
             gapSize={gapSize}
             withArrow={withArrow}
             content={
-                <Stack space="medium" padding="small">
-                    <Text weight="bold" size="subtitle" align="center">
+                <Stack space="medium" padding="small" align="start">
+                    <Text weight="bold" size="subtitle">
                         Upgrade to Pro
                     </Text>
                     <ul style={{ textAlign: 'start', padding: '0 16px', margin: '0' }}>
                         <li>Add reminders to tasks</li>
                         <li>Unlimited projects</li>
                         <li>Daily backups</li>
-                        <li>and more…</li>
                     </ul>
+                    <Text tone="secondary">and more…</Text>
                 </Stack>
             }
         />

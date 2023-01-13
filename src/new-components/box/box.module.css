@@ -355,7 +355,8 @@ pre.box {
 .bg-toast {
     background-color: var(--reactist-bg-toast);
     color: var(--reactist-content-primary);
-    --reactist-content-primary: var(--reactist-content-toast);
+    --reactist-content-primary: var(--reactist-toast-content-primary);
+    --reactist-content-secondary: var(--reactist-toast-content-secondary);
     --reactist-text-link-idle-tint: var(--reactist-content-primary);
     --reactist-text-link-idle-decoration: var(--reactist-text-link-hover-decoration);
     --reactist-actionable-tertiary-idle-tint: var(--reactist-toast-actionable-primary-tint);
