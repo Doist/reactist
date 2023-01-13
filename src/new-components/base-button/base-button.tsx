@@ -156,7 +156,6 @@ export const BaseButton = polymorphicComponent<'div', BaseButtonProps>(function 
                             overflow="hidden"
                             width={width === 'full' ? 'full' : undefined}
                             textAlign={width === 'auto' ? 'center' : align}
-                            data-testid="button-nested-span"
                         >
                             {children}
                         </Box>

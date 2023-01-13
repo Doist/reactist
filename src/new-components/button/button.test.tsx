@@ -115,7 +115,7 @@ describe('Button', () => {
         expect(
             screen.getByRole('button', { name: 'Click me now' }).innerHTML,
         ).toMatchInlineSnapshot(
-            `"<span data-testid=\\"button-nested-span\\" class=\\"label box textAlign-center overflow-hidden\\">Click me <strong>now</strong></span>"`,
+            `"<span class=\\"label box textAlign-center overflow-hidden\\">Click me <strong>now</strong></span>"`,
         )
     })
 

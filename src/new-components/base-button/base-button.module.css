@@ -171,10 +171,10 @@
 }
 
 /**
- * Make sure that any `span` nested inside our button elements is non-clickable.
- * This ultimately ensures that GA tracking works successfully for button elements.
+ * Make sure that any element nested inside button elements is non-clickable.
+ * This helps when using buttons alongside tracking tools such as Google Analytics.
  */
-.baseButton span {
+.baseButton > * {
     pointer-events: none;
 }
 

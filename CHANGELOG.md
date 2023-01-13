@@ -4,7 +4,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # v17.10.1
 
--   [Fix] Ensure that any `span` inside a button is non-clickable, to facilitate event tracking on button clicks.
+-   [Fix] Ensure that any element inside a `Button` or `ButtonLink` is non-clickable, to facilitate event tracking with tools such as Google Analytics.
 
 # v17.10.0
 
