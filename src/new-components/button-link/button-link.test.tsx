@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { render, screen, within } from '@testing-library/react'
+import { getByTestId, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ButtonLink } from './button-link'
 
@@ -96,7 +96,7 @@ describe('ButtonLink', () => {
         )
         const buttonLink = screen.getByRole('link', { name: 'Click me now' })
         expect(buttonLink.innerHTML).toMatchInlineSnapshot(
-            `"<span class=\\"label box textAlign-center overflow-hidden\\">Click me <strong>now</strong></span>"`,
+            `"<span data-testid=\\"button-nested-span\\" class=\\"label box textAlign-center overflow-hidden\\">Click me <strong>now</strong></span>"`,
         )
     })
 
@@ -238,6 +238,24 @@ describe('ButtonLink', () => {
         )
         const buttonLink = screen.getByRole('link', { name: 'Click me' })
         expect(buttonLink).not.toHaveClass('align-end')
+    })
+
+    it('contains a non-clickable nested span', () => {
+        const onClick = jest.fn()
+        render(
+            <ButtonLink href="/" variant="primary">
+                Click me
+            </ButtonLink>,
+        )
+        const nestedSpan = screen.getByTestId('button-nested-span')
+        // Verify that the button contains a nested span
+        expect(screen.getByRole('link', { name: 'Click me' })).toContainElement(nestedSpan)
+        // Set an onClick function on the span
+        nestedSpan.onclick = onClick
+        // Click on the button
+        userEvent.click(nestedSpan)
+        // Ensure that the onClick function set on the span has not been called, meaning that the span is non-clickable
+        expect(onClick).not.toHaveBeenCalled()
     })
 
     describe('with icons', () => {
