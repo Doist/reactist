@@ -69,6 +69,11 @@ type TooltipProps = {
      * @default false
      */
     withArrow?: boolean
+
+    /**
+     * An escape hatch, in case you need to provide a custom class name to the tooltip.
+     */
+    exceptionallySetClassName?: string
 }
 
 // These are exported to be used in the tests, they are not meant to be exported publicly
@@ -94,6 +99,7 @@ function Tooltip({
     position = 'top',
     gapSize = 3,
     withArrow = false,
+    exceptionallySetClassName,
 }: TooltipProps) {
     const state = useDelayedTooltipState({ placement: position, gutter: gapSize })
 
@@ -113,7 +119,7 @@ function Tooltip({
      * Prevents the tooltip from automatically firing on focus all the time. This is to prevent
      * tooltips from showing when the trigger element is focused back after a popover or dialog that
      * it opened was closed. See link below for more details.
-     * @see https://github.com/reakit/reakit/discussions/749
+     * @see https://github.com/ariakit/ariakit/discussions/749
      */
     function handleFocus(event: React.FocusEvent<HTMLDivElement>) {
         // If focus is not followed by a key up event, does it mean that it's not an intentional
@@ -145,7 +151,7 @@ function Tooltip({
                 <Box
                     as={AriakitTooltip}
                     state={state}
-                    className={styles.tooltip}
+                    className={[styles.tooltip, exceptionallySetClassName]}
                     background="toast"
                     borderRadius="standard"
                     paddingX="small"

@@ -151,7 +151,7 @@ describe('Tooltip', () => {
     })
 
     /**
-     * @see https://github.com/reakit/reakit/discussions/749
+     * @see https://github.com/ariakit/ariakit/discussions/749
      */
     it('does not show the tooltip if the button received focus in a way not associated with a key event', () => {
         function getTooltipButton() {
@@ -250,5 +250,25 @@ describe('Tooltip', () => {
         await waitFor(() => {
             expect(button).toHaveAccessibleDescription('tooltip content here')
         })
+    })
+
+    it('does not acknowledge the className prop, but exceptionallySetClassName instead', async () => {
+        render(
+            <Tooltip
+                content="I’m a tooltip"
+                // @ts-expect-error
+                className="wrong"
+                exceptionallySetClassName="right"
+            >
+                <button>Click me</button>
+            </Tooltip>,
+        )
+        // Since the content is only rendered when the tooltip appears, this description is only
+        // available when we hover or focus the button, and not before.
+        userEvent.tab()
+
+        const tooltip = await screen.findByRole('tooltip', { name: 'I’m a tooltip' })
+        expect(tooltip).toHaveClass('right')
+        expect(tooltip).not.toHaveClass('wrong')
     })
 })
