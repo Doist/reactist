@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Tooltip, TooltipProps } from '../../components/tooltip'
+import { Tooltip, TooltipProps } from '../tooltip'
 import { polymorphicComponent } from '../../utils/polymorphism'
 import { Box } from '../box'
 import { Spinner } from '../spinner'
