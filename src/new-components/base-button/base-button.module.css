@@ -170,6 +170,14 @@
     margin-right: -6px;
 }
 
+/**
+ * Make sure that any element nested inside button elements is non-clickable.
+ * This helps when using buttons alongside tracking tools such as Google Analytics.
+ */
+.baseButton > * {
+    pointer-events: none;
+}
+
 /* variants with normal tone */
 
 .variant-primary {
