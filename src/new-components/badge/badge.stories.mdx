@@ -5,6 +5,7 @@ import { Button } from '../button'
 import { Columns, Column } from '../columns'
 import { Stack } from '../stack'
 import { TextLink } from '../text-link'
+import { Text } from '../text'
 
 import { Badge } from './badge'
 
@@ -22,6 +23,47 @@ A badge used to bring attention to a particular UI element or functionality.
 
 The use of variants does not provide extra semantic meaning and is strictly visual. Ensure your content provides the necessary context for users by using the `aria-label` prop if needed.
 
+export function PlaygroundTemplate() {
+    return (
+        <Columns space="xxlarge">
+            <Column width="content">
+                <Stack space="medium">
+                    <Text>Tone</Text>
+                    <div>
+                        <Badge tone="info" label="Info" />
+                    </div>
+                    <div>
+                        <Badge tone="positive" label="Positive" />
+                    </div>
+                    <div>
+                        <Badge tone="promote" label="Promote" />
+                    </div>
+                    <div>
+                        <Badge tone="attention" label="Attention" />
+                    </div>
+                </Stack>
+            </Column>
+            <Column width="content">
+                <Stack space="medium">
+                    <Text>Example</Text>
+                    <div>
+                        <Badge tone="info" label="Upgrade" />
+                    </div>
+                    <div>
+                        <Badge tone="positive" label="New" />
+                    </div>
+                    <div>
+                        <Badge tone="promote" label="Beta" />
+                    </div>
+                    <div>
+                        <Badge tone="attention" label="Save 25%" />
+                    </div>
+                </Stack>
+            </Column>
+        </Columns>
+    )
+}
+
 <Canvas>
     <Story
         name="Main demo"
@@ -29,17 +71,7 @@ The use of variants does not provide extra semantic meaning and is strictly visu
             docs: { source: { type: 'code' } },
         }}
     >
-        <Columns space="large">
-            <Column width="content">
-                <Badge variant="neutral">Neutral</Badge>
-            </Column>
-            <Column width="content">
-                <Badge variant="positive">Positive</Badge>
-            </Column>
-            <Column width="content">
-                <Badge variant="color">Color</Badge>
-            </Column>
-        </Columns>
+        {PlaygroundTemplate.bind({})}
     </Story>
 </Canvas>
 
@@ -54,16 +86,15 @@ The use of variants does not provide extra semantic meaning and is strictly visu
     >
         <Stack space="medium" paddingX="medium">
             <Box marginX="-large">
-                <Button variant="quaternary" size="large">
-                    Reminders <Badge variant="positive">Pro</Badge>
+                <Button variant="secondary" size="large">
+                    Reminders <Badge tone="promote" label="Pro" />
                 </Button>
             </Box>
             <div>
                 You can have badges inside{' '}
                 <TextLink>
-                    links <Badge variant="positive">nice</Badge>
+                    links <Badge tone="info" label="New" />
                 </TextLink>
-                .
             </div>
         </Stack>
     </Story>
@@ -75,15 +106,65 @@ The use of variants does not provide extra semantic meaning and is strictly visu
 
 ## Colors
 
-The following CSS custom properties are available so that the badge's colors can be customized:
+The following CSS custom properties are available to customize the badge component appearance. The values appearing below are the default values.
 
+```css
+:root {
+    --reactist-badge-font-size: 10px;
+
+    --reactist-badge-info-tint: #666666;
+    --reactist-badge-info-fill: #eeeeee;
+
+    --reactist-badge-positive-tint: #058527;
+    --reactist-badge-positive-fill: #e0f0e3;
+
+    --reactist-badge-promote-tint: #8f4700;
+    --reactist-badge-promote-fill: #faead1;
+
+    --reactist-badge-attention-tint: #cf473a;
+    --reactist-badge-attention-fill: #f9e3e2;
+}
 ```
---reactist-badge-neutral-background
---reactist-badge-neutral-foreground
 
---reactist-badge-positive-background
---reactist-badge-positive-foreground
+### Dark mode
 
---reactist-badge-color-background
---reactist-badge-color-foreground
-```
+export function DarkModeTemplate() {
+    return (
+        <Box
+            padding="xlarge"
+            style={{
+                backgroundColor: '#202020',
+                '--reactist-content-primary': 'rgba(255, 255, 255, 0.88)',
+                // tone="info"
+                '--reactist-badge-info-tint': '#B3B3B3',
+                '--reactist-badge-info-fill': '#363636',
+                // tone="positive"
+                '--reactist-badge-positive-tint': '#08A531',
+                '--reactist-badge-positive-fill': '#19231B',
+                // tone="promote"
+                '--reactist-badge-promote-tint': '#FF8C1A',
+                '--reactist-badge-promote-fill': '#412A06',
+                // tone="attention"
+                '--reactist-badge-attention-tint': '#CF473A',
+                '--reactist-badge-attention-fill': '#351E1C',
+            }}
+        >
+            <PlaygroundTemplate />
+        </Box>
+    )
+}
+
+Even though Reactist does not yet owns the concept of dark mode, and leaves it for apps to set it
+up, here's a demo on how easily you can prepare badges for dark mode by setting CSS custom
+properties.
+
+<Canvas>
+    <Story
+        name="Dark mode"
+        parameters={{
+            docs: { source: { type: 'dynamic' } },
+        }}
+    >
+        {DarkModeTemplate.bind({})}
+    </Story>
+</Canvas>
