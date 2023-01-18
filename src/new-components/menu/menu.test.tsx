@@ -3,7 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, SubMenu } from './menu'
 import { axe } from 'jest-axe'
-import { flushPromises } from '../../new-components/test-helpers'
+import { flushPromises } from '../test-helpers'
 import { act } from 'react-dom/test-utils'
 
 function getFocusedElement() {
