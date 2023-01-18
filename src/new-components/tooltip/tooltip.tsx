@@ -137,14 +137,24 @@ function Tooltip({
         child?.props?.onFocus?.(event)
     }
 
+    function handleBlur(event: React.FocusEvent<HTMLDivElement>) {
+        state.hide()
+        child?.props?.onBlur?.(event)
+    }
+
     return (
         <>
-            <TooltipAnchor state={state} ref={child.ref} onFocus={handleFocus} described>
+            <TooltipAnchor state={state} ref={child.ref} described>
                 {(anchorProps: TooltipAnchorProps) => {
                     // Let child props override anchor props so user can specify attributes like tabIndex
                     // Also, do not apply the child's props to TooltipAnchor as props like `as` can create problems
                     // by applying the replacement component/element twice
-                    return React.cloneElement(child, { ...anchorProps, ...child.props })
+                    return React.cloneElement(child, {
+                        ...anchorProps,
+                        ...child.props,
+                        onFocus: handleFocus,
+                        onBlur: handleBlur,
+                    })
                 }}
             </TooltipAnchor>
             {state.visible ? (
