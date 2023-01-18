@@ -1,0 +1,18 @@
+.container {
+    display: inline-block;
+    border: 1px dotted;
+    padding: 4px 6px;
+    border-radius: 5px;
+    color: var(--reactist-{{dashCase name}}-tint);
+    background-color: var(--reactist-{{dashCase name}}-fill);
+}
+
+.primary {
+    --reactist-{{dashCase name}}-tint: var(--reactist-content-primary);
+    --reactist-{{dashCase name}}-fill: var(--reactist-framework-fill-selected);
+}
+
+.secondary {
+    --reactist-{{dashCase name}}-tint: var(--reactist-content-secondary);
+    --reactist-{{dashCase name}}-fill: var(--reactist-framework-fill-background);
+}

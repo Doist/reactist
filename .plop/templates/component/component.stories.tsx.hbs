@@ -1,0 +1,35 @@
+import * as React from 'react'
+
+import { Stack } from '../stack'
+import { {{pascalCase name}} } from './{{dashCase name}}'
+
+export default {
+    title: 'Design system/{{pascalCase name}}',
+    component: {{pascalCase name}},
+    parameters: {
+        badges: ['accessible'],
+    },
+}
+
+export function {{pascalCase name}}PlaygroundStory(props: React.ComponentProps<typeof {{pascalCase name}}>) {
+    return (
+        <section>
+            <{{pascalCase name}} {...props} />
+        </section>
+    )
+}
+
+{{pascalCase name}}PlaygroundStory.storyName = 'Playground'
+{{pascalCase name}}PlaygroundStory.args = {
+    variant: 'primary',
+    children: 'Hello world',
+}
+{{pascalCase name}}PlaygroundStory.argTypes = {
+    variant: {
+        control: { type: 'inline-radio' },
+        options: ['primary', 'secondary'],
+    },
+    children: {
+        control: { type: 'text' },
+    },
+}
