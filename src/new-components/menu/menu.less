@@ -1,9 +1,6 @@
 @import '../../components/styles/constants.less';
 
-// Ariakit renders the menu as menubar on Safari
-// Ref: https://github.com/ariakit/ariakit/blob/454aef1237ada31e8292ee4966adca3ed0f6e299/packages/ariakit/src/menu/menu-list.ts#L150
-.reactist_menulist[role='menu'],
-.reactist_menulist[role='menubar'] {
+.reactist_menulist[role='menu'] {
     min-height: 44px; // minimum accessible target area
     max-height: var(--popover-available-height); // defined by ariakit
     overflow: auto;
@@ -11,7 +8,7 @@
     white-space: nowrap;
     background: hsla(0, 100%, 100%, 0.99);
     outline: none;
-    font-size: @smaller_font_size;
+    font-size: var(--reactist-font-size-copy);
     padding: 4px 0;
     min-width: 180px;
     border: 1px solid @color_border_grey;
@@ -30,11 +27,13 @@
         color: inherit;
         border: none;
         background-color: transparent;
+        font-family: var(--reactist-font-family);
+        font-size: var(--reactist-font-size-copy);
     }
 
     .reactist_menugroup__label {
         color: @secondary_font_color;
-        font-size: @tiny_font_size;
+        font-size: var(--reactist-font-size-copy);
     }
 
     .reactist_submenu_button {
@@ -77,8 +76,7 @@
     }
 
     // sub-menus need to be shifted a bit towards the top to be aligned with its menu item
-    [role='menu'],
-    [role='menubar'] {
+    [role='menu'] {
         margin-top: -5px;
     }
 

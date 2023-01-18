@@ -4,6 +4,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # Next
 
+-   [BREAKING] Update `ariakit` to [next.43](https://github.com/ariakit/ariakit/blob/main/packages/ariakit/CHANGELOG.md#200-next43) and `ariakit-utils` to [next.27](https://github.com/ariakit/ariakit/blob/main/packages/ariakit-utils/CHANGELOG.md#0170-next27). Depending on your set up, `node_modules/ariakit*` dependencies may need to be transpiled.
 -   [BREAKING] `Menu` will now render in modal mode by default. This can be turned off by passing `modal={false}` to `MenuList`.
 
 # v18.0.0

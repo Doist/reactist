@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useForkRef } from 'ariakit-utils'
+import { useForkRef } from 'ariakit-react-utils'
 import { Tooltip } from '../tooltip'
 import { BaseField, BaseFieldVariantProps } from '../base-field'
 import { Box } from '../box'

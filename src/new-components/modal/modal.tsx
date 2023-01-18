@@ -150,7 +150,7 @@ export function Modal({
     portalElement,
     ...props
 }: ModalProps) {
-    const setVisible = React.useCallback(
+    const setOpen = React.useCallback(
         (visible: boolean) => {
             if (!visible) {
                 onDismiss?.()
@@ -158,7 +158,7 @@ export function Modal({
         },
         [onDismiss],
     )
-    const state = useDialogState({ visible: isOpen, setVisible })
+    const state = useDialogState({ open: isOpen, setOpen })
 
     const contextValue: ModalContextValue = React.useMemo(() => ({ onDismiss, height }), [
         onDismiss,
@@ -200,11 +200,7 @@ export function Modal({
     }
 
     return (
-        <Portal
-            // @ts-expect-error `portalRef` doesn't accept MutableRefObject initialized as null
-            portalRef={portalRef}
-            portalElement={portalElement}
-        >
+        <Portal portalRef={portalRef} portalElement={portalElement}>
             <Box
                 data-testid="modal-overlay"
                 data-overlay
