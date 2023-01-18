@@ -150,7 +150,7 @@ type MenuListProps = Omit<Ariakit.MenuProps, 'state' | 'className'>
  * The dropdown menu itself, containing a list of menu items.
  */
 const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
-    { exceptionallySetClassName, ...props },
+    { exceptionallySetClassName, modal = true, ...props },
     ref,
 ) {
     const { state } = React.useContext(MenuContext)
@@ -162,6 +162,7 @@ const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
                 state={state}
                 ref={ref}
                 className={classNames('reactist_menulist', exceptionallySetClassName)}
+                modal={modal}
             />
         </Portal>
     ) : null

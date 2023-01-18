@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# Next
+
+-   [BREAKING] `Menu` will now render in modal mode by default. This can be turned off by passing `modal={false}` to `MenuList`.
+
 # v18.0.0
 
 -   [BREAKING] Renames the CSS variable for primary text content inside toasts and tooltip. Previous name was `--reactist-content-toast`, now replaced with the new name `--reactist-toast-content-primary`.
