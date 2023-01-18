@@ -18,7 +18,11 @@ describe('Menu', () => {
         render(
             <Menu>
                 <MenuButton>Options menu</MenuButton>
-                <MenuList aria-label="Some options">
+                <MenuList
+                    aria-label="Some options"
+                    // To allow interaction with the menu button
+                    modal={false}
+                >
                     <MenuItem>First option</MenuItem>
                 </MenuList>
             </Menu>,
@@ -28,9 +32,11 @@ describe('Menu', () => {
         // still be added to the document but as children of a hidden element. To
         // really make sure they're not in the DOM we're querying by text here
         expect(screen.queryByText('First option')).not.toBeInTheDocument()
+
         userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
         expect(screen.getByRole('menu')).toBeInTheDocument()
         expect(screen.getByRole('menuitem', { name: 'First option' })).toBeInTheDocument()
+
         userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
         expect(screen.queryByText('First option')).not.toBeInTheDocument()
     })

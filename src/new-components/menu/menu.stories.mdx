@@ -97,6 +97,33 @@ The `tooltip` prop allows a tooltip to be shown over the menu button.
     </Story>
 </Canvas>
 
+### `modal`
+
+By default, interaction with elements below the menu is disallowed when the menu is open. This behaviour can
+be changed by passing `modal={false}` to `<MenuList>`
+
+<Canvas>
+    <Story
+        name="Outside Interaction Story"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
+        <Menu>
+            <MenuButton as={Button} variant="primary">
+                Menu
+            </MenuButton>
+            <MenuList aria-label="Outside interaction menu" modal={false}>
+                <MenuItem>Edit</MenuItem>
+                <MenuItem>Copy</MenuItem>
+                <MenuItem>Paste</MenuItem>
+                <MenuItem>Duplicate</MenuItem>
+                <MenuItem>Remove</MenuItem>
+            </MenuList>
+        </Menu>
+    </Story>
+</Canvas>
+
 ### `<SubMenu>`
 
 You may nest the `<SubMenu>` component within `<Menu>` to create submenus.
