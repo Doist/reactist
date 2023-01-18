@@ -68,7 +68,7 @@ export function PlaygroundTemplate() {
     <Story
         name="Main demo"
         parameters={{
-            docs: { source: { type: 'code' } },
+            docs: { source: { type: 'dynamic' } },
         }}
     >
         {PlaygroundTemplate.bind({})}
@@ -81,7 +81,7 @@ export function PlaygroundTemplate() {
     <Story
         name="Inside other elements"
         parameters={{
-            docs: { source: { type: 'code' } },
+            docs: { source: { type: 'dynamic' } },
         }}
     >
         <Stack space="medium" paddingX="medium">
