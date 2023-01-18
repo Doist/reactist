@@ -3,27 +3,32 @@ import * as React from 'react'
 import { Box } from '../box'
 
 import styles from './badge.module.css'
-import { polymorphicComponent } from '../../utils/polymorphism'
+
+type BadgeTone = 'info' | 'positive' | 'promote' | 'attention'
 
 type BadgeProps = {
-    variant: 'neutral' | 'positive' | 'color'
+    /**
+     * The label to show inside the badge element.
+     */
+    label: string
+    /**
+     * The tone of the badge.
+     */
+    tone: BadgeTone
 }
 
-const Badge = polymorphicComponent<'div', BadgeProps>(function Badge(
-    { variant = 'neutral', children, exceptionallySetClassName, ...rest },
-    ref,
-) {
+function Badge({ tone, label, ...props }: BadgeProps) {
     return (
         <Box
-            {...rest}
-            ref={ref}
+            {...props}
+            as="span" // It enables putting the badge inside a button (https://stackoverflow.com/a/12982334)
             display="inline"
-            className={[styles.badge, styles[`badge-${variant}`], exceptionallySetClassName]}
+            className={[styles.badge, styles[`badge-${tone}`]]}
         >
-            {children}
+            {label}
         </Box>
     )
-})
+}
 
 export { Badge }
 export type { BadgeProps }

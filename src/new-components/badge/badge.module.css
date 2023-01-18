@@ -1,33 +1,47 @@
 :root {
-    --reactist-badge-neutral-background: rgb(238, 238, 238);
-    --reactist-badge-neutral-foreground: rgb(102, 102, 102);
+    --reactist-badge-font-size: 10px;
 
-    --reactist-badge-positive-background: rgb(224, 241, 228);
-    --reactist-badge-positive-foreground: rgb(5, 133, 39);
+    --reactist-badge-info-tint: #666666;
+    --reactist-badge-info-fill: #eeeeee;
 
-    --reactist-badge-color-background: rgb(250, 234, 209);
-    --reactist-badge-color-foreground: rgb(143, 71, 0);
+    --reactist-badge-positive-tint: #058527;
+    --reactist-badge-positive-fill: #e0f0e3;
+
+    --reactist-badge-promote-tint: #8f4700;
+    --reactist-badge-promote-fill: #faead1;
+
+    --reactist-badge-attention-tint: #cf473a;
+    --reactist-badge-attention-fill: #f9e3e2;
 }
 
 .badge {
     font-family: var(--reactist-font-family);
     font-weight: var(--reactist-font-weight-medium);
-    font-size: 10px;
+    font-size: var(--reactist-badge-font-size);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     border-radius: 3px;
-    padding: 3px var(--reactist-spacing-xsmall);
+    padding: 1px var(--reactist-spacing-xsmall);
+    color: var(--reactist-badge-tint);
+    background-color: var(--reactist-badge-fill);
 }
 
-.badge-neutral {
-    color: var(--reactist-badge-neutral-foreground);
-    background-color: var(--reactist-badge-neutral-background);
+.badge-info {
+    --reactist-badge-tint: var(--reactist-badge-info-tint);
+    --reactist-badge-fill: var(--reactist-badge-info-fill);
 }
 
 .badge-positive {
-    color: var(--reactist-badge-positive-foreground);
-    background-color: var(--reactist-badge-positive-background);
+    --reactist-badge-tint: var(--reactist-badge-positive-tint);
+    --reactist-badge-fill: var(--reactist-badge-positive-fill);
 }
 
-.badge-color {
-    color: var(--reactist-badge-color-foreground);
-    background-color: var(--reactist-badge-color-background);
+.badge-promote {
+    --reactist-badge-tint: var(--reactist-badge-promote-tint);
+    --reactist-badge-fill: var(--reactist-badge-promote-fill);
+}
+
+.badge-attention {
+    --reactist-badge-tint: var(--reactist-badge-attention-tint);
+    --reactist-badge-fill: var(--reactist-badge-attention-fill);
 }

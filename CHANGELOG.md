@@ -2,8 +2,13 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-# Next
+# v19.0.0
 
+-   [BREAKING] A new `Badge` component with various breaking changes
+    -   The prop `variant` has been renamed to `tone`
+    -   The new possible set of tones is different from the variants previously supported
+    -   New CSS custom properties to control the `Badge`'s component appearance (tones and font size)
+    -   The badge label is now provided via a `label` prop instead of via `children`
 -   [BREAKING] Update `ariakit` to [next.43](https://github.com/ariakit/ariakit/blob/main/packages/ariakit/CHANGELOG.md#200-next43) and `ariakit-utils` to [next.27](https://github.com/ariakit/ariakit/blob/main/packages/ariakit-utils/CHANGELOG.md#0170-next27). Depending on your set up, `node_modules/ariakit*` dependencies may need to be transpiled.
 -   [BREAKING] `Menu` will now render in modal mode by default. This can be turned off by passing `modal={false}` to `MenuList`.
 
