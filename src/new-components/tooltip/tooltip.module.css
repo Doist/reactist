@@ -1,4 +1,4 @@
 .tooltip {
     text-overflow: ellipsis;
-    z-index: 1000;
+    z-index: var(--reactist-stacking-order-tooltip);
 }

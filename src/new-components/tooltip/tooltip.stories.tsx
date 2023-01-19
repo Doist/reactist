@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { createPortal } from 'react-dom'
 
 import { Tooltip, TooltipProps } from './tooltip'
 import { Button } from '../button'
@@ -126,4 +127,43 @@ TooltipRichContentStory.argTypes = {
     position: {
         control: { type: 'select', options: positions },
     },
+}
+
+// This story sets a new z-index for the tooltip, but it will leak into other stories
+// when viewed from the Docs page, since all stories live in a single iframe.
+// Only in the Canvas page will stories be isolated from each other
+export function TooltipCustomZIndexStory() {
+    return (
+        <>
+            <PortalToHead>
+                <style>
+                    {`:root {
+                        --reactist-stacking-order-tooltip: 10000;
+                    }`}
+                </style>
+            </PortalToHead>
+            <Stack space="medium">
+                <Text>
+                    The tooltip‘s z-index can be customized using the
+                    <em>--reactist-stacking-order-tooltip</em> custom property:
+                </Text>
+                <Box
+                    background="aside"
+                    padding="large"
+                    position="relative"
+                    style={{ zIndex: 2000 }}
+                >
+                    <Tooltip content="I have a custom z-index">
+                        <Button variant="secondary">
+                            Hover or focus to see the tooltip in action
+                        </Button>
+                    </Tooltip>
+                </Box>
+            </Stack>
+        </>
+    )
+}
+
+function PortalToHead({ children }: React.PropsWithChildren<unknown>) {
+    return createPortal(children, document.head)
 }

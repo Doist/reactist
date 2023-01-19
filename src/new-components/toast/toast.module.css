@@ -1,7 +1,7 @@
 .stackedToastsView {
     bottom: 0;
     pointer-events: none;
-    z-index: var(--reactist-stacking-order-toast, 400);
+    z-index: var(--reactist-stacking-order-toast);
 }
 
 .toastContainer {
