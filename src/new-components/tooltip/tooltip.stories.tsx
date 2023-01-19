@@ -132,20 +132,20 @@ TooltipRichContentStory.argTypes = {
 // This story sets a new z-index for the tooltip, but it will leak into other stories
 // when viewed from the Docs page, since all stories live in a single iframe.
 // Only in the Canvas page will stories be isolated from each other
-export function TooltipZIndexStory() {
+export function TooltipCustomZIndexStory() {
     return (
         <>
             <PortalToHead>
                 <style>
                     {`:root {
-                        --reactist-tooltip-zindex: 10000;
+                        --reactist-stacking-order-tooltip: 10000;
                     }`}
                 </style>
             </PortalToHead>
             <Stack space="medium">
                 <Text>
                     The tooltip‘s z-index can be customized using the
-                    <em>--reactist-tooltip-zindex</em> custom property:
+                    <em>--reactist-stacking-order-tooltip</em> custom property:
                 </Text>
                 <Box
                     background="aside"

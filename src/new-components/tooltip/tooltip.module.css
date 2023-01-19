@@ -1,8 +1,4 @@
-:root {
-    --reactist-tooltip-zindex: 1000;
-}
-
 .tooltip {
     text-overflow: ellipsis;
-    z-index: var(--reactist-tooltip-zindex);
+    z-index: var(--reactist-stacking-order-tooltip);
 }
