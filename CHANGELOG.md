@@ -2,9 +2,9 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-# Next
+# v19.0.1
 
--   [Fix] `Tooltip`s can now have its z-index customized using the `--reactist-tooltip-zindex` custom property.
+-   [Fix] `Tooltip`s can now have its z-index customized using the `--reactist-stacking-order-tooltip` custom property.
 -   [Fix] `Tooltip`s now have a 300px max-width.
 
 # v19.0.0
