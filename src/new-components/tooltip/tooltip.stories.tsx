@@ -108,7 +108,8 @@ export function TooltipRichContentStory({
                     <ul style={{ textAlign: 'start', padding: '0 16px', margin: '0' }}>
                         <li>Add reminders to tasks</li>
                         <li>Unlimited projects</li>
-                        <li>Daily backups</li>
+                        <li>Daily backups and unlimited activity history</li>
+                        <li>25 collaborators per project</li>
                     </ul>
                     <Text tone="secondary">and more…</Text>
                 </Stack>
