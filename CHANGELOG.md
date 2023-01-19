@@ -5,6 +5,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 # Next
 
 -   [Fix] `Tooltip`s can now have its z-index customized using the `--reactist-tooltip-zindex` custom property.
+-   [Fix] `Tooltip`s now have a 300px max-width.
 
 # v19.0.0
 
