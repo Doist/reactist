@@ -368,7 +368,7 @@ EnrichedConfirmationModal.parameters = {
 export function ModalAutofocus() {
     return (
         <ModalStoryStateProvider>
-            <Stack padding="large" space="large">
+            <Stack padding="large" space="large" align="start">
                 <Button variant="primary" action="open">
                     Open modal
                 </Button>
@@ -424,7 +424,7 @@ ModalAutofocus.parameters = {
 export function StackingModals() {
     return (
         <ModalStoryStateProvider>
-            <Stack padding="large" space="large">
+            <Stack padding="large" space="large" align="start">
                 <Button variant="primary" action="open">
                     Open modal
                 </Button>
@@ -446,9 +446,11 @@ export function StackingModals() {
                         <ModalStoryStateProvider
                             initialState={{ width: 'small', height: 'fitContent' }}
                         >
-                            <Button variant="primary" action="open">
-                                Open nested modal
-                            </Button>
+                            <Inline>
+                                <Button variant="primary" action="open">
+                                    Open nested modal
+                                </Button>
+                            </Inline>
                             <Modal aria-label="Modal 2">
                                 <ModalHeader>
                                     <Heading level={1}>Nested modal</Heading>
