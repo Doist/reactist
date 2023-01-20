@@ -62,6 +62,18 @@ The setup task will install dependencies and run various validations (linting, t
 
 We identified two major modes of development for Reactist. First, running an interactive storybook and see the changes you make to a component in an isolated environment. This is especially helpful when developing new components. And second, improving existing components in real-life applications.
 
+## Creating new components
+
+The development of new components is streamlined by the ability to generate new component templates using [plop](https://plopjs.com/):
+
+```sh
+npm run plop component
+```
+
+This command will prompt you to provide all the information needed to create a new component template. The most important piece of information needed is the component name, which you can provide even as a phrase (e.g. "dropdown select" will generate a `DropdownSelect` component template).
+
+The generated source files include the component implementation with sample props and styles, plus a small test file and storybook source files as well.
+
 ## Storybook
 
 For the first development mode run:

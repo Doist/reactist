@@ -46,7 +46,8 @@
         "type-check": "tsc --noEmit -p ./tsconfig.json",
         "lint": "eslint --format codeframe --cache --ext js,jsx,ts,tsx ./",
         "storybook": "start-storybook -p 6006",
-        "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md,mdx}\""
+        "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md,mdx}\"",
+        "plop": "plop"
     },
     "peerDependencies": {
         "classnames": "^2.2.5",
@@ -118,6 +119,7 @@
         "mockdate": "^3.0.2",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
         "path": "^0.12.7",
+        "plop": "^3.1.1",
         "prettier": "2.1.2",
         "raw-loader": "^4.0.1",
         "react": "^17.0.2",
