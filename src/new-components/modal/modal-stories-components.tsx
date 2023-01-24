@@ -197,6 +197,7 @@ function Modal(props: WithOptionals<ModalProps, 'isOpen' | 'onDismiss' | 'width'
 
     /**
      * Needed to make sure the modals are mounted inside the story's #root element
+     * @see https://www.chromatic.com/docs/snapshots#why-isn%E2%80%99t-my-modal-or-dialog-captured
      */
     const getPortalElement = React.useCallback(() => {
         const div = document.createElement('div')

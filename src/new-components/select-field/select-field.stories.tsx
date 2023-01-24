@@ -53,6 +53,10 @@ export function InteractivePropsStory({
     )
 }
 
+InteractivePropsStory.parameters = {
+    chromatic: { disableSnapshot: false },
+}
+
 InteractivePropsStory.argTypes = {
     label: {
         control: { type: 'text' },
@@ -141,6 +145,10 @@ export function MessageToneStory() {
             </SelectField>
         </Stack>
     )
+}
+
+MessageToneStory.parameters = {
+    chromatic: { disableSnapshot: false },
 }
 
 export function WithoutLabelStory() {

@@ -96,6 +96,10 @@ export function TextStory() {
     )
 }
 
+TextStory.parameters = {
+    chromatic: { disableSnapshot: false },
+}
+
 export function TruncatedTextStory() {
     return (
         <section className="story">
@@ -128,6 +132,10 @@ export function TruncatedTextStory() {
             </Stack>
         </section>
     )
+}
+
+TruncatedTextStory.parameters = {
+    chromatic: { disableSnapshot: false },
 }
 
 export function ResponsiveTextStory(props: React.ComponentProps<typeof Text>) {

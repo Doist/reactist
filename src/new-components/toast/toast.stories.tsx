@@ -219,3 +219,7 @@ export function StaticToastStory() {
         </Stack>
     )
 }
+
+StaticToastStory.parameters = {
+    chromatic: { disableSnapshot: false },
+}

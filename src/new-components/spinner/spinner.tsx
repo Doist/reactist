@@ -3,7 +3,14 @@ import styles from './spinner.module.css'
 
 function Spinner({ size = 24 }: { size?: number }) {
     return (
-        <svg aria-hidden width={size} height={size} viewBox="0 0 24 24" className={styles.svg}>
+        <svg
+            aria-hidden
+            width={size}
+            height={size}
+            viewBox="0 0 24 24"
+            className={styles.svg}
+            data-chromatic="ignore"
+        >
             <g fill="none" fillRule="nonzero">
                 <path
                     className={styles.tint}

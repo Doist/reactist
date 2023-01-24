@@ -102,6 +102,7 @@ ModalWithStandardActionsFooter.storyName = 'Modal with standard actions footer'
 ModalWithStandardActionsFooter.play = openModal
 ModalWithStandardActionsFooter.parameters = {
     docs: { source: { type: 'dynamic' } },
+    chromatic: { disableSnapshot: false, pauseAnimationAtEnd: true },
 }
 
 //
@@ -144,6 +145,7 @@ ModalWithHeaderBodyAndCustomFooter.storyName = 'Modal with header, body and cust
 ModalWithHeaderBodyAndCustomFooter.play = openModal
 ModalWithHeaderBodyAndCustomFooter.parameters = {
     docs: { source: { type: 'dynamic' } },
+    chromatic: { disableSnapshot: false, pauseAnimationAtEnd: true },
 }
 
 //
@@ -201,6 +203,7 @@ ModalWithSidebar.storyName = 'Modal with a sidebar'
 ModalWithSidebar.play = openModal
 ModalWithSidebar.parameters = {
     docs: { source: { type: 'dynamic' } },
+    chromatic: { disableSnapshot: false, pauseAnimationAtEnd: true },
 }
 
 //
@@ -277,6 +280,7 @@ ModalWithScrollableTabPanels.storyName = 'Modal with scrollable tab panels'
 ModalWithScrollableTabPanels.play = openModal
 ModalWithScrollableTabPanels.parameters = {
     docs: { source: { type: 'dynamic' } },
+    chromatic: { disableSnapshot: false, pauseAnimationAtEnd: true },
 }
 
 //
@@ -312,6 +316,7 @@ MinimalisticConfirmationModal.storyName = 'Minimalistic confirmation modal'
 MinimalisticConfirmationModal.play = openModal
 MinimalisticConfirmationModal.parameters = {
     docs: { source: { type: 'dynamic' } },
+    chromatic: { disableSnapshot: false, pauseAnimationAtEnd: true },
 }
 
 //
@@ -353,6 +358,7 @@ EnrichedConfirmationModal.storyName = 'Enriched confirmation modal'
 EnrichedConfirmationModal.play = openModal
 EnrichedConfirmationModal.parameters = {
     docs: { source: { type: 'dynamic' } },
+    chromatic: { disableSnapshot: false, pauseAnimationAtEnd: true },
 }
 
 //
@@ -362,7 +368,7 @@ EnrichedConfirmationModal.parameters = {
 export function ModalAutofocus() {
     return (
         <ModalStoryStateProvider>
-            <Stack padding="large" space="large">
+            <Stack padding="large" space="large" align="start">
                 <Button variant="primary" action="open">
                     Open modal
                 </Button>
@@ -408,6 +414,7 @@ ModalAutofocus.storyName = 'Autofocus'
 ModalAutofocus.play = openModal
 ModalAutofocus.parameters = {
     docs: { source: { type: 'dynamic' } },
+    chromatic: { disableSnapshot: false, pauseAnimationAtEnd: true },
 }
 
 //
@@ -417,7 +424,7 @@ ModalAutofocus.parameters = {
 export function StackingModals() {
     return (
         <ModalStoryStateProvider>
-            <Stack padding="large" space="large">
+            <Stack padding="large" space="large" align="start">
                 <Button variant="primary" action="open">
                     Open modal
                 </Button>
@@ -439,9 +446,11 @@ export function StackingModals() {
                         <ModalStoryStateProvider
                             initialState={{ width: 'small', height: 'fitContent' }}
                         >
-                            <Button variant="primary" action="open">
-                                Open nested modal
-                            </Button>
+                            <Inline>
+                                <Button variant="primary" action="open">
+                                    Open nested modal
+                                </Button>
+                            </Inline>
                             <Modal aria-label="Modal 2">
                                 <ModalHeader>
                                     <Heading level={1}>Nested modal</Heading>
@@ -462,4 +471,5 @@ StackingModals.storyName = 'Stacking modals'
 StackingModals.play = openModal
 StackingModals.parameters = {
     docs: { source: { type: 'dynamic' } },
+    chromatic: { disableSnapshot: false, pauseAnimationAtEnd: true },
 }

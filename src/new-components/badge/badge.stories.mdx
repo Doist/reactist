@@ -4,6 +4,7 @@ import { Box } from '../box'
 import { Button } from '../button'
 import { Columns, Column } from '../columns'
 import { Stack } from '../stack'
+
 import { TextLink } from '../text-link'
 import { Text } from '../text'
 
@@ -69,6 +70,7 @@ export function PlaygroundTemplate() {
         name="Main demo"
         parameters={{
             docs: { source: { type: 'dynamic' } },
+            chromatic: { disableSnapshot: false },
         }}
     >
         {PlaygroundTemplate.bind({})}
@@ -82,6 +84,7 @@ export function PlaygroundTemplate() {
         name="Inside other elements"
         parameters={{
             docs: { source: { type: 'dynamic' } },
+            chromatic: { disableSnapshot: false },
         }}
     >
         <Stack space="medium" paddingX="medium">
