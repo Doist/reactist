@@ -1,0 +1,242 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+import { Box } from '../box'
+import { Text } from '../text'
+import { Stack } from '../stack'
+import { Banner } from './banner'
+import { ButtonLink } from '../button-link'
+
+<Meta
+    title="Design system/Banner"
+    component={Banner}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
+
+export function Icon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+                fill="currentColor"
+                d="M6 6.653a1 1 0 011.464-.886l10.246 5.37a1 1 0 01-.002 1.773L7.46 18.24a1 1 0 01-1.461-.887V13l6.96-.674a.328.328 0 000-.652L6 11V6.653z"
+            />
+        </svg>
+    )
+}
+
+export function StarIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g fill="orange">
+                <path
+                    strokeLinejoin="bevel"
+                    d="M8.2 18.6l3.8-2.3 3.8 2.3a.8.8 0 0 0 1-.9l-.9-4.2 3.3-2.8a.8.8 0 0 0-.4-1.3L14.4 9l-1.7-4a.8.8 0 0 0-1.4 0L9.6 9l-4.4.4a.8.8 0 0 0-.4 1.3l3.3 2.8-1 4.2a.8.8 0 0 0 1.1.9z"
+                />
+            </g>
+        </svg>
+    )
+}
+
+export function ArchiveIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+                fill="gray"
+                d="M19.999 9L20 18c0 1.105-.895 2-2 2H6c-1.105 0-2-.895-2-2l-.001-9h16zm-5.49 2H9.491c-.263 0-.491.224-.491.5 0 .268.22.5.491.5h5.018c.263 0 .491-.224.491-.5l-.008-.088c-.041-.229-.242-.412-.483-.412zM3 6c0-1.105.895-2 2-2h14c1.105 0 2 .895 2 2v2H3V6z"
+            />
+        </svg>
+    )
+}
+
+export function EyeIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+            <g fill="none" fill-rule="evenodd" stroke="gray">
+                <path d="M21.358 12C17.825 7.65 14.692 5.5 12 5.5c-2.624 0-5.67 2.043-9.097 6.181a.5.5 0 0 0 0 .638C6.331 16.457 9.376 18.5 12 18.5c2.692 0 5.825-2.15 9.358-6.5z" />
+                <circle cx="12" cy="12" r="3.5" />
+            </g>
+        </svg>
+    )
+}
+
+export function getButton(buttonText) {
+    return (
+        <ButtonLink variant="primary" tone="destructive">
+            {buttonText}
+        </ButtonLink>
+    )
+}
+
+export function Template({ tone, title, description, action }) {
+    return (
+        <Stack space="large" maxWidth="medium">
+            <Banner
+                tone={tone}
+                icon={Icon()}
+                title={title}
+                description={description}
+                action={action}
+            />
+        </Stack>
+    )
+}
+
+export function BannerExamples() {
+    return (
+        <Stack space="medium" align="start">
+            <Stack space="large">
+                <Banner
+                    tone="promotion"
+                    icon={StarIcon()}
+                    title="Need more projects?"
+                    description={
+                        <>
+                            This workspace has used 5 of its 5 project limit. Upgrade to Pro for
+                            more.
+                        </>
+                    }
+                    action={getButton('Upgrade')}
+                />
+                <Banner
+                    tone="info"
+                    icon={ArchiveIcon()}
+                    title="This project is archived."
+                    description={
+                        <>
+                            Members can <strong>view</strong> but not edit.
+                        </>
+                    }
+                    action={getButton('Unarchive project')}
+                />
+                <Banner
+                    tone="info"
+                    icon={ArchiveIcon()}
+                    title="This project is archived."
+                    description={
+                        <>
+                            Members can <strong>view</strong> but not edit.
+                        </>
+                    }
+                />
+                <Banner
+                    tone="info"
+                    icon={EyeIcon()}
+                    title="Youʼre previewing this project."
+                    action={getButton('Join project')}
+                />
+            </Stack>
+        </Stack>
+    )
+}
+
+# Banner
+
+A simple banner component meant to be used to _inform_ the user of promotional content or disclaimers.
+
+If you're intending to _alert_ the user of a certain error or warning condition, consider using the `Alert` component instead.
+
+<Canvas>
+    <Story
+        name="Playground"
+        parameters={{ docs: { source: { type: 'code' } } }}
+        argTypes={{
+            tone: {
+                options: ['info', 'promotion'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'info',
+            },
+            icon: { control: false },
+            title: {
+                control: { type: 'text' },
+                defaultValue: 'Title of the Banner',
+            },
+            description: {
+                control: { type: 'text' },
+                defaultValue: 'Description of the Banner.',
+            },
+            action: { control: false },
+            id: { control: false },
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Examples
+
+<Canvas>
+    <Story
+        name="Main demo"
+        parameters={{
+            docs: { source: { type: 'code' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <BannerExamples />
+    </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable of={Banner} />
+
+## Colors
+
+The following CSS custom properties are available to customize the banner component appearance. The values appearing below are the default values.
+
+```css
+:root {
+    // tone="info"
+    --reactist-banner-info-background: #eeeeee;
+    --reactist-banner-info-border: #fafafa;
+    --reactist-banner-info-title: #202020;
+    --reactist-banner-info-description: #202020;
+
+    // tone="promotion"
+    --reactist-banner-promotion-border: #fae8d6;
+    --reactist-banner-promotion-background: #fffaf4;
+    --reactist-banner-promotion-title: #202020;
+    --reactist-banner-promotion-description: #666666;
+}
+```
+
+### Dark mode
+
+export function DarkModeTemplate() {
+    return (
+        <Box
+            padding="xlarge"
+            style={{
+                backgroundColor: '#202020',
+                /* tone="promotion" */
+                '--reactist-banner-info-border': '#3D3D3D',
+                '--reactist-banner-info-background': '#282828',
+                '--reactist-banner-info-title': '#FFFFFF',
+                '--reactist-banner-info-description': '#FFFFFF',
+                /* tone="promotion" */
+                '--reactist-banner-promotion-border': '#553707',
+                '--reactist-banner-promotion-background': '#412A06',
+                '--reactist-banner-promotion-title': '#FFFFFF',
+                '--reactist-banner-promotion-description': '#B3B3B3',
+            }}
+        >
+            <BannerExamples />
+        </Box>
+    )
+}
+
+Even though Reactist does not yet owns the concept of dark mode, and leaves it for apps to set it
+up, here's a demo on how easily you can prepare banners for dark mode by setting CSS custom
+properties.
+
+<Canvas>
+    <Story
+        name="Dark mode"
+        parameters={{
+            docs: { source: { type: 'dynamic' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        {DarkModeTemplate.bind({})}
+    </Story>
+</Canvas>
