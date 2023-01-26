@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Box } from '../box'
 import { Columns, Column } from '../columns'
+import { useId } from '../common-helpers'
 
 import styles from './banner.module.css'
 
@@ -34,12 +35,16 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
     { id, tone, icon, title, description, action, ...props }: BannerProps,
     ref,
 ) {
+    const titleId = useId()
+    const descriptionId = useId()
     return (
         <Box
             {...props}
             ref={ref}
             id={id}
             role="note"
+            aria-labelledby={titleId}
+            aria-describedby={descriptionId}
             aria-live="polite"
             borderRadius="standard"
             className={[styles.banner, styles[`banner-${tone}`]]}
@@ -51,9 +56,12 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
                 <Column>
                     <Box paddingY="xsmall">
                         {description ? (
-                            <Box className={[styles.title, styles[`title-${tone}`]]}>{title}</Box>
+                            <Box id={titleId} className={[styles.title, styles[`title-${tone}`]]}>
+                                {title}
+                            </Box>
                         ) : (
                             <Box
+                                id={titleId}
                                 className={[
                                     styles.title,
                                     // If the banner does not have a description, we need to slightly tweak
@@ -66,7 +74,10 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
                             </Box>
                         )}
                         {description ? (
-                            <Box className={[styles.description, styles[`description-${tone}`]]}>
+                            <Box
+                                id={descriptionId}
+                                className={[styles.description, styles[`description-${tone}`]]}
+                            >
                                 {description}
                             </Box>
                         ) : null}

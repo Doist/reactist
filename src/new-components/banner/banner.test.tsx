@@ -94,8 +94,30 @@ describe('Banner', () => {
                 data-testid="test-banner"
             />,
         )
-        expect(screen.getByTestId('test-banner')).toContainHTML(
-            '<div class="title title-without-description title-info box">This is really <strong>important</strong></div>',
+        expect(screen.getByTestId('test-banner').innerHTML).toContain(
+            'This is really <strong>important</strong>',
         )
+    })
+
+    it('uses the title as the accessible name', () => {
+        render(<Banner tone="info" icon={'💚'} title={'Hello World'} />)
+        expect(screen.getByRole('note', { name: 'Hello World' })).toBeInTheDocument()
+    })
+
+    it('uses the description as the accessible description', () => {
+        render(
+            <Banner
+                tone="info"
+                icon={'💚'}
+                title={'Hello World'}
+                description={'Welcome to the world, Linus!'}
+            />,
+        )
+        expect(screen.getByRole('note', { name: 'Hello World' })).toHaveAccessibleDescription()
+    })
+
+    it('does not have an accessible description if description is missing', () => {
+        render(<Banner tone="info" icon={'💚'} title={'Hello World'} />)
+        expect(screen.getByRole('note', { name: 'Hello World' })).not.toHaveAccessibleDescription()
     })
 })
