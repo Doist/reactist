@@ -113,7 +113,9 @@ describe('Banner', () => {
                 description={'Welcome to the world, Linus!'}
             />,
         )
-        expect(screen.getByRole('note', { name: 'Hello World' })).toHaveAccessibleDescription()
+        expect(screen.getByRole('note', { name: 'Hello World' })).toHaveAccessibleDescription(
+            'Welcome to the world, Linus!',
+        )
     })
 
     it('does not have an accessible description if description is missing', () => {
