@@ -42,10 +42,11 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
             {...props}
             ref={ref}
             id={id}
-            role="note"
+            role="status"
             aria-labelledby={titleId}
             aria-describedby={descriptionId}
             aria-live="polite"
+            tabIndex={0}
             borderRadius="standard"
             className={[styles.banner, styles[`banner-${tone}`]]}
         >
