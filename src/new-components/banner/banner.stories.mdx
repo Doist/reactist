@@ -13,7 +13,7 @@ import { ButtonLink } from '../button-link'
     }}
 />
 
-export function Icon() {
+export function Icon(theme) {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path
@@ -24,37 +24,93 @@ export function Icon() {
     )
 }
 
-export function StarIcon() {
+export function StarIcon(theme) {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <g fill="orange">
-                <path
-                    strokeLinejoin="bevel"
-                    d="M8.2 18.6l3.8-2.3 3.8 2.3a.8.8 0 0 0 1-.9l-.9-4.2 3.3-2.8a.8.8 0 0 0-.4-1.3L14.4 9l-1.7-4a.8.8 0 0 0-1.4 0L9.6 9l-4.4.4a.8.8 0 0 0-.4 1.3l3.3 2.8-1 4.2a.8.8 0 0 0 1.1.9z"
-                />
-            </g>
-        </svg>
-    )
-}
-
-export function ArchiveIcon() {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <svg
+            width="24"
+            height="25"
+            viewBox="0 0 24 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
             <path
-                fill="gray"
-                d="M19.999 9L20 18c0 1.105-.895 2-2 2H6c-1.105 0-2-.895-2-2l-.001-9h16zm-5.49 2H9.491c-.263 0-.491.224-.491.5 0 .268.22.5.491.5h5.018c.263 0 .491-.224.491-.5l-.008-.088c-.041-.229-.242-.412-.483-.412zM3 6c0-1.105.895-2 2-2h14c1.105 0 2 .895 2 2v2H3V6z"
+                d="M11.9997 17.4304L8.48791 19.4906C7.89247 19.8399 7.12657 19.6404 6.77724 19.045C6.61617 18.7704 6.56591 18.4448 6.6367 18.1344L7.52932 14.2213L4.49511 11.5877C3.97375 11.1352 3.91795 10.3457 4.37047 9.82438C4.58187 9.58082 4.87924 9.42839 5.2004 9.39896L9.23683 9.02908L10.8538 5.31935C11.1296 4.68649 11.8662 4.39708 12.4991 4.67291C12.7885 4.79904 13.0194 5.02998 13.1455 5.31935L14.7625 9.02908L18.7989 9.39896C19.4864 9.46196 19.9926 10.0703 19.9296 10.7578C19.9002 11.079 19.7478 11.3763 19.5042 11.5877L16.47 14.2213L17.3626 18.1344C17.5161 18.8075 17.095 19.4776 16.4219 19.6311C16.1116 19.7019 15.7859 19.6517 15.5114 19.4906L11.9997 17.4304Z"
+                fill="#EB8909"
             />
         </svg>
     )
 }
 
-export function EyeIcon() {
+export function ArchiveIcon(theme) {
+    if (theme === 'dark')
+        return (
+            <svg
+                width="24"
+                height="25"
+                viewBox="0 0 24 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M5 4.50024H19C20.1046 4.50024 21 5.39567 21 6.50024V8.50024H3V6.50024C3 5.39567 3.89543 4.50024 5 4.50024ZM4 9.50024V18.5002C4 19.6048 4.89543 20.5002 6 20.5002H18C19.1046 20.5002 20 19.6048 20 18.5002V9.50024H4ZM9.5 11.5002C9.22386 11.5002 9 11.7241 9 12.0002C9 12.2764 9.22386 12.5002 9.5 12.5002H14.5C14.7761 12.5002 15 12.2764 15 12.0002C15 11.7241 14.7761 11.5002 14.5 11.5002H9.5Z"
+                    fill="white"
+                    fill-opacity="0.56"
+                />
+            </svg>
+        )
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-            <g fill="none" fill-rule="evenodd" stroke="gray">
-                <path d="M21.358 12C17.825 7.65 14.692 5.5 12 5.5c-2.624 0-5.67 2.043-9.097 6.181a.5.5 0 0 0 0 .638C6.331 16.457 9.376 18.5 12 18.5c2.692 0 5.825-2.15 9.358-6.5z" />
-                <circle cx="12" cy="12" r="3.5" />
-            </g>
+        <svg
+            width="24"
+            height="25"
+            viewBox="0 0 24 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M5 4.50024H19C20.1046 4.50024 21 5.39567 21 6.50024V8.50024H3V6.50024C3 5.39567 3.89543 4.50024 5 4.50024ZM4 9.50024V18.5002C4 19.6048 4.89543 20.5002 6 20.5002H18C19.1046 20.5002 20 19.6048 20 18.5002V9.50024H4ZM9.5 11.5002C9.22386 11.5002 9 11.7241 9 12.0002C9 12.2764 9.22386 12.5002 9.5 12.5002H14.5C14.7761 12.5002 15 12.2764 15 12.0002C15 11.7241 14.7761 11.5002 14.5 11.5002H9.5Z"
+                fill="#666666"
+            />
+        </svg>
+    )
+}
+
+export function EyeIcon(theme) {
+    if (theme === 'dark')
+        return (
+            <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M2.5068 12.6329C5.97444 16.8778 9.13888 19.0002 12.0001 19.0002C14.8613 19.0002 18.0258 16.8778 21.4934 12.6329C21.7941 12.2647 21.7941 11.7358 21.4934 11.3676C18.0258 7.1227 14.8613 5.00024 12.0001 5.00024C9.13888 5.00024 5.97444 7.1227 2.5068 11.3676C2.20607 11.7358 2.20607 12.2647 2.5068 12.6329ZM15.5001 12.0002C15.5001 13.9332 13.9331 15.5002 12.0001 15.5002C10.0671 15.5002 8.5001 13.9332 8.5001 12.0002C8.5001 10.0672 10.0671 8.50024 12.0001 8.50024C13.9331 8.50024 15.5001 10.0672 15.5001 12.0002Z"
+                    fill="white"
+                    fill-opacity="0.56"
+                />
+            </svg>
+        )
+    return (
+        <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M2.5068 12.6329C5.97444 16.8778 9.13888 19.0002 12.0001 19.0002C14.8613 19.0002 18.0258 16.8778 21.4934 12.6329C21.7941 12.2647 21.7941 11.7358 21.4934 11.3676C18.0258 7.1227 14.8613 5.00024 12.0001 5.00024C9.13888 5.00024 5.97444 7.1227 2.5068 11.3676C2.20607 11.7358 2.20607 12.2647 2.5068 12.6329ZM15.5001 12.0002C15.5001 13.9332 13.9331 15.5002 12.0001 15.5002C10.0671 15.5002 8.5001 13.9332 8.5001 12.0002C8.5001 10.0672 10.0671 8.50024 12.0001 8.50024C13.9331 8.50024 15.5001 10.0672 15.5001 12.0002Z"
+                fill="#666666"
+            />
         </svg>
     )
 }
@@ -81,13 +137,13 @@ export function Template({ tone, title, description, action }) {
     )
 }
 
-export function BannerExamples() {
+export function BannerExamples({ theme }) {
     return (
         <Stack space="medium" align="start">
             <Stack space="large">
                 <Banner
                     tone="promotion"
-                    icon={StarIcon()}
+                    icon={StarIcon(theme)}
                     title="Need more projects?"
                     description={
                         <>
@@ -99,7 +155,7 @@ export function BannerExamples() {
                 />
                 <Banner
                     tone="info"
-                    icon={ArchiveIcon()}
+                    icon={ArchiveIcon(theme)}
                     title="This project is archived."
                     description={
                         <>
@@ -110,7 +166,7 @@ export function BannerExamples() {
                 />
                 <Banner
                     tone="info"
-                    icon={ArchiveIcon()}
+                    icon={ArchiveIcon(theme)}
                     title="This project is archived."
                     description={
                         <>
@@ -120,7 +176,7 @@ export function BannerExamples() {
                 />
                 <Banner
                     tone="info"
-                    icon={EyeIcon()}
+                    icon={EyeIcon(theme)}
                     title="Youʼre previewing this project."
                     action={getButton('Join project')}
                 />
@@ -172,7 +228,7 @@ If you're intending to _alert_ the user of a certain error or warning condition,
             chromatic: { disableSnapshot: false },
         }}
     >
-        <BannerExamples />
+        <BannerExamples theme="light" />
     </Story>
 </Canvas>
 
@@ -220,7 +276,7 @@ export function DarkModeTemplate() {
                 '--reactist-banner-promotion-description': '#B3B3B3',
             }}
         >
-            <BannerExamples />
+            <BannerExamples theme="dark" />
         </Box>
     )
 }
