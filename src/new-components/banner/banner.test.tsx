@@ -101,7 +101,7 @@ describe('Banner', () => {
 
     it('uses the title as the accessible name', () => {
         render(<Banner tone="info" icon={'💚'} title={'Hello World'} />)
-        expect(screen.getByRole('note', { name: 'Hello World' })).toBeInTheDocument()
+        expect(screen.getByRole('status', { name: 'Hello World' })).toBeInTheDocument()
     })
 
     it('uses the description as the accessible description', () => {
@@ -113,13 +113,15 @@ describe('Banner', () => {
                 description={'Welcome to the world, Linus!'}
             />,
         )
-        expect(screen.getByRole('note', { name: 'Hello World' })).toHaveAccessibleDescription(
+        expect(screen.getByRole('status', { name: 'Hello World' })).toHaveAccessibleDescription(
             'Welcome to the world, Linus!',
         )
     })
 
     it('does not have an accessible description if description is missing', () => {
         render(<Banner tone="info" icon={'💚'} title={'Hello World'} />)
-        expect(screen.getByRole('note', { name: 'Hello World' })).not.toHaveAccessibleDescription()
+        expect(
+            screen.getByRole('status', { name: 'Hello World' }),
+        ).not.toHaveAccessibleDescription()
     })
 })

@@ -51,7 +51,14 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
             className={[styles.banner, styles[`banner-${tone}`]]}
         >
             <Columns space="medium" alignY="center">
-                <Column width="content" aria-hidden>
+                <Column
+                    width="content"
+                    aria-hidden
+                    style={{
+                        /* Make sure the icon is centered vertically */
+                        lineHeight: 0,
+                    }}
+                >
                     {icon}
                 </Column>
                 <Column>
