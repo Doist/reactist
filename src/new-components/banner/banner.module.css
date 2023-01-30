@@ -1,0 +1,70 @@
+:root {
+    --reactist-banner-title-font-size: 14px;
+    --reactist-banner-title-line-height: 21px;
+
+    --reactist-banner-description-font-size: 12px;
+    --reactist-banner-description-line-height: 20px;
+
+    --reactist-banner-info-border: #eeeeee;
+    --reactist-banner-info-background: #fafafa;
+    --reactist-banner-info-title: #202020;
+    --reactist-banner-info-description: #666666;
+
+    --reactist-banner-promotion-border: #fae8d6;
+    --reactist-banner-promotion-background: #fffaf4;
+    --reactist-banner-promotion-title: #202020;
+    --reactist-banner-promotion-description: #666666;
+}
+
+.banner {
+    border-style: solid;
+    border-width: 1px;
+    padding-top: var(--reactist-spacing-small);
+    padding-bottom: var(--reactist-spacing-small);
+    padding-left: var(--reactist-spacing-large);
+    padding-right: var(--reactist-spacing-large);
+    letter-spacing: -0.15px;
+    font-family: var(--reactist-font-family);
+}
+
+.banner-info {
+    background-color: var(--reactist-banner-info-background);
+    border-color: var(--reactist-banner-info-border);
+}
+
+.banner-promotion {
+    background-color: var(--reactist-banner-promotion-background);
+    border-color: var(--reactist-banner-promotion-border);
+}
+
+.title {
+    font-size: var(--reactist-banner-title-font-size);
+    line-height: var(--reactist-banner-title-line-height);
+    font-weight: var(--reactist-font-weight-strong);
+}
+
+.title-without-description {
+    font-weight: var(--reactist-font-weight-regular);
+}
+
+.title-info {
+    color: var(--reactist-banner-info-title);
+}
+
+.title-promotion {
+    color: var(--reactist-banner-promotion-title);
+}
+
+.description {
+    font-size: var(--reactist-banner-description-font-size);
+    line-height: var(--reactist-banner-description-line-height);
+    font-weight: var(--reactist-font-weight-regular);
+}
+
+.description-info {
+    color: var(--reactist-banner-info-description);
+}
+
+.description-promotion {
+    color: var(--reactist-banner-promotion-description);
+}

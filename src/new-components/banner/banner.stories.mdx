@@ -1,0 +1,298 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+import { Box } from '../box'
+import { Text } from '../text'
+import { Stack } from '../stack'
+import { Banner } from './banner'
+import { ButtonLink } from '../button-link'
+
+<Meta
+    title="Design system/Banner"
+    component={Banner}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
+
+export function Icon(theme) {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+                fill="currentColor"
+                d="M6 6.653a1 1 0 011.464-.886l10.246 5.37a1 1 0 01-.002 1.773L7.46 18.24a1 1 0 01-1.461-.887V13l6.96-.674a.328.328 0 000-.652L6 11V6.653z"
+            />
+        </svg>
+    )
+}
+
+export function StarIcon(theme) {
+    return (
+        <svg
+            width="24"
+            height="25"
+            viewBox="0 0 24 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M11.9997 17.4304L8.48791 19.4906C7.89247 19.8399 7.12657 19.6404 6.77724 19.045C6.61617 18.7704 6.56591 18.4448 6.6367 18.1344L7.52932 14.2213L4.49511 11.5877C3.97375 11.1352 3.91795 10.3457 4.37047 9.82438C4.58187 9.58082 4.87924 9.42839 5.2004 9.39896L9.23683 9.02908L10.8538 5.31935C11.1296 4.68649 11.8662 4.39708 12.4991 4.67291C12.7885 4.79904 13.0194 5.02998 13.1455 5.31935L14.7625 9.02908L18.7989 9.39896C19.4864 9.46196 19.9926 10.0703 19.9296 10.7578C19.9002 11.079 19.7478 11.3763 19.5042 11.5877L16.47 14.2213L17.3626 18.1344C17.5161 18.8075 17.095 19.4776 16.4219 19.6311C16.1116 19.7019 15.7859 19.6517 15.5114 19.4906L11.9997 17.4304Z"
+                fill="#EB8909"
+            />
+        </svg>
+    )
+}
+
+export function ArchiveIcon(theme) {
+    if (theme === 'dark')
+        return (
+            <svg
+                width="24"
+                height="25"
+                viewBox="0 0 24 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M5 4.50024H19C20.1046 4.50024 21 5.39567 21 6.50024V8.50024H3V6.50024C3 5.39567 3.89543 4.50024 5 4.50024ZM4 9.50024V18.5002C4 19.6048 4.89543 20.5002 6 20.5002H18C19.1046 20.5002 20 19.6048 20 18.5002V9.50024H4ZM9.5 11.5002C9.22386 11.5002 9 11.7241 9 12.0002C9 12.2764 9.22386 12.5002 9.5 12.5002H14.5C14.7761 12.5002 15 12.2764 15 12.0002C15 11.7241 14.7761 11.5002 14.5 11.5002H9.5Z"
+                    fill="white"
+                    fill-opacity="0.56"
+                />
+            </svg>
+        )
+    return (
+        <svg
+            width="24"
+            height="25"
+            viewBox="0 0 24 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M5 4.50024H19C20.1046 4.50024 21 5.39567 21 6.50024V8.50024H3V6.50024C3 5.39567 3.89543 4.50024 5 4.50024ZM4 9.50024V18.5002C4 19.6048 4.89543 20.5002 6 20.5002H18C19.1046 20.5002 20 19.6048 20 18.5002V9.50024H4ZM9.5 11.5002C9.22386 11.5002 9 11.7241 9 12.0002C9 12.2764 9.22386 12.5002 9.5 12.5002H14.5C14.7761 12.5002 15 12.2764 15 12.0002C15 11.7241 14.7761 11.5002 14.5 11.5002H9.5Z"
+                fill="#666666"
+            />
+        </svg>
+    )
+}
+
+export function EyeIcon(theme) {
+    if (theme === 'dark')
+        return (
+            <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M2.5068 12.6329C5.97444 16.8778 9.13888 19.0002 12.0001 19.0002C14.8613 19.0002 18.0258 16.8778 21.4934 12.6329C21.7941 12.2647 21.7941 11.7358 21.4934 11.3676C18.0258 7.1227 14.8613 5.00024 12.0001 5.00024C9.13888 5.00024 5.97444 7.1227 2.5068 11.3676C2.20607 11.7358 2.20607 12.2647 2.5068 12.6329ZM15.5001 12.0002C15.5001 13.9332 13.9331 15.5002 12.0001 15.5002C10.0671 15.5002 8.5001 13.9332 8.5001 12.0002C8.5001 10.0672 10.0671 8.50024 12.0001 8.50024C13.9331 8.50024 15.5001 10.0672 15.5001 12.0002Z"
+                    fill="white"
+                    fill-opacity="0.56"
+                />
+            </svg>
+        )
+    return (
+        <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M2.5068 12.6329C5.97444 16.8778 9.13888 19.0002 12.0001 19.0002C14.8613 19.0002 18.0258 16.8778 21.4934 12.6329C21.7941 12.2647 21.7941 11.7358 21.4934 11.3676C18.0258 7.1227 14.8613 5.00024 12.0001 5.00024C9.13888 5.00024 5.97444 7.1227 2.5068 11.3676C2.20607 11.7358 2.20607 12.2647 2.5068 12.6329ZM15.5001 12.0002C15.5001 13.9332 13.9331 15.5002 12.0001 15.5002C10.0671 15.5002 8.5001 13.9332 8.5001 12.0002C8.5001 10.0672 10.0671 8.50024 12.0001 8.50024C13.9331 8.50024 15.5001 10.0672 15.5001 12.0002Z"
+                fill="#666666"
+            />
+        </svg>
+    )
+}
+
+export function getButton(buttonText) {
+    return (
+        <ButtonLink variant="primary" tone="destructive">
+            {buttonText}
+        </ButtonLink>
+    )
+}
+
+export function Template({ tone, title, description, action }) {
+    return (
+        <Stack space="large" maxWidth="medium">
+            <Banner
+                tone={tone}
+                icon={Icon()}
+                title={title}
+                description={description}
+                action={action}
+            />
+        </Stack>
+    )
+}
+
+export function BannerExamples({ theme }) {
+    return (
+        <Stack space="medium" align="start">
+            <Stack space="large">
+                <Banner
+                    tone="promotion"
+                    icon={StarIcon(theme)}
+                    title="Need more projects?"
+                    description={
+                        <>
+                            This workspace has used 5 of its 5 project limit. Upgrade to Pro for
+                            more.
+                        </>
+                    }
+                    action={getButton('Upgrade')}
+                />
+                <Banner
+                    tone="info"
+                    icon={ArchiveIcon(theme)}
+                    title="This project is archived."
+                    description={
+                        <>
+                            Members can <strong>view</strong> but not edit.
+                        </>
+                    }
+                    action={getButton('Unarchive project')}
+                />
+                <Banner
+                    tone="info"
+                    icon={ArchiveIcon(theme)}
+                    title="This project is archived."
+                    description={
+                        <>
+                            Members can <strong>view</strong> but not edit.
+                        </>
+                    }
+                />
+                <Banner
+                    tone="info"
+                    icon={EyeIcon(theme)}
+                    title="Youʼre previewing this project."
+                    action={getButton('Join project')}
+                />
+            </Stack>
+        </Stack>
+    )
+}
+
+# Banner
+
+A simple banner component meant to be used to _inform_ the user of promotional content or disclaimers.
+
+If you're intending to _alert_ the user of a certain error or warning condition, consider using the `Alert` component instead.
+
+<Canvas>
+    <Story
+        name="Playground"
+        parameters={{ docs: { source: { type: 'code' } } }}
+        argTypes={{
+            tone: {
+                options: ['info', 'promotion'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'info',
+            },
+            icon: { control: false },
+            title: {
+                control: { type: 'text' },
+                defaultValue: 'Title of the Banner',
+            },
+            description: {
+                control: { type: 'text' },
+                defaultValue: 'Description of the Banner.',
+            },
+            action: { control: false },
+            id: { control: false },
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Examples
+
+<Canvas>
+    <Story
+        name="Main demo"
+        parameters={{
+            docs: { source: { type: 'code' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <BannerExamples theme="light" />
+    </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable of={Banner} />
+
+## Colors
+
+The following CSS custom properties are available to customize the banner component appearance. The values appearing below are the default values.
+
+```css
+:root {
+    // tone="info"
+    --reactist-banner-info-background: #eeeeee;
+    --reactist-banner-info-border: #fafafa;
+    --reactist-banner-info-title: #202020;
+    --reactist-banner-info-description: #666666;
+
+    // tone="promotion"
+    --reactist-banner-promotion-border: #fae8d6;
+    --reactist-banner-promotion-background: #fffaf4;
+    --reactist-banner-promotion-title: #202020;
+    --reactist-banner-promotion-description: #666666;
+}
+```
+
+### Dark mode
+
+export function DarkModeTemplate() {
+    return (
+        <Box
+            padding="xlarge"
+            style={{
+                backgroundColor: '#202020',
+                /* tone="promotion" */
+                '--reactist-banner-info-border': '#3D3D3D',
+                '--reactist-banner-info-background': '#282828',
+                '--reactist-banner-info-title': '#FFFFFF',
+                '--reactist-banner-info-description': '#B3B3B3',
+                /* tone="promotion" */
+                '--reactist-banner-promotion-border': '#553707',
+                '--reactist-banner-promotion-background': '#412A06',
+                '--reactist-banner-promotion-title': '#FFFFFF',
+                '--reactist-banner-promotion-description': '#B3B3B3',
+            }}
+        >
+            <BannerExamples theme="dark" />
+        </Box>
+    )
+}
+
+Even though Reactist does not yet owns the concept of dark mode, and leaves it for apps to set it
+up, here's a demo on how easily you can prepare banners for dark mode by setting CSS custom
+properties.
+
+<Canvas>
+    <Story
+        name="Dark mode"
+        parameters={{
+            docs: { source: { type: 'dynamic' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        {DarkModeTemplate.bind({})}
+    </Story>
+</Canvas>
