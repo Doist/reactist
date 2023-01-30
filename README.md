@@ -74,6 +74,8 @@ This command will prompt you to provide all the information needed to create a n
 
 The generated source files include the component implementation with sample props and styles, plus a small test file and storybook source files as well.
 
+You also need to export your new component by adding a reference to it in the [top-level index file](src/index.ts).
+
 ## Storybook
 
 For the first development mode run:
