@@ -152,6 +152,8 @@ MacOS users might need to upgrade watchman with `brew install watchman` when exp
 
 Reactist relies on [Chromatic](https://www.chromatic.com/) to run visual regression tests on our component during the CI step in GitHub.
 
+### Enable tests
+
 To enable such tests, just add `chromatic: { disableSnapshot: false }` as a story parameter in your stories. Example:
 
 ```
@@ -170,7 +172,13 @@ To enable such tests, just add `chromatic: { disableSnapshot: false }` as a stor
 
 We recommend you enable these tests on those Storybook stories that have several different variants of the component under testing. Enabling them on one or two stories per component should be sufficient in most cases (there's no need to enable them on all stories).
 
-When you open a GitHub PR, you'll notice the "UI Review" and "UI Tests" CI steps. Clicking on "Details" will bring you to the Chromatic UI (if you don't already have a Chromatic account, please sign-up using your GitHub account). Now you can review and accept your changes (or go back and change your code).
+### Review tests
+
+When you open a GitHub PR, you'll notice the "UI Review" and "UI Tests" CI steps.
+
+-   Clicking on "Details" will bring you to the Chromatic UI (if you don't already have a Chromatic account, please sign-up using your GitHub account).
+-   Now you can review and accept your changes (or go back and change your code).
+-   When you're happy with your changes, make sure to mark them as "Approved".
 
 # Releasing
 
