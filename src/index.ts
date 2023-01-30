@@ -11,6 +11,7 @@ export * from './new-components/hidden-visually'
 
 // alerts, notifications, etc.
 export * from './new-components/alert'
+export * from './new-components/banner'
 export * from './new-components/loading'
 export * from './new-components/notice'
 export * from './new-components/toast'
