@@ -8,7 +8,7 @@ describe('{{pascalCase name}}', () => {
             <>
                 <{{pascalCase name}} variant="primary">primary</{{pascalCase name}}>
                 <{{pascalCase name}} variant="secondary">secondary</{{pascalCase name}}>
-            </>
+            </>,
         )
         expect(screen.getByText('primary')).toHaveClass('primary')
         expect(screen.getByText('secondary')).toHaveClass('secondary')
