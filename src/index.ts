@@ -41,9 +41,6 @@ export * from './new-components/tabs'
 export * from './new-components/tooltip'
 export * from './new-components/menu'
 
-// hooks
-export * from './hooks/use-previous'
-
 //
 // components not yet integrated with the design system
 //
