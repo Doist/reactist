@@ -1,7 +1,7 @@
 import * as React from 'react'
 import classNames from 'classnames'
 
-import { Tooltip } from '../../new-components/tooltip'
+import { Tooltip } from '../../tooltip'
 
 import './deprecated-button.less'
 

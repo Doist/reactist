@@ -1,0 +1,268 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+import KeyboardShortcut from '../components/keyboard-shortcut'
+import { Button } from '../button'
+import { Inline } from '../inline'
+import { Stack } from '../stack'
+import { Columns, Column } from '../columns'
+import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, MenuGroup, SubMenu } from '.'
+import { ButtonLink } from '../button-link'
+import { Text } from '../text'
+
+<Meta
+    title="Design system/Menu"
+    component={Menu}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
+
+export function ArrowDown() {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+        >
+            <path
+                fillRule="evenodd"
+                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+            />
+        </svg>
+    )
+}
+
+export function ArrowRight() {
+    return (
+        <svg width="24" height="24">
+            <path
+                d="M14.243 12L9.646 7.404a.5.5 0 1 1 .708-.707l4.95 4.95a.5.5 0 0 1 0 .707l-4.95 4.95a.5.5 0 0 1-.708-.708L14.243 12z"
+                fill="currentColor"
+                fillRule="evenodd"
+            />
+        </svg>
+    )
+}
+
+# Menu
+
+A set of components that provide the means to construct a menu that can be triggered
+via an element or as a context menu.
+
+<Canvas>
+    <Story
+        name="Simple Menu Story"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
+        <Menu>
+            <MenuButton as={Button} variant="primary" endIcon={<ArrowDown />}>
+                Simple menu
+            </MenuButton>
+            <MenuList aria-label="Simple menu">
+                <MenuItem>Edit</MenuItem>
+                <MenuItem>Copy</MenuItem>
+                <MenuItem>Paste</MenuItem>
+                <MenuItem>Duplicate</MenuItem>
+                <MenuItem>Remove</MenuItem>
+            </MenuList>
+        </Menu>
+    </Story>
+</Canvas>
+
+### `tooltip`
+
+The `tooltip` prop allows a tooltip to be shown over the menu button.
+
+<Canvas>
+    <Story
+        name="Tooltip Story"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
+        <Menu>
+            <MenuButton as={Button} variant="primary" tooltip="I have a tooltip">
+                Focus on or hover over me
+            </MenuButton>
+            <MenuList aria-label="Tooltip menu">
+                <MenuItem>Edit</MenuItem>
+                <MenuItem>Copy</MenuItem>
+                <MenuItem>Paste</MenuItem>
+                <MenuItem>Duplicate</MenuItem>
+                <MenuItem>Remove</MenuItem>
+            </MenuList>
+        </Menu>
+    </Story>
+</Canvas>
+
+### `modal`
+
+By default, interaction with elements below the menu is disallowed when the menu is open. This behaviour can
+be changed by passing `modal={false}` to `<MenuList>`
+
+<Canvas>
+    <Story
+        name="Outside Interaction Story"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
+        <Menu>
+            <MenuButton as={Button} variant="primary">
+                Menu
+            </MenuButton>
+            <MenuList aria-label="Outside interaction menu" modal={false}>
+                <MenuItem>Edit</MenuItem>
+                <MenuItem>Copy</MenuItem>
+                <MenuItem>Paste</MenuItem>
+                <MenuItem>Duplicate</MenuItem>
+                <MenuItem>Remove</MenuItem>
+            </MenuList>
+        </Menu>
+    </Story>
+</Canvas>
+
+### `<SubMenu>`
+
+You may nest the `<SubMenu>` component within `<Menu>` to create submenus.
+
+<Canvas>
+    <Story
+        name="SubMenu Story"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
+        <Menu>
+            <MenuButton as={Button} variant="secondary" endIcon={<ArrowDown />}>
+                With SubMenu
+            </MenuButton>
+            <MenuList aria-label="With SubMenu">
+                <MenuItem
+                    as="a"
+                    href="https://github.com/Doist/reactist"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                >
+                    Reactist on Github
+                </MenuItem>
+                <MenuItem>About Reactist…</MenuItem>
+                <MenuItem>Check for updates…</MenuItem>
+                <hr />
+                <SubMenu>
+                    <MenuButton>
+                        Preferences
+                        <ArrowRight />
+                    </MenuButton>
+                    <MenuList>
+                        <MenuItem>Settings</MenuItem>
+                        <MenuItem>Extensions</MenuItem>
+                        <hr />
+                        <MenuItem>Notifications</MenuItem>
+                    </MenuList>
+                </SubMenu>
+            </MenuList>
+        </Menu>
+    </Story>
+</Canvas>
+
+### `<ContextMenuTrigger>`
+
+Using the `<ContextMenuTrigger>` component, an element can be defined as the right-click context menu trigger
+for the menu.
+
+In the demo below, right click on the Settings button, or click on the more button:
+
+<Canvas>
+    <Story
+        name="ContextMenuTrigger Story"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
+        <Stack space="small">
+            <Menu>
+                <Inline space="xsmall">
+                    <ContextMenuTrigger as={Button} variant="primary" width="xsmall">
+                        Settings
+                    </ContextMenuTrigger>
+                    <MenuButton
+                        as={Button}
+                        variant="secondary"
+                        icon={<ArrowDown />}
+                        aria-label="More"
+                    />
+                </Inline>
+                <MenuList aria-label="Settings menu">
+                    <MenuItem>Account</MenuItem>
+                    <MenuItem>General</MenuItem>
+                    <MenuItem>Advanced</MenuItem>
+                </MenuList>
+            </Menu>
+        </Stack>
+    </Story>
+</Canvas>
+
+### Extra Features
+
+You may also use `<MenuGroup>` to group menu items, `disable` a menu item, or
+return `false` from `onSelect` to prevent the menu from closing when an item is selected.
+
+<Canvas>
+    <Story
+        name="Extra Features Story"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
+        <Menu>
+            <MenuButton as={Button} variant="tertiary" endIcon={<ArrowDown />}>
+                With extra features
+            </MenuButton>
+            <MenuList aria-label="Menu with extra features">
+                <MenuItem>
+                    <StructuredMenuItem icon="✏" label="Edit" />
+                </MenuItem>
+                <MenuItem>
+                    <StructuredMenuItem icon="👯‍♀️️" label="Duplicate" shortcut="Cmd + D" />
+                </MenuItem>
+                <MenuItem
+                    onSelect={() => {
+                        return false // This prevents the menu from closing
+                    }}
+                >
+                    <StructuredMenuItem icon="👀" label="This will not close the menu" />
+                </MenuItem>
+                <hr />
+                <MenuGroup label="Dangerous options">
+                    <MenuItem>Remove first</MenuItem>
+                    <MenuItem>Remove completed</MenuItem>
+                    <MenuItem disabled>Remove all (disabled)</MenuItem>
+                </MenuGroup>
+            </MenuList>
+        </Menu>
+    </Story>
+</Canvas>
+
+export function StructuredMenuItem({ icon, label, shortcut }) {
+    return (
+        <Columns space="small" width="full" flexGrow={1}>
+            {icon ? (
+                <Column width="content" aria-hidden>
+                    {icon}
+                </Column>
+            ) : null}
+            <Column width="auto">
+                <Text size="copy">{label}</Text>
+            </Column>
+            {shortcut ? (
+                <Column width="content">
+                    <KeyboardShortcut>{shortcut}</KeyboardShortcut>
+                </Column>
+            ) : null}
+        </Columns>
+    )
+}

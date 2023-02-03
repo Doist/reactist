@@ -39,22 +39,22 @@ function componentGenerator(plop) {
             const actions = [
                 {
                     type: 'add',
-                    path: 'src/new-components/{{dashCase name}}/index.ts',
+                    path: 'src/{{dashCase name}}/index.ts',
                     templateFile: templateFile('component/index.ts'),
                 },
                 {
                     type: 'add',
-                    path: 'src/new-components/{{dashCase name}}/{{dashCase name}}.tsx',
+                    path: 'src/{{dashCase name}}/{{dashCase name}}.tsx',
                     templateFile: templateFile('component/component.tsx'),
                 },
                 {
                     type: 'add',
-                    path: 'src/new-components/{{dashCase name}}/{{dashCase name}}.module.css',
+                    path: 'src/{{dashCase name}}/{{dashCase name}}.module.css',
                     templateFile: templateFile('component/component.module.css'),
                 },
                 {
                     type: 'add',
-                    path: 'src/new-components/{{dashCase name}}/{{dashCase name}}.test.tsx',
+                    path: 'src/{{dashCase name}}/{{dashCase name}}.test.tsx',
                     templateFile: templateFile('component/component.test.tsx'),
                 },
             ]
@@ -62,7 +62,7 @@ function componentGenerator(plop) {
             if (storyType === '.mdx' || storyType === 'both') {
                 actions.push({
                     type: 'add',
-                    path: 'src/new-components/{{dashCase name}}/{{dashCase name}}.stories.mdx',
+                    path: 'src/{{dashCase name}}/{{dashCase name}}.stories.mdx',
                     templateFile: templateFile('component/component.stories.mdx'),
                 })
             }
@@ -70,7 +70,7 @@ function componentGenerator(plop) {
             if (storyType === '.tsx' || storyType === 'both') {
                 actions.push({
                     type: 'add',
-                    path: 'src/new-components/{{dashCase name}}/{{dashCase name}}.stories.tsx',
+                    path: 'src/{{dashCase name}}/{{dashCase name}}.stories.tsx',
                     templateFile: templateFile('component/component.stories.tsx'),
                 })
             }

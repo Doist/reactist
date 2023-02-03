@@ -1,8 +1,8 @@
 import * as React from 'react'
 
 import Select from '../../src/components/deprecated-select'
-import { Alert } from '../../src/new-components/alert'
-import { Stack } from '../../src/new-components/stack'
+import { Alert } from '../../src/alert'
+import { Stack } from '../../src/stack'
 
 const options = [
     { value: 'intro', text: 'Select a fruit', disabled: true },

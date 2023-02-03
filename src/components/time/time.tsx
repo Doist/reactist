@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Tooltip } from '../../new-components/tooltip'
+import { Tooltip } from '../../tooltip'
 import { TimeUtils, TimeConfig } from './time-utils'
 
 import './time.less'
