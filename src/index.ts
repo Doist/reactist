@@ -1,4 +1,4 @@
-import './default-styles.less'
+import './styles/design-tokens.css'
 
 // layout components
 export * from './box'
