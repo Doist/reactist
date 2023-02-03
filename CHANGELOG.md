@@ -6,6 +6,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 -   [BREAKING] Remove `usePrevious` hook
 -   [BREAKING] Remove `DeprecatedNotification` component
+-   [BREAKING] The `Menu` component now uses Reactist CSS variables to style itself
 
 # v19.1.1
 
