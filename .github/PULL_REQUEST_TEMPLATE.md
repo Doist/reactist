@@ -20,6 +20,7 @@ Feel free to leave unchecked or remove the lines that are not applicable.
 -   [ ] Described changes in `CHANGELOG.md`
 -   [ ] Bumped version in `package.json` and `package-lock.json` (`npm --no-git-tag-version version <major|minor|patch>`) [ref](https://docs.npmjs.com/cli/v6/commands/npm-version)
 -   [ ] Updated all static build artifacts (`npm run build-all`)
+-   [ ] Reviewed and approved Chromatic visual regression tests in CI
 
 ## Versioning
 
