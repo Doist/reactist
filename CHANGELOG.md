@@ -5,6 +5,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 # next
 
 -   [BREAKING] Remove `usePrevious` hook
+-   [BREAKING] Remove `DeprecatedNotification` component
 
 # v19.1.1
 
