@@ -10,7 +10,7 @@ import {
 import { Inline } from '../inline'
 import { usePrevious } from '../hooks/use-previous'
 import { polymorphicComponent } from '../utils/polymorphism'
-import type { Space } from '../common-types'
+import type { Space } from '../utils/common-types'
 
 import styles from './tabs.module.css'
 import { Box } from '../box'

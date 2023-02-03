@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { render, screen } from '@testing-library/react'
-import { runSpaceTests } from '../test-helpers'
+import { runSpaceTests } from '../utils/test-helpers'
 import { Inline } from './'
 import { axe } from 'jest-axe'
 

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { selectWithNone, PartialProps } from '../storybook-helper'
+import { selectWithNone, PartialProps } from '../utils/storybook-helper'
 
 import { Stack } from '../stack'
 import { Text } from '../text'

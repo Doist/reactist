@@ -3,7 +3,7 @@ import * as React from 'react'
 import { within, userEvent } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 
-import { Placeholder, times } from '../storybook-helper'
+import { Placeholder, times } from '../utils/storybook-helper'
 import { SelectField } from '../select-field'
 import { SwitchField } from '../switch-field'
 import { Stack } from '../stack'

@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { Box, BoxProps } from '../box'
-import { useId } from '../common-helpers'
+import { useId } from '../utils/common-helpers'
 import { Text } from '../text'
 import styles from './base-field.module.css'
 import { Stack } from '../stack'
 
-import type { WithEnhancedClassName } from '../common-types'
+import type { WithEnhancedClassName } from '../utils/common-types'
 import { Spinner } from '../spinner'
 
 type FieldHintProps = {

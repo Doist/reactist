@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { getClassNames } from '../responsive-props'
+import { getClassNames } from '../utils/responsive-props'
 import { Box } from '../box'
 import styles from './heading.module.css'
 import type { ObfuscatedClassName } from '../utils/polymorphism'
-import type { Tone } from '../common-types'
+import type { Tone } from '../utils/common-types'
 import type { BoxProps } from '../box'
 
 type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6 | '1' | '2' | '3' | '4' | '5' | '6'

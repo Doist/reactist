@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Box } from '../box'
 import { Columns, Column } from '../columns'
-import { useId } from '../common-helpers'
+import { useId } from '../utils/common-helpers'
 
 import styles from './banner.module.css'
 

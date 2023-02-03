@@ -9,7 +9,7 @@ import {
     selectWithNone,
     PartialProps,
     disableResponsiveProps,
-} from '../storybook-helper'
+} from '../utils/storybook-helper'
 import { Stack } from '../stack'
 import { Box } from '../box'
 import { Columns, Column } from './columns'

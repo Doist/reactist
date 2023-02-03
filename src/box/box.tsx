@@ -1,15 +1,15 @@
 import * as React from 'react'
 import classNames from 'classnames'
 import { polymorphicComponent } from '../utils/polymorphism'
-import { getClassNames } from '../responsive-props'
+import { getClassNames } from '../utils/responsive-props'
 
-import type { ResponsiveProp } from '../responsive-props'
+import type { ResponsiveProp } from '../utils/responsive-props'
 import type {
     DividerWeight,
     Space,
     SpaceWithNegatives,
     WithEnhancedClassName,
-} from '../common-types'
+} from '../utils/common-types'
 
 import styles from './box.module.css'
 import paddingStyles from './padding.module.css'

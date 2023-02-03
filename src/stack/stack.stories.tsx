@@ -10,7 +10,7 @@ import {
     Wrapper,
     selectWithNone,
     PartialProps,
-} from '../storybook-helper'
+} from '../utils/storybook-helper'
 import { Heading } from '../heading'
 import { Stack } from './stack'
 

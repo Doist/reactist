@@ -4,7 +4,7 @@ import { Stack } from '../stack'
 import { Text } from '../text'
 import { HiddenVisually } from '../hidden-visually'
 import { FieldComponentProps, FieldHint } from '../base-field'
-import { useId } from '../common-helpers'
+import { useId } from '../utils/common-helpers'
 import styles from './switch-field.module.css'
 
 type SwitchFieldProps = Omit<

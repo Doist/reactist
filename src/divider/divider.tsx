@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { getClassNames } from '../responsive-props'
+import { getClassNames } from '../utils/responsive-props'
 import { Box } from '../box'
-import type { DividerWeight } from '../common-types'
+import type { DividerWeight } from '../utils/common-types'
 
 import styles from './divider.module.css'
 

@@ -3,7 +3,7 @@ import { render, screen, act, waitFor } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import userEvent from '@testing-library/user-event'
 import { Tooltip, SHOW_DELAY, HIDE_DELAY } from './tooltip'
-import { flushPromises } from '../test-helpers'
+import { flushPromises } from '../utils/test-helpers'
 import { Box } from '../box'
 import { Button } from '../button'
 

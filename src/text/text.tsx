@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { getClassNames } from '../responsive-props'
+import { getClassNames } from '../utils/responsive-props'
 import { Box } from '../box'
 import { polymorphicComponent } from '../utils/polymorphism'
 
-import type { Tone } from '../common-types'
+import type { Tone } from '../utils/common-types'
 import type { BoxProps } from '../box'
 
 import styles from './text.module.css'

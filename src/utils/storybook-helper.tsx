@@ -1,11 +1,11 @@
 import * as React from 'react'
-import { Box } from './box'
-import { Heading } from './heading'
-import { Stack } from './stack'
+import { Box } from '../box'
+import { Heading } from '../heading'
+import { Stack } from '../stack'
 
-import './default-styles.less'
+import '../default-styles.less'
 
-import type { BoxProps } from './box'
+import type { BoxProps } from '../box'
 import type { Space } from './common-types'
 
 type SelectTypeOptionsProp<T> = Extract<T, PropertyKey>[] | readonly Extract<T, PropertyKey>[]

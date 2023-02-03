@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Placeholder, ResponsiveWidthRef } from '../storybook-helper'
+import { Placeholder, ResponsiveWidthRef } from '../utils/storybook-helper'
 import { Stack } from '../stack'
 import { Hidden } from './hidden'
 

@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Stack } from '../stack'
 import { Heading } from './heading'
-import { ResponsiveWidthRef, select, selectWithNone } from '../storybook-helper'
+import { ResponsiveWidthRef, select, selectWithNone } from '../utils/storybook-helper'
 
 export default {
     title: 'Design system/Heading',

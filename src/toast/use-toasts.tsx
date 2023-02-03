@@ -1,14 +1,14 @@
 import React from 'react'
 import { Portal } from 'ariakit/portal'
 
-import { generateElementId } from '../common-helpers'
+import { generateElementId } from '../utils/common-helpers'
 import { Box } from '../box'
 import { Stack } from '../stack'
 import { StaticToast, StaticToastProps } from './static-toast'
 
 import styles from './toast.module.css'
 
-import type { Space } from '../common-types'
+import type { Space } from '../utils/common-types'
 import { useToastsAnimation } from './toast-animation'
 
 /**

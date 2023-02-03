@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { getInitials, emailToIndex } from './utils'
 
-import { getClassNames, ResponsiveProp } from '../responsive-props'
+import { getClassNames, ResponsiveProp } from '../utils/responsive-props'
 import styles from './avatar.module.css'
 import { Box } from '../box'
 

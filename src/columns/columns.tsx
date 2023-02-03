@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { polymorphicComponent } from '../utils/polymorphism'
-import { getClassNames, mapResponsiveProp } from '../responsive-props'
+import { getClassNames, mapResponsiveProp } from '../utils/responsive-props'
 import { Box } from '../box'
 
-import type { ResponsiveProp, ResponsiveBreakpoints } from '../responsive-props'
-import type { Space } from '../common-types'
+import type { ResponsiveProp, ResponsiveBreakpoints } from '../utils/responsive-props'
+import type { Space } from '../utils/common-types'
 import type { ReusableBoxProps } from '../box'
 
 import styles from './columns.module.css'

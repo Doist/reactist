@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { getClassNames } from '../responsive-props'
+import { getClassNames } from '../utils/responsive-props'
 import { Box } from '../box'
 import { Button } from '../button'
 import { Columns, Column } from '../columns'
@@ -9,7 +9,7 @@ import { CloseIcon } from '../icons/close-icon'
 
 import styles from './alert.module.css'
 
-import type { AlertTone } from '../common-types'
+import type { AlertTone } from '../utils/common-types'
 
 type AllOrNone<T> = T | { [K in keyof T]?: never }
 

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { polymorphicComponent } from '../utils/polymorphism'
 import { BaseButton } from '../base-button'
 import type { BaseButtonProps } from '../base-button'
-import type { OpenInNewTab } from '../common-types'
+import type { OpenInNewTab } from '../utils/common-types'
 
 type NativeLinkProps = Omit<
     JSX.IntrinsicElements['a'],

@@ -3,7 +3,7 @@ import { useForkRef } from 'ariakit-react-utils'
 import { Tooltip } from '../tooltip'
 import { BaseField, BaseFieldVariantProps } from '../base-field'
 import { Box } from '../box'
-import { useId } from '../common-helpers'
+import { useId } from '../utils/common-helpers'
 
 import { PasswordVisibleIcon } from '../icons/password-visible-icon'
 import { PasswordHiddenIcon } from '../icons/password-hidden-icon'

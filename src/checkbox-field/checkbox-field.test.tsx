@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import { CheckboxField } from '.'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
-import { TestIcon } from '../test-helpers'
+import { TestIcon } from '../utils/test-helpers'
 
 describe('CheckboxField', () => {
     function IndeterminateTestCase({ initialState }: { initialState: boolean[] }) {

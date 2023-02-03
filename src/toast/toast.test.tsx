@@ -3,7 +3,7 @@ import { axe } from 'jest-axe'
 import { act, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import { TestIcon } from '../test-helpers'
+import { TestIcon } from '../utils/test-helpers'
 
 import { ANIMATION_TIMEOUT } from './toast-animation'
 import { Toast, ToastsProvider, useToasts } from './use-toasts'

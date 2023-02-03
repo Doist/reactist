@@ -9,7 +9,7 @@ import {
     Wrapper,
     PartialProps,
     selectSize,
-} from '../storybook-helper'
+} from '../utils/storybook-helper'
 
 import { Box, BoxBorderRadius } from './box'
 import { Inline } from '../inline'
@@ -28,7 +28,7 @@ import type {
     BoxTextAlign,
     BoxBackground,
 } from './'
-import type { Space, SpaceWithNegatives } from '../common-types'
+import type { Space, SpaceWithNegatives } from '../utils/common-types'
 
 export default {
     title: 'Design system/Box',
