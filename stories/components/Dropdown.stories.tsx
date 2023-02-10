@@ -2,8 +2,8 @@ import * as React from 'react'
 
 import Button from '../../src/components/deprecated-button'
 import Dropdown from '../../src/components/deprecated-dropdown'
-import { Alert } from '../../src/new-components/alert'
-import { Stack } from '../../src/new-components/stack'
+import { Alert } from '../../src/alert'
+import { Stack } from '../../src/stack'
 
 export default {
     title: 'Components/Dropdown',

@@ -1,0 +1,207 @@
+import { useEffect, useState } from 'react'
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+import { BADGE } from '@geometricpanda/storybook-addon-badges'
+
+import { PartialProps } from '../utils/storybook-helper'
+import { CheckboxField } from '.'
+import { Stack } from '../stack'
+import { Text } from '../text'
+
+<Meta
+    title="Design system/CheckboxField"
+    component={CheckboxField}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
+
+export function Icon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+                fill="currentColor"
+                d="M6 6.653a1 1 0 011.464-.886l10.246 5.37a1 1 0 01-.002 1.773L7.46 18.24a1 1 0 01-1.461-.887V13l6.96-.674a.328.328 0 000-.652L6 11V6.653z"
+            />
+        </svg>
+    )
+}
+
+# CheckboxField
+
+A checkbox field with a built-in label element.
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
+        name="Basic Example"
+        args={{
+            label: 'Default label',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+---
+
+<Description of={CheckboxField} />
+<ArgsTable of={CheckboxField} />
+
+## Stories
+
+export const Template = ({
+    disabled,
+    indeterminate,
+    label,
+    icon,
+    'aria-controls': ariaControls,
+    'aria-describedby': ariaDescribedby,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledby,
+}) => <CheckboxField disabled={disabled} indeterminate={indeterminate} label={label} icon={icon} />
+
+### Checkbox with icon
+
+A checkbox field with an icon and a string. The icon is rendered to the left of the label.
+
+#### Image as Icon
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
+        name="Image as icon"
+        args={{
+            label: 'Label with icon',
+            icon: '😄',
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+#### ReactChild as Icon
+
+In this example we are passing an SVG image as icon.
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
+        name="ReactChild as icon"
+        args={{
+            label: 'Label with icon',
+            icon: <Icon />,
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+### ReactNode as Label
+
+A checkbox field with a `ReactNode` as label.
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
+        name="ReactNode as Label"
+        args={{
+            label: (
+                <>
+                    Accept our <strong>terms of service</strong>
+                </>
+            ),
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<CheckboxField
+    label={
+        <>
+            Accept our <strong>terms of service</strong>
+        </>
+    }
+/>
+
+### Indeterminate Example
+
+<Canvas>
+    <Story
+        name="Indeterminate Example"
+        parameters={{
+            docs: { source: { type: 'dynamic' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        {() => {
+            const labels = ['One', 'Two', 'Three', 'Four', 'Five']
+            const icons = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣']
+            const [state, setState] = useState([false, true, false, false, false])
+            const checkedCount = state.filter(Boolean).length
+            const indeterminate = checkedCount > 0 && checkedCount < state.length
+            return (
+                <Stack space="medium" dividers="primary">
+                    <CheckboxField
+                        checked={checkedCount === state.length}
+                        onChange={(event) => {
+                            const { checked } = event.currentTarget
+                            setState((state) => state.map(() => checked))
+                        }}
+                        indeterminate={indeterminate}
+                        label={`Check/uncheck all (${checkedCount} / ${state.length})`}
+                    />
+                    <Stack space="medium">
+                        {state.map((checked, index) => (
+                            <CheckboxField
+                                key={`${index}-${String(checked)}`}
+                                label={labels[index]}
+                                icon={icons[index]}
+                                checked={checked}
+                                onChange={(event) => {
+                                    const { checked } = event.currentTarget
+                                    setState((state) => {
+                                        const newState = [...state]
+                                        newState[index] = checked
+                                        return newState
+                                    })
+                                }}
+                            />
+                        ))}
+                    </Stack>
+                    <Text tone="secondary">
+                        Mark some (but not all) numbered checkboxes to see the one at the top as
+                        indeterminate.
+                    </Text>
+                </Stack>
+            )
+        }}
+    </Story>
+</Canvas>
+
+## Accessibility
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Accessibility Examples">
+        <Stack space="medium" dividers="primary">
+            <Stack space="medium">
+                <CheckboxField aria-label="Golden Retriever" label="aria-label" />
+                <Text tone="secondary">
+                    A screen reader will announce the checkbox as "Golden Retriever".
+                </Text>
+            </Stack>
+            <Stack space="medium">
+                <CheckboxField aria-labelledby="shibainu-text" label="aria-labelledby" />
+                <Text id="shibainu-text">Shiba Inu</Text>
+                <Text tone="secondary">
+                    A screen reader will announce the checkbox as "Shiba Inu".
+                </Text>
+            </Stack>
+            <Stack space="medium">
+                <CheckboxField aria-describedby="husky-text" label="aria-describedby" />
+                <Text id="husky-text">Husky</Text>
+                <Text tone="secondary">A screen reader will describe the checkbox as "Husky".</Text>
+            </Stack>
+        </Stack>
+    </Story>
+</Canvas>

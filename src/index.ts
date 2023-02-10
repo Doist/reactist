@@ -1,48 +1,45 @@
-import './new-components/default-styles.less'
+import './styles/design-tokens.css'
 
 // layout components
-export * from './new-components/box'
-export * from './new-components/columns'
-export * from './new-components/divider'
-export * from './new-components/inline'
-export * from './new-components/stack'
-export * from './new-components/hidden'
-export * from './new-components/hidden-visually'
+export * from './box'
+export * from './columns'
+export * from './divider'
+export * from './inline'
+export * from './stack'
+export * from './hidden'
+export * from './hidden-visually'
 
 // alerts, notifications, etc.
-export * from './new-components/alert'
-export * from './new-components/banner'
-export * from './new-components/loading'
-export * from './new-components/notice'
-export * from './new-components/toast'
+export * from './alert'
+export * from './banner'
+export * from './loading'
+export * from './notice'
+export * from './toast'
 
 // text and typography
-export * from './new-components/heading'
-export * from './new-components/text'
+export * from './heading'
+export * from './text'
 
 // links
-export * from './new-components/button'
-export * from './new-components/button-link'
-export * from './new-components/text-link'
+export * from './button'
+export * from './button-link'
+export * from './text-link'
 
 // form fields
-export * from './new-components/checkbox-field'
-export * from './new-components/password-field'
-export * from './new-components/select-field'
-export * from './new-components/switch-field'
-export * from './new-components/text-area'
-export * from './new-components/text-field'
+export * from './checkbox-field'
+export * from './password-field'
+export * from './select-field'
+export * from './switch-field'
+export * from './text-area'
+export * from './text-field'
 
 // other components
-export * from './new-components/avatar'
-export * from './new-components/badge'
-export * from './new-components/modal'
-export * from './new-components/tabs'
-export * from './new-components/tooltip'
-export * from './new-components/menu'
-
-// hooks
-export * from './hooks/use-previous'
+export * from './avatar'
+export * from './badge'
+export * from './modal'
+export * from './tabs'
+export * from './tooltip'
+export * from './menu'
 
 //
 // components not yet integrated with the design system
@@ -62,5 +59,4 @@ export { default as DeprecatedButton } from './components/deprecated-button'
 export { default as DeprecatedDropdown } from './components/deprecated-dropdown'
 export { default as DeprecatedInput } from './components/deprecated-input'
 export { default as DeprecatedSelect } from './components/deprecated-select'
-export { DeprecatedNotification } from './components/deprecated-notification'
-export * from './new-components/deprecated-modal'
+export * from './deprecated-modal'

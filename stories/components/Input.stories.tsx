@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import Input from '../../src/components/deprecated-input'
-import { Alert } from '../../src/new-components/alert'
+import { Alert } from '../../src/alert'
 import './styles/input_story.less'
 
 // Story setup ================================================================
