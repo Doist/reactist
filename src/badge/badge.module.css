@@ -1,7 +1,5 @@
 :root {
     --reactist-badge-font-size: 10px;
-    --reactist-badge-paddingY: 1px;
-    --reactist-badge-paddingX: var(--reactist-spacing-xsmall);
 
     --reactist-badge-info-tint: #666666;
     --reactist-badge-info-fill: #eeeeee;
@@ -23,10 +21,10 @@
     text-transform: uppercase;
     letter-spacing: 0.1em;
     border-radius: 3px;
-    padding: var(--reactist-badge-paddingY) var(--reactist-badge-paddingX);
+    padding: 0 var(--reactist-spacing-xsmall);
     color: var(--reactist-badge-tint);
     background-color: var(--reactist-badge-fill);
-    line-height: calc(var(--reactist-badge-font-size) + 2 * var(--reactist-badge-paddingY));
+    line-height: calc(var(--reactist-badge-font-size) + 2px);
 }
 
 .badge-info {

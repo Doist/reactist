@@ -78,10 +78,7 @@ export function BadgeExamples() {
 <Canvas>
     <Story
         name="Playground"
-        parameters={{
-            docs: { source: { type: 'dynamic' } },
-            chromatic: { disableSnapshot: false },
-        }}
+        parameters={{ docs: { source: { type: 'code' } } }}
         argTypes={{
             tone: {
                 options: ['info', 'positive', 'promote', 'attention'],
