@@ -24,7 +24,17 @@ A badge used to bring attention to a particular UI element or functionality.
 
 The use of variants does not provide extra semantic meaning and is strictly visual. Ensure your content provides the necessary context for users by using the `aria-label` prop if needed.
 
-export function PlaygroundTemplate() {
+export function PlaygroundTemplate({ tone, label }) {
+    return (
+        <Stack space="large" maxWidth="medium">
+            <div>
+                <Badge tone={tone} label={label} />
+            </div>
+        </Stack>
+    )
+}
+
+export function BadgeExamples() {
     return (
         <Columns space="xxlarge">
             <Column width="content">
@@ -67,13 +77,39 @@ export function PlaygroundTemplate() {
 
 <Canvas>
     <Story
+        name="Playground"
+        parameters={{
+            docs: { source: { type: 'dynamic' } },
+            chromatic: { disableSnapshot: false },
+        }}
+        argTypes={{
+            tone: {
+                options: ['info', 'positive', 'promote', 'attention'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'info',
+            },
+            label: {
+                control: { type: 'text' },
+                defaultValue: 'Upgrade',
+            },
+            id: { control: false },
+        }}
+    >
+        {PlaygroundTemplate.bind({})}
+    </Story>
+</Canvas>
+
+## Examples
+
+<Canvas>
+    <Story
         name="Main demo"
         parameters={{
             docs: { source: { type: 'dynamic' } },
             chromatic: { disableSnapshot: false },
         }}
     >
-        {PlaygroundTemplate.bind({})}
+        <BadgeExamples />
     </Story>
 </Canvas>
 
@@ -152,7 +188,7 @@ export function DarkModeTemplate() {
                 '--reactist-badge-attention-fill': '#351E1C',
             }}
         >
-            <PlaygroundTemplate />
+            <BadgeExamples />
         </Box>
     )
 }
