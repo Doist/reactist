@@ -21,7 +21,7 @@
     text-transform: uppercase;
     letter-spacing: 0.1em;
     border-radius: 3px;
-    padding: 0px var(--reactist-spacing-xsmall);
+    padding: 3px var(--reactist-spacing-xsmall);
     color: var(--reactist-badge-tint);
     background-color: var(--reactist-badge-fill);
     line-height: calc(var(--reactist-badge-font-size) + 6px);
