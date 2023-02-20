@@ -16,14 +16,15 @@
 
 .badge {
     font-family: var(--reactist-font-family);
-    font-weight: var(--reactist-font-weight-medium);
+    font-weight: var(--reactist-font-weight-strong);
     font-size: var(--reactist-badge-font-size);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     border-radius: 3px;
-    padding: 1px var(--reactist-spacing-xsmall);
+    padding: 3px var(--reactist-spacing-xsmall);
     color: var(--reactist-badge-tint);
     background-color: var(--reactist-badge-fill);
+    line-height: calc(var(--reactist-badge-font-size) + 6px);
 }
 
 .badge-info {
