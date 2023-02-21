@@ -6,9 +6,19 @@ jobs:
   chromatic-deployment:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout repository
+        uses: actions/checkout@v1
+
+      - name: Prepare Node.js environment
+        uses: actions/setup-node@v3
+        with:
+            node-version-file: '.nvmrc'
+            registry-url: https://npm.pkg.github.com
+            scope: '@doist'
+
       - name: Install dependencies
         run: npm install
+      
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
