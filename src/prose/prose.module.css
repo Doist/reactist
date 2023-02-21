@@ -2,7 +2,11 @@
     --reactist-prose-code-fill: rgb(247, 250, 251);
     --reactist-prose-code-tint: var(--reactist-content-primary);
     --reactist-prose-quote-tint: #4a6368;
-    --reactist-prose-link-tint: var(--reactist-actionable-tertiary-idle-tint);
+
+    --reactist-prose-link-idle-tint: #006f85;
+    --reactist-prose-link-idle-underline: var(--reactist-divider-primary);
+    --reactist-prose-link-hover-tint: #006f85;
+    --reactist-prose-link-hover-underline: #006f85;
 }
 
 /* Internals for spacing. These are not considered public API. */
@@ -40,20 +44,6 @@
 .prose *::before,
 .prose *::after {
     box-sizing: border-box;
-}
-
-.prose > :first-child,
-.prose :global(.ProseMirror > *:first-child) {
-    margin-top: 0;
-}
-
-.prose > :last-child,
-.prose :global(.ProseMirror > *:last-child) {
-    margin-bottom: 0;
-}
-
-.prose :global(br.ProseMirror-trailingBreak:only-child) {
-    font-size: inherit;
 }
 
 /* paragraphs */
@@ -255,20 +245,17 @@
 /* links */
 
 .prose a {
+    color: var(--reactist-prose-link-idle-tint);
     text-decoration-line: underline;
     text-decoration-style: solid;
-    text-decoration-color: var(--reactist-divider-primary);
-}
-
-.prose a,
-.prose a code {
-    color: var(--reactist-prose-link-tint);
+    text-decoration-color: var(--reactist-prose-link-idle-underline);
 }
 
 .prose a:hover,
 .prose a:focus,
 .prose a:active {
-    text-decoration-color: var(--reactist-prose-link-tint);
+    color: var(--reactist-prose-link-hover-tint);
+    text-decoration-color: var(--reactist-prose-link-hover-underline);
 }
 
 /*************/
