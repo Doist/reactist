@@ -71,9 +71,9 @@
     --reactist-framework-fill-selected: rgb(236, 236, 236);
     --reactist-framework-fill-summit: rgb(214, 214, 214);
 
-    --reactist-content-primary: #181818;
-    --reactist-content-secondary: #5d5d5d;
-    --reactist-content-tertiary: #878787;
+    --reactist-content-primary: rgba(0, 0, 0, 0.88);
+    --reactist-content-secondary: rgba(0, 0, 0, 0.56);
+    --reactist-content-tertiary: rgba(0, 0, 0, 0.4);
     --reactist-toast-content-primary: rgb(255, 255, 255);
     --reactist-toast-content-secondary: hsla(0, 0%, 100%, 0.56);
     --reactist-content-positive: rgb(5, 133, 39);
