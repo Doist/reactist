@@ -1,6 +1,7 @@
 :root {
     --reactist-prose-code-fill: rgb(247, 250, 251);
     --reactist-prose-code-tint: var(--reactist-content-primary);
+    --reactist-prose-code-border: var(--reactist-divider-primary);
     --reactist-prose-quote-tint: #4a6368;
 
     --reactist-prose-link-idle-tint: #006f85;
@@ -188,7 +189,7 @@
 .prose :not(pre) > code {
     color: var(--reactist-prose-code-tint);
     background-color: var(--reactist-prose-code-fill);
-    border: 1px solid var(--reactist-divider-secondary);
+    border: 1px solid var(--reactist-prose-code-border);
     border-radius: var(--reactist-border-radius-small);
     font-family: 'Source Code Pro', Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
     font-size: 0.875em;

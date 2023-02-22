@@ -27,6 +27,7 @@ export function ProsePlaygroundStory({ darkModeTypography, dangerouslySetInnerHT
                           '--reactist-content-primary': 'rgba(255, 255, 255, 0.88)',
                           '--reactist-prose-code-tint': 'rgba(255, 255, 255, 0.88)',
                           '--reactist-prose-code-fill': 'rgb(40, 40, 40)',
+                          '--reactist-prose-code-border': 'var(--reactist-divider-secondary)',
                           '--reactist-prose-quote-tint': '#9db4b9',
                           // divider colors
                           '--reactist-divider-primary': '#53595b',
