@@ -17,6 +17,14 @@ type ProseProps = {
 
     /**
      * Sets the prose content to be raw HTML stored in a string value.
+     *
+     * Warning: be advised that setting HTML content in this way is risky, because you can
+     * inadvertently be vulnerable to a cross-site scripting (XSS) attack. Make sure you only use
+     * this option with HTML content that has been sanitized (especially if it comes from user
+     * provided content) or content that you fully control how it's generated, that cannot possibly
+     * have any XSS content in it.
+     *
+     * @see https://reactjs.org/docs/dom-elements.html#dangerouslysetinnerhtml
      */
     dangerouslySetInnerHTML?: { __html: string } | undefined
 
