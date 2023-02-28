@@ -19,6 +19,7 @@ export * from './toast'
 // text and typography
 export * from './heading'
 export * from './text'
+export * from './prose'
 
 // links
 export * from './button'
