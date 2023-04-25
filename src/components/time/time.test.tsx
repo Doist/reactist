@@ -7,6 +7,15 @@ import { Time } from './time'
 import userEvent from '@testing-library/user-event'
 
 describe('Time', () => {
+    beforeAll(() => {
+        jest.useFakeTimers()
+        jest.setSystemTime(new Date('2023-03-14T12:00:00.000Z'))
+    })
+
+    afterAll(() => {
+        jest.useRealTimers()
+    })
+
     const testDate = dayjs(new Date('March 22, 1991 13:37:42')).unix()
 
     it('renders without crashing', () => {
@@ -116,6 +125,10 @@ describe('Time', () => {
     })
 
     describe('a11y', () => {
+        beforeAll(() => {
+            jest.useRealTimers()
+        })
+
         it('renders with no a11y violations', async () => {
             const { container } = render(<Time time={dayjs().unix()} />)
             const results = await axe(container)
