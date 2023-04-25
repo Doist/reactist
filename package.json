@@ -88,6 +88,7 @@
         "@types/cheerio": "^0.22.22",
         "@types/classnames": "^2.2.10",
         "@types/enzyme": "^3.10.7",
+        "@types/jest": "28.1.8",
         "@types/jest-axe": "^3.5.3",
         "@types/marked": "^4.0.8",
         "@types/react": "^17.0.45",
