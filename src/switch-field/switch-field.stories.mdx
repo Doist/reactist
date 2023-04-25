@@ -51,6 +51,18 @@ export function Template({ label, hint, disabled }) {
     return <SwitchField label={label || 'Default label'} hint={hint} disabled={disabled} />
 }
 
+## Colors
+
+The following CSS custom properties are available to customize the SwitchField's appearance. The values appearing below are the default values.
+
+```css
+:root {
+    --reactist-switch-background: rgb(214, 214, 214);
+    --reactist-switch-checked: rgb(5, 133, 39);
+    --reactist-switch-toggle: rgb(255, 255, 255);
+}
+```
+
 ## Accessibility
 
 <Canvas>
