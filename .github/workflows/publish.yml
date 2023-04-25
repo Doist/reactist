@@ -47,6 +47,6 @@ jobs:
                   node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
                   registry-url: https://registry.npmjs.org/
                   scope: '@doist'
-            - run: npm publish
+            - run: npm publish --provenance
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
