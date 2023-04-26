@@ -1,3 +1,9 @@
+:root {
+    --reactist-switch-background: var(--reactist-framework-fill-summit);
+    --reactist-switch-checked: var(--reactist-content-positive);
+    --reactist-switch-toggle: var(--reactist-bg-default);
+}
+
 .container,
 .container * {
     font-family: var(--reactist-font-family);
@@ -28,7 +34,7 @@
     height: var(--tmp-switch-height);
     min-height: auto;
     border-radius: calc(var(--tmp-switch-height) / 2);
-    background-color: var(--reactist-framework-fill-summit);
+    background-color: var(--reactist-switch-background);
     cursor: pointer;
     position: relative;
 }
@@ -49,7 +55,7 @@
     width: var(--tmp-handle-size);
     height: var(--tmp-handle-size);
     border-radius: 50%;
-    background: var(--reactist-bg-default);
+    background: var(--reactist-switch-toggle);
     transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
