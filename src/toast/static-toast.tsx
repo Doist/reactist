@@ -10,14 +10,7 @@ import styles from './toast.module.css'
 
 type ToastActionObject = {
     label: string
-    onClick: ({
-        onDismiss,
-    }: {
-        /**
-         * When called, signalizes that the toast should be dismissed.
-         */
-        onDismiss: StaticToastProps['onDismiss']
-    }) => void
+    onClick: () => void
 }
 
 type StaticToastProps = {
@@ -113,11 +106,7 @@ const StaticToast = React.forwardRef<HTMLDivElement, StaticToastProps>(function 
             {action ? (
                 <ToastContentSlot>
                     {isActionObject(action) ? (
-                        <Button
-                            variant="tertiary"
-                            size="small"
-                            onClick={() => action.onClick({ onDismiss })}
-                        >
+                        <Button variant="tertiary" size="small" onClick={action.onClick}>
                             {action.label}
                         </Button>
                     ) : (
@@ -167,5 +156,5 @@ function ToastContentSlot({ children }: { children: React.ReactNode }) {
     )
 }
 
-export { StaticToast }
+export { StaticToast, isActionObject }
 export type { StaticToastProps }

@@ -87,27 +87,13 @@ describe('useToast', () => {
         })
     })
 
-    it('allows to render an action button that performs the action when clicked', () => {
+    it('allows to render an action button that performs the action when clicked', async () => {
         const actionFn = jest.fn()
         const { showToast } = renderTestCase()
         showToast({ action: { label: 'Undo', onClick: actionFn } })
         expect(actionFn).not.toHaveBeenCalled()
         userEvent.click(within(screen.getByRole('alert')).getByRole('button', { name: 'Undo' }))
         expect(actionFn).toHaveBeenCalledTimes(1)
-    })
-
-    it('allows to dismiss toast when action button is clicked', async () => {
-        const { showToast } = renderTestCase()
-        showToast({
-            action: {
-                label: 'Undo',
-                onClick: ({ onDismiss }) => {
-                    onDismiss?.()
-                },
-            },
-        })
-        expect(screen.queryByRole('alert')).toBeInTheDocument()
-        userEvent.click(within(screen.getByRole('alert')).getByRole('button', { name: 'Undo' }))
         await waitFor(() => {
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         })
@@ -376,24 +362,6 @@ describe('StaticToast', () => {
             expect(
                 within(screen.getByRole('alert')).getByRole('link', { name: 'Whatever' }),
             ).toBeInTheDocument()
-        })
-
-        it('allows to dismiss toast when action is triggered', () => {
-            const onDimissSpy = jest.fn()
-            renderTestCase({
-                action: {
-                    label: 'Retry',
-                    onClick: ({ onDismiss }) => {
-                        onDismiss?.()
-                    },
-                },
-                onDismiss: onDimissSpy,
-            })
-            expect(onDimissSpy).not.toHaveBeenCalled()
-            userEvent.click(
-                within(screen.getByRole('alert')).getByRole('button', { name: 'Retry' }),
-            )
-            expect(onDimissSpy).toHaveBeenCalled()
         })
     })
 

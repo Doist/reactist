@@ -53,7 +53,6 @@ function getRandom<T>(list: Array<T>): T {
 export function NotificationToastsStory() {
     const showToast = useToasts()
     const count = React.useRef(0)
-    const [actionDismisses, setActionDismisses] = React.useState(false)
     const [showSticky, setShowSticky] = React.useState(false)
     return (
         <Box padding="large">
@@ -82,10 +81,7 @@ export function NotificationToastsStory() {
                                     message: `${count.current++}: ${getRandom(message)}`,
                                     action: {
                                         label: actionLabel,
-                                        onClick: ({ onDismiss }) => {
-                                            onDismiss?.()
-                                            storybookAction(actionLabel)
-                                        },
+                                        onClick: storybookAction(actionLabel),
                                     },
                                 })
                             }}
@@ -94,11 +90,6 @@ export function NotificationToastsStory() {
                         </Button>
                     </Inline>
                 </Box>
-                <CheckboxField
-                    label="Action dismisses toast?"
-                    checked={actionDismisses}
-                    onChange={(event) => setActionDismisses(event.target.checked)}
-                />
                 <SwitchField
                     label="Show sticky toast?"
                     checked={showSticky}
