@@ -156,5 +156,5 @@ function ToastContentSlot({ children }: { children: React.ReactNode }) {
     )
 }
 
-export { StaticToast, isActionObject }
+export { StaticToast }
 export type { StaticToastProps }
