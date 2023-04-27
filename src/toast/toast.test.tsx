@@ -87,13 +87,16 @@ describe('useToast', () => {
         })
     })
 
-    it('allows to render an action button that performs the action when clicked', () => {
+    it('allows to render an action button that performs the action when clicked', async () => {
         const actionFn = jest.fn()
         const { showToast } = renderTestCase()
         showToast({ action: { label: 'Undo', onClick: actionFn } })
         expect(actionFn).not.toHaveBeenCalled()
         userEvent.click(within(screen.getByRole('alert')).getByRole('button', { name: 'Undo' }))
         expect(actionFn).toHaveBeenCalledTimes(1)
+        await waitFor(() => {
+            expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+        })
     })
 
     it('allows to render something custom in the action slot', () => {

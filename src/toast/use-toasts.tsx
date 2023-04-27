@@ -4,7 +4,7 @@ import { Portal } from 'ariakit/portal'
 import { generateElementId } from '../utils/common-helpers'
 import { Box } from '../box'
 import { Stack } from '../stack'
-import { StaticToast, StaticToastProps } from './static-toast'
+import { isActionObject, StaticToast, StaticToastProps } from './static-toast'
 
 import styles from './toast.module.css'
 
@@ -80,17 +80,45 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
         timeoutRef.current = undefined
     }, [])
 
+    const removeToast = React.useCallback(
+        function removeToast() {
+            onRemoveToast(toastId)
+            onDismiss?.()
+        },
+        [onDismiss, onRemoveToast, toastId],
+    )
+
     React.useEffect(
         function setupAutoDismiss() {
             if (!timeoutRunning || !autoDismissDelay) return
-            timeoutRef.current = window.setTimeout(() => {
-                onRemoveToast(toastId)
-                onDismiss?.()
-            }, autoDismissDelay * 1000)
+            timeoutRef.current = window.setTimeout(removeToast, autoDismissDelay * 1000)
             return stopTimeout
         },
-        [autoDismissDelay, onDismiss, onRemoveToast, toastId, stopTimeout, timeoutRunning],
+        [autoDismissDelay, removeToast, stopTimeout, timeoutRunning],
     )
+
+    /**
+     * If the action is toast action object and not a custom element,
+     * the `onClick` property is wrapped in another handler responsible
+     * for removing the toast when the action is triggered.
+     */
+    const actionWithCustomActionHandler = React.useMemo(() => {
+        if (!isActionObject(action)) {
+            return action
+        }
+
+        return {
+            ...action,
+            onClick: function handleActionClick() {
+                if (!action) {
+                    return
+                }
+
+                action.onClick()
+                removeToast()
+            },
+        }
+    }, [action, removeToast])
 
     return (
         <StaticToast
@@ -98,15 +126,8 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
             message={message}
             description={description}
             icon={icon}
-            action={action}
-            onDismiss={
-                showDismissButton
-                    ? () => {
-                          onDismiss?.()
-                          onRemoveToast(toastId)
-                      }
-                    : undefined
-            }
+            action={actionWithCustomActionHandler}
+            onDismiss={showDismissButton ? removeToast : undefined}
             dismissLabel={dismissLabel}
             // @ts-expect-error
             onMouseEnter={stopTimeout}
