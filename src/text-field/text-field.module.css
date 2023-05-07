@@ -1,4 +1,5 @@
 .inputWrapper {
+    cursor: text;
     height: var(--reactist-input-wrapper-height);
 }
 
@@ -62,8 +63,4 @@
 
 .inputWrapper:not(.bordered) input {
     padding: var(--tmp-vertical-padding) 10px;
-}
-
-.startIcon {
-    cursor: text;
 }
