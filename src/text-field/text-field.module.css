@@ -62,5 +62,5 @@
 }
 
 .inputWrapper:not(.bordered) input {
-    padding: var(--tmp-vertical-padding) 10px;
+    padding: var(--tmp-vertical-padding) var(--reactist-spacing-small);
 }

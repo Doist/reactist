@@ -67,7 +67,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                     onClick={handleClick}
                 >
                     {startIcon ? (
-                        <Box display="flex" marginRight="-xsmall" marginLeft="small" aria-hidden>
+                        <Box display="flex" marginRight="-xsmall" marginLeft="xsmall" aria-hidden>
                             {startIcon}
                         </Box>
                     ) : null}
