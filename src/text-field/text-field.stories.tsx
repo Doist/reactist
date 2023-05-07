@@ -168,11 +168,16 @@ export function WithoutLabelStory() {
 
 export function IconStory() {
     return (
-        <Box maxWidth="small">
+        <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
             <TextField
-                label="Search"
+                label="Search (default variant)"
                 startIcon={<Icon />}
-                id="textfield-with-icon"
+                placeholder="Text field with an icon"
+            />
+            <TextField
+                variant="bordered"
+                label="Search (bordered variant)"
+                startIcon={<Icon />}
                 placeholder="Text field with an icon"
             />
         </Box>
