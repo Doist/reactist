@@ -5,7 +5,7 @@ import styles from './text-field.module.css'
 import type { FieldComponentProps } from '../base-field'
 import { useMergeRefs } from 'use-callback-ref'
 
-type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
+type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url' | 'password'
 
 type TextFieldProps = Omit<FieldComponentProps<HTMLInputElement>, 'type'> &
     BaseFieldVariantProps & {
