@@ -223,7 +223,7 @@ describe('TextField', () => {
     })
 
     it('supports rendering an icon which focuses on the input field on click', () => {
-        render(<TextField label="Whatʼs your job title?" startIcon={<div>💼</div>} />)
+        render(<TextField label="Whatʼs your job title?" startSlot={<div>💼</div>} />)
 
         const inputElement = screen.getByRole('textbox', { name: 'Whatʼs your job title?' })
         expect(inputElement).not.toHaveFocus()

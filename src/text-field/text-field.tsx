@@ -10,7 +10,7 @@ type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 type TextFieldProps = Omit<FieldComponentProps<HTMLInputElement>, 'type'> &
     BaseFieldVariantProps & {
         type?: TextFieldType
-        startIcon?: React.ReactChild
+        startSlot?: React.ReactChild
     }
 
 const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
@@ -27,7 +27,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         maxWidth,
         hidden,
         'aria-describedby': ariaDescribedBy,
-        startIcon,
+        startSlot,
         ...props
     },
     ref,
@@ -66,14 +66,14 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                     ]}
                     onClick={handleClick}
                 >
-                    {startIcon ? (
+                    {startSlot ? (
                         <Box
                             display="flex"
                             marginRight={variant === 'bordered' ? 'xsmall' : '-xsmall'}
                             marginLeft={variant === 'bordered' ? '-xsmall' : 'xsmall'}
                             aria-hidden
                         >
-                            {startIcon}
+                            {startSlot}
                         </Box>
                     ) : null}
                     <input {...props} {...extraProps} type={type} ref={combinedRef} />

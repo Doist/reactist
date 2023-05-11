@@ -34,9 +34,9 @@ function preventDefault(event: React.SyntheticEvent) {
 export function InteractivePropsStory({
     label,
     auxiliaryLabel,
-    startIcon = false,
+    startSlot = false,
     ...props
-}: Omit<PartialProps<typeof TextField>, 'startIcon'> & { startIcon?: boolean }) {
+}: Omit<PartialProps<typeof TextField>, 'startSlot'> & { startSlot?: boolean }) {
     return (
         <TextField
             {...props}
@@ -49,7 +49,7 @@ export function InteractivePropsStory({
                     </a>
                 ) : undefined
             }
-            startIcon={startIcon ? <Icon /> : undefined}
+            startSlot={startSlot ? <Icon /> : undefined}
         />
     )
 }
@@ -98,7 +98,7 @@ InteractivePropsStory.argTypes = {
         ['xsmall', 'small', 'medium', 'large', 'xlarge'],
         'small',
     ),
-    startIcon: {
+    startSlot: {
         control: { type: 'boolean' },
         defaultValue: false,
     },
@@ -171,13 +171,13 @@ export function IconStory() {
         <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
             <TextField
                 label="Search (default variant)"
-                startIcon={<Icon />}
+                startSlot={<Icon />}
                 placeholder="Text field with an icon"
             />
             <TextField
                 variant="bordered"
                 label="Search (bordered variant)"
-                startIcon={<Icon />}
+                startSlot={<Icon />}
                 placeholder="Text field with an icon"
             />
         </Box>
