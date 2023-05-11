@@ -2,6 +2,11 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# next
+
+-   [Fix] TextField's `startIcon` is now properly aligned when using variant="bordered".
+-   [Fix] TextField is now properly focused when clicking anywhere inside its bordered area.
+
 # v20.3.0
 
 -   [Feat] Toasts wrapped in `ToastsProvider` are now dismissed when their action `onClick` handler fires.

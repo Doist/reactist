@@ -35,8 +35,10 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
     const internalRef = React.useRef<HTMLInputElement>(null)
     const combinedRef = useMergeRefs([ref, internalRef])
 
-    function focusOnIconClick() {
-        internalRef.current?.focus()
+    function handleClick(event: React.MouseEvent) {
+        if (event.currentTarget !== combinedRef.current) {
+            internalRef.current?.focus()
+        }
     }
 
     return (
@@ -62,14 +64,13 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                         tone === 'error' ? styles.error : null,
                         variant === 'bordered' ? styles.bordered : null,
                     ]}
+                    onClick={handleClick}
                 >
                     {startIcon ? (
                         <Box
                             display="flex"
-                            className={styles.startIcon}
-                            onClick={focusOnIconClick}
-                            marginRight="-xsmall"
-                            marginLeft="small"
+                            marginRight={variant === 'bordered' ? 'xsmall' : '-xsmall'}
+                            marginLeft={variant === 'bordered' ? '-xsmall' : 'xsmall'}
                             aria-hidden
                         >
                             {startIcon}

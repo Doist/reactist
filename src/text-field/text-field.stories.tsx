@@ -16,6 +16,17 @@ export default {
     },
 }
 
+function Icon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+            <path
+                d="M10.5 3a7.5 7.5 0 015.645 12.438l4.709 4.708a.502.502 0 01-.708.708l-4.708-4.709A7.5 7.5 0 1110.5 3zm0 1a6.5 6.5 0 100 13 6.5 6.5 0 000-13z"
+                fill="currentColor"
+            />
+        </svg>
+    )
+}
+
 function preventDefault(event: React.SyntheticEvent) {
     event.preventDefault()
 }
@@ -23,8 +34,9 @@ function preventDefault(event: React.SyntheticEvent) {
 export function InteractivePropsStory({
     label,
     auxiliaryLabel,
+    startIcon = false,
     ...props
-}: PartialProps<typeof TextField>) {
+}: Omit<PartialProps<typeof TextField>, 'startIcon'> & { startIcon?: boolean }) {
     return (
         <TextField
             {...props}
@@ -37,6 +49,7 @@ export function InteractivePropsStory({
                     </a>
                 ) : undefined
             }
+            startIcon={startIcon ? <Icon /> : undefined}
         />
     )
 }
@@ -85,6 +98,10 @@ InteractivePropsStory.argTypes = {
         ['xsmall', 'small', 'medium', 'large', 'xlarge'],
         'small',
     ),
+    startIcon: {
+        control: { type: 'boolean' },
+        defaultValue: false,
+    },
 }
 
 export function MessageToneStory() {
@@ -149,24 +166,18 @@ export function WithoutLabelStory() {
     )
 }
 
-function Icon() {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-            <path
-                d="M10.5 3a7.5 7.5 0 015.645 12.438l4.709 4.708a.502.502 0 01-.708.708l-4.708-4.709A7.5 7.5 0 1110.5 3zm0 1a6.5 6.5 0 100 13 6.5 6.5 0 000-13z"
-                fill="currentColor"
-            />
-        </svg>
-    )
-}
-
 export function IconStory() {
     return (
-        <Box maxWidth="small">
+        <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
             <TextField
-                label="Search"
+                label="Search (default variant)"
                 startIcon={<Icon />}
-                id="textfield-with-icon"
+                placeholder="Text field with an icon"
+            />
+            <TextField
+                variant="bordered"
+                label="Search (bordered variant)"
+                startIcon={<Icon />}
                 placeholder="Text field with an icon"
             />
         </Box>
