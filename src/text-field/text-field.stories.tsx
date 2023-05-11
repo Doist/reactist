@@ -204,21 +204,35 @@ function ClearButtonIcon() {
     )
 }
 
-export function ActionButtonStory() {
+function ClearButtonExample({ slot }: { slot: 'startSlot' | 'endSlot' }) {
     const [value, setValue] = React.useState('')
+
+    const clearButton = (
+        <Button
+            variant="quaternary"
+            icon={<ClearButtonIcon />}
+            aria-label="Clear search"
+            onClick={() => setValue('')}
+        />
+    )
+
     return (
         <TextField
             label="Search"
+            secondaryLabel={`${slot}={…}`}
             value={value}
             onChange={(event) => setValue(event.currentTarget.value)}
-            startSlot={
-                <Button
-                    variant="quaternary"
-                    icon={<ClearButtonIcon />}
-                    aria-label="Clear search"
-                    onClick={() => setValue('')}
-                />
-            }
+            startSlot={slot === 'startSlot' ? clearButton : undefined}
+            endSlot={slot === 'endSlot' ? clearButton : undefined}
         />
+    )
+}
+
+export function ActionButtonStory() {
+    return (
+        <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
+            <ClearButtonExample slot="startSlot" />
+            <ClearButtonExample slot="endSlot" />
+        </Box>
     )
 }

@@ -65,6 +65,6 @@
     padding: var(--tmp-vertical-padding) var(--reactist-spacing-small);
 }
 
-.startSlot button {
+.slot button {
     --reactist-btn-height: 24px !important;
 }

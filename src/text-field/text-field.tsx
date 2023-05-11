@@ -11,6 +11,7 @@ type TextFieldProps = Omit<FieldComponentProps<HTMLInputElement>, 'type'> &
     BaseFieldVariantProps & {
         type?: TextFieldType
         startSlot?: React.ReactChild
+        endSlot?: React.ReactChild
     }
 
 const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
@@ -28,6 +29,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         hidden,
         'aria-describedby': ariaDescribedBy,
         startSlot,
+        endSlot,
         ...props
     },
     ref,
@@ -67,7 +69,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                 >
                     {startSlot ? (
                         <Box
-                            className={styles.startSlot}
+                            className={styles.slot}
                             display="flex"
                             marginRight={variant === 'bordered' ? 'xsmall' : '-xsmall'}
                             marginLeft={variant === 'bordered' ? '-xsmall' : 'xsmall'}
@@ -76,6 +78,16 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                         </Box>
                     ) : null}
                     <input {...props} {...extraProps} type={type} ref={combinedRef} />
+                    {endSlot ? (
+                        <Box
+                            className={styles.slot}
+                            display="flex"
+                            marginRight={variant === 'bordered' ? '-xsmall' : 'xsmall'}
+                            marginLeft={variant === 'bordered' ? 'xsmall' : '-xsmall'}
+                        >
+                            {endSlot}
+                        </Box>
+                    ) : null}
                 </Box>
             )}
         </BaseField>
