@@ -204,6 +204,10 @@ function ClearButtonIcon() {
     )
 }
 
+IconStory.parameters = {
+    chromatic: { disableSnapshot: false },
+}
+
 function ClearButtonExample({ slot }: { slot: 'startSlot' | 'endSlot' }) {
     const [value, setValue] = React.useState('')
 
@@ -235,4 +239,8 @@ export function ActionButtonStory() {
             <ClearButtonExample slot="endSlot" />
         </Box>
     )
+}
+
+ActionButtonStory.parameters = {
+    chromatic: { disableSnapshot: false },
 }
