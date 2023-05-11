@@ -4,8 +4,11 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # next
 
--   [Fix] TextField's `startIcon` is now properly aligned when using variant="bordered".
--   [Fix] TextField is now properly focused when clicking anywhere inside its bordered area.
+-   [BREAKING] `TextField`'s `startIcon` property is now renamed `startSlot`.
+-   [Feat] New `startSlot` and `endSlot` props on the `TextField` component. These support rendering not only icons, but buttons too.
+-   [Fix] `TextField`'s `startSlot` is now properly aligned when using `variant="bordered"`.
+-   [Fix] `TextField` is now properly focused when clicking anywhere inside its bordered area.
+-   [Tweak] `PasswordField`'s toggle visibility button is now implemented by using the `TextField`'s `endSlot` feature.
 
 # v20.3.0
 
