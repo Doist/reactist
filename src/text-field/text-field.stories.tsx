@@ -7,6 +7,7 @@ import { Text } from '../text'
 import { TextField } from './'
 
 import type { BoxMaxWidth } from '../box'
+import { Button } from '../button'
 
 export default {
     title: 'Design system/TextField',
@@ -181,5 +182,43 @@ export function IconStory() {
                 placeholder="Text field with an icon"
             />
         </Box>
+    )
+}
+
+function ClearButtonIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g fill="none" fillRule="evenodd">
+                <g fill="currentColor" fillRule="nonzero">
+                    <g>
+                        <g>
+                            <path
+                                d="M8.854 8.146L12 11.293l3.146-3.147c.196-.195.512-.195.708 0 .195.196.195.512 0 .708L12.707 12l3.147 3.146c.195.196.195.512 0 .708-.196.195-.512.195-.708 0L12 12.707l-3.146 3.147c-.196.195-.512.195-.708 0-.195-.196-.195-.512 0-.708L11.293 12 8.146 8.854c-.195-.196-.195-.512 0-.708.196-.195.512-.195.708 0z"
+                                transform="translate(-378 -86) translate(342 50) translate(36 36)"
+                            />
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg>
+    )
+}
+
+export function ActionButtonStory() {
+    const [value, setValue] = React.useState('')
+    return (
+        <TextField
+            label="Search"
+            value={value}
+            onChange={(event) => setValue(event.currentTarget.value)}
+            startSlot={
+                <Button
+                    variant="quaternary"
+                    icon={<ClearButtonIcon />}
+                    aria-label="Clear search"
+                    onClick={() => setValue('')}
+                />
+            }
+        />
     )
 }

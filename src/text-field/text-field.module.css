@@ -64,3 +64,7 @@
 .inputWrapper:not(.bordered) input {
     padding: var(--tmp-vertical-padding) var(--reactist-spacing-small);
 }
+
+.startSlot button {
+    --reactist-btn-height: 24px !important;
+}

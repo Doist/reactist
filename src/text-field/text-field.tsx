@@ -36,9 +36,8 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
     const combinedRef = useMergeRefs([ref, internalRef])
 
     function handleClick(event: React.MouseEvent) {
-        if (event.currentTarget !== combinedRef.current) {
-            internalRef.current?.focus()
-        }
+        if (event.currentTarget === combinedRef.current) return
+        internalRef.current?.focus()
     }
 
     return (
@@ -68,10 +67,10 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                 >
                     {startSlot ? (
                         <Box
+                            className={styles.startSlot}
                             display="flex"
                             marginRight={variant === 'bordered' ? 'xsmall' : '-xsmall'}
                             marginLeft={variant === 'bordered' ? '-xsmall' : 'xsmall'}
-                            aria-hidden
                         >
                             {startSlot}
                         </Box>
