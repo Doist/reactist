@@ -23,6 +23,7 @@ const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(fun
         <TextField
             {...props}
             ref={ref}
+            // @ts-expect-error TextField does not support type="password", so we override the type check here
             type={isPasswordVisible ? 'text' : 'password'}
             endSlot={
                 <Button
