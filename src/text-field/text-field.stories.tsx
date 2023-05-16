@@ -7,6 +7,7 @@ import { Text } from '../text'
 import { TextField } from './'
 
 import type { BoxMaxWidth } from '../box'
+import { Button } from '../button'
 
 export default {
     title: 'Design system/TextField',
@@ -34,9 +35,9 @@ function preventDefault(event: React.SyntheticEvent) {
 export function InteractivePropsStory({
     label,
     auxiliaryLabel,
-    startIcon = false,
+    startSlot = false,
     ...props
-}: Omit<PartialProps<typeof TextField>, 'startIcon'> & { startIcon?: boolean }) {
+}: Omit<PartialProps<typeof TextField>, 'startSlot'> & { startSlot?: boolean }) {
     return (
         <TextField
             {...props}
@@ -49,7 +50,7 @@ export function InteractivePropsStory({
                     </a>
                 ) : undefined
             }
-            startIcon={startIcon ? <Icon /> : undefined}
+            startSlot={startSlot ? <Icon /> : undefined}
         />
     )
 }
@@ -98,7 +99,7 @@ InteractivePropsStory.argTypes = {
         ['xsmall', 'small', 'medium', 'large', 'xlarge'],
         'small',
     ),
-    startIcon: {
+    startSlot: {
         control: { type: 'boolean' },
         defaultValue: false,
     },
@@ -171,15 +172,75 @@ export function IconStory() {
         <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
             <TextField
                 label="Search (default variant)"
-                startIcon={<Icon />}
+                startSlot={<Icon />}
                 placeholder="Text field with an icon"
             />
             <TextField
                 variant="bordered"
                 label="Search (bordered variant)"
-                startIcon={<Icon />}
+                startSlot={<Icon />}
                 placeholder="Text field with an icon"
             />
         </Box>
     )
+}
+
+function ClearButtonIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g fill="none" fillRule="evenodd">
+                <g fill="currentColor" fillRule="nonzero">
+                    <g>
+                        <g>
+                            <path
+                                d="M8.854 8.146L12 11.293l3.146-3.147c.196-.195.512-.195.708 0 .195.196.195.512 0 .708L12.707 12l3.147 3.146c.195.196.195.512 0 .708-.196.195-.512.195-.708 0L12 12.707l-3.146 3.147c-.196.195-.512.195-.708 0-.195-.196-.195-.512 0-.708L11.293 12 8.146 8.854c-.195-.196-.195-.512 0-.708.196-.195.512-.195.708 0z"
+                                transform="translate(-378 -86) translate(342 50) translate(36 36)"
+                            />
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg>
+    )
+}
+
+IconStory.parameters = {
+    chromatic: { disableSnapshot: false },
+}
+
+function ClearButtonExample({ slot }: { slot: 'startSlot' | 'endSlot' }) {
+    const [value, setValue] = React.useState('')
+
+    const clearButton = (
+        <Button
+            variant="quaternary"
+            icon={<ClearButtonIcon />}
+            aria-label="Clear search"
+            onClick={() => setValue('')}
+        />
+    )
+
+    return (
+        <TextField
+            label="Search"
+            secondaryLabel={`${slot}={…}`}
+            value={value}
+            onChange={(event) => setValue(event.currentTarget.value)}
+            startSlot={slot === 'startSlot' ? clearButton : undefined}
+            endSlot={slot === 'endSlot' ? clearButton : undefined}
+        />
+    )
+}
+
+export function ActionButtonStory() {
+    return (
+        <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
+            <ClearButtonExample slot="startSlot" />
+            <ClearButtonExample slot="endSlot" />
+        </Box>
+    )
+}
+
+ActionButtonStory.parameters = {
+    chromatic: { disableSnapshot: false },
 }

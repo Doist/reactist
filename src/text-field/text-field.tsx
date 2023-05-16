@@ -10,7 +10,8 @@ type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 type TextFieldProps = Omit<FieldComponentProps<HTMLInputElement>, 'type'> &
     BaseFieldVariantProps & {
         type?: TextFieldType
-        startIcon?: React.ReactChild
+        startSlot?: React.ReactChild
+        endSlot?: React.ReactChild
     }
 
 const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
@@ -27,7 +28,8 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         maxWidth,
         hidden,
         'aria-describedby': ariaDescribedBy,
-        startIcon,
+        startSlot,
+        endSlot,
         ...props
     },
     ref,
@@ -36,9 +38,8 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
     const combinedRef = useMergeRefs([ref, internalRef])
 
     function handleClick(event: React.MouseEvent) {
-        if (event.currentTarget !== combinedRef.current) {
-            internalRef.current?.focus()
-        }
+        if (event.currentTarget === combinedRef.current) return
+        internalRef.current?.focus()
     }
 
     return (
@@ -66,17 +67,27 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                     ]}
                     onClick={handleClick}
                 >
-                    {startIcon ? (
+                    {startSlot ? (
                         <Box
+                            className={styles.slot}
                             display="flex"
                             marginRight={variant === 'bordered' ? 'xsmall' : '-xsmall'}
                             marginLeft={variant === 'bordered' ? '-xsmall' : 'xsmall'}
-                            aria-hidden
                         >
-                            {startIcon}
+                            {startSlot}
                         </Box>
                     ) : null}
                     <input {...props} {...extraProps} type={type} ref={combinedRef} />
+                    {endSlot ? (
+                        <Box
+                            className={styles.slot}
+                            display="flex"
+                            marginRight={variant === 'bordered' ? '-xsmall' : 'xsmall'}
+                            marginLeft={variant === 'bordered' ? 'xsmall' : '-xsmall'}
+                        >
+                            {endSlot}
+                        </Box>
+                    ) : null}
                 </Box>
             )}
         </BaseField>

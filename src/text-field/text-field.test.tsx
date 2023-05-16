@@ -222,13 +222,28 @@ describe('TextField', () => {
         expect(screen.getByTestId('value')).toHaveTextContent('Software developer')
     })
 
-    it('supports rendering an icon which focuses on the input field on click', () => {
-        render(<TextField label="Whatʼs your job title?" startIcon={<div>💼</div>} />)
+    it('focuses on the text field when clicking on an icon in startSlot', () => {
+        render(<TextField label="Whatʼs your job title?" startSlot={<div>💼</div>} />)
 
         const inputElement = screen.getByRole('textbox', { name: 'Whatʼs your job title?' })
         expect(inputElement).not.toHaveFocus()
 
         userEvent.click(screen.getByText('💼'))
+        expect(inputElement).toHaveFocus()
+    })
+
+    it('focuses on the text field when clicking on a button in startSlot', () => {
+        render(
+            <TextField
+                label="Whatʼs your job title?"
+                startSlot={<button type="button">x</button>}
+            />,
+        )
+
+        const inputElement = screen.getByRole('textbox', { name: 'Whatʼs your job title?' })
+        expect(inputElement).not.toHaveFocus()
+
+        userEvent.click(screen.getByRole('button', { name: 'x' }))
         expect(inputElement).toHaveFocus()
     })
 
