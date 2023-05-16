@@ -2,7 +2,7 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-# next
+# v21.0.0
 
 -   [BREAKING] `TextField`'s `startIcon` property is now renamed `startSlot`.
 -   [Feat] New `startSlot` and `endSlot` props on the `TextField` component. These support rendering not only icons, but buttons too.
