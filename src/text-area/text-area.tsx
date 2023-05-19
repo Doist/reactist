@@ -51,14 +51,25 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
     React.useEffect(
         function setupAutoExpand() {
             const containerElement = containerRef.current
-            function handleInput(event: Event) {
+
+            function handleAutoExpand(value: string) {
                 if (containerElement) {
-                    containerElement.dataset.replicatedValue = (event.currentTarget as HTMLTextAreaElement).value
+                    containerElement.dataset.replicatedValue = value
                 }
             }
 
+            function handleInput(event: Event) {
+                handleAutoExpand((event.currentTarget as HTMLTextAreaElement).value)
+            }
+
             const textAreaElement = internalRef.current
-            if (!textAreaElement || !autoExpand) return undefined
+            if (!textAreaElement || !autoExpand) {
+                return undefined
+            }
+
+            // Apply change initially, in case the text area has a non-empty initial value
+            handleAutoExpand(textAreaElement.value)
+
             textAreaElement.addEventListener('input', handleInput)
             return () => textAreaElement.removeEventListener('input', handleInput)
         },
