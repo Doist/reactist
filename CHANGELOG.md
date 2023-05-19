@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# next
+
+-   [Fix] `TextArea` with `autoExpand={true}` applies it initially, acknowledging any initial value that the field may have.
+
 # v21.0.0
 
 -   [BREAKING] `TextField`'s `startIcon` property is now renamed `startSlot`.

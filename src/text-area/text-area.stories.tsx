@@ -200,3 +200,40 @@ AutoExpandStory.argTypes = {
         'small',
     ),
 }
+
+export function AutoExpandWithInitialValueStory(props: PartialProps<typeof TextArea>) {
+    const initialValue =
+        'This is some text that takes up multiple lines. It should cause the textarea to render initially as large as needed to fit this text, even if its initial rows are not enough.'
+    const [value, setValue] = React.useState(initialValue)
+
+    return (
+        <Stack space="xxlarge" dividers="secondary" maxWidth="medium">
+            <TextArea
+                {...props}
+                label="What do you want to accomplish?"
+                secondaryLabel="controlled"
+                auxiliaryLabel={
+                    <Text tone="secondary" size="caption">
+                        {value.length}
+                    </Text>
+                }
+                hint="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                rows={1}
+                autoExpand
+            />
+            <TextArea
+                {...props}
+                label="What do you want to accomplish?"
+                secondaryLabel="with defaultValue"
+                hint="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
+                defaultValue={initialValue}
+                rows={1}
+                autoExpand
+            />
+        </Stack>
+    )
+}
+
+AutoExpandWithInitialValueStory.argTypes = AutoExpandStory.argTypes
