@@ -41,7 +41,7 @@ jobs:
                   node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
                   registry-url: https://npm.pkg.github.com/
                   scope: '@doist'
-            - run: npm publish
+            - run: npm publish --provenance
               env:
                   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
