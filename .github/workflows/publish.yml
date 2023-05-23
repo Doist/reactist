@@ -5,6 +5,10 @@ on:
         types: [created]
     workflow_dispatch:
 
+permissions:
+    # Enable the use of OIDC for npm provenance
+    id-token: write
+
 jobs:
     publish:
         runs-on: ubuntu-latest
