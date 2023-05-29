@@ -5,6 +5,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 # next
 
 -   [Fix] `TextArea` with `autoExpand={true}` applies it initially, acknowledging any initial value that the field may have.
+-   [Fix] Avoid tooltip re-creating the anchor element when the tooltip content switches being present or not.
 
 # v21.0.0
 

@@ -8,6 +8,7 @@ import { TextField } from './'
 
 import type { BoxMaxWidth } from '../box'
 import { Button } from '../button'
+import { Tooltip } from '../tooltip'
 
 export default {
     title: 'Design system/TextField',
@@ -243,4 +244,41 @@ export function ActionButtonStory() {
 
 ActionButtonStory.parameters = {
     chromatic: { disableSnapshot: false },
+}
+
+export function WithTooltipStory() {
+    const [value, setValue] = React.useState('')
+    const isValidNumber = /^\s*(\d{1,3})?\s*$/.test(value)
+
+    return (
+        <Box display="flex" flexDirection="column" gap="xlarge">
+            <Box display="flex" flexDirection="column" gap="small">
+                <Text>
+                    As an alternative to the <code>`message`</code> prop, you can also use tooltips
+                    to associate a description to a text field.{' '}
+                    <strong>This is not recommended in general</strong>, because the description
+                    will not be visible unless you’re hovering or focusing on the field.
+                </Text>
+                <Text>
+                    However, it can work in a situation like the following: the description is only
+                    needed to convey that the value being typed is invalid, and at the same time,
+                    the field forces the value back to valid when blurred. Hence, the description is
+                    never needed when the field is not focused anyway.
+                </Text>
+            </Box>
+            <Tooltip content={isValidNumber ? null : 'Invalid age'} position="top-end">
+                <TextField
+                    label="What’s your age?"
+                    value={value}
+                    onChange={(event) => setValue(event.currentTarget.value)}
+                    tone={isValidNumber ? 'neutral' : 'error'}
+                    hint="This field acceps only numeric inputs. Try typing valid and invalid values to see how it behaves."
+                    maxWidth="small"
+                    onBlur={() => {
+                        setValue(isValidNumber ? value.trim() : '')
+                    }}
+                />
+            </Tooltip>
+        </Box>
+    )
 }

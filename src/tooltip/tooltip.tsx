@@ -107,7 +107,7 @@ function Tooltip({
         children as React.FunctionComponentElement<JSX.IntrinsicElements['div']> | null,
     )
 
-    if (!content || !child) {
+    if (!child) {
         return child
     }
 
@@ -157,7 +157,7 @@ function Tooltip({
                     })
                 }}
             </TooltipAnchor>
-            {state.open ? (
+            {state.open && content ? (
                 <Box
                     as={AriakitTooltip}
                     state={state}
