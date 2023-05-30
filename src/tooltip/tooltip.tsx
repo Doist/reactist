@@ -1,18 +1,14 @@
 import * as React from 'react'
 
 import {
-    useTooltipState as useAriakitTooltipState,
+    useTooltipStore,
     Tooltip as AriakitTooltip,
     TooltipAnchor,
     TooltipArrow,
-} from 'ariakit/tooltip'
+} from '@ariakit/react'
 import { Box } from '../box'
 
-import type {
-    TooltipStateProps as AriakitTooltipStateProps,
-    TooltipAnchorProps,
-} from 'ariakit/tooltip'
-import type { PopoverState } from 'ariakit/popover'
+import type { TooltipStoreState } from '@ariakit/react'
 
 import styles from './tooltip.module.css'
 
@@ -55,7 +51,7 @@ type TooltipProps = {
      *
      * @default 'top'
      */
-    position?: PopoverState['placement']
+    position?: TooltipStoreState['placement']
 
     /**
      * The separation (in pixels) between the trigger element and the tooltip.
@@ -76,23 +72,6 @@ type TooltipProps = {
     exceptionallySetClassName?: string
 }
 
-// These are exported to be used in the tests, they are not meant to be exported publicly
-export const SHOW_DELAY = 1000
-export const HIDE_DELAY = 100
-
-function useDelayedTooltipState(initialState: AriakitTooltipStateProps) {
-    const tooltipState = useAriakitTooltipState(initialState)
-    const delay = useDelay()
-    return React.useMemo(
-        () => ({
-            ...tooltipState,
-            show: delay(() => tooltipState.show(), SHOW_DELAY),
-            hide: delay(() => tooltipState.hide(), HIDE_DELAY),
-        }),
-        [delay, tooltipState],
-    )
-}
-
 function Tooltip({
     children,
     content,
@@ -101,7 +80,8 @@ function Tooltip({
     withArrow = false,
     exceptionallySetClassName,
 }: TooltipProps) {
-    const state = useDelayedTooltipState({ placement: position, gutter: gapSize })
+    const tooltip = useTooltipStore({ placement: position, showTimeout: 500, hideTimeout: 100 })
+    const isOpen = tooltip.useState('open')
 
     const child = React.Children.only(
         children as React.FunctionComponentElement<JSX.IntrinsicElements['div']> | null,
@@ -129,7 +109,7 @@ function Tooltip({
         function handleKeyUp(event: Event) {
             const eventKey = (event as KeyboardEvent).key
             if (eventKey !== 'Escape' && eventKey !== 'Enter' && eventKey !== 'Space') {
-                state.show()
+                tooltip.show()
             }
         }
         event.currentTarget.addEventListener('keyup', handleKeyUp, { once: true })
@@ -138,29 +118,32 @@ function Tooltip({
     }
 
     function handleBlur(event: React.FocusEvent<HTMLDivElement>) {
-        state.hide()
+        tooltip.hide()
         child?.props?.onBlur?.(event)
     }
 
     return (
         <>
-            <TooltipAnchor state={state} ref={child.ref} described>
-                {(anchorProps: TooltipAnchorProps) => {
+            <TooltipAnchor
+                render={(anchorProps) => {
                     // Let child props override anchor props so user can specify attributes like tabIndex
                     // Also, do not apply the child's props to TooltipAnchor as props like `as` can create problems
                     // by applying the replacement component/element twice
                     return React.cloneElement(child, {
-                        ...anchorProps,
                         ...child.props,
+                        ...anchorProps,
                         onFocus: handleFocus,
                         onBlur: handleBlur,
                     })
                 }}
-            </TooltipAnchor>
-            {state.open && content ? (
+                store={tooltip}
+                ref={child.ref}
+            />
+            {isOpen && content ? (
                 <Box
                     as={AriakitTooltip}
-                    state={state}
+                    gutter={gapSize}
+                    store={tooltip}
                     className={[styles.tooltip, exceptionallySetClassName]}
                     background="toast"
                     borderRadius="standard"
@@ -181,40 +164,3 @@ function Tooltip({
 
 export type { TooltipProps }
 export { Tooltip }
-
-//
-// Internal helpers
-//
-
-/**
- * Returns a function offering the same interface as setTimeout, but cleans up on unmount.
- *
- * The timeout state is shared, and only one delayed function can be active at any given time. If
- * a new delayed function is called while another one was waiting for its time to run, that older
- * invocation is cleared and it never runs.
- *
- * This is suitable for our use case here, but probably not the most intuitive thing in general.
- * That's why this is not made a shared util or something like it.
- */
-function useDelay() {
-    const timeoutRef = React.useRef<ReturnType<typeof setTimeout>>()
-
-    const clearTimeouts = React.useCallback(function clearTimeouts() {
-        if (timeoutRef.current != null) {
-            clearTimeout(timeoutRef.current)
-        }
-    }, [])
-
-    // Runs clearTimeouts when the component is unmounted
-    React.useEffect(() => clearTimeouts, [clearTimeouts])
-
-    return React.useCallback(
-        function delay(fn: () => void, delay: number) {
-            return () => {
-                clearTimeouts()
-                timeoutRef.current = setTimeout(fn, delay)
-            }
-        },
-        [clearTimeouts],
-    )
-}
