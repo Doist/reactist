@@ -1,5 +1,5 @@
 import React from 'react'
-import { Portal } from 'ariakit/portal'
+import { Portal } from '@ariakit/react'
 
 import { generateElementId } from '../utils/common-helpers'
 import { Box } from '../box'
