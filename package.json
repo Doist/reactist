@@ -144,11 +144,9 @@
         "webpack": "^4.43.0"
     },
     "dependencies": {
+        "@ariakit/react": "^0.2.3",
         "@reach/dialog": "^0.16.0",
         "aria-hidden": "^1.2.1",
-        "ariakit": "2.0.0-next.43",
-        "ariakit-react-utils": "0.17.0-next.27",
-        "ariakit-utils": "0.17.0-next.27",
         "dayjs": "^1.8.10",
         "patch-package": "^6.4.6",
         "react-focus-lock": "^2.9.1",
