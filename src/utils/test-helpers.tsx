@@ -38,8 +38,19 @@ function runSpaceTests<Props extends PropsWithSpace>(Component: React.ComponentT
     })
 }
 
-async function flushPromises() {
-    await act(() => Promise.resolve())
+/**
+ * Solves some issues with unwanted warnings in tests of ariakit components due to its internal
+ * usage of the event queue for asynchronous side-effects.
+ *
+ * Think of it as a special version of `act` that we need to call to make sure some async (but
+ * immediate) actions are taken care of. Mostly around the ariakit popover and combobox elements'
+ * state management.
+ *
+ * @see https://twitter.com/diegohaz/status/1560525455383461888
+ * @see https://github.com/ariakit/ariakit/issues/1800#issuecomment-1227862399
+ */
+function flushMicrotasks() {
+    return act(() => Promise.resolve())
 }
 
 function TestIcon() {
@@ -62,4 +73,4 @@ function TestIcon() {
     )
 }
 
-export { runSpaceTests, flushPromises, TestIcon }
+export { runSpaceTests, flushMicrotasks, TestIcon }
