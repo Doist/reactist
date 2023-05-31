@@ -3,8 +3,7 @@ import classNames from 'classnames'
 import FocusLock from 'react-focus-lock'
 import { hideOthers } from 'aria-hidden'
 
-import { Dialog, DialogOptions, useDialogState } from 'ariakit/dialog'
-import { Portal, PortalOptions } from 'ariakit/portal'
+import { Dialog, DialogOptions, useDialogStore, Portal, PortalOptions } from '@ariakit/react'
 
 import { CloseIcon } from '../icons/close-icon'
 import { Column, Columns } from '../columns'
@@ -158,7 +157,7 @@ export function Modal({
         },
         [onDismiss],
     )
-    const state = useDialogState({ open: isOpen, setOpen })
+    const store = useDialogStore({ open: isOpen, setOpen })
 
     const contextValue: ModalContextValue = React.useMemo(() => ({ onDismiss, height }), [
         onDismiss,
@@ -223,7 +222,7 @@ export function Modal({
                         {...props}
                         ref={dialogRef}
                         as={Box}
-                        state={state}
+                        store={store}
                         hideOnEscape={hideOnEscape}
                         preventBodyScroll
                         borderRadius="full"
