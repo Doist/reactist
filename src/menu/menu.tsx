@@ -13,17 +13,28 @@ import { polymorphicComponent } from '../utils/polymorphism'
 // menu to Reactist's more opinionated approach (e.g. using our button with its custom variants and
 // other features, easily show keyboard shortcuts in menu items, etc.)
 //
-import * as Ariakit from 'ariakit/menu'
-import { Portal } from 'ariakit/portal'
+import {
+    Portal,
+    MenuStore,
+    MenuStoreProps,
+    useMenuStore,
+    MenuProps as AriakitMenuProps,
+    Menu as AriakitMenu,
+    MenuGroup as AriakitMenuGroup,
+    MenuItem as AriakitMenuItem,
+    MenuButton as AriakitMenuButton,
+    MenuButtonProps as AriakitMenuButtonProps,
+} from '@ariakit/react'
 
 import './menu.less'
 
 type NativeProps<E extends HTMLElement> = React.DetailedHTMLProps<React.HTMLAttributes<E>, E>
 
 type MenuContextState = {
-    state: Ariakit.MenuState
+    menuStore: MenuStore
     handleItemSelect: (value: string | null | undefined) => void
-    handleAnchorRectChange: (value: { x: number; y: number } | null) => void
+    getAnchorRect: (() => { x: number; y: number }) | null
+    setAnchorRect: (rect: { x: number; y: number } | null) => void
 }
 
 const MenuContext = React.createContext<MenuContextState>(
@@ -39,7 +50,7 @@ const MenuContext = React.createContext<MenuContextState>(
 // Menu
 //
 
-type MenuProps = Omit<Ariakit.MenuStateProps, 'visible'> & {
+type MenuProps = Omit<MenuStoreProps, 'visible'> & {
     /**
      * The `Menu` must contain a `MenuList` that defines the menu options. It must also contain a
      * `MenuButton` that triggers the menu to be opened or closed.
@@ -61,20 +72,9 @@ type MenuProps = Omit<Ariakit.MenuStateProps, 'visible'> & {
  * management for the menu components inside it.
  */
 function Menu({ children, onItemSelect, ...props }: MenuProps) {
-    const [anchorRect, handleAnchorRectChange] = React.useState<{ x: number; y: number } | null>(
-        null,
-    )
-    const getAnchorRect = React.useMemo(() => {
-        return anchorRect ? () => anchorRect : undefined
-    }, [anchorRect])
-
-    const state = Ariakit.useMenuState({
-        focusLoop: true,
-        gutter: 8,
-        shift: 4,
-        getAnchorRect,
-        ...props,
-    })
+    const [anchorRect, setAnchorRect] = React.useState<{ x: number; y: number } | null>(null)
+    const getAnchorRect = React.useMemo(() => (anchorRect ? () => anchorRect : null), [anchorRect])
+    const menuStore = useMenuStore({ focusLoop: true, ...props })
 
     React.useEffect(() => {
         if (!state.open) handleAnchorRectChange(null)
@@ -82,18 +82,14 @@ function Menu({ children, onItemSelect, ...props }: MenuProps) {
 
     const handleItemSelect = React.useCallback(
         function handleItemSelect(value: string | null | undefined) {
-            if (onItemSelect) onItemSelect(value)
+            onItemSelect?.(value)
         },
         [onItemSelect],
     )
 
     const value: MenuContextState = React.useMemo(
-        () => ({
-            state,
-            handleItemSelect,
-            handleAnchorRectChange,
-        }),
-        [state, handleItemSelect],
+        () => ({ menuStore, handleItemSelect, getAnchorRect, setAnchorRect }),
+        [menuStore, handleItemSelect, getAnchorRect, setAnchorRect],
     )
 
     return <MenuContext.Provider value={value}>{children}</MenuContext.Provider>
@@ -103,7 +99,7 @@ function Menu({ children, onItemSelect, ...props }: MenuProps) {
 // MenuButton
 //
 
-type MenuButtonProps = Omit<Ariakit.MenuButtonProps, 'state' | 'className' | 'as'>
+type MenuButtonProps = Omit<AriakitMenuButtonProps, 'store' | 'className' | 'as'>
 
 /**
  * A button to toggle a dropdown menu open or closed.
@@ -112,11 +108,11 @@ const MenuButton = polymorphicComponent<'button', MenuButtonProps>(function Menu
     { exceptionallySetClassName, ...props },
     ref,
 ) {
-    const { state } = React.useContext(MenuContext)
+    const { menuStore } = React.useContext(MenuContext)
     return (
-        <Ariakit.MenuButton
+        <AriakitMenuButton
             {...props}
-            state={state}
+            store={menuStore}
             ref={ref}
             className={classNames('reactist_menubutton', exceptionallySetClassName)}
         />
@@ -130,14 +126,15 @@ const ContextMenuTrigger = polymorphicComponent<'div', unknown>(function Context
     { as: component = 'div', ...props },
     ref,
 ) {
-    const { handleAnchorRectChange, state } = React.useContext(MenuContext)
+    const { setAnchorRect, menuStore } = React.useContext(MenuContext)
+
     const handleContextMenu = React.useCallback(
-        (event: React.MouseEvent) => {
+        function handleContextMenu(event: React.MouseEvent) {
             event.preventDefault()
-            handleAnchorRectChange({ x: event.clientX, y: event.clientY })
-            state.show()
+            setAnchorRect({ x: event.clientX, y: event.clientY })
+            menuStore.show()
         },
-        [handleAnchorRectChange, state],
+        [setAnchorRect, menuStore],
     )
 
     return React.createElement(component, { ...props, onContextMenu: handleContextMenu, ref })
@@ -147,7 +144,7 @@ const ContextMenuTrigger = polymorphicComponent<'div', unknown>(function Context
 // MenuList
 //
 
-type MenuListProps = Omit<Ariakit.MenuProps, 'state' | 'className'>
+type MenuListProps = Omit<AriakitMenuProps, 'store' | 'className'>
 
 /**
  * The dropdown menu itself, containing a list of menu items.
@@ -156,15 +153,19 @@ const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
     { exceptionallySetClassName, modal = true, ...props },
     ref,
 ) {
-    const { state } = React.useContext(MenuContext)
+    const { menuStore, getAnchorRect } = React.useContext(MenuContext)
+    const isOpen = menuStore.useState('open')
 
-    return state.open ? (
+    return isOpen ? (
         <Portal preserveTabOrder>
-            <Ariakit.Menu
+            <AriakitMenu
                 {...props}
-                state={state}
+                store={menuStore}
+                gutter={8}
+                shift={4}
                 ref={ref}
                 className={classNames('reactist_menulist', exceptionallySetClassName)}
+                getAnchorRect={getAnchorRect ?? undefined}
                 modal={modal}
             />
         </Portal>
@@ -243,8 +244,8 @@ const MenuItem = polymorphicComponent<'button', MenuItemProps>(function MenuItem
     },
     ref,
 ) {
-    const { handleItemSelect, state } = React.useContext(MenuContext)
-    const { hide } = state
+    const { handleItemSelect, menuStore } = React.useContext(MenuContext)
+    const { hide } = menuStore
 
     const handleClick = React.useCallback(
         function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
@@ -259,17 +260,17 @@ const MenuItem = polymorphicComponent<'button', MenuItemProps>(function MenuItem
     )
 
     return (
-        <Ariakit.MenuItem
+        <AriakitMenuItem
             {...props}
             as={as}
-            state={state}
+            store={menuStore}
             ref={ref}
             onClick={handleClick}
             className={exceptionallySetClassName}
             hideOnClick={false}
         >
             {children}
-        </Ariakit.MenuItem>
+        </AriakitMenuItem>
     )
 })
 
@@ -304,8 +305,8 @@ const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
     { children, onItemSelect },
     ref,
 ) {
-    const { handleItemSelect: parentMenuItemSelect, state } = React.useContext(MenuContext)
-    const { hide: parentMenuHide } = state
+    const { handleItemSelect: parentMenuItemSelect, menuStore } = React.useContext(MenuContext)
+    const { hide: parentMenuHide } = menuStore
 
     const handleSubItemSelect = React.useCallback(
         function handleSubItemSelect(value: string | null | undefined) {
@@ -329,9 +330,9 @@ const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
 
     return (
         <Menu onItemSelect={handleSubItemSelect}>
-            <Ariakit.MenuItem as="div" state={state} ref={ref} hideOnClick={false}>
+            <AriakitMenuItem as="div" store={menuStore} ref={ref} hideOnClick={false}>
                 {renderMenuButton}
-            </Ariakit.MenuItem>
+            </AriakitMenuItem>
             {list}
         </Menu>
     )
@@ -358,16 +359,21 @@ const MenuGroup = polymorphicComponent<'div', MenuGroupProps>(function MenuGroup
     { label, children, exceptionallySetClassName, ...props },
     ref,
 ) {
-    const { state } = React.useContext(MenuContext)
+    const { menuStore } = React.useContext(MenuContext)
     return (
-        <Ariakit.MenuGroup {...props} ref={ref} state={state} className={exceptionallySetClassName}>
+        <AriakitMenuGroup
+            {...props}
+            ref={ref}
+            store={menuStore}
+            className={exceptionallySetClassName}
+        >
             {label ? (
                 <div role="presentation" className="reactist_menugroup__label">
                     {label}
                 </div>
             ) : null}
             {children}
-        </Ariakit.MenuGroup>
+        </AriakitMenuGroup>
     )
 })
 
