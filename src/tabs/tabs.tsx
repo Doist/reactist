@@ -1,23 +1,22 @@
 import * as React from 'react'
 import classNames from 'classnames'
 import {
-    useTabState,
+    useTabStore,
     Tab as BaseTab,
     TabList as BaseTabList,
     TabPanel as BaseTabPanel,
-    TabState,
-} from 'ariakit/tab'
+    TabStore,
+} from '@ariakit/react'
 import { Inline } from '../inline'
-import { usePrevious } from '../hooks/use-previous'
 import { polymorphicComponent } from '../utils/polymorphism'
 import type { Space } from '../utils/common-types'
 
 import styles from './tabs.module.css'
 import { Box } from '../box'
 
-type TabsContextValue = {
-    tabState: TabState
-} & Required<Pick<TabsProps, 'variant'>>
+type TabsContextValue = Required<Pick<TabsProps, 'variant'>> & {
+    tabStore: TabStore
+}
 
 const TabsContext = React.createContext<TabsContextValue | null>(null)
 
@@ -54,34 +53,17 @@ function Tabs({
     variant = 'neutral',
     onSelectedIdChange,
 }: TabsProps): React.ReactElement {
-    const tabState = useTabState({ selectedId, setSelectedId: onSelectedIdChange })
-    const previousDefaultSelectedId = usePrevious(defaultSelectedId)
-    const { selectedId: actualSelectedId, select } = tabState
-
-    React.useEffect(
-        function selectDefaultTab() {
-            if (
-                !selectedId &&
-                defaultSelectedId !== previousDefaultSelectedId &&
-                defaultSelectedId !== actualSelectedId &&
-                defaultSelectedId !== undefined
-            ) {
-                select(defaultSelectedId)
-            }
-        },
-        [selectedId, defaultSelectedId, actualSelectedId, select, previousDefaultSelectedId],
-    )
+    const tabStore = useTabStore({
+        defaultSelectedId,
+        selectedId,
+        setSelectedId: onSelectedIdChange,
+    })
+    const actualSelectedId = tabStore.useState('selectedId')
 
     const memoizedTabState = React.useMemo(
-        function memoizeTabState() {
-            return {
-                tabState,
-                variant,
-            }
-        },
-        [variant, tabState],
+        () => ({ tabStore, variant, selectedId: selectedId ?? actualSelectedId ?? null }),
+        [variant, tabStore, selectedId, actualSelectedId],
     )
-
     return <TabsContext.Provider value={memoizedTabState}>{children}</TabsContext.Provider>
 }
 
@@ -101,22 +83,13 @@ const Tab = polymorphicComponent<'button', TabProps>(function Tab(
     ref,
 ): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
+    if (!tabContextValue) return null
 
-    if (!tabContextValue) {
-        return null
-    }
-
-    const { variant, tabState } = tabContextValue
+    const { variant, tabStore } = tabContextValue
+    const className = classNames(exceptionallySetClassName, styles.tab, styles[`tab-${variant}`])
 
     return (
-        <BaseTab
-            {...props}
-            as={as}
-            className={classNames(exceptionallySetClassName, styles.tab, styles[`tab-${variant}`])}
-            id={id}
-            state={tabState}
-            ref={ref}
-        >
+        <BaseTab {...props} as={as} className={className} id={id} store={tabStore} ref={ref}>
             {children}
         </BaseTab>
     )
@@ -166,14 +139,14 @@ function TabList({
         return null
     }
 
-    const { tabState, variant } = tabContextValue
+    const { tabStore, variant } = tabContextValue
 
     return (
         // The extra <Box> prevents <Inline>'s negative margins from collapsing when used in a flex container
         // which will render the track with the wrong height
         <Box>
             <BaseTabList
-                state={tabState}
+                store={tabStore}
                 as={Box}
                 position="relative"
                 width="maxContent"
@@ -194,15 +167,17 @@ type TabPanelProps = {
     id: string
 
     /**
-     * By default, the tab panel's content is always rendered even when they are not active. This behaviour can be changed to
-     * 'active', which renders only when the tab is active, and 'lazy', meaning while inactive tab panels will not be rendered
-     * initially, they will remain mounted once they are active until the entire Tabs tree is unmounted.
+     * By default, the tab panel's content is always rendered even when they are not active. This
+     * behaviour can be changed to 'active', which renders only when the tab is active, and 'lazy',
+     * meaning while inactive tab panels will not be rendered initially, they will remain mounted
+     * once they are active until the entire Tabs tree is unmounted.
      */
     render?: 'always' | 'active' | 'lazy'
 }
 
 /**
- * Used to define the content to be rendered when a tab is active. Each `<TabPanel>` must have a corresponding `<Tab>` component.
+ * Used to define the content to be rendered when a tab is active. Each `<TabPanel>` must have a
+ * corresponding `<Tab>` component.
  */
 const TabPanel = polymorphicComponent<'div', TabPanelProps, 'omitClassName'>(function TabPanel(
     { children, id, as, render = 'always', ...props },
@@ -210,7 +185,8 @@ const TabPanel = polymorphicComponent<'div', TabPanelProps, 'omitClassName'>(fun
 ): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
     const [tabRendered, setTabRendered] = React.useState(false)
-    const tabIsActive = tabContextValue?.tabState.selectedId === id
+    const selectedId = tabContextValue?.tabStore.useState('selectedId')
+    const tabIsActive = selectedId === id
 
     React.useEffect(
         function trackTabRenderedState() {
@@ -225,14 +201,14 @@ const TabPanel = polymorphicComponent<'div', TabPanelProps, 'omitClassName'>(fun
         return null
     }
 
-    const { tabState } = tabContextValue
+    const { tabStore } = tabContextValue
     const shouldRender =
         render === 'always' ||
         (render === 'active' && tabIsActive) ||
         (render === 'lazy' && (tabIsActive || tabRendered))
 
     return shouldRender ? (
-        <BaseTabPanel tabId={id} {...props} state={tabState} as={as} ref={ref}>
+        <BaseTabPanel {...props} tabId={id} store={tabStore} as={as} ref={ref}>
             {children}
         </BaseTabPanel>
     ) : null
@@ -240,19 +216,20 @@ const TabPanel = polymorphicComponent<'div', TabPanelProps, 'omitClassName'>(fun
 
 type TabAwareSlotProps = {
     /**
-     * Render prop used to provide the content to be rendered inside the slot. The render prop will be
-     * called with the current `selectedId`
+     * Render prop used to provide the content to be rendered inside the slot. The render prop will
+     * be called with the current `selectedId`
      */
     children: (provided: { selectedId?: string | null }) => React.ReactElement | null
 }
 
 /**
- * Allows content to be rendered based on the current tab being selected while outside of the TabPanel
- * component. Can be placed freely within the main `<Tabs>` component.
+ * Allows content to be rendered based on the current tab being selected while outside of the
+ * TabPanel component. Can be placed freely within the main `<Tabs>` component.
  */
 function TabAwareSlot({ children }: TabAwareSlotProps): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
-    return tabContextValue ? children({ selectedId: tabContextValue?.tabState.selectedId }) : null
+    const selectedId = tabContextValue?.tabStore.useState('selectedId')
+    return tabContextValue ? children({ selectedId }) : null
 }
 
 export { Tab, Tabs, TabList, TabPanel, TabAwareSlot }
