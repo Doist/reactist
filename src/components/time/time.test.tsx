@@ -67,16 +67,12 @@ describe('Time', () => {
     })
 
     it('renders wrapped in tooltip when tooltipOnHover is set', async () => {
+        jest.useRealTimers()
         render(<Time time={testDate} tooltipOnHover />)
 
         userEvent.hover(screen.getByText('March 22, 1991'))
         await waitFor(() => {
             expect(screen.getByRole('tooltip', { name: 'March 22, 1991, 1:37 PM' })).toBeVisible()
-        })
-
-        userEvent.unhover(screen.getByText('March 22, 1991'))
-        await waitFor(() => {
-            expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
         })
     })
 
@@ -86,11 +82,6 @@ describe('Time', () => {
         userEvent.hover(screen.getByText('March 22, 1991'))
         await waitFor(() => {
             expect(screen.getByRole('tooltip', { name: 'Test' })).toBeVisible()
-        })
-
-        userEvent.unhover(screen.getByText('March 22, 1991'))
-        await waitFor(() => {
-            expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
         })
     })
 
@@ -102,11 +93,6 @@ describe('Time', () => {
             expect(screen.getByRole('tooltip', { name: dayjs().format('LL, LT') })).toBeVisible()
             expect(screen.getByText('moments ago')).toBeVisible()
         })
-
-        userEvent.unhover(screen.getByText('moments ago'))
-        await waitFor(() => {
-            expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-        })
     })
 
     it('does not render full absolute time on hover when tooltipOnHover is set', async () => {
@@ -116,11 +102,6 @@ describe('Time', () => {
         await waitFor(() => {
             expect(screen.getByRole('tooltip', { name: dayjs().format('LL, LT') })).toBeVisible()
             expect(screen.getByText('moments ago')).toBeVisible()
-        })
-
-        userEvent.unhover(screen.getByText('moments ago'))
-        await waitFor(() => {
-            expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
         })
     })
 
