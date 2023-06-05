@@ -8,6 +8,9 @@ on:
 permissions:
     # Enable the use of OIDC for npm provenance
     id-token: write
+    # Enable the use of GitHub Packages registry
+    contents: read
+    packages: write
 
 jobs:
     publish:
