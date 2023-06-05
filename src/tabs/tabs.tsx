@@ -155,11 +155,7 @@ type TabListProps = (
 /**
  * A component used to group `<Tab>` elements together.
  */
-function TabList({
-    children,
-    space = 'xsmall',
-    ...props
-}: TabListProps): React.ReactElement | null {
+function TabList({ children, space, ...props }: TabListProps): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
 
     if (!tabContextValue) {
