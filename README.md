@@ -212,12 +212,6 @@ npm --no-git-tag-version version <major|minor|patch>
 
 [ref](https://docs.npmjs.com/cli/v6/commands/npm-version)
 
-6. Update all static build artifacts:
-
-```sh
-npm run build-all
-```
-
 Note that the steps above are also documented in the [PR template](.github/PULL_REQUEST_TEMPLATE.md) that you will be prompted with whenever you open a new reactist GitHub PR.
 
 ## After merging your changes
@@ -243,3 +237,5 @@ Once your changes have been merged to `main`, create a new GitHub release:
 9. Once the action is complete, check https://npmjs.com/package/@doist/reactist and verify that there's a new public release
 
 Finally, be sure to update both [todoist-web](https://github.com/Doist/todoist-web) and [twist-web](https://github.com/Doist/twist-web) to use the new reactist version you just published.
+
+The storybook hosted on GitHub pages will be automatically updated on each push to `main`. Should there be a problem, try running the action manually from the [Actions settings](https://github.com/Doist/reactist/actions).
