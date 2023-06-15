@@ -284,6 +284,41 @@ ModalWithScrollableTabPanels.parameters = {
 }
 
 //
+// Basic confirmation modal
+//
+
+export function BasicConfirmationModal() {
+    return (
+        <ModalStoryStateProvider>
+            <Box padding="large">
+                <Button variant="primary" action="open">
+                    Open modal
+                </Button>
+            </Box>
+            <Modal aria-label="Confirmation Modal" width="small" height="fitContent">
+                <ModalHeader button={<ModalComponents.ModalCloseButton aria-label="Close" />}>
+                    <Heading level={1} size="smaller">
+                        Are you sure?
+                    </Heading>
+                </ModalHeader>
+                <ModalBody>{"This action is permanent and can't be undone."}</ModalBody>
+                <ModalActions>
+                    <Button variant="secondary">Cancel</Button>
+                    <Button variant="primary">Confirm</Button>
+                </ModalActions>
+            </Modal>
+        </ModalStoryStateProvider>
+    )
+}
+
+BasicConfirmationModal.storyName = 'Basic confirmation modal'
+BasicConfirmationModal.play = openModal
+BasicConfirmationModal.parameters = {
+    docs: { source: { type: 'dynamic' } },
+    chromatic: { disableSnapshot: false, pauseAnimationAtEnd: true },
+}
+
+//
 // Minimalistic confirmation modal
 //
 
