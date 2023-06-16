@@ -245,7 +245,8 @@
 
 /* links */
 
-.prose a {
+.prose a,
+.prose a code {
     color: var(--reactist-prose-link-idle-tint);
     text-decoration-line: underline;
     text-decoration-style: solid;
@@ -254,7 +255,10 @@
 
 .prose a:hover,
 .prose a:focus,
-.prose a:active {
+.prose a:active,
+.prose a:hover code,
+.prose a:focus code,
+.prose a:active code {
     color: var(--reactist-prose-link-hover-tint);
     text-decoration-color: var(--reactist-prose-link-hover-underline);
 }
