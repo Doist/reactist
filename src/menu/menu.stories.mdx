@@ -7,6 +7,8 @@ import { Columns, Column } from '../columns'
 import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, MenuGroup, SubMenu } from '.'
 import { ButtonLink } from '../button-link'
 import { Text } from '../text'
+import { Box } from '../box'
+import { Avatar } from '../avatar'
 
 <Meta
     title="Design system/Menu"
@@ -45,6 +47,23 @@ export function ArrowRight() {
     )
 }
 
+export function LeaveIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+            <g fill="none" fillRule="evenodd">
+                <path
+                    stroke="currentColor"
+                    d="M6.5 8.3V5.63c0-1.17.9-2.13 2-2.13h7c1.1 0 2 .95 2 2.13v11.74c0 1.17-.9 2.13-2 2.13h-7c-1.1 0-2-.95-2-2.13V14.7"
+                />
+                <path
+                    fill="currentColor"
+                    d="M12.8 11l-2.15-2.15a.5.5 0 1 1 .7-.7L14 10.79a1 1 0 0 1 0 1.42l-2.65 2.64a.5.5 0 0 1-.7-.7L12.79 12H4.5a.5.5 0 0 1 0-1h8.3z"
+                />
+            </g>
+        </svg>
+    )
+}
+
 # Menu
 
 A set of components that provide the means to construct a menu that can be triggered
@@ -62,11 +81,11 @@ via an element or as a context menu.
                 Simple menu
             </MenuButton>
             <MenuList aria-label="Simple menu">
-                <MenuItem>Edit</MenuItem>
-                <MenuItem>Copy</MenuItem>
-                <MenuItem>Paste</MenuItem>
-                <MenuItem>Duplicate</MenuItem>
-                <MenuItem>Remove</MenuItem>
+                <MenuItem label="Edit" />
+                <MenuItem label="Copy" />
+                <MenuItem label="Paste" />
+                <MenuItem label="Duplicate" />
+                <MenuItem label="Remove" />
             </MenuList>
         </Menu>
     </Story>
@@ -88,11 +107,11 @@ The `tooltip` prop allows a tooltip to be shown over the menu button.
                 Focus on or hover over me
             </MenuButton>
             <MenuList aria-label="Tooltip menu">
-                <MenuItem>Edit</MenuItem>
-                <MenuItem>Copy</MenuItem>
-                <MenuItem>Paste</MenuItem>
-                <MenuItem>Duplicate</MenuItem>
-                <MenuItem>Remove</MenuItem>
+                <MenuItem label="Edit" />
+                <MenuItem label="Copy" />
+                <MenuItem label="Paste" />
+                <MenuItem label="Duplicate" />
+                <MenuItem label="Remove" />
             </MenuList>
         </Menu>
     </Story>
@@ -115,11 +134,11 @@ be changed by passing `modal={false}` to `<MenuList>`
                 Menu
             </MenuButton>
             <MenuList aria-label="Outside interaction menu" modal={false}>
-                <MenuItem>Edit</MenuItem>
-                <MenuItem>Copy</MenuItem>
-                <MenuItem>Paste</MenuItem>
-                <MenuItem>Duplicate</MenuItem>
-                <MenuItem>Remove</MenuItem>
+                <MenuItem label="Edit" />
+                <MenuItem label="Copy" />
+                <MenuItem label="Paste" />
+                <MenuItem label="Duplicate" />
+                <MenuItem label="Remove" />
             </MenuList>
         </Menu>
     </Story>
@@ -146,11 +165,10 @@ You may nest the `<SubMenu>` component within `<Menu>` to create submenus.
                     href="https://github.com/Doist/reactist"
                     target="_blank"
                     rel="noreferrer noopener"
-                >
-                    Reactist on Github
-                </MenuItem>
-                <MenuItem>About Reactist…</MenuItem>
-                <MenuItem>Check for updates…</MenuItem>
+                    label="Reactist on Github"
+                />
+                <MenuItem label="About Reactist…" />
+                <MenuItem label="Check for updates…" />
                 <hr />
                 <SubMenu>
                     <MenuButton>
@@ -158,10 +176,10 @@ You may nest the `<SubMenu>` component within `<Menu>` to create submenus.
                         <ArrowRight />
                     </MenuButton>
                     <MenuList>
-                        <MenuItem>Settings</MenuItem>
-                        <MenuItem>Extensions</MenuItem>
+                        <MenuItem label="Settings" />
+                        <MenuItem label="Extensions" />
                         <hr />
-                        <MenuItem>Notifications</MenuItem>
+                        <MenuItem label="Notifications" />
                     </MenuList>
                 </SubMenu>
             </MenuList>
@@ -197,9 +215,9 @@ In the demo below, right click on the Settings button, or click on the more butt
                     />
                 </Inline>
                 <MenuList aria-label="Settings menu">
-                    <MenuItem>Account</MenuItem>
-                    <MenuItem>General</MenuItem>
-                    <MenuItem>Advanced</MenuItem>
+                    <MenuItem label="Account" />
+                    <MenuItem label="General" />
+                    <MenuItem label="Advanced" />
                 </MenuList>
             </Menu>
         </Stack>
@@ -234,11 +252,11 @@ export function OpenMenuWithKeyboard() {
                     <MenuButton>Menu</MenuButton>
                 </Inline>
                 <MenuList aria-label="Settings menu">
-                    <MenuItem>Account</MenuItem>
-                    <MenuItem>General</MenuItem>
-                    <MenuItem>Advanced</MenuItem>
+                    <MenuItem label="Account" />
+                    <MenuItem label="General" />
+                    <MenuItem label="Advanced" />
                     <hr />
-                    <MenuItem>Logout</MenuItem>
+                    <MenuItem label="Logout" />
                 </MenuList>
             </Menu>
         </Stack>
@@ -259,7 +277,8 @@ export function OpenMenuWithKeyboard() {
 ### Extra Features
 
 You may also use `<MenuGroup>` to group menu items, `disable` a menu item, or
-return `false` from `onSelect` to prevent the menu from closing when an item is selected.
+return `false` from `onSelect` to prevent the menu from closing when an item is selected. Moreover,
+you can achieve richer menu items with icons, shortcut info, description, etc.
 
 <Canvas>
     <Story
@@ -273,46 +292,48 @@ return `false` from `onSelect` to prevent the menu from closing when an item is 
                 With extra features
             </MenuButton>
             <MenuList aria-label="Menu with extra features">
-                <MenuItem>
-                    <StructuredMenuItem icon="✏" label="Edit" />
+                <MenuItem
+                    label="Settings"
+                    icon="⚙️"
+                    shortcut={<KeyboardShortcut>O then S</KeyboardShortcut>}
+                >
+                    <Box display="flex" alignItems="center" gap="small">
+                        <Avatar user={{ name: 'Jane Doe', email: 'jane.doe@example.com' }} />
+                        <Stack space="small">
+                            <Text weight="semibold">Jane Doe</Text>
+                            <Text tone="secondary">jane.doe@example.com</Text>
+                        </Stack>
+                    </Box>
                 </MenuItem>
-                <MenuItem>
-                    <StructuredMenuItem icon="👯‍♀️️" label="Duplicate" shortcut="Cmd + D" />
-                </MenuItem>
+                <hr />
+                <MenuItem icon="✏" label="Edit" />
+                <MenuItem
+                    icon="👯‍♀️️"
+                    label="Duplicate"
+                    shortcut={<KeyboardShortcut>Cmd + D</KeyboardShortcut>}
+                />
                 <MenuItem
                     onSelect={() => {
                         return false // This prevents the menu from closing
                     }}
-                >
-                    <StructuredMenuItem icon="👀" label="This will not close the menu" />
-                </MenuItem>
+                    icon="👀"
+                    label="This will not close the menu"
+                    shortcut={<KeyboardShortcut>Cmd + S</KeyboardShortcut>}
+                />
                 <hr />
                 <MenuGroup label="Dangerous options">
-                    <MenuItem>Remove first</MenuItem>
-                    <MenuItem>Remove completed</MenuItem>
-                    <MenuItem disabled>Remove all (disabled)</MenuItem>
+                    <MenuItem label="Remove first" />
+                    <MenuItem label="Remove completed" />
+                    <MenuItem disabled label="Remove all (disabled)" />
                 </MenuGroup>
+                <hr />
+                <MenuItem
+                    label="Logout"
+                    description="When you logout, all changes will be saved"
+                    icon={<LeaveIcon />}
+                    shortcut={<KeyboardShortcut>Cmd + X</KeyboardShortcut>}
+                />
             </MenuList>
         </Menu>
     </Story>
 </Canvas>
-
-export function StructuredMenuItem({ icon, label, shortcut }) {
-    return (
-        <Columns space="small" width="full" flexGrow={1}>
-            {icon ? (
-                <Column width="content" aria-hidden>
-                    {icon}
-                </Column>
-            ) : null}
-            <Column width="auto">
-                <Text size="copy">{label}</Text>
-            </Column>
-            {shortcut ? (
-                <Column width="content">
-                    <KeyboardShortcut>{shortcut}</KeyboardShortcut>
-                </Column>
-            ) : null}
-        </Columns>
-    )
-}

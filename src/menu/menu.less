@@ -20,6 +20,7 @@
         outline: none;
         text-align: left;
         display: flex;
+        gap: var(--reactist-spacing-small);
         align-items: center;
         padding: 5px 10px;
         color: inherit;
@@ -35,6 +36,8 @@
     }
 
     [role='menuitem'] {
+        cursor: pointer;
+        flex-direction: column;
         width: 100%;
         box-sizing: border-box;
         &:hover,
@@ -69,4 +72,18 @@
         background-color: var(--reactist-bg-selected);
         margin: 4px 0;
     }
+}
+
+.reactist_menulist [role='menuitem'] .reactist_menuitem_icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.reactist_menulist [role='menuitem'] .reactist_menuitem_label {
+    width: 100%;
+}
+.reactist_menulist [role='menuitem'] .reactist_menuitem_description {
+    white-space: normal;
 }

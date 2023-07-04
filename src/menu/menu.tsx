@@ -17,6 +17,9 @@ import * as Ariakit from 'ariakit/menu'
 import { Portal } from 'ariakit/portal'
 
 import './menu.less'
+import { Box } from '../box'
+import { Text } from '../text'
+import { useId } from '../utils/common-helpers'
 
 type NativeProps<E extends HTMLElement> = React.DetailedHTMLProps<React.HTMLAttributes<E>, E>
 
@@ -182,15 +185,58 @@ const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
 
 type MenuItemProps = {
     /**
-     * An optional value given to this menu item. It is passed on to the parent `Menu`'s
-     * `onItemSelect` when you provide that instead of (or alongside) providing individual
-     * `onSelect` callbacks to each menu item.
+     * An optional value given to this menu item.
+     *
+     * It is passed on to the parent `Menu`'s `onItemSelect` when you provide that instead of (or
+     * alongside) providing individual `onSelect` callbacks to each menu item.
      */
     value?: string
+
     /**
-     * The content inside the menu item.
+     * The menu item's content.
+     *
+     * Prefer using `label` instead. In addition to `label`, you can also use `description`, `icon`
+     * and `shortcut`, to provide richer content inside the menu item.
+     *
+     * However, you can still use `children` to provide arbitrary content inside the menu item. You
+     * can even combine `children` with the other props to provide a richer menu item. The
+     * `children` content will be rendered first, followed by the regular menu item content
+     * generated using the `label`, `description`, `icon` and `shortcut` props (if the `label` is
+     * present).
      */
-    children: React.ReactNode
+    children?: React.ReactNode
+
+    /**
+     * The menu item's label.
+     */
+    label?: NonNullable<React.ReactNode>
+
+    /**
+     * The menu item's description, typically used to provide additional information about what the
+     * menu item does.
+     *
+     * When used, it is rendered below the label. The label is also shown more prominently (e.g.
+     * using bold text), while the description is rendered using text in secondary tone.
+     *
+     * Therefore, for the description to be rendered, you must also provide a `label`.
+     */
+    description?: React.ReactNode
+
+    /**
+     * An optional icon to render next to the menu item's label.
+     *
+     * For the icon to be rendered, you must also provide a `label`.
+     */
+    icon?: React.ReactNode
+
+    /**
+     * An optional element to render to the right of the menu item's label. It is often used to
+     * show a keyboard shortcut for the menu item.
+     *
+     * For the shortcut to be rendered, you must also provide a `label`.
+     */
+    shortcut?: React.ReactNode
+
     /**
      * When `true` the menu item is disabled and won't be selectable or be part of the keyboard
      * navigation across the menu options.
@@ -198,6 +244,7 @@ type MenuItemProps = {
      * @default true
      */
     disabled?: boolean
+
     /**
      * When `true` the menu will close when the menu item is selected, in addition to performing the
      * action that the menu item is set out to do.
@@ -208,6 +255,7 @@ type MenuItemProps = {
      * @default true
      */
     hideOnSelect?: boolean
+
     /**
      * The action to perform when the menu item is selected.
      *
@@ -216,6 +264,7 @@ type MenuItemProps = {
      * achieve the same effect conditionally and dynamically deciding at run time.
      */
     onSelect?: () => unknown
+
     /**
      * The event handler called when the menu item is clicked.
      *
@@ -238,6 +287,10 @@ type MenuItemProps = {
 const MenuItem = polymorphicComponent<'button', MenuItemProps>(function MenuItem(
     {
         value,
+        label,
+        description,
+        icon,
+        shortcut,
         children,
         onSelect,
         hideOnSelect = true,
@@ -250,6 +303,7 @@ const MenuItem = polymorphicComponent<'button', MenuItemProps>(function MenuItem
 ) {
     const { handleItemSelect, state } = React.useContext(MenuContext)
     const { hide } = state
+    const id = useId(props.id)
 
     const handleClick = React.useCallback(
         function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
@@ -265,6 +319,8 @@ const MenuItem = polymorphicComponent<'button', MenuItemProps>(function MenuItem
 
     return (
         <Ariakit.MenuItem
+            aria-labelledby={label && !props['aria-label'] ? `${id}-label` : undefined}
+            aria-describedby={label && description ? `${id}-description` : undefined}
             {...props}
             as={as}
             state={state}
@@ -273,7 +329,46 @@ const MenuItem = polymorphicComponent<'button', MenuItemProps>(function MenuItem
             className={exceptionallySetClassName}
             hideOnClick={false}
         >
-            {children}
+            {children ? <Box width="full">{children}</Box> : null}
+            {label ? (
+                <Box
+                    display="flex"
+                    gap="small"
+                    alignItems="center"
+                    width="full"
+                    aria-hidden // the menu item is labelled via aria-labelledby and aria-describedby
+                >
+                    {icon ? <div className="reactist_menuitem_icon">{icon}</div> : null}
+                    <Box
+                        display="inlineFlex"
+                        flexDirection="column"
+                        gap="xsmall"
+                        paddingY="xsmall"
+                        alignItems="flexStart"
+                        overflow="hidden"
+                        flexGrow={1}
+                    >
+                        <Text
+                            id={`${id}-label`}
+                            weight={description ? 'semibold' : 'regular'}
+                            lineClamp={1}
+                            exceptionallySetClassName="reactist_menuitem_label"
+                        >
+                            {label}
+                        </Text>
+                        {description ? (
+                            <Text
+                                id={`${id}-description`}
+                                tone="secondary"
+                                exceptionallySetClassName="reactist_menuitem_description"
+                            >
+                                {description}
+                            </Text>
+                        ) : null}
+                    </Box>
+                    {shortcut}
+                </Box>
+            ) : null}
         </Ariakit.MenuItem>
     )
 })
