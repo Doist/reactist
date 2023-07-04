@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# next
+
+-   [Feat] Add the ability to open menus programmatically
+
 # v21.2.0
 
 -   [Feat] `Textfield`, `PasswordField`, `SelectField`, and `TextArea` will now use two new CSS variables to define their border colors: `--reactist-inputs-focus`, `--reactist-inputs-idle`. If they were previously set using `--reactist-divider-primary` and `--reactist-divider-secondary`, they will continue to work as well.

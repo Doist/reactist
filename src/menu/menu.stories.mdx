@@ -206,6 +206,56 @@ In the demo below, right click on the Settings button, or click on the more butt
     </Story>
 </Canvas>
 
+### Open menu programmatically
+
+You can pass a ref to the parent `Menu` component to have access to a `open` function that allows
+you to open the menu programmatically.
+
+export function OpenMenuWithKeyboard() {
+    const menuRef = React.useRef(null)
+    React.useEffect(() => {
+        function handleKeyDown(event) {
+            if (event.key === '$' && event.ctrlKey && event.shiftKey && menuRef.current) {
+                event.preventDefault()
+                event.stopPropagation()
+                menuRef.current.open()
+            }
+        }
+        window.addEventListener('keydown', handleKeyDown)
+        return () => window.removeEventListener('keydown', handleKeyDown)
+    }, [])
+    return (
+        <Stack space="medium">
+            <Text>
+                You can open the menu by pressing <code>Ctrl + Shift + $</code>
+            </Text>
+            <Menu ref={menuRef}>
+                <Inline space="xsmall">
+                    <MenuButton>Menu</MenuButton>
+                </Inline>
+                <MenuList aria-label="Settings menu">
+                    <MenuItem>Account</MenuItem>
+                    <MenuItem>General</MenuItem>
+                    <MenuItem>Advanced</MenuItem>
+                    <hr />
+                    <MenuItem>Logout</MenuItem>
+                </MenuList>
+            </Menu>
+        </Stack>
+    )
+}
+
+<Canvas>
+    <Story
+        name="Open Programmatically Story"
+        parameters={{
+            docs: { source: { type: 'dynamic' } },
+        }}
+    >
+        {OpenMenuWithKeyboard.bind({})}
+    </Story>
+</Canvas>
+
 ### Extra Features
 
 You may also use `<MenuGroup>` to group menu items, `disable` a menu item, or
