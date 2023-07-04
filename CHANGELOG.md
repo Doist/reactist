@@ -5,6 +5,9 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 # next
 
 -   [Feat] Add the ability to open menus programmatically
+-   [BREAKING] The `MenuItem` component now supports generating its content by using new props (`label`, `description`, `icon`, and `shortcut`) to achieve a more uniform and structured look.
+    -   The traditional way of using the `MenuItem`'s `children` prop remains available if needed, to achieve custom menu item layouts.
+    -   Although, the layout inside a `MenuItem` is broken for those that were using it with an icon and text, so it is required migrating those `MenuItem` elements to use the new props instead.
 
 # v21.2.0
 

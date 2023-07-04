@@ -29,7 +29,7 @@ describe('Menu', () => {
                     // To allow interaction with the menu button
                     modal={false}
                 >
-                    <MenuItem>First option</MenuItem>
+                    <MenuItem label="First option" />
                 </MenuList>
             </Menu>,
         )
@@ -52,11 +52,13 @@ describe('Menu', () => {
             <Menu>
                 <MenuButton>Options menu</MenuButton>
                 <MenuList aria-label="Some options">
-                    <MenuItem onSelect={() => undefined}>First option</MenuItem>
-                    <MenuItem onSelect={() => false}>Second option</MenuItem>
-                    <MenuItem onSelect={() => undefined} hideOnSelect={false}>
-                        Third option
-                    </MenuItem>
+                    <MenuItem onSelect={() => undefined} label="First option" />
+                    <MenuItem onSelect={() => false} label="Second option" />
+                    <MenuItem
+                        onSelect={() => undefined}
+                        hideOnSelect={false}
+                        label="Third option"
+                    />
                 </MenuList>
             </Menu>,
         )
@@ -89,12 +91,16 @@ describe('Menu', () => {
             <Menu onItemSelect={onItemSelect}>
                 <MenuButton>Options menu</MenuButton>
                 <MenuList aria-label="Some options">
-                    <MenuItem value="1st" onSelect={() => onSelect('1st option')}>
-                        1st option
-                    </MenuItem>
-                    <MenuItem value="2nd" onSelect={() => onSelect('2nd option')}>
-                        2nd option
-                    </MenuItem>
+                    <MenuItem
+                        value="1st"
+                        label="1st option"
+                        onSelect={() => onSelect('1st option')}
+                    />
+                    <MenuItem
+                        value="2nd"
+                        label="2nd option"
+                        onSelect={() => onSelect('2nd option')}
+                    />
                 </MenuList>
             </Menu>,
         )
@@ -118,15 +124,21 @@ describe('Menu', () => {
             <Menu onItemSelect={onItemSelect}>
                 <MenuButton>Options menu</MenuButton>
                 <MenuList aria-label="Some options">
-                    <MenuItem value="1st" onSelect={() => onSelect('1st option')}>
-                        1st option
-                    </MenuItem>
-                    <MenuItem value="2nd" onSelect={() => onSelect('2nd option')}>
-                        2nd option
-                    </MenuItem>
-                    <MenuItem value="3rd" onSelect={() => onSelect('3rd option')}>
-                        3rd option
-                    </MenuItem>
+                    <MenuItem
+                        value="1st"
+                        label="1st option"
+                        onSelect={() => onSelect('1st option')}
+                    />
+                    <MenuItem
+                        value="2nd"
+                        label="2nd option"
+                        onSelect={() => onSelect('2nd option')}
+                    />
+                    <MenuItem
+                        value="3rd"
+                        label="3rd option"
+                        onSelect={() => onSelect('3rd option')}
+                    />
                 </MenuList>
             </Menu>,
         )
@@ -162,9 +174,7 @@ describe('Menu', () => {
             <Menu>
                 <MenuButton>Links</MenuButton>
                 <MenuList aria-label="Some options">
-                    <MenuItem as="a" href="https://github.com/Doist/reactist">
-                        Github repo
-                    </MenuItem>
+                    <MenuItem as="a" href="https://github.com/Doist/reactist" label="Github repo" />
                 </MenuList>
             </Menu>,
         )
@@ -182,6 +192,64 @@ describe('Menu', () => {
         // supported in jsdom, so we'd need to mock window.location or something
     })
 
+    it('uses the description as the semantic description of the menu item', () => {
+        render(
+            <Menu>
+                <MenuButton>Options menu</MenuButton>
+                <MenuList aria-label="Some options">
+                    <MenuItem
+                        label="Sign-out"
+                        description="All your work is saved before signing out"
+                    />
+                </MenuList>
+            </Menu>,
+        )
+        userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+        expect(screen.getByRole('menuitem', { name: 'Sign-out' })).toHaveAccessibleDescription(
+            'All your work is saved before signing out',
+        )
+    })
+
+    it('allows to override the aria label and description of the menu item', () => {
+        render(
+            <>
+                <Menu>
+                    <MenuButton>Options menu</MenuButton>
+                    <MenuList aria-label="Some options">
+                        <MenuItem
+                            aria-label="Alternative label"
+                            aria-describedby="logout-description"
+                            label="Sign-out"
+                            description="All your work is saved before signing out"
+                        />
+                    </MenuList>
+                </Menu>
+                <div id="logout-description">Alternative description</div>
+            </>,
+        )
+        userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+        expect(
+            screen.getByRole('menuitem', { name: 'Alternative label' }),
+        ).toHaveAccessibleDescription('Alternative description')
+    })
+
+    it('supports rendering custom menu item content using the `children` prop', () => {
+        render(
+            <Menu>
+                <MenuButton>Options menu</MenuButton>
+                <MenuList aria-label="Some options">
+                    <MenuItem label="Edit">Custom edit content</MenuItem>
+                    <MenuItem>Delete</MenuItem>
+                </MenuList>
+            </Menu>,
+        )
+        userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+        expect(screen.getByRole('menuitem', { name: 'Edit' })).toHaveTextContent(
+            'Custom edit content',
+        )
+        expect(screen.getByRole('menuitem', { name: 'Delete' })).toBeInTheDocument()
+    })
+
     it('allows to intercept clicks and prevent the onSelect action to occur', async () => {
         const onSelect = jest.fn()
         render(
@@ -189,11 +257,10 @@ describe('Menu', () => {
                 <MenuButton>Options menu</MenuButton>
                 <MenuList aria-label="Some options">
                     <MenuItem
+                        label="Click me"
                         onClick={(event: React.MouseEvent) => event.preventDefault()}
                         onSelect={() => onSelect()}
-                    >
-                        Click me
-                    </MenuItem>
+                    />
                 </MenuList>
             </Menu>,
         )
@@ -214,7 +281,7 @@ describe('Menu', () => {
             <Menu>
                 <ContextMenuTrigger>Options menu</ContextMenuTrigger>
                 <MenuList aria-label="Some options">
-                    <MenuItem>First option</MenuItem>
+                    <MenuItem label="First option" />
                 </MenuList>
             </Menu>,
         )
@@ -240,9 +307,9 @@ describe('Menu', () => {
                     <SubMenu>
                         <MenuButton>More options</MenuButton>
                         <MenuList aria-label="More options">
-                            <MenuItem onSelect={handleSave}>Save</MenuItem>
-                            <MenuItem>Discard</MenuItem>
-                            <MenuItem>Exit</MenuItem>
+                            <MenuItem label="Save" onSelect={handleSave} />
+                            <MenuItem label="Discard" />
+                            <MenuItem label="Exit" />
                         </MenuList>
                     </SubMenu>
                 </MenuList>
@@ -273,9 +340,9 @@ describe('Menu', () => {
                     <SubMenu>
                         <MenuButton>More options</MenuButton>
                         <MenuList>
-                            <MenuItem onSelect={handleSave}>Save</MenuItem>
-                            <MenuItem>Discard</MenuItem>
-                            <MenuItem>Exit</MenuItem>
+                            <MenuItem label="Save" onSelect={handleSave} />
+                            <MenuItem label="Discard" />
+                            <MenuItem label="Exit" />
                         </MenuList>
                     </SubMenu>
                 </MenuList>
@@ -348,13 +415,11 @@ describe('Menu', () => {
                 <Menu>
                     <MenuButton>Options menu</MenuButton>
                     <MenuList aria-label="Some options">
-                        <MenuItem>First option</MenuItem>
+                        <MenuItem label="First option" />
                     </MenuList>
                 </Menu>,
             )
-            const results = await axe(container)
-
-            expect(results).toHaveNoViolations()
+            expect(await axe(container)).toHaveNoViolations()
         })
 
         it('renders with no a11y violations while open', async () => {
@@ -362,16 +427,13 @@ describe('Menu', () => {
                 <Menu>
                     <MenuButton>Options menu</MenuButton>
                     <MenuList aria-label="Some options">
-                        <MenuItem onSelect={() => undefined}>First option</MenuItem>
+                        <MenuItem onSelect={() => undefined} label="First option" />
                     </MenuList>
                 </Menu>,
             )
 
-            // Open menu
             userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
-
-            const results = await axe(container)
-            expect(results).toHaveNoViolations()
+            expect(await axe(container)).toHaveNoViolations()
         })
 
         it('focuses on the MenuButton when Menu closes', async () => {
@@ -379,7 +441,7 @@ describe('Menu', () => {
                 <Menu>
                     <MenuButton>Options menu</MenuButton>
                     <MenuList aria-label="Some options">
-                        <MenuItem onSelect={() => undefined}>First option</MenuItem>
+                        <MenuItem onSelect={() => undefined} label="First option" />
                     </MenuList>
                 </Menu>,
             )
