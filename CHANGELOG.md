@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# next
+
+-   [Feat] Add the ability to open menus programmatically
+
 # v21.1.0
 
 -   [Feat] The `Prose` component now supports links applied to inline code.

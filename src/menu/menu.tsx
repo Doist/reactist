@@ -56,11 +56,18 @@ type MenuProps = Omit<Ariakit.MenuStateProps, 'visible'> & {
     onItemSelect?: (value: string | null | undefined) => void
 }
 
+type MenuHandle = {
+    open: () => void
+}
+
 /**
  * Wrapper component to control a menu. It does not render anything, only providing the state
  * management for the menu components inside it.
  */
-function Menu({ children, onItemSelect, ...props }: MenuProps) {
+const Menu = React.forwardRef<MenuHandle, MenuProps>(function Menu(
+    { children, onItemSelect, ...props },
+    ref,
+) {
     const [anchorRect, handleAnchorRectChange] = React.useState<{ x: number; y: number } | null>(
         null,
     )
@@ -75,6 +82,8 @@ function Menu({ children, onItemSelect, ...props }: MenuProps) {
         getAnchorRect,
         ...props,
     })
+
+    React.useImperativeHandle(ref, () => ({ open: state.show }))
 
     const handleItemSelect = React.useCallback(
         function handleItemSelect(value: string | null | undefined) {
@@ -93,7 +102,7 @@ function Menu({ children, onItemSelect, ...props }: MenuProps) {
     )
 
     return <MenuContext.Provider value={value}>{children}</MenuContext.Provider>
-}
+})
 
 //
 // MenuButton
@@ -368,4 +377,4 @@ const MenuGroup = polymorphicComponent<'div', MenuGroupProps>(function MenuGroup
 })
 
 export { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, SubMenu, MenuGroup }
-export type { MenuButtonProps, MenuListProps, MenuItemProps, MenuGroupProps }
+export type { MenuButtonProps, MenuListProps, MenuItemProps, MenuGroupProps, MenuHandle }
