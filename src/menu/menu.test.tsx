@@ -1,7 +1,15 @@
 import * as React from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, SubMenu } from './menu'
+import {
+    ContextMenuTrigger,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    SubMenu,
+    MenuHandle,
+} from './menu'
 import { axe } from 'jest-axe'
 
 function getFocusedElement() {
@@ -298,6 +306,40 @@ describe('Menu', () => {
             expect(handleSave).toHaveBeenCalled()
             expect(screen.queryByText('More options')).not.toBeInTheDocument()
         })
+    })
+
+    it('can be open programmatically', () => {
+        function OpenMenuWithKeyboard() {
+            const menuRef = React.useRef<MenuHandle>(null)
+
+            React.useEffect(() => {
+                function handleKeyDown(event: KeyboardEvent) {
+                    if (event.key === '$' && event.ctrlKey && event.shiftKey && menuRef.current) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        menuRef.current.open()
+                    }
+                }
+                window.addEventListener('keydown', handleKeyDown)
+                return () => window.removeEventListener('keydown', handleKeyDown)
+            }, [])
+
+            return (
+                <Menu ref={menuRef}>
+                    <MenuButton>Menu</MenuButton>
+                    <MenuList aria-label="Settings menu">
+                        <MenuItem>Logout</MenuItem>
+                    </MenuList>
+                </Menu>
+            )
+        }
+
+        render(<OpenMenuWithKeyboard />)
+        expect(screen.queryByRole('menuitem')).not.toBeInTheDocument()
+        userEvent.keyboard('{ctrl}{shift}$')
+        expect(screen.getByRole('menuitem', { name: 'Logout' })).toBeInTheDocument()
+        userEvent.keyboard('{Escape}')
+        expect(screen.queryByRole('menuitem')).not.toBeInTheDocument()
     })
 
     describe('a11y', () => {
