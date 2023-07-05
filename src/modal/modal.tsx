@@ -355,8 +355,7 @@ export function ModalHeader({
             <Box
                 {...props}
                 as="header"
-                paddingLeft="large"
-                paddingRight={button === false || button === null ? 'large' : 'small'}
+                paddingX="large"
                 paddingY="small"
                 className={exceptionallySetClassName}
             >
