@@ -42,12 +42,12 @@ See https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
 .textAreaContainer:not(.bordered) .innerContainer::after,
 .textAreaContainer:not(.bordered) textarea,
 .textAreaContainer.bordered {
-    border: 1px solid var(--reactist-divider-secondary);
+    border: 1px solid var(--reactist-inputs-idle);
 }
 
 .textAreaContainer:not(.bordered) textarea:focus,
 .textAreaContainer.bordered:focus-within {
-    border-color: var(--reactist-divider-primary);
+    border-color: var(--reactist-inputs-focus);
 }
 
 .textAreaContainer.error:not(.bordered) .innerContainer::after,
