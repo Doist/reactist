@@ -91,6 +91,16 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
 
 <ArgsTable of={TextArea} />
 
+## Colors
+
+The following CSS custom properties are available so that the `TextArea`'s border colors can be customized.
+Note that these variables are shared with other components such as `Textfield`, `PasswordField`, and `SelectField`.
+
+```
+--reactist-inputs-focus
+--reactist-inputs-idle
+```
+
 <Canvas withToolbar>
     <Story
         name="Message tone"
