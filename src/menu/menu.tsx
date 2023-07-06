@@ -76,6 +76,10 @@ function Menu({ children, onItemSelect, ...props }: MenuProps) {
         ...props,
     })
 
+    React.useEffect(() => {
+        if (!state.open) handleAnchorRectChange(null)
+    }, [state.open])
+
     const handleItemSelect = React.useCallback(
         function handleItemSelect(value: string | null | undefined) {
             if (onItemSelect) onItemSelect(value)
