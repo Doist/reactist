@@ -21,6 +21,7 @@ import { Text } from '../text'
 import { useId } from '../utils/common-helpers'
 
 import styles from './menu.module.css'
+import { Tooltip } from '../tooltip'
 
 type NativeProps<E extends HTMLElement> = React.DetailedHTMLProps<React.HTMLAttributes<E>, E>
 
@@ -346,6 +347,28 @@ const SubMenuList = polymorphicComponent<'div', MenuListProps>(function SubMenuL
 // MenuItem
 //
 
+function useMenuItemClickHandler({
+    value,
+    hideOnSelect,
+    onClick,
+    onSelect,
+}: Pick<MenuItemProps, 'value' | 'hideOnSelect' | 'onClick' | 'onSelect'>) {
+    const { handleItemSelect, state } = React.useContext(MenuContext)
+    const { hide } = state
+
+    return React.useCallback(
+        function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+            onClick?.(event)
+            const onSelectResult: unknown =
+                onSelect && !event.defaultPrevented ? onSelect() : undefined
+            const shouldClose = onSelectResult !== false && hideOnSelect
+            handleItemSelect(value)
+            if (shouldClose) hide()
+        },
+        [onSelect, onClick, handleItemSelect, hideOnSelect, hide, value],
+    )
+}
+
 type MenuItemProps = {
     /**
      * An optional value given to this menu item.
@@ -390,7 +413,7 @@ type MenuItemProps = {
      *
      * For the icon to be rendered, you must also provide a `label`.
      */
-    icon?: React.ReactNode
+    icon?: NonNullable<React.ReactNode>
 
     /**
      * An optional element to render to the right of the menu item's label. It is often used to
@@ -470,21 +493,9 @@ const MenuItem = polymorphicComponent<'button', MenuItemProps>(function MenuItem
     },
     ref,
 ) {
-    const { handleItemSelect, state } = React.useContext(MenuContext)
-    const { hide } = state
     const id = useId(props.id)
-
-    const handleClick = React.useCallback(
-        function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-            onClick?.(event)
-            const onSelectResult: unknown =
-                onSelect && !event.defaultPrevented ? onSelect() : undefined
-            const shouldClose = onSelectResult !== false && hideOnSelect
-            handleItemSelect(value)
-            if (shouldClose) hide()
-        },
-        [onSelect, onClick, handleItemSelect, hideOnSelect, hide, value],
-    )
+    const { state } = React.useContext(MenuContext)
+    const handleClick = useMenuItemClickHandler({ value, onSelect, onClick, hideOnSelect })
 
     return (
         <Ariakit.MenuItem
@@ -598,7 +609,40 @@ type MenuGroupProps = Omit<NativeProps<HTMLDivElement>, 'className'> & {
     /**
      * A label to be shown visually and also used to semantically label the group.
      */
-    label: string
+    label: NonNullable<React.ReactNode>
+
+    /**
+     * An optional info element to be shown to the right of the label.
+     *
+     * This is useful and often used to:
+     * - Provide a link to any documentation related to the menu items in the group
+     * - Show a keyboard shortcut that triggers the menu items in the group
+     *
+     * It is strongly recommended that this should be a icon-only element. It is also strongly
+     * recommended that, when using it to provide a link, you use the very `IconMenuItem` component
+     * to make the link be yet another menu item accessible in the menu via keyboard navigation.
+     * Here's an example of how to do that:
+     *
+     * ```jsx
+     * <MenuGroup
+     *   label="A group of related options"
+     *   info={
+     *     <IconMenuItem
+     *       label="Help about this group of options"
+     *       icon="ℹ️"
+     *       as="a"
+     *       href="http://help.example.com"
+     *       target="_blank"
+     *       rel="noreferrer noopener"
+     *     />
+     *   }
+     * >
+     *   <MenuItem label="First option" icon={<FirstIcon />} />
+     *   <MenuItem label="Second option" icon={<SecondIcon />} />
+     * </MenuGroup>
+     * ```
+     */
+    info?: React.ReactNode
 }
 
 /**
@@ -608,24 +652,133 @@ type MenuGroupProps = Omit<NativeProps<HTMLDivElement>, 'className'> & {
  * before and/or after the group if you so wish.
  */
 const MenuGroup = polymorphicComponent<'div', MenuGroupProps>(function MenuGroup(
-    { label, children, exceptionallySetClassName, ...props },
+    { label, info, children, exceptionallySetClassName, ...props },
     ref,
 ) {
+    const id = useId(props.id)
     const { state } = React.useContext(MenuContext)
     return (
-        <Ariakit.MenuGroup {...props} ref={ref} state={state} className={exceptionallySetClassName}>
-            {label ? (
-                <div role="presentation" className={styles.menuGroupLabel}>
+        <Ariakit.MenuGroup
+            aria-labelledby={`menugroup-label-${id}`}
+            {...props}
+            id={id}
+            ref={ref}
+            state={state}
+            className={exceptionallySetClassName}
+        >
+            <Box display="flex" alignItems="center" gap="small" className={styles.menuGroupLabel}>
+                <Text id={`menugroup-label-${id}`} size="copy" weight="semibold">
                     {label}
-                </div>
-            ) : null}
+                </Text>
+                {info ? (
+                    <Box
+                        flexShrink={0}
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        className={styles.menuGroupInfo}
+                    >
+                        {info}
+                    </Box>
+                ) : null}
+            </Box>
             {children}
         </Ariakit.MenuGroup>
     )
 })
 
+//
+// IconMenuItem & IconsMenuGroup
+//
+
+type IconMenuItemProps = Pick<MenuItemProps, 'value' | 'hideOnSelect' | 'onSelect' | 'onClick'> & {
+    /**
+     * A label for assistive technologies to describe the menu item.
+     *
+     * When not provided, the `label` is used. But this is useful when you want the tooltip label
+     * to be different from the label for assistive technologies.
+     */
+    'aria-label'?: string
+
+    /**
+     * The menu item's label, which is not shown visually on the menu item, but it is used to
+     * show a tooltip for the menu item when hovered or focused.
+     *
+     * It is also used as the semantic label for assistive technologies, unless you provide an
+     * `aria-label` as well.
+     */
+    label: string
+
+    /**
+     * A description for assistive technologies to describe the menu item.
+     */
+    description?: React.ReactNode
+
+    /**
+     * The icon to show on the menu item.
+     */
+    icon: NonNullable<React.ReactNode>
+}
+
+/**
+ * A menu item that visually only shows as an icon. It must be used inside an `IconsMenuGroup`.
+ */
+const IconMenuItem = polymorphicComponent<'button', IconMenuItemProps>(function IconMenuItem(
+    {
+        value,
+        label,
+        description,
+        icon,
+        onSelect,
+        hideOnSelect = true,
+        onClick,
+        exceptionallySetClassName,
+        as = 'button',
+        ...props
+    },
+    ref,
+) {
+    const id = useId(props.id)
+    const { state } = React.useContext(MenuContext)
+    const handleClick = useMenuItemClickHandler({ value, onSelect, onClick, hideOnSelect })
+
+    return (
+        <Tooltip content={label}>
+            <Ariakit.MenuItem
+                aria-label={label}
+                aria-describedby={`${id}-description`}
+                {...props}
+                as={as}
+                state={state}
+                ref={ref}
+                onClick={handleClick}
+                className={classNames(styles.iconMenuItem, exceptionallySetClassName)}
+                hideOnClick={false}
+            >
+                {icon}
+            </Ariakit.MenuItem>
+        </Tooltip>
+    )
+})
+
+/**
+ * Semantically equivalent to `MenuGroup`, but meant to group `IconMenuItem`s only.
+ */
+const IconsMenuGroup = polymorphicComponent<'div', MenuGroupProps>(function IconsMenuGroup(
+    { children, ...props },
+    ref,
+) {
+    return (
+        <MenuGroup {...props} ref={ref}>
+            <div className={styles.iconsMenuGroup}>{children}</div>
+        </MenuGroup>
+    )
+})
+
 export {
     ContextMenuTrigger,
+    IconMenuItem,
+    IconsMenuGroup,
     Menu,
     MenuButton,
     MenuGroup,
@@ -637,6 +790,7 @@ export {
 }
 
 export type {
+    IconMenuItemProps,
     MenuButtonProps,
     MenuGroupProps,
     MenuHandle,
