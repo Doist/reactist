@@ -8,6 +8,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 -   [BREAKING] The `MenuItem` component now supports generating its content by using new props (`label`, `description`, `icon`, and `shortcut`) to achieve a more uniform and structured look.
     -   The traditional way of using the `MenuItem`'s `children` prop remains available if needed, to achieve custom menu item layouts.
     -   Although, the layout inside a `MenuItem` is broken for those that were using it with an icon and text, so it is required migrating those `MenuItem` elements to use the new props instead.
+-   [BREAKING] Introduces new `SubMenuItem` and `SubMenuList`, which now must be used in place of `MenuButton` and `MenuList` when creating sub-menus.
+-   [Feat] Updated menu styles
 
 # v21.2.0
 

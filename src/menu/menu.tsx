@@ -16,10 +16,11 @@ import { polymorphicComponent } from '../utils/polymorphism'
 import * as Ariakit from 'ariakit/menu'
 import { Portal } from 'ariakit/portal'
 
-import './menu.less'
 import { Box } from '../box'
 import { Text } from '../text'
 import { useId } from '../utils/common-helpers'
+
+import styles from './menu.module.css'
 
 type NativeProps<E extends HTMLElement> = React.DetailedHTMLProps<React.HTMLAttributes<E>, E>
 
@@ -130,8 +131,138 @@ const MenuButton = polymorphicComponent<'button', MenuButtonProps>(function Menu
             {...props}
             state={state}
             ref={ref}
-            className={classNames('reactist_menubutton', exceptionallySetClassName)}
+            className={exceptionallySetClassName}
         />
+    )
+})
+
+//
+// MenuItemContent
+//
+
+type MenuItemContentProps = {
+    id: string
+
+    /**
+     * The menu item's label.
+     */
+    label?: NonNullable<React.ReactNode>
+
+    /**
+     * The menu item's description, typically used to provide additional information about what the
+     * menu item does.
+     *
+     * When used, it is rendered below the label. The label is also shown more prominently (e.g.
+     * using bold text), while the description is rendered using text in secondary tone.
+     *
+     * Therefore, for the description to be rendered, you must also provide a `label`.
+     */
+    description?: React.ReactNode
+
+    /**
+     * An optional icon to render next to the menu item's label.
+     *
+     * For the icon to be rendered, you must also provide a `label`.
+     */
+    icon?: React.ReactNode
+
+    /**
+     * An optional element to render to the right of the menu item's label. It is often used to
+     * show a keyboard shortcut for the menu item.
+     *
+     * For the shortcut to be rendered, you must also provide a `label`.
+     */
+    shortcut?: React.ReactNode
+}
+
+/**
+ * Renders the content inside a standard MenuItem. It is extracted into a component for reuse in
+ * the SubMenuItem, which is a MenuItem visually, but semantically it's closer to be a MenuButton.
+ * @private
+ */
+function MenuItemContent({ label, description, icon, shortcut, id }: MenuItemContentProps) {
+    if (!label) return null
+    return (
+        <Box
+            display="flex"
+            gap="small"
+            alignItems="center"
+            width="full"
+            aria-hidden // the menu item is labelled via aria-labelledby and aria-describedby
+        >
+            {icon ? <div className={styles.menuItemIcon}>{icon}</div> : null}
+            <Box
+                display="inlineFlex"
+                flexDirection="column"
+                gap="xsmall"
+                paddingY="xsmall"
+                alignItems="flexStart"
+                overflow="hidden"
+                flexGrow={1}
+            >
+                <Text
+                    id={`${id}-label`}
+                    weight={description ? 'semibold' : 'regular'}
+                    size="copy"
+                    lineClamp={1}
+                    exceptionallySetClassName={styles.menuItemLabel}
+                >
+                    {label}
+                </Text>
+                {description ? (
+                    <Text
+                        id={`${id}-description`}
+                        size="copy"
+                        tone="secondary"
+                        exceptionallySetClassName={styles.menuItemDescription}
+                    >
+                        {description}
+                    </Text>
+                ) : null}
+            </Box>
+            {shortcut ? <div>{shortcut}</div> : null}
+        </Box>
+    )
+}
+
+//
+// SubMenuItem
+//
+
+function ArrowRightIcon() {
+    return (
+        <svg width="24" height="24">
+            <path
+                d="M14.243 12L9.646 7.404a.5.5 0 1 1 .708-.707l4.95 4.95a.5.5 0 0 1 0 .707l-4.95 4.95a.5.5 0 0 1-.708-.708L14.243 12z"
+                fill="currentColor"
+                fillRule="evenodd"
+            />
+        </svg>
+    )
+}
+
+type SubMenuItemProps = Omit<Ariakit.MenuButtonProps, 'state' | 'className' | 'as' | 'children'> &
+    Pick<MenuItemProps, 'label' | 'icon'>
+
+/**
+ * A menu item to toggle a sub-menu open or closed.
+ */
+const SubMenuItem = polymorphicComponent<'button', SubMenuItemProps>(function SubMenuItem(
+    { exceptionallySetClassName, label, icon, ...props },
+    ref,
+) {
+    const id = useId(props.id)
+    const { state } = React.useContext(MenuContext)
+    return (
+        <Ariakit.MenuButton
+            aria-labelledby={label && !props['aria-label'] ? `${id}-label` : undefined}
+            {...props}
+            state={state}
+            ref={ref}
+            className={classNames(styles.menuItem, exceptionallySetClassName)}
+        >
+            <MenuItemContent id={id} icon={icon} label={label} shortcut={<ArrowRightIcon />} />
+        </Ariakit.MenuButton>
     )
 })
 
@@ -156,7 +287,7 @@ const ContextMenuTrigger = polymorphicComponent<'div', unknown>(function Context
 })
 
 //
-// MenuList
+// MenuList and SubMenuList
 //
 
 type MenuListProps = Omit<Ariakit.MenuProps, 'state' | 'className'>
@@ -169,18 +300,46 @@ const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
     ref,
 ) {
     const { state } = React.useContext(MenuContext)
+    if (!state.open) return null
 
-    return state.open ? (
+    return (
         <Portal preserveTabOrder>
             <Ariakit.Menu
                 {...props}
                 state={state}
                 ref={ref}
-                className={classNames('reactist_menulist', exceptionallySetClassName)}
+                className={classNames(styles.menuList, exceptionallySetClassName)}
                 modal={modal}
             />
         </Portal>
-    ) : null
+    )
+})
+
+/**
+ * Mostly equivalent to the `MenuList`, but to be used inside a `SubMenu`.
+ */
+const SubMenuList = polymorphicComponent<'div', MenuListProps>(function SubMenuList(
+    { exceptionallySetClassName, modal = true, ...props },
+    ref,
+) {
+    const { state } = React.useContext(MenuContext)
+    if (!state.open) return null
+
+    return (
+        <Portal preserveTabOrder>
+            <Ariakit.Menu
+                {...props}
+                state={state}
+                ref={ref}
+                className={classNames(
+                    styles.menuList,
+                    styles.subMenuList,
+                    exceptionallySetClassName,
+                )}
+                modal={modal}
+            />
+        </Portal>
+    )
 })
 
 //
@@ -242,6 +401,11 @@ type MenuItemProps = {
     shortcut?: React.ReactNode
 
     /**
+     * The tone to use for the menu item.
+     */
+    tone?: 'normal' | 'destructive'
+
+    /**
      * When `true` the menu item is disabled and won't be selectable or be part of the keyboard
      * navigation across the menu options.
      *
@@ -295,6 +459,7 @@ const MenuItem = polymorphicComponent<'button', MenuItemProps>(function MenuItem
         description,
         icon,
         shortcut,
+        tone,
         children,
         onSelect,
         hideOnSelect = true,
@@ -330,49 +495,26 @@ const MenuItem = polymorphicComponent<'button', MenuItemProps>(function MenuItem
             state={state}
             ref={ref}
             onClick={handleClick}
-            className={exceptionallySetClassName}
+            className={classNames(
+                styles.menuItem,
+                tone === 'destructive' ? styles.destructive : null,
+                exceptionallySetClassName,
+            )}
             hideOnClick={false}
         >
-            {children ? <Box width="full">{children}</Box> : null}
-            {label ? (
-                <Box
-                    display="flex"
-                    gap="small"
-                    alignItems="center"
-                    width="full"
-                    aria-hidden // the menu item is labelled via aria-labelledby and aria-describedby
-                >
-                    {icon ? <div className="reactist_menuitem_icon">{icon}</div> : null}
-                    <Box
-                        display="inlineFlex"
-                        flexDirection="column"
-                        gap="xsmall"
-                        paddingY="xsmall"
-                        alignItems="flexStart"
-                        overflow="hidden"
-                        flexGrow={1}
-                    >
-                        <Text
-                            id={`${id}-label`}
-                            weight={description ? 'semibold' : 'regular'}
-                            lineClamp={1}
-                            exceptionallySetClassName="reactist_menuitem_label"
-                        >
-                            {label}
-                        </Text>
-                        {description ? (
-                            <Text
-                                id={`${id}-description`}
-                                tone="secondary"
-                                exceptionallySetClassName="reactist_menuitem_description"
-                            >
-                                {description}
-                            </Text>
-                        ) : null}
-                    </Box>
-                    {shortcut}
+            {children ? (
+                <Box width="full" className={label ? undefined : styles.legacyLayout}>
+                    {children}
                 </Box>
             ) : null}
+
+            <MenuItemContent
+                id={id}
+                icon={icon}
+                label={label}
+                description={description}
+                shortcut={shortcut}
+            />
         </Ariakit.MenuItem>
     )
 })
@@ -384,25 +526,32 @@ const MenuItem = polymorphicComponent<'button', MenuItemProps>(function MenuItem
 type SubMenuProps = Pick<MenuProps, 'children' | 'onItemSelect'>
 
 /**
- * This component can be rendered alongside other `MenuItem` inside a `MenuList` in order to have
- * a sub-menu.
+ * This component can be rendered alongside other `MenuItem` elements inside a `MenuList` to show a
+ * sub-menu.
  *
- * Its children are expected to have the structure of a first level menu (a `MenuButton` and a
- * `MenuList`).
+ * Its children are expected to be exactly two elements, in the following order:
+ *
+ * 1. A `SubMenuItem` element: the menu item that triggers the sub-menu to open.
+ * 2. A `SubMenuList` element: the list of menu items that will be shown when the sub-menu is open.
+ *
+ * ## Usage
  *
  * ```jsx
- * <MenuItem label="Edit profile" />
- * <SubMenu>
- *   <MenuButton>More options</MenuButton>
+ * <Menu>
+ *   <MenuButton>Menu</MenuButton>
  *   <MenuList>
- *     <MenuItem label="Preferences" />
- *     <MenuItem label="Sign out" />
+ *     <MenuItem label="Item 1" />
+ *     <MenuItem label="Item 2" />
+ *     <SubMenu>
+ *       <SubMenuItem label="Submenu" />
+ *       <SubMenuList>
+ *         <MenuItem label="Submenu Item 1" />
+ *         <MenuItem label="Submenu Item 2" />
+ *       </SubMenuList>
+ *     </SubMenu>
  *   </MenuList>
- * </SubMenu>
+ * </Menu>
  * ```
- *
- * The `MenuButton` will become a menu item in the current menu items list, and it will lead to
- * opening a sub-menu with the menu items list below it.
  */
 const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
     { children, onItemSelect },
@@ -436,7 +585,7 @@ const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
             <Ariakit.MenuItem as="div" state={state} ref={ref} hideOnClick={false}>
                 {renderMenuButton}
             </Ariakit.MenuItem>
-            {list}
+            <div className={styles.subMenuContainer}>{list}</div>
         </Menu>
     )
 })
@@ -466,7 +615,7 @@ const MenuGroup = polymorphicComponent<'div', MenuGroupProps>(function MenuGroup
     return (
         <Ariakit.MenuGroup {...props} ref={ref} state={state} className={exceptionallySetClassName}>
             {label ? (
-                <div role="presentation" className="reactist_menugroup__label">
+                <div role="presentation" className={styles.menuGroupLabel}>
                     {label}
                 </div>
             ) : null}
@@ -475,5 +624,25 @@ const MenuGroup = polymorphicComponent<'div', MenuGroupProps>(function MenuGroup
     )
 })
 
-export { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, SubMenu, MenuGroup }
-export type { MenuButtonProps, MenuListProps, MenuItemProps, MenuGroupProps, MenuHandle }
+export {
+    ContextMenuTrigger,
+    Menu,
+    MenuButton,
+    MenuGroup,
+    MenuItem,
+    MenuList,
+    SubMenu,
+    SubMenuItem,
+    SubMenuList,
+}
+
+export type {
+    MenuButtonProps,
+    MenuGroupProps,
+    MenuHandle,
+    MenuItemProps,
+    MenuListProps,
+    MenuProps,
+    SubMenuItemProps,
+    SubMenuProps,
+}

@@ -4,7 +4,17 @@ import { Button } from '../button'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
 import { Columns, Column } from '../columns'
-import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, MenuGroup, SubMenu } from '.'
+import {
+    ContextMenuTrigger,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    MenuGroup,
+    SubMenu,
+    SubMenuItem,
+    SubMenuList,
+} from './menu'
 import { ButtonLink } from '../button-link'
 import { Text } from '../text'
 import { Box } from '../box'
@@ -85,6 +95,7 @@ via an element or as a context menu.
                 <MenuItem label="Copy" />
                 <MenuItem label="Paste" />
                 <MenuItem label="Duplicate" />
+                <hr />
                 <MenuItem label="Remove" />
             </MenuList>
         </Menu>
@@ -171,16 +182,13 @@ You may nest the `<SubMenu>` component within `<Menu>` to create submenus.
                 <MenuItem label="Check for updates…" />
                 <hr />
                 <SubMenu>
-                    <MenuButton>
-                        Preferences
-                        <ArrowRight />
-                    </MenuButton>
-                    <MenuList>
+                    <SubMenuItem label="Preferences" />
+                    <SubMenuList>
                         <MenuItem label="Settings" />
                         <MenuItem label="Extensions" />
                         <hr />
                         <MenuItem label="Notifications" />
-                    </MenuList>
+                    </SubMenuList>
                 </SubMenu>
             </MenuList>
         </Menu>

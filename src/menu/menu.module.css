@@ -1,0 +1,154 @@
+.menuList {
+    background-color: var(--reactist-bg-raised);
+    border-color: var(--reactist-divider-secondary);
+    border-radius: var(--reactist-border-radius-large);
+    border: 1px solid var(--reactist-divider-secondary);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.12);
+    color: var(--reactist-content-primary);
+    display: block;
+    font-size: var(--reactist-font-size-copy);
+    line-height: normal;
+    margin: -4px; /* Required to add spacing between the viewport, used in conjunction with unstable_offset */
+    max-height: var(--popover-available-height); /* defined by ariakit */
+    max-width: 350px;
+    min-height: 44px; /* minimum accessible target area */
+    min-width: 280px;
+    outline: none;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 6px 0;
+    white-space: nowrap;
+    width: auto;
+    z-index: var(--reactist-stacking-order-menu);
+}
+
+.subMenuList {
+    /**
+     * This aims to align the sub-menu items vertically with the corresponding parent menu item that
+     * activates the sub-menu.
+     */
+    margin-top: -11px;
+}
+
+.menuList hr {
+    background-color: var(--reactist-divider-primary);
+    border: none;
+    height: 1px;
+    margin: 4px 0;
+}
+
+/* So we do not need to worry about rendering more than one consecutive dividers */
+.menuList hr + hr {
+    display: none;
+}
+
+.menuItem {
+    background-color: transparent;
+    border-radius: var(--reactist-border-radius-small);
+    border: none;
+    box-sizing: border-box;
+    color: inherit;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--reactist-font-family);
+    font-size: var(--reactist-font-size-copy);
+    gap: var(--reactist-spacing-small);
+    justify-content: center;
+    margin: 0 6px;
+    max-width: calc(100% - 12px);
+    min-height: 32px;
+    outline: none;
+    padding: 0 6px;
+    text-align: left;
+    user-select: none;
+    width: 100%;
+}
+
+a.menuItem {
+    cursor: pointer;
+    text-decoration: none;
+}
+a.menuItem:hover {
+    text-decoration: none;
+}
+
+.menuItem .legacyLayout {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0 10px;
+}
+
+.menuItem:hover,
+.menuItem:focus,
+.menuItem[aria-expanded='true'] {
+    color: var(--reactist-content-primary);
+    background-color: var(--reactist-bg-highlight);
+}
+
+.menuItem[aria-disabled='true'],
+.menuItem:disabled {
+    opacity: 1;
+    color: var(--reactist-content-secondary) !important;
+    cursor: default;
+}
+
+.menuGroupLabel {
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    color: var(--reactist-content-secondary);
+    display: flex;
+    font-family: var(--reactist-font-family);
+    font-size: var(--reactist-font-size-copy);
+    gap: var(--reactist-spacing-small);
+    outline: none;
+    padding: 5px 10px;
+    text-align: left;
+    user-select: none;
+}
+
+.menuItemIcon {
+    color: var(--product-library-display-secondary-idle-tint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.menuItemIcon,
+.menuItemIcon img,
+.menuItemIcon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.menuItemIcon img {
+    box-sizing: border-box;
+    padding: 4px;
+}
+
+.menuItemLabel {
+    width: 100%;
+}
+
+.menuItemDescription {
+    white-space: normal;
+}
+
+.destructive,
+.destructive .menuItemLabel,
+.destructive .menuItemIcon {
+    color: var(--reactist-actionable-secondary-destructive-idle-tint) !important;
+}
+
+.destructive:hover,
+.destructive:focus,
+.destructive:hover .menuItemLabel,
+.destructive:focus .menuItemLabel,
+.destructive:hover .menuItemIcon,
+.destructive:focus .menuItemIcon {
+    color: var(--reactist-actionable-secondary-destructive-hover-tint) !important;
+}
