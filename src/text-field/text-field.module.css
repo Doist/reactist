@@ -7,7 +7,7 @@
     --reactist-input-wrapper-height: 32px;
 
     border-radius: var(--reactist-border-radius-small);
-    border: 1px solid var(--reactist-divider-secondary);
+    border: 1px solid var(--reactist-inputs-idle);
     overflow: clip;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .inputWrapper:not(.bordered):focus-within {
-    border-color: var(--reactist-divider-primary);
+    border-color: var(--reactist-inputs-focus);
 }
 
 .inputWrapper:not(.bordered).error {

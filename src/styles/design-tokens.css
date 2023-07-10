@@ -53,6 +53,10 @@
     --reactist-divider-secondary: #dde2e3;
     --reactist-divider-tertiary: #edf2f3;
 
+    /* input border colors */
+    --reactist-inputs-focus: var(--reactist-divider-primary);
+    --reactist-inputs-idle: var(--reactist-divider-secondary);
+
     /* border-radius */
     --reactist-border-radius-small: 5px;
     --reactist-border-radius-large: 10px;

@@ -1,24 +1,27 @@
-import * as React from 'react'
-import { selectWithNone, PartialProps } from '../utils/storybook-helper'
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
 
+import { TextField } from './'
 import { Box } from '../box'
 import { Stack } from '../stack'
 import { Text } from '../text'
-import { TextField } from './'
-
-import type { BoxMaxWidth } from '../box'
 import { Button } from '../button'
 import { Tooltip } from '../tooltip'
 
-export default {
-    title: 'Design system/TextField',
-    component: TextField,
-    parameters: {
-        badges: ['accessible'],
-    },
-}
+import { selectWithNone } from '../utils/storybook-helper'
 
-function Icon() {
+<Meta
+    title="Design system/TextField"
+    component={TextField}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
+
+# TextField
+
+A component used to accept textual input from the user.
+
+export function Icon() {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
             <path
@@ -29,23 +32,17 @@ function Icon() {
     )
 }
 
-function preventDefault(event: React.SyntheticEvent) {
+export function preventDefault(event) {
     event.preventDefault()
 }
 
-export function InteractivePropsStory({
-    label,
-    auxiliaryLabel,
-    startSlot = false,
-    ...props
-}: Omit<PartialProps<typeof TextField>, 'startSlot'> & { startSlot?: boolean }) {
+export function InteractivePropsStory({ label, auxiliaryLabel, startSlot = false, ...props }) {
     return (
         <TextField
             {...props}
             label={label}
             auxiliaryLabel={
                 auxiliaryLabel ? (
-                    // eslint-disable-next-line jsx-a11y/anchor-is-valid
                     <a href="#" onClick={preventDefault}>
                         {auxiliaryLabel}
                     </a>
@@ -56,58 +53,78 @@ export function InteractivePropsStory({
     )
 }
 
-InteractivePropsStory.parameters = {
-    chromatic: { disableSnapshot: false },
-}
+<Canvas>
+    <Story
+        name="Interactive props"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+        argTypes={{
+            label: {
+                control: { type: 'text' },
+                defaultValue: 'Your name',
+            },
+            secondaryLabel: {
+                control: { type: 'text' },
+                defaultValue: 'optional',
+            },
+            auxiliaryLabel: {
+                control: { type: 'text' },
+                defaultValue: 'Need help?',
+            },
+            hint: {
+                control: { type: 'text' },
+                defaultValue:
+                    'We need your name for billing and shipping purposes. Make sure to enter it correctly.',
+            },
+            message: {
+                control: { type: 'text' },
+                defaultValue: '',
+            },
+            tone: {
+                options: ['neutral', 'success', 'error', 'loading'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'neutral',
+            },
+            variant: {
+                options: ['default', 'bordered'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'default',
+            },
+            placeholder: {
+                control: { type: 'text' },
+                defaultValue: 'Enter your name as it appears in your ID',
+            },
+            maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge'], 'small'),
+            startSlot: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+        }}
+    >
+        {InteractivePropsStory.bind({})}
+    </Story>
+</Canvas>
 
-InteractivePropsStory.argTypes = {
-    label: {
-        control: { type: 'text' },
-        defaultValue: 'Your name',
-    },
-    secondaryLabel: {
-        control: { type: 'text' },
-        defaultValue: 'optional',
-    },
-    auxiliaryLabel: {
-        control: { type: 'text' },
-        defaultValue: 'Need help?',
-    },
-    hint: {
-        control: { type: 'text' },
-        defaultValue:
-            'We need your name for billing and shipping purposes. Make sure to enter it correctly.',
-    },
-    message: {
-        control: { type: 'text' },
-        defaultValue: '',
-    },
-    tone: {
-        options: ['neutral', 'success', 'error', 'loading'],
-        control: { type: 'inline-radio' },
-        defaultValue: 'neutral',
-    },
-    variant: {
-        options: ['default', 'bordered'],
-        control: { type: 'inline-radio' },
-        defaultValue: 'default',
-    },
-    placeholder: {
-        control: { type: 'text' },
-        defaultValue: 'Enter your name as it appears in your ID',
-    },
-    maxWidth: selectWithNone<BoxMaxWidth>(
-        ['xsmall', 'small', 'medium', 'large', 'xlarge'],
-        'small',
-    ),
-    startSlot: {
-        control: { type: 'boolean' },
-        defaultValue: false,
-    },
-}
+<ArgsTable of={TextField} />
 
-export function MessageToneStory() {
-    return (
+## Colors
+
+The following CSS custom properties are available so that the `Textfield`'s border colors can be customized.
+Note that these variables are shared with other components such as `PasswordField`, `SelectField`, and `TextArea`.
+
+```
+--reactist-inputs-focus
+--reactist-inputs-idle
+```
+
+<Canvas withToolbar>
+    <Story
+        name="Message tone"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+    >
         <Stack space="xxlarge" dividers="secondary">
             <TextField
                 label="Verification code"
@@ -136,15 +153,11 @@ export function MessageToneStory() {
                 maxWidth="small"
             />
         </Stack>
-    )
-}
+    </Story>
+</Canvas>
 
-MessageToneStory.parameters = {
-    chromatic: { disableSnapshot: false },
-}
-
-export function WithoutLabelStory() {
-    return (
+<Canvas withToolbar>
+    <Story name="Without label">
         <Stack space="xlarge" dividers="secondary" maxWidth="small">
             <Stack as="label" htmlFor="custom-textfield" space="small">
                 <Text size="subtitle">Custom label is up here</Text>
@@ -165,11 +178,16 @@ export function WithoutLabelStory() {
                 </Text>
             </Stack>
         </Stack>
-    )
-}
+    </Story>
+</Canvas>
 
-export function IconStory() {
-    return (
+<Canvas withToolbar>
+    <Story
+        name="Icons"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+    >
         <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
             <TextField
                 label="Search (default variant)"
@@ -183,10 +201,10 @@ export function IconStory() {
                 placeholder="Text field with an icon"
             />
         </Box>
-    )
-}
+    </Story>
+</Canvas>
 
-function ClearButtonIcon() {
+export function ClearButtonIcon() {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <g fill="none" fillRule="evenodd">
@@ -205,13 +223,8 @@ function ClearButtonIcon() {
     )
 }
 
-IconStory.parameters = {
-    chromatic: { disableSnapshot: false },
-}
-
-function ClearButtonExample({ slot }: { slot: 'startSlot' | 'endSlot' }) {
+export function ClearButtonExample({ slot }) {
     const [value, setValue] = React.useState('')
-
     const clearButton = (
         <Button
             variant="quaternary"
@@ -220,7 +233,6 @@ function ClearButtonExample({ slot }: { slot: 'startSlot' | 'endSlot' }) {
             onClick={() => setValue('')}
         />
     )
-
     return (
         <TextField
             label="Search"
@@ -233,52 +245,52 @@ function ClearButtonExample({ slot }: { slot: 'startSlot' | 'endSlot' }) {
     )
 }
 
-export function ActionButtonStory() {
-    return (
+<Canvas withToolbar>
+    <Story
+        name="Action button"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+    >
         <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
             <ClearButtonExample slot="startSlot" />
             <ClearButtonExample slot="endSlot" />
         </Box>
-    )
-}
+    </Story>
+</Canvas>
 
-ActionButtonStory.parameters = {
-    chromatic: { disableSnapshot: false },
-}
-
-export function WithTooltipStory() {
+export function WithTooltipExample() {
     const [value, setValue] = React.useState('')
     const isValidNumber = /^\s*(\d{1,3})?\s*$/.test(value)
-
     return (
-        <Box display="flex" flexDirection="column" gap="xlarge">
-            <Box display="flex" flexDirection="column" gap="small">
-                <Text>
-                    As an alternative to the <code>`message`</code> prop, you can also use tooltips
-                    to associate a description to a text field.{' '}
-                    <strong>This is not recommended in general</strong>, because the description
-                    will not be visible unless you’re hovering or focusing on the field.
-                </Text>
-                <Text>
-                    However, it can work in a situation like the following: the description is only
-                    needed to convey that the value being typed is invalid, and at the same time,
-                    the field forces the value back to valid when blurred. Hence, the description is
-                    never needed when the field is not focused anyway.
-                </Text>
-            </Box>
-            <Tooltip content={isValidNumber ? null : 'Invalid age'} position="top-end">
-                <TextField
-                    label="What’s your age?"
-                    value={value}
-                    onChange={(event) => setValue(event.currentTarget.value)}
-                    tone={isValidNumber ? 'neutral' : 'error'}
-                    hint="This field acceps only numeric inputs. Try typing valid and invalid values to see how it behaves."
-                    maxWidth="small"
-                    onBlur={() => {
-                        setValue(isValidNumber ? value.trim() : '')
-                    }}
-                />
-            </Tooltip>
-        </Box>
+        <Tooltip content={isValidNumber ? null : 'Invalid age'} position="top-end">
+            <TextField
+                label="What’s your age?"
+                value={value}
+                onChange={(event) => setValue(event.currentTarget.value)}
+                tone={isValidNumber ? 'neutral' : 'error'}
+                hint="This field acceps only numeric inputs. Try typing valid and invalid values to see how it behaves."
+                maxWidth="small"
+                onBlur={() => {
+                    setValue(isValidNumber ? value.trim() : '')
+                }}
+            />
+        </Tooltip>
     )
 }
+
+As an alternative to the `message` prop, you can also use tooltips to
+associate a description to a text field. **This is not recommended in
+general**, because the description will not be visible unless you’re
+hovering or focusing on the field.
+
+However, it can work in a situation like the following: the description
+is only needed to convey that the value being typed is invalid, and at
+the same time, the field forces the value back to valid when blurred.
+Hence, the description is never needed when the field is not focused anyway.
+
+<Canvas withToolbar>
+    <Story name="With tooltip">
+        <WithTooltipExample />
+    </Story>
+</Canvas>

@@ -1,36 +1,34 @@
-import * as React from 'react'
-import { selectWithNone, PartialProps } from '../utils/storybook-helper'
-import { SelectField } from './'
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
 
+import { SelectField } from './'
 import { Stack } from '../stack'
 import { Text } from '../text'
 
-import type { BoxMaxWidth } from '../box'
+import { selectWithNone } from '../utils/storybook-helper'
 
-export default {
-    title: 'Design system/SelectField',
-    component: SelectField,
-    parameters: {
+<Meta
+    title="Design system/SelectField"
+    component={SelectField}
+    parameters={{
         badges: ['accessible'],
-    },
-}
+    }}
+/>
 
-function preventDefault(event: React.SyntheticEvent) {
+# SelectField
+
+A component that provides a menu of options, similar to the native `<select>` HTML element.
+
+export function preventDefault(event) {
     event.preventDefault()
 }
 
-export function InteractivePropsStory({
-    label,
-    auxiliaryLabel,
-    ...props
-}: PartialProps<typeof SelectField>) {
+export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
     return (
         <SelectField
             {...props}
             label={label}
             auxiliaryLabel={
                 auxiliaryLabel ? (
-                    // eslint-disable-next-line jsx-a11y/anchor-is-valid
                     <a href="#" onClick={preventDefault}>
                         {auxiliaryLabel}
                     </a>
@@ -53,50 +51,70 @@ export function InteractivePropsStory({
     )
 }
 
-InteractivePropsStory.parameters = {
-    chromatic: { disableSnapshot: false },
-}
+<Canvas>
+    <Story
+        name="Interactive props"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+        argTypes={{
+            label: {
+                control: { type: 'text' },
+                defaultValue: 'Theme',
+            },
+            secondaryLabel: {
+                control: { type: 'text' },
+                defaultValue: 'optional',
+            },
+            auxiliaryLabel: {
+                control: { type: 'text' },
+                defaultValue: 'Need help?',
+            },
+            hint: {
+                control: { type: 'text' },
+                defaultValue:
+                    'The theme you select will be applied immediately. If you upgrade to premium you will have more themes to choose from.',
+            },
+            message: {
+                control: { type: 'text' },
+                defaultValue: '',
+            },
+            tone: {
+                options: ['neutral', 'success', 'error', 'loading'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'neutral',
+            },
+            variant: {
+                options: ['default', 'bordered'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'default',
+            },
+            maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge'], 'small'),
+        }}
+    >
+        {InteractivePropsStory.bind({})}
+    </Story>
+</Canvas>
 
-InteractivePropsStory.argTypes = {
-    label: {
-        control: { type: 'text' },
-        defaultValue: 'Theme',
-    },
-    secondaryLabel: {
-        control: { type: 'text' },
-        defaultValue: 'optional',
-    },
-    auxiliaryLabel: {
-        control: { type: 'text' },
-        defaultValue: 'Need help?',
-    },
-    hint: {
-        control: { type: 'text' },
-        defaultValue:
-            'The theme you select will be applied immediately. If you upgrade to premium you will have more themes to choose from.',
-    },
-    message: {
-        control: { type: 'text' },
-        defaultValue: '',
-    },
-    tone: {
-        options: ['neutral', 'success', 'error', 'loading'],
-        control: { type: 'inline-radio' },
-        defaultValue: 'neutral',
-    },
-    variant: {
-        options: ['default', 'bordered'],
-        control: { type: 'inline-radio' },
-        defaultValue: 'default',
-    },
-    maxWidth: selectWithNone<BoxMaxWidth>(
-        ['xsmall', 'small', 'medium', 'large', 'xlarge'],
-        'small',
-    ),
-}
+<ArgsTable of={SelectField} />
 
-export function MessageToneStory() {
-    return (
+## Colors
+
+The following CSS custom properties are available so that the `SelectField`'s border colors can be customized.
+Note that these variables are shared with other components such as `Textfield`, `PasswordField`, and `TextArea`.
+
+```
+--reactist-inputs-focus
+--reactist-inputs-idle
+```
+
+<Canvas withToolbar>
+    <Story
+        name="Message tone"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+    >
         <Stack space="xxlarge" dividers="secondary">
             <SelectField
                 label="Country of residence"
@@ -109,7 +127,6 @@ export function MessageToneStory() {
                     –
                 </option>
             </SelectField>
-
             <SelectField
                 label="Country of residence"
                 message="Something went wrong. Please, try again."
@@ -120,7 +137,6 @@ export function MessageToneStory() {
                     –
                 </option>
             </SelectField>
-
             <SelectField
                 label="Country of residence"
                 message="Saved successfully!"
@@ -131,7 +147,6 @@ export function MessageToneStory() {
                     –
                 </option>
             </SelectField>
-
             <SelectField
                 label="Country of residence"
                 message="Message with neutral tone (used as description, but still prefer the hint prop for that)"
@@ -144,15 +159,11 @@ export function MessageToneStory() {
                 </option>
             </SelectField>
         </Stack>
-    )
-}
+    </Story>
+</Canvas>
 
-MessageToneStory.parameters = {
-    chromatic: { disableSnapshot: false },
-}
-
-export function WithoutLabelStory() {
-    return (
+<Canvas withToolbar>
+    <Story name="Without label">
         <Stack space="xlarge" dividers="secondary" maxWidth="small">
             <Stack as="label" htmlFor="custom-textarea" space="small">
                 <Text size="subtitle">Custom label is up here</Text>
@@ -174,5 +185,5 @@ export function WithoutLabelStory() {
                 </Text>
             </Stack>
         </Stack>
-    )
-}
+    </Story>
+</Canvas>
