@@ -61,9 +61,10 @@
     --reactist-bg-default: rgb(255, 255, 255);
     --reactist-bg-brand: rgb(36, 111, 224);
     --reactist-bg-aside: rgb(250, 250, 250);
-    --reactist-bg-highlight: rgb(242, 242, 242);
+    --reactist-bg-highlight: rgb(238, 238, 238);
     --reactist-bg-selected: rgb(230, 230, 230);
     --reactist-bg-toast: rgb(40, 40, 40);
+    --reactist-bg-raised: rgb(255, 255, 255);
 
     /* colors */
     --reactist-framework-fill-background: rgb(250, 250, 250);
