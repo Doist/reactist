@@ -6,6 +6,8 @@ import { Stack } from '../stack'
 import { Columns, Column } from '../columns'
 import {
     ContextMenuTrigger,
+    IconMenuItem,
+    IconsMenuGroup,
     Menu,
     MenuButton,
     MenuList,
@@ -70,6 +72,25 @@ export function LeaveIcon() {
                     d="M12.8 11l-2.15-2.15a.5.5 0 1 1 .7-.7L14 10.79a1 1 0 0 1 0 1.42l-2.65 2.64a.5.5 0 0 1-.7-.7L12.79 12H4.5a.5.5 0 0 1 0-1h8.3z"
                 />
             </g>
+        </svg>
+    )
+}
+
+export function FlagIcon() {
+    return (
+        <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M4 5C4 4.83282 4.08355 4.67671 4.22265 4.58397C5.31288 3.85716 6.7415 3.5 8.5 3.5C9.61281 3.5 10.4206 3.6965 12.1581 4.27566C13.7956 4.8215 14.5295 5 15.5 5C17.0748 5 18.3129 4.69049 19.2226 4.08397C19.5549 3.86246 20 4.10065 20 4.5V13C20 13.1672 19.9164 13.3233 19.7774 13.416C18.6871 14.1428 17.2585 14.5 15.5 14.5C14.3872 14.5 13.5794 14.3035 11.8419 13.7243C10.2044 13.1785 9.47052 13 8.5 13C7.05006 13 5.88561 13.2624 5 13.7773V19.5C5 19.7761 4.77614 20 4.5 20C4.22386 20 4 19.7761 4 19.5V13.5V5.5V5ZM8.5 12C7.13251 12 5.96451 12.216 5 12.6538V5.27733C5.88561 4.76236 7.05006 4.5 8.5 4.5C9.47052 4.5 10.2044 4.6785 11.8419 5.22434C13.5794 5.8035 14.3872 6 15.5 6C16.8675 6 18.0355 5.78402 19 5.34617V12.7227C18.1144 13.2376 16.9499 13.5 15.5 13.5C14.5295 13.5 13.7956 13.3215 12.1581 12.7757C10.4206 12.1965 9.61281 12 8.5 12Z"
+                fill="currentColor"
+            />
         </svg>
     )
 }
@@ -232,6 +253,53 @@ In the demo below, right click on the Settings button, or click on the more butt
     </Story>
 </Canvas>
 
+### `<IconMenuItem />`
+
+The `IconMenuItem` component allows you to add icon-only menu items. These menu items do not show
+the label visually, although the label is still used to label it for screen readers, and to be shown
+as a tooltip.
+
+<Canvas>
+    <Story
+        name="IconMenuItem Story"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
+        <Stack space="small">
+            <Menu>
+                <Inline space="xsmall">
+                    <MenuButton as={Button} variant="secondary">
+                        Menu with some icon-only items
+                    </MenuButton>
+                </Inline>
+                <MenuList aria-label="Settings menu">
+                    <MenuItem label="Account" />
+                    <MenuItem label="General" />
+                    <MenuItem label="Advanced" />
+                    <hr />
+                    <IconsMenuGroup
+                        label="Icon-only options"
+                        info={
+                            <IconMenuItem
+                                label="Help about icon-only options"
+                                icon="ℹ️"
+                                as="a"
+                                href="http://doist.github.io/reactist/?path=/docs/design-system-menu--icon-menu-item-story"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                            />
+                        }
+                    >
+                        <IconMenuItem label="Leave" icon={<LeaveIcon />} />
+                        <IconMenuItem label="Priority" icon={<FlagIcon />} />
+                    </IconsMenuGroup>
+                </MenuList>
+            </Menu>
+        </Stack>
+    </Story>
+</Canvas>
+
 ### Open menu programmatically
 
 You can pass a ref to the parent `Menu` component to have access to a `open` function that allows
@@ -307,10 +375,10 @@ you can achieve richer menu items with icons, shortcut info, description, etc.
                 >
                     <Box display="flex" alignItems="center" gap="small">
                         <Avatar user={{ name: 'Jane Doe', email: 'jane.doe@example.com' }} />
-                        <Stack space="small">
+                        <div>
                             <Text weight="semibold">Jane Doe</Text>
                             <Text tone="secondary">jane.doe@example.com</Text>
-                        </Stack>
+                        </div>
                     </Box>
                 </MenuItem>
                 <hr />
