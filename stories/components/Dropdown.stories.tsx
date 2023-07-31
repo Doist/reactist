@@ -4,6 +4,7 @@ import Button from '../../src/components/deprecated-button'
 import Dropdown from '../../src/components/deprecated-dropdown'
 import { Alert } from '../../src/alert'
 import { Stack } from '../../src/stack'
+import LinkTo from '@storybook/addon-links/react'
 
 export default {
     title: 'Components/Dropdown',
@@ -19,8 +20,7 @@ export const DropdownStory = () => (
         <Stack as="section" exceptionallySetClassName="story" space="large">
             <Alert tone="critical">
                 <strong>Deprecated:</strong> While not a 1:1 replacement, consider using{' '}
-                <a href={`${window.location.origin}?path=/docs/components-menu`}>Menu</a> as an
-                alternative
+                <LinkTo kind="design-system-menu">Menu</LinkTo> as an alternative
             </Alert>
 
             <Dropdown.Box>
