@@ -3,6 +3,7 @@ import * as React from 'react'
 import Input from '../../src/components/deprecated-input'
 import { Alert } from '../../src/alert'
 import './styles/input_story.less'
+import LinkTo from '@storybook/addon-links/react'
 
 // Story setup ================================================================
 
@@ -21,10 +22,7 @@ export const InputStory = () => (
         <div className="story-info">
             <Alert tone="critical">
                 <strong>Deprecated:</strong> Please use{' '}
-                <a href={`${window.location.origin}?path=/docs/design-system-textfield`}>
-                    TextField
-                </a>{' '}
-                instead
+                <LinkTo kind="design-system-textfield">TextField</LinkTo> instead
             </Alert>
             <p>
                 This component is a dumb wrapper around the
