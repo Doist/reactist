@@ -4,7 +4,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # v21.2.1
 
--   [Chore] Fix links to Reactist components in storybook stories.
+-   [Docs] Fix links to Reactist components in storybook stories.
 
 # v21.2.0
 
