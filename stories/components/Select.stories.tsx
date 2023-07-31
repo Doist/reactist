@@ -32,7 +32,7 @@ export function SelectStory() {
         <Stack as="section" exceptionallySetClassName="story" space="large">
             <Alert tone="critical">
                 <strong>Deprecated:</strong> Please use{' '}
-                <a href="/?path=/docs/design-system-selectfield">SelectField</a> instead
+                <a href="reactist/?path=/docs/design-system-selectfield">SelectField</a> instead
             </Alert>
 
             <Select value={value} options={options} onChange={setValue} />

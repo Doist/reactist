@@ -19,7 +19,7 @@ export const DropdownStory = () => (
         <Stack as="section" exceptionallySetClassName="story" space="large">
             <Alert tone="critical">
                 <strong>Deprecated:</strong> While not a 1:1 replacement, consider using{' '}
-                <a href="/?path=/docs/components-menu">Menu</a> as an alternative
+                <a href="reactist/?path=/docs/components-menu">Menu</a> as an alternative
             </Alert>
 
             <Dropdown.Box>

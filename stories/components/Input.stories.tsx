@@ -21,7 +21,7 @@ export const InputStory = () => (
         <div className="story-info">
             <Alert tone="critical">
                 <strong>Deprecated:</strong> Please use{' '}
-                <a href="/?path=/docs/design-system-textfield">TextField</a> instead
+                <a href="reactist/?path=/docs/design-system-textfield">TextField</a> instead
             </Alert>
             <p>
                 This component is a dumb wrapper around the
