@@ -144,7 +144,7 @@
         "webpack": "^4.43.0"
     },
     "dependencies": {
-        "@ariakit/react": "^0.2.3",
+        "@ariakit/react": "^0.2.15",
         "@reach/dialog": "^0.16.0",
         "aria-hidden": "^1.2.1",
         "dayjs": "^1.8.10",
