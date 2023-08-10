@@ -1,0 +1,5 @@
+.comboboxItem[data-active-item],
+.comboboxItem[aria-selected='true'] {
+    background-color: hsl(204 100% 40%);
+    color: white;
+}
