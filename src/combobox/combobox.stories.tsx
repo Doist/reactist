@@ -63,9 +63,7 @@ const team = [
 export function ComboboxStory() {
     const [searchValue, setSearchValue] = useState('')
     const [selectedValue, setSelectedValue] = useState('')
-    const [activeId, setActiveId] = useState<string | null | undefined>(null)
-
-    console.log({ activeId })
+    const [isOpen, setOpen] = useState(false)
 
     const matches = useMemo(
         () =>
@@ -75,22 +73,12 @@ export function ComboboxStory() {
         [searchValue],
     )
 
-    useEffect(
-        function updateActiveId() {
-            console.log({
-                searchValue,
-                matches: JSON.stringify(matches.map((match) => match.name)),
-            })
-            setActiveId(matches[0]?.name)
-        },
-        [searchValue, matches, setActiveId],
-    )
-
     const onClose = useCallback(
         function onClose(open: boolean) {
             if (!open) {
                 setSearchValue(selectedValue)
             }
+            setOpen(open)
         },
         [setSearchValue, selectedValue],
     )
@@ -103,7 +91,6 @@ export function ComboboxStory() {
 
     const onSelect = useCallback(
         (value: string) => {
-            console.log({ value })
             setSearchValue(value)
             setSelectedValue(value)
         },
@@ -114,10 +101,28 @@ export function ComboboxStory() {
         combobox,
         value: selectedValue,
         setValue: onSelect,
-        defaultActiveId: selectedValue ?? null,
-        activeId,
-        setActiveId,
+        defaultActiveId: selectedValue ?? undefined,
     })
+
+    const { move } = select
+
+    useEffect(
+        function focusItemOnSearch() {
+            if (searchValue) {
+                move(matches[0]?.name)
+            }
+        },
+        [searchValue, matches, move],
+    )
+
+    useEffect(
+        function focusItemOnOpen() {
+            if (isOpen) {
+                move(selectedValue)
+            }
+        },
+        [isOpen, selectedValue, move],
+    )
 
     return (
         <div className="wrapper">
@@ -133,7 +138,7 @@ export function ComboboxStory() {
                 store={combobox}
                 gutter={8}
                 sameWidth
-                className="popover"
+                className={styles.popover}
                 render={<SelectList store={select} />}
             >
                 {team.map((value) => (
