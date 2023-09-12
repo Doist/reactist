@@ -27,6 +27,7 @@ See https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
     font: inherit;
     width: 100%;
     resize: vertical;
+    overflow-wrap: anywhere; /* to stop unnecessary horizontal expansion of text-area when `autoExpand` is enabled.*/
 }
 
 .textAreaContainer:not(.bordered) .innerContainer::after,
