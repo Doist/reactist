@@ -76,10 +76,6 @@ function Menu({ children, onItemSelect, ...props }: MenuProps) {
     const getAnchorRect = React.useMemo(() => (anchorRect ? () => anchorRect : null), [anchorRect])
     const menuStore = useMenuStore({ focusLoop: true, ...props })
 
-    React.useEffect(() => {
-        if (!state.open) handleAnchorRectChange(null)
-    }, [state.open])
-
     const handleItemSelect = React.useCallback(
         function handleItemSelect(value: string | null | undefined) {
             onItemSelect?.(value)

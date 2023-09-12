@@ -126,9 +126,6 @@ function Tooltip({
         <>
             <TooltipAnchor
                 render={(anchorProps) => {
-                    // Let child props override anchor props so user can specify attributes like tabIndex
-                    // Also, do not apply the child's props to TooltipAnchor as props like `as` can create problems
-                    // by applying the replacement component/element twice
                     return React.cloneElement(child, {
                         ...child.props,
                         ...anchorProps,
