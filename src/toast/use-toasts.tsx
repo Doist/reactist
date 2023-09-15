@@ -186,6 +186,11 @@ type ToastsProviderProps = {
      * The app wrapped by the provider.
      */
     children: NonNullable<React.ReactNode>
+
+    /**
+     * Custom classname for the toasts container, if you need to fine-tune the position or other styles
+     */
+    containerClassName?: string
 }
 
 /**
@@ -200,6 +205,7 @@ function ToastsProvider({
     padding = 'large',
     defaultAutoDismissDelay = 10 /* seconds */,
     defaultDismissLabel = 'Close',
+    containerClassName,
 }: ToastsProviderProps) {
     const [toasts, setToasts] = React.useState<ToastsList>([])
     const { mappedRef, animateRemove } = useToastsAnimation()
@@ -240,11 +246,12 @@ function ToastsProvider({
             <Portal>
                 {toasts.length === 0 ? null : (
                     <Box
-                        className={styles.stackedToastsView}
+                        className={[styles.stackedToastsView, containerClassName]}
                         position="fixed"
                         width="full"
                         paddingX={padding}
                         paddingBottom={padding}
+                        data-testid="toasts-container"
                     >
                         <Stack space="medium">
                             {toasts.map(({ toastId, ...props }) => (
