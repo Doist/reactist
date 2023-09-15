@@ -47,6 +47,17 @@ describe('useToast', () => {
         }
     }
 
+    describe('ToastsProvider', () => {
+        it('allows to pass a custom className for the container', () => {
+            const { showToast } = renderTestCase({
+                containerClassName: 'customContainerClassName',
+            })
+            showToast()
+
+            expect(screen.getByTestId('toasts-container')).toHaveClass('customContainerClassName')
+        })
+    })
+
     it('renders a semantic alert with the given message', () => {
         const { showToast } = renderTestCase()
         showToast({ message: 'Project has been published' })
