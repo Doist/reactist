@@ -86,21 +86,21 @@
     /* component-specific */
 
     /* alerts */
-    --reactist-alert-tone-info-icon: #1d438c;
-    --reactist-alert-tone-info-border: rgb(36, 111, 224);
-    --reactist-alert-tone-info-background: rgba(36, 111, 224, 0.1);
+    --reactist-alert-tone-info-icon: rgba(49, 111, 234);
+    --reactist-alert-tone-info-border: rgba(238, 238, 238);
+    --reactist-alert-tone-info-background: rgba(250, 250, 250);
 
-    --reactist-alert-tone-positive-icon: #035017;
-    --reactist-alert-tone-positive-border: rgb(5, 133, 39);
-    --reactist-alert-tone-positive-background: rgba(5, 133, 39, 0.1);
+    --reactist-alert-tone-positive-icon: rgba(5, 133, 39);
+    --reactist-alert-tone-positive-border: rgba(238, 238, 238);
+    --reactist-alert-tone-positive-background: rgba(250, 250, 250);
 
-    --reactist-alert-tone-caution-icon: #5e3704;
-    --reactist-alert-tone-caution-border: rgb(235, 141, 19);
-    --reactist-alert-tone-caution-background: rgba(235, 141, 19, 0.2);
+    --reactist-alert-tone-caution-icon: rgba(235, 137, 9);
+    --reactist-alert-tone-caution-border: rgba(238, 238, 238);
+    --reactist-alert-tone-caution-background: rgba(250, 250, 250);
 
-    --reactist-alert-tone-critical-icon: #b03d32;
-    --reactist-alert-tone-critical-border: rgb(209, 69, 59);
-    --reactist-alert-tone-critical-background: rgba(209, 69, 59, 0.1);
+    --reactist-alert-tone-critical-icon: rgba(220, 76, 62);
+    --reactist-alert-tone-critical-border: rgba(238, 238, 238);
+    --reactist-alert-tone-critical-background: rgba(250, 250, 250);
 
     /* toasts */
     --reactist-toast-actionable-primary-tint: #39d1ef;

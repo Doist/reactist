@@ -11,7 +11,7 @@
     background-color: var(--reactist-alert-tone-info-background);
     border-color: var(--reactist-alert-tone-info-border);
 }
-.tone-info svg {
+.tone-info .icon {
     color: var(--reactist-alert-tone-info-icon);
 }
 
@@ -19,7 +19,7 @@
     background-color: var(--reactist-alert-tone-positive-background);
     border-color: var(--reactist-alert-tone-positive-border);
 }
-.tone-positive svg {
+.tone-positive .icon {
     color: var(--reactist-alert-tone-positive-icon);
 }
 
@@ -27,7 +27,7 @@
     background-color: var(--reactist-alert-tone-caution-background);
     border-color: var(--reactist-alert-tone-caution-border);
 }
-.tone-caution svg {
+.tone-caution .icon {
     color: var(--reactist-alert-tone-caution-icon);
 }
 
@@ -35,6 +35,6 @@
     background-color: var(--reactist-alert-tone-critical-background);
     border-color: var(--reactist-alert-tone-critical-border);
 }
-.tone-critical svg {
+.tone-critical .icon {
     color: var(--reactist-alert-tone-critical-icon);
 }
