@@ -56,6 +56,7 @@
     /* input border colors */
     --reactist-inputs-focus: var(--reactist-divider-primary);
     --reactist-inputs-idle: var(--reactist-divider-secondary);
+    --reactist-inputs-alert: rgb(209, 69, 59);
 
     /* border-radius */
     --reactist-border-radius-small: 5px;
