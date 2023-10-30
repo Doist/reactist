@@ -30,7 +30,7 @@ function Alert({ id, children, tone, closeLabel, onClose }: AlertProps) {
             id={id}
             role="alert"
             aria-live="polite"
-            borderRadius="standard"
+            borderRadius="full"
             className={[styles.container, getClassNames(styles, 'tone', tone)]}
         >
             <Columns space="small" alignY="top">
