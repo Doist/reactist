@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# Next
+
+-   [Feat] The `Alert` component now has a new design. Input based components will now also expose a `--reactist-inputs-alert` CSS variable to customize their border colours when put into an error state
+
 # v22.1.0
 
 -   [Build] Add support for Node v20 and npm v10
