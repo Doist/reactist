@@ -35,7 +35,9 @@ function Alert({ id, children, tone, closeLabel, onClose }: AlertProps) {
         >
             <Columns space="small" alignY="center">
                 <Column width="content">
-                    <AlertIcon tone={tone} className={styles.icon} />
+                    <Box display="flex" alignItems="center">
+                        <AlertIcon tone={tone} className={styles.icon} />
+                    </Box>
                 </Column>
                 <Column>
                     <Box
