@@ -34,8 +34,8 @@ function Alert({ id, children, tone, closeLabel, onClose }: AlertProps) {
             className={[styles.container, getClassNames(styles, 'tone', tone)]}
         >
             <Columns space="small" alignY="center">
-                <Column width="content" exceptionallySetClassName={styles.icon}>
-                    <AlertIcon tone={tone} />
+                <Column width="content">
+                    <AlertIcon tone={tone} className={styles.icon} />
                 </Column>
                 <Column>
                     <Box
