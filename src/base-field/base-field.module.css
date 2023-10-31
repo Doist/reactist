@@ -32,7 +32,7 @@
 }
 
 .container.bordered.error {
-    border-color: var(--reactist-alert-tone-critical-border) !important;
+    border-color: var(--reactist-inputs-alert) !important;
 }
 
 .container.bordered .primaryLabel {

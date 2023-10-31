@@ -50,7 +50,7 @@
 }
 
 .selectWrapper:not(.bordered).error select {
-    border-color: var(--reactist-alert-tone-critical-border) !important;
+    border-color: var(--reactist-inputs-alert) !important;
 }
 
 .selectWrapper:not(.bordered) option {

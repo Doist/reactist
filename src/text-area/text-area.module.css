@@ -54,7 +54,7 @@ See https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
 .textAreaContainer.error:not(.bordered) .innerContainer::after,
 .textAreaContainer.error:not(.bordered) textarea,
 .textAreaContainer.bordered.error {
-    border-color: var(--reactist-alert-tone-critical-border) !important;
+    border-color: var(--reactist-inputs-alert) !important;
 }
 
 .innerContainer {
