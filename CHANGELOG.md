@@ -5,6 +5,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 # Next
 
 -   [Feat] Expose `showTimeout` and `hideTimeout` props for `Tooltip`
+-   [Fix] The center alignment between the `Alert` component's icon and message is now more accurate when the message is only one-line long.
 
 # v26.0.0
 
