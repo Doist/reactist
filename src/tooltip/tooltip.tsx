@@ -77,7 +77,7 @@ type TooltipProps = {
 }
 
 // These are exported to be used in the tests, they are not meant to be exported publicly
-export const SHOW_DELAY = 500
+export const SHOW_DELAY = 1000
 export const HIDE_DELAY = 100
 
 function useDelayedTooltipState(initialState: AriakitTooltipStateProps) {

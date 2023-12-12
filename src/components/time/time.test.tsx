@@ -6,6 +6,8 @@ import { axe } from 'jest-axe'
 import { Time } from './time'
 import userEvent from '@testing-library/user-event'
 
+import { SHOW_DELAY } from '../../tooltip/tooltip'
+
 describe('Time', () => {
     beforeAll(() => {
         jest.useFakeTimers()
@@ -70,9 +72,14 @@ describe('Time', () => {
         render(<Time time={testDate} tooltipOnHover />)
 
         userEvent.hover(screen.getByText('March 22, 1991'))
-        await waitFor(() => {
-            expect(screen.getByRole('tooltip', { name: 'March 22, 1991, 1:37 PM' })).toBeVisible()
-        })
+        await waitFor(
+            () => {
+                expect(
+                    screen.getByRole('tooltip', { name: 'March 22, 1991, 1:37 PM' }),
+                ).toBeVisible()
+            },
+            { timeout: SHOW_DELAY + 10 },
+        )
 
         userEvent.unhover(screen.getByText('March 22, 1991'))
         await waitFor(() => {
@@ -84,9 +91,12 @@ describe('Time', () => {
         render(<Time time={testDate} tooltipOnHover tooltip="Test" />)
 
         userEvent.hover(screen.getByText('March 22, 1991'))
-        await waitFor(() => {
-            expect(screen.getByRole('tooltip', { name: 'Test' })).toBeVisible()
-        })
+        await waitFor(
+            () => {
+                expect(screen.getByRole('tooltip', { name: 'Test' })).toBeVisible()
+            },
+            { timeout: SHOW_DELAY + 10 },
+        )
 
         userEvent.unhover(screen.getByText('March 22, 1991'))
         await waitFor(() => {
@@ -98,10 +108,15 @@ describe('Time', () => {
         render(<Time time={dayjs().unix()} tooltipOnHover expandOnHover />)
         userEvent.hover(screen.getByText('moments ago'))
 
-        await waitFor(() => {
-            expect(screen.getByRole('tooltip', { name: dayjs().format('LL, LT') })).toBeVisible()
-            expect(screen.getByText('moments ago')).toBeVisible()
-        })
+        await waitFor(
+            () => {
+                expect(
+                    screen.getByRole('tooltip', { name: dayjs().format('LL, LT') }),
+                ).toBeVisible()
+                expect(screen.getByText('moments ago')).toBeVisible()
+            },
+            { timeout: SHOW_DELAY + 10 },
+        )
 
         userEvent.unhover(screen.getByText('moments ago'))
         await waitFor(() => {
@@ -113,10 +128,15 @@ describe('Time', () => {
         render(<Time time={dayjs().unix()} tooltipOnHover expandFullyOnHover />)
         userEvent.hover(screen.getByText('moments ago'))
 
-        await waitFor(() => {
-            expect(screen.getByRole('tooltip', { name: dayjs().format('LL, LT') })).toBeVisible()
-            expect(screen.getByText('moments ago')).toBeVisible()
-        })
+        await waitFor(
+            () => {
+                expect(
+                    screen.getByRole('tooltip', { name: dayjs().format('LL, LT') }),
+                ).toBeVisible()
+                expect(screen.getByText('moments ago')).toBeVisible()
+            },
+            { timeout: SHOW_DELAY + 10 },
+        )
 
         userEvent.unhover(screen.getByText('moments ago'))
         await waitFor(() => {

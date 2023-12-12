@@ -247,9 +247,12 @@ describe('Tooltip', () => {
         const button = screen.getByRole('button', { name: 'Click me' })
         userEvent.tab()
 
-        await waitFor(() => {
-            expect(button).toHaveAccessibleDescription('tooltip content here')
-        })
+        await waitFor(
+            () => {
+                expect(button).toHaveAccessibleDescription('tooltip content here')
+            },
+            { timeout: SHOW_DELAY + 10 },
+        )
     })
 
     it('does not acknowledge the className prop, but exceptionallySetClassName instead', async () => {
@@ -267,7 +270,11 @@ describe('Tooltip', () => {
         // available when we hover or focus the button, and not before.
         userEvent.tab()
 
-        const tooltip = await screen.findByRole('tooltip', { name: 'I’m a tooltip' })
+        const tooltip = await screen.findByRole(
+            'tooltip',
+            { name: 'I’m a tooltip' },
+            { timeout: SHOW_DELAY + 10 },
+        )
         expect(tooltip).toHaveClass('right')
         expect(tooltip).not.toHaveClass('wrong')
     })
