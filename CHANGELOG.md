@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# v22.3.3
+
+-   [Fix] Vertical alignment of inline code elements inside a `Prose` component
+
 # v22.3.2
 
 -   [Fix] Text inside a `Badge` no longer wraps into multiple lines.

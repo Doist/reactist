@@ -198,7 +198,6 @@
 
 .prose :not(pre) > code {
     padding: 2px 4px;
-    vertical-align: text-top;
 }
 
 .prose pre {
