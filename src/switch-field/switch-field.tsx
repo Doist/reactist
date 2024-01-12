@@ -16,6 +16,7 @@ type SwitchFieldProps = Omit<
     | 'aria-describedby'
     | 'aria-label'
     | 'aria-labelledby'
+    | 'crossOrigin'
 > & {
     /** Identifies the element (or elements) that describes the switch for assistive technologies. */
     'aria-describedby'?: string

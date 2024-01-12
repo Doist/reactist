@@ -15,6 +15,7 @@ type CheckboxFieldProps = Omit<
     | 'aria-describedby'
     | 'aria-label'
     | 'aria-labelledby'
+    | 'crossOrigin'
 > & {
     'aria-checked'?: never
     /** Identifies the set of checkboxes controlled by the mixed checkbox for assistive technologies. */

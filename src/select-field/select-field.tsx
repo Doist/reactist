@@ -3,7 +3,8 @@ import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-f
 import { Box } from '../box'
 import styles from './select-field.module.css'
 
-type SelectFieldProps = FieldComponentProps<HTMLSelectElement> & BaseFieldVariantProps
+type SelectFieldProps = Omit<FieldComponentProps<HTMLSelectElement>, 'crossOrigin'> &
+    BaseFieldVariantProps
 
 const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(function SelectField(
     {
