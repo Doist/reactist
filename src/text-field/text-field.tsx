@@ -7,7 +7,7 @@ import { useMergeRefs } from 'use-callback-ref'
 
 type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 
-type TextFieldProps = Omit<FieldComponentProps<HTMLInputElement>, 'type'> &
+type TextFieldProps = Omit<FieldComponentProps<HTMLInputElement>, 'type' | 'crossOrigin'> &
     BaseFieldVariantProps & {
         type?: TextFieldType
         startSlot?: React.ReactChild

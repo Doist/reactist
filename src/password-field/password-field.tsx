@@ -8,7 +8,7 @@ import { Button } from '../button'
 
 import type { BaseFieldVariantProps } from '../base-field'
 
-type PasswordFieldProps = Omit<TextFieldProps, 'type' | 'startSlot' | 'endSlot'> &
+type PasswordFieldProps = Omit<TextFieldProps, 'type' | 'startSlot' | 'endSlot' | 'crossOrigin'> &
     BaseFieldVariantProps & {
         togglePasswordLabel?: string
     }
