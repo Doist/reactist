@@ -11,7 +11,7 @@
 }
 
 pre.box {
-    font-family: monospace;
+    font-family: var(--reactist-font-family-monospace);
 }
 
 .box[hidden] {

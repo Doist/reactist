@@ -191,7 +191,7 @@
     background-color: var(--reactist-prose-code-fill);
     border: 1px solid var(--reactist-prose-code-border);
     border-radius: var(--reactist-border-radius-small);
-    font-family: 'Source Code Pro', Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace;
+    font-family: var(--reactist-font-family-monospace);
     font-size: 0.875em;
     line-height: 1.6;
 }
