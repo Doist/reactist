@@ -3,8 +3,7 @@ import classNames from 'classnames'
 import FocusLock from 'react-focus-lock'
 import { hideOthers } from 'aria-hidden'
 
-import { Dialog, DialogOptions, useDialogState } from 'ariakit/dialog'
-import { Portal, PortalOptions } from 'ariakit/portal'
+import { Dialog, DialogOptions, useDialogStore, Portal, PortalOptions } from '@ariakit/react'
 
 import { CloseIcon } from '../icons/close-icon'
 import { Column, Columns } from '../columns'
@@ -148,6 +147,7 @@ export function Modal({
     hideOnInteractOutside = true,
     children,
     portalElement,
+    onKeyDown,
     ...props
 }: ModalProps) {
     const setOpen = React.useCallback(
@@ -158,7 +158,7 @@ export function Modal({
         },
         [onDismiss],
     )
-    const state = useDialogState({ open: isOpen, setOpen })
+    const store = useDialogStore({ open: isOpen, setOpen })
 
     const contextValue: ModalContextValue = React.useMemo(() => ({ onDismiss, height }), [
         onDismiss,
@@ -195,6 +195,22 @@ export function Modal({
         [isOpen],
     )
 
+    const handleKeyDown = React.useCallback(
+        function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+            if (
+                hideOnEscape &&
+                onDismiss != null &&
+                event.key === 'Escape' &&
+                !event.defaultPrevented
+            ) {
+                event.stopPropagation()
+                onDismiss()
+            }
+            onKeyDown?.(event)
+        },
+        [onDismiss, hideOnEscape, onKeyDown],
+    )
+
     if (!isOpen) {
         return null
     }
@@ -223,8 +239,7 @@ export function Modal({
                         {...props}
                         ref={dialogRef}
                         as={Box}
-                        state={state}
-                        hideOnEscape={hideOnEscape}
+                        store={store}
                         preventBodyScroll
                         borderRadius="full"
                         background="default"
@@ -243,6 +258,8 @@ export function Modal({
                         portal={false}
                         backdrop={false}
                         hideOnInteractOutside={false}
+                        hideOnEscape={false}
+                        onKeyDown={handleKeyDown}
                     >
                         <ModalContext.Provider value={contextValue}>
                             {children}
