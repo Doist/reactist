@@ -147,6 +147,7 @@ export function Modal({
     hideOnInteractOutside = true,
     children,
     portalElement,
+    onKeyDown,
     ...props
 }: ModalProps) {
     const setOpen = React.useCallback(
@@ -194,6 +195,22 @@ export function Modal({
         [isOpen],
     )
 
+    const handleKeyDown = React.useCallback(
+        function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+            if (
+                hideOnEscape &&
+                onDismiss != null &&
+                event.key === 'Escape' &&
+                !event.defaultPrevented
+            ) {
+                event.stopPropagation()
+                onDismiss()
+            }
+            onKeyDown?.(event)
+        },
+        [onDismiss, hideOnEscape, onKeyDown],
+    )
+
     if (!isOpen) {
         return null
     }
@@ -223,7 +240,6 @@ export function Modal({
                         ref={dialogRef}
                         as={Box}
                         store={store}
-                        hideOnEscape={hideOnEscape}
                         preventBodyScroll
                         borderRadius="full"
                         background="default"
@@ -242,6 +258,8 @@ export function Modal({
                         portal={false}
                         backdrop={false}
                         hideOnInteractOutside={false}
+                        hideOnEscape={false}
+                        onKeyDown={handleKeyDown}
                     >
                         <ModalContext.Provider value={contextValue}>
                             {children}
