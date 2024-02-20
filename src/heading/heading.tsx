@@ -21,11 +21,11 @@ type HeadingProps = SupportedHeadingElementProps & {
      */
     level: HeadingLevel
     /**
-     * The weight of the heading. Used to de-emphasize the heading visually when using 'light'.
+     * The weight of the heading. Used to de-emphasize the heading visually when using 'medium' or 'light'.
      *
      * @default 'regular'
      */
-    weight?: 'regular' | 'light'
+    weight?: 'regular' | 'medium' | 'light'
     /**
      * Shifts the default heading visual text size up or down, depending on the original size
      * imposed by the `level`. The heading continues to be semantically at the given level.
