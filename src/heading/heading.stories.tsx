@@ -128,7 +128,7 @@ export function HeadingPlaygroundStory(props: React.ComponentProps<typeof Headin
 HeadingPlaygroundStory.argTypes = {
     level: select(['1', '2', '3', '4', '5', '6'], '1'),
     size: selectWithNone(['largest', 'larger', 'smaller'], 'none'),
-    weight: select(['regular', 'light'], 'regular'),
+    weight: select(['regular', 'medium', 'light'], 'regular'),
     lineClamp: selectWithNone([1, 2, 3, 4, 5], 'none'),
     tone: select(['normal', 'secondary', 'danger'], 'normal'),
     align: selectWithNone(['start', 'center', 'end', 'justify'], 'none'),

@@ -84,6 +84,13 @@ describe('Heading', () => {
             expect(textElement).not.toHaveClass('weight-light')
 
             rerender(
+                <Heading level="1" data-testid="heading-element" weight="medium">
+                    Heading
+                </Heading>,
+            )
+            expect(textElement).toHaveClass('weight-medium')
+
+            rerender(
                 <Heading level="1" data-testid="heading-element" weight="light">
                     Heading
                 </Heading>,
