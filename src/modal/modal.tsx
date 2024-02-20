@@ -230,9 +230,12 @@ export function Modal({
                         background="default"
                         display="flex"
                         flexDirection="column"
+                        flexGrow={height === 'expand' ? 1 : 0}
                         overflow="hidden"
                         height={height === 'expand' ? 'full' : undefined}
-                        flexGrow={height === 'expand' ? 1 : 0}
+                        padding="large"
+                        paddingTop="medium"
+                        gap="large"
                         className={[exceptionallySetClassName, styles.container]}
                         // Disable focus lock as we set up our own using ReactFocusLock
                         modal={false}
@@ -352,14 +355,7 @@ export function ModalHeader({
 }: ModalHeaderProps) {
     return (
         <>
-            <Box
-                {...props}
-                as="header"
-                paddingLeft="large"
-                paddingRight={button === false || button === null ? 'large' : 'small'}
-                paddingY="small"
-                className={exceptionallySetClassName}
-            >
+            <Box {...props} as="header" className={exceptionallySetClassName}>
                 <Columns space="large" alignY="center">
                     <Column width="auto">{children}</Column>
                     {button === false || button === null ? (
@@ -403,7 +399,7 @@ export type ModalBodyProps = DivProps & {
  * Renders the body of a modal.
  *
  * Convenient to use alongside ModalHeader and/or ModalFooter as needed. It ensures, among other
- * things, that the contet of the modal body expands or contracts depending on the modal height
+ * things, that the content of the modal body expands or contracts depending on the modal height
  * setting or the size of the content. The body content also automatically scrolls when it's too
  * large to fit the available space.
  *
@@ -421,9 +417,7 @@ export function ModalBody({ exceptionallySetClassName, children, ...props }: Mod
             height={height === 'expand' ? 'full' : undefined}
             overflow="auto"
         >
-            <Box padding="large" paddingBottom="xxlarge">
-                {children}
-            </Box>
+            {children}
         </Box>
     )
 }
@@ -463,7 +457,7 @@ export function ModalFooter({
     return (
         <>
             {withDivider ? <Divider /> : null}
-            <Box as="footer" {...props} className={exceptionallySetClassName} padding="large" />
+            <Box as="footer" {...props} className={exceptionallySetClassName} paddingTop="small" />
         </>
     )
 }
