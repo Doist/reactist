@@ -6,6 +6,10 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 -   [BREAKING] Upgrade Ariakit from legacy package to the newer @ariakit/react
 
+# v23.2.0
+
+-   [Feat] Add `medium` as a `weight` option for `Header`.
+
 # v23.1.0
 
 -   [Feat] Add `--reactist-font-family-monospace` with updated font family for monospace elements

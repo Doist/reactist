@@ -4,6 +4,10 @@
     font-family: var(--reactist-font-family);
 }
 
+.weight-medium {
+    font-weight: var(--reactist-font-weight-medium);
+}
+
 .weight-light {
     font-weight: var(--reactist-font-weight-regular);
 }
