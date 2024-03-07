@@ -32,7 +32,7 @@ type NativeProps<E extends HTMLElement> = React.DetailedHTMLProps<React.HTMLAttr
 
 type MenuContextState = {
     menuStore: MenuStore
-    handleItemSelect: (value: string | null | undefined) => void
+    handleItemSelect?: (value: string | null | undefined) => void
     getAnchorRect: (() => { x: number; y: number }) | null
     setAnchorRect: (rect: { x: number; y: number } | null) => void
 }
@@ -76,16 +76,9 @@ function Menu({ children, onItemSelect, ...props }: MenuProps) {
     const getAnchorRect = React.useMemo(() => (anchorRect ? () => anchorRect : null), [anchorRect])
     const menuStore = useMenuStore({ focusLoop: true, ...props })
 
-    const handleItemSelect = React.useCallback(
-        function handleItemSelect(value: string | null | undefined) {
-            onItemSelect?.(value)
-        },
-        [onItemSelect],
-    )
-
     const value: MenuContextState = React.useMemo(
-        () => ({ menuStore, handleItemSelect, getAnchorRect, setAnchorRect }),
-        [menuStore, handleItemSelect, getAnchorRect, setAnchorRect],
+        () => ({ menuStore, handleItemSelect: onItemSelect, getAnchorRect, setAnchorRect }),
+        [menuStore, onItemSelect, getAnchorRect, setAnchorRect],
     )
 
     return <MenuContext.Provider value={value}>{children}</MenuContext.Provider>
@@ -163,6 +156,12 @@ const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
                 className={classNames('reactist_menulist', exceptionallySetClassName)}
                 getAnchorRect={getAnchorRect ?? undefined}
                 modal={modal}
+                onBlur={(event) => {
+                    if (!event.relatedTarget) return
+                    if (event.currentTarget.contains(event.relatedTarget)) return
+                    if (event.relatedTarget?.closest('[role^="menu"]')) return
+                    menuStore.hide()
+                }}
             />
         </Portal>
     ) : null
@@ -249,7 +248,7 @@ const MenuItem = polymorphicComponent<'button', MenuItemProps>(function MenuItem
             const onSelectResult: unknown =
                 onSelect && !event.defaultPrevented ? onSelect() : undefined
             const shouldClose = onSelectResult !== false && hideOnSelect
-            handleItemSelect(value)
+            handleItemSelect?.(value)
             if (shouldClose) hide()
         },
         [onSelect, onClick, handleItemSelect, hideOnSelect, hide, value],
@@ -307,7 +306,7 @@ const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
     const handleSubItemSelect = React.useCallback(
         function handleSubItemSelect(value: string | null | undefined) {
             if (onItemSelect) onItemSelect(value)
-            parentMenuItemSelect(value)
+            parentMenuItemSelect?.(value)
             parentMenuHide()
         },
         [parentMenuHide, parentMenuItemSelect, onItemSelect],

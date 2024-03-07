@@ -2,6 +2,11 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# v24.1.1-beta
+
+-   [Fix] It was possible to leave a tooltip in a state in which it remained visible all the time. This release fixes the issue.
+-   [Fix] Auto-close menus when they lose focus to elements other than their own content or their sub-menus.
+
 # v24.1.0-beta
 
 -   [Feat] Include changes from [v23.2.0](#v2320) in the beta release

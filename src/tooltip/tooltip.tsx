@@ -95,50 +95,9 @@ function Tooltip({
         throw new Error('Tooltip: String refs cannot be used as they cannot be forwarded')
     }
 
-    /**
-     * Prevents the tooltip from automatically firing on focus all the time. This is to prevent
-     * tooltips from showing when the trigger element is focused back after a popover or dialog that
-     * it opened was closed. See link below for more details.
-     * @see https://github.com/ariakit/ariakit/discussions/749
-     */
-    function handleFocus(event: React.FocusEvent<HTMLDivElement>) {
-        // If focus is not followed by a key up event, does it mean that it's not an intentional
-        // keyboard focus? Not sure but it seems to work.
-        // This may be resolved soon in an upcoming version of ariakit:
-        // https://github.com/ariakit/ariakit/issues/750
-        function handleKeyUp(event: Event) {
-            const eventKey = (event as KeyboardEvent).key
-            if (eventKey !== 'Escape' && eventKey !== 'Enter' && eventKey !== 'Space') {
-                tooltip.show()
-            }
-        }
-        event.currentTarget.addEventListener('keyup', handleKeyUp, { once: true })
-        event.preventDefault() // Prevent tooltip.show from being called by TooltipReference
-        child?.props?.onFocus?.(event)
-    }
-
-    function handleBlur(event: React.FocusEvent<HTMLDivElement>) {
-        tooltip.hide()
-        child?.props?.onBlur?.(event)
-    }
-
     return (
         <>
-            <TooltipAnchor
-                render={(anchorProps) => {
-                    // Let child props override anchor props so user can specify attributes like tabIndex
-                    // Also, do not apply the child's props to TooltipAnchor as props like `as` can create problems
-                    // by applying the replacement component/element twice
-                    return React.cloneElement(child, {
-                        ...child.props,
-                        ...anchorProps,
-                        onFocus: handleFocus,
-                        onBlur: handleBlur,
-                    })
-                }}
-                store={tooltip}
-                ref={child.ref}
-            />
+            <TooltipAnchor render={child} store={tooltip} ref={child.ref} />
             {isOpen && content ? (
                 <Box
                     as={AriakitTooltip}
