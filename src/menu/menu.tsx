@@ -156,6 +156,12 @@ const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
                 className={classNames('reactist_menulist', exceptionallySetClassName)}
                 getAnchorRect={getAnchorRect ?? undefined}
                 modal={modal}
+                onBlur={(event) => {
+                    if (!event.relatedTarget) return
+                    if (event.currentTarget.contains(event.relatedTarget)) return
+                    if (event.relatedTarget?.closest('[role^="menu"]')) return
+                    menuStore.hide()
+                }}
             />
         </Portal>
     ) : null

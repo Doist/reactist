@@ -5,6 +5,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 # v24.1.1-beta
 
 -   [Fix] It was possible to leave a tooltip in a state in which it remained visible all the time. This release fixes the issue.
+-   [Fix] Auto-close menus when they lose focus to elements other than their own content or their sub-menus.
 
 # v24.1.0-beta
 
