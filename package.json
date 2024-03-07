@@ -6,7 +6,7 @@
         "email": "henning@doist.com",
         "url": "http://doist.com"
     },
-    "version": "24.1.0-beta",
+    "version": "24.1.1-beta",
     "license": "MIT",
     "homepage": "https://github.com/Doist/reactist#readme",
     "repository": {
