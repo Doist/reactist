@@ -126,6 +126,11 @@ const ContextMenuTrigger = polymorphicComponent<'div', unknown>(function Context
         [setAnchorRect, menuStore],
     )
 
+    const isOpen = menuStore.useState('open')
+    React.useEffect(() => {
+        if (!isOpen) setAnchorRect(null)
+    }, [isOpen, setAnchorRect])
+
     return React.createElement(component, { ...props, onContextMenu: handleContextMenu, ref })
 })
 
