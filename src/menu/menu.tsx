@@ -126,6 +126,11 @@ const ContextMenuTrigger = polymorphicComponent<'div', unknown>(function Context
         [setAnchorRect, menuStore],
     )
 
+    const isOpen = menuStore.useState('open')
+    React.useEffect(() => {
+        if (!isOpen) setAnchorRect(null)
+    }, [isOpen, setAnchorRect])
+
     return React.createElement(component, { ...props, onContextMenu: handleContextMenu, ref })
 })
 
@@ -156,12 +161,6 @@ const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
                 className={classNames('reactist_menulist', exceptionallySetClassName)}
                 getAnchorRect={getAnchorRect ?? undefined}
                 modal={modal}
-                onBlur={(event) => {
-                    if (!event.relatedTarget) return
-                    if (event.currentTarget.contains(event.relatedTarget)) return
-                    if (event.relatedTarget?.closest('[role^="menu"]')) return
-                    menuStore.hide()
-                }}
             />
         </Portal>
     ) : null
@@ -178,10 +177,12 @@ type MenuItemProps = {
      * `onSelect` callbacks to each menu item.
      */
     value?: string
+
     /**
      * The content inside the menu item.
      */
     children: React.ReactNode
+
     /**
      * When `true` the menu item is disabled and won't be selectable or be part of the keyboard
      * navigation across the menu options.
@@ -189,6 +190,7 @@ type MenuItemProps = {
      * @default true
      */
     disabled?: boolean
+
     /**
      * When `true` the menu will close when the menu item is selected, in addition to performing the
      * action that the menu item is set out to do.
@@ -199,6 +201,7 @@ type MenuItemProps = {
      * @default true
      */
     hideOnSelect?: boolean
+
     /**
      * The action to perform when the menu item is selected.
      *
@@ -207,6 +210,7 @@ type MenuItemProps = {
      * achieve the same effect conditionally and dynamically deciding at run time.
      */
     onSelect?: () => unknown
+
     /**
      * The event handler called when the menu item is clicked.
      *
@@ -305,7 +309,7 @@ const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
 
     const handleSubItemSelect = React.useCallback(
         function handleSubItemSelect(value: string | null | undefined) {
-            if (onItemSelect) onItemSelect(value)
+            onItemSelect?.(value)
             parentMenuItemSelect?.(value)
             parentMenuHide()
         },
@@ -314,8 +318,7 @@ const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
 
     const [button, list] = React.Children.toArray(children)
 
-    // Ariakit needs to be able to pass props to the MenuButton
-    // and combine it with the MenuItem component
+    // Ariakit needs to be able to pass props to the MenuButton and combine it with the MenuItem component
     const renderMenuButton = React.useCallback(
         function renderMenuButton(props: MenuButtonProps) {
             return React.cloneElement(button as React.ReactElement, props)
