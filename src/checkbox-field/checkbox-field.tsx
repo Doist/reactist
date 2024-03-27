@@ -6,6 +6,12 @@ import { CheckboxIcon } from './checkbox-icon'
 import styles from './checkbox-field.module.css'
 import { useForkRef } from './use-fork-ref'
 
+/**
+ * FIXME: This is a workaround for consumers that are using newer versions of React types that no longer have these props.
+ * Once we upgrade Reactist to the newest React types, we should be able to remove these.
+ */
+type DeprecatedProps = 'crossOrigin' | 'onPointerEnterCapture' | 'onPointerLeaveCapture'
+
 type CheckboxFieldProps = Omit<
     JSX.IntrinsicElements['input'],
     | 'type'
@@ -15,7 +21,7 @@ type CheckboxFieldProps = Omit<
     | 'aria-describedby'
     | 'aria-label'
     | 'aria-labelledby'
-    | 'crossOrigin'
+    | DeprecatedProps
 > & {
     'aria-checked'?: never
     /** Identifies the set of checkboxes controlled by the mixed checkbox for assistive technologies. */

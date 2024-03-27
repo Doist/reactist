@@ -3,7 +3,13 @@ import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-f
 import { Box } from '../box'
 import styles from './select-field.module.css'
 
-type SelectFieldProps = Omit<FieldComponentProps<HTMLSelectElement>, 'crossOrigin'> &
+/**
+ * FIXME: This is a workaround for consumers that are using newer versions of React types that no longer have these props.
+ * Once we upgrade Reactist to the newest React types, we should be able to remove these.
+ */
+type DeprecatedProps = 'crossOrigin' | 'onPointerEnterCapture' | 'onPointerLeaveCapture'
+
+type SelectFieldProps = Omit<FieldComponentProps<HTMLSelectElement>, DeprecatedProps> &
     BaseFieldVariantProps
 
 const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(function SelectField(

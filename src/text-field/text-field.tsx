@@ -5,9 +5,15 @@ import styles from './text-field.module.css'
 import type { FieldComponentProps } from '../base-field'
 import { useMergeRefs } from 'use-callback-ref'
 
+/**
+ * FIXME: This is a workaround for consumers that are using newer versions of React types that no longer have these props.
+ * Once we upgrade Reactist to the newest React types, we should be able to remove these.
+ */
+type DeprecatedProps = 'crossOrigin' | 'onPointerEnterCapture' | 'onPointerLeaveCapture'
+
 type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 
-type TextFieldProps = Omit<FieldComponentProps<HTMLInputElement>, 'type' | 'crossOrigin'> &
+type TextFieldProps = Omit<FieldComponentProps<HTMLInputElement>, 'type' | DeprecatedProps> &
     BaseFieldVariantProps & {
         type?: TextFieldType
         startSlot?: React.ReactChild

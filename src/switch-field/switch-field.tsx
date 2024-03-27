@@ -7,6 +7,12 @@ import { FieldComponentProps, FieldHint } from '../base-field'
 import { useId } from '../utils/common-helpers'
 import styles from './switch-field.module.css'
 
+/**
+ * FIXME: This is a workaround for consumers that are using newer versions of React types that no longer have these props.
+ * Once we upgrade Reactist to the newest React types, we should be able to remove these.
+ */
+type DeprecatedProps = 'crossOrigin' | 'onPointerEnterCapture' | 'onPointerLeaveCapture'
+
 type SwitchFieldProps = Omit<
     FieldComponentProps<HTMLInputElement>,
     | 'type'
@@ -16,7 +22,7 @@ type SwitchFieldProps = Omit<
     | 'aria-describedby'
     | 'aria-label'
     | 'aria-labelledby'
-    | 'crossOrigin'
+    | DeprecatedProps
 > & {
     /** Identifies the element (or elements) that describes the switch for assistive technologies. */
     'aria-describedby'?: string
