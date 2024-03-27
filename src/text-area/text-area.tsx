@@ -4,7 +4,13 @@ import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-f
 import { Box } from '../box'
 import styles from './text-area.module.css'
 
-type TextAreaProps = Omit<FieldComponentProps<HTMLTextAreaElement>, 'crossOrigin'> &
+/**
+ * FIXME: This is a workaround for consumers that are using newer versions of React types that no longer have these props.
+ * Once we upgrade Reactist to the newest React types, we should be able to remove these.
+ */
+type DeprecatedProps = 'crossOrigin' | 'onPointerEnterCapture' | 'onPointerLeaveCapture'
+
+type TextAreaProps = Omit<FieldComponentProps<HTMLTextAreaElement>, DeprecatedProps> &
     BaseFieldVariantProps & {
         /**
          * The number of visible text lines for the text area.

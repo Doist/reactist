@@ -9,9 +9,15 @@ import type { BoxProps } from '../box'
 type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6 | '1' | '2' | '3' | '4' | '5' | '6'
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
+/**
+ * FIXME: This is a workaround for consumers that are using newer versions of React types that no longer have these props.
+ * Once we upgrade Reactist to the newest React types, we should be able to remove these.
+ */
+type DeprecatedProps = 'placeholder' | 'onPointerEnterCapture' | 'onPointerLeaveCapture'
+
 type SupportedHeadingElementProps = Omit<
     JSX.IntrinsicElements[HeadingElement],
-    'className' | 'children' | 'placeholder'
+    'className' | 'children' | DeprecatedProps
 >
 
 type HeadingProps = SupportedHeadingElementProps & {
