@@ -2,6 +2,11 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# v24.1.3-beta
+
+-   [Fix] Remove unsupported `onPointerEnterCapture` and `onPointerLeaveCapture` props from `heading`-, `input`-, and `textarea`-based components.
+    -   Normally, this would be considered a breaking change, but the v24 version is still pre-release and already contains breaking changes.
+
 # v24.1.2-beta
 
 -   [Fix] Reset anchor rect after context menu is closed.
