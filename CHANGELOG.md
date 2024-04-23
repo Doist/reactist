@@ -25,6 +25,10 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 -   [BREAKING] Upgrade Ariakit from legacy package to the newer @ariakit/react
 
+# v23.2.1
+
+-   [Fix] Adjust modal alignment to the middle of the viewport at `800px` breakpoint for improved UX.
+
 # v23.2.0
 
 -   [Feat] Add `medium` as a `weight` option for `Header`.
