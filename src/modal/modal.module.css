@@ -43,9 +43,6 @@
 .overlay.fitContent > [data-focus-lock-disabled] {
     padding-top: var(--reactist-modal-padding-top);
 }
-.overlay.fitContent > [data-focus-lock-disabled] .container {
-    max-height: calc(100vh - 2 * var(--reactist-modal-padding-top));
-}
 
 .container {
     box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.16);
@@ -115,6 +112,19 @@
     .overlay.expand .container {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
+    }
+}
+
+@media (min-height: 800px) {
+    .overlay.fitContent > [data-focus-lock-disabled] .container {
+        max-height: calc(100vh - 2 * var(--reactist-modal-padding-top));
+    }
+}
+
+@media (max-height: 800px) {
+    .overlay.fitContent > [data-focus-lock-disabled] {
+        padding-top: var(--reactist-spacing-xxlarge);
+        justify-content: center;
     }
 }
 
