@@ -52,6 +52,9 @@ export function BadgeExamples() {
                     <div>
                         <Badge tone="attention" label="Attention" />
                     </div>
+                    <div>
+                        <Badge tone="warning" label="Warning" />
+                    </div>
                 </Stack>
             </Column>
             <Column width="content">
@@ -69,6 +72,9 @@ export function BadgeExamples() {
                     <div>
                         <Badge tone="attention" label="Save 25%" />
                     </div>
+                    <div>
+                        <Badge tone="warning" label="Deprecated" />
+                    </div>
                 </Stack>
             </Column>
         </Columns>
@@ -81,7 +87,7 @@ export function BadgeExamples() {
         parameters={{ docs: { source: { type: 'code' } } }}
         argTypes={{
             tone: {
-                options: ['info', 'positive', 'promote', 'attention'],
+                options: ['info', 'positive', 'promote', 'attention', 'warning'],
                 control: { type: 'inline-radio' },
                 defaultValue: 'info',
             },
@@ -159,6 +165,9 @@ The following CSS custom properties are available to customize the badge compone
 
     --reactist-badge-attention-tint: #cf473a;
     --reactist-badge-attention-fill: #f9e3e2;
+
+    --reactist-badge-warning-tint: #faead1;
+    --reactist-badge-warning-fill: #eb8909;
 }
 ```
 
@@ -183,6 +192,9 @@ export function DarkModeTemplate() {
                 // tone="attention"
                 '--reactist-badge-attention-tint': '#CF473A',
                 '--reactist-badge-attention-fill': '#351E1C',
+                // tone="warning
+                '--reactist-badge-warning-tint': '#faead1',
+                '--reactist-badge-warning-fill': '#eb8909',
             }}
         >
             <BadgeExamples />
