@@ -4,7 +4,7 @@ import { Box } from '../box'
 
 import styles from './badge.module.css'
 
-type BadgeTone = 'info' | 'positive' | 'promote' | 'attention'
+type BadgeTone = 'info' | 'positive' | 'promote' | 'attention' | 'warning'
 
 type BadgeProps = {
     /**

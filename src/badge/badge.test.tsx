@@ -20,12 +20,14 @@ describe('Badge', () => {
                 <Badge tone="positive" label="Positive" />
                 <Badge tone="promote" label="Promote" />
                 <Badge tone="attention" label="Attention" />
+                <Badge tone="warning" label="Warning" />
             </>,
         )
         expect(screen.getByText('Info')).toHaveClass('badge-info')
         expect(screen.getByText('Positive')).toHaveClass('badge-positive')
         expect(screen.getByText('Promote')).toHaveClass('badge-promote')
         expect(screen.getByText('Attention')).toHaveClass('badge-attention')
+        expect(screen.getByText('Warning')).toHaveClass('badge-warning')
     })
 
     it('passes through aria-related attributes', () => {
