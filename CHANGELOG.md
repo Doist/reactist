@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# v24.2.0-beta
+
+-   [Fix] Include changes from [v23.3.0](#v2330) in the beta release
+
 # v24.1.5-beta
 
 -   [Fix] Include changes from [v23.2.2](#v2322) in the beta release
@@ -32,6 +36,14 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 # v24.0.0-beta
 
 -   [BREAKING] Upgrade Ariakit from legacy package to the newer @ariakit/react
+
+# v23.3.0
+
+-   [Feat] Add `warning` as a `tone` option for `Badge`.
+
+# v23.2.2
+
+-   [Fix] Revert "Adjust modal alignment to the middle of the viewport at `800px` breakpoint for improved UX". Turns out that this is not something that we want to do.
 
 # v23.2.1
 

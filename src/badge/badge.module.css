@@ -12,6 +12,9 @@
 
     --reactist-badge-attention-tint: #cf473a;
     --reactist-badge-attention-fill: #f9e3e2;
+
+    --reactist-badge-warning-tint: #ffffff;
+    --reactist-badge-warning-fill: #eb8909;
 }
 
 .badge {
@@ -46,4 +49,9 @@
 .badge-attention {
     --reactist-badge-tint: var(--reactist-badge-attention-tint);
     --reactist-badge-fill: var(--reactist-badge-attention-fill);
+}
+
+.badge-warning {
+    --reactist-badge-tint: var(--reactist-badge-warning-tint);
+    --reactist-badge-fill: var(--reactist-badge-warning-fill);
 }
