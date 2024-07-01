@@ -65,9 +65,13 @@ export function ModalWithStandardActionsFooter() {
                             <Column>
                                 <Menu>
                                     <MenuButton
-                                        as={ReactistButton}
-                                        variant="tertiary"
-                                        icon={<ThreeDotsIcon />}
+                                        render={
+                                            <ReactistButton
+                                                variant="tertiary"
+                                                icon={<ThreeDotsIcon />}
+                                                aria-label="Open menu"
+                                            />
+                                        }
                                     />
                                     <MenuList aria-label="Simple menu">
                                         <MenuItem onSelect={action('Edit')}>Edit</MenuItem>
