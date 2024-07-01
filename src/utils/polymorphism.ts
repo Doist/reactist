@@ -157,6 +157,8 @@ interface ForwardRefFunction<
  * This behaviour can be customized via an optional second generic argument that allows to disable
  * this feature, or to omit the `className` altogether without replacing it with the obfuscated prop
  * name.
+ *
+ * @deprecated Use Ariakit's composition instead (https://ariakit.org/guide/composition)
  */
 interface PolymorphicComponent<
     ComponentType extends React.ElementType,
@@ -181,7 +183,7 @@ interface PolymorphicComponent<
  * convenience over merely using React.forwardRef directly, and then manually forcing the resulting
  * value to be typed using `as PolymorphicComponent<…>`.
  *
- * @see PolymorphicComponent for details about what this type does
+ * @deprecated Use Ariakit's composition instead (https://ariakit.org/guide/composition)
  */
 function polymorphicComponent<
     ComponentType extends React.ElementType = 'div',
@@ -195,5 +197,5 @@ function polymorphicComponent<
     >
 }
 
-export type { PolymorphicComponent, ObfuscatedClassName }
+export type { PolymorphicComponent }
 export { polymorphicComponent }

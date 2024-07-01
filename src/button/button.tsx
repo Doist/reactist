@@ -225,7 +225,7 @@ interface IconButtonProps extends CommonButtonProps {
  * also makes sure to always show a tooltip with its label. It follows the
  * [WAI-ARIA Button Pattern](https://www.w3.org/TR/wai-aria-practices/#button).
  */
-const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function Button(
+const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
     {
         variant,
         tone = 'normal',

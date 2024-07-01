@@ -158,7 +158,7 @@ describe('Menu', () => {
             <Menu>
                 <MenuButton>Links</MenuButton>
                 <MenuList aria-label="Some options">
-                    <MenuItem as="a" href="https://github.com/Doist/reactist">
+                    <MenuItem render={<a href="https://github.com/Doist/reactist" />}>
                         Github repo
                     </MenuItem>
                 </MenuList>
