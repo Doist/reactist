@@ -11,8 +11,9 @@ import { Box } from '../box'
 import type { TooltipStoreState } from '@ariakit/react'
 
 import styles from './tooltip.module.css'
+import type { ObfuscatedClassName } from '../utils/common-types'
 
-type TooltipProps = {
+interface TooltipProps extends ObfuscatedClassName {
     /**
      * The element that triggers the tooltip. Generally a button or link.
      *
@@ -65,11 +66,6 @@ type TooltipProps = {
      * @default false
      */
     withArrow?: boolean
-
-    /**
-     * An escape hatch, in case you need to provide a custom class name to the tooltip.
-     */
-    exceptionallySetClassName?: string
 }
 
 function Tooltip({
@@ -99,23 +95,26 @@ function Tooltip({
         <>
             <TooltipAnchor render={child} store={tooltip} ref={child.ref} />
             {isOpen && content ? (
-                <Box
-                    as={AriakitTooltip}
-                    gutter={gapSize}
+                <AriakitTooltip
                     store={tooltip}
-                    className={[styles.tooltip, exceptionallySetClassName]}
-                    background="toast"
-                    borderRadius="standard"
-                    paddingX="small"
-                    paddingY="xsmall"
-                    maxWidth="medium"
-                    width="fitContent"
-                    overflow="hidden"
-                    textAlign="center"
+                    gutter={gapSize}
+                    render={
+                        <Box
+                            className={[styles.tooltip, exceptionallySetClassName]}
+                            background="toast"
+                            borderRadius="standard"
+                            paddingX="small"
+                            paddingY="xsmall"
+                            maxWidth="medium"
+                            width="fitContent"
+                            overflow="hidden"
+                            textAlign="center"
+                        />
+                    }
                 >
                     {withArrow ? <TooltipArrow /> : null}
                     {typeof content === 'function' ? content() : content}
-                </Box>
+                </AriakitTooltip>
             ) : null}
         </>
     )

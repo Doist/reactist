@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { BaseButton } from '../base-button'
 import type { BaseButtonProps } from '../base-button'
+import type { ObfuscatedClassName } from '../utils/common-types'
 
 type NativeButtonProps = Omit<
     React.AllHTMLAttributes<HTMLButtonElement>,
@@ -8,9 +9,9 @@ type NativeButtonProps = Omit<
 >
 
 export type ButtonProps = NativeButtonProps &
-    BaseButtonProps & {
+    BaseButtonProps &
+    ObfuscatedClassName & {
         type?: 'button' | 'submit' | 'reset'
-        exceptionallySetClassName?: string
     }
 
 /**

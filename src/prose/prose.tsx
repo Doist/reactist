@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { Box } from '../box'
 import styles from './prose.module.css'
+import type { ObfuscatedClassName } from '../utils/common-types'
 
-type ProseProps = {
+interface ProseProps extends ObfuscatedClassName {
     /**
      * The prose content.
      *
@@ -37,11 +38,6 @@ type ProseProps = {
      * This does not apply a dark theme on the text. That's still the consumer apps’ responsibility.
      */
     darkModeTypography: boolean
-
-    /**
-     * An escape hatch in case you need to provide custom styles.
-     */
-    exceptionallySetClassName?: string
 }
 
 /**
