@@ -28,8 +28,6 @@ import {
 
 import './menu.less'
 
-type NativeProps<E extends HTMLElement> = React.DetailedHTMLProps<React.HTMLAttributes<E>, E>
-
 type MenuContextState = {
     menuStore: MenuStore
     handleItemSelect?: (value: string | null | undefined) => void
@@ -340,7 +338,7 @@ const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
 // MenuGroup
 //
 
-type MenuGroupProps = Omit<NativeProps<HTMLDivElement>, 'className'> & {
+type MenuGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'className'> & {
     /**
      * A label to be shown visually and also used to semantically label the group.
      */

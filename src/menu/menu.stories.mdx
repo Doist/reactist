@@ -1,11 +1,10 @@
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
 import KeyboardShortcut from '../components/keyboard-shortcut'
-import { Button } from '../button'
+import { IconButton } from '../button'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
 import { Columns, Column } from '../columns'
 import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, MenuGroup, SubMenu } from '.'
-import { ButtonLink } from '../button-link'
 import { Text } from '../text'
 
 <Meta
@@ -190,7 +189,7 @@ In the demo below, right click on the Settings button, or click on the more butt
                         Settings
                     </ContextMenuTrigger>
                     <MenuButton
-                        as={Button}
+                        as={IconButton}
                         variant="secondary"
                         icon={<ArrowDown />}
                         aria-label="More"
