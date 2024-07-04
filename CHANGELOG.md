@@ -2,6 +2,13 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# v25.0.0-beta
+
+-   [BREAKING] Removed the `ButtonLink` component.
+-   [BREAKING] `Button` no longer accepts props that render it as an icon-only button.
+-   [Feat] Introduce a new `IconButton` component.
+-   [Feat] The `Button` and `IconButton` component can be rendered as a link using the `render={<Link to="…" />} prop.
+
 # v24.2.0-beta
 
 -   [Fix] Include changes from [v23.3.0](#v2330) in the beta release
@@ -17,7 +24,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 # v24.1.3-beta
 
 -   [Fix] Remove unsupported `onPointerEnterCapture` and `onPointerLeaveCapture` props from `heading`-, `input`-, and `textarea`-based components.
-    -   Normally, this would be considered a breaking change, but the v24 version is still pre-release and already contains breaking changes.
+-   Normally, this would be considered a breaking change, but the v24 version is still pre-release and already contains breaking changes.
 
 # v24.1.2-beta
 

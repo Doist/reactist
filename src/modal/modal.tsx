@@ -10,9 +10,10 @@ import { Column, Columns } from '../columns'
 import { Inline } from '../inline'
 import { Divider } from '../divider'
 import { Box } from '../box'
-import { Button, ButtonProps } from '../button'
+import { IconButtonProps, IconButton } from '../button'
 
 import styles from './modal.module.css'
+import type { ObfuscatedClassName } from '../utils/common-types'
 
 type ModalWidth = 'small' | 'medium' | 'large' | 'xlarge' | 'full'
 type ModalHeightMode = 'expand' | 'fitContent'
@@ -40,7 +41,7 @@ type DivProps = Omit<
     'className' | 'children' | `aria-label` | `aria-labelledby`
 >
 
-export type ModalProps = DivProps & {
+export interface ModalProps extends DivProps, ObfuscatedClassName {
     /**
      * The content of the modal.
      */
@@ -74,30 +75,33 @@ export type ModalProps = DivProps & {
      * the inner layout to ensure scroll, or whatever other strategy you may want.
      */
     height?: ModalHeightMode
+
     /**
      * Whether to set or not the focus initially to the first focusable element inside the modal.
      */
     autoFocus?: boolean
+
     /**
      * Controls if the modal is dismissed when pressing "Escape".
      */
     hideOnEscape?: DialogOptions['hideOnEscape']
+
     /**
      * Controls if the modal is dismissed when clicking outside the modal body, on the overlay.
      */
     hideOnInteractOutside?: DialogOptions['hideOnInteractOutside']
-    /**
-     * An escape hatch in case you need to provide a custom class name to the container element.
-     */
-    exceptionallySetClassName?: string
+
     /**
      * An escape hatch in case you need to provide a custom class name to the overlay element.
      */
     exceptionallySetOverlayClassName?: string
+
     /** Defines a string value that labels the current modal for assistive technologies. */
     'aria-label'?: string
+
     /** Identifies the element (or elements) that labels the current modal for assistive technologies. */
     'aria-labelledby'?: string
+
     /**
      * An HTML element or a memoized callback function that returns an HTML element to be used as
      * the portal element. By default, the portal element will be a `div` element appended to the
@@ -276,18 +280,8 @@ export function Modal({
 //
 
 export type ModalCloseButtonProps = Omit<
-    ButtonProps,
-    | 'type'
-    | 'children'
-    | 'variant'
-    | 'icon'
-    | 'startIcon'
-    | 'endIcon'
-    | 'disabled'
-    | 'loading'
-    | 'tabIndex'
-    | 'width'
-    | 'align'
+    IconButtonProps,
+    'type' | 'variant' | 'icon' | 'disabled' | 'loading' | 'tabIndex' | 'ref'
 > & {
     /**
      * The descriptive label of the button.
@@ -318,7 +312,7 @@ export function ModalCloseButton(props: ModalCloseButtonProps) {
     )
 
     return (
-        <Button
+        <IconButton
             {...props}
             variant="quaternary"
             onClick={onDismiss}
@@ -337,16 +331,19 @@ export type ModalHeaderProps = DivProps & {
      * The content of the header.
      */
     children: React.ReactNode
+
     /**
      * Allows to provide a custom button element, or to omit the close button if set to false.
      * @see ModalCloseButton
      */
     button?: React.ReactNode | boolean
+
     /**
      * Whether to render a divider line below the header.
      * @default false
      */
     withDivider?: boolean
+
     /**
      * A escape hatch in case you need to provide a custom class name to the container element.
      */

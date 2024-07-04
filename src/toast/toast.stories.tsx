@@ -5,7 +5,7 @@ import { AlertIcon } from '../icons/alert-icon'
 import { PasswordVisibleIcon } from '../icons/password-visible-icon'
 
 import { Box } from '../box'
-import { Button, ButtonProps } from '../button'
+import { Button, ButtonVariant, IconButton } from '../button'
 import { CheckboxField } from '../checkbox-field'
 import { Heading } from '../heading'
 import { Inline } from '../inline'
@@ -117,7 +117,7 @@ export function StaticToastStory() {
     const [showIcon, setShowIcon] = React.useState(false)
     const [showDismiss, setShowDismiss] = React.useState(false)
     const [actionVariant, setActionVariant] = React.useState<
-        ButtonProps['variant'] | 'default' | 'loading' | 'icon-button' | 'none'
+        ButtonVariant | 'default' | 'loading' | 'icon-button' | 'none'
     >('none')
 
     const onClick = storybookAction('Toast action')
@@ -127,7 +127,7 @@ export function StaticToastStory() {
         ) : actionVariant === 'loading' ? (
             <Spinner size={16} />
         ) : actionVariant === 'icon-button' ? (
-            <Button
+            <IconButton
                 variant="quaternary"
                 icon={<PasswordVisibleIcon />}
                 aria-label="Done"

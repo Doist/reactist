@@ -23,7 +23,6 @@ export * from './prose'
 
 // links
 export * from './button'
-export * from './button-link'
 export * from './text-link'
 
 // form fields

@@ -26,10 +26,22 @@ export function Icon() {
     )
 }
 
+export function LoadingButton(props) {
+    const [loading, setLoading] = useState(false)
+    useEffect(() => {
+        if (!loading) return undefined
+        const timeout = setTimeout(() => setLoading(false), 3000)
+        return () => clearTimeout(timeout)
+    }, [loading])
+    return <Button {...props} loading={loading} onClick={() => setLoading(true)} />
+}
+
 # Button
 
-A semantic button that provides all the necessary visual variants. It follows the
-[WAI-ARIA Button Pattern](https://www.w3.org/TR/wai-aria-practices/#button).
+<Description of={Button} />
+<ArgsTable of={Button} />
+
+## Main demo
 
 <Canvas>
     <Story
@@ -44,38 +56,38 @@ A semantic button that provides all the necessary visual variants. It follows th
                 <pre>tone="normal"</pre>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary">Primary</Button>
+                        <LoadingButton variant="primary">Primary</LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="secondary">Secondary</Button>
+                        <LoadingButton variant="secondary">Secondary</LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="tertiary">Tertiary</Button>
+                        <LoadingButton variant="tertiary">Tertiary</LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="quaternary">Quaternary</Button>
+                        <LoadingButton variant="quaternary">Quaternary</LoadingButton>
                     </Box>
                 </Inline>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary" disabled>
+                        <LoadingButton variant="primary" disabled>
                             Primary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="secondary" disabled>
+                        <LoadingButton variant="secondary" disabled>
                             Secondary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="tertiary" disabled>
+                        <LoadingButton variant="tertiary" disabled>
                             Tertiary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="quaternary" disabled>
+                        <LoadingButton variant="quaternary" disabled>
                             Quaternary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                 </Inline>
             </Stack>
@@ -83,46 +95,46 @@ A semantic button that provides all the necessary visual variants. It follows th
                 <pre>tone="destructive"</pre>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary" tone="destructive">
+                        <LoadingButton variant="primary" tone="destructive">
                             Primary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="secondary" tone="destructive">
+                        <LoadingButton variant="secondary" tone="destructive">
                             Secondary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="tertiary" tone="destructive">
+                        <LoadingButton variant="tertiary" tone="destructive">
                             Tertiary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="quaternary" tone="destructive">
+                        <LoadingButton variant="quaternary" tone="destructive">
                             Quaternary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                 </Inline>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary" tone="destructive" disabled>
+                        <LoadingButton variant="primary" tone="destructive" disabled>
                             Primary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="secondary" tone="destructive" disabled>
+                        <LoadingButton variant="secondary" tone="destructive" disabled>
                             Secondary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="tertiary" tone="destructive" disabled>
+                        <LoadingButton variant="tertiary" tone="destructive" disabled>
                             Tertiary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="quaternary" tone="destructive" disabled>
+                        <LoadingButton variant="quaternary" tone="destructive" disabled>
                             Quaternary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                 </Inline>
             </Stack>
@@ -130,18 +142,7 @@ A semantic button that provides all the necessary visual variants. It follows th
     </Story>
 </Canvas>
 
-## `<Button>`
-
-<Description of={Button} />
-<ArgsTable of={Button} />
-
-## Style customization
-
-Check out `BaseButton` for documentation about how to customize it visually.
-
-## Stories
-
-### With label and icon
+## With label and icon
 
 To have icons rendered before or after the label, you can use the `startIcon` or `endIcon` prop for
 this purpose.
@@ -162,24 +163,24 @@ this is discouraged, and not guaranteed to be supported in the future.
                 <Text>Icon before the label</Text>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary" startIcon={<Icon />}>
+                        <LoadingButton variant="primary" startIcon={<Icon />}>
                             Primary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="secondary" startIcon={<Icon />}>
+                        <LoadingButton variant="secondary" startIcon={<Icon />}>
                             Secondary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="tertiary" startIcon={<Icon />}>
+                        <LoadingButton variant="tertiary" startIcon={<Icon />}>
                             Tertiary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="quaternary" startIcon={<Icon />}>
+                        <LoadingButton variant="quaternary" startIcon={<Icon />}>
                             Quaternary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                 </Inline>
             </Stack>
@@ -187,24 +188,24 @@ this is discouraged, and not guaranteed to be supported in the future.
                 <Text>Icon after the label</Text>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary" endIcon={<Icon />}>
+                        <LoadingButton variant="primary" endIcon={<Icon />}>
                             Primary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="secondary" endIcon={<Icon />}>
+                        <LoadingButton variant="secondary" endIcon={<Icon />}>
                             Secondary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="tertiary" endIcon={<Icon />}>
+                        <LoadingButton variant="tertiary" endIcon={<Icon />}>
                             Tertiary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="quaternary" endIcon={<Icon />}>
+                        <LoadingButton variant="quaternary" endIcon={<Icon />}>
                             Quaternary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                 </Inline>
             </Stack>
@@ -212,56 +213,7 @@ this is discouraged, and not guaranteed to be supported in the future.
     </Story>
 </Canvas>
 
-## Icon-only buttons
-
-Alternatively, you can render an icon-only `Button`. To do so use the `icon` prop.
-
-Icon-only buttons do not support receiving the `children` prop, or any of the `startIcon` or
-`endIcon` props. They also force you to pass a `aria-label` prop. The `aria-label` will also be used
-as a tooltip if no tooltip is provided.
-
-<Canvas>
-    <Story
-        name="Icon-only buttons"
-        parameters={{
-            docs: { source: { type: 'code' } },
-            chromatic: { disableSnapshot: false },
-        }}
-    >
-        <Stack space="large">
-            <Inline space="large">
-                <Box>
-                    <Button variant="primary" aria-label="Add task" icon={<Icon />} />
-                </Box>
-                <Box>
-                    <Button variant="secondary" aria-label="Add task" icon={<Icon />} />
-                </Box>
-                <Box>
-                    <Button variant="tertiary" aria-label="Add task" icon={<Icon />} />
-                </Box>
-                <Box>
-                    <Button variant="quaternary" aria-label="Add task" icon={<Icon />} />
-                </Box>
-            </Inline>
-            <Inline space="large">
-                <Box>
-                    <Button variant="primary" aria-label="Add task" icon={<Icon />} disabled />
-                </Box>
-                <Box>
-                    <Button variant="secondary" aria-label="Add task" icon={<Icon />} disabled />
-                </Box>
-                <Box>
-                    <Button variant="tertiary" aria-label="Add task" icon={<Icon />} disabled />
-                </Box>
-                <Box>
-                    <Button variant="quaternary" aria-label="Add task" icon={<Icon />} disabled />
-                </Box>
-            </Inline>
-        </Stack>
-    </Story>
-</Canvas>
-
-### With different size
+## With different size
 
 Buttons have a default `normal` size, but they can also be larger or smaller. Use the `size` prop
 for this purpose.
@@ -279,46 +231,46 @@ for this purpose.
                 <pre>size="small"</pre>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary" size="small">
+                        <LoadingButton variant="primary" size="small">
                             Primary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="secondary" size="small">
+                        <LoadingButton variant="secondary" size="small">
                             Secondary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="tertiary" size="small">
+                        <LoadingButton variant="tertiary" size="small">
                             Tertiary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="quaternary" size="small">
+                        <LoadingButton variant="quaternary" size="small">
                             Quaternary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                 </Inline>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary" size="small" disabled>
+                        <LoadingButton variant="primary" size="small" disabled>
                             Primary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="secondary" size="small" disabled>
+                        <LoadingButton variant="secondary" size="small" disabled>
                             Secondary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="tertiary" size="small" disabled>
+                        <LoadingButton variant="tertiary" size="small" disabled>
                             Tertiary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="quaternary" size="small" disabled>
+                        <LoadingButton variant="quaternary" size="small" disabled>
                             Quaternary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                 </Inline>
             </Stack>
@@ -326,46 +278,46 @@ for this purpose.
                 <pre>size="normal"</pre>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary" size="normal">
+                        <LoadingButton variant="primary" size="normal">
                             Primary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="secondary" size="normal">
+                        <LoadingButton variant="secondary" size="normal">
                             Secondary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="tertiary" size="normal">
+                        <LoadingButton variant="tertiary" size="normal">
                             Tertiary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="quaternary" size="normal">
+                        <LoadingButton variant="quaternary" size="normal">
                             Quaternary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                 </Inline>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary" size="normal" disabled>
+                        <LoadingButton variant="primary" size="normal" disabled>
                             Primary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="secondary" size="normal" disabled>
+                        <LoadingButton variant="secondary" size="normal" disabled>
                             Secondary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="tertiary" size="normal" disabled>
+                        <LoadingButton variant="tertiary" size="normal" disabled>
                             Tertiary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="quaternary" size="normal" disabled>
+                        <LoadingButton variant="quaternary" size="normal" disabled>
                             Quaternary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                 </Inline>
             </Stack>
@@ -373,46 +325,46 @@ for this purpose.
                 <pre>size="large"</pre>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary" size="large">
+                        <LoadingButton variant="primary" size="large">
                             Primary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="secondary" size="large">
+                        <LoadingButton variant="secondary" size="large">
                             Secondary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="tertiary" size="large">
+                        <LoadingButton variant="tertiary" size="large">
                             Tertiary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="quaternary" size="large">
+                        <LoadingButton variant="quaternary" size="large">
                             Quaternary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                 </Inline>
                 <Inline space="large">
                     <Box>
-                        <Button variant="primary" size="large" disabled>
+                        <LoadingButton variant="primary" size="large" disabled>
                             Primary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="secondary" size="large" disabled>
+                        <LoadingButton variant="secondary" size="large" disabled>
                             Secondary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="tertiary" size="large" disabled>
+                        <LoadingButton variant="tertiary" size="large" disabled>
                             Tertiary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                     <Box>
-                        <Button variant="quaternary" size="large" disabled>
+                        <LoadingButton variant="quaternary" size="large" disabled>
                             Quaternary
-                        </Button>
+                        </LoadingButton>
                     </Box>
                 </Inline>
             </Stack>
@@ -420,7 +372,7 @@ for this purpose.
     </Story>
 </Canvas>
 
-### Customized colors
+## Customized colors
 
 Though probably not the final official way to do it, this is a way to achieve one-off alternative
 styles for buttons.
@@ -447,7 +399,7 @@ And here's how that look like:
     <Story parameters={{ docs: { source: { type: 'code' } } }} name="Customized colors">
         <Inline space="large">
             <Box>
-                <Button
+                <LoadingButton
                     variant="primary"
                     style={{
                         '--reactist-btn-idle-tint': '#eee',
@@ -459,10 +411,10 @@ And here's how that look like:
                     }}
                 >
                     Enabled
-                </Button>
+                </LoadingButton>
             </Box>
             <Box>
-                <Button
+                <LoadingButton
                     variant="primary"
                     disabled
                     style={{
@@ -475,60 +427,15 @@ And here's how that look like:
                     }}
                 >
                     Disabled
-                </Button>
+                </LoadingButton>
             </Box>
         </Inline>
     </Story>
 </Canvas>
 
-export function LoadingButton(props) {
-    const [loading, setLoading] = useState(false)
-    useEffect(() => {
-        if (!loading) return undefined
-        const timeout = setTimeout(() => setLoading(false), 3000)
-        return () => clearTimeout(timeout)
-    }, [loading])
-    return <Button {...props} loading={loading} onClick={() => setLoading(true)} />
-}
+## Full-width
 
-### Full-width
-
-export function FullWidthTemplate({ label, ...otherProps }) {
-    if (label === 'Click me <em>now</em>') {
-        label = (
-            <>
-                Click me <em>now</em>
-            </>
-        )
-    }
-    const props = {
-        ...otherProps,
-        startIcon: <Icon />,
-        endIcon: <Icon />,
-    }
-    return (
-        <Stack space="medium">
-            <Heading level="2">Full-width buttons and label alignment</Heading>
-            <Text>
-                When buttons have `width` other than the default `auto` they can also customize how
-                the label is aligned horizontally.
-            </Text>
-            <Box width="full" padding="medium" style={{ border: '1px solid gray' }}>
-                <Stack space="medium">
-                    <LoadingButton {...props} align="start">
-                        {label}
-                    </LoadingButton>
-                    <LoadingButton {...props} align="center">
-                        {label}
-                    </LoadingButton>
-                    <LoadingButton {...props} align="end">
-                        {label}
-                    </LoadingButton>
-                </Stack>
-            </Box>
-        </Stack>
-    )
-}
+Buttons can be set to take the full width of their container by using the `width` prop.
 
 <Canvas>
     <Story
@@ -588,7 +495,93 @@ export function FullWidthTemplate({ label, ...otherProps }) {
     </Story>
 </Canvas>
 
-### Playground
+export function FullWidthTemplate({ label, ...otherProps }) {
+    if (label === 'Click me <em>now</em>') {
+        label = (
+            <>
+                Click me <em>now</em>
+            </>
+        )
+    }
+    const props = {
+        ...otherProps,
+        startIcon: <Icon />,
+        endIcon: <Icon />,
+    }
+    return (
+        <Stack space="medium">
+            <Heading level="2">Full-width buttons and label alignment</Heading>
+            <Text>
+                When buttons have `width` other than the default `auto` they can also customize how
+                the label is aligned horizontally.
+            </Text>
+            <Box width="full" padding="medium" style={{ border: '1px solid gray' }}>
+                <Stack space="medium">
+                    <LoadingButton {...props} align="start">
+                        {label}
+                    </LoadingButton>
+                    <LoadingButton {...props} align="center">
+                        {label}
+                    </LoadingButton>
+                    <LoadingButton {...props} align="end">
+                        {label}
+                    </LoadingButton>
+                </Stack>
+            </Box>
+        </Stack>
+    )
+}
+
+## Playground
+
+<Canvas>
+    <Story
+        name="Playground"
+        parameters={{ docs: { source: { type: 'code' } } }}
+        argTypes={{
+            label: {
+                control: { type: 'select' },
+                options: [
+                    'OK',
+                    'Submit',
+                    'Mark as done',
+                    'Yes, cancel my subscription',
+                    'Click me <em>now</em>',
+                    'If you click me now, youʼll take away the biggest part of me',
+                ],
+                defaultValue: 'Submit',
+            },
+            variant: {
+                options: ['primary', 'secondary', 'tertiary', 'quaternary'],
+                control: { type: 'select' },
+                defaultValue: 'primary',
+            },
+            tone: {
+                options: ['normal', 'destructive'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'normal',
+            },
+            size: {
+                options: ['small', 'normal', 'large'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'normal',
+            },
+            shape: {
+                options: ['normal', 'rounded'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'normal',
+            },
+            disabled: { control: false },
+            startIcon: { control: false },
+            endIcon: { control: false },
+            icon: { control: false },
+            tooltip: { control: false },
+            exceptionallySetClassName: { control: false },
+        }}
+    >
+        {PlaygroundTemplate.bind({})}
+    </Story>
+</Canvas>
 
 export function PlaygroundTemplate({ label, ...props }) {
     let textLabel = label
@@ -644,82 +637,12 @@ export function PlaygroundTemplate({ label, ...props }) {
                         </Box>
                     </Stack>
                 </Box>
-                <Box>
-                    <Stack space="large">
-                        <Box>
-                            <LoadingButton
-                                {...props}
-                                aria-label={textLabel}
-                                tooltip={label}
-                                icon={<Icon />}
-                            />
-                        </Box>
-                        <Box>
-                            <LoadingButton
-                                {...props}
-                                aria-label={textLabel}
-                                tooltip={label}
-                                icon={<Icon />}
-                                disabled
-                            />
-                        </Box>
-                    </Stack>
-                </Box>
             </Inline>
         </Stack>
     )
 }
 
-<Canvas>
-    <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
-        argTypes={{
-            label: {
-                control: { type: 'select' },
-                options: [
-                    'OK',
-                    'Submit',
-                    'Mark as done',
-                    'Yes, cancel my subscription',
-                    'Click me <em>now</em>',
-                    'If you click me now, youʼll take away the biggest part of me',
-                ],
-                defaultValue: 'Submit',
-            },
-            variant: {
-                options: ['primary', 'secondary', 'tertiary', 'quaternary'],
-                control: { type: 'select' },
-                defaultValue: 'primary',
-            },
-            tone: {
-                options: ['normal', 'destructive'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'normal',
-            },
-            size: {
-                options: ['small', 'normal', 'large'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'normal',
-            },
-            shape: {
-                options: ['normal', 'rounded'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'normal',
-            },
-            disabled: { control: false },
-            startIcon: { control: false },
-            endIcon: { control: false },
-            icon: { control: false },
-            tooltip: { control: false },
-            exceptionallySetClassName: { control: false },
-        }}
-        name="Playground"
-    >
-        {PlaygroundTemplate.bind({})}
-    </Story>
-</Canvas>
-
-### Dark mode
+## Dark mode
 
 export function DarkModeTemplate(props) {
     return (
@@ -775,8 +698,8 @@ up, here's a demo on how easily you can set it up by manipulating color variable
 
 <Canvas>
     <Story
-        parameters={{ docs: { source: { type: 'dynamic' } } }}
         name="Dark mode"
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
         argTypes={{
             label: {
                 control: { type: 'select' },
@@ -814,3 +737,37 @@ up, here's a demo on how easily you can set it up by manipulating color variable
         {DarkModeTemplate.bind({})}
     </Story>
 </Canvas>
+
+## Colors
+
+The following CSS custom properties are available to customize the button-like element appearance.
+
+```
+--reactist-actionable-primary-idle-tint
+--reactist-actionable-primary-idle-fill
+--reactist-actionable-primary-hover-tint
+--reactist-actionable-primary-hover-fill
+--reactist-actionable-primary-disabled-tint
+--reactist-actionable-primary-disabled-fill
+
+--reactist-actionable-secondary-idle-tint
+--reactist-actionable-secondary-idle-fill
+--reactist-actionable-secondary-hover-tint
+--reactist-actionable-secondary-hover-fill
+--reactist-actionable-secondary-disabled-tint
+--reactist-actionable-secondary-disabled-fill
+
+--reactist-actionable-tertiary-idle-tint
+--reactist-actionable-tertiary-idle-fill
+--reactist-actionable-tertiary-hover-tint
+--reactist-actionable-tertiary-hover-fill
+--reactist-actionable-tertiary-disabled-tint
+--reactist-actionable-tertiary-disabled-fill
+
+--reactist-actionable-destructive-idle-tint
+--reactist-actionable-destructive-idle-fill
+--reactist-actionable-destructive-hover-tint
+--reactist-actionable-destructive-hover-fill
+--reactist-actionable-destructive-disabled-tint
+--reactist-actionable-destructive-disabled-fill
+```

@@ -3,7 +3,7 @@ import { Box } from '../box'
 import { Text } from '../text'
 import { Stack } from '../stack'
 import { Banner } from './banner'
-import { ButtonLink } from '../button-link'
+import { Button } from '../button'
 
 <Meta
     title="Design system/Banner"
@@ -117,9 +117,9 @@ export function EyeIcon(theme) {
 
 export function getButton(buttonText) {
     return (
-        <ButtonLink variant="primary" tone="destructive">
+        <Button variant="primary" tone="destructive">
             {buttonText}
-        </ButtonLink>
+        </Button>
     )
 }
 

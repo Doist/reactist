@@ -5,7 +5,7 @@ import { Spinner } from '../spinner'
 type Size = 'xsmall' | 'small' | 'medium' | 'large'
 
 type NativeProps = Omit<
-    JSX.IntrinsicElements['div'],
+    React.HTMLAttributes<HTMLDivElement>,
     'className' | 'aria-describedby' | 'aria-label' | 'aria-labelledby' | 'role' | 'size'
 >
 
