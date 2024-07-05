@@ -4,7 +4,8 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 
 # v25.0.0-beta.1
 
--   [BREAKING] User an explicit `render` prop for composition, instead of the `as` prop
+-   [BREAKING] Use an explicit `render` prop for composition, instead of the `as` prop (in the menu, modal, tabs, toasts and tooltip components).
+-   [BREAKING] `TabPanel`'s prop `render` is renamed to `renderMode`.
 
 # v25.0.0-beta
 
