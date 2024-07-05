@@ -309,19 +309,12 @@ const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
     )
 
     const [button, list] = React.Children.toArray(children)
-
-    // Ariakit needs to be able to pass props to the MenuButton and combine it with the MenuItem component
-    const renderMenuButton = React.useCallback(
-        function renderMenuButton(props: MenuButtonProps) {
-            return React.cloneElement(button as React.ReactElement, props)
-        },
-        [button],
-    )
+    const buttonElement = button as React.ReactElement<MenuButtonProps>
 
     return (
         <Menu onItemSelect={handleSubItemSelect}>
-            <AriakitMenuItem store={menuStore} ref={ref} hideOnClick={false}>
-                {renderMenuButton}
+            <AriakitMenuItem store={menuStore} ref={ref} hideOnClick={false} render={buttonElement}>
+                {buttonElement.props.children}
             </AriakitMenuItem>
             {list}
         </Menu>

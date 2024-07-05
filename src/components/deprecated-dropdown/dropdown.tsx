@@ -25,7 +25,7 @@ type BoxState = {
     showBody: boolean
 }
 
-class Box extends React.Component<React.PropsWithChildren<BoxProps>, BoxState> {
+class Box extends React.Component<BoxProps, BoxState> {
     public static displayName: string
 
     constructor(props: BoxProps, context: React.Context<unknown>) {

@@ -17,7 +17,7 @@ function preventDefault(event: React.SyntheticEvent) {
 type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'quaternary'
 type ButtonTone = 'normal' | 'destructive'
 type ButtonSize = 'small' | 'normal' | 'large'
-type IconElement = React.ReactChild
+type IconElement = React.ReactElement | string
 
 interface CommonButtonProps
     extends ObfuscatedClassName,
