@@ -14,6 +14,7 @@ import {
     MenuButton as AriakitMenuButton,
     MenuButtonProps as AriakitMenuButtonProps,
     Role,
+    RoleProps,
 } from '@ariakit/react'
 
 import './menu.less'
@@ -105,9 +106,8 @@ const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(function
 
 interface ContextMenuTriggerProps
     extends ObfuscatedClassName,
-        React.HTMLAttributes<HTMLDivElement> {
-    render?: React.ReactElement
-}
+        React.HTMLAttributes<HTMLDivElement>,
+        Pick<RoleProps, 'render'> {}
 
 const ContextMenuTrigger = React.forwardRef<HTMLDivElement, ContextMenuTriggerProps>(
     function ContextMenuTrigger({ render, ...props }, ref) {

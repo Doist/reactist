@@ -7,6 +7,7 @@ import {
     TabPanel as BaseTabPanel,
     TabPanelProps as BaseTabPanelProps,
     TabStore,
+    RoleProps,
 } from '@ariakit/react'
 import { Inline } from '../inline'
 import type { ObfuscatedClassName, Space } from '../utils/common-types'
@@ -73,19 +74,25 @@ function Tabs({
     return <TabsContext.Provider value={memoizedTabState}>{children}</TabsContext.Provider>
 }
 
-interface TabProps extends ObfuscatedClassName {
-    /** The content to render inside of the tab button */
+interface TabProps extends ObfuscatedClassName, Pick<RoleProps, 'render'> {
+    /**
+     * The content to render inside of the tab button
+     */
     children: React.ReactNode
 
-    /** The tab's identifier. This must match its corresponding `<TabPanel>`'s id */
+    /**
+     * The tab's identifier. This must match its corresponding `<TabPanel>`'s id
+     */
     id: string
+
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 /**
  * Represents the individual tab elements within the group. Each `<Tab>` must have a corresponding `<TabPanel>` component.
  */
 const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(
-    { children, id, exceptionallySetClassName, ...props },
+    { children, id, exceptionallySetClassName, render },
     ref,
 ): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
@@ -95,7 +102,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(
     const className = classNames(exceptionallySetClassName, styles.tab, styles[`tab-${variant}`])
 
     return (
-        <BaseTab {...props} className={className} id={id} store={tabStore} ref={ref}>
+        <BaseTab render={render} className={className} id={id} store={tabStore} ref={ref}>
             {children}
         </BaseTab>
     )

@@ -98,7 +98,7 @@ interface ButtonProps extends CommonButtonProps {
     /**
      * The button label content.
      */
-    children: React.ReactNode
+    children?: React.ReactNode
 
     /**
      * The icon to display at the start of the button (before the label).
