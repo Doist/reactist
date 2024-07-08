@@ -251,6 +251,25 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 2')).toBeVisible()
     })
 
+    it('allows to subscribe to the tab click event', () => {
+        const onClick = jest.fn()
+        render(
+            <Tabs>
+                <TabList aria-label="Multiple tablist example tabs">
+                    <Tab id="tab1" onClick={onClick}>
+                        Tab 1
+                    </Tab>
+                    <Tab id="tab2">Tab 2</Tab>
+                </TabList>
+                <TabPanel id="tab1">Content of tab 1</TabPanel>
+                <TabPanel id="tab2">Content of tab 2</TabPanel>
+            </Tabs>,
+        )
+        expect(onClick).not.toHaveBeenCalled()
+        userEvent.click(screen.getByRole('tab', { name: 'Tab 1' }))
+        expect(onClick).toHaveBeenCalledTimes(1)
+    })
+
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = render(
