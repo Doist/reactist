@@ -21,20 +21,18 @@ import './menu.less'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
 type MenuContextState = {
-    menuStore: MenuStore
+    menuStore: MenuStore | null
     handleItemSelect?: (value: string | null | undefined) => void
     getAnchorRect: (() => { x: number; y: number }) | null
     setAnchorRect: (rect: { x: number; y: number } | null) => void
 }
 
-const MenuContext = React.createContext<MenuContextState>(
-    // Ariakit gives us no means to obtain a valid initial/default value of type MenuStateReturn
-    // (it is normally obtained by calling useMenuState but we can't call hooks outside components).
-    // This is however of little consequence since this value is only used if some of the components
-    // are used outside Menu, something that should not happen and we do not support.
-    // @ts-expect-error
-    {},
-)
+const MenuContext = React.createContext<MenuContextState>({
+    menuStore: null,
+    handleItemSelect: () => undefined,
+    getAnchorRect: null,
+    setAnchorRect: () => undefined,
+})
 
 //
 // Menu
@@ -90,6 +88,9 @@ const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(function
     ref,
 ) {
     const { menuStore } = React.useContext(MenuContext)
+    if (!menuStore) {
+        throw new Error('MenuButton must be wrapped in <Menu/>')
+    }
     return (
         <AriakitMenuButton
             {...props}
@@ -112,6 +113,9 @@ interface ContextMenuTriggerProps
 const ContextMenuTrigger = React.forwardRef<HTMLDivElement, ContextMenuTriggerProps>(
     function ContextMenuTrigger({ render, ...props }, ref) {
         const { setAnchorRect, menuStore } = React.useContext(MenuContext)
+        if (!menuStore) {
+            throw new Error('ContextMenuTrigger must be wrapped in <Menu/>')
+        }
 
         const handleContextMenu = React.useCallback(
             function handleContextMenu(event: React.MouseEvent) {
@@ -147,6 +151,10 @@ const MenuList = React.forwardRef<HTMLDivElement, MenuListProps>(function MenuLi
     ref,
 ) {
     const { menuStore, getAnchorRect } = React.useContext(MenuContext)
+    if (!menuStore) {
+        throw new Error('MenuList must be wrapped in <Menu/>')
+    }
+
     const isOpen = menuStore.useState('open')
 
     return isOpen ? (
@@ -237,8 +245,11 @@ const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(function MenuIt
     ref,
 ) {
     const { handleItemSelect, menuStore } = React.useContext(MenuContext)
-    const { hide } = menuStore
+    if (!menuStore) {
+        throw new Error('MenuItem must be wrapped in <Menu/>')
+    }
 
+    const { hide } = menuStore
     const handleClick = React.useCallback(
         function handleClick(event: React.MouseEvent) {
             onClick?.(event)
@@ -297,8 +308,11 @@ const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
     ref,
 ) {
     const { handleItemSelect: parentMenuItemSelect, menuStore } = React.useContext(MenuContext)
-    const { hide: parentMenuHide } = menuStore
+    if (!menuStore) {
+        throw new Error('SubMenu must be wrapped in <Menu/>')
+    }
 
+    const { hide: parentMenuHide } = menuStore
     const handleSubItemSelect = React.useCallback(
         function handleSubItemSelect(value: string | null | undefined) {
             onItemSelect?.(value)
@@ -345,6 +359,10 @@ const MenuGroup = React.forwardRef<HTMLDivElement, MenuGroupProps>(function Menu
     ref,
 ) {
     const { menuStore } = React.useContext(MenuContext)
+    if (!menuStore) {
+        throw new Error('MenuGroup must be wrapped in <Menu/>')
+    }
+
     return (
         <AriakitMenuGroup
             {...props}
