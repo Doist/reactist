@@ -17,7 +17,7 @@ function preventDefault(event: React.SyntheticEvent) {
 type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'quaternary'
 type ButtonTone = 'normal' | 'destructive'
 type ButtonSize = 'small' | 'normal' | 'large'
-type IconElement = React.ReactChild
+type IconElement = React.ReactElement | string
 
 interface CommonButtonProps
     extends ObfuscatedClassName,
@@ -98,7 +98,7 @@ interface ButtonProps extends CommonButtonProps {
     /**
      * The button label content.
      */
-    children: React.ReactNode
+    children?: React.ReactNode
 
     /**
      * The icon to display at the start of the button (before the label).
@@ -225,7 +225,7 @@ interface IconButtonProps extends CommonButtonProps {
  * also makes sure to always show a tooltip with its label. It follows the
  * [WAI-ARIA Button Pattern](https://www.w3.org/TR/wai-aria-practices/#button).
  */
-const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function Button(
+const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
     {
         variant,
         tone = 'normal',

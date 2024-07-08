@@ -86,11 +86,10 @@ ResponsiveStory.argTypes = {
 }
 
 export function NestedStacksStory(args: PartialProps<typeof Stack>) {
+    const spaceStr = typeof args.space !== 'string' ? 'none' : args.space
     return (
         <Stack {...args}>
-            <Heading level="1">
-                Parent stack with space=&ldquo;{args.space ?? 'none'}&rdquo;
-            </Heading>
+            <Heading level="1">Parent stack with space=&ldquo;{spaceStr}&rdquo;</Heading>
             <Stack space="xsmall">
                 <Heading level="2">Nested stack with space=&ldquo;xsmall&rdquo;</Heading>
                 <Placeholder />

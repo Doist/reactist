@@ -8,16 +8,11 @@ import { IconButton } from '../button'
 
 import type { BaseFieldVariantProps } from '../base-field'
 
-/**
- * FIXME: This is a workaround for consumers that are using newer versions of React types that no longer have these props.
- * Once we upgrade Reactist to the newest React types, we should be able to remove these.
- */
-type DeprecatedProps = 'crossOrigin' | 'onPointerEnterCapture' | 'onPointerLeaveCapture'
-
-type PasswordFieldProps = Omit<TextFieldProps, 'type' | 'startSlot' | 'endSlot' | DeprecatedProps> &
-    BaseFieldVariantProps & {
-        togglePasswordLabel?: string
-    }
+interface PasswordFieldProps
+    extends Omit<TextFieldProps, 'type' | 'startSlot' | 'endSlot'>,
+        BaseFieldVariantProps {
+    togglePasswordLabel?: string
+}
 
 const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(function PasswordField(
     { togglePasswordLabel = 'Toggle password visibility', ...props },

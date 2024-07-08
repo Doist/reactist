@@ -23,7 +23,7 @@ export const Template = ({
     space,
     selectedId,
     defaultSelectedId,
-    render,
+    renderMode,
     onSelectedIdChange,
     'aria-label': ariaLabel,
     'aria-labelledby': ariaLabelledby,
@@ -39,17 +39,17 @@ export const Template = ({
             <Tab id="tab2">Tab 2</Tab>
             <Tab id="tab3">Tab 3</Tab>
         </TabList>
-        <TabPanel id="tab1" render={render}>
+        <TabPanel id="tab1" renderMode={renderMode}>
             <Box paddingX="small" paddingY="xlarge">
                 <Text>Content of tab 1</Text>
             </Box>
         </TabPanel>
-        <TabPanel id="tab2" render={render}>
+        <TabPanel id="tab2" renderMode={renderMode}>
             <Box paddingX="small" paddingY="xlarge">
                 <Text>Content of tab 2</Text>
             </Box>
         </TabPanel>
-        <TabPanel id="tab3" render={render}>
+        <TabPanel id="tab3" renderMode={renderMode}>
             <Box paddingX="small" paddingY="xlarge">
                 <Text>Content of tab 3</Text>
             </Box>
@@ -86,7 +86,7 @@ export const Template = ({
                 options: ['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge'],
                 control: { type: 'inline-radio' },
             },
-            render: {
+            renderMode: {
                 options: ['always', 'active', 'lazy'],
                 control: { type: 'inline-radio' },
             },
@@ -257,7 +257,7 @@ As long as they exist within the same `<Tabs>` component tree, multiple `<TabLis
 By default, the `TabPanel` renders an unstyled div. When more control is needed, an element type or component
 can be specified with the `as` prop.
 
-Note that when combined with the `render="active"` prop, the entire tabpanel will be affected, including the actual polymorphic component/element passed into `as`.
+Note that when combined with the `renderMode="active"` prop, the entire tabpanel will be affected, including the actual polymorphic component/element passed into `as`.
 
 <Canvas withToolbar>
     <Story parameters={{ docs: { source: { type: 'code' } } }} name="Polymorphism">
@@ -267,15 +267,23 @@ Note that when combined with the `render="active"` prop, the entire tabpanel wil
                 <Tab id="tab2">Tab 2</Tab>
                 <Tab id="tab3">Tab 3</Tab>
             </TabList>
-            <TabPanel id="tab1" as={Box} paddingX="small" paddingY="xlarge" render="active">
+            <TabPanel
+                id="tab1"
+                renderMode="active"
+                render={<Box paddingX="small" paddingY="xlarge" />}
+            >
                 <Text>Content of tab 1</Text>
             </TabPanel>
-            <TabPanel id="tab2" as="section" render="active">
+            <TabPanel id="tab2" as="section" renderMode="active">
                 <Box paddingX="small" paddingY="xlarge">
                     <Text>Content of tab 2</Text>
                 </Box>
             </TabPanel>
-            <TabPanel id="tab3" as={Columns} paddingX="small" paddingY="xlarge" render="active">
+            <TabPanel
+                id="tab3"
+                renderMode="active"
+                render={<Columns paddingX="small" paddingY="xlarge" />}
+            >
                 <Column>Column 1</Column>
                 <Column>Column 2</Column>
                 <Column>Column 3</Column>

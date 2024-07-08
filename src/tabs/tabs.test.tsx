@@ -46,13 +46,13 @@ describe('Tabs', () => {
                     <Tab id="tab2">Tab 2</Tab>
                     <Tab id="tab3">Tab 3</Tab>
                 </TabList>
-                <TabPanel id="tab1" render="active">
+                <TabPanel id="tab1" renderMode="active">
                     Content of tab 1
                 </TabPanel>
-                <TabPanel id="tab2" render="active">
+                <TabPanel id="tab2" renderMode="active">
                     Content of tab 2
                 </TabPanel>
-                <TabPanel id="tab3" render="active">
+                <TabPanel id="tab3" renderMode="active">
                     Content of tab 3
                 </TabPanel>
             </Tabs>,
@@ -84,13 +84,13 @@ describe('Tabs', () => {
                     <Tab id="tab2">Tab 2</Tab>
                     <Tab id="tab3">Tab 3</Tab>
                 </TabList>
-                <TabPanel id="tab1" render="lazy">
+                <TabPanel id="tab1" renderMode="lazy">
                     Content of tab 1
                 </TabPanel>
-                <TabPanel id="tab2" render="lazy">
+                <TabPanel id="tab2" renderMode="lazy">
                     Content of tab 2
                 </TabPanel>
-                <TabPanel id="tab3" render="lazy">
+                <TabPanel id="tab3" renderMode="lazy">
                     Content of tab 3
                 </TabPanel>
             </Tabs>,
@@ -228,10 +228,10 @@ describe('Tabs', () => {
                     <Tab id="tab1">Tab 1</Tab>
                     <Tab id="tab2">Tab 2</Tab>
                 </TabList>
-                <TabPanel id="tab1" as={CustomTabPanel}>
+                <TabPanel id="tab1" render={<CustomTabPanel />}>
                     Content of tab 1
                 </TabPanel>
-                <TabPanel id="tab2" as="section">
+                <TabPanel id="tab2" render={<section />}>
                     Content of tab 2
                 </TabPanel>
             </Tabs>,

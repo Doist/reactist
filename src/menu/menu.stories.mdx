@@ -1,6 +1,6 @@
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
 import KeyboardShortcut from '../components/keyboard-shortcut'
-import { IconButton } from '../button'
+import { Button, IconButton } from '../button'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
 import { Columns, Column } from '../columns'
@@ -57,7 +57,7 @@ via an element or as a context menu.
         }}
     >
         <Menu>
-            <MenuButton as={Button} variant="primary" endIcon={<ArrowDown />}>
+            <MenuButton render={<Button variant="primary" endIcon={<ArrowDown />} />}>
                 Simple menu
             </MenuButton>
             <MenuList aria-label="Simple menu">
@@ -83,7 +83,7 @@ The `tooltip` prop allows a tooltip to be shown over the menu button.
         }}
     >
         <Menu>
-            <MenuButton as={Button} variant="primary" tooltip="I have a tooltip">
+            <MenuButton render={<Button variant="primary" tooltip="I have a tooltip" />}>
                 Focus on or hover over me
             </MenuButton>
             <MenuList aria-label="Tooltip menu">
@@ -110,9 +110,7 @@ be changed by passing `modal={false}` to `<MenuList>`
         }}
     >
         <Menu>
-            <MenuButton as={Button} variant="primary">
-                Menu
-            </MenuButton>
+            <MenuButton render={<Button variant="primary" />}>Menu</MenuButton>
             <MenuList aria-label="Outside interaction menu" modal={false}>
                 <MenuItem>Edit</MenuItem>
                 <MenuItem>Copy</MenuItem>
@@ -136,15 +134,18 @@ You may nest the `<SubMenu>` component within `<Menu>` to create submenus.
         }}
     >
         <Menu>
-            <MenuButton as={Button} variant="secondary" endIcon={<ArrowDown />}>
+            <MenuButton render={<Button variant="secondary" endIcon={<ArrowDown />} />}>
                 With SubMenu
             </MenuButton>
             <MenuList aria-label="With SubMenu">
                 <MenuItem
-                    as="a"
-                    href="https://github.com/Doist/reactist"
-                    target="_blank"
-                    rel="noreferrer noopener"
+                    render={
+                        <a
+                            href="https://github.com/Doist/reactist"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                        />
+                    }
                 >
                     Reactist on Github
                 </MenuItem>
@@ -185,14 +186,17 @@ In the demo below, right click on the Settings button, or click on the more butt
         <Stack space="small">
             <Menu>
                 <Inline space="xsmall">
-                    <ContextMenuTrigger as={Button} variant="primary" width="xsmall">
+                    <ContextMenuTrigger render={<Button variant="primary" width="xsmall" />}>
                         Settings
                     </ContextMenuTrigger>
                     <MenuButton
-                        as={IconButton}
-                        variant="secondary"
-                        icon={<ArrowDown />}
-                        aria-label="More"
+                        render={
+                            <IconButton
+                                variant="secondary"
+                                icon={<ArrowDown />}
+                                aria-label="More"
+                            />
+                        }
                     />
                 </Inline>
                 <MenuList aria-label="Settings menu">
@@ -218,7 +222,7 @@ return `false` from `onSelect` to prevent the menu from closing when an item is 
         }}
     >
         <Menu>
-            <MenuButton as={Button} variant="tertiary" endIcon={<ArrowDown />}>
+            <MenuButton render={<Button variant="tertiary" endIcon={<ArrowDown />} />}>
                 With extra features
             </MenuButton>
             <MenuList aria-label="Menu with extra features">

@@ -1,18 +1,6 @@
 import * as React from 'react'
 import classNames from 'classnames'
 
-import { polymorphicComponent } from '../utils/polymorphism'
-
-//
-// Reactist menu is a thin wrapper around Ariakit's menu components. This may or may not be
-// temporary. Our goal is to make it transparent for the users of Reactist of this implementation
-// detail. We may change in the future the external lib we use, or even implement it all internally,
-// as long as we keep the same outer interface as intact as possible.
-//
-// Around the heavy lifting of the external lib we just add some features to better integrate the
-// menu to Reactist's more opinionated approach (e.g. using our button with its custom variants and
-// other features, easily show keyboard shortcuts in menu items, etc.)
-//
 import {
     Portal,
     MenuStore,
@@ -22,33 +10,35 @@ import {
     Menu as AriakitMenu,
     MenuGroup as AriakitMenuGroup,
     MenuItem as AriakitMenuItem,
+    MenuItemProps as AriakitMenuItemProps,
     MenuButton as AriakitMenuButton,
     MenuButtonProps as AriakitMenuButtonProps,
+    Role,
+    RoleProps,
 } from '@ariakit/react'
 
 import './menu.less'
+import type { ObfuscatedClassName } from '../utils/common-types'
 
 type MenuContextState = {
-    menuStore: MenuStore
+    menuStore: MenuStore | null
     handleItemSelect?: (value: string | null | undefined) => void
     getAnchorRect: (() => { x: number; y: number }) | null
     setAnchorRect: (rect: { x: number; y: number } | null) => void
 }
 
-const MenuContext = React.createContext<MenuContextState>(
-    // Ariakit gives us no means to obtain a valid initial/default value of type MenuStateReturn
-    // (it is normally obtained by calling useMenuState but we can't call hooks outside components).
-    // This is however of little consequence since this value is only used if some of the components
-    // are used outside Menu, something that should not happen and we do not support.
-    // @ts-expect-error
-    {},
-)
+const MenuContext = React.createContext<MenuContextState>({
+    menuStore: null,
+    handleItemSelect: () => undefined,
+    getAnchorRect: null,
+    setAnchorRect: () => undefined,
+})
 
 //
 // Menu
 //
 
-type MenuProps = Omit<MenuStoreProps, 'visible'> & {
+interface MenuProps extends Omit<MenuStoreProps, 'visible'> {
     /**
      * The `Menu` must contain a `MenuList` that defines the menu options. It must also contain a
      * `MenuButton` that triggers the menu to be opened or closed.
@@ -86,16 +76,21 @@ function Menu({ children, onItemSelect, ...props }: MenuProps) {
 // MenuButton
 //
 
-type MenuButtonProps = Omit<AriakitMenuButtonProps, 'store' | 'className' | 'as'>
+interface MenuButtonProps
+    extends Omit<AriakitMenuButtonProps, 'store' | 'className' | 'as'>,
+        ObfuscatedClassName {}
 
 /**
  * A button to toggle a dropdown menu open or closed.
  */
-const MenuButton = polymorphicComponent<'button', MenuButtonProps>(function MenuButton(
+const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(function MenuButton(
     { exceptionallySetClassName, ...props },
     ref,
 ) {
     const { menuStore } = React.useContext(MenuContext)
+    if (!menuStore) {
+        throw new Error('MenuButton must be wrapped in <Menu/>')
+    }
     return (
         <AriakitMenuButton
             {...props}
@@ -109,43 +104,57 @@ const MenuButton = polymorphicComponent<'button', MenuButtonProps>(function Menu
 //
 // ContextMenuTrigger
 //
-const ContextMenuTrigger = polymorphicComponent<'div', unknown>(function ContextMenuTrigger(
-    { as: component = 'div', ...props },
-    ref,
-) {
-    const { setAnchorRect, menuStore } = React.useContext(MenuContext)
 
-    const handleContextMenu = React.useCallback(
-        function handleContextMenu(event: React.MouseEvent) {
-            event.preventDefault()
-            setAnchorRect({ x: event.clientX, y: event.clientY })
-            menuStore.show()
-        },
-        [setAnchorRect, menuStore],
-    )
+interface ContextMenuTriggerProps
+    extends ObfuscatedClassName,
+        React.HTMLAttributes<HTMLDivElement>,
+        Pick<RoleProps, 'render'> {}
 
-    const isOpen = menuStore.useState('open')
-    React.useEffect(() => {
-        if (!isOpen) setAnchorRect(null)
-    }, [isOpen, setAnchorRect])
+const ContextMenuTrigger = React.forwardRef<HTMLDivElement, ContextMenuTriggerProps>(
+    function ContextMenuTrigger({ render, ...props }, ref) {
+        const { setAnchorRect, menuStore } = React.useContext(MenuContext)
+        if (!menuStore) {
+            throw new Error('ContextMenuTrigger must be wrapped in <Menu/>')
+        }
 
-    return React.createElement(component, { ...props, onContextMenu: handleContextMenu, ref })
-})
+        const handleContextMenu = React.useCallback(
+            function handleContextMenu(event: React.MouseEvent) {
+                event.preventDefault()
+                setAnchorRect({ x: event.clientX, y: event.clientY })
+                menuStore.show()
+            },
+            [setAnchorRect, menuStore],
+        )
+
+        const isOpen = menuStore.useState('open')
+        React.useEffect(() => {
+            if (!isOpen) setAnchorRect(null)
+        }, [isOpen, setAnchorRect])
+
+        return <Role.div {...props} onContextMenu={handleContextMenu} ref={ref} render={render} />
+    },
+)
 
 //
 // MenuList
 //
 
-type MenuListProps = Omit<AriakitMenuProps, 'store' | 'className'>
+interface MenuListProps
+    extends Omit<AriakitMenuProps, 'store' | 'className'>,
+        ObfuscatedClassName {}
 
 /**
  * The dropdown menu itself, containing a list of menu items.
  */
-const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
+const MenuList = React.forwardRef<HTMLDivElement, MenuListProps>(function MenuList(
     { exceptionallySetClassName, modal = true, ...props },
     ref,
 ) {
     const { menuStore, getAnchorRect } = React.useContext(MenuContext)
+    if (!menuStore) {
+        throw new Error('MenuList must be wrapped in <Menu/>')
+    }
+
     const isOpen = menuStore.useState('open')
 
     return isOpen ? (
@@ -168,18 +177,13 @@ const MenuList = polymorphicComponent<'div', MenuListProps>(function MenuList(
 // MenuItem
 //
 
-type MenuItemProps = {
+interface MenuItemProps extends AriakitMenuItemProps, ObfuscatedClassName {
     /**
      * An optional value given to this menu item. It is passed on to the parent `Menu`'s
      * `onItemSelect` when you provide that instead of (or alongside) providing individual
      * `onSelect` callbacks to each menu item.
      */
     value?: string
-
-    /**
-     * The content inside the menu item.
-     */
-    children: React.ReactNode
 
     /**
      * When `true` the menu item is disabled and won't be selectable or be part of the keyboard
@@ -228,7 +232,7 @@ type MenuItemProps = {
  * A menu item inside a menu list. It can be selected by the user, triggering the `onSelect`
  * callback.
  */
-const MenuItem = polymorphicComponent<'button', MenuItemProps>(function MenuItem(
+const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(function MenuItem(
     {
         value,
         children,
@@ -236,16 +240,18 @@ const MenuItem = polymorphicComponent<'button', MenuItemProps>(function MenuItem
         hideOnSelect = true,
         onClick,
         exceptionallySetClassName,
-        as = 'button',
         ...props
     },
     ref,
 ) {
     const { handleItemSelect, menuStore } = React.useContext(MenuContext)
-    const { hide } = menuStore
+    if (!menuStore) {
+        throw new Error('MenuItem must be wrapped in <Menu/>')
+    }
 
+    const { hide } = menuStore
     const handleClick = React.useCallback(
-        function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+        function handleClick(event: React.MouseEvent) {
             onClick?.(event)
             const onSelectResult: unknown =
                 onSelect && !event.defaultPrevented ? onSelect() : undefined
@@ -259,7 +265,6 @@ const MenuItem = polymorphicComponent<'button', MenuItemProps>(function MenuItem
     return (
         <AriakitMenuItem
             {...props}
-            as={as}
             store={menuStore}
             ref={ref}
             onClick={handleClick}
@@ -303,8 +308,11 @@ const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
     ref,
 ) {
     const { handleItemSelect: parentMenuItemSelect, menuStore } = React.useContext(MenuContext)
-    const { hide: parentMenuHide } = menuStore
+    if (!menuStore) {
+        throw new Error('SubMenu must be wrapped in <Menu/>')
+    }
 
+    const { hide: parentMenuHide } = menuStore
     const handleSubItemSelect = React.useCallback(
         function handleSubItemSelect(value: string | null | undefined) {
             onItemSelect?.(value)
@@ -315,19 +323,12 @@ const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
     )
 
     const [button, list] = React.Children.toArray(children)
-
-    // Ariakit needs to be able to pass props to the MenuButton and combine it with the MenuItem component
-    const renderMenuButton = React.useCallback(
-        function renderMenuButton(props: MenuButtonProps) {
-            return React.cloneElement(button as React.ReactElement, props)
-        },
-        [button],
-    )
+    const buttonElement = button as React.ReactElement<MenuButtonProps>
 
     return (
         <Menu onItemSelect={handleSubItemSelect}>
-            <AriakitMenuItem as="div" store={menuStore} ref={ref} hideOnClick={false}>
-                {renderMenuButton}
+            <AriakitMenuItem store={menuStore} ref={ref} hideOnClick={false} render={buttonElement}>
+                {buttonElement.props.children}
             </AriakitMenuItem>
             {list}
         </Menu>
@@ -338,7 +339,9 @@ const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
 // MenuGroup
 //
 
-type MenuGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'className'> & {
+interface MenuGroupProps
+    extends Omit<React.HTMLAttributes<HTMLDivElement>, 'className'>,
+        ObfuscatedClassName {
     /**
      * A label to be shown visually and also used to semantically label the group.
      */
@@ -351,11 +354,15 @@ type MenuGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'className'> & 
  * This group does not add any visual separator. You can do that yourself adding `<hr />` elements
  * before and/or after the group if you so wish.
  */
-const MenuGroup = polymorphicComponent<'div', MenuGroupProps>(function MenuGroup(
+const MenuGroup = React.forwardRef<HTMLDivElement, MenuGroupProps>(function MenuGroup(
     { label, children, exceptionallySetClassName, ...props },
     ref,
 ) {
     const { menuStore } = React.useContext(MenuContext)
+    if (!menuStore) {
+        throw new Error('MenuGroup must be wrapped in <Menu/>')
+    }
+
     return (
         <AriakitMenuGroup
             {...props}

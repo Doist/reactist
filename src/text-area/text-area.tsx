@@ -4,32 +4,26 @@ import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-f
 import { Box } from '../box'
 import styles from './text-area.module.css'
 
-/**
- * FIXME: This is a workaround for consumers that are using newer versions of React types that no longer have these props.
- * Once we upgrade Reactist to the newest React types, we should be able to remove these.
- */
-type DeprecatedProps = 'crossOrigin' | 'onPointerEnterCapture' | 'onPointerLeaveCapture'
+interface TextAreaProps extends FieldComponentProps<HTMLTextAreaElement>, BaseFieldVariantProps {
+    /**
+     * The number of visible text lines for the text area.
+     *
+     * If it is specified, it must be a positive integer. If it is not specified, the default
+     * value is 2 (set by the browser).
+     *
+     * When `autoExpand` is true, this value serves the purpose of specifying the minimum number
+     * of rows that the textarea will shrink to when the content is not large enough to make it
+     * expand.
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#attr-rows
+     */
+    rows?: number
 
-type TextAreaProps = Omit<FieldComponentProps<HTMLTextAreaElement>, DeprecatedProps> &
-    BaseFieldVariantProps & {
-        /**
-         * The number of visible text lines for the text area.
-         *
-         * If it is specified, it must be a positive integer. If it is not specified, the default
-         * value is 2 (set by the browser).
-         *
-         * When `autoExpand` is true, this value serves the purpose of specifying the minimum number
-         * of rows that the textarea will shrink to when the content is not large enough to make it
-         * expand.
-         *
-         * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#attr-rows
-         */
-        rows?: number
-        /**
-         * If `true`, the textarea will auto-expand or shrink vertically to fit the content.
-         */
-        autoExpand?: boolean
-    }
+    /**
+     * If `true`, the textarea will auto-expand or shrink vertically to fit the content.
+     */
+    autoExpand?: boolean
+}
 
 const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
     {

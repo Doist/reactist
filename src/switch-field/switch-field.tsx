@@ -7,28 +7,30 @@ import { FieldComponentProps, FieldHint } from '../base-field'
 import { useId } from '../utils/common-helpers'
 import styles from './switch-field.module.css'
 
-/**
- * FIXME: This is a workaround for consumers that are using newer versions of React types that no longer have these props.
- * Once we upgrade Reactist to the newest React types, we should be able to remove these.
- */
-type DeprecatedProps = 'crossOrigin' | 'onPointerEnterCapture' | 'onPointerLeaveCapture'
-
-type SwitchFieldProps = Omit<
-    FieldComponentProps<HTMLInputElement>,
-    | 'type'
-    | 'secondaryLabel'
-    | 'auxiliaryLabel'
-    | 'maxWidth'
-    | 'aria-describedby'
-    | 'aria-label'
-    | 'aria-labelledby'
-    | DeprecatedProps
-> & {
-    /** Identifies the element (or elements) that describes the switch for assistive technologies. */
+interface SwitchFieldProps
+    extends Omit<
+        FieldComponentProps<HTMLInputElement>,
+        | 'type'
+        | 'secondaryLabel'
+        | 'auxiliaryLabel'
+        | 'maxWidth'
+        | 'aria-describedby'
+        | 'aria-label'
+        | 'aria-labelledby'
+    > {
+    /**
+     * Identifies the element (or elements) that describes the switch for assistive technologies.
+     */
     'aria-describedby'?: string
-    /** Defines a string value that labels the current switch for assistive technologies. */
+
+    /**
+     * Defines a string value that labels the current switch for assistive technologies.
+     */
     'aria-label'?: string
-    /** Identifies the element (or elements) that labels the current switch for assistive technologies. */
+
+    /**
+     * Identifies the element (or elements) that labels the current switch for assistive technologies.
+     */
     'aria-labelledby'?: string
 }
 

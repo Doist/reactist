@@ -5,6 +5,7 @@ import { getInitials, emailToIndex } from './utils'
 import { getClassNames, ResponsiveProp } from '../utils/responsive-props'
 import styles from './avatar.module.css'
 import { Box } from '../box'
+import type { ObfuscatedClassName } from '../utils/common-types'
 
 const AVATAR_COLORS = [
     '#fcc652',
@@ -29,10 +30,9 @@ const AVATAR_COLORS = [
 
 type AvatarSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl'
 
-type Props = {
+type Props = ObfuscatedClassName & {
     /** @deprecated Please use `exceptionallySetClassName` */
     className?: string
-    exceptionallySetClassName?: string
     /** @deprecated */
     colorList?: string[]
     size?: ResponsiveProp<AvatarSize>
