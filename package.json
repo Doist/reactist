@@ -74,6 +74,7 @@
         "@doist/prettier-config": "^3.0.5",
         "@doist/tsconfig": "^1.0.0",
         "@geometricpanda/storybook-addon-badges": "^0.2.2",
+        "@rollup/plugin-typescript": "11.1.6",
         "@storybook/addon-actions": "^6.5.3",
         "@storybook/addon-controls": "^6.5.3",
         "@storybook/addon-docs": "^6.5.3",
@@ -136,12 +137,13 @@
         "react-svg-loader": "^3.0.3",
         "react-test-renderer": "^17.0.2",
         "rimraf": "^3.0.2",
-        "rollup-plugin-postcss": "^3.1.1",
+        "rollup": "2.79.1",
+        "rollup-plugin-postcss": "3.1.8",
         "rollup-plugin-styles": "^3.14.1",
         "style-loader": "^0.23.1",
         "svg-url-loader": "^6.0.0",
         "ts-loader": "^8.0.2",
-        "tsdx": "^0.14.1",
+        "tsdx": "0.14.1",
         "tslib": "^2.0.0",
         "typescript": "^4.6.4",
         "webpack": "^4.43.0"
@@ -157,9 +159,9 @@
         "use-callback-ref": "^1.3.0"
     },
     "overrides": {
-        "tsdx": {
-            "typescript": "^4.6.4"
-        }
+        "typescript": "^4.6.4",
+        "@rollup/plugin-typescript": "11.1.6",
+        "rollup": "2.79.1"
     },
     "bugs": {
         "url": "https://github.com/Doist/reactist/issues"
