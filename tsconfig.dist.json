@@ -2,7 +2,8 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "rootDir": "./src",
-        "declarationDir": "lib"
+        "declarationDir": "lib",
+        "noEmit": false
     },
     "exclude": [
         "node_modules",
