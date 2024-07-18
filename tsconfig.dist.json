@@ -6,9 +6,12 @@
     },
     "exclude": [
         "node_modules",
+        "dist",
+        "lib",
         "**/__mocks__",
         "**/__tests__",
         "**/storybook-helper.*",
-        "**/*.stories.*"
+        "**/*.stories.*",
+        "**/*.test.*"
     ]
 }
