@@ -92,7 +92,7 @@ interface TabProps extends ObfuscatedClassName, Pick<RoleProps, 'render'> {
  * Represents the individual tab elements within the group. Each `<Tab>` must have a corresponding `<TabPanel>` component.
  */
 const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(
-    { children, id, exceptionallySetClassName, render },
+    { children, id, exceptionallySetClassName, render, onClick },
     ref,
 ): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
@@ -102,7 +102,14 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(
     const className = classNames(exceptionallySetClassName, styles.tab, styles[`tab-${variant}`])
 
     return (
-        <BaseTab render={render} className={className} id={id} store={tabStore} ref={ref}>
+        <BaseTab
+            id={id}
+            ref={ref}
+            store={tabStore}
+            render={render}
+            className={className}
+            onClick={onClick}
+        >
             {children}
         </BaseTab>
     )
