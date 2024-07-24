@@ -109,8 +109,6 @@ cd ~/your-app
 yalc add @doist/reactist
 ```
 
-In your real application you need to first delete the current _@doist/reactist_ dependency and then link to your local one.
-
 To undo the changes and switch back to the reactist version from npm, do the following:
 
 ```sh
@@ -135,10 +133,11 @@ For convenience, you can add a `dev:reactist` script in your host application to
 }
 ```
 
-Then, to develop against Reactist, just run `npm run dev:reactist`.
+Then, to develop against Reactist, just run:
 
-````sh
-
+```sh
+npm run dev:reactist
+```
 
 ## Development tips and tricks
 
@@ -146,7 +145,7 @@ Independent of the development you operate in to produce a new build (e.g. befor
 
 ```sh
 npm run build
-````
+```
 
 **Note:** This will **not** update the docs. In case you want to update the docs you need to run:
 
