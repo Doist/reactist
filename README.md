@@ -88,36 +88,55 @@ This boots up a development server with hot reloading on http://localhost:6006. 
 
 ## Inside your application
 
-For the second development mode you can leverage `npm link`. First run:
+For the second development mode you can leverage `npm start:yalc`. First, make sure you have `yalc` installed globally:
 
-```sh
-npm run start
+```shell
+npm install -g yalc
 ```
 
-this will update the build artifacts whenever you change something.
+Then, in the reactist repository run:
 
-In your real application you need to first delete the current _@doist/reactist_ dependency and then link to your local one.
+```sh
+npm run start:yalc
+```
+
+this will publish Reactist to `yalc` and watch for changes.
+
+In your host application you can then link to your local Reactist version:
 
 ```sh
 cd ~/your-app
-# delete current reactist dependency
-rm -rf ./node_modules/@doist/reactist
-
-# link local reactist version
-npm link ../reactist
+yalc add @doist/reactist
 ```
 
-The relative path to reactist may need to be changed to match your local environment.
-
-To undo the changes and switch back to the reactist version from npm do the following:
+To undo the changes and switch back to the reactist version from npm, do the following:
 
 ```sh
 cd ~/your-app
-# first remove linked reactist dependency
-rm -rf ./node_modules/@doist/reactist
+# restore the original reactist version
+yalc remove @doist/reactist
+# re-install reactist from npm
+npm install
+```
 
-# re-install reactist from npm (-E avoids updating the version / package-lock.json)
-npm install -E @doist/reactist
+For convenience, you can add a `dev:reactist` script in your host application to automate the process of adding and removing the local Reactist version:
+
+```json5
+{
+    // ...
+    scripts: {
+        // ...
+        'predev:reactist': 'yalc add @doist/reactist',
+        'dev:reactist': 'npm run dev', // or whatever your development script is
+        'postdev:reactist': 'yalc remove @doist/reactist && npm i',
+    },
+}
+```
+
+Then, to develop against Reactist, just run:
+
+```sh
+npm run dev:reactist
 ```
 
 ## Development tips and tricks
