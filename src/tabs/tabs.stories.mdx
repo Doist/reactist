@@ -3,6 +3,7 @@ import { Tabs, TabList, Tab, TabPanel, TabAwareSlot } from './tabs'
 import { Box } from '../box'
 import { Text } from '../text'
 import { Columns, Column } from '../columns'
+import { Tooltip } from '../tooltip'
 
 <Meta
     title="Design system/Tabs"
@@ -287,6 +288,44 @@ Note that when combined with the `renderMode="active"` prop, the entire tabpanel
                 <Column>Column 1</Column>
                 <Column>Column 2</Column>
                 <Column>Column 3</Column>
+            </TabPanel>
+        </Tabs>
+    </Story>
+</Canvas>
+
+### Wrapped by Tooltip component
+
+This is just a sample story to show you that Tooltip outside Tab does not work, but Tooltip inside Tab works.
+
+<Canvas withToolbar>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Wrapped by Tooltip component">
+        <Tabs>
+            <TabList aria-label="Multiple tablist example tabs">
+                <Tooltip content={'Tooltip for Tab 1'}>
+                    <Tab id="tab1">
+                        <Box>Tab 1</Box>
+                    </Tab>
+                </Tooltip>
+
+                <Tab id="tab2">
+                    <Tooltip content={'Tooltip for Tab 2'}>
+                        <Box>Tab 2</Box>
+                    </Tooltip>
+                </Tab>
+            </TabList>
+            <TabPanel
+                id="tab1"
+                renderMode="active"
+                render={<Box paddingX="small" paddingY="xlarge" />}
+            >
+                <Text>Content of tab 1</Text>
+            </TabPanel>
+            <TabPanel
+                id="tab2"
+                renderMode="active"
+                render={<Box paddingX="small" paddingY="xlarge" />}
+            >
+                <Text>Content of tab 2</Text>
             </TabPanel>
         </Tabs>
     </Story>
