@@ -3,6 +3,7 @@ import { Tabs, TabList, Tab, TabPanel, TabAwareSlot } from './tabs'
 import { Box } from '../box'
 import { Text } from '../text'
 import { Columns, Column } from '../columns'
+import { Tooltip } from '../tooltip'
 
 <Meta
     title="Design system/Tabs"
@@ -291,7 +292,7 @@ This is just a sample story to show you that Tooltip works both outside and insi
 <Canvas withToolbar>
     <Story parameters={{ docs: { source: { type: 'code' } } }} name="Wrapped by Tooltip component">
         <Tabs>
-            <TabList aria-label="Multiple tablist example tabs">
+            <TabList aria-label="Wrapped by Tooltip component">
                 <Tooltip content="Tooltip outside Tab">
                     <Tab id="tab1">
                         <Box>Tab 1</Box>
