@@ -283,3 +283,36 @@ Note that when combined with the `render="active"` prop, the entire tabpanel wil
         </Tabs>
     </Story>
 </Canvas>
+
+### Wrapped by Tooltip component
+
+This is just a sample story to show you that Tooltip works both outside and inside Tab.
+
+<Canvas withToolbar>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Wrapped by Tooltip component">
+        <Tabs>
+            <TabList aria-label="Multiple tablist example tabs">
+                <Tooltip content="Tooltip outside Tab">
+                    <Tab id="tab1">
+                        <Box>Tab 1</Box>
+                    </Tab>
+                </Tooltip>
+                <Tab id="tab2">
+                    <Tooltip content="Tooltip inside Tab">
+                        <Box>Tab 2</Box>
+                    </Tooltip>
+                </Tab>
+            </TabList>
+            <TabPanel id="tab1">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 1</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab2">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 2</Text>
+                </Box>
+            </TabPanel>
+        </Tabs>
+    </Story>
+</Canvas>
