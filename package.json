@@ -149,7 +149,7 @@
         "webpack": "^4.43.0"
     },
     "dependencies": {
-        "@ariakit/react": "^0.3.14",
+        "@ariakit/react": "0.4.5",
         "aria-hidden": "^1.2.1",
         "dayjs": "^1.8.10",
         "patch-package": "^6.4.6",
