@@ -2,6 +2,12 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# v25.0.0-beta.3
+
+-   [Fix] Allow more props to be forwarded to the `Tab` component.
+-   [Fix] Properly fix CSS build in tsdx config.
+-   [Chore] Upgrade to `@ariakit/react@0.4.5`.
+
 # v25.0.0-beta.2
 
 -   [Fix] Pass `onClick` to the `Tab` component.

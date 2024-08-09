@@ -3,11 +3,11 @@ import classNames from 'classnames'
 import {
     useTabStore,
     Tab as BaseTab,
+    TabProps as BaseTabProps,
     TabList as BaseTabList,
     TabPanel as BaseTabPanel,
     TabPanelProps as BaseTabPanelProps,
     TabStore,
-    RoleProps,
 } from '@ariakit/react'
 import { Inline } from '../inline'
 import type { ObfuscatedClassName, Space } from '../utils/common-types'
@@ -74,7 +74,9 @@ function Tabs({
     return <TabsContext.Provider value={memoizedTabState}>{children}</TabsContext.Provider>
 }
 
-interface TabProps extends ObfuscatedClassName, Pick<RoleProps, 'render'> {
+interface TabProps
+    extends ObfuscatedClassName,
+        Omit<BaseTabProps, 'store' | 'className' | 'children' | 'id'> {
     /**
      * The content to render inside of the tab button
      */
@@ -84,8 +86,6 @@ interface TabProps extends ObfuscatedClassName, Pick<RoleProps, 'render'> {
      * The tab's identifier. This must match its corresponding `<TabPanel>`'s id
      */
     id: string
-
-    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 /**

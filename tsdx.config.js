@@ -11,7 +11,7 @@ module.exports = {
                     mode: 'local',
                     generateScopedName: '[hash:8]',
                 },
-                mode: ['extract', 'index.css'],
+                mode: 'extract',
                 url: { inline: true },
             }),
         ].concat(config.plugins)
