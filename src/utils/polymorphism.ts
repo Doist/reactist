@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import * as React from 'react'
+import type { ObfuscatedClassName } from './common-types'
 
 type Merge<P1, P2> = Omit<P1, keyof P2> & P2
 
@@ -9,26 +10,6 @@ type EmptyObject = {
 }
 
 type ObfuscateClassNameMode = 'keepClassName' | 'obfuscateClassName' | 'omitClassName'
-
-type ObfuscatedClassName = {
-    /**
-     * Used internally to set the `className` prop of the main container element for this component.
-     *
-     * Aside from the different name, the prop behaves the same as the native `className`. The only
-     * reason for the name change is to discourage applying custom CSS to the design system
-     * components, which are supposed to _eventually_ provide all the styling features we may need.
-     *
-     * This prop is meant to be used only in certain circumstances, when you really need a escape
-     * hatch to apply custom styles to a component. Before reaching for this feature, try harder to
-     * see if you can solve your needs with what the design system provides.
-     *
-     * For instance, instead of applying layout-related styles to a non-layout component, consider
-     * wrapping it inside a layout component.
-     *
-     * @see PolymorphicComponent
-     */
-    exceptionallySetClassName?: string
-}
 
 /**
  * If a set of props include the `className` prop, we replace it with a `exceptionallySetClassName`
@@ -176,6 +157,8 @@ interface ForwardRefFunction<
  * This behaviour can be customized via an optional second generic argument that allows to disable
  * this feature, or to omit the `className` altogether without replacing it with the obfuscated prop
  * name.
+ *
+ * @deprecated Use Ariakit's composition instead (https://ariakit.org/guide/composition)
  */
 interface PolymorphicComponent<
     ComponentType extends React.ElementType,
@@ -200,7 +183,7 @@ interface PolymorphicComponent<
  * convenience over merely using React.forwardRef directly, and then manually forcing the resulting
  * value to be typed using `as PolymorphicComponent<…>`.
  *
- * @see PolymorphicComponent for details about what this type does
+ * @deprecated Use Ariakit's composition instead (https://ariakit.org/guide/composition)
  */
 function polymorphicComponent<
     ComponentType extends React.ElementType = 'div',
@@ -214,5 +197,5 @@ function polymorphicComponent<
     >
 }
 
-export type { PolymorphicComponent, ObfuscatedClassName }
+export type { PolymorphicComponent }
 export { polymorphicComponent }

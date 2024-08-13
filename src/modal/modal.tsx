@@ -3,17 +3,17 @@ import classNames from 'classnames'
 import FocusLock from 'react-focus-lock'
 import { hideOthers } from 'aria-hidden'
 
-import { Dialog, DialogOptions, useDialogState } from 'ariakit/dialog'
-import { Portal, PortalOptions } from 'ariakit/portal'
+import { Dialog, DialogOptions, useDialogStore, Portal, PortalOptions } from '@ariakit/react'
 
 import { CloseIcon } from '../icons/close-icon'
 import { Column, Columns } from '../columns'
 import { Inline } from '../inline'
 import { Divider } from '../divider'
 import { Box } from '../box'
-import { Button, ButtonProps } from '../button'
+import { IconButtonProps, IconButton } from '../button'
 
 import styles from './modal.module.css'
+import type { ObfuscatedClassName } from '../utils/common-types'
 
 type ModalWidth = 'small' | 'medium' | 'large' | 'xlarge' | 'full'
 type ModalHeightMode = 'expand' | 'fitContent'
@@ -41,25 +41,29 @@ type DivProps = Omit<
     'className' | 'children' | `aria-label` | `aria-labelledby`
 >
 
-export type ModalProps = DivProps & {
+export interface ModalProps extends DivProps, ObfuscatedClassName {
     /**
      * The content of the modal.
      */
     children: React.ReactNode
+
     /**
      * Whether the modal is open and visible or not.
      */
     isOpen: boolean
+
     /**
      * Called when the user triggers closing the modal.
      */
     onDismiss?(): void
+
     /**
      * A descriptive setting for how wide the modal should aim to be, depending on how much space
      * it has on screen.
      * @default 'medium'
      */
     width?: ModalWidth
+
     /**
      * A descriptive setting for how tall the modal should aim to be.
      *
@@ -75,30 +79,37 @@ export type ModalProps = DivProps & {
      * the inner layout to ensure scroll, or whatever other strategy you may want.
      */
     height?: ModalHeightMode
+
     /**
      * Whether to set or not the focus initially to the first focusable element inside the modal.
      */
     autoFocus?: boolean
+
     /**
      * Controls if the modal is dismissed when pressing "Escape".
      */
     hideOnEscape?: DialogOptions['hideOnEscape']
+
     /**
      * Controls if the modal is dismissed when clicking outside the modal body, on the overlay.
      */
     hideOnInteractOutside?: DialogOptions['hideOnInteractOutside']
-    /**
-     * An escape hatch in case you need to provide a custom class name to the container element.
-     */
-    exceptionallySetClassName?: string
+
     /**
      * An escape hatch in case you need to provide a custom class name to the overlay element.
      */
     exceptionallySetOverlayClassName?: string
-    /** Defines a string value that labels the current modal for assistive technologies. */
+
+    /**
+     * Defines a string value that labels the current modal for assistive technologies.
+     */
     'aria-label'?: string
-    /** Identifies the element (or elements) that labels the current modal for assistive technologies. */
+
+    /**
+     * Identifies the element (or elements) that labels the current modal for assistive technologies.
+     */
     'aria-labelledby'?: string
+
     /**
      * An HTML element or a memoized callback function that returns an HTML element to be used as
      * the portal element. By default, the portal element will be a `div` element appended to the
@@ -148,6 +159,9 @@ export function Modal({
     hideOnInteractOutside = true,
     children,
     portalElement,
+    onKeyDown,
+    // @ts-expect-error we want to make sure to not pass it to the Dialog component
+    className,
     ...props
 }: ModalProps) {
     const setOpen = React.useCallback(
@@ -158,7 +172,7 @@ export function Modal({
         },
         [onDismiss],
     )
-    const state = useDialogState({ open: isOpen, setOpen })
+    const store = useDialogStore({ open: isOpen, setOpen })
 
     const contextValue: ModalContextValue = React.useMemo(() => ({ onDismiss, height }), [
         onDismiss,
@@ -195,6 +209,22 @@ export function Modal({
         [isOpen],
     )
 
+    const handleKeyDown = React.useCallback(
+        function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+            if (
+                hideOnEscape &&
+                onDismiss != null &&
+                event.key === 'Escape' &&
+                !event.defaultPrevented
+            ) {
+                event.stopPropagation()
+                onDismiss()
+            }
+            onKeyDown?.(event)
+        },
+        [onDismiss, hideOnEscape, onKeyDown],
+    )
+
     if (!isOpen) {
         return null
     }
@@ -211,9 +241,8 @@ export function Modal({
                     exceptionallySetOverlayClassName,
                 )}
                 /**
-                 * We're using `onPointerDown` instead of `onClick` to prevent
-                 * the modal from closing when the click starts inside the modal
-                 * and ends on the backdrop.
+                 * We're using `onPointerDown` instead of `onClick` to prevent the modal from
+                 * closing when the click starts inside the modal and ends on the backdrop.
                  */
                 onPointerDown={hideOnInteractOutside ? handleBackdropClick : undefined}
                 ref={backdropRef}
@@ -222,18 +251,20 @@ export function Modal({
                     <Dialog
                         {...props}
                         ref={dialogRef}
-                        as={Box}
-                        state={state}
-                        hideOnEscape={hideOnEscape}
+                        render={
+                            <Box
+                                borderRadius="full"
+                                background="default"
+                                display="flex"
+                                flexDirection="column"
+                                overflow="hidden"
+                                height={height === 'expand' ? 'full' : undefined}
+                                flexGrow={height === 'expand' ? 1 : 0}
+                            />
+                        }
+                        className={classNames(exceptionallySetClassName, styles.container)}
+                        store={store}
                         preventBodyScroll
-                        borderRadius="full"
-                        background="default"
-                        display="flex"
-                        flexDirection="column"
-                        overflow="hidden"
-                        height={height === 'expand' ? 'full' : undefined}
-                        flexGrow={height === 'expand' ? 1 : 0}
-                        className={[exceptionallySetClassName, styles.container]}
                         // Disable focus lock as we set up our own using ReactFocusLock
                         modal={false}
                         autoFocus={false}
@@ -243,6 +274,8 @@ export function Modal({
                         portal={false}
                         backdrop={false}
                         hideOnInteractOutside={false}
+                        hideOnEscape={false}
+                        onKeyDown={handleKeyDown}
                     >
                         <ModalContext.Provider value={contextValue}>
                             {children}
@@ -258,20 +291,11 @@ export function Modal({
 // ModalCloseButton
 //
 
-export type ModalCloseButtonProps = Omit<
-    ButtonProps,
-    | 'type'
-    | 'children'
-    | 'variant'
-    | 'icon'
-    | 'startIcon'
-    | 'endIcon'
-    | 'disabled'
-    | 'loading'
-    | 'tabIndex'
-    | 'width'
-    | 'align'
-> & {
+export interface ModalCloseButtonProps
+    extends Omit<
+        IconButtonProps,
+        'type' | 'variant' | 'icon' | 'disabled' | 'loading' | 'tabIndex' | 'ref'
+    > {
     /**
      * The descriptive label of the button.
      */
@@ -301,7 +325,7 @@ export function ModalCloseButton(props: ModalCloseButtonProps) {
     )
 
     return (
-        <Button
+        <IconButton
             {...props}
             variant="quaternary"
             onClick={onDismiss}
@@ -315,25 +339,23 @@ export function ModalCloseButton(props: ModalCloseButtonProps) {
 // ModalHeader
 //
 
-export type ModalHeaderProps = DivProps & {
+export interface ModalHeaderProps extends DivProps, ObfuscatedClassName {
     /**
      * The content of the header.
      */
     children: React.ReactNode
+
     /**
      * Allows to provide a custom button element, or to omit the close button if set to false.
      * @see ModalCloseButton
      */
     button?: React.ReactNode | boolean
+
     /**
      * Whether to render a divider line below the header.
      * @default false
      */
     withDivider?: boolean
-    /**
-     * A escape hatch in case you need to provide a custom class name to the container element.
-     */
-    exceptionallySetClassName?: string
 }
 
 /**
@@ -388,15 +410,11 @@ export function ModalHeader({
 // ModalBody
 //
 
-export type ModalBodyProps = DivProps & {
+export interface ModalBodyProps extends DivProps, ObfuscatedClassName {
     /**
      * The content of the modal body.
      */
     children: React.ReactNode
-    /**
-     * A escape hatch in case you need to provide a custom class name to the container element.
-     */
-    exceptionallySetClassName?: string
 }
 
 /**
@@ -432,7 +450,7 @@ export function ModalBody({ exceptionallySetClassName, children, ...props }: Mod
 // ModalFooter
 //
 
-export type ModalFooterProps = DivProps & {
+export interface ModalFooterProps extends DivProps, ObfuscatedClassName {
     /**
      * The contant of the modal footer.
      */
@@ -442,10 +460,6 @@ export type ModalFooterProps = DivProps & {
      * @default false
      */
     withDivider?: boolean
-    /**
-     * A escape hatch in case you need to provide a custom class name to the container element.
-     */
-    exceptionallySetClassName?: string
 }
 
 /**

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { act, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Button } from './button'
+import { Button, IconButton } from './button'
 import { axe } from 'jest-axe'
 
 jest.mock('../spinner', () => ({
@@ -228,17 +228,6 @@ describe('Button', () => {
         expect(buttonLabel).toHaveClass('width-full')
     })
 
-    it('ignores align when width is not full', () => {
-        render(
-            // @ts-expect-error invalid props on purpose
-            <Button variant="primary" align="end">
-                Click me
-            </Button>,
-        )
-        const button = screen.getByRole('button', { name: 'Click me' })
-        expect(button).not.toHaveClass('align-end')
-    })
-
     describe('with icons', () => {
         it('renders an icon before the label when startIcon is given', () => {
             render(
@@ -258,68 +247,6 @@ describe('Button', () => {
             )
             const button = screen.getByRole('button', { name: 'Smile' })
             expect(button.textContent).toMatchInlineSnapshot(`"Smile😄"`)
-        })
-    })
-
-    describe('icon-only mode', () => {
-        it('renders an icon-only button with the given non-visual label', () => {
-            render(<Button variant="primary" icon="😄" aria-label="Smile" />)
-            const button = screen.getByRole('button', { name: 'Smile' })
-            expect(button.textContent).toMatchInlineSnapshot(`"😄"`)
-        })
-
-        it('does not support receiving any of the props "children", "startIcon" and "endIcon"', () => {
-            render(
-                // @ts-expect-error invalid props on purpose
-                <Button variant="primary" icon="😄" aria-label="Smile" startIcon="😢" endIcon="😢">
-                    Cry
-                </Button>,
-            )
-            const button = screen.getByRole('button', { name: 'Smile' })
-            expect(button.textContent).toMatchInlineSnapshot(`"😄"`)
-        })
-
-        it('does not support receiving any of the props "width" and "align"', () => {
-            render(
-                // @ts-expect-error invalid props on purpose
-                <Button variant="primary" icon="😄" aria-label="Smile" width="full" align="end" />,
-            )
-            const button = screen.getByRole('button', { name: 'Smile' })
-            expect(button.className).not.toMatch(/align/)
-            expect(button.className).not.toMatch(/width/)
-        })
-
-        it('renders with the aria-label implicitly used as its tooltip', async () => {
-            render(<Button variant="primary" icon="😄" aria-label="Smile" />)
-            expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-            userEvent.tab()
-            expect(screen.getByRole('button', { name: 'Smile' })).toHaveFocus()
-            expect(await screen.findByRole('tooltip', { name: 'Smile' })).toBeInTheDocument()
-        })
-
-        it('renders a different tooltip if given explicitly', async () => {
-            render(<Button variant="primary" icon="😄" aria-label="Smile" tooltip="Say cheese!" />)
-            expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-            userEvent.tab()
-            expect(screen.getByRole('button', { name: 'Smile' })).toHaveFocus()
-            expect(await screen.findByRole('tooltip', { name: 'Say cheese!' })).toBeInTheDocument()
-        })
-
-        it('allows to supress the implicit "aria-label as tooltip" behaviour by passing tooltip={null}', () => {
-            jest.useFakeTimers()
-
-            render(<Button variant="primary" icon="😄" aria-label="Smile" tooltip={null} />)
-            expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-            userEvent.tab()
-            expect(screen.getByRole('button', { name: 'Smile' })).toHaveFocus()
-
-            act(() => {
-                jest.advanceTimersByTime(2000) // More than enough time for a potential tooltip appearance
-            })
-
-            expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-
-            jest.useRealTimers()
         })
     })
 
@@ -409,7 +336,7 @@ describe('Button', () => {
         })
 
         it('renders a loading spinner in place of the icon when rendering in single-icon mode', () => {
-            render(<Button variant="primary" icon="😄" aria-label="Click me" loading />)
+            render(<IconButton variant="primary" icon="😄" aria-label="Click me" loading />)
             expect(
                 screen.getByRole('button', { name: 'Click me' }).textContent,
             ).toMatchInlineSnapshot(`"⏳"`)
@@ -450,22 +377,22 @@ describe('Button', () => {
         it('renders icon-only buttons with no a11y violations', async () => {
             const { container } = render(
                 <>
-                    <Button variant="primary" tone="normal" icon="😄" aria-label="Normal" />
-                    <Button
+                    <IconButton variant="primary" tone="normal" icon="😄" aria-label="Normal" />
+                    <IconButton
                         variant="primary"
                         tone="destructive"
                         icon="😄"
                         aria-label="Destructive"
                     />
 
-                    <Button
+                    <IconButton
                         variant="primary"
                         tone="normal"
                         icon="😄"
                         disabled
                         aria-label="Normal (Disabled)"
                     />
-                    <Button
+                    <IconButton
                         variant="primary"
                         tone="destructive"
                         icon="😄"
@@ -473,14 +400,14 @@ describe('Button', () => {
                         aria-label="Destructive (Disabled)"
                     />
 
-                    <Button
+                    <IconButton
                         variant="primary"
                         tone="normal"
                         icon="😄"
                         loading
                         aria-label="Normal (Loading)"
                     />
-                    <Button
+                    <IconButton
                         variant="primary"
                         tone="destructive"
                         icon="😄"
@@ -489,9 +416,267 @@ describe('Button', () => {
                     />
                 </>,
             )
-            const results = await axe(container)
-
-            expect(results).toHaveNoViolations()
+            expect(await axe(container)).toHaveNoViolations()
         })
+    })
+})
+
+describe('IconButton', () => {
+    it('renders a semantic button', () => {
+        render(<IconButton variant="primary" icon="😄" aria-label="Click me" />)
+        expect(screen.getByRole('button', { name: 'Click me' })).toBeInTheDocument()
+    })
+
+    it('calls the onClick handler when clicked', () => {
+        const onClick = jest.fn()
+        render(<IconButton variant="primary" icon="😄" aria-label="Click me" onClick={onClick} />)
+        const button = screen.getByRole('button', { name: 'Click me' })
+        expect(button).not.toHaveAttribute('aria-disabled', 'true')
+        expect(onClick).not.toHaveBeenCalled()
+        userEvent.click(button)
+        expect(onClick).toHaveBeenCalledTimes(1)
+    })
+
+    it('ignore clicks when disabled', () => {
+        const onClick = jest.fn()
+        render(
+            <IconButton
+                variant="primary"
+                icon="😄"
+                aria-label="Click me"
+                onClick={onClick}
+                disabled
+            />,
+        )
+        const button = screen.getByRole('button', { name: 'Click me' })
+        expect(button).toHaveAttribute('aria-disabled', 'true')
+        expect(onClick).not.toHaveBeenCalled()
+        userEvent.click(button)
+        expect(onClick).not.toHaveBeenCalled()
+    })
+
+    it('only applies a soft disabled state to the button', () => {
+        render(<IconButton variant="primary" icon="😄" aria-label="Click me" disabled />)
+        const button = screen.getByRole('button', { name: 'Click me' })
+        expect(button).not.toBeDisabled()
+        expect(button).toHaveAttribute('aria-disabled', 'true')
+        userEvent.tab()
+        expect(button).toHaveFocus()
+    })
+
+    it('submits a form when used with type="submit"', () => {
+        const onSubmit = jest.fn().mockImplementation((event) => event.preventDefault())
+        render(
+            <form onSubmit={onSubmit}>
+                <IconButton variant="primary" type="submit" icon="😄" aria-label="Submit" />
+            </form>,
+        )
+        const button = screen.getByRole('button', { name: 'Submit' })
+        expect(button).not.toHaveAttribute('aria-disabled', 'true')
+        expect(button).toHaveAttribute('type', 'submit')
+        expect(onSubmit).not.toHaveBeenCalled()
+        userEvent.click(button)
+        expect(onSubmit).toHaveBeenCalledTimes(1)
+    })
+
+    it('does not submit a form when disabled', () => {
+        const onSubmit = jest.fn().mockImplementation((event) => event.preventDefault())
+        render(
+            <form onSubmit={onSubmit}>
+                <IconButton
+                    variant="primary"
+                    icon="😄"
+                    aria-label="Submit"
+                    type="submit"
+                    disabled
+                />
+            </form>,
+        )
+        const button = screen.getByRole('button', { name: 'Submit' })
+        expect(button).toHaveAttribute('aria-disabled', 'true')
+        expect(onSubmit).not.toHaveBeenCalled()
+        userEvent.click(button)
+        expect(onSubmit).not.toHaveBeenCalled()
+    })
+
+    it('renders an icon-only button with the given non-visual label', () => {
+        render(<IconButton variant="primary" icon="😄" aria-label="Smile" />)
+        const button = screen.getByRole('button', { name: 'Smile' })
+        expect(button.textContent).toMatchInlineSnapshot(`"😄"`)
+    })
+
+    it('renders with the aria-label implicitly used as its tooltip', async () => {
+        render(<IconButton variant="primary" icon="😄" aria-label="Smile" />)
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+        userEvent.tab()
+        expect(screen.getByRole('button', { name: 'Smile' })).toHaveFocus()
+        expect(await screen.findByRole('tooltip', { name: 'Smile' })).toBeInTheDocument()
+    })
+
+    it('renders a different tooltip if given explicitly', async () => {
+        render(<IconButton variant="primary" icon="😄" aria-label="Smile" tooltip="Say cheese!" />)
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+        userEvent.tab()
+        expect(screen.getByRole('button', { name: 'Smile' })).toHaveFocus()
+        expect(await screen.findByRole('tooltip', { name: 'Say cheese!' })).toBeInTheDocument()
+    })
+
+    it('allows to supress the implicit "aria-label as tooltip" behaviour by passing tooltip={null}', () => {
+        jest.useFakeTimers()
+
+        render(<IconButton variant="primary" icon="😄" aria-label="Smile" tooltip={null} />)
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+        userEvent.tab()
+        expect(screen.getByRole('button', { name: 'Smile' })).toHaveFocus()
+
+        act(() => {
+            jest.advanceTimersByTime(2000) // More than enough time for a potential tooltip appearance
+        })
+
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+
+        jest.useRealTimers()
+    })
+})
+
+describe('<Button render={<a href="…" />} />', () => {
+    it('renders a semantic link', () => {
+        render(
+            <Button variant="primary" render={<a href="/" />}>
+                Click me
+            </Button>,
+        )
+        expect(screen.getByRole('link', { name: 'Click me' })).toBeInTheDocument()
+    })
+
+    it('calls the onClick handler when clicked', () => {
+        const onClick = jest.fn()
+        render(
+            <Button variant="primary" onClick={onClick} render={<a href="/" />}>
+                Click me
+            </Button>,
+        )
+        const link = screen.getByRole('link', { name: 'Click me' })
+        expect(link).not.toHaveAttribute('aria-disabled', 'true')
+        expect(onClick).not.toHaveBeenCalled()
+        userEvent.click(link)
+        expect(onClick).toHaveBeenCalledTimes(1)
+    })
+
+    it('ignore clicks when disabled', () => {
+        let isNavigationPrevented = false
+        const clickSpy: React.MouseEventHandler<HTMLDivElement> = jest
+            .fn()
+            .mockImplementation((event: React.MouseEvent<HTMLDivElement>) => {
+                isNavigationPrevented = event.defaultPrevented
+            })
+
+        const onClick = jest.fn()
+        render(
+            <div onClick={clickSpy}>
+                <Button variant="primary" onClick={onClick} disabled render={<a href="/" />}>
+                    Click me
+                </Button>
+            </div>,
+        )
+        const link = screen.getByRole('link', { name: 'Click me' })
+
+        expect(link).toHaveAttribute('aria-disabled', 'true')
+        expect(onClick).not.toHaveBeenCalled()
+        userEvent.click(link)
+        expect(onClick).not.toHaveBeenCalled()
+        expect(isNavigationPrevented).toBe(true)
+    })
+
+    it('only applies a soft disabled state to the link', () => {
+        render(
+            <Button variant="primary" disabled render={<a href="/" />}>
+                Click me
+            </Button>,
+        )
+        const link = screen.getByRole('link', { name: 'Click me' })
+        expect(link).not.toBeDisabled()
+        expect(link).toHaveAttribute('aria-disabled', 'true')
+        userEvent.tab()
+        expect(link).toHaveFocus()
+    })
+})
+
+describe('<IconButton render={<a href="…" />} />', () => {
+    it('renders a semantic link', () => {
+        render(
+            <IconButton
+                variant="primary"
+                render={<a href="/" />}
+                icon="😄"
+                aria-label="Click me"
+            />,
+        )
+        expect(screen.getByRole('link', { name: 'Click me' })).toBeInTheDocument()
+    })
+
+    it('calls the onClick handler when clicked', () => {
+        const onClick = jest.fn()
+        render(
+            <IconButton
+                variant="primary"
+                onClick={onClick}
+                render={<a href="/" />}
+                icon="😄"
+                aria-label="Click me"
+            />,
+        )
+        const link = screen.getByRole('link', { name: 'Click me' })
+        expect(link).not.toHaveAttribute('aria-disabled', 'true')
+        expect(onClick).not.toHaveBeenCalled()
+        userEvent.click(link)
+        expect(onClick).toHaveBeenCalledTimes(1)
+    })
+
+    it('ignore clicks when disabled', () => {
+        let isNavigationPrevented = false
+        const clickSpy: React.MouseEventHandler<HTMLDivElement> = jest
+            .fn()
+            .mockImplementation((event: React.MouseEvent<HTMLDivElement>) => {
+                isNavigationPrevented = event.defaultPrevented
+            })
+
+        const onClick = jest.fn()
+        render(
+            <div onClick={clickSpy}>
+                <IconButton
+                    variant="primary"
+                    onClick={onClick}
+                    disabled
+                    render={<a href="/" />}
+                    icon="😄"
+                    aria-label="Click me"
+                />
+            </div>,
+        )
+        const link = screen.getByRole('link', { name: 'Click me' })
+
+        expect(link).toHaveAttribute('aria-disabled', 'true')
+        expect(onClick).not.toHaveBeenCalled()
+        userEvent.click(link)
+        expect(onClick).not.toHaveBeenCalled()
+        expect(isNavigationPrevented).toBe(true)
+    })
+
+    it('only applies a soft disabled state to the link', () => {
+        render(
+            <IconButton
+                variant="primary"
+                disabled
+                render={<a href="/" />}
+                icon="😄"
+                aria-label="Click me"
+            />,
+        )
+        const link = screen.getByRole('link', { name: 'Click me' })
+        expect(link).not.toBeDisabled()
+        expect(link).toHaveAttribute('aria-disabled', 'true')
+        userEvent.tab()
+        expect(link).toHaveFocus()
     })
 })

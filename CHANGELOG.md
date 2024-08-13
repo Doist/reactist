@@ -2,6 +2,74 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# v25.0.0
+
+-   [BREAKING] Upgrade Ariakit from legacy package to the newer @ariakit/react
+-   [BREAKING] Remove unsupported `onPointerEnterCapture` and `onPointerLeaveCapture` props from `heading`-, `input`-, and `textarea`-based components.
+-   [BREAKING] Removed the `ButtonLink` component.
+-   [BREAKING] `Button` no longer accepts props that render it as an icon-only button.
+-   [BREAKING] Use an explicit `render` prop for composition, instead of the `as` prop (in the menu, modal, tabs, toasts and tooltip components).
+-   [BREAKING] `TabPanel`'s prop `render` is renamed to `renderMode`.
+-   [Feat] Introduce a new `IconButton` component.
+-   [Feat] The `Button` and `IconButton` component can be rendered as a link using the `render={<Link to="…" />} prop.
+
+# v25.0.0-beta.3
+
+-   [Fix] Allow more props to be forwarded to the `Tab` component.
+-   [Fix] Properly fix CSS build in tsdx config.
+-   [Chore] Upgrade to `@ariakit/react@0.4.5`.
+
+# v25.0.0-beta.2
+
+-   [Fix] Pass `onClick` to the `Tab` component.
+
+# v25.0.0-beta.1
+
+-   [BREAKING] Use an explicit `render` prop for composition, instead of the `as` prop (in the menu, modal, tabs, toasts and tooltip components).
+-   [BREAKING] `TabPanel`'s prop `render` is renamed to `renderMode`.
+
+# v25.0.0-beta
+
+-   [BREAKING] Removed the `ButtonLink` component.
+-   [BREAKING] `Button` no longer accepts props that render it as an icon-only button.
+-   [Feat] Introduce a new `IconButton` component.
+-   [Feat] The `Button` and `IconButton` component can be rendered as a link using the `render={<Link to="…" />} prop.
+
+# v24.2.0-beta
+
+-   [Fix] Include changes from [v23.3.0](#v2330) in the beta release
+
+# v24.1.5-beta
+
+-   [Fix] Include changes from [v23.2.2](#v2322) in the beta release
+
+# v24.1.4-beta
+
+-   [Fix] Include changes from [v23.2.1](#v2321) in the beta release
+
+# v24.1.3-beta
+
+-   [Fix] Remove unsupported `onPointerEnterCapture` and `onPointerLeaveCapture` props from `heading`-, `input`-, and `textarea`-based components.
+-   Normally, this would be considered a breaking change, but the v24 version is still pre-release and already contains breaking changes.
+
+# v24.1.2-beta
+
+-   [Fix] Reset anchor rect after context menu is closed.
+-   [Fix] Revert earlier attempt to auto-close menus when they lose focus.
+
+# v24.1.1-beta
+
+-   [Fix] It was possible to leave a tooltip in a state in which it remained visible all the time. This release fixes the issue.
+-   [Fix] Auto-close menus when they lose focus to elements other than their own content or their sub-menus.
+
+# v24.1.0-beta
+
+-   [Feat] Include changes from [v23.2.0](#v2320) in the beta release
+
+# v24.0.0-beta
+
+-   [BREAKING] Upgrade Ariakit from legacy package to the newer @ariakit/react
+
 # v23.3.0
 
 -   [Feat] Add `warning` as a `tone` option for `Badge`.

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { CloseIcon } from '../icons/close-icon'
 import { Box } from '../box'
-import { Button } from '../button'
+import { IconButton, Button } from '../button'
 import { Stack } from '../stack'
 import { Text } from '../text'
 
@@ -117,7 +117,7 @@ const StaticToast = React.forwardRef<HTMLDivElement, StaticToastProps>(function 
 
             {onDismiss ? (
                 <ToastContentSlot>
-                    <Button
+                    <IconButton
                         variant="quaternary"
                         size="small"
                         onClick={onDismiss}

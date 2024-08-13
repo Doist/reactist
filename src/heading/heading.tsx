@@ -2,30 +2,26 @@ import * as React from 'react'
 import { getClassNames } from '../utils/responsive-props'
 import { Box } from '../box'
 import styles from './heading.module.css'
-import type { ObfuscatedClassName } from '../utils/polymorphism'
-import type { Tone } from '../utils/common-types'
+import type { ObfuscatedClassName, Tone } from '../utils/common-types'
 import type { BoxProps } from '../box'
 
 type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6 | '1' | '2' | '3' | '4' | '5' | '6'
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
-type SupportedHeadingElementProps = Omit<
-    JSX.IntrinsicElements[HeadingElement],
-    'className' | 'children' | 'placeholder'
->
-
-type HeadingProps = SupportedHeadingElementProps & {
+type HeadingProps = Omit<React.HTMLAttributes<HTMLHeadingElement>, 'className' | 'children'> & {
     children: React.ReactNode
     /**
      * The semantic level of the heading.
      */
     level: HeadingLevel
+
     /**
      * The weight of the heading. Used to de-emphasize the heading visually when using 'medium' or 'light'.
      *
      * @default 'regular'
      */
     weight?: 'regular' | 'medium' | 'light'
+
     /**
      * Shifts the default heading visual text size up or down, depending on the original size
      * imposed by the `level`. The heading continues to be semantically at the given level.
@@ -43,12 +39,14 @@ type HeadingProps = SupportedHeadingElementProps & {
      * @default undefined
      */
     size?: 'smaller' | 'larger' | 'largest'
+
     /**
      * The tone (semantic color) of the heading.
      *
      * @default 'normal'
      */
     tone?: Tone
+
     /**
      * Used to truncate the heading to a given number of lines.
      *
@@ -60,6 +58,7 @@ type HeadingProps = SupportedHeadingElementProps & {
      * @default undefined
      */
     lineClamp?: 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
+
     /**
      * How to align the heading text horizontally.
      *

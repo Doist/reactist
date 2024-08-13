@@ -6,7 +6,7 @@
         "email": "henning@doist.com",
         "url": "http://doist.com"
     },
-    "version": "23.3.0",
+    "version": "25.0.0",
     "license": "MIT",
     "homepage": "https://github.com/Doist/reactist#readme",
     "repository": {
@@ -36,6 +36,10 @@
         "setup": "npm install && npm run validate",
         "validate": "npm run lint && npm run type-check && npm run test",
         "start": "tsdx watch --onSuccess \"./scripts/organize-styles.sh\"",
+        "prestart:yalc": "npm run clean && yalc publish",
+        "start:yalc": "tsdx watch --tsconfig tsconfig.dist.json --onSuccess=\"npm run start:yalc:success\"",
+        "poststart:yalc": "yalc installations clean",
+        "start:yalc:success": "./scripts/organize-styles.sh && yalc push --sig",
         "build": "scripts/build.sh",
         "build:storybook": "build-storybook -o docs",
         "clean": "rimraf es lib styles dist",
@@ -70,6 +74,7 @@
         "@doist/prettier-config": "^3.0.5",
         "@doist/tsconfig": "^1.0.0",
         "@geometricpanda/storybook-addon-badges": "^0.2.2",
+        "@rollup/plugin-typescript": "11.1.6",
         "@storybook/addon-actions": "^6.5.3",
         "@storybook/addon-controls": "^6.5.3",
         "@storybook/addon-docs": "^6.5.3",
@@ -90,8 +95,8 @@
         "@types/jest": "28.1.8",
         "@types/jest-axe": "^3.5.3",
         "@types/marked": "^4.0.8",
-        "@types/react": "^17.0.45",
-        "@types/react-dom": "^17.0.17",
+        "@types/react": "18.3.1",
+        "@types/react-dom": "18.3.0",
         "@typescript-eslint/eslint-plugin": "^5.25.0",
         "@typescript-eslint/parser": "^5.25.0",
         "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
@@ -132,21 +137,20 @@
         "react-svg-loader": "^3.0.3",
         "react-test-renderer": "^17.0.2",
         "rimraf": "^3.0.2",
-        "rollup-plugin-postcss": "^3.1.1",
+        "rollup": "2.79.1",
+        "rollup-plugin-postcss": "3.1.8",
         "rollup-plugin-styles": "^3.14.1",
         "style-loader": "^0.23.1",
         "svg-url-loader": "^6.0.0",
         "ts-loader": "^8.0.2",
-        "tsdx": "^0.14.1",
+        "tsdx": "0.14.1",
         "tslib": "^2.0.0",
         "typescript": "^4.6.4",
         "webpack": "^4.43.0"
     },
     "dependencies": {
+        "@ariakit/react": "0.4.5",
         "aria-hidden": "^1.2.1",
-        "ariakit": "2.0.0-next.43",
-        "ariakit-react-utils": "0.17.0-next.27",
-        "ariakit-utils": "0.17.0-next.27",
         "dayjs": "^1.8.10",
         "patch-package": "^6.4.6",
         "react-focus-lock": "^2.9.1",
@@ -155,9 +159,9 @@
         "use-callback-ref": "^1.3.0"
     },
     "overrides": {
-        "tsdx": {
-            "typescript": "^4.6.4"
-        }
+        "typescript": "^4.6.4",
+        "@rollup/plugin-typescript": "11.1.6",
+        "rollup": "2.79.1"
     },
     "bugs": {
         "url": "https://github.com/Doist/reactist/issues"

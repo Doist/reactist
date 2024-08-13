@@ -2,7 +2,7 @@ import * as React from 'react'
 import { action } from '@storybook/addon-actions'
 
 import { Box } from '../box'
-import { Button as ReactistButton } from '../button'
+import { IconButton } from '../button'
 import { Column, Columns } from '../columns'
 import { Heading } from '../heading'
 import { Inline } from '../inline'
@@ -65,9 +65,13 @@ export function ModalWithStandardActionsFooter() {
                             <Column>
                                 <Menu>
                                     <MenuButton
-                                        as={ReactistButton}
-                                        variant="tertiary"
-                                        icon={<ThreeDotsIcon />}
+                                        render={
+                                            <IconButton
+                                                variant="tertiary"
+                                                icon={<ThreeDotsIcon />}
+                                                aria-label="Options menu"
+                                            />
+                                        }
                                     />
                                     <MenuList aria-label="Simple menu">
                                         <MenuItem onSelect={action('Edit')}>Edit</MenuItem>

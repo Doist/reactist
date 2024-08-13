@@ -1,22 +1,19 @@
 import * as React from 'react'
 
 import {
-    useTooltipState as useAriakitTooltipState,
+    useTooltipStore,
     Tooltip as AriakitTooltip,
     TooltipAnchor,
     TooltipArrow,
-} from 'ariakit/tooltip'
+} from '@ariakit/react'
 import { Box } from '../box'
 
-import type {
-    TooltipStateProps as AriakitTooltipStateProps,
-    TooltipAnchorProps,
-} from 'ariakit/tooltip'
-import type { PopoverState } from 'ariakit/popover'
+import type { TooltipStoreState } from '@ariakit/react'
 
 import styles from './tooltip.module.css'
+import type { ObfuscatedClassName } from '../utils/common-types'
 
-type TooltipProps = {
+interface TooltipProps extends ObfuscatedClassName {
     /**
      * The element that triggers the tooltip. Generally a button or link.
      *
@@ -55,7 +52,7 @@ type TooltipProps = {
      *
      * @default 'top'
      */
-    position?: PopoverState['placement']
+    position?: TooltipStoreState['placement']
 
     /**
      * The separation (in pixels) between the trigger element and the tooltip.
@@ -69,28 +66,6 @@ type TooltipProps = {
      * @default false
      */
     withArrow?: boolean
-
-    /**
-     * An escape hatch, in case you need to provide a custom class name to the tooltip.
-     */
-    exceptionallySetClassName?: string
-}
-
-// These are exported to be used in the tests, they are not meant to be exported publicly
-export const SHOW_DELAY = 1000
-export const HIDE_DELAY = 100
-
-function useDelayedTooltipState(initialState: AriakitTooltipStateProps) {
-    const tooltipState = useAriakitTooltipState(initialState)
-    const delay = useDelay()
-    return React.useMemo(
-        () => ({
-            ...tooltipState,
-            show: delay(() => tooltipState.show(), SHOW_DELAY),
-            hide: delay(() => tooltipState.hide(), HIDE_DELAY),
-        }),
-        [delay, tooltipState],
-    )
 }
 
 function Tooltip({
@@ -101,7 +76,8 @@ function Tooltip({
     withArrow = false,
     exceptionallySetClassName,
 }: TooltipProps) {
-    const state = useDelayedTooltipState({ placement: position, gutter: gapSize })
+    const tooltip = useTooltipStore({ placement: position, showTimeout: 500, hideTimeout: 100 })
+    const isOpen = tooltip.useState('open')
 
     const child = React.Children.only(
         children as React.FunctionComponentElement<JSX.IntrinsicElements['div']> | null,
@@ -115,65 +91,30 @@ function Tooltip({
         throw new Error('Tooltip: String refs cannot be used as they cannot be forwarded')
     }
 
-    /**
-     * Prevents the tooltip from automatically firing on focus all the time. This is to prevent
-     * tooltips from showing when the trigger element is focused back after a popover or dialog that
-     * it opened was closed. See link below for more details.
-     * @see https://github.com/ariakit/ariakit/discussions/749
-     */
-    function handleFocus(event: React.FocusEvent<HTMLDivElement>) {
-        // If focus is not followed by a key up event, does it mean that it's not an intentional
-        // keyboard focus? Not sure but it seems to work.
-        // This may be resolved soon in an upcoming version of ariakit:
-        // https://github.com/ariakit/ariakit/issues/750
-        function handleKeyUp(event: Event) {
-            const eventKey = (event as KeyboardEvent).key
-            if (eventKey !== 'Escape' && eventKey !== 'Enter' && eventKey !== 'Space') {
-                state.show()
-            }
-        }
-        event.currentTarget.addEventListener('keyup', handleKeyUp, { once: true })
-        event.preventDefault() // Prevent tooltip.show from being called by TooltipReference
-        child?.props?.onFocus?.(event)
-    }
-
-    function handleBlur(event: React.FocusEvent<HTMLDivElement>) {
-        state.hide()
-        child?.props?.onBlur?.(event)
-    }
-
     return (
         <>
-            <TooltipAnchor state={state} ref={child.ref} described>
-                {(anchorProps: TooltipAnchorProps) => {
-                    // Let child props override anchor props so user can specify attributes like tabIndex
-                    // Also, do not apply the child's props to TooltipAnchor as props like `as` can create problems
-                    // by applying the replacement component/element twice
-                    return React.cloneElement(child, {
-                        ...anchorProps,
-                        ...child.props,
-                        onFocus: handleFocus,
-                        onBlur: handleBlur,
-                    })
-                }}
-            </TooltipAnchor>
-            {state.open && content ? (
-                <Box
-                    as={AriakitTooltip}
-                    state={state}
-                    className={[styles.tooltip, exceptionallySetClassName]}
-                    background="toast"
-                    borderRadius="standard"
-                    paddingX="small"
-                    paddingY="xsmall"
-                    maxWidth="medium"
-                    width="fitContent"
-                    overflow="hidden"
-                    textAlign="center"
+            <TooltipAnchor render={child} store={tooltip} ref={child.ref} />
+            {isOpen && content ? (
+                <AriakitTooltip
+                    store={tooltip}
+                    gutter={gapSize}
+                    render={
+                        <Box
+                            className={[styles.tooltip, exceptionallySetClassName]}
+                            background="toast"
+                            borderRadius="standard"
+                            paddingX="small"
+                            paddingY="xsmall"
+                            maxWidth="medium"
+                            width="fitContent"
+                            overflow="hidden"
+                            textAlign="center"
+                        />
+                    }
                 >
                     {withArrow ? <TooltipArrow /> : null}
                     {typeof content === 'function' ? content() : content}
-                </Box>
+                </AriakitTooltip>
             ) : null}
         </>
     )
@@ -181,40 +122,3 @@ function Tooltip({
 
 export type { TooltipProps }
 export { Tooltip }
-
-//
-// Internal helpers
-//
-
-/**
- * Returns a function offering the same interface as setTimeout, but cleans up on unmount.
- *
- * The timeout state is shared, and only one delayed function can be active at any given time. If
- * a new delayed function is called while another one was waiting for its time to run, that older
- * invocation is cleared and it never runs.
- *
- * This is suitable for our use case here, but probably not the most intuitive thing in general.
- * That's why this is not made a shared util or something like it.
- */
-function useDelay() {
-    const timeoutRef = React.useRef<ReturnType<typeof setTimeout>>()
-
-    const clearTimeouts = React.useCallback(function clearTimeouts() {
-        if (timeoutRef.current != null) {
-            clearTimeout(timeoutRef.current)
-        }
-    }, [])
-
-    // Runs clearTimeouts when the component is unmounted
-    React.useEffect(() => clearTimeouts, [clearTimeouts])
-
-    return React.useCallback(
-        function delay(fn: () => void, delay: number) {
-            return () => {
-                clearTimeouts()
-                timeoutRef.current = setTimeout(fn, delay)
-            }
-        },
-        [clearTimeouts],
-    )
-}

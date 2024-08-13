@@ -4,14 +4,15 @@ import { PasswordVisibleIcon } from '../icons/password-visible-icon'
 import { PasswordHiddenIcon } from '../icons/password-hidden-icon'
 
 import { TextField, TextFieldProps } from '../text-field'
-import { Button } from '../button'
+import { IconButton } from '../button'
 
 import type { BaseFieldVariantProps } from '../base-field'
 
-type PasswordFieldProps = Omit<TextFieldProps, 'type' | 'startSlot' | 'endSlot' | 'crossOrigin'> &
-    BaseFieldVariantProps & {
-        togglePasswordLabel?: string
-    }
+interface PasswordFieldProps
+    extends Omit<TextFieldProps, 'type' | 'startSlot' | 'endSlot'>,
+        BaseFieldVariantProps {
+    togglePasswordLabel?: string
+}
 
 const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(function PasswordField(
     { togglePasswordLabel = 'Toggle password visibility', ...props },
@@ -26,7 +27,7 @@ const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(fun
             // @ts-expect-error TextField does not support type="password", so we override the type check here
             type={isPasswordVisible ? 'text' : 'password'}
             endSlot={
-                <Button
+                <IconButton
                     variant="quaternary"
                     icon={<Icon aria-hidden />}
                     aria-label={togglePasswordLabel}

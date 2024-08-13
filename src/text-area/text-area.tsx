@@ -4,26 +4,26 @@ import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-f
 import { Box } from '../box'
 import styles from './text-area.module.css'
 
-type TextAreaProps = Omit<FieldComponentProps<HTMLTextAreaElement>, 'crossOrigin'> &
-    BaseFieldVariantProps & {
-        /**
-         * The number of visible text lines for the text area.
-         *
-         * If it is specified, it must be a positive integer. If it is not specified, the default
-         * value is 2 (set by the browser).
-         *
-         * When `autoExpand` is true, this value serves the purpose of specifying the minimum number
-         * of rows that the textarea will shrink to when the content is not large enough to make it
-         * expand.
-         *
-         * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#attr-rows
-         */
-        rows?: number
-        /**
-         * If `true`, the textarea will auto-expand or shrink vertically to fit the content.
-         */
-        autoExpand?: boolean
-    }
+interface TextAreaProps extends FieldComponentProps<HTMLTextAreaElement>, BaseFieldVariantProps {
+    /**
+     * The number of visible text lines for the text area.
+     *
+     * If it is specified, it must be a positive integer. If it is not specified, the default
+     * value is 2 (set by the browser).
+     *
+     * When `autoExpand` is true, this value serves the purpose of specifying the minimum number
+     * of rows that the textarea will shrink to when the content is not large enough to make it
+     * expand.
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea#attr-rows
+     */
+    rows?: number
+
+    /**
+     * If `true`, the textarea will auto-expand or shrink vertically to fit the content.
+     */
+    autoExpand?: boolean
+}
 
 const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
     {

@@ -1,27 +1,28 @@
 import * as React from 'react'
 import { Box } from '../box'
 import { Spinner } from '../spinner'
+import type { ObfuscatedClassName } from '../utils/common-types'
 
 type Size = 'xsmall' | 'small' | 'medium' | 'large'
 
 type NativeProps = Omit<
-    JSX.IntrinsicElements['div'],
+    React.HTMLAttributes<HTMLDivElement>,
     'className' | 'aria-describedby' | 'aria-label' | 'aria-labelledby' | 'role' | 'size'
 >
 
-type LoadingProps = NativeProps & {
-    /**
-     * The size of the loading spinner.
-     * @default 'small'
-     */
-    size?: Size
-    /**
-     * A escape hatch in case you need to provide a custom class name to the container element.
-     */
-    exceptionallySetClassName?: string
-    /** Identifies the element (or elements) that describes the loading component for assistive technologies. */
-    'aria-describedby'?: string
-} & (
+type LoadingProps = NativeProps &
+    ObfuscatedClassName & {
+        /**
+         * The size of the loading spinner.
+         * @default 'small'
+         */
+        size?: Size
+
+        /**
+         * Identifies the element (or elements) that describes the loading component for assistive technologies.
+         */
+        'aria-describedby'?: string
+    } & (
         | {
               /** Defines a string value that labels the current loading component for assistive technologies. */
               'aria-label': string

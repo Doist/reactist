@@ -89,6 +89,92 @@ interface BoxProps extends WithEnhancedClassName, ReusableBoxProps, BoxMarginPro
     textAlign?: ResponsiveProp<BoxTextAlign>
 }
 
+function getBoxClassNames({
+    position = 'static',
+    display,
+    flexDirection = 'row',
+    flexWrap,
+    flexGrow,
+    flexShrink,
+    gap,
+    alignItems,
+    justifyContent,
+    alignSelf,
+    overflow,
+    width,
+    height,
+    background,
+    border,
+    borderRadius,
+    minWidth,
+    maxWidth,
+    textAlign,
+    padding,
+    paddingY,
+    paddingX,
+    paddingTop,
+    paddingRight,
+    paddingBottom,
+    paddingLeft,
+    margin,
+    marginY,
+    marginX,
+    marginTop,
+    marginRight,
+    marginBottom,
+    marginLeft,
+    className,
+}: BoxProps) {
+    const resolvedPaddingTop = paddingTop ?? paddingY ?? padding
+    const resolvedPaddingRight = paddingRight ?? paddingX ?? padding
+    const resolvedPaddingBottom = paddingBottom ?? paddingY ?? padding
+    const resolvedPaddingLeft = paddingLeft ?? paddingX ?? padding
+
+    const resolvedMarginTop = marginTop ?? marginY ?? margin
+    const resolvedMarginRight = marginRight ?? marginX ?? margin
+    const resolvedMarginBottom = marginBottom ?? marginY ?? margin
+    const resolvedMarginLeft = marginLeft ?? marginX ?? margin
+
+    const omitFlex =
+        !display || (typeof display === 'string' && display !== 'flex' && display !== 'inlineFlex')
+
+    return classNames(
+        className,
+        styles.box,
+        display ? getClassNames(styles, 'display', display) : null,
+        position !== 'static' ? getClassNames(styles, 'position', position) : null,
+        minWidth != null ? getClassNames(widthStyles, 'minWidth', String(minWidth)) : null,
+        getClassNames(widthStyles, 'maxWidth', maxWidth),
+        getClassNames(styles, 'textAlign', textAlign),
+        // padding
+        getClassNames(paddingStyles, 'paddingTop', resolvedPaddingTop),
+        getClassNames(paddingStyles, 'paddingRight', resolvedPaddingRight),
+        getClassNames(paddingStyles, 'paddingBottom', resolvedPaddingBottom),
+        getClassNames(paddingStyles, 'paddingLeft', resolvedPaddingLeft),
+        // margin
+        getClassNames(marginStyles, 'marginTop', resolvedMarginTop),
+        getClassNames(marginStyles, 'marginRight', resolvedMarginRight),
+        getClassNames(marginStyles, 'marginBottom', resolvedMarginBottom),
+        getClassNames(marginStyles, 'marginLeft', resolvedMarginLeft),
+        // flex props
+        omitFlex ? null : getClassNames(styles, 'flexDirection', flexDirection),
+        omitFlex ? null : getClassNames(styles, 'flexWrap', flexWrap),
+        omitFlex ? null : getClassNames(styles, 'alignItems', alignItems),
+        omitFlex ? null : getClassNames(styles, 'justifyContent', justifyContent),
+        alignSelf != null ? getClassNames(styles, 'alignSelf', alignSelf) : null,
+        flexShrink != null ? getClassNames(styles, 'flexShrink', String(flexShrink)) : null,
+        flexGrow != null ? getClassNames(styles, 'flexGrow', String(flexGrow)) : null,
+        gap ? getClassNames(gapStyles, 'gap', gap) : null,
+        // other props
+        getClassNames(styles, 'overflow', overflow),
+        width != null ? getClassNames(widthStyles, 'width', String(width)) : null,
+        getClassNames(styles, 'height', height),
+        getClassNames(styles, 'bg', background),
+        borderRadius !== 'none' ? getClassNames(styles, 'borderRadius', borderRadius) : null,
+        border !== 'none' ? getClassNames(styles, 'border', border) : null,
+    )
+}
+
 const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
     {
         as: component = 'div',
@@ -131,65 +217,46 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
     },
     ref,
 ) {
-    const resolvedPaddingTop = paddingTop ?? paddingY ?? padding
-    const resolvedPaddingRight = paddingRight ?? paddingX ?? padding
-    const resolvedPaddingBottom = paddingBottom ?? paddingY ?? padding
-    const resolvedPaddingLeft = paddingLeft ?? paddingX ?? padding
-
-    const resolvedMarginTop = marginTop ?? marginY ?? margin
-    const resolvedMarginRight = marginRight ?? marginX ?? margin
-    const resolvedMarginBottom = marginBottom ?? marginY ?? margin
-    const resolvedMarginLeft = marginLeft ?? marginX ?? margin
-
-    const omitFlex =
-        !display || (typeof display === 'string' && display !== 'flex' && display !== 'inlineFlex')
-
     return React.createElement(
         component,
         {
             ...props,
-            className:
-                classNames(
-                    className,
-                    styles.box,
-                    display ? getClassNames(styles, 'display', display) : null,
-                    position !== 'static' ? getClassNames(styles, 'position', position) : null,
-                    minWidth != null
-                        ? getClassNames(widthStyles, 'minWidth', String(minWidth))
-                        : null,
-                    getClassNames(widthStyles, 'maxWidth', maxWidth),
-                    getClassNames(styles, 'textAlign', textAlign),
-                    // padding
-                    getClassNames(paddingStyles, 'paddingTop', resolvedPaddingTop),
-                    getClassNames(paddingStyles, 'paddingRight', resolvedPaddingRight),
-                    getClassNames(paddingStyles, 'paddingBottom', resolvedPaddingBottom),
-                    getClassNames(paddingStyles, 'paddingLeft', resolvedPaddingLeft),
-                    // margin
-                    getClassNames(marginStyles, 'marginTop', resolvedMarginTop),
-                    getClassNames(marginStyles, 'marginRight', resolvedMarginRight),
-                    getClassNames(marginStyles, 'marginBottom', resolvedMarginBottom),
-                    getClassNames(marginStyles, 'marginLeft', resolvedMarginLeft),
-                    // flex props
-                    omitFlex ? null : getClassNames(styles, 'flexDirection', flexDirection),
-                    omitFlex ? null : getClassNames(styles, 'flexWrap', flexWrap),
-                    omitFlex ? null : getClassNames(styles, 'alignItems', alignItems),
-                    omitFlex ? null : getClassNames(styles, 'justifyContent', justifyContent),
-                    alignSelf != null ? getClassNames(styles, 'alignSelf', alignSelf) : null,
-                    flexShrink != null
-                        ? getClassNames(styles, 'flexShrink', String(flexShrink))
-                        : null,
-                    flexGrow != null ? getClassNames(styles, 'flexGrow', String(flexGrow)) : null,
-                    gap ? getClassNames(gapStyles, 'gap', gap) : null,
-                    // other props
-                    getClassNames(styles, 'overflow', overflow),
-                    width != null ? getClassNames(widthStyles, 'width', String(width)) : null,
-                    getClassNames(styles, 'height', height),
-                    getClassNames(styles, 'bg', background),
-                    borderRadius !== 'none'
-                        ? getClassNames(styles, 'borderRadius', borderRadius)
-                        : null,
-                    border !== 'none' ? getClassNames(styles, 'border', border) : null,
-                ) || undefined,
+            className: getBoxClassNames({
+                position,
+                display,
+                flexDirection,
+                flexWrap,
+                flexGrow,
+                flexShrink,
+                gap,
+                alignItems,
+                justifyContent,
+                alignSelf,
+                overflow,
+                width,
+                height,
+                background,
+                border,
+                borderRadius,
+                minWidth,
+                maxWidth,
+                textAlign,
+                padding,
+                paddingY,
+                paddingX,
+                paddingTop,
+                paddingRight,
+                paddingBottom,
+                paddingLeft,
+                margin,
+                marginY,
+                marginX,
+                marginTop,
+                marginRight,
+                marginBottom,
+                marginLeft,
+                className,
+            }),
             ref,
         },
         children,
@@ -215,4 +282,4 @@ export type {
     BoxBorderRadius,
 }
 
-export { Box }
+export { Box, getBoxClassNames }

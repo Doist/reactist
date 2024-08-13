@@ -1,12 +1,12 @@
 import * as React from 'react'
-import { screen, render } from '@testing-library/react'
+import { screen, render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
 import { Tabs, Tab, TabList, TabPanel, TabAwareSlot } from './'
 
 describe('Tabs', () => {
-    it("allows each TabPanel's visibility to be controlled by its corresponding tab", () => {
+    it("allows each TabPanel's visibility to be controlled by its corresponding tab", async () => {
         render(
             <Tabs>
                 <TabList aria-label="test-tabs">
@@ -20,7 +20,7 @@ describe('Tabs', () => {
             </Tabs>,
         )
 
-        expect(screen.getByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
+        expect(await screen.findByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
         expect(screen.getByText('Content of tab 1')).toBeVisible()
         expect(screen.getByText('Content of tab 2')).not.toBeVisible()
         expect(screen.getByText('Content of tab 3')).not.toBeVisible()
@@ -38,7 +38,7 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 3')).toBeVisible()
     })
 
-    it("renders a tab's content only when they're active when each TabPanel's `render` prop is set to 'active'", () => {
+    it("renders a tab's content only when they're active when each TabPanel's `render` prop is set to 'active'", async () => {
         render(
             <Tabs>
                 <TabList aria-label="test-tabs">
@@ -46,19 +46,19 @@ describe('Tabs', () => {
                     <Tab id="tab2">Tab 2</Tab>
                     <Tab id="tab3">Tab 3</Tab>
                 </TabList>
-                <TabPanel id="tab1" render="active">
+                <TabPanel id="tab1" renderMode="active">
                     Content of tab 1
                 </TabPanel>
-                <TabPanel id="tab2" render="active">
+                <TabPanel id="tab2" renderMode="active">
                     Content of tab 2
                 </TabPanel>
-                <TabPanel id="tab3" render="active">
+                <TabPanel id="tab3" renderMode="active">
                     Content of tab 3
                 </TabPanel>
             </Tabs>,
         )
 
-        expect(screen.getByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
+        expect(await screen.findByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
         expect(screen.getByText('Content of tab 1')).toBeVisible()
         expect(screen.queryByText('Content of tab 2')).not.toBeInTheDocument()
         expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
@@ -76,7 +76,7 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 3')).toBeVisible()
     })
 
-    it("doesn't render inactive tabs until they have become active once when each TabPanel's `render` prop is set to 'lazy'", () => {
+    it("doesn't render inactive tabs until they have become active once when each TabPanel's `render` prop is set to 'lazy'", async () => {
         render(
             <Tabs>
                 <TabList aria-label="test-tabs">
@@ -84,19 +84,19 @@ describe('Tabs', () => {
                     <Tab id="tab2">Tab 2</Tab>
                     <Tab id="tab3">Tab 3</Tab>
                 </TabList>
-                <TabPanel id="tab1" render="lazy">
+                <TabPanel id="tab1" renderMode="lazy">
                     Content of tab 1
                 </TabPanel>
-                <TabPanel id="tab2" render="lazy">
+                <TabPanel id="tab2" renderMode="lazy">
                     Content of tab 2
                 </TabPanel>
-                <TabPanel id="tab3" render="lazy">
+                <TabPanel id="tab3" renderMode="lazy">
                     Content of tab 3
                 </TabPanel>
             </Tabs>,
         )
 
-        expect(screen.getByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
+        expect(await screen.findByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
         expect(screen.getByText('Content of tab 1')).toBeVisible()
         expect(screen.queryByText('Content of tab 2')).not.toBeInTheDocument()
         expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
@@ -183,7 +183,7 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 3')).not.toBeVisible()
     })
 
-    it("calls TabAwareSlot's render prop with the current selectedId", () => {
+    it("calls TabAwareSlot's render prop with the current selectedId", async () => {
         render(
             <Tabs>
                 <TabList aria-label="test-tabs">
@@ -200,7 +200,7 @@ describe('Tabs', () => {
             </Tabs>,
         )
 
-        expect(screen.getByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
+        expect(await screen.findByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
         expect(screen.getByText('Currently rendering tab1')).toBeVisible()
 
         userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
@@ -210,7 +210,7 @@ describe('Tabs', () => {
         expect(screen.getByText('Currently rendering tab3')).toBeVisible()
     })
 
-    it('allows different elements to be rendered in place of the TabPanel', () => {
+    it('allows different elements to be rendered in place of the TabPanel', async () => {
         const CustomTabPanel = React.forwardRef<
             HTMLDivElement,
             React.AllHTMLAttributes<HTMLDivElement>
@@ -228,17 +228,19 @@ describe('Tabs', () => {
                     <Tab id="tab1">Tab 1</Tab>
                     <Tab id="tab2">Tab 2</Tab>
                 </TabList>
-                <TabPanel id="tab1" as={CustomTabPanel}>
+                <TabPanel id="tab1" render={<CustomTabPanel />}>
                     Content of tab 1
                 </TabPanel>
-                <TabPanel id="tab2" as="section">
+                <TabPanel id="tab2" render={<section />}>
                     Content of tab 2
                 </TabPanel>
             </Tabs>,
         )
 
-        const customTabPanel = screen.getByTestId('custom-tab-panel')
-        expect(customTabPanel).toBeVisible()
+        const customTabPanel = await screen.findByTestId('custom-tab-panel')
+        await waitFor(() => {
+            expect(customTabPanel).toBeVisible()
+        })
         expect(screen.getByText('Content of tab 1')).toBe(customTabPanel)
 
         userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
@@ -249,23 +251,23 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 2')).toBeVisible()
     })
 
-    // eslint-disable-next-line jest/expect-expect
-    it('disallows className prop on TabPanel', () => {
+    it('allows to subscribe to the tab click event', () => {
+        const onClick = jest.fn()
         render(
             <Tabs>
-                <TabList aria-label="test-tabs">
-                    <Tab id="tab1">Tab 1</Tab>
+                <TabList aria-label="Multiple tablist example tabs">
+                    <Tab id="tab1" onClick={onClick}>
+                        Tab 1
+                    </Tab>
                     <Tab id="tab2">Tab 2</Tab>
-                    <Tab id="tab3">Tab 3</Tab>
                 </TabList>
-                {/* @ts-expect-error */}
-                <TabPanel id="tab1" className="foo">
-                    Content of tab 1
-                </TabPanel>
+                <TabPanel id="tab1">Content of tab 1</TabPanel>
                 <TabPanel id="tab2">Content of tab 2</TabPanel>
-                <TabPanel id="tab3">Content of tab 3</TabPanel>
             </Tabs>,
         )
+        expect(onClick).not.toHaveBeenCalled()
+        userEvent.click(screen.getByRole('tab', { name: 'Tab 1' }))
+        expect(onClick).toHaveBeenCalledTimes(1)
     })
 
     describe('a11y', () => {
@@ -282,9 +284,8 @@ describe('Tabs', () => {
                     <TabPanel id="tab3">Content of tab 3</TabPanel>
                 </Tabs>,
             )
-            const results = await axe(container)
-
-            expect(results).toHaveNoViolations()
+            await screen.findByRole('tabpanel', { name: 'Tab 1' })
+            expect(await axe(container)).toHaveNoViolations()
         })
     })
 })
