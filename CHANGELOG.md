@@ -2,6 +2,17 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# v25.0.0
+
+-   [BREAKING] Upgrade Ariakit from legacy package to the newer @ariakit/react
+-   [BREAKING] Remove unsupported `onPointerEnterCapture` and `onPointerLeaveCapture` props from `heading`-, `input`-, and `textarea`-based components.
+-   [BREAKING] Removed the `ButtonLink` component.
+-   [BREAKING] `Button` no longer accepts props that render it as an icon-only button.
+-   [BREAKING] Use an explicit `render` prop for composition, instead of the `as` prop (in the menu, modal, tabs, toasts and tooltip components).
+-   [BREAKING] `TabPanel`'s prop `render` is renamed to `renderMode`.
+-   [Feat] Introduce a new `IconButton` component.
+-   [Feat] The `Button` and `IconButton` component can be rendered as a link using the `render={<Link to="…" />} prop.
+
 # v25.0.0-beta.3
 
 -   [Fix] Allow more props to be forwarded to the `Tab` component.
