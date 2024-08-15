@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { cloneElement, forwardRef, Component } from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 
@@ -25,7 +25,7 @@ type BoxState = {
     showBody: boolean
 }
 
-class Box extends React.Component<BoxProps, BoxState> {
+class Box extends Component<BoxProps, BoxState> {
     public static displayName: string
 
     constructor(props: BoxProps, context: React.Context<unknown>) {
@@ -79,9 +79,7 @@ class Box extends React.Component<BoxProps, BoxState> {
 
     _getTriggerComponent() {
         const _trigger = this.props.children?.[0]
-        return _trigger
-            ? React.cloneElement(_trigger, { onClick: this._toggleShowBody })
-            : undefined
+        return _trigger ? cloneElement(_trigger, { onClick: this._toggleShowBody }) : undefined
     }
 
     // https://facebook.github.io/react/docs/refs-and-the-dom.html#exposing-dom-refs-to-parent-components
@@ -141,11 +139,7 @@ class Box extends React.Component<BoxProps, BoxState> {
         const body = children?.[1]
 
         const contentMarkup =
-            typeof body === 'function'
-                ? body(props)
-                : body
-                  ? React.cloneElement(body, props)
-                  : undefined
+            typeof body === 'function' ? body(props) : body ? cloneElement(body, props) : undefined
         return (
             <div className={className} style={{ position: 'relative' }}>
                 {contentMarkup}
@@ -186,7 +180,7 @@ type TriggerProps = Omit<NativeButtonProps, 'title' | 'onClick'> & {
     onClick?: NativeButtonProps['onClick']
 }
 
-const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(function Trigger(
+const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(function Trigger(
     { children, onClick, tooltip, className, ...props },
     ref,
 ) {

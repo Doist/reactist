@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {
     selectSize,
     reusableBoxProps,
@@ -6,12 +5,12 @@ import {
     ResponsiveWidthRef,
     Wrapper,
     selectWithNone,
-    PartialProps,
     disableResponsiveProps,
+    type PartialProps,
 } from '../utils/storybook-helper'
 import { Stack } from '../stack'
 import { Heading } from '../heading'
-import { Inline, InlineAlign } from './inline'
+import { Inline, type InlineAlign } from './inline'
 
 export default {
     title: 'Design system/Inline',

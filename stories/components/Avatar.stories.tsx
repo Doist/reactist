@@ -1,6 +1,5 @@
 import './styles/avatar_story.less'
 
-import * as React from 'react'
 import { withKnobs } from '@storybook/addon-knobs'
 
 import { Avatar, Box, Inline } from '../../src'
@@ -56,26 +55,30 @@ const exampleData = [
 
 // Story Definitions ==========================================================
 
-export const InitialsAvatarStory = () => (
-    <Inline space="small">
-        {exampleData.map((data, index) => (
-            <Avatar key={index} size={data.size} user={data.user} />
-        ))}
-    </Inline>
-)
+export function InitialsAvatarStory() {
+    return (
+        <Inline space="small">
+            {exampleData.map((data, index) => (
+                <Avatar key={index} size={data.size} user={data.user} />
+            ))}
+        </Inline>
+    )
+}
 
-export const CustomColorAvatarStory = () => (
-    <Inline space="small">
-        {exampleData.map((data, index) => (
-            <Avatar
-                colorList={['palevioletred', 'palegoldenrod', 'palegreen', 'paleturquoise']}
-                key={index}
-                size={data.size}
-                user={data.user}
-            />
-        ))}
-    </Inline>
-)
+export function CustomColorAvatarStory() {
+    return (
+        <Inline space="small">
+            {exampleData.map((data, index) => (
+                <Avatar
+                    colorList={['palevioletred', 'palegoldenrod', 'palegreen', 'paleturquoise']}
+                    key={index}
+                    size={data.size}
+                    user={data.user}
+                />
+            ))}
+        </Inline>
+    )
+}
 
 export const PictureAvatarStory = () => (
     <Inline space="small">
@@ -111,34 +114,10 @@ AvatarPlaygroundStory.argTypes = {
         type: 'select',
         options: ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'],
     },
-    avatarUrl: {
-        control: {
-            type: 'text',
-        },
-    },
-    userName: {
-        control: {
-            type: 'text',
-        },
-    },
-    email: {
-        control: {
-            type: 'text',
-        },
-    },
-    className: {
-        control: {
-            type: null,
-        },
-    },
-    user: {
-        control: {
-            type: null,
-        },
-    },
-    colorList: {
-        control: {
-            type: null,
-        },
-    },
+    avatarUrl: { control: { type: 'text' } },
+    className: { control: { type: null } },
+    colorList: { control: { type: null } },
+    userName: { control: { type: 'text' } },
+    email: { control: { type: 'text' } },
+    user: { control: { type: null } },
 }

@@ -1,5 +1,4 @@
-import * as React from 'react'
-
+import { createContext, useCallback, useContext, useMemo, useState } from 'react'
 import { within, userEvent } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
 
@@ -42,7 +41,7 @@ type ModalStoryContextValue = ModalStoryState & {
     onChange: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement>
 }
 
-const ModalStoryContext = React.createContext<ModalStoryContextValue>({
+const ModalStoryContext = createContext<ModalStoryContextValue>({
     ...defaultInitialState,
     isOpen: false,
     openModal: () => undefined,
@@ -57,19 +56,15 @@ function ModalStoryStateProvider({
     initialState?: Partial<ModalStoryState>
     children: React.ReactNode
 }) {
-    const [isOpen, setOpen] = React.useState(false)
-    const openModal = React.useCallback(() => {
-        setOpen(true)
-    }, [])
-    const closeModal = React.useCallback(() => {
-        setOpen(false)
-    }, [])
-    const [props, setProps] = React.useState<ModalStoryState>({
+    const [isOpen, setOpen] = useState(false)
+    const openModal = useCallback(() => setOpen(true), [])
+    const closeModal = useCallback(() => setOpen(false), [])
+    const [props, setProps] = useState<ModalStoryState>({
         ...defaultInitialState,
         ...initialState,
     })
 
-    const onChange = React.useCallback(function onChange(
+    const onChange = useCallback(function onChange(
         event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     ) {
         const element = event.currentTarget
@@ -81,7 +76,7 @@ function ModalStoryStateProvider({
         setProps((props) => ({ ...props, [name]: value }))
     }, [])
 
-    const value = React.useMemo(
+    const value = useMemo(
         () => ({
             isOpen,
             openModal,
@@ -107,7 +102,7 @@ function ScrollableContent({ label = 'Item', count = 20 }: { label?: string; cou
 
 function ModalOptionsForm({ title }: { title?: React.ReactNode }) {
     const { button, width, height, hideOn, withScrollableContent, onChange } =
-        React.useContext(ModalStoryContext)
+        useContext(ModalStoryContext)
     return (
         <Stack space="large">
             {title}
@@ -172,7 +167,7 @@ function ModalButton({
     size?: 'small'
     children: NonNullable<React.ReactNode>
 }) {
-    const { openModal, closeModal } = React.useContext(ModalStoryContext)
+    const { openModal, closeModal } = useContext(ModalStoryContext)
     return (
         <Button
             variant={variant === 'danger' ? 'primary' : variant}
@@ -191,13 +186,13 @@ ModalButton.displayName = 'Button'
 type WithOptionals<Props, Keys extends keyof Props> = Omit<Props, Keys> & Partial<Pick<Props, Keys>>
 
 function Modal(props: WithOptionals<ModalProps, 'isOpen' | 'onDismiss' | 'width' | 'height'>) {
-    const { isOpen, closeModal, width, height, hideOn } = React.useContext(ModalStoryContext)
+    const { isOpen, closeModal, width, height, hideOn } = useContext(ModalStoryContext)
 
     /**
      * Needed to make sure the modals are mounted inside the story's #root element
      * @see https://www.chromatic.com/docs/snapshots#why-isn%E2%80%99t-my-modal-or-dialog-captured
      */
-    const getPortalElement = React.useCallback(() => {
+    const getPortalElement = useCallback(() => {
         const div = document.createElement('div')
         const portalRoot = document.getElementById('root') ?? document.body
         portalRoot.appendChild(div)
@@ -219,7 +214,7 @@ function Modal(props: WithOptionals<ModalProps, 'isOpen' | 'onDismiss' | 'width'
 }
 
 function ModalHeader(props: WithOptionals<ModalHeaderProps, 'withDivider' | 'button'>) {
-    const { button, withScrollableContent } = React.useContext(ModalStoryContext)
+    const { button, withScrollableContent } = useContext(ModalStoryContext)
     return (
         <ModalComponents.ModalHeader
             withDivider={withScrollableContent}
@@ -232,12 +227,12 @@ function ModalHeader(props: WithOptionals<ModalHeaderProps, 'withDivider' | 'but
 const ModalBody = ModalComponents.ModalBody
 
 function ModalFooter(props: WithOptionals<ModalFooterProps, 'withDivider'>) {
-    const { withScrollableContent } = React.useContext(ModalStoryContext)
+    const { withScrollableContent } = useContext(ModalStoryContext)
     return <ModalComponents.ModalFooter withDivider={withScrollableContent} {...props} />
 }
 
 function ModalActions(props: WithOptionals<ModalFooterProps, 'withDivider'>) {
-    const { withScrollableContent } = React.useContext(ModalStoryContext)
+    const { withScrollableContent } = useContext(ModalStoryContext)
     return <ModalComponents.ModalActions withDivider={withScrollableContent} {...props} />
 }
 

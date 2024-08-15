@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { forwardRef } from 'react'
 import { screen, render, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
@@ -211,16 +211,15 @@ describe('Tabs', () => {
     })
 
     it('allows different elements to be rendered in place of the TabPanel', async () => {
-        const CustomTabPanel = React.forwardRef<
-            HTMLDivElement,
-            React.AllHTMLAttributes<HTMLDivElement>
-        >(function CustomTabPanel({ children, ...props }, ref) {
-            return (
-                <div data-testid="custom-tab-panel" {...props} ref={ref}>
-                    {children}
-                </div>
-            )
-        })
+        const CustomTabPanel = forwardRef<HTMLDivElement, React.AllHTMLAttributes<HTMLDivElement>>(
+            function CustomTabPanel({ children, ...props }, ref) {
+                return (
+                    <div data-testid="custom-tab-panel" {...props} ref={ref}>
+                        {children}
+                    </div>
+                )
+            },
+        )
 
         render(
             <Tabs>

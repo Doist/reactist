@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
 
 import { Stack } from '../stack'
@@ -228,7 +229,7 @@ export function AutoExpandStory(props) {
 export function AutoExpandWithInitialValueStory(props) {
     const initialValue =
         'This is some text that takes up multiple lines. It should cause the textarea to render initially as large as needed to fit this text, even if its initial rows are not enough.'
-    const [value, setValue] = React.useState(initialValue)
+    const [value, setValue] = useState(initialValue)
     return (
         <Stack space="xxlarge" dividers="secondary" maxWidth="medium">
             <TextArea

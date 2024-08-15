@@ -1,7 +1,6 @@
-import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { axe } from 'jest-axe'
-import { Banner, BannerTone } from './banner'
+import { Banner, type BannerTone } from './banner'
 
 describe('Banner', () => {
     it('renders as a <div /> element', () => {

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { polymorphicComponent } from '../utils/polymorphism'
 import { mapResponsiveProp } from '../utils/responsive-props'
 import { Box } from '../box'

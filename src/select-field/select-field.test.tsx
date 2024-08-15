@@ -1,8 +1,8 @@
-import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { SelectField } from './'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
+import { useState } from 'react'
 
 describe('SelectField', () => {
     it('supports having an externally provided id attribute', () => {
@@ -220,7 +220,7 @@ describe('SelectField', () => {
 
     it('can be a controlled select field', () => {
         function TestCase() {
-            const [theme, setTheme] = React.useState('dark')
+            const [theme, setTheme] = useState('dark')
             return (
                 <div data-testid="container" data-theme={theme}>
                     <SelectField

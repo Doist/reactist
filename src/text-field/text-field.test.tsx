@@ -1,8 +1,8 @@
-import * as React from 'react'
+import { useState } from 'react'
 import { render, screen } from '@testing-library/react'
-import { TextField } from './'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
+import { TextField } from './'
 
 describe('TextField', () => {
     it('supports having an externally provided id attribute', () => {
@@ -201,7 +201,7 @@ describe('TextField', () => {
 
     it('can be a controlled input field', () => {
         function TestCase() {
-            const [value, setValue] = React.useState('')
+            const [value, setValue] = useState('')
             return (
                 <>
                     <TextField

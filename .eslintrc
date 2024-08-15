@@ -24,6 +24,7 @@
         "webpack.config.*"
     ],
     "rules": {
+        "react/react-in-jsx-scope": "off",
         "func-style": "off",
         "import/no-default-export": "off", // Legacy API.
         "react/no-find-dom-node": "off",

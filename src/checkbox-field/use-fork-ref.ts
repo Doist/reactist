@@ -18,7 +18,7 @@ function setRef<T>(
  * Merges React Refs into a single memoized function ref so you can pass it to an element.
  * @example
  * const Component = React.forwardRef((props, ref) => {
- *   const internalRef = React.useRef();
+ *   const internalRef = useRef();
  *   return <div {...props} ref={useForkRef(internalRef, ref)} />;
  * });
  */

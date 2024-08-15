@@ -1,7 +1,6 @@
-import * as React from 'react'
 import { createPortal } from 'react-dom'
 
-import { Tooltip, TooltipProps } from './tooltip'
+import { Tooltip, type TooltipProps } from './tooltip'
 import { Button } from '../button'
 import { Stack } from '../stack'
 import { TextField } from '../text-field'

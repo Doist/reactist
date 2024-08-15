@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { Fragment } from 'react/jsx-runtime'
 import classNames from 'classnames'
 
 //
@@ -130,14 +130,14 @@ function KeyboardShortcut({
             {...props}
         >
             {shortcuts.map((shortcut, i) => (
-                <React.Fragment key={i}>
+                <Fragment key={i}>
                     {i === 0 ? null : ', '}
                     <kbd>
                         {parseKeys(shortcut, isMac, translateKey).map((key, j) => (
                             <kbd key={j}>{key}</kbd>
                         ))}
                     </kbd>
-                </React.Fragment>
+                </Fragment>
             ))}
         </span>
     )

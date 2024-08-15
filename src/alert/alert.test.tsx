@@ -1,13 +1,13 @@
-import * as React from 'react'
+import { useState } from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
-import { Alert, AlertProps } from './alert'
+import { Alert, type AlertProps } from './alert'
 
 describe('Alert', () => {
     it('allows to be dismissed', () => {
         function Example(props: Omit<AlertProps, 'closeLabel' | 'onClose'>) {
-            const [show, setShow] = React.useState(true)
+            const [show, setShow] = useState(true)
             return show ? (
                 <Alert {...props} closeLabel="Close alert" onClose={() => setShow(false)} />
             ) : null

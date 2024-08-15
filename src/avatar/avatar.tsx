@@ -1,8 +1,6 @@
-import * as React from 'react'
-
 import { getInitials, emailToIndex } from './utils'
 
-import { getClassNames, ResponsiveProp } from '../utils/responsive-props'
+import { getClassNames, type ResponsiveProp } from '../utils/responsive-props'
 import styles from './avatar.module.css'
 import { Box } from '../box'
 import type { ObfuscatedClassName } from '../utils/common-types'

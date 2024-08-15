@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { polymorphicComponent } from '../utils/polymorphism'
 import { Box } from '../box'
 import styles from './hidden-visually.module.css'

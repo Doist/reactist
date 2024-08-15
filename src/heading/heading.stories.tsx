@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import { Stack } from '../stack'
 import { Heading } from './heading'
 import { ResponsiveWidthRef, select, selectWithNone } from '../utils/storybook-helper'

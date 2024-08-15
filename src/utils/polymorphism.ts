@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import * as React from 'react'
+import { forwardRef } from 'react'
 import type { ObfuscatedClassName } from './common-types'
 
 type Merge<P1, P2> = Omit<P1, keyof P2> & P2
@@ -189,7 +189,7 @@ function polymorphicComponent<
     OwnProps = EmptyObject,
     ShouldObfuscateClassName extends ObfuscateClassNameMode = 'obfuscateClassName',
 >(render: ForwardRefFunction<ComponentType, OwnProps, ShouldObfuscateClassName>) {
-    return React.forwardRef(render) as PolymorphicComponent<
+    return forwardRef(render) as PolymorphicComponent<
         ComponentType,
         OwnProps,
         ShouldObfuscateClassName

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { screen, render, fireEvent } from '@testing-library/react'
 
 import { KeyCapturer, KeyCapturerResolver, SUPPORTED_KEYS } from './key-capturer'

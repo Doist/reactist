@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState } from 'react'
 import { act, render, screen, within } from '@testing-library/react'
 import { Modal, ModalHeader, ModalFooter, ModalActions, ModalBody, ModalCloseButton } from './modal'
 import userEvent from '@testing-library/user-event'
@@ -38,7 +38,7 @@ describe('Modal', () => {
     afterEach(closeModal)
 
     function TestCaseWithState() {
-        const [isOpen, setOpen] = React.useState(false)
+        const [isOpen, setOpen] = useState(false)
         return (
             <>
                 <button type="button" onClick={() => setOpen(true)}>

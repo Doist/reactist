@@ -1,6 +1,6 @@
-import * as React from 'react'
+import { forwardRef, useEffect, useRef } from 'react'
 import { useMergeRefs } from 'use-callback-ref'
-import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-field'
+import { BaseField, type BaseFieldVariantProps, type FieldComponentProps } from '../base-field'
 import { Box } from '../box'
 import styles from './text-area.module.css'
 
@@ -25,7 +25,7 @@ interface TextAreaProps extends FieldComponentProps<HTMLTextAreaElement>, BaseFi
     autoExpand?: boolean
 }
 
-const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
+const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
     {
         variant = 'default',
         id,
@@ -44,11 +44,11 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
     },
     ref,
 ) {
-    const containerRef = React.useRef<HTMLDivElement>(null)
-    const internalRef = React.useRef<HTMLTextAreaElement>(null)
+    const containerRef = useRef<HTMLDivElement>(null)
+    const internalRef = useRef<HTMLTextAreaElement>(null)
     const combinedRef = useMergeRefs([ref, internalRef])
 
-    React.useEffect(
+    useEffect(
         function setupAutoExpand() {
             const containerElement = containerRef.current
 

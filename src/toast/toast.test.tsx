@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import { axe } from 'jest-axe'
 import { act, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -314,7 +314,7 @@ describe('Toast', () => {
 
     it('is removed when unmounted', async () => {
         function TestCase() {
-            const [show, setShow] = React.useState(false)
+            const [show, setShow] = useState(false)
             return (
                 <>
                     <button onClick={() => setShow((s) => !s)}>Toggle</button>

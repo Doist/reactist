@@ -1,5 +1,4 @@
-import React from 'react'
-
+import { forwardRef } from 'react'
 import { CloseIcon } from '../icons/close-icon'
 import { Box } from '../box'
 import { IconButton, Button } from '../button'
@@ -72,7 +71,7 @@ type StaticToastProps = {
  *
  * @see useToasts
  */
-const StaticToast = React.forwardRef<HTMLDivElement, StaticToastProps>(function Toast(
+const StaticToast = forwardRef<HTMLDivElement, StaticToastProps>(function Toast(
     { message, description, icon, action, onDismiss, dismissLabel = 'Close', ...props },
     ref,
 ) {

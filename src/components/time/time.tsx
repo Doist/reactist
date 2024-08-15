@@ -1,7 +1,6 @@
-import * as React from 'react'
-
+import { Component } from 'react'
 import { Tooltip } from '../../tooltip'
-import { TimeUtils, TimeConfig } from './time-utils'
+import { TimeUtils, type TimeConfig } from './time-utils'
 
 import './time.less'
 
@@ -31,7 +30,7 @@ type State = {
     mouseY?: number
 }
 
-class Time extends React.Component<Props, State> {
+class Time extends Component<Props, State> {
     public static displayName: string
     public static defaultProps: Props
 
