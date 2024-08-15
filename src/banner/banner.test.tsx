@@ -18,11 +18,7 @@ describe('Banner', () => {
         ['info' as BannerTone, 'title-info'],
         ['promotion' as BannerTone, 'title-promotion'],
     ])('renders a different CSS class according to the tone', (tone, expectedCSSClass) => {
-        render(
-            <>
-                <Banner tone={tone} icon={'💚'} title={'Info'} />
-            </>,
-        )
+        render(<Banner tone={tone} icon={'💚'} title={'Info'} />)
         expect(screen.getByText('Info')).toHaveClass(expectedCSSClass)
     })
 
