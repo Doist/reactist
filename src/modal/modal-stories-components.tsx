@@ -1,6 +1,5 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react'
 import { within, userEvent } from '@storybook/testing-library'
-import { expect } from '@storybook/jest'
 
 import { Placeholder, times } from '../utils/storybook-helper'
 import { SelectField } from '../select-field'
@@ -246,7 +245,7 @@ function ModalActions(props: WithOptionals<ModalFooterProps, 'withDivider'>) {
 export async function openModal({ canvasElement }: { canvasElement: HTMLElement }) {
     const canvas = within(canvasElement)
     userEvent.click(canvas.getByRole('button', { name: 'Open modal' }))
-    expect(await canvas.findByRole('dialog')).toBeInTheDocument()
+    await canvas.findByRole('dialog')
 }
 
 export { Link, ModalStoryStateProvider, ModalOptionsForm, ModalButton as Button, ScrollableContent }
