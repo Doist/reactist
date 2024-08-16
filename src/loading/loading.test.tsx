@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { Loading } from './loading'
 import { axe } from 'jest-axe'

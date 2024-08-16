@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import {
     select,
     selectWithNone,
@@ -7,11 +5,11 @@ import {
     Placeholder,
     ResponsiveWidthRef,
     Wrapper,
-    PartialProps,
+    type PartialProps,
     selectSize,
 } from '../utils/storybook-helper'
 
-import { Box, BoxBorderRadius } from './box'
+import { Box, type BoxBorderRadius } from './box'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
 import { Text } from '../text'

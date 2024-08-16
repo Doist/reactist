@@ -1,14 +1,14 @@
-import * as React from 'react'
-
+import { Children } from 'react'
 import {
     useTooltipStore,
     Tooltip as AriakitTooltip,
     TooltipAnchor,
     TooltipArrow,
 } from '@ariakit/react'
-import { Box } from '../box'
 
 import type { TooltipStoreState } from '@ariakit/react'
+
+import { Box } from '../box'
 
 import styles from './tooltip.module.css'
 import type { ObfuscatedClassName } from '../utils/common-types'
@@ -79,7 +79,7 @@ function Tooltip({
     const tooltip = useTooltipStore({ placement: position, showTimeout: 500, hideTimeout: 100 })
     const isOpen = tooltip.useState('open')
 
-    const child = React.Children.only(
+    const child = Children.only(
         children as React.FunctionComponentElement<JSX.IntrinsicElements['div']> | null,
     )
 

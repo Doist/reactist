@@ -1,6 +1,5 @@
 /* eslint-disable jest/no-export */
 /* eslint-disable jest/valid-title */
-import * as React from 'react'
 import { act, render, screen } from '@testing-library/react'
 import type { ResponsiveProp } from './responsive-props'
 import type { Space } from './common-types'

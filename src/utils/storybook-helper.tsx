@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { Box } from '../box'
 import { Heading } from '../heading'
 import { Stack } from '../stack'
@@ -12,9 +11,7 @@ type SelectTypeOptionsProp<T> = Extract<T, PropertyKey>[] | readonly Extract<T, 
 
 function select<T extends string | number>(options: SelectTypeOptionsProp<T>, defaultValue?: T) {
     return {
-        control: {
-            type: 'select',
-        },
+        control: { type: 'select' },
         options,
         defaultValue,
     }
@@ -149,7 +146,7 @@ function Placeholder({
 type PartialProps<
     // Parent type of T is the same as React.ComponentProps<T>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>
+    T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>,
 > = Partial<React.ComponentProps<T>>
 
 export {

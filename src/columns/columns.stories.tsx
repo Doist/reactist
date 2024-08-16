@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {
     selectSize,
     times,
@@ -7,8 +6,8 @@ import {
     ResponsiveWidthRef,
     Wrapper,
     selectWithNone,
-    PartialProps,
     disableResponsiveProps,
+    type PartialProps,
 } from '../utils/storybook-helper'
 import { Stack } from '../stack'
 import { Box } from '../box'

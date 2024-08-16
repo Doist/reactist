@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {
     selectSize,
     selectCount,
@@ -9,7 +8,7 @@ import {
     ResponsiveWidthRef,
     Wrapper,
     selectWithNone,
-    PartialProps,
+    type PartialProps,
 } from '../utils/storybook-helper'
 import { Heading } from '../heading'
 import { Stack } from './stack'

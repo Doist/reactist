@@ -1,7 +1,6 @@
-import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { runSpaceTests } from '../utils/test-helpers'
-import { Columns, Column, ColumnWidth } from './'
+import { Columns, Column, type ColumnWidth } from './'
 import { axe } from 'jest-axe'
 
 const columnWidths: Array<ColumnWidth> = [

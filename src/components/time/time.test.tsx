@@ -1,5 +1,4 @@
 import dayjs from 'dayjs'
-import * as React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
 import { axe } from 'jest-axe'
 

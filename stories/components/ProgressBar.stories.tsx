@@ -1,7 +1,5 @@
 import './styles/progressbar_story.less'
 
-import * as React from 'react'
-
 import ProgressBar from '../../src/components/progress-bar'
 
 // Story setup ================================================================
@@ -37,14 +35,6 @@ ProgressBarPlaygroundStory.args = {
 }
 
 ProgressBarPlaygroundStory.argTypes = {
-    fillPercentage: {
-        control: {
-            type: 'number',
-        },
-    },
-    className: {
-        control: {
-            type: null,
-        },
-    },
+    fillPercentage: { control: { type: 'number' } },
+    className: { control: { type: null } },
 }

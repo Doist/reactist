@@ -1,9 +1,9 @@
-import * as React from 'react'
 import classNames from 'classnames'
 
 import { Tooltip } from '../../tooltip'
 
 import './deprecated-button.less'
+import { forwardRef } from 'react'
 
 type NativeButtonProps = React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -42,7 +42,7 @@ export type ButtonProps = Omit<NativeButtonProps, 'title' | 'ref'> & {
 /**
  * @deprecated
  */
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     {
         type = 'button',
         variant,

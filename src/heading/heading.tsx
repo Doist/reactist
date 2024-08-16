@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { forwardRef } from 'react'
 import { getClassNames } from '../utils/responsive-props'
 import { Box } from '../box'
 import styles from './heading.module.css'
@@ -67,51 +67,49 @@ type HeadingProps = Omit<React.HTMLAttributes<HTMLHeadingElement>, 'className' |
     align?: BoxProps['textAlign']
 }
 
-const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps & ObfuscatedClassName>(
-    function Heading(
-        {
-            level,
-            weight = 'regular',
-            size,
-            tone = 'normal',
-            children,
-            lineClamp,
-            align,
-            exceptionallySetClassName,
-            ...props
-        },
-        ref,
-    ) {
-        // In TypeScript v4.1, this would be properly recognized without needing the type assertion
-        // https://devblogs.microsoft.com/typescript/announcing-typescript-4-1-beta/#template-literal-types
-        const headingElementName = `h${level}` as HeadingElement
-        const lineClampMultipleLines =
-            typeof lineClamp === 'string' ? parseInt(lineClamp, 10) > 1 : (lineClamp || 0) > 1
-
-        return (
-            <Box
-                {...props}
-                className={[
-                    exceptionallySetClassName,
-                    styles.heading,
-                    weight !== 'regular' ? getClassNames(styles, 'weight', weight) : null,
-                    tone !== 'normal' ? getClassNames(styles, 'tone', tone) : null,
-                    getClassNames(styles, 'size', size),
-                    lineClampMultipleLines ? styles.lineClampMultipleLines : null,
-                    lineClamp ? getClassNames(styles, 'lineClamp', lineClamp.toString()) : null,
-                ]}
-                textAlign={align}
-                // Prevents emojis from being cut-off
-                // See https://github.com/Doist/reactist/pull/528
-                paddingRight={lineClamp ? 'xsmall' : undefined}
-                as={headingElementName}
-                ref={ref}
-            >
-                {children}
-            </Box>
-        )
+const Heading = forwardRef<HTMLHeadingElement, HeadingProps & ObfuscatedClassName>(function Heading(
+    {
+        level,
+        weight = 'regular',
+        size,
+        tone = 'normal',
+        children,
+        lineClamp,
+        align,
+        exceptionallySetClassName,
+        ...props
     },
-)
+    ref,
+) {
+    // In TypeScript v4.1, this would be properly recognized without needing the type assertion
+    // https://devblogs.microsoft.com/typescript/announcing-typescript-4-1-beta/#template-literal-types
+    const headingElementName = `h${level}` as HeadingElement
+    const lineClampMultipleLines =
+        typeof lineClamp === 'string' ? parseInt(lineClamp, 10) > 1 : (lineClamp || 0) > 1
+
+    return (
+        <Box
+            {...props}
+            className={[
+                exceptionallySetClassName,
+                styles.heading,
+                weight !== 'regular' ? getClassNames(styles, 'weight', weight) : null,
+                tone !== 'normal' ? getClassNames(styles, 'tone', tone) : null,
+                getClassNames(styles, 'size', size),
+                lineClampMultipleLines ? styles.lineClampMultipleLines : null,
+                lineClamp ? getClassNames(styles, 'lineClamp', lineClamp.toString()) : null,
+            ]}
+            textAlign={align}
+            // Prevents emojis from being cut-off
+            // See https://github.com/Doist/reactist/pull/528
+            paddingRight={lineClamp ? 'xsmall' : undefined}
+            as={headingElementName}
+            ref={ref}
+        >
+            {children}
+        </Box>
+    )
+})
 
 export type { HeadingProps, HeadingLevel }
 export { Heading }

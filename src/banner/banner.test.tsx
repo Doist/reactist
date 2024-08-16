@@ -1,7 +1,6 @@
-import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { axe } from 'jest-axe'
-import { Banner, BannerTone } from './banner'
+import { Banner, type BannerTone } from './banner'
 
 describe('Banner', () => {
     it('renders as a <div /> element', () => {
@@ -18,11 +17,7 @@ describe('Banner', () => {
         ['info' as BannerTone, 'title-info'],
         ['promotion' as BannerTone, 'title-promotion'],
     ])('renders a different CSS class according to the tone', (tone, expectedCSSClass) => {
-        render(
-            <>
-                <Banner tone={tone} icon={'💚'} title={'Info'} />
-            </>,
-        )
+        render(<Banner tone={tone} icon={'💚'} title={'Info'} />)
         expect(screen.getByText('Info')).toHaveClass(expectedCSSClass)
     })
 

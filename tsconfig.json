@@ -1,5 +1,5 @@
 {
-    "extends": "@doist/tsconfig",
+    "extends": "@doist/tsconfig/tsconfig.json",
     "include": ["src", "types"],
     "compilerOptions": {
         "allowJs": true,
@@ -17,7 +17,7 @@
             "@": ["./"],
             "*": ["src/*", "node_modules/*"]
         },
-        "jsx": "react",
+        "jsx": "react-jsx",
         "esModuleInterop": true,
         "skipLibCheck": true,
         "noEmit": true

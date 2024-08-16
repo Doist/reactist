@@ -1,6 +1,5 @@
 import './styles/time_story.less'
 
-import * as React from 'react'
 import dayjs from 'dayjs'
 
 import Time from '../../src/components/time'
@@ -17,30 +16,12 @@ export default {
 
 const exampleTimes = [
     { title: 'Now', time: dayjs().unix() },
-    {
-        title: 'Now - 2 Minutes',
-        time: dayjs().subtract(2, 'minutes').unix(),
-    },
-    {
-        title: 'Now - 2 Hours',
-        time: dayjs().subtract(2, 'hours').unix(),
-    },
-    {
-        title: 'Now - 18 Hours',
-        time: dayjs().subtract(18, 'hours').unix(),
-    },
-    {
-        title: 'Now - 2 Days',
-        time: dayjs().subtract(2, 'days').unix(),
-    },
-    {
-        title: 'Now - 2 Weeks',
-        time: dayjs().subtract(2, 'weeks').unix(),
-    },
-    {
-        title: 'Now - 2 Years',
-        time: dayjs().subtract(2, 'years').unix(),
-    },
+    { title: 'Now - 2 Minutes', time: dayjs().subtract(2, 'minutes').unix() },
+    { title: 'Now - 2 Hours', time: dayjs().subtract(2, 'hours').unix() },
+    { title: 'Now - 18 Hours', time: dayjs().subtract(18, 'hours').unix() },
+    { title: 'Now - 2 Days', time: dayjs().subtract(2, 'days').unix() },
+    { title: 'Now - 2 Weeks', time: dayjs().subtract(2, 'weeks').unix() },
+    { title: 'Now - 2 Years', time: dayjs().subtract(2, 'years').unix() },
 ]
 
 // Story Definitions ==========================================================

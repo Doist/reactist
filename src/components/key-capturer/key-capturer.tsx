@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { cloneElement, useRef } from 'react'
 
 type Key = 'ArrowUp' | 'ArrowRight' | 'ArrowDown' | 'ArrowLeft' | 'Enter' | 'Backspace' | 'Escape'
 
@@ -135,7 +135,7 @@ type KeyCapturerProps = EventHandlerProps &
  */
 function KeyCapturer(props: KeyCapturerProps) {
     const { children, eventName = 'onKeyDown' } = props
-    const composingRef = React.useRef(false)
+    const composingRef = useRef(false)
     const composingEventHandlers = props.onEnter
         ? {
               onCompositionStart: () => {
@@ -179,7 +179,7 @@ function KeyCapturer(props: KeyCapturerProps) {
         }
     }
 
-    return React.cloneElement(children, {
+    return cloneElement(children, {
         [eventName]: handleKeyEvent,
         ...composingEventHandlers,
     })

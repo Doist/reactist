@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import Input from '../../src/components/deprecated-input'
 import { Alert } from '../../src/alert'
 import './styles/input_story.less'
@@ -47,19 +45,7 @@ InputPlaygroundStory.args = {
 }
 
 InputPlaygroundStory.argTypes = {
-    placeholder: {
-        control: {
-            type: 'text',
-        },
-    },
-    disabled: {
-        control: {
-            type: 'boolean',
-        },
-    },
-    className: {
-        control: {
-            type: null,
-        },
-    },
+    placeholder: { control: { type: 'text' } },
+    className: { control: { type: null } },
+    disabled: { control: { type: 'boolean' } },
 }

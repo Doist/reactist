@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { forwardRef } from 'react'
 import { Box } from '../box'
 import { Columns, Column } from '../columns'
 import { useId } from '../utils/common-helpers'
@@ -36,7 +36,7 @@ type BannerProps = {
     action?: React.ReactElement | string | number
 }
 
-const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
+const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
     { id, tone, icon, title, description, action, ...props }: BannerProps,
     ref,
 ) {

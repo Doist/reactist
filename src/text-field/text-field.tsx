@@ -1,9 +1,8 @@
-import * as React from 'react'
-import { BaseField, BaseFieldVariantProps } from '../base-field'
+import { forwardRef, useRef } from 'react'
+import { BaseField, type BaseFieldVariantProps, type FieldComponentProps } from '../base-field'
+import { useMergeRefs } from 'use-callback-ref'
 import { Box } from '../box'
 import styles from './text-field.module.css'
-import type { FieldComponentProps } from '../base-field'
-import { useMergeRefs } from 'use-callback-ref'
 
 type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 
@@ -15,7 +14,7 @@ interface TextFieldProps
     endSlot?: React.ReactElement | string | number
 }
 
-const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
+const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
     {
         variant = 'default',
         id,
@@ -35,7 +34,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
     },
     ref,
 ) {
-    const internalRef = React.useRef<HTMLInputElement>(null)
+    const internalRef = useRef<HTMLInputElement>(null)
     const combinedRef = useMergeRefs([ref, internalRef])
 
     function handleClick(event: React.MouseEvent) {

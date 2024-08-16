@@ -1,20 +1,29 @@
-import * as React from 'react'
+import {
+    Children,
+    createContext,
+    forwardRef,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react'
 import classNames from 'classnames'
 
 import {
     Portal,
-    MenuStore,
-    MenuStoreProps,
     useMenuStore,
-    MenuProps as AriakitMenuProps,
     Menu as AriakitMenu,
     MenuGroup as AriakitMenuGroup,
     MenuItem as AriakitMenuItem,
-    MenuItemProps as AriakitMenuItemProps,
     MenuButton as AriakitMenuButton,
-    MenuButtonProps as AriakitMenuButtonProps,
     Role,
-    RoleProps,
+    type MenuStore,
+    type MenuStoreProps,
+    type MenuProps as AriakitMenuProps,
+    type MenuItemProps as AriakitMenuItemProps,
+    type MenuButtonProps as AriakitMenuButtonProps,
+    type RoleProps,
 } from '@ariakit/react'
 
 import './menu.less'
@@ -27,7 +36,7 @@ type MenuContextState = {
     setAnchorRect: (rect: { x: number; y: number } | null) => void
 }
 
-const MenuContext = React.createContext<MenuContextState>({
+const MenuContext = createContext<MenuContextState>({
     menuStore: null,
     handleItemSelect: () => undefined,
     getAnchorRect: null,
@@ -60,11 +69,11 @@ interface MenuProps extends Omit<MenuStoreProps, 'visible'> {
  * management for the menu components inside it.
  */
 function Menu({ children, onItemSelect, ...props }: MenuProps) {
-    const [anchorRect, setAnchorRect] = React.useState<{ x: number; y: number } | null>(null)
-    const getAnchorRect = React.useMemo(() => (anchorRect ? () => anchorRect : null), [anchorRect])
+    const [anchorRect, setAnchorRect] = useState<{ x: number; y: number } | null>(null)
+    const getAnchorRect = useMemo(() => (anchorRect ? () => anchorRect : null), [anchorRect])
     const menuStore = useMenuStore({ focusLoop: true, ...props })
 
-    const value: MenuContextState = React.useMemo(
+    const value: MenuContextState = useMemo(
         () => ({ menuStore, handleItemSelect: onItemSelect, getAnchorRect, setAnchorRect }),
         [menuStore, onItemSelect, getAnchorRect, setAnchorRect],
     )
@@ -83,11 +92,11 @@ interface MenuButtonProps
 /**
  * A button to toggle a dropdown menu open or closed.
  */
-const MenuButton = React.forwardRef<HTMLButtonElement, MenuButtonProps>(function MenuButton(
+const MenuButton = forwardRef<HTMLButtonElement, MenuButtonProps>(function MenuButton(
     { exceptionallySetClassName, ...props },
     ref,
 ) {
-    const { menuStore } = React.useContext(MenuContext)
+    const { menuStore } = useContext(MenuContext)
     if (!menuStore) {
         throw new Error('MenuButton must be wrapped in <Menu/>')
     }
@@ -110,14 +119,14 @@ interface ContextMenuTriggerProps
         React.HTMLAttributes<HTMLDivElement>,
         Pick<RoleProps, 'render'> {}
 
-const ContextMenuTrigger = React.forwardRef<HTMLDivElement, ContextMenuTriggerProps>(
+const ContextMenuTrigger = forwardRef<HTMLDivElement, ContextMenuTriggerProps>(
     function ContextMenuTrigger({ render, ...props }, ref) {
-        const { setAnchorRect, menuStore } = React.useContext(MenuContext)
+        const { setAnchorRect, menuStore } = useContext(MenuContext)
         if (!menuStore) {
             throw new Error('ContextMenuTrigger must be wrapped in <Menu/>')
         }
 
-        const handleContextMenu = React.useCallback(
+        const handleContextMenu = useCallback(
             function handleContextMenu(event: React.MouseEvent) {
                 event.preventDefault()
                 setAnchorRect({ x: event.clientX, y: event.clientY })
@@ -127,7 +136,7 @@ const ContextMenuTrigger = React.forwardRef<HTMLDivElement, ContextMenuTriggerPr
         )
 
         const isOpen = menuStore.useState('open')
-        React.useEffect(() => {
+        useEffect(() => {
             if (!isOpen) setAnchorRect(null)
         }, [isOpen, setAnchorRect])
 
@@ -146,11 +155,11 @@ interface MenuListProps
 /**
  * The dropdown menu itself, containing a list of menu items.
  */
-const MenuList = React.forwardRef<HTMLDivElement, MenuListProps>(function MenuList(
+const MenuList = forwardRef<HTMLDivElement, MenuListProps>(function MenuList(
     { exceptionallySetClassName, modal = true, ...props },
     ref,
 ) {
-    const { menuStore, getAnchorRect } = React.useContext(MenuContext)
+    const { menuStore, getAnchorRect } = useContext(MenuContext)
     if (!menuStore) {
         throw new Error('MenuList must be wrapped in <Menu/>')
     }
@@ -232,7 +241,7 @@ interface MenuItemProps extends AriakitMenuItemProps, ObfuscatedClassName {
  * A menu item inside a menu list. It can be selected by the user, triggering the `onSelect`
  * callback.
  */
-const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(function MenuItem(
+const MenuItem = forwardRef<HTMLDivElement, MenuItemProps>(function MenuItem(
     {
         value,
         children,
@@ -244,13 +253,13 @@ const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>(function MenuIt
     },
     ref,
 ) {
-    const { handleItemSelect, menuStore } = React.useContext(MenuContext)
+    const { handleItemSelect, menuStore } = useContext(MenuContext)
     if (!menuStore) {
         throw new Error('MenuItem must be wrapped in <Menu/>')
     }
 
     const { hide } = menuStore
-    const handleClick = React.useCallback(
+    const handleClick = useCallback(
         function handleClick(event: React.MouseEvent) {
             onClick?.(event)
             const onSelectResult: unknown =
@@ -303,17 +312,17 @@ type SubMenuProps = Pick<MenuProps, 'children' | 'onItemSelect'>
  * The `MenuButton` will become a menu item in the current menu items list, and it will lead to
  * opening a sub-menu with the menu items list below it.
  */
-const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
+const SubMenu = forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
     { children, onItemSelect },
     ref,
 ) {
-    const { handleItemSelect: parentMenuItemSelect, menuStore } = React.useContext(MenuContext)
+    const { handleItemSelect: parentMenuItemSelect, menuStore } = useContext(MenuContext)
     if (!menuStore) {
         throw new Error('SubMenu must be wrapped in <Menu/>')
     }
 
     const { hide: parentMenuHide } = menuStore
-    const handleSubItemSelect = React.useCallback(
+    const handleSubItemSelect = useCallback(
         function handleSubItemSelect(value: string | null | undefined) {
             onItemSelect?.(value)
             parentMenuItemSelect?.(value)
@@ -322,7 +331,7 @@ const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
         [parentMenuHide, parentMenuItemSelect, onItemSelect],
     )
 
-    const [button, list] = React.Children.toArray(children)
+    const [button, list] = Children.toArray(children)
     const buttonElement = button as React.ReactElement<MenuButtonProps>
 
     return (
@@ -354,11 +363,11 @@ interface MenuGroupProps
  * This group does not add any visual separator. You can do that yourself adding `<hr />` elements
  * before and/or after the group if you so wish.
  */
-const MenuGroup = React.forwardRef<HTMLDivElement, MenuGroupProps>(function MenuGroup(
+const MenuGroup = forwardRef<HTMLDivElement, MenuGroupProps>(function MenuGroup(
     { label, children, exceptionallySetClassName, ...props },
     ref,
 ) {
-    const { menuStore } = React.useContext(MenuContext)
+    const { menuStore } = useContext(MenuContext)
     if (!menuStore) {
         throw new Error('MenuGroup must be wrapped in <Menu/>')
     }

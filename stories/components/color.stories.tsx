@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import { Columns, Column } from '../../src/columns'
 import { Stack } from '../../src/stack'
 import { Heading } from '../../src/heading'

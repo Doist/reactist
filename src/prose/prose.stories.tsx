@@ -1,7 +1,6 @@
-import * as React from 'react'
 import { Box } from '../box'
 
-import { Prose, ProseProps } from './prose'
+import { Prose, type ProseProps } from './prose'
 import { proseExample } from './prose-example'
 
 export default {

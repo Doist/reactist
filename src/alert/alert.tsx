@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { getClassNames } from '../utils/responsive-props'
 import { Box } from '../box'
 import { Button } from '../button'

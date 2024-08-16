@@ -1,9 +1,8 @@
-import * as React from 'react'
-
+import { useState } from 'react'
+import LinkTo from '@storybook/addon-links/react'
 import Select from '../../src/components/deprecated-select'
 import { Alert } from '../../src/alert'
 import { Stack } from '../../src/stack'
-import LinkTo from '@storybook/addon-links/react'
 
 const options = [
     { value: 'intro', text: 'Select a fruit', disabled: true },
@@ -27,7 +26,7 @@ export default {
 // Story Definitions ==========================================================
 
 export function SelectStory() {
-    const [value, setValue] = React.useState<string>(options[0].value)
+    const [value, setValue] = useState<string>(options[0].value)
 
     return (
         <Stack as="section" exceptionallySetClassName="story" space="large">
@@ -42,7 +41,7 @@ export function SelectStory() {
 }
 
 export function SelectPlaygroundStory(args) {
-    const [value, setValue] = React.useState<string>(options[0].value)
+    const [value, setValue] = useState<string>(options[0].value)
 
     return (
         <section className="story">
@@ -56,19 +55,9 @@ SelectPlaygroundStory.args = {
 }
 
 SelectPlaygroundStory.argTypes = {
-    disabled: {
-        control: { type: 'boolean' },
-    },
-    value: {
-        control: { type: null },
-    },
-    defaultValue: {
-        control: { type: null },
-    },
-    className: {
-        control: { type: null },
-    },
-    options: {
-        control: { type: null },
-    },
+    defaultValue: { control: { type: null } },
+    className: { control: { type: null } },
+    disabled: { control: { type: 'boolean' } },
+    options: { control: { type: null } },
+    value: { control: { type: null } },
 }

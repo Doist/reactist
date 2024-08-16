@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useEffect, useRef } from 'react'
 
 /**
  * usePrevious tracks the change of the given value -
@@ -14,9 +14,9 @@ import * as React from 'react'
  * x = 2 and prevX = 1
  */
 function usePrevious<T>(value: T): T | null {
-    const ref = React.useRef<T | null>(null)
+    const ref = useRef<T | null>(null)
 
-    React.useEffect(() => {
+    useEffect(() => {
         ref.current = value
     }, [value])
 

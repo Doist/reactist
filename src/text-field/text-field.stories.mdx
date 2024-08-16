@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
 
 import { TextField } from './'
@@ -225,7 +226,7 @@ export function ClearButtonIcon() {
 }
 
 export function ClearButtonExample({ slot }) {
-    const [value, setValue] = React.useState('')
+    const [value, setValue] = useState('')
     const clearButton = (
         <Button
             variant="quaternary"
@@ -261,7 +262,7 @@ export function ClearButtonExample({ slot }) {
 </Canvas>
 
 export function WithTooltipExample() {
-    const [value, setValue] = React.useState('')
+    const [value, setValue] = useState('')
     const isValidNumber = /^\s*(\d{1,3})?\s*$/.test(value)
     return (
         <Tooltip content={isValidNumber ? null : 'Invalid age'} position="top-end">

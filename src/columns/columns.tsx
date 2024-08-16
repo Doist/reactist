@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { polymorphicComponent } from '../utils/polymorphism'
 import { getClassNames, mapResponsiveProp } from '../utils/responsive-props'
 import { Box } from '../box'
@@ -85,8 +84,8 @@ const Columns = polymorphicComponent<'div', ColumnsProps>(function Columns(
                 collapseBelow === 'desktop'
                     ? { mobile: 'column', tablet: 'column', desktop: 'row' }
                     : collapseBelow === 'tablet'
-                    ? { mobile: 'column', tablet: 'row' }
-                    : 'row'
+                      ? { mobile: 'column', tablet: 'row' }
+                      : 'row'
             }
             alignItems={mapResponsiveProp(alignY, (alignY) =>
                 alignY === 'top' ? 'flexStart' : alignY === 'bottom' ? 'flexEnd' : alignY,

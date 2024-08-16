@@ -1,16 +1,31 @@
-import * as React from 'react'
+import {
+    createContext,
+    useCallback,
+    useContext,
+    useEffect,
+    useLayoutEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react'
 import classNames from 'classnames'
 import FocusLock from 'react-focus-lock'
 import { hideOthers } from 'aria-hidden'
 
-import { Dialog, DialogOptions, useDialogStore, Portal, PortalOptions } from '@ariakit/react'
+import {
+    Dialog,
+    type DialogOptions,
+    useDialogStore,
+    Portal,
+    type PortalOptions,
+} from '@ariakit/react'
 
 import { CloseIcon } from '../icons/close-icon'
 import { Column, Columns } from '../columns'
 import { Inline } from '../inline'
 import { Divider } from '../divider'
 import { Box } from '../box'
-import { IconButtonProps, IconButton } from '../button'
+import { type IconButtonProps, IconButton } from '../button'
 
 import styles from './modal.module.css'
 import type { ObfuscatedClassName } from '../utils/common-types'
@@ -27,7 +42,7 @@ type ModalContextValue = {
     height: ModalHeightMode
 }
 
-const ModalContext = React.createContext<ModalContextValue>({
+const ModalContext = createContext<ModalContextValue>({
     onDismiss: undefined,
     height: 'fitContent',
 })
@@ -164,26 +179,24 @@ export function Modal({
     className,
     ...props
 }: ModalProps) {
-    const setOpen = React.useCallback(
-        (visible: boolean) => {
-            if (!visible) {
-                onDismiss?.()
-            }
+    const setOpen = useCallback(
+        function setOpen(visible: boolean) {
+            if (!visible) onDismiss?.()
         },
         [onDismiss],
     )
     const store = useDialogStore({ open: isOpen, setOpen })
 
-    const contextValue: ModalContextValue = React.useMemo(() => ({ onDismiss, height }), [
-        onDismiss,
-        height,
-    ])
+    const contextValue: ModalContextValue = useMemo(
+        () => ({ onDismiss, height }),
+        [onDismiss, height],
+    )
 
-    const portalRef = React.useRef<HTMLElement | null>(null)
-    const dialogRef = React.useRef<HTMLDivElement | null>(null)
-    const backdropRef = React.useRef<HTMLDivElement | null>(null)
-    const handleBackdropClick = React.useCallback(
-        (event: React.MouseEvent) => {
+    const portalRef = useRef<HTMLElement | null>(null)
+    const dialogRef = useRef<HTMLDivElement | null>(null)
+    const backdropRef = useRef<HTMLDivElement | null>(null)
+    const handleBackdropClick = useCallback(
+        function handleBackdropClick(event: React.MouseEvent) {
             if (
                 // The focus lock element takes up the same space as the backdrop and is where the event bubbles up from,
                 // so instead of checking the backdrop as the event target, we need to make sure it's just above the dialog
@@ -198,7 +211,7 @@ export function Modal({
         [onDismiss],
     )
 
-    React.useLayoutEffect(
+    useLayoutEffect(
         function disableAccessibilityTreeOutside() {
             if (!isOpen || !portalRef.current) {
                 return
@@ -209,7 +222,7 @@ export function Modal({
         [isOpen],
     )
 
-    const handleKeyDown = React.useCallback(
+    const handleKeyDown = useCallback(
         function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
             if (
                 hideOnEscape &&
@@ -309,11 +322,11 @@ export interface ModalCloseButtonProps
  * @see ModalHeader
  */
 export function ModalCloseButton(props: ModalCloseButtonProps) {
-    const { onDismiss } = React.useContext(ModalContext)
-    const [includeInTabOrder, setIncludeInTabOrder] = React.useState(false)
-    const [isMounted, setIsMounted] = React.useState(false)
+    const { onDismiss } = useContext(ModalContext)
+    const [includeInTabOrder, setIncludeInTabOrder] = useState(false)
+    const [isMounted, setIsMounted] = useState(false)
 
-    React.useEffect(
+    useEffect(
         function skipAutoFocus() {
             if (isMounted) {
                 setIncludeInTabOrder(true)
@@ -430,7 +443,7 @@ export interface ModalBodyProps extends DivProps, ObfuscatedClassName {
  * @see ModalFooter
  */
 export function ModalBody({ exceptionallySetClassName, children, ...props }: ModalBodyProps) {
-    const { height } = React.useContext(ModalContext)
+    const { height } = useContext(ModalContext)
     return (
         <Box
             {...props}
