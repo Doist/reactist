@@ -15,7 +15,7 @@ import { IconButtonProps, IconButton } from '../button'
 import styles from './modal.module.css'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
-type ModalWidth = 'small' | 'medium' | 'large' | 'xlarge' | 'full'
+type ModalWidth = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'full'
 type ModalHeightMode = 'expand' | 'fitContent'
 
 //

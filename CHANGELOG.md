@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# v25.1.0
+
+-   [Feat] Add `xsmall` size to the `Modal` component
+
 # v25.0.0
 
 -   [BREAKING] Upgrade Ariakit from legacy package to the newer @ariakit/react
