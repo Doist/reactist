@@ -65,7 +65,10 @@
     width: 580px;
 }
 .small .container {
-    width: 450px;
+    width: 480px;
+}
+.xsmall .container {
+    width: 448px;
 }
 
 @media (min-width: 992px) {
@@ -87,16 +90,16 @@
 }
 
 @media (max-width: 580px) {
-    .overlay:not(.small) .container {
+    .overlay:not(.xsmall):not(.small) .container {
         width: 100% !important;
         max-height: none;
     }
-    .overlay.expand:not(.small) > [data-focus-lock-disabled] {
+    .overlay.expand:not(.xsmall):not(.small) > [data-focus-lock-disabled] {
         padding-left: 0;
         padding-right: 0;
         padding-bottom: 0;
     }
-    .overlay.expand:not(.small) .container {
+    .overlay.expand:not(.xsmall):not(.small) .container {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
