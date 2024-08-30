@@ -247,7 +247,12 @@ export function Modal({
                 onPointerDown={hideOnInteractOutside ? handleBackdropClick : undefined}
                 ref={backdropRef}
             >
-                <FocusLock autoFocus={autoFocus} whiteList={isNotInternalFrame} returnFocus={true}>
+                <FocusLock
+                    autoFocus={autoFocus}
+                    whiteList={isNotInternalFrame}
+                    returnFocus={true}
+                    crossFrame={false}
+                >
                     <Dialog
                         {...props}
                         ref={dialogRef}
