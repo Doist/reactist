@@ -14,6 +14,7 @@ import { IconButtonProps, IconButton } from '../button'
 
 import styles from './modal.module.css'
 import type { ObfuscatedClassName } from '../utils/common-types'
+import { forwardRef } from 'react'
 
 type ModalWidth = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'full'
 type ModalHeightMode = 'expand' | 'fitContent'
@@ -426,7 +427,7 @@ export interface ModalBodyProps extends DivProps, ObfuscatedClassName {
  * Renders the body of a modal.
  *
  * Convenient to use alongside ModalHeader and/or ModalFooter as needed. It ensures, among other
- * things, that the contet of the modal body expands or contracts depending on the modal height
+ * things, that the content of the modal body expands or contracts depending on the modal height
  * setting or the size of the content. The body content also automatically scrolls when it's too
  * large to fit the available space.
  *
@@ -434,11 +435,15 @@ export interface ModalBodyProps extends DivProps, ObfuscatedClassName {
  * @see ModalHeader
  * @see ModalFooter
  */
-export function ModalBody({ exceptionallySetClassName, children, ...props }: ModalBodyProps) {
+export const ModalBody = forwardRef<HTMLDivElement, ModalBodyProps>(function ModalBody(
+    { exceptionallySetClassName, children, ...props },
+    ref,
+) {
     const { height } = React.useContext(ModalContext)
     return (
         <Box
             {...props}
+            ref={ref}
             className={exceptionallySetClassName}
             flexGrow={height === 'expand' ? 1 : 0}
             height={height === 'expand' ? 'full' : undefined}
@@ -449,7 +454,7 @@ export function ModalBody({ exceptionallySetClassName, children, ...props }: Mod
             </Box>
         </Box>
     )
-}
+})
 
 //
 // ModalFooter
