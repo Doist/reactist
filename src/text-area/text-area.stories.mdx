@@ -87,6 +87,10 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
                 control: { type: 'boolean' },
                 defaultValue: false,
             },
+            readOnly: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
         }}
     >
         {InteractivePropsStory.bind({})}
@@ -308,6 +312,10 @@ export function AutoExpandWithInitialValueStory(props) {
                 defaultValue: '',
             },
             disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            readOnly: {
                 control: { type: 'boolean' },
                 defaultValue: false,
             },

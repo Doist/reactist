@@ -61,6 +61,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                         styles.inputWrapper,
                         tone === 'error' ? styles.error : null,
                         variant === 'bordered' ? styles.bordered : null,
+                        props.readOnly ? styles.readOnly : null,
                     ]}
                     onClick={handleClick}
                 >

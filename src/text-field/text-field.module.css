@@ -3,6 +3,15 @@
     height: var(--reactist-input-wrapper-height);
 }
 
+.inputWrapper.readOnly {
+    background-color: var(--reactist-field-readonly-background);
+}
+
+.inputWrapper.readOnly input {
+    background-color: var(--reactist-field-readonly-background);
+    color: var(--reactist-content-primary);
+}
+
 .inputWrapper:not(.bordered) {
     --reactist-input-wrapper-height: 32px;
 

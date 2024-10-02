@@ -105,6 +105,9 @@
     --reactist-alert-tone-critical-border: rgba(238, 238, 238);
     --reactist-alert-tone-critical-background: rgba(250, 250, 250);
 
+    /* fields */
+    --reactist-field-readonly-background: rgb(246, 244, 244);
+
     /* toasts */
     --reactist-toast-actionable-primary-tint: #39d1ef;
     --reactist-toast-actionable-secondary-tint: #b6c1c3;
