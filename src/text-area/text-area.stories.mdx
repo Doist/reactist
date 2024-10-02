@@ -48,6 +48,20 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
                 control: { type: 'text' },
                 defaultValue: 'User bio',
             },
+            tone: {
+                options: ['neutral', 'success', 'error', 'loading'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'neutral',
+            },
+            maxWidth: selectWithNone(
+                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+                'small',
+            ),
+            variant: {
+                options: ['default', 'bordered'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'default',
+            },
             auxiliaryLabel: {
                 control: { type: 'text' },
                 defaultValue: 'Need help?',
@@ -57,24 +71,22 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
                 defaultValue:
                     'You’ll have a better experience in our community if others get to know a little bit about you.',
             },
-            tone: {
-                options: ['neutral', 'success', 'error', 'loading'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'neutral',
+            rows: {
+                control: { type: 'number' },
+                defaultValue: 2,
             },
-            variant: {
-                options: ['default', 'bordered'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'default',
+            autoExpand: {
+                control: { type: 'boolean' },
+                defaultValue: false,
             },
             placeholder: {
                 control: { type: 'text' },
                 defaultValue: 'Tell us something about yourself. Don’t be shy.',
             },
-            maxWidth: selectWithNone(
-                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
-                'small',
-            ),
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
         }}
     >
         {InteractivePropsStory.bind({})}
@@ -180,6 +192,20 @@ export function AutoExpandStory(props) {
         name="Auto expand"
         argTypes={{
             label: { control: false },
+            tone: {
+                options: ['neutral', 'success', 'error', 'loading'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'neutral',
+            },
+            maxWidth: selectWithNone(
+                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+                'small',
+            ),
+            variant: {
+                options: ['default', 'bordered'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'default',
+            },
             auxiliaryLabel: { control: false },
             rows: {
                 control: { type: 'number' },
@@ -188,24 +214,22 @@ export function AutoExpandStory(props) {
                 control: { type: 'text' },
                 defaultValue: '',
             },
-            tone: {
-                options: ['neutral', 'success', 'error', 'loading'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'neutral',
+            rows: {
+                control: { type: 'number' },
+                defaultValue: 2,
             },
-            variant: {
-                options: ['default', 'bordered'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'default',
+            autoExpand: {
+                control: { type: 'boolean' },
+                defaultValue: false,
             },
             placeholder: {
                 control: { type: 'text' },
                 defaultValue: '',
             },
-            maxWidth: selectWithNone(
-                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
-                'small',
-            ),
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
         }}
     >
         {AutoExpandStory.bind({})}
@@ -249,6 +273,20 @@ export function AutoExpandWithInitialValueStory(props) {
         name="Auto expand with initial value"
         argTypes={{
             label: { control: false },
+            tone: {
+                options: ['neutral', 'success', 'error', 'loading'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'neutral',
+            },
+            maxWidth: selectWithNone(
+                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+                'small',
+            ),
+            variant: {
+                options: ['default', 'bordered'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'default',
+            },
             auxiliaryLabel: { control: false },
             rows: {
                 control: { type: 'number' },
@@ -257,24 +295,22 @@ export function AutoExpandWithInitialValueStory(props) {
                 control: { type: 'text' },
                 defaultValue: '',
             },
-            tone: {
-                options: ['neutral', 'success', 'error', 'loading'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'neutral',
+            rows: {
+                control: { type: 'number' },
+                defaultValue: 2,
             },
-            variant: {
-                options: ['default', 'bordered'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'default',
+            autoExpand: {
+                control: { type: 'boolean' },
+                defaultValue: false,
             },
             placeholder: {
                 control: { type: 'text' },
                 defaultValue: '',
             },
-            maxWidth: selectWithNone(
-                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
-                'small',
-            ),
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
         }}
     >
         {AutoExpandWithInitialValueStory.bind({})}

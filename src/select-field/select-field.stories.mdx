@@ -62,6 +62,20 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
                 control: { type: 'text' },
                 defaultValue: 'Theme',
             },
+            tone: {
+                options: ['neutral', 'success', 'error', 'loading'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'neutral',
+            },
+            maxWidth: selectWithNone(
+                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+                'small',
+            ),
+            variant: {
+                options: ['default', 'bordered'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'default',
+            },
             auxiliaryLabel: {
                 control: { type: 'text' },
                 defaultValue: 'Need help?',
@@ -71,17 +85,10 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
                 defaultValue:
                     'The theme you select will be applied immediately. If you upgrade to premium you will have more themes to choose from.',
             },
-            tone: {
-                options: ['neutral', 'success', 'error', 'loading'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'neutral',
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
             },
-            variant: {
-                options: ['default', 'bordered'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'default',
-            },
-            maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge'], 'small'),
         }}
     >
         {InteractivePropsStory.bind({})}
