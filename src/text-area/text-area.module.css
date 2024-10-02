@@ -84,7 +84,7 @@ See https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
     grid-area: 1 / 1 / 2 / 2;
 }
 
-textarea.autoExpand {
+textarea.disableResize {
     resize: none; /* You could leave this, but after a user resizes, then it ruins the auto sizing */
     overflow: hidden; /* Firefox shows scrollbar on growth, you can hide like this. */
 }

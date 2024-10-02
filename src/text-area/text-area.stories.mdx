@@ -79,6 +79,10 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
                 control: { type: 'boolean' },
                 defaultValue: false,
             },
+            disableResize: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
             placeholder: {
                 control: { type: 'text' },
                 defaultValue: 'Tell us something about yourself. Don’t be shy.',
@@ -304,6 +308,10 @@ export function AutoExpandWithInitialValueStory(props) {
                 defaultValue: 2,
             },
             autoExpand: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            disableResize: {
                 control: { type: 'boolean' },
                 defaultValue: false,
             },

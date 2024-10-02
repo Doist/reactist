@@ -1,4 +1,5 @@
 import * as React from 'react'
+import classNames from 'classnames'
 import { useMergeRefs } from 'use-callback-ref'
 import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-field'
 import { Box } from '../box'
@@ -20,9 +21,18 @@ interface TextAreaProps extends FieldComponentProps<HTMLTextAreaElement>, BaseFi
     rows?: number
 
     /**
-     * If `true`, the textarea will auto-expand or shrink vertically to fit the content.
+     * If `true`, the textarea will be automatically resized to fit the content, and the ability to
+     * manually resize the textarea will be disabled.
      */
     autoExpand?: boolean
+
+    /**
+     * If `true`, the ability to manually resize the textarea will be disabled.
+     *
+     * When `autoExpand` is true, this property serves no purpose, because the ability to manually
+     * resize the textarea is always disabled when `autoExpand` is true.
+     */
+    disableResize?: boolean
 }
 
 const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
@@ -38,6 +48,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
         'aria-describedby': ariaDescribedBy,
         rows,
         autoExpand = false,
+        disableResize = false,
         ...props
     },
     ref,
@@ -45,6 +56,11 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
     const containerRef = React.useRef<HTMLDivElement>(null)
     const internalRef = React.useRef<HTMLTextAreaElement>(null)
     const combinedRef = useMergeRefs([ref, internalRef])
+
+    const textAreaClassName = classNames([
+        autoExpand ? styles.disableResize : null,
+        disableResize ? styles.disableResize : null,
+    ])
 
     React.useEffect(
         function setupAutoExpand() {
@@ -103,7 +119,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
                         {...extraProps}
                         ref={combinedRef}
                         rows={rows}
-                        className={autoExpand ? styles.autoExpand : undefined}
+                        className={textAreaClassName}
                     />
                 </Box>
             )}

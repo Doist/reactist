@@ -187,10 +187,10 @@ describe('TextArea', () => {
     it('enables auto-grow when rows="auto"', () => {
         const { rerender } = render(<TextArea label="Auto-grow" autoExpand />)
         const textarea = screen.getByRole('textbox', { name: 'Auto-grow' })
-        expect(textarea).toHaveClass('autoExpand')
+        expect(textarea).toHaveClass('disableResize')
 
         rerender(<TextArea label="Auto-grow" rows={undefined} />)
-        expect(textarea).not.toHaveClass('autoExpand')
+        expect(textarea).not.toHaveClass('disableResize')
     })
 
     it('forwards the `rows` prop to the text area', () => {
