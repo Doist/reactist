@@ -11,7 +11,6 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
         id,
         label,
         auxiliaryLabel,
-        hint,
         message,
         tone,
         maxWidth,
@@ -28,7 +27,6 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
             id={id}
             label={label}
             auxiliaryLabel={auxiliaryLabel}
-            hint={hint}
             message={message}
             tone={tone}
             maxWidth={maxWidth}

@@ -52,14 +52,10 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
                 control: { type: 'text' },
                 defaultValue: 'Need help?',
             },
-            hint: {
+            message: {
                 control: { type: 'text' },
                 defaultValue:
                     'You’ll have a better experience in our community if others get to know a little bit about you.',
-            },
-            message: {
-                control: { type: 'text' },
-                defaultValue: '',
             },
             tone: {
                 options: ['neutral', 'success', 'error', 'loading'],
@@ -127,8 +123,7 @@ Note that these variables are shared with other components such as `Textfield`, 
             />
             <TextArea
                 label="Profile bio"
-                message="Message with neutral tone (used as description, but still prefer the hint prop for that)"
-                hint="This is the primary description of the field, provided by the hint prop"
+                message="This is the supporting text (helper or error) of the field, provided by the message prop"
                 tone="neutral"
                 maxWidth="small"
             />
@@ -167,13 +162,13 @@ export function AutoExpandStory(props) {
             <TextArea
                 {...props}
                 label="What do you want to accomplish?"
-                hint="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
+                message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
                 autoExpand
             />
             <TextArea
                 {...props}
                 label="What do you want to accomplish?"
-                hint="This one will not auto-expand."
+                message="This one will not auto-expand."
                 autoExpand={false}
             />
         </Stack>
@@ -186,7 +181,6 @@ export function AutoExpandStory(props) {
         argTypes={{
             label: { control: false },
             auxiliaryLabel: { control: false },
-            hint: { control: false },
             rows: {
                 control: { type: 'number' },
             },
@@ -232,7 +226,7 @@ export function AutoExpandWithInitialValueStory(props) {
                         {value.length}
                     </Text>
                 }
-                hint="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
+                message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
                 value={value}
                 onChange={(event) => setValue(event.target.value)}
                 rows={1}
@@ -241,7 +235,7 @@ export function AutoExpandWithInitialValueStory(props) {
             <TextArea
                 {...props}
                 label="What do you want to accomplish?"
-                hint="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
+                message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
                 defaultValue={initialValue}
                 rows={1}
                 autoExpand
@@ -256,7 +250,6 @@ export function AutoExpandWithInitialValueStory(props) {
         argTypes={{
             label: { control: false },
             auxiliaryLabel: { control: false },
-            hint: { control: false },
             rows: {
                 control: { type: 'number' },
             },

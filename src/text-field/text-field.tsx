@@ -20,9 +20,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         variant = 'default',
         id,
         label,
-        secondaryLabel,
         auxiliaryLabel,
-        hint,
         message,
         tone,
         type = 'text',
@@ -48,9 +46,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
             variant={variant}
             id={id}
             label={label}
-            secondaryLabel={secondaryLabel}
             auxiliaryLabel={auxiliaryLabel}
-            hint={hint}
             message={message}
             tone={tone}
             maxWidth={maxWidth}

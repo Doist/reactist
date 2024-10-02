@@ -32,8 +32,8 @@ describe('TextField', () => {
         expect(screen.getByTestId('text-field')).toHaveAccessibleName('Your phone number')
     })
 
-    it('is described by its hint when provided', () => {
-        render(<TextField data-testid="text-field" label="Phone" hint="So we can call you" />)
+    it('is described by its message when provided', () => {
+        render(<TextField data-testid="text-field" label="Phone" message="So we can call you" />)
         expect(screen.getByTestId('text-field')).toHaveAccessibleDescription('So we can call you')
     })
 
@@ -43,10 +43,10 @@ describe('TextField', () => {
                 <TextField
                     data-testid="text-field"
                     label="Phone"
-                    hint="So we can call you"
-                    aria-describedby="custom-hint"
+                    message="So we can call you"
+                    aria-describedby="custom-message"
                 />
-                <div id="custom-hint">This is the phone where we will call you</div>
+                <div id="custom-message">This is the phone where we will call you</div>
             </>,
         )
         expect(screen.getByTestId('text-field')).toHaveAccessibleDescription(
@@ -75,21 +75,6 @@ describe('TextField', () => {
             )
         },
     )
-
-    it('adds the message as part of the description, whenever the tone is not error', () => {
-        render(
-            <TextField
-                data-testid="text-field"
-                label="Verification code"
-                hint="Paste in the verification code"
-                message="Verification successful"
-                tone="success"
-            />,
-        )
-        expect(screen.getByTestId('text-field')).toHaveAccessibleDescription(
-            'Verification successful Paste in the verification code',
-        )
-    })
 
     it('renders its auxiliary label', () => {
         render(<TextField label="VAT ID" auxiliaryLabel={<a href="/help">Whatʼs this?</a>} />)
@@ -126,32 +111,32 @@ describe('TextField', () => {
             <TextField
                 data-testid="text-field"
                 label="Whatʼs your name?"
-                hint="We need it for billing purposes"
+                message="We need it for billing purposes"
                 hidden
             />,
         )
 
         const inputField = screen.getByTestId('text-field')
-        const hintElement = screen.getByText(/we need it for billing purposes/i)
+        const messageElement = screen.getByText(/we need it for billing purposes/i)
 
         // check that it is rendered but not visible
         expect(inputField).not.toBeVisible()
         expect(screen.queryByRole('textbox', { name: 'Whatʼs your name?' })).not.toBeInTheDocument()
         expect(screen.getByText(/your name/i)).toBeInTheDocument()
-        expect(hintElement).not.toBeVisible()
+        expect(messageElement).not.toBeVisible()
 
         // check that it becomes visible when hidden is removed
         rerender(
             <TextField
                 data-testid="text-field"
                 label="Whatʼs your name?"
-                hint="We need it for billing purposes"
+                message="We need it for billing purposes"
             />,
         )
         expect(inputField).toBeVisible()
         expect(screen.getByRole('textbox', { name: 'Whatʼs your name?' })).toBeInTheDocument()
         expect(screen.getByText(/your name/i)).toBeInTheDocument()
-        expect(hintElement).toBeVisible()
+        expect(messageElement).toBeVisible()
     })
 
     it('forwards to the input element any extra props provided to it', () => {
@@ -250,7 +235,10 @@ describe('TextField', () => {
                 <>
                     <TextField label="Whatʼs your name?" />
                     <TextField label="Whatʼs your name?" disabled />
-                    <TextField label="Whatʼs your name?" hint="We need it for billing purposes" />
+                    <TextField
+                        label="Whatʼs your name?"
+                        message="We need it for billing purposes"
+                    />
                 </>,
             )
             const results = await axe(container)

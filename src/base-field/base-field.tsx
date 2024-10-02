@@ -8,48 +8,28 @@ import { Stack } from '../stack'
 import type { WithEnhancedClassName } from '../utils/common-types'
 import { Spinner } from '../spinner'
 
-type FieldHintProps = {
-    id: string
-    children: React.ReactNode
-}
-
-function FieldHint(props: FieldHintProps) {
-    return <Text as="p" tone="secondary" size="copy" {...props} />
-}
-
-function MessageIcon(props: React.SVGProps<SVGSVGElement>) {
-    return (
-        <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            {...props}
-        >
-            <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M8 2.5C4.96243 2.5 2.5 4.96243 2.5 8C2.5 11.0376 4.96243 13.5 8 13.5C11.0376 13.5 13.5 11.0376 13.5 8C13.5 4.96243 11.0376 2.5 8 2.5ZM1.5 8C1.5 4.41015 4.41015 1.5 8 1.5C11.5899 1.5 14.5 4.41015 14.5 8C14.5 11.5899 11.5899 14.5 8 14.5C4.41015 14.5 1.5 11.5899 1.5 8ZM8.66667 10.3333C8.66667 10.7015 8.36819 11 8 11C7.63181 11 7.33333 10.7015 7.33333 10.3333C7.33333 9.96514 7.63181 9.66667 8 9.66667C8.36819 9.66667 8.66667 9.96514 8.66667 10.3333ZM8.65766 5.65766C8.65766 5.29445 8.36322 5 8 5C7.99087 5.00008 7.98631 5.00013 7.98175 5.00025C7.97719 5.00038 7.97263 5.00059 7.96352 5.00101C7.60086 5.02116 7.3232 5.33149 7.34335 5.69415L7.50077 8.52774C7.53575 9.15742 8.46425 9.15742 8.49923 8.52774L8.65665 5.69415C8.65707 5.68503 8.65728 5.68047 8.65741 5.67591C8.65754 5.67135 8.65758 5.66679 8.65766 5.65766Z"
-                fill="currentColor"
-            />
-        </svg>
-    )
-}
-
 type FieldTone = 'neutral' | 'success' | 'error' | 'loading'
 
-type FieldMessageProps = FieldHintProps & {
+type FieldMessageProps = {
+    id: string
+    children: React.ReactNode
     tone: FieldTone
 }
 
 function FieldMessage({ id, children, tone }: FieldMessageProps) {
-    const textTone = tone === 'error' ? 'danger' : tone === 'success' ? 'positive' : 'normal'
+    const textTone = tone === 'error' ? 'danger' : tone === 'success' ? 'positive' : 'secondary'
     return (
         <Text as="p" tone={textTone} size="copy" id={id}>
-            <Box as="span" marginRight="xsmall" display="inlineFlex" className={styles.messageIcon}>
-                {tone === 'loading' ? <Spinner size={16} /> : <MessageIcon aria-hidden />}
-            </Box>
+            {tone === 'loading' ? (
+                <Box
+                    as="span"
+                    marginRight="xsmall"
+                    display="inlineFlex"
+                    className={styles.loadingIcon}
+                >
+                    <Spinner size={16} />
+                </Box>
+            ) : null}
             {children}
         </Text>
     )
@@ -118,9 +98,7 @@ type BaseFieldProps = WithEnhancedClassName &
          * appearance that conveys the tone of the field (e.g. coloured red for errors, green for
          * success, etc).
          *
-         * The message element is associated to the field via the `aria-describedby` attribute. If a
-         * `hint` is provided, both the hint and the message are associated as the field accessible
-         * description.
+         * The message element is associated to the field via the `aria-describedby` attribute.
          *
          * In the future, when `aria-errormessage` gets better user agent support, we should use it
          * to associate the filed with a message when tone is `"error"`.
@@ -146,18 +124,6 @@ type BaseFieldProps = WithEnhancedClassName &
         tone?: FieldTone
 
         /**
-         * A hint or help-like content associated as the accessible description of the field. It is
-         * generally rendered below it, and with a visual style that reduces its prominence (i.e.
-         * as secondary text).
-         *
-         * It sets the `aria-describedby` attribute pointing to the element that holds the hint
-         * content.
-         *
-         * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby
-         */
-        hint?: React.ReactNode
-
-        /**
          * The maximum width that the input field can expand to.
          */
         maxWidth?: BoxProps['maxWidth']
@@ -179,7 +145,6 @@ function BaseField({
     variant = 'default',
     label,
     auxiliaryLabel,
-    hint,
     message,
     tone = 'neutral',
     className,
@@ -190,20 +155,18 @@ function BaseField({
     id: originalId,
 }: BaseFieldProps & BaseFieldVariantProps & WithEnhancedClassName) {
     const id = useId(originalId)
-    const hintId = useId()
     const messageId = useId()
 
-    const ariaDescribedBy =
-        originalAriaDescribedBy ?? [message ? messageId : null, hintId].filter(Boolean).join(' ')
+    const ariaDescribedBy = originalAriaDescribedBy ?? (message ? messageId : null)
 
     const childrenProps: ChildrenRenderProps = {
         id,
-        'aria-describedby': ariaDescribedBy,
+        ...(ariaDescribedBy ? { 'aria-describedby': ariaDescribedBy } : {}),
         'aria-invalid': tone === 'error' ? true : undefined,
     }
 
     return (
-        <Stack space="small" hidden={hidden}>
+        <Stack space="xsmall" hidden={hidden}>
             <Box
                 className={[
                     className,
@@ -241,10 +204,9 @@ function BaseField({
                     {message}
                 </FieldMessage>
             ) : null}
-            {hint ? <FieldHint id={hintId}>{hint}</FieldHint> : null}
         </Stack>
     )
 }
 
-export { BaseField, FieldHint, FieldMessage }
+export { BaseField, FieldMessage }
 export type { BaseFieldVariant, BaseFieldVariantProps, FieldComponentProps }

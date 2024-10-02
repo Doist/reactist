@@ -68,14 +68,10 @@ export function InteractivePropsStory({ label, auxiliaryLabel, startSlot = false
                 control: { type: 'text' },
                 defaultValue: 'Need help?',
             },
-            hint: {
+            message: {
                 control: { type: 'text' },
                 defaultValue:
                     'We need your name for billing and shipping purposes. Make sure to enter it correctly.',
-            },
-            message: {
-                control: { type: 'text' },
-                defaultValue: '',
             },
             tone: {
                 options: ['neutral', 'success', 'error', 'loading'],
@@ -144,8 +140,7 @@ Note that these variables are shared with other components such as `PasswordFiel
             />
             <TextField
                 label="Verification code"
-                message="Message with neutral tone (used as description, but still prefer the hint prop for that)"
-                hint="This is the primary description of the field, provided by the hint prop"
+                message="This is the supporting text (helper or error) of the field, provided by the message prop"
                 tone="neutral"
                 maxWidth="small"
             />
@@ -266,7 +261,7 @@ export function WithTooltipExample() {
                 value={value}
                 onChange={(event) => setValue(event.currentTarget.value)}
                 tone={isValidNumber ? 'neutral' : 'error'}
-                hint="This field acceps only numeric inputs. Try typing valid and invalid values to see how it behaves."
+                message="This field acceps only numeric inputs. Try typing valid and invalid values to see how it behaves."
                 maxWidth="small"
                 onBlur={() => {
                     setValue(isValidNumber ? value.trim() : '')

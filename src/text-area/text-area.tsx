@@ -31,7 +31,6 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
         id,
         label,
         auxiliaryLabel,
-        hint,
         message,
         tone,
         maxWidth,
@@ -81,7 +80,6 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
             id={id}
             label={label}
             auxiliaryLabel={auxiliaryLabel}
-            hint={hint}
             message={message}
             tone={tone}
             hidden={hidden}

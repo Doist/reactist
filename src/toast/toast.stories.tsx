@@ -94,7 +94,7 @@ export function NotificationToastsStory() {
                     label="Show sticky toast?"
                     checked={showSticky}
                     onChange={(event) => setShowSticky(event.target.checked)}
-                    hint={
+                    message={
                         <>
                             Using the <code>&lt;Toast/&gt;</code> component, you can achieve having
                             a toast that remains in view, and you control when it goes away.

@@ -38,8 +38,10 @@ describe('SelectField', () => {
         expect(screen.getByTestId('select-field')).toHaveAccessibleName('Your phone number')
     })
 
-    it('is described by its hint when provided', () => {
-        render(<SelectField data-testid="select-field" label="Phone" hint="So we can call you" />)
+    it('is described by its message when provided', () => {
+        render(
+            <SelectField data-testid="select-field" label="Phone" message="So we can call you" />,
+        )
         expect(screen.getByTestId('select-field')).toHaveAccessibleDescription('So we can call you')
     })
 
@@ -49,10 +51,10 @@ describe('SelectField', () => {
                 <SelectField
                     data-testid="select-field"
                     label="Phone"
-                    hint="So we can call you"
-                    aria-describedby="custom-hint"
+                    message="So we can call you"
+                    aria-describedby="custom-message"
                 />
-                <div id="custom-hint">This is the phone where we will call you</div>
+                <div id="custom-message">This is the phone where we will call you</div>
             </>,
         )
         expect(screen.getByTestId('select-field')).toHaveAccessibleDescription(
@@ -101,13 +103,12 @@ describe('SelectField', () => {
             <SelectField
                 data-testid="select-field"
                 label="Theme"
-                hint="Select the theme that you like"
-                message="Your theme preference has been saved"
+                message="Select the theme that you like"
                 tone="success"
             />,
         )
         expect(screen.getByTestId('select-field')).toHaveAccessibleDescription(
-            'Your theme preference has been saved Select the theme that you like',
+            'Select the theme that you like',
         )
     })
 
@@ -132,17 +133,17 @@ describe('SelectField', () => {
             <SelectField
                 data-testid="select-field"
                 label="Province"
-                hint="We need it for billing purposes"
+                message="We need it for billing purposes"
                 hidden
             />,
         )
 
         const selectField = screen.getByTestId('select-field')
-        const hintElement = screen.getByText('We need it for billing purposes')
+        const messageElement = screen.getByText('We need it for billing purposes')
 
         // check that it is rendered but not visible
         expect(selectField).not.toBeVisible()
-        expect(hintElement).not.toBeVisible()
+        expect(messageElement).not.toBeVisible()
         expect(screen.queryByRole('combobox', { name: 'Province' })).not.toBeInTheDocument()
         expect(screen.getByText('Province')).toBeInTheDocument()
 
@@ -151,11 +152,11 @@ describe('SelectField', () => {
             <SelectField
                 data-testid="select-field"
                 label="Province"
-                hint="We need it for billing purposes"
+                message="We need it for billing purposes"
             />,
         )
         expect(selectField).toBeVisible()
-        expect(hintElement).toBeVisible()
+        expect(messageElement).toBeVisible()
         expect(screen.getByRole('combobox', { name: 'Province' })).toBeInTheDocument()
         expect(screen.getByText('Province')).toBeInTheDocument()
     })
@@ -255,7 +256,7 @@ describe('SelectField', () => {
                 <>
                     <SelectField label="Province" />
                     <SelectField label="Province" disabled />
-                    <SelectField label="Province" hint="Select a province" />
+                    <SelectField label="Province" message="Select a province" />
                 </>,
             )
             const results = await axe(container)
