@@ -30,7 +30,6 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
         variant = 'default',
         id,
         label,
-        secondaryLabel,
         auxiliaryLabel,
         hint,
         message,
@@ -81,7 +80,6 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
             variant={variant}
             id={id}
             label={label}
-            secondaryLabel={secondaryLabel}
             auxiliaryLabel={auxiliaryLabel}
             hint={hint}
             message={message}

@@ -12,12 +12,9 @@ describe('PasswordField', () => {
         expect(screen.getByTestId('password-field')).toHaveAccessibleName('New Password')
     })
 
-    it('is labelled by its label and secondary label', () => {
-        const { rerender } = render(<PasswordField data-testid="password-field" label="Phone" />)
+    it('is labelled by its label', () => {
+        render(<PasswordField data-testid="password-field" label="Phone" />)
         expect(screen.getByTestId('password-field')).toHaveAccessibleName('Phone')
-
-        rerender(<PasswordField data-testid="password-field" label="Phone" secondaryLabel="home" />)
-        expect(screen.getByTestId('password-field')).toHaveAccessibleName('Phone (home)')
     })
 
     it('can be labelled via aria-label', () => {

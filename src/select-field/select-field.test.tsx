@@ -12,12 +12,9 @@ describe('SelectField', () => {
         expect(screen.getByTestId('select-field')).toHaveAccessibleName('Province')
     })
 
-    it('is labelled by its label and secondary label', () => {
-        const { rerender } = render(<SelectField data-testid="select-field" label="Phone" />)
+    it('is labelled by its label', () => {
+        render(<SelectField data-testid="select-field" label="Phone" />)
         expect(screen.getByTestId('select-field')).toHaveAccessibleName('Phone')
-
-        rerender(<SelectField data-testid="select-field" label="Phone" secondaryLabel="home" />)
-        expect(screen.getByTestId('select-field')).toHaveAccessibleName('Phone (home)')
     })
 
     it('can be labelled via aria-label', () => {

@@ -12,12 +12,9 @@ describe('TextField', () => {
         expect(screen.getByTestId('text-field')).toHaveAccessibleName('Whatʼs your name?')
     })
 
-    it('is labelled by its label and secondary label', () => {
-        const { rerender } = render(<TextField data-testid="text-field" label="Phone" />)
+    it('is labelled by its label', () => {
+        render(<TextField data-testid="text-field" label="Phone" />)
         expect(screen.getByTestId('text-field')).toHaveAccessibleName('Phone')
-
-        rerender(<TextField data-testid="text-field" label="Phone" secondaryLabel="home" />)
-        expect(screen.getByTestId('text-field')).toHaveAccessibleName('Phone (home)')
     })
 
     it('can be labelled via aria-label', () => {

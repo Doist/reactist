@@ -10,7 +10,6 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
         variant = 'default',
         id,
         label,
-        secondaryLabel,
         auxiliaryLabel,
         hint,
         message,
@@ -28,7 +27,6 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
             variant={variant}
             id={id}
             label={label}
-            secondaryLabel={secondaryLabel}
             auxiliaryLabel={auxiliaryLabel}
             hint={hint}
             message={message}

@@ -99,31 +99,17 @@ type BaseFieldProps = WithEnhancedClassName &
          *
          * Avoid providing interactive elements in the label. Prefer `auxiliaryLabel` for that.
          *
-         * @see BaseFieldProps['secondaryLabel']
          * @see BaseFieldProps['auxiliaryLabel']
          */
         label: React.ReactNode
 
         /**
-         * An optional secondary label for this field element. It is combined with the `label` to
-         * form the field's entire accessible name (unless the field label is overriden by using
-         * `aria-label` or `aria-labelledby`).
-         *
-         * Avoid providing interactive elements in the label. Prefer `auxiliaryLabel` for that.
-         *
-         * @see BaseFieldProps['label']
-         * @see BaseFieldProps['auxiliaryLabel']
-         */
-        secondaryLabel?: React.ReactNode
-
-        /**
-         * An optional extra element to be placed to the right of the main and secondary labels.
+         * An optional extra element to be placed to the right of the main label.
          *
          * This extra element is not included in the accessible name of the field element. Its only
          * purpose is either visual, or functional (if you include interactive elements in it).
          *
          * @see BaseFieldProps['label']
-         * @see BaseFieldProps['secondaryLabel']
          */
         auxiliaryLabel?: React.ReactNode
 
@@ -192,7 +178,6 @@ type FieldComponentProps<T extends HTMLElement> = Omit<
 function BaseField({
     variant = 'default',
     label,
-    secondaryLabel,
     auxiliaryLabel,
     hint,
     message,
@@ -228,7 +213,7 @@ function BaseField({
                 ]}
                 maxWidth={maxWidth}
             >
-                {label || secondaryLabel || auxiliaryLabel ? (
+                {label || auxiliaryLabel ? (
                     <Box
                         as="span"
                         display="flex"
@@ -241,11 +226,6 @@ function BaseField({
                             htmlFor={id}
                         >
                             {label ? <span className={styles.primaryLabel}>{label}</span> : null}
-                            {secondaryLabel ? (
-                                <span className={styles.secondaryLabel}>
-                                    &nbsp;({secondaryLabel})
-                                </span>
-                            ) : null}
                         </Text>
                         {auxiliaryLabel ? (
                             <Box className={styles.auxiliaryLabel} paddingLeft="small">

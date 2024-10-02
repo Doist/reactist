@@ -48,10 +48,6 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
                 control: { type: 'text' },
                 defaultValue: 'User bio',
             },
-            secondaryLabel: {
-                control: { type: 'text' },
-                defaultValue: 'optional',
-            },
             auxiliaryLabel: {
                 control: { type: 'text' },
                 defaultValue: 'Need help?',
@@ -171,14 +167,12 @@ export function AutoExpandStory(props) {
             <TextArea
                 {...props}
                 label="What do you want to accomplish?"
-                secondaryLabel="auto-expand enabled"
                 hint="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
                 autoExpand
             />
             <TextArea
                 {...props}
                 label="What do you want to accomplish?"
-                secondaryLabel="No auto-expand"
                 hint="This one will not auto-expand."
                 autoExpand={false}
             />
@@ -191,7 +185,6 @@ export function AutoExpandStory(props) {
         name="Auto expand"
         argTypes={{
             label: { control: false },
-            secondaryLabel: { control: false },
             auxiliaryLabel: { control: false },
             hint: { control: false },
             rows: {
@@ -234,7 +227,6 @@ export function AutoExpandWithInitialValueStory(props) {
             <TextArea
                 {...props}
                 label="What do you want to accomplish?"
-                secondaryLabel="controlled"
                 auxiliaryLabel={
                     <Text tone="secondary" size="caption">
                         {value.length}
@@ -249,7 +241,6 @@ export function AutoExpandWithInitialValueStory(props) {
             <TextArea
                 {...props}
                 label="What do you want to accomplish?"
-                secondaryLabel="with defaultValue"
                 hint="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
                 defaultValue={initialValue}
                 rows={1}
@@ -264,7 +255,6 @@ export function AutoExpandWithInitialValueStory(props) {
         name="Auto expand with initial value"
         argTypes={{
             label: { control: false },
-            secondaryLabel: { control: false },
             auxiliaryLabel: { control: false },
             hint: { control: false },
             rows: {

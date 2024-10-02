@@ -12,22 +12,9 @@ describe('TextArea', () => {
         expect(screen.getByTestId('text-area')).toHaveAccessibleName('Tell us a bit about you')
     })
 
-    it('is labelled by its label and secondary label', () => {
-        const { rerender } = render(
-            <TextArea data-testid="text-area" label="Tell us a bit about you" />,
-        )
+    it('is labelled by its label', () => {
+        render(<TextArea data-testid="text-area" label="Tell us a bit about you" />)
         expect(screen.getByTestId('text-area')).toHaveAccessibleName('Tell us a bit about you')
-
-        rerender(
-            <TextArea
-                data-testid="text-area"
-                label="Tell us a bit about you"
-                secondaryLabel="optional"
-            />,
-        )
-        expect(screen.getByTestId('text-area')).toHaveAccessibleName(
-            'Tell us a bit about you (optional)',
-        )
     })
 
     it('can be labelled via aria-label', () => {

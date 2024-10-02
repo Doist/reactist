@@ -64,10 +64,6 @@ export function InteractivePropsStory({ label, auxiliaryLabel, startSlot = false
                 control: { type: 'text' },
                 defaultValue: 'Your name',
             },
-            secondaryLabel: {
-                control: { type: 'text' },
-                defaultValue: 'optional',
-            },
             auxiliaryLabel: {
                 control: { type: 'text' },
                 defaultValue: 'Need help?',
@@ -237,8 +233,8 @@ export function ClearButtonExample({ slot }) {
     return (
         <TextField
             label="Search"
-            secondaryLabel={`${slot}={…}`}
             value={value}
+            placeholder={`${slot}={…}`}
             onChange={(event) => setValue(event.currentTarget.value)}
             startSlot={slot === 'startSlot' ? clearButton : undefined}
             endSlot={slot === 'endSlot' ? clearButton : undefined}

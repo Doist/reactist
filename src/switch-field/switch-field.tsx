@@ -11,7 +11,6 @@ interface SwitchFieldProps
     extends Omit<
         FieldComponentProps<HTMLInputElement>,
         | 'type'
-        | 'secondaryLabel'
         | 'auxiliaryLabel'
         | 'maxWidth'
         | 'aria-describedby'
