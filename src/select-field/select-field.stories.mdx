@@ -62,6 +62,7 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
                 control: { type: 'text' },
                 defaultValue: 'Theme',
             },
+            value: { table: { disable: true } },
             tone: {
                 options: ['neutral', 'success', 'error', 'loading'],
                 control: { type: 'inline-radio' },

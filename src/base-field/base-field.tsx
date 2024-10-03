@@ -7,6 +7,9 @@ import { Stack } from '../stack'
 
 import type { WithEnhancedClassName } from '../utils/common-types'
 import { Spinner } from '../spinner'
+import { Column, Columns } from '../columns'
+
+const MAX_LENGTH_THRESHOLD = 10
 
 type FieldTone = 'neutral' | 'success' | 'error' | 'loading'
 
@@ -16,10 +19,13 @@ type FieldMessageProps = {
     tone: FieldTone
 }
 
+function fieldToneToTextTone(tone: FieldTone) {
+    return tone === 'error' ? 'danger' : tone === 'success' ? 'positive' : 'secondary'
+}
+
 function FieldMessage({ id, children, tone }: FieldMessageProps) {
-    const textTone = tone === 'error' ? 'danger' : tone === 'success' ? 'positive' : 'secondary'
     return (
-        <Text as="p" tone={textTone} size="copy" id={id}>
+        <Text as="p" tone={fieldToneToTextTone(tone)} size="copy" id={id}>
             {tone === 'loading' ? (
                 <Box
                     as="span"
@@ -35,14 +41,59 @@ function FieldMessage({ id, children, tone }: FieldMessageProps) {
     )
 }
 
+type FieldCharacterCountProps = {
+    children: React.ReactNode
+    tone: FieldTone
+}
+
+function FieldCharacterCount({ children, tone }: FieldCharacterCountProps) {
+    return (
+        <Text tone={fieldToneToTextTone(tone)} size="copy">
+            {children}
+        </Text>
+    )
+}
+
+type ValidateInputLengthProps = {
+    value?: React.InputHTMLAttributes<unknown>['value']
+    maxLength?: number
+}
+
+type ValidateInputLengthResult = {
+    count: string | null
+    tone: FieldTone
+}
+
+function validateInputLength({
+    value,
+    maxLength,
+}: ValidateInputLengthProps): ValidateInputLengthResult {
+    if (!maxLength) {
+        return {
+            count: null,
+            tone: 'neutral',
+        }
+    }
+
+    const currentLength = String(value || '').length
+    const isNearMaxLength = maxLength - currentLength <= MAX_LENGTH_THRESHOLD
+
+    return {
+        count: `${currentLength}/${maxLength}`,
+        tone: isNearMaxLength ? 'error' : 'neutral',
+    }
+}
+
 //
 // BaseField
 //
 
 type ChildrenRenderProps = {
     id: string
+    value?: React.InputHTMLAttributes<unknown>['value']
     'aria-describedby'?: string
     'aria-invalid'?: true
+    onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 }
 
 type HtmlInputProps<T extends HTMLElement> = React.DetailedHTMLProps<
@@ -68,7 +119,7 @@ type BaseFieldVariantProps = {
 }
 
 type BaseFieldProps = WithEnhancedClassName &
-    Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'aria-describedby'> & {
+    Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'maxLength' | 'aria-describedby'> & {
         /**
          * The main label for this field element.
          *
@@ -82,6 +133,14 @@ type BaseFieldProps = WithEnhancedClassName &
          * @see BaseFieldProps['auxiliaryLabel']
          */
         label: React.ReactNode
+
+        /**
+         * The initial value for this field element.
+         *
+         * This prop is used to calculate the character count for the initial value, and is then
+         * passed to the underlying child element.
+         */
+        value?: React.InputHTMLAttributes<unknown>['value']
 
         /**
          * An optional extra element to be placed to the right of the main label.
@@ -137,19 +196,21 @@ type BaseFieldProps = WithEnhancedClassName &
 
 type FieldComponentProps<T extends HTMLElement> = Omit<
     BaseFieldProps,
-    'children' | 'className' | 'variant'
+    'children' | 'className' | 'fieldRef' | 'variant'
 > &
     Omit<HtmlInputProps<T>, 'className' | 'style'>
 
 function BaseField({
     variant = 'default',
     label,
+    value,
     auxiliaryLabel,
     message,
     tone = 'neutral',
     className,
     children,
     maxWidth,
+    maxLength,
     hidden,
     'aria-describedby': originalAriaDescribedBy,
     id: originalId,
@@ -157,13 +218,49 @@ function BaseField({
     const id = useId(originalId)
     const messageId = useId()
 
+    const inputLength = validateInputLength({ value, maxLength })
+
+    const [characterCount, setCharacterCount] = React.useState<string | null>(inputLength.count)
+    const [characterCountTone, setCharacterCountTone] = React.useState<FieldTone>(inputLength.tone)
+
     const ariaDescribedBy = originalAriaDescribedBy ?? (message ? messageId : null)
 
     const childrenProps: ChildrenRenderProps = {
         id,
+        value,
         ...(ariaDescribedBy ? { 'aria-describedby': ariaDescribedBy } : {}),
         'aria-invalid': tone === 'error' ? true : undefined,
+        onChange(event) {
+            if (!maxLength) {
+                return
+            }
+
+            const inputLength = validateInputLength({
+                value: event.currentTarget.value,
+                maxLength,
+            })
+
+            setCharacterCount(inputLength.count)
+            setCharacterCountTone(inputLength.tone)
+        },
     }
+
+    React.useEffect(
+        function updateCharacterCountOnPropChange() {
+            if (!maxLength) {
+                return
+            }
+
+            const inputLength = validateInputLength({
+                value,
+                maxLength,
+            })
+
+            setCharacterCount(inputLength.count)
+            setCharacterCountTone(inputLength.tone)
+        },
+        [maxLength, value],
+    )
 
     return (
         <Stack space="xsmall" hidden={hidden}>
@@ -199,10 +296,23 @@ function BaseField({
                 ) : null}
                 {children(childrenProps)}
             </Box>
-            {message ? (
-                <FieldMessage id={messageId} tone={tone}>
-                    {message}
-                </FieldMessage>
+            {message || characterCount ? (
+                <Columns align="right" space="small" maxWidth={maxWidth}>
+                    {message ? (
+                        <Column width="auto">
+                            <FieldMessage id={messageId} tone={tone}>
+                                {message}
+                            </FieldMessage>
+                        </Column>
+                    ) : null}
+                    {characterCount ? (
+                        <Column width="content">
+                            <FieldCharacterCount tone={characterCountTone}>
+                                {characterCount}
+                            </FieldCharacterCount>
+                        </Column>
+                    ) : null}
+                </Columns>
             ) : null}
         </Stack>
     )

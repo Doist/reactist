@@ -10,6 +10,7 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
         variant = 'default',
         id,
         label,
+        value,
         auxiliaryLabel,
         message,
         tone,
@@ -17,6 +18,7 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
         children,
         hidden,
         'aria-describedby': ariaDescribedBy,
+        onChange: originalOnChange,
         ...props
     },
     ref,
@@ -26,6 +28,7 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
             variant={variant}
             id={id}
             label={label}
+            value={value}
             auxiliaryLabel={auxiliaryLabel}
             message={message}
             tone={tone}
@@ -42,7 +45,14 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
                         variant === 'bordered' ? styles.bordered : null,
                     ]}
                 >
-                    <select {...props} {...extraProps} ref={ref}>
+                    <select
+                        {...props}
+                        {...extraProps}
+                        ref={ref}
+                        onChange={(event) => {
+                            originalOnChange?.(event)
+                        }}
+                    >
                         {children}
                     </select>
                     <SelectChevron aria-hidden />

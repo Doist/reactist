@@ -40,15 +40,18 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
         variant = 'default',
         id,
         label,
+        value,
         auxiliaryLabel,
         message,
         tone,
         maxWidth,
+        maxLength,
         hidden,
         'aria-describedby': ariaDescribedBy,
         rows,
         autoExpand = false,
         disableResize = false,
+        onChange: originalOnChange,
         ...props
     },
     ref,
@@ -95,6 +98,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
             variant={variant}
             id={id}
             label={label}
+            value={value}
             auxiliaryLabel={auxiliaryLabel}
             message={message}
             tone={tone}
@@ -106,8 +110,9 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
                 variant === 'bordered' ? styles.bordered : null,
             ]}
             maxWidth={maxWidth}
+            maxLength={maxLength}
         >
-            {(extraProps) => (
+            {({ onChange, ...extraProps }) => (
                 <Box
                     width="full"
                     display="flex"
@@ -120,6 +125,11 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
                         ref={combinedRef}
                         rows={rows}
                         className={textAreaClassName}
+                        maxLength={maxLength}
+                        onChange={(event) => {
+                            originalOnChange?.(event)
+                            onChange?.(event)
+                        }}
                     />
                 </Box>
             )}

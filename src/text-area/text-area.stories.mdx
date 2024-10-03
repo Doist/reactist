@@ -48,6 +48,7 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
                 control: { type: 'text' },
                 defaultValue: 'User bio',
             },
+            value: { table: { disable: true } },
             tone: {
                 options: ['neutral', 'success', 'error', 'loading'],
                 control: { type: 'inline-radio' },
@@ -86,6 +87,10 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
             placeholder: {
                 control: { type: 'text' },
                 defaultValue: 'Tell us something about yourself. Don’t be shy.',
+            },
+            maxLength: {
+                control: { type: 'number' },
+                defaultValue: null,
             },
             disabled: {
                 control: { type: 'boolean' },

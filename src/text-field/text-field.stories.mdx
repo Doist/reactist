@@ -82,6 +82,7 @@ export function InteractivePropsStory({
                 control: { type: 'text' },
                 defaultValue: 'Your name',
             },
+            value: { table: { disable: true } },
             tone: {
                 options: ['neutral', 'success', 'error', 'loading'],
                 control: { type: 'inline-radio' },
@@ -116,6 +117,10 @@ export function InteractivePropsStory({
             placeholder: {
                 control: { type: 'text' },
                 defaultValue: 'Enter your name as it appears in your ID',
+            },
+            maxLength: {
+                control: { type: 'number' },
+                defaultValue: null,
             },
             disabled: {
                 control: { type: 'boolean' },
