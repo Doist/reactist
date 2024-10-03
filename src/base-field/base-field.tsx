@@ -149,6 +149,9 @@ type BaseFieldProps = WithEnhancedClassName &
          * purpose is either visual, or functional (if you include interactive elements in it).
          *
          * @see BaseFieldProps['label']
+         *
+         * @deprecated The usage of this element is discouraged given that it was removed from the
+         * latest form field spec revision.
          */
         auxiliaryLabel?: React.ReactNode
 
