@@ -1,0 +1,55 @@
+.eae3d34f,
+.eae3d34f > :last-child {
+    --reactist-columns-gap: 0px;
+}
+._9b4012c9 {
+    --reactist-columns-gap: var(--reactist-spacing-xsmall);
+}
+.e35e0320 {
+    --reactist-columns-gap: var(--reactist-spacing-small);
+}
+._0703e67f {
+    --reactist-columns-gap: var(--reactist-spacing-medium);
+}
+._1cf15621 {
+    --reactist-columns-gap: var(--reactist-spacing-large);
+}
+._1c7dff67 {
+    --reactist-columns-gap: var(--reactist-spacing-xlarge);
+}
+._25bee9b6 {
+    --reactist-columns-gap: var(--reactist-spacing-xxlarge);
+}
+._4bb9987d {
+    flex-basis: content;
+}
+._9dd31975 {
+    flex-basis: auto;
+}
+._38d11c0e {
+    flex-basis: calc(50% - var(--reactist-columns-gap));
+}
+._7ac225c6 {
+    flex-basis: calc(33.33333% - var(--reactist-columns-gap));
+}
+._9c340680 {
+    flex-basis: calc(66.66667% - var(--reactist-columns-gap));
+}
+._81cb99d2 {
+    flex-basis: calc(25% - var(--reactist-columns-gap));
+}
+._10fd355f {
+    flex-basis: calc(75% - var(--reactist-columns-gap));
+}
+._3ee66520 {
+    flex-basis: calc(20% - var(--reactist-columns-gap));
+}
+.df1201a5 {
+    flex-basis: calc(40% - var(--reactist-columns-gap));
+}
+.f772e0b2 {
+    flex-basis: calc(60% - var(--reactist-columns-gap));
+}
+._880cbbb1 {
+    flex-basis: calc(80% - var(--reactist-columns-gap));
+}

@@ -1,0 +1,67 @@
+._64ed24f4 {
+    gap: 0;
+}
+._2580a74b {
+    gap: var(--reactist-spacing-xsmall);
+}
+.c68f8bf6 {
+    gap: var(--reactist-spacing-small);
+}
+._43e5f8e9 {
+    gap: var(--reactist-spacing-medium);
+}
+._966b120f {
+    gap: var(--reactist-spacing-large);
+}
+.f957894c {
+    gap: var(--reactist-spacing-xlarge);
+}
+._8cca104b {
+    gap: var(--reactist-spacing-xxlarge);
+}
+@media (min-width: 768px) {
+    ._5797cee2 {
+        gap: 0;
+    }
+    ._9015672f {
+        gap: var(--reactist-spacing-xsmall);
+    }
+    ._7ec86eec {
+        gap: var(--reactist-spacing-small);
+    }
+    ._714d7179 {
+        gap: var(--reactist-spacing-medium);
+    }
+    .ae1deb59 {
+        gap: var(--reactist-spacing-large);
+    }
+    .e1cfce55 {
+        gap: var(--reactist-spacing-xlarge);
+    }
+    ._168a8ff8 {
+        gap: var(--reactist-spacing-xxlarge);
+    }
+}
+@media (min-width: 992px) {
+    ._43e2b619 {
+        gap: 0;
+    }
+    ._0ea9bf88 {
+        gap: var(--reactist-spacing-xsmall);
+    }
+    .d451307a {
+        gap: var(--reactist-spacing-small);
+    }
+    .bf93cf66 {
+        gap: var(--reactist-spacing-medium);
+    }
+    ._1430cddf {
+        gap: var(--reactist-spacing-large);
+    }
+    .fa00c93e {
+        gap: var(--reactist-spacing-xlarge);
+    }
+    ._6f3aee54 {
+        gap: var(--reactist-spacing-xxlarge);
+    }
+}

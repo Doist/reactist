@@ -1,0 +1,86 @@
+.bff24867 {
+    color: var(--reactist-content-primary);
+    font-weight: var(--reactist-font-weight-strong);
+    font-family: var(--reactist-font-family);
+}
+._9b540c61 {
+    font-weight: var(--reactist-font-weight-medium);
+}
+.c6729907 {
+    font-weight: var(--reactist-font-weight-regular);
+}
+.d6507f70 {
+    color: var(--reactist-content-secondary);
+}
+.d1846d93 {
+    color: #d1453b;
+}
+h1.bff24867 {
+    font-size: var(--reactist-font-size-header);
+}
+h1._7cbdd1ba {
+    font-size: var(--reactist-font-size-header-xlarge);
+}
+h1.b3e14969 {
+    font-size: var(--reactist-font-size-header-large);
+}
+h1.be14a265,
+h2.bff24867 {
+    font-size: var(--reactist-font-size-subtitle);
+}
+h2._7cbdd1ba {
+    font-size: var(--reactist-font-size-header-large);
+}
+h2.b3e14969 {
+    font-size: var(--reactist-font-size-header);
+}
+h2.be14a265,
+h3.bff24867 {
+    font-size: var(--reactist-font-size-body);
+}
+h3._7cbdd1ba {
+    font-size: var(--reactist-font-size-header);
+}
+h3.b3e14969 {
+    font-size: var(--reactist-font-size-subtitle);
+}
+h3.be14a265 {
+    font-size: var(--reactist-font-size-caption);
+}
+h4.bff24867,
+h5.bff24867,
+h6.bff24867 {
+    font-size: var(--reactist-font-size-body);
+}
+h4._7cbdd1ba,
+h5._7cbdd1ba,
+h6._7cbdd1ba {
+    font-size: var(--reactist-font-size-header);
+}
+h4.b3e14969,
+h5.b3e14969,
+h6.b3e14969 {
+    font-size: var(--reactist-font-size-subtitle);
+}
+._71391f13 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+._97298b1b {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+._6d357d76 {
+    -webkit-line-clamp: 2;
+}
+.d820b451 {
+    -webkit-line-clamp: 3;
+}
+._8d37487d {
+    -webkit-line-clamp: 4;
+}
+._5215b4d7 {
+    -webkit-line-clamp: 5;
+}

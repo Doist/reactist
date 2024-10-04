@@ -1,0 +1,36 @@
+:root {
+    --reactist-spinner-tint: var(--reactist-bg-brand);
+    --reactist-spinner-fill: var(--reactist-framework-fill-crest);
+}
+@-webkit-keyframes _54fbe2b3 {
+    0% {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}
+@keyframes _54fbe2b3 {
+    0% {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(1turn);
+    }
+}
+._51539197 {
+    -webkit-animation-name: _54fbe2b3;
+    animation-name: _54fbe2b3;
+    -webkit-animation-duration: 1.2s;
+    animation-duration: 1.2s;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+}
+.a0c466ed {
+    fill: var(--reactist-spinner-tint);
+}
+._745b73d3 {
+    fill: var(--reactist-spinner-fill);
+}
