@@ -2,6 +2,18 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# v26.0.0
+
+-   [BREAKING] Remove unused `secondaryLabel` from `TexTfield`, `PasswordField`, `SelectField`, `TextArea`, and `SwitchField`.
+-   [BREAKING] Remove `hint` from from `TexTfield`, `PasswordField`, `SelectField`, `TextArea`, and `SwitchField`.
+    -   Please use `message` instead.
+-   [Feat] Update read only style for `TextField` and `TextArea` when `readOnly` is `true`.
+-   [Feat] Add `disableResize` option to `TextArea` to disallow manual resizing.
+-   [Feat] Add character count (with limit) to `TextField` and `TextArea`.
+    -   Will show a character count indicator below the field when `maxLength` is set.
+-   [Feat] Add `endSlot` support to `PasswordField`.
+-   [Chore] Deprecate `auxiliaryLabel` from `TexTfield`, `PasswordField`, `SelectField`, and `TextArea`.
+
 # v25.2.0
 
 -   [Feat] Add `ref` support to `ModalBody` component
