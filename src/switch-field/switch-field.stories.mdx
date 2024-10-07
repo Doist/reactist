@@ -27,7 +27,12 @@ A checkbox with a built-in label element that visually looks like a toggle switc
                 control: { type: 'text' },
                 defaultValue: 'Show unread badge',
             },
-            hint: {
+            tone: {
+                options: ['neutral', 'success', 'error', 'loading'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'neutral',
+            },
+            message: {
                 control: { type: 'text' },
                 defaultValue:
                     'Show an icon badge to indicate that there are new threads and messages.',
@@ -47,8 +52,8 @@ A checkbox with a built-in label element that visually looks like a toggle switc
 <Description of={SwitchField} />
 <ArgsTable of={SwitchField} />
 
-export function Template({ label, hint, disabled }) {
-    return <SwitchField label={label || 'Default label'} hint={hint} disabled={disabled} />
+export function Template({ label, message, disabled }) {
+    return <SwitchField label={label || 'Default label'} message={message} disabled={disabled} />
 }
 
 ## Colors

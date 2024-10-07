@@ -12,10 +12,11 @@ interface PasswordFieldProps
     extends Omit<TextFieldProps, 'type' | 'startSlot' | 'endSlot'>,
         BaseFieldVariantProps {
     togglePasswordLabel?: string
+    endSlot?: React.ReactElement | string | number
 }
 
 const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(function PasswordField(
-    { togglePasswordLabel = 'Toggle password visibility', ...props },
+    { togglePasswordLabel = 'Toggle password visibility', endSlot, ...props },
     ref,
 ) {
     const [isPasswordVisible, setPasswordVisible] = React.useState(false)
@@ -27,12 +28,15 @@ const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(fun
             // @ts-expect-error TextField does not support type="password", so we override the type check here
             type={isPasswordVisible ? 'text' : 'password'}
             endSlot={
-                <IconButton
-                    variant="quaternary"
-                    icon={<Icon aria-hidden />}
-                    aria-label={togglePasswordLabel}
-                    onClick={() => setPasswordVisible((v) => !v)}
-                />
+                <>
+                    {endSlot}
+                    <IconButton
+                        variant="quaternary"
+                        icon={<Icon aria-hidden />}
+                        aria-label={togglePasswordLabel}
+                        onClick={() => setPasswordVisible((v) => !v)}
+                    />
+                </>
             }
         />
     )

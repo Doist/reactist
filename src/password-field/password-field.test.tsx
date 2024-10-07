@@ -12,12 +12,9 @@ describe('PasswordField', () => {
         expect(screen.getByTestId('password-field')).toHaveAccessibleName('New Password')
     })
 
-    it('is labelled by its label and secondary label', () => {
-        const { rerender } = render(<PasswordField data-testid="password-field" label="Phone" />)
+    it('is labelled by its label', () => {
+        render(<PasswordField data-testid="password-field" label="Phone" />)
         expect(screen.getByTestId('password-field')).toHaveAccessibleName('Phone')
-
-        rerender(<PasswordField data-testid="password-field" label="Phone" secondaryLabel="home" />)
-        expect(screen.getByTestId('password-field')).toHaveAccessibleName('Phone (home)')
     })
 
     it('can be labelled via aria-label', () => {
@@ -45,9 +42,13 @@ describe('PasswordField', () => {
         expect(screen.getByTestId('password-field')).toHaveAccessibleName('Your phone number')
     })
 
-    it('is described by its hint when provided', () => {
+    it('is described by its message when provided', () => {
         render(
-            <PasswordField data-testid="password-field" label="Phone" hint="So we can call you" />,
+            <PasswordField
+                data-testid="password-field"
+                label="Phone"
+                message="So we can call you"
+            />,
         )
         expect(screen.getByTestId('password-field')).toHaveAccessibleDescription(
             'So we can call you',
@@ -60,10 +61,10 @@ describe('PasswordField', () => {
                 <PasswordField
                     data-testid="password-field"
                     label="Phone"
-                    hint="So we can call you"
-                    aria-describedby="custom-hint"
+                    message="So we can call you"
+                    aria-describedby="custom-message"
                 />
-                <div id="custom-hint">This is the phone where we will call you</div>
+                <div id="custom-message">This is the phone where we will call you</div>
             </>,
         )
         expect(screen.getByTestId('password-field')).toHaveAccessibleDescription(
@@ -98,13 +99,12 @@ describe('PasswordField', () => {
             <PasswordField
                 data-testid="password-field"
                 label="Password confirmation"
-                hint="Type your password one more time"
-                message="Matches password"
-                tone="success"
+                message="Type your password one more time"
+                tone="neutral"
             />,
         )
         expect(screen.getByTestId('password-field')).toHaveAccessibleDescription(
-            'Matches password Type your password one more time',
+            'Type your password one more time',
         )
     })
 
@@ -209,28 +209,28 @@ describe('PasswordField', () => {
             <PasswordField
                 data-testid="password-field"
                 label="New Password"
-                hint="Must be at least 8 characters long"
+                message="Must be at least 8 characters long"
                 hidden
             />,
         )
 
         const inputField = screen.getByTestId('password-field')
-        const hintElement = screen.getByText('Must be at least 8 characters long')
+        const messageElement = screen.getByText('Must be at least 8 characters long')
 
         // check that it is rendered but not visible
         expect(inputField).not.toBeVisible()
-        expect(hintElement).not.toBeVisible()
+        expect(messageElement).not.toBeVisible()
 
         // check that it becomes visible when hidden is removed
         rerender(
             <PasswordField
                 data-testid="password-field"
                 label="New Password"
-                hint="Must be at least 8 characters long"
+                message="Must be at least 8 characters long"
             />,
         )
         expect(inputField).toBeVisible()
-        expect(hintElement).toBeVisible()
+        expect(messageElement).toBeVisible()
     })
 
     it('forwards to the input element any extra props provided to it', () => {
@@ -305,7 +305,7 @@ describe('PasswordField', () => {
                 <>
                     <PasswordField label="New Password" />
                     <PasswordField label="New Password" disabled />
-                    <PasswordField label="New Password" hint="Enter a new password" />
+                    <PasswordField label="New Password" message="Enter a new password" />
                 </>,
             )
             const results = await axe(container)

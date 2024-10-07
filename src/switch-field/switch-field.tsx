@@ -3,7 +3,7 @@ import { Box } from '../box'
 import { Stack } from '../stack'
 import { Text } from '../text'
 import { HiddenVisually } from '../hidden-visually'
-import { FieldComponentProps, FieldHint } from '../base-field'
+import { FieldComponentProps, FieldMessage } from '../base-field'
 import { useId } from '../utils/common-helpers'
 import styles from './switch-field.module.css'
 
@@ -11,7 +11,6 @@ interface SwitchFieldProps
     extends Omit<
         FieldComponentProps<HTMLInputElement>,
         | 'type'
-        | 'secondaryLabel'
         | 'auxiliaryLabel'
         | 'maxWidth'
         | 'aria-describedby'
@@ -37,7 +36,8 @@ interface SwitchFieldProps
 const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(function SwitchField(
     {
         label,
-        hint,
+        message,
+        tone = 'neutral',
         disabled = false,
         hidden,
         defaultChecked,
@@ -51,9 +51,9 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
     ref,
 ) {
     const id = useId(originalId)
-    const hintId = useId()
+    const messageId = useId()
 
-    const ariaDescribedBy = originalAriaDescribedBy ?? (hint ? hintId : undefined)
+    const ariaDescribedBy = originalAriaDescribedBy ?? (message ? messageId : undefined)
     const ariaLabel = originalAriaLabel ?? undefined
     const ariaLabelledBy = originalAriaLabelledby ?? undefined
 
@@ -113,7 +113,11 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
                 </Box>
                 <Text exceptionallySetClassName={styles.label}>{label}</Text>
             </Box>
-            {hint ? <FieldHint id={hintId}>{hint}</FieldHint> : null}
+            {message ? (
+                <FieldMessage id={messageId} tone={tone}>
+                    {message}
+                </FieldMessage>
+            ) : null}
         </Stack>
     )
 })

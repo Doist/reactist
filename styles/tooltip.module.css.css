@@ -1,0 +1,5 @@
+._487c82cd {
+    text-overflow: ellipsis;
+    max-width: 300px;
+    z-index: var(--reactist-stacking-order-tooltip);
+}

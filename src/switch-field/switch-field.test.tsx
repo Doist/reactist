@@ -17,12 +17,12 @@ describe('SwitchField', () => {
         expect(screen.getByTestId('switch-field')).toHaveAccessibleName('Show completed tasks')
     })
 
-    it('is described by its hint when provided', () => {
+    it('is described by its message when provided', () => {
         render(
             <SwitchField
                 data-testid="switch-field"
                 label="Show completed tasks"
-                hint="Show completed tasks by default"
+                message="Show completed tasks by default"
             />,
         )
         expect(screen.getByTestId('switch-field')).toHaveAccessibleDescription(
@@ -35,13 +35,13 @@ describe('SwitchField', () => {
             <SwitchField
                 data-testid="switch-field"
                 label="Show unread badge"
-                hint="Show an icon badge to indicate that there are new threads and messages."
+                message="Show an icon badge to indicate that there are new threads and messages."
                 hidden
             />,
         )
 
         const inputField = screen.getByTestId('switch-field')
-        const hintElement = screen.getByText(
+        const messageElement = screen.getByText(
             'Show an icon badge to indicate that there are new threads and messages.',
         )
 
@@ -50,19 +50,19 @@ describe('SwitchField', () => {
         expect(
             screen.queryByRole('checkbox', { name: 'Show unread badge' }),
         ).not.toBeInTheDocument()
-        expect(hintElement).not.toBeVisible()
+        expect(messageElement).not.toBeVisible()
 
         // check that it becomes visible when hidden is removed
         rerender(
             <SwitchField
                 data-testid="switch-field"
                 label="Show unread badge"
-                hint="We need it for billing purposes"
+                message="We need it for billing purposes"
             />,
         )
         expect(inputField).toBeVisible()
         expect(screen.getByRole('checkbox', { name: 'Show unread badge' })).toBeInTheDocument()
-        expect(hintElement).toBeVisible()
+        expect(messageElement).toBeVisible()
     })
 
     it('forwards to the input element any extra props provided to it', () => {
@@ -184,10 +184,10 @@ describe('SwitchField', () => {
                     <SwitchField
                         data-testid="switch-field"
                         label="Show completed tasks"
-                        hint="Show completed tasks by default"
-                        aria-describedby="custom-hint"
+                        message="Show completed tasks by default"
+                        aria-describedby="custom-mesage"
                     />
-                    <div id="custom-hint">Always show your completed tasks by default</div>
+                    <div id="custom-mesage">Always show your completed tasks by default</div>
                 </>,
             )
             expect(screen.getByTestId('switch-field')).toHaveAccessibleDescription(

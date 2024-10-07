@@ -143,7 +143,7 @@ function ModalOptionsForm({ title }: { title?: React.ReactNode }) {
             <SwitchField
                 name="withScrollableContent"
                 label="Extra content to scroll"
-                hint="When enabled, it renders extra content below to make the modal body scroll"
+                message="When enabled, it renders extra content below to make the modal body scroll"
                 checked={withScrollableContent}
                 onChange={onChange}
             />

@@ -20,17 +20,18 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         variant = 'default',
         id,
         label,
-        secondaryLabel,
+        value,
         auxiliaryLabel,
-        hint,
         message,
         tone,
         type = 'text',
         maxWidth,
+        maxLength,
         hidden,
         'aria-describedby': ariaDescribedBy,
         startSlot,
         endSlot,
+        onChange: originalOnChange,
         ...props
     },
     ref,
@@ -48,16 +49,16 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
             variant={variant}
             id={id}
             label={label}
-            secondaryLabel={secondaryLabel}
+            value={value}
             auxiliaryLabel={auxiliaryLabel}
-            hint={hint}
             message={message}
             tone={tone}
             maxWidth={maxWidth}
+            maxLength={maxLength}
             hidden={hidden}
             aria-describedby={ariaDescribedBy}
         >
-            {(extraProps) => (
+            {({ onChange, ...extraProps }) => (
                 <Box
                     display="flex"
                     alignItems="center"
@@ -65,6 +66,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                         styles.inputWrapper,
                         tone === 'error' ? styles.error : null,
                         variant === 'bordered' ? styles.bordered : null,
+                        props.readOnly ? styles.readOnly : null,
                     ]}
                     onClick={handleClick}
                 >
@@ -78,7 +80,17 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                             {startSlot}
                         </Box>
                     ) : null}
-                    <input {...props} {...extraProps} type={type} ref={combinedRef} />
+                    <input
+                        {...props}
+                        {...extraProps}
+                        type={type}
+                        ref={combinedRef}
+                        maxLength={maxLength}
+                        onChange={(event) => {
+                            originalOnChange?.(event)
+                            onChange?.(event)
+                        }}
+                    />
                     {endSlot ? (
                         <Box
                             className={styles.slot}

@@ -21,7 +21,7 @@ import { selectWithNone } from '../utils/storybook-helper'
 
 A component used to accept textual input from the user.
 
-export function Icon() {
+export function SearchIcon() {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
             <path
@@ -32,11 +32,28 @@ export function Icon() {
     )
 }
 
+export function CloseIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+            <path
+                d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z"
+                fill="currentColor"
+            />
+        </svg>
+    )
+}
+
 export function preventDefault(event) {
     event.preventDefault()
 }
 
-export function InteractivePropsStory({ label, auxiliaryLabel, startSlot = false, ...props }) {
+export function InteractivePropsStory({
+    label,
+    auxiliaryLabel,
+    startSlot = false,
+    endSlot = false,
+    ...props
+}) {
     return (
         <TextField
             {...props}
@@ -48,7 +65,8 @@ export function InteractivePropsStory({ label, auxiliaryLabel, startSlot = false
                     </a>
                 ) : undefined
             }
-            startSlot={startSlot ? <Icon /> : undefined}
+            startSlot={startSlot ? <SearchIcon /> : undefined}
+            endSlot={endSlot ? <CloseIcon /> : undefined}
         />
     )
 }
@@ -64,39 +82,51 @@ export function InteractivePropsStory({ label, auxiliaryLabel, startSlot = false
                 control: { type: 'text' },
                 defaultValue: 'Your name',
             },
-            secondaryLabel: {
-                control: { type: 'text' },
-                defaultValue: 'optional',
-            },
-            auxiliaryLabel: {
-                control: { type: 'text' },
-                defaultValue: 'Need help?',
-            },
-            hint: {
-                control: { type: 'text' },
-                defaultValue:
-                    'We need your name for billing and shipping purposes. Make sure to enter it correctly.',
-            },
-            message: {
-                control: { type: 'text' },
-                defaultValue: '',
-            },
+            value: { table: { disable: true } },
             tone: {
                 options: ['neutral', 'success', 'error', 'loading'],
                 control: { type: 'inline-radio' },
                 defaultValue: 'neutral',
+            },
+            maxWidth: selectWithNone(
+                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+                'small',
+            ),
+            startSlot: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            endSlot: {
+                control: { type: 'boolean' },
+                defaultValue: false,
             },
             variant: {
                 options: ['default', 'bordered'],
                 control: { type: 'inline-radio' },
                 defaultValue: 'default',
             },
+            auxiliaryLabel: {
+                control: { type: 'text' },
+                defaultValue: 'Need help?',
+            },
+            message: {
+                control: { type: 'text' },
+                defaultValue:
+                    'We need your name for billing and shipping purposes. Make sure to enter it correctly.',
+            },
             placeholder: {
                 control: { type: 'text' },
                 defaultValue: 'Enter your name as it appears in your ID',
             },
-            maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge'], 'small'),
-            startSlot: {
+            maxLength: {
+                control: { type: 'number' },
+                defaultValue: null,
+            },
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            readOnly: {
                 control: { type: 'boolean' },
                 defaultValue: false,
             },
@@ -148,8 +178,7 @@ Note that these variables are shared with other components such as `PasswordFiel
             />
             <TextField
                 label="Verification code"
-                message="Message with neutral tone (used as description, but still prefer the hint prop for that)"
-                hint="This is the primary description of the field, provided by the hint prop"
+                message="This is the supporting text (helper or error) of the field, provided by the message prop"
                 tone="neutral"
                 maxWidth="small"
             />
@@ -192,13 +221,13 @@ Note that these variables are shared with other components such as `PasswordFiel
         <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
             <TextField
                 label="Search (default variant)"
-                startSlot={<Icon />}
+                startSlot={<SearchIcon />}
                 placeholder="Text field with an icon"
             />
             <TextField
                 variant="bordered"
                 label="Search (bordered variant)"
-                startSlot={<Icon />}
+                startSlot={<SearchIcon />}
                 placeholder="Text field with an icon"
             />
         </Box>
@@ -237,8 +266,8 @@ export function ClearButtonExample({ slot }) {
     return (
         <TextField
             label="Search"
-            secondaryLabel={`${slot}={…}`}
             value={value}
+            placeholder={`${slot}={…}`}
             onChange={(event) => setValue(event.currentTarget.value)}
             startSlot={slot === 'startSlot' ? clearButton : undefined}
             endSlot={slot === 'endSlot' ? clearButton : undefined}
@@ -270,7 +299,7 @@ export function WithTooltipExample() {
                 value={value}
                 onChange={(event) => setValue(event.currentTarget.value)}
                 tone={isValidNumber ? 'neutral' : 'error'}
-                hint="This field acceps only numeric inputs. Try typing valid and invalid values to see how it behaves."
+                message="This field acceps only numeric inputs. Try typing valid and invalid values to see how it behaves."
                 maxWidth="small"
                 onBlur={() => {
                     setValue(isValidNumber ? value.trim() : '')

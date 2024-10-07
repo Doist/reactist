@@ -1,0 +1,18 @@
+._616cc3f3 {
+    bottom: 0;
+    pointer-events: none;
+    z-index: var(--reactist-stacking-order-toast);
+}
+._1b5f8e86 {
+    pointer-events: all;
+    gap: var(--reactist-spacing-medium);
+    box-shadow: var(--reactist-toast-box-shadow);
+}
+.ce2e3476 {
+    color: var(--reactist-content-primary);
+}
+@media (max-width: 500px) {
+    ._1b5f8e86 {
+        width: 100% !important;
+    }
+}

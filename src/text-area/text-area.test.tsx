@@ -12,22 +12,9 @@ describe('TextArea', () => {
         expect(screen.getByTestId('text-area')).toHaveAccessibleName('Tell us a bit about you')
     })
 
-    it('is labelled by its label and secondary label', () => {
-        const { rerender } = render(
-            <TextArea data-testid="text-area" label="Tell us a bit about you" />,
-        )
+    it('is labelled by its label', () => {
+        render(<TextArea data-testid="text-area" label="Tell us a bit about you" />)
         expect(screen.getByTestId('text-area')).toHaveAccessibleName('Tell us a bit about you')
-
-        rerender(
-            <TextArea
-                data-testid="text-area"
-                label="Tell us a bit about you"
-                secondaryLabel="optional"
-            />,
-        )
-        expect(screen.getByTestId('text-area')).toHaveAccessibleName(
-            'Tell us a bit about you (optional)',
-        )
     })
 
     it('can be labelled via aria-label', () => {
@@ -55,9 +42,13 @@ describe('TextArea', () => {
         expect(screen.getByTestId('text-area')).toHaveAccessibleName('Biography')
     })
 
-    it('is described by its hint when provided', () => {
+    it('is described by its message when provided', () => {
         render(
-            <TextArea data-testid="text-area" label="Biography" hint="Tell us a bit about you" />,
+            <TextArea
+                data-testid="text-area"
+                label="Biography"
+                message="Tell us a bit about you"
+            />,
         )
         expect(screen.getByTestId('text-area')).toHaveAccessibleDescription(
             'Tell us a bit about you',
@@ -70,10 +61,12 @@ describe('TextArea', () => {
                 <TextArea
                     data-testid="text-area"
                     label="Tell us a bit about you"
-                    hint="Don't be shy"
-                    aria-describedby="custom-hint"
+                    message="Don't be shy"
+                    aria-describedby="custom-message"
                 />
-                <div id="custom-hint">You can talk about your hobbies and personal preferences</div>
+                <div id="custom-message">
+                    You can talk about your hobbies and personal preferences
+                </div>
             </>,
         )
         expect(screen.getByTestId('text-area')).toHaveAccessibleDescription(
@@ -102,21 +95,6 @@ describe('TextArea', () => {
             )
         },
     )
-
-    it('adds the message as part of the description, whenever the tone is not error', () => {
-        render(
-            <TextArea
-                data-testid="text-area"
-                label="Biography"
-                hint="Tell us a bit about you"
-                message="Changes saved successfully"
-                tone="success"
-            />,
-        )
-        expect(screen.getByTestId('text-area')).toHaveAccessibleDescription(
-            'Changes saved successfully Tell us a bit about you',
-        )
-    })
 
     it('renders its auxiliary label', () => {
         render(
@@ -160,13 +138,13 @@ describe('TextArea', () => {
             <TextArea
                 data-testid="text-area"
                 label="Tell us a bit about you"
-                hint="You can talk about your hobbies and personal preferences"
+                message="You can talk about your hobbies and personal preferences"
                 hidden
             />,
         )
 
         const textAreaElement = screen.getByTestId('text-area')
-        const hintElement = screen.getByText(/you can talk about your hobbies/i)
+        const messageElement = screen.getByText(/you can talk about your hobbies/i)
 
         // check that it is rendered but not visible
         expect(textAreaElement).not.toBeVisible()
@@ -174,20 +152,20 @@ describe('TextArea', () => {
             screen.queryByRole('textbox', { name: 'Tell us a bit about you' }),
         ).not.toBeInTheDocument()
         expect(screen.getByText(/you can talk about your hobbies/i)).toBeInTheDocument()
-        expect(hintElement).not.toBeVisible()
+        expect(messageElement).not.toBeVisible()
 
         // check that it becomes visible when hidden is removed
         rerender(
             <TextArea
                 data-testid="text-area"
                 label="Tell us a bit about you"
-                hint="You can talk about your hobbies and personal preferences"
+                message="You can talk about your hobbies and personal preferences"
             />,
         )
         expect(textAreaElement).toBeVisible()
         expect(screen.getByRole('textbox', { name: 'Tell us a bit about you' })).toBeInTheDocument()
         expect(screen.getByText(/you can talk about your hobbies/i)).toBeInTheDocument()
-        expect(hintElement).toBeVisible()
+        expect(messageElement).toBeVisible()
     })
 
     it('forwards to the textarea element any extra props provided to it', () => {
@@ -209,10 +187,10 @@ describe('TextArea', () => {
     it('enables auto-grow when rows="auto"', () => {
         const { rerender } = render(<TextArea label="Auto-grow" autoExpand />)
         const textarea = screen.getByRole('textbox', { name: 'Auto-grow' })
-        expect(textarea).toHaveClass('autoExpand')
+        expect(textarea).toHaveClass('disableResize')
 
         rerender(<TextArea label="Auto-grow" rows={undefined} />)
-        expect(textarea).not.toHaveClass('autoExpand')
+        expect(textarea).not.toHaveClass('disableResize')
     })
 
     it('forwards the `rows` prop to the text area', () => {
@@ -276,7 +254,7 @@ describe('TextArea', () => {
                 <>
                     <TextArea label="Biography" />
                     <TextArea label="Biography" disabled />
-                    <TextArea label="Biography" hint="Tell us a bit about you" />
+                    <TextArea label="Biography" message="Tell us a bit about you" />
                 </>,
             )
             expect(await axe(container)).toHaveNoViolations()

@@ -48,41 +48,58 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
                 control: { type: 'text' },
                 defaultValue: 'User bio',
             },
-            secondaryLabel: {
-                control: { type: 'text' },
-                defaultValue: 'optional',
-            },
-            auxiliaryLabel: {
-                control: { type: 'text' },
-                defaultValue: 'Need help?',
-            },
-            hint: {
-                control: { type: 'text' },
-                defaultValue:
-                    'You’ll have a better experience in our community if others get to know a little bit about you.',
-            },
-            message: {
-                control: { type: 'text' },
-                defaultValue: '',
-            },
+            value: { table: { disable: true } },
             tone: {
                 options: ['neutral', 'success', 'error', 'loading'],
                 control: { type: 'inline-radio' },
                 defaultValue: 'neutral',
             },
+            maxWidth: selectWithNone(
+                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+                'small',
+            ),
             variant: {
                 options: ['default', 'bordered'],
                 control: { type: 'inline-radio' },
                 defaultValue: 'default',
             },
+            auxiliaryLabel: {
+                control: { type: 'text' },
+                defaultValue: 'Need help?',
+            },
+            message: {
+                control: { type: 'text' },
+                defaultValue:
+                    'You’ll have a better experience in our community if others get to know a little bit about you.',
+            },
+            rows: {
+                control: { type: 'number' },
+                defaultValue: 2,
+            },
+            autoExpand: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            disableResize: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
             placeholder: {
                 control: { type: 'text' },
                 defaultValue: 'Tell us something about yourself. Don’t be shy.',
             },
-            maxWidth: selectWithNone(
-                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
-                'small',
-            ),
+            maxLength: {
+                control: { type: 'number' },
+                defaultValue: null,
+            },
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            readOnly: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
         }}
     >
         {InteractivePropsStory.bind({})}
@@ -131,8 +148,7 @@ Note that these variables are shared with other components such as `Textfield`, 
             />
             <TextArea
                 label="Profile bio"
-                message="Message with neutral tone (used as description, but still prefer the hint prop for that)"
-                hint="This is the primary description of the field, provided by the hint prop"
+                message="This is the supporting text (helper or error) of the field, provided by the message prop"
                 tone="neutral"
                 maxWidth="small"
             />
@@ -171,15 +187,13 @@ export function AutoExpandStory(props) {
             <TextArea
                 {...props}
                 label="What do you want to accomplish?"
-                secondaryLabel="auto-expand enabled"
-                hint="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
+                message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
                 autoExpand
             />
             <TextArea
                 {...props}
                 label="What do you want to accomplish?"
-                secondaryLabel="No auto-expand"
-                hint="This one will not auto-expand."
+                message="This one will not auto-expand."
                 autoExpand={false}
             />
         </Stack>
@@ -191,9 +205,21 @@ export function AutoExpandStory(props) {
         name="Auto expand"
         argTypes={{
             label: { control: false },
-            secondaryLabel: { control: false },
+            tone: {
+                options: ['neutral', 'success', 'error', 'loading'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'neutral',
+            },
+            maxWidth: selectWithNone(
+                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+                'small',
+            ),
+            variant: {
+                options: ['default', 'bordered'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'default',
+            },
             auxiliaryLabel: { control: false },
-            hint: { control: false },
             rows: {
                 control: { type: 'number' },
             },
@@ -201,24 +227,22 @@ export function AutoExpandStory(props) {
                 control: { type: 'text' },
                 defaultValue: '',
             },
-            tone: {
-                options: ['neutral', 'success', 'error', 'loading'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'neutral',
+            rows: {
+                control: { type: 'number' },
+                defaultValue: 2,
             },
-            variant: {
-                options: ['default', 'bordered'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'default',
+            autoExpand: {
+                control: { type: 'boolean' },
+                defaultValue: false,
             },
             placeholder: {
                 control: { type: 'text' },
                 defaultValue: '',
             },
-            maxWidth: selectWithNone(
-                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
-                'small',
-            ),
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
         }}
     >
         {AutoExpandStory.bind({})}
@@ -234,13 +258,12 @@ export function AutoExpandWithInitialValueStory(props) {
             <TextArea
                 {...props}
                 label="What do you want to accomplish?"
-                secondaryLabel="controlled"
                 auxiliaryLabel={
                     <Text tone="secondary" size="caption">
                         {value.length}
                     </Text>
                 }
-                hint="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
+                message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
                 value={value}
                 onChange={(event) => setValue(event.target.value)}
                 rows={1}
@@ -249,8 +272,7 @@ export function AutoExpandWithInitialValueStory(props) {
             <TextArea
                 {...props}
                 label="What do you want to accomplish?"
-                secondaryLabel="with defaultValue"
-                hint="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
+                message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
                 defaultValue={initialValue}
                 rows={1}
                 autoExpand
@@ -264,9 +286,21 @@ export function AutoExpandWithInitialValueStory(props) {
         name="Auto expand with initial value"
         argTypes={{
             label: { control: false },
-            secondaryLabel: { control: false },
+            tone: {
+                options: ['neutral', 'success', 'error', 'loading'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'neutral',
+            },
+            maxWidth: selectWithNone(
+                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+                'small',
+            ),
+            variant: {
+                options: ['default', 'bordered'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'default',
+            },
             auxiliaryLabel: { control: false },
-            hint: { control: false },
             rows: {
                 control: { type: 'number' },
             },
@@ -274,24 +308,30 @@ export function AutoExpandWithInitialValueStory(props) {
                 control: { type: 'text' },
                 defaultValue: '',
             },
-            tone: {
-                options: ['neutral', 'success', 'error', 'loading'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'neutral',
+            rows: {
+                control: { type: 'number' },
+                defaultValue: 2,
             },
-            variant: {
-                options: ['default', 'bordered'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'default',
+            autoExpand: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            disableResize: {
+                control: { type: 'boolean' },
+                defaultValue: false,
             },
             placeholder: {
                 control: { type: 'text' },
                 defaultValue: '',
             },
-            maxWidth: selectWithNone(
-                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
-                'small',
-            ),
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            readOnly: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
         }}
     >
         {AutoExpandWithInitialValueStory.bind({})}

@@ -1,0 +1,99 @@
+:root {
+    --reactist-avatar-size-xxsmall: 16px;
+    --reactist-avatar-size-xsmall: 20px;
+    --reactist-avatar-size-small: 30px;
+    --reactist-avatar-size-medium: 32px;
+    --reactist-avatar-size-large: 34px;
+    --reactist-avatar-size-xlarge: 48px;
+    --reactist-avatar-size-xxlarge: 70px;
+    --reactist-avatar-size-xxxlarge: 100px;
+    --reactist-avatar-size: var(--reactist-avatar-size-large);
+}
+._38a1be89 {
+    flex-shrink: 0;
+    background-position: 50%;
+    color: #fff;
+    text-align: center;
+    border-radius: 50%;
+    width: var(--reactist-avatar-size);
+    height: var(--reactist-avatar-size);
+    line-height: var(--reactist-avatar-size);
+    background-size: var(--reactist-avatar-size);
+    font-size: calc(var(--reactist-avatar-size) / 2);
+}
+.d32e92ae {
+    --reactist-avatar-size: var(--reactist-avatar-size-xxsmall);
+}
+._0667d719 {
+    --reactist-avatar-size: var(--reactist-avatar-size-xsmall);
+}
+.cf529fcf {
+    --reactist-avatar-size: var(--reactist-avatar-size-small);
+}
+._6e268eab {
+    --reactist-avatar-size: var(--reactist-avatar-size-medium);
+}
+.d64c62cf {
+    --reactist-avatar-size: var(--reactist-avatar-size-large);
+}
+._44fb77de {
+    --reactist-avatar-size: var(--reactist-avatar-size-xlarge);
+}
+._01f85e0e {
+    --reactist-avatar-size: var(--reactist-avatar-size-xxlarge);
+}
+._41a5fe19 {
+    --reactist-avatar-size: var(--reactist-avatar-size-xxxlarge);
+}
+@media (min-width: 768px) {
+    ._6ab1577d {
+        --reactist-avatar-size: var(--reactist-avatar-size-xxsmall);
+    }
+    .b52a4963 {
+        --reactist-avatar-size: var(--reactist-avatar-size-xsmall);
+    }
+    ._714a8419 {
+        --reactist-avatar-size: var(--reactist-avatar-size-small);
+    }
+    ._81cd4d51 {
+        --reactist-avatar-size: var(--reactist-avatar-size-medium);
+    }
+    .bf0a4edb {
+        --reactist-avatar-size: var(--reactist-avatar-size-large);
+    }
+    .e4f0dabd {
+        --reactist-avatar-size: var(--reactist-avatar-size-xlarge);
+    }
+    ._67ea065d {
+        --reactist-avatar-size: var(--reactist-avatar-size-xxlarge);
+    }
+    ._2af7f76f {
+        --reactist-avatar-size: var(--reactist-avatar-size-xxxlarge);
+    }
+}
+@media (min-width: 992px) {
+    ._759081dc {
+        --reactist-avatar-size: var(--reactist-avatar-size-xxsmall);
+    }
+    ._8290d1c1 {
+        --reactist-avatar-size: var(--reactist-avatar-size-xsmall);
+    }
+    ._48ea172d {
+        --reactist-avatar-size: var(--reactist-avatar-size-small);
+    }
+    ._758f6641 {
+        --reactist-avatar-size: var(--reactist-avatar-size-medium);
+    }
+    .f9ada088 {
+        --reactist-avatar-size: var(--reactist-avatar-size-large);
+    }
+    .d3bb7470 {
+        --reactist-avatar-size: var(--reactist-avatar-size-xlarge);
+    }
+    ._9a312ee3 {
+        --reactist-avatar-size: var(--reactist-avatar-size-xxlarge);
+    }
+    .a1d30c23 {
+        --reactist-avatar-size: var(--reactist-avatar-size-xxxlarge);
+    }
+}

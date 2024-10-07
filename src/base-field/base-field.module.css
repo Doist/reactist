@@ -51,14 +51,10 @@
     font-size: var(--reactist-font-size-body);
 }
 
-.secondaryLabel {
-    color: var(--reactist-content-secondary);
-}
-
 .auxiliaryLabel {
     text-align: right;
 }
 
-.messageIcon {
+.loadingIcon {
     vertical-align: bottom;
 }

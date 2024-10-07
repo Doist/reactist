@@ -30,6 +30,11 @@ See https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
     overflow-wrap: anywhere; /* to stop unnecessary horizontal expansion of text-area when `autoExpand` is enabled.*/
 }
 
+.textAreaContainer textarea[readonly] {
+    background-color: var(--reactist-field-readonly-background);
+    color: var(--reactist-content-primary);
+}
+
 .textAreaContainer:not(.bordered) .innerContainer::after,
 .textAreaContainer:not(.bordered) textarea {
     border-radius: var(--reactist-border-radius-small);
@@ -79,7 +84,7 @@ See https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
     grid-area: 1 / 1 / 2 / 2;
 }
 
-textarea.autoExpand {
+textarea.disableResize {
     resize: none; /* You could leave this, but after a user resizes, then it ruins the auto sizing */
     overflow: hidden; /* Firefox shows scrollbar on growth, you can hide like this. */
 }

@@ -1,0 +1,52 @@
+.a83bd4e0 {
+    font-family: var(--reactist-font-family);
+    font-size: var(--reactist-font-size-body);
+    font-weight: var(--reactist-font-weight-regular);
+    color: var(--reactist-content-primary);
+}
+._266d6623 {
+    font-size: var(--reactist-font-size-caption);
+}
+.a8d37c6e {
+    font-size: var(--reactist-font-size-copy);
+}
+._39f4eb1f {
+    font-size: var(--reactist-font-size-subtitle);
+}
+._7be5c531 {
+    font-weight: var(--reactist-font-weight-medium);
+}
+.e214ff2e {
+    font-weight: var(--reactist-font-weight-strong);
+}
+._6a3e5ade {
+    color: var(--reactist-content-secondary);
+}
+._8f5b5f2b {
+    color: var(--reactist-content-danger);
+}
+._9ae47ae4 {
+    color: var(--reactist-content-positive);
+}
+._969f18f7 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+._2f303ac3 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.d3e04245 {
+    -webkit-line-clamp: 2;
+}
+._33411704 {
+    -webkit-line-clamp: 3;
+}
+.bfc32640 {
+    -webkit-line-clamp: 4;
+}
+.f813c82f {
+    -webkit-line-clamp: 5;
+}

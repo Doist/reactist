@@ -7,52 +7,81 @@ import { Stack } from '../stack'
 
 import type { WithEnhancedClassName } from '../utils/common-types'
 import { Spinner } from '../spinner'
+import { Column, Columns } from '../columns'
 
-type FieldHintProps = {
-    id: string
-    children: React.ReactNode
-}
-
-function FieldHint(props: FieldHintProps) {
-    return <Text as="p" tone="secondary" size="copy" {...props} />
-}
-
-function MessageIcon(props: React.SVGProps<SVGSVGElement>) {
-    return (
-        <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            {...props}
-        >
-            <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M8 2.5C4.96243 2.5 2.5 4.96243 2.5 8C2.5 11.0376 4.96243 13.5 8 13.5C11.0376 13.5 13.5 11.0376 13.5 8C13.5 4.96243 11.0376 2.5 8 2.5ZM1.5 8C1.5 4.41015 4.41015 1.5 8 1.5C11.5899 1.5 14.5 4.41015 14.5 8C14.5 11.5899 11.5899 14.5 8 14.5C4.41015 14.5 1.5 11.5899 1.5 8ZM8.66667 10.3333C8.66667 10.7015 8.36819 11 8 11C7.63181 11 7.33333 10.7015 7.33333 10.3333C7.33333 9.96514 7.63181 9.66667 8 9.66667C8.36819 9.66667 8.66667 9.96514 8.66667 10.3333ZM8.65766 5.65766C8.65766 5.29445 8.36322 5 8 5C7.99087 5.00008 7.98631 5.00013 7.98175 5.00025C7.97719 5.00038 7.97263 5.00059 7.96352 5.00101C7.60086 5.02116 7.3232 5.33149 7.34335 5.69415L7.50077 8.52774C7.53575 9.15742 8.46425 9.15742 8.49923 8.52774L8.65665 5.69415C8.65707 5.68503 8.65728 5.68047 8.65741 5.67591C8.65754 5.67135 8.65758 5.66679 8.65766 5.65766Z"
-                fill="currentColor"
-            />
-        </svg>
-    )
-}
+const MAX_LENGTH_THRESHOLD = 10
 
 type FieldTone = 'neutral' | 'success' | 'error' | 'loading'
 
-type FieldMessageProps = FieldHintProps & {
+type FieldMessageProps = {
+    id: string
+    children: React.ReactNode
     tone: FieldTone
 }
 
+function fieldToneToTextTone(tone: FieldTone) {
+    return tone === 'error' ? 'danger' : tone === 'success' ? 'positive' : 'secondary'
+}
+
 function FieldMessage({ id, children, tone }: FieldMessageProps) {
-    const textTone = tone === 'error' ? 'danger' : tone === 'success' ? 'positive' : 'normal'
     return (
-        <Text as="p" tone={textTone} size="copy" id={id}>
-            <Box as="span" marginRight="xsmall" display="inlineFlex" className={styles.messageIcon}>
-                {tone === 'loading' ? <Spinner size={16} /> : <MessageIcon aria-hidden />}
-            </Box>
+        <Text as="p" tone={fieldToneToTextTone(tone)} size="copy" id={id}>
+            {tone === 'loading' ? (
+                <Box
+                    as="span"
+                    marginRight="xsmall"
+                    display="inlineFlex"
+                    className={styles.loadingIcon}
+                >
+                    <Spinner size={16} />
+                </Box>
+            ) : null}
             {children}
         </Text>
     )
+}
+
+type FieldCharacterCountProps = {
+    children: React.ReactNode
+    tone: FieldTone
+}
+
+function FieldCharacterCount({ children, tone }: FieldCharacterCountProps) {
+    return (
+        <Text tone={fieldToneToTextTone(tone)} size="copy">
+            {children}
+        </Text>
+    )
+}
+
+type ValidateInputLengthProps = {
+    value?: React.InputHTMLAttributes<unknown>['value']
+    maxLength?: number
+}
+
+type ValidateInputLengthResult = {
+    count: string | null
+    tone: FieldTone
+}
+
+function validateInputLength({
+    value,
+    maxLength,
+}: ValidateInputLengthProps): ValidateInputLengthResult {
+    if (!maxLength) {
+        return {
+            count: null,
+            tone: 'neutral',
+        }
+    }
+
+    const currentLength = String(value || '').length
+    const isNearMaxLength = maxLength - currentLength <= MAX_LENGTH_THRESHOLD
+
+    return {
+        count: `${currentLength}/${maxLength}`,
+        tone: isNearMaxLength ? 'error' : 'neutral',
+    }
 }
 
 //
@@ -61,8 +90,10 @@ function FieldMessage({ id, children, tone }: FieldMessageProps) {
 
 type ChildrenRenderProps = {
     id: string
+    value?: React.InputHTMLAttributes<unknown>['value']
     'aria-describedby'?: string
     'aria-invalid'?: true
+    onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
 }
 
 type HtmlInputProps<T extends HTMLElement> = React.DetailedHTMLProps<
@@ -88,7 +119,7 @@ type BaseFieldVariantProps = {
 }
 
 type BaseFieldProps = WithEnhancedClassName &
-    Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'aria-describedby'> & {
+    Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'maxLength' | 'aria-describedby'> & {
         /**
          * The main label for this field element.
          *
@@ -99,31 +130,28 @@ type BaseFieldProps = WithEnhancedClassName &
          *
          * Avoid providing interactive elements in the label. Prefer `auxiliaryLabel` for that.
          *
-         * @see BaseFieldProps['secondaryLabel']
          * @see BaseFieldProps['auxiliaryLabel']
          */
         label: React.ReactNode
 
         /**
-         * An optional secondary label for this field element. It is combined with the `label` to
-         * form the field's entire accessible name (unless the field label is overriden by using
-         * `aria-label` or `aria-labelledby`).
+         * The initial value for this field element.
          *
-         * Avoid providing interactive elements in the label. Prefer `auxiliaryLabel` for that.
-         *
-         * @see BaseFieldProps['label']
-         * @see BaseFieldProps['auxiliaryLabel']
+         * This prop is used to calculate the character count for the initial value, and is then
+         * passed to the underlying child element.
          */
-        secondaryLabel?: React.ReactNode
+        value?: React.InputHTMLAttributes<unknown>['value']
 
         /**
-         * An optional extra element to be placed to the right of the main and secondary labels.
+         * An optional extra element to be placed to the right of the main label.
          *
          * This extra element is not included in the accessible name of the field element. Its only
          * purpose is either visual, or functional (if you include interactive elements in it).
          *
          * @see BaseFieldProps['label']
-         * @see BaseFieldProps['secondaryLabel']
+         *
+         * @deprecated The usage of this element is discouraged given that it was removed from the
+         * latest form field spec revision.
          */
         auxiliaryLabel?: React.ReactNode
 
@@ -132,9 +160,7 @@ type BaseFieldProps = WithEnhancedClassName &
          * appearance that conveys the tone of the field (e.g. coloured red for errors, green for
          * success, etc).
          *
-         * The message element is associated to the field via the `aria-describedby` attribute. If a
-         * `hint` is provided, both the hint and the message are associated as the field accessible
-         * description.
+         * The message element is associated to the field via the `aria-describedby` attribute.
          *
          * In the future, when `aria-errormessage` gets better user agent support, we should use it
          * to associate the filed with a message when tone is `"error"`.
@@ -160,18 +186,6 @@ type BaseFieldProps = WithEnhancedClassName &
         tone?: FieldTone
 
         /**
-         * A hint or help-like content associated as the accessible description of the field. It is
-         * generally rendered below it, and with a visual style that reduces its prominence (i.e.
-         * as secondary text).
-         *
-         * It sets the `aria-describedby` attribute pointing to the element that holds the hint
-         * content.
-         *
-         * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby
-         */
-        hint?: React.ReactNode
-
-        /**
          * The maximum width that the input field can expand to.
          */
         maxWidth?: BoxProps['maxWidth']
@@ -185,40 +199,74 @@ type BaseFieldProps = WithEnhancedClassName &
 
 type FieldComponentProps<T extends HTMLElement> = Omit<
     BaseFieldProps,
-    'children' | 'className' | 'variant'
+    'children' | 'className' | 'fieldRef' | 'variant'
 > &
     Omit<HtmlInputProps<T>, 'className' | 'style'>
 
 function BaseField({
     variant = 'default',
     label,
-    secondaryLabel,
+    value,
     auxiliaryLabel,
-    hint,
     message,
     tone = 'neutral',
     className,
     children,
     maxWidth,
+    maxLength,
     hidden,
     'aria-describedby': originalAriaDescribedBy,
     id: originalId,
 }: BaseFieldProps & BaseFieldVariantProps & WithEnhancedClassName) {
     const id = useId(originalId)
-    const hintId = useId()
     const messageId = useId()
 
-    const ariaDescribedBy =
-        originalAriaDescribedBy ?? [message ? messageId : null, hintId].filter(Boolean).join(' ')
+    const inputLength = validateInputLength({ value, maxLength })
+
+    const [characterCount, setCharacterCount] = React.useState<string | null>(inputLength.count)
+    const [characterCountTone, setCharacterCountTone] = React.useState<FieldTone>(inputLength.tone)
+
+    const ariaDescribedBy = originalAriaDescribedBy ?? (message ? messageId : null)
 
     const childrenProps: ChildrenRenderProps = {
         id,
-        'aria-describedby': ariaDescribedBy,
+        value,
+        ...(ariaDescribedBy ? { 'aria-describedby': ariaDescribedBy } : {}),
         'aria-invalid': tone === 'error' ? true : undefined,
+        onChange(event) {
+            if (!maxLength) {
+                return
+            }
+
+            const inputLength = validateInputLength({
+                value: event.currentTarget.value,
+                maxLength,
+            })
+
+            setCharacterCount(inputLength.count)
+            setCharacterCountTone(inputLength.tone)
+        },
     }
 
+    React.useEffect(
+        function updateCharacterCountOnPropChange() {
+            if (!maxLength) {
+                return
+            }
+
+            const inputLength = validateInputLength({
+                value,
+                maxLength,
+            })
+
+            setCharacterCount(inputLength.count)
+            setCharacterCountTone(inputLength.tone)
+        },
+        [maxLength, value],
+    )
+
     return (
-        <Stack space="small" hidden={hidden}>
+        <Stack space="xsmall" hidden={hidden}>
             <Box
                 className={[
                     className,
@@ -228,7 +276,7 @@ function BaseField({
                 ]}
                 maxWidth={maxWidth}
             >
-                {label || secondaryLabel || auxiliaryLabel ? (
+                {label || auxiliaryLabel ? (
                     <Box
                         as="span"
                         display="flex"
@@ -241,11 +289,6 @@ function BaseField({
                             htmlFor={id}
                         >
                             {label ? <span className={styles.primaryLabel}>{label}</span> : null}
-                            {secondaryLabel ? (
-                                <span className={styles.secondaryLabel}>
-                                    &nbsp;({secondaryLabel})
-                                </span>
-                            ) : null}
                         </Text>
                         {auxiliaryLabel ? (
                             <Box className={styles.auxiliaryLabel} paddingLeft="small">
@@ -256,15 +299,27 @@ function BaseField({
                 ) : null}
                 {children(childrenProps)}
             </Box>
-            {message ? (
-                <FieldMessage id={messageId} tone={tone}>
-                    {message}
-                </FieldMessage>
+            {message || characterCount ? (
+                <Columns align="right" space="small" maxWidth={maxWidth}>
+                    {message ? (
+                        <Column width="auto">
+                            <FieldMessage id={messageId} tone={tone}>
+                                {message}
+                            </FieldMessage>
+                        </Column>
+                    ) : null}
+                    {characterCount ? (
+                        <Column width="content">
+                            <FieldCharacterCount tone={characterCountTone}>
+                                {characterCount}
+                            </FieldCharacterCount>
+                        </Column>
+                    ) : null}
+                </Columns>
             ) : null}
-            {hint ? <FieldHint id={hintId}>{hint}</FieldHint> : null}
         </Stack>
     )
 }
 
-export { BaseField, FieldHint, FieldMessage }
+export { BaseField, FieldMessage }
 export type { BaseFieldVariant, BaseFieldVariantProps, FieldComponentProps }
