@@ -34,6 +34,8 @@ const MenuContext = React.createContext<MenuContextState>({
     setAnchorRect: () => undefined,
 })
 
+const SubMenuContext = React.createContext<{ isSubMenu: boolean }>({ isSubMenu: false })
+
 //
 // Menu
 //
@@ -147,13 +149,15 @@ interface MenuListProps
  * The dropdown menu itself, containing a list of menu items.
  */
 const MenuList = React.forwardRef<HTMLDivElement, MenuListProps>(function MenuList(
-    { exceptionallySetClassName, modal = true, ...props },
+    { exceptionallySetClassName, modal = true, flip, ...props },
     ref,
 ) {
     const { menuStore, getAnchorRect } = React.useContext(MenuContext)
     if (!menuStore) {
         throw new Error('MenuList must be wrapped in <Menu/>')
     }
+
+    const { isSubMenu } = React.useContext(SubMenuContext)
 
     const isOpen = menuStore.useState('open')
 
@@ -168,6 +172,7 @@ const MenuList = React.forwardRef<HTMLDivElement, MenuListProps>(function MenuLi
                 className={classNames('reactist_menulist', exceptionallySetClassName)}
                 getAnchorRect={getAnchorRect ?? undefined}
                 modal={modal}
+                flip={flip ?? (isSubMenu ? 'bottom' : undefined)}
             />
         </Portal>
     ) : null
@@ -324,13 +329,14 @@ const SubMenu = React.forwardRef<HTMLDivElement, SubMenuProps>(function SubMenu(
 
     const [button, list] = React.Children.toArray(children)
     const buttonElement = button as React.ReactElement<MenuButtonProps>
+    const subMenuContextValue = React.useMemo(() => ({ isSubMenu: true }), [])
 
     return (
         <Menu onItemSelect={handleSubItemSelect}>
             <AriakitMenuItem store={menuStore} ref={ref} hideOnClick={false} render={buttonElement}>
                 {buttonElement.props.children}
             </AriakitMenuItem>
-            {list}
+            <SubMenuContext.Provider value={subMenuContextValue}>{list}</SubMenuContext.Provider>
         </Menu>
     )
 })
