@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { getClassNames } from '../utils/responsive-props'
 import { Box } from '../box'
-import { Button } from '../button'
+import { IconButton } from '../button'
 import { Columns, Column } from '../columns'
 
 import { AlertIcon } from '../icons/alert-icon'
@@ -49,7 +49,7 @@ function Alert({ id, children, tone, closeLabel, onClose }: AlertProps) {
                 </Column>
                 {onClose != null && closeLabel != null ? (
                     <Column width="content">
-                        <Button
+                        <IconButton
                             variant="quaternary"
                             size="small"
                             onClick={onClose}
