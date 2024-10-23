@@ -2,10 +2,11 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-# Next
+# v26.1.0
 
 -   [Feat] Expose `showTimeout` and `hideTimeout` props for `Tooltip`
 -   [Fix] The center alignment between the `Alert` component's icon and message is now more accurate when the message is only one-line long.
+-   [Fix] Render submenus at the bottom when there isn't enough space
 
 # v26.0.0
 
