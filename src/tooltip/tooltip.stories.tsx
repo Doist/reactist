@@ -78,6 +78,8 @@ TooltipPlaygroundStory.args = {
     position: 'top',
     gapSize: 5,
     withArrow: false,
+    showTimeout: 500,
+    hideTimeout: 100,
 }
 
 TooltipPlaygroundStory.argTypes = {
@@ -94,12 +96,16 @@ export function TooltipRichContentStory({
     position,
     gapSize,
     withArrow,
-}: Pick<TooltipProps, 'position' | 'gapSize' | 'withArrow'>) {
+    showTimeout,
+    hideTimeout,
+}: Pick<TooltipProps, 'position' | 'gapSize' | 'withArrow' | 'showTimeout' | 'hideTimeout'>) {
     return (
         <StoryTemplate
             position={position}
             gapSize={gapSize}
             withArrow={withArrow}
+            showTimeout={showTimeout}
+            hideTimeout={hideTimeout}
             content={
                 <Stack space="medium" padding="small" align="start">
                     <Text weight="bold" size="subtitle">
@@ -122,6 +128,8 @@ TooltipRichContentStory.args = {
     position: 'bottom',
     gapSize: 10,
     withArrow: true,
+    showTimeout: 500,
+    hideTimeout: 100,
 }
 
 TooltipRichContentStory.argTypes = {

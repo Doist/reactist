@@ -66,6 +66,18 @@ interface TooltipProps extends ObfuscatedClassName {
      * @default false
      */
     withArrow?: boolean
+
+    /**
+     * The amount of time in milliseconds to wait before showing the tooltip
+     * @default 500
+     */
+    showTimeout?: number
+
+    /**
+     * The amount of time in milliseconds to wait before hiding the tooltip
+     * @default 100
+     */
+    hideTimeout?: number
 }
 
 function Tooltip({
@@ -74,9 +86,11 @@ function Tooltip({
     position = 'top',
     gapSize = 3,
     withArrow = false,
+    showTimeout = 500,
+    hideTimeout = 100,
     exceptionallySetClassName,
 }: TooltipProps) {
-    const tooltip = useTooltipStore({ placement: position, showTimeout: 500, hideTimeout: 100 })
+    const tooltip = useTooltipStore({ placement: position, showTimeout, hideTimeout })
     const isOpen = tooltip.useState('open')
 
     const child = React.Children.only(
