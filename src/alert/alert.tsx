@@ -35,14 +35,15 @@ function Alert({ id, children, tone, closeLabel, onClose }: AlertProps) {
         >
             <Columns space="small" alignY="center">
                 <Column width="content">
-                    <Box display="flex" alignItems="center">
-                        <AlertIcon tone={tone} className={styles.icon} />
-                    </Box>
+                    <AlertIcon tone={tone} className={styles.icon} />
                 </Column>
                 <Column>
                     <Box
                         paddingY="xsmall"
                         paddingRight={onClose != null && closeLabel != null ? undefined : 'small'}
+                        display="flex"
+                        alignItems="center"
+                        className={styles.content}
                     >
                         {children}
                     </Box>
