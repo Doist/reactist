@@ -66,14 +66,14 @@ function StoryTemplate(props: Omit<TooltipProps, 'children'>) {
 }
 
 //
-// Playground story
+// Playground
 //
 
-export function TooltipPlaygroundStory(args: Omit<TooltipProps, 'children'>) {
+export function TooltipPlayground(args: Omit<TooltipProps, 'children'>) {
     return <StoryTemplate {...args} />
 }
 
-TooltipPlaygroundStory.args = {
+TooltipPlayground.args = {
     content: 'You did it!',
     position: 'top',
     gapSize: 5,
@@ -82,17 +82,17 @@ TooltipPlaygroundStory.args = {
     hideTimeout: 100,
 }
 
-TooltipPlaygroundStory.argTypes = {
+TooltipPlayground.argTypes = {
     position: {
         control: { type: 'select', options: positions },
     },
 }
 
 //
-// Rich content story
+// Rich content
 //
 
-export function TooltipRichContentStory({
+export function TooltipRichContent({
     position,
     gapSize,
     withArrow,
@@ -124,7 +124,7 @@ export function TooltipRichContentStory({
     )
 }
 
-TooltipRichContentStory.args = {
+TooltipRichContent.args = {
     position: 'bottom',
     gapSize: 10,
     withArrow: true,
@@ -132,7 +132,7 @@ TooltipRichContentStory.args = {
     hideTimeout: 100,
 }
 
-TooltipRichContentStory.argTypes = {
+TooltipRichContent.argTypes = {
     position: {
         control: { type: 'select', options: positions },
     },
@@ -141,7 +141,7 @@ TooltipRichContentStory.argTypes = {
 // This story sets a new z-index for the tooltip, but it will leak into other stories
 // when viewed from the Docs page, since all stories live in a single iframe.
 // Only in the Canvas page will stories be isolated from each other
-export function TooltipCustomZIndexStory() {
+export function TooltipCustomZIndex() {
     return (
         <>
             <PortalToHead>
