@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { createPortal } from 'react-dom'
 
-import { Tooltip, TooltipProps } from './tooltip'
+import { Tooltip, TooltipContext, TooltipProps } from './tooltip'
 import { Button } from '../button'
 import { Stack } from '../stack'
 import { TextField } from '../text-field'
@@ -138,9 +138,10 @@ TooltipRichContent.argTypes = {
     },
 }
 
-// This story sets a new z-index for the tooltip, but it will leak into other stories
-// when viewed from the Docs page, since all stories live in a single iframe.
-// Only in the Canvas page will stories be isolated from each other
+//
+// Custom Z Index
+//
+
 export function TooltipCustomZIndex() {
     return (
         <>
@@ -175,4 +176,44 @@ export function TooltipCustomZIndex() {
 
 function PortalToHead({ children }: React.PropsWithChildren<unknown>) {
     return createPortal(children, document.head)
+}
+
+//
+// Tooltip Global Context
+//
+
+export function TooltipGlobalContext({
+    showTimeout,
+    hideTimeout,
+}: Required<Pick<TooltipProps, 'showTimeout' | 'hideTimeout'>>) {
+    const contextValue = React.useMemo(() => ({ showTimeout, hideTimeout }), [
+        showTimeout,
+        hideTimeout,
+    ])
+
+    return (
+        <Stack space="medium">
+            <Text>
+                <code>{'<TooltipContext>'}</code> can be used to provide global settings to all
+                tooltips:
+            </Text>
+
+            <TooltipContext.Provider value={contextValue}>
+                <Box padding="large" display="flex" gap="medium">
+                    <Tooltip content="Click here to begin your journey">
+                        <Button variant="primary">Got it</Button>
+                    </Tooltip>
+
+                    <Tooltip content="Click here to return">
+                        <Button variant="secondary">Cancel</Button>
+                    </Tooltip>
+                </Box>
+            </TooltipContext.Provider>
+        </Stack>
+    )
+}
+
+TooltipGlobalContext.args = {
+    showTimeout: 1000,
+    hideTimeout: 2000,
 }

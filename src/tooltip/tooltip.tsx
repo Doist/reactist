@@ -13,6 +13,16 @@ import type { TooltipStoreState } from '@ariakit/react'
 import styles from './tooltip.module.css'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
+type TooltipContextState = {
+    showTimeout: number
+    hideTimeout: number
+}
+
+const TooltipContext = React.createContext<TooltipContextState>({
+    showTimeout: 500,
+    hideTimeout: 100,
+})
+
 interface TooltipProps extends ObfuscatedClassName {
     /**
      * The element that triggers the tooltip. Generally a button or link.
@@ -69,12 +79,14 @@ interface TooltipProps extends ObfuscatedClassName {
 
     /**
      * The amount of time in milliseconds to wait before showing the tooltip
+     * Use `<TooltipContext.Provider>` to set a global value for all tooltips
      * @default 500
      */
     showTimeout?: number
 
     /**
      * The amount of time in milliseconds to wait before hiding the tooltip
+     * Use `<TooltipContext.Provider>` to set a global value for all tooltips
      * @default 100
      */
     hideTimeout?: number
@@ -86,11 +98,18 @@ function Tooltip({
     position = 'top',
     gapSize = 3,
     withArrow = false,
-    showTimeout = 500,
-    hideTimeout = 100,
+    showTimeout,
+    hideTimeout,
     exceptionallySetClassName,
 }: TooltipProps) {
-    const tooltip = useTooltipStore({ placement: position, showTimeout, hideTimeout })
+    const { showTimeout: globalShowTimeout, hideTimeout: globalHideTimeout } = React.useContext(
+        TooltipContext,
+    )
+    const tooltip = useTooltipStore({
+        placement: position,
+        showTimeout: showTimeout ?? globalShowTimeout,
+        hideTimeout: hideTimeout ?? globalHideTimeout,
+    })
     const isOpen = tooltip.useState('open')
 
     const child = React.Children.only(
@@ -135,4 +154,4 @@ function Tooltip({
 }
 
 export type { TooltipProps }
-export { Tooltip }
+export { Tooltip, TooltipContext }
