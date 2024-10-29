@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { createPortal } from 'react-dom'
 
-import { Tooltip, TooltipContext, TooltipProps } from './tooltip'
+import { Tooltip, TooltipProps, TooltipProvider } from './tooltip'
 import { Button } from '../button'
 import { Stack } from '../stack'
 import { TextField } from '../text-field'
@@ -186,11 +186,6 @@ export function TooltipGlobalContext({
     showTimeout,
     hideTimeout,
 }: Required<Pick<TooltipProps, 'showTimeout' | 'hideTimeout'>>) {
-    const contextValue = React.useMemo(() => ({ showTimeout, hideTimeout }), [
-        showTimeout,
-        hideTimeout,
-    ])
-
     return (
         <Stack space="medium">
             <Text>
@@ -198,7 +193,7 @@ export function TooltipGlobalContext({
                 tooltips:
             </Text>
 
-            <TooltipContext.Provider value={contextValue}>
+            <TooltipProvider showTimeout={showTimeout} hideTimeout={hideTimeout}>
                 <Box padding="large" display="flex" gap="medium">
                     <Tooltip content="Click here to begin your journey">
                         <Button variant="primary">Got it</Button>
@@ -208,7 +203,7 @@ export function TooltipGlobalContext({
                         <Button variant="secondary">Cancel</Button>
                     </Tooltip>
                 </Box>
-            </TooltipContext.Provider>
+            </TooltipProvider>
         </Stack>
     )
 }
