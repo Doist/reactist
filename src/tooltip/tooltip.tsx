@@ -13,15 +13,30 @@ import type { TooltipStoreState } from '@ariakit/react'
 import styles from './tooltip.module.css'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
+const defaultShowTimeout = 500
+const defaultHideTimeout = 100
+
 type TooltipContextState = {
     showTimeout: number
     hideTimeout: number
 }
 
 const TooltipContext = React.createContext<TooltipContextState>({
-    showTimeout: 500,
-    hideTimeout: 100,
+    showTimeout: defaultShowTimeout,
+    hideTimeout: defaultHideTimeout,
 })
+
+function TooltipProvider({
+    showTimeout = defaultShowTimeout,
+    hideTimeout = defaultHideTimeout,
+    children,
+}: React.PropsWithChildren<{
+    showTimeout?: number
+    hideTimeout?: number
+}>) {
+    const value = React.useMemo(() => ({ showTimeout, hideTimeout }), [showTimeout, hideTimeout])
+    return <TooltipContext.Provider value={value}>{children}</TooltipContext.Provider>
+}
 
 interface TooltipProps extends ObfuscatedClassName {
     /**
@@ -154,4 +169,4 @@ function Tooltip({
 }
 
 export type { TooltipProps }
-export { Tooltip, TooltipContext }
+export { Tooltip, TooltipProvider }
