@@ -24,10 +24,12 @@ function Notice({ id, children, tone }: NoticeProps) {
         >
             <Columns space="small" alignY="top">
                 <Column width="content">
-                    <AlertIcon tone={tone} />
+                    <Box className={styles.icon}>
+                        <AlertIcon tone={tone} />
+                    </Box>
                 </Column>
                 <Column>
-                    <Box paddingY="xsmall">{children}</Box>
+                    <Box className={styles.content}>{children}</Box>
                 </Column>
             </Columns>
         </Box>

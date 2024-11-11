@@ -2,6 +2,14 @@
     color: var(--reactist-content-primary);
 }
 
+.content {
+    padding-top: calc(var(--reactist-spacing-xsmall) / 2);
+}
+
+.icon svg {
+    display: block;
+}
+
 .tone-info svg {
     color: var(--reactist-alert-tone-info-icon);
 }
