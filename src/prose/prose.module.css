@@ -8,6 +8,8 @@
     --reactist-prose-link-idle-underline: var(--reactist-divider-primary);
     --reactist-prose-link-hover-tint: #006f85;
     --reactist-prose-link-hover-underline: #006f85;
+
+    --reactist-prose-horizontal-rule-color: var(--reactist-divider-primary);
 }
 
 /* Internals for spacing. These are not considered public API. */
@@ -151,7 +153,7 @@
 .prose hr {
     margin-block: var(--reactist-prose-space-2);
     border: none;
-    border-top: 1px solid var(--reactist-divider-secondary);
+    border-top: 1px solid var(--reactist-prose-horizontal-rule-color);
 }
 
 /* blockquote */
