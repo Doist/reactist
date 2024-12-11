@@ -151,7 +151,7 @@
 .prose hr {
     margin-block: var(--reactist-prose-space-2);
     border: none;
-    border-top: 1px solid var(--reactist-divider-secondary);
+    border-top: 1px solid var(--reactist-divider-primary);
 }
 
 /* blockquote */
