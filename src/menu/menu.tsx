@@ -172,7 +172,7 @@ const MenuList = React.forwardRef<HTMLDivElement, MenuListProps>(function MenuLi
                 className={classNames('reactist_menulist', exceptionallySetClassName)}
                 getAnchorRect={getAnchorRect ?? undefined}
                 modal={modal}
-                flip={flip ?? (isSubMenu ? 'bottom' : undefined)}
+                flip={flip ?? (isSubMenu ? 'left bottom' : undefined)}
             />
         </Portal>
     ) : null
