@@ -2,9 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
-# Next
+# 26.2.5
 
 -   [Fix] Add top and bottom paddings to the `Tab` component.
+-   [Fix] `SubMenu` will only render at the bottom when there isn't enough space in either side of the parent menu.
 
 # 26.2.4
 
