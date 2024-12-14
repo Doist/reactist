@@ -27,6 +27,7 @@
     font-size: var(--reactist-font-size-body);
     font-weight: var(--reactist-font-weight-medium);
     line-height: var(--reactist-tab-line-height);
+    min-height: var(--reactist-tab-height);
     z-index: 1;
     text-decoration: none;
     border: var(--reactist-tab-border-width) solid transparent;
