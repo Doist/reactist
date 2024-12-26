@@ -4,6 +4,7 @@ import { Text } from '../text'
 import { Stack } from '../stack'
 import { Banner } from './banner'
 import { Button } from '../button'
+import { PromoImage } from './promo-image'
 
 <Meta
     title="Design system/Banner"
@@ -13,103 +14,14 @@ import { Button } from '../button'
     }}
 />
 
-export function Icon(theme) {
+export function ArchiveIcon() {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
             <path
-                fill="currentColor"
-                d="M6 6.653a1 1 0 011.464-.886l10.246 5.37a1 1 0 01-.002 1.773L7.46 18.24a1 1 0 01-1.461-.887V13l6.96-.674a.328.328 0 000-.652L6 11V6.653z"
-            />
-        </svg>
-    )
-}
-
-export function StarIcon(theme) {
-    return (
-        <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <path
-                d="M11.9997 17.4304L8.48791 19.4906C7.89247 19.8399 7.12657 19.6404 6.77724 19.045C6.61617 18.7704 6.56591 18.4448 6.6367 18.1344L7.52932 14.2213L4.49511 11.5877C3.97375 11.1352 3.91795 10.3457 4.37047 9.82438C4.58187 9.58082 4.87924 9.42839 5.2004 9.39896L9.23683 9.02908L10.8538 5.31935C11.1296 4.68649 11.8662 4.39708 12.4991 4.67291C12.7885 4.79904 13.0194 5.02998 13.1455 5.31935L14.7625 9.02908L18.7989 9.39896C19.4864 9.46196 19.9926 10.0703 19.9296 10.7578C19.9002 11.079 19.7478 11.3763 19.5042 11.5877L16.47 14.2213L17.3626 18.1344C17.5161 18.8075 17.095 19.4776 16.4219 19.6311C16.1116 19.7019 15.7859 19.6517 15.5114 19.4906L11.9997 17.4304Z"
-                fill="#EB8909"
-            />
-        </svg>
-    )
-}
-
-export function ArchiveIcon(theme) {
-    if (theme === 'dark')
-        return (
-            <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M5 4.50024H19C20.1046 4.50024 21 5.39567 21 6.50024V8.50024H3V6.50024C3 5.39567 3.89543 4.50024 5 4.50024ZM4 9.50024V18.5002C4 19.6048 4.89543 20.5002 6 20.5002H18C19.1046 20.5002 20 19.6048 20 18.5002V9.50024H4ZM9.5 11.5002C9.22386 11.5002 9 11.7241 9 12.0002C9 12.2764 9.22386 12.5002 9.5 12.5002H14.5C14.7761 12.5002 15 12.2764 15 12.0002C15 11.7241 14.7761 11.5002 14.5 11.5002H9.5Z"
-                    fill="white"
-                    fill-opacity="0.56"
-                />
-            </svg>
-        )
-    return (
-        <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M5 4.50024H19C20.1046 4.50024 21 5.39567 21 6.50024V8.50024H3V6.50024C3 5.39567 3.89543 4.50024 5 4.50024ZM4 9.50024V18.5002C4 19.6048 4.89543 20.5002 6 20.5002H18C19.1046 20.5002 20 19.6048 20 18.5002V9.50024H4ZM9.5 11.5002C9.22386 11.5002 9 11.7241 9 12.0002C9 12.2764 9.22386 12.5002 9.5 12.5002H14.5C14.7761 12.5002 15 12.2764 15 12.0002C15 11.7241 14.7761 11.5002 14.5 11.5002H9.5Z"
-                fill="#666666"
-            />
-        </svg>
-    )
-}
-
-export function EyeIcon(theme) {
-    if (theme === 'dark')
-        return (
-            <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M2.5068 12.6329C5.97444 16.8778 9.13888 19.0002 12.0001 19.0002C14.8613 19.0002 18.0258 16.8778 21.4934 12.6329C21.7941 12.2647 21.7941 11.7358 21.4934 11.3676C18.0258 7.1227 14.8613 5.00024 12.0001 5.00024C9.13888 5.00024 5.97444 7.1227 2.5068 11.3676C2.20607 11.7358 2.20607 12.2647 2.5068 12.6329ZM15.5001 12.0002C15.5001 13.9332 13.9331 15.5002 12.0001 15.5002C10.0671 15.5002 8.5001 13.9332 8.5001 12.0002C8.5001 10.0672 10.0671 8.50024 12.0001 8.50024C13.9331 8.50024 15.5001 10.0672 15.5001 12.0002Z"
-                    fill="white"
-                    fill-opacity="0.56"
-                />
-            </svg>
-        )
-    return (
-        <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M2.5068 12.6329C5.97444 16.8778 9.13888 19.0002 12.0001 19.0002C14.8613 19.0002 18.0258 16.8778 21.4934 12.6329C21.7941 12.2647 21.7941 11.7358 21.4934 11.3676C18.0258 7.1227 14.8613 5.00024 12.0001 5.00024C9.13888 5.00024 5.97444 7.1227 2.5068 11.3676C2.20607 11.7358 2.20607 12.2647 2.5068 12.6329ZM15.5001 12.0002C15.5001 13.9332 13.9331 15.5002 12.0001 15.5002C10.0671 15.5002 8.5001 13.9332 8.5001 12.0002C8.5001 10.0672 10.0671 8.50024 12.0001 8.50024C13.9331 8.50024 15.5001 10.0672 15.5001 12.0002Z"
-                fill="#666666"
+                fill="#5E5E5E"
+                fillRule="evenodd"
+                d="M5 4.25h14a2 2 0 0 1 2 2v2H3v-2a2 2 0 0 1 2-2Zm-1 5v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9H4Zm5.5 2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Z"
+                clipRule="evenodd"
             />
         </svg>
     )
@@ -128,7 +40,7 @@ export function PlaygroundTemplate({ tone, title, description, action }) {
         <Stack space="large" maxWidth="medium">
             <Banner
                 tone={tone}
-                icon={Icon()}
+                icon={<ArchiveIcon />}
                 title={title}
                 description={description}
                 action={action}
@@ -137,48 +49,174 @@ export function PlaygroundTemplate({ tone, title, description, action }) {
     )
 }
 
-export function BannerExamples({ theme }) {
+export function BannerIconExamples({ theme }) {
     return (
         <Stack space="medium" align="start">
             <Stack space="large">
                 <Banner
-                    tone="promotion"
-                    icon={StarIcon(theme)}
-                    title="Need more projects?"
-                    description={
-                        <>
-                            This workspace has used 5 of its 5 project limit. Upgrade to Pro for
-                            more.
-                        </>
-                    }
-                    action={getButton('Upgrade')}
+                    tone="neutral"
+                    icon={<ArchiveIcon />}
+                    description="This is a neutral message"
+                />
+                <Banner tone="neutral" description="This is a neutral message without an icon" />
+                <Banner tone="info" description="This is an info message" />
+                <Banner tone="upgrade" description="This is a upgrade message" />
+                <Banner tone="experiment" description="This is an experimentalist message" />
+                <Banner tone="warning" description="This is a warning message" />
+                <Banner tone="error" description="This is a error message" />
+                <Banner tone="success" description="This is a success message" />
+            </Stack>
+        </Stack>
+    )
+}
+
+export function BannerActionExamples({ theme }) {
+    return (
+        <Stack space="medium" align="start">
+            <Stack space="large">
+                <Banner
+                    tone="neutral"
+                    icon={<ArchiveIcon />}
+                    description="A read-only banner without any action"
                 />
                 <Banner
-                    tone="info"
-                    icon={ArchiveIcon(theme)}
-                    title="This project is archived."
-                    description={
-                        <>
-                            Members can <strong>view</strong> but not edit.
-                        </>
-                    }
-                    action={getButton('Unarchive project')}
+                    tone="neutral"
+                    icon={<ArchiveIcon />}
+                    description="A banner with a dismiss action"
+                    onClose={() => ({})}
                 />
                 <Banner
-                    tone="info"
-                    icon={ArchiveIcon(theme)}
-                    title="This project is archived."
-                    description={
-                        <>
-                            Members can <strong>view</strong> but not edit.
-                        </>
-                    }
+                    tone="neutral"
+                    icon={<ArchiveIcon />}
+                    description="A banner with a primary CTA"
+                    action={{
+                        type: 'button',
+                        label: 'Action',
+                        variant: 'primary',
+                    }}
                 />
                 <Banner
-                    tone="info"
-                    icon={EyeIcon(theme)}
-                    title="Youʼre previewing this project."
-                    action={getButton('Join project')}
+                    tone="neutral"
+                    icon={<ArchiveIcon />}
+                    description="A banner with a tertiary CTA"
+                    action={{
+                        type: 'button',
+                        label: 'Action',
+                        variant: 'tertiary',
+                    }}
+                />
+                <Banner
+                    tone="neutral"
+                    icon={<ArchiveIcon />}
+                    description="A banner with a primary CTA and a dismiss option"
+                    action={{
+                        type: 'button',
+                        label: 'Action',
+                        variant: 'primary',
+                    }}
+                    onClose={() => ({})}
+                />
+                <Banner
+                    tone="neutral"
+                    icon={<ArchiveIcon />}
+                    description="A banner with a tertiary CTA and a dismiss option"
+                    action={{
+                        type: 'button',
+                        label: 'Action',
+                        variant: 'tertiary',
+                    }}
+                    onClose={() => ({})}
+                />
+                <Banner
+                    tone="neutral"
+                    icon={<ArchiveIcon />}
+                    description="A banner with a inline link."
+                    inlineLinks={[{ label: 'Learn more', href: '#' }]}
+                />
+                <Banner
+                    tone="neutral"
+                    icon={<ArchiveIcon />}
+                    title="This is a sample title"
+                    description="A banner with a inline link in secondary copy."
+                    inlineLinks={[{ label: 'Learn more', href: '#' }]}
+                />
+                <Banner
+                    tone="neutral"
+                    icon={<ArchiveIcon />}
+                    title="This is a sample title"
+                    description="A banner with multiple inline links."
+                    inlineLinks={[
+                        { label: 'Learn more', href: '#' },
+                        { label: 'Send feedback', href: '#' },
+                    ]}
+                />
+                <Banner
+                    tone="neutral"
+                    icon={<ArchiveIcon />}
+                    title="This is a sample title"
+                    description="Here’s the message below the title."
+                />
+                <Banner
+                    tone="neutral"
+                    icon={<ArchiveIcon />}
+                    title="This is a sample title"
+                    description="Here’s the message below the title."
+                    action={{
+                        type: 'button',
+                        label: 'Action',
+                        variant: 'primary',
+                    }}
+                    onClose={() => ({})}
+                />
+            </Stack>
+        </Stack>
+    )
+}
+
+export function BannerCopyExamples({ theme }) {
+    return (
+        <Stack space="medium" align="start">
+            <Stack space="large">
+                <Banner
+                    tone="neutral"
+                    icon={<ArchiveIcon />}
+                    description="This is a some body text. It can span over two lines or more."
+                />
+                <Banner
+                    tone="neutral"
+                    icon={<ArchiveIcon />}
+                    title="This is a sample title"
+                    description="Here’s the message below the title. The copy can span over more than one line."
+                />
+            </Stack>
+        </Stack>
+    )
+}
+
+export function BannerImageExamples({ theme }) {
+    return (
+        <Stack space="medium" align="start">
+            <Stack space="large">
+                <Banner
+                    tone="neutral"
+                    title="This is a sample title"
+                    description="Here’s the message below the title, sometimes the copy spans over two lines."
+                    image={<PromoImage />}
+                    inlineLinks={[{ label: 'Learn more', href: '#' }]}
+                />
+                <Banner
+                    tone="neutral"
+                    description="Here’s the message below the title, sometimes the copy spans over two lines."
+                    image={<PromoImage />}
+                    inlineLinks={[{ label: 'Learn more', href: '#' }]}
+                />
+                <Banner
+                    tone="neutral"
+                    title="This is a sample title"
+                    description="Here’s the message below the title, sometimes the copy spans over two lines."
+                    image={<PromoImage />}
+                    inlineLinks={[{ label: 'Learn more', href: '#' }]}
+                    onClose={() => ({})}
                 />
             </Stack>
         </Stack>
@@ -187,9 +225,7 @@ export function BannerExamples({ theme }) {
 
 # Banner
 
-A simple banner component meant to be used to _inform_ the user of promotional content or disclaimers.
-
-If you're intending to _alert_ the user of a certain error or warning condition, consider using the `Alert` component instead.
+A simple banner component meant to be used to _inform_ the user of promotional content, disclaimers, warnings, as well as success and error states.
 
 <Canvas>
     <Story
@@ -220,15 +256,71 @@ If you're intending to _alert_ the user of a certain error or warning condition,
 
 ## Examples
 
+### Icons
+
+Banners can feature different icons or no icon at all. When the tone is neutral, a custom icon can be provided; otherwise, preset icons corresponding to the respective tone will be used.
+
 <Canvas>
     <Story
-        name="Main demo"
+        name="Icon variants"
         parameters={{
             docs: { source: { type: 'code' } },
             chromatic: { disableSnapshot: false },
         }}
     >
-        <BannerExamples theme="light" />
+        <BannerIconExamples theme="light" />
+    </Story>
+</Canvas>
+
+### Actions
+
+Banners can have an optional dismiss action, or a primary or tertiary CTA, but never both. Additionally, banners can have an optional inline links near the description.
+
+These actions can be combined, such as a primary CTA with a dismiss option, or a primary CTA with a dismiss option and an inline link.
+
+<Canvas>
+    <Story
+        name="Actions"
+        parameters={{
+            docs: { source: { type: 'code' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <BannerActionExamples theme="light" />
+    </Story>
+</Canvas>
+
+### Copy
+
+Banners have two content options: a regular text that can span over multiple lines, or a bold header and a description with a secondary text color.
+
+<Canvas>
+    <Story
+        name="Copy"
+        parameters={{
+            docs: { source: { type: 'code' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <BannerCopyExamples theme="light" />
+    </Story>
+</Canvas>
+
+### Image
+
+Banners can include images placed at the top, separated from the copy by a divider. The banner adapts to the image, ensuring it fills the full width and height of the banner.
+
+Image banners do not feature icons but can include body text or a combination of a header and description. They also support optional inline links and a dismiss action.
+
+<Canvas>
+    <Story
+        name="Image"
+        parameters={{
+            docs: { source: { type: 'code' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <BannerImageExamples theme="light" />
     </Story>
 </Canvas>
 
@@ -242,17 +334,17 @@ The following CSS custom properties are available to customize the banner compon
 
 ```css
 :root {
-    // tone="info"
-    --reactist-banner-info-background: #eeeeee;
-    --reactist-banner-info-border: #fafafa;
-    --reactist-banner-info-title: #202020;
-    --reactist-banner-info-description: #666666;
+    --reactist-banner-background-color: #fcfaf8;
+    --reactist-banner-border-color: #e6e6e6;
 
-    // tone="promotion"
-    --reactist-banner-promotion-border: #fae8d6;
-    --reactist-banner-promotion-background: #fffaf4;
-    --reactist-banner-promotion-title: #202020;
-    --reactist-banner-promotion-description: #666666;
+    --reactist-banner-main-copy-font-size: 14px;
+    --reactist-banner-main-copy-line-height: 21px;
+    --reactist-banner-main-copy-spacing: -0.15px;
+    --reactist-banner-main-copy-color: #202020;
+
+    --reactist-banner-secondary-copy-font-size: 12px;
+    --reactist-banner-secondary-copy-line-height: 20px;
+    --reactist-banner-secondary-copy-color: #666666;
 }
 ```
 
@@ -261,22 +353,26 @@ The following CSS custom properties are available to customize the banner compon
 export function DarkModeTemplate() {
     return (
         <Box
+            display="flex"
+            flexDirection="column"
             padding="xlarge"
             style={{
                 backgroundColor: '#202020',
-                /* tone="info" */
-                '--reactist-banner-info-border': '#3D3D3D',
-                '--reactist-banner-info-background': '#282828',
-                '--reactist-banner-info-title': '#FFFFFF',
-                '--reactist-banner-info-description': '#B3B3B3',
-                /* tone="promotion" */
-                '--reactist-banner-promotion-border': '#553707',
-                '--reactist-banner-promotion-background': '#412A06',
-                '--reactist-banner-promotion-title': '#FFFFFF',
-                '--reactist-banner-promotion-description': '#B3B3B3',
+                '--reactist-banner-background-color': '#282828',
+                '--reactist-banner-border-color': '#3D3D3D',
+                '--reactist-banner-divider-color': '#3D3D3D',
+                '--reactist-banner-main-copy-color': '#FFFFFF',
+                '--reactist-banner-secondary-copy-color': '#B3B3B3',
             }}
+            gap="large"
         >
-            <BannerExamples theme="dark" />
+            <Banner tone="neutral" icon={<ArchiveIcon />} description="This is a neutral message" />
+            <Banner
+                tone="neutral"
+                image={<PromoImage theme="dark" />}
+                description="This is a neutral message"
+                onClose={() => ({})}
+            />
         </Box>
     )
 }
