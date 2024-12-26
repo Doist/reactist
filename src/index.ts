@@ -10,7 +10,6 @@ export * from './hidden'
 export * from './hidden-visually'
 
 // alerts, notifications, etc.
-export * from './alert'
 export * from './banner'
 export * from './loading'
 export * from './notice'

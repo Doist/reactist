@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import Button from '../../src/components/deprecated-button'
 import Dropdown from '../../src/components/deprecated-dropdown'
-import { Alert } from '../../src/alert'
+import { Banner } from '../../src/banner'
 import { Stack } from '../../src/stack'
 import LinkTo from '@storybook/addon-links/react'
 
@@ -18,10 +18,15 @@ export default {
 export const DropdownStory = () => (
     <section className="story">
         <Stack as="section" exceptionallySetClassName="story" space="large">
-            <Alert tone="critical">
-                <strong>Deprecated:</strong> While not a 1:1 replacement, consider using{' '}
-                <LinkTo kind="design-system-menu">Menu</LinkTo> as an alternative
-            </Alert>
+            <Banner
+                tone="error"
+                description={
+                    <>
+                        <strong>Deprecated:</strong> While not a 1:1 replacement, consider using{' '}
+                        <LinkTo kind="design-system-menu">Menu</LinkTo> as an alternative
+                    </>
+                }
+            />
 
             <Dropdown.Box>
                 <Dropdown.Trigger>
