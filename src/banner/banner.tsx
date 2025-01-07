@@ -9,17 +9,17 @@ import { BannerIcon } from '../icons/banner-icon'
 import { TextLink } from '../text-link'
 
 /**
- * Represents the tone of a banner.
+ * Represents the type of a banner.
  * 'neutral' accepts a custom icon, the rest do not.
  * @default 'neutral'
  */
-export type BannerTone = 'neutral' | SystemBannerTone
+export type BannerType = 'neutral' | SystemBannerType
 
 /**
- * Predefined system tones for banners.
- * Each tone has its own preset icon.
+ * Predefined system types for banners.
+ * Each type has its own preset icon.
  */
-export type SystemBannerTone = 'info' | 'upgrade' | 'experiment' | 'warning' | 'error' | 'success'
+export type SystemBannerType = 'info' | 'upgrade' | 'experiment' | 'warning' | 'error' | 'success'
 
 type BaseAction = {
     variant: 'primary' | 'tertiary'
@@ -68,11 +68,11 @@ type BaseBanner = {
 } & CloseButton
 
 /**
- * Configuration for neutral tone banners.
+ * Configuration for neutral banners.
  * Can include either an image, an icon, or neither, but never both.
  */
 type NeutralBanner = BaseBanner & {
-    tone: Extract<BannerTone, 'neutral'>
+    type: Extract<BannerType, 'neutral'>
 } & (
         | { image: React.ReactElement; icon?: never }
         | { icon: React.ReactElement; image?: never }
@@ -80,11 +80,11 @@ type NeutralBanner = BaseBanner & {
     )
 
 /**
- * Configuration for system tone banners.
+ * Configuration for system banners.
  * Cannot include custom images or icons as they use preset ones.
  */
 type SystemBanner = BaseBanner & {
-    tone: SystemBannerTone
+    type: SystemBannerType
     image?: never
     icon?: never
 }
@@ -94,7 +94,7 @@ type BannerProps = NeutralBanner | SystemBanner
 const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
     {
         id,
-        tone,
+        type,
         title,
         description,
         action,
@@ -141,7 +141,7 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
             <Box className={styles.content} display="flex" gap="small" alignItems="center">
                 <Box className={styles.staticContent} display="flex" gap="small" flexGrow={1}>
                     <Box className={styles.icon}>
-                        {tone === 'neutral' ? icon : <BannerIcon tone={tone} />}
+                        {type === 'neutral' ? icon : <BannerIcon type={type} />}
                         {closeButton}
                     </Box>
 
@@ -153,7 +153,7 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
                         ) : null}
                         <Box
                             id={descriptionId}
-                            className={[styles.description, { [styles.secondary ?? '']: title }]}
+                            className={[styles.description, title ? styles.secondary : null]}
                         >
                             {description}
                             {inlineLinks?.map(({ label, ...props }, index) => {

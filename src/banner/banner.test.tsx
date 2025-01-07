@@ -1,51 +1,51 @@
 import * as React from 'react'
 import { render, screen, within } from '@testing-library/react'
 import { axe } from 'jest-axe'
-import { Banner, SystemBannerTone } from './banner'
+import { Banner, SystemBannerType } from './banner'
 import userEvent from '@testing-library/user-event'
 
 describe('Banner', () => {
     it('renders as a <div /> element', () => {
-        render(<Banner tone="info" description="This is an info message" />)
+        render(<Banner type="info" description="This is an info message" />)
         expect(screen.getByRole('status').tagName).toBe('DIV')
     })
 
     it('renders the title inside the banner element', () => {
-        render(<Banner tone="info" title="Info title" description="This is an info message" />)
+        render(<Banner type="info" title="Info title" description="This is an info message" />)
         expect(screen.getByRole('status')).toHaveTextContent('Info title')
     })
 
-    it('by default does not render an icon for neutral tone', () => {
+    it('by default does not render an icon for neutral type', () => {
         expect(screen.queryByTestId('banner-icon-neutral')).not.toBeInTheDocument()
         expect(screen.queryByRole('img')).not.toBeInTheDocument()
     })
 
-    it('renders a custom icon for neutral tone', () => {
-        render(<Banner tone="neutral" icon={<span>Custom Icon</span>} description="Info" />)
+    it('renders a custom icon for neutral type', () => {
+        render(<Banner type="neutral" icon={<span>Custom Icon</span>} description="Info" />)
         expect(screen.getByText('Custom Icon')).toBeInTheDocument()
     })
 
-    it('renders an image for neutral tone', () => {
-        render(<Banner tone="neutral" image={<img alt="Custom Image" />} description="Info" />)
+    it('renders an image for neutral type', () => {
+        render(<Banner type="neutral" image={<img alt="Custom Image" />} description="Info" />)
         expect(screen.getByAltText('Custom Image')).toBeInTheDocument()
     })
 
     test.each([
-        ['info' as SystemBannerTone, 'info'],
-        ['upgrade' as SystemBannerTone, 'upgrade'],
-        ['experiment' as SystemBannerTone, 'experiment'],
-        ['warning' as SystemBannerTone, 'warning'],
-        ['error' as SystemBannerTone, 'error'],
-        ['success' as SystemBannerTone, 'success'],
-    ])('renders a different icon according to the tone', (tone, expectedTone) => {
-        render(<Banner tone={tone} description="This is a message" />)
+        ['info' as SystemBannerType, 'info'],
+        ['upgrade' as SystemBannerType, 'upgrade'],
+        ['experiment' as SystemBannerType, 'experiment'],
+        ['warning' as SystemBannerType, 'warning'],
+        ['error' as SystemBannerType, 'error'],
+        ['success' as SystemBannerType, 'success'],
+    ])('renders a different icon according to the type', (type, expectedtype) => {
+        render(<Banner type={type} description="This is a message" />)
         expect(
-            within(screen.getByRole('status')).getByTestId(`banner-icon-${expectedTone}`),
+            within(screen.getByRole('status')).getByTestId(`banner-icon-${expectedtype}`),
         ).toBeInTheDocument()
     })
 
     it('passes through aria-related attributes', () => {
-        render(<Banner tone="info" description="Info" aria-hidden="true" />)
+        render(<Banner type="info" description="Info" aria-hidden="true" />)
         expect(screen.queryByRole('status')).not.toBeInTheDocument()
         expect(screen.getByRole('status', { hidden: true })).toBeInTheDocument()
     })
@@ -53,7 +53,7 @@ describe('Banner', () => {
     it('passes through data-* attributes', () => {
         render(
             <Banner
-                tone="info"
+                type="info"
                 description="Info"
                 data-testid="test-banner"
                 data-gtm-id="track-id"
@@ -65,7 +65,7 @@ describe('Banner', () => {
     it('does not pass through other attributes such as className, or exceptionallySetClassName', () => {
         render(
             <Banner
-                tone="info"
+                type="info"
                 description="Info"
                 // @ts-expect-error
                 className="test-one"
@@ -79,7 +79,7 @@ describe('Banner', () => {
     it('honors rich text in the title', () => {
         render(
             <Banner
-                tone="info"
+                type="info"
                 title={
                     <>
                         This is really <strong>important</strong>
@@ -96,7 +96,7 @@ describe('Banner', () => {
     it('honors rich text in the description', () => {
         render(
             <Banner
-                tone="info"
+                type="info"
                 description={
                     <>
                         This is really <strong>important</strong>
@@ -110,12 +110,12 @@ describe('Banner', () => {
     })
 
     it('uses the title as the accessible name', () => {
-        render(<Banner tone="info" title="Hello World" description="Description" />)
+        render(<Banner type="info" title="Hello World" description="Description" />)
         expect(screen.getByRole('status', { name: 'Hello World' })).toBeInTheDocument()
     })
 
     it("uses the description as the accessible name if there isn't a title", () => {
-        render(<Banner tone="info" description="Hello World" />)
+        render(<Banner type="info" description="Hello World" />)
         expect(screen.getByRole('status', { name: 'Hello World' })).toBeInTheDocument()
     })
 
@@ -123,7 +123,7 @@ describe('Banner', () => {
         const onClickSpy = jest.fn()
         render(
             <Banner
-                tone="info"
+                type="info"
                 description="Info"
                 action={{
                     type: 'button',
@@ -140,7 +140,7 @@ describe('Banner', () => {
     it('renders action link', () => {
         render(
             <Banner
-                tone="info"
+                type="info"
                 description="Info"
                 action={{
                     type: 'link',
@@ -159,7 +159,7 @@ describe('Banner', () => {
     it('renders inline link', () => {
         render(
             <Banner
-                tone="info"
+                type="info"
                 description="Info"
                 inlineLinks={[{ label: 'Learn more', href: '#' }]}
             />,
@@ -170,7 +170,7 @@ describe('Banner', () => {
     it('renders multiple inline links', () => {
         render(
             <Banner
-                tone="info"
+                type="info"
                 description={<p>Info</p>}
                 inlineLinks={[
                     { label: 'Learn more', href: '#' },
@@ -185,17 +185,17 @@ describe('Banner', () => {
 
     it('renders close button', () => {
         const onClose = jest.fn()
-        const { rerender } = render(<Banner tone="info" description="Info" />)
+        const { rerender } = render(<Banner type="info" description="Info" />)
         expect(screen.queryByRole('button', { name: 'Close banner' })).not.toBeInTheDocument()
 
-        rerender(<Banner tone="info" description="Info" onClose={onClose} />)
+        rerender(<Banner type="info" description="Info" onClose={onClose} />)
         // close button is rendered twice because depending on banner size it can be in two places,
         // but only one is visible at a time (the other is set to display: none with CSS)
         expect(screen.getAllByRole('button', { name: 'Close banner' })).toHaveLength(2)
 
         rerender(
             <Banner
-                tone="info"
+                type="info"
                 description="Info"
                 closeLabel="Custom close label"
                 onClose={onClose}
@@ -210,7 +210,7 @@ describe('Banner', () => {
         const onClose = jest.fn()
         render(
             <Banner
-                tone="info"
+                type="info"
                 description="Info"
                 closeLabel="Custom close label"
                 onClose={onClose}
@@ -226,16 +226,16 @@ describe('Banner', () => {
     it('renders more than one banner with no a11y violations', async () => {
         const { container } = render(
             <>
-                <Banner tone="info" description="Info" />
+                <Banner type="info" description="Info" />
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     title="This is a title"
                     description="This is a description"
                     icon={<span>Custom Icon</span>}
                     onClose={jest.fn()}
                     inlineLinks={[{ label: 'Link 1', href: '#' }]}
                 />
-                <Banner tone="upgrade" title description="Promotion" />
+                <Banner type="upgrade" title description="Promotion" />
             </>,
         )
         const results = await axe(container)

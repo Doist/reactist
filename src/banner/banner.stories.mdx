@@ -4,7 +4,7 @@ import { Text } from '../text'
 import { Stack } from '../stack'
 import { Banner } from './banner'
 import { Button } from '../button'
-import { PromoImage } from './promo-image'
+import { PromoImage } from './story-promo-image'
 
 <Meta
     title="Design system/Banner"
@@ -29,17 +29,17 @@ export function ArchiveIcon() {
 
 export function getButton(buttonText) {
     return (
-        <Button variant="primary" tone="destructive">
+        <Button variant="primary" type="destructive">
             {buttonText}
         </Button>
     )
 }
 
-export function PlaygroundTemplate({ tone, title, description, action }) {
+export function PlaygroundTemplate({ type, title, description, action }) {
     return (
         <Stack space="large" maxWidth="medium">
             <Banner
-                tone={tone}
+                type={type}
                 icon={<ArchiveIcon />}
                 title={title}
                 description={description}
@@ -54,17 +54,17 @@ export function BannerIconExamples({ theme }) {
         <Stack space="medium" align="start">
             <Stack space="large">
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     icon={<ArchiveIcon />}
                     description="This is a neutral message"
                 />
-                <Banner tone="neutral" description="This is a neutral message without an icon" />
-                <Banner tone="info" description="This is an info message" />
-                <Banner tone="upgrade" description="This is a upgrade message" />
-                <Banner tone="experiment" description="This is an experimentalist message" />
-                <Banner tone="warning" description="This is a warning message" />
-                <Banner tone="error" description="This is a error message" />
-                <Banner tone="success" description="This is a success message" />
+                <Banner type="neutral" description="This is a neutral message without an icon" />
+                <Banner type="info" description="This is an info message" />
+                <Banner type="upgrade" description="This is a upgrade message" />
+                <Banner type="experiment" description="This is an experimentalist message" />
+                <Banner type="warning" description="This is a warning message" />
+                <Banner type="error" description="This is a error message" />
+                <Banner type="success" description="This is a success message" />
             </Stack>
         </Stack>
     )
@@ -75,18 +75,18 @@ export function BannerActionExamples({ theme }) {
         <Stack space="medium" align="start">
             <Stack space="large">
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     icon={<ArchiveIcon />}
                     description="A read-only banner without any action"
                 />
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     icon={<ArchiveIcon />}
                     description="A banner with a dismiss action"
                     onClose={() => ({})}
                 />
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     icon={<ArchiveIcon />}
                     description="A banner with a primary CTA"
                     action={{
@@ -96,7 +96,7 @@ export function BannerActionExamples({ theme }) {
                     }}
                 />
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     icon={<ArchiveIcon />}
                     description="A banner with a tertiary CTA"
                     action={{
@@ -106,7 +106,7 @@ export function BannerActionExamples({ theme }) {
                     }}
                 />
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     icon={<ArchiveIcon />}
                     description="A banner with a primary CTA and a dismiss option"
                     action={{
@@ -117,7 +117,7 @@ export function BannerActionExamples({ theme }) {
                     onClose={() => ({})}
                 />
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     icon={<ArchiveIcon />}
                     description="A banner with a tertiary CTA and a dismiss option"
                     action={{
@@ -128,20 +128,20 @@ export function BannerActionExamples({ theme }) {
                     onClose={() => ({})}
                 />
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     icon={<ArchiveIcon />}
                     description="A banner with a inline link."
                     inlineLinks={[{ label: 'Learn more', href: '#' }]}
                 />
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     icon={<ArchiveIcon />}
                     title="This is a sample title"
                     description="A banner with a inline link in secondary copy."
                     inlineLinks={[{ label: 'Learn more', href: '#' }]}
                 />
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     icon={<ArchiveIcon />}
                     title="This is a sample title"
                     description="A banner with multiple inline links."
@@ -151,13 +151,13 @@ export function BannerActionExamples({ theme }) {
                     ]}
                 />
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     icon={<ArchiveIcon />}
                     title="This is a sample title"
                     description="Here’s the message below the title."
                 />
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     icon={<ArchiveIcon />}
                     title="This is a sample title"
                     description="Here’s the message below the title."
@@ -178,12 +178,12 @@ export function BannerCopyExamples({ theme }) {
         <Stack space="medium" align="start">
             <Stack space="large">
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     icon={<ArchiveIcon />}
                     description="This is a some body text. It can span over two lines or more."
                 />
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     icon={<ArchiveIcon />}
                     title="This is a sample title"
                     description="Here’s the message below the title. The copy can span over more than one line."
@@ -198,20 +198,20 @@ export function BannerImageExamples({ theme }) {
         <Stack space="medium" align="start">
             <Stack space="large">
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     title="This is a sample title"
                     description="Here’s the message below the title, sometimes the copy spans over two lines."
                     image={<PromoImage />}
                     inlineLinks={[{ label: 'Learn more', href: '#' }]}
                 />
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     description="Here’s the message below the title, sometimes the copy spans over two lines."
                     image={<PromoImage />}
                     inlineLinks={[{ label: 'Learn more', href: '#' }]}
                 />
                 <Banner
-                    tone="neutral"
+                    type="neutral"
                     title="This is a sample title"
                     description="Here’s the message below the title, sometimes the copy spans over two lines."
                     image={<PromoImage />}
@@ -232,8 +232,8 @@ A simple banner component meant to be used to _inform_ the user of promotional c
         name="Playground"
         parameters={{ docs: { source: { type: 'code' } } }}
         argTypes={{
-            tone: {
-                options: ['info', 'promotion'],
+            type: {
+                options: ['info', 'error'],
                 control: { type: 'inline-radio' },
                 defaultValue: 'info',
             },
@@ -258,7 +258,7 @@ A simple banner component meant to be used to _inform_ the user of promotional c
 
 ### Icons
 
-Banners can feature different icons or no icon at all. When the tone is neutral, a custom icon can be provided; otherwise, preset icons corresponding to the respective tone will be used.
+Banners can feature different icons or no icon at all. When the type is neutral, a custom icon can be provided; otherwise, preset icons corresponding to the respective type will be used.
 
 <Canvas>
     <Story
@@ -366,9 +366,9 @@ export function DarkModeTemplate() {
             }}
             gap="large"
         >
-            <Banner tone="neutral" icon={<ArchiveIcon />} description="This is a neutral message" />
+            <Banner type="neutral" icon={<ArchiveIcon />} description="This is a neutral message" />
             <Banner
-                tone="neutral"
+                type="neutral"
                 image={<PromoImage theme="dark" />}
                 description="This is a neutral message"
                 onClose={() => ({})}

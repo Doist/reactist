@@ -1,7 +1,7 @@
 import * as React from 'react'
-import type { SystemBannerTone } from '../banner/banner'
+import type { SystemBannerType } from '../banner/banner'
 
-const bannerIconForTone: Record<SystemBannerTone, typeof BannerInfoIcon> = {
+const bannerIconForType: Record<SystemBannerType, typeof BannerInfoIcon> = {
     info: BannerInfoIcon,
     upgrade: BannerUpgradeIcon,
     experiment: BannerExperimentIcon,
@@ -10,9 +10,9 @@ const bannerIconForTone: Record<SystemBannerTone, typeof BannerInfoIcon> = {
     success: BannerSuccessIcon,
 }
 
-function BannerIcon({ tone, ...props }: JSX.IntrinsicElements['svg'] & { tone: SystemBannerTone }) {
-    const Icon = bannerIconForTone[tone]
-    return Icon ? <Icon {...props} data-testid={`banner-icon-${tone}`} aria-hidden /> : null
+function BannerIcon({ type, ...props }: JSX.IntrinsicElements['svg'] & { type: SystemBannerType }) {
+    const Icon = bannerIconForType[type]
+    return Icon ? <Icon {...props} data-testid={`banner-icon-${type}`} aria-hidden /> : null
 }
 
 function BannerInfoIcon(props: JSX.IntrinsicElements['svg']) {
