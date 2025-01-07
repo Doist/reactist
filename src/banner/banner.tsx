@@ -3,7 +3,7 @@ import { Box } from '../box'
 import { useId } from '../utils/common-helpers'
 
 import styles from './banner.module.css'
-import { Button, IconButton } from '../button'
+import { Button, ButtonProps, IconButton } from '../button'
 import { CloseIcon } from '../icons/close-icon'
 import { BannerIcon } from '../icons/banner-icon'
 import { TextLink } from '../text-link'
@@ -24,7 +24,7 @@ export type SystemBannerTone = 'info' | 'upgrade' | 'experiment' | 'warning' | '
 type BaseAction = {
     variant: 'primary' | 'tertiary'
     label: string
-}
+} & Pick<ButtonProps, 'loading' | 'disabled'>
 type ActionButton = BaseAction & { type: 'button' } & Omit<
         React.ButtonHTMLAttributes<HTMLButtonElement>,
         'className'
