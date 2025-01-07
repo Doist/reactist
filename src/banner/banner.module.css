@@ -1,70 +1,96 @@
 :root {
-    --reactist-banner-title-font-size: 14px;
-    --reactist-banner-title-line-height: 21px;
+    --reactist-banner-background-color: #fcfaf8;
+    --reactist-banner-border-color: #e6e6e6;
+    --reactist-divider-color: var(--reactist-divider-secondary);
 
-    --reactist-banner-description-font-size: 12px;
-    --reactist-banner-description-line-height: 20px;
+    --reactist-banner-main-copy-font-size: 14px;
+    --reactist-banner-main-copy-line-height: 21px;
+    --reactist-banner-main-copy-spacing: -0.15px;
+    --reactist-banner-main-copy-color: #202020;
 
-    --reactist-banner-info-border: #eeeeee;
-    --reactist-banner-info-background: #fafafa;
-    --reactist-banner-info-title: #202020;
-    --reactist-banner-info-description: #666666;
-
-    --reactist-banner-promotion-border: #fae8d6;
-    --reactist-banner-promotion-background: #fffaf4;
-    --reactist-banner-promotion-title: #202020;
-    --reactist-banner-promotion-description: #666666;
+    --reactist-banner-secondary-copy-font-size: 12px;
+    --reactist-banner-secondary-copy-line-height: 20px;
+    --reactist-banner-secondary-copy-color: #666666;
 }
 
 .banner {
-    border-style: solid;
-    border-width: 1px;
-    padding-top: var(--reactist-spacing-small);
-    padding-bottom: var(--reactist-spacing-small);
-    padding-left: var(--reactist-spacing-large);
-    padding-right: var(--reactist-spacing-large);
-    letter-spacing: -0.15px;
+    container-name: banner;
+    container-type: inline-size;
+    background-color: var(--reactist-banner-background-color);
     font-family: var(--reactist-font-family);
+    border: 1px solid var(--reactist-banner-border-color);
+    overflow: hidden;
+    min-height: 64px;
+}
+.banner:has(.image) {
+    width: min-content;
+    container-type: normal;
 }
 
-.banner-info {
-    background-color: var(--reactist-banner-info-background);
-    border-color: var(--reactist-banner-info-border);
+.content {
+    padding: var(--reactist-spacing-large);
 }
 
-.banner-promotion {
-    background-color: var(--reactist-banner-promotion-background);
-    border-color: var(--reactist-banner-promotion-border);
+.title,
+.description {
+    font-size: var(--reactist-banner-main-copy-font-size);
+    line-height: var(--reactist-banner-main-copy-line-height);
+    letter-spacing: var(--reactist-banner-main-copy-spacing);
+    color: var(--reactist-banner-main-copy-color);
 }
 
 .title {
-    font-size: var(--reactist-banner-title-font-size);
-    line-height: var(--reactist-banner-title-line-height);
     font-weight: var(--reactist-font-weight-strong);
 }
 
-.title-without-description {
-    font-weight: var(--reactist-font-weight-regular);
+.description.secondary {
+    font-size: var(--reactist-banner-secondary-copy-font-size);
+    line-height: var(--reactist-banner-secondary-copy-line-height);
+    color: var(--reactist-banner-secondary-copy-color);
+    letter-spacing: initial;
 }
 
-.title-info {
-    color: var(--reactist-banner-info-title);
+.image {
+    border-bottom: 1px solid var(--reactist-banner-divider-color);
 }
 
-.title-promotion {
-    color: var(--reactist-banner-promotion-title);
+.image img,
+.icon svg {
+    display: block;
 }
 
-.description {
-    font-size: var(--reactist-banner-description-font-size);
-    line-height: var(--reactist-banner-description-line-height);
-    font-weight: var(--reactist-font-weight-regular);
+.icon .closeButton {
+    display: none;
 }
 
-.description-info {
-    color: var(--reactist-banner-info-description);
+.copy {
+    padding: calc(var(--reactist-spacing-xsmall) / 2) 0;
+}
+.copy .inlineLink:first-of-type {
+    margin-left: var(--reactist-spacing-xsmall);
 }
 
-.description-promotion {
-    color: var(--reactist-banner-promotion-description);
+@container banner (width < 235px) {
+    .content,
+    .staticContent {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .icon {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .icon .closeButton {
+        display: flex;
+    }
+    .icon .closeButton:only-child {
+        margin-left: auto;
+    }
+
+    .actions .closeButton {
+        display: none;
+    }
 }

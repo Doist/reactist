@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import Select from '../../src/components/deprecated-select'
-import { Alert } from '../../src/alert'
+import { Banner } from '../../src/banner'
 import { Stack } from '../../src/stack'
 import LinkTo from '@storybook/addon-links/react'
 
@@ -31,10 +31,15 @@ export function SelectStory() {
 
     return (
         <Stack as="section" exceptionallySetClassName="story" space="large">
-            <Alert tone="critical">
-                <strong>Deprecated:</strong> Please use{' '}
-                <LinkTo kind="design-system-selectfield">SelectField</LinkTo> instead
-            </Alert>
+            <Banner
+                tone="error"
+                description={
+                    <>
+                        <strong>Deprecated:</strong> Please use{' '}
+                        <LinkTo kind="design-system-selectfield">SelectField</LinkTo> instead
+                    </>
+                }
+            />
 
             <Select value={value} options={options} onChange={setValue} />
         </Stack>
