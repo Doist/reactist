@@ -233,10 +233,19 @@ A simple banner component meant to be used to _inform_ the user of promotional c
         parameters={{ docs: { source: { type: 'code' } } }}
         argTypes={{
             type: {
-                options: ['info', 'error'],
+                options: [
+                    'neutral',
+                    'info',
+                    'upgrade',
+                    'experiment',
+                    'warning',
+                    'error',
+                    'success',
+                ],
                 control: { type: 'inline-radio' },
                 defaultValue: 'info',
             },
+            image: { control: false },
             icon: { control: false },
             title: {
                 control: { type: 'text' },
