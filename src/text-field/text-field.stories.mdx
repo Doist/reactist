@@ -324,3 +324,25 @@ Hence, the description is never needed when the field is not focused anyway.
         <WithTooltipExample />
     </Story>
 </Canvas>
+
+## Max length
+
+The `maxLength` prop is used to limit the number of characters that the user can input. When the user tries to input more characters than the maximum allowed, the field won't accept the input.
+
+export function WithMaxLengthExample() {
+    const [value, setValue] = React.useState('Doist')
+    return (
+        <TextField
+            label="Company name"
+            maxLength={30}
+            value={value}
+            onChange={(event) => setValue(event.currentTarget.value)}
+        />
+    )
+}
+
+<Canvas withToolbar>
+    <Story name="Max Length">
+        <WithMaxLengthExample />
+    </Story>
+</Canvas>
