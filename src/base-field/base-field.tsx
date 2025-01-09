@@ -191,6 +191,13 @@ type BaseFieldProps = WithEnhancedClassName &
         maxWidth?: BoxProps['maxWidth']
 
         /**
+         * The maximum number of characters that the input field can accept.
+         * When this limit is reached, the input field will not accept any more characters.
+         * The counter element will turn red when the number of characters is within 10 of the maximum limit.
+         */
+        maxLength?: number
+
+        /**
          * Used internally by components composed using `BaseField`. It is not exposed as part of
          * the public props of such components.
          */

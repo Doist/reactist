@@ -13,6 +13,12 @@ interface TextFieldProps
     type?: TextFieldType
     startSlot?: React.ReactElement | string | number
     endSlot?: React.ReactElement | string | number
+    /**
+     * The maximum number of characters that the input field can accept.
+     * When this limit is reached, the input field will not accept any more characters.
+     * The counter element will turn red when the number of characters is within 10 of the maximum limit.
+     */
+    maxLength?: number
 }
 
 const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
