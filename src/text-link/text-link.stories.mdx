@@ -26,6 +26,14 @@ A component used to create text-based hyperlinks.
             <TextLink href="https://www.doist.com/" openInNewTab={true}>
                 open in new tab
             </TextLink>
+            <TextLink
+                as="button"
+                onClick={() => {
+                    alert('clicked')
+                }}
+            >
+                button link
+            </TextLink>
         </Stack>
     </Story>
 </Canvas>
