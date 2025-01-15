@@ -1,7 +1,7 @@
 :root {
-    --reactist-text-link-idle-tint: rgb(36, 111, 224);
-    --reactist-text-link-hover-tint: var(--reactist-text-link-idle-tint);
-    --reactist-text-link-idle-decoration: none;
+    --reactist-text-link-idle-tint: var(--reactist-actionable-tertiary-idle-tint);
+    --reactist-text-link-hover-tint: var(--reactist-actionable-tertiary-hover-tint);
+    --reactist-text-link-idle-decoration: underline;
     --reactist-text-link-hover-decoration: underline;
 }
 

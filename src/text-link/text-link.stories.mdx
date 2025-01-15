@@ -1,0 +1,35 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs'
+import { Stack } from '../stack'
+import { TextLink } from './text-link'
+
+<Meta
+    title="Design system/TextLink"
+    component={TextLink}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
+
+# TextLink
+
+A component used to create text-based hyperlinks.
+
+<Canvas>
+    <Story
+        name="Main demo"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
+        <Stack space="medium" align="start">
+            <TextLink href="https://www.doist.com/">regular</TextLink>
+            <TextLink href="https://www.doist.com/" openInNewTab={true}>
+                open in new tab
+            </TextLink>
+        </Stack>
+    </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable of={TextLink} />
