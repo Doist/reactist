@@ -2,6 +2,10 @@
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
+# 27.2.0
+
+-   [Feat] Document `TextLink` component in Storybook and change default styling.
+
 # 27.1.0
 
 -   [Feat] Expose CSS variables for customizng the icon color of the `Banner` component system types.
