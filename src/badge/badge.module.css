@@ -29,6 +29,12 @@
     background-color: var(--reactist-badge-fill);
     line-height: calc(var(--reactist-badge-font-size) + 3px);
     white-space: nowrap;
+    text-decoration: none;
+}
+
+.badge:hover {
+    color: var(--reactist-badge-tint);
+    text-decoration: none;
 }
 
 .badge-info {
