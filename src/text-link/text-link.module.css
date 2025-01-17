@@ -14,7 +14,17 @@
     cursor: pointer;
 }
 
-.container:hover {
+.container > * {
+    text-decoration: var(--reactist-text-link-idle-decoration);
+    color: var(--reactist-text-link-idle-tint);
+}
+
+/**
+ * We need to target the child elements to ensure that styles are
+ * applied to the text independently of the DOM elements hierarchy.
+ */
+.container:hover,
+.container:hover > * {
     text-decoration: var(--reactist-text-link-hover-decoration);
     color: var(--reactist-text-link-hover-tint);
 }

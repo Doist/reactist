@@ -41,3 +41,36 @@ A component used to create text-based hyperlinks.
 ## Props
 
 <ArgsTable of={TextLink} />
+
+## Nested elements
+
+When using nested elements inside a `TextLink`, hover styles are properly applied to all children.
+
+<Canvas>
+    <Story
+        name="Nested elements"
+        parameters={{
+            docs: { source: { type: 'code' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <Stack space="medium" align="start">
+            <TextLink href="https://www.doist.com/">
+                <span>Link with nested span</span>
+            </TextLink>
+            <TextLink href="https://www.doist.com/">
+                <div>Link with nested div</div>
+            </TextLink>
+            <TextLink href="https://www.doist.com/">
+                Text with <strong>bold</strong> section
+            </TextLink>
+            <TextLink href="https://www.doist.com/">
+                Text with{' '}
+                <a href="https://www.doist.com" target="_blank">
+                    link
+                </a>{' '}
+                section
+            </TextLink>
+        </Stack>
+    </Story>
+</Canvas>
