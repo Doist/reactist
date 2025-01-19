@@ -18,5 +18,4 @@ Feel free to leave unchecked or remove the lines that are not applicable.
 
 -   [ ] Added tests for bugs / new features
 -   [ ] Updated docs (storybooks, readme)
--   [ ] Executed `npm run validate` and made sure no errors / warnings were shown
 -   [ ] Reviewed and approved Chromatic visual regression tests in CI
