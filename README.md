@@ -203,58 +203,30 @@ When you open a GitHub PR, you'll notice the "UI Review" and "UI Tests" CI steps
 
 # Releasing
 
-A new version of reactist is published both on npm and GitHub Package Registry whenever a new release on GitHub is created.
+This project uses [release-please](https://github.com/googleapis/release-please) to automate version management and package publishing.
 
-## Before merging your changes
+## How it works
 
-In the GitHub PR that contains your new changes, make sure that you also include the following:
+1. Make your changes using [Conventional Commits](https://www.conventionalcommits.org/):
 
-1. Add tests for bugs and new feature
+    - `feat:` for new features (minor version bump)
+    - `fix:` for bug fixes (patch version bump)
+    - `feat!:` or `fix!:` for breaking changes (major version bump)
+    - `docs:` for documentation changes
+    - `chore:` for maintenance tasks
+    - `ci:` for CI changes
 
-2. Update relevant docs (storybooks, readme)
+2. When commits are pushed to `main`:
 
-3. Execute:
+    - Release-please automatically creates/updates a release PR
+    - The PR includes version bump and changelog updates
+    - Review the PR and merge when ready
 
-```sh
-npm run validate
-```
+3. After merging the release PR:
+    - A new GitHub release is automatically created
+    - A new tag is created
+    - The `publish` workflow is triggered
+    - The package is published to npm and GitHub Packages
+    - Storybook documentation is automatically updated
 
-and make sure no errors nor warnings are shown
-
-4. Describe your changes in [`CHANGELOG.md`](CHANGELOG.md)
-
-5. Bump the version in [`package.json`](package.json) and [`package-lock.json`](package-lock.json) by running:
-
-```sh
-npm --no-git-tag-version version <major|minor|patch>
-```
-
-[ref](https://docs.npmjs.com/cli/v6/commands/npm-version)
-
-Note that the steps above are also documented in the [PR template](.github/PULL_REQUEST_TEMPLATE.md) that you will be prompted with whenever you open a new reactist GitHub PR.
-
-## After merging your changes
-
-Once your changes have been merged to `main`, create a new GitHub release:
-
-1. Visit https://github.com/Doist/reactist/releases/new
-
-2. In the "Choose a tag" dropdown, type the new release version (i.e. vX.Y.Z) and select "Create new tag: vX.Y.Z on publish"
-
-3. In the "Release title" field, type the new release version (i.e. vX.Y.Z)
-
-4. In the "Describe the release" box, paste the same content you added to the [`CHANGELOG.md`](CHANGELOG.md), but without the title header
-
-5. Make sure the "Set as the latest release" checkbox is checked
-
-6. Click "Publish release"
-
-7. Visit https://github.com/Doist/reactist/actions
-
-8. Make sure that a new GitHub action is now running (this will automatically perform all the necessary steps to publish the package)
-
-9. Once the action is complete, check https://npmjs.com/package/@doist/reactist and verify that there's a new public release
-
-Finally, be sure to update both [todoist-web](https://github.com/Doist/todoist-web) and [twist-web](https://github.com/Doist/twist-web) to use the new reactist version you just published.
-
-The storybook hosted on GitHub pages will be automatically updated on each push to `main`. Should there be a problem, try running the action manually from the [Actions settings](https://github.com/Doist/reactist/actions).
+The storybook hosted on GitHub pages will be automatically updated on each push to `main`. If there's a problem, try running the action manually from the [Actions settings](https://github.com/Doist/reactist/actions).
