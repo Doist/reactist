@@ -1,0 +1,46 @@
+name: Semantic Pull Request
+
+on:
+    pull_request:
+        types:
+            - edited
+            - opened
+            - synchronize
+    push:
+        branches:
+            - gh-readonly-queue/main/**
+
+jobs:
+    validate-title:
+        name: Validate Title
+        runs-on: ubuntu-latest
+
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Based on historical data
+        timeout-minutes: 5
+        steps:
+            - name: Validate pull request title
+              uses: amannn/action-semantic-pull-request@db6e259b93f286e3416eef27aaae88935d16cf2e
+              with:
+                  validateSingleCommit: true
+                  # All of Commitizen's conventional commit types plus `doc` and `tests` for
+                  # convenience. When updating these types, check whether the
+                  # `post-conventional-changelog-to-twist` action needs to be updated as well.
+                  #
+                  # Reference:
+                  # https://github.com/commitizen/conventional-commit-types/blob/master/index.json
+                  types: |
+                      build
+                      chore
+                      ci
+                      doc
+                      docs
+                      feat
+                      fix
+                      perf
+                      refactor
+                      revert
+                      style
+                      test
+                      tests
