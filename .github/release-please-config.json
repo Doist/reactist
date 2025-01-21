@@ -10,5 +10,55 @@
             "include-component-in-tag": false
         }
     },
+    "changelog-sections": [
+        {
+            "section": "🚀 Features",
+            "type": "feat"
+        },
+        {
+            "section": "🐛 Bug Fixes",
+            "type": "fix"
+        },
+        {
+            "section": "🐛 Bug Fixes",
+            "type": "style"
+        },
+        {
+            "section": "🐛 Bug Fixes",
+            "type": "perf"
+        },
+        {
+            "section": "⬆️ Dependency updates",
+            "type": "deps"
+        },
+        {
+            "section": "🧰 Maintenance",
+            "type": "chore"
+        },
+        {
+            "section": "🧰 Maintenance",
+            "type": "refactor"
+        },
+        {
+            "section": "🧰 Maintenance",
+            "type": "test"
+        },
+        {
+            "section": "🧰 Maintenance",
+            "type": "build"
+        },
+        {
+            "section": "🧰 Maintenance",
+            "type": "docs"
+        },
+        {
+            "section": "🧰 Maintenance",
+            "type": "ci"
+        },
+        {
+            "section": "🧰 Maintenance",
+            "type": "revert"
+        }
+    ],
     "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
 }
