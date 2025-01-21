@@ -1,8 +1,8 @@
-import React from 'react'
+import * as React from 'react'
 import classnames from 'classnames'
 
-import Dropdown from '../dropdown'
-import { Tooltip } from '../tooltip'
+import DeprecatedDropdown from '../deprecated-dropdown'
+import { Tooltip } from '../../tooltip'
 
 import './color-picker.less'
 
@@ -24,7 +24,8 @@ const COLORS = [
     '#CCCCCC',
 ]
 
-const _isNamedColor = (color: string | NamedColor): color is NamedColor => typeof color !== 'string'
+const _isNamedColor = (color: string | NamedColor | undefined): color is NamedColor =>
+    typeof color !== 'string'
 
 const _getColor = (colorList: (string | NamedColor)[], colorIndex: number) => {
     const index = colorIndex >= colorList.length ? 0 : colorIndex
@@ -40,8 +41,8 @@ type Props = {
 
 function ColorPicker({ color = 0, small, onChange, colorList = COLORS }: Props) {
     return (
-        <Dropdown.Box right className="reactist_color_picker">
-            <Dropdown.Trigger>
+        <DeprecatedDropdown.Box right className="reactist_color_picker">
+            <DeprecatedDropdown.Trigger>
                 {(() => {
                     const backgroundColor = _getColor(colorList, color)
 
@@ -58,10 +59,10 @@ function ColorPicker({ color = 0, small, onChange, colorList = COLORS }: Props) 
                         </span>
                     )
                 })()}
-            </Dropdown.Trigger>
-            <Dropdown.Body>
+            </DeprecatedDropdown.Trigger>
+            <DeprecatedDropdown.Body>
                 <div className="color_options">
-                    {colorList.reduce((items, currentColor, currentIndex) => {
+                    {colorList.reduce<React.ReactNode[]>((items, currentColor, currentIndex) => {
                         items.push(
                             <ColorItem
                                 isActive={
@@ -79,10 +80,10 @@ function ColorPicker({ color = 0, small, onChange, colorList = COLORS }: Props) 
                             />,
                         )
                         return items
-                    }, [] as React.ReactNode[])}
+                    }, [])}
                 </div>
-            </Dropdown.Body>
-        </Dropdown.Box>
+            </DeprecatedDropdown.Body>
+        </DeprecatedDropdown.Box>
     )
 }
 ColorPicker.displayName = 'ColorPicker'
@@ -98,9 +99,10 @@ type ColorItemProps = {
 function ColorItem({ color, colorIndex, isActive, onClick, tooltip }: ColorItemProps) {
     const item = (
         <span
+            data-testid="reactist-color-item"
             className={'reactist color_item' + (isActive ? ' active' : '')}
             style={{ backgroundColor: color }}
-            onClick={() => onClick && onClick(colorIndex)}
+            onClick={() => onClick?.(colorIndex)}
         >
             <span className="color_item--inner_ring" />
         </span>

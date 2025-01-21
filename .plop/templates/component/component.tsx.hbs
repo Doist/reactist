@@ -1,0 +1,25 @@
+import * as React from 'react'
+import { Box } from '../box'
+import styles from './{{dashCase name}}.module.css'
+
+type {{pascalCase name}}Props = {
+    /**
+     * The {{pascalCase name}}’s visual variant.
+     */
+    variant: 'primary' | 'secondary'
+    /**
+     * The content or label of the {{pascalCase name}}.
+     */
+    children: React.ReactNode
+}
+
+function {{pascalCase name}}({ children, variant }: {{pascalCase name}}Props) {
+    return (
+        <Box className={[styles.container, styles[variant]]}>
+            {children}
+        </Box>
+    )
+}
+
+export { {{pascalCase name}} }
+export type { {{pascalCase name}}Props }

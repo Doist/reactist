@@ -1,0 +1,60 @@
+.text {
+    font-family: var(--reactist-font-family);
+    font-size: var(--reactist-font-size-body);
+    font-weight: var(--reactist-font-weight-regular);
+    color: var(--reactist-content-primary);
+}
+
+.size-caption {
+    font-size: var(--reactist-font-size-caption);
+}
+.size-copy {
+    font-size: var(--reactist-font-size-copy);
+}
+.size-subtitle {
+    font-size: var(--reactist-font-size-subtitle);
+}
+
+.weight-semibold {
+    font-weight: var(--reactist-font-weight-medium);
+}
+.weight-bold {
+    font-weight: var(--reactist-font-weight-strong);
+}
+
+.tone-secondary {
+    color: var(--reactist-content-secondary);
+}
+.tone-danger {
+    color: var(--reactist-content-danger);
+}
+.tone-positive {
+    color: var(--reactist-content-positive);
+}
+
+/* truncated text */
+
+.lineClampMultipleLines {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.lineClamp-1 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.lineClamp-2 {
+    -webkit-line-clamp: 2;
+}
+.lineClamp-3 {
+    -webkit-line-clamp: 3;
+}
+.lineClamp-4 {
+    -webkit-line-clamp: 4;
+}
+.lineClamp-5 {
+    -webkit-line-clamp: 5;
+}

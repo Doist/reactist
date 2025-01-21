@@ -5,13 +5,19 @@ on: pull_request
 jobs:
     build-and-test:
         runs-on: ubuntu-latest
+        # Based on historical data
+        timeout-minutes: 15
         steps:
-            - uses: actions/checkout@v1
+            - uses: actions/checkout@v4
+            - name: Read Node.js version from '.nvmrc'
+              id: nvmrc
+              run: |
+                  echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
             - uses: actions/setup-node@v1
               with:
-                  node-version: 14
+                  node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
             - run: npm ci
             - run: npm run lint
             - run: npm run type-check
             - run: npm test
-            - run: npm run build-all
+            - run: npm run build

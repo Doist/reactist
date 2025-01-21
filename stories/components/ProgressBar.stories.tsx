@@ -1,13 +1,16 @@
 import './styles/progressbar_story.less'
 
-import React from 'react'
+import * as React from 'react'
 
 import ProgressBar from '../../src/components/progress-bar'
 
 // Story setup ================================================================
 export default {
-    title: 'ProgressBar',
+    title: 'Components/ProgressBar',
     component: ProgressBar,
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 // Story Definitions ==========================================================

@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import * as React from 'react'
 
-import Select from '../../src/components/select'
+import Select from '../../src/components/deprecated-select'
+import { Banner } from '../../src/banner'
+import { Stack } from '../../src/stack'
+import LinkTo from '@storybook/addon-links/react'
 
 const options = [
     { value: 'intro', text: 'Select a fruit', disabled: true },
@@ -14,36 +17,41 @@ const options = [
 // Story setup ================================================================
 
 export default {
-    title: 'Select',
+    title: 'Components/Select',
     component: Select,
+    parameters: {
+        badges: ['deprecated'],
+    },
 }
 
 // Story Definitions ==========================================================
 
-export const SelectStory = () => {
-    const [value, setValue] = useState<string>(options[0].value)
-
-    const handleChange = (val) => {
-        setValue(val)
-    }
+export function SelectStory() {
+    const [value, setValue] = React.useState<string>(options[0].value)
 
     return (
-        <section className="story">
-            <Select value={value} options={options} onChange={handleChange} />
-        </section>
+        <Stack as="section" exceptionallySetClassName="story" space="large">
+            <Banner
+                tone="error"
+                description={
+                    <>
+                        <strong>Deprecated:</strong> Please use{' '}
+                        <LinkTo kind="design-system-selectfield">SelectField</LinkTo> instead
+                    </>
+                }
+            />
+
+            <Select value={value} options={options} onChange={setValue} />
+        </Stack>
     )
 }
 
-export const SelectPlaygroundStory = (args) => {
-    const [value, setValue] = useState<string>(options[0].value)
-
-    const handleChange = (val) => {
-        setValue(val)
-    }
+export function SelectPlaygroundStory(args) {
+    const [value, setValue] = React.useState<string>(options[0].value)
 
     return (
         <section className="story">
-            <Select {...args} value={value} options={options} onChange={handleChange} />
+            <Select {...args} value={value} options={options} onChange={setValue} />
         </section>
     )
 }
@@ -54,28 +62,18 @@ SelectPlaygroundStory.args = {
 
 SelectPlaygroundStory.argTypes = {
     disabled: {
-        control: {
-            type: 'boolean',
-        },
+        control: { type: 'boolean' },
     },
     value: {
-        control: {
-            type: null,
-        },
+        control: { type: null },
     },
     defaultValue: {
-        control: {
-            type: null,
-        },
+        control: { type: null },
     },
     className: {
-        control: {
-            type: null,
-        },
+        control: { type: null },
     },
     options: {
-        control: {
-            type: null,
-        },
+        control: { type: null },
     },
 }

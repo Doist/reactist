@@ -1,0 +1,39 @@
+import { Story, Meta } from '@storybook/addon-docs'
+
+<Meta title="Tips and tricks/Using the Box component" />
+
+# Tips and tricks about the `Box` component
+
+## You don't need the `classNames` helper as often now
+
+The new `Box` component's `className` prop receives the same kind of values supported by this helper. So you can do things like this:
+
+```jsx
+// This…
+<Box className={classNames(styles.container, 'custom-class-name')} />
+
+// …can be written like this
+<Box className={[styles.container, 'custom-class-name']} />
+
+// Other examples:
+<Box
+  className={[
+    styles.container,
+    isReadOnly ? styles.readOnly : null,
+    { [styles.disabled]: isDisabled },
+  ]}
+/>
+```
+
+Granted, this is only supported in the `Box`. This is because the `Box` is the only design system component that officially supports custom styles. Remember that for the other components you can use `exceptionallySetClassName`, but this one is an escape hatch, that we should aim to not use as much as the design system matures. So this one does not support that feature.
+
+## The `paddingX` and `paddingY` shorthand props
+
+The `Box` component has props to set its padding in all four direction: `paddingTop`, `paddingRight`, `paddingBottom`, `paddingLeft`. You have probably noticed that we can set them all at once with `padding`. But you might have missed the fact that we can set the padding in one of the two dimensions at once as well. This is achieved with `paddingX` (which sets `paddingLeft` and `paddingRight`) and `paddingY` (which sets `paddingTop` and `paddingBottom`).
+
+```jsx
+// A box with a large padding left and right, and a small padding top and bottom
+<Box paddingX="large" paddingY="small" />
+```
+
+The same applies to the `margin*` props.

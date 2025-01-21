@@ -1,14 +1,790 @@
-# Changelog
-
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
+
+# 27.2.1
+
+-   [Fix] ensure TextLink styles are applied to nested elements [#860](https://github.com/Doist/reactist/pull/860)
+
+# 27.2.0
+
+-   [Feat] Document `TextLink` component in Storybook and change default styling.
+
+# 27.1.0
+
+-   [Feat] Expose CSS variables for customizng the icon color of the `Banner` component system types.
+
+# 27.0.1
+
+-   [Docs] Document the `maxLength` prop for the `TextField` component.
+
+# 27.0.0
+
+-   [BREAKING] Remove `Alert` component.
+-   [BREAKING] Update `Banner` UI, merging `Alert` use cases.
+
+# 26.2.5
+
+-   [Fix] Add top and bottom paddings to the `Tab` component.
+-   [Fix] `SubMenu` will only render at the bottom when there isn't enough space in either side of the parent menu.
+
+# 26.2.4
+
+-   [Fix] The `Prose` component's horizontal rule color is now properly set to the primary divider color.
+
+# 26.2.3
+
+-   [Fix] The `Tab` component's line height is now properly set to 21px.
+
+# 26.2.2
+
+-   [Fix] Vertically align the `Notice` component's icon with the first line of text
+
+# 26.2.1
+
+-   [Fix] Export `TooltipProvider` as a component
+
+# 26.2.0
+
+-   [Feat] Add `TooltipContext` to allow `showTimeout` and `hideTimeout` to be set globally
+
+# v26.1.0
+
+-   [Feat] Expose `showTimeout` and `hideTimeout` props for `Tooltip`
+-   [Fix] The center alignment between the `Alert` component's icon and message is now more accurate when the message is only one-line long.
+-   [Fix] Render submenus at the bottom when there isn't enough space
+
+# v26.0.0
+
+-   [BREAKING] Remove unused `secondaryLabel` from `TexTfield`, `PasswordField`, `SelectField`, `TextArea`, and `SwitchField`.
+-   [BREAKING] Remove `hint` from from `Textfield`, `PasswordField`, `SelectField`, `TextArea`, and `SwitchField`.
+    -   Please use `message` instead.
+-   [Feat] Update read only style for `TextField` and `TextArea` when `readOnly` is `true`.
+-   [Feat] Add `disableResize` option to `TextArea` to disallow manual resizing.
+-   [Feat] Add character count (with limit) to `TextField` and `TextArea`.
+    -   Will show a character count indicator below the field when `maxLength` is set.
+-   [Feat] Add `endSlot` support to `PasswordField`.
+-   [Chore] Deprecate `auxiliaryLabel` from `TexTfield`, `PasswordField`, `SelectField`, and `TextArea`.
+
+# v25.2.0
+
+-   [Feat] Add `ref` support to `ModalBody` component
+
+# v25.1.1
+
+-   [Fix] Restrict focus locking in the `Modal` component to its containing document/iframe.
+
+# v25.1.0
+
+-   [Feat] Add `xsmall` size to the `Modal` component
+
+# v25.0.0
+
+-   [BREAKING] Upgrade Ariakit from legacy package to the newer @ariakit/react
+-   [BREAKING] Remove unsupported `onPointerEnterCapture` and `onPointerLeaveCapture` props from `heading`-, `input`-, and `textarea`-based components.
+-   [BREAKING] Removed the `ButtonLink` component.
+-   [BREAKING] `Button` no longer accepts props that render it as an icon-only button.
+-   [BREAKING] Use an explicit `render` prop for composition, instead of the `as` prop (in the menu, modal, tabs, toasts and tooltip components).
+-   [BREAKING] `TabPanel`'s prop `render` is renamed to `renderMode`.
+-   [Feat] Introduce a new `IconButton` component.
+-   [Feat] The `Button` and `IconButton` component can be rendered as a link using the `render={<Link to="…" />} prop.
+
+# v25.0.0-beta.3
+
+-   [Fix] Allow more props to be forwarded to the `Tab` component.
+-   [Fix] Properly fix CSS build in tsdx config.
+-   [Chore] Upgrade to `@ariakit/react@0.4.5`.
+
+# v25.0.0-beta.2
+
+-   [Fix] Pass `onClick` to the `Tab` component.
+
+# v25.0.0-beta.1
+
+-   [BREAKING] Use an explicit `render` prop for composition, instead of the `as` prop (in the menu, modal, tabs, toasts and tooltip components).
+-   [BREAKING] `TabPanel`'s prop `render` is renamed to `renderMode`.
+
+# v25.0.0-beta
+
+-   [BREAKING] Removed the `ButtonLink` component.
+-   [BREAKING] `Button` no longer accepts props that render it as an icon-only button.
+-   [Feat] Introduce a new `IconButton` component.
+-   [Feat] The `Button` and `IconButton` component can be rendered as a link using the `render={<Link to="…" />} prop.
+
+# v24.2.0-beta
+
+-   [Fix] Include changes from [v23.3.0](#v2330) in the beta release
+
+# v24.1.5-beta
+
+-   [Fix] Include changes from [v23.2.2](#v2322) in the beta release
+
+# v24.1.4-beta
+
+-   [Fix] Include changes from [v23.2.1](#v2321) in the beta release
+
+# v24.1.3-beta
+
+-   [Fix] Remove unsupported `onPointerEnterCapture` and `onPointerLeaveCapture` props from `heading`-, `input`-, and `textarea`-based components.
+-   Normally, this would be considered a breaking change, but the v24 version is still pre-release and already contains breaking changes.
+
+# v24.1.2-beta
+
+-   [Fix] Reset anchor rect after context menu is closed.
+-   [Fix] Revert earlier attempt to auto-close menus when they lose focus.
+
+# v24.1.1-beta
+
+-   [Fix] It was possible to leave a tooltip in a state in which it remained visible all the time. This release fixes the issue.
+-   [Fix] Auto-close menus when they lose focus to elements other than their own content or their sub-menus.
+
+# v24.1.0-beta
+
+-   [Feat] Include changes from [v23.2.0](#v2320) in the beta release
+
+# v24.0.0-beta
+
+-   [BREAKING] Upgrade Ariakit from legacy package to the newer @ariakit/react
+
+# v23.3.0
+
+-   [Feat] Add `warning` as a `tone` option for `Badge`.
+
+# v23.2.2
+
+-   [Fix] Revert "Adjust modal alignment to the middle of the viewport at `800px` breakpoint for improved UX". Turns out that this is not something that we want to do.
+
+# v23.2.1
+
+-   [Fix] Adjust modal alignment to the middle of the viewport at `800px` breakpoint for improved UX.
+
+# v23.2.0
+
+-   [Feat] Add `medium` as a `weight` option for `Header`.
+
+# v23.1.0
+
+-   [Feat] Add `--reactist-font-family-monospace` with updated font family for monospace elements
+
+# v23.0.0
+
+-   [BREAKING] Remove unsupported `crossOrigin` attribute from `input`- and `textarea`-based components.
+-   [BREAKING] Remove unsupported `placeholder` attribute from heading components.
+
+# v22.3.3
+
+-   [Fix] Vertical alignment of inline code elements inside a `Prose` component
+
+# v22.3.2
+
+-   [Fix] Text inside a `Badge` no longer wraps into multiple lines.
+
+# v22.3.1
+
+-   [Tweak] Increase showing tooltip delay to 1 second from 500ms
+
+# v22.3.0
+
+-   [Build] Add support for Node v21
+
+# v22.2.0
+
+-   [Feat] The `Alert` component now has a new design. Input based components will now also expose a `--reactist-inputs-alert` CSS variable to customize their border colours when put into an error state
+
+# v22.1.0
+
+-   [Build] Add support for Node v20 and npm v10
+
+# v22.0.0
+
+-   [BREAKING] Remove `DeprecatedModal`.
+
+# v21.3.0
+
+-   [Feat] `ToastProvider` accepts an optional `containerClassName` property, which let's you to add your own class for the container of all toasts.
+
+# v21.2.3
+
+-   [Fix] Prevent horizontal expansion of `TextArea` with `autoExpand={true}`.
+
+# v21.2.2
+
+-   [Docs] Fix links to Reactist components in storybook stories.
+
+# v21.2.1
+
+-   [Docs] Fix links to Reactist components in storybook stories.
+
+# v21.2.0
+
+-   [Feat] `Textfield`, `PasswordField`, `SelectField`, and `TextArea` will now use two new CSS variables to define their border colors: `--reactist-inputs-focus`, `--reactist-inputs-idle`. If they were previously set using `--reactist-divider-primary` and `--reactist-divider-secondary`, they will continue to work as well.
+
+# v21.1.1
+
+-   [Fix] Using a menu both triggered by a button and by right-click.
+
+# v21.1.0
+
+-   [Feat] The `Prose` component now supports links applied to inline code.
+
+# v21.0.2
+
+-   [Fix] `Tabslist`'s default space `space='xsmall'` is removed to get rid of unnecessary gap between tabs.
+
+# v21.0.1
+
+-   [Fix] `TextArea` with `autoExpand={true}` applies it initially, acknowledging any initial value that the field may have.
+-   [Fix] Avoid tooltip re-creating the anchor element when the tooltip content switches being present or not.
+
+# v21.0.0
+
+-   [BREAKING] `TextField`'s `startIcon` property is now renamed `startSlot`.
+-   [Feat] New `startSlot` and `endSlot` props on the `TextField` component. These support rendering not only icons, but buttons too.
+-   [Fix] `TextField`'s `startSlot` is now properly aligned when using `variant="bordered"`.
+-   [Fix] `TextField` is now properly focused when clicking anywhere inside its bordered area.
+-   [Tweak] `PasswordField`'s toggle visibility button is now implemented by using the `TextField`'s `endSlot` feature.
+
+# v20.3.0
+
+-   [Feat] Toasts wrapped in `ToastsProvider` are now dismissed when their action `onClick` handler fires.
+
+# v20.2.0
+
+-   [Feat] Expose CSS variables for theming the `SwitchField` component.
+
+# v20.1.0
+
+-   [Feat] New `Prose` component to style free-form HTML content consistently.
+
+# v20.0.3
+
+-   [Fix] Slightly tweak the height of the `Badge` component.
+
+# v20.0.2
+
+-   [Fix] Slightly tweak the height of the `Badge` component.
+
+# v20.0.1
+
+-   [Fix] `Badge` component content is now bold and the appropriate line-height is enforced.
+
+# v20.0.0
+
+-   [BREAKING] Remove `usePrevious` hook
+-   [BREAKING] Remove `DeprecatedNotification` component
+-   [BREAKING] The `Menu` component now uses Reactist CSS variables to style itself
+
+# v19.1.1
+
+-   [Fix] Export new `Banner` component.
+
+# v19.1.0
+
+-   [Feat] A new `Banner` component.
+
+# v19.0.1
+
+-   [Fix] `Tooltip`s can now have its z-index customized using the `--reactist-stacking-order-tooltip` custom property.
+-   [Fix] `Tooltip`s now have a 300px max-width.
+
+# v19.0.0
+
+-   [BREAKING] A new `Badge` component with various breaking changes
+    -   The prop `variant` has been renamed to `tone`
+    -   The new possible set of tones is different from the variants previously supported
+    -   New CSS custom properties to control the `Badge`'s component appearance (tones and font size)
+    -   The badge label is now provided via a `label` prop instead of via `children`
+-   [BREAKING] Update `ariakit` to [next.43](https://github.com/ariakit/ariakit/blob/main/packages/ariakit/CHANGELOG.md#200-next43) and `ariakit-utils` to [next.27](https://github.com/ariakit/ariakit/blob/main/packages/ariakit-utils/CHANGELOG.md#0170-next27). Depending on your set up, `node_modules/ariakit*` dependencies may need to be transpiled.
+-   [BREAKING] `Menu` will now render in modal mode by default. This can be turned off by passing `modal={false}` to `MenuList`.
+
+# v18.0.0
+
+-   [BREAKING] Renames the CSS variable for primary text content inside toasts and tooltip. Previous name was `--reactist-content-toast`, now replaced with the new name `--reactist-toast-content-primary`.
+-   [Feat] New CSS variable to control the color of secondary text inside toasts and tooltip: `--reactist-toast-content-secondary`.
+-   [BREAKING] The `Tooltip` component no longer accepts generic props to be forwarded as generic HTML attributes to the tooltip content container. In particular, it no longer accepts a `className` to customize its appearance.
+-   [Tweak] Modernizes the implementation of the tooltip, specifically by making it based on the new styling approach based on CSS variables.
+-   [Feat] Adds the ability to render tooltips with an arrow-like element pointing to the trigger element.
+-   [Fix] The tooltip content is set as the accessible description of the trigger element.
+
+# v17.10.1
+
+-   [Fix] Ensure that any element inside a `Button` or `ButtonLink` is non-clickable, to facilitate event tracking with tools such as Google Analytics.
+
+# v17.10.0
+
+-   [Feat] Passing `autoExpand` to the `TextArea` component makes it auto-expand its height to fit the content as you type.
+-   [Feat] The `TextArea` component now supports receiving a ref that's forwarded to the `textarea` element.
+
+# v17.9.1
+
+-   [Fix] Tabs layout got broken after the `Inline` element switched to use `gap` for spacing.
+
+# v17.9.0
+
+-   [Feat] New `gap` prop in the `Box` component, implementing support for the CSS `gap` property.
+-   [Tweak] Use CSS `gap` for implementing spacing in the `Columns`, `Inline`, and `Stack` components.
+
+# v17.8.1
+
+-   [Fix] When clicking inside a modal, holding and releasing the click outside the modal no longer closes the modal
+
+# v17.8.0
+
+-   [Feat] New `Modal` prop `portalElement`, to enable consumers of the `Modal` component to have some control on where the modal portal is rendered.
+-   [Feat] The `Badge` component now renders as an inline element, which makes it more versatile in common situations when it's needed. For instance, to render it inside other elements such as buttons, links, etc.
+
+# v17.7.0
+
+-   [Feat] Add `startIcon` support to `TextField`
+
+# v17.6.0
+
+-   [Tweak] Upgrade Ariakit version to 2.0.0-next.30
+
+# v17.5.0
+
+-   [Feat] Add `variant` prop support to `SelectField` component.
+
+# v17.4.0
+
+-   [Feat] Add support for controlling whether a `Modal` can be dismissed by pressing `Escape` or with a click event on the modal overlay.
+
+# v17.3.0
+
+-   [Fix] Enforce standard padding in the `CheckboxField` component and accept an `icon` attribute
+
+# v17.2.0
+
+-   [Feat] Add support for providing a class to a `Modal` overlay
+
+# v17.1.0
+
+-   [Feat] Add support for `Menu` as a context menu
+-   [Fix] Allow `SubMenu`s to be rendered and support keyboard navigation
+
+# v17.0.1
+
+-   [Fix] Enforce minimum width for the checkbox icon in the `CheckboxField` component
+
+# v17.0.0
+
+-   [Breaking] Allow to customize the TextLink styles (color and text-decoration) via CSS variables
+
+# v16.1.0
+
+-   [Build] Add support for Node v18 and npm v9
+
+# v16.0.0
+
+-   [Breaking] The `Notification` component is renamed as `DeprecatedNotification`
+-   [Feat] The `Box` component now supports a new `background="toast"`
+-   [Feat] A new `Toast` component and `useToasts` hook
+-   [Fix] Sets `Badge` to semibold
+
+# v15.3.0
+
+-   [Feat] Introduces a `Badge` component
+
+# v15.2.0
+
+-   [Feat] Enhance the `label` property in `CheckboxField` to be of type `React.ReactNode`
+
+# v15.1.0
+
+-   [Feat] Fields without label show no spacing above the field
+-   [Fix] `TextArea` can now be hidden
+-   [Fix] `TextArea` now properly support receiving an explicit alternative aria-describedby attribute
+-   [Fix] TextArea is changed to only allow resizing vertically. This ensures that the consumer of the component can control the width via the maxWidth prop.
+
+# v15.0.0
+
+-   [Breaking] The `Modal` has its internals replaced with Ariakit. This should not introduce any user-facing changes, but the old modal will be available as `DeprecatedModal` to help with the transition.
+-   [Fix] Set `min-height` and `max-height` on `.reactist_menulist`.
+
+# v14.1.1
+
+-   [Fix] Pins the ariakit dependencies.
+
+# v14.1.0
+
+-   [Feat] `Tabs` by default have a shorter height, but this can be customized by overriding an exposed css variable
+
+# v14.0.0
+
+-   [Breaking] The `color` prop has been removed from `Tabs`, and `variant` now only supports `themed` and `neutral` as options.
+-   [Fix] `Tooltip` will now correctly use an anchor component with an `as` prop
+
+# v13.0.0
+
+-   [Breaking] Button's `tooltipGapSize` prop is no longer supported. When wanting to customize the tooltip appearance, consumers should take ownership of rendering the tooltip manually.
+-   [Breaking] Icon-only buttons can have their implicit "aria-label as tooltip" behaviour suppressed by passing `tooltip={null}`. Useful when wanting to get full control over rendering the tooltip manually.
+-   [Breaking] Remove deprecated components `Checkbox`, `DeprecatedLoading` and `DeprecatedModal`.
+-   [Breaking] Remove `Popover`
+-   [Breaking] The following components have been renamed and will be removed in a future major release:
+    -   `Dropdown` -> `DeprecatedDropdown`
+    -   `Input` -> `DeprecatedInput`, use `TextField` instead.
+    -   `Select` -> `DeprecatedSelect`, use `SelectField` instead.
+-   [Feat] Allow buttons to have fully rounded/circular corners.
+-   [Fix] Only apply full width labels when the button is full width
+
+# v12.1.1
+
+-   [Fix] Reset input padding for `variant="bordered"` `TextField`.
+
+# v12.1.0
+
+-   [Feat] New `message` and `tone` props that allow to associate a visual and semantic message to various field components. Supported in `TextField`, `PasswordField`, `TextArea` and `SelectField`.
+-   [Feat] New `variant="bordered"` supported in `TextField`, `PasswordField` and `TextArea`. It renders the field and its labels enclosed in an outer border, rather than having a border around the editing area only.
+
+# v12.0.4
+
+-   [Fix] Better default alignment between the `MenuList` and the `MenuButton`
+
+# v12.0.3
+
+-   [Fix] Missing styling for `MenuList` in Safari
+
+# v12.0.2
+
+-   [Fix] `Tooltip` was overriding its anchor's `ref`, preventing it from successfully forwarding its ref
+
+# v12.0.1
+
+-   [Fix] Fix publishing flow
+
+# v12.0.0
+
+-   [Breaking] Dropped support for React 16
+    -   Internally, Reactist will now use React 17 and TypeScript v4.6. Targets for `@babel/preset-env` have also been set, reducing the total build size by about 8-10%.
+-   [Breaking] Replace Reakit with Ariakit
+    -   This includes a breaking change for `Tabs`, where if the `selectedId` prop is provided, it becomes a controlled component and will no longer switch tabs on its own. To retain the old behaviour, `defaultSelectedId` can be used instead.
+
+# v11.6.0
+
+-   [Fix] Apply TextLink color through `--reactist-text-link-color`
+-   [Feat] Add `positive` tone to `Text`
+-   [Feat] Add `xsmall` size to `Loading`
+
+# v11.5.1
+
+-   [Fix] Modal header's min-height is now applied when header has no button
+
+# v11.5.0
+
+-   [Build] Update peer dependencies to include React v18
+
+# v11.4.0
+
+-   [Feat] Button can now have a width set (except icon-only buttons). When having a width, the label aligment can also be customized
+-   [Fix] Button focus styles should only be shown when interacting with the button via keyboard (using CSS's `:focus-visible`)
+
+# v11.3.0
+
+-   [Feat] Added `alignSelf` prop to `Box`
+
+# v11.2.0
+
+-   [Fix] Hiding `ModalHeader` close button no longer renders the button wrapper column
+-   [Fix] Using `start` as a value for `Box`'s `textAlign` now adds a class to properly set the `text-align` value
+-   [Fix] `TextArea`'s `rows` prop is not added to the component's type definition
+-   [Feat] Updates `Button` to support `gapSize` from `Tooltip` (as `tooltipGapSize`)
+
+# v11.1.0
+
+-   [Tweak] Tabs now are styled with medium font-weight
+-   [Tweak] Updates the default medium font-weight from `500` to `600`
+-   [Fix] `ModalActions` now ignores `null` child elements
+-   [Fix] `ModalActions` no longer wraps each child element inside a wrapper `div`
+-   [Fix] `ModalActions` flattens children inside React fragments
+-   [Fix] `Inline` no longer adds an unneeded extra wrapper `div` around it
+-   [Fix] Adds margin to Menu's viewport positioning
+-   [Feat] Updates Avatar to support responsive patterns
+
+## v11.0.0
+
+-   [Feat] New approach to styling components based on CSS variables
+-   [Feat] New approach to supporting rendering some components as another HTML element or as another component.
+-   [Feat] New components for layout (`Box`, `Columns`, `Column`, `Inline`, `Stack`)
+-   [Feat] New field components (`TextField`, `PasswordField`, `SelectField`, `CheckboxField`, `SwitchField`, `TextArea`)
+-   [Feat] New tabs components (`Tabs`, `Tab`, `TabList`, `TabPanel`, `TabAwareSlot`)
+-   [Feat] New components for typography (`Text`, `Heading`, `TextLink`)
+-   [Feat] Various other new components (`Alert`, `Notice`, `Hidden`, `HiddenVisually`)
+-   [Feat] New set of modal component (`Modal`, `ModalHeader`, `ModalBody`, `ModalFooter`, `ModalActions`) replacing the old set of `Modal.*` components.
+-   [Feat] New `Button` and `ButtonLink` components, replacing the old `Button` component.
+-   [Breaking] Old set of modal components are now exported as `DeprecatedModal` instead of as `Modal`.
+-   [Breaking] Old `Button` component is now exported as `DeprecatedButton` instead of as `Button`.
+-   [Breaking] Old `Loading` component is now exported as `DeprecatedLoading` instead of as `Loading`.
+-   [Breaking] Removes the `RangeInput` component
+-   [Breaking] Removes the `Tip` component
+-   [Breaking] Removes the `Icon` component
+-   [Breaking] Removes the `ErrorMessage` component
+-   [Docs] Adds a11y badges to component stories
+-   [Docs] Adds `jest-axe` package and automated a11y checks
+-   [Tweak] Makes a11y improvements to `Menu`
+-   [Tweak] Makes a11y improvements to `ProgressBar`
+-   [Tweak] Makes a11y improvements to `Notification`
+-   [Build] Updates peer deps to include React v17.0
+
+## v10.0.0-beta.12
+
+-   [Tweak] Upgrade Storybook to version v6.3.10
+-   [Tweak] Limit node version to <=16.10.0
+
+## v10.0.0-beta.11
+
+-   [Feat] More modal widths:
+    -   Previous width `large` is now called `xlarge`
+    -   New width `large` sitting in between `medium` and `xlarge`
+    -   New width `full`, that always fill the entire viewport width (keeping the standard margin
+        around).
+
+## v10.0.0-beta.10
+
+-   [Fix] Reduce specificity of the Tab component's CSS variables
+
+## v10.0.0-beta.9
+
+-   [Tweak] Divider weight now defaults to "tertiary"
+-   [Fix] Modal dividers (in the header or footer) are tertiary dividers.
+
+## v10.0.0-beta.8
+
+-   [Breaking] Standardize box borders and divider colors under a new primary/secondary/tertiary
+    system.
+-   [Fix] Better adjust spacing inside buttons, so that the side with an icon has a similar padding
+    than the side with no icon.
+-   [Tweak] Button hover styles are now also used when the button is focused, or it is expanded
+    (e.g. in the case of menu buttons).
+-   [Tweak] Make button colors transition smoothly.
+-   [Tweak] Adjust modal widths to the new design system defaults.
+-   [Tweak] Buttons with a visual text label (i.e. buttons that are not icon-only buttons) now have
+    a minimum width set, so they don't get too small for extremely short labels.
+
+## v10.0.0-beta.7
+
+-   [Fix] Modals that fit their content's height now expand their height only downwards, and are not
+    kept vertically centered, but slightly towards the top of the screen.
+-   [Fix] Modal close button alignment is no longer inconsistent.
+-   [Breaking] Button icon size is no longer controlled based on the button size. It is your
+    responsibility to make sure your SVG icons have the proper size and alignment to fit in a button
+    depending on its size.
+-   [Fix] Button labels are now clamped when they do not fit inside the button. Buttons will never
+    be wider than the width of their container.
+
+## v10.0.0-beta.6
+
+-   [Feature] Add a new `loading` prop for `Button` and `ButtonLink`, to set them as busy, and
+    visually show a loading indicator.
+-   [Fix] Fully support secondary destructive buttons in a way that is customizable via CSS
+    variables.
+-   [Fix] Use the `Button` component to power the default modal close button. This makes it possible
+    for consumer apps to have these buttons follow their customized button styles.
+-   [Feature] Improves the ability to fully customize all sizing and spacing by apps via CSS
+    variables.
+-   [Docs] New storybook examples showcasing how to customize buttons for dark mode.
+
+## v10.0.0-beta.5
+
+-   [Breaking] The various `Menu*` components props no longer consider `className` as a valid prop.
+-   [Breaking] The `Stack` component's `align` prop type is now `'start' | 'center' | 'end'` instead
+    of `'left' | 'center' | 'right'`.
+-   [Fix] Colour of quaternary button is now correct.
+-   [Docs] Improvements to the storybook examples for the `Menu` components.
+-   [Fix] Modal focus lock is now working correctly.
+-   [Fix] Modals are now aligned to the top of the viewport.
+-   [Fix] The labels of the `SwitchField` and `CheckboxField` components now follow the standard
+    `Text` styling.
+
+## v10.0.0-beta.4
+
+-   [Breaking] The new `Loading` component now supports `aria-label` or `aria-labelledby`, and it
+    also forwards all other props to the container element.
+-   [Feature] Reintroduce the legacy `Loading` component as `DeprecatedLoading` to ease the
+    migration in apps using it.
+
+## v10.0.0-beta.3
+
+-   [Breaking] The `Loading` component has been reimplemented based on the beta `LoadingSpinner`.
+-   [Breaking] The `LoadingSpinner` was renamed as `Loading`, and significantly changed.
+-   [Breaking] The `Modal` has been renamed `DeprecatedModal`.
+-   [Feature] A new `Modal` component is introduced, that replaces the old one, with much better
+    accessibility features and integrated into the new styling approach of the new design system
+    components.
+-   [Breaking] Rename the `Button` as `DeprecatedButton`.
+-   [Feature] New `Button` component following the latest standards of the design system.
+-   [Docs] The storybook examples now open the "Docs" tab by default.
+
+## v10.0.0-beta.2
+
+-   [Feature] All the tab components are now polymorphic (i.e. they can use the `as="element"` prop).
+-   [Feature] The `Box` component now has a new `textAlign` prop to control its `text-align` style.
+-   [Feature] The `Text` and `Heading` components now have a `align` prop to align its content horizontally.
+
+## v10.0.0-beta.1
+
+-   [Build] The project now requires node v16.0.0+ and npm v7.0.0+ to install and run.
+
+## 10.0.0
+
+-   [Build] The project now requires node v16.0.0+ and npm v7.0.0+ to install and run.
+
+## v9.2.0-beta.18
+
+-   [Breaking] Component composition changed to use prop `as="…"` instead of `component="…"`.
+-   [Breaking] Most design system components no longer support receiving a `className` attribute.
+-   [Breaking] Some design system components now support a custom class name via a `exceptionallySetClassName` prop.
+-   [Breaking] Responsive props are now provided via an object instead of an array.
+-   [Feature] The `Box` component now has a various `margin*` props to provide its margins similar to paddings.
+-   [Feature] The `Box` component now has a new `maxWidth` value `full` (i.e.`maxWidth="full"`).
+-   [Feature] The `Stack` component now has a `align` prop to align its items horizontally.
+-   [Feature] Add new component `Hidden` to hide content under certain media conditions.
+-   [Feature] Add new component `HiddenVisually` to hide content visually while keeping it accessible.
+-   [Feature] The `SwitchField` and `CheckboxField` components can now be controlled or uncontrolled.
+-   [Fix] The `SwitchField` hover state is no longer flaky.
+-   [Fix] The hint text in various field components (`TextField`, `PasswordField`, `SelectField`) now renders outside the max-width container.
+
+## v9.2.0-beta.17
+
+-   [Feature] Introduces a new `Tabs` component based on [Reakit/Tab](https://reakit.io/docs/tab/)
+
+Also included are changes from https://github.com/Doist/reactist/releases/tag/v9.1.6
+
+## v9.2.0-beta.16
+
+-   [Fix] Allows classname to be passed through on ButtonLink.
+
+## v9.2.0-beta.15
+
+-   [Fix] Add default padding to `Text` component when used with `lineClamp` prop, in order to prevent emojis from being cutoff
+-   [Fix] Allow the `Column` component to leverage the `component` prop to render as another element other than the default `div`
+
+## v9.2.0-beta.14
+
+-   [Fix] Add support for `baseline` alignment
+
+## v9.2.0-beta.13
+
+-   [Fix] Allow nested `Columns` components to retain their own inner spacing
+
+## v9.2.0-beta.12
+
+-   New tag to include the fix from [`v9.1.5`](https://github.com/Doist/reactist/releases/tag/v9.1.5)
+
+## v9.2.0-beta.11
+
+-   [Fix] Incorrect styles in `Button` which affected dark mode themes
+-   [Fix] Incorrect styles in `SelectField` which affected dark mode themes
+
+## v9.2.0-beta.10
+
+-   [Breaking] `Text` component now has its `size` attribute changed to accept `caption`, `copy`, `body`, and `subtitle`.
+-   [Fix] `Columns` component will now stretch within a flex container
+
+## v9.2.0-beta.9
+
+-   [Docs] Upgraded all beta storybook docs to work with Storybook 6
+
+## 9.1.6
+
+-   [Feature] Change `KeyboardShortcut` to treat `Super` as a key to be translated
+
+## 9.1.5
+
+-   [Fix] Prevent menu items with `aria-disabled` set to `false` from being disabled
+
+## 9.1.4
+
+-   [Perf] Make the disabled Button component visible to screen readers by swapping `disabled` for `aria-disabled`
 
 ## 9.1.3
 
-- [Tweak] Upgrade Storybook to version v6.2.1. Migrate stories to new version.
+-   [Tweak] Upgrade Storybook to version v6.2.1. Migrate stories to new version.
+
+## v9.2.0-beta.8
+
+-   Fix `Columns` styles, broken by the changes to `Stack` styling. This release now removes the interdependency of `Column's styles relying on `Stack` styles.
+
+## v9.2.0-beta.7
+
+Various fixes to the new experimental components
+
+-   Adds a right padding to the `SelectField` to make sure the chevron never appears on top of the `select` content.
+-   Use for the checked `CheckboxField` the same colour variable we use for the `SwitchField`.
+-   Add a wrapper `div` around what `Inline` renders, to avoid conflicts with margin applied from the outside by `Stack` (when `Inline` is nested in `Stack`).
+-   Simplify the CSS for `Stack` leveraging the `:not(:first-child)` selector.
+-   Add one more story to each of `Stack` and `Inline` to showcase that these new changes did not break their expected behaviour.
+
+## v9.2.0-beta.6
+
+Various fixes to the new experimental components
+
+-   Add explicit link styles to `TextLink`
+-   `SwitchField` now properly animates the handle moving left or right.
+-   Style fixes to the `PasswordField`.
+-   Added ref forwarding to `TextField`, `PasswordField` and `Heading`.
+
+## v9.2.0-beta.5
+
+-   Change Stack and Inline elements to not generate one container element per child element.
+-   Fix ButtonLink styling
+-   Adds a new `display="inlineFlex"` value to the `display` property of `Box`. This makes the `Box` use `display: inline-flex`.
+
+## v9.2.0-beta.4
+
+Various fixes to the new experimental components
+
+-   The `SelectField` now has its native appearance reset (i.e. `appearance: none`).
+-   Fixed a typo in an internal css variable in the `SelectField` that made it not have the proper height.
+-   Text in `Alert` and `Notice` is now properly aligned vertically with the icon.
+-   Fixed some css module classes that were incorrect in the JS code.
+-   `Alert` colours did not have the transparency properly set.
+-   The `SwitchField` now has a new dedicated css variable for theming its background when checked.
+
+## v9.2.0-beta.3
+
+-   [Fix] `Text` component was not receiving its ref correctly
+
+## v9.2.0-beta.2
+
+-   [Feature] New components `Alert`, `LoadingSpinner`, `Notice`, `Heading`, `Text`, `ButtonLink`, `TextLink`, `CheckboxField`, `PasswordField`, `SelectField`, `SwitchField`, `TextArea`, `TextField`.
+-   [Feature] New prop `tone` for component `Heading` (just like that for `Text`).
+-   [Feature] New prop `position` for component `Box`.
+-   [Feature] New props `flexShrink` and `flexGrow` for component `Box`.
+-   [Feature] New props `border` and `borderRadius` for component `Box`.
+-   [Feature] New `minWidth={0}` in component `Box`.
+-   [Feature] `Text` now supports receiving a `ref`.
+-   [Fix] Changed `Box` value for prop `background`. Former value `shade` is now called `aside`.
+-   [Fix] `Column` with `width="content"` did not shrink entirely to zero if empty.
+-   [Fix] Other fixes to columns so that it did not expand more than expected, so it allows truncated text to truncate.
+-   [Fix] Correct font sizes for the various levels of `Heading`.
+-   [Fix] `Stack` and `Inline` now generate `span` instead of `div` elements if the html element they use for the container does not allow to contain `div` elements.
 
 ## 9.1.2
 
 -   [Fix] Call a MenuItem component's onClick handler if provided; ignore the select action if event.defaultPrevented.
+
+## v9.2.0-beta.1
+
+-   [Feature] Add `xxlarge` option to various `padding` and `space` props for `Box`, `Columns`, `Inline`, and `Stack` components
+
+## v9.2.0-beta
+
+-   [Feature] Add `largest` size increase support for `Heading` component
+-   [Feature] Add `lineClamp` for text truncation to `Heading` and `Text` components
+-   [Fix] Export the `Column` component in the main entry point
+-   [Fix] Add missing colour variables
+-   [Docs] Add Storybook demos for `Heading`, `Text`, and colour swatches
+
+## v9.1.0-beta.2
+
+-   [Fix] Move patch-package to dependencies to allow it to run (on nothing since we're patching a dev-dependency) after being installed as a package.
+-   [Fix] Prevent emotion's `css` prop from polluting the exported type definitions
+
+## v9.1.0-beta.1
+
+-   [Fix] The previous beta release had an issue where all components' stylesheets were being treated as CSS modules. This will now build with the correct class name selectors again.
+
+## v9.1.0-beta
+
+-   [Feature] A set of base design system components have been added: `Box`, `Columns`, `Divider`, `Heading`, `Inline`, `Stack`, and `Text`. Since we're still experimenting with their API, they will be packaged under beta releases until they become more concrete.
 
 ## 9.1.1
 
@@ -24,7 +800,7 @@ Reactist follows [semantic versioning](https://semver.org/) and doesn't introduc
 -   [Build] The project now requires node v14.5.5+ and npm v6.14.11+ to install and run.
 -   We're skipping right over v8.0.0 as its tag has already been created previously
 
-## 7.2.1
+## v7.2.1
 
 -   [Tweak] Adds `defaultValue` and ensures additional props are carried forward on the `Select` component.
 

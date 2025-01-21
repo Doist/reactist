@@ -1,98 +1,120 @@
 import dayjs from 'dayjs'
-import React from 'react'
-import { shallow, ShallowWrapper } from 'enzyme'
-import toJson from 'enzyme-to-json'
+import * as React from 'react'
+import { render, screen, waitFor } from '@testing-library/react'
+import { axe } from 'jest-axe'
 
 import { Time } from './time'
+import userEvent from '@testing-library/user-event'
 
 describe('Time', () => {
+    beforeAll(() => {
+        jest.useFakeTimers()
+        jest.setSystemTime(new Date('2023-03-14T12:00:00.000Z'))
+    })
+
+    afterAll(() => {
+        jest.useRealTimers()
+    })
+
     const testDate = dayjs(new Date('March 22, 1991 13:37:42')).unix()
 
     it('renders without crashing', () => {
-        const time = shallow(<Time time={dayjs().unix()} />)
-        expect(toJson(time)).toMatchSnapshot()
+        const { container } = render(<Time time={dayjs().unix()} />)
+        expect(container).toMatchSnapshot()
     })
 
     it('toggles hovered state on mouse enter and leave when mouse moves', () => {
-        const time = shallow(<Time time={dayjs().unix()} />)
-        expect(time.state('hovered')).toBe(false)
+        render(<Time time={testDate} expandFullyOnHover />)
 
-        time.simulate('mouseEnter', getMouseEvent(100, 100))
-        expect(time.state('hovered')).toBe(true)
+        expect(screen.getByText('March 22, 1991')).toBeVisible()
 
-        time.simulate('mouseLeave', getMouseEvent(100, 110))
-        expect(time.state('hovered')).toBe(false)
+        userEvent.hover(screen.getByText('March 22, 1991'))
+        expect(screen.getByText('March 22, 1991, 1:37 PM')).toBeVisible()
+
+        // <Time> checks that the mouse coordinates have changed before setting state
+        userEvent.unhover(screen.getByText('March 22, 1991, 1:37 PM'), { clientX: 10, clientY: 10 })
+        expect(screen.getByText('March 22, 1991')).toBeVisible()
     })
 
     it('does not toggle hovered state when mouse did not move', () => {
-        const time = shallow(<Time time={dayjs().unix()} />)
-        expect(time.state('hovered')).toBe(false)
+        render(<Time time={testDate} expandFullyOnHover />)
 
-        time.simulate('mouseEnter', getMouseEvent())
-        expect(time.state('hovered')).toBe(true)
+        expect(screen.getByText('March 22, 1991')).toBeVisible()
 
-        time.simulate('mouseLeave', getMouseEvent())
-        expect(time.state('hovered')).toBe(true)
+        userEvent.hover(screen.getByText('March 22, 1991'))
+        expect(screen.getByText('March 22, 1991, 1:37 PM')).toBeVisible()
+
+        // <Time> checks that the mouse coordinates have changed before setting state
+        userEvent.unhover(screen.getByText('March 22, 1991, 1:37 PM'))
+        expect(screen.getByText('March 22, 1991, 1:37 PM')).toBeVisible()
     })
 
     it('renders relative time when not hovered', () => {
-        const time = shallow(<Time time={dayjs().unix()} />)
-        expect(getRenderedTime(time)).toBe('moments ago')
-    })
-
-    it('renders full absolute time when hovered and expandedFullOnHover is set', () => {
-        const time = shallow(<Time time={testDate} expandFullyOnHover />)
-        time.simulate('mouseEnter', getMouseEvent())
-        expect(getRenderedTime(time)).toBe('March 22, 1991, 1:37 PM')
+        render(<Time time={dayjs().unix()} />)
+        expect(screen.getByText('moments ago')).toBeVisible()
     })
 
     it('renders short absolute time when hovered and expandedOnHover is set', () => {
-        const time = shallow(<Time time={testDate} expandOnHover />)
-        time.simulate('mouseEnter', getMouseEvent())
-        expect(getRenderedTime(time)).toBe('March 22, 1991')
+        render(<Time time={testDate} expandOnHover />)
+
+        userEvent.hover(screen.getByText('March 22, 1991'))
+        expect(screen.getByText('March 22, 1991')).toBeVisible()
     })
 
     it('adds additional class name if supplied', () => {
-        const time = shallow(<Time time={testDate} className="this-classes were-added" />)
-        expect(toJson(time)).toMatchSnapshot()
+        const { container } = render(<Time time={testDate} className="this-classes were-added" />)
+        expect(container).toMatchSnapshot()
     })
 
-    it('renders wrapped in tooltip when tooltipOnHover is set', () => {
-        const time = shallow(<Time time={testDate} tooltipOnHover />)
-        expect(time).toMatchSnapshot()
+    it('renders wrapped in tooltip when tooltipOnHover is set', async () => {
+        jest.useRealTimers()
+        render(<Time time={testDate} tooltipOnHover />)
+
+        userEvent.hover(screen.getByText('March 22, 1991'))
+        await waitFor(() => {
+            expect(screen.getByRole('tooltip', { name: 'March 22, 1991, 1:37 PM' })).toBeVisible()
+        })
     })
 
-    it('renders with custom tooltip when supplied', () => {
-        const time = shallow(<Time time={testDate} tooltipOnHover tooltip="Test" />)
-        expect(time).toMatchSnapshot()
+    it('renders with custom tooltip when supplied', async () => {
+        render(<Time time={testDate} tooltipOnHover tooltip="Test" />)
+
+        userEvent.hover(screen.getByText('March 22, 1991'))
+        await waitFor(() => {
+            expect(screen.getByRole('tooltip', { name: 'Test' })).toBeVisible()
+        })
     })
 
-    it('does not render short absolute time on hover when tooltipOnHover is set', () => {
-        const time = shallow(<Time time={dayjs().unix()} tooltipOnHover expandOnHover />)
-        time.simulate('mouseEnter', getMouseEvent())
-        expect(time.find('Tooltip').props().children).toMatchInlineSnapshot(`
-            <span>
-              moments ago
-            </span>
-        `)
+    it('does not render short absolute time on hover when tooltipOnHover is set', async () => {
+        render(<Time time={dayjs().unix()} tooltipOnHover expandOnHover />)
+        userEvent.hover(screen.getByText('moments ago'))
+
+        await waitFor(() => {
+            expect(screen.getByRole('tooltip', { name: dayjs().format('LL, LT') })).toBeVisible()
+            expect(screen.getByText('moments ago')).toBeVisible()
+        })
     })
 
-    it('does not render full absolute time on hover when tooltipOnHover is set', () => {
-        const time = shallow(<Time time={dayjs().unix()} tooltipOnHover expandFullyOnHover />)
-        time.simulate('mouseEnter', getMouseEvent())
-        expect(time.find('Tooltip').props().children).toMatchInlineSnapshot(`
-            <span>
-              moments ago
-            </span>
-        `)
+    it('does not render full absolute time on hover when tooltipOnHover is set', async () => {
+        render(<Time time={dayjs().unix()} tooltipOnHover expandFullyOnHover />)
+        userEvent.hover(screen.getByText('moments ago'))
+
+        await waitFor(() => {
+            expect(screen.getByRole('tooltip', { name: dayjs().format('LL, LT') })).toBeVisible()
+            expect(screen.getByText('moments ago')).toBeVisible()
+        })
     })
 
-    // Helper functions ///////////////////////////////////////////////////////
-    function getRenderedTime(timeComponent: ShallowWrapper<Time>) {
-        return timeComponent.find('time').props().children
-    }
+    describe('a11y', () => {
+        beforeAll(() => {
+            jest.useRealTimers()
+        })
 
-    function getMouseEvent(x = 100, y = 100) {
-        return { clientX: x, clientY: y }
-    }
+        it('renders with no a11y violations', async () => {
+            const { container } = render(<Time time={dayjs().unix()} />)
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
+    })
 })

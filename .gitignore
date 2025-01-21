@@ -2,9 +2,12 @@
 .DS_Store
 node_modules
 .cache
+.eslintcache
+.env
 dist/
 es/
 lib/
+docs/
 /styles/
 coverage/
 .vscode/

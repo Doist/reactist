@@ -1,6 +1,6 @@
 import './styles/time_story.less'
 
-import React from 'react'
+import * as React from 'react'
 import dayjs from 'dayjs'
 
 import Time from '../../src/components/time'
@@ -8,8 +8,11 @@ import Time from '../../src/components/time'
 // Story setup ================================================================
 
 export default {
-    title: 'Time',
+    title: 'Components/Time',
     component: Time,
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 const exampleTimes = [

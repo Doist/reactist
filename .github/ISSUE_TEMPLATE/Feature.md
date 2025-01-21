@@ -21,4 +21,4 @@ Provide an example for how this feature would be used.
 
 ### Possible implementations
 
-If possible, describe how this feature could be implemented. See [CONTRIBUTING.md](https://github.com/Doist/reactist/blob/dev/.github/CONTRIBUTING.md).
+If possible, describe how this feature could be implemented. See [CONTRIBUTING.md](https://github.com/Doist/reactist/blob/main/.github/CONTRIBUTING.md).

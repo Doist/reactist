@@ -1,0 +1,132 @@
+import { Story, Meta } from '@storybook/addon-docs'
+
+<Meta title="Tips and tricks/Simplified markup of the Stack and Inline components" />
+
+# Simplified markup of the `Stack` and `Inline` components
+
+It's no secret that our layout components are inspired by [the ones in the Braid Design System](https://seek-oss.github.io/braid-design-system/foundations/layout). One key difference in some of these components is that we simplified them to privilege simpler markup by default.
+
+In Braid, for instance, `Stack` and `Inline` elements automatically generate an extra `div` wrapping each of its child elements. This allows them to achieve a full level of separation of concerns. You see, part of the layout duties of a `Stack` or an `Inline` component relies on applying certain styles to its child elements (e.g. to achieve the spacing they apply margin to the child elements). So they add this extra `div` around each child to make sure these styles are applied to these divs, and do not collide with the styles that the actual child element has.
+
+This is all better illustrated by an example. Take this `Inline`, for instance:
+
+```jsx
+<Inline>
+    <button type="button">Cancel</button>
+    <button type="submit">Save</button>
+</Inline>
+```
+
+In Braid, this component will render roughly the following markup:
+
+```html
+<div class="css classes for the inline container">
+    <div class="css classes for the inline child wrapper">
+        <button type="button">Cancel</button>
+    </div>
+    <div class="css classes for the inline child wrapper">
+        <button type="submit">Save</button>
+    </div>
+</div>
+```
+
+In our design system, however, this is the markup that we'll generate:
+
+```html
+<div class="css classes for the inline container">
+    <button type="button">Cancel</button>
+    <button type="submit">Save</button>
+</div>
+```
+
+Originally, our components were like that of Braid, but this issue was brought up internally, and we decided to make it simpler, even if it adds a burden to the consumer of these components. A burden that we need to be aware of. You can find more information about this change in [the PR that introduced it](https://github.com/Doist/reactist/pull/497). The concern is not ours alone, as it [was raised in Braid's own repo as well](https://github.com/seek-oss/braid-design-system/issues/386).
+
+We explain below why this change made sense.
+
+## Why we made the change
+
+A good deal of the time, what we nest inside a `Stack` is already a block element. Also, we favour having components without outward margin in the out-most container. So **there's no concern that the margin that the `Stack` applies to its child elements will clash with the margin that the child elements themselves may have**. So it seems a waste of resources to have a UI language that could potentially generate lots of useless extra containers around a relatively simple UI.
+
+### How it looks like with the extra container in place
+
+Take, for instance, this example:
+
+```jsx
+<Stack space="xlarge">
+    <Stack space="small">
+        <label>Username</label>
+        <input name="username" />
+    </Stack>
+    <Stack space="small">
+        <label>Password</label>
+        <input name="password" type="password" />
+    </Stack>
+</Stack>
+```
+
+If we generated extra containers for each child, this would generate a markup similar to what's shown below:
+
+```html
+<div class="stack space-xlarge">
+    <div class="stack child-wrapper">
+        <div class="stack space-small">
+            <div class="stack child-wrapper">
+                <label>Username</label>
+            </div>
+            <div class="stack child-wrapper">
+                <input name="username" />
+            </div>
+        </div>
+    </div>
+    <div class="stack child-wrapper">
+        <div class="stack space-small">
+            <div class="stack child-wrapper">
+                <label>Password</label>
+            </div>
+            <div class="stack child-wrapper">
+                <input name="password" type="password" />
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+And just imagine if inside the inner stack we rendered a `Inline` element, which also did the same for its child elements.
+
+### How it looks like without the extra container element
+
+```html
+<div class="stack space-xlarge">
+    <div class="stack space-small">
+        <label>Username</label>
+        <input name="username" />
+    </div>
+    <div class="stack space-small">
+        <label>Password</label>
+        <input name="password" type="password" />
+    </div>
+</div>
+```
+
+## Why do you need to know all this
+
+This change comes with a caveat: depending on what child element you use, this way in which it all works may cause trouble.
+
+The exact situations are not fully documented yet. But if you find yourself having trouble with some elements inside `Stack` or `Inline`, consider wrapping them manually in a `<div>` or `<Box>` yourself, and see if it fixes your issue. As we find concrete examples, we can add them to this documentation.
+
+For instance, this could happen if you pass to a `Stack` a component that renders a fragment with more than one child in it. Depending on what you expect, you may not get what you want. For instance, given this component:
+
+```jsx
+function List() {
+    return (
+        <>
+            <header>List</header>
+            <ul>…</ul>
+        </>
+    )
+}
+```
+
+If you pass this element into a `Stack`, it will consider each of the two child elements (the `header` and the `ul`) to be individual items in the stack, and will apply spacing into it. This is arguably not what you want. Technically, the `Stack` is reaching out into the internals of this component and possibly breaking its own layout.
+
+There are easy ways around this. Either do not return a fragment, or wrap this element in an extra container manually when put inside a `Stack`. Or maybe this is what you wanted in a particular case, in which case you got what you wanted.

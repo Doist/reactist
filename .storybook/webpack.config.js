@@ -23,7 +23,16 @@ module.exports = {
                     'less-loader',
                 ],
             },
-            { test: /\.css$/, loader: 'style-loader!css-loader' },
+            {
+                test: /\.svg$/,
+                loader: 'svg-url-loader',
+            },
+            {
+                test: /\.(jsx?|tsx?)$/,
+                // Exclude all node_modules from transpilation, except for Ariakit dependencies
+                exclude: /node_modules\/(?!(ariakit.*)\/).*/,
+                use: [{ loader: 'babel-loader' }],
+            },
         ],
     },
     resolve: {

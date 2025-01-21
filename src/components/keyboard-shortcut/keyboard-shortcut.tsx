@@ -45,7 +45,7 @@ function hasModifiers(str: string) {
 }
 
 function isSpecialKey(str: string) {
-    return /^(mod|cmd|ctrl|control|alt|shift|space)$/i.test(str)
+    return /^(mod|cmd|ctrl|control|alt|shift|space|super)$/i.test(str)
 }
 
 function parseKeys(shortcut: string, isMac: boolean, translateKey: TranslateKey) {
@@ -118,7 +118,7 @@ function KeyboardShortcut({
     children,
     className,
     translateKey = globalTranslateKey,
-    isMac = navigator.platform != null && navigator.platform.toUpperCase().includes('MAC'),
+    isMac = navigator.platform?.toUpperCase().includes('MAC') ?? false,
     ...props
 }: Props) {
     const shortcuts = typeof children === 'string' ? [children] : children

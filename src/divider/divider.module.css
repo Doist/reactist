@@ -1,0 +1,9 @@
+.weight-primary {
+    border-bottom: 1px solid var(--reactist-divider-primary);
+}
+.weight-secondary {
+    border-bottom: 1px solid var(--reactist-divider-secondary);
+}
+.weight-tertiary {
+    border-bottom: 1px solid var(--reactist-divider-tertiary);
+}

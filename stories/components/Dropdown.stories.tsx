@@ -1,31 +1,49 @@
-import React from 'react'
+import * as React from 'react'
 
-import Dropdown from '../../src/components/dropdown'
-import Button from '../../src/components/button'
+import Button from '../../src/components/deprecated-button'
+import Dropdown from '../../src/components/deprecated-dropdown'
+import { Banner } from '../../src/banner'
+import { Stack } from '../../src/stack'
+import LinkTo from '@storybook/addon-links/react'
 
 export default {
-    title: 'Dropdown',
+    title: 'Components/Dropdown',
     component: Dropdown,
+    parameters: {
+        badges: ['notAccessible', 'deprecated'],
+    },
 }
 
 // Story Definitions ==========================================================
 export const DropdownStory = () => (
     <section className="story">
-        <Dropdown.Box>
-            <Dropdown.Trigger>
-                <Button variant="primary">Trigger: Click to show dropdown</Button>
-            </Dropdown.Trigger>
-            <Dropdown.Body>
-                <div>
-                    <h2>Dropdown Content</h2>
-                    <ul>
-                        <li>You can add anything</li>
-                        <li>you want to a dropdown</li>
-                        <li>(e.g. lists and headings)</li>
-                    </ul>
-                </div>
-            </Dropdown.Body>
-        </Dropdown.Box>
+        <Stack as="section" exceptionallySetClassName="story" space="large">
+            <Banner
+                tone="error"
+                description={
+                    <>
+                        <strong>Deprecated:</strong> While not a 1:1 replacement, consider using{' '}
+                        <LinkTo kind="design-system-menu">Menu</LinkTo> as an alternative
+                    </>
+                }
+            />
+
+            <Dropdown.Box>
+                <Dropdown.Trigger>
+                    <Button variant="primary">Trigger: Click to show dropdown</Button>
+                </Dropdown.Trigger>
+                <Dropdown.Body>
+                    <div>
+                        <h2>Dropdown Content</h2>
+                        <ul>
+                            <li>You can add anything</li>
+                            <li>you want to a dropdown</li>
+                            <li>(e.g. lists and headings)</li>
+                        </ul>
+                    </div>
+                </Dropdown.Body>
+            </Dropdown.Box>
+        </Stack>
     </section>
 )
 

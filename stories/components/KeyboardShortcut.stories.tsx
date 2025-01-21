@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { text } from '@storybook/addon-knobs'
 
 import '../../src/components/keyboard-shortcut/keyboard-shortcut.less'
@@ -7,7 +7,10 @@ import KeyboardShortcut from '../../src/components/keyboard-shortcut'
 // Story setup ================================================================
 
 export default {
-    title: 'KeyboardShortcut',
+    title: 'Components/KeyboardShortcut',
+    parameters: {
+        badges: ['accessible'],
+    },
 }
 
 // Story Definitions ================================================================

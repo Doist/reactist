@@ -1,12 +1,12 @@
 import './styles/avatar_story.less'
 
-import React from 'react'
+import * as React from 'react'
 import { withKnobs } from '@storybook/addon-knobs'
 
-import Avatar from '../../src/components/avatar'
+import { Avatar, Box, Inline } from '../../src'
 
 export default {
-    title: 'Avatar',
+    title: 'Components/Avatar',
     decorators: [withKnobs],
     component: Avatar,
 }
@@ -52,20 +52,20 @@ const exampleData = [
         user: { name: 'Igor Kh', email: 'igor@foo.com' },
         image: 'https://loremflickr.com/320/320',
     },
-]
+] as const
 
 // Story Definitions ==========================================================
 
 export const InitialsAvatarStory = () => (
-    <section className="story avatars">
+    <Inline space="small">
         {exampleData.map((data, index) => (
             <Avatar key={index} size={data.size} user={data.user} />
         ))}
-    </section>
+    </Inline>
 )
 
 export const CustomColorAvatarStory = () => (
-    <section className="story avatars">
+    <Inline space="small">
         {exampleData.map((data, index) => (
             <Avatar
                 colorList={['palevioletred', 'palegoldenrod', 'palegreen', 'paleturquoise']}
@@ -74,20 +74,20 @@ export const CustomColorAvatarStory = () => (
                 user={data.user}
             />
         ))}
-    </section>
+    </Inline>
 )
 
 export const PictureAvatarStory = () => (
-    <section className="story avatars">
+    <Inline space="small">
         {exampleData.map((data, index) => (
             <Avatar key={index} size={data.size} user={data.user} avatarUrl={data.image} />
         ))}
-    </section>
+    </Inline>
 )
 
 export const AvatarPlaygroundStory = (args) => {
     return (
-        <section className="story Avatar">
+        <Box className="story Avatar">
             <Avatar
                 {...args}
                 user={{
@@ -95,7 +95,7 @@ export const AvatarPlaygroundStory = (args) => {
                     email: args.email,
                 }}
             />
-        </section>
+        </Box>
     )
 }
 
