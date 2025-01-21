@@ -4,47 +4,58 @@
             "changelog-path": "CHANGELOG.md"
         }
     },
+    "release-type": "node",
     "include-component-in-tag": false,
     "changelog-sections": [
         {
             "section": "🚀 Features",
-            "type": "feat"
+            "type": "feat",
+            "hidden": false
         },
         {
             "section": "🐛 Bug Fixes",
-            "type": "fix"
+            "type": "fix",
+            "hidden": false
         },
         {
             "section": "🐛 Bug Fixes",
-            "type": "style"
+            "type": "style",
+            "hidden": false
         },
         {
             "section": "🐛 Bug Fixes",
-            "type": "perf"
+            "type": "perf",
+            "hidden": false
         },
         {
             "section": "🧰 Maintenance",
-            "type": "refactor"
+            "type": "refactor",
+            "hidden": false
         },
         {
             "section": "🧰 Maintenance",
-            "type": "test"
+            "type": "test",
+            "hidden": false
         },
         {
             "section": "🧰 Maintenance",
-            "type": "build"
+            "type": "build",
+            "hidden": false
         },
         {
             "section": "🧰 Maintenance",
-            "type": "docs"
+            "type": "docs",
+            "hidden": false
         },
         {
             "section": "🧰 Maintenance",
-            "type": "ci"
+            "type": "ci",
+            "hidden": false
         },
         {
             "section": "🧰 Maintenance",
-            "type": "revert"
+            "type": "revert",
+            "hidden": false
         }
     ],
     "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
