@@ -1,15 +1,10 @@
 {
     "packages": {
         ".": {
-            "changelog-path": "CHANGELOG.md",
-            "release-type": "node",
-            "bump-minor-pre-major": false,
-            "bump-patch-for-minor-pre-major": false,
-            "draft": false,
-            "prerelease": false,
-            "include-component-in-tag": false
+            "changelog-path": "CHANGELOG.md"
         }
     },
+    "include-component-in-tag": false,
     "changelog-sections": [
         {
             "section": "🚀 Features",
@@ -26,14 +21,6 @@
         {
             "section": "🐛 Bug Fixes",
             "type": "perf"
-        },
-        {
-            "section": "⬆️ Dependency updates",
-            "type": "deps"
-        },
-        {
-            "section": "🧰 Maintenance",
-            "type": "chore"
         },
         {
             "section": "🧰 Maintenance",

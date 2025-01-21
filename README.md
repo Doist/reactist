@@ -211,10 +211,16 @@ This project uses [release-please](https://github.com/googleapis/release-please)
 
     - `feat:` for new features (minor version bump)
     - `fix:` for bug fixes (patch version bump)
-    - `feat!:` or `fix!:` for breaking changes (major version bump)
+    - `style:` for code style changes
+    - `perf:` for performance improvements
+    - `refactor:` for refactoring code
+    - `test:` for adding/updating tests
+    - `build:` for build/dependency changes
     - `docs:` for documentation changes
-    - `chore:` for maintenance tasks
     - `ci:` for CI changes
+    - `revert:` for reverting previous commits
+    - `feat!:` or `fix!:` for breaking changes (major version bump)
+    - `chore:` for maintenance tasks (NOTE: these are not included in the changelog)
 
 2. When commits are pushed to `main`:
 
