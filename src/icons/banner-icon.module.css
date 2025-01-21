@@ -1,0 +1,32 @@
+:root {
+    --reactist-banner-info-icon-color: #316fea;
+    --reactist-banner-upgrade-icon-color: #f48318;
+    --reactist-banner-experiment-icon-color: #f48318;
+    --reactist-banner-warning-icon-color: #eb8909;
+    --reactist-banner-error-icon-color: #dc4c3e;
+    --reactist-banner-success-icon-color: #058527;
+}
+
+.info {
+    color: var(--reactist-banner-info-icon-color);
+}
+
+.upgrade {
+    color: var(--reactist-banner-upgrade-icon-color);
+}
+
+.experiment {
+    color: var(--reactist-banner-experiment-icon-color);
+}
+
+.warning {
+    color: var(--reactist-banner-warning-icon-color);
+}
+
+.error {
+    color: var(--reactist-banner-error-icon-color);
+}
+
+.success {
+    color: var(--reactist-banner-success-icon-color);
+}

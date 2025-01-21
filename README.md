@@ -62,6 +62,20 @@ The setup task will install dependencies and run various validations (linting, t
 
 We identified two major modes of development for Reactist. First, running an interactive storybook and see the changes you make to a component in an isolated environment. This is especially helpful when developing new components. And second, improving existing components in real-life applications.
 
+## Creating new components
+
+The development of new components is streamlined by the ability to generate new component templates using [plop](https://plopjs.com/):
+
+```sh
+npm run plop component
+```
+
+This command will prompt you to provide all the information needed to create a new component template. The most important piece of information needed is the component name, which you can provide even as a phrase (e.g. "dropdown select" will generate a `DropdownSelect` component template).
+
+The generated source files include the component implementation with sample props and styles, plus a small test file and storybook source files as well.
+
+You also need to export your new component by adding a reference to it in the [top-level index file](src/index.ts).
+
 ## Storybook
 
 For the first development mode run:
@@ -74,36 +88,55 @@ This boots up a development server with hot reloading on http://localhost:6006. 
 
 ## Inside your application
 
-For the second development mode you can leverage `npm link`. First run:
+For the second development mode you can leverage `npm start:yalc`. First, make sure you have `yalc` installed globally:
 
-```sh
-npm run start
+```shell
+npm install -g yalc
 ```
 
-this will update the build artifacts whenever you change something.
+Then, in the reactist repository run:
 
-In your real application you need to first delete the current _@doist/reactist_ dependency and then link to your local one.
+```sh
+npm run start:yalc
+```
+
+this will publish Reactist to `yalc` and watch for changes.
+
+In your host application you can then link to your local Reactist version:
 
 ```sh
 cd ~/your-app
-# delete current reactist dependency
-rm -rf ./node_modules/@doist/reactist
-
-# link local reactist version
-npm link ../reactist
+yalc add @doist/reactist
 ```
 
-The relative path to reactist may need to be changed to match your local environment.
-
-To undo the changes and switch back to the reactist version from npm do the following:
+To undo the changes and switch back to the reactist version from npm, do the following:
 
 ```sh
 cd ~/your-app
-# first remove linked reactist dependency
-rm -rf ./node_modules/@doist/reactist
+# restore the original reactist version
+yalc remove @doist/reactist
+# re-install reactist from npm
+npm install
+```
 
-# re-install reactist from npm (-E avoids updating the version / package-lock.json)
-npm install -E @doist/reactist
+For convenience, you can add a `dev:reactist` script in your host application to automate the process of adding and removing the local Reactist version:
+
+```json5
+{
+    // ...
+    scripts: {
+        // ...
+        'predev:reactist': 'yalc add @doist/reactist',
+        'dev:reactist': 'npm run dev', // or whatever your development script is
+        'postdev:reactist': 'yalc remove @doist/reactist && npm i',
+    },
+}
+```
+
+Then, to develop against Reactist, just run:
+
+```sh
+npm run dev:reactist
 ```
 
 ## Development tips and tricks
@@ -136,64 +169,64 @@ npm run test -- --watch
 
 MacOS users might need to upgrade watchman with `brew install watchman` when experiencing troubles with the watch mode. See this issue for details: https://github.com/facebook/jest/issues/1767
 
+## Chromatic visual regression tests
+
+Reactist relies on [Chromatic](https://www.chromatic.com/) to run visual regression tests on our component during the CI step in GitHub.
+
+### Enable tests
+
+To enable such tests, just add `chromatic: { disableSnapshot: false }` as a story parameter in your stories. Example:
+
+```
+<Canvas>
+    <Story
+        name="Main demo"
+        parameters={{
+            docs: { source: { type: 'code' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <BannerExamples theme="light" />
+    </Story>
+</Canvas>
+```
+
+We recommend you enable these tests on those Storybook stories that have several different variants of the component under testing. Enabling them on one or two stories per component should be sufficient in most cases (there's no need to enable them on all stories).
+
+### Review tests
+
+When you open a GitHub PR, you'll notice the "UI Review" and "UI Tests" CI steps.
+
+-   Clicking on "Details" will bring you to the Chromatic UI (if you don't already have a Chromatic account, please sign-up using your GitHub account).
+-   Now you can review and accept your changes (or go back and change your code).
+-   When you're happy with your changes, make sure to mark them as "Approved".
+
 # Releasing
 
-A new version of reactist is published both on npm and GitHub Package Registry whenever a new release on GitHub is created.
+This project uses [release-please](https://github.com/googleapis/release-please) to automate version management and package publishing.
 
-## Before merging your changes
+## How it works
 
-In the GitHub PR that contains your new changes, make sure that you also include the following:
+1. Make your changes using [Conventional Commits](https://www.conventionalcommits.org/):
 
-1. Add tests for bugs and new feature
+    - `feat:` for new features (minor version bump)
+    - `fix:` for bug fixes (patch version bump)
+    - `feat!:` or `fix!:` for breaking changes (major version bump)
+    - `docs:` for documentation changes
+    - `chore:` for maintenance tasks
+    - `ci:` for CI changes
 
-2. Update relevant docs (storybooks, readme)
+2. When commits are pushed to `main`:
 
-3. Execute:
+    - Release-please automatically creates/updates a release PR
+    - The PR includes version bump and changelog updates
+    - Review the PR and merge when ready
 
-```sh
-npm run validate
-```
+3. After merging the release PR:
+    - A new GitHub release is automatically created
+    - A new tag is created
+    - The `publish` workflow is triggered
+    - The package is published to npm and GitHub Packages
+    - Storybook documentation is automatically updated
 
-and make sure no errors nor warnings are shown
-
-4. Describe your changes in [`CHANGELOG.md`](CHANGELOG.md)
-
-5. Bump the version in [`package.json`](package.json) and [`package-lock.json`](package-lock.json) by running:
-
-```sh
-npm --no-git-tag-version version <major|minor|patch>
-```
-
-[ref](https://docs.npmjs.com/cli/v6/commands/npm-version)
-
-6. Update all static build artifacts:
-
-```sh
-npm run build-all
-```
-
-Note that the steps above are also documented in the [PR template](.github/PULL_REQUEST_TEMPLATE.md) that you will be prompted with whenever you open a new reactist GitHub PR.
-
-## After merging your changes
-
-Once your changes have been merged to `main`, create a new GitHub release:
-
-1. Visit https://github.com/Doist/reactist/releases/new
-
-2. In the "Choose a tag" dropdown, type the new release version (i.e. vX.Y.Z) and select "Create new tag: vX.Y.Z on publish"
-
-3. In the "Release title" field, type the new release version (i.e. vX.Y.Z)
-
-4. In the "Describe the release" box, paste the same content you added to the [`CHANGELOG.md`](CHANGELOG.md), but without the title header
-
-5. Make sure the "Set as the latest release" checkbox is checked
-
-6. Click "Publish release"
-
-7. Visit https://github.com/Doist/reactist/actions
-
-8. Make sure that a new GitHub action is now running (this will automatically perform all the necessary steps to publish the package)
-
-9. Once the action is complete, check https://npmjs.com/package/@doist/reactist and verify that there's a new public release
-
-Finally, be sure to update both [todoist-web](https://github.com/Doist/todoist-web) and [twist-web](https://github.com/Doist/twist-web) to use the new reactist version you just published.
+The storybook hosted on GitHub pages will be automatically updated on each push to `main`. If there's a problem, try running the action manually from the [Actions settings](https://github.com/Doist/reactist/actions).

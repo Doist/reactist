@@ -1,0 +1,83 @@
+:root {
+    --reactist-tab-themed-background: var(--reactist-bg-default);
+    --reactist-tab-themed-foreground: #006f85;
+    --reactist-tab-themed-unselected: #006f85;
+    --reactist-tab-themed-track: rgb(242, 246, 247);
+    --reactist-tab-themed-border: var(--reactist-divider-secondary);
+
+    --reactist-tab-neutral-background: var(--reactist-bg-default);
+    --reactist-tab-neutral-foreground: var(--reactist-content-primary);
+    --reactist-tab-neutral-unselected: var(--reactist-content-tertiary);
+    --reactist-tab-neutral-track: var(--reactist-framework-fill-selected);
+    --reactist-tab-neutral-border: var(--reactist-divider-primary);
+
+    --reactist-tab-track-border-width: 2px;
+    --reactist-tab-border-radius: 20px;
+    --reactist-tab-border-width: 1px;
+    --reactist-tab-padding-x: var(--reactist-spacing-medium);
+    --reactist-tab-padding-y: var(--reactist-spacing-small);
+    --reactist-tab-line-height: 21px;
+}
+
+.tab {
+    box-sizing: border-box;
+    padding: var(--reactist-tab-padding-y) var(--reactist-tab-padding-x);
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: var(--reactist-font-size-body);
+    font-weight: var(--reactist-font-weight-medium);
+    line-height: var(--reactist-tab-line-height);
+    z-index: 1;
+    text-decoration: none;
+    border: var(--reactist-tab-border-width) solid transparent;
+    border-radius: var(--reactist-tab-border-radius);
+}
+
+.track {
+    position: absolute;
+    top: calc(-1 * var(--reactist-tab-track-border-width));
+    right: calc(-1 * var(--reactist-tab-track-border-width));
+    bottom: calc(-1 * var(--reactist-tab-track-border-width));
+    left: calc(-1 * var(--reactist-tab-track-border-width));
+    border-radius: var(--reactist-tab-border-radius);
+    border-width: var(--reactist-tab-track-border-width);
+    border-style: solid;
+}
+
+/*
+ * Variant options
+ */
+
+.tab,
+.tab-neutral {
+    color: var(--reactist-tab-neutral-unselected);
+}
+
+.tab[aria-selected='true'],
+.tab-neutral[aria-selected='true'] {
+    background-color: var(--reactist-tab-neutral-background);
+    color: var(--reactist-tab-neutral-foreground);
+    border-color: var(--reactist-tab-neutral-border);
+}
+
+.tab-themed {
+    color: var(--reactist-tab-themed-unselected);
+}
+
+.tab-themed[aria-selected='true'] {
+    background-color: var(--reactist-tab-themed-background);
+    color: var(--reactist-tab-themed-foreground);
+    border-color: var(--reactist-tab-themed-border);
+}
+
+.track,
+.track-neutral {
+    background: var(--reactist-tab-neutral-track);
+    border-color: var(--reactist-tab-neutral-track);
+}
+
+.track-themed {
+    background: var(--reactist-tab-themed-track);
+    border-color: var(--reactist-tab-themed-track);
+}

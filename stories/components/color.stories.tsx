@@ -1,9 +1,9 @@
 import * as React from 'react'
 
-import { Columns, Column } from '../../src/new-components/columns'
-import { Stack } from '../../src/new-components/stack'
-import { Heading } from '../../src/new-components/heading'
-import { Box } from '../../src/new-components/box'
+import { Columns, Column } from '../../src/columns'
+import { Stack } from '../../src/stack'
+import { Heading } from '../../src/heading'
+import { Box } from '../../src/box'
 import './styles/color-story.less'
 
 export default {
@@ -27,7 +27,7 @@ const contentColors = [
     '--reactist-content-primary',
     '--reactist-content-secondary',
     '--reactist-content-tertiary',
-    '--reactist-content-toast',
+    '--reactist-toast-content-primary',
 ]
 
 function Swatch({ color }: { color: string }) {

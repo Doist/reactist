@@ -1,6 +1,330 @@
-# Changelog
-
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
+
+# 27.2.1
+
+-   [Fix] ensure TextLink styles are applied to nested elements [#860](https://github.com/Doist/reactist/pull/860)
+
+# 27.2.0
+
+-   [Feat] Document `TextLink` component in Storybook and change default styling.
+
+# 27.1.0
+
+-   [Feat] Expose CSS variables for customizng the icon color of the `Banner` component system types.
+
+# 27.0.1
+
+-   [Docs] Document the `maxLength` prop for the `TextField` component.
+
+# 27.0.0
+
+-   [BREAKING] Remove `Alert` component.
+-   [BREAKING] Update `Banner` UI, merging `Alert` use cases.
+
+# 26.2.5
+
+-   [Fix] Add top and bottom paddings to the `Tab` component.
+-   [Fix] `SubMenu` will only render at the bottom when there isn't enough space in either side of the parent menu.
+
+# 26.2.4
+
+-   [Fix] The `Prose` component's horizontal rule color is now properly set to the primary divider color.
+
+# 26.2.3
+
+-   [Fix] The `Tab` component's line height is now properly set to 21px.
+
+# 26.2.2
+
+-   [Fix] Vertically align the `Notice` component's icon with the first line of text
+
+# 26.2.1
+
+-   [Fix] Export `TooltipProvider` as a component
+
+# 26.2.0
+
+-   [Feat] Add `TooltipContext` to allow `showTimeout` and `hideTimeout` to be set globally
+
+# v26.1.0
+
+-   [Feat] Expose `showTimeout` and `hideTimeout` props for `Tooltip`
+-   [Fix] The center alignment between the `Alert` component's icon and message is now more accurate when the message is only one-line long.
+-   [Fix] Render submenus at the bottom when there isn't enough space
+
+# v26.0.0
+
+-   [BREAKING] Remove unused `secondaryLabel` from `TexTfield`, `PasswordField`, `SelectField`, `TextArea`, and `SwitchField`.
+-   [BREAKING] Remove `hint` from from `Textfield`, `PasswordField`, `SelectField`, `TextArea`, and `SwitchField`.
+    -   Please use `message` instead.
+-   [Feat] Update read only style for `TextField` and `TextArea` when `readOnly` is `true`.
+-   [Feat] Add `disableResize` option to `TextArea` to disallow manual resizing.
+-   [Feat] Add character count (with limit) to `TextField` and `TextArea`.
+    -   Will show a character count indicator below the field when `maxLength` is set.
+-   [Feat] Add `endSlot` support to `PasswordField`.
+-   [Chore] Deprecate `auxiliaryLabel` from `TexTfield`, `PasswordField`, `SelectField`, and `TextArea`.
+
+# v25.2.0
+
+-   [Feat] Add `ref` support to `ModalBody` component
+
+# v25.1.1
+
+-   [Fix] Restrict focus locking in the `Modal` component to its containing document/iframe.
+
+# v25.1.0
+
+-   [Feat] Add `xsmall` size to the `Modal` component
+
+# v25.0.0
+
+-   [BREAKING] Upgrade Ariakit from legacy package to the newer @ariakit/react
+-   [BREAKING] Remove unsupported `onPointerEnterCapture` and `onPointerLeaveCapture` props from `heading`-, `input`-, and `textarea`-based components.
+-   [BREAKING] Removed the `ButtonLink` component.
+-   [BREAKING] `Button` no longer accepts props that render it as an icon-only button.
+-   [BREAKING] Use an explicit `render` prop for composition, instead of the `as` prop (in the menu, modal, tabs, toasts and tooltip components).
+-   [BREAKING] `TabPanel`'s prop `render` is renamed to `renderMode`.
+-   [Feat] Introduce a new `IconButton` component.
+-   [Feat] The `Button` and `IconButton` component can be rendered as a link using the `render={<Link to="…" />} prop.
+
+# v25.0.0-beta.3
+
+-   [Fix] Allow more props to be forwarded to the `Tab` component.
+-   [Fix] Properly fix CSS build in tsdx config.
+-   [Chore] Upgrade to `@ariakit/react@0.4.5`.
+
+# v25.0.0-beta.2
+
+-   [Fix] Pass `onClick` to the `Tab` component.
+
+# v25.0.0-beta.1
+
+-   [BREAKING] Use an explicit `render` prop for composition, instead of the `as` prop (in the menu, modal, tabs, toasts and tooltip components).
+-   [BREAKING] `TabPanel`'s prop `render` is renamed to `renderMode`.
+
+# v25.0.0-beta
+
+-   [BREAKING] Removed the `ButtonLink` component.
+-   [BREAKING] `Button` no longer accepts props that render it as an icon-only button.
+-   [Feat] Introduce a new `IconButton` component.
+-   [Feat] The `Button` and `IconButton` component can be rendered as a link using the `render={<Link to="…" />} prop.
+
+# v24.2.0-beta
+
+-   [Fix] Include changes from [v23.3.0](#v2330) in the beta release
+
+# v24.1.5-beta
+
+-   [Fix] Include changes from [v23.2.2](#v2322) in the beta release
+
+# v24.1.4-beta
+
+-   [Fix] Include changes from [v23.2.1](#v2321) in the beta release
+
+# v24.1.3-beta
+
+-   [Fix] Remove unsupported `onPointerEnterCapture` and `onPointerLeaveCapture` props from `heading`-, `input`-, and `textarea`-based components.
+-   Normally, this would be considered a breaking change, but the v24 version is still pre-release and already contains breaking changes.
+
+# v24.1.2-beta
+
+-   [Fix] Reset anchor rect after context menu is closed.
+-   [Fix] Revert earlier attempt to auto-close menus when they lose focus.
+
+# v24.1.1-beta
+
+-   [Fix] It was possible to leave a tooltip in a state in which it remained visible all the time. This release fixes the issue.
+-   [Fix] Auto-close menus when they lose focus to elements other than their own content or their sub-menus.
+
+# v24.1.0-beta
+
+-   [Feat] Include changes from [v23.2.0](#v2320) in the beta release
+
+# v24.0.0-beta
+
+-   [BREAKING] Upgrade Ariakit from legacy package to the newer @ariakit/react
+
+# v23.3.0
+
+-   [Feat] Add `warning` as a `tone` option for `Badge`.
+
+# v23.2.2
+
+-   [Fix] Revert "Adjust modal alignment to the middle of the viewport at `800px` breakpoint for improved UX". Turns out that this is not something that we want to do.
+
+# v23.2.1
+
+-   [Fix] Adjust modal alignment to the middle of the viewport at `800px` breakpoint for improved UX.
+
+# v23.2.0
+
+-   [Feat] Add `medium` as a `weight` option for `Header`.
+
+# v23.1.0
+
+-   [Feat] Add `--reactist-font-family-monospace` with updated font family for monospace elements
+
+# v23.0.0
+
+-   [BREAKING] Remove unsupported `crossOrigin` attribute from `input`- and `textarea`-based components.
+-   [BREAKING] Remove unsupported `placeholder` attribute from heading components.
+
+# v22.3.3
+
+-   [Fix] Vertical alignment of inline code elements inside a `Prose` component
+
+# v22.3.2
+
+-   [Fix] Text inside a `Badge` no longer wraps into multiple lines.
+
+# v22.3.1
+
+-   [Tweak] Increase showing tooltip delay to 1 second from 500ms
+
+# v22.3.0
+
+-   [Build] Add support for Node v21
+
+# v22.2.0
+
+-   [Feat] The `Alert` component now has a new design. Input based components will now also expose a `--reactist-inputs-alert` CSS variable to customize their border colours when put into an error state
+
+# v22.1.0
+
+-   [Build] Add support for Node v20 and npm v10
+
+# v22.0.0
+
+-   [BREAKING] Remove `DeprecatedModal`.
+
+# v21.3.0
+
+-   [Feat] `ToastProvider` accepts an optional `containerClassName` property, which let's you to add your own class for the container of all toasts.
+
+# v21.2.3
+
+-   [Fix] Prevent horizontal expansion of `TextArea` with `autoExpand={true}`.
+
+# v21.2.2
+
+-   [Docs] Fix links to Reactist components in storybook stories.
+
+# v21.2.1
+
+-   [Docs] Fix links to Reactist components in storybook stories.
+
+# v21.2.0
+
+-   [Feat] `Textfield`, `PasswordField`, `SelectField`, and `TextArea` will now use two new CSS variables to define their border colors: `--reactist-inputs-focus`, `--reactist-inputs-idle`. If they were previously set using `--reactist-divider-primary` and `--reactist-divider-secondary`, they will continue to work as well.
+
+# v21.1.1
+
+-   [Fix] Using a menu both triggered by a button and by right-click.
+
+# v21.1.0
+
+-   [Feat] The `Prose` component now supports links applied to inline code.
+
+# v21.0.2
+
+-   [Fix] `Tabslist`'s default space `space='xsmall'` is removed to get rid of unnecessary gap between tabs.
+
+# v21.0.1
+
+-   [Fix] `TextArea` with `autoExpand={true}` applies it initially, acknowledging any initial value that the field may have.
+-   [Fix] Avoid tooltip re-creating the anchor element when the tooltip content switches being present or not.
+
+# v21.0.0
+
+-   [BREAKING] `TextField`'s `startIcon` property is now renamed `startSlot`.
+-   [Feat] New `startSlot` and `endSlot` props on the `TextField` component. These support rendering not only icons, but buttons too.
+-   [Fix] `TextField`'s `startSlot` is now properly aligned when using `variant="bordered"`.
+-   [Fix] `TextField` is now properly focused when clicking anywhere inside its bordered area.
+-   [Tweak] `PasswordField`'s toggle visibility button is now implemented by using the `TextField`'s `endSlot` feature.
+
+# v20.3.0
+
+-   [Feat] Toasts wrapped in `ToastsProvider` are now dismissed when their action `onClick` handler fires.
+
+# v20.2.0
+
+-   [Feat] Expose CSS variables for theming the `SwitchField` component.
+
+# v20.1.0
+
+-   [Feat] New `Prose` component to style free-form HTML content consistently.
+
+# v20.0.3
+
+-   [Fix] Slightly tweak the height of the `Badge` component.
+
+# v20.0.2
+
+-   [Fix] Slightly tweak the height of the `Badge` component.
+
+# v20.0.1
+
+-   [Fix] `Badge` component content is now bold and the appropriate line-height is enforced.
+
+# v20.0.0
+
+-   [BREAKING] Remove `usePrevious` hook
+-   [BREAKING] Remove `DeprecatedNotification` component
+-   [BREAKING] The `Menu` component now uses Reactist CSS variables to style itself
+
+# v19.1.1
+
+-   [Fix] Export new `Banner` component.
+
+# v19.1.0
+
+-   [Feat] A new `Banner` component.
+
+# v19.0.1
+
+-   [Fix] `Tooltip`s can now have its z-index customized using the `--reactist-stacking-order-tooltip` custom property.
+-   [Fix] `Tooltip`s now have a 300px max-width.
+
+# v19.0.0
+
+-   [BREAKING] A new `Badge` component with various breaking changes
+    -   The prop `variant` has been renamed to `tone`
+    -   The new possible set of tones is different from the variants previously supported
+    -   New CSS custom properties to control the `Badge`'s component appearance (tones and font size)
+    -   The badge label is now provided via a `label` prop instead of via `children`
+-   [BREAKING] Update `ariakit` to [next.43](https://github.com/ariakit/ariakit/blob/main/packages/ariakit/CHANGELOG.md#200-next43) and `ariakit-utils` to [next.27](https://github.com/ariakit/ariakit/blob/main/packages/ariakit-utils/CHANGELOG.md#0170-next27). Depending on your set up, `node_modules/ariakit*` dependencies may need to be transpiled.
+-   [BREAKING] `Menu` will now render in modal mode by default. This can be turned off by passing `modal={false}` to `MenuList`.
+
+# v18.0.0
+
+-   [BREAKING] Renames the CSS variable for primary text content inside toasts and tooltip. Previous name was `--reactist-content-toast`, now replaced with the new name `--reactist-toast-content-primary`.
+-   [Feat] New CSS variable to control the color of secondary text inside toasts and tooltip: `--reactist-toast-content-secondary`.
+-   [BREAKING] The `Tooltip` component no longer accepts generic props to be forwarded as generic HTML attributes to the tooltip content container. In particular, it no longer accepts a `className` to customize its appearance.
+-   [Tweak] Modernizes the implementation of the tooltip, specifically by making it based on the new styling approach based on CSS variables.
+-   [Feat] Adds the ability to render tooltips with an arrow-like element pointing to the trigger element.
+-   [Fix] The tooltip content is set as the accessible description of the trigger element.
+
+# v17.10.1
+
+-   [Fix] Ensure that any element inside a `Button` or `ButtonLink` is non-clickable, to facilitate event tracking with tools such as Google Analytics.
+
+# v17.10.0
+
+-   [Feat] Passing `autoExpand` to the `TextArea` component makes it auto-expand its height to fit the content as you type.
+-   [Feat] The `TextArea` component now supports receiving a ref that's forwarded to the `textarea` element.
+
+# v17.9.1
+
+-   [Fix] Tabs layout got broken after the `Inline` element switched to use `gap` for spacing.
+
+# v17.9.0
+
+-   [Feat] New `gap` prop in the `Box` component, implementing support for the CSS `gap` property.
+-   [Tweak] Use CSS `gap` for implementing spacing in the `Columns`, `Inline`, and `Stack` components.
+
+# v17.8.1
+
+-   [Fix] When clicking inside a modal, holding and releasing the click outside the modal no longer closes the modal
 
 # v17.8.0
 

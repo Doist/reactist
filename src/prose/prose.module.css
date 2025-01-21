@@ -1,0 +1,285 @@
+:root {
+    --reactist-prose-code-fill: rgb(247, 250, 251);
+    --reactist-prose-code-tint: var(--reactist-content-primary);
+    --reactist-prose-code-border: var(--reactist-divider-primary);
+    --reactist-prose-quote-tint: #4a6368;
+
+    --reactist-prose-link-idle-tint: #006f85;
+    --reactist-prose-link-idle-underline: var(--reactist-divider-primary);
+    --reactist-prose-link-hover-tint: #006f85;
+    --reactist-prose-link-hover-underline: #006f85;
+
+    --reactist-prose-horizontal-rule-color: var(--reactist-divider-primary);
+}
+
+/* Internals for spacing. These are not considered public API. */
+:root {
+    --reactist-prose-content-font-size: 15px;
+    --reactist-prose-em-multiplier: 1.5;
+    --reactist-prose-space-1: calc(
+        var(--reactist-prose-em-multiplier) * var(--reactist-prose-content-font-size) / 3
+    );
+    --reactist-prose-space-2: calc(
+        var(--reactist-prose-em-multiplier) * var(--reactist-prose-content-font-size) * 2 / 3
+    );
+    --reactist-prose-space-3: calc(
+        var(--reactist-prose-em-multiplier) * var(--reactist-prose-content-font-size) * 1
+    );
+    --reactist-prose-space-4: calc(
+        var(--reactist-prose-em-multiplier) * var(--reactist-prose-content-font-size) * 4 / 3
+    );
+    --reactist-prose-space-6: calc(
+        var(--reactist-prose-em-multiplier) * var(--reactist-prose-content-font-size) * 5 / 3
+    );
+}
+
+.prose {
+    font-size: var(--reactist-prose-content-font-size);
+    color: var(--reactist-content-primary);
+    line-height: 1.65;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.prose,
+.prose *,
+.prose *::before,
+.prose *::after {
+    box-sizing: border-box;
+}
+
+/* paragraphs */
+
+.prose p {
+    margin-top: var(--reactist-prose-space-2);
+}
+
+/* headings */
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+    font-weight: 600;
+    margin: 0;
+}
+
+.prose h1 {
+    font-size: 1.35em;
+    margin-top: var(--reactist-prose-space-4);
+    line-height: 1.35;
+}
+
+.prose h2 {
+    font-size: 1.2em;
+    margin-top: var(--reactist-prose-space-3);
+    line-height: 1.45;
+}
+
+.prose h1 *,
+.prose h2 * {
+    font-size: 1em;
+}
+
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+    font-size: inherit;
+    margin-top: var(--reactist-prose-space-2);
+    line-height: inherit;
+}
+
+/* lists */
+
+.prose ul,
+.prose ol {
+    margin: var(--reactist-prose-space-1) 0 0;
+    padding-left: var(--reactist-prose-space-4);
+}
+
+.prose ul li p,
+.prose ol li p {
+    margin-block: var(--reactist-prose-space-1);
+}
+
+.prose ul li p:first-child,
+.prose ol li p:first-child {
+    margin: 0;
+}
+
+.prose ul {
+    list-style: disc;
+}
+
+.prose ul ul {
+    list-style: circle;
+}
+
+.prose ul ul ul {
+    list-style: square;
+}
+
+.prose ol {
+    list-style: decimal;
+}
+
+/* small space between items to make it easier to distinguish from items that have two lines. */
+
+.prose li + li {
+    margin-top: calc(0.5 * var(--reactist-prose-space-1));
+}
+
+.prose ul ul,
+.prose ul ol,
+.prose ol ol,
+.prose ol ul {
+    margin-top: calc(0.5 * var(--reactist-prose-space-1));
+}
+
+.prose ol li {
+    padding-left: 4px;
+}
+
+.prose ul li::marker {
+    font-size: 0.9em;
+}
+
+/* horizontal ruler */
+
+.prose hr {
+    margin-block: var(--reactist-prose-space-2);
+    border: none;
+    border-top: 1px solid var(--reactist-prose-horizontal-rule-color);
+}
+
+/* blockquote */
+
+.prose blockquote {
+    color: var(--reactist-prose-quote-tint);
+    padding: 0;
+    padding-block: 0;
+    padding-inline: var(--reactist-spacing-large);
+    margin: 0;
+    margin-block: var(--reactist-prose-space-2);
+    position: relative;
+}
+
+.prose blockquote::before {
+    content: '';
+    border-left: 2px solid var(--reactist-divider-primary);
+    position: absolute;
+    top: 0.25em;
+    bottom: 0.25em;
+    left: 0;
+}
+
+.prose blockquote *:first-child {
+    margin-top: 0;
+}
+
+.prose blockquote code {
+    color: inherit;
+}
+
+/* code */
+
+.prose pre,
+.prose :not(pre) > code {
+    color: var(--reactist-prose-code-tint);
+    background-color: var(--reactist-prose-code-fill);
+    border: 1px solid var(--reactist-prose-code-border);
+    border-radius: var(--reactist-border-radius-small);
+    font-family: var(--reactist-font-family-monospace);
+    font-size: 0.875em;
+    line-height: 1.6;
+}
+
+.prose :not(pre) > code {
+    padding: 2px 4px;
+}
+
+.prose pre {
+    margin: var(--reactist-prose-space-2) 0 0;
+    padding: var(--reactist-prose-space-1) var(--reactist-prose-space-2);
+}
+
+.prose pre code {
+    white-space: break-spaces;
+    overflow: auto;
+}
+
+/* headings in relation to other tags */
+
+.prose h1 + * {
+    margin-top: var(--reactist-prose-space-1) !important;
+}
+
+.prose h1 + h2 {
+    margin-top: var(--reactist-prose-space-3) !important;
+}
+
+.prose h2 + h3,
+.prose h3 + h4,
+.prose h4 + h5,
+.prose h5 + h6 {
+    margin-top: var(--reactist-prose-space-3) !important;
+}
+
+.prose h2 + *:not(h3) {
+    margin-top: var(--reactist-prose-space-1) !important;
+}
+
+/* bold and italics */
+
+.prose em {
+    font-style: italic;
+}
+
+.prose b,
+.prose strong {
+    font-weight: 600;
+}
+
+/* links */
+
+.prose a,
+.prose a code {
+    color: var(--reactist-prose-link-idle-tint);
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-color: var(--reactist-prose-link-idle-underline);
+}
+
+.prose a:hover,
+.prose a:focus,
+.prose a:active,
+.prose a:hover code,
+.prose a:focus code,
+.prose a:active code {
+    color: var(--reactist-prose-link-hover-tint);
+    text-decoration-color: var(--reactist-prose-link-hover-underline);
+}
+
+/*************/
+/* Dark mode */
+/*************/
+
+.prose.darkModeTypography {
+    letter-spacing: 0.0065em;
+}
+
+.prose.darkModeTypography h1,
+.prose.darkModeTypography h2 {
+    letter-spacing: 0.0125em;
+}
+
+.prose.darkModeTypography b,
+.prose.darkModeTypography b *,
+.prose.darkModeTypography strong,
+.prose.darkModeTypography strong * {
+    letter-spacing: 0.01em;
+}

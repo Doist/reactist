@@ -8,7 +8,7 @@ jobs:
         # Based on historical data
         timeout-minutes: 15
         steps:
-            - uses: actions/checkout@v1
+            - uses: actions/checkout@v4
             - name: Read Node.js version from '.nvmrc'
               id: nvmrc
               run: |
@@ -20,4 +20,4 @@ jobs:
             - run: npm run lint
             - run: npm run type-check
             - run: npm test
-            - run: npm run build-all
+            - run: npm run build

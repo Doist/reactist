@@ -2,7 +2,7 @@ import * as React from 'react'
 import classnames from 'classnames'
 
 import DeprecatedDropdown from '../deprecated-dropdown'
-import { Tooltip } from '../tooltip'
+import { Tooltip } from '../../tooltip'
 
 import './color-picker.less'
 

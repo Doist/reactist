@@ -1,0 +1,76 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs'
+import { Stack } from '../stack'
+import { TextLink } from './text-link'
+
+<Meta
+    title="Design system/TextLink"
+    component={TextLink}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
+
+# TextLink
+
+A component used to create text-based hyperlinks.
+
+<Canvas>
+    <Story
+        name="Main demo"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
+        <Stack space="medium" align="start">
+            <TextLink href="https://www.doist.com/">regular</TextLink>
+            <TextLink href="https://www.doist.com/" openInNewTab={true}>
+                open in new tab
+            </TextLink>
+            <TextLink
+                as="button"
+                onClick={() => {
+                    alert('clicked')
+                }}
+            >
+                button link
+            </TextLink>
+        </Stack>
+    </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable of={TextLink} />
+
+## Nested elements
+
+When using nested elements inside a `TextLink`, hover styles are properly applied to all children.
+
+<Canvas>
+    <Story
+        name="Nested elements"
+        parameters={{
+            docs: { source: { type: 'code' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <Stack space="medium" align="start">
+            <TextLink href="https://www.doist.com/">
+                <span>Link with nested span</span>
+            </TextLink>
+            <TextLink href="https://www.doist.com/">
+                <div>Link with nested div</div>
+            </TextLink>
+            <TextLink href="https://www.doist.com/">
+                Text with <strong>bold</strong> section
+            </TextLink>
+            <TextLink href="https://www.doist.com/">
+                Text with{' '}
+                <a href="https://www.doist.com" target="_blank">
+                    link
+                </a>{' '}
+                section
+            </TextLink>
+        </Stack>
+    </Story>
+</Canvas>

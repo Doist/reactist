@@ -1,0 +1,79 @@
+:root {
+    --reactist-switch-background: var(--reactist-framework-fill-summit);
+    --reactist-switch-checked: var(--reactist-content-positive);
+    --reactist-switch-toggle: var(--reactist-bg-default);
+}
+
+.container,
+.container * {
+    font-family: var(--reactist-font-family);
+    cursor: pointer;
+}
+
+.container.disabled,
+.container.disabled * {
+    cursor: not-allowed;
+}
+
+/* when disabled we dim the label, but we only dim the toggle if it's checked */
+.container.disabled .label,
+.container.disabled.checked .toggle {
+    opacity: 0.5;
+}
+
+.toggle {
+    --tmp-switch-width: 32px;
+    --tmp-switch-height: 18px; /* should never be much more than half the width */
+    --tmp-inner-padding: 3px; /* should always be really small, probably never more than 4px */
+    --tmp-handle-size: calc(var(--tmp-switch-height) - 2 * var(--tmp-inner-padding));
+    --tmp-slide-length: calc(
+        var(--tmp-switch-width) - var(--tmp-handle-size) - var(--tmp-inner-padding)
+    );
+
+    width: var(--tmp-switch-width);
+    height: var(--tmp-switch-height);
+    min-height: auto;
+    border-radius: calc(var(--tmp-switch-height) / 2);
+    background-color: var(--reactist-switch-background);
+    cursor: pointer;
+    position: relative;
+}
+
+.toggle > div,
+.toggle input[type='checkbox'] {
+    height: var(--tmp-switch-height);
+    width: var(--tmp-switch-width);
+}
+
+.handle {
+    display: block;
+    position: absolute;
+    display: block;
+    padding: 0;
+    top: var(--tmp-inner-padding);
+    left: var(--tmp-inner-padding);
+    width: var(--tmp-handle-size);
+    height: var(--tmp-handle-size);
+    border-radius: 50%;
+    background: var(--reactist-switch-toggle);
+    transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.checked .toggle {
+    background-color: var(--reactist-switch-checked);
+}
+
+.checked .toggle .handle {
+    left: var(--tmp-slide-length);
+}
+
+.container.keyFocused .toggle:after {
+    border-radius: calc(var(--tmp-switch-height) + 8px / 2);
+    border: 2px solid var(--reactist-actionable-primary-idle-fill);
+    bottom: -4px;
+    content: '';
+    left: -4px;
+    position: absolute;
+    right: -4px;
+    top: -4px;
+}

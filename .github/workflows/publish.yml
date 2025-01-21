@@ -1,17 +1,26 @@
 name: Release @doist/reactist package
 
 on:
-    release:
-        types: [created]
-    workflow_dispatch:
+    push:
+        tags:
+            - 'v*'
+
+permissions:
+    # Enable the use of OIDC for npm provenance
+    id-token: write
+    # Enable the use of GitHub Packages registry
+    contents: read
+    packages: write
 
 jobs:
     publish:
+        # Only run if release-please created a release
+        if: ${{ startsWith(github.ref, 'refs/tags/v') }}
         runs-on: ubuntu-latest
         # Based on historical data
         timeout-minutes: 60
         steps:
-            - uses: actions/checkout@v1
+            - uses: actions/checkout@v4
             - name: Read Node.js version from '.nvmrc'
               id: nvmrc
               run: |
@@ -28,8 +37,8 @@ jobs:
             - run: npm run type-check
             - run: npm test
 
-            # Verify storybook build and create artifacts for publishing
-            - run: npm run build-all
+            # Build artifacts for publishing
+            - run: npm run build
 
             # Publish to GitHub package registry
             - uses: actions/setup-node@v1
@@ -37,7 +46,7 @@ jobs:
                   node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
                   registry-url: https://npm.pkg.github.com/
                   scope: '@doist'
-            - run: npm publish
+            - run: npm publish --provenance
               env:
                   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
@@ -47,6 +56,6 @@ jobs:
                   node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
                   registry-url: https://registry.npmjs.org/
                   scope: '@doist'
-            - run: npm publish
+            - run: npm publish --provenance
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

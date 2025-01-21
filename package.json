@@ -6,7 +6,7 @@
         "email": "henning@doist.com",
         "url": "http://doist.com"
     },
-    "version": "17.8.0",
+    "version": "27.2.1",
     "license": "MIT",
     "homepage": "https://github.com/Doist/reactist#readme",
     "repository": {
@@ -28,15 +28,18 @@
         "styles"
     ],
     "engines": {
-        "node": "^16.0.0 || ^18.0.0",
-        "npm": "^8.3.0 || ^9.0.0"
+        "node": "^16.0.0 || ^18.0.0 || ^20.0.0 || ^21.0.0",
+        "npm": "^8.3.0 || ^9.0.0 || ^10.0.0"
     },
     "scripts": {
         "postinstall": "patch-package",
         "setup": "npm install && npm run validate",
         "validate": "npm run lint && npm run type-check && npm run test",
         "start": "tsdx watch --onSuccess \"./scripts/organize-styles.sh\"",
-        "build-all": "npm run build && npm run build:storybook",
+        "prestart:yalc": "npm run clean && yalc publish",
+        "start:yalc": "tsdx watch --tsconfig tsconfig.dist.json --onSuccess=\"npm run start:yalc:success\"",
+        "poststart:yalc": "yalc installations clean",
+        "start:yalc:success": "./scripts/organize-styles.sh && yalc push --sig",
         "build": "scripts/build.sh",
         "build:storybook": "build-storybook -o docs",
         "clean": "rimraf es lib styles dist",
@@ -46,7 +49,8 @@
         "type-check": "tsc --noEmit -p ./tsconfig.json",
         "lint": "eslint --format codeframe --cache --ext js,jsx,ts,tsx ./",
         "storybook": "start-storybook -p 6006",
-        "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md,mdx}\""
+        "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md,mdx}\"",
+        "plop": "plop"
     },
     "peerDependencies": {
         "classnames": "^2.2.5",
@@ -70,6 +74,7 @@
         "@doist/prettier-config": "^3.0.5",
         "@doist/tsconfig": "^1.0.0",
         "@geometricpanda/storybook-addon-badges": "^0.2.2",
+        "@rollup/plugin-typescript": "11.1.6",
         "@storybook/addon-actions": "^6.5.3",
         "@storybook/addon-controls": "^6.5.3",
         "@storybook/addon-docs": "^6.5.3",
@@ -87,15 +92,18 @@
         "@types/cheerio": "^0.22.22",
         "@types/classnames": "^2.2.10",
         "@types/enzyme": "^3.10.7",
+        "@types/jest": "28.1.8",
         "@types/jest-axe": "^3.5.3",
-        "@types/react": "^17.0.45",
-        "@types/react-dom": "^17.0.17",
+        "@types/marked": "^4.0.8",
+        "@types/react": "18.3.1",
+        "@types/react-dom": "18.3.0",
         "@typescript-eslint/eslint-plugin": "^5.25.0",
         "@typescript-eslint/parser": "^5.25.0",
         "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
         "autoprefixer": "^9.8.0",
         "babel-core": "^7.0.0-bridge.0",
         "babel-loader": "^8.1.0",
+        "chromatic": "^6.11.4",
         "classnames": "^2.2.5",
         "css-loader": "^4.2.2",
         "cssnano": "^4.1.10",
@@ -114,10 +122,12 @@
         "less": "^3.8.1",
         "less-loader": "^7.0.0",
         "lint-staged": "^10.4.0",
+        "marked": "^4.2.12",
         "mini-css-extract-plugin": "^0.11.0",
         "mockdate": "^3.0.2",
         "optimize-css-assets-webpack-plugin": "^5.0.3",
         "path": "^0.12.7",
+        "plop": "^3.1.1",
         "prettier": "2.1.2",
         "raw-loader": "^4.0.1",
         "react": "^17.0.2",
@@ -127,21 +137,20 @@
         "react-svg-loader": "^3.0.3",
         "react-test-renderer": "^17.0.2",
         "rimraf": "^3.0.2",
-        "rollup-plugin-postcss": "^3.1.1",
+        "rollup": "2.79.1",
+        "rollup-plugin-postcss": "3.1.8",
         "rollup-plugin-styles": "^3.14.1",
         "style-loader": "^0.23.1",
         "svg-url-loader": "^6.0.0",
         "ts-loader": "^8.0.2",
-        "tsdx": "^0.14.1",
+        "tsdx": "0.14.1",
         "tslib": "^2.0.0",
         "typescript": "^4.6.4",
         "webpack": "^4.43.0"
     },
     "dependencies": {
-        "@reach/dialog": "^0.16.0",
+        "@ariakit/react": "0.4.5",
         "aria-hidden": "^1.2.1",
-        "ariakit": "2.0.0-next.30",
-        "ariakit-utils": "0.17.0-next.21",
         "dayjs": "^1.8.10",
         "patch-package": "^6.4.6",
         "react-focus-lock": "^2.9.1",
@@ -150,9 +159,9 @@
         "use-callback-ref": "^1.3.0"
     },
     "overrides": {
-        "tsdx": {
-            "typescript": "^4.6.4"
-        }
+        "typescript": "^4.6.4",
+        "@rollup/plugin-typescript": "11.1.6",
+        "rollup": "2.79.1"
     },
     "bugs": {
         "url": "https://github.com/Doist/reactist/issues"
