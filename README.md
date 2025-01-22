@@ -1,4 +1,4 @@
-# Reactist (test)
+# Reactist (test release-please)
 
 Open source React components made with ❤️ by Doist.
 
