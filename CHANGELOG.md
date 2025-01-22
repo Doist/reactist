@@ -1,5 +1,12 @@
 # Changelog
 
+## [27.2.3](https://github.com/Doist/reactist/compare/v27.2.2...v27.2.3) (2025-01-22)
+
+
+### 🧰 Maintenance
+
+* deploy storybook only when publishing package ([#878](https://github.com/Doist/reactist/issues/878)) ([1668f8c](https://github.com/Doist/reactist/commit/1668f8c1797232998cc94b26d4435c95b6adda80))
+
 ## [27.2.2](https://github.com/Doist/reactist/compare/v27.2.1...v27.2.2) (2025-01-22)
 
 
