@@ -1,0 +1,139 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+import { Box } from '../box'
+import { Text } from '../text'
+import { Stack } from '../stack'
+import { Loading } from './loading'
+
+<Meta
+    title="Design system/Loading"
+    component={Loading}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
+
+# Loading
+
+A loading indicator that comes in three sizes.
+
+export function Example({ children, size }) {
+    return (
+        <Stack space="xxlarge" align="center">
+            <Box>{children}</Box>
+            <Box as="pre">size="{size}"</Box>
+        </Stack>
+    )
+}
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="All Sizes">
+        <Box display="flex" flexDirection="row" justifyContent="spaceEvenly" alignItems="flexEnd">
+            <Example size="xsmall">
+                <Loading aria-label="Loading Demo" size="xsmall" />
+            </Example>
+            <Example size="small">
+                <Loading aria-label="Loading Demo" size="small" />
+            </Example>
+            <Example size="medium">
+                <Loading aria-label="Loading Demo" size="medium" />
+            </Example>
+            <Example size="large">
+                <Loading aria-label="Loading Demo" size="large" />
+            </Example>
+        </Box>
+    </Story>
+</Canvas>
+
+---
+
+<Description of={Loading} />
+<ArgsTable of={Loading} />
+
+## Stories
+
+### Customized color
+
+The loading indicator adopts the current brand background color defined in the `--reactist-spinner-tint`
+CSS variable.
+
+<Canvas withToolbar>
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Customize Color">
+        <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="spaceEvenly"
+            alignItems="flexEnd"
+            style={{ '--reactist-spinner-tint': 'red' }}
+        >
+            <Example size="xsmall">
+                <Loading aria-label="Loading Demo" size="xsmall" />
+            </Example>
+            <Example size="small">
+                <Loading aria-label="Loading Demo" size="small" />
+            </Example>
+            <Example size="medium">
+                <Loading aria-label="Loading Demo" size="medium" />
+            </Example>
+            <Example size="large">
+                <Loading aria-label="Loading Demo" size="large" />
+            </Example>
+        </Box>
+    </Story>
+</Canvas>
+
+## Accessibility
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Accessibility Attributes">
+        <Box display="flex" flexDirection="row" justifyContent="spaceEvenly" alignItems="flexEnd">
+            <Stack space="xxlarge" align="center">
+                <Loading aria-label="Loading puppies" />
+                <Box as="pre">aria-label</Box>
+            </Stack>
+            <Stack space="xxlarge" align="center">
+                <Text id="loading-kittens" tone="secondary">
+                    Loading kittens...
+                </Text>
+                <Loading aria-labelledby="loading-kittens" />
+                <Box as="pre">aria-labelledby</Box>
+            </Stack>
+            <Stack space="xxlarge" align="center">
+                <Text id="loading-progress" tone="secondary">
+                    50% complete...
+                </Text>
+                <Loading aria-label="loading-progress" />
+                <Box as="pre">aria-describedby</Box>
+            </Stack>
+        </Box>
+    </Story>
+</Canvas>
+
+#### Usage Considerations
+
+If the `Loading` component is describing the loading progress of a particular region of a page, you should use the `aria-describedby` attribute to point to the status, and set the `aria-busy` attribute to `true` on the region until it is finished loading.
+
+<Canvas>
+    <Story
+        parameters={{ docs: { source: { type: 'dynamic' } } }}
+        name="Accessibility Considerations"
+    >
+        <Box
+            alignItems="center"
+            aria-busy={true}
+            display="flex"
+            flexDirection="column"
+            justifyContent="spaceEvenly"
+            style={{
+                background: '#f3f3f3',
+                border: '1px solid #333',
+                width: '200px',
+                height: '200px',
+            }}
+        >
+            <Loading aria-describedby="loading-progress" />
+            <Text id="loading-progress" tone="secondary">
+                50% complete
+            </Text>
+        </Box>
+    </Story>
+</Canvas>

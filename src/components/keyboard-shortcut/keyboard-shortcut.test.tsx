@@ -51,4 +51,11 @@ describe('KeyboardShortcut', () => {
         })
         expect(element).toMatchSnapshot()
     })
+
+    it('recognizes "Super" as a special key to be translated', () => {
+        const element = renderKeyboardShortcut('super + q', {
+            translateKey: (modifier) => `[${modifier}]`,
+        })
+        expect(element).toMatchSnapshot()
+    })
 })

@@ -1,0 +1,54 @@
+import { Story, Meta } from '@storybook/addon-docs'
+
+<Meta title="Tips and tricks/About Stack or Columns with a single child" />
+
+# About `Stack` or `Columns` with a single child
+
+## Avoid having single-child `Stack` or `Columns`
+
+A `<Columns />` with a single `<Column />` inside makes no sense most of the time. The same applies to having `<Stack />` elements with a single child. It can happen when we remove stuff from the UI. So be aware that if you remove something from inside a `Stack` or a `Columns` element and a single child remains, then you might be able to remove them altogether and render that single child directly in place.
+
+```jsx
+// This…
+<Stack>
+  <Something />
+</Stack>
+
+// …or this…
+<Columns>
+  <Column>
+    <Something />
+  </Column>
+</Columns>
+
+// …can probably be just this
+<Something />
+```
+
+## About conditionally-rendered child elements
+
+However, sometimes the second child element is rendered conditionally. Those cases are OK, of course:
+
+```jsx
+// This is ok
+<Stack>
+  <Header />
+  {showBody ? <Body /> : null}
+</Stack>
+
+// And this too
+<Columns>
+  <Column width="content">
+    <Sidebar />
+  </Column>
+  {showContent ? (
+    <Column>
+      <Content />
+    </Column>
+  ) : null}
+</Columns>
+```
+
+## About `Inline` elements with a single child
+
+You might wonder why not say the same about `Inline`. We've found that `Inline` can be useful with a single child. It has the effect of making that child element not expand its full height, because it how behaves like an inline element rather than a block one. In reality, it still behaves like a block element, but a block element inside an inline context. So you might still want to leave it in place, but you should also check if you can remove it when removing other children of the inline element.

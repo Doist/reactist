@@ -1,0 +1,27 @@
+.container {
+    color: var(--reactist-content-primary);
+}
+
+.content {
+    padding-top: calc(var(--reactist-spacing-xsmall) / 2);
+}
+
+.icon {
+    display: block;
+}
+
+.tone-info .icon {
+    color: var(--reactist-alert-tone-info-icon);
+}
+
+.tone-positive .icon {
+    color: var(--reactist-alert-tone-positive-icon);
+}
+
+.tone-caution .icon {
+    color: var(--reactist-alert-tone-caution-icon);
+}
+
+.tone-critical .icon {
+    color: var(--reactist-alert-tone-critical-icon);
+}

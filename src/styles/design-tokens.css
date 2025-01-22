@@ -1,0 +1,122 @@
+:root {
+    /*
+     * breakpoints
+     *
+     * Unfortunately CSS custom properties are not available in media queries. So these are not
+     * being used right now (although all uses of the hardcoded value are annotated with the names.
+     *
+     * We could manage these as pre-processor variables, but that would leave the question about how
+     * is going to be possible to customize these values from consumer apps.
+     *
+     * See https://stackoverflow.com/q/40722882/621809
+     * Possible solution: https://www.npmjs.com/package/postcss-media-variables
+     */
+    --reactist-breakpoint-tablet: 768px;
+    --reactist-breakpoint-desktop: 992px;
+
+    /* spacing sizes */
+    --reactist-spacing-xsmall: 4px;
+    --reactist-spacing-small: 8px;
+    --reactist-spacing-medium: 12px;
+    --reactist-spacing-large: 16px;
+    --reactist-spacing-xlarge: 24px;
+    --reactist-spacing-xxlarge: 32px;
+
+    /* width */
+    --reactist-width-xsmall: 220px;
+    --reactist-width-small: 400px;
+    --reactist-width-medium: 660px;
+    --reactist-width-large: 940px;
+    --reactist-width-xlarge: 1280px;
+
+    /* font family */
+    --reactist-font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Noto, Oxygen-Sans, Ubuntu,
+        Cantrell, 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol';
+    --reactist-font-family-monospace: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
+        'Cascadia Mono', Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+    /* font sizes */
+    --reactist-font-size-caption: 12px;
+    --reactist-font-size-copy: 13px;
+    --reactist-font-size-body: 14px;
+    --reactist-font-size-subtitle: 16px;
+    --reactist-font-size-header: 20px;
+    --reactist-font-size-header-large: 24px;
+    --reactist-font-size-header-xlarge: 32px;
+
+    /* font weight */
+    --reactist-font-weight-regular: 400;
+    --reactist-font-weight-medium: 600;
+    --reactist-font-weight-strong: 700;
+
+    /* standard divider colors */
+    --reactist-divider-primary: #c4c7c8;
+    --reactist-divider-secondary: #dde2e3;
+    --reactist-divider-tertiary: #edf2f3;
+
+    /* input border colors */
+    --reactist-inputs-focus: var(--reactist-divider-primary);
+    --reactist-inputs-idle: var(--reactist-divider-secondary);
+    --reactist-inputs-alert: rgb(209, 69, 59);
+
+    /* border-radius */
+    --reactist-border-radius-small: 5px;
+    --reactist-border-radius-large: 10px;
+
+    /* background color */
+    --reactist-bg-default: rgb(255, 255, 255);
+    --reactist-bg-brand: rgb(36, 111, 224);
+    --reactist-bg-aside: rgb(250, 250, 250);
+    --reactist-bg-highlight: rgb(242, 242, 242);
+    --reactist-bg-selected: rgb(230, 230, 230);
+    --reactist-bg-toast: rgb(40, 40, 40);
+
+    /* colors */
+    --reactist-framework-fill-background: rgb(250, 250, 250);
+    --reactist-framework-fill-crest: rgb(230, 230, 230);
+    --reactist-framework-fill-selected: rgb(236, 236, 236);
+    --reactist-framework-fill-summit: rgb(214, 214, 214);
+
+    --reactist-content-primary: rgba(0, 0, 0, 0.88);
+    --reactist-content-secondary: rgba(0, 0, 0, 0.56);
+    --reactist-content-tertiary: rgba(0, 0, 0, 0.4);
+    --reactist-toast-content-primary: rgb(255, 255, 255);
+    --reactist-toast-content-secondary: hsla(0, 0%, 100%, 0.56);
+    --reactist-content-positive: rgb(5, 133, 39);
+    --reactist-content-danger: rgb(209, 69, 59);
+
+    /* component-specific */
+
+    /* alerts */
+    --reactist-alert-tone-info-icon: rgba(49, 111, 234);
+    --reactist-alert-tone-info-border: rgba(238, 238, 238);
+    --reactist-alert-tone-info-background: rgba(250, 250, 250);
+
+    --reactist-alert-tone-positive-icon: rgba(5, 133, 39);
+    --reactist-alert-tone-positive-border: rgba(238, 238, 238);
+    --reactist-alert-tone-positive-background: rgba(250, 250, 250);
+
+    --reactist-alert-tone-caution-icon: rgba(235, 137, 9);
+    --reactist-alert-tone-caution-border: rgba(238, 238, 238);
+    --reactist-alert-tone-caution-background: rgba(250, 250, 250);
+
+    --reactist-alert-tone-critical-icon: rgba(220, 76, 62);
+    --reactist-alert-tone-critical-border: rgba(238, 238, 238);
+    --reactist-alert-tone-critical-background: rgba(250, 250, 250);
+
+    /* fields */
+    --reactist-field-readonly-background: rgb(246, 244, 244);
+
+    /* toasts */
+    --reactist-toast-actionable-primary-tint: #39d1ef;
+    --reactist-toast-actionable-secondary-tint: #b6c1c3;
+    --reactist-toast-actionable-hover-fill: #506063;
+    --reactist-toast-box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+
+    /* stacking orders */
+    --reactist-stacking-order-modal: 1;
+    --reactist-stacking-order-menu: 1;
+    --reactist-stacking-order-toast: 400;
+    --reactist-stacking-order-tooltip: 1000;
+}

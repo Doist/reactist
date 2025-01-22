@@ -1,9 +1,8 @@
 {
-    "plugins": ["jest"],
+    "plugins": ["jest", "jsx-a11y"],
     "extends": [
         "@doist/eslint-config/recommended-requiring-type-checking",
         "@doist/eslint-config/react",
-        "react-app",
         "plugin:jest/recommended"
     ],
     "parser": "@typescript-eslint/parser",

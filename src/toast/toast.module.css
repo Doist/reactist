@@ -1,0 +1,21 @@
+.stackedToastsView {
+    bottom: 0;
+    pointer-events: none;
+    z-index: var(--reactist-stacking-order-toast);
+}
+
+.toastContainer {
+    pointer-events: all; /* to revert the pointer-events:none value set in the stacked toasts container */
+    gap: var(--reactist-spacing-medium);
+    box-shadow: var(--reactist-toast-box-shadow);
+}
+
+.slot {
+    color: var(--reactist-content-primary);
+}
+
+@media (max-width: 500px) {
+    .toastContainer {
+        width: 100% !important;
+    }
+}

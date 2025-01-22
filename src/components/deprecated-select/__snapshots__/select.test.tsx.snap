@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Select renders without crashing 1`] = `
+<div>
+  <select
+    class="reactist_select"
+  >
+    <option
+      value="test"
+    >
+      test
+    </option>
+  </select>
+</div>
+`;

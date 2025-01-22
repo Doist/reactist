@@ -1,6 +1,6 @@
-import React from 'react'
+import * as React from 'react'
 
-import { Tooltip } from '../tooltip'
+import { Tooltip } from '../../tooltip'
 import { TimeUtils, TimeConfig } from './time-utils'
 
 import './time.less'

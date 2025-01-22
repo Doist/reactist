@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar renders a background image when avatarUrl is supplied 1`] = `
+<div
+  class="avatar size-xl box"
+  data-testid="avatar"
+  style="background-image: url(https://foo.bar/com.png); text-indent: -9999px;"
+>
+  HM
+</div>
+`;
