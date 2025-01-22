@@ -3,6 +3,7 @@ version: 2
 updates:
     - package-ecosystem: npm
       directory: /
-      interval: daily
+      schedule:
+          interval: daily
       commit-message:
           prefix: 'build(deps):'
