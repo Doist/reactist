@@ -10,6 +10,7 @@ import { Spinner } from '../spinner'
 import { Column, Columns } from '../columns'
 
 // Define the remaining characters before the character count turns red
+// See: https://twist.com/a/1585/ch/765851/t/6664583/c/93631846 for latest spec
 const MAX_LENGTH_THRESHOLD = 0
 
 type FieldTone = 'neutral' | 'success' | 'error' | 'loading'
