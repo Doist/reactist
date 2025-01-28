@@ -9,7 +9,8 @@ import type { WithEnhancedClassName } from '../utils/common-types'
 import { Spinner } from '../spinner'
 import { Column, Columns } from '../columns'
 
-const MAX_LENGTH_THRESHOLD = 10
+// Define the remaining characters before the character count turns red
+const MAX_LENGTH_THRESHOLD = 0
 
 type FieldTone = 'neutral' | 'success' | 'error' | 'loading'
 
