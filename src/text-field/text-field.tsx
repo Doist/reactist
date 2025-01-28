@@ -2,14 +2,15 @@ import * as React from 'react'
 import { BaseField, BaseFieldVariantProps } from '../base-field'
 import { Box } from '../box'
 import styles from './text-field.module.css'
-import type { FieldComponentProps } from '../base-field'
+import type { BaseFieldProps, FieldComponentProps } from '../base-field'
 import { useMergeRefs } from 'use-callback-ref'
 
 type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 
 interface TextFieldProps
     extends Omit<FieldComponentProps<HTMLInputElement>, 'type'>,
-        BaseFieldVariantProps {
+        BaseFieldVariantProps,
+        Pick<BaseFieldProps, 'characterCountPosition'> {
     type?: TextFieldType
     startSlot?: React.ReactElement | string | number
     endSlot?: React.ReactElement | string | number
@@ -38,6 +39,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         startSlot,
         endSlot,
         onChange: originalOnChange,
+        characterCountPosition = 'below',
         ...props
     },
     ref,
@@ -63,8 +65,9 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
             maxLength={maxLength}
             hidden={hidden}
             aria-describedby={ariaDescribedBy}
+            characterCountPosition={characterCountPosition}
         >
-            {({ onChange, ...extraProps }) => (
+            {({ onChange, characterCountElement, ...extraProps }) => (
                 <Box
                     display="flex"
                     alignItems="center"
@@ -97,13 +100,14 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                             onChange?.(event)
                         }}
                     />
-                    {endSlot ? (
+                    {endSlot || characterCountElement ? (
                         <Box
                             className={styles.slot}
                             display="flex"
                             marginRight={variant === 'bordered' ? '-xsmall' : 'xsmall'}
                             marginLeft={variant === 'bordered' ? 'xsmall' : '-xsmall'}
                         >
+                            {characterCountElement}
                             {endSlot}
                         </Box>
                     ) : null}
