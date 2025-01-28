@@ -1,5 +1,9 @@
 import * as React from 'react'
-import { BaseField, BaseFieldVariantProps } from '../base-field'
+import {
+    BaseField,
+    type BaseFieldProps,
+    BaseFieldVariantProps
+} from '../base-field'
 import { Box } from '../box'
 import styles from './text-field.module.css'
 import type { FieldComponentProps } from '../base-field'
@@ -9,7 +13,8 @@ type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 
 interface TextFieldProps
     extends Omit<FieldComponentProps<HTMLInputElement>, 'type'>,
-        BaseFieldVariantProps {
+        BaseFieldVariantProps,
+        Pick<BaseFieldProps, 'characterCountPosition'> {
     type?: TextFieldType
     startSlot?: React.ReactElement | string | number
     endSlot?: React.ReactElement | string | number
@@ -32,6 +37,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         startSlot,
         endSlot,
         onChange: originalOnChange,
+        characterCountPosition = 'below',
         ...props
     },
     ref,
@@ -57,52 +63,56 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
             maxLength={maxLength}
             hidden={hidden}
             aria-describedby={ariaDescribedBy}
+            characterCountPosition={characterCountPosition}
         >
-            {({ onChange, ...extraProps }) => (
-                <Box
-                    display="flex"
-                    alignItems="center"
-                    className={[
-                        styles.inputWrapper,
-                        tone === 'error' ? styles.error : null,
-                        variant === 'bordered' ? styles.bordered : null,
-                        props.readOnly ? styles.readOnly : null,
-                    ]}
-                    onClick={handleClick}
-                >
-                    {startSlot ? (
-                        <Box
-                            className={styles.slot}
-                            display="flex"
-                            marginRight={variant === 'bordered' ? 'xsmall' : '-xsmall'}
-                            marginLeft={variant === 'bordered' ? '-xsmall' : 'xsmall'}
-                        >
-                            {startSlot}
-                        </Box>
-                    ) : null}
-                    <input
-                        {...props}
-                        {...extraProps}
-                        type={type}
-                        ref={combinedRef}
-                        maxLength={maxLength}
-                        onChange={(event) => {
-                            originalOnChange?.(event)
-                            onChange?.(event)
-                        }}
-                    />
-                    {endSlot ? (
-                        <Box
-                            className={styles.slot}
-                            display="flex"
-                            marginRight={variant === 'bordered' ? '-xsmall' : 'xsmall'}
-                            marginLeft={variant === 'bordered' ? 'xsmall' : '-xsmall'}
-                        >
-                            {endSlot}
-                        </Box>
-                    ) : null}
-                </Box>
-            )}
+            {({ onChange, characterCount, ...extraProps }) => {
+                return (
+                    <Box
+                        display="flex"
+                        alignItems="center"
+                        className={[
+                            styles.inputWrapper,
+                            tone === 'error' ? styles.error : null,
+                            variant === 'bordered' ? styles.bordered : null,
+                            props.readOnly ? styles.readOnly : null,
+                        ]}
+                        onClick={handleClick}
+                    >
+                        {startSlot ? (
+                            <Box
+                                className={styles.slot}
+                                display="flex"
+                                marginRight={variant === 'bordered' ? 'xsmall' : '-xsmall'}
+                                marginLeft={variant === 'bordered' ? '-xsmall' : 'xsmall'}
+                            >
+                                {startSlot}
+                            </Box>
+                        ) : null}
+                        <input
+                            {...props}
+                            {...extraProps}
+                            type={type}
+                            ref={combinedRef}
+                            maxLength={maxLength}
+                            onChange={(event) => {
+                                originalOnChange?.(event)
+                                onChange?.(event)
+                            }}
+                        />
+                        {endSlot || characterCount ? (
+                            <Box
+                                className={styles.slot}
+                                display="flex"
+                                marginRight={variant === 'bordered' ? '-xsmall' : 'xsmall'}
+                                marginLeft={variant === 'bordered' ? 'xsmall' : '-xsmall'}
+                            >
+                                {characterCount}
+                                {endSlot}
+                            </Box>
+                        ) : null}
+                    </Box>
+                )
+            }}
         </BaseField>
     )
 })

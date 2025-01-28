@@ -94,6 +94,7 @@ type ChildrenRenderProps = {
     'aria-describedby'?: string
     'aria-invalid'?: true
     onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    characterCount: React.ReactNode
 }
 
 type HtmlInputProps<T extends HTMLElement> = React.DetailedHTMLProps<
@@ -118,7 +119,7 @@ type BaseFieldVariantProps = {
     variant?: BaseFieldVariant
 }
 
-type BaseFieldProps = WithEnhancedClassName &
+export type BaseFieldProps = WithEnhancedClassName &
     Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'maxLength' | 'aria-describedby'> & {
         /**
          * The main label for this field element.
@@ -195,6 +196,8 @@ type BaseFieldProps = WithEnhancedClassName &
          * the public props of such components.
          */
         children: (props: ChildrenRenderProps) => React.ReactNode
+
+        characterCountPosition?: 'below' | 'inline'
     }
 
 type FieldComponentProps<T extends HTMLElement> = Omit<
@@ -217,6 +220,7 @@ function BaseField({
     hidden,
     'aria-describedby': originalAriaDescribedBy,
     id: originalId,
+    characterCountPosition,
 }: BaseFieldProps & BaseFieldVariantProps & WithEnhancedClassName) {
     const id = useId(originalId)
     const messageId = useId()
@@ -227,6 +231,12 @@ function BaseField({
     const [characterCountTone, setCharacterCountTone] = React.useState<FieldTone>(inputLength.tone)
 
     const ariaDescribedBy = originalAriaDescribedBy ?? (message ? messageId : null)
+
+    function renderCharacterCount() {
+        return characterCount ? (
+            <FieldCharacterCount tone={characterCountTone}>{characterCount}</FieldCharacterCount>
+        ) : null
+    }
 
     const childrenProps: ChildrenRenderProps = {
         id,
@@ -246,6 +256,7 @@ function BaseField({
             setCharacterCount(inputLength.count)
             setCharacterCountTone(inputLength.tone)
         },
+        characterCount: characterCountPosition === 'inline' ? renderCharacterCount() : null,
     }
 
     React.useEffect(
@@ -308,12 +319,8 @@ function BaseField({
                             </FieldMessage>
                         </Column>
                     ) : null}
-                    {characterCount ? (
-                        <Column width="content">
-                            <FieldCharacterCount tone={characterCountTone}>
-                                {characterCount}
-                            </FieldCharacterCount>
-                        </Column>
+                    {characterCountPosition === 'below' ? (
+                        <Column width="content">{renderCharacterCount()}</Column>
                     ) : null}
                 </Columns>
             ) : null}
