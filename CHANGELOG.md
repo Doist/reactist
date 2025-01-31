@@ -1,5 +1,23 @@
 # Changelog
 
+## [27.3.0](https://github.com/Doist/reactist/compare/v27.2.2...v27.3.0) (2025-01-31)
+
+
+### 🚀 Features
+
+* **TextField:** add support for customizable character count position ([#883](https://github.com/Doist/reactist/issues/883)) ([7359aa4](https://github.com/Doist/reactist/commit/7359aa424d17d2a10ccd4d241e2e8ca53d3bab8d))
+
+
+### 🐛 Bug Fixes
+
+* **TextField:** adjust character count threshold to zero ([#882](https://github.com/Doist/reactist/issues/882)) ([6292d06](https://github.com/Doist/reactist/commit/6292d0677fdfb2c703613df24d73f01e96d21e6e))
+
+
+### 🧰 Maintenance
+
+* deploy storybook only when publishing package ([#878](https://github.com/Doist/reactist/issues/878)) ([1668f8c](https://github.com/Doist/reactist/commit/1668f8c1797232998cc94b26d4435c95b6adda80))
+* fix dependabot config syntax ([#879](https://github.com/Doist/reactist/issues/879)) ([89ddb9a](https://github.com/Doist/reactist/commit/89ddb9ae01c4680add19574ebaa8f1e987c00a8d))
+
 ## [27.2.2](https://github.com/Doist/reactist/compare/v27.2.1...v27.2.2) (2025-01-22)
 
 
