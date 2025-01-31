@@ -3,7 +3,9 @@ import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-f
 import { Box } from '../box'
 import styles from './select-field.module.css'
 
-interface SelectFieldProps extends FieldComponentProps<HTMLSelectElement>, BaseFieldVariantProps {}
+interface SelectFieldProps
+    extends Omit<FieldComponentProps<HTMLSelectElement>, 'maxLength' | 'characterCountPosition'>,
+        BaseFieldVariantProps {}
 
 const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(function SelectField(
     {

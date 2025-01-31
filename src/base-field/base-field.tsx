@@ -96,6 +96,7 @@ type ChildrenRenderProps = {
     'aria-describedby'?: string
     'aria-invalid'?: true
     onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    characterCountElement?: React.ReactNode | null
 }
 
 type HtmlInputProps<T extends HTMLElement> = React.DetailedHTMLProps<
@@ -120,7 +121,7 @@ type BaseFieldVariantProps = {
     variant?: BaseFieldVariant
 }
 
-type BaseFieldProps = WithEnhancedClassName &
+export type BaseFieldProps = WithEnhancedClassName &
     Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'maxLength' | 'aria-describedby'> & {
         /**
          * The main label for this field element.
@@ -204,6 +205,14 @@ type BaseFieldProps = WithEnhancedClassName &
          * the public props of such components.
          */
         children: (props: ChildrenRenderProps) => React.ReactNode
+
+        /**
+         * The position of the character count element.
+         * It can be shown below the field or inline with the field.
+         *
+         * @default 'below'
+         */
+        characterCountPosition?: 'below' | 'inline' | 'hidden'
     }
 
 type FieldComponentProps<T extends HTMLElement> = Omit<
@@ -212,6 +221,9 @@ type FieldComponentProps<T extends HTMLElement> = Omit<
 > &
     Omit<HtmlInputProps<T>, 'className' | 'style'>
 
+/**
+ * BaseField is a base component that provides a consistent structure for form fields.
+ */
 function BaseField({
     variant = 'default',
     label,
@@ -226,6 +238,7 @@ function BaseField({
     hidden,
     'aria-describedby': originalAriaDescribedBy,
     id: originalId,
+    characterCountPosition = 'below',
 }: BaseFieldProps & BaseFieldVariantProps & WithEnhancedClassName) {
     const id = useId(originalId)
     const messageId = useId()
@@ -236,6 +249,16 @@ function BaseField({
     const [characterCountTone, setCharacterCountTone] = React.useState<FieldTone>(inputLength.tone)
 
     const ariaDescribedBy = originalAriaDescribedBy ?? (message ? messageId : null)
+
+    /**
+     * Renders the character count element.
+     * If the characterCountPosition value is 'hidden', it returns null.
+     */
+    function renderCharacterCount() {
+        return characterCountPosition !== 'hidden' ? (
+            <FieldCharacterCount tone={characterCountTone}>{characterCount}</FieldCharacterCount>
+        ) : null
+    }
 
     const childrenProps: ChildrenRenderProps = {
         id,
@@ -255,6 +278,8 @@ function BaseField({
             setCharacterCount(inputLength.count)
             setCharacterCountTone(inputLength.tone)
         },
+        // If the character count is inline, we pass it as a prop to the children element so it can be rendered inline
+        characterCountElement: characterCountPosition === 'inline' ? renderCharacterCount() : null,
     }
 
     React.useEffect(
@@ -308,6 +333,7 @@ function BaseField({
                 ) : null}
                 {children(childrenProps)}
             </Box>
+
             {message || characterCount ? (
                 <Columns align="right" space="small" maxWidth={maxWidth}>
                     {message ? (
@@ -317,12 +343,11 @@ function BaseField({
                             </FieldMessage>
                         </Column>
                     ) : null}
-                    {characterCount ? (
-                        <Column width="content">
-                            <FieldCharacterCount tone={characterCountTone}>
-                                {characterCount}
-                            </FieldCharacterCount>
-                        </Column>
+
+                    {/* If the character count is below the field, we render it, if it's inline,
+                        we pass it as a prop to the children element so it can be rendered inline */}
+                    {characterCountPosition === 'below' ? (
+                        <Column width="content">{renderCharacterCount()}</Column>
                     ) : null}
                 </Columns>
             ) : null}

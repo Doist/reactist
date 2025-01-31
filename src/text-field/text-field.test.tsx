@@ -246,4 +246,39 @@ describe('TextField', () => {
             expect(results).toHaveNoViolations()
         })
     })
+
+    describe('character count', () => {
+        it('renders the character count element when characterCountPosition is "below"', () => {
+            render(
+                <TextField
+                    label="Whatʼs your name?"
+                    maxLength={30}
+                    characterCountPosition="below"
+                />,
+            )
+            expect(screen.getByText(/0\/30/)).toBeInTheDocument()
+        })
+
+        it('renders the character count element when characterCountPosition is "inline"', () => {
+            render(
+                <TextField
+                    label="Whatʼs your name?"
+                    maxLength={30}
+                    characterCountPosition="inline"
+                />,
+            )
+            expect(screen.getByText(/0\/30/)).toBeInTheDocument()
+        })
+
+        it('does not render the character count element when characterCountPosition is "hidden"', () => {
+            render(
+                <TextField
+                    label="Whatʼs your name?"
+                    maxLength={30}
+                    characterCountPosition="hidden"
+                />,
+            )
+            expect(screen.queryByText(/0\/30/)).not.toBeInTheDocument()
+        })
+    })
 })

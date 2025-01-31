@@ -337,6 +337,7 @@ export function WithMaxLengthExample() {
             maxLength={30}
             value={value}
             onChange={(event) => setValue(event.currentTarget.value)}
+            maxWidth="small"
         />
     )
 }
@@ -344,5 +345,52 @@ export function WithMaxLengthExample() {
 <Canvas withToolbar>
     <Story name="Max Length">
         <WithMaxLengthExample />
+    </Story>
+</Canvas>
+
+## Character count position
+
+The `characterCountPosition` prop is used to position the character count element. It can be shown <strong>below</strong> the field, <strong>inline</strong> with the field or <strong>hidden</strong>.
+
+export function WithCharacterCountPositionExample() {
+    return (
+        <TextField
+            label="Company name"
+            maxLength={30}
+            characterCountPosition="inline"
+            maxWidth="small"
+        />
+    )
+}
+
+export function WithCharacterCountPositionBelowExample() {
+    return (
+        <TextField
+            label="Company name"
+            maxLength={30}
+            characterCountPosition="below"
+            maxWidth="small"
+        />
+    )
+}
+
+export function WithCharacterCountPositionHiddenExample() {
+    return (
+        <TextField
+            label="Company name"
+            maxLength={30}
+            characterCountPosition="hidden"
+            maxWidth="small"
+        />
+    )
+}
+
+<Canvas withToolbar>
+    <Story name="Character count position">
+        <Stack space="xxlarge" dividers="secondary">
+            <WithCharacterCountPositionExample />
+            <WithCharacterCountPositionBelowExample />
+            <WithCharacterCountPositionHiddenExample />
+        </Stack>
     </Story>
 </Canvas>

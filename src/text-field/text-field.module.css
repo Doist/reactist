@@ -74,6 +74,10 @@
     padding: var(--tmp-vertical-padding) var(--reactist-spacing-small);
 }
 
+.slot {
+    align-items: center;
+}
+
 .slot button {
     --reactist-btn-height: 24px !important;
 }
