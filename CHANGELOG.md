@@ -1,5 +1,12 @@
 # Changelog
 
+## [27.3.4](https://github.com/Doist/reactist/compare/v27.3.3...v27.3.4) (2025-02-05)
+
+
+### 🧰 Maintenance
+
+* add permissions to dispatch workflows in release-please ([#890](https://github.com/Doist/reactist/issues/890)) ([6509b01](https://github.com/Doist/reactist/commit/6509b01fdb5262b30019be598569eb9e8a8b01cf))
+
 ## [27.3.3](https://github.com/Doist/reactist/compare/v27.3.2...v27.3.3) (2025-02-05)
 
 
