@@ -1,0 +1,339 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+
+import { Stack } from '../stack'
+import { Text } from '../text'
+import { TextArea } from './'
+import { selectWithNone } from '../utils/storybook-helper'
+
+<Meta
+    title="Design system/TextArea"
+    component={TextArea}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
+
+# TextArea
+
+A component with an expandable writing area used to accept longer textual input from the user.
+
+export function preventDefault(event) {
+    event.preventDefault()
+}
+
+export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
+    return (
+        <TextArea
+            {...props}
+            label={label}
+            auxiliaryLabel={
+                auxiliaryLabel ? (
+                    <a href="#" onClick={preventDefault}>
+                        {auxiliaryLabel}
+                    </a>
+                ) : undefined
+            }
+        />
+    )
+}
+
+<Canvas>
+    <Story
+        name="Interactive props"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+        argTypes={{
+            label: {
+                control: { type: 'text' },
+                defaultValue: 'User bio',
+            },
+            value: { table: { disable: true } },
+            tone: {
+                options: ['neutral', 'success', 'error', 'loading'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'neutral',
+            },
+            maxWidth: selectWithNone(
+                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+                'small',
+            ),
+            variant: {
+                options: ['default', 'bordered'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'default',
+            },
+            auxiliaryLabel: {
+                control: { type: 'text' },
+                defaultValue: 'Need help?',
+            },
+            message: {
+                control: { type: 'text' },
+                defaultValue:
+                    'You’ll have a better experience in our community if others get to know a little bit about you.',
+            },
+            rows: {
+                control: { type: 'number' },
+                defaultValue: 2,
+            },
+            autoExpand: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            disableResize: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            placeholder: {
+                control: { type: 'text' },
+                defaultValue: 'Tell us something about yourself. Don’t be shy.',
+            },
+            maxLength: {
+                control: { type: 'number' },
+                defaultValue: null,
+            },
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            readOnly: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+        }}
+    >
+        {InteractivePropsStory.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable of={TextArea} />
+
+## Colors
+
+The following CSS custom properties are available so that the `TextArea`'s border colors can be customized.
+Note that these variables are shared with other components such as `Textfield`, `PasswordField`, and `SelectField`.
+
+```
+--reactist-inputs-focus
+--reactist-inputs-idle
+--reactist-inputs-alert
+```
+
+<Canvas withToolbar>
+    <Story
+        name="Message tone"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <Stack space="xxlarge" dividers="secondary">
+            <TextArea
+                label="Profile bio"
+                message="Saving changes…"
+                tone="loading"
+                disabled
+                maxWidth="small"
+            />
+            <TextArea
+                label="Profile bio"
+                message="Too short. Don't be shy, tell us a bit more."
+                tone="error"
+                maxWidth="small"
+            />
+            <TextArea
+                label="Profile bio"
+                message="Changes saved successfully!"
+                tone="success"
+                maxWidth="small"
+            />
+            <TextArea
+                label="Profile bio"
+                message="This is the supporting text (helper or error) of the field, provided by the message prop"
+                tone="neutral"
+                maxWidth="small"
+            />
+        </Stack>
+    </Story>
+</Canvas>
+
+<Canvas withToolbar>
+    <Story name="Without label">
+        <Stack space="xlarge" dividers="secondary">
+            <Stack as="label" htmlFor="custom-textarea" space="small">
+                <Text size="subtitle">Custom label is up here</Text>
+                <Text size="caption" tone="secondary" aria-hidden>
+                    <em>(click me to focus the textarea)</em>
+                </Text>
+            </Stack>
+            <TextArea
+                label={null}
+                id="custom-textarea"
+                aria-describedby="custom-description"
+                rows={8}
+            />
+            <Stack space="small" id="custom-description">
+                <Text size="body">Custom description is down here</Text>
+                <Text size="caption" tone="secondary" aria-hidden>
+                    <em>(inspect the textarea accessibility properties if you are curious)</em>
+                </Text>
+            </Stack>
+        </Stack>
+    </Story>
+</Canvas>
+
+export function AutoExpandStory(props) {
+    return (
+        <Stack space="xxlarge" dividers="secondary" maxWidth="medium">
+            <TextArea
+                {...props}
+                label="What do you want to accomplish?"
+                message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
+                autoExpand
+            />
+            <TextArea
+                {...props}
+                label="What do you want to accomplish?"
+                message="This one will not auto-expand."
+                autoExpand={false}
+            />
+        </Stack>
+    )
+}
+
+<Canvas>
+    <Story
+        name="Auto expand"
+        argTypes={{
+            label: { control: false },
+            tone: {
+                options: ['neutral', 'success', 'error', 'loading'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'neutral',
+            },
+            maxWidth: selectWithNone(
+                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+                'small',
+            ),
+            variant: {
+                options: ['default', 'bordered'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'default',
+            },
+            auxiliaryLabel: { control: false },
+            rows: {
+                control: { type: 'number' },
+            },
+            message: {
+                control: { type: 'text' },
+                defaultValue: '',
+            },
+            rows: {
+                control: { type: 'number' },
+                defaultValue: 2,
+            },
+            autoExpand: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            placeholder: {
+                control: { type: 'text' },
+                defaultValue: '',
+            },
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+        }}
+    >
+        {AutoExpandStory.bind({})}
+    </Story>
+</Canvas>
+
+export function AutoExpandWithInitialValueStory(props) {
+    const initialValue =
+        'This is some text that takes up multiple lines. It should cause the textarea to render initially as large as needed to fit this text, even if its initial rows are not enough.'
+    const [value, setValue] = React.useState(initialValue)
+    return (
+        <Stack space="xxlarge" dividers="secondary" maxWidth="medium">
+            <TextArea
+                {...props}
+                label="What do you want to accomplish?"
+                auxiliaryLabel={
+                    <Text tone="secondary" size="caption">
+                        {value.length}
+                    </Text>
+                }
+                message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                rows={1}
+                autoExpand
+            />
+            <TextArea
+                {...props}
+                label="What do you want to accomplish?"
+                message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
+                defaultValue={initialValue}
+                rows={1}
+                autoExpand
+            />
+        </Stack>
+    )
+}
+
+<Canvas>
+    <Story
+        name="Auto expand with initial value"
+        argTypes={{
+            label: { control: false },
+            tone: {
+                options: ['neutral', 'success', 'error', 'loading'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'neutral',
+            },
+            maxWidth: selectWithNone(
+                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+                'small',
+            ),
+            variant: {
+                options: ['default', 'bordered'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'default',
+            },
+            auxiliaryLabel: { control: false },
+            rows: {
+                control: { type: 'number' },
+            },
+            message: {
+                control: { type: 'text' },
+                defaultValue: '',
+            },
+            rows: {
+                control: { type: 'number' },
+                defaultValue: 2,
+            },
+            autoExpand: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            disableResize: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            placeholder: {
+                control: { type: 'text' },
+                defaultValue: '',
+            },
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            readOnly: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+        }}
+    >
+        {AutoExpandWithInitialValueStory.bind({})}
+    </Story>
+</Canvas>

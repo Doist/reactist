@@ -1,0 +1,96 @@
+:root {
+    --reactist-banner-background-color: #fcfaf8;
+    --reactist-banner-border-color: #e6e6e6;
+    --reactist-divider-color: var(--reactist-divider-secondary);
+
+    --reactist-banner-main-copy-font-size: 14px;
+    --reactist-banner-main-copy-line-height: 21px;
+    --reactist-banner-main-copy-spacing: -0.15px;
+    --reactist-banner-main-copy-color: #202020;
+
+    --reactist-banner-secondary-copy-font-size: 12px;
+    --reactist-banner-secondary-copy-line-height: 20px;
+    --reactist-banner-secondary-copy-color: #666666;
+}
+
+.banner {
+    container-name: banner;
+    container-type: inline-size;
+    background-color: var(--reactist-banner-background-color);
+    font-family: var(--reactist-font-family);
+    border: 1px solid var(--reactist-banner-border-color);
+    overflow: hidden;
+    min-height: 64px;
+}
+.banner:has(.image) {
+    width: min-content;
+    container-type: normal;
+}
+
+.content {
+    padding: var(--reactist-spacing-large);
+}
+
+.title,
+.description {
+    font-size: var(--reactist-banner-main-copy-font-size);
+    line-height: var(--reactist-banner-main-copy-line-height);
+    letter-spacing: var(--reactist-banner-main-copy-spacing);
+    color: var(--reactist-banner-main-copy-color);
+}
+
+.title {
+    font-weight: var(--reactist-font-weight-strong);
+}
+
+.description.secondary {
+    font-size: var(--reactist-banner-secondary-copy-font-size);
+    line-height: var(--reactist-banner-secondary-copy-line-height);
+    color: var(--reactist-banner-secondary-copy-color);
+    letter-spacing: initial;
+}
+
+.image {
+    border-bottom: 1px solid var(--reactist-banner-divider-color);
+}
+
+.image img,
+.icon svg {
+    display: block;
+}
+
+.icon .closeButton {
+    display: none;
+}
+
+.copy {
+    padding: calc(var(--reactist-spacing-xsmall) / 2) 0;
+}
+.copy .inlineLink:first-of-type {
+    margin-left: var(--reactist-spacing-xsmall);
+}
+
+@container banner (width < 235px) {
+    .content,
+    .staticContent {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .icon {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .icon .closeButton {
+        display: flex;
+    }
+    .icon .closeButton:only-child {
+        margin-left: auto;
+    }
+
+    .actions .closeButton {
+        display: none;
+    }
+}

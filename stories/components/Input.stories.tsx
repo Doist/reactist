@@ -1,8 +1,9 @@
-import React from 'react'
+import * as React from 'react'
 
 import Input from '../../src/components/deprecated-input'
-import { Alert } from '../../src/new-components/alert'
+import { Banner } from '../../src/banner'
 import './styles/input_story.less'
+import LinkTo from '@storybook/addon-links/react'
 
 // Story setup ================================================================
 
@@ -19,10 +20,15 @@ export default {
 export const InputStory = () => (
     <section className="story">
         <div className="story-info">
-            <Alert tone="critical">
-                <strong>Deprecated:</strong> Please use{' '}
-                <a href="/?path=/docs/design-system-textfield">TextField</a> instead
-            </Alert>
+            <Banner
+                tone="error"
+                description={
+                    <>
+                        <strong>Deprecated:</strong> Please use{' '}
+                        <LinkTo kind="design-system-textfield">TextField</LinkTo> instead
+                    </>
+                }
+            />
             <p>
                 This component is a dumb wrapper around the
                 <code> &lt;input /&gt;</code> element which justs add a class name to give it is

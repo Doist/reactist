@@ -1,0 +1,409 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+import { Box } from '../box'
+import { Text } from '../text'
+import { Stack } from '../stack'
+import { Banner } from './banner'
+import { Button } from '../button'
+import { PromoImage } from './story-promo-image'
+
+<Meta
+    title="Design system/Banner"
+    component={Banner}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
+
+export function ArchiveIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+            <path
+                fill="#5E5E5E"
+                fillRule="evenodd"
+                d="M5 4.25h14a2 2 0 0 1 2 2v2H3v-2a2 2 0 0 1 2-2Zm-1 5v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-9H4Zm5.5 2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5Z"
+                clipRule="evenodd"
+            />
+        </svg>
+    )
+}
+
+export function getButton(buttonText) {
+    return (
+        <Button variant="primary" type="destructive">
+            {buttonText}
+        </Button>
+    )
+}
+
+export function PlaygroundTemplate({ type, title, description, action }) {
+    return (
+        <Stack space="large" maxWidth="medium">
+            <Banner
+                type={type}
+                icon={<ArchiveIcon />}
+                title={title}
+                description={description}
+                action={action}
+            />
+        </Stack>
+    )
+}
+
+export function BannerIconExamples({ theme }) {
+    return (
+        <Stack space="medium" align="start">
+            <Stack space="large">
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    description="This is a neutral message"
+                />
+                <Banner type="neutral" description="This is a neutral message without an icon" />
+                <Banner type="info" description="This is an info message" />
+                <Banner type="upgrade" description="This is a upgrade message" />
+                <Banner type="experiment" description="This is an experimentalist message" />
+                <Banner type="warning" description="This is a warning message" />
+                <Banner type="error" description="This is a error message" />
+                <Banner type="success" description="This is a success message" />
+            </Stack>
+        </Stack>
+    )
+}
+
+export function BannerActionExamples({ theme }) {
+    return (
+        <Stack space="medium" align="start">
+            <Stack space="large">
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    description="A read-only banner without any action"
+                />
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    description="A banner with a dismiss action"
+                    onClose={() => ({})}
+                />
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    description="A banner with a primary CTA"
+                    action={{
+                        type: 'button',
+                        label: 'Action',
+                        variant: 'primary',
+                    }}
+                />
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    description="A banner with a tertiary CTA"
+                    action={{
+                        type: 'button',
+                        label: 'Action',
+                        variant: 'tertiary',
+                    }}
+                />
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    description="A banner with a primary CTA and a dismiss option"
+                    action={{
+                        type: 'button',
+                        label: 'Action',
+                        variant: 'primary',
+                    }}
+                    onClose={() => ({})}
+                />
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    description="A banner with a tertiary CTA and a dismiss option"
+                    action={{
+                        type: 'button',
+                        label: 'Action',
+                        variant: 'tertiary',
+                    }}
+                    onClose={() => ({})}
+                />
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    description="A banner with a inline link."
+                    inlineLinks={[{ label: 'Learn more', href: '#' }]}
+                />
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    title="This is a sample title"
+                    description="A banner with a inline link in secondary copy."
+                    inlineLinks={[{ label: 'Learn more', href: '#' }]}
+                />
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    title="This is a sample title"
+                    description="A banner with multiple inline links."
+                    inlineLinks={[
+                        { label: 'Learn more', href: '#' },
+                        { label: 'Send feedback', href: '#' },
+                    ]}
+                />
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    title="This is a sample title"
+                    description="Here’s the message below the title."
+                />
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    title="This is a sample title"
+                    description="Here’s the message below the title."
+                    action={{
+                        type: 'button',
+                        label: 'Action',
+                        variant: 'primary',
+                    }}
+                    onClose={() => ({})}
+                />
+            </Stack>
+        </Stack>
+    )
+}
+
+export function BannerCopyExamples({ theme }) {
+    return (
+        <Stack space="medium" align="start">
+            <Stack space="large">
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    description="This is a some body text. It can span over two lines or more."
+                />
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    title="This is a sample title"
+                    description="Here’s the message below the title. The copy can span over more than one line."
+                />
+            </Stack>
+        </Stack>
+    )
+}
+
+export function BannerImageExamples({ theme }) {
+    return (
+        <Stack space="medium" align="start">
+            <Stack space="large">
+                <Banner
+                    type="neutral"
+                    title="This is a sample title"
+                    description="Here’s the message below the title, sometimes the copy spans over two lines."
+                    image={<PromoImage />}
+                    inlineLinks={[{ label: 'Learn more', href: '#' }]}
+                />
+                <Banner
+                    type="neutral"
+                    description="Here’s the message below the title, sometimes the copy spans over two lines."
+                    image={<PromoImage />}
+                    inlineLinks={[{ label: 'Learn more', href: '#' }]}
+                />
+                <Banner
+                    type="neutral"
+                    title="This is a sample title"
+                    description="Here’s the message below the title, sometimes the copy spans over two lines."
+                    image={<PromoImage />}
+                    inlineLinks={[{ label: 'Learn more', href: '#' }]}
+                    onClose={() => ({})}
+                />
+            </Stack>
+        </Stack>
+    )
+}
+
+# Banner
+
+A simple banner component meant to be used to _inform_ the user of promotional content, disclaimers, warnings, as well as success and error states.
+
+<Canvas>
+    <Story
+        name="Playground"
+        parameters={{ docs: { source: { type: 'code' } } }}
+        argTypes={{
+            type: {
+                options: [
+                    'neutral',
+                    'info',
+                    'upgrade',
+                    'experiment',
+                    'warning',
+                    'error',
+                    'success',
+                ],
+                control: { type: 'inline-radio' },
+                defaultValue: 'info',
+            },
+            image: { control: false },
+            icon: { control: false },
+            title: {
+                control: { type: 'text' },
+                defaultValue: 'Title of the Banner',
+            },
+            description: {
+                control: { type: 'text' },
+                defaultValue: 'Description of the Banner.',
+            },
+            action: { control: false },
+            id: { control: false },
+        }}
+    >
+        {PlaygroundTemplate.bind({})}
+    </Story>
+</Canvas>
+
+## Examples
+
+### Icons
+
+Banners can feature different icons or no icon at all. When the type is neutral, a custom icon can be provided; otherwise, preset icons corresponding to the respective type will be used.
+
+<Canvas>
+    <Story
+        name="Icon variants"
+        parameters={{
+            docs: { source: { type: 'code' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <BannerIconExamples theme="light" />
+    </Story>
+</Canvas>
+
+### Actions
+
+Banners can have an optional dismiss action, or a primary or tertiary CTA, but never both. Additionally, banners can have an optional inline links near the description.
+
+These actions can be combined, such as a primary CTA with a dismiss option, or a primary CTA with a dismiss option and an inline link.
+
+<Canvas>
+    <Story
+        name="Actions"
+        parameters={{
+            docs: { source: { type: 'code' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <BannerActionExamples theme="light" />
+    </Story>
+</Canvas>
+
+### Copy
+
+Banners have two content options: a regular text that can span over multiple lines, or a bold header and a description with a secondary text color.
+
+<Canvas>
+    <Story
+        name="Copy"
+        parameters={{
+            docs: { source: { type: 'code' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <BannerCopyExamples theme="light" />
+    </Story>
+</Canvas>
+
+### Image
+
+Banners can include images placed at the top, separated from the copy by a divider. The banner adapts to the image, ensuring it fills the full width and height of the banner.
+
+Image banners do not feature icons but can include body text or a combination of a header and description. They also support optional inline links and a dismiss action.
+
+<Canvas>
+    <Story
+        name="Image"
+        parameters={{
+            docs: { source: { type: 'code' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <BannerImageExamples theme="light" />
+    </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable of={Banner} />
+
+## Colors
+
+The following CSS custom properties are available to customize the banner component appearance. The values appearing below are the default values.
+
+```css
+:root {
+    --reactist-banner-background-color: #fcfaf8;
+    --reactist-banner-border-color: #e6e6e6;
+
+    --reactist-banner-main-copy-font-size: 14px;
+    --reactist-banner-main-copy-line-height: 21px;
+    --reactist-banner-main-copy-spacing: -0.15px;
+    --reactist-banner-main-copy-color: #202020;
+
+    --reactist-banner-secondary-copy-font-size: 12px;
+    --reactist-banner-secondary-copy-line-height: 20px;
+    --reactist-banner-secondary-copy-color: #666666;
+}
+```
+
+### Dark mode
+
+export function DarkModeTemplate() {
+    return (
+        <Box
+            display="flex"
+            flexDirection="column"
+            padding="xlarge"
+            style={{
+                backgroundColor: '#202020',
+                '--reactist-banner-background-color': '#282828',
+                '--reactist-banner-border-color': '#3D3D3D',
+                '--reactist-banner-divider-color': '#3D3D3D',
+                '--reactist-banner-main-copy-color': '#FFFFFF',
+                '--reactist-banner-secondary-copy-color': '#B3B3B3',
+            }}
+            gap="large"
+        >
+            <Banner type="neutral" icon={<ArchiveIcon />} description="This is a neutral message" />
+            <Banner type="info" description="This is an info message" />
+            <Banner type="upgrade" description="This is a upgrade message" />
+            <Banner type="experiment" description="This is an experimentalist message" />
+            <Banner type="warning" description="This is a warning message" />
+            <Banner type="error" description="This is a error message" />
+            <Banner type="success" description="This is a success message" />
+            <Banner
+                type="neutral"
+                image={<PromoImage theme="dark" />}
+                description="This is a neutral message"
+                onClose={() => ({})}
+            />
+        </Box>
+    )
+}
+
+Even though Reactist does not yet owns the concept of dark mode, and leaves it for apps to set it
+up, here's a demo on how easily you can prepare banners for dark mode by setting CSS custom
+properties.
+
+<Canvas>
+    <Story
+        name="Dark mode"
+        parameters={{
+            docs: { source: { type: 'dynamic' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        {DarkModeTemplate.bind({})}
+    </Story>
+</Canvas>

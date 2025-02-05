@@ -1,7 +1,7 @@
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <title>Storybook</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<base target="_parent">
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<base target="_parent" />
 <style>
     html,
     body {
@@ -15,9 +15,9 @@
         box-sizing: border-box;
     }
 
-    :not(.sb-show-main)>.sb-main,
-    :not(.sb-show-nopreview)>.sb-nopreview,
-    :not(.sb-show-errordisplay)>.sb-errordisplay {
+    :not(.sb-show-main) > .sb-main,
+    :not(.sb-show-nopreview) > .sb-nopreview,
+    :not(.sb-show-errordisplay) > .sb-errordisplay {
         display: none;
     }
 
@@ -37,8 +37,7 @@
     }
 
     /* Vertical centering fix for IE11 */
-    @media screen and (-ms-high-contrast: none),
-    (-ms-high-contrast: active) {
+    @media screen and (-ms-high-contrast: none), (-ms-high-contrast: active) {
         .sb-show-main.sb-main-centered:after {
             content: '';
             min-height: inherit;
@@ -65,7 +64,8 @@
         left: 0;
         right: 0;
         padding: 20px;
-        font-family: "Nunito Sans", -apple-system, ".SFNSText-Regular", "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: 'Nunito Sans', -apple-system, '.SFNSText-Regular', 'San Francisco',
+            BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         overflow: auto;
     }
@@ -106,7 +106,8 @@
         padding: 10px;
         background: #000;
         color: #eee;
-        font-family: "Operator Mono", "Fira Code Retina", "Fira Code", "FiraCode-Retina", "Andale Mono", "Lucida Console", Consolas, Monaco, monospace;
+        font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, 'Cascadia Mono',
+            Consolas, 'Liberation Mono', 'Courier New', monospace;
     }
 
     .sb-errordisplay pre {

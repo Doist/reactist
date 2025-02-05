@@ -1,0 +1,189 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+
+import { SelectField } from './'
+import { Stack } from '../stack'
+import { Text } from '../text'
+
+import { selectWithNone } from '../utils/storybook-helper'
+
+<Meta
+    title="Design system/SelectField"
+    component={SelectField}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
+
+# SelectField
+
+A component that provides a menu of options, similar to the native `<select>` HTML element.
+
+export function preventDefault(event) {
+    event.preventDefault()
+}
+
+export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
+    return (
+        <SelectField
+            {...props}
+            label={label}
+            auxiliaryLabel={
+                auxiliaryLabel ? (
+                    <a href="#" onClick={preventDefault}>
+                        {auxiliaryLabel}
+                    </a>
+                ) : undefined
+            }
+            defaultValue="-"
+        >
+            <option value="-" disabled>
+                Select theme
+            </option>
+            <optgroup label="Light themes">
+                <option value="default">Default theme</option>
+                <option value="bright">Extra bright</option>
+            </optgroup>
+            <optgroup label="Dark themes">
+                <option value="contrast">High contrast</option>
+                <option value="dark">Dark mode</option>
+            </optgroup>
+        </SelectField>
+    )
+}
+
+<Canvas>
+    <Story
+        name="Interactive props"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+        argTypes={{
+            label: {
+                control: { type: 'text' },
+                defaultValue: 'Theme',
+            },
+            value: { table: { disable: true } },
+            tone: {
+                options: ['neutral', 'success', 'error', 'loading'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'neutral',
+            },
+            maxWidth: selectWithNone(
+                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+                'small',
+            ),
+            variant: {
+                options: ['default', 'bordered'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'default',
+            },
+            auxiliaryLabel: {
+                control: { type: 'text' },
+                defaultValue: 'Need help?',
+            },
+            message: {
+                control: { type: 'text' },
+                defaultValue:
+                    'The theme you select will be applied immediately. If you upgrade to premium you will have more themes to choose from.',
+            },
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+        }}
+    >
+        {InteractivePropsStory.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable of={SelectField} />
+
+## Colors
+
+The following CSS custom properties are available so that the `SelectField`'s border colors can be customized.
+Note that these variables are shared with other components such as `Textfield`, `PasswordField`, and `TextArea`.
+
+```
+--reactist-inputs-focus
+--reactist-inputs-idle
+--reactist-inputs-alert
+```
+
+<Canvas withToolbar>
+    <Story
+        name="Message tone"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <Stack space="xxlarge" dividers="secondary">
+            <SelectField
+                label="Country of residence"
+                message="Saving…"
+                tone="loading"
+                disabled
+                maxWidth="small"
+            >
+                <option value="none" disabled>
+                    –
+                </option>
+            </SelectField>
+            <SelectField
+                label="Country of residence"
+                message="Something went wrong. Please, try again."
+                tone="error"
+                maxWidth="small"
+            >
+                <option value="none" disabled>
+                    –
+                </option>
+            </SelectField>
+            <SelectField
+                label="Country of residence"
+                message="Saved successfully!"
+                tone="success"
+                maxWidth="small"
+            >
+                <option value="none" disabled>
+                    –
+                </option>
+            </SelectField>
+            <SelectField
+                label="Country of residence"
+                message="This is the supporting text (helper or error) of the field, provided by the message prop"
+                tone="neutral"
+                maxWidth="small"
+            >
+                <option value="none" disabled>
+                    –
+                </option>
+            </SelectField>
+        </Stack>
+    </Story>
+</Canvas>
+
+<Canvas withToolbar>
+    <Story name="Without label">
+        <Stack space="xlarge" dividers="secondary" maxWidth="small">
+            <Stack as="label" htmlFor="custom-textarea" space="small">
+                <Text size="subtitle">Custom label is up here</Text>
+                <Text size="caption" tone="secondary" aria-hidden>
+                    <em>(click me to focus the select element)</em>
+                </Text>
+            </Stack>
+            <SelectField label={null} id="custom-textarea" aria-describedby="custom-description">
+                <option value="none" disabled>
+                    –
+                </option>
+            </SelectField>
+            <Stack space="small" id="custom-description">
+                <Text size="body">Custom description is down here</Text>
+                <Text size="caption" tone="secondary" aria-hidden>
+                    <em>
+                        (inspect the select element accessibility properties if you are curious)
+                    </em>
+                </Text>
+            </Stack>
+        </Stack>
+    </Story>
+</Canvas>

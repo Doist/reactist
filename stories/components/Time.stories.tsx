@@ -1,6 +1,6 @@
 import './styles/time_story.less'
 
-import React from 'react'
+import * as React from 'react'
 import dayjs from 'dayjs'
 
 import Time from '../../src/components/time'

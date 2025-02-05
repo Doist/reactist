@@ -3,6 +3,8 @@ module.exports = {
         'src/**/*.{ts,tsx,js,jsx}',
         '!**/*.stories.{js,jsx,ts,tsx}',
         '!**/*storybook*.{js,jsx,ts,tsx}',
+        '!**/*-stories-components.{js,jsx,ts,tsx}',
+        '!**/*-example.{js,jsx,ts,tsx}',
     ],
     setupFilesAfterEnv: ['./scripts/jestSetup.ts'],
     moduleNameMapper: {

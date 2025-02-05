@@ -1,6 +1,6 @@
 import './styles/avatar_story.less'
 
-import React from 'react'
+import * as React from 'react'
 import { withKnobs } from '@storybook/addon-knobs'
 
 import { Avatar, Box, Inline } from '../../src'

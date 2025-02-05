@@ -1,6 +1,6 @@
 import './styles/progressbar_story.less'
 
-import React from 'react'
+import * as React from 'react'
 
 import ProgressBar from '../../src/components/progress-bar'
 

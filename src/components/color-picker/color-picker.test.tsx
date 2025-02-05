@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 
 import { ColorPicker, ColorItem } from './color-picker'
 import { render, screen } from '@testing-library/react'

@@ -1,0 +1,83 @@
+.inputWrapper {
+    cursor: text;
+    height: var(--reactist-input-wrapper-height);
+}
+
+.inputWrapper.readOnly {
+    background-color: var(--reactist-field-readonly-background);
+}
+
+.inputWrapper.readOnly input {
+    background-color: var(--reactist-field-readonly-background);
+    color: var(--reactist-content-primary);
+}
+
+.inputWrapper:not(.bordered) {
+    --reactist-input-wrapper-height: 32px;
+
+    border-radius: var(--reactist-border-radius-small);
+    border: 1px solid var(--reactist-inputs-idle);
+    overflow: clip;
+}
+
+.inputWrapper.bordered {
+    --reactist-input-wrapper-height: 24px;
+}
+
+.inputWrapper.bordered input {
+    padding: 0;
+    height: var(--reactist-input-wrapper-height);
+}
+
+.inputWrapper:not(.bordered):focus-within {
+    border-color: var(--reactist-inputs-focus);
+}
+
+.inputWrapper:not(.bordered).error {
+    border-color: var(--reactist-inputs-alert) !important;
+}
+
+.inputWrapper input {
+    color: var(--reactist-content-primary);
+    flex: 1;
+    outline: none; /* we take care of the focus state above */
+    box-sizing: border-box;
+    width: 100%;
+    background: transparent;
+    border: none;
+
+    /**
+      * The desired height below is 30px. This is so that, with +2px from the wrapper borders
+      * we obtain a 32px height on the wrapper.
+      *
+      * Unlike with buttons, the `input` does not own the visible border, as this is set in
+      * the parent container. This is so that we can place other stuff to appear to be
+      * "inside" the input (e.g. the toggle password visibility button). So in order to have
+      * the perceived text field be of height 32px we need the actual `input` to be of height
+      * 30px.
+      */
+    --tmp-desired-height: 30px;
+    --tmp-line-height-increase: 4px;
+    --tmp-vertical-padding: calc(
+        (
+                var(--tmp-desired-height) - var(--reactist-font-size-body) -
+                    var(--tmp-line-height-increase)
+            ) / 2
+    );
+
+    font-size: var(--reactist-font-size-body);
+    line-height: calc(var(--reactist-font-size-body) + 4px);
+    margin: 0;
+}
+
+.inputWrapper:not(.bordered) input {
+    padding: var(--tmp-vertical-padding) var(--reactist-spacing-small);
+}
+
+.slot {
+    align-items: center;
+}
+
+.slot button {
+    --reactist-btn-height: 24px !important;
+}

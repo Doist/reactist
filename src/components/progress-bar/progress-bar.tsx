@@ -1,5 +1,5 @@
-import React from 'react'
-import { HiddenVisually } from '../../new-components/hidden-visually'
+import * as React from 'react'
+import { HiddenVisually } from '../../hidden-visually'
 import classNames from 'classnames'
 
 import './progress-bar.less'

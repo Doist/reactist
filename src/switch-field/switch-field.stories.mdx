@@ -1,0 +1,96 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+import { SwitchField } from './switch-field'
+import { Stack } from '../stack'
+import { Text } from '../text'
+
+<Meta
+    title="Design system/SwitchField"
+    component={SwitchField}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
+
+# SwitchField
+
+A checkbox with a built-in label element that visually looks like a toggle switch.
+
+<Canvas>
+    <Story
+        name="Playground"
+        parameters={{
+            docs: { source: { type: 'dynamic' } },
+            chromatic: { disableSnapshot: false },
+        }}
+        argTypes={{
+            label: {
+                control: { type: 'text' },
+                defaultValue: 'Show unread badge',
+            },
+            tone: {
+                options: ['neutral', 'success', 'error', 'loading'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'neutral',
+            },
+            message: {
+                control: { type: 'text' },
+                defaultValue:
+                    'Show an icon badge to indicate that there are new threads and messages.',
+            },
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+        }}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+---
+
+<Description of={SwitchField} />
+<ArgsTable of={SwitchField} />
+
+export function Template({ label, message, disabled }) {
+    return <SwitchField label={label || 'Default label'} message={message} disabled={disabled} />
+}
+
+## Colors
+
+The following CSS custom properties are available to customize the SwitchField's appearance. The values appearing below are the default values.
+
+```css
+:root {
+    --reactist-switch-background: rgb(214, 214, 214);
+    --reactist-switch-checked: rgb(5, 133, 39);
+    --reactist-switch-toggle: rgb(255, 255, 255);
+}
+```
+
+## Accessibility
+
+<Canvas>
+    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Accessibility Attributes">
+        <Stack space="medium" dividers="primary">
+            <Stack space="medium">
+                <SwitchField aria-label="Golden Retriever" label="aria-label" />
+                <Text tone="secondary">
+                    A screen reader will announce the switch as "Golden Retriever".
+                </Text>
+            </Stack>
+            <Stack space="medium">
+                <SwitchField aria-labelledby="shibainu-text" label="aria-labelledby" />
+                <Text id="shibainu-text">Shiba Inu</Text>
+                <Text tone="secondary">
+                    A screen reader will announce the switch as "Shiba Inu".
+                </Text>
+            </Stack>
+            <Stack space="medium">
+                <SwitchField aria-describedby="husky-text" label="aria-describedby" />
+                <Text id="husky-text">Husky</Text>
+                <Text tone="secondary">A screen reader will describe the switch as "Husky".</Text>
+            </Stack>
+        </Stack>
+    </Story>
+</Canvas>

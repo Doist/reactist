@@ -1,0 +1,396 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+
+import { TextField } from './'
+import { Box } from '../box'
+import { Stack } from '../stack'
+import { Text } from '../text'
+import { Button } from '../button'
+import { Tooltip } from '../tooltip'
+
+import { selectWithNone } from '../utils/storybook-helper'
+
+<Meta
+    title="Design system/TextField"
+    component={TextField}
+    parameters={{
+        badges: ['accessible'],
+    }}
+/>
+
+# TextField
+
+A component used to accept textual input from the user.
+
+export function SearchIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+            <path
+                d="M10.5 3a7.5 7.5 0 015.645 12.438l4.709 4.708a.502.502 0 01-.708.708l-4.708-4.709A7.5 7.5 0 1110.5 3zm0 1a6.5 6.5 0 100 13 6.5 6.5 0 000-13z"
+                fill="currentColor"
+            />
+        </svg>
+    )
+}
+
+export function CloseIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+            <path
+                d="M5.146 5.146a.5.5 0 0 1 .708 0L12 11.293l6.146-6.147a.5.5 0 0 1 .638-.057l.07.057a.5.5 0 0 1 0 .708L12.707 12l6.147 6.146a.5.5 0 0 1 .057.638l-.057.07a.5.5 0 0 1-.708 0L12 12.707l-6.146 6.147a.5.5 0 0 1-.638.057l-.07-.057a.5.5 0 0 1 0-.708L11.293 12 5.146 5.854a.5.5 0 0 1-.057-.638z"
+                fill="currentColor"
+            />
+        </svg>
+    )
+}
+
+export function preventDefault(event) {
+    event.preventDefault()
+}
+
+export function InteractivePropsStory({
+    label,
+    auxiliaryLabel,
+    startSlot = false,
+    endSlot = false,
+    ...props
+}) {
+    return (
+        <TextField
+            {...props}
+            label={label}
+            auxiliaryLabel={
+                auxiliaryLabel ? (
+                    <a href="#" onClick={preventDefault}>
+                        {auxiliaryLabel}
+                    </a>
+                ) : undefined
+            }
+            startSlot={startSlot ? <SearchIcon /> : undefined}
+            endSlot={endSlot ? <CloseIcon /> : undefined}
+        />
+    )
+}
+
+<Canvas>
+    <Story
+        name="Interactive props"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+        argTypes={{
+            label: {
+                control: { type: 'text' },
+                defaultValue: 'Your name',
+            },
+            value: { table: { disable: true } },
+            tone: {
+                options: ['neutral', 'success', 'error', 'loading'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'neutral',
+            },
+            maxWidth: selectWithNone(
+                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
+                'small',
+            ),
+            startSlot: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            endSlot: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            variant: {
+                options: ['default', 'bordered'],
+                control: { type: 'inline-radio' },
+                defaultValue: 'default',
+            },
+            auxiliaryLabel: {
+                control: { type: 'text' },
+                defaultValue: 'Need help?',
+            },
+            message: {
+                control: { type: 'text' },
+                defaultValue:
+                    'We need your name for billing and shipping purposes. Make sure to enter it correctly.',
+            },
+            placeholder: {
+                control: { type: 'text' },
+                defaultValue: 'Enter your name as it appears in your ID',
+            },
+            maxLength: {
+                control: { type: 'number' },
+                defaultValue: null,
+            },
+            disabled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            readOnly: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+        }}
+    >
+        {InteractivePropsStory.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable of={TextField} />
+
+## Colors
+
+The following CSS custom properties are available so that the `Textfield`'s border colors can be customized.
+Note that these variables are shared with other components such as `PasswordField`, `SelectField`, and `TextArea`.
+
+```
+--reactist-inputs-focus
+--reactist-inputs-idle
+--reactist-inputs-alert
+```
+
+<Canvas withToolbar>
+    <Story
+        name="Message tone"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <Stack space="xxlarge" dividers="secondary">
+            <TextField
+                label="Verification code"
+                message="Verifying code…"
+                tone="loading"
+                disabled
+                maxWidth="small"
+            />
+            <TextField
+                label="Verification code"
+                message="Invalid code. Please, try again."
+                tone="error"
+                maxWidth="small"
+            />
+            <TextField
+                label="Verification code"
+                message="Code verification successful!"
+                tone="success"
+                maxWidth="small"
+            />
+            <TextField
+                label="Verification code"
+                message="This is the supporting text (helper or error) of the field, provided by the message prop"
+                tone="neutral"
+                maxWidth="small"
+            />
+        </Stack>
+    </Story>
+</Canvas>
+
+<Canvas withToolbar>
+    <Story name="Without label">
+        <Stack space="xlarge" dividers="secondary" maxWidth="small">
+            <Stack as="label" htmlFor="custom-textfield" space="small">
+                <Text size="subtitle">Custom label is up here</Text>
+                <Text size="caption" tone="secondary" aria-hidden>
+                    <em>(click me to focus the input element)</em>
+                </Text>
+            </Stack>
+            <TextField
+                label={null}
+                id="custom-textfield"
+                aria-describedby="custom-description"
+                placeholder="Text field without a built-in label"
+            />
+            <Stack space="small" id="custom-description">
+                <Text size="body">Custom description is down here</Text>
+                <Text size="caption" tone="secondary" aria-hidden>
+                    <em>(inspect the input element accessibility properties if you are curious)</em>
+                </Text>
+            </Stack>
+        </Stack>
+    </Story>
+</Canvas>
+
+<Canvas withToolbar>
+    <Story
+        name="Icons"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
+            <TextField
+                label="Search (default variant)"
+                startSlot={<SearchIcon />}
+                placeholder="Text field with an icon"
+            />
+            <TextField
+                variant="bordered"
+                label="Search (bordered variant)"
+                startSlot={<SearchIcon />}
+                placeholder="Text field with an icon"
+            />
+        </Box>
+    </Story>
+</Canvas>
+
+export function ClearButtonIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <g fill="none" fillRule="evenodd">
+                <g fill="currentColor" fillRule="nonzero">
+                    <g>
+                        <g>
+                            <path
+                                d="M8.854 8.146L12 11.293l3.146-3.147c.196-.195.512-.195.708 0 .195.196.195.512 0 .708L12.707 12l3.147 3.146c.195.196.195.512 0 .708-.196.195-.512.195-.708 0L12 12.707l-3.146 3.147c-.196.195-.512.195-.708 0-.195-.196-.195-.512 0-.708L11.293 12 8.146 8.854c-.195-.196-.195-.512 0-.708.196-.195.512-.195.708 0z"
+                                transform="translate(-378 -86) translate(342 50) translate(36 36)"
+                            />
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg>
+    )
+}
+
+export function ClearButtonExample({ slot }) {
+    const [value, setValue] = React.useState('')
+    const clearButton = (
+        <Button
+            variant="quaternary"
+            icon={<ClearButtonIcon />}
+            aria-label="Clear search"
+            onClick={() => setValue('')}
+        />
+    )
+    return (
+        <TextField
+            label="Search"
+            value={value}
+            placeholder={`${slot}={…}`}
+            onChange={(event) => setValue(event.currentTarget.value)}
+            startSlot={slot === 'startSlot' ? clearButton : undefined}
+            endSlot={slot === 'endSlot' ? clearButton : undefined}
+        />
+    )
+}
+
+<Canvas withToolbar>
+    <Story
+        name="Action button"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
+            <ClearButtonExample slot="startSlot" />
+            <ClearButtonExample slot="endSlot" />
+        </Box>
+    </Story>
+</Canvas>
+
+export function WithTooltipExample() {
+    const [value, setValue] = React.useState('')
+    const isValidNumber = /^\s*(\d{1,3})?\s*$/.test(value)
+    return (
+        <Tooltip content={isValidNumber ? null : 'Invalid age'} position="top-end">
+            <TextField
+                label="What’s your age?"
+                value={value}
+                onChange={(event) => setValue(event.currentTarget.value)}
+                tone={isValidNumber ? 'neutral' : 'error'}
+                message="This field acceps only numeric inputs. Try typing valid and invalid values to see how it behaves."
+                maxWidth="small"
+                onBlur={() => {
+                    setValue(isValidNumber ? value.trim() : '')
+                }}
+            />
+        </Tooltip>
+    )
+}
+
+As an alternative to the `message` prop, you can also use tooltips to
+associate a description to a text field. **This is not recommended in
+general**, because the description will not be visible unless you’re
+hovering or focusing on the field.
+
+However, it can work in a situation like the following: the description
+is only needed to convey that the value being typed is invalid, and at
+the same time, the field forces the value back to valid when blurred.
+Hence, the description is never needed when the field is not focused anyway.
+
+<Canvas withToolbar>
+    <Story name="With tooltip">
+        <WithTooltipExample />
+    </Story>
+</Canvas>
+
+## Max length
+
+The `maxLength` prop is used to limit the number of characters that the user can input. When the user tries to input more characters than the maximum allowed, the field won't accept the input.
+
+export function WithMaxLengthExample() {
+    const [value, setValue] = React.useState('Doist')
+    return (
+        <TextField
+            label="Company name"
+            maxLength={30}
+            value={value}
+            onChange={(event) => setValue(event.currentTarget.value)}
+            maxWidth="small"
+        />
+    )
+}
+
+<Canvas withToolbar>
+    <Story name="Max Length">
+        <WithMaxLengthExample />
+    </Story>
+</Canvas>
+
+## Character count position
+
+The `characterCountPosition` prop is used to position the character count element. It can be shown <strong>below</strong> the field, <strong>inline</strong> with the field or <strong>hidden</strong>.
+
+export function WithCharacterCountPositionExample() {
+    return (
+        <TextField
+            label="Company name"
+            maxLength={30}
+            characterCountPosition="inline"
+            maxWidth="small"
+        />
+    )
+}
+
+export function WithCharacterCountPositionBelowExample() {
+    return (
+        <TextField
+            label="Company name"
+            maxLength={30}
+            characterCountPosition="below"
+            maxWidth="small"
+        />
+    )
+}
+
+export function WithCharacterCountPositionHiddenExample() {
+    return (
+        <TextField
+            label="Company name"
+            maxLength={30}
+            characterCountPosition="hidden"
+            maxWidth="small"
+        />
+    )
+}
+
+<Canvas withToolbar>
+    <Story name="Character count position">
+        <Stack space="xxlarge" dividers="secondary">
+            <WithCharacterCountPositionExample />
+            <WithCharacterCountPositionBelowExample />
+            <WithCharacterCountPositionHiddenExample />
+        </Stack>
+    </Story>
+</Canvas>

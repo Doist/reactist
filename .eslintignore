@@ -1,6 +1,7 @@
 lint-staged.config.js
 jest.config.js
 babel.config.js
+plopfile.mjs
 coverage/
 dist/
 docs/

@@ -3,17 +3,22 @@ const customWebpack = require('./webpack.config.js')
 module.exports = {
     stories: ['../src/**/*.stories.@(tsx|mdx)', '../stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
     siteUrl: 'https://github.com/Doist/reactist',
+    features: {
+        // Needed for Chromatic/Storybooks interactive tests
+        // See https://storybook.js.org/docs/react/writing-tests/interaction-testing
+        // See https://www.chromatic.com/docs/interactions#how-to-write-interaction-tests
+        interactionsDebugger: true,
+    },
     addons: [
         '@storybook/addon-postcss',
         '@storybook/addon-actions',
         {
             name: '@storybook/addon-docs',
-            options: {
-                configureJSX: true,
-            },
+            options: { configureJSX: true },
         },
         '@storybook/addon-controls',
         '@geometricpanda/storybook-addon-badges',
+        '@storybook/addon-interactions',
     ],
     typescript: {
         check: true,
@@ -32,6 +37,10 @@ module.exports = {
         return {
             ...config,
             resolve: resolveConfig,
+            // Storybook does not compile on WSL2 without this
+            node: {
+                fs: 'empty',
+            },
             module: {
                 ...config.module,
                 rules: [
