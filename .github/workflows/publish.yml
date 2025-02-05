@@ -4,6 +4,7 @@ on:
     push:
         tags:
             - 'v*'
+    # triggered by `release-please.yml`
     workflow_dispatch:
 
 permissions:
