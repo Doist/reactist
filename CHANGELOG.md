@@ -1,5 +1,12 @@
 # Changelog
 
+## [27.3.6](https://github.com/Doist/reactist/compare/v27.3.5...v27.3.6) (2025-02-05)
+
+
+### 🧰 Maintenance
+
+* bump deploy-pages action to v4 ([#895](https://github.com/Doist/reactist/issues/895)) ([98e68f1](https://github.com/Doist/reactist/commit/98e68f1e03bdae3642ae19f606b4a8d3b597efef))
+
 ## [27.3.5](https://github.com/Doist/reactist/compare/v27.3.4...v27.3.5) (2025-02-05)
 
 
