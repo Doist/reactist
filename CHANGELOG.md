@@ -1,5 +1,12 @@
 # Changelog
 
+## [27.3.2](https://github.com/Doist/reactist/compare/v27.3.1...v27.3.2) (2025-02-05)
+
+
+### 🧰 Maintenance
+
+* enhance release workflow with automatic deployment triggers ([#886](https://github.com/Doist/reactist/issues/886)) ([d32d336](https://github.com/Doist/reactist/commit/d32d336d3657553dc2defe140b0002acdcbcea6c))
+
 ## [27.3.1](https://github.com/Doist/reactist/compare/v27.3.0...v27.3.1) (2025-02-05)
 
 
