@@ -1,5 +1,12 @@
 # Changelog
 
+## [27.3.3](https://github.com/Doist/reactist/compare/v27.3.2...v27.3.3) (2025-02-05)
+
+
+### 🧰 Maintenance
+
+* debug GH API 404 error ([#888](https://github.com/Doist/reactist/issues/888)) ([690676d](https://github.com/Doist/reactist/commit/690676d58db401f88ace4a4de8e1d8d67264355c))
+
 ## [27.3.2](https://github.com/Doist/reactist/compare/v27.3.1...v27.3.2) (2025-02-05)
 
 
