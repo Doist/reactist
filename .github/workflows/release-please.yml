@@ -28,18 +28,23 @@ jobs:
               uses: actions/github-script@v7
               with:
                   script: |
-                      // Trigger deploy-storybook workflow
-                      await github.rest.actions.createWorkflowDispatch({
-                          owner: context.repo.owner,
-                          repo: context.repo.name,
-                          workflow_id: 'deploy-storybook.yml',
-                          ref: 'main'
-                      });
+                      const repo = context.repo.repo;
+                      const owner = context.repo.owner;
 
-                      // Trigger publish workflow
-                      await github.rest.actions.createWorkflowDispatch({
-                          owner: context.repo.owner,
-                          repo: context.repo.name,
-                          workflow_id: 'publish.yml',
+                      // Debug logging
+                      console.log(`Owner: ${owner}`);
+                      console.log(`Repo: ${repo}`);
+
+                      async function triggerWorkflow(workflow_id) {
+                        console.log(`Triggering workflow: ${workflow_id}`);
+                        await github.rest.actions.createWorkflowDispatch({
+                          owner: owner,
+                          repo: repo,
+                          workflow_id: workflow_id,
                           ref: 'main'
-                      });
+                        });
+                        console.log(`Successfully triggered ${workflow_id}`);
+                      }
+
+                      await triggerWorkflow('deploy-storybook.yml');
+                      await triggerWorkflow('publish.yml');
