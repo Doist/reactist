@@ -1,5 +1,12 @@
 # Changelog
 
+## [27.3.1](https://github.com/Doist/reactist/compare/v27.3.0...v27.3.1) (2025-02-05)
+
+
+### 🧰 Maintenance
+
+* update Storybook deployment action to v4 ([#885](https://github.com/Doist/reactist/issues/885)) ([e8d57f3](https://github.com/Doist/reactist/commit/e8d57f3697c78e35f0304db69f10b42a7d5f5a4a))
+
 ## [27.3.0](https://github.com/Doist/reactist/compare/v27.2.2...v27.3.0) (2025-01-31)
 
 
