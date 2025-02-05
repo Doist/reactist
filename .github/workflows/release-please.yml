@@ -8,6 +8,7 @@ on:
 permissions:
     contents: write
     pull-requests: write
+    actions: write
 
 jobs:
     release-please:
@@ -30,10 +31,6 @@ jobs:
                   script: |
                       const repo = context.repo.repo;
                       const owner = context.repo.owner;
-
-                      // Debug logging
-                      console.log(`Owner: ${owner}`);
-                      console.log(`Repo: ${repo}`);
 
                       async function triggerWorkflow(workflow_id) {
                         console.log(`Triggering workflow: ${workflow_id}`);
