@@ -12,6 +12,8 @@ permissions:
 jobs:
     release-please:
         runs-on: ubuntu-latest
+        outputs:
+            release_created: ${{ steps.release.outputs.release_created }}
         steps:
             - uses: googleapis/release-please-action@v4
               id: release
@@ -20,3 +22,24 @@ jobs:
                   target-branch: main
                   config-file: .github/release-please-config.json
                   manifest-file: .github/release-please-manifest.json
+
+            - name: Trigger deployment workflows
+              if: ${{ steps.release.outputs.release_created }}
+              uses: actions/github-script@v7
+              with:
+                  script: |
+                      // Trigger deploy-storybook workflow
+                      await github.rest.actions.createWorkflowDispatch({
+                          owner: context.repo.owner,
+                          repo: context.repo.name,
+                          workflow_id: 'deploy-storybook.yml',
+                          ref: 'main'
+                      });
+
+                      // Trigger publish workflow
+                      await github.rest.actions.createWorkflowDispatch({
+                          owner: context.repo.owner,
+                          repo: context.repo.name,
+                          workflow_id: 'publish.yml',
+                          ref: 'main'
+                      });

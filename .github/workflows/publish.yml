@@ -4,6 +4,8 @@ on:
     push:
         tags:
             - 'v*'
+    # triggered by `release-please.yml`
+    workflow_dispatch:
 
 permissions:
     # Enable the use of OIDC for npm provenance
