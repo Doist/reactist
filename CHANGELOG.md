@@ -1,5 +1,13 @@
 # Changelog
 
+## [27.3.5](https://github.com/Doist/reactist/compare/v27.3.4...v27.3.5) (2025-02-05)
+
+
+### 🧰 Maintenance
+
+* allow publish workflow to run from workflow_dispatch event ([#894](https://github.com/Doist/reactist/issues/894)) ([4204756](https://github.com/Doist/reactist/commit/4204756505e4f9c2e679e69b9f3872251a9077d7))
+* fix version of upload-pages-artifact action ([#892](https://github.com/Doist/reactist/issues/892)) ([d9dba34](https://github.com/Doist/reactist/commit/d9dba34f2d66ad283372880e7b957b3384bcf98e))
+
 ## [27.3.4](https://github.com/Doist/reactist/compare/v27.3.3...v27.3.4) (2025-02-05)
 
 
