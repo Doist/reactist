@@ -18,7 +18,7 @@ A component used to create text-based hyperlinks.
     <Story
         name="Main demo"
         parameters={{
-            docs: { source: { type: 'code' } },
+            chromatic: { disableSnapshot: false },
         }}
     >
         <Stack space="medium" align="start">
@@ -47,7 +47,12 @@ A component used to create text-based hyperlinks.
 When using nested elements inside a `TextLink`, hover styles are properly applied to all children.
 
 <Canvas>
-    <Story name="Nested elements">
+    <Story
+        name="Nested elements"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+    >
         <Stack space="medium" align="start">
             <TextLink href="https://www.doist.com/">
                 <span>Link with nested span</span>
@@ -76,7 +81,12 @@ The `color` prop can be used to change the color of the link. The default color 
 The `underline` prop can be used to change the underline style of the link. The default is `true`.
 
 <Canvas>
-    <Story name="Colors">
+    <Story
+        name="Colors"
+        parameters={{
+            chromatic: { disableSnapshot: false },
+        }}
+    >
         <Stack space="medium" align="start">
             <TextLink href="https://www.doist.com/" color="inherit">
                 inherit color
