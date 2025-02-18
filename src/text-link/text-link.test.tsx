@@ -62,4 +62,56 @@ describe('TextLink', () => {
         // Verify it still has the default container class
         expect(link).toHaveClass('container')
     })
+
+    it('applies default color class when no color prop is provided', () => {
+        render(<TextLink href="#">Default color</TextLink>)
+
+        const link = screen.getByText('Default color')
+        expect(link).toHaveClass('default')
+    })
+
+    it('applies inherit color class when color prop is set to inherit', () => {
+        render(
+            <TextLink href="#" color="inherit">
+                Inherit color
+            </TextLink>,
+        )
+
+        const link = screen.getByText('Inherit color')
+        expect(link).toHaveClass('inherit')
+    })
+
+    it('applies underline class by default', () => {
+        render(<TextLink href="#">Underlined link</TextLink>)
+
+        const link = screen.getByText('Underlined link')
+        expect(link).toHaveClass('underline')
+    })
+
+    it('applies no-underline class when underline prop is false', () => {
+        render(
+            <TextLink href="#" underline={false}>
+                No underline
+            </TextLink>,
+        )
+
+        const link = screen.getByText('No underline')
+        expect(link).toHaveClass('no-underline')
+    })
+
+    it('combines multiple classes correctly', () => {
+        render(
+            <TextLink
+                href="#"
+                color="inherit"
+                underline={false}
+                exceptionallySetClassName="custom-class"
+            >
+                Combined classes
+            </TextLink>,
+        )
+
+        const link = screen.getByText('Combined classes')
+        expect(link).toHaveClass('container', 'inherit', 'no-underline', 'custom-class')
+    })
 })

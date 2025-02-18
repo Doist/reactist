@@ -9,8 +9,6 @@
     font-size: inherit;
     font-weight: inherit;
     font-family: inherit;
-    text-decoration: var(--reactist-text-link-idle-decoration);
-    color: var(--reactist-text-link-idle-tint);
     cursor: pointer;
 }
 
@@ -38,4 +36,22 @@
     vertical-align: -0.125em;
     fill: currentColor;
     padding: 0 6px;
+}
+
+/* Color variants */
+.default {
+    color: var(--reactist-text-link-idle-tint);
+}
+
+.inherit {
+    color: inherit;
+}
+
+/* Underline variants */
+.underline {
+    text-decoration: underline;
+}
+
+.no-underline {
+    text-decoration: none;
 }
