@@ -12,21 +12,6 @@
     cursor: pointer;
 }
 
-.container > * {
-    text-decoration: var(--reactist-text-link-idle-decoration);
-    color: var(--reactist-text-link-idle-tint);
-}
-
-/**
- * We need to target the child elements to ensure that styles are
- * applied to the text independently of the DOM elements hierarchy.
- */
-.container:hover,
-.container:hover > * {
-    text-decoration: var(--reactist-text-link-hover-decoration);
-    color: var(--reactist-text-link-hover-tint);
-}
-
 .container svg {
     display: inline-block;
     width: 1em;
@@ -39,19 +24,43 @@
 }
 
 /* Color variants */
-.default {
+.default,
+.default * {
     color: var(--reactist-text-link-idle-tint);
 }
 
-.inherit {
+.default:hover,
+.default:hover * {
+    color: var(--reactist-text-link-hover-tint);
+}
+
+.inherit,
+.inherit * {
     color: inherit;
 }
 
-/* Underline variants */
-.underline {
-    text-decoration: underline;
+.inherit:hover,
+.inherit:hover * {
+    color: var(--reactist-text-link-hover-tint);
 }
 
-.no-underline {
+/* Underline variants */
+.underline,
+.underline * {
+    text-decoration: var(--reactist-text-link-idle-decoration);
+}
+
+.underline:hover,
+.underline:hover * {
+    text-decoration: var(--reactist-text-link-hover-decoration);
+}
+
+.no-underline,
+.no-underline * {
     text-decoration: none;
+}
+
+.no-underline:hover,
+.no-underline:hover * {
+    text-decoration: var(--reactist-text-link-hover-decoration);
 }
