@@ -1,5 +1,12 @@
 # Changelog
 
+## [27.4.0](https://github.com/Doist/reactist/compare/v27.3.6...v27.4.0) (2025-02-19)
+
+
+### 🚀 Features
+
+* **TextLink:** Add color and underline styling options ([#897](https://github.com/Doist/reactist/issues/897)) ([03017a8](https://github.com/Doist/reactist/commit/03017a86c17e43fda2e5438a3a32a8cd87cc8ff6))
+
 ## [27.3.6](https://github.com/Doist/reactist/compare/v27.3.5...v27.3.6) (2025-02-05)
 
 
