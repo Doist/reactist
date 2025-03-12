@@ -130,6 +130,16 @@ export function InteractivePropsStory({
                 control: { type: 'boolean' },
                 defaultValue: false,
             },
+            characterCountPosition: {
+                options: [undefined, 'hidden', 'inline', 'below'],
+                control: { type: 'inline-radio' },
+                defaultValue: undefined,
+            },
+            endSlotPosition: {
+                options: [undefined, 'bottom', 'fullHeight'],
+                control: { type: 'inline-radio' },
+                defaultValue: undefined,
+            },
         }}
     >
         {InteractivePropsStory.bind({})}
