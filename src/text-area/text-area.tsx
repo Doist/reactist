@@ -5,7 +5,9 @@ import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-f
 import { Box } from '../box'
 import styles from './text-area.module.css'
 
-interface TextAreaProps extends FieldComponentProps<HTMLTextAreaElement>, BaseFieldVariantProps {
+interface TextAreaProps
+    extends Omit<FieldComponentProps<HTMLTextAreaElement>, 'characterCountPosition'>,
+        BaseFieldVariantProps {
     /**
      * The number of visible text lines for the text area.
      *
