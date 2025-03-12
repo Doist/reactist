@@ -223,7 +223,7 @@ export type BaseFieldProps = WithEnhancedClassName &
               supportsStartAndEndSlots: true
               endSlot?: React.ReactElement | string | number
               /**
-               * This is primarily for `bordered` variants of TextField. When set to `bottom` (the default),
+               * This is solely for `bordered` variants of TextField. When set to `bottom` (the default),
                * the endSlot will be placed inline with the input field. When set to `fullHeight`, the endSlot
                * will be placed to the side of both the input field and the label.
                */
