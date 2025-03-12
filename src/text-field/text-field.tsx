@@ -9,7 +9,7 @@ type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 
 interface TextFieldProps
     extends Omit<FieldComponentProps<HTMLInputElement>, 'type'>,
-        BaseFieldVariantProps,
+        Omit<BaseFieldVariantProps, 'supportsStartAndEndSlots'>,
         Pick<BaseFieldProps, 'characterCountPosition'> {
     type?: TextFieldType
     startSlot?: React.ReactElement | string | number
@@ -40,6 +40,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         endSlot,
         onChange: originalOnChange,
         characterCountPosition = 'below',
+        endSlotPosition = 'bottom',
         ...props
     },
     ref,
@@ -66,6 +67,9 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
             hidden={hidden}
             aria-describedby={ariaDescribedBy}
             characterCountPosition={characterCountPosition}
+            supportsStartAndEndSlots
+            endSlot={endSlot}
+            endSlotPosition={variant === 'bordered' ? endSlotPosition : undefined}
         >
             {({ onChange, characterCountElement, ...extraProps }) => (
                 <Box
@@ -100,7 +104,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                             onChange?.(event)
                         }}
                     />
-                    {endSlot || characterCountElement ? (
+                    {(endSlot && endSlotPosition === 'bottom') || characterCountElement ? (
                         <Box
                             className={styles.slot}
                             display="flex"
@@ -108,7 +112,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                             marginLeft={variant === 'bordered' ? 'xsmall' : '-xsmall'}
                         >
                             {characterCountElement}
-                            {endSlot}
+                            {endSlot && endSlotPosition === 'bottom' ? endSlot : null}
                         </Box>
                     ) : null}
                 </Box>
