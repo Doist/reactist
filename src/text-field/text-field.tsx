@@ -8,8 +8,8 @@ import { useMergeRefs } from 'use-callback-ref'
 type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 
 interface TextFieldProps
-    extends Omit<FieldComponentProps<HTMLInputElement>, 'type'>,
-        Omit<BaseFieldVariantProps, 'supportsStartAndEndSlots'>,
+    extends Omit<FieldComponentProps<HTMLInputElement>, 'type' | 'supportsStartAndEndSlots'>,
+        BaseFieldVariantProps,
         Pick<BaseFieldProps, 'characterCountPosition'> {
     type?: TextFieldType
     startSlot?: React.ReactElement | string | number
