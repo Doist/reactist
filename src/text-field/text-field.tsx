@@ -53,6 +53,10 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         internalRef.current?.focus()
     }
 
+    const displayEndSlot =
+        endSlot &&
+        (variant === 'default' || (variant === 'bordered' && endSlotPosition === 'bottom'))
+
     return (
         <BaseField
             variant={variant}
@@ -104,7 +108,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                             onChange?.(event)
                         }}
                     />
-                    {(endSlot && endSlotPosition === 'bottom') || characterCountElement ? (
+                    {displayEndSlot || characterCountElement ? (
                         <Box
                             className={styles.slot}
                             display="flex"
@@ -112,7 +116,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                             marginLeft={variant === 'bordered' ? 'xsmall' : '-xsmall'}
                         >
                             {characterCountElement}
-                            {endSlot && endSlotPosition === 'bottom' ? endSlot : null}
+                            {displayEndSlot ? endSlot : null}
                         </Box>
                     ) : null}
                 </Box>
