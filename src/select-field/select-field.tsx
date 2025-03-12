@@ -4,7 +4,14 @@ import { Box } from '../box'
 import styles from './select-field.module.css'
 
 interface SelectFieldProps
-    extends Omit<FieldComponentProps<HTMLSelectElement>, 'maxLength' | 'characterCountPosition'>,
+    extends Omit<
+            FieldComponentProps<HTMLSelectElement>,
+            | 'maxLength'
+            | 'characterCountPosition'
+            | 'endSlot'
+            | 'supportsStartAndEndSlots'
+            | 'endSlotPosition'
+        >,
         BaseFieldVariantProps {}
 
 const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(function SelectField(

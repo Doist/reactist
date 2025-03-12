@@ -213,7 +213,23 @@ export type BaseFieldProps = WithEnhancedClassName &
          * @default 'below'
          */
         characterCountPosition?: 'below' | 'inline' | 'hidden'
-    }
+    } & (
+        | {
+              supportsStartAndEndSlots?: false
+              endSlot?: never
+              endSlotPosition?: never
+          }
+        | {
+              supportsStartAndEndSlots: true
+              endSlot?: React.ReactElement | string | number
+              /**
+               * This is solely for `bordered` variants of TextField. When set to `bottom` (the default),
+               * the endSlot will be placed inline with the input field. When set to `fullHeight`, the endSlot
+               * will be placed to the side of both the input field and the label.
+               */
+              endSlotPosition?: 'bottom' | 'fullHeight'
+          }
+    )
 
 type FieldComponentProps<T extends HTMLElement> = Omit<
     BaseFieldProps,
@@ -239,6 +255,8 @@ function BaseField({
     'aria-describedby': originalAriaDescribedBy,
     id: originalId,
     characterCountPosition = 'below',
+    endSlot,
+    endSlotPosition = 'bottom',
 }: BaseFieldProps & BaseFieldVariantProps & WithEnhancedClassName) {
     const id = useId(originalId)
     const messageId = useId()
@@ -302,6 +320,8 @@ function BaseField({
     return (
         <Stack space="xsmall" hidden={hidden}>
             <Box
+                display="flex"
+                flexDirection="row"
                 className={[
                     className,
                     styles.container,
@@ -309,29 +329,35 @@ function BaseField({
                     variant === 'bordered' ? styles.bordered : null,
                 ]}
                 maxWidth={maxWidth}
+                alignItems="center"
             >
-                {label || auxiliaryLabel ? (
-                    <Box
-                        as="span"
-                        display="flex"
-                        justifyContent="spaceBetween"
-                        alignItems="flexEnd"
-                    >
-                        <Text
-                            size={variant === 'bordered' ? 'caption' : 'body'}
-                            as="label"
-                            htmlFor={id}
+                <Box flexGrow={1}>
+                    {label || auxiliaryLabel ? (
+                        <Box
+                            as="span"
+                            display="flex"
+                            justifyContent="spaceBetween"
+                            alignItems="flexEnd"
                         >
-                            {label ? <span className={styles.primaryLabel}>{label}</span> : null}
-                        </Text>
-                        {auxiliaryLabel ? (
-                            <Box className={styles.auxiliaryLabel} paddingLeft="small">
-                                {auxiliaryLabel}
-                            </Box>
-                        ) : null}
-                    </Box>
-                ) : null}
-                {children(childrenProps)}
+                            <Text
+                                size={variant === 'bordered' ? 'caption' : 'body'}
+                                as="label"
+                                htmlFor={id}
+                            >
+                                {label ? (
+                                    <span className={styles.primaryLabel}>{label}</span>
+                                ) : null}
+                            </Text>
+                            {auxiliaryLabel ? (
+                                <Box className={styles.auxiliaryLabel} paddingLeft="small">
+                                    {auxiliaryLabel}
+                                </Box>
+                            ) : null}
+                        </Box>
+                    ) : null}
+                    {children(childrenProps)}
+                </Box>
+                {endSlot && endSlotPosition === 'fullHeight' ? endSlot : null}
             </Box>
 
             {message || characterCount ? (
