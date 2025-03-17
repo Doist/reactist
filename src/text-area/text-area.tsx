@@ -7,7 +7,7 @@ import styles from './text-area.module.css'
 
 interface TextAreaProps
     extends Omit<FieldComponentProps<HTMLTextAreaElement>, 'characterCountPosition'>,
-        BaseFieldVariantProps {
+        Omit<BaseFieldVariantProps, 'supportsStartAndEndSlots' | 'endSlot' | 'endSlotPosition'> {
     /**
      * The number of visible text lines for the text area.
      *

@@ -8,7 +8,7 @@ import { useMergeRefs } from 'use-callback-ref'
 type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 
 interface TextFieldProps
-    extends Omit<FieldComponentProps<HTMLInputElement>, 'type'>,
+    extends Omit<FieldComponentProps<HTMLInputElement>, 'type' | 'supportsStartAndEndSlots'>,
         BaseFieldVariantProps,
         Pick<BaseFieldProps, 'characterCountPosition'> {
     type?: TextFieldType
@@ -40,6 +40,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         endSlot,
         onChange: originalOnChange,
         characterCountPosition = 'below',
+        endSlotPosition = 'bottom',
         ...props
     },
     ref,
@@ -51,6 +52,10 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         if (event.currentTarget === combinedRef.current) return
         internalRef.current?.focus()
     }
+
+    const displayEndSlot =
+        endSlot &&
+        (variant === 'default' || (variant === 'bordered' && endSlotPosition === 'bottom'))
 
     return (
         <BaseField
@@ -66,6 +71,9 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
             hidden={hidden}
             aria-describedby={ariaDescribedBy}
             characterCountPosition={characterCountPosition}
+            supportsStartAndEndSlots
+            endSlot={endSlot}
+            endSlotPosition={variant === 'bordered' ? endSlotPosition : undefined}
         >
             {({ onChange, characterCountElement, ...extraProps }) => (
                 <Box
@@ -100,7 +108,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                             onChange?.(event)
                         }}
                     />
-                    {endSlot || characterCountElement ? (
+                    {displayEndSlot || characterCountElement ? (
                         <Box
                             className={styles.slot}
                             display="flex"
@@ -108,7 +116,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                             marginLeft={variant === 'bordered' ? 'xsmall' : '-xsmall'}
                         >
                             {characterCountElement}
-                            {endSlot}
+                            {displayEndSlot ? endSlot : null}
                         </Box>
                     ) : null}
                 </Box>

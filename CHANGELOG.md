@@ -1,5 +1,12 @@
 # Changelog
 
+## [27.5.0](https://github.com/Doist/reactist/compare/v27.4.0...v27.5.0) (2025-03-12)
+
+
+### 🚀 Features
+
+* Allow positional placement of `endSlot` in `TextField` ([#899](https://github.com/Doist/reactist/issues/899)) ([abb4520](https://github.com/Doist/reactist/commit/abb4520b0688cf462d556d30d49ef164fad20bf4))
+
 ## [27.4.0](https://github.com/Doist/reactist/compare/v27.3.6...v27.4.0) (2025-02-19)
 
 
