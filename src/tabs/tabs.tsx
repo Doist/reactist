@@ -86,13 +86,18 @@ interface TabProps
      * The tab's identifier. This must match its corresponding `<TabPanel>`'s id
      */
     id: string
+
+    /**
+     * Defines wether or not the tab is disabled.
+     */
+    disabled?: boolean
 }
 
 /**
  * Represents the individual tab elements within the group. Each `<Tab>` must have a corresponding `<TabPanel>` component.
  */
 const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(
-    { children, id, exceptionallySetClassName, render, onClick },
+    { children, id, disabled, exceptionallySetClassName, render, onClick },
     ref,
 ): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
@@ -105,6 +110,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(
         <BaseTab
             id={id}
             ref={ref}
+            disabled={disabled}
             store={tabStore}
             render={render}
             className={className}

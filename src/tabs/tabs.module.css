@@ -2,14 +2,20 @@
     --reactist-tab-themed-background: var(--reactist-bg-default);
     --reactist-tab-themed-foreground: #006f85;
     --reactist-tab-themed-unselected: #006f85;
+    --reactist-tab-themed-hover: #006f85;
+    --reactist-tab-themed-disabled: #006f85;
     --reactist-tab-themed-track: rgb(242, 246, 247);
     --reactist-tab-themed-border: var(--reactist-divider-secondary);
+    --reactist-tab-themed-shadow: none;
 
     --reactist-tab-neutral-background: var(--reactist-bg-default);
     --reactist-tab-neutral-foreground: var(--reactist-content-primary);
     --reactist-tab-neutral-unselected: var(--reactist-content-tertiary);
+    --reactist-tab-neutral-hover: var(--reactist-content-tertiary);
+    --reactist-tab-neutral-disabled: var(--reactist-content-tertiary);
     --reactist-tab-neutral-track: var(--reactist-framework-fill-selected);
     --reactist-tab-neutral-border: var(--reactist-divider-primary);
+    --reactist-tab-neutral-shadow: none;
 
     --reactist-tab-track-border-width: 2px;
     --reactist-tab-border-radius: 20px;
@@ -59,6 +65,18 @@
     background-color: var(--reactist-tab-neutral-background);
     color: var(--reactist-tab-neutral-foreground);
     border-color: var(--reactist-tab-neutral-border);
+    box-shadow: var(--reactist-tab-neutral-shadow);
+}
+
+.tab[aria-selected='false']:hover,
+.tab-neutral[aria-selected='false']:hover {
+    color: var(--reactist-tab-neutral-hover);
+}
+
+.tab[aria-disabled='true'],
+.tab-neutral[aria-disabled='true'] {
+    color: var(--reactist-tab-neutral-disabled);
+    cursor: not-allowed;
 }
 
 .tab-themed {
@@ -69,6 +87,16 @@
     background-color: var(--reactist-tab-themed-background);
     color: var(--reactist-tab-themed-foreground);
     border-color: var(--reactist-tab-themed-border);
+    box-shadow: var(--reactist-tab-themed-shadow);
+}
+
+.tab-themed[aria-selected='false']:hover {
+    color: var(--reactist-tab-themed-hover);
+}
+
+.tab-themed[aria-disabled='true'] {
+    color: var(--reactist-tab-themed-disabled);
+    cursor: not-allowed;
 }
 
 .track,
