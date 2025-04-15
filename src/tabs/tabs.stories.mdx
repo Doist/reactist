@@ -184,6 +184,35 @@ The following CSS custom properties are also available to customize other tabs' 
     </Story>
 </Canvas>
 
+### Full container width tabs
+
+<Canvas withToolbar>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Full container width tabs">
+        <Tabs>
+            <TabList aria-label="Full width tabs example" width="full">
+                <Tab id="tab1">Tab 1</Tab>
+                <Tab id="tab2">Tab 2</Tab>
+                <Tab id="tab3">Tab 3</Tab>
+            </TabList>
+            <TabPanel id="tab1">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 1</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab2">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 2</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab3">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 3</Text>
+                </Box>
+            </TabPanel>
+        </Tabs>
+    </Story>
+</Canvas>
+
 ### Using the `<TabAwareSlot>` component
 
 <Canvas withToolbar>

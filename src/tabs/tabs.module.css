@@ -40,6 +40,10 @@
     border-radius: var(--reactist-tab-border-radius);
 }
 
+.fullTabList .tab {
+    flex: 1;
+}
+
 .track {
     position: absolute;
     top: calc(-1 * var(--reactist-tab-track-border-width));

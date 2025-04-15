@@ -149,12 +149,27 @@ type TabListProps = (
      * Controls the spacing between tabs
      */
     space?: Space
+
+    /**
+     * The width of the tab list.
+     *
+     * - `'maxContent'`: Each tab will be as wide as its content.
+     * - `'full'`: Each tab will be as wide as the tab list.
+     *
+     * @default 'maxContent'
+     */
+    width?: 'maxContent' | 'full'
 }
 
 /**
  * A component used to group `<Tab>` elements together.
  */
-function TabList({ children, space, ...props }: TabListProps): React.ReactElement | null {
+function TabList({
+    children,
+    space,
+    width = 'maxContent',
+    ...props
+}: TabListProps): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
 
     if (!tabContextValue) {
@@ -169,11 +184,18 @@ function TabList({ children, space, ...props }: TabListProps): React.ReactElemen
         <div>
             <BaseTabList
                 store={tabStore}
-                render={<Box position="relative" width="maxContent" />}
+                render={<Box position="relative" width={width} />}
                 {...props}
             >
                 <Box className={[styles.track, styles[`track-${variant}`]]} />
-                <Inline space={space}>{children}</Inline>
+                <Inline
+                    space={space}
+                    exceptionallySetClassName={classNames(
+                        width === 'full' ? styles.fullTabList : null,
+                    )}
+                >
+                    {children}
+                </Inline>
             </BaseTabList>
         </div>
     )
