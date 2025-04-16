@@ -168,7 +168,7 @@ type TabListProps = (
      * @default 'start'
      */
     align?: ResponsiveProp<'start' | 'center' | 'end'>
-}
+} & ObfuscatedClassName
 
 /**
  * A component used to group `<Tab>` elements together.
@@ -178,6 +178,7 @@ function TabList({
     space,
     width = 'maxContent',
     align = 'start',
+    exceptionallySetClassName,
     ...props
 }: TabListProps): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
@@ -233,7 +234,9 @@ function TabList({
         >
             <BaseTabList
                 store={tabStore}
-                render={<Box position="relative" width={width} />}
+                render={
+                    <Box position="relative" width={width} className={exceptionallySetClassName} />
+                }
                 ref={tabListRef}
                 {...props}
             >
