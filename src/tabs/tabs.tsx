@@ -14,6 +14,7 @@ import type { ObfuscatedClassName, Space } from '../utils/common-types'
 
 import styles from './tabs.module.css'
 import { Box } from '../box'
+import { ResponsiveProp } from '../utils/responsive-props'
 
 type TabsContextValue = Required<Pick<TabsProps, 'variant'>> & {
     tabStore: TabStore
@@ -159,6 +160,13 @@ type TabListProps = (
      * @default 'maxContent'
      */
     width?: 'maxContent' | 'full'
+
+    /**
+     * How to align the tabs within the tab list.
+     *
+     * @default 'start'
+     */
+    align?: ResponsiveProp<'start' | 'center' | 'end'>
 }
 
 /**
@@ -168,6 +176,7 @@ function TabList({
     children,
     space,
     width = 'maxContent',
+    align = 'start',
     ...props
 }: TabListProps): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
@@ -179,9 +188,21 @@ function TabList({
     const { tabStore, variant } = tabContextValue
 
     return (
-        // The extra <div> prevents <Inline>'s negative margins from collapsing when used in a flex container
-        // which will render the track with the wrong height
-        <div>
+        // This extra <Box> not only provides alignment for the tabs, but also prevents <Inline>'s
+        // negative margins from collapsing when used in a flex container which will render the
+        // track with the wrong height
+        <Box
+            display="flex"
+            justifyContent={
+                width === 'full'
+                    ? 'center'
+                    : align === 'start'
+                    ? 'flexStart'
+                    : align === 'end'
+                    ? 'flexEnd'
+                    : 'center'
+            }
+        >
             <BaseTabList
                 store={tabStore}
                 render={<Box position="relative" width={width} />}
@@ -197,7 +218,7 @@ function TabList({
                     {children}
                 </Inline>
             </BaseTabList>
-        </div>
+        </Box>
     )
 }
 
