@@ -9,12 +9,13 @@ import {
     TabPanelProps as BaseTabPanelProps,
     TabStore,
 } from '@ariakit/react'
+import { Box } from '../box'
 import { Inline } from '../inline'
+
 import type { ObfuscatedClassName, Space } from '../utils/common-types'
+import type { ResponsiveProp } from '../utils/responsive-props'
 
 import styles from './tabs.module.css'
-import { Box } from '../box'
-import { ResponsiveProp } from '../utils/responsive-props'
 
 type TabsContextValue = Required<Pick<TabsProps, 'variant'>> & {
     tabStore: TabStore
