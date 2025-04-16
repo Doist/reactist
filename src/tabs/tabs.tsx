@@ -181,6 +181,33 @@ function TabList({
 }: TabListProps): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
 
+    const [selectedTabElement, setSelectedTabElement] = React.useState<HTMLElement | null>(null)
+    const [selectedTabStyle, setSelectedTabStyle] = React.useState<React.CSSProperties>({})
+    const tabListRef = React.useRef<HTMLDivElement>(null)
+
+    const selectedId = tabContextValue?.tabStore.useState('selectedId')
+
+    React.useLayoutEffect(() => {
+        if (!selectedId || !tabListRef.current) {
+            return
+        }
+
+        const tabs = tabListRef.current.querySelectorAll('[role="tab"]')
+
+        const selectedTab = Array.from(tabs).find(
+            (tab) => tab.getAttribute('id') === selectedId,
+        ) as HTMLElement | undefined
+
+        if (selectedTab) {
+            setSelectedTabElement(selectedTab)
+
+            setSelectedTabStyle({
+                left: `${selectedTab.offsetLeft}px`,
+                width: `${selectedTab.offsetWidth}px`,
+            })
+        }
+    }, [selectedId])
+
     if (!tabContextValue) {
         return null
     }
@@ -206,9 +233,16 @@ function TabList({
             <BaseTabList
                 store={tabStore}
                 render={<Box position="relative" width={width} />}
+                ref={tabListRef}
                 {...props}
             >
                 <Box className={[styles.track, styles[`track-${variant}`]]} />
+                {selectedTabElement ? (
+                    <Box
+                        className={[styles.selected, styles[`selected-${variant}`]]}
+                        style={selectedTabStyle}
+                    />
+                ) : null}
                 <Inline
                     space={space}
                     exceptionallySetClassName={classNames(

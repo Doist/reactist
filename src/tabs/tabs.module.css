@@ -18,6 +18,7 @@
     --reactist-tab-neutral-shadow: none;
 
     --reactist-tab-track-border-width: 2px;
+    --reactist-tab-selected-transition: none;
     --reactist-tab-border-radius: 20px;
     --reactist-tab-border-width: 1px;
     --reactist-tab-padding-x: var(--reactist-spacing-medium);
@@ -37,7 +38,6 @@
     z-index: 1;
     text-decoration: none;
     border: var(--reactist-tab-border-width) solid transparent;
-    border-radius: var(--reactist-tab-border-radius);
 }
 
 .fullTabList .tab {
@@ -55,6 +55,16 @@
     border-style: solid;
 }
 
+.selected {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    height: 100%;
+    border: var(--reactist-tab-border-width) solid transparent;
+    border-radius: var(--reactist-tab-border-radius);
+    transition: var(--reactist-tab-selected-transition);
+}
+
 /*
  * Variant options
  */
@@ -66,10 +76,7 @@
 
 .tab[aria-selected='true'],
 .tab-neutral[aria-selected='true'] {
-    background-color: var(--reactist-tab-neutral-background);
     color: var(--reactist-tab-neutral-foreground);
-    border-color: var(--reactist-tab-neutral-border);
-    box-shadow: var(--reactist-tab-neutral-shadow);
 }
 
 .tab[aria-selected='false']:hover,
@@ -88,10 +95,7 @@
 }
 
 .tab-themed[aria-selected='true'] {
-    background-color: var(--reactist-tab-themed-background);
     color: var(--reactist-tab-themed-foreground);
-    border-color: var(--reactist-tab-themed-border);
-    box-shadow: var(--reactist-tab-themed-shadow);
 }
 
 .tab-themed[aria-selected='false']:hover {
@@ -112,4 +116,16 @@
 .track-themed {
     background: var(--reactist-tab-themed-track);
     border-color: var(--reactist-tab-themed-track);
+}
+
+.selected,
+.selected-neutral {
+    background-color: var(--reactist-tab-neutral-background);
+    border-color: var(--reactist-tab-neutral-border);
+}
+
+.selected-themed {
+    background-color: var(--reactist-tab-themed-background);
+    border-color: var(--reactist-tab-themed-border);
+    box-shadow: var(--reactist-tab-themed-shadow);
 }
