@@ -38,6 +38,7 @@
     z-index: 1;
     text-decoration: none;
     border: var(--reactist-tab-border-width) solid transparent;
+    border-radius: var(--reactist-tab-border-radius);
 }
 
 .fullTabList .tab {
@@ -122,6 +123,7 @@
 .selected-neutral {
     background-color: var(--reactist-tab-neutral-background);
     border-color: var(--reactist-tab-neutral-border);
+    box-shadow: var(--reactist-tab-neutral-shadow);
 }
 
 .selected-themed {
