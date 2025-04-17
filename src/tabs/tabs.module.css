@@ -30,6 +30,8 @@
     --reactist-tab-border-width: 1px;
     --reactist-tab-padding-x: var(--reactist-spacing-medium);
     --reactist-tab-padding-y: var(--reactist-spacing-small);
+    --reactist-tab-font-size: var(--reactist-font-size-body);
+    --reactist-tab-font-weight: var(--reactist-font-weight-medium);
     --reactist-tab-line-height: 21px;
 }
 
@@ -39,8 +41,8 @@
     border: none;
     background: none;
     cursor: pointer;
-    font-size: var(--reactist-font-size-body);
-    font-weight: var(--reactist-font-weight-medium);
+    font-size: var(--reactist-tab-font-size);
+    font-weight: var(--reactist-tab-font-weight);
     line-height: var(--reactist-tab-line-height);
     z-index: 1;
     text-decoration: none;
