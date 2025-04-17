@@ -1,18 +1,24 @@
 :root {
-    --reactist-tab-themed-background: var(--reactist-bg-default);
-    --reactist-tab-themed-foreground: #006f85;
-    --reactist-tab-themed-unselected: #006f85;
-    --reactist-tab-themed-hover: #006f85;
-    --reactist-tab-themed-disabled: #006f85;
+    --reactist-tab-themed-selected-tint: #006f85;
+    --reactist-tab-themed-selected-fill: var(--reactist-bg-default);
+    --reactist-tab-themed-unselected-tint: #006f85;
+    --reactist-tab-themed-unselected-fill: transparent;
+    --reactist-tab-themed-hover-tint: #006f85;
+    --reactist-tab-themed-hover-fill: transparent;
+    --reactist-tab-themed-disabled-tint: #006f85;
+    --reactist-tab-themed-disabled-fill: transparent;
     --reactist-tab-themed-track: rgb(242, 246, 247);
     --reactist-tab-themed-border: var(--reactist-divider-secondary);
     --reactist-tab-themed-shadow: none;
 
-    --reactist-tab-neutral-background: var(--reactist-bg-default);
-    --reactist-tab-neutral-foreground: var(--reactist-content-primary);
-    --reactist-tab-neutral-unselected: var(--reactist-content-tertiary);
-    --reactist-tab-neutral-hover: var(--reactist-content-tertiary);
-    --reactist-tab-neutral-disabled: var(--reactist-content-tertiary);
+    --reactist-tab-neutral-selected-tint: var(--reactist-content-primary);
+    --reactist-tab-neutral-selected-fill: var(--reactist-bg-default);
+    --reactist-tab-neutral-unselected-tint: var(--reactist-content-tertiary);
+    --reactist-tab-neutral-unselected-fill: transparent;
+    --reactist-tab-neutral-hover-tint: var(--reactist-content-tertiary);
+    --reactist-tab-neutral-hover-fill: transparent;
+    --reactist-tab-neutral-disabled-tint: var(--reactist-content-tertiary);
+    --reactist-tab-neutral-disabled-fill: transparent;
     --reactist-tab-neutral-track: var(--reactist-framework-fill-selected);
     --reactist-tab-neutral-border: var(--reactist-divider-primary);
     --reactist-tab-neutral-shadow: none;
@@ -72,39 +78,45 @@
 
 .tab,
 .tab-neutral {
-    color: var(--reactist-tab-neutral-unselected);
+    background-color: var(--reactist-tab-neutral-unselected-fill);
+    color: var(--reactist-tab-neutral-unselected-tint);
 }
 
 .tab[aria-selected='true'],
 .tab-neutral[aria-selected='true'] {
-    color: var(--reactist-tab-neutral-foreground);
+    color: var(--reactist-tab-neutral-selected-tint);
 }
 
 .tab[aria-selected='false']:hover,
 .tab-neutral[aria-selected='false']:hover {
-    color: var(--reactist-tab-neutral-hover);
+    background-color: var(--reactist-tab-neutral-hover-fill);
+    color: var(--reactist-tab-neutral-hover-tint);
 }
 
 .tab[aria-disabled='true'],
 .tab-neutral[aria-disabled='true'] {
-    color: var(--reactist-tab-neutral-disabled);
+    background-color: var(--reactist-tab-neutral-disabled-fill);
+    color: var(--reactist-tab-neutral-disabled-tint);
     cursor: not-allowed;
 }
 
 .tab-themed {
-    color: var(--reactist-tab-themed-unselected);
+    background-color: var(--reactist-tab-themed-unselected-fill);
+    color: var(--reactist-tab-themed-unselected-tint);
 }
 
 .tab-themed[aria-selected='true'] {
-    color: var(--reactist-tab-themed-foreground);
+    color: var(--reactist-tab-themed-selected-tint);
 }
 
 .tab-themed[aria-selected='false']:hover {
-    color: var(--reactist-tab-themed-hover);
+    background-color: var(--reactist-tab-themed-hover-fill);
+    color: var(--reactist-tab-themed-hover-tint);
 }
 
 .tab-themed[aria-disabled='true'] {
-    color: var(--reactist-tab-themed-disabled);
+    background-color: var(--reactist-tab-themed-disabled-fill);
+    color: var(--reactist-tab-themed-disabled-tint);
     cursor: not-allowed;
 }
 
@@ -121,13 +133,13 @@
 
 .selected,
 .selected-neutral {
-    background-color: var(--reactist-tab-neutral-background);
+    background-color: var(--reactist-tab-neutral-selected-fill);
     border-color: var(--reactist-tab-neutral-border);
     box-shadow: var(--reactist-tab-neutral-shadow);
 }
 
 .selected-themed {
-    background-color: var(--reactist-tab-themed-background);
+    background-color: var(--reactist-tab-themed-selected-fill);
     border-color: var(--reactist-tab-themed-border);
     box-shadow: var(--reactist-tab-themed-shadow);
 }
