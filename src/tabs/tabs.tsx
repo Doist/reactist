@@ -189,23 +189,32 @@ function TabList({
     const selectedId = tabContextValue?.tabStore.useState('selectedId')
 
     React.useLayoutEffect(() => {
-        if (!selectedId || !tabListRef.current) {
-            return
+        function updateSelectedTabStyle() {
+            if (!selectedId || !tabListRef.current) {
+                return
+            }
+
+            const tabs = tabListRef.current.querySelectorAll('[role="tab"]')
+
+            const selectedTab = Array.from(tabs).find(
+                (tab) => tab.getAttribute('id') === selectedId,
+            ) as HTMLElement | undefined
+
+            if (selectedTab) {
+                setSelectedTabElement(selectedTab)
+                setSelectedTabStyle({
+                    left: `${selectedTab.offsetLeft}px`,
+                    width: `${selectedTab.offsetWidth}px`,
+                })
+            }
         }
 
-        const tabs = tabListRef.current.querySelectorAll('[role="tab"]')
+        updateSelectedTabStyle()
 
-        const selectedTab = Array.from(tabs).find(
-            (tab) => tab.getAttribute('id') === selectedId,
-        ) as HTMLElement | undefined
+        window.addEventListener('resize', updateSelectedTabStyle)
 
-        if (selectedTab) {
-            setSelectedTabElement(selectedTab)
-
-            setSelectedTabStyle({
-                left: `${selectedTab.offsetLeft}px`,
-                width: `${selectedTab.offsetWidth}px`,
-            })
+        return function cleanupEventListener() {
+            window.removeEventListener('resize', updateSelectedTabStyle)
         }
     }, [selectedId])
 
