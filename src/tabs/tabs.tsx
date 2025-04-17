@@ -9,11 +9,10 @@ import {
     TabPanelProps as BaseTabPanelProps,
     TabStore,
 } from '@ariakit/react'
-import { Box } from '../box'
+import { Box, BoxJustifyContent } from '../box'
 import { Inline } from '../inline'
 
 import type { ObfuscatedClassName, Space } from '../utils/common-types'
-import type { ResponsiveProp } from '../utils/responsive-props'
 
 import styles from './tabs.module.css'
 
@@ -167,7 +166,7 @@ type TabListProps = (
      *
      * @default 'start'
      */
-    align?: ResponsiveProp<'start' | 'center' | 'end'>
+    align?: 'start' | 'center' | 'end'
 } & ObfuscatedClassName
 
 /**
@@ -216,21 +215,19 @@ function TabList({
 
     const { tabStore, variant } = tabContextValue
 
+    const justifyContentAlignMap: Record<typeof align, BoxJustifyContent> = {
+        start: 'flexStart',
+        end: 'flexEnd',
+        center: 'center',
+    }
+
     return (
         // This extra <Box> not only provides alignment for the tabs, but also prevents <Inline>'s
         // negative margins from collapsing when used in a flex container which will render the
         // track with the wrong height
         <Box
             display="flex"
-            justifyContent={
-                width === 'full'
-                    ? 'center'
-                    : align === 'start'
-                    ? 'flexStart'
-                    : align === 'end'
-                    ? 'flexEnd'
-                    : 'center'
-            }
+            justifyContent={width === 'full' ? 'center' : justifyContentAlignMap[align]}
         >
             <BaseTabList
                 store={tabStore}
