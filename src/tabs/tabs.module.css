@@ -23,6 +23,7 @@
     --reactist-tab-neutral-border: var(--reactist-divider-primary);
     --reactist-tab-neutral-shadow: none;
 
+    --reactist-tab-track-border-radius: 20px;
     --reactist-tab-track-border-width: 2px;
     --reactist-tab-selected-transition: none;
     --reactist-tab-border-radius: 20px;
@@ -57,7 +58,7 @@
     right: calc(-1 * var(--reactist-tab-track-border-width));
     bottom: calc(-1 * var(--reactist-tab-track-border-width));
     left: calc(-1 * var(--reactist-tab-track-border-width));
-    border-radius: var(--reactist-tab-border-radius);
+    border-radius: var(--reactist-tab-track-border-radius);
     border-width: var(--reactist-tab-track-border-width);
     border-style: solid;
 }
