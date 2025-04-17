@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.1.0](https://github.com/Doist/reactist/compare/v28.0.0...v28.1.0) (2025-04-17)
+
+
+### 🚀 Features
+
+* Support tab font customization and fix hover style on disabled tabs ([#907](https://github.com/Doist/reactist/issues/907)) ([dc50f5b](https://github.com/Doist/reactist/commit/dc50f5b268ee5b1c322c7fc0011e36bbffba2712))
+
 ## [28.0.0](https://github.com/Doist/reactist/compare/v27.5.0...v28.0.0) (2025-04-17)
 
 
