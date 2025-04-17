@@ -9,11 +9,12 @@ import {
     TabPanelProps as BaseTabPanelProps,
     TabStore,
 } from '@ariakit/react'
+import { Box, BoxJustifyContent } from '../box'
 import { Inline } from '../inline'
+
 import type { ObfuscatedClassName, Space } from '../utils/common-types'
 
 import styles from './tabs.module.css'
-import { Box } from '../box'
 
 type TabsContextValue = Required<Pick<TabsProps, 'variant'>> & {
     tabStore: TabStore
@@ -86,13 +87,18 @@ interface TabProps
      * The tab's identifier. This must match its corresponding `<TabPanel>`'s id
      */
     id: string
+
+    /**
+     * Defines wether or not the tab is disabled.
+     */
+    disabled?: boolean
 }
 
 /**
  * Represents the individual tab elements within the group. Each `<Tab>` must have a corresponding `<TabPanel>` component.
  */
 const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(
-    { children, id, exceptionallySetClassName, render, onClick },
+    { children, id, disabled, exceptionallySetClassName, render, onClick },
     ref,
 ): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
@@ -105,6 +111,7 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(
         <BaseTab
             id={id}
             ref={ref}
+            disabled={disabled}
             store={tabStore}
             render={render}
             className={className}
@@ -143,13 +150,73 @@ type TabListProps = (
      * Controls the spacing between tabs
      */
     space?: Space
-}
+
+    /**
+     * The width of the tab list.
+     *
+     * - `'maxContent'`: Each tab will be as wide as its content.
+     * - `'full'`: Each tab will be as wide as the tab list.
+     *
+     * @default 'maxContent'
+     */
+    width?: 'maxContent' | 'full'
+
+    /**
+     * How to align the tabs within the tab list.
+     *
+     * @default 'start'
+     */
+    align?: 'start' | 'center' | 'end'
+} & ObfuscatedClassName
 
 /**
  * A component used to group `<Tab>` elements together.
  */
-function TabList({ children, space, ...props }: TabListProps): React.ReactElement | null {
+function TabList({
+    children,
+    space,
+    width = 'maxContent',
+    align = 'start',
+    exceptionallySetClassName,
+    ...props
+}: TabListProps): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
+
+    const [selectedTabElement, setSelectedTabElement] = React.useState<HTMLElement | null>(null)
+    const [selectedTabStyle, setSelectedTabStyle] = React.useState<React.CSSProperties>({})
+    const tabListRef = React.useRef<HTMLDivElement>(null)
+
+    const selectedId = tabContextValue?.tabStore.useState('selectedId')
+
+    React.useLayoutEffect(() => {
+        function updateSelectedTabStyle() {
+            if (!selectedId || !tabListRef.current) {
+                return
+            }
+
+            const tabs = tabListRef.current.querySelectorAll('[role="tab"]')
+
+            const selectedTab = Array.from(tabs).find(
+                (tab) => tab.getAttribute('id') === selectedId,
+            ) as HTMLElement | undefined
+
+            if (selectedTab) {
+                setSelectedTabElement(selectedTab)
+                setSelectedTabStyle({
+                    left: `${selectedTab.offsetLeft}px`,
+                    width: `${selectedTab.offsetWidth}px`,
+                })
+            }
+        }
+
+        updateSelectedTabStyle()
+
+        window.addEventListener('resize', updateSelectedTabStyle)
+
+        return function cleanupEventListener() {
+            window.removeEventListener('resize', updateSelectedTabStyle)
+        }
+    }, [selectedId])
 
     if (!tabContextValue) {
         return null
@@ -157,19 +224,45 @@ function TabList({ children, space, ...props }: TabListProps): React.ReactElemen
 
     const { tabStore, variant } = tabContextValue
 
+    const justifyContentAlignMap: Record<typeof align, BoxJustifyContent> = {
+        start: 'flexStart',
+        end: 'flexEnd',
+        center: 'center',
+    }
+
     return (
-        // The extra <div> prevents <Inline>'s negative margins from collapsing when used in a flex container
-        // which will render the track with the wrong height
-        <div>
+        // This extra <Box> not only provides alignment for the tabs, but also prevents <Inline>'s
+        // negative margins from collapsing when used in a flex container which will render the
+        // track with the wrong height
+        <Box
+            display="flex"
+            justifyContent={width === 'full' ? 'center' : justifyContentAlignMap[align]}
+        >
             <BaseTabList
                 store={tabStore}
-                render={<Box position="relative" width="maxContent" />}
+                render={
+                    <Box position="relative" width={width} className={exceptionallySetClassName} />
+                }
+                ref={tabListRef}
                 {...props}
             >
                 <Box className={[styles.track, styles[`track-${variant}`]]} />
-                <Inline space={space}>{children}</Inline>
+                {selectedTabElement ? (
+                    <Box
+                        className={[styles.selected, styles[`selected-${variant}`]]}
+                        style={selectedTabStyle}
+                    />
+                ) : null}
+                <Inline
+                    space={space}
+                    exceptionallySetClassName={classNames(
+                        width === 'full' ? styles.fullTabList : null,
+                    )}
+                >
+                    {children}
+                </Inline>
             </BaseTabList>
-        </div>
+        </Box>
     )
 }
 
