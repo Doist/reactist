@@ -90,17 +90,17 @@
     color: var(--reactist-tab-neutral-selected-tint);
 }
 
-.tab[aria-selected='false']:hover,
-.tab-neutral[aria-selected='false']:hover {
-    background-color: var(--reactist-tab-neutral-hover-fill);
-    color: var(--reactist-tab-neutral-hover-tint);
-}
-
 .tab[aria-disabled='true'],
 .tab-neutral[aria-disabled='true'] {
     background-color: var(--reactist-tab-neutral-disabled-fill);
     color: var(--reactist-tab-neutral-disabled-tint);
     cursor: not-allowed;
+}
+
+.tab[aria-selected='false']:not([aria-disabled='true']):hover,
+.tab-neutral[aria-selected='false']:not([aria-disabled='true']):hover {
+    background-color: var(--reactist-tab-neutral-hover-fill);
+    color: var(--reactist-tab-neutral-hover-tint);
 }
 
 .tab-themed {
@@ -112,14 +112,14 @@
     color: var(--reactist-tab-themed-selected-tint);
 }
 
-.tab-themed[aria-selected='false']:hover {
-    background-color: var(--reactist-tab-themed-hover-fill);
-    color: var(--reactist-tab-themed-hover-tint);
-}
-
 .tab-themed[aria-disabled='true'] {
     background-color: var(--reactist-tab-themed-disabled-fill);
     color: var(--reactist-tab-themed-disabled-tint);
+}
+
+.tab-themed[aria-selected='false']:not([aria-disabled='true']):hover {
+    background-color: var(--reactist-tab-themed-hover-fill);
+    color: var(--reactist-tab-themed-hover-tint);
 }
 
 .track,
