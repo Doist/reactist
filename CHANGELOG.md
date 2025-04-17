@@ -1,5 +1,16 @@
 # Changelog
 
+## [28.0.0](https://github.com/Doist/reactist/compare/v27.5.0...v28.0.0) (2025-04-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **Tabs:** Add support for additional customization settings ([#903](https://github.com/Doist/reactist/issues/903))
+
+### 🚀 Features
+
+* **Tabs:** Add support for additional customization settings ([#903](https://github.com/Doist/reactist/issues/903)) ([7f60d81](https://github.com/Doist/reactist/commit/7f60d81ed41b1b94a3f0d36501eb769258cfa775))
+
 ## [27.5.0](https://github.com/Doist/reactist/compare/v27.4.0...v27.5.0) (2025-03-12)
 
 
