@@ -180,16 +180,18 @@ function TabList({
     exceptionallySetClassName,
     ...props
 }: TabListProps): React.ReactElement | null {
+    const tabListRef = React.useRef<HTMLDivElement | null>(null)
+    const tabListPrevWidthRef = React.useRef(0)
+
     const tabContextValue = React.useContext(TabsContext)
 
     const [selectedTabElement, setSelectedTabElement] = React.useState<HTMLElement | null>(null)
     const [selectedTabStyle, setSelectedTabStyle] = React.useState<React.CSSProperties>({})
-    const tabListRef = React.useRef<HTMLDivElement>(null)
 
     const selectedId = tabContextValue?.tabStore.useState('selectedId')
 
-    React.useLayoutEffect(() => {
-        function updateSelectedTabStyle() {
+    const updateSelectedTabPosition = React.useCallback(
+        function updateSelectedTabPositionCallback() {
             if (!selectedId || !tabListRef.current) {
                 return
             }
@@ -207,16 +209,39 @@ function TabList({
                     width: `${selectedTab.offsetWidth}px`,
                 })
             }
-        }
+        },
+        [selectedId],
+    )
 
-        updateSelectedTabStyle()
+    React.useEffect(
+        function updateSelectedTabPositionOnTabChange() {
+            updateSelectedTabPosition()
+        },
+        // `selectedId` is a dependency to ensure the effect runs when the selected tab changes
+        [selectedId, updateSelectedTabPosition],
+    )
 
-        window.addEventListener('resize', updateSelectedTabStyle)
+    React.useEffect(
+        function observeTabListWidthChange() {
+            const tabList = new ResizeObserver(([entry]) => {
+                const width = entry?.contentRect.width
 
-        return function cleanupEventListener() {
-            window.removeEventListener('resize', updateSelectedTabStyle)
-        }
-    }, [selectedId])
+                if (width && tabListPrevWidthRef.current !== width) {
+                    tabListPrevWidthRef.current = width
+                    updateSelectedTabPosition()
+                }
+            })
+
+            if (tabListRef.current) {
+                tabList.observe(tabListRef.current)
+            }
+
+            return function cleanupResizeObserver() {
+                tabList.disconnect()
+            }
+        },
+        [updateSelectedTabPosition],
+    )
 
     if (!tabContextValue) {
         return null
