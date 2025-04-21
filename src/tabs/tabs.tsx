@@ -223,21 +223,35 @@ function TabList({
 
     React.useEffect(
         function observeTabListWidthChange() {
-            const tabList = new ResizeObserver(([entry]) => {
+            let animationFrameId: number | null = null
+
+            const tabListObserver = new ResizeObserver(([entry]) => {
                 const width = entry?.contentRect.width
 
                 if (width && tabListPrevWidthRef.current !== width) {
                     tabListPrevWidthRef.current = width
-                    updateSelectedTabPosition()
+
+                    if (animationFrameId !== null) {
+                        cancelAnimationFrame(animationFrameId)
+                    }
+
+                    animationFrameId = requestAnimationFrame(() => {
+                        updateSelectedTabPosition()
+                        animationFrameId = null
+                    })
                 }
             })
 
             if (tabListRef.current) {
-                tabList.observe(tabListRef.current)
+                tabListObserver.observe(tabListRef.current)
             }
 
             return function cleanupResizeObserver() {
-                tabList.disconnect()
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId)
+                }
+
+                tabListObserver.disconnect()
             }
         },
         [updateSelectedTabPosition],
