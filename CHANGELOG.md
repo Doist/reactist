@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.1.1](https://github.com/Doist/reactist/compare/v28.1.0...v28.1.1) (2025-04-22)
+
+
+### 🐛 Bug Fixes
+
+* **Tabs:** Add resize observer for dynamic tab selection adjustments ([#909](https://github.com/Doist/reactist/issues/909)) ([1c0e07c](https://github.com/Doist/reactist/commit/1c0e07c78d33faa442e44233ecc961533a9b1b25))
+
 ## [28.1.0](https://github.com/Doist/reactist/compare/v28.0.0...v28.1.0) (2025-04-17)
 
 
