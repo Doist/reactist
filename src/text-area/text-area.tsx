@@ -7,7 +7,18 @@ import styles from './text-area.module.css'
 
 interface TextAreaProps
     extends Omit<FieldComponentProps<HTMLTextAreaElement>, 'characterCountPosition'>,
-        Omit<BaseFieldVariantProps, 'supportsStartAndEndSlots' | 'endSlot' | 'endSlotPosition'> {
+        Omit<
+            BaseFieldVariantProps,
+            'supportsStartAndEndSlots' | 'endSlot' | 'endSlotPosition' | 'value'
+        > {
+    /**
+     * The value of the text area.
+     *
+     * If this prop is not specified, the text area will be uncontrolled and the component will
+     * manage its own state.
+     */
+    value?: string
+
     /**
      * The number of visible text lines for the text area.
      *
@@ -62,7 +73,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
     const internalRef = React.useRef<HTMLTextAreaElement>(null)
     const combinedRef = useMergeRefs([ref, internalRef])
 
-    useAutoExpand({ autoExpand, containerRef, internalRef })
+    useAutoExpand({ value, autoExpand, containerRef, internalRef })
 
     const textAreaClassName = classNames([
         autoExpand ? styles.disableResize : null,
@@ -114,16 +125,25 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
 })
 
 function useAutoExpand({
+    value,
     autoExpand,
     containerRef,
     internalRef,
 }: {
+    value: string | undefined
     autoExpand: boolean
     containerRef: React.RefObject<HTMLDivElement>
     internalRef: React.RefObject<HTMLTextAreaElement>
 }) {
+    const isControlled = value !== undefined
+
     React.useEffect(
-        function setupAutoExpand() {
+        function setupAutoExpandWhenUncontrolled() {
+            const textAreaElement = internalRef.current
+            if (!textAreaElement || !autoExpand || isControlled) {
+                return undefined
+            }
+
             const containerElement = containerRef.current
 
             function handleAutoExpand(value: string) {
@@ -136,18 +156,26 @@ function useAutoExpand({
                 handleAutoExpand((event.currentTarget as HTMLTextAreaElement).value)
             }
 
-            const textAreaElement = internalRef.current
-            if (!textAreaElement || !autoExpand) {
-                return undefined
-            }
-
             // Apply change initially, in case the text area has a non-empty initial value
             handleAutoExpand(textAreaElement.value)
-
             textAreaElement.addEventListener('input', handleInput)
             return () => textAreaElement.removeEventListener('input', handleInput)
         },
-        [autoExpand, containerRef, internalRef],
+        [autoExpand, containerRef, internalRef, isControlled],
+    )
+
+    React.useEffect(
+        function setupAutoExpandWhenControlled() {
+            if (!isControlled) {
+                return
+            }
+
+            const containerElement = containerRef.current
+            if (containerElement) {
+                containerElement.dataset.replicatedValue = value
+            }
+        },
+        [value, containerRef, isControlled],
     )
 }
 
