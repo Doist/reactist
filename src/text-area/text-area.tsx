@@ -62,38 +62,12 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
     const internalRef = React.useRef<HTMLTextAreaElement>(null)
     const combinedRef = useMergeRefs([ref, internalRef])
 
+    useAutoExpand({ autoExpand, containerRef, internalRef })
+
     const textAreaClassName = classNames([
         autoExpand ? styles.disableResize : null,
         disableResize ? styles.disableResize : null,
     ])
-
-    React.useEffect(
-        function setupAutoExpand() {
-            const containerElement = containerRef.current
-
-            function handleAutoExpand(value: string) {
-                if (containerElement) {
-                    containerElement.dataset.replicatedValue = value
-                }
-            }
-
-            function handleInput(event: Event) {
-                handleAutoExpand((event.currentTarget as HTMLTextAreaElement).value)
-            }
-
-            const textAreaElement = internalRef.current
-            if (!textAreaElement || !autoExpand) {
-                return undefined
-            }
-
-            // Apply change initially, in case the text area has a non-empty initial value
-            handleAutoExpand(textAreaElement.value)
-
-            textAreaElement.addEventListener('input', handleInput)
-            return () => textAreaElement.removeEventListener('input', handleInput)
-        },
-        [autoExpand],
-    )
 
     return (
         <BaseField
@@ -138,6 +112,44 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
         </BaseField>
     )
 })
+
+function useAutoExpand({
+    autoExpand,
+    containerRef,
+    internalRef,
+}: {
+    autoExpand: boolean
+    containerRef: React.RefObject<HTMLDivElement>
+    internalRef: React.RefObject<HTMLTextAreaElement>
+}) {
+    React.useEffect(
+        function setupAutoExpand() {
+            const containerElement = containerRef.current
+
+            function handleAutoExpand(value: string) {
+                if (containerElement) {
+                    containerElement.dataset.replicatedValue = value
+                }
+            }
+
+            function handleInput(event: Event) {
+                handleAutoExpand((event.currentTarget as HTMLTextAreaElement).value)
+            }
+
+            const textAreaElement = internalRef.current
+            if (!textAreaElement || !autoExpand) {
+                return undefined
+            }
+
+            // Apply change initially, in case the text area has a non-empty initial value
+            handleAutoExpand(textAreaElement.value)
+
+            textAreaElement.addEventListener('input', handleInput)
+            return () => textAreaElement.removeEventListener('input', handleInput)
+        },
+        [autoExpand, containerRef, internalRef],
+    )
+}
 
 export { TextArea }
 export type { TextAreaProps }

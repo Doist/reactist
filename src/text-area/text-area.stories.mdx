@@ -1,5 +1,6 @@
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
 
+import { Box } from '../box'
 import { Stack } from '../stack'
 import { Text } from '../text'
 import { TextArea } from './'
@@ -182,21 +183,23 @@ Note that these variables are shared with other components such as `Textfield`, 
 </Canvas>
 
 export function AutoExpandStory(props) {
+    const [value, setValue] = React.useState('')
     return (
-        <Stack space="xxlarge" dividers="secondary" maxWidth="medium">
+        <Box maxWidth="small">
             <TextArea
-                {...props}
-                label="What do you want to accomplish?"
-                message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
+                label="Type something"
                 autoExpand
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                rows={1}
+                onKeyDown={(event) => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault()
+                        setValue('') // Clear the input programmatically
+                    }
+                }}
             />
-            <TextArea
-                {...props}
-                label="What do you want to accomplish?"
-                message="This one will not auto-expand."
-                autoExpand={false}
-            />
-        </Stack>
+        </Box>
     )
 }
 
