@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.1.2](https://github.com/Doist/reactist/compare/v28.1.1...v28.1.2) (2025-04-30)
+
+
+### 🐛 Bug Fixes
+
+* fix text area auto-expand when controlled ([#912](https://github.com/Doist/reactist/issues/912)) ([7d33744](https://github.com/Doist/reactist/commit/7d33744f6f0d05a739bd8a98a01ff055f21d121c))
+
 ## [28.1.1](https://github.com/Doist/reactist/compare/v28.1.0...v28.1.1) (2025-04-22)
 
 
