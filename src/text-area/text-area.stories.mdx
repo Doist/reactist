@@ -187,6 +187,7 @@ export function AutoExpandStory(props) {
     return (
         <Stack space="large" dividers="secondary" maxWidth="medium">
             <TextArea
+                {...props}
                 label="Text area with auto-expand"
                 auxiliaryLabel="(controlled)"
                 autoExpand
