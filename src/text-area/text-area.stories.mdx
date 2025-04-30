@@ -1,5 +1,6 @@
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
 
+import { Box } from '../box'
 import { Stack } from '../stack'
 import { Text } from '../text'
 import { TextArea } from './'
@@ -182,20 +183,30 @@ Note that these variables are shared with other components such as `Textfield`, 
 </Canvas>
 
 export function AutoExpandStory(props) {
+    const [value, setValue] = React.useState('')
     return (
-        <Stack space="xxlarge" dividers="secondary" maxWidth="medium">
+        <Stack space="large" dividers="secondary" maxWidth="medium">
             <TextArea
                 {...props}
-                label="What do you want to accomplish?"
-                message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
+                label="Text area with auto-expand"
+                auxiliaryLabel="(controlled)"
                 autoExpand
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
+                rows={1}
+                onKeyDown={(event) => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault()
+                        setValue('') // Clear the input programmatically
+                    }
+                }}
             />
-            <TextArea
-                {...props}
-                label="What do you want to accomplish?"
-                message="This one will not auto-expand."
-                autoExpand={false}
-            />
+            <Text size="caption" tone="secondary">
+                If you press Enter, the input will be cleared. This allows you to test that
+                auto-expand works when the input is cleared programmatically, shrinking the textarea
+                to the new expected height.
+            </Text>
         </Stack>
     )
 }
@@ -252,26 +263,12 @@ export function AutoExpandStory(props) {
 export function AutoExpandWithInitialValueStory(props) {
     const initialValue =
         'This is some text that takes up multiple lines. It should cause the textarea to render initially as large as needed to fit this text, even if its initial rows are not enough.'
-    const [value, setValue] = React.useState(initialValue)
     return (
         <Stack space="xxlarge" dividers="secondary" maxWidth="medium">
             <TextArea
                 {...props}
-                label="What do you want to accomplish?"
-                auxiliaryLabel={
-                    <Text tone="secondary" size="caption">
-                        {value.length}
-                    </Text>
-                }
-                message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
-                value={value}
-                onChange={(event) => setValue(event.target.value)}
-                rows={1}
-                autoExpand
-            />
-            <TextArea
-                {...props}
-                label="What do you want to accomplish?"
+                label="Text area with auto-expand and initial value"
+                auxiliaryLabel="(uncontrolled)"
                 message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
                 defaultValue={initialValue}
                 rows={1}
