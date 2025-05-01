@@ -124,6 +124,25 @@ describe('useToast', () => {
         expect(within(screen.getByRole('alert')).getByTestId('test-icon')).toBeInTheDocument()
     })
 
+    it('allows to keep the toast after the action is performed if showStickyToast is true', () => {
+        const actionFn = jest.fn()
+        const { showToast } = renderTestCase()
+        showToast({
+            action: { label: 'A sticky toast action', onClick: actionFn },
+            showStickyToast: true,
+        })
+        expect(actionFn).not.toHaveBeenCalled()
+        userEvent.click(
+            within(screen.getByRole('alert')).getByRole('button', {
+                name: 'A sticky toast action',
+            }),
+        )
+        expect(actionFn).toHaveBeenCalledTimes(1)
+
+        // showStickyToast has kept it in view
+        expect(screen.getByRole('alert')).toBeInTheDocument()
+    })
+
     describe('Dismiss button', () => {
         it('is rendered with a default label', () => {
             const { showToast } = renderTestCase()

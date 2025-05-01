@@ -88,10 +88,26 @@ export function NotificationToastsStory() {
                         >
                             Show toast with action
                         </Button>
+                        <Button
+                            variant="primary"
+                            onClick={() => {
+                                const actionLabel = getRandom(actions)
+                                showToast({
+                                    message: `${count.current++}: ${getRandom(message)}`,
+                                    action: {
+                                        label: actionLabel,
+                                        onClick: storybookAction(actionLabel),
+                                    },
+                                    showStickyToast: true,
+                                })
+                            }}
+                        >
+                            Show sticky toast
+                        </Button>
                     </Inline>
                 </Box>
                 <SwitchField
-                    label="Show sticky toast?"
+                    label="Show sticky toast without hook?"
                     checked={showSticky}
                     onChange={(event) => setShowSticky(event.target.checked)}
                     message={

@@ -39,6 +39,17 @@ type ToastProps = StaticToastProps & {
      * dismiss the toast by calling the function returned by `showToast`.
      */
     showDismissButton?: boolean
+
+    /**
+     * Whether to keep the toast after the action is performed.
+     *
+     * Set this value to true if, in your particular case, it doesn't make sense for the confirm action to call
+     * onDismiss right after. If set to true, it is your responsibility to then close the toast after performing
+     * the confirm action.
+     *
+     * @default false
+     */
+    showStickyToast?: boolean
 }
 
 //
@@ -64,6 +75,7 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
         toastId,
         onDismiss,
         onRemoveToast,
+        showStickyToast = false,
     },
     ref,
 ) {
@@ -115,10 +127,13 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
                 }
 
                 action.onClick()
-                removeToast()
+
+                if (!showStickyToast) {
+                    removeToast()
+                }
             },
         }
-    }, [action, removeToast])
+    }, [action, removeToast, showStickyToast])
 
     return (
         <StaticToast
