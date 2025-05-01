@@ -97,17 +97,17 @@ export function NotificationToastsStory() {
                                     action: {
                                         label: actionLabel,
                                         onClick: storybookAction(actionLabel),
+                                        closeToast: false,
                                     },
-                                    showStickyToast: true,
                                 })
                             }}
                         >
-                            Show sticky toast
+                            Show toast without closing on action
                         </Button>
                     </Inline>
                 </Box>
                 <SwitchField
-                    label="Show sticky toast without hook?"
+                    label="Show sticky toast?"
                     checked={showSticky}
                     onChange={(event) => setShowSticky(event.target.checked)}
                     message={
