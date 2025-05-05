@@ -88,6 +88,22 @@ export function NotificationToastsStory() {
                         >
                             Show toast with action
                         </Button>
+                        <Button
+                            variant="primary"
+                            onClick={() => {
+                                const actionLabel = getRandom(actions)
+                                showToast({
+                                    message: `${count.current++}: ${getRandom(message)}`,
+                                    action: {
+                                        label: actionLabel,
+                                        onClick: storybookAction(actionLabel),
+                                        closeToast: false,
+                                    },
+                                })
+                            }}
+                        >
+                            Show toast without closing on action
+                        </Button>
                     </Inline>
                 </Box>
                 <SwitchField

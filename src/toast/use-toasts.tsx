@@ -109,13 +109,17 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
 
         return {
             ...action,
+            closeToast: action.closeToast ?? true,
             onClick: function handleActionClick() {
                 if (!action) {
                     return
                 }
 
                 action.onClick()
-                removeToast()
+
+                if (action.closeToast ?? true) {
+                    removeToast()
+                }
             },
         }
     }, [action, removeToast])
