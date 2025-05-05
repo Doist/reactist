@@ -124,22 +124,45 @@ describe('useToast', () => {
         expect(within(screen.getByRole('alert')).getByTestId('test-icon')).toBeInTheDocument()
     })
 
-    it('allows to keep the toast after the action is performed if closeToast is false', () => {
-        const actionFn = jest.fn()
-        const { showToast } = renderTestCase()
-        showToast({
-            action: { label: 'A sticky toast action', onClick: actionFn, closeToast: false },
-        })
-        expect(actionFn).not.toHaveBeenCalled()
-        userEvent.click(
-            within(screen.getByRole('alert')).getByRole('button', {
-                name: 'A sticky toast action',
-            }),
-        )
-        expect(actionFn).toHaveBeenCalledTimes(1)
+    describe('if `closeToast` is false', () => {
+        it('keeps the toast visible after the action button is clicked', () => {
+            const actionFn = jest.fn()
+            const { showToast } = renderTestCase()
+            showToast({
+                action: { label: 'A sticky toast action', onClick: actionFn, closeToast: false },
+            })
+            expect(actionFn).not.toHaveBeenCalled()
+            userEvent.click(
+                within(screen.getByRole('alert')).getByRole('button', {
+                    name: 'A sticky toast action',
+                }),
+            )
+            expect(actionFn).toHaveBeenCalledTimes(1)
 
-        // closeToast has kept it in view
-        expect(screen.getByRole('alert')).toBeInTheDocument()
+            // closeToast has kept it in view
+            expect(screen.getByRole('alert')).toBeInTheDocument()
+        })
+    })
+
+    describe('if `closeToast` is true', () => {
+        it('removes the toast from view after the action button is clicked', async () => {
+            const actionFn = jest.fn()
+            const { showToast } = renderTestCase()
+            showToast({
+                action: { label: 'A sticky toast action', onClick: actionFn },
+            })
+            expect(actionFn).not.toHaveBeenCalled()
+            userEvent.click(
+                within(screen.getByRole('alert')).getByRole('button', {
+                    name: 'A sticky toast action',
+                }),
+            )
+            expect(actionFn).toHaveBeenCalledTimes(1)
+
+            await waitFor(() => {
+                expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+            })
+        })
     })
 
     describe('Dismiss button', () => {
