@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.2.0](https://github.com/Doist/reactist/compare/v28.1.2...v28.2.0) (2025-05-05)
+
+
+### 🚀 Features
+
+* Expose closeToast in useToasts hook action object ([#914](https://github.com/Doist/reactist/issues/914)) ([7dad313](https://github.com/Doist/reactist/commit/7dad31302e314a6c73ad85e50b2a8bb947b39f5a))
+
 ## [28.1.2](https://github.com/Doist/reactist/compare/v28.1.1...v28.1.2) (2025-04-30)
 
 
