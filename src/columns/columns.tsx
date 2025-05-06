@@ -75,6 +75,7 @@ const Columns = polymorphicComponent<'div', ColumnsProps>(function Columns(
     // You can see that the fact that `space` is a composite type (i.e. mobile: '...', table: '...')
     // triggers the issue
     // Everything works fine if `space` is a simple string like 'medium' (not composite)
+    // eslint-disable-next-line no-console
     console.log('className', getClassNames(styles, 'container', space))
 
     return (
