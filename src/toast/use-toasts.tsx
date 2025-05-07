@@ -67,18 +67,7 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
     },
     ref,
 ) {
-    const [timeoutRunning, setTimeoutRunning] = React.useState(Boolean(autoDismissDelay))
     const timeoutRef = React.useRef<number | undefined>()
-
-    const startTimeout = React.useCallback(function startTimeout() {
-        setTimeoutRunning(true)
-    }, [])
-
-    const stopTimeout = React.useCallback(function stopTimeout() {
-        setTimeoutRunning(false)
-        clearTimeout(timeoutRef.current)
-        timeoutRef.current = undefined
-    }, [])
 
     const removeToast = React.useCallback(
         function removeToast() {
@@ -88,13 +77,27 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
         [onDismiss, onRemoveToast, toastId],
     )
 
+    const startTimeout = React.useCallback(
+        function startTimeout() {
+            if (!autoDismissDelay) return
+            timeoutRef.current = window.setTimeout(removeToast, autoDismissDelay * 1000)
+        },
+        [autoDismissDelay, removeToast],
+    )
+
+    const stopTimeout = React.useCallback(function stopTimeout() {
+        clearTimeout(timeoutRef.current)
+        timeoutRef.current = undefined
+    }, [])
+
     React.useEffect(
         function setupAutoDismiss() {
-            if (!timeoutRunning || !autoDismissDelay) return
-            timeoutRef.current = window.setTimeout(removeToast, autoDismissDelay * 1000)
+            stopTimeout()
+            startTimeout()
+
             return stopTimeout
         },
-        [autoDismissDelay, removeToast, stopTimeout, timeoutRunning],
+        [startTimeout, stopTimeout],
     )
 
     /**
