@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.2.1](https://github.com/Doist/reactist/compare/v28.2.0...v28.2.1) (2025-05-09)
+
+
+### 🐛 Bug Fixes
+
+* Toasts can be auto-dismissed when concurrent mode is enabled ([#918](https://github.com/Doist/reactist/issues/918)) ([e10ef2a](https://github.com/Doist/reactist/commit/e10ef2a07d6fb95c80388c15c2eff50abaf25a52))
+
 ## [28.2.0](https://github.com/Doist/reactist/compare/v28.1.2...v28.2.0) (2025-05-05)
 
 
