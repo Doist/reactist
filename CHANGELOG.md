@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.2.2](https://github.com/Doist/reactist/compare/v28.2.1...v28.2.2) (2025-05-20)
+
+
+### 🧰 Maintenance
+
+* **deps:** bump terser from 4.7.0 to 4.8.1 ([#674](https://github.com/Doist/reactist/issues/674)) ([eb7797c](https://github.com/Doist/reactist/commit/eb7797c48aade80004af352945cf3f02d4078f91))
+
 ## [28.2.1](https://github.com/Doist/reactist/compare/v28.2.0...v28.2.1) (2025-05-09)
 
 
