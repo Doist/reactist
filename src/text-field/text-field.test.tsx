@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { render, screen } from '@testing-library/react'
-import { TextField } from './'
+import { TextField, TextFieldProps } from './'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
@@ -245,6 +245,39 @@ describe('TextField', () => {
 
             expect(results).toHaveNoViolations()
         })
+    })
+
+    describe('endSlotPosition', () => {
+        test.each<TextFieldProps['endSlotPosition']>(['bottom', 'fullHeight', undefined])(
+            'renders the end slot for default variant when endSlotPosition is %s',
+            (endSlotPosition) => {
+                render(
+                    <TextField
+                        label="Whatʼs your name?"
+                        maxLength={30}
+                        endSlot="Kwijibo"
+                        endSlotPosition={endSlotPosition}
+                    />,
+                )
+                expect(screen.getByText('Kwijibo')).toBeInTheDocument()
+            },
+        )
+
+        test.each<TextFieldProps['endSlotPosition']>(['bottom', 'fullHeight', undefined])(
+            'renders the end slot for bordered variant when endSlotPosition is %s',
+            (endSlotPosition) => {
+                render(
+                    <TextField
+                        label="Whatʼs your name?"
+                        maxLength={30}
+                        endSlot="Kwijibo"
+                        endSlotPosition={endSlotPosition}
+                        variant="bordered"
+                    />,
+                )
+                expect(screen.getByText('Kwijibo')).toBeInTheDocument()
+            },
+        )
     })
 
     describe('character count', () => {

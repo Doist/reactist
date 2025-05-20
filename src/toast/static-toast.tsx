@@ -11,6 +11,7 @@ import styles from './toast.module.css'
 type ToastActionObject = {
     label: string
     onClick: () => void
+    closeToast?: boolean
 }
 
 type StaticToastProps = {

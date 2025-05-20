@@ -4,7 +4,7 @@ import { TextField } from './'
 import { Box } from '../box'
 import { Stack } from '../stack'
 import { Text } from '../text'
-import { Button } from '../button'
+import { Button, IconButton } from '../button'
 import { Tooltip } from '../tooltip'
 
 import { selectWithNone } from '../utils/storybook-helper'
@@ -129,6 +129,16 @@ export function InteractivePropsStory({
             readOnly: {
                 control: { type: 'boolean' },
                 defaultValue: false,
+            },
+            characterCountPosition: {
+                options: [undefined, 'hidden', 'inline', 'below'],
+                control: { type: 'inline-radio' },
+                defaultValue: undefined,
+            },
+            endSlotPosition: {
+                options: [undefined, 'bottom', 'fullHeight'],
+                control: { type: 'inline-radio' },
+                defaultValue: undefined,
             },
         }}
     >
@@ -256,7 +266,7 @@ export function ClearButtonIcon() {
 export function ClearButtonExample({ slot }) {
     const [value, setValue] = React.useState('')
     const clearButton = (
-        <Button
+        <IconButton
             variant="quaternary"
             icon={<ClearButtonIcon />}
             aria-label="Clear search"
@@ -322,6 +332,38 @@ Hence, the description is never needed when the field is not focused anyway.
 <Canvas withToolbar>
     <Story name="With tooltip">
         <WithTooltipExample />
+    </Story>
+</Canvas>
+
+## Variants
+
+The `variant` prop is used to change the style of the text field. The default variant is `default`. The other variant is `bordered`.
+
+export function WithBorderedExample() {
+    return (
+        <TextField label="Company name" placeholder="Text field with a border" variant="bordered" />
+    )
+}
+
+export function WithBorderedAndEndSlotExample({ endSlotPosition = 'fullHeight' } = {}) {
+    return (
+        <TextField
+            label="Company name"
+            placeholder="Text field with a border and end slot"
+            variant="bordered"
+            endSlot={<IconButton variant="primary" icon="😄" aria-label="Say cheese!" />}
+            endSlotPosition={endSlotPosition}
+        />
+    )
+}
+
+<Canvas withToolbar>
+    <Story name="Bordered variant">
+        <Stack space="xxlarge" dividers="secondary">
+            <WithBorderedExample />
+            <WithBorderedAndEndSlotExample />
+            <WithBorderedAndEndSlotExample endSlotPosition="bottom" />
+        </Stack>
     </Story>
 </Canvas>
 

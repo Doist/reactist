@@ -1,21 +1,37 @@
 :root {
-    --reactist-tab-themed-background: var(--reactist-bg-default);
-    --reactist-tab-themed-foreground: #006f85;
-    --reactist-tab-themed-unselected: #006f85;
+    --reactist-tab-themed-selected-tint: #006f85;
+    --reactist-tab-themed-selected-fill: var(--reactist-bg-default);
+    --reactist-tab-themed-unselected-tint: #006f85;
+    --reactist-tab-themed-unselected-fill: transparent;
+    --reactist-tab-themed-hover-tint: #006f85;
+    --reactist-tab-themed-hover-fill: transparent;
+    --reactist-tab-themed-disabled-tint: #006f85;
+    --reactist-tab-themed-disabled-fill: transparent;
     --reactist-tab-themed-track: rgb(242, 246, 247);
     --reactist-tab-themed-border: var(--reactist-divider-secondary);
+    --reactist-tab-themed-shadow: none;
 
-    --reactist-tab-neutral-background: var(--reactist-bg-default);
-    --reactist-tab-neutral-foreground: var(--reactist-content-primary);
-    --reactist-tab-neutral-unselected: var(--reactist-content-tertiary);
+    --reactist-tab-neutral-selected-tint: var(--reactist-content-primary);
+    --reactist-tab-neutral-selected-fill: var(--reactist-bg-default);
+    --reactist-tab-neutral-unselected-tint: var(--reactist-content-tertiary);
+    --reactist-tab-neutral-unselected-fill: transparent;
+    --reactist-tab-neutral-hover-tint: var(--reactist-content-tertiary);
+    --reactist-tab-neutral-hover-fill: transparent;
+    --reactist-tab-neutral-disabled-tint: var(--reactist-content-tertiary);
+    --reactist-tab-neutral-disabled-fill: transparent;
     --reactist-tab-neutral-track: var(--reactist-framework-fill-selected);
     --reactist-tab-neutral-border: var(--reactist-divider-primary);
+    --reactist-tab-neutral-shadow: none;
 
+    --reactist-tab-track-border-radius: 20px;
     --reactist-tab-track-border-width: 2px;
+    --reactist-tab-selected-transition: none;
     --reactist-tab-border-radius: 20px;
     --reactist-tab-border-width: 1px;
     --reactist-tab-padding-x: var(--reactist-spacing-medium);
     --reactist-tab-padding-y: var(--reactist-spacing-small);
+    --reactist-tab-font-size: var(--reactist-font-size-body);
+    --reactist-tab-font-weight: var(--reactist-font-weight-medium);
     --reactist-tab-line-height: 21px;
 }
 
@@ -25,13 +41,17 @@
     border: none;
     background: none;
     cursor: pointer;
-    font-size: var(--reactist-font-size-body);
-    font-weight: var(--reactist-font-weight-medium);
+    font-size: var(--reactist-tab-font-size);
+    font-weight: var(--reactist-tab-font-weight);
     line-height: var(--reactist-tab-line-height);
     z-index: 1;
     text-decoration: none;
     border: var(--reactist-tab-border-width) solid transparent;
     border-radius: var(--reactist-tab-border-radius);
+}
+
+.fullTabList .tab {
+    flex: 1;
 }
 
 .track {
@@ -40,9 +60,19 @@
     right: calc(-1 * var(--reactist-tab-track-border-width));
     bottom: calc(-1 * var(--reactist-tab-track-border-width));
     left: calc(-1 * var(--reactist-tab-track-border-width));
-    border-radius: var(--reactist-tab-border-radius);
+    border-radius: var(--reactist-tab-track-border-radius);
     border-width: var(--reactist-tab-track-border-width);
     border-style: solid;
+}
+
+.selected {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    height: 100%;
+    border: var(--reactist-tab-border-width) solid transparent;
+    border-radius: var(--reactist-tab-border-radius);
+    transition: var(--reactist-tab-selected-transition);
 }
 
 /*
@@ -51,24 +81,45 @@
 
 .tab,
 .tab-neutral {
-    color: var(--reactist-tab-neutral-unselected);
+    background-color: var(--reactist-tab-neutral-unselected-fill);
+    color: var(--reactist-tab-neutral-unselected-tint);
 }
 
 .tab[aria-selected='true'],
 .tab-neutral[aria-selected='true'] {
-    background-color: var(--reactist-tab-neutral-background);
-    color: var(--reactist-tab-neutral-foreground);
-    border-color: var(--reactist-tab-neutral-border);
+    color: var(--reactist-tab-neutral-selected-tint);
+}
+
+.tab[aria-disabled='true'],
+.tab-neutral[aria-disabled='true'] {
+    background-color: var(--reactist-tab-neutral-disabled-fill);
+    color: var(--reactist-tab-neutral-disabled-tint);
+    cursor: not-allowed;
+}
+
+.tab[aria-selected='false']:not([aria-disabled='true']):hover,
+.tab-neutral[aria-selected='false']:not([aria-disabled='true']):hover {
+    background-color: var(--reactist-tab-neutral-hover-fill);
+    color: var(--reactist-tab-neutral-hover-tint);
 }
 
 .tab-themed {
-    color: var(--reactist-tab-themed-unselected);
+    background-color: var(--reactist-tab-themed-unselected-fill);
+    color: var(--reactist-tab-themed-unselected-tint);
 }
 
 .tab-themed[aria-selected='true'] {
-    background-color: var(--reactist-tab-themed-background);
-    color: var(--reactist-tab-themed-foreground);
-    border-color: var(--reactist-tab-themed-border);
+    color: var(--reactist-tab-themed-selected-tint);
+}
+
+.tab-themed[aria-disabled='true'] {
+    background-color: var(--reactist-tab-themed-disabled-fill);
+    color: var(--reactist-tab-themed-disabled-tint);
+}
+
+.tab-themed[aria-selected='false']:not([aria-disabled='true']):hover {
+    background-color: var(--reactist-tab-themed-hover-fill);
+    color: var(--reactist-tab-themed-hover-tint);
 }
 
 .track,
@@ -80,4 +131,17 @@
 .track-themed {
     background: var(--reactist-tab-themed-track);
     border-color: var(--reactist-tab-themed-track);
+}
+
+.selected,
+.selected-neutral {
+    background-color: var(--reactist-tab-neutral-selected-fill);
+    border-color: var(--reactist-tab-neutral-border);
+    box-shadow: var(--reactist-tab-neutral-shadow);
+}
+
+.selected-themed {
+    background-color: var(--reactist-tab-themed-selected-fill);
+    border-color: var(--reactist-tab-themed-border);
+    box-shadow: var(--reactist-tab-themed-shadow);
 }

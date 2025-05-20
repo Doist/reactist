@@ -127,28 +127,53 @@ export const Template = ({
 The following CSS custom properties are available so that the tabs' colors can be customized:
 
 ```
---reactist-tab-neutral-background
---reactist-tab-neutral-foreground
---reactist-tab-neutral-unselected
+--reactist-tab-neutral-selected-tint
+--reactist-tab-neutral-selected-fill
+--reactist-tab-neutral-unselected-tint
+--reactist-tab-neutral-unselected-fill
+--reactist-tab-neutral-hover-tint
+--reactist-tab-neutral-hover-fill
+--reactist-tab-neutral-disabled-tint
+--reactist-tab-neutral-disabled-fill
 --reactist-tab-neutral-track
 --reactist-tab-neutral-border
 
---reactist-tab-themed-background
---reactist-tab-themed-foreground
---reactist-tab-themed-unselected
+--reactist-tab-themed-selected-tint
+--reactist-tab-themed-selected-fill
+--reactist-tab-themed-unselected-tint
+--reactist-tab-themed-unselected-fill
+--reactist-tab-themed-hover-tint
+--reactist-tab-themed-hover-fill
+--reactist-tab-themed-disabled-tint
+--reactist-tab-themed-disabled-fill
 --reactist-tab-themed-track
 --reactist-tab-themed-border
 ```
 
-Their size can also be customized with:
+## Sizes
+
+The following CSS custom properties are available so that the tabs' sizes can be customized:
 
 ```
+--reactist-tab-track-border-radius
 --reactist-tab-track-border-width
 --reactist-tab-border-radius
 --reactist-tab-border-width
 --reactist-tab-padding-x
 --reactist-tab-padding-y
 --reactist-tab-line-height
+```
+
+## Other
+
+The following CSS custom properties are also available to customize other tabs' styles:
+
+```
+--reactist-tab-neutral-shadow
+
+--reactist-tab-themed-shadow
+
+--reactist-tab-selected-transition
 ```
 
 ## Stories
@@ -165,6 +190,102 @@ Their size can also be customized with:
         name="Themed variant"
     >
         {Template.bind({})}
+    </Story>
+</Canvas>
+
+### Full container width tabs
+
+<Canvas withToolbar>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Full container width tabs">
+        <Tabs>
+            <TabList aria-label="Full width tabs example" width="full">
+                <Tab id="tab1">Tab 1</Tab>
+                <Tab id="tab2">Tab 2</Tab>
+                <Tab id="tab3">Tab 3</Tab>
+            </TabList>
+            <TabPanel id="tab1">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 1</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab2">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 2</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab3">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 3</Text>
+                </Box>
+            </TabPanel>
+        </Tabs>
+    </Story>
+</Canvas>
+
+### Tabs aligned to the center
+
+<Canvas withToolbar>
+    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Tabs aligned to the center">
+        <Tabs>
+            <TabList aria-label="Full width tabs example" align="center">
+                <Tab id="tab1">Tab 1</Tab>
+                <Tab id="tab2">Tab 2</Tab>
+                <Tab id="tab3">Tab 3</Tab>
+            </TabList>
+            <TabPanel id="tab1">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 1</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab2">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 2</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab3">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 3</Text>
+                </Box>
+            </TabPanel>
+        </Tabs>
+    </Story>
+</Canvas>
+
+### Selected tab with slide animation
+
+<Canvas withToolbar>
+    <Story
+        parameters={{ docs: { source: { type: 'code' } } }}
+        name="Selected tab with slide animation"
+        style={{ border: '1px solid red' }}
+    >
+        <Tabs>
+            <style>
+                {
+                    '.transition { --reactist-tab-selected-transition: left 0.3s ease, width 0.3s ease; }'
+                }
+            </style>
+            <TabList aria-label="Full width tabs example" exceptionallySetClassName="transition">
+                <Tab id="tab1">Tab 1</Tab>
+                <Tab id="tab2">Tab 2</Tab>
+                <Tab id="tab3">Tab 3</Tab>
+            </TabList>
+            <TabPanel id="tab1">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 1</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab2">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 2</Text>
+                </Box>
+            </TabPanel>
+            <TabPanel id="tab3">
+                <Box paddingX="small" paddingY="xlarge">
+                    <Text>Content of tab 3</Text>
+                </Box>
+            </TabPanel>
+        </Tabs>
     </Story>
 </Canvas>
 

@@ -1,5 +1,108 @@
 # Changelog
 
+## [28.2.1](https://github.com/Doist/reactist/compare/v28.2.0...v28.2.1) (2025-05-09)
+
+
+### 🐛 Bug Fixes
+
+* Toasts can be auto-dismissed when concurrent mode is enabled ([#918](https://github.com/Doist/reactist/issues/918)) ([e10ef2a](https://github.com/Doist/reactist/commit/e10ef2a07d6fb95c80388c15c2eff50abaf25a52))
+
+## [28.2.0](https://github.com/Doist/reactist/compare/v28.1.2...v28.2.0) (2025-05-05)
+
+
+### 🚀 Features
+
+* Expose closeToast in useToasts hook action object ([#914](https://github.com/Doist/reactist/issues/914)) ([7dad313](https://github.com/Doist/reactist/commit/7dad31302e314a6c73ad85e50b2a8bb947b39f5a))
+
+## [28.1.2](https://github.com/Doist/reactist/compare/v28.1.1...v28.1.2) (2025-04-30)
+
+
+### 🐛 Bug Fixes
+
+* fix text area auto-expand when controlled ([#912](https://github.com/Doist/reactist/issues/912)) ([7d33744](https://github.com/Doist/reactist/commit/7d33744f6f0d05a739bd8a98a01ff055f21d121c))
+
+## [28.1.1](https://github.com/Doist/reactist/compare/v28.1.0...v28.1.1) (2025-04-22)
+
+
+### 🐛 Bug Fixes
+
+* **Tabs:** Add resize observer for dynamic tab selection adjustments ([#909](https://github.com/Doist/reactist/issues/909)) ([1c0e07c](https://github.com/Doist/reactist/commit/1c0e07c78d33faa442e44233ecc961533a9b1b25))
+
+## [28.1.0](https://github.com/Doist/reactist/compare/v28.0.0...v28.1.0) (2025-04-17)
+
+
+### 🚀 Features
+
+* Support tab font customization and fix hover style on disabled tabs ([#907](https://github.com/Doist/reactist/issues/907)) ([dc50f5b](https://github.com/Doist/reactist/commit/dc50f5b268ee5b1c322c7fc0011e36bbffba2712))
+
+## [28.0.0](https://github.com/Doist/reactist/compare/v27.5.0...v28.0.0) (2025-04-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **Tabs:** Add support for additional customization settings ([#903](https://github.com/Doist/reactist/issues/903))
+
+### 🚀 Features
+
+* **Tabs:** Add support for additional customization settings ([#903](https://github.com/Doist/reactist/issues/903)) ([7f60d81](https://github.com/Doist/reactist/commit/7f60d81ed41b1b94a3f0d36501eb769258cfa775))
+
+## [27.5.0](https://github.com/Doist/reactist/compare/v27.4.0...v27.5.0) (2025-03-12)
+
+
+### 🚀 Features
+
+* Allow positional placement of `endSlot` in `TextField` ([#899](https://github.com/Doist/reactist/issues/899)) ([abb4520](https://github.com/Doist/reactist/commit/abb4520b0688cf462d556d30d49ef164fad20bf4))
+
+## [27.4.0](https://github.com/Doist/reactist/compare/v27.3.6...v27.4.0) (2025-02-19)
+
+
+### 🚀 Features
+
+* **TextLink:** Add color and underline styling options ([#897](https://github.com/Doist/reactist/issues/897)) ([03017a8](https://github.com/Doist/reactist/commit/03017a86c17e43fda2e5438a3a32a8cd87cc8ff6))
+
+## [27.3.6](https://github.com/Doist/reactist/compare/v27.3.5...v27.3.6) (2025-02-05)
+
+
+### 🧰 Maintenance
+
+* bump deploy-pages action to v4 ([#895](https://github.com/Doist/reactist/issues/895)) ([98e68f1](https://github.com/Doist/reactist/commit/98e68f1e03bdae3642ae19f606b4a8d3b597efef))
+
+## [27.3.5](https://github.com/Doist/reactist/compare/v27.3.4...v27.3.5) (2025-02-05)
+
+
+### 🧰 Maintenance
+
+* allow publish workflow to run from workflow_dispatch event ([#894](https://github.com/Doist/reactist/issues/894)) ([4204756](https://github.com/Doist/reactist/commit/4204756505e4f9c2e679e69b9f3872251a9077d7))
+* fix version of upload-pages-artifact action ([#892](https://github.com/Doist/reactist/issues/892)) ([d9dba34](https://github.com/Doist/reactist/commit/d9dba34f2d66ad283372880e7b957b3384bcf98e))
+
+## [27.3.4](https://github.com/Doist/reactist/compare/v27.3.3...v27.3.4) (2025-02-05)
+
+
+### 🧰 Maintenance
+
+* add permissions to dispatch workflows in release-please ([#890](https://github.com/Doist/reactist/issues/890)) ([6509b01](https://github.com/Doist/reactist/commit/6509b01fdb5262b30019be598569eb9e8a8b01cf))
+
+## [27.3.3](https://github.com/Doist/reactist/compare/v27.3.2...v27.3.3) (2025-02-05)
+
+
+### 🧰 Maintenance
+
+* debug GH API 404 error ([#888](https://github.com/Doist/reactist/issues/888)) ([690676d](https://github.com/Doist/reactist/commit/690676d58db401f88ace4a4de8e1d8d67264355c))
+
+## [27.3.2](https://github.com/Doist/reactist/compare/v27.3.1...v27.3.2) (2025-02-05)
+
+
+### 🧰 Maintenance
+
+* enhance release workflow with automatic deployment triggers ([#886](https://github.com/Doist/reactist/issues/886)) ([d32d336](https://github.com/Doist/reactist/commit/d32d336d3657553dc2defe140b0002acdcbcea6c))
+
+## [27.3.1](https://github.com/Doist/reactist/compare/v27.3.0...v27.3.1) (2025-02-05)
+
+
+### 🧰 Maintenance
+
+* update Storybook deployment action to v4 ([#885](https://github.com/Doist/reactist/issues/885)) ([e8d57f3](https://github.com/Doist/reactist/commit/e8d57f3697c78e35f0304db69f10b42a7d5f5a4a))
+
 ## [27.3.0](https://github.com/Doist/reactist/compare/v27.2.2...v27.3.0) (2025-01-31)
 
 
