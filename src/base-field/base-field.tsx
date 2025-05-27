@@ -268,14 +268,12 @@ function BaseField({
 
     const ariaDescribedBy = originalAriaDescribedBy ?? (message ? messageId : null)
 
-    /**
-     * Renders the character count element.
-     * If the characterCountPosition value is 'hidden', it returns null.
-     */
+    const renderCharacterCountBelow = characterCountPosition === 'below' && characterCount !== null
+    const renderCharacterCountInline =
+        characterCountPosition === 'inline' && characterCount !== null
+
     function renderCharacterCount() {
-        return characterCountPosition !== 'hidden' ? (
-            <FieldCharacterCount tone={characterCountTone}>{characterCount}</FieldCharacterCount>
-        ) : null
+        return <FieldCharacterCount tone={characterCountTone}>{characterCount}</FieldCharacterCount>
     }
 
     const childrenProps: ChildrenRenderProps = {
@@ -297,7 +295,7 @@ function BaseField({
             setCharacterCountTone(inputLength.tone)
         },
         // If the character count is inline, we pass it as a prop to the children element so it can be rendered inline
-        characterCountElement: characterCountPosition === 'inline' ? renderCharacterCount() : null,
+        characterCountElement: renderCharacterCountInline ? renderCharacterCount() : null,
     }
 
     React.useEffect(
@@ -360,7 +358,7 @@ function BaseField({
                 {endSlot && endSlotPosition === 'fullHeight' ? endSlot : null}
             </Box>
 
-            {message || characterCount ? (
+            {message || renderCharacterCountBelow ? (
                 <Columns align="right" space="small" maxWidth={maxWidth}>
                     {message ? (
                         <Column width="auto">
