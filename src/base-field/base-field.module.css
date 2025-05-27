@@ -1,10 +1,15 @@
+:root {
+    --reactist-field-label-padding-bottom: var(--reactist-spacing-small);
+    --reactist-field-label-line-height: inherit;
+}
 .container {
     font-family: var(--reactist-font-family);
 }
 
 .container label,
 .container .auxiliaryLabel {
-    padding-bottom: var(--reactist-spacing-small);
+    padding-bottom: var(--reactist-field-label-padding-bottom);
+    line-height: var(--reactist-field-label-line-height);
 }
 
 .container.bordered {
