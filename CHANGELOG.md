@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.3.1](https://github.com/Doist/reactist/compare/v28.3.0...v28.3.1) (2025-05-27)
+
+
+### 🐛 Bug Fixes
+
+* **base-field:** Don't unnecessarily render container below BaseField children ([#926](https://github.com/Doist/reactist/issues/926)) ([5e5bf39](https://github.com/Doist/reactist/commit/5e5bf39ca994e6861c26e242928add2ff0c2a2f5))
+
 ## [28.3.0](https://github.com/Doist/reactist/compare/v28.2.2...v28.3.0) (2025-05-27)
 
 
