@@ -1,5 +1,17 @@
 # Changelog
 
+## [28.3.0](https://github.com/Doist/reactist/compare/v28.2.2...v28.3.0) (2025-05-27)
+
+
+### 🚀 Features
+
+* **base-field:** Add CSS props for customizing label line-height and padding-bottom ([#925](https://github.com/Doist/reactist/issues/925)) ([12e99fd](https://github.com/Doist/reactist/commit/12e99fd673107c390952a5d375f692226ff4b5d9))
+
+
+### 🧰 Maintenance
+
+* Use approved versions of actions ([#923](https://github.com/Doist/reactist/issues/923)) ([680cac1](https://github.com/Doist/reactist/commit/680cac104b2e71835387c629b539681acb1ce54d))
+
 ## [28.2.2](https://github.com/Doist/reactist/compare/v28.2.1...v28.2.2) (2025-05-20)
 
 
