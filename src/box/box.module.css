@@ -3,7 +3,7 @@
     border: 0;
     margin: 0;
     padding: 0;
-    font-size: var(--reactist-font-size-body);
+    font-size: inherit;
     font-family: inherit;
     vertical-align: baseline;
     background-color: transparent;
