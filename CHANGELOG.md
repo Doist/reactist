@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.3.2](https://github.com/Doist/reactist/compare/v28.3.1...v28.3.2) (2025-06-16)
+
+
+### 🐛 Bug Fixes
+
+* **Box:** Inherit `font-size` to prevent unintended typography overrides ([#928](https://github.com/Doist/reactist/issues/928)) ([1c2ea7a](https://github.com/Doist/reactist/commit/1c2ea7a6d189f1134efe9c8a06cbe403b99b08b5))
+
 ## [28.3.1](https://github.com/Doist/reactist/compare/v28.3.0...v28.3.1) (2025-05-27)
 
 
