@@ -4,6 +4,7 @@ import { Heading } from '../heading'
 import { Stack } from '../stack'
 
 import '../styles/design-tokens.css'
+import '../focus-ring/focus-ring.less'
 
 import type { BoxProps } from '../box'
 import type { Space } from './common-types'

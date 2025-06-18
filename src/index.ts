@@ -1,5 +1,7 @@
 import './styles/design-tokens.css'
 
+import './focus-ring/focus-ring.less'
+
 // layout components
 export * from './box'
 export * from './columns'

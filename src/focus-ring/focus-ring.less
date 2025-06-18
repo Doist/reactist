@@ -1,0 +1,299 @@
+/* Focus rings (aka focus indicators, focus markers, focus outlines, focus styles). */
+
+:root {
+    --reactist-focus-ring-color-inner: #1f60c2;
+    --reactist-focus-ring-color-outer: #dceaff;
+
+    --reactist-focus-ring-width-inner: 1px;
+    --reactist-focus-ring-width-outer: 4px;
+    --reactist-focus-ring-style: solid;
+
+    --reactist-focus-ring-inset__original: -1px;
+    --reactist-focus-ring-inset: var(--reactist-focus-ring-inset__original);
+
+    --reactist-focus-ring-border-radius: var(--reactist-border-radius-small);
+    --reactist-focus-ring-border-radius-modifier: 0px;
+}
+
+/* When an element implicitly handles its own focus ring */
+*:not([contenteditable], .reactist_no_focus_ring, .reactist_focus_ring_delegator) {
+    /* And the element has focus */
+    &:focus,
+    &:focus-visible {
+        position: relative;
+        overflow: visible;
+
+        /* Then apply focus ring styles */
+        &:before,
+        &:after {
+            border-radius: calc(
+                var(--reactist-focus-ring-border-radius) +
+                    var(--reactist-focus-ring-border-radius-modifier)
+            );
+            content: '';
+            position: absolute;
+        }
+        &:before {
+            inset: var(--reactist-focus-ring-inset);
+            outline: var(--reactist-focus-ring-width-outer) var(--reactist-focus-ring-style)
+                var(--reactist-focus-ring-color-outer);
+        }
+        &:after {
+            inset: var(--reactist-focus-ring-inset);
+            outline: var(--reactist-focus-ring-width-inner) var(--reactist-focus-ring-style)
+                var(--reactist-focus-ring-color-inner);
+        }
+    }
+}
+
+/* When an element explicitly handles its own focus ring */
+.reactist_focus_ring {
+    outline: none;
+    overflow: visible;
+
+    &:focus:before,
+    &:focus-visible:before,
+    &:focus-within:before {
+        border-radius: calc(
+            var(--reactist-focus-ring-border-radius) +
+                var(--reactist-focus-ring-border-radius-modifier)
+        );
+        content: '';
+        position: absolute;
+        inset: var(--reactist-focus-ring-inset);
+        outline: var(--reactist-focus-ring-width-outer) var(--reactist-focus-ring-style);
+    }
+
+    &:focus:after,
+    &:focus-visible:after,
+    &:focus-within:after {
+        border-radius: calc(
+            var(--reactist-focus-ring-border-radius) +
+                var(--reactist-focus-ring-border-radius-modifier)
+        );
+        content: '';
+        position: absolute;
+        inset: var(--reactist-focus-ring-inset);
+        outline: var(--reactist-focus-ring-width-inner) var(--reactist-focus-ring-style)
+            var(--reactist-focus-ring-color-inner);
+    }
+}
+
+/* When the element handles the focus ring on behalf of all descendants */
+.reactist_focus_ring_handler__all_descendants {
+    /* And the element doesn't have the opt-out style */
+    &:not(.reactist_no_focus_ring) {
+        /* And one of its descendants has focus, with the exception of contenteditable elements */
+        &:has(*:not([contenteditable]):focus),
+        &:has(*:not([contenteditable]):focus-visible) {
+            position: relative;
+            overflow: visible;
+
+            /* Then apply focus ring styles  */
+            &:before,
+            &:after {
+                border-radius: calc(
+                    var(--reactist-focus-ring-border-radius) +
+                        var(--reactist-focus-ring-border-radius-modifier)
+                );
+                content: '';
+                position: absolute;
+            }
+            &:before {
+                inset: var(--reactist-focus-ring-inset);
+                outline: var(--reactist-focus-ring-width-outer) var(--reactist-focus-ring-style)
+                    var(--reactist-focus-ring-color-outer);
+            }
+            &:after {
+                inset: var(--reactist-focus-ring-inset);
+                outline: var(--reactist-focus-ring-width-inner) var(--reactist-focus-ring-style)
+                    var(--reactist-focus-ring-color-inner);
+            }
+        }
+    }
+
+    /* Remove focus rings from all descendants */
+    * {
+        outline: none !important;
+
+        &:before,
+        &:after {
+            outline: none !important;
+        }
+    }
+}
+
+/* When the element handles the focus ring on behalf of direct descendants */
+.reactist_focus_ring_handler__direct_descendants {
+    /* And the element doesn't have the opt-out style */
+    &:not(.reactist_no_focus_ring) {
+        /* And one of its direct descendants has focus, with the exception of contenteditable elements */
+        &:has(> *:not([contenteditable]):focus),
+        &:has(> *:not([contenteditable]):focus-visible) {
+            position: relative;
+            overflow: visible;
+
+            /* Then apply focus ring styles */
+            &:before,
+            &:after {
+                border-radius: calc(
+                    var(--reactist-focus-ring-border-radius) +
+                        var(--reactist-focus-ring-border-radius-modifier)
+                );
+                content: '';
+                position: absolute;
+            }
+            &:before {
+                inset: var(--reactist-focus-ring-inset);
+                outline: var(--reactist-focus-ring-width-outer) var(--reactist-focus-ring-style)
+                    var(--reactist-focus-ring-color-outer);
+            }
+            &:after {
+                inset: var(--reactist-focus-ring-inset);
+                outline: var(--reactist-focus-ring-width-inner) var(--reactist-focus-ring-style)
+                    var(--reactist-focus-ring-color-inner);
+            }
+        }
+    }
+
+    /* Remove focus rings from direct descendants */
+    > * {
+        outline: none !important;
+
+        &:before,
+        &:after {
+            outline: none !important;
+        }
+    }
+}
+
+/* When the element handles the focus ring on behalf of delegated descendants */
+.reactist_focus_ring_handler__delegated_descendants {
+    /* And the element doesn't have the opt-out style */
+    &:not(.reactist_no_focus_ring) {
+        /* And one of its delegated descendents has focus, with the exception of contenteditable elements */
+        &:has(.reactist_focus_ring_delegator:not([contenteditable]):focus),
+        &:has(.reactist_focus_ring_delegator:not([contenteditable]):focus-visible),
+        &:has(.reactist_focus_ring_delegator:not([contenteditable]):focus-within) {
+            position: relative;
+            overflow: visible;
+
+            /* Then apply focus ring styles */
+            &:before,
+            &:after {
+                border-radius: calc(
+                    var(--reactist-focus-ring-border-radius) +
+                        var(--reactist-focus-ring-border-radius-modifier)
+                );
+                content: '';
+                position: absolute;
+            }
+            &:before {
+                inset: var(--reactist-focus-ring-inset);
+                outline: var(--reactist-focus-ring-width-outer) var(--reactist-focus-ring-style)
+                    var(--reactist-focus-ring-color-outer);
+            }
+            &:after {
+                inset: var(--reactist-focus-ring-inset);
+                outline: var(--reactist-focus-ring-width-inner) var(--reactist-focus-ring-style)
+                    var(--reactist-focus-ring-color-inner);
+            }
+        }
+    }
+    /* Remove focus rings from delegated descendants */
+    .reactist_focus_ring_delegator {
+        outline: none !important;
+
+        &:before,
+        &:after {
+            outline: none !important;
+        }
+    }
+}
+
+/* When the element handles the focus ring on behalf of next siblings */
+.reactist_focus_ring_handler__next_sibling {
+    /* And the element doesn't have the opt-out style */
+    &:not(.reactist_no_focus_ring) {
+        /* And its direct sibling  has focus, with the exception of contenteditable elements */
+        &:has(+ :not([contenteditable]):focus),
+        &:has(+ :not([contenteditable]):focus-visible),
+        &:has(+ :not([contenteditable]):focus-within) {
+            position: relative;
+            overflow: visible;
+
+            /* Then apply focus ring styles */
+            &:before,
+            &:after {
+                border-radius: calc(
+                    var(--reactist-focus-ring-border-radius) +
+                        var(--reactist-focus-ring-border-radius-modifier)
+                );
+                content: '';
+                position: absolute;
+            }
+            &:before {
+                inset: var(--reactist-focus-ring-inset);
+                outline: var(--reactist-focus-ring-width-outer) var(--reactist-focus-ring-style)
+                    var(--reactist-focus-ring-color-outer);
+            }
+            &:after {
+                inset: var(--reactist-focus-ring-inset);
+                outline: var(--reactist-focus-ring-width-inner) var(--reactist-focus-ring-style)
+                    var(--reactist-focus-ring-color-inner);
+            }
+        }
+    }
+
+    /* Remove focus rings from next siblings */
+    + * {
+        outline: none !important;
+
+        &:before,
+        &:after {
+            outline: none !important;
+        }
+    }
+}
+
+.reactist_no_focus_ring,
+.reactist_no_focus_ring * {
+    outline: none !important;
+}
+
+.reactist_focus_ring__offset_1px:before,
+.reactist_focus_ring__offset_1px:after {
+    --reactist-focus-ring-inset: calc(var(--reactist-focus-ring-inset__original) - 1px);
+    --reactist-focus-ring-border-radius-modifier: 1px;
+}
+
+.reactist_focus_ring__inset_1px:before,
+.reactist_focus_ring__inset_1px:after {
+    --reactist-focus-ring-inset: calc(var(--reactist-focus-ring-inset__original) + 1px);
+    --reactist-focus-ring-border-radius-modifier: -1px;
+}
+
+.reactist_focus_ring__inset_2px:before,
+.reactist_focus_ring__inset_2px:after {
+    --reactist-focus-ring-inset: calc(var(--reactist-focus-ring-inset__original) + 2px);
+    --reactist-focus-ring-border-radius-modifier: -1px;
+}
+
+.reactist_focus_ring__tone_error:after {
+    --reactist-focus-ring-color-inner: var(--reactist-inputs-alert);
+}
+
+.reactist_focus_ring__border_radius_standard:before,
+.reactist_focus_ring__border_radius_standard:after {
+    --reactist-focus-ring-border-radius: var(--reactist-border-radius-small);
+}
+
+.reactist_focus_ring__border_radius_large:before,
+.reactist_focus_ring__border_radius_large:after {
+    --reactist-focus-ring-border-radius: var(--reactist-border-radius-large);
+}
+
+.reactist_focus_ring__border_radius_full:before,
+.reactist_focus_ring__border_radius_full:after {
+    --reactist-focus-ring-border-radius: 10000px;
+}
