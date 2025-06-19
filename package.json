@@ -146,7 +146,8 @@
         "tsdx": "0.14.1",
         "tslib": "^2.0.0",
         "typescript": "^4.6.4",
-        "webpack": "^4.43.0"
+        "webpack": "^4.43.0",
+        "what-input": "5.2.12"
     },
     "dependencies": {
         "@ariakit/react": "0.4.5",

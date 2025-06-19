@@ -1,0 +1,10 @@
+/* Focus ring */
+html[data-whatinput='mouse'],
+html[data-whatintent='mouse'] {
+    /*--reactist-focus-ring-color-inner: transparent;*/
+    /*--reactist-focus-ring-color-outer: transparent;*/
+}
+
+*:focus-visible {
+    outline-color: transparent !important;
+}

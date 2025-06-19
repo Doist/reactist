@@ -5,6 +5,9 @@ import { Stack } from '../stack'
 
 import '../styles/design-tokens.css'
 import '../focus-ring/focus-ring.less'
+import './storybook.css'
+// what-input is used to disable focus rings when interacting with the mouse
+import 'what-input'
 
 import type { BoxProps } from '../box'
 import type { Space } from './common-types'
