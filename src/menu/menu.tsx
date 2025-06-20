@@ -169,7 +169,11 @@ const MenuList = React.forwardRef<HTMLDivElement, MenuListProps>(function MenuLi
                 gutter={8}
                 shift={4}
                 ref={ref}
-                className={classNames('reactist_menulist', exceptionallySetClassName)}
+                className={classNames(
+                    'reactist_menulist',
+                    'reactist_focus_ring_handler__all_descendants',
+                    exceptionallySetClassName,
+                )}
                 getAnchorRect={getAnchorRect ?? undefined}
                 modal={modal}
                 flip={flip ?? (isSubMenu ? 'left bottom' : undefined)}

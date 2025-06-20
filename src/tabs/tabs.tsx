@@ -105,7 +105,13 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(
     if (!tabContextValue) return null
 
     const { variant, tabStore } = tabContextValue
-    const className = classNames(exceptionallySetClassName, styles.tab, styles[`tab-${variant}`])
+    const className = classNames(
+        exceptionallySetClassName,
+        styles.tab,
+        styles[`tab-${variant}`],
+        // Remove focus ring as it's handled by the `selected` thumb
+        'reactist_no_focus_ring',
+    )
 
     return (
         <BaseTab
@@ -288,7 +294,12 @@ function TabList({
                 <Box className={[styles.track, styles[`track-${variant}`]]} />
                 {selectedTabElement ? (
                     <Box
-                        className={[styles.selected, styles[`selected-${variant}`]]}
+                        className={[
+                            styles.selected,
+                            styles[`selected-${variant}`],
+                            'reactist_focus_ring_handler__next_sibling',
+                            'reactist_focus_ring__inset_1px',
+                        ]}
                         style={selectedTabStyle}
                     />
                 ) : null}

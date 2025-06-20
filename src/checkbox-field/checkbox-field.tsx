@@ -103,34 +103,42 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
                 keyFocused ? styles.keyFocused : null,
             ]}
         >
-            <input
-                {...props}
-                ref={combinedRef}
-                type="checkbox"
-                aria-checked={indeterminate ? 'mixed' : isChecked}
-                checked={isChecked}
-                disabled={disabled}
-                onChange={(event) => {
-                    onChange?.(event)
-                    if (!event.defaultPrevented) {
-                        setChecked(event.currentTarget.checked)
-                    }
-                }}
-                onBlur={(event) => {
-                    setKeyFocused(false)
-                    props?.onBlur?.(event)
-                }}
-                onKeyUp={(event) => {
-                    setKeyFocused(true)
-                    props?.onKeyUp?.(event)
-                }}
-            />
-            <CheckboxIcon
-                checked={isChecked}
-                disabled={disabled}
-                indeterminate={indeterminate}
-                aria-hidden
-            />
+            <Box
+                className={[
+                    styles.focusRingContainer,
+                    'reactist_focus_ring_handler__delegated_descendants',
+                ]}
+            >
+                <CheckboxIcon
+                    checked={isChecked}
+                    disabled={disabled}
+                    indeterminate={indeterminate}
+                    aria-hidden
+                />
+                <input
+                    {...props}
+                    className="reactist_focus_ring_delegator"
+                    ref={combinedRef}
+                    type="checkbox"
+                    aria-checked={indeterminate ? 'mixed' : isChecked}
+                    checked={isChecked}
+                    disabled={disabled}
+                    onChange={(event) => {
+                        onChange?.(event)
+                        if (!event.defaultPrevented) {
+                            setChecked(event.currentTarget.checked)
+                        }
+                    }}
+                    onBlur={(event) => {
+                        setKeyFocused(false)
+                        props?.onBlur?.(event)
+                    }}
+                    onKeyUp={(event) => {
+                        setKeyFocused(true)
+                        props?.onKeyUp?.(event)
+                    }}
+                />
+            </Box>
             {icon ? (
                 <Box display="flex" className={styles.icon} aria-hidden>
                     {icon}

@@ -323,8 +323,15 @@ function BaseField({
                 className={[
                     className,
                     styles.container,
-                    tone === 'error' ? styles.error : null,
-                    variant === 'bordered' ? styles.bordered : null,
+                    ...(tone === 'error' ? [styles.error, 'reactist_focus_ring__tone_error'] : []),
+                    ...(variant === 'bordered'
+                        ? [
+                              styles.bordered,
+                              'reactist_focus_ring__inset_1px',
+                              'reactist_focus_ring__border_radius_large',
+                              'reactist_focus_ring_handler__delegated_descendants',
+                          ]
+                        : []),
                 ]}
                 maxWidth={maxWidth}
                 alignItems="center"
@@ -353,7 +360,17 @@ function BaseField({
                             ) : null}
                         </Box>
                     ) : null}
-                    {children(childrenProps)}
+                    <Box
+                        className={{
+                            reactist_focus_ring_handler__delegated_descendants:
+                                variant === 'default',
+                            reactist_focus_ring__tone_error: tone === 'error',
+                            reactist_focus_ring__inset_2px: true,
+                        }}
+                        borderRadius="standard"
+                    >
+                        {children(childrenProps)}
+                    </Box>
                 </Box>
                 {endSlot && endSlotPosition === 'fullHeight' ? endSlot : null}
             </Box>

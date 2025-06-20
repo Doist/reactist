@@ -38,8 +38,9 @@
     width: 16px;
 }
 
-.container.keyFocused svg {
-    border: 2px solid var(--reactist-actionable-primary-idle-fill);
+.focusRingContainer {
+    height: 24px;
+    width: 24px;
 }
 
 .icon {

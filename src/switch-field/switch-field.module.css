@@ -66,14 +66,3 @@
 .checked .toggle .handle {
     left: var(--tmp-slide-length);
 }
-
-.container.keyFocused .toggle:after {
-    border-radius: calc(var(--tmp-switch-height) + 8px / 2);
-    border: 2px solid var(--reactist-actionable-primary-idle-fill);
-    bottom: -4px;
-    content: '';
-    left: -4px;
-    position: absolute;
-    right: -4px;
-    top: -4px;
-}

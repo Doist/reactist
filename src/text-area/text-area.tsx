@@ -78,6 +78,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
     const textAreaClassName = classNames([
         autoExpand ? styles.disableResize : null,
         disableResize ? styles.disableResize : null,
+        'reactist_focus_ring_delegator',
     ])
 
     return (

@@ -68,7 +68,6 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
                     styles.container,
                     disabled ? styles.disabled : null,
                     isChecked ? styles.checked : null,
-                    keyFocused ? styles.keyFocused : null,
                 ]}
                 as="label"
                 display="flex"
@@ -80,7 +79,14 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
                     overflow="visible"
                     marginRight="small"
                     flexShrink={0}
-                    className={styles.toggle}
+                    className={[
+                        styles.toggle,
+                        {
+                            reactist_focus_ring_handler__all_descendants: keyFocused,
+                            reactist_focus_ring__inset_1px: keyFocused,
+                            reactist_focus_ring__border_radius_full: keyFocused,
+                        },
+                    ]}
                 >
                     <HiddenVisually>
                         <input

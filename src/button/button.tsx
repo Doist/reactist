@@ -167,6 +167,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
                 getBoxClassNames({ width }),
                 exceptionallySetClassName,
                 styles.baseButton,
+                'reactist_focus_ring',
+                'reactist_focus_ring__inset_1px',
                 styles[`variant-${variant}`],
                 styles[`tone-${tone}`],
                 styles[`size-${size}`],
@@ -256,6 +258,8 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function
             className={classNames([
                 exceptionallySetClassName,
                 styles.baseButton,
+                'reactist_focus_ring',
+                'reactist_focus_ring__inset_1px',
                 styles[`variant-${variant}`],
                 styles[`tone-${tone}`],
                 styles[`size-${size}`],

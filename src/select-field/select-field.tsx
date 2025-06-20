@@ -57,10 +57,8 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
                     <select
                         {...props}
                         {...extraProps}
+                        className="reactist_focus_ring_delegator"
                         ref={ref}
-                        onChange={(event) => {
-                            originalOnChange?.(event)
-                        }}
                     >
                         {children}
                     </select>

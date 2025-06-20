@@ -100,6 +100,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                     <input
                         {...props}
                         {...extraProps}
+                        className="reactist_focus_ring_delegator"
                         type={type}
                         ref={combinedRef}
                         maxLength={maxLength}

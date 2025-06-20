@@ -134,7 +134,12 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
             aria-live="polite"
             tabIndex={0}
             borderRadius="full"
-            className={styles.banner}
+            className={[
+                styles.banner,
+                'reactist_focus_ring',
+                'reactist_focus_ring__border_radius_large',
+                'reactist_focus_ring__inset_1px',
+            ]}
         >
             {image ? <Box className={styles.image}>{image}</Box> : null}
 

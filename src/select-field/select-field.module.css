@@ -1,6 +1,24 @@
 .selectWrapper {
     width: 100%;
     position: relative;
+    border-radius: var(--reactist-border-radius-small);
+    border: 1px solid transparent;
+}
+
+.selectWrapper:not(.bordered) {
+    border-color: var(--reactist-inputs-idle);
+}
+
+.selectWrapper:not(.bordered):hover {
+    border-color: var(--reactist-inputs-focus);
+}
+
+.selectWrapper:not(.bordered):focus-within {
+    border-color: var(--reactist-inputs-focus);
+}
+
+.selectWrapper:not(.bordered).error {
+    border-color: var(--reactist-inputs-alert) !important;
 }
 
 .selectWrapper.bordered select {
@@ -42,21 +60,13 @@
     width: 100%;
     color: var(--reactist-content-primary);
     background: none;
-    border-radius: var(--reactist-border-radius-small);
-    border: 1px solid var(--reactist-inputs-idle);
+    border: none;
+
     font-size: var(--reactist-font-size-body);
     line-height: calc(var(--reactist-font-size-body) + 4px);
     margin: 0;
 }
 
-.selectWrapper:not(.bordered).error select {
-    border-color: var(--reactist-inputs-alert) !important;
-}
-
 .selectWrapper:not(.bordered) option {
     background-color: var(--reactist-bg-aside);
-}
-
-.selectWrapper:not(.bordered) select:focus {
-    border-color: var(--reactist-inputs-focus);
 }

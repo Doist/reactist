@@ -36,6 +36,8 @@
 }
 
 .tab {
+    --reactist-focus-ring-border-radius: var(--reactist-tab-border-radius);
+
     box-sizing: border-box;
     padding: var(--reactist-tab-padding-y) var(--reactist-tab-padding-x);
     border: none;
@@ -66,7 +68,9 @@
 }
 
 .selected {
-    position: absolute;
+    --reactist-focus-ring-border-radius: var(--reactist-tab-border-radius);
+
+    position: absolute !important;
     z-index: 0;
     top: 0;
     height: 100%;
