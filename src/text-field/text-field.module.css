@@ -65,8 +65,6 @@
             ) / 2
     );
 
-    font-size: var(--reactist-font-size-body);
-    line-height: calc(var(--reactist-font-size-body) + 4px);
     margin: 0;
 }
 

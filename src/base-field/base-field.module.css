@@ -1,5 +1,5 @@
 :root {
-    --reactist-field-label-padding-bottom: var(--reactist-spacing-small);
+    --reactist-field-label-padding-bottom: 6px;
     --reactist-field-label-line-height: inherit;
 }
 .container {
@@ -54,6 +54,16 @@
 
 .container:not(.bordered) .auxiliaryLabel {
     font-size: var(--reactist-font-size-body);
+}
+
+.container input,
+.container textarea,
+.container select {
+    font-size: var(--reactist-font-size-body);
+    font-style: normal;
+    font-weight: var(--reactist-font-weight-regular);
+    line-height: calc(var(--reactist-font-size-body) + 7px);
+    letter-spacing: -0.15px;
 }
 
 .auxiliaryLabel {
