@@ -29,6 +29,10 @@
     height: var(--reactist-input-wrapper-height);
 }
 
+.inputWrapper:not(.bordered):hover {
+    border-color: var(--reactist-inputs-hover);
+}
+
 .inputWrapper:not(.bordered):focus-within {
     border-color: var(--reactist-inputs-focus);
 }
@@ -65,8 +69,6 @@
             ) / 2
     );
 
-    font-size: var(--reactist-font-size-body);
-    line-height: calc(var(--reactist-font-size-body) + 4px);
     margin: 0;
 }
 
