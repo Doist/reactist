@@ -15,6 +15,7 @@ import { IconButtonProps, IconButton } from '../button'
 import styles from './modal.module.css'
 import type { ObfuscatedClassName } from '../utils/common-types'
 import { forwardRef } from 'react'
+import type { DividerProps } from '../divider'
 
 type ModalWidth = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'full'
 type ModalHeightMode = 'expand' | 'fitContent'
@@ -26,11 +27,13 @@ type ModalHeightMode = 'expand' | 'fitContent'
 type ModalContextValue = {
     onDismiss?(this: void): void
     height: ModalHeightMode
+    dividers?: DividerProps['weight']
 }
 
 const ModalContext = React.createContext<ModalContextValue>({
     onDismiss: undefined,
     height: 'fitContent',
+    dividers: undefined,
 })
 
 //
@@ -80,6 +83,11 @@ export interface ModalProps extends DivProps, ObfuscatedClassName {
      * the inner layout to ensure scroll, or whatever other strategy you may want.
      */
     height?: ModalHeightMode
+
+    /**
+     * The weight to apply to all dividers rendered inside the modal.
+     */
+    dividers?: DividerProps['weight']
 
     /**
      * Whether to set or not the focus initially to the first focusable element inside the modal.
@@ -152,6 +160,7 @@ export function Modal({
     isOpen,
     onDismiss,
     height = 'fitContent',
+    dividers,
     width = 'medium',
     exceptionallySetClassName,
     exceptionallySetOverlayClassName,
@@ -175,9 +184,10 @@ export function Modal({
     )
     const store = useDialogStore({ open: isOpen, setOpen })
 
-    const contextValue: ModalContextValue = React.useMemo(() => ({ onDismiss, height }), [
+    const contextValue: ModalContextValue = React.useMemo(() => ({ onDismiss, height, dividers }), [
         onDismiss,
         height,
+        dividers,
     ])
 
     const portalRef = React.useRef<HTMLElement | null>(null)
@@ -378,6 +388,8 @@ export function ModalHeader({
     exceptionallySetClassName,
     ...props
 }: ModalHeaderProps) {
+    const { dividers } = React.useContext(ModalContext)
+
     return (
         <>
             <Box
@@ -407,7 +419,7 @@ export function ModalHeader({
                     )}
                 </Columns>
             </Box>
-            {withDivider ? <Divider /> : null}
+            {withDivider ? <Divider weight={dividers} /> : null}
         </>
     )
 }
@@ -484,9 +496,11 @@ export function ModalFooter({
     withDivider = false,
     ...props
 }: ModalFooterProps) {
+    const { dividers } = React.useContext(ModalContext)
+
     return (
         <>
-            {withDivider ? <Divider /> : null}
+            {withDivider ? <Divider weight={dividers} /> : null}
             <Box as="footer" {...props} className={exceptionallySetClassName} padding="large" />
         </>
     )
