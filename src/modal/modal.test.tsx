@@ -253,6 +253,16 @@ describe('ModalHeader', () => {
         rerender(<ModalHeader withDivider>Hello</ModalHeader>)
         expect(screen.getByRole('separator')).toBeInTheDocument()
     })
+
+    it('applies the dividerWeight prop to the divider', () => {
+        renderModal(
+            <Modal isOpen dividers="primary" aria-label="modal">
+                <ModalHeader withDivider>Header</ModalHeader>
+            </Modal>,
+        )
+        const divider = screen.getByRole('separator')
+        expect(divider).toHaveClass('weight-primary')
+    })
 })
 
 describe('ModalFooter', () => {
@@ -295,6 +305,16 @@ describe('ModalFooter', () => {
         expect(screen.queryByRole('separator')).not.toBeInTheDocument()
         rerender(<ModalFooter withDivider>Hello</ModalFooter>)
         expect(screen.getByRole('separator')).toBeInTheDocument()
+    })
+
+    it('applies the dividerWeight prop to the divider', () => {
+        renderModal(
+            <Modal isOpen dividers="primary" aria-label="modal">
+                <ModalFooter withDivider>Footer</ModalFooter>
+            </Modal>,
+        )
+        const divider = screen.getByRole('separator')
+        expect(divider).toHaveClass('weight-primary')
     })
 })
 
