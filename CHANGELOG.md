@@ -1,5 +1,17 @@
 # Changelog
 
+## [28.4.0](https://github.com/Doist/reactist/compare/v28.3.2...v28.4.0) (2025-06-23)
+
+
+### 🚀 Features
+
+* Add `dividers` prop to `Modal` to customize the weight for all dividers ([#932](https://github.com/Doist/reactist/issues/932)) ([d684e8e](https://github.com/Doist/reactist/commit/d684e8ec3d679494ab9e33232c6968f1952152ed))
+
+
+### 🐛 Bug Fixes
+
+* Update `BaseField` styling to match the form field spec ([#931](https://github.com/Doist/reactist/issues/931)) ([54d734f](https://github.com/Doist/reactist/commit/54d734f58503e125d62c322c12588605615e1eed))
+
 ## [28.3.2](https://github.com/Doist/reactist/compare/v28.3.1...v28.3.2) (2025-06-16)
 
 
