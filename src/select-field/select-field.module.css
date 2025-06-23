@@ -44,8 +44,6 @@
     background: none;
     border-radius: var(--reactist-border-radius-small);
     border: 1px solid var(--reactist-inputs-idle);
-    font-size: var(--reactist-font-size-body);
-    line-height: calc(var(--reactist-font-size-body) + 4px);
     margin: 0;
 }
 
@@ -55,6 +53,10 @@
 
 .selectWrapper:not(.bordered) option {
     background-color: var(--reactist-bg-aside);
+}
+
+.selectWrapper:not(.bordered) select:hover {
+    border-color: var(--reactist-inputs-hover);
 }
 
 .selectWrapper:not(.bordered) select:focus {

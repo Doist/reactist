@@ -1,9 +1,13 @@
 :root {
-    --reactist-field-label-padding-bottom: var(--reactist-spacing-small);
+    --reactist-field-label-padding-bottom: 6px;
     --reactist-field-label-line-height: inherit;
 }
 .container {
     font-family: var(--reactist-font-family);
+}
+
+.container label {
+    letter-spacing: -0.15px;
 }
 
 .container label,
@@ -32,6 +36,10 @@
     cursor: default;
 }
 
+.container.bordered:hover {
+    border-color: var(--reactist-inputs-hover) !important;
+}
+
 .container.bordered:focus-within {
     border-color: var(--reactist-inputs-focus) !important;
 }
@@ -54,6 +62,16 @@
 
 .container:not(.bordered) .auxiliaryLabel {
     font-size: var(--reactist-font-size-body);
+}
+
+.container input,
+.container textarea,
+.container select {
+    font-size: var(--reactist-font-size-body);
+    font-style: normal;
+    font-weight: var(--reactist-font-weight-regular);
+    line-height: calc(var(--reactist-font-size-body) + 7px);
+    letter-spacing: -0.15px;
 }
 
 .auxiliaryLabel {

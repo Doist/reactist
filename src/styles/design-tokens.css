@@ -56,6 +56,7 @@
     --reactist-divider-tertiary: #edf2f3;
 
     /* input border colors */
+    --reactist-inputs-hover: var(--reactist-divider-primary);
     --reactist-inputs-focus: var(--reactist-divider-primary);
     --reactist-inputs-idle: var(--reactist-divider-secondary);
     --reactist-inputs-alert: rgb(209, 69, 59);
