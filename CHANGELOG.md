@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.4.1](https://github.com/Doist/reactist/compare/v28.4.0...v28.4.1) (2025-06-26)
+
+
+### 🧰 Maintenance
+
+* **deps:** bump pbkdf2 from 3.0.17 to 3.1.3 ([#934](https://github.com/Doist/reactist/issues/934)) ([fa43bc8](https://github.com/Doist/reactist/commit/fa43bc81c119995e7d851271a59ddea46425fc7c))
+
 ## [28.4.0](https://github.com/Doist/reactist/compare/v28.3.2...v28.4.0) (2025-06-23)
 
 
