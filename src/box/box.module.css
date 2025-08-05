@@ -427,3 +427,37 @@ pre.box {
         text-align: justify;
     }
 }
+
+/* overlay scroll */
+.overlayScroll {
+    /* For modern browsers - reserve space for scrollbar */
+    scrollbar-gutter: stable;
+}
+
+/* Webkit-based browsers (Chrome, Safari, Edge) */
+.overlayScroll::-webkit-scrollbar {
+    width: var(--reactist-spacing-small);
+}
+
+.overlayScroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.overlayScroll::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: var(--reactist-border-radius-large);
+}
+
+.overlayScroll:hover::-webkit-scrollbar-thumb {
+    background-color: var(--reactist-scrollbar-thumb-idle);
+}
+
+/* Firefox */
+.overlayScroll {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
+.overlayScroll:hover {
+    scrollbar-color: var(--reactist-scrollbar-thumb-idle) transparent;
+}

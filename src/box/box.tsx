@@ -87,6 +87,11 @@ interface BoxProps extends WithEnhancedClassName, ReusableBoxProps, BoxMarginPro
     overflow?: BoxOverflow
     height?: 'full'
     textAlign?: ResponsiveProp<BoxTextAlign>
+    /**
+     * The `overlayScroll` prop enables a modern scrollbar experience where the scrollbar is hidden
+     * by default and appears on hover. This provides a cleaner interface while maintaining full scrollability.
+     */
+    overlayScroll?: boolean
 }
 
 function getBoxClassNames({
@@ -123,6 +128,7 @@ function getBoxClassNames({
     marginRight,
     marginBottom,
     marginLeft,
+    overlayScroll,
     className,
 }: BoxProps) {
     const resolvedPaddingTop = paddingTop ?? paddingY ?? padding
@@ -172,6 +178,7 @@ function getBoxClassNames({
         getClassNames(styles, 'bg', background),
         borderRadius !== 'none' ? getClassNames(styles, 'borderRadius', borderRadius) : null,
         border !== 'none' ? getClassNames(styles, 'border', border) : null,
+        overlayScroll ? styles.overlayScroll : null,
     )
 }
 
@@ -211,6 +218,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
         marginRight,
         marginBottom,
         marginLeft,
+        overlayScroll,
         className,
         children,
         ...props
@@ -255,6 +263,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
                 marginRight,
                 marginBottom,
                 marginLeft,
+                overlayScroll,
                 className,
             }),
             ref,

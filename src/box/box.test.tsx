@@ -93,6 +93,24 @@ describe('Box', () => {
         )
     })
 
+    it('applies overlay scroll class when overlayScroll is true', () => {
+        const { container } = render(<Box overlayScroll />)
+        const boxElement = container.firstChild as HTMLElement
+        expect(boxElement).toHaveClass('overlayScroll')
+    })
+
+    it('does not apply overlay scroll class when overlayScroll is false', () => {
+        const { container } = render(<Box overlayScroll={false} />)
+        const boxElement = container.firstChild as HTMLElement
+        expect(boxElement).not.toHaveClass('overlayScroll')
+    })
+
+    it('does not apply overlay scroll class when overlayScroll is not provided', () => {
+        const { container } = render(<Box />)
+        const boxElement = container.firstChild as HTMLElement
+        expect(boxElement).not.toHaveClass('overlayScroll')
+    })
+
     describe('textAlign="…"', () => {
         it('adds the appropriate class names', () => {
             const { rerender } = render(<Box data-testid="box" />)
