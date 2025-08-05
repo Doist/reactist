@@ -90,6 +90,10 @@ interface BoxProps extends WithEnhancedClassName, ReusableBoxProps, BoxMarginPro
     /**
      * The `overlayScroll` prop enables a modern scrollbar experience where the scrollbar is hidden
      * by default and appears on hover. This provides a cleaner interface while maintaining full scrollability.
+     *
+     * Scrollbar appearance may be affected by macOS system settings,
+     * such as "Show scroll bars: Automatically/When scrolling/Always".
+     * This can override or change the effect of these styles on Mac devices.
      */
     overlayScroll?: boolean
 }

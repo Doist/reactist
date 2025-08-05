@@ -428,10 +428,15 @@ pre.box {
     }
 }
 
-/* overlay scroll */
+/**
+ * Overlay scroll
+ *
+ * Note: Scrollbar appearance may be affected by macOS system settings,
+ * such as "Show scroll bars: Automatically/When scrolling/Always".
+ * This can override or change the effect of these styles on Mac devices.
+ */
 .overlayScroll {
-    /* For modern browsers - reserve space for scrollbar */
-    scrollbar-gutter: stable;
+    overflow: auto;
 }
 
 /* Webkit-based browsers (Chrome, Safari, Edge) */
