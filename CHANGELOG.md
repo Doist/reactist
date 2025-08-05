@@ -1,5 +1,17 @@
 # Changelog
 
+## [28.5.0](https://github.com/Doist/reactist/compare/v28.4.0...v28.5.0) (2025-08-05)
+
+
+### 🚀 Features
+
+* implement overlay scroll functionality in Box component with custom scrollbar styles ([#937](https://github.com/Doist/reactist/issues/937)) ([ace2ef0](https://github.com/Doist/reactist/commit/ace2ef0207ec25d9df2ee07091fe5fc7aec47130))
+
+
+### 🧰 Maintenance
+
+* **deps:** bump pbkdf2 from 3.0.17 to 3.1.3 ([#934](https://github.com/Doist/reactist/issues/934)) ([fa43bc8](https://github.com/Doist/reactist/commit/fa43bc81c119995e7d851271a59ddea46425fc7c))
+
 ## [28.4.0](https://github.com/Doist/reactist/compare/v28.3.2...v28.4.0) (2025-06-23)
 
 
