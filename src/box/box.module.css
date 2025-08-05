@@ -427,3 +427,42 @@ pre.box {
         text-align: justify;
     }
 }
+
+/**
+ * Overlay scroll
+ *
+ * Note: Scrollbar appearance may be affected by macOS system settings,
+ * such as "Show scroll bars: Automatically/When scrolling/Always".
+ * This can override or change the effect of these styles on Mac devices.
+ */
+.overlayScroll {
+    overflow: auto;
+}
+
+/* Webkit-based browsers (Chrome, Safari, Edge) */
+.overlayScroll::-webkit-scrollbar {
+    width: var(--reactist-spacing-small);
+}
+
+.overlayScroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.overlayScroll::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: var(--reactist-border-radius-large);
+}
+
+.overlayScroll:hover::-webkit-scrollbar-thumb {
+    background-color: var(--reactist-scrollbar-thumb-idle);
+}
+
+/* Firefox */
+.overlayScroll {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
+.overlayScroll:hover {
+    scrollbar-color: var(--reactist-scrollbar-thumb-idle) transparent;
+}

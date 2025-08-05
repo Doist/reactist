@@ -71,6 +71,10 @@ InteractivePropsStory.argTypes = {
     ),
     borderRadius: select<BoxBorderRadius>(['standard', 'none', 'full'], 'none'),
     ...reusableBoxProps(),
+    overlayScroll: {
+        control: { type: 'boolean' },
+        defaultValue: false,
+    },
 }
 
 export function ResponsiveStory() {
@@ -239,4 +243,36 @@ MarginStory.argTypes = {
         ],
         'medium',
     ),
+}
+
+export function OverlayScrollStory() {
+    return (
+        <Wrapper title="Overlay Scroll">
+            <Box
+                height="full"
+                overflow="auto"
+                overlayScroll
+                style={{ maxHeight: '300px' }}
+                padding="medium"
+                background="aside"
+            >
+                <Stack space="medium">
+                    <Heading level={3}>Scrollable Content with Overlay Scroll</Heading>
+                    <Text>
+                        This Box component demonstrates the overlay scroll functionality. The
+                        scrollbar is hidden by default and appears on hover.
+                    </Text>
+                    {Array.from({ length: 20 }, (_, i) => (
+                        <Box key={i} padding="medium" background="default" borderRadius="standard">
+                            <Text>Content item {i + 1}</Text>
+                            <Text size="caption" color="secondary">
+                                This is some additional content to make the item taller and ensure
+                                scrolling is needed.
+                            </Text>
+                        </Box>
+                    ))}
+                </Stack>
+            </Box>
+        </Wrapper>
+    )
 }

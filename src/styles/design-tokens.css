@@ -120,4 +120,7 @@
     --reactist-stacking-order-menu: 1;
     --reactist-stacking-order-toast: 400;
     --reactist-stacking-order-tooltip: 1000;
+
+    /* scrollbar colors */
+    --reactist-scrollbar-thumb-idle: rgba(0, 0, 0, 0.2);
 }
