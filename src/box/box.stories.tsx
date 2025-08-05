@@ -71,6 +71,10 @@ InteractivePropsStory.argTypes = {
     ),
     borderRadius: select<BoxBorderRadius>(['standard', 'none', 'full'], 'none'),
     ...reusableBoxProps(),
+    overlayScroll: {
+        control: { type: 'boolean' },
+        defaultValue: false,
+    },
 }
 
 export function ResponsiveStory() {
