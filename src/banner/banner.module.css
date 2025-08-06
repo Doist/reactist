@@ -22,7 +22,7 @@
     overflow: hidden;
     min-height: 64px;
 }
-.banner:has(.image) {
+.banner:not(.fullWidth):has(.image) {
     width: min-content;
     container-type: normal;
 }

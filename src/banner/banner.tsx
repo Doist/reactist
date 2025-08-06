@@ -65,6 +65,7 @@ type BaseBanner = {
     description: Exclude<React.ReactNode, null | undefined | boolean>
     action?: Action
     inlineLinks?: InlineLink[]
+    width?: 'full' | 'auto'
 } & CloseButton
 
 /**
@@ -103,6 +104,7 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
         inlineLinks,
         closeLabel,
         onClose,
+        width = 'auto',
         ...props
     }: BannerProps,
     ref,
@@ -134,7 +136,8 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
             aria-live="polite"
             tabIndex={0}
             borderRadius="full"
-            className={styles.banner}
+            className={[styles.banner, width === 'full' ? styles.fullWidth : null]}
+            width={width}
         >
             {image ? <Box className={styles.image}>{image}</Box> : null}
 
