@@ -218,6 +218,13 @@ export function BannerImageExamples({ theme }) {
                     inlineLinks={[{ label: 'Learn more', href: '#' }]}
                     onClose={() => ({})}
                 />
+                <div style={{ '--reactist-banner-min-width': '100%' }}>
+                    <Banner
+                        type="neutral"
+                        description="Here’s the banner with image that fit the whole container width."
+                        image={<PromoImage />}
+                    />
+                </div>
             </Stack>
         </Stack>
     )
