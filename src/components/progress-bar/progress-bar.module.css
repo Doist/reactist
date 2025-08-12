@@ -1,0 +1,20 @@
+:root {
+    --reactist-progressbar-height: var(--reactist-spacing-xsmall);
+    --reactist-progressbar-radius-outer: var(--reactist-progressbar-height);
+    --reactist-progressbar-radius-inner: var(--reactist-progressbar-height);
+    --reactist-progressbar-track: var(--reactist-framework-fill-crest);
+    --reactist-progressbar-fill: var(--reactist-bg-brand);
+}
+
+.progressBar {
+    height: var(--reactist-progressbar-height);
+    border-radius: var(--reactist-progressbar-radius-outer);
+    background-color: var(--reactist-progressbar-track);
+    width: 100%;
+}
+
+.inner {
+    height: inherit;
+    border-radius: var(--reactist-progressbar-radius-inner);
+    background-color: var(--reactist-progressbar-fill);
+}

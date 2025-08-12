@@ -3,7 +3,7 @@
 exports[`ProgressBar renders without crashing 1`] = `
 <div>
   <div
-    class="reactist_progress_bar"
+    class="progressBar"
   >
     <div
       class="inner"

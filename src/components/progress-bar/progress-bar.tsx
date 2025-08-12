@@ -2,7 +2,7 @@ import * as React from 'react'
 import { HiddenVisually } from '../../hidden-visually'
 import classNames from 'classnames'
 
-import './progress-bar.less'
+import styles from './progress-bar.module.css'
 
 type Props = {
     /** Additional css class applied to the progress bar. */
@@ -13,11 +13,11 @@ type Props = {
     'aria-valuetext'?: string
 }
 function ProgressBar({ fillPercentage = 0, className, 'aria-valuetext': ariaValuetext }: Props) {
-    const finalClassName = classNames('reactist_progress_bar', className)
+    const finalClassName = classNames(styles.progressBar, className)
     const width = fillPercentage < 0 ? 0 : fillPercentage > 100 ? 100 : fillPercentage
     return (
         <div className={finalClassName}>
-            <div className="inner" style={{ width: `${width}%` }} />
+            <div className={styles.inner} style={{ width: `${width}%` }} />
             <HiddenVisually>
                 <progress value={width} max={100} aria-valuetext={ariaValuetext ?? undefined} />
             </HiddenVisually>
