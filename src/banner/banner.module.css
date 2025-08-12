@@ -11,6 +11,8 @@
     --reactist-banner-secondary-copy-font-size: 12px;
     --reactist-banner-secondary-copy-line-height: 20px;
     --reactist-banner-secondary-copy-color: #666666;
+
+    --reactist-banner-min-width: 0;
 }
 
 .banner {
@@ -21,6 +23,7 @@
     border: 1px solid var(--reactist-banner-border-color);
     overflow: hidden;
     min-height: 64px;
+    min-width: var(--reactist-banner-min-width);
 }
 .banner:has(.image) {
     width: min-content;
@@ -59,6 +62,12 @@
     display: block;
 }
 
+/* The close button is invisible in this resolution, so we're hiding the container to prevent flex-gap from making extra space */
+.icon:empty,
+.icon:has(.closeButton:only-child) {
+    display: none;
+}
+
 .icon .closeButton {
     display: none;
 }
@@ -82,6 +91,9 @@
         width: 100%;
         align-items: center;
         justify-content: space-between;
+    }
+    .icon:has(.closeButton:only-child) {
+        display: flex;
     }
     .icon .closeButton {
         display: flex;
