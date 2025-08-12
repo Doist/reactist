@@ -3,6 +3,7 @@ import './styles/progressbar_story.less'
 import * as React from 'react'
 
 import ProgressBar from '../../src/components/progress-bar'
+import { Box } from '../../src/box'
 
 // Story setup ================================================================
 export default {
@@ -18,11 +19,21 @@ export default {
 export const ProgressBarStory = () => (
     <section className="story">
         <p>Progress Bars</p>
-        <ProgressBar fillPercentage={0} />
-        <ProgressBar fillPercentage={25} />
-        <ProgressBar fillPercentage={50} />
-        <ProgressBar fillPercentage={75} />
-        <ProgressBar fillPercentage={100} />
+        <Box paddingY="small">
+            <ProgressBar fillPercentage={0} />
+        </Box>
+        <Box paddingY="small">
+            <ProgressBar fillPercentage={25} />
+        </Box>
+        <Box paddingY="small">
+            <ProgressBar fillPercentage={50} />
+        </Box>
+        <Box paddingY="small">
+            <ProgressBar fillPercentage={75} />
+        </Box>
+        <Box paddingY="small">
+            <ProgressBar fillPercentage={100} />
+        </Box>
     </section>
 )
 
