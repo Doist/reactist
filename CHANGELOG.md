@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.5.2](https://github.com/Doist/reactist/compare/v28.5.1...v28.5.2) (2025-08-12)
+
+
+### 🧰 Maintenance
+
+* replace LESS styles with CSS modules for ProgressBar component ([#941](https://github.com/Doist/reactist/issues/941)) ([6097154](https://github.com/Doist/reactist/commit/6097154497af842bd8331aa2f8408e980f7378a7))
+
 ## [28.5.1](https://github.com/Doist/reactist/compare/v28.5.0...v28.5.1) (2025-08-12)
 
 
