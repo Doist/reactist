@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.5.1](https://github.com/Doist/reactist/compare/v28.5.0...v28.5.1) (2025-08-12)
+
+
+### 🐛 Bug Fixes
+
+* Enable banner with an Image to use container full width (with CSS vars) ([#939](https://github.com/Doist/reactist/issues/939)) ([2bf931c](https://github.com/Doist/reactist/commit/2bf931ca5c4ba5b6614708c67525791fd4d88234))
+
 ## [28.5.0](https://github.com/Doist/reactist/compare/v28.4.0...v28.5.0) (2025-08-05)
 
 
