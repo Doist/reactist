@@ -177,7 +177,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
             <>
                 {startIcon ? (
                     <Box display="flex" className={styles.startIcon} aria-hidden>
-                        {loading && !endIcon ? <Spinner size={18} /> : startIcon}
+                        {loading && !endIcon ? <Spinner /> : startIcon}
                     </Box>
                 ) : null}
 
@@ -195,7 +195,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 
                 {endIcon || (loading && !startIcon) ? (
                     <Box display="flex" className={styles.endIcon} aria-hidden>
-                        {loading ? <Spinner size={18} /> : endIcon}
+                        {loading ? <Spinner /> : endIcon}
                     </Box>
                 ) : null}
             </>
@@ -264,7 +264,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function
                 disabled ? styles.disabled : null,
             ])}
         >
-            {(loading && <Spinner size={18} />) || icon}
+            {(loading && <Spinner />) || icon}
         </Role.button>
     )
 

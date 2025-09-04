@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styles from './spinner.module.css'
 
-function Spinner({ size = 24 }: { size?: number }) {
+function Spinner({ size = 18 }: { size?: number }) {
     return (
         <svg
             aria-hidden
