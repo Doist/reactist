@@ -177,7 +177,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
             <>
                 {startIcon ? (
                     <Box display="flex" className={styles.startIcon} aria-hidden>
-                        {loading && !endIcon ? <Spinner /> : startIcon}
+                        {loading && !endIcon ? <Spinner size={18} /> : startIcon}
                     </Box>
                 ) : null}
 
