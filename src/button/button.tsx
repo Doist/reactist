@@ -195,7 +195,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 
                 {endIcon || (loading && !startIcon) ? (
                     <Box display="flex" className={styles.endIcon} aria-hidden>
-                        {loading ? <Spinner /> : endIcon}
+                        {loading ? <Spinner size={18} /> : endIcon}
                     </Box>
                 ) : null}
             </>
@@ -264,7 +264,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function
                 disabled ? styles.disabled : null,
             ])}
         >
-            {(loading && <Spinner />) || icon}
+            {(loading && <Spinner size={18} />) || icon}
         </Role.button>
     )
 
