@@ -26,14 +26,21 @@ export function Icon() {
     )
 }
 
-export function LoadingButton(props) {
+export function LoadingButton({ disabledWhenLoading = false, ...props }) {
     const [loading, setLoading] = useState(false)
     useEffect(() => {
         if (!loading) return undefined
         const timeout = setTimeout(() => setLoading(false), 3000)
         return () => clearTimeout(timeout)
     }, [loading])
-    return <Button {...props} loading={loading} onClick={() => setLoading(true)} />
+    return (
+        <Button
+            {...props}
+            loading={loading}
+            disabled={disabledWhenLoading ? loading : props.disabled}
+            onClick={() => setLoading(true)}
+        />
+    )
 }
 
 # Button
@@ -66,6 +73,28 @@ export function LoadingButton(props) {
                     </Box>
                     <Box>
                         <LoadingButton variant="quaternary">Quaternary</LoadingButton>
+                    </Box>
+                </Inline>
+                <Inline space="large">
+                    <Box>
+                        <LoadingButton variant="primary" disabledWhenLoading>
+                            Primary
+                        </LoadingButton>
+                    </Box>
+                    <Box>
+                        <LoadingButton variant="secondary" disabledWhenLoading>
+                            Secondary
+                        </LoadingButton>
+                    </Box>
+                    <Box>
+                        <LoadingButton variant="tertiary" disabledWhenLoading>
+                            Tertiary
+                        </LoadingButton>
+                    </Box>
+                    <Box>
+                        <LoadingButton variant="quaternary" disabledWhenLoading>
+                            Quaternary
+                        </LoadingButton>
                     </Box>
                 </Inline>
                 <Inline space="large">
@@ -111,6 +140,28 @@ export function LoadingButton(props) {
                     </Box>
                     <Box>
                         <LoadingButton variant="quaternary" tone="destructive">
+                            Quaternary
+                        </LoadingButton>
+                    </Box>
+                </Inline>
+                <Inline space="large">
+                    <Box>
+                        <LoadingButton variant="primary" tone="destructive" disabledWhenLoading>
+                            Primary
+                        </LoadingButton>
+                    </Box>
+                    <Box>
+                        <LoadingButton variant="secondary" tone="destructive" disabledWhenLoading>
+                            Secondary
+                        </LoadingButton>
+                    </Box>
+                    <Box>
+                        <LoadingButton variant="tertiary" tone="destructive" disabledWhenLoading>
+                            Tertiary
+                        </LoadingButton>
+                    </Box>
+                    <Box>
+                        <LoadingButton variant="quaternary" tone="destructive" disabledWhenLoading>
                             Quaternary
                         </LoadingButton>
                     </Box>
