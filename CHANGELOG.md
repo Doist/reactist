@@ -6,7 +6,6 @@
 ### 🐛 Bug Fixes
 
 * Smaller loader in `<Button>` component ([#945](https://github.com/Doist/reactist/issues/945)) ([01cad54](https://github.com/Doist/reactist/commit/01cad544c4bfba998a4bbd4349e7be21eb7c1343))
-* Smaller loader in `<Button>` component ([#945](https://github.com/Doist/reactist/issues/945)) ([01cad54](https://github.com/Doist/reactist/commit/01cad544c4bfba998a4bbd4349e7be21eb7c1343))
 
 ## [28.5.2](https://github.com/Doist/reactist/compare/v28.5.1...v28.5.2) (2025-08-12)
 
