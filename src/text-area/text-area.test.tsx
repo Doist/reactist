@@ -248,6 +248,27 @@ describe('TextArea', () => {
         expect(screen.getByTestId('value')).toHaveTextContent('I love to travel around the world')
     })
 
+    it('sets a data-replicated-value attribute on a controlled field when autoExpand is true', () => {
+        render(
+            <TextArea
+                value="I am a Frontend Developer"
+                label="Tell us a bit about you"
+                autoExpand
+            />,
+        )
+        const textareaElement = screen.getByRole('textbox', { name: 'Tell us a bit about you' })
+        expect(textareaElement.parentElement).toHaveAttribute(
+            'data-replicated-value',
+            'I am a Frontend Developer',
+        )
+    })
+
+    it('does NOT set a data-replicated-value attribute on an uncontrolled field when autoExpand is false', () => {
+        render(<TextArea value="I am a Frontend Developer" label="Tell us a bit about you" />)
+        const textareaElement = screen.getByRole('textbox', { name: 'Tell us a bit about you' })
+        expect(textareaElement.parentElement).not.toHaveAttribute('data-replicated-value')
+    })
+
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = render(
