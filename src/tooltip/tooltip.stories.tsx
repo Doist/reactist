@@ -7,6 +7,7 @@ import { Stack } from '../stack'
 import { TextField } from '../text-field'
 import { Box } from '../box'
 import { Text } from '../text'
+import type { TooltipStore } from '@ariakit/react'
 
 //
 // Story setup
@@ -211,4 +212,44 @@ export function TooltipGlobalContext({
 TooltipGlobalContext.args = {
     showTimeout: 1000,
     hideTimeout: 2000,
+}
+
+//
+// Imperative Control
+//
+
+export function TooltipImperativeControl() {
+    const tooltipRef = React.useRef<TooltipStore>(null)
+
+    const handleForceHide = () => {
+        tooltipRef.current?.hide()
+    }
+
+    return (
+        <Stack space="medium">
+            <Text>
+                This tooltip has a long hide timeout (3 seconds), but you can force it to close
+                immediately using the ref:
+            </Text>
+
+            <Box padding="large" display="flex" gap="medium" alignItems="center">
+                <Tooltip
+                    content="This tooltip will hide automatically in 3 seconds, or click the button to close it immediately!"
+                    hideTimeout={3000}
+                    ref={tooltipRef}
+                >
+                    <Button variant="primary">Hover me (3s hide timeout)</Button>
+                </Tooltip>
+
+                <Button variant="secondary" onClick={handleForceHide}>
+                    Force hide
+                </Button>
+            </Box>
+
+            <Text tone="secondary" size="caption">
+                Try hovering the button, then clicking &quot;Force hide&quot; before the 3-second
+                timeout expires.
+            </Text>
+        </Stack>
+    )
 }

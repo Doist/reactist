@@ -8,7 +8,7 @@ import {
 } from '@ariakit/react'
 import { Box } from '../box'
 
-import type { TooltipStoreState } from '@ariakit/react'
+import type { TooltipStoreState, TooltipStore } from '@ariakit/react'
 
 import styles from './tooltip.module.css'
 import type { ObfuscatedClassName } from '../utils/common-types'
@@ -107,66 +107,77 @@ interface TooltipProps extends ObfuscatedClassName {
     hideTimeout?: number
 }
 
-function Tooltip({
-    children,
-    content,
-    position = 'top',
-    gapSize = 3,
-    withArrow = false,
-    showTimeout,
-    hideTimeout,
-    exceptionallySetClassName,
-}: TooltipProps) {
-    const { showTimeout: globalShowTimeout, hideTimeout: globalHideTimeout } = React.useContext(
-        TooltipContext,
-    )
-    const tooltip = useTooltipStore({
-        placement: position,
-        showTimeout: showTimeout ?? globalShowTimeout,
-        hideTimeout: hideTimeout ?? globalHideTimeout,
-    })
-    const isOpen = tooltip.useState('open')
+const Tooltip = React.forwardRef<TooltipStore, TooltipProps>(
+    (
+        {
+            children,
+            content,
+            position = 'top',
+            gapSize = 3,
+            withArrow = false,
+            showTimeout,
+            hideTimeout,
+            exceptionallySetClassName,
+        },
+        ref,
+    ) => {
+        const { showTimeout: globalShowTimeout, hideTimeout: globalHideTimeout } = React.useContext(
+            TooltipContext,
+        )
 
-    const child = React.Children.only(
-        children as React.FunctionComponentElement<JSX.IntrinsicElements['div']> | null,
-    )
+        const tooltip = useTooltipStore({
+            placement: position,
+            showTimeout: showTimeout ?? globalShowTimeout,
+            hideTimeout: hideTimeout ?? globalHideTimeout,
+        })
 
-    if (!child) {
-        return child
-    }
+        React.useImperativeHandle(ref, () => tooltip, [tooltip])
 
-    if (typeof child.ref === 'string') {
-        throw new Error('Tooltip: String refs cannot be used as they cannot be forwarded')
-    }
+        const isOpen = tooltip.useState('open')
 
-    return (
-        <>
-            <TooltipAnchor render={child} store={tooltip} ref={child.ref} />
-            {isOpen && content ? (
-                <AriakitTooltip
-                    store={tooltip}
-                    gutter={gapSize}
-                    render={
-                        <Box
-                            className={[styles.tooltip, exceptionallySetClassName]}
-                            background="toast"
-                            borderRadius="standard"
-                            paddingX="small"
-                            paddingY="xsmall"
-                            maxWidth="medium"
-                            width="fitContent"
-                            overflow="hidden"
-                            textAlign="center"
-                        />
-                    }
-                >
-                    {withArrow ? <TooltipArrow /> : null}
-                    {typeof content === 'function' ? content() : content}
-                </AriakitTooltip>
-            ) : null}
-        </>
-    )
-}
+        const child = React.Children.only(
+            children as React.FunctionComponentElement<JSX.IntrinsicElements['div']> | null,
+        )
+
+        if (!child) {
+            return child
+        }
+
+        if (typeof child.ref === 'string') {
+            throw new Error('Tooltip: String refs cannot be used as they cannot be forwarded')
+        }
+
+        return (
+            <>
+                <TooltipAnchor render={child} store={tooltip} ref={child.ref} />
+                {isOpen && content ? (
+                    <AriakitTooltip
+                        store={tooltip}
+                        gutter={gapSize}
+                        render={
+                            <Box
+                                className={[styles.tooltip, exceptionallySetClassName]}
+                                background="toast"
+                                borderRadius="standard"
+                                paddingX="small"
+                                paddingY="xsmall"
+                                maxWidth="medium"
+                                width="fitContent"
+                                overflow="hidden"
+                                textAlign="center"
+                            />
+                        }
+                    >
+                        {withArrow ? <TooltipArrow /> : null}
+                        {typeof content === 'function' ? content() : content}
+                    </AriakitTooltip>
+                ) : null}
+            </>
+        )
+    },
+)
+
+Tooltip.displayName = 'Tooltip'
 
 export type { TooltipProps }
 export { Tooltip, TooltipProvider }
