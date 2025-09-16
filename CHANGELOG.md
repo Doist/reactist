@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.5.4](https://github.com/Doist/reactist/compare/v28.5.3...v28.5.4) (2025-09-16)
+
+
+### 🐛 Bug Fixes
+
+* Prevent a controlled TextArea from expanding when autoExpand is false ([#947](https://github.com/Doist/reactist/issues/947)) ([c5a0eee](https://github.com/Doist/reactist/commit/c5a0eee54297667eff1745021a44023558b2bf48))
+
 ## [28.5.3](https://github.com/Doist/reactist/compare/v28.5.2...v28.5.3) (2025-09-08)
 
 
