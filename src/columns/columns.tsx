@@ -71,12 +71,20 @@ const Columns = polymorphicComponent<'div', ColumnsProps>(function Columns(
     },
     ref,
 ) {
+    // Here I'm just printing out how the generated className looks like
+    // You can see that the fact that `space` is a composite type (i.e. mobile: '...', table: '...')
+    // triggers the issue
+    // Everything works fine if `space` is a simple string like 'medium' (not composite)
+    // eslint-disable-next-line no-console
+    console.log('className', getClassNames(styles, 'container', space))
+
     return (
         <Box
             {...props}
             className={[
                 exceptionallySetClassName,
                 styles.container,
+                // Here is where we actually call `getClassNames` 👇
                 getClassNames(styles, 'container', space),
             ]}
             display="flex"

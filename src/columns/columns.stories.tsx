@@ -307,6 +307,7 @@ export function ResponsiveStory(args: PartialProps<typeof Columns>) {
                     </Columns>
                 </Wrapper>
                 <Wrapper title="Space between columns reduces on smaller screen sizes">
+                    {/* Here is the "offending" space prop format 👇 */}
                     <Columns space={{ mobile: 'xsmall', tablet: 'medium', desktop: 'xlarge' }}>
                         {times(5).map((i) => (
                             <Column key={i}>
