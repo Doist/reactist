@@ -84,7 +84,7 @@
         "@storybook/addon-postcss": "^2.0.0",
         "@storybook/addons": "^6.5.3",
         "@storybook/jest": "^0.0.10",
-        "@storybook/react": "^6.5.3",
+        "@storybook/react": "^9.1.6",
         "@storybook/testing-library": "^0.0.13",
         "@testing-library/jest-dom": "^5.14.1",
         "@testing-library/react": "^12.0.0",
