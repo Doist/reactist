@@ -22,10 +22,17 @@ export function preventDefault(event) {
     event.preventDefault()
 }
 
-export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
+export function InteractivePropsStory({
+    label,
+    auxiliaryLabel,
+    value,
+    controlled: _controlled,
+    ...props
+}) {
     return (
         <TextArea
             {...props}
+            value={value}
             label={label}
             auxiliaryLabel={
                 auxiliaryLabel ? (
@@ -49,7 +56,15 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
                 control: { type: 'text' },
                 defaultValue: 'User bio',
             },
-            value: { table: { disable: true } },
+            controlled: {
+                control: { type: 'boolean' },
+                defaultValue: false,
+            },
+            value: {
+                if: { arg: 'controlled', truthy: true },
+                control: { type: 'text' },
+                defaultValue: '',
+            },
             tone: {
                 options: ['neutral', 'success', 'error', 'loading'],
                 control: { type: 'inline-radio' },

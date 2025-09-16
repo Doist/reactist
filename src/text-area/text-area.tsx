@@ -166,7 +166,7 @@ function useAutoExpand({
 
     React.useEffect(
         function setupAutoExpandWhenControlled() {
-            if (!isControlled) {
+            if (!isControlled || !autoExpand) {
                 return
             }
 
@@ -175,7 +175,7 @@ function useAutoExpand({
                 containerElement.dataset.replicatedValue = value
             }
         },
-        [value, containerRef, isControlled],
+        [value, containerRef, isControlled, autoExpand],
     )
 }
 
