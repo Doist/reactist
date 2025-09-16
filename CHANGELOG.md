@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.6.0](https://github.com/Doist/reactist/compare/v28.5.4...v28.6.0) (2025-09-16)
+
+
+### 🚀 Features
+
+* **tooltip:** Expose tooltip store via `forwardRef` for imperative control ([#960](https://github.com/Doist/reactist/issues/960)) ([20628ea](https://github.com/Doist/reactist/commit/20628eaed7bbbb362fd4a2d56167649dbc33c5c9))
+
 ## [28.5.4](https://github.com/Doist/reactist/compare/v28.5.3...v28.5.4) (2025-09-16)
 
 
