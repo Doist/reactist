@@ -5,5 +5,7 @@ updates:
       directory: /
       schedule:
           interval: daily
+      cooldown:
+          default-days: 5
       commit-message:
           prefix: 'build(deps):'
