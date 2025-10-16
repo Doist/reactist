@@ -63,7 +63,7 @@ type BaseBanner = {
     id?: string
     title?: React.ReactNode
     description: Exclude<React.ReactNode, null | undefined | boolean>
-    action?: Action
+    action?: Action | React.ReactNode
     inlineLinks?: InlineLink[]
 } & CloseButton
 
@@ -90,6 +90,18 @@ type SystemBanner = BaseBanner & {
 }
 
 type BannerProps = NeutralBanner | SystemBanner
+
+/**
+ * Type guard to check if the action is an Action object (button or link)
+ */
+function isActionObject(action: Action | React.ReactNode): action is Action {
+    return (
+        typeof action === 'object' &&
+        action !== null &&
+        'type' in action &&
+        (action.type === 'button' || action.type === 'link')
+    )
+}
 
 const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
     {
@@ -175,8 +187,17 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
 
                 {action || closeButton ? (
                     <Box className={styles.actions} display="flex" gap="small">
-                        {action?.type === 'button' ? <ActionButton {...action} /> : null}
-                        {action?.type === 'link' ? <ActionLink {...action} /> : null}
+                        {action ? (
+                            isActionObject(action) ? (
+                                action.type === 'button' ? (
+                                    <ActionButton {...action} />
+                                ) : (
+                                    <ActionLink {...action} />
+                                )
+                            ) : (
+                                action
+                            )
+                        ) : null}
                         {closeButton}
                     </Box>
                 ) : null}
