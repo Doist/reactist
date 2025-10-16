@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.7.0](https://github.com/Doist/reactist/compare/v28.6.0...v28.7.0) (2025-10-16)
+
+
+### 🚀 Features
+
+* **banner:** Allow action prop to accept ReactNode in addition to Action object ([#964](https://github.com/Doist/reactist/issues/964)) ([19625b3](https://github.com/Doist/reactist/commit/19625b3e28a14e2c38960325edfeb13aace0e2fe))
+
 ## [28.6.0](https://github.com/Doist/reactist/compare/v28.5.4...v28.6.0) (2025-09-16)
 
 
