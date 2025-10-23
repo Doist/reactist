@@ -23,13 +23,9 @@ jobs:
         timeout-minutes: 60
         steps:
             - uses: actions/checkout@v4
-            - name: Read Node.js version from '.nvmrc'
-              id: nvmrc
-              run: |
-                  echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
-            - uses: actions/setup-node@v1
+            - uses: actions/setup-node@v3
               with:
-                  node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
+                  node-version-file: .node-version
 
             # Remove any registry configurations from .npmrc
             - run: sed -i "/@doist/d" ./.npmrc
@@ -43,21 +39,21 @@ jobs:
             - run: npm run build
 
             # Publish to GitHub package registry
-            - uses: actions/setup-node@v1
+            - uses: actions/setup-node@v3
               with:
-                  node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
+                  node-version-file: .node-version
                   registry-url: https://npm.pkg.github.com/
                   scope: '@doist'
-            - run: npm publish --provenance
+            - run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
             # Publish to npm registry
-            - uses: actions/setup-node@v1
+            - uses: actions/setup-node@v3
               with:
-                  node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
+                  node-version-file: .node-version
                   registry-url: https://registry.npmjs.org/
                   scope: '@doist'
-            - run: npm publish --provenance
+            - run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
