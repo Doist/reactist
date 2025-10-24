@@ -9,13 +9,12 @@ jobs:
         timeout-minutes: 15
         steps:
             - uses: actions/checkout@v4
-            - name: Read Node.js version from '.nvmrc'
-              id: nvmrc
-              run: |
-                  echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
-            - uses: actions/setup-node@v1
+
+            - name: Prepare Node.js environment
+              uses: actions/setup-node@v3
               with:
-                  node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
+                  node-version-file: '.nvmrc'
+
             - run: npm ci
             - run: npm run lint
             - run: npm run type-check
