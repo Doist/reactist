@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.7.1](https://github.com/Doist/reactist/compare/v28.7.0...v28.7.1) (2025-10-24)
+
+
+### 🧰 Maintenance
+
+* Enable trusted publishing and npm provenance ([#968](https://github.com/Doist/reactist/issues/968)) ([0c33d50](https://github.com/Doist/reactist/commit/0c33d50a85e63a617b84cac009d9cae3f7095948))
+
 ## [28.7.0](https://github.com/Doist/reactist/compare/v28.6.0...v28.7.0) (2025-10-16)
 
 
