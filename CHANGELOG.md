@@ -236,18 +236,17 @@
 
 ## [27.2.2](https://github.com/Doist/reactist/compare/v27.2.1...v27.2.2) (2025-01-22)
 
-
 ### 🧰 Maintenance
 
-* change dependabot commit prefix ([#871](https://github.com/Doist/reactist/issues/871)) ([f2e786f](https://github.com/Doist/reactist/commit/f2e786f7255323395090ba4605b19b2c09e11942))
-* **deps:** bump decode-uri-component from 0.2.0 to 0.2.2 ([#721](https://github.com/Doist/reactist/issues/721)) ([e4e0c3f](https://github.com/Doist/reactist/commit/e4e0c3f3ef8eebc20160209c88958cd1d82ed7bd))
-* **deps:** bump loader-utils from 1.4.0 to 1.4.2 ([#713](https://github.com/Doist/reactist/issues/713)) ([c21c8a8](https://github.com/Doist/reactist/commit/c21c8a8adbfd514ebeaa304a081b336aff515efb))
-* **deps:** bump shelljs from 0.8.4 to 0.8.5 ([#627](https://github.com/Doist/reactist/issues/627)) ([436747f](https://github.com/Doist/reactist/commit/436747f08827aa4455c42482a9234ebb50d19914))
-* implement release-please to automate release creation ([#863](https://github.com/Doist/reactist/issues/863)) ([7f5f754](https://github.com/Doist/reactist/commit/7f5f7549cf6f0541f3317fb41db42d7df09d48aa))
-* include all changes in release creation ([#870](https://github.com/Doist/reactist/issues/870)) ([da74067](https://github.com/Doist/reactist/commit/da74067f954bfd6ea3fae8bd2ba236813b2682dd))
-* migrate to latest release-please action ([#874](https://github.com/Doist/reactist/issues/874)) ([7ab6aec](https://github.com/Doist/reactist/commit/7ab6aeca921832d76bf95551840ecba6b53d6681))
-* set target-branch to release-please action ([#872](https://github.com/Doist/reactist/issues/872)) ([dde0fff](https://github.com/Doist/reactist/commit/dde0fff1288d24f44edf82dd799419685de6a4c7))
-* unify existing changelog content format ([#876](https://github.com/Doist/reactist/issues/876)) ([9cc1be2](https://github.com/Doist/reactist/commit/9cc1be2c6e583834e62c6126f2b8a351a384f7db))
+-   change dependabot commit prefix ([#871](https://github.com/Doist/reactist/issues/871)) ([f2e786f](https://github.com/Doist/reactist/commit/f2e786f7255323395090ba4605b19b2c09e11942))
+-   **deps:** bump decode-uri-component from 0.2.0 to 0.2.2 ([#721](https://github.com/Doist/reactist/issues/721)) ([e4e0c3f](https://github.com/Doist/reactist/commit/e4e0c3f3ef8eebc20160209c88958cd1d82ed7bd))
+-   **deps:** bump loader-utils from 1.4.0 to 1.4.2 ([#713](https://github.com/Doist/reactist/issues/713)) ([c21c8a8](https://github.com/Doist/reactist/commit/c21c8a8adbfd514ebeaa304a081b336aff515efb))
+-   **deps:** bump shelljs from 0.8.4 to 0.8.5 ([#627](https://github.com/Doist/reactist/issues/627)) ([436747f](https://github.com/Doist/reactist/commit/436747f08827aa4455c42482a9234ebb50d19914))
+-   implement release-please to automate release creation ([#863](https://github.com/Doist/reactist/issues/863)) ([7f5f754](https://github.com/Doist/reactist/commit/7f5f7549cf6f0541f3317fb41db42d7df09d48aa))
+-   include all changes in release creation ([#870](https://github.com/Doist/reactist/issues/870)) ([da74067](https://github.com/Doist/reactist/commit/da74067f954bfd6ea3fae8bd2ba236813b2682dd))
+-   migrate to latest release-please action ([#874](https://github.com/Doist/reactist/issues/874)) ([7ab6aec](https://github.com/Doist/reactist/commit/7ab6aeca921832d76bf95551840ecba6b53d6681))
+-   set target-branch to release-please action ([#872](https://github.com/Doist/reactist/issues/872)) ([dde0fff](https://github.com/Doist/reactist/commit/dde0fff1288d24f44edf82dd799419685de6a4c7))
+-   unify existing changelog content format ([#876](https://github.com/Doist/reactist/issues/876)) ([9cc1be2](https://github.com/Doist/reactist/commit/9cc1be2c6e583834e62c6126f2b8a351a384f7db))
 
 Reactist follows [semantic versioning](https://semver.org/) and doesn't introduce breaking changes (API-wise) in minor or patch releases. However, the appearance of a component might change in a minor or patch release so keep an eye on redesigns and make sure your app still looks and feels like you expect it.
 
