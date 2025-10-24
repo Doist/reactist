@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.7.2](https://github.com/Doist/reactist/compare/v28.7.1...v28.7.2) (2025-10-24)
+
+
+### 🧰 Maintenance
+
+* Temporarily disable npm trusted publishing until we can upgrade Node.js ([#971](https://github.com/Doist/reactist/issues/971)) ([25ca6e9](https://github.com/Doist/reactist/commit/25ca6e91920c6d6372d3edf4ec47a92185b64bf5))
+
 ## [28.7.1](https://github.com/Doist/reactist/compare/v28.7.0...v28.7.1) (2025-10-24)
 
 
