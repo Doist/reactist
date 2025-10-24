@@ -1,18 +1,15 @@
 {
     "name": "@doist/reactist",
     "description": "Open source React components by Doist",
+    "version": "28.7.0",
+    "repository": "https://github.com/Doist/reactist",
+    "homepage": "https://github.com/Doist/reactist#readme",
     "author": {
         "name": "Henning Muszynski",
         "email": "henning@doist.com",
         "url": "http://doist.com"
     },
-    "version": "28.7.0",
     "license": "MIT",
-    "homepage": "https://github.com/Doist/reactist#readme",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Doist/reactist.git"
-    },
     "prettier": "@doist/prettier-config",
     "main": "lib/index.js",
     "module": "es/index.js",
