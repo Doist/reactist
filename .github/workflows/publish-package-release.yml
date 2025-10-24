@@ -1,4 +1,4 @@
-name: Release @doist/reactist package
+name: Package Release
 
 on:
     push:
@@ -8,11 +8,11 @@ on:
     workflow_dispatch:
 
 permissions:
-    # Enable the use of OIDC for npm provenance
+    # Enable the use of OIDC for trusted publishing and npm provenance
     id-token: write
     # Enable the use of GitHub Packages registry
-    contents: read
     packages: write
+    contents: write
 
 jobs:
     publish:
@@ -22,8 +22,8 @@ jobs:
         # Based on historical data
         timeout-minutes: 60
         steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v3
+            - uses: actions/checkout@v5
+            - uses: actions/setup-node@v6
               with:
                   node-version-file: .node-version
 
@@ -39,7 +39,7 @@ jobs:
             - run: npm run build
 
             # Publish to GitHub package registry
-            - uses: actions/setup-node@v3
+            - uses: actions/setup-node@v6
               with:
                   node-version-file: .node-version
                   registry-url: https://npm.pkg.github.com/
@@ -49,7 +49,7 @@ jobs:
                   NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
             # Publish to npm registry
-            - uses: actions/setup-node@v3
+            - uses: actions/setup-node@v6
               with:
                   node-version-file: .node-version
                   registry-url: https://registry.npmjs.org/

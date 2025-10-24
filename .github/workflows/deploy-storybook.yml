@@ -28,7 +28,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
 
             - name: Read Node.js version from '.nvmrc'
               id: nvmrc
@@ -36,7 +36,7 @@ jobs:
                   echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
 
             - name: Setup Node.js
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v6
               with:
                   node-version-file: .node-version
 

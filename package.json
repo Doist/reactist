@@ -9,10 +9,7 @@
     "version": "28.7.0",
     "license": "MIT",
     "homepage": "https://github.com/Doist/reactist#readme",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Doist/reactist.git"
-    },
+    "repository": "https://github.com/Doist/reactist",
     "prettier": "@doist/prettier-config",
     "main": "lib/index.js",
     "module": "es/index.js",
@@ -21,16 +18,19 @@
     "sideEffects": [
         "**/*.css"
     ],
+    "engines": {
+        "node": "^22.14.0 || >= 24.10.0",
+        "npm": "^10.9.2 || >= 11.5.1"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
     "files": [
         "dist",
         "es",
         "lib",
         "styles"
     ],
-    "engines": {
-        "node": "^22.14.0 || >= 24.10.0",
-        "npm": "^10.0.0 || ^11.0.0"
-    },
     "scripts": {
         "postinstall": "patch-package",
         "setup": "npm install && npm run validate",

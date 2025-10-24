@@ -44,4 +44,4 @@ jobs:
                       }
 
                       await triggerWorkflow('deploy-storybook.yml');
-                      await triggerWorkflow('publish.yml');
+                      await triggerWorkflow('publish-package-release.yml');

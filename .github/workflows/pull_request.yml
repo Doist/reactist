@@ -8,12 +8,12 @@ jobs:
         # Based on historical data
         timeout-minutes: 15
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             - name: Read Node.js version from '.nvmrc'
               id: nvmrc
               run: |
                   echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
-            - uses: actions/setup-node@v3
+            - uses: actions/setup-node@v6
               with:
                   node-version-file: .node-version
             - run: npm ci
