@@ -8,11 +8,12 @@ on:
     workflow_dispatch:
 
 permissions:
-    # Enable the use of OIDC for npm provenance
+    # Enable the use of OIDC for trusted publishing and npm provenance
     id-token: write
     # Enable the use of GitHub Packages registry
-    contents: read
     packages: write
+    # Enable Release Please to publish a GitHub release
+    contents: read
 
 jobs:
     publish:
@@ -23,13 +24,14 @@ jobs:
         timeout-minutes: 60
         steps:
             - uses: actions/checkout@v4
-            - name: Read Node.js version from '.nvmrc'
-              id: nvmrc
-              run: |
-                  echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
-            - uses: actions/setup-node@v1
+
+            - name: Prepare Node.js environment
+              uses: actions/setup-node@v3
               with:
-                  node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
+                  node-version-file: '.nvmrc'
+
+            - name: Ensure npm 11.5.1 or later is installed
+              run: npm install -g npm@latest
 
             # Remove any registry configurations from .npmrc
             - run: sed -i "/@doist/d" ./.npmrc
@@ -43,21 +45,24 @@ jobs:
             - run: npm run build
 
             # Publish to GitHub package registry
-            - uses: actions/setup-node@v1
+            - name: Publish to GitHub Package Registry
+              uses: actions/setup-node@v3
               with:
-                  node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
+                  node-version-file: '.nvmrc'
                   registry-url: https://npm.pkg.github.com/
                   scope: '@doist'
-            - run: npm publish --provenance
+            - run: npm publish
               env:
-                  NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Clear npm config between GitHub/npm registries
+              run: rm -f $NPM_CONFIG_USERCONFIG
 
             # Publish to npm registry
-            - uses: actions/setup-node@v1
+            - name: Publish to npm registry
+              uses: actions/setup-node@v3
               with:
-                  node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
+                  node-version-file: '.nvmrc'
                   registry-url: https://registry.npmjs.org/
                   scope: '@doist'
-            - run: npm publish --provenance
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            - run: npm publish --provenance --access public
