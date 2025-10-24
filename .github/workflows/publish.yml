@@ -30,8 +30,10 @@ jobs:
               with:
                   node-version-file: '.nvmrc'
 
-            - name: Ensure npm 11.5.1 or later is installed
-              run: npm install -g npm@latest
+            # Temporarily disabled until we can upgrade to Node.js 20+
+            # ref: https://github.com/Doist/reactist/actions/runs/18786284512/job/53605250671
+            # - name: Ensure npm 11.5.1 or later is installed
+            #   run: npm install -g npm@latest
 
             # Remove any registry configurations from .npmrc
             - run: sed -i "/@doist/d" ./.npmrc
@@ -66,3 +68,6 @@ jobs:
                   registry-url: https://registry.npmjs.org/
                   scope: '@doist'
             - run: npm publish --provenance --access public
+              # Token-based authentication until we can use OIDC
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
