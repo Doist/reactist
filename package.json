@@ -4,6 +4,9 @@
     "version": "28.7.2",
     "repository": "https://github.com/Doist/reactist",
     "homepage": "https://github.com/Doist/reactist#readme",
+    "bugs": {
+        "url": "https://github.com/Doist/reactist/issues"
+    },
     "author": {
         "name": "Henning Muszynski",
         "email": "henning@doist.com",
@@ -32,9 +35,9 @@
         "postinstall": "patch-package",
         "setup": "npm install && npm run validate",
         "validate": "npm run lint && npm run type-check && npm run test",
-        "start": "tsdx watch --onSuccess \"./scripts/organize-styles.sh\"",
+        "start": "ON_SUCCESS=\"./scripts/organize-styles.sh\" rollup -c --watch --no-watch.clearScreen",
         "prestart:yalc": "npm run clean && yalc publish",
-        "start:yalc": "tsdx watch --tsconfig tsconfig.dist.json --onSuccess=\"npm run start:yalc:success\"",
+        "start:yalc": "ON_SUCCESS=\"npm run start:yalc:success\" rollup -c --watch --no-watch.clearScreen",
         "poststart:yalc": "yalc installations clean",
         "start:yalc:success": "./scripts/organize-styles.sh && yalc push --sig",
         "build": "scripts/build.sh",
@@ -71,7 +74,10 @@
         "@doist/prettier-config": "^3.0.5",
         "@doist/tsconfig": "^1.0.0",
         "@geometricpanda/storybook-addon-badges": "^0.2.2",
-        "@rollup/plugin-typescript": "11.1.6",
+        "@rollup/plugin-commonjs": "28.0.9",
+        "@rollup/plugin-node-resolve": "16.0.3",
+        "@rollup/plugin-terser": "0.4.4",
+        "@rollup/plugin-typescript": "12.3.0",
         "@storybook/addon-actions": "^6.5.3",
         "@storybook/addon-controls": "^6.5.3",
         "@storybook/addon-docs": "^6.5.3",
@@ -103,7 +109,7 @@
         "chromatic": "^6.11.4",
         "classnames": "^2.2.5",
         "css-loader": "^4.2.2",
-        "cssnano": "^4.1.10",
+        "cssnano": "^5.0.16",
         "eslint": "^8.16.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-formatter-codeframe": "^7.32.1",
@@ -134,15 +140,13 @@
         "react-svg-loader": "^3.0.3",
         "react-test-renderer": "^17.0.2",
         "rimraf": "^3.0.2",
-        "rollup": "2.79.1",
-        "rollup-plugin-postcss": "3.1.8",
-        "rollup-plugin-styles": "^3.14.1",
+        "rollup": "2.79.2",
+        "rollup-plugin-styles": "4.0.0",
         "style-loader": "^0.23.1",
         "svg-url-loader": "^6.0.0",
         "ts-loader": "^8.0.2",
-        "tsdx": "0.14.1",
         "tslib": "^2.0.0",
-        "typescript": "^4.6.4",
+        "typescript": "^4.8.3",
         "webpack": "^4.43.0"
     },
     "dependencies": {
@@ -154,13 +158,5 @@
         "react-keyed-flatten-children": "^1.3.0",
         "react-markdown": "^5.0.3",
         "use-callback-ref": "^1.3.0"
-    },
-    "overrides": {
-        "typescript": "^4.6.4",
-        "@rollup/plugin-typescript": "11.1.6",
-        "rollup": "2.79.1"
-    },
-    "bugs": {
-        "url": "https://github.com/Doist/reactist/issues"
     }
 }
