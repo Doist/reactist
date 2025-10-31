@@ -1,5 +1,12 @@
 # Changelog
 
+## [28.7.3](https://github.com/Doist/reactist/compare/v28.7.2...v28.7.3) (2025-10-31)
+
+
+### 🧰 Maintenance
+
+* Migrate from tsdx to Rollup for modern build tooling ([#973](https://github.com/Doist/reactist/issues/973)) ([45b3275](https://github.com/Doist/reactist/commit/45b3275f87e29c9e2506f3871c90824ee4fb49e2))
+
 ## [28.7.2](https://github.com/Doist/reactist/compare/v28.7.1...v28.7.2) (2025-10-24)
 
 
