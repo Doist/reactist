@@ -88,13 +88,11 @@ ResponsiveStory.argTypes = {
 export function NestedStackStory({ space }: PartialProps<typeof Inline>) {
     const spaceStr = typeof space !== 'string' ? 'none' : space
     return (
-        <>
-            <Stack space={space}>
-                <Heading level="1">Parent stack with space=&ldquo;{spaceStr}&rdquo;</Heading>
-                <Inline space="xsmall">{renderInlineContent()}</Inline>
-                <Inline space="xsmall">{renderInlineContent()}</Inline>
-            </Stack>
-        </>
+        <Stack space={space}>
+            <Heading level="1">Parent stack with space=&ldquo;{spaceStr}&rdquo;</Heading>
+            <Inline space="xsmall">{renderInlineContent()}</Inline>
+            <Inline space="xsmall">{renderInlineContent()}</Inline>
+        </Stack>
     )
 }
 
