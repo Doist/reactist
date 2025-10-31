@@ -20,7 +20,7 @@
         "lib/**",
         "postcss.config.js",
         "scripts/**",
-        "tsdx.config.js",
+        "rollup.config.mjs",
         "webpack.config.*"
     ],
     "rules": {

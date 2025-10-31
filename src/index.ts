@@ -1,3 +1,6 @@
+/// <reference types="../types/css" />
+/// <reference types="../types/less" />
+
 import './styles/design-tokens.css'
 
 // layout components
