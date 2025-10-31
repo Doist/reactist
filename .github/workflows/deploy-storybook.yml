@@ -28,19 +28,23 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
 
-            - name: Read Node.js version from '.nvmrc'
-              id: nvmrc
-              run: |
-                  echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
-
-            - name: Setup Node.js
-              uses: actions/setup-node@v1
+            - name: Prepare Node.js environment
+              uses: actions/setup-node@v6
               with:
-                  node-version: ${{ steps.nvmrc.outputs.NODE_VERSION }}
+                  cache: npm
+                  node-version-file: .node-version
 
-            - name: Install dependencies
+            - name: Cache project 'node_modules' directory
+              id: node-modules-cache
+              uses: actions/cache@v4
+              with:
+                  key: node-modules-cache-${{ hashFiles('**/package-lock.json', '**/.node-version') }}
+                  path: node_modules/
+
+            - name: Install project npm dependencies
+              if: ${{ steps.node-modules-cache.outputs.cache-hit != 'true' }}
               run: npm ci
 
             - name: Build storybook

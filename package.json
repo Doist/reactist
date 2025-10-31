@@ -21,16 +21,24 @@
     "sideEffects": [
         "**/*.css"
     ],
-    "files": [
-        "dist",
-        "es",
-        "lib",
-        "styles"
-    ],
     "engines": {
-        "node": "^16.0.0 || ^18.0.0 || ^20.0.0 || ^21.0.0 || ^22.0.0",
-        "npm": "^8.3.0 || ^9.0.0 || ^10.0.0 || ^11.0.0"
+        "node": "^22.14.0 || >= 24.10.0",
+        "npm": "^10.9.2 || >= 11.5.1"
     },
+    "publishConfig": {
+        "access": "public"
+    },
+    "files": [
+        "CHANGELOG.md",
+        "CODE_OF_CONDUCT.md",
+        "CONTRIBUTING.md",
+        "LICENSE",
+        "README.md",
+        "dist/**",
+        "es/**",
+        "lib/**",
+        "styles/**"
+    ],
     "scripts": {
         "postinstall": "patch-package",
         "setup": "npm install && npm run validate",
@@ -41,7 +49,7 @@
         "poststart:yalc": "yalc installations clean",
         "start:yalc:success": "./scripts/organize-styles.sh && yalc push --sig",
         "build": "scripts/build.sh",
-        "build:storybook": "build-storybook -o docs",
+        "build:storybook": "NODE_OPTIONS=--openssl-legacy-provider build-storybook -o docs",
         "clean": "rimraf es lib styles dist",
         "test": "jest --passWithNoTests",
         "test:watch": "npm run test -- --watch",
