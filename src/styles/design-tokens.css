@@ -30,11 +30,12 @@
     --reactist-width-xlarge: 1280px;
 
     /* font family */
-    --reactist-font-family: -apple-system, system-ui, 'Segoe UI', Roboto, Noto, Oxygen-Sans, Ubuntu,
-        Cantrell, 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol';
-    --reactist-font-family-monospace: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco,
-        'Cascadia Mono', Consolas, 'Liberation Mono', 'Courier New', monospace;
+    --reactist-font-family:
+        -apple-system, system-ui, 'Segoe UI', Roboto, Noto, Oxygen-Sans, Ubuntu, Cantrell,
+        'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    --reactist-font-family-monospace:
+        ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, 'Cascadia Mono', Consolas,
+        'Liberation Mono', 'Courier New', monospace;
 
     /* font sizes */
     --reactist-font-size-caption: 12px;

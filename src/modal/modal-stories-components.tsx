@@ -79,8 +79,7 @@ function ModalStoryStateProvider({
                 ? element.checked
                 : element.value
         setProps((props) => ({ ...props, [name]: value }))
-    },
-    [])
+    }, [])
 
     const value = React.useMemo(
         () => ({
@@ -107,9 +106,8 @@ function ScrollableContent({ label = 'Item', count = 20 }: { label?: string; cou
 }
 
 function ModalOptionsForm({ title }: { title?: React.ReactNode }) {
-    const { button, width, height, hideOn, withScrollableContent, onChange } = React.useContext(
-        ModalStoryContext,
-    )
+    const { button, width, height, hideOn, withScrollableContent, onChange } =
+        React.useContext(ModalStoryContext)
     return (
         <Stack space="large">
             {title}

@@ -32,7 +32,8 @@
         (
                 var(--tmp-desired-height) - var(--reactist-font-size-body) -
                     var(--tmp-line-height-increase)
-            ) / 2
+            ) /
+            2
     );
     padding: var(--tmp-vertical-padding) 10px;
     padding-right: 30px; /* to make room for the absolutely positioned chevron icon */

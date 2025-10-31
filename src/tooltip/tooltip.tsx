@@ -121,9 +121,8 @@ const Tooltip = React.forwardRef<TooltipStore, TooltipProps>(
         },
         ref,
     ) => {
-        const { showTimeout: globalShowTimeout, hideTimeout: globalHideTimeout } = React.useContext(
-            TooltipContext,
-        )
+        const { showTimeout: globalShowTimeout, hideTimeout: globalHideTimeout } =
+            React.useContext(TooltipContext)
 
         const tooltip = useTooltipStore({
             placement: position,
