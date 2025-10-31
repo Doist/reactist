@@ -23,51 +23,56 @@ jobs:
         # Based on historical data
         timeout-minutes: 60
         steps:
-            - uses: actions/checkout@v4
+            - name: Checkout repository
+              uses: actions/checkout@v5
 
             - name: Prepare Node.js environment
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v6
               with:
-                  node-version-file: '.nvmrc'
+                  cache: npm
+                  node-version-file: .node-version
 
-            # Temporarily disabled until we can upgrade to Node.js 20+
-            # ref: https://github.com/Doist/reactist/actions/runs/18786284512/job/53605250671
-            # - name: Ensure npm 11.5.1 or later is installed
-            #   run: npm install -g npm@latest
+            - name: Cache project 'node_modules' directory
+              id: node-modules-cache
+              uses: actions/cache@v4
+              with:
+                  key: node-modules-cache-${{ hashFiles('**/package-lock.json', '**/.node-version') }}
+                  path: node_modules/
 
-            # Remove any registry configurations from .npmrc
-            - run: sed -i "/@doist/d" ./.npmrc
+            - name: Ensure npm 11.5.1 or later is installed
+              run: npm install -g npm@latest
 
-            - run: npm ci
+            - name: Install project npm dependencies
+              if: ${{ steps.node-modules-cache.outputs.cache-hit != 'true' }}
+              run: |
+                  npm ci
+
             - run: npm run lint
             - run: npm run type-check
             - run: npm test
-
-            # Build artifacts for publishing
             - run: npm run build
 
-            # Publish to GitHub package registry
-            - name: Publish to GitHub Package Registry
-              uses: actions/setup-node@v3
+            # The Node.js environment is prepared based on the `.npmrc` file in the repo, which
+            # configures Doist scoped packages to use the public npm registry with OIDC
+            # authentication for the initial `semantic-release` publish, after which we remove the
+            # Doist registry configuration, and prepare the Node.js environment for the GitHub
+            # Packages registry, providing a predictable release workflow for both registries.
+
+            - name: Publish package to public npm registry
+              run: npm publish
+
+            - name: Remove Doist registry configuration from `.npmrc`
+              run: npm config delete @doist:registry --location=project
+
+            - name: Prepare Node.js environment for GitHub Packages registry
+              uses: actions/setup-node@v6
               with:
-                  node-version-file: '.nvmrc'
+                  cache: npm
+                  node-version-file: .node-version
                   registry-url: https://npm.pkg.github.com/
                   scope: '@doist'
-            - run: npm publish
+
+            - name: Publish package to private GitHub Packages registry
+              run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-            - name: Clear npm config between GitHub/npm registries
-              run: rm -f $NPM_CONFIG_USERCONFIG
-
-            # Publish to npm registry
-            - name: Publish to npm registry
-              uses: actions/setup-node@v3
-              with:
-                  node-version-file: '.nvmrc'
-                  registry-url: https://registry.npmjs.org/
-                  scope: '@doist'
-            - run: npm publish --provenance --access public
-              # Token-based authentication until we can use OIDC
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

@@ -7,19 +7,27 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
               with:
                   fetch-depth: 0
 
             - name: Prepare Node.js environment
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v6
               with:
-                  node-version-file: '.nvmrc'
+                  node-version-file: '.node-version'
                   registry-url: https://npm.pkg.github.com
                   scope: '@doist'
 
-            - name: Install dependencies
-              run: npm install
+            - name: Cache project 'node_modules' directory
+              id: node-modules-cache
+              uses: actions/cache@v4
+              with:
+                  key: node-modules-cache-${{ hashFiles('**/package-lock.json', '**/.node-version') }}
+                  path: node_modules/
+
+            - name: Install project npm dependencies
+              if: ${{ steps.node-modules-cache.outputs.cache-hit != 'true' }}
+              run: npm ci
 
             - name: Publish to Chromatic
               uses: chromaui/action@d7afd50124cf4f337bcd943e7f45cfa85a5e4476
@@ -27,3 +35,4 @@ jobs:
                   projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
                   skip: dependabot/**
                   onlyChanged: true
+                  buildScriptName: build:storybook
