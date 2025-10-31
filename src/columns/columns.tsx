@@ -85,8 +85,8 @@ const Columns = polymorphicComponent<'div', ColumnsProps>(function Columns(
                 collapseBelow === 'desktop'
                     ? { mobile: 'column', tablet: 'column', desktop: 'row' }
                     : collapseBelow === 'tablet'
-                    ? { mobile: 'column', tablet: 'row' }
-                    : 'row'
+                      ? { mobile: 'column', tablet: 'row' }
+                      : 'row'
             }
             alignItems={mapResponsiveProp(alignY, (alignY) =>
                 alignY === 'top' ? 'flexStart' : alignY === 'bottom' ? 'flexEnd' : alignY,

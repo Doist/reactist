@@ -184,11 +184,10 @@ export function Modal({
     )
     const store = useDialogStore({ open: isOpen, setOpen })
 
-    const contextValue: ModalContextValue = React.useMemo(() => ({ onDismiss, height, dividers }), [
-        onDismiss,
-        height,
-        dividers,
-    ])
+    const contextValue: ModalContextValue = React.useMemo(
+        () => ({ onDismiss, height, dividers }),
+        [onDismiss, height, dividers],
+    )
 
     const portalRef = React.useRef<HTMLElement | null>(null)
     const dialogRef = React.useRef<HTMLDivElement | null>(null)

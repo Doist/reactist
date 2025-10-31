@@ -144,8 +144,8 @@ class Box extends React.Component<BoxProps, BoxState> {
             typeof body === 'function'
                 ? body(props)
                 : body
-                ? React.cloneElement(body, props)
-                : undefined
+                  ? React.cloneElement(body, props)
+                  : undefined
         return (
             <div className={className} style={{ position: 'relative' }}>
                 {contentMarkup}
