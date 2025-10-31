@@ -370,7 +370,9 @@ describe('Toast', () => {
         )
         expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         userEvent.click(screen.getByRole('button', { name: 'Toggle' }))
-        expect(screen.getByRole('alert')).toHaveTextContent('A toast that can be toggled')
+        await waitFor(() => {
+            expect(screen.getByRole('alert')).toHaveTextContent('A toast that can be toggled')
+        })
         userEvent.click(screen.getByRole('button', { name: 'Toggle' }))
         await waitFor(() => {
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
