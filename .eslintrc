@@ -3,6 +3,7 @@
     "extends": [
         "@doist/eslint-config/recommended-type-checked",
         "@doist/eslint-config/react",
+        "plugin:react/jsx-runtime",
         "plugin:jest/recommended"
     ],
     "parser": "@typescript-eslint/parser",
