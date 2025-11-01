@@ -12,7 +12,7 @@
             "impliedStrict": true
         },
         "sourceType": "module",
-        "project": ["tsconfig.json", "tsconfig.stories.json"]
+        "project": ["tsconfig.json", "stories/tsconfig.json"]
     },
     "ignorePatterns": [
         "dist/**",
