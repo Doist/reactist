@@ -1,4 +1,4 @@
-import { cloneElement, useRef } from 'react'
+import { cloneElement, DOMAttributes, FunctionComponentElement, useMemo, useState } from 'react'
 
 import type { KeyboardEvent, ReactElement, SyntheticEvent } from 'react'
 
@@ -137,54 +137,71 @@ type KeyCapturerProps = EventHandlerProps &
  */
 function KeyCapturer(props: KeyCapturerProps) {
     const { children, eventName = 'onKeyDown' } = props
-    const composingRef = useRef(false)
-    const composingEventHandlers = props.onEnter
-        ? {
-              onCompositionStart: () => {
-                  composingRef.current = true
-              },
-              onCompositionEnd: () => {
-                  composingRef.current = false
-              },
-          }
-        : undefined
+    const [isComposing, setIsComposing] = useState(false)
 
-    function handleKeyEvent(event: KeyboardEvent<HTMLInputElement>) {
-        // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
-        const key =
-            event.key !== undefined
-                ? KeyCapturerResolver.resolveByKey(event.key)
-                : KeyCapturerResolver.resolveByKeyCode(event.keyCode)
+    const onCompositionStart = useMemo(
+        () =>
+            props.onEnter
+                ? () => {
+                      setIsComposing(true)
+                  }
+                : undefined,
+        [props.onEnter],
+    )
+    const onCompositionEnd = useMemo(
+        () =>
+            props.onEnter
+                ? () => {
+                      setIsComposing(false)
+                  }
+                : undefined,
+        [props.onEnter],
+    )
 
-        if (!key) return
-        const propagateEvent = props[keyPropagatePropMapping[key]] || false
-        const eventHandler = props[keyEventHandlerMapping[key]]
+    const handleKeyEvent = useMemo(
+        () =>
+            function handleKeyEvent(event: KeyboardEvent<HTMLInputElement>) {
+                // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
+                const key =
+                    event.key !== undefined
+                        ? KeyCapturerResolver.resolveByKey(event.key)
+                        : KeyCapturerResolver.resolveByKeyCode(event.keyCode)
 
-        if (key === 'Enter' && eventHandler) {
-            if (
-                composingRef.current ||
-                // Safari fires the onCompositionEnd event before the keydown event, so we
-                // have to rely on the 229 keycode, which is Enter when fired from an IME
-                // https://www.w3.org/TR/uievents/#determine-keydown-keyup-keyCode
-                (event.keyCode || event.which) === 229
-            ) {
-                return
-            }
-        }
+                if (!key) return
+                const propagateEvent = props[keyPropagatePropMapping[key]] || false
+                const eventHandler = props[keyEventHandlerMapping[key]]
 
-        if (eventHandler) {
-            eventHandler(event)
-            if (!propagateEvent) {
-                event.preventDefault()
-                event.stopPropagation()
-            }
-        }
-    }
+                if (key === 'Enter' && eventHandler) {
+                    if (
+                        isComposing ||
+                        // Safari fires the onCompositionEnd event before the keydown event, so we
+                        // have to rely on the 229 keycode, which is Enter when fired from an IME
+                        // https://www.w3.org/TR/uievents/#determine-keydown-keyup-keyCode
+                        (event.keyCode || event.which) === 229
+                    ) {
+                        return
+                    }
+                }
 
-    return cloneElement(children, {
-        [eventName]: handleKeyEvent,
-        ...composingEventHandlers,
-    })
+                if (eventHandler) {
+                    eventHandler(event)
+                    if (!propagateEvent) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                }
+            },
+        [props, isComposing],
+    )
+
+    return cloneElement<DOMAttributes<HTMLElement>>(
+        children as FunctionComponentElement<DOMAttributes<HTMLElement>>,
+        {
+            [eventName]: handleKeyEvent,
+            onCompositionStart,
+            onCompositionEnd,
+        },
+    )
 }
 
 export { KeyCapturer, KeyCapturerResolver, SUPPORTED_KEYS }
