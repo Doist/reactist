@@ -60,7 +60,7 @@ export interface ModalProps extends DivProps, ObfuscatedClassName {
     /**
      * Called when the user triggers closing the modal.
      */
-    onDismiss?(): void
+    onDismiss?(this: void): void
 
     /**
      * A descriptive setting for how wide the modal should aim to be, depending on how much space
