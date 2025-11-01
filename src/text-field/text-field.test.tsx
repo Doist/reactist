@@ -4,7 +4,9 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
-import { TextField, TextFieldProps } from './'
+import { TextField } from './'
+
+import type { TextFieldProps } from './'
 
 describe('TextField', () => {
     it('supports having an externally provided id attribute', () => {

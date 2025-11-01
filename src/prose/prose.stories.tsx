@@ -1,7 +1,9 @@
 import { Box } from '../box'
 
-import { Prose, ProseProps } from './prose'
+import { Prose } from './prose'
 import { proseExample } from './prose-example'
+
+import type { ProseProps } from './prose'
 
 export default {
     title: 'Design system/Prose',

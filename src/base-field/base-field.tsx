@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Box, BoxProps } from '../box'
+import { Box } from '../box'
 import { Column, Columns } from '../columns'
 import { Spinner } from '../spinner'
 import { Stack } from '../stack'
@@ -16,6 +16,7 @@ import type {
     ReactElement,
     ReactNode,
 } from 'react'
+import type { BoxProps } from '../box'
 import type { WithEnhancedClassName } from '../utils/common-types'
 
 // Define the remaining characters before the character count turns red

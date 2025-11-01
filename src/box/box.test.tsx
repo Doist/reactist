@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/react'
 import { axe } from 'jest-axe'
 
-import { Box, BoxProps } from './'
+import { Box } from './'
+
+import type { BoxProps } from './'
 
 describe('Box', () => {
     it('renders its children as its content', () => {

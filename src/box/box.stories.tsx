@@ -3,7 +3,6 @@ import { Inline } from '../inline'
 import { Stack } from '../stack'
 import { Text } from '../text'
 import {
-    PartialProps,
     Placeholder,
     ResponsiveWidthRef,
     reusableBoxProps,
@@ -13,10 +12,11 @@ import {
     Wrapper,
 } from '../utils/storybook-helper'
 
-import { Box, BoxBorderRadius } from './box'
+import { Box } from './box'
 
 import type { CSSProperties } from 'react'
 import type { Space, SpaceWithNegatives } from '../utils/common-types'
+import type { PartialProps } from '../utils/storybook-helper'
 import type {
     BoxAlignItems,
     BoxBackground,
@@ -28,6 +28,7 @@ import type {
     BoxPaddingProps,
     BoxTextAlign,
 } from './'
+import type { BoxBorderRadius } from './box'
 
 export default {
     title: 'Design system/Box',

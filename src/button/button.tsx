@@ -1,15 +1,17 @@
 import { forwardRef } from 'react'
 
-import { Role, RoleProps } from '@ariakit/react'
+import { Role } from '@ariakit/react'
 import classNames from 'classnames'
 
 import { Box, getBoxClassNames } from '../box'
 import { Spinner } from '../spinner'
-import { Tooltip, TooltipProps } from '../tooltip'
+import { Tooltip } from '../tooltip'
 
 import styles from './button.module.css'
 
+import type { RoleProps } from '@ariakit/react'
 import type { ButtonHTMLAttributes, ReactElement, ReactNode, SyntheticEvent } from 'react'
+import type { TooltipProps } from '../tooltip'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
 function preventDefault(event: SyntheticEvent) {

@@ -2,7 +2,6 @@ import { Heading } from '../heading'
 import { Stack } from '../stack'
 import {
     disableResponsiveProps,
-    PartialProps,
     Placeholder,
     ResponsiveWidthRef,
     reusableBoxProps,
@@ -11,7 +10,10 @@ import {
     Wrapper,
 } from '../utils/storybook-helper'
 
-import { Inline, InlineAlign } from './inline'
+import { Inline } from './inline'
+
+import type { PartialProps } from '../utils/storybook-helper'
+import type { InlineAlign } from './inline'
 
 export default {
     title: 'Design system/Inline',

@@ -7,10 +7,11 @@ import { Stack } from '../stack'
 import { Text } from '../text'
 import { TextField } from '../text-field'
 
-import { Tooltip, TooltipProps, TooltipProvider } from './tooltip'
+import { Tooltip, TooltipProvider } from './tooltip'
 
 import type { TooltipStore } from '@ariakit/react'
 import type { PropsWithChildren } from 'react'
+import type { TooltipProps } from './tooltip'
 
 //
 // Story setup
