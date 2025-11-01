@@ -27,16 +27,24 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 3')).not.toBeVisible()
 
         userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
-        expect(screen.getByText('Content of tab 1')).not.toBeVisible()
+
+        await waitFor(() => {
+            expect(screen.getByText('Content of tab 1')).not.toBeVisible()
+        })
+
         expect(screen.getByRole('tabpanel', { name: 'Tab 2' })).toBeVisible()
         expect(screen.getByText('Content of tab 2')).toBeVisible()
         expect(screen.getByText('Content of tab 3')).not.toBeVisible()
 
         userEvent.click(screen.getByRole('tab', { name: 'Tab 3' }))
+
+        await waitFor(() => {
+            expect(screen.getByText('Content of tab 2')).not.toBeVisible()
+        })
+
         expect(screen.getByText('Content of tab 1')).not.toBeVisible()
-        expect(screen.getByText('Content of tab 2')).not.toBeVisible()
-        expect(screen.getByRole('tabpanel', { name: 'Tab 3' })).toBeVisible()
         expect(screen.getByText('Content of tab 3')).toBeVisible()
+        expect(screen.getByRole('tabpanel', { name: 'Tab 3' })).toBeVisible()
     })
 
     it("renders a tab's content only when they're active when each TabPanel's `render` prop is set to 'active'", async () => {
@@ -103,19 +111,27 @@ describe('Tabs', () => {
         expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
 
         userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
-        expect(screen.getByText('Content of tab 1')).not.toBeVisible()
+
+        await waitFor(() => {
+            expect(screen.getByText('Content of tab 1')).not.toBeVisible()
+        })
+
         expect(screen.getByRole('tabpanel', { name: 'Tab 2' })).toBeVisible()
         expect(screen.getByText('Content of tab 2')).toBeVisible()
         expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
 
         userEvent.click(screen.getByRole('tab', { name: 'Tab 3' }))
+
+        await waitFor(() => {
+            expect(screen.getByText('Content of tab 2')).not.toBeVisible()
+        })
+
         expect(screen.getByText('Content of tab 1')).not.toBeVisible()
-        expect(screen.getByText('Content of tab 2')).not.toBeVisible()
         expect(screen.getByRole('tabpanel', { name: 'Tab 3' })).toBeVisible()
         expect(screen.getByText('Content of tab 3')).toBeVisible()
     })
 
-    it('becomes a controlled component when selectedId is provided', () => {
+    it('becomes a controlled component when selectedId is provided', async () => {
         const { rerender } = render(
             <Tabs>
                 <TabList aria-label="test-tabs">
@@ -149,9 +165,12 @@ describe('Tabs', () => {
             </Tabs>,
         )
 
+        await waitFor(() => {
+            expect(screen.getByText('Content of tab 2')).not.toBeVisible()
+        })
+
         expect(onSelectedIdChange).not.toHaveBeenCalled()
         expect(screen.getByText('Content of tab 1')).not.toBeVisible()
-        expect(screen.getByText('Content of tab 2')).not.toBeVisible()
         expect(screen.getByText('Content of tab 3')).toBeVisible()
 
         userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
