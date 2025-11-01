@@ -1,9 +1,10 @@
 /* eslint-disable jest/no-export */
 /* eslint-disable jest/valid-title */
-import * as React from 'react'
 import { act, render, screen } from '@testing-library/react'
-import type { ResponsiveProp } from './responsive-props'
+
+import type { ComponentType } from 'react'
 import type { Space } from './common-types'
+import type { ResponsiveProp } from './responsive-props'
 
 type PropsWithSpace = { space?: ResponsiveProp<Space>; 'data-testid'?: string }
 
@@ -14,7 +15,7 @@ function getSpaceClassNames(element: HTMLElement) {
     return Array.from(element.classList).filter((className) => className.includes('gap-'))
 }
 
-function runSpaceTests<Props extends PropsWithSpace>(Component: React.ComponentType<Props>) {
+function runSpaceTests<Props extends PropsWithSpace>(Component: ComponentType<Props>) {
     function renderTestCase(space: ResponsiveProp<Space>) {
         // @ts-expect-error not sure how to properly type the Component argument above
         render(<Component data-testid="subject" space={space} />)
@@ -73,4 +74,4 @@ function TestIcon() {
     )
 }
 
-export { runSpaceTests, flushMicrotasks, TestIcon }
+export { flushMicrotasks, runSpaceTests, TestIcon }

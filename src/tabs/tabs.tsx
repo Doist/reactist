@@ -1,33 +1,45 @@
-import * as React from 'react'
-import classNames from 'classnames'
 import {
-    useTabStore,
+    createContext,
+    forwardRef,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react'
+
+import {
     Tab as BaseTab,
-    TabProps as BaseTabProps,
     TabList as BaseTabList,
     TabPanel as BaseTabPanel,
     TabPanelProps as BaseTabPanelProps,
+    TabProps as BaseTabProps,
     TabStore,
+    useTabStore,
 } from '@ariakit/react'
+import classNames from 'classnames'
+
 import { Box, BoxJustifyContent } from '../box'
 import { Inline } from '../inline'
 
-import type { ObfuscatedClassName, Space } from '../utils/common-types'
-
 import styles from './tabs.module.css'
+
+import type { CSSProperties, HTMLAttributes, ReactElement, ReactNode } from 'react'
+import type { ObfuscatedClassName, Space } from '../utils/common-types'
 
 type TabsContextValue = Required<Pick<TabsProps, 'variant'>> & {
     tabStore: TabStore
 }
 
-const TabsContext = React.createContext<TabsContextValue | null>(null)
+const TabsContext = createContext<TabsContextValue | null>(null)
 
 interface TabsProps {
     /**
      * The `<Tabs>` component must be composed from a `<TabList>` and corresponding `<TabPanel>`
      * components
      */
-    children: React.ReactNode
+    children: ReactNode
 
     /**
      * Determines the look and feel of the tabs
@@ -60,7 +72,7 @@ function Tabs({
     defaultSelectedId,
     variant = 'neutral',
     onSelectedIdChange,
-}: TabsProps): React.ReactElement {
+}: TabsProps): ReactElement {
     const tabStore = useTabStore({
         defaultSelectedId,
         selectedId,
@@ -68,7 +80,7 @@ function Tabs({
     })
     const actualSelectedId = tabStore.useState('selectedId')
 
-    const memoizedTabState = React.useMemo(
+    const memoizedTabState = useMemo(
         () => ({ tabStore, variant, selectedId: selectedId ?? actualSelectedId ?? null }),
         [variant, tabStore, selectedId, actualSelectedId],
     )
@@ -81,7 +93,7 @@ interface TabProps
     /**
      * The content to render inside of the tab button
      */
-    children: React.ReactNode
+    children: ReactNode
 
     /**
      * The tab's identifier. This must match its corresponding `<TabPanel>`'s id
@@ -97,11 +109,11 @@ interface TabProps
 /**
  * Represents the individual tab elements within the group. Each `<Tab>` must have a corresponding `<TabPanel>` component.
  */
-const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(
+const Tab = forwardRef<HTMLButtonElement, TabProps>(function Tab(
     { children, id, disabled, exceptionallySetClassName, render, onClick },
     ref,
-): React.ReactElement | null {
-    const tabContextValue = React.useContext(TabsContext)
+): ReactElement | null {
+    const tabContextValue = useContext(TabsContext)
     if (!tabContextValue) return null
 
     const { variant, tabStore } = tabContextValue
@@ -144,7 +156,7 @@ type TabListProps = (
     /**
      * A list of `<Tab>` elements
      */
-    children: React.ReactNode
+    children: ReactNode
 
     /**
      * Controls the spacing between tabs
@@ -179,18 +191,18 @@ function TabList({
     align = 'start',
     exceptionallySetClassName,
     ...props
-}: TabListProps): React.ReactElement | null {
-    const tabListRef = React.useRef<HTMLDivElement | null>(null)
-    const tabListPrevWidthRef = React.useRef(0)
+}: TabListProps): ReactElement | null {
+    const tabListRef = useRef<HTMLDivElement | null>(null)
+    const tabListPrevWidthRef = useRef(0)
 
-    const tabContextValue = React.useContext(TabsContext)
+    const tabContextValue = useContext(TabsContext)
 
-    const [selectedTabElement, setSelectedTabElement] = React.useState<HTMLElement | null>(null)
-    const [selectedTabStyle, setSelectedTabStyle] = React.useState<React.CSSProperties>({})
+    const [selectedTabElement, setSelectedTabElement] = useState<HTMLElement | null>(null)
+    const [selectedTabStyle, setSelectedTabStyle] = useState<CSSProperties>({})
 
     const selectedId = tabContextValue?.tabStore.useState('selectedId')
 
-    const updateSelectedTabPosition = React.useCallback(
+    const updateSelectedTabPosition = useCallback(
         function updateSelectedTabPositionCallback() {
             if (!selectedId || !tabListRef.current) {
                 return
@@ -213,7 +225,7 @@ function TabList({
         [selectedId],
     )
 
-    React.useEffect(
+    useEffect(
         function updateSelectedTabPositionOnTabChange() {
             updateSelectedTabPosition()
         },
@@ -221,7 +233,7 @@ function TabList({
         [selectedId, updateSelectedTabPosition],
     )
 
-    React.useEffect(
+    useEffect(
         function observeTabListWidthChange() {
             let animationFrameId: number | null = null
 
@@ -305,11 +317,9 @@ function TabList({
     )
 }
 
-interface TabPanelProps
-    extends React.HTMLAttributes<HTMLDivElement>,
-        Pick<BaseTabPanelProps, 'render'> {
+interface TabPanelProps extends HTMLAttributes<HTMLDivElement>, Pick<BaseTabPanelProps, 'render'> {
     /** The content to be rendered inside the tab */
-    children?: React.ReactNode
+    children?: ReactNode
 
     /** The tabPanel's identifier. This must match its corresponding `<Tab>`'s id */
     id: string
@@ -327,16 +337,16 @@ interface TabPanelProps
  * Used to define the content to be rendered when a tab is active. Each `<TabPanel>` must have a
  * corresponding `<Tab>` component.
  */
-const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(function TabPanel(
+const TabPanel = forwardRef<HTMLDivElement, TabPanelProps>(function TabPanel(
     { children, id, renderMode = 'always', ...props },
     ref,
-): React.ReactElement | null {
-    const tabContextValue = React.useContext(TabsContext)
-    const [tabRendered, setTabRendered] = React.useState(false)
+): ReactElement | null {
+    const tabContextValue = useContext(TabsContext)
+    const [tabRendered, setTabRendered] = useState(false)
     const selectedId = tabContextValue?.tabStore.useState('selectedId')
     const tabIsActive = selectedId === id
 
-    React.useEffect(
+    useEffect(
         function trackTabRenderedState() {
             if (!tabRendered && tabIsActive) {
                 setTabRendered(true)
@@ -367,17 +377,17 @@ type TabAwareSlotProps = {
      * Render prop used to provide the content to be rendered inside the slot. The render prop will
      * be called with the current `selectedId`
      */
-    children: (provided: { selectedId?: string | null }) => React.ReactElement | null
+    children: (provided: { selectedId?: string | null }) => ReactElement | null
 }
 
 /**
  * Allows content to be rendered based on the current tab being selected while outside of the
  * TabPanel component. Can be placed freely within the main `<Tabs>` component.
  */
-function TabAwareSlot({ children }: TabAwareSlotProps): React.ReactElement | null {
-    const tabContextValue = React.useContext(TabsContext)
+function TabAwareSlot({ children }: TabAwareSlotProps): ReactElement | null {
+    const tabContextValue = useContext(TabsContext)
     const selectedId = tabContextValue?.tabStore.useState('selectedId')
     return tabContextValue ? children({ selectedId }) : null
 }
 
-export { Tab, Tabs, TabList, TabPanel, TabAwareSlot }
+export { Tab, TabAwareSlot, TabList, TabPanel, Tabs }

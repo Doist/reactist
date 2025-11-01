@@ -1,12 +1,13 @@
-import * as React from 'react'
 import { Box } from '../box'
 import { Spinner } from '../spinner'
+
+import type { HTMLAttributes } from 'react'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
 type Size = 'xsmall' | 'small' | 'medium' | 'large'
 
 type NativeProps = Omit<
-    React.HTMLAttributes<HTMLDivElement>,
+    HTMLAttributes<HTMLDivElement>,
     'className' | 'aria-describedby' | 'aria-label' | 'aria-labelledby' | 'role' | 'size'
 >
 
@@ -47,8 +48,8 @@ function Loading({ size = 'small', exceptionallySetClassName, ...props }: Loadin
     const ariaLabel = props['aria-label']
         ? props['aria-label']
         : !props['aria-labelledby']
-        ? 'Loading…'
-        : undefined
+          ? 'Loading…'
+          : undefined
 
     return (
         <Box

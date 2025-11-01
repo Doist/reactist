@@ -1,21 +1,36 @@
-import * as React from 'react'
-import classNames from 'classnames'
+import {
+    createContext,
+    forwardRef,
+    useCallback,
+    useContext,
+    useLayoutEffect,
+    useMemo,
+    useRef,
+} from 'react'
 import FocusLock from 'react-focus-lock'
+
+import { Dialog, DialogOptions, Portal, PortalOptions, useDialogStore } from '@ariakit/react'
 import { hideOthers } from 'aria-hidden'
+import classNames from 'classnames'
 
-import { Dialog, DialogOptions, useDialogStore, Portal, PortalOptions } from '@ariakit/react'
-
-import { CloseIcon } from '../icons/close-icon'
-import { Column, Columns } from '../columns'
-import { Inline } from '../inline'
-import { Divider } from '../divider'
 import { Box } from '../box'
-import { IconButtonProps, IconButton } from '../button'
+import { IconButton, IconButtonProps } from '../button'
+import { Column, Columns } from '../columns'
+import { Divider } from '../divider'
+import { CloseIcon } from '../icons/close-icon'
+import { Inline } from '../inline'
 
 import styles from './modal.module.css'
-import type { ObfuscatedClassName } from '../utils/common-types'
-import { forwardRef } from 'react'
+
+import type {
+    ButtonHTMLAttributes,
+    DetailedHTMLProps,
+    KeyboardEvent,
+    MouseEvent,
+    ReactNode,
+} from 'react'
 import type { DividerProps } from '../divider'
+import type { ObfuscatedClassName } from '../utils/common-types'
 
 type ModalWidth = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'full'
 type ModalHeightMode = 'expand' | 'fitContent'
@@ -30,7 +45,7 @@ type ModalContextValue = {
     dividers?: DividerProps['weight']
 }
 
-const ModalContext = React.createContext<ModalContextValue>({
+const ModalContext = createContext<ModalContextValue>({
     onDismiss: undefined,
     height: 'fitContent',
     dividers: undefined,
@@ -41,7 +56,7 @@ const ModalContext = React.createContext<ModalContextValue>({
 //
 
 type DivProps = Omit<
-    React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+    DetailedHTMLProps<ButtonHTMLAttributes<HTMLDivElement>, HTMLDivElement>,
     'className' | 'children' | `aria-label` | `aria-labelledby`
 >
 
@@ -49,7 +64,7 @@ export interface ModalProps extends DivProps, ObfuscatedClassName {
     /**
      * The content of the modal.
      */
-    children: React.ReactNode
+    children: ReactNode
 
     /**
      * Whether the modal is open and visible or not.
@@ -59,7 +74,7 @@ export interface ModalProps extends DivProps, ObfuscatedClassName {
     /**
      * Called when the user triggers closing the modal.
      */
-    onDismiss?(): void
+    onDismiss?(this: void): void
 
     /**
      * A descriptive setting for how wide the modal should aim to be, depending on how much space
@@ -174,7 +189,7 @@ export function Modal({
     className,
     ...props
 }: ModalProps) {
-    const setOpen = React.useCallback(
+    const setOpen = useCallback(
         (visible: boolean) => {
             if (!visible) {
                 onDismiss?.()
@@ -184,17 +199,16 @@ export function Modal({
     )
     const store = useDialogStore({ open: isOpen, setOpen })
 
-    const contextValue: ModalContextValue = React.useMemo(() => ({ onDismiss, height, dividers }), [
-        onDismiss,
-        height,
-        dividers,
-    ])
+    const contextValue: ModalContextValue = useMemo(
+        () => ({ onDismiss, height, dividers }),
+        [onDismiss, height, dividers],
+    )
 
-    const portalRef = React.useRef<HTMLElement | null>(null)
-    const dialogRef = React.useRef<HTMLDivElement | null>(null)
-    const backdropRef = React.useRef<HTMLDivElement | null>(null)
-    const handleBackdropClick = React.useCallback(
-        (event: React.MouseEvent) => {
+    const portalRef = useRef<HTMLElement | null>(null)
+    const dialogRef = useRef<HTMLDivElement | null>(null)
+    const backdropRef = useRef<HTMLDivElement | null>(null)
+    const handleBackdropClick = useCallback(
+        (event: MouseEvent) => {
             if (
                 // The focus lock element takes up the same space as the backdrop and is where the event bubbles up from,
                 // so instead of checking the backdrop as the event target, we need to make sure it's just above the dialog
@@ -209,7 +223,7 @@ export function Modal({
         [onDismiss],
     )
 
-    React.useLayoutEffect(
+    useLayoutEffect(
         function disableAccessibilityTreeOutside() {
             if (!isOpen || !portalRef.current) {
                 return
@@ -220,8 +234,8 @@ export function Modal({
         [isOpen],
     )
 
-    const handleKeyDown = React.useCallback(
-        function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+    const handleKeyDown = useCallback(
+        function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
             if (
                 hideOnEscape &&
                 onDismiss != null &&
@@ -325,28 +339,33 @@ export interface ModalCloseButtonProps
  * @see ModalHeader
  */
 export function ModalCloseButton(props: ModalCloseButtonProps) {
-    const { onDismiss } = React.useContext(ModalContext)
-    const [includeInTabOrder, setIncludeInTabOrder] = React.useState(false)
-    const [isMounted, setIsMounted] = React.useState(false)
+    const { onDismiss } = useContext(ModalContext)
+    const buttonRef = useRef<HTMLButtonElement>(null)
 
-    React.useEffect(
-        function skipAutoFocus() {
-            if (isMounted) {
-                setIncludeInTabOrder(true)
-            } else {
-                setIsMounted(true)
-            }
-        },
-        [isMounted],
-    )
+    useLayoutEffect(function skipAutoFocus() {
+        const button = buttonRef.current
+        if (!button) {
+            return
+        }
+
+        button.tabIndex = -1
+
+        const rafId = requestAnimationFrame(() => {
+            button.tabIndex = 0
+        })
+
+        return () => {
+            cancelAnimationFrame(rafId)
+        }
+    }, [])
 
     return (
         <IconButton
             {...props}
+            ref={buttonRef}
             variant="quaternary"
             onClick={onDismiss}
             icon={<CloseIcon />}
-            tabIndex={includeInTabOrder ? 0 : -1}
         />
     )
 }
@@ -359,13 +378,13 @@ export interface ModalHeaderProps extends DivProps, ObfuscatedClassName {
     /**
      * The content of the header.
      */
-    children: React.ReactNode
+    children: ReactNode
 
     /**
      * Allows to provide a custom button element, or to omit the close button if set to false.
      * @see ModalCloseButton
      */
-    button?: React.ReactNode | boolean
+    button?: ReactNode | boolean
 
     /**
      * Whether to render a divider line below the header.
@@ -388,7 +407,7 @@ export function ModalHeader({
     exceptionallySetClassName,
     ...props
 }: ModalHeaderProps) {
-    const { dividers } = React.useContext(ModalContext)
+    const { dividers } = useContext(ModalContext)
 
     return (
         <>
@@ -432,7 +451,7 @@ export interface ModalBodyProps extends DivProps, ObfuscatedClassName {
     /**
      * The content of the modal body.
      */
-    children: React.ReactNode
+    children: ReactNode
 }
 
 /**
@@ -451,7 +470,7 @@ export const ModalBody = forwardRef<HTMLDivElement, ModalBodyProps>(function Mod
     { exceptionallySetClassName, children, ...props },
     ref,
 ) {
-    const { height } = React.useContext(ModalContext)
+    const { height } = useContext(ModalContext)
     return (
         <Box
             {...props}
@@ -476,7 +495,7 @@ export interface ModalFooterProps extends DivProps, ObfuscatedClassName {
     /**
      * The contant of the modal footer.
      */
-    children: React.ReactNode
+    children: ReactNode
     /**
      * Whether to render a divider line below the footer.
      * @default false
@@ -496,7 +515,7 @@ export function ModalFooter({
     withDivider = false,
     ...props
 }: ModalFooterProps) {
-    const { dividers } = React.useContext(ModalContext)
+    const { dividers } = useContext(ModalContext)
 
     return (
         <>

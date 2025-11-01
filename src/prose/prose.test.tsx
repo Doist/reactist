@@ -1,5 +1,5 @@
-import * as React from 'react'
 import { render, screen } from '@testing-library/react'
+
 import { Prose } from './prose'
 
 describe('Prose', () => {

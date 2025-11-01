@@ -1,10 +1,14 @@
-import * as React from 'react'
+import { forwardRef, useEffect, useRef, useState } from 'react'
+
 import { Box } from '../box'
 import { Text } from '../text'
+
 import { CheckboxIcon } from './checkbox-icon'
+import { useForkRef } from './use-fork-ref'
 
 import styles from './checkbox-field.module.css'
-import { useForkRef } from './use-fork-ref'
+
+import type { ReactElement, ReactNode } from 'react'
 
 interface CheckboxFieldProps
     extends Omit<
@@ -47,12 +51,12 @@ interface CheckboxFieldProps
     /**
      * The label for the checkbox element.
      */
-    label?: React.ReactNode
+    label?: ReactNode
 
     /**
      * The icon that should be added to the checkbox label.
      */
-    icon?: React.ReactElement | string | number
+    icon?: ReactElement | string | number
 
     /**
      * Defines whether or not the checkbox can be of a `mixed` state.
@@ -60,7 +64,7 @@ interface CheckboxFieldProps
     indeterminate?: boolean
 }
 
-const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(function CheckboxField(
+const CheckboxField = forwardRef<HTMLInputElement, CheckboxFieldProps>(function CheckboxField(
     { label, icon, disabled, indeterminate, defaultChecked, onChange, ...props },
     ref,
 ) {
@@ -76,13 +80,13 @@ const CheckboxField = React.forwardRef<HTMLInputElement, CheckboxFieldProps>(fun
         console.warn('A Checkbox needs a label')
     }
 
-    const [keyFocused, setKeyFocused] = React.useState(false)
-    const [checkedState, setChecked] = React.useState(props.checked ?? defaultChecked ?? false)
+    const [keyFocused, setKeyFocused] = useState(false)
+    const [checkedState, setChecked] = useState(props.checked ?? defaultChecked ?? false)
     const isChecked = props.checked ?? checkedState
 
-    const internalRef = React.useRef<HTMLInputElement>(null)
+    const internalRef = useRef<HTMLInputElement>(null)
     const combinedRef = useForkRef(internalRef, ref)
-    React.useEffect(
+    useEffect(
         function setIndeterminate() {
             if (internalRef.current && typeof indeterminate === 'boolean') {
                 internalRef.current.indeterminate = indeterminate

@@ -1,10 +1,10 @@
-import * as React from 'react'
+import '../styles/design-tokens.css'
+
 import { Box } from '../box'
 import { Heading } from '../heading'
 import { Stack } from '../stack'
 
-import '../styles/design-tokens.css'
-
+import type { ComponentProps, CSSProperties, JSXElementConstructor, ReactNode } from 'react'
 import type { BoxProps } from '../box'
 import type { Space } from './common-types'
 
@@ -94,8 +94,8 @@ function Wrapper({
     children,
     border = false,
 }: {
-    title?: React.ReactNode
-    children: React.ReactNode
+    title?: ReactNode
+    children: ReactNode
     border?: boolean
 }) {
     return (
@@ -128,7 +128,7 @@ function Placeholder({
     label,
     width = '100%',
     height = '30px',
-}: { label?: React.ReactNode } & Pick<React.CSSProperties, 'width' | 'height'>) {
+}: { label?: ReactNode } & Pick<CSSProperties, 'width' | 'height'>) {
     return (
         <Box
             style={{
@@ -147,22 +147,22 @@ function Placeholder({
 }
 
 type PartialProps<
-    // Parent type of T is the same as React.ComponentProps<T>
+    // Parent type of T is the same as ComponentProps<T>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>
-> = Partial<React.ComponentProps<T>>
+    T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
+> = Partial<ComponentProps<T>>
 
 export {
-    select,
-    selectWithNone,
-    selectSize,
-    selectCount,
-    times,
-    reusableBoxProps,
     disableResponsiveProps,
-    Wrapper,
-    ResponsiveWidthRef,
     Placeholder,
+    ResponsiveWidthRef,
+    reusableBoxProps,
+    select,
+    selectCount,
+    selectSize,
+    selectWithNone,
+    times,
+    Wrapper,
 }
 
 export type { PartialProps }

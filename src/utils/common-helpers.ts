@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useRef } from 'react'
 
 let uid = 0
 function uniqueId() {
@@ -10,10 +10,15 @@ export function generateElementId(prefix: string): string {
     return `${prefix}-${num}`
 }
 
+/**
+ * @deprecated Use `useId` available from React 18 or above instead.
+ */
 export function useId(providedId?: string): string {
-    const ref = React.useRef<string | null>(providedId ?? null)
+    const ref = useRef<string | null>(providedId ?? null)
+    // eslint-disable-next-line react-hooks/refs
     if (!ref.current) {
         ref.current = generateElementId('element')
     }
+    // eslint-disable-next-line react-hooks/refs
     return ref.current
 }

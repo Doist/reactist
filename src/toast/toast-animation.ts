@@ -24,7 +24,7 @@
  * SOFTWARE.
  */
 
-import { useMemo, useCallback, useLayoutEffect } from 'react'
+import { useCallback, useLayoutEffect, useMemo } from 'react'
 
 const ANIMATION_TIMEOUT = 400
 const ENTRANCE_TRANSITION = 'transform 0.3s ease, opacity 0.3s ease'

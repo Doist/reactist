@@ -1,22 +1,22 @@
-import * as React from 'react'
-import { action as storybookAction } from '@storybook/addon-actions'
+import { useRef, useState } from 'react'
 
-import { AlertIcon } from '../icons/alert-icon'
-import { PasswordVisibleIcon } from '../icons/password-visible-icon'
+import { action as storybookAction } from '@storybook/addon-actions'
 
 import { Box } from '../box'
 import { Button, ButtonVariant, IconButton } from '../button'
 import { CheckboxField } from '../checkbox-field'
 import { Heading } from '../heading'
+import { AlertIcon } from '../icons/alert-icon'
+import { PasswordVisibleIcon } from '../icons/password-visible-icon'
 import { Inline } from '../inline'
 import { SelectField } from '../select-field'
 import { Spinner } from '../spinner'
 import { Stack } from '../stack'
 import { SwitchField } from '../switch-field'
+import { Text } from '../text'
 
 import { StaticToast, StaticToastProps } from './static-toast'
 import { Toast, ToastsProvider, useToasts } from './use-toasts'
-import { Text } from '../text'
 
 export default {
     title: 'Design system/Toast',
@@ -52,8 +52,8 @@ function getRandom<T>(list: Array<T>): T {
 
 export function NotificationToastsStory() {
     const showToast = useToasts()
-    const count = React.useRef(0)
-    const [showSticky, setShowSticky] = React.useState(false)
+    const count = useRef(0)
+    const [showSticky, setShowSticky] = useState(false)
     return (
         <Box padding="large">
             <Stack space="xlarge">
@@ -130,9 +130,9 @@ export function NotificationToastsStory() {
 }
 
 export function StaticToastStory() {
-    const [showIcon, setShowIcon] = React.useState(false)
-    const [showDismiss, setShowDismiss] = React.useState(false)
-    const [actionVariant, setActionVariant] = React.useState<
+    const [showIcon, setShowIcon] = useState(false)
+    const [showDismiss, setShowDismiss] = useState(false)
+    const [actionVariant, setActionVariant] = useState<
         ButtonVariant | 'default' | 'loading' | 'icon-button' | 'none'
     >('none')
 

@@ -1,13 +1,14 @@
-import * as React from 'react'
+import { Children } from 'react'
 import flattenChildren from 'react-keyed-flatten-children'
-import { polymorphicComponent } from '../utils/polymorphism'
-import { mapResponsiveProp } from '../utils/responsive-props'
+
 import { Box } from '../box'
 import { Divider } from '../divider'
+import { polymorphicComponent } from '../utils/polymorphism'
+import { mapResponsiveProp } from '../utils/responsive-props'
 
-import type { ResponsiveProp } from '../utils/responsive-props'
-import type { DividerWeight, Space } from '../utils/common-types'
 import type { BoxProps, ReusableBoxProps } from '../box'
+import type { DividerWeight, Space } from '../utils/common-types'
+import type { ResponsiveProp } from '../utils/responsive-props'
 
 type Align = 'start' | 'center' | 'end'
 
@@ -53,7 +54,7 @@ const Stack = polymorphicComponent<'div', StackProps>(function Stack(
             ref={ref}
         >
             {dividers !== 'none'
-                ? React.Children.map(flattenChildren(children), (child, index) =>
+                ? Children.map(flattenChildren(children), (child, index) =>
                       index > 0 ? (
                           <>
                               <Divider weight={dividers} />

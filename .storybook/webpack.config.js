@@ -40,7 +40,8 @@ module.exports = {
             {
                 test: /\.(m?jsx?|tsx?)$/,
                 // Exclude all node_modules from transpilation, except for Ariakit and Storybook testing libraries
-                exclude: /node_modules\/(?!(ariakit.*|@storybook\/expect|@storybook\/jest|@adobe\/css-tools|@testing-library\/jest-dom)\/).*/,
+                exclude:
+                    /node_modules\/(?!(ariakit.*|@storybook\/expect|@storybook\/jest|@adobe\/css-tools|@testing-library\/jest-dom)\/).*/,
                 use: [{ loader: 'babel-loader', options: babelConfigForNodeModules }],
             },
             {

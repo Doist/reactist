@@ -1,4 +1,6 @@
-import * as React from 'react'
+import { cloneElement, DOMAttributes, FunctionComponentElement, useMemo, useState } from 'react'
+
+import type { KeyboardEvent, ReactElement, SyntheticEvent } from 'react'
 
 type Key = 'ArrowUp' | 'ArrowRight' | 'ArrowDown' | 'ArrowLeft' | 'Enter' | 'Backspace' | 'Escape'
 
@@ -77,7 +79,7 @@ const KeyCapturerResolver = {
     },
 }
 
-type EventHandler = (event: React.SyntheticEvent) => void
+type EventHandler = (event: SyntheticEvent) => void
 
 type EventHandlerProps = {
     onArrowUp?: EventHandler
@@ -122,7 +124,7 @@ const keyPropagatePropMapping: Record<Key, keyof PropagateProps> = {
 type KeyCapturerProps = EventHandlerProps &
     PropagateProps & {
         eventName?: 'onKeyDown' | 'onKeyDownCapture' | 'onKeyUp' | 'onKeyUpCapture'
-        children: React.ReactElement<unknown>
+        children: ReactElement<unknown>
     }
 
 /**
@@ -135,54 +137,71 @@ type KeyCapturerProps = EventHandlerProps &
  */
 function KeyCapturer(props: KeyCapturerProps) {
     const { children, eventName = 'onKeyDown' } = props
-    const composingRef = React.useRef(false)
-    const composingEventHandlers = props.onEnter
-        ? {
-              onCompositionStart: () => {
-                  composingRef.current = true
-              },
-              onCompositionEnd: () => {
-                  composingRef.current = false
-              },
-          }
-        : undefined
+    const [isComposing, setIsComposing] = useState(false)
 
-    function handleKeyEvent(event: React.KeyboardEvent<HTMLInputElement>) {
-        // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
-        const key =
-            event.key !== undefined
-                ? KeyCapturerResolver.resolveByKey(event.key)
-                : KeyCapturerResolver.resolveByKeyCode(event.keyCode)
+    const onCompositionStart = useMemo(
+        () =>
+            props.onEnter
+                ? () => {
+                      setIsComposing(true)
+                  }
+                : undefined,
+        [props.onEnter],
+    )
+    const onCompositionEnd = useMemo(
+        () =>
+            props.onEnter
+                ? () => {
+                      setIsComposing(false)
+                  }
+                : undefined,
+        [props.onEnter],
+    )
 
-        if (!key) return
-        const propagateEvent = props[keyPropagatePropMapping[key]] || false
-        const eventHandler = props[keyEventHandlerMapping[key]]
+    const handleKeyEvent = useMemo(
+        () =>
+            function handleKeyEvent(event: KeyboardEvent<HTMLInputElement>) {
+                // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
+                const key =
+                    event.key !== undefined
+                        ? KeyCapturerResolver.resolveByKey(event.key)
+                        : KeyCapturerResolver.resolveByKeyCode(event.keyCode)
 
-        if (key === 'Enter' && eventHandler) {
-            if (
-                composingRef.current ||
-                // Safari fires the onCompositionEnd event before the keydown event, so we
-                // have to rely on the 229 keycode, which is Enter when fired from an IME
-                // https://www.w3.org/TR/uievents/#determine-keydown-keyup-keyCode
-                (event.keyCode || event.which) === 229
-            ) {
-                return
-            }
-        }
+                if (!key) return
+                const propagateEvent = props[keyPropagatePropMapping[key]] || false
+                const eventHandler = props[keyEventHandlerMapping[key]]
 
-        if (eventHandler) {
-            eventHandler(event)
-            if (!propagateEvent) {
-                event.preventDefault()
-                event.stopPropagation()
-            }
-        }
-    }
+                if (key === 'Enter' && eventHandler) {
+                    if (
+                        isComposing ||
+                        // Safari fires the onCompositionEnd event before the keydown event, so we
+                        // have to rely on the 229 keycode, which is Enter when fired from an IME
+                        // https://www.w3.org/TR/uievents/#determine-keydown-keyup-keyCode
+                        (event.keyCode || event.which) === 229
+                    ) {
+                        return
+                    }
+                }
 
-    return React.cloneElement(children, {
-        [eventName]: handleKeyEvent,
-        ...composingEventHandlers,
-    })
+                if (eventHandler) {
+                    eventHandler(event)
+                    if (!propagateEvent) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                }
+            },
+        [props, isComposing],
+    )
+
+    return cloneElement<DOMAttributes<HTMLElement>>(
+        children as FunctionComponentElement<DOMAttributes<HTMLElement>>,
+        {
+            [eventName]: handleKeyEvent,
+            onCompositionStart,
+            onCompositionEnd,
+        },
+    )
 }
 
 export { KeyCapturer, KeyCapturerResolver, SUPPORTED_KEYS }

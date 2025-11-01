@@ -1,8 +1,9 @@
-import * as React from 'react'
-
 import { Stack } from '../stack'
-import { Heading } from './heading'
 import { ResponsiveWidthRef, select, selectWithNone } from '../utils/storybook-helper'
+
+import { Heading } from './heading'
+
+import type { ComponentProps } from 'react'
 
 export default {
     title: 'Design system/Heading',
@@ -95,7 +96,7 @@ TruncatedHeadingStory.parameters = {
     chromatic: { disableSnapshot: false },
 }
 
-export function ResponsiveHeadingStory(props: React.ComponentProps<typeof Heading>) {
+export function ResponsiveHeadingStory(props: ComponentProps<typeof Heading>) {
     return (
         <>
             <ResponsiveWidthRef />
@@ -117,7 +118,7 @@ ResponsiveHeadingStory.argTypes = {
     },
 }
 
-export function HeadingPlaygroundStory(props: React.ComponentProps<typeof Heading>) {
+export function HeadingPlaygroundStory(props: ComponentProps<typeof Heading>) {
     return (
         <section className="story playground">
             <Heading {...props} />

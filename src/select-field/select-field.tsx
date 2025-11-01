@@ -1,6 +1,8 @@
-import * as React from 'react'
+import { forwardRef } from 'react'
+
 import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-field'
 import { Box } from '../box'
+
 import styles from './select-field.module.css'
 
 interface SelectFieldProps
@@ -14,7 +16,7 @@ interface SelectFieldProps
         >,
         BaseFieldVariantProps {}
 
-const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(function SelectField(
+const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(function SelectField(
     {
         variant = 'default',
         id,

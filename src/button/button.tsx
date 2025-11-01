@@ -1,6 +1,7 @@
-import * as React from 'react'
-import classNames from 'classnames'
+import { forwardRef } from 'react'
+
 import { Role, RoleProps } from '@ariakit/react'
+import classNames from 'classnames'
 
 import { Box, getBoxClassNames } from '../box'
 import { Spinner } from '../spinner'
@@ -8,20 +9,21 @@ import { Tooltip, TooltipProps } from '../tooltip'
 
 import styles from './button.module.css'
 
+import type { ButtonHTMLAttributes, ReactElement, ReactNode, SyntheticEvent } from 'react'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
-function preventDefault(event: React.SyntheticEvent) {
+function preventDefault(event: SyntheticEvent) {
     event.preventDefault()
 }
 
 type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'quaternary'
 type ButtonTone = 'normal' | 'destructive'
 type ButtonSize = 'small' | 'normal' | 'large'
-type IconElement = React.ReactElement | string
+type IconElement = ReactElement | string
 
 interface CommonButtonProps
     extends ObfuscatedClassName,
-        Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className'>,
+        Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'>,
         Pick<RoleProps, 'render'> {
     /**
      * The button's variant.
@@ -98,7 +100,7 @@ interface ButtonProps extends CommonButtonProps {
     /**
      * The button label content.
      */
-    children?: React.ReactNode
+    children?: ReactNode
 
     /**
      * The icon to display at the start of the button (before the label).
@@ -132,7 +134,7 @@ interface ButtonProps extends CommonButtonProps {
  * A button element that displays a text label and optionally a start or end icon. It follows the
  * [WAI-ARIA Button Pattern](https://www.w3.org/TR/wai-aria-practices/#button).
  */
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     {
         variant,
         tone = 'normal',
@@ -225,7 +227,7 @@ interface IconButtonProps extends CommonButtonProps {
  * also makes sure to always show a tooltip with its label. It follows the
  * [WAI-ARIA Button Pattern](https://www.w3.org/TR/wai-aria-practices/#button).
  */
-const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
+const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
     {
         variant,
         tone = 'normal',
@@ -276,5 +278,5 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function
     )
 })
 
-export type { ButtonProps, IconButtonProps, ButtonVariant, ButtonTone }
+export type { ButtonProps, ButtonTone, ButtonVariant, IconButtonProps }
 export { Button, IconButton }

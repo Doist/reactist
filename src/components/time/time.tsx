@@ -1,9 +1,12 @@
-import * as React from 'react'
+import './time.less'
+
+import { Component } from 'react'
 
 import { Tooltip } from '../../tooltip'
-import { TimeUtils, TimeConfig } from './time-utils'
 
-import './time.less'
+import { TimeConfig, TimeUtils } from './time-utils'
+
+import type { MouseEvent, ReactNode } from 'react'
 
 const DELAY = 60000
 
@@ -18,7 +21,7 @@ type Props = {
     /** Refresh the component every DELAY seconds. */
     refresh?: boolean
     /** If you don't want to use the default time format on the tooltip use this prop to supply a custom text */
-    tooltip?: React.ReactNode
+    tooltip?: ReactNode
     /** When hovering over time it expands to short absolute version. */
     expandOnHover?: boolean
     /** When hovering over time it expands to the full absolute version. */
@@ -31,7 +34,7 @@ type State = {
     mouseY?: number
 }
 
-class Time extends React.Component<Props, State> {
+class Time extends Component<Props, State> {
     public static displayName: string
     public static defaultProps: Props
 
@@ -72,7 +75,7 @@ class Time extends React.Component<Props, State> {
 
     refreshInterval?: ReturnType<typeof setTimeout>
 
-    _setHovered(hovered: boolean, event: React.MouseEvent) {
+    _setHovered(hovered: boolean, event: MouseEvent) {
         const { mouseX, mouseY } = this.state
         const { clientX, clientY } = event
         if (clientX !== mouseX || clientY !== mouseY) {

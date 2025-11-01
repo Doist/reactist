@@ -1,7 +1,7 @@
-import * as React from 'react'
+import '../../src/components/keyboard-shortcut/keyboard-shortcut.less'
+
 import { text } from '@storybook/addon-knobs'
 
-import '../../src/components/keyboard-shortcut/keyboard-shortcut.less'
 import KeyboardShortcut from '../../src/components/keyboard-shortcut'
 
 // Story setup ================================================================

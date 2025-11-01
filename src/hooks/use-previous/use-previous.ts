@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useEffect, useRef } from 'react'
 
 /**
  * usePrevious tracks the change of the given value -
@@ -14,12 +14,16 @@ import * as React from 'react'
  * x = 2 and prevX = 1
  */
 function usePrevious<T>(value: T): T | null {
-    const ref = React.useRef<T | null>(null)
+    const ref = useRef<T | null>(null)
 
-    React.useEffect(() => {
+    useEffect(() => {
         ref.current = value
     }, [value])
 
+    // This is necessary for usePrevious to work in its current form, however, we are
+    // warned that it's possible for the ref to be stale
+    // See https://github.com/facebook/react/issues/31330
+    // eslint-disable-next-line react-hooks/refs
     return ref.current
 }
 

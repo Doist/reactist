@@ -1,11 +1,14 @@
-import * as React from 'react'
-import { render, screen, act } from '@testing-library/react'
-import { axe } from 'jest-axe'
+import { createRef } from 'react'
+
+import { act, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Tooltip } from './tooltip'
-import { flushMicrotasks } from '../utils/test-helpers'
+import { axe } from 'jest-axe'
+
 import { Box } from '../box'
 import { Button } from '../button'
+import { flushMicrotasks } from '../utils/test-helpers'
+
+import { Tooltip } from './tooltip'
 
 describe('Tooltip', () => {
     it('renders a tooltip when the button gets focus, hides it when blurred', async () => {
@@ -146,7 +149,7 @@ describe('Tooltip', () => {
     })
 
     it("does not interfere with the trigger element's ref forwarding", () => {
-        const buttonRef = React.createRef<HTMLButtonElement>()
+        const buttonRef = createRef<HTMLButtonElement>()
 
         render(
             <Tooltip content="tooltip content here">

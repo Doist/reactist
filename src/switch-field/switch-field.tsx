@@ -1,10 +1,12 @@
-import * as React from 'react'
+import { forwardRef, useState } from 'react'
+
+import { FieldComponentProps, FieldMessage } from '../base-field'
 import { Box } from '../box'
+import { HiddenVisually } from '../hidden-visually'
 import { Stack } from '../stack'
 import { Text } from '../text'
-import { HiddenVisually } from '../hidden-visually'
-import { FieldComponentProps, FieldMessage } from '../base-field'
 import { useId } from '../utils/common-helpers'
+
 import styles from './switch-field.module.css'
 
 interface SwitchFieldProps
@@ -33,7 +35,7 @@ interface SwitchFieldProps
     'aria-labelledby'?: string
 }
 
-const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(function SwitchField(
+const SwitchField = forwardRef<HTMLInputElement, SwitchFieldProps>(function SwitchField(
     {
         label,
         message,
@@ -57,8 +59,8 @@ const SwitchField = React.forwardRef<HTMLInputElement, SwitchFieldProps>(functio
     const ariaLabel = originalAriaLabel ?? undefined
     const ariaLabelledBy = originalAriaLabelledby ?? undefined
 
-    const [keyFocused, setKeyFocused] = React.useState(false)
-    const [checkedState, setChecked] = React.useState(props.checked ?? defaultChecked ?? false)
+    const [keyFocused, setKeyFocused] = useState(false)
+    const [checkedState, setChecked] = useState(props.checked ?? defaultChecked ?? false)
     const isChecked = props.checked ?? checkedState
 
     return (

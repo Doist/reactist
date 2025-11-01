@@ -1,13 +1,16 @@
-import * as React from 'react'
+import { useState } from 'react'
+
 import { render, screen } from '@testing-library/react'
-import { CheckboxField } from '.'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
+
 import { TestIcon } from '../utils/test-helpers'
+
+import { CheckboxField } from '.'
 
 describe('CheckboxField', () => {
     function IndeterminateTestCase({ initialState }: { initialState: boolean[] }) {
-        const [state, setState] = React.useState<boolean[]>(initialState)
+        const [state, setState] = useState<boolean[]>(initialState)
         const checkedCount = state.filter(Boolean).length
         const indeterminate = checkedCount > 0 && checkedCount < state.length
 
@@ -151,7 +154,7 @@ describe('CheckboxField', () => {
 
     it('can be a controlled input field', () => {
         function TestCase() {
-            const [checked, setChecked] = React.useState(false)
+            const [checked, setChecked] = useState(false)
             return (
                 <>
                     <CheckboxField

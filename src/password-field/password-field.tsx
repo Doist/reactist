@@ -1,25 +1,25 @@
-import * as React from 'react'
+import { forwardRef, useState } from 'react'
 
-import { PasswordVisibleIcon } from '../icons/password-visible-icon'
-import { PasswordHiddenIcon } from '../icons/password-hidden-icon'
-
-import { TextField, TextFieldProps } from '../text-field'
 import { IconButton } from '../button'
+import { PasswordHiddenIcon } from '../icons/password-hidden-icon'
+import { PasswordVisibleIcon } from '../icons/password-visible-icon'
+import { TextField, TextFieldProps } from '../text-field'
 
+import type { ReactElement } from 'react'
 import type { BaseFieldVariantProps } from '../base-field'
 
 interface PasswordFieldProps
     extends Omit<TextFieldProps, 'type' | 'startSlot' | 'endSlot'>,
         BaseFieldVariantProps {
     togglePasswordLabel?: string
-    endSlot?: React.ReactElement | string | number
+    endSlot?: ReactElement | string | number
 }
 
-const PasswordField = React.forwardRef<HTMLInputElement, PasswordFieldProps>(function PasswordField(
+const PasswordField = forwardRef<HTMLInputElement, PasswordFieldProps>(function PasswordField(
     { togglePasswordLabel = 'Toggle password visibility', endSlot, ...props },
     ref,
 ) {
-    const [isPasswordVisible, setPasswordVisible] = React.useState(false)
+    const [isPasswordVisible, setPasswordVisible] = useState(false)
     const Icon = isPasswordVisible ? PasswordVisibleIcon : PasswordHiddenIcon
     return (
         <TextField

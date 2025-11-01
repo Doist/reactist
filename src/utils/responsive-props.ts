@@ -89,5 +89,5 @@ function mapResponsiveProp<From extends Atom, To extends Atom>(
     }
 }
 
-export type { ResponsiveProp, ResponsiveBreakpoints }
+export type { ResponsiveBreakpoints, ResponsiveProp }
 export { getClassNames, mapResponsiveProp }

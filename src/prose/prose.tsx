@@ -1,6 +1,8 @@
-import * as React from 'react'
 import { Box } from '../box'
+
 import styles from './prose.module.css'
+
+import type { ReactNode } from 'react'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
 interface ProseProps extends ObfuscatedClassName {
@@ -14,7 +16,7 @@ interface ProseProps extends ObfuscatedClassName {
      * Alternatively, you can use `<Prose dangerouslySetInnerHTML={{ __html: htmlString }}` />`
      * instead.
      */
-    children?: React.ReactNode
+    children?: ReactNode
 
     /**
      * Sets the prose content to be raw HTML stored in a string value.

@@ -8,7 +8,12 @@ module.exports = {
                 targets: test ? { node: 'current' } : { browsers: 'defaults, not IE 11' },
             },
         ],
-        '@babel/preset-react',
+        [
+            '@babel/preset-react',
+            {
+                runtime: 'automatic',
+            },
+        ],
         '@babel/preset-typescript',
     ],
     plugins: ['@babel/proposal-object-rest-spread'],

@@ -1,16 +1,25 @@
-import * as React from 'react'
+import {
+    Children,
+    createContext,
+    forwardRef,
+    useContext,
+    useImperativeHandle,
+    useMemo,
+} from 'react'
 
 import {
-    useTooltipStore,
     Tooltip as AriakitTooltip,
     TooltipAnchor,
     TooltipArrow,
+    useTooltipStore,
 } from '@ariakit/react'
+
 import { Box } from '../box'
 
-import type { TooltipStoreState, TooltipStore } from '@ariakit/react'
-
 import styles from './tooltip.module.css'
+
+import type { TooltipStore, TooltipStoreState } from '@ariakit/react'
+import type { FunctionComponentElement, PropsWithChildren, ReactNode } from 'react'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
 const defaultShowTimeout = 500
@@ -21,7 +30,7 @@ type TooltipContextState = {
     hideTimeout: number
 }
 
-const TooltipContext = React.createContext<TooltipContextState>({
+const TooltipContext = createContext<TooltipContextState>({
     showTimeout: defaultShowTimeout,
     hideTimeout: defaultHideTimeout,
 })
@@ -30,11 +39,11 @@ function TooltipProvider({
     showTimeout = defaultShowTimeout,
     hideTimeout = defaultHideTimeout,
     children,
-}: React.PropsWithChildren<{
+}: PropsWithChildren<{
     showTimeout?: number
     hideTimeout?: number
 }>) {
-    const value = React.useMemo(() => ({ showTimeout, hideTimeout }), [showTimeout, hideTimeout])
+    const value = useMemo(() => ({ showTimeout, hideTimeout }), [showTimeout, hideTimeout])
     return <TooltipContext.Provider value={value}>{children}</TooltipContext.Provider>
 }
 
@@ -44,7 +53,7 @@ interface TooltipProps extends ObfuscatedClassName {
      *
      * It should be an interactive element accessible both via mouse and keyboard interactions.
      */
-    children: React.ReactNode
+    children: ReactNode
 
     /**
      * The content to show in the tooltip.
@@ -61,7 +70,7 @@ interface TooltipProps extends ObfuscatedClassName {
      * that the tooltip content will be read by assistive technologies such as screen readers. It
      * will likely read this content right after reading the trigger element label.
      */
-    content: React.ReactNode | (() => React.ReactNode)
+    content: ReactNode | (() => ReactNode)
 
     /**
      * How to place the tooltip relative to its trigger element.
@@ -107,7 +116,7 @@ interface TooltipProps extends ObfuscatedClassName {
     hideTimeout?: number
 }
 
-const Tooltip = React.forwardRef<TooltipStore, TooltipProps>(
+const Tooltip = forwardRef<TooltipStore, TooltipProps>(
     (
         {
             children,
@@ -121,9 +130,8 @@ const Tooltip = React.forwardRef<TooltipStore, TooltipProps>(
         },
         ref,
     ) => {
-        const { showTimeout: globalShowTimeout, hideTimeout: globalHideTimeout } = React.useContext(
-            TooltipContext,
-        )
+        const { showTimeout: globalShowTimeout, hideTimeout: globalHideTimeout } =
+            useContext(TooltipContext)
 
         const tooltip = useTooltipStore({
             placement: position,
@@ -131,12 +139,12 @@ const Tooltip = React.forwardRef<TooltipStore, TooltipProps>(
             hideTimeout: hideTimeout ?? globalHideTimeout,
         })
 
-        React.useImperativeHandle(ref, () => tooltip, [tooltip])
+        useImperativeHandle(ref, () => tooltip, [tooltip])
 
         const isOpen = tooltip.useState('open')
 
-        const child = React.Children.only(
-            children as React.FunctionComponentElement<JSX.IntrinsicElements['div']> | null,
+        const child = Children.only(
+            children as FunctionComponentElement<JSX.IntrinsicElements['div']> | null,
         )
 
         if (!child) {

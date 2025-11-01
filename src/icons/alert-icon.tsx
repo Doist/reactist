@@ -1,4 +1,3 @@
-import * as React from 'react'
 import type { AlertTone } from '../utils/common-types'
 
 const alertIconForTone: Record<AlertTone, typeof AlertInfoIcon> = {

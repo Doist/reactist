@@ -1,8 +1,10 @@
-import * as React from 'react'
 import { act, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Button, IconButton } from './button'
 import { axe } from 'jest-axe'
+
+import { Button, IconButton } from './button'
+
+import type { MouseEvent, MouseEventHandler } from 'react'
 
 jest.mock('../spinner', () => ({
     Spinner() {
@@ -565,9 +567,9 @@ describe('<Button render={<a href="…" />} />', () => {
 
     it('ignore clicks when disabled', () => {
         let isNavigationPrevented = false
-        const clickSpy: React.MouseEventHandler<HTMLDivElement> = jest
+        const clickSpy: MouseEventHandler<HTMLDivElement> = jest
             .fn()
-            .mockImplementation((event: React.MouseEvent<HTMLDivElement>) => {
+            .mockImplementation((event: MouseEvent<HTMLDivElement>) => {
                 isNavigationPrevented = event.defaultPrevented
             })
 
@@ -635,9 +637,9 @@ describe('<IconButton render={<a href="…" />} />', () => {
 
     it('ignore clicks when disabled', () => {
         let isNavigationPrevented = false
-        const clickSpy: React.MouseEventHandler<HTMLDivElement> = jest
+        const clickSpy: MouseEventHandler<HTMLDivElement> = jest
             .fn()
-            .mockImplementation((event: React.MouseEvent<HTMLDivElement>) => {
+            .mockImplementation((event: MouseEvent<HTMLDivElement>) => {
                 isNavigationPrevented = event.defaultPrevented
             })
 

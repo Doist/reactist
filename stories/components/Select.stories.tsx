@@ -1,9 +1,10 @@
-import * as React from 'react'
+import { useState } from 'react'
 
-import Select from '../../src/components/deprecated-select'
-import { Banner } from '../../src/banner'
-import { Stack } from '../../src/stack'
 import LinkTo from '@storybook/addon-links/react'
+
+import { Banner } from '../../src/banner'
+import Select from '../../src/components/deprecated-select'
+import { Stack } from '../../src/stack'
 
 const options = [
     { value: 'intro', text: 'Select a fruit', disabled: true },
@@ -27,7 +28,7 @@ export default {
 // Story Definitions ==========================================================
 
 export function SelectStory() {
-    const [value, setValue] = React.useState<string>(options[0].value)
+    const [value, setValue] = useState<string>(options[0].value)
 
     return (
         <Stack as="section" exceptionallySetClassName="story" space="large">
@@ -47,7 +48,7 @@ export function SelectStory() {
 }
 
 export function SelectPlaygroundStory(args) {
-    const [value, setValue] = React.useState<string>(options[0].value)
+    const [value, setValue] = useState<string>(options[0].value)
 
     return (
         <section className="story">

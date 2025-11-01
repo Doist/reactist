@@ -1,10 +1,11 @@
 import { Story, Meta } from '@storybook/addon-docs'
+import { action } from '@storybook/addon-actions'
+
+import KeyCapturer from '../../src/components/key-capturer'
 
 <Meta title="Components/KeyCapturer" />
 
-# Component Documentation
-
-## Documentation
+# KeyCapturer
 
 Use this component to wrap anything you want to handle key events for (e.g. an input).
 
@@ -25,3 +26,44 @@ Example of an **`<input>`** handling normal keystrokes by acting on **onChange**
     <input value={ value } onChange={ this._handleChange } />
 </KeyCapturer>
 ```
+
+## Example
+
+The `actions` tab will log each key event as it is captured from the `<input>` element:
+
+<Canvas>
+    <Story
+        name="Playground"
+        parameters={{
+            docs: { source: { type: 'code' } },
+        }}
+    >
+        <KeyCapturerStory />
+    </Story>
+</Canvas>
+
+export const KeyCapturerStory = () => (
+    <section className="story">
+        <Stack as="section" exceptionallySetClassName="story" space="large">
+            <KeyCapturer
+                eventName="onKeyDown"
+                onArrowUp={action('Up')}
+                onArrowDown={action('Down')}
+                onArrowLeft={action('Left')}
+                onArrowRight={action('Right')}
+                onEnter={action('Enter')}
+                onBackspace={action('Backspace')}
+                onEscape={action('Escape')}
+                propagateArrowUp
+                propagateArrowDown
+                propagateArrowLeft
+                propagateArrowRight
+                propagateEnter
+                propagateBackspace
+                propagateEscape
+            >
+                <input type="text" />
+            </KeyCapturer>
+        </Stack>
+    </section>
+)

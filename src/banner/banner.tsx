@@ -1,12 +1,21 @@
-import * as React from 'react'
+import { forwardRef, Fragment } from 'react'
+
 import { Box } from '../box'
+import { Button, ButtonProps, IconButton } from '../button'
+import { BannerIcon } from '../icons/banner-icon'
+import { CloseIcon } from '../icons/close-icon'
+import { TextLink } from '../text-link'
 import { useId } from '../utils/common-helpers'
 
 import styles from './banner.module.css'
-import { Button, ButtonProps, IconButton } from '../button'
-import { CloseIcon } from '../icons/close-icon'
-import { BannerIcon } from '../icons/banner-icon'
-import { TextLink } from '../text-link'
+
+import type {
+    AnchorHTMLAttributes,
+    ButtonHTMLAttributes,
+    ComponentProps,
+    ReactElement,
+    ReactNode,
+} from 'react'
 
 /**
  * Represents the type of a banner.
@@ -26,11 +35,11 @@ type BaseAction = {
     label: string
 } & Pick<ButtonProps, 'loading' | 'disabled'>
 type ActionButton = BaseAction & { type: 'button' } & Omit<
-        React.ButtonHTMLAttributes<HTMLButtonElement>,
+        ButtonHTMLAttributes<HTMLButtonElement>,
         'className'
     >
 type ActionLink = BaseAction & { type: 'link' } & Omit<
-        React.AnchorHTMLAttributes<HTMLAnchorElement>,
+        AnchorHTMLAttributes<HTMLAnchorElement>,
         'className'
     >
 /**
@@ -43,7 +52,7 @@ type Action = ActionButton | ActionLink
  * Configuration for inline links within the banner description.
  * Extends TextLink component props with a required label.
  */
-type InlineLink = { label: string } & React.ComponentProps<typeof TextLink>
+type InlineLink = { label: string } & ComponentProps<typeof TextLink>
 
 type WithCloseButton = {
     closeLabel?: string
@@ -61,9 +70,9 @@ type CloseButton = WithCloseButton | WithoutCloseButton
 
 type BaseBanner = {
     id?: string
-    title?: React.ReactNode
-    description: Exclude<React.ReactNode, null | undefined | boolean>
-    action?: Action | React.ReactNode
+    title?: ReactNode
+    description: Exclude<ReactNode, null | undefined | boolean>
+    action?: Action | ReactNode
     inlineLinks?: InlineLink[]
 } & CloseButton
 
@@ -74,8 +83,8 @@ type BaseBanner = {
 type NeutralBanner = BaseBanner & {
     type: Extract<BannerType, 'neutral'>
 } & (
-        | { image: React.ReactElement; icon?: never }
-        | { icon: React.ReactElement; image?: never }
+        | { image: ReactElement; icon?: never }
+        | { icon: ReactElement; image?: never }
         | { image?: never; icon?: never }
     )
 
@@ -94,7 +103,7 @@ type BannerProps = NeutralBanner | SystemBanner
 /**
  * Type guard to check if the action is an Action object (button or link)
  */
-function isActionObject(action: Action | React.ReactNode): action is Action {
+function isActionObject(action: Action | ReactNode): action is Action {
     return (
         typeof action === 'object' &&
         action !== null &&
@@ -103,7 +112,7 @@ function isActionObject(action: Action | React.ReactNode): action is Action {
     )
 }
 
-const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
+const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
     {
         id,
         type,
@@ -170,7 +179,7 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
                             {description}
                             {inlineLinks?.map(({ label, ...props }, index) => {
                                 return (
-                                    <React.Fragment key={index}>
+                                    <Fragment key={index}>
                                         <TextLink
                                             {...props}
                                             exceptionallySetClassName={styles.inlineLink}
@@ -178,7 +187,7 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
                                             {label}
                                         </TextLink>
                                         {index < inlineLinks.length - 1 ? <span> · </span> : ''}
-                                    </React.Fragment>
+                                    </Fragment>
                                 )
                             })}
                         </Box>

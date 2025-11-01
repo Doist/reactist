@@ -1,6 +1,8 @@
-import * as React from 'react'
 import { render } from '@testing-library/react'
+
 import { KeyboardShortcut } from './keyboard-shortcut'
+
+import type { ComponentProps } from 'react'
 
 /**
  * Renders the KeyboardShortcut component twice, once for macOS and non-macOS setting.
@@ -9,7 +11,7 @@ import { KeyboardShortcut } from './keyboard-shortcut'
  */
 function renderKeyboardShortcut(
     shortcut: string | string[],
-    props: Omit<React.ComponentProps<typeof KeyboardShortcut>, 'children' | 'isMac'> = {},
+    props: Omit<ComponentProps<typeof KeyboardShortcut>, 'children' | 'isMac'> = {},
 ) {
     const { container } = render(
         <>

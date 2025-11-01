@@ -31,6 +31,6 @@ If possible, describe how this bug could be fixed.
 Consider adding any relevant environment information here.
 -->
 
--   `@doist/reactist` version:
--   `react` version:
--   Browser:
+- `@doist/reactist` version:
+- `react` version:
+- Browser:

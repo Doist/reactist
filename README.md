@@ -197,9 +197,9 @@ We recommend you enable these tests on those Storybook stories that have several
 
 When you open a GitHub PR, you'll notice the "UI Review" and "UI Tests" CI steps.
 
--   Clicking on "Details" will bring you to the Chromatic UI (if you don't already have a Chromatic account, please sign-up using your GitHub account).
--   Now you can review and accept your changes (or go back and change your code).
--   When you're happy with your changes, make sure to mark them as "Approved".
+- Clicking on "Details" will bring you to the Chromatic UI (if you don't already have a Chromatic account, please sign-up using your GitHub account).
+- Now you can review and accept your changes (or go back and change your code).
+- When you're happy with your changes, make sure to mark them as "Approved".
 
 # Releasing
 
@@ -208,7 +208,6 @@ This project uses [release-please](https://github.com/googleapis/release-please)
 ## How it works
 
 1. Make your changes using [Conventional Commits](https://www.conventionalcommits.org/):
-
     - `feat:` for new features (minor version bump)
     - `fix:` for bug fixes (patch version bump)
     - `style:` for code style changes
@@ -223,7 +222,6 @@ This project uses [release-please](https://github.com/googleapis/release-please)
     - `chore:` for maintenance tasks (NOTE: these are not included in the changelog)
 
 2. When commits are pushed to `main`:
-
     - Release-please automatically creates/updates a release PR
     - The PR includes version bump and changelog updates
     - Review the PR and merge when ready

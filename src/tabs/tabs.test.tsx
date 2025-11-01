@@ -1,9 +1,12 @@
-import * as React from 'react'
-import { screen, render, waitFor } from '@testing-library/react'
+import { forwardRef } from 'react'
+
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
-import { Tabs, Tab, TabList, TabPanel, TabAwareSlot } from './'
+import { Tab, TabAwareSlot, TabList, TabPanel, Tabs } from './'
+
+import type { AllHTMLAttributes } from 'react'
 
 describe('Tabs', () => {
     it("allows each TabPanel's visibility to be controlled by its corresponding tab", async () => {
@@ -211,16 +214,15 @@ describe('Tabs', () => {
     })
 
     it('allows different elements to be rendered in place of the TabPanel', async () => {
-        const CustomTabPanel = React.forwardRef<
-            HTMLDivElement,
-            React.AllHTMLAttributes<HTMLDivElement>
-        >(function CustomTabPanel({ children, ...props }, ref) {
-            return (
-                <div data-testid="custom-tab-panel" {...props} ref={ref}>
-                    {children}
-                </div>
-            )
-        })
+        const CustomTabPanel = forwardRef<HTMLDivElement, AllHTMLAttributes<HTMLDivElement>>(
+            function CustomTabPanel({ children, ...props }, ref) {
+                return (
+                    <div data-testid="custom-tab-panel" {...props} ref={ref}>
+                        {children}
+                    </div>
+                )
+            },
+        )
 
         render(
             <Tabs>
