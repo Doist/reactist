@@ -1,4 +1,5 @@
 import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+import { useState } from 'react'
 
 import { Box } from '../box'
 import { Stack } from '../stack'
@@ -198,7 +199,7 @@ Note that these variables are shared with other components such as `Textfield`, 
 </Canvas>
 
 export function AutoExpandStory(props) {
-    const [value, setValue] = React.useState('')
+    const [value, setValue] = useState('')
     return (
         <Stack space="large" dividers="secondary" maxWidth="medium">
             <TextArea

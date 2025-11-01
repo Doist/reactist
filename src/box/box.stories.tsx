@@ -1,4 +1,4 @@
-import * as React from 'react'
+import type { CSSProperties } from 'react'
 
 import {
     select,
@@ -168,7 +168,7 @@ const marginToPadding: Record<keyof BoxMarginProps, keyof BoxPaddingProps> = {
     marginLeft: 'paddingLeft',
 }
 
-const marginBoxStyle: React.CSSProperties = { opacity: 0.5, minHeight: 100, minWidth: 100 }
+const marginBoxStyle: CSSProperties = { opacity: 0.5, minHeight: 100, minWidth: 100 }
 
 function MarginBox({ prop, value }: { prop: keyof BoxMarginProps; value: Space }) {
     const marginProp = { [prop]: value }

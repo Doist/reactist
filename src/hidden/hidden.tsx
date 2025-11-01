@@ -1,4 +1,4 @@
-import * as React from 'react'
+import type { ReactNode } from 'react'
 import { Box } from '../box'
 import styles from './hidden.module.css'
 import type { ResponsiveBreakpoints } from '../utils/responsive-props'
@@ -31,7 +31,7 @@ type BelowProp = {
 }
 
 type CommonProps = {
-    children: React.ReactNode
+    children: ReactNode
     /**
      * hides the element when on print media.
      */

@@ -1,4 +1,14 @@
-import React from 'react'
+import {
+    createContext,
+    forwardRef,
+    useCallback,
+    useContext,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react'
+import type { ReactNode } from 'react'
 import { Portal } from '@ariakit/react'
 
 import { generateElementId } from '../utils/common-helpers'
@@ -52,7 +62,7 @@ type InternalToastProps = Omit<ToastProps, 'autoDismissDelay' | 'dismissLabel'> 
     }
 
 /** @private */
-const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(function InternalToast(
+const InternalToast = forwardRef<HTMLDivElement, InternalToastProps>(function InternalToast(
     {
         message,
         description,
@@ -67,9 +77,9 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
     },
     ref,
 ) {
-    const timeoutRef = React.useRef<number | undefined>()
+    const timeoutRef = useRef<number | undefined>()
 
-    const removeToast = React.useCallback(
+    const removeToast = useCallback(
         function removeToast() {
             onRemoveToast(toastId)
             onDismiss?.()
@@ -77,7 +87,7 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
         [onDismiss, onRemoveToast, toastId],
     )
 
-    const startTimeout = React.useCallback(
+    const startTimeout = useCallback(
         function startTimeout() {
             if (!autoDismissDelay) return
             timeoutRef.current = window.setTimeout(removeToast, autoDismissDelay * 1000)
@@ -85,12 +95,12 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
         [autoDismissDelay, removeToast],
     )
 
-    const stopTimeout = React.useCallback(function stopTimeout() {
+    const stopTimeout = useCallback(function stopTimeout() {
         clearTimeout(timeoutRef.current)
         timeoutRef.current = undefined
     }, [])
 
-    React.useEffect(
+    useEffect(
         function setupAutoDismiss() {
             stopTimeout()
             startTimeout()
@@ -105,7 +115,7 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
      * the `onClick` property is wrapped in another handler responsible
      * for removing the toast when the action is triggered.
      */
-    const actionWithCustomActionHandler = React.useMemo(() => {
+    const actionWithCustomActionHandler = useMemo(() => {
         if (!isActionObject(action)) {
             return action
         }
@@ -151,7 +161,7 @@ type InternalToastEntry = Omit<InternalToastProps, 'onRemoveToast'>
 type ToastsList = readonly InternalToastEntry[]
 
 type ShowToastAction = (props: ToastProps) => () => void
-const ToastsContext = React.createContext<ShowToastAction>(() => () => undefined)
+const ToastsContext = createContext<ShowToastAction>(() => () => undefined)
 
 /**
  * The props needed by the ToastsProvider component.
@@ -192,7 +202,7 @@ type ToastsProviderProps = {
     /**
      * The app wrapped by the provider.
      */
-    children: NonNullable<React.ReactNode>
+    children: NonNullable<ReactNode>
 
     /**
      * Custom classname for the toasts container, if you need to fine-tune the position or other styles
@@ -214,10 +224,10 @@ function ToastsProvider({
     defaultDismissLabel = 'Close',
     containerClassName,
 }: ToastsProviderProps) {
-    const [toasts, setToasts] = React.useState<ToastsList>([])
+    const [toasts, setToasts] = useState<ToastsList>([])
     const { mappedRef, animateRemove } = useToastsAnimation()
 
-    const removeToast = React.useCallback(
+    const removeToast = useCallback(
         function onRemoveToast(toastId: string) {
             animateRemove(toastId, () => {
                 setToasts((list) => {
@@ -232,7 +242,7 @@ function ToastsProvider({
         [animateRemove],
     )
 
-    const showToast = React.useCallback(
+    const showToast = useCallback(
         function showToast(props: ToastProps) {
             const toastId = generateElementId('toast')
             const newToast: InternalToastEntry = {
@@ -297,7 +307,7 @@ function ToastsProvider({
  * @see ToastsProvider
  */
 function useToasts() {
-    return React.useContext(ToastsContext)
+    return useContext(ToastsContext)
 }
 
 /**
@@ -331,8 +341,8 @@ function useToasts() {
  */
 function Toast(props: ToastProps) {
     const showToast = useToasts()
-    const propsRef = React.useRef<ToastProps>(props)
-    React.useEffect(() => {
+    const propsRef = useRef<ToastProps>(props)
+    useEffect(() => {
         const dismissToast = showToast(propsRef.current)
         return dismissToast
     }, [showToast])

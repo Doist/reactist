@@ -1,7 +1,5 @@
 import './styles/progressbar_story.less'
 
-import * as React from 'react'
-
 import ProgressBar from '../../src/components/progress-bar'
 import { Box } from '../../src/box'
 

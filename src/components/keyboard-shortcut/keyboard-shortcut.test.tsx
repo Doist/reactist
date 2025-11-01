@@ -1,4 +1,4 @@
-import * as React from 'react'
+import type { ComponentProps } from 'react'
 import { render } from '@testing-library/react'
 import { KeyboardShortcut } from './keyboard-shortcut'
 
@@ -9,7 +9,7 @@ import { KeyboardShortcut } from './keyboard-shortcut'
  */
 function renderKeyboardShortcut(
     shortcut: string | string[],
-    props: Omit<React.ComponentProps<typeof KeyboardShortcut>, 'children' | 'isMac'> = {},
+    props: Omit<ComponentProps<typeof KeyboardShortcut>, 'children' | 'isMac'> = {},
 ) {
     const { container } = render(
         <>

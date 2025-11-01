@@ -1,4 +1,11 @@
-import * as React from 'react'
+import { useEffect, useState } from 'react'
+import type {
+    ChangeEventHandler,
+    DetailedHTMLProps,
+    InputHTMLAttributes,
+    ReactElement,
+    ReactNode,
+} from 'react'
 import { Box, BoxProps } from '../box'
 import { useId } from '../utils/common-helpers'
 import { Text } from '../text'
@@ -17,7 +24,7 @@ type FieldTone = 'neutral' | 'success' | 'error' | 'loading'
 
 type FieldMessageProps = {
     id: string
-    children: React.ReactNode
+    children: ReactNode
     tone: FieldTone
 }
 
@@ -44,7 +51,7 @@ function FieldMessage({ id, children, tone }: FieldMessageProps) {
 }
 
 type FieldCharacterCountProps = {
-    children: React.ReactNode
+    children: ReactNode
     tone: FieldTone
 }
 
@@ -57,7 +64,7 @@ function FieldCharacterCount({ children, tone }: FieldCharacterCountProps) {
 }
 
 type ValidateInputLengthProps = {
-    value?: React.InputHTMLAttributes<unknown>['value']
+    value?: InputHTMLAttributes<unknown>['value']
     maxLength?: number
 }
 
@@ -92,17 +99,14 @@ function validateInputLength({
 
 type ChildrenRenderProps = {
     id: string
-    value?: React.InputHTMLAttributes<unknown>['value']
+    value?: InputHTMLAttributes<unknown>['value']
     'aria-describedby'?: string
     'aria-invalid'?: true
-    onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-    characterCountElement?: React.ReactNode | null
+    onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    characterCountElement?: ReactNode | null
 }
 
-type HtmlInputProps<T extends HTMLElement> = React.DetailedHTMLProps<
-    React.InputHTMLAttributes<T>,
-    T
->
+type HtmlInputProps<T extends HTMLElement> = DetailedHTMLProps<InputHTMLAttributes<T>, T>
 
 type BaseFieldVariant = 'default' | 'bordered'
 type BaseFieldVariantProps = {
@@ -135,7 +139,7 @@ export type BaseFieldProps = WithEnhancedClassName &
          *
          * @see BaseFieldProps['auxiliaryLabel']
          */
-        label: React.ReactNode
+        label: ReactNode
 
         /**
          * The initial value for this field element.
@@ -143,7 +147,7 @@ export type BaseFieldProps = WithEnhancedClassName &
          * This prop is used to calculate the character count for the initial value, and is then
          * passed to the underlying child element.
          */
-        value?: React.InputHTMLAttributes<unknown>['value']
+        value?: InputHTMLAttributes<unknown>['value']
 
         /**
          * An optional extra element to be placed to the right of the main label.
@@ -156,7 +160,7 @@ export type BaseFieldProps = WithEnhancedClassName &
          * @deprecated The usage of this element is discouraged given that it was removed from the
          * latest form field spec revision.
          */
-        auxiliaryLabel?: React.ReactNode
+        auxiliaryLabel?: ReactNode
 
         /**
          * A message associated with the field. It is rendered below the field, and with an
@@ -172,7 +176,7 @@ export type BaseFieldProps = WithEnhancedClassName &
          * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-errormessage
          * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-invalid
          */
-        message?: React.ReactNode
+        message?: ReactNode
 
         /**
          * The tone with which the message, if any, is presented.
@@ -204,7 +208,7 @@ export type BaseFieldProps = WithEnhancedClassName &
          * Used internally by components composed using `BaseField`. It is not exposed as part of
          * the public props of such components.
          */
-        children: (props: ChildrenRenderProps) => React.ReactNode
+        children: (props: ChildrenRenderProps) => ReactNode
 
         /**
          * The position of the character count element.
@@ -221,7 +225,7 @@ export type BaseFieldProps = WithEnhancedClassName &
           }
         | {
               supportsStartAndEndSlots: true
-              endSlot?: React.ReactElement | string | number
+              endSlot?: ReactElement | string | number
               /**
                * This is solely for `bordered` variants of TextField. When set to `bottom` (the default),
                * the endSlot will be placed inline with the input field. When set to `fullHeight`, the endSlot
@@ -263,8 +267,8 @@ function BaseField({
 
     const inputLength = validateInputLength({ value, maxLength })
 
-    const [characterCount, setCharacterCount] = React.useState<string | null>(inputLength.count)
-    const [characterCountTone, setCharacterCountTone] = React.useState<FieldTone>(inputLength.tone)
+    const [characterCount, setCharacterCount] = useState<string | null>(inputLength.count)
+    const [characterCountTone, setCharacterCountTone] = useState<FieldTone>(inputLength.tone)
 
     const ariaDescribedBy = originalAriaDescribedBy ?? (message ? messageId : null)
 
@@ -298,7 +302,7 @@ function BaseField({
         characterCountElement: renderCharacterCountInline ? renderCharacterCount() : null,
     }
 
-    React.useEffect(
+    useEffect(
         function updateCharacterCountOnPropChange() {
             if (!maxLength) {
                 return

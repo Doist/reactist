@@ -1,4 +1,5 @@
-import * as React from 'react'
+import { Fragment } from 'react'
+import type { DetailedHTMLProps, HTMLAttributes } from 'react'
 import classNames from 'classnames'
 
 //
@@ -73,10 +74,7 @@ function parseKeys(shortcut: string, isMac: boolean, translateKey: TranslateKey)
 // The KeyboardShortcut component
 //
 
-type NativeSpanProps = React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLSpanElement>,
-    HTMLSpanElement
->
+type NativeSpanProps = DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>
 
 type Props = Omit<NativeSpanProps, 'children'> & {
     /**
@@ -130,14 +128,14 @@ function KeyboardShortcut({
             {...props}
         >
             {shortcuts.map((shortcut, i) => (
-                <React.Fragment key={i}>
+                <Fragment key={i}>
                     {i === 0 ? null : ', '}
                     <kbd>
                         {parseKeys(shortcut, isMac, translateKey).map((key, j) => (
                             <kbd key={j}>{key}</kbd>
                         ))}
                     </kbd>
-                </React.Fragment>
+                </Fragment>
             ))}
         </span>
     )

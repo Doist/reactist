@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 export function PromoImage({ theme = 'light' }: { theme?: 'light' | 'dark' }) {
     if (theme === 'dark') {
         return (

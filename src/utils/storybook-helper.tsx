@@ -1,4 +1,4 @@
-import * as React from 'react'
+import type { CSSProperties, ComponentProps, JSXElementConstructor, ReactNode } from 'react'
 import { Box } from '../box'
 import { Heading } from '../heading'
 import { Stack } from '../stack'
@@ -94,8 +94,8 @@ function Wrapper({
     children,
     border = false,
 }: {
-    title?: React.ReactNode
-    children: React.ReactNode
+    title?: ReactNode
+    children: ReactNode
     border?: boolean
 }) {
     return (
@@ -128,7 +128,7 @@ function Placeholder({
     label,
     width = '100%',
     height = '30px',
-}: { label?: React.ReactNode } & Pick<React.CSSProperties, 'width' | 'height'>) {
+}: { label?: ReactNode } & Pick<CSSProperties, 'width' | 'height'>) {
     return (
         <Box
             style={{
@@ -147,10 +147,10 @@ function Placeholder({
 }
 
 type PartialProps<
-    // Parent type of T is the same as React.ComponentProps<T>
+    // Parent type of T is the same as ComponentProps<T>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>,
-> = Partial<React.ComponentProps<T>>
+    T extends keyof JSX.IntrinsicElements | JSXElementConstructor<any>,
+> = Partial<ComponentProps<T>>
 
 export {
     select,

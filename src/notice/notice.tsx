@@ -1,4 +1,4 @@
-import * as React from 'react'
+import type { ReactNode } from 'react'
 import { getClassNames } from '../utils/responsive-props'
 import { Box } from '../box'
 import { Columns, Column } from '../columns'
@@ -10,7 +10,7 @@ import styles from './notice.module.css'
 
 type NoticeProps = {
     id?: string
-    children: React.ReactNode
+    children: ReactNode
     tone: AlertTone
 }
 

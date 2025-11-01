@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState } from 'react'
 import { render, screen } from '@testing-library/react'
 import { SwitchField } from './'
 import userEvent from '@testing-library/user-event'
@@ -114,7 +114,7 @@ describe('SwitchField', () => {
 
     it('can be a controlled input field', () => {
         function TestCase() {
-            const [checked, setChecked] = React.useState(false)
+            const [checked, setChecked] = useState(false)
             return (
                 <>
                     <SwitchField

@@ -1,4 +1,5 @@
-import * as React from 'react'
+import { forwardRef, useRef } from 'react'
+import type { MouseEvent, ReactElement } from 'react'
 import { BaseField, BaseFieldVariantProps } from '../base-field'
 import { Box } from '../box'
 import styles from './text-field.module.css'
@@ -12,8 +13,8 @@ interface TextFieldProps
         BaseFieldVariantProps,
         Pick<BaseFieldProps, 'characterCountPosition'> {
     type?: TextFieldType
-    startSlot?: React.ReactElement | string | number
-    endSlot?: React.ReactElement | string | number
+    startSlot?: ReactElement | string | number
+    endSlot?: ReactElement | string | number
     /**
      * The maximum number of characters that the input field can accept.
      * When this limit is reached, the input field will not accept any more characters.
@@ -22,7 +23,7 @@ interface TextFieldProps
     maxLength?: number
 }
 
-const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
+const TextField = forwardRef<HTMLInputElement, TextFieldProps>(function TextField(
     {
         variant = 'default',
         id,
@@ -45,10 +46,10 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
     },
     ref,
 ) {
-    const internalRef = React.useRef<HTMLInputElement>(null)
+    const internalRef = useRef<HTMLInputElement>(null)
     const combinedRef = useMergeRefs([ref, internalRef])
 
-    function handleClick(event: React.MouseEvent) {
+    function handleClick(event: MouseEvent) {
         if (event.currentTarget === combinedRef.current) return
         internalRef.current?.focus()
     }

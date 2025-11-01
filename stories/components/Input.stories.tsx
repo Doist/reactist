@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import Input from '../../src/components/deprecated-input'
 import { Banner } from '../../src/banner'
 import './styles/input_story.less'

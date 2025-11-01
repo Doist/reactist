@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { createElement } from 'react'
 import classNames from 'classnames'
 import { polymorphicComponent } from '../utils/polymorphism'
 import { getClassNames } from '../utils/responsive-props'
@@ -229,7 +229,7 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
     },
     ref,
 ) {
-    return React.createElement(
+    return createElement(
         component,
         {
             ...props,

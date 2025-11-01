@@ -1,12 +1,12 @@
-import * as React from 'react'
 import { Box } from '../box'
 import { Spinner } from '../spinner'
 import type { ObfuscatedClassName } from '../utils/common-types'
+import type { HTMLAttributes } from 'react'
 
 type Size = 'xsmall' | 'small' | 'medium' | 'large'
 
 type NativeProps = Omit<
-    React.HTMLAttributes<HTMLDivElement>,
+    HTMLAttributes<HTMLDivElement>,
     'className' | 'aria-describedby' | 'aria-label' | 'aria-labelledby' | 'role' | 'size'
 >
 

@@ -1,10 +1,10 @@
-import * as React from 'react'
+import type { ReactNode } from 'react'
 import { polymorphicComponent } from '../utils/polymorphism'
 import { Box } from '../box'
 import styles from './hidden-visually.module.css'
 
 type Props = {
-    children: React.ReactNode
+    children: ReactNode
 }
 
 /**

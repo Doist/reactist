@@ -1,16 +1,17 @@
-import * as React from 'react'
+import { forwardRef } from 'react'
+import type { InputHTMLAttributes } from 'react'
 import classNames from 'classnames'
 
 import './input.less'
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
     className?: string
 }
 
 /**
  * @deprecated
  */
-const Input = React.forwardRef<HTMLInputElement, Props>(function Input(props, ref) {
+const Input = forwardRef<HTMLInputElement, Props>(function Input(props, ref) {
     const className = classNames('reactist_input', props.className)
     return <input {...props} className={className} ref={ref} />
 })

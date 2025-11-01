@@ -1,4 +1,4 @@
-import * as React from 'react'
+import type { ComponentProps } from 'react'
 
 import { Stack } from '../stack'
 import { Heading } from './heading'
@@ -95,7 +95,7 @@ TruncatedHeadingStory.parameters = {
     chromatic: { disableSnapshot: false },
 }
 
-export function ResponsiveHeadingStory(props: React.ComponentProps<typeof Heading>) {
+export function ResponsiveHeadingStory(props: ComponentProps<typeof Heading>) {
     return (
         <>
             <ResponsiveWidthRef />
@@ -117,7 +117,7 @@ ResponsiveHeadingStory.argTypes = {
     },
 }
 
-export function HeadingPlaygroundStory(props: React.ComponentProps<typeof Heading>) {
+export function HeadingPlaygroundStory(props: ComponentProps<typeof Heading>) {
     return (
         <section className="story playground">
             <Heading {...props} />

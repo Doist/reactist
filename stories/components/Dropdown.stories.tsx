@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import Button from '../../src/components/deprecated-button'
 import Dropdown from '../../src/components/deprecated-dropdown'
 import { Banner } from '../../src/banner'

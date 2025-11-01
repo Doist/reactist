@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useRef, useState } from 'react'
 import { action as storybookAction } from '@storybook/addon-actions'
 
 import { AlertIcon } from '../icons/alert-icon'
@@ -52,8 +52,8 @@ function getRandom<T>(list: Array<T>): T {
 
 export function NotificationToastsStory() {
     const showToast = useToasts()
-    const count = React.useRef(0)
-    const [showSticky, setShowSticky] = React.useState(false)
+    const count = useRef(0)
+    const [showSticky, setShowSticky] = useState(false)
     return (
         <Box padding="large">
             <Stack space="xlarge">
@@ -130,9 +130,9 @@ export function NotificationToastsStory() {
 }
 
 export function StaticToastStory() {
-    const [showIcon, setShowIcon] = React.useState(false)
-    const [showDismiss, setShowDismiss] = React.useState(false)
-    const [actionVariant, setActionVariant] = React.useState<
+    const [showIcon, setShowIcon] = useState(false)
+    const [showDismiss, setShowDismiss] = useState(false)
+    const [actionVariant, setActionVariant] = useState<
         ButtonVariant | 'default' | 'loading' | 'icon-button' | 'none'
     >('none')
 

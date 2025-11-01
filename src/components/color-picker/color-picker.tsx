@@ -1,4 +1,4 @@
-import * as React from 'react'
+import type { ReactNode } from 'react'
 import classnames from 'classnames'
 
 import DeprecatedDropdown from '../deprecated-dropdown'
@@ -62,7 +62,7 @@ function ColorPicker({ color = 0, small, onChange, colorList = COLORS }: Props) 
             </DeprecatedDropdown.Trigger>
             <DeprecatedDropdown.Body>
                 <div className="color_options">
-                    {colorList.reduce<React.ReactNode[]>((items, currentColor, currentIndex) => {
+                    {colorList.reduce<ReactNode[]>((items, currentColor, currentIndex) => {
                         items.push(
                             <ColorItem
                                 isActive={
@@ -93,7 +93,7 @@ type ColorItemProps = {
     colorIndex: number
     isActive?: boolean
     onClick?: (colorIndex: number) => void
-    tooltip?: React.ReactNode
+    tooltip?: ReactNode
 }
 
 function ColorItem({ color, colorIndex, isActive, onClick, tooltip }: ColorItemProps) {

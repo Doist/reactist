@@ -1,4 +1,5 @@
-import * as React from 'react'
+import { useRef } from 'react'
+import type { PropsWithChildren } from 'react'
 import { createPortal } from 'react-dom'
 
 import { Tooltip, TooltipProps, TooltipProvider } from './tooltip'
@@ -175,7 +176,7 @@ export function TooltipCustomZIndex() {
     )
 }
 
-function PortalToHead({ children }: React.PropsWithChildren<unknown>) {
+function PortalToHead({ children }: PropsWithChildren<unknown>) {
     return createPortal(children, document.head)
 }
 
@@ -219,7 +220,7 @@ TooltipGlobalContext.args = {
 //
 
 export function TooltipImperativeControl() {
-    const tooltipRef = React.useRef<TooltipStore>(null)
+    const tooltipRef = useRef<TooltipStore>(null)
 
     const handleForceHide = () => {
         tooltipRef.current?.hide()

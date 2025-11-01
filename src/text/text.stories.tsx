@@ -1,4 +1,4 @@
-import * as React from 'react'
+import type { ComponentProps } from 'react'
 
 import { Stack } from '../stack'
 import { Text } from './text'
@@ -138,7 +138,7 @@ TruncatedTextStory.parameters = {
     chromatic: { disableSnapshot: false },
 }
 
-export function ResponsiveTextStory(props: React.ComponentProps<typeof Text>) {
+export function ResponsiveTextStory(props: ComponentProps<typeof Text>) {
     return (
         <>
             <ResponsiveWidthRef />
@@ -159,7 +159,7 @@ ResponsiveTextStory.argTypes = {
     },
 }
 
-export function TextPlaygroundStory(props: React.ComponentProps<typeof Text>) {
+export function TextPlaygroundStory(props: ComponentProps<typeof Text>) {
     return (
         <section className="story playground">
             <Text {...props} />

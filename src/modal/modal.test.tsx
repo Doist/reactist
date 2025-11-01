@@ -1,11 +1,12 @@
-import * as React from 'react'
+import { useState } from 'react'
+import type { ReactElement } from 'react'
 import { act, render, screen, within } from '@testing-library/react'
 import { Modal, ModalHeader, ModalFooter, ModalActions, ModalBody, ModalCloseButton } from './modal'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
 // Ariakit's dialog performs async updates and must be wrapped in an act to prevent warnings
-function renderModal(children: React.ReactElement) {
+function renderModal(children: ReactElement) {
     jest.useFakeTimers()
 
     const results = render(children)
@@ -38,7 +39,7 @@ describe('Modal', () => {
     afterEach(closeModal)
 
     function TestCaseWithState() {
-        const [isOpen, setOpen] = React.useState(false)
+        const [isOpen, setOpen] = useState(false)
         return (
             <>
                 <button type="button" onClick={() => setOpen(true)}>

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import * as React from 'react'
+import type { ComponentProps } from 'react'
 
 import { Avatar } from './avatar'
 
@@ -47,7 +47,7 @@ describe('Avatar', () => {
 
     // Helpers ================================================================
     function getAvatar(
-        props?: Omit<React.ComponentProps<typeof Avatar>, 'user'> & {
+        props?: Omit<ComponentProps<typeof Avatar>, 'user'> & {
             user?: { name?: string; email: string }
         },
     ) {

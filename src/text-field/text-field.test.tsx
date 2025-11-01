@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState } from 'react'
 import { render, screen } from '@testing-library/react'
 import { TextField, TextFieldProps } from './'
 import userEvent from '@testing-library/user-event'
@@ -183,7 +183,7 @@ describe('TextField', () => {
 
     it('can be a controlled input field', () => {
         function TestCase() {
-            const [value, setValue] = React.useState('')
+            const [value, setValue] = useState('')
             return (
                 <>
                     <TextField

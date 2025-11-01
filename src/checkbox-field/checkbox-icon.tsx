@@ -1,4 +1,4 @@
-import * as React from 'react'
+import type { SVGProps } from 'react'
 
 const svgPath = {
     checked:
@@ -9,7 +9,7 @@ const svgPath = {
     filled: 'M6 4H18C19.1046 4 20 4.89543 20 6V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V6C4 4.89543 4.89543 4 6 4Z',
 } as const
 
-type Props = React.SVGProps<SVGSVGElement> & {
+type Props = SVGProps<SVGSVGElement> & {
     checked?: boolean
     indeterminate?: boolean
     disabled?: boolean

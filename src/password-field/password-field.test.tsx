@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState } from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { PasswordField } from './'
@@ -277,7 +277,7 @@ describe('PasswordField', () => {
 
     it('can be a controlled input field', () => {
         function TestCase() {
-            const [value, setValue] = React.useState('')
+            const [value, setValue] = useState('')
             return (
                 <>
                     <PasswordField

@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import { getInitials, emailToIndex } from './utils'
 
 import { getClassNames, ResponsiveProp } from '../utils/responsive-props'

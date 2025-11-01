@@ -1,4 +1,5 @@
-import * as React from 'react'
+import { cloneElement, useRef } from 'react'
+import type { KeyboardEvent, ReactElement, SyntheticEvent } from 'react'
 
 type Key = 'ArrowUp' | 'ArrowRight' | 'ArrowDown' | 'ArrowLeft' | 'Enter' | 'Backspace' | 'Escape'
 
@@ -77,7 +78,7 @@ const KeyCapturerResolver = {
     },
 }
 
-type EventHandler = (event: React.SyntheticEvent) => void
+type EventHandler = (event: SyntheticEvent) => void
 
 type EventHandlerProps = {
     onArrowUp?: EventHandler
@@ -122,7 +123,7 @@ const keyPropagatePropMapping: Record<Key, keyof PropagateProps> = {
 type KeyCapturerProps = EventHandlerProps &
     PropagateProps & {
         eventName?: 'onKeyDown' | 'onKeyDownCapture' | 'onKeyUp' | 'onKeyUpCapture'
-        children: React.ReactElement<unknown>
+        children: ReactElement<unknown>
     }
 
 /**
@@ -135,7 +136,7 @@ type KeyCapturerProps = EventHandlerProps &
  */
 function KeyCapturer(props: KeyCapturerProps) {
     const { children, eventName = 'onKeyDown' } = props
-    const composingRef = React.useRef(false)
+    const composingRef = useRef(false)
     const composingEventHandlers = props.onEnter
         ? {
               onCompositionStart: () => {
@@ -147,7 +148,7 @@ function KeyCapturer(props: KeyCapturerProps) {
           }
         : undefined
 
-    function handleKeyEvent(event: React.KeyboardEvent<HTMLInputElement>) {
+    function handleKeyEvent(event: KeyboardEvent<HTMLInputElement>) {
         // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
         const key =
             event.key !== undefined
@@ -179,7 +180,7 @@ function KeyCapturer(props: KeyCapturerProps) {
         }
     }
 
-    return React.cloneElement(children, {
+    return cloneElement(children, {
         [eventName]: handleKeyEvent,
         ...composingEventHandlers,
     })

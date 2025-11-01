@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState } from 'react'
 import { render, screen } from '@testing-library/react'
 import { TextArea } from './'
 import userEvent from '@testing-library/user-event'
@@ -227,7 +227,7 @@ describe('TextArea', () => {
 
     it('can be a controlled field', () => {
         function TestCase() {
-            const [value, setValue] = React.useState('')
+            const [value, setValue] = useState('')
             return (
                 <>
                     <TextArea

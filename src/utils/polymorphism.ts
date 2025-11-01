@@ -1,6 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import * as React from 'react'
+import { forwardRef } from 'react'
+import type {
+    ComponentProps,
+    ElementType,
+    MutableRefObject,
+    ReactElement,
+    WeakValidationMap,
+} from 'react'
 import type { ObfuscatedClassName } from './common-types'
 
 type Merge<P1, P2> = Omit<P1, keyof P2> & P2
@@ -35,7 +42,7 @@ type WithObfuscatedClassName<
             : never
     : Props
 
-type PolymorphicProp<ComponentType extends React.ElementType> = {
+type PolymorphicProp<ComponentType extends ElementType> = {
     /**
      * Used to instruct this component what React element to render as. It can be both a string
      * representing a HTML tag name, or a React component.
@@ -74,11 +81,11 @@ type PolymorphicProp<ComponentType extends React.ElementType> = {
  * @see WithObfuscatedClassName
  */
 type PolymorphicComponentProps<
-    ComponentType extends React.ElementType,
+    ComponentType extends ElementType,
     OwnProps,
     ShouldObfuscateClassName extends ObfuscateClassNameMode,
 > = Merge<
-    WithObfuscatedClassName<React.ComponentProps<ComponentType>, ShouldObfuscateClassName>,
+    WithObfuscatedClassName<ComponentProps<ComponentType>, ShouldObfuscateClassName>,
     OwnProps & PolymorphicProp<ComponentType>
 >
 
@@ -87,18 +94,18 @@ type ElementTagNameMap = HTMLElementTagNameMap &
 
 type ElementByTag<TagName extends keyof ElementTagNameMap> = ElementTagNameMap[TagName]
 
-type ElementByTagOrAny<ComponentType extends React.ElementType> =
+type ElementByTagOrAny<ComponentType extends ElementType> =
     ComponentType extends keyof ElementTagNameMap ? ElementByTag<ComponentType> : any
 
 /**
- * The function passed to React.forwardRef, but typed in a way that's prepared for polymorphism via
+ * The function passed to forwardRef, but typed in a way that's prepared for polymorphism via
  * the `as` prop. It also allows to specify if the `className` prop should be obfuscated or omitted.
  *
  * @see PolymorphicComponentProps
  * @see WithObfuscatedClassName
  */
 interface ForwardRefFunction<
-    ComponentType extends React.ElementType,
+    ComponentType extends ElementType,
     OwnProps,
     ShouldObfuscateClassName extends ObfuscateClassNameMode,
 > {
@@ -106,9 +113,9 @@ interface ForwardRefFunction<
         props: PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>,
         ref:
             | ((instance: ElementByTagOrAny<ComponentType> | null) => void)
-            | React.MutableRefObject<ElementByTagOrAny<ComponentType> | null>
+            | MutableRefObject<ElementByTagOrAny<ComponentType> | null>
             | null,
-    ): React.ReactElement | null
+    ): ReactElement | null
     displayName?: string
 }
 
@@ -160,36 +167,36 @@ interface ForwardRefFunction<
  * @deprecated Use Ariakit's composition instead (https://ariakit.org/guide/composition)
  */
 interface PolymorphicComponent<
-    ComponentType extends React.ElementType,
+    ComponentType extends ElementType,
     OwnProps,
     ShouldObfuscateClassName extends ObfuscateClassNameMode = 'obfuscateClassName',
 > {
-    <TT extends React.ElementType = ComponentType>(
+    <TT extends ElementType = ComponentType>(
         props: PolymorphicComponentProps<TT, OwnProps, ShouldObfuscateClassName>,
-    ): React.ReactElement | null
+    ): ReactElement | null
     readonly $$typeof: symbol
     defaultProps?: Partial<
         PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>
     >
-    propTypes?: React.WeakValidationMap<
+    propTypes?: WeakValidationMap<
         PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>
     >
     displayName?: string
 }
 
 /**
- * A wrapper to use React.forwardRef with polymorphic components in a type-safe manner. This is a
- * convenience over merely using React.forwardRef directly, and then manually forcing the resulting
+ * A wrapper to use forwardRef with polymorphic components in a type-safe manner. This is a
+ * convenience over merely using forwardRef directly, and then manually forcing the resulting
  * value to be typed using `as PolymorphicComponent<…>`.
  *
  * @deprecated Use Ariakit's composition instead (https://ariakit.org/guide/composition)
  */
 function polymorphicComponent<
-    ComponentType extends React.ElementType = 'div',
+    ComponentType extends ElementType = 'div',
     OwnProps = EmptyObject,
     ShouldObfuscateClassName extends ObfuscateClassNameMode = 'obfuscateClassName',
 >(render: ForwardRefFunction<ComponentType, OwnProps, ShouldObfuscateClassName>) {
-    return React.forwardRef(render) as PolymorphicComponent<
+    return forwardRef(render) as PolymorphicComponent<
         ComponentType,
         OwnProps,
         ShouldObfuscateClassName

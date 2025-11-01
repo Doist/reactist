@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState } from 'react'
 
 import ColorPicker from '../../src/components/color-picker'
 
@@ -15,7 +15,7 @@ export default {
 // Story Definitions ==========================================================
 
 export function ColorPickersStory() {
-    const [color, setColor] = React.useState<number>(0)
+    const [color, setColor] = useState<number>(0)
 
     return (
         <section className="story">
@@ -26,7 +26,7 @@ export function ColorPickersStory() {
 }
 
 export function CustomColorPickersStory() {
-    const [color, setColor] = React.useState<number>(0)
+    const [color, setColor] = useState<number>(0)
 
     return (
         <section className="story">
@@ -41,7 +41,7 @@ export function CustomColorPickersStory() {
 }
 
 export function NamedColorPickersStory() {
-    const [color, setColor] = React.useState<number>(0)
+    const [color, setColor] = useState<number>(0)
 
     return (
         <section className="story">
@@ -62,7 +62,7 @@ export function NamedColorPickersStory() {
 }
 
 export function SmallColorPickerStory() {
-    const [color, setColor] = React.useState<number>(0)
+    const [color, setColor] = useState<number>(0)
 
     return (
         <section className="story">

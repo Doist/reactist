@@ -1,4 +1,4 @@
-import * as React from 'react'
+import type { ReactNode } from 'react'
 import { getClassNames } from '../utils/responsive-props'
 import { Box } from '../box'
 import { polymorphicComponent } from '../utils/polymorphism'
@@ -9,7 +9,7 @@ import type { BoxProps } from '../box'
 import styles from './text.module.css'
 
 type TextProps = {
-    children: React.ReactNode
+    children: ReactNode
     /**
      * The size of the text.
      *

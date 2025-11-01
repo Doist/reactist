@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { Children } from 'react'
 import flattenChildren from 'react-keyed-flatten-children'
 import { polymorphicComponent } from '../utils/polymorphism'
 import { mapResponsiveProp } from '../utils/responsive-props'
@@ -53,7 +53,7 @@ const Stack = polymorphicComponent<'div', StackProps>(function Stack(
             ref={ref}
         >
             {dividers !== 'none'
-                ? React.Children.map(flattenChildren(children), (child, index) =>
+                ? Children.map(flattenChildren(children), (child, index) =>
                       index > 0 ? (
                           <>
                               <Divider weight={dividers} />

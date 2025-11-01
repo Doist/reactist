@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState } from 'react'
 import { render, screen } from '@testing-library/react'
 import { SelectField } from './'
 import userEvent from '@testing-library/user-event'
@@ -218,7 +218,7 @@ describe('SelectField', () => {
 
     it('can be a controlled select field', () => {
         function TestCase() {
-            const [theme, setTheme] = React.useState('dark')
+            const [theme, setTheme] = useState('dark')
             return (
                 <div data-testid="container" data-theme={theme}>
                     <SelectField

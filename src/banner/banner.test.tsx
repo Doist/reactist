@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { render, screen, within } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import { Banner, SystemBannerType } from './banner'

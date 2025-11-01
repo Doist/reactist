@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState } from 'react'
 
 import Select from '../../src/components/deprecated-select'
 import { Banner } from '../../src/banner'
@@ -27,7 +27,7 @@ export default {
 // Story Definitions ==========================================================
 
 export function SelectStory() {
-    const [value, setValue] = React.useState<string>(options[0].value)
+    const [value, setValue] = useState<string>(options[0].value)
 
     return (
         <Stack as="section" exceptionallySetClassName="story" space="large">
@@ -47,7 +47,7 @@ export function SelectStory() {
 }
 
 export function SelectPlaygroundStory(args) {
-    const [value, setValue] = React.useState<string>(options[0].value)
+    const [value, setValue] = useState<string>(options[0].value)
 
     return (
         <section className="story">

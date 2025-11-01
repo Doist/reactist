@@ -1,9 +1,9 @@
-import * as React from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, SubMenu } from './menu'
 import { axe } from 'jest-axe'
 import { flushMicrotasks } from '../utils/test-helpers'
+import type { MouseEvent } from 'react'
 
 function getFocusedElement() {
     if (!document.activeElement) {
@@ -185,7 +185,7 @@ describe('Menu', () => {
                 <MenuButton>Options menu</MenuButton>
                 <MenuList aria-label="Some options">
                     <MenuItem
-                        onClick={(event: React.MouseEvent) => event.preventDefault()}
+                        onClick={(event: MouseEvent) => event.preventDefault()}
                         onSelect={() => onSelect()}
                     >
                         Click me

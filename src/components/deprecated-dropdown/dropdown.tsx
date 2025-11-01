@@ -1,4 +1,14 @@
-import * as React from 'react'
+import { Component, cloneElement, forwardRef } from 'react'
+import type {
+    ButtonHTMLAttributes,
+    CSSProperties,
+    Context,
+    DetailedHTMLProps,
+    MouseEvent as ReactMouseEvent,
+    ReactElement,
+    ReactNode,
+    Ref,
+} from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 
@@ -14,8 +24,8 @@ type BoxProps = {
     right?: boolean
     scrolling_parent?: string
     children?: [
-        React.ReactElement<TriggerProps>,
-        React.ReactElement<BodyProps> | ((props: BodyProps) => JSX.Element),
+        ReactElement<TriggerProps>,
+        ReactElement<BodyProps> | ((props: BodyProps) => JSX.Element),
     ]
     className?: string
 }
@@ -25,10 +35,10 @@ type BoxState = {
     showBody: boolean
 }
 
-class Box extends React.Component<BoxProps, BoxState> {
+class Box extends Component<BoxProps, BoxState> {
     public static displayName: string
 
-    constructor(props: BoxProps, context: React.Context<unknown>) {
+    constructor(props: BoxProps, context: Context<unknown>) {
         super(props, context)
         this.state = {
             showBody: false,
@@ -46,7 +56,7 @@ class Box extends React.Component<BoxProps, BoxState> {
     }
     _timeout?: ReturnType<typeof setTimeout>
 
-    _handleClickOutside = (event: MouseEvent) => {
+    _handleClickOutside = (event: globalThis.MouseEvent) => {
         const dropdownDOMNode = ReactDOM.findDOMNode(this)
 
         if (dropdownDOMNode && !dropdownDOMNode.contains(event.target as Node))
@@ -79,9 +89,7 @@ class Box extends React.Component<BoxProps, BoxState> {
 
     _getTriggerComponent() {
         const _trigger = this.props.children?.[0]
-        return _trigger
-            ? React.cloneElement(_trigger, { onClick: this._toggleShowBody })
-            : undefined
+        return _trigger ? cloneElement(_trigger, { onClick: this._toggleShowBody }) : undefined
     }
 
     // https://facebook.github.io/react/docs/refs-and-the-dom.html#exposing-dom-refs-to-parent-components
@@ -141,11 +149,7 @@ class Box extends React.Component<BoxProps, BoxState> {
         const body = children?.[1]
 
         const contentMarkup =
-            typeof body === 'function'
-                ? body(props)
-                : body
-                  ? React.cloneElement(body, props)
-                  : undefined
+            typeof body === 'function' ? body(props) : body ? cloneElement(body, props) : undefined
         return (
             <div className={className} style={{ position: 'relative' }}>
                 {contentMarkup}
@@ -173,24 +177,24 @@ class Box extends React.Component<BoxProps, BoxState> {
 
 Box.displayName = 'Dropdown.Box'
 
-type NativeButtonProps = React.DetailedHTMLProps<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
+type NativeButtonProps = DetailedHTMLProps<
+    ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
 >
 
 type TriggerProps = Omit<NativeButtonProps, 'title' | 'onClick'> & {
-    tooltip?: React.ReactNode
+    tooltip?: ReactNode
     /**
      * @private the onClick prop is not to be used externally
      */
     onClick?: NativeButtonProps['onClick']
 }
 
-const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(function Trigger(
+const Trigger = forwardRef<HTMLButtonElement, TriggerProps>(function Trigger(
     { children, onClick, tooltip, className, ...props },
     ref,
 ) {
-    function handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    function handleClick(event: ReactMouseEvent<HTMLButtonElement>) {
         event.preventDefault()
         event.stopPropagation()
         if (onClick) onClick(event)
@@ -212,14 +216,14 @@ const Trigger = React.forwardRef<HTMLButtonElement, TriggerProps>(function Trigg
 Trigger.displayName = 'Dropdown.Trigger'
 
 type BodyProps = {
-    setPosition?: React.Ref<HTMLDivElement>
-    children?: React.ReactNode
+    setPosition?: Ref<HTMLDivElement>
+    children?: ReactNode
     top?: boolean
     right?: boolean
 }
 
 function Body({ top, right, children, setPosition }: BodyProps) {
-    const style: React.CSSProperties = { position: 'absolute', right: 0, top: 0 }
+    const style: CSSProperties = { position: 'absolute', right: 0, top: 0 }
 
     if (top) {
         style.top = 'auto'

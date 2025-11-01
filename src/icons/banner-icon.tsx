@@ -1,4 +1,3 @@
-import * as React from 'react'
 import type { SystemBannerType } from '../banner/banner'
 
 import styles from './banner-icon.module.css'

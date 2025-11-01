@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 import { Box } from '../box'
 
 import styles from './badge.module.css'

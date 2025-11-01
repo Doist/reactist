@@ -1,4 +1,5 @@
-import * as React from 'react'
+import { forwardRef, useEffect, useRef } from 'react'
+import type { RefObject } from 'react'
 import classNames from 'classnames'
 import { useMergeRefs } from 'use-callback-ref'
 import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-field'
@@ -48,7 +49,7 @@ interface TextAreaProps
     disableResize?: boolean
 }
 
-const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
+const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
     {
         variant = 'default',
         id,
@@ -69,8 +70,8 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
     },
     ref,
 ) {
-    const containerRef = React.useRef<HTMLDivElement>(null)
-    const internalRef = React.useRef<HTMLTextAreaElement>(null)
+    const containerRef = useRef<HTMLDivElement>(null)
+    const internalRef = useRef<HTMLTextAreaElement>(null)
     const combinedRef = useMergeRefs([ref, internalRef])
 
     useAutoExpand({ value, autoExpand, containerRef, internalRef })
@@ -132,12 +133,12 @@ function useAutoExpand({
 }: {
     value: string | undefined
     autoExpand: boolean
-    containerRef: React.RefObject<HTMLDivElement>
-    internalRef: React.RefObject<HTMLTextAreaElement>
+    containerRef: RefObject<HTMLDivElement>
+    internalRef: RefObject<HTMLTextAreaElement>
 }) {
     const isControlled = value !== undefined
 
-    React.useEffect(
+    useEffect(
         function setupAutoExpandWhenUncontrolled() {
             const textAreaElement = internalRef.current
             if (!textAreaElement || !autoExpand || isControlled) {
@@ -164,7 +165,7 @@ function useAutoExpand({
         [autoExpand, containerRef, internalRef, isControlled],
     )
 
-    React.useEffect(
+    useEffect(
         function setupAutoExpandWhenControlled() {
             if (!isControlled || !autoExpand) {
                 return

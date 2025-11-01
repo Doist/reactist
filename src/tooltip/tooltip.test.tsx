@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { createRef } from 'react'
 import { render, screen, act } from '@testing-library/react'
 import { axe } from 'jest-axe'
 import userEvent from '@testing-library/user-event'
@@ -146,7 +146,7 @@ describe('Tooltip', () => {
     })
 
     it("does not interfere with the trigger element's ref forwarding", () => {
-        const buttonRef = React.createRef<HTMLButtonElement>()
+        const buttonRef = createRef<HTMLButtonElement>()
 
         render(
             <Tooltip content="tooltip content here">

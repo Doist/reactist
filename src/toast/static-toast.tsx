@@ -1,4 +1,5 @@
-import React from 'react'
+import { forwardRef } from 'react'
+import type { ReactElement, ReactNode } from 'react'
 
 import { CloseIcon } from '../icons/close-icon'
 import { Box } from '../box'
@@ -18,17 +19,17 @@ type StaticToastProps = {
     /**
      * The message shown in the toast.
      */
-    message: NonNullable<React.ReactNode>
+    message: NonNullable<ReactNode>
 
     /**
      * An optional extra description that complements the main message shown in the toast.
      */
-    description?: React.ReactNode
+    description?: ReactNode
 
     /**
      * An icon to be shown in front of the message.
      */
-    icon?: React.ReactNode
+    icon?: ReactNode
 
     /**
      * The action to call when the user clicks on the dismiss button. If omitted, the dismiss button
@@ -56,7 +57,7 @@ type StaticToastProps = {
      * are the ones that look better in the toast's dark background. And in all cases you should use
      * size `small`.
      */
-    action?: React.ReactElement | ToastActionObject
+    action?: ReactElement | ToastActionObject
 }
 
 /**
@@ -73,7 +74,7 @@ type StaticToastProps = {
  *
  * @see useToasts
  */
-const StaticToast = React.forwardRef<HTMLDivElement, StaticToastProps>(function Toast(
+const StaticToast = forwardRef<HTMLDivElement, StaticToastProps>(function Toast(
     { message, description, icon, action, onDismiss, dismissLabel = 'Close', ...props },
     ref,
 ) {
@@ -142,7 +143,7 @@ function isActionObject(action: StaticToastProps['action']): action is ToastActi
     )
 }
 
-function ToastContentSlot({ children }: { children: React.ReactNode }) {
+function ToastContentSlot({ children }: { children: ReactNode }) {
     return (
         <Box
             display="flex"
