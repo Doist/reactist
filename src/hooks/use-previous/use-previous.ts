@@ -20,6 +20,10 @@ function usePrevious<T>(value: T): T | null {
         ref.current = value
     }, [value])
 
+    // This is necessary for usePrevious to work in its current form, however, we are
+    // warned that it's possible for the ref to be stale
+    // See https://github.com/facebook/react/issues/31330
+    // eslint-disable-next-line react-hooks/refs
     return ref.current
 }
 
