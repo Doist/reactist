@@ -7,10 +7,10 @@ import './styles/design-tokens.css'
 export * from './box'
 export * from './columns'
 export * from './divider'
-export * from './inline'
-export * from './stack'
 export * from './hidden'
 export * from './hidden-visually'
+export * from './inline'
+export * from './stack'
 
 // alerts, notifications, etc.
 export * from './banner'
@@ -20,8 +20,8 @@ export * from './toast'
 
 // text and typography
 export * from './heading'
-export * from './text'
 export * from './prose'
+export * from './text'
 
 // links
 export * from './button'
@@ -38,18 +38,18 @@ export * from './text-field'
 // other components
 export * from './avatar'
 export * from './badge'
+export * from './menu'
 export * from './modal'
 export * from './tabs'
 export * from './tooltip'
-export * from './menu'
 
 //
 // components not yet integrated with the design system
 //
 
 export { default as ColorPicker, COLORS } from './components/color-picker'
-export { default as KeyboardShortcut } from './components/keyboard-shortcut'
 export { default as KeyCapturer, SUPPORTED_KEYS } from './components/key-capturer'
+export { default as KeyboardShortcut } from './components/keyboard-shortcut'
 export { default as ProgressBar } from './components/progress-bar'
 export { default as Time } from './components/time'
 

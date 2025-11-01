@@ -1,9 +1,10 @@
 import { useState } from 'react'
 
-import Select from '../../src/components/deprecated-select'
-import { Banner } from '../../src/banner'
-import { Stack } from '../../src/stack'
 import LinkTo from '@storybook/addon-links/react'
+
+import { Banner } from '../../src/banner'
+import Select from '../../src/components/deprecated-select'
+import { Stack } from '../../src/stack'
 
 const options = [
     { value: 'intro', text: 'Select a fruit', disabled: true },

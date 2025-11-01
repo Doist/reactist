@@ -1,8 +1,10 @@
+import './input.less'
+
 import { forwardRef } from 'react'
-import type { InputHTMLAttributes } from 'react'
+
 import classNames from 'classnames'
 
-import './input.less'
+import type { InputHTMLAttributes } from 'react'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     className?: string

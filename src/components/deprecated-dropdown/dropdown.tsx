@@ -1,20 +1,22 @@
-import { Component, cloneElement, forwardRef } from 'react'
+import './dropdown.less'
+
+import { cloneElement, Component, forwardRef } from 'react'
+import ReactDOM from 'react-dom'
+
+import classNames from 'classnames'
+
+import Button from '../deprecated-button'
+
 import type {
     ButtonHTMLAttributes,
-    CSSProperties,
     Context,
+    CSSProperties,
     DetailedHTMLProps,
     MouseEvent as ReactMouseEvent,
     ReactElement,
     ReactNode,
     Ref,
 } from 'react'
-import ReactDOM from 'react-dom'
-import classNames from 'classnames'
-
-import Button from '../deprecated-button'
-
-import './dropdown.less'
 
 type BoxProps = {
     onShowBody?: () => void

@@ -1,8 +1,10 @@
 import { useState } from 'react'
+
 import { render, screen } from '@testing-library/react'
-import { SwitchField } from './'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
+
+import { SwitchField } from './'
 
 describe('SwitchField', () => {
     it('supports having an externally provided id attribute', () => {

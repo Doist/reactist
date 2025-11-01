@@ -1,6 +1,8 @@
-import type { ReactNode } from 'react'
 import { Box } from '../box'
+
 import styles from './prose.module.css'
+
+import type { ReactNode } from 'react'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
 interface ProseProps extends ObfuscatedClassName {

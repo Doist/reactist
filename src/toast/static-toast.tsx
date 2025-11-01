@@ -1,13 +1,14 @@
 import { forwardRef } from 'react'
-import type { ReactElement, ReactNode } from 'react'
 
-import { CloseIcon } from '../icons/close-icon'
 import { Box } from '../box'
-import { IconButton, Button } from '../button'
+import { Button, IconButton } from '../button'
+import { CloseIcon } from '../icons/close-icon'
 import { Stack } from '../stack'
 import { Text } from '../text'
 
 import styles from './toast.module.css'
+
+import type { ReactElement, ReactNode } from 'react'
 
 type ToastActionObject = {
     label: string
@@ -158,5 +159,5 @@ function ToastContentSlot({ children }: { children: ReactNode }) {
     )
 }
 
-export { StaticToast, isActionObject }
+export { isActionObject, StaticToast }
 export type { StaticToastProps }

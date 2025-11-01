@@ -1,8 +1,10 @@
 import { useState } from 'react'
+
 import { render, screen } from '@testing-library/react'
-import { TextArea } from './'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
+
+import { TextArea } from './'
 
 describe('TextArea', () => {
     it('supports having an externally provided id attribute', () => {

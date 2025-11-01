@@ -1,22 +1,22 @@
 import { useRef, useState } from 'react'
-import { action as storybookAction } from '@storybook/addon-actions'
 
-import { AlertIcon } from '../icons/alert-icon'
-import { PasswordVisibleIcon } from '../icons/password-visible-icon'
+import { action as storybookAction } from '@storybook/addon-actions'
 
 import { Box } from '../box'
 import { Button, ButtonVariant, IconButton } from '../button'
 import { CheckboxField } from '../checkbox-field'
 import { Heading } from '../heading'
+import { AlertIcon } from '../icons/alert-icon'
+import { PasswordVisibleIcon } from '../icons/password-visible-icon'
 import { Inline } from '../inline'
 import { SelectField } from '../select-field'
 import { Spinner } from '../spinner'
 import { Stack } from '../stack'
 import { SwitchField } from '../switch-field'
+import { Text } from '../text'
 
 import { StaticToast, StaticToastProps } from './static-toast'
 import { Toast, ToastsProvider, useToasts } from './use-toasts'
-import { Text } from '../text'
 
 export default {
     title: 'Design system/Toast',

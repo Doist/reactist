@@ -1,8 +1,9 @@
-import type { ComponentProps } from 'react'
-
 import { Stack } from '../stack'
-import { Heading } from './heading'
 import { ResponsiveWidthRef, select, selectWithNone } from '../utils/storybook-helper'
+
+import { Heading } from './heading'
+
+import type { ComponentProps } from 'react'
 
 export default {
     title: 'Design system/Heading',

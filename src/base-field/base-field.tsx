@@ -1,4 +1,14 @@
 import { useEffect, useState } from 'react'
+
+import { Box, BoxProps } from '../box'
+import { Column, Columns } from '../columns'
+import { Spinner } from '../spinner'
+import { Stack } from '../stack'
+import { Text } from '../text'
+import { useId } from '../utils/common-helpers'
+
+import styles from './base-field.module.css'
+
 import type {
     ChangeEventHandler,
     DetailedHTMLProps,
@@ -6,15 +16,7 @@ import type {
     ReactElement,
     ReactNode,
 } from 'react'
-import { Box, BoxProps } from '../box'
-import { useId } from '../utils/common-helpers'
-import { Text } from '../text'
-import styles from './base-field.module.css'
-import { Stack } from '../stack'
-
 import type { WithEnhancedClassName } from '../utils/common-types'
-import { Spinner } from '../spinner'
-import { Column, Columns } from '../columns'
 
 // Define the remaining characters before the character count turns red
 // See: https://twist.com/a/1585/ch/765851/t/6664583/c/93631846 for latest spec

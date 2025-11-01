@@ -1,10 +1,12 @@
+import './deprecated-button.less'
+
 import { forwardRef } from 'react'
-import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react'
+
 import classNames from 'classnames'
 
 import { Tooltip } from '../../tooltip'
 
-import './deprecated-button.less'
+import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react'
 
 type NativeButtonProps = DetailedHTMLProps<
     ButtonHTMLAttributes<HTMLButtonElement>,

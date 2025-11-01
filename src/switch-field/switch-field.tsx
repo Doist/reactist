@@ -1,10 +1,12 @@
 import { forwardRef, useState } from 'react'
+
+import { FieldComponentProps, FieldMessage } from '../base-field'
 import { Box } from '../box'
+import { HiddenVisually } from '../hidden-visually'
 import { Stack } from '../stack'
 import { Text } from '../text'
-import { HiddenVisually } from '../hidden-visually'
-import { FieldComponentProps, FieldMessage } from '../base-field'
 import { useId } from '../utils/common-helpers'
+
 import styles from './switch-field.module.css'
 
 interface SwitchFieldProps

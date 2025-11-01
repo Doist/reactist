@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import { Loading } from './loading'
 import { axe } from 'jest-axe'
+
+import { Loading } from './loading'
 
 function getSize() {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

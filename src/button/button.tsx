@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
-import type { ButtonHTMLAttributes, ReactElement, ReactNode, SyntheticEvent } from 'react'
-import classNames from 'classnames'
+
 import { Role, RoleProps } from '@ariakit/react'
+import classNames from 'classnames'
 
 import { Box, getBoxClassNames } from '../box'
 import { Spinner } from '../spinner'
@@ -9,6 +9,7 @@ import { Tooltip, TooltipProps } from '../tooltip'
 
 import styles from './button.module.css'
 
+import type { ButtonHTMLAttributes, ReactElement, ReactNode, SyntheticEvent } from 'react'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
 function preventDefault(event: SyntheticEvent) {
@@ -277,5 +278,5 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(function IconB
     )
 })
 
-export type { ButtonProps, IconButtonProps, ButtonVariant, ButtonTone }
+export type { ButtonProps, ButtonTone, ButtonVariant, IconButtonProps }
 export { Button, IconButton }

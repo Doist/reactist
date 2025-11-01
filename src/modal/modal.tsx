@@ -9,6 +9,21 @@ import {
     useRef,
     useState,
 } from 'react'
+import FocusLock from 'react-focus-lock'
+
+import { Dialog, DialogOptions, Portal, PortalOptions, useDialogStore } from '@ariakit/react'
+import { hideOthers } from 'aria-hidden'
+import classNames from 'classnames'
+
+import { Box } from '../box'
+import { IconButton, IconButtonProps } from '../button'
+import { Column, Columns } from '../columns'
+import { Divider } from '../divider'
+import { CloseIcon } from '../icons/close-icon'
+import { Inline } from '../inline'
+
+import styles from './modal.module.css'
+
 import type {
     ButtonHTMLAttributes,
     DetailedHTMLProps,
@@ -16,22 +31,8 @@ import type {
     MouseEvent,
     ReactNode,
 } from 'react'
-import classNames from 'classnames'
-import FocusLock from 'react-focus-lock'
-import { hideOthers } from 'aria-hidden'
-
-import { Dialog, DialogOptions, useDialogStore, Portal, PortalOptions } from '@ariakit/react'
-
-import { CloseIcon } from '../icons/close-icon'
-import { Column, Columns } from '../columns'
-import { Inline } from '../inline'
-import { Divider } from '../divider'
-import { Box } from '../box'
-import { IconButtonProps, IconButton } from '../button'
-
-import styles from './modal.module.css'
-import type { ObfuscatedClassName } from '../utils/common-types'
 import type { DividerProps } from '../divider'
+import type { ObfuscatedClassName } from '../utils/common-types'
 
 type ModalWidth = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'full'
 type ModalHeightMode = 'expand' | 'fitContent'

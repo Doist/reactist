@@ -1,8 +1,11 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, SubMenu } from './menu'
 import { axe } from 'jest-axe'
+
 import { flushMicrotasks } from '../utils/test-helpers'
+
+import { ContextMenuTrigger, Menu, MenuButton, MenuItem, MenuList, SubMenu } from './menu'
+
 import type { MouseEvent } from 'react'
 
 function getFocusedElement() {

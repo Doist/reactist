@@ -1,8 +1,10 @@
-import type { MouseEvent, MouseEventHandler } from 'react'
 import { act, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Button, IconButton } from './button'
 import { axe } from 'jest-axe'
+
+import { Button, IconButton } from './button'
+
+import type { MouseEvent, MouseEventHandler } from 'react'
 
 jest.mock('../spinner', () => ({
     Spinner() {

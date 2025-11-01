@@ -1,10 +1,12 @@
 import { forwardRef } from 'react'
-import type { AllHTMLAttributes } from 'react'
-import { screen, render, waitFor } from '@testing-library/react'
+
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
-import { Tabs, Tab, TabList, TabPanel, TabAwareSlot } from './'
+import { Tab, TabAwareSlot, TabList, TabPanel, Tabs } from './'
+
+import type { AllHTMLAttributes } from 'react'
 
 describe('Tabs', () => {
     it("allows each TabPanel's visibility to be controlled by its corresponding tab", async () => {

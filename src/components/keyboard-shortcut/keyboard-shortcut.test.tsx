@@ -1,6 +1,8 @@
-import type { ComponentProps } from 'react'
 import { render } from '@testing-library/react'
+
 import { KeyboardShortcut } from './keyboard-shortcut'
+
+import type { ComponentProps } from 'react'
 
 /**
  * Renders the KeyboardShortcut component twice, once for macOS and non-macOS setting.

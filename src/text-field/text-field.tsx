@@ -1,10 +1,14 @@
 import { forwardRef, useRef } from 'react'
-import type { MouseEvent, ReactElement } from 'react'
+
+import { useMergeRefs } from 'use-callback-ref'
+
 import { BaseField, BaseFieldVariantProps } from '../base-field'
 import { Box } from '../box'
+
 import styles from './text-field.module.css'
+
+import type { MouseEvent, ReactElement } from 'react'
 import type { BaseFieldProps, FieldComponentProps } from '../base-field'
-import { useMergeRefs } from 'use-callback-ref'
 
 type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 

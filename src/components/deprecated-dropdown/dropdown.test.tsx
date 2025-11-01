@@ -1,6 +1,7 @@
-import { Dropdown } from './dropdown'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+
+import { Dropdown } from './dropdown'
 
 describe('Dropdown', () => {
     describe('Dropdown.Box', () => {

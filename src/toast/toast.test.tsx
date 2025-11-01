@@ -1,16 +1,17 @@
 import { useState } from 'react'
-import { axe } from 'jest-axe'
+
 import { act, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { axe } from 'jest-axe'
 
 import { TestIcon } from '../utils/test-helpers'
 
+import { StaticToast } from './static-toast'
 import { ANIMATION_TIMEOUT } from './toast-animation'
 import { Toast, ToastsProvider, useToasts } from './use-toasts'
-import { StaticToast } from './static-toast'
 
-import type { ToastProps, ToastsProviderProps } from './use-toasts'
 import type { StaticToastProps } from './static-toast'
+import type { ToastProps, ToastsProviderProps } from './use-toasts'
 
 function getToast(content: string | RegExp) {
     return screen.getByRole('alert', {

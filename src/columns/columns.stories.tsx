@@ -1,22 +1,23 @@
+import { Box } from '../box'
+import { Stack } from '../stack'
 import {
-    selectSize,
-    times,
-    reusableBoxProps,
+    disableResponsiveProps,
+    PartialProps,
     Placeholder,
     ResponsiveWidthRef,
-    Wrapper,
+    reusableBoxProps,
+    selectSize,
     selectWithNone,
-    PartialProps,
-    disableResponsiveProps,
+    times,
+    Wrapper,
 } from '../utils/storybook-helper'
-import { Stack } from '../stack'
-import { Box } from '../box'
-import { Columns, Column } from './columns'
+
+import { Column, Columns } from './columns'
 
 import type {
+    ColumnsCollapseBelow,
     ColumnsHorizontalAlignment,
     ColumnsVerticalAlignment,
-    ColumnsCollapseBelow,
 } from './columns'
 
 export default {

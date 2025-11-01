@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import type { ComponentProps } from 'react'
 
 import { Avatar } from './avatar'
+
+import type { ComponentProps } from 'react'
 
 describe('Avatar', () => {
     it('renders a background image when avatarUrl is supplied', () => {

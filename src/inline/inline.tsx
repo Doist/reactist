@@ -1,10 +1,10 @@
+import { Box } from '../box'
 import { polymorphicComponent } from '../utils/polymorphism'
 import { mapResponsiveProp } from '../utils/responsive-props'
-import { Box } from '../box'
 
-import type { ResponsiveProp } from '../utils/responsive-props'
-import type { Space } from '../utils/common-types'
 import type { ReusableBoxProps } from '../box'
+import type { Space } from '../utils/common-types'
+import type { ResponsiveProp } from '../utils/responsive-props'
 
 type InlineAlign = 'left' | 'center' | 'right'
 
@@ -39,5 +39,5 @@ const Inline = polymorphicComponent<'div', InlineProps>(function Inline(
     )
 })
 
-export type { InlineProps, InlineAlign }
+export type { InlineAlign, InlineProps }
 export { Inline }

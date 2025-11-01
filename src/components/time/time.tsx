@@ -1,10 +1,12 @@
+import './time.less'
+
 import { Component } from 'react'
-import type { MouseEvent, ReactNode } from 'react'
 
 import { Tooltip } from '../../tooltip'
-import { TimeUtils, TimeConfig } from './time-utils'
 
-import './time.less'
+import { TimeConfig, TimeUtils } from './time-utils'
+
+import type { MouseEvent, ReactNode } from 'react'
 
 const DELAY = 60000
 

@@ -1,7 +1,9 @@
-import Input from '../../src/components/deprecated-input'
-import { Banner } from '../../src/banner'
 import './styles/input_story.less'
+
 import LinkTo from '@storybook/addon-links/react'
+
+import { Banner } from '../../src/banner'
+import Input from '../../src/components/deprecated-input'
 
 // Story setup ================================================================
 

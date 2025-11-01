@@ -1,7 +1,9 @@
-import type { ReactNode } from 'react'
-import { polymorphicComponent } from '../utils/polymorphism'
 import { Box } from '../box'
+import { polymorphicComponent } from '../utils/polymorphism'
+
 import styles from './hidden-visually.module.css'
+
+import type { ReactNode } from 'react'
 
 type Props = {
     children: ReactNode

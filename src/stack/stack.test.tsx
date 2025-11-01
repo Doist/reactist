@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/react'
-import { runSpaceTests } from '../utils/test-helpers'
-import { Stack } from './'
 import { axe } from 'jest-axe'
+
+import { runSpaceTests } from '../utils/test-helpers'
+
+import { Stack } from './'
 
 describe('Stack', () => {
     it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {

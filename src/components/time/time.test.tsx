@@ -1,9 +1,9 @@
-import dayjs from 'dayjs'
 import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import dayjs from 'dayjs'
 import { axe } from 'jest-axe'
 
 import { Time } from './time'
-import userEvent from '@testing-library/user-event'
 
 describe('Time', () => {
     beforeAll(() => {

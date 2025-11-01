@@ -1,11 +1,14 @@
 import { forwardRef, useEffect, useRef, useState } from 'react'
-import type { ReactElement, ReactNode } from 'react'
+
 import { Box } from '../box'
 import { Text } from '../text'
+
 import { CheckboxIcon } from './checkbox-icon'
+import { useForkRef } from './use-fork-ref'
 
 import styles from './checkbox-field.module.css'
-import { useForkRef } from './use-fork-ref'
+
+import type { ReactElement, ReactNode } from 'react'
 
 interface CheckboxFieldProps
     extends Omit<

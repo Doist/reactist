@@ -1,21 +1,23 @@
 import { createElement } from 'react'
+
 import classNames from 'classnames'
+
 import { polymorphicComponent } from '../utils/polymorphism'
 import { getClassNames } from '../utils/responsive-props'
 
-import type { ResponsiveProp } from '../utils/responsive-props'
+import styles from './box.module.css'
+import gapStyles from './gap.module.css'
+import marginStyles from './margin.module.css'
+import paddingStyles from './padding.module.css'
+import widthStyles from './width.module.css'
+
 import type {
     DividerWeight,
     Space,
     SpaceWithNegatives,
     WithEnhancedClassName,
 } from '../utils/common-types'
-
-import styles from './box.module.css'
-import paddingStyles from './padding.module.css'
-import marginStyles from './margin.module.css'
-import widthStyles from './width.module.css'
-import gapStyles from './gap.module.css'
+import type { ResponsiveProp } from '../utils/responsive-props'
 
 interface BoxPaddingProps {
     padding?: ResponsiveProp<Space>
@@ -277,22 +279,22 @@ const Box = polymorphicComponent<'div', BoxProps, 'keepClassName'>(function Box(
 })
 
 export type {
-    BoxProps,
-    BoxPaddingProps,
-    BoxMarginProps,
-    ReusableBoxProps,
-    BoxMinWidth,
-    BoxMaxWidth,
-    BoxDisplay,
-    BoxPosition,
-    BoxFlexDirection,
-    BoxFlexWrap,
     BoxAlignItems,
-    BoxJustifyContent,
-    BoxOverflow,
-    BoxTextAlign,
     BoxBackground,
     BoxBorderRadius,
+    BoxDisplay,
+    BoxFlexDirection,
+    BoxFlexWrap,
+    BoxJustifyContent,
+    BoxMarginProps,
+    BoxMaxWidth,
+    BoxMinWidth,
+    BoxOverflow,
+    BoxPaddingProps,
+    BoxPosition,
+    BoxProps,
+    BoxTextAlign,
+    ReusableBoxProps,
 }
 
 export { Box, getBoxClassNames }

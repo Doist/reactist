@@ -1,6 +1,7 @@
-import { ColorPicker, ColorItem } from './color-picker'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+
+import { ColorItem, ColorPicker } from './color-picker'
 
 describe('ColorPicker', () => {
     it('renders without crashing', () => {

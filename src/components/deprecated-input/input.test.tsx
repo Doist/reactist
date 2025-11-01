@@ -1,6 +1,7 @@
-import { Input } from './input'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+
+import { Input } from './input'
 
 describe('Input', () => {
     it('renders without crashing', () => {

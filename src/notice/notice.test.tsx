@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { axe } from 'jest-axe'
+
 import { Notice } from './notice'
 
 describe('Alert', () => {

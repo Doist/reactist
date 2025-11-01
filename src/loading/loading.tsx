@@ -1,7 +1,8 @@
 import { Box } from '../box'
 import { Spinner } from '../spinner'
-import type { ObfuscatedClassName } from '../utils/common-types'
+
 import type { HTMLAttributes } from 'react'
+import type { ObfuscatedClassName } from '../utils/common-types'
 
 type Size = 'xsmall' | 'small' | 'medium' | 'large'
 

@@ -1,8 +1,9 @@
-import type { EventHandler, SyntheticEvent } from 'react'
-import { screen, render, fireEvent } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import { KeyCapturer, KeyCapturerResolver, SUPPORTED_KEYS } from './key-capturer'
-import userEvent from '@testing-library/user-event'
+
+import type { EventHandler, SyntheticEvent } from 'react'
 
 describe('KeyCapturer', () => {
     describe('Capturer', () => {

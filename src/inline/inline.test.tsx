@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/react'
-import { runSpaceTests } from '../utils/test-helpers'
-import { Inline } from './'
 import { axe } from 'jest-axe'
+
+import { runSpaceTests } from '../utils/test-helpers'
+
+import { Inline } from './'
 
 describe('Inline', () => {
     it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {

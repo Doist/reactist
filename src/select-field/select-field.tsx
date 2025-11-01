@@ -1,6 +1,8 @@
 import { forwardRef } from 'react'
+
 import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-field'
 import { Box } from '../box'
+
 import styles from './select-field.module.css'
 
 interface SelectFieldProps

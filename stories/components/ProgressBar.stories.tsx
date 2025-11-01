@@ -1,7 +1,7 @@
 import './styles/progressbar_story.less'
 
-import ProgressBar from '../../src/components/progress-bar'
 import { Box } from '../../src/box'
+import ProgressBar from '../../src/components/progress-bar'
 
 // Story setup ================================================================
 export default {

@@ -1,16 +1,17 @@
+import { Heading } from '../heading'
 import {
-    selectSize,
-    selectCount,
-    times,
-    reusableBoxProps,
     disableResponsiveProps,
+    PartialProps,
     Placeholder,
     ResponsiveWidthRef,
-    Wrapper,
+    reusableBoxProps,
+    selectCount,
+    selectSize,
     selectWithNone,
-    PartialProps,
+    times,
+    Wrapper,
 } from '../utils/storybook-helper'
-import { Heading } from '../heading'
+
 import { Stack } from './stack'
 
 import type { DividerWeight } from '../divider'

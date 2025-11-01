@@ -1,9 +1,12 @@
 import { useState } from 'react'
-import type { ReactElement } from 'react'
+
 import { act, render, screen, within } from '@testing-library/react'
-import { Modal, ModalHeader, ModalFooter, ModalActions, ModalBody, ModalCloseButton } from './modal'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
+
+import { Modal, ModalActions, ModalBody, ModalCloseButton, ModalFooter, ModalHeader } from './modal'
+
+import type { ReactElement } from 'react'
 
 // Ariakit's dialog performs async updates and must be wrapped in an act to prevent warnings
 function renderModal(children: ReactElement) {

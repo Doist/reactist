@@ -1,6 +1,8 @@
 import { Fragment } from 'react'
-import type { DetailedHTMLProps, HTMLAttributes } from 'react'
+
 import classNames from 'classnames'
+
+import type { DetailedHTMLProps, HTMLAttributes } from 'react'
 
 //
 // Support for setting up how to translate modifiers globally.
