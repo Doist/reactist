@@ -61,6 +61,7 @@
         "plop": "plop"
     },
     "peerDependencies": {
+        "@ariakit/react": "0.4.19",
         "classnames": "^2.2.5",
         "prop-types": "^15.6.2",
         "react": "^17.0.0 || ^18.0.0",
@@ -161,7 +162,6 @@
         "webpack": "^4.43.0"
     },
     "dependencies": {
-        "@ariakit/react": "0.4.5",
         "aria-hidden": "^1.2.1",
         "dayjs": "^1.8.10",
         "patch-package": "^6.4.6",
