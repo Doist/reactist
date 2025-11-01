@@ -15,13 +15,14 @@ import { Box } from '../box'
 import { Stack } from '../stack'
 import { generateElementId } from '../utils/common-helpers'
 
-import { isActionObject, StaticToast, StaticToastProps } from './static-toast'
+import { isActionObject, StaticToast } from './static-toast'
 import { useToastsAnimation } from './toast-animation'
 
 import styles from './toast.module.css'
 
 import type { ReactNode } from 'react'
 import type { Space } from '../utils/common-types'
+import type { StaticToastProps } from './static-toast'
 
 /**
  * The props needed to fire up a new notification toast.

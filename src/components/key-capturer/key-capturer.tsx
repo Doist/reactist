@@ -1,6 +1,12 @@
-import { cloneElement, DOMAttributes, FunctionComponentElement, useMemo, useState } from 'react'
+import { cloneElement, useMemo, useState } from 'react'
 
-import type { KeyboardEvent, ReactElement, SyntheticEvent } from 'react'
+import type {
+    DOMAttributes,
+    FunctionComponentElement,
+    KeyboardEvent,
+    ReactElement,
+    SyntheticEvent,
+} from 'react'
 
 type Key = 'ArrowUp' | 'ArrowRight' | 'ArrowDown' | 'ArrowLeft' | 'Enter' | 'Backspace' | 'Escape'
 

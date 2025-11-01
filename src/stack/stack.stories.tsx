@@ -1,7 +1,6 @@
 import { Heading } from '../heading'
 import {
     disableResponsiveProps,
-    PartialProps,
     Placeholder,
     ResponsiveWidthRef,
     reusableBoxProps,
@@ -15,6 +14,7 @@ import {
 import { Stack } from './stack'
 
 import type { DividerWeight } from '../divider'
+import type { PartialProps } from '../utils/storybook-helper'
 
 export default {
     title: 'Design system/Stack',

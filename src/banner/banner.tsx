@@ -1,7 +1,7 @@
 import { forwardRef, Fragment } from 'react'
 
 import { Box } from '../box'
-import { Button, ButtonProps, IconButton } from '../button'
+import { Button, IconButton } from '../button'
 import { BannerIcon } from '../icons/banner-icon'
 import { CloseIcon } from '../icons/close-icon'
 import { TextLink } from '../text-link'
@@ -16,6 +16,7 @@ import type {
     ReactElement,
     ReactNode,
 } from 'react'
+import type { ButtonProps } from '../button'
 
 /**
  * Represents the type of a banner.

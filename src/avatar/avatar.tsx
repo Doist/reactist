@@ -1,11 +1,12 @@
 import { Box } from '../box'
-import { getClassNames, ResponsiveProp } from '../utils/responsive-props'
+import { getClassNames } from '../utils/responsive-props'
 
 import { emailToIndex, getInitials } from './utils'
 
 import styles from './avatar.module.css'
 
 import type { ObfuscatedClassName } from '../utils/common-types'
+import type { ResponsiveProp } from '../utils/responsive-props'
 
 const AVATAR_COLORS = [
     '#fcc652',

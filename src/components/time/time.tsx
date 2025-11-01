@@ -4,9 +4,10 @@ import { Component } from 'react'
 
 import { Tooltip } from '../../tooltip'
 
-import { TimeConfig, TimeUtils } from './time-utils'
+import { TimeUtils } from './time-utils'
 
 import type { MouseEvent, ReactNode } from 'react'
+import type { TimeConfig } from './time-utils'
 
 const DELAY = 60000
 
