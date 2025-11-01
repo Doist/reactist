@@ -4,7 +4,8 @@
         "@doist/eslint-config/recommended-type-checked",
         "@doist/eslint-config/react",
         "plugin:react/jsx-runtime",
-        "plugin:jest/recommended"
+        "plugin:jest/recommended",
+        "@doist/eslint-config/simple-import-sort"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
