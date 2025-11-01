@@ -3,11 +3,9 @@ import {
     forwardRef,
     useCallback,
     useContext,
-    useEffect,
     useLayoutEffect,
     useMemo,
     useRef,
-    useState,
 } from 'react'
 import FocusLock from 'react-focus-lock'
 
@@ -342,27 +340,32 @@ export interface ModalCloseButtonProps
  */
 export function ModalCloseButton(props: ModalCloseButtonProps) {
     const { onDismiss } = useContext(ModalContext)
-    const [includeInTabOrder, setIncludeInTabOrder] = useState(false)
-    const [isMounted, setIsMounted] = useState(false)
+    const buttonRef = useRef<HTMLButtonElement>(null)
 
-    useEffect(
-        function skipAutoFocus() {
-            if (isMounted) {
-                setIncludeInTabOrder(true)
-            } else {
-                setIsMounted(true)
-            }
-        },
-        [isMounted],
-    )
+    useLayoutEffect(function skipAutoFocus() {
+        const button = buttonRef.current
+        if (!button) {
+            return
+        }
+
+        button.tabIndex = -1
+
+        const rafId = requestAnimationFrame(() => {
+            button.tabIndex = 0
+        })
+
+        return () => {
+            cancelAnimationFrame(rafId)
+        }
+    }, [])
 
     return (
         <IconButton
             {...props}
+            ref={buttonRef}
             variant="quaternary"
             onClick={onDismiss}
             icon={<CloseIcon />}
-            tabIndex={includeInTabOrder ? 0 : -1}
         />
     )
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { Box, BoxProps } from '../box'
 import { Column, Columns } from '../columns'
@@ -269,6 +269,9 @@ function BaseField({
 
     const inputLength = validateInputLength({ value, maxLength })
 
+    const [previousValue, setPreviousValue] = useState<BaseFieldProps['value']>(value)
+    const [previousMaxLength, setPreviousMaxLength] =
+        useState<BaseFieldProps['maxLength']>(maxLength)
     const [characterCount, setCharacterCount] = useState<string | null>(inputLength.count)
     const [characterCountTone, setCharacterCountTone] = useState<FieldTone>(inputLength.tone)
 
@@ -304,22 +307,12 @@ function BaseField({
         characterCountElement: renderCharacterCountInline ? renderCharacterCount() : null,
     }
 
-    useEffect(
-        function updateCharacterCountOnPropChange() {
-            if (!maxLength) {
-                return
-            }
-
-            const inputLength = validateInputLength({
-                value,
-                maxLength,
-            })
-
-            setCharacterCount(inputLength.count)
-            setCharacterCountTone(inputLength.tone)
-        },
-        [maxLength, value],
-    )
+    if (value !== previousValue || maxLength !== previousMaxLength) {
+        setPreviousValue(value)
+        setPreviousMaxLength(maxLength)
+        setCharacterCount(inputLength.count)
+        setCharacterCountTone(inputLength.tone)
+    }
 
     return (
         <Stack space="xsmall" hidden={hidden}>
