@@ -82,7 +82,7 @@
         "@babel/register": "^7.0.0",
         "@doist/eslint-config": "12.0.0",
         "@doist/prettier-config": "4.0.0",
-        "@doist/tsconfig": "^1.0.0",
+        "@doist/tsconfig": "2.0.0",
         "@geometricpanda/storybook-addon-badges": "^0.2.2",
         "@rollup/plugin-commonjs": "28.0.9",
         "@rollup/plugin-node-resolve": "16.0.3",
@@ -156,7 +156,7 @@
         "svg-url-loader": "^6.0.0",
         "ts-loader": "^8.0.2",
         "tslib": "^2.0.0",
-        "typescript": "^4.8.3",
+        "typescript": "5.9.3",
         "webpack": "^4.43.0"
     },
     "dependencies": {
