@@ -265,6 +265,9 @@ function BaseField({
 
     const inputLength = validateInputLength({ value, maxLength })
 
+    const [previousValue, setPreviousValue] = React.useState<BaseFieldProps['value']>(value)
+    const [previousMaxLength, setPreviousMaxLength] =
+        React.useState<BaseFieldProps['maxLength']>(maxLength)
     const [characterCount, setCharacterCount] = React.useState<string | null>(inputLength.count)
     const [characterCountTone, setCharacterCountTone] = React.useState<FieldTone>(inputLength.tone)
 
@@ -300,22 +303,12 @@ function BaseField({
         characterCountElement: renderCharacterCountInline ? renderCharacterCount() : null,
     }
 
-    React.useEffect(
-        function updateCharacterCountOnPropChange() {
-            if (!maxLength) {
-                return
-            }
-
-            const inputLength = validateInputLength({
-                value,
-                maxLength,
-            })
-
-            setCharacterCount(inputLength.count)
-            setCharacterCountTone(inputLength.tone)
-        },
-        [maxLength, value],
-    )
+    if (value !== previousValue || maxLength !== previousMaxLength) {
+        setPreviousValue(value)
+        setPreviousMaxLength(maxLength)
+        setCharacterCount(inputLength.count)
+        setCharacterCountTone(inputLength.tone)
+    }
 
     return (
         <Stack space="xsmall" hidden={hidden}>

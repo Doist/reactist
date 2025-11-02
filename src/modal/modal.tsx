@@ -326,27 +326,32 @@ export interface ModalCloseButtonProps
  */
 export function ModalCloseButton(props: ModalCloseButtonProps) {
     const { onDismiss } = React.useContext(ModalContext)
-    const [includeInTabOrder, setIncludeInTabOrder] = React.useState(false)
-    const [isMounted, setIsMounted] = React.useState(false)
+    const buttonRef = React.useRef<HTMLButtonElement>(null)
 
-    React.useEffect(
-        function skipAutoFocus() {
-            if (isMounted) {
-                setIncludeInTabOrder(true)
-            } else {
-                setIsMounted(true)
-            }
-        },
-        [isMounted],
-    )
+    React.useLayoutEffect(function skipAutoFocus() {
+        const button = buttonRef.current
+        if (!button) {
+            return
+        }
+
+        button.tabIndex = -1
+
+        const rafId = requestAnimationFrame(() => {
+            button.tabIndex = 0
+        })
+
+        return () => {
+            cancelAnimationFrame(rafId)
+        }
+    }, [])
 
     return (
         <IconButton
             {...props}
+            ref={buttonRef}
             variant="quaternary"
             onClick={onDismiss}
             icon={<CloseIcon />}
-            tabIndex={includeInTabOrder ? 0 : -1}
         />
     )
 }
