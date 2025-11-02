@@ -28,7 +28,12 @@
         "import/no-default-export": "off", // Legacy API.
         "react/no-find-dom-node": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
-        "@typescript-eslint/ban-ts-comment": "off"
+        "@typescript-eslint/ban-ts-comment": "off",
+
+        // Resolving jsx-runtime mismatched versions of React (e.g. v17 vs v18)
+        // See https://github.com/Doist/reactist/pull/979
+        "no-restricted-imports": "off"
+
     },
     "overrides": [
         {
