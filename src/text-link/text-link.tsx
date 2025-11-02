@@ -1,7 +1,10 @@
 import * as React from 'react'
+
 import { Box } from '../box'
 import { polymorphicComponent } from '../utils/polymorphism'
+
 import styles from './text-link.module.css'
+
 import type { OpenInNewTab } from '../utils/common-types'
 
 type TextLinkColors = 'default' | 'inherit'

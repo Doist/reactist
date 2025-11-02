@@ -1,10 +1,11 @@
 import * as React from 'react'
 
+import LinkTo from '@storybook/addon-links/react'
+
+import { Banner } from '../../src/banner'
 import Button from '../../src/components/deprecated-button'
 import Dropdown from '../../src/components/deprecated-dropdown'
-import { Banner } from '../../src/banner'
 import { Stack } from '../../src/stack'
-import LinkTo from '@storybook/addon-links/react'
 
 export default {
     title: 'Components/Dropdown',

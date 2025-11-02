@@ -1,16 +1,18 @@
 import * as React from 'react'
+
+import { Heading } from '../heading'
+import { Stack } from '../stack'
 import {
-    selectSize,
-    reusableBoxProps,
+    disableResponsiveProps,
+    PartialProps,
     Placeholder,
     ResponsiveWidthRef,
-    Wrapper,
+    reusableBoxProps,
+    selectSize,
     selectWithNone,
-    PartialProps,
-    disableResponsiveProps,
+    Wrapper,
 } from '../utils/storybook-helper'
-import { Stack } from '../stack'
-import { Heading } from '../heading'
+
 import { Inline, InlineAlign } from './inline'
 
 export default {

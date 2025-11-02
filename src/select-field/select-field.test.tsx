@@ -1,8 +1,10 @@
 import * as React from 'react'
+
 import { render, screen } from '@testing-library/react'
-import { SelectField } from './'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
+
+import { SelectField } from './'
 
 describe('SelectField', () => {
     it('supports having an externally provided id attribute', () => {

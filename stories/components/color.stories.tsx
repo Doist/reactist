@@ -1,10 +1,11 @@
+import './styles/color-story.less'
+
 import * as React from 'react'
 
-import { Columns, Column } from '../../src/columns'
-import { Stack } from '../../src/stack'
-import { Heading } from '../../src/heading'
 import { Box } from '../../src/box'
-import './styles/color-story.less'
+import { Column, Columns } from '../../src/columns'
+import { Heading } from '../../src/heading'
+import { Stack } from '../../src/stack'
 
 export default {
     title: 'Design tokens/Colors',

@@ -1,16 +1,17 @@
 import * as React from 'react'
 
 import {
-    useTooltipStore,
     Tooltip as AriakitTooltip,
     TooltipAnchor,
     TooltipArrow,
+    useTooltipStore,
 } from '@ariakit/react'
+
 import { Box } from '../box'
 
-import type { TooltipStoreState, TooltipStore } from '@ariakit/react'
-
 import styles from './tooltip.module.css'
+
+import type { TooltipStore, TooltipStoreState } from '@ariakit/react'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
 const defaultShowTimeout = 500

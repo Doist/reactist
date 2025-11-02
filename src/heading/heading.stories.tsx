@@ -1,8 +1,9 @@
 import * as React from 'react'
 
 import { Stack } from '../stack'
-import { Heading } from './heading'
 import { ResponsiveWidthRef, select, selectWithNone } from '../utils/storybook-helper'
+
+import { Heading } from './heading'
 
 export default {
     title: 'Design system/Heading',

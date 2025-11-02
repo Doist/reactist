@@ -1,6 +1,8 @@
 import * as React from 'react'
-import { Placeholder, ResponsiveWidthRef } from '../utils/storybook-helper'
+
 import { Stack } from '../stack'
+import { Placeholder, ResponsiveWidthRef } from '../utils/storybook-helper'
+
 import { Hidden } from './hidden'
 
 export default {

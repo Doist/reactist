@@ -1,34 +1,34 @@
 import * as React from 'react'
 
-import {
-    select,
-    selectWithNone,
-    reusableBoxProps,
-    Placeholder,
-    ResponsiveWidthRef,
-    Wrapper,
-    PartialProps,
-    selectSize,
-} from '../utils/storybook-helper'
-
-import { Box, BoxBorderRadius } from './box'
+import { Heading } from '../heading'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
 import { Text } from '../text'
-import { Heading } from '../heading'
+import {
+    PartialProps,
+    Placeholder,
+    ResponsiveWidthRef,
+    reusableBoxProps,
+    select,
+    selectSize,
+    selectWithNone,
+    Wrapper,
+} from '../utils/storybook-helper'
 
+import { Box, BoxBorderRadius } from './box'
+
+import type { Space, SpaceWithNegatives } from '../utils/common-types'
 import type {
+    BoxAlignItems,
+    BoxBackground,
     BoxDisplay,
     BoxFlexDirection,
     BoxFlexWrap,
-    BoxAlignItems,
     BoxJustifyContent,
     BoxMarginProps,
     BoxPaddingProps,
     BoxTextAlign,
-    BoxBackground,
 } from './'
-import type { Space, SpaceWithNegatives } from '../utils/common-types'
 
 export default {
     title: 'Design system/Box',

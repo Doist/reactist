@@ -1,9 +1,11 @@
 /* eslint-disable jest/no-export */
 /* eslint-disable jest/valid-title */
 import * as React from 'react'
+
 import { act, render, screen } from '@testing-library/react'
-import type { ResponsiveProp } from './responsive-props'
+
 import type { Space } from './common-types'
+import type { ResponsiveProp } from './responsive-props'
 
 type PropsWithSpace = { space?: ResponsiveProp<Space>; 'data-testid'?: string }
 
@@ -73,4 +75,4 @@ function TestIcon() {
     )
 }
 
-export { runSpaceTests, flushMicrotasks, TestIcon }
+export { flushMicrotasks, runSpaceTests, TestIcon }

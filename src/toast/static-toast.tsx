@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { CloseIcon } from '../icons/close-icon'
 import { Box } from '../box'
-import { IconButton, Button } from '../button'
+import { Button, IconButton } from '../button'
+import { CloseIcon } from '../icons/close-icon'
 import { Stack } from '../stack'
 import { Text } from '../text'
 
@@ -157,5 +157,5 @@ function ToastContentSlot({ children }: { children: React.ReactNode }) {
     )
 }
 
-export { StaticToast, isActionObject }
+export { isActionObject, StaticToast }
 export type { StaticToastProps }

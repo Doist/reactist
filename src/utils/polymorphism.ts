@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import * as React from 'react'
+
 import type { ObfuscatedClassName } from './common-types'
 
 type Merge<P1, P2> = Omit<P1, keyof P2> & P2

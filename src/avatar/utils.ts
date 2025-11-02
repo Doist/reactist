@@ -27,4 +27,4 @@ function emailToIndex(email: string, maxIndex: number) {
     return hash % maxIndex
 }
 
-export { getInitials, emailToIndex }
+export { emailToIndex, getInitials }

@@ -1,9 +1,11 @@
 import * as React from 'react'
-import { getClassNames } from '../utils/responsive-props'
+
 import { Box } from '../box'
-import type { DividerWeight } from '../utils/common-types'
+import { getClassNames } from '../utils/responsive-props'
 
 import styles from './divider.module.css'
+
+import type { DividerWeight } from '../utils/common-types'
 
 interface DividerProps {
     weight?: Exclude<DividerWeight, 'none'>
