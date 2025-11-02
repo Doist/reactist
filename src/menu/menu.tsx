@@ -5,20 +5,22 @@ import * as React from 'react'
 import {
     Menu as AriakitMenu,
     MenuButton as AriakitMenuButton,
-    MenuButtonProps as AriakitMenuButtonProps,
     MenuGroup as AriakitMenuGroup,
     MenuItem as AriakitMenuItem,
-    MenuItemProps as AriakitMenuItemProps,
-    MenuProps as AriakitMenuProps,
-    MenuStore,
-    MenuStoreProps,
     Portal,
     Role,
-    RoleProps,
     useMenuStore,
 } from '@ariakit/react'
 import classNames from 'classnames'
 
+import type {
+    MenuButtonProps as AriakitMenuButtonProps,
+    MenuItemProps as AriakitMenuItemProps,
+    MenuProps as AriakitMenuProps,
+    MenuStore,
+    MenuStoreProps,
+    RoleProps,
+} from '@ariakit/react'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
 type MenuContextState = {

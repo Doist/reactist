@@ -4,7 +4,6 @@ import { Box } from '../box'
 import { Stack } from '../stack'
 import {
     disableResponsiveProps,
-    PartialProps,
     Placeholder,
     ResponsiveWidthRef,
     reusableBoxProps,
@@ -16,6 +15,7 @@ import {
 
 import { Column, Columns } from './columns'
 
+import type { PartialProps } from '../utils/storybook-helper'
 import type {
     ColumnsCollapseBelow,
     ColumnsHorizontalAlignment,

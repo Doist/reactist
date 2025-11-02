@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Box, BoxProps } from '../box'
+import { Box } from '../box'
 import { Column, Columns } from '../columns'
 import { Spinner } from '../spinner'
 import { Stack } from '../stack'
@@ -9,6 +9,7 @@ import { useId } from '../utils/common-helpers'
 
 import styles from './base-field.module.css'
 
+import type { BoxProps } from '../box'
 import type { WithEnhancedClassName } from '../utils/common-types'
 
 // Define the remaining characters before the character count turns red

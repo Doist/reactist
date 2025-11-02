@@ -3,7 +3,7 @@ import * as React from 'react'
 import { action as storybookAction } from '@storybook/addon-actions'
 
 import { Box } from '../box'
-import { Button, ButtonVariant, IconButton } from '../button'
+import { Button, IconButton } from '../button'
 import { CheckboxField } from '../checkbox-field'
 import { Heading } from '../heading'
 import { AlertIcon } from '../icons/alert-icon'
@@ -15,8 +15,11 @@ import { Stack } from '../stack'
 import { SwitchField } from '../switch-field'
 import { Text } from '../text'
 
-import { StaticToast, StaticToastProps } from './static-toast'
+import { StaticToast } from './static-toast'
 import { Toast, ToastsProvider, useToasts } from './use-toasts'
+
+import type { ButtonVariant } from '../button'
+import type { StaticToastProps } from './static-toast'
 
 export default {
     title: 'Design system/Toast',
