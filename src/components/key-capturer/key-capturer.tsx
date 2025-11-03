@@ -169,7 +169,11 @@ function KeyCapturer(props: KeyCapturerProps) {
                 const propagateEvent = props[keyPropagatePropMapping[key]] || false
                 const eventHandler = props[keyEventHandlerMapping[key]]
 
-                if (key === 'Enter' && eventHandler) {
+                if (!eventHandler) {
+                    return
+                }
+
+                if (key === 'Enter') {
                     if (
                         isComposing ||
                         // Safari fires the onCompositionEnd event before the keydown event, so we
@@ -181,12 +185,11 @@ function KeyCapturer(props: KeyCapturerProps) {
                     }
                 }
 
-                if (eventHandler) {
-                    eventHandler(event)
-                    if (!propagateEvent) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
+                eventHandler(event)
+
+                if (!propagateEvent) {
+                    event.preventDefault()
+                    event.stopPropagation()
                 }
             },
         [props, isComposing],
