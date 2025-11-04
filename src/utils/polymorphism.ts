@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import * as React from 'react'
+
 import type { ObfuscatedClassName } from './common-types'
 
 type Merge<P1, P2> = Omit<P1, keyof P2> & P2
@@ -24,15 +25,15 @@ type ObfuscateClassNameMode = 'keepClassName' | 'obfuscateClassName' | 'omitClas
  */
 type WithObfuscatedClassName<
     Props,
-    ShouldObfuscateClassName extends ObfuscateClassNameMode
+    ShouldObfuscateClassName extends ObfuscateClassNameMode,
 > = 'className' extends keyof Props
     ? ShouldObfuscateClassName extends 'obfuscateClassName'
         ? Omit<Props, 'className'> & ObfuscatedClassName
         : ShouldObfuscateClassName extends 'omitClassName'
-        ? Omit<Props, 'className'>
-        : ShouldObfuscateClassName extends 'keepClassName'
-        ? Props
-        : never
+          ? Omit<Props, 'className'>
+          : ShouldObfuscateClassName extends 'keepClassName'
+            ? Props
+            : never
     : Props
 
 type PolymorphicProp<ComponentType extends React.ElementType> = {
@@ -76,7 +77,7 @@ type PolymorphicProp<ComponentType extends React.ElementType> = {
 type PolymorphicComponentProps<
     ComponentType extends React.ElementType,
     OwnProps,
-    ShouldObfuscateClassName extends ObfuscateClassNameMode
+    ShouldObfuscateClassName extends ObfuscateClassNameMode,
 > = Merge<
     WithObfuscatedClassName<React.ComponentProps<ComponentType>, ShouldObfuscateClassName>,
     OwnProps & PolymorphicProp<ComponentType>
@@ -87,9 +88,8 @@ type ElementTagNameMap = HTMLElementTagNameMap &
 
 type ElementByTag<TagName extends keyof ElementTagNameMap> = ElementTagNameMap[TagName]
 
-type ElementByTagOrAny<
-    ComponentType extends React.ElementType
-> = ComponentType extends keyof ElementTagNameMap ? ElementByTag<ComponentType> : any
+type ElementByTagOrAny<ComponentType extends React.ElementType> =
+    ComponentType extends keyof ElementTagNameMap ? ElementByTag<ComponentType> : any
 
 /**
  * The function passed to React.forwardRef, but typed in a way that's prepared for polymorphism via
@@ -101,7 +101,7 @@ type ElementByTagOrAny<
 interface ForwardRefFunction<
     ComponentType extends React.ElementType,
     OwnProps,
-    ShouldObfuscateClassName extends ObfuscateClassNameMode
+    ShouldObfuscateClassName extends ObfuscateClassNameMode,
 > {
     (
         props: PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>,
@@ -163,7 +163,7 @@ interface ForwardRefFunction<
 interface PolymorphicComponent<
     ComponentType extends React.ElementType,
     OwnProps,
-    ShouldObfuscateClassName extends ObfuscateClassNameMode = 'obfuscateClassName'
+    ShouldObfuscateClassName extends ObfuscateClassNameMode = 'obfuscateClassName',
 > {
     <TT extends React.ElementType = ComponentType>(
         props: PolymorphicComponentProps<TT, OwnProps, ShouldObfuscateClassName>,
@@ -188,7 +188,7 @@ interface PolymorphicComponent<
 function polymorphicComponent<
     ComponentType extends React.ElementType = 'div',
     OwnProps = EmptyObject,
-    ShouldObfuscateClassName extends ObfuscateClassNameMode = 'obfuscateClassName'
+    ShouldObfuscateClassName extends ObfuscateClassNameMode = 'obfuscateClassName',
 >(render: ForwardRefFunction<ComponentType, OwnProps, ShouldObfuscateClassName>) {
     return React.forwardRef(render) as PolymorphicComponent<
         ComponentType,

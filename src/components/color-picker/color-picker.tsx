@@ -1,10 +1,11 @@
+import './color-picker.less'
+
 import * as React from 'react'
+
 import classnames from 'classnames'
 
-import DeprecatedDropdown from '../deprecated-dropdown'
 import { Tooltip } from '../../tooltip'
-
-import './color-picker.less'
+import DeprecatedDropdown from '../deprecated-dropdown'
 
 type NamedColor = { name: string; color: string }
 
@@ -112,4 +113,4 @@ function ColorItem({ color, colorIndex, isActive, onClick, tooltip }: ColorItemP
 }
 ColorItem.displayName = 'ColorItem'
 
-export { ColorPicker, ColorItem, COLORS }
+export { ColorItem, ColorPicker, COLORS }

@@ -1,8 +1,9 @@
 import * as React from 'react'
 
-import { Select } from './select'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+
+import { Select } from './select'
 
 describe('Select', () => {
     it('renders without crashing', () => {

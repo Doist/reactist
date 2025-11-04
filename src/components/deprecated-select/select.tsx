@@ -1,7 +1,8 @@
-import * as React from 'react'
-import classNames from 'classnames'
-
 import './select.less'
+
+import * as React from 'react'
+
+import classNames from 'classnames'
 
 type Option = {
     /** Optional key for each option. If not provided `value` is used. */

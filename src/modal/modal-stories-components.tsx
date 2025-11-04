@@ -1,17 +1,17 @@
 import * as React from 'react'
 
-import { within, userEvent } from '@storybook/testing-library'
 import { expect } from '@storybook/jest'
+import { userEvent, within } from '@storybook/testing-library'
 
-import { Placeholder, times } from '../utils/storybook-helper'
-import { SelectField } from '../select-field'
-import { SwitchField } from '../switch-field'
-import { Stack } from '../stack'
 import { Button } from '../button'
+import { SelectField } from '../select-field'
+import { Stack } from '../stack'
+import { SwitchField } from '../switch-field'
+import { Placeholder, times } from '../utils/storybook-helper'
 
 import * as ModalComponents from './modal'
 
-import type { ModalProps, ModalHeaderProps, ModalFooterProps } from './modal'
+import type { ModalFooterProps, ModalHeaderProps, ModalProps } from './modal'
 
 function Link({ children, ...props }: JSX.IntrinsicElements['a']) {
     return (
@@ -79,8 +79,7 @@ function ModalStoryStateProvider({
                 ? element.checked
                 : element.value
         setProps((props) => ({ ...props, [name]: value }))
-    },
-    [])
+    }, [])
 
     const value = React.useMemo(
         () => ({
@@ -107,9 +106,8 @@ function ScrollableContent({ label = 'Item', count = 20 }: { label?: string; cou
 }
 
 function ModalOptionsForm({ title }: { title?: React.ReactNode }) {
-    const { button, width, height, hideOn, withScrollableContent, onChange } = React.useContext(
-        ModalStoryContext,
-    )
+    const { button, width, height, hideOn, withScrollableContent, onChange } =
+        React.useContext(ModalStoryContext)
     return (
         <Stack space="large">
             {title}
@@ -257,5 +255,5 @@ export async function openModal({ canvasElement }: { canvasElement: HTMLElement 
     expect(await canvas.findByRole('dialog')).toBeInTheDocument()
 }
 
-export { Link, ModalStoryStateProvider, ModalOptionsForm, ModalButton as Button, ScrollableContent }
-export { Modal, ModalHeader, ModalBody, ModalFooter, ModalActions }
+export { ModalButton as Button, Link, ModalOptionsForm, ModalStoryStateProvider, ScrollableContent }
+export { Modal, ModalActions, ModalBody, ModalFooter, ModalHeader }

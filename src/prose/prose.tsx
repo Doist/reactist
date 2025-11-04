@@ -1,6 +1,9 @@
 import * as React from 'react'
+
 import { Box } from '../box'
+
 import styles from './prose.module.css'
+
 import type { ObfuscatedClassName } from '../utils/common-types'
 
 interface ProseProps extends ObfuscatedClassName {

@@ -1,12 +1,13 @@
 import * as React from 'react'
-import { getClassNames } from '../utils/responsive-props'
-import { Box } from '../box'
-import { Columns, Column } from '../columns'
-import { AlertIcon } from '../icons/alert-icon'
 
-import type { AlertTone } from '../utils/common-types'
+import { Box } from '../box'
+import { Column, Columns } from '../columns'
+import { AlertIcon } from '../icons/alert-icon'
+import { getClassNames } from '../utils/responsive-props'
 
 import styles from './notice.module.css'
+
+import type { AlertTone } from '../utils/common-types'
 
 type NoticeProps = {
     id?: string

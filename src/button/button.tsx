@@ -1,6 +1,7 @@
 import * as React from 'react'
-import classNames from 'classnames'
+
 import { Role, RoleProps } from '@ariakit/react'
+import classNames from 'classnames'
 
 import { Box, getBoxClassNames } from '../box'
 import { Spinner } from '../spinner'
@@ -276,5 +277,5 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(function
     )
 })
 
-export type { ButtonProps, IconButtonProps, ButtonVariant, ButtonTone }
+export type { ButtonProps, ButtonTone, ButtonVariant, IconButtonProps }
 export { Button, IconButton }

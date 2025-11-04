@@ -1,9 +1,10 @@
+import '../styles/design-tokens.css'
+
 import * as React from 'react'
+
 import { Box } from '../box'
 import { Heading } from '../heading'
 import { Stack } from '../stack'
-
-import '../styles/design-tokens.css'
 
 import type { BoxProps } from '../box'
 import type { Space } from './common-types'
@@ -149,20 +150,20 @@ function Placeholder({
 type PartialProps<
     // Parent type of T is the same as React.ComponentProps<T>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>
+    T extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>,
 > = Partial<React.ComponentProps<T>>
 
 export {
-    select,
-    selectWithNone,
-    selectSize,
-    selectCount,
-    times,
-    reusableBoxProps,
     disableResponsiveProps,
-    Wrapper,
-    ResponsiveWidthRef,
     Placeholder,
+    ResponsiveWidthRef,
+    reusableBoxProps,
+    select,
+    selectCount,
+    selectSize,
+    selectWithNone,
+    times,
+    Wrapper,
 }
 
 export type { PartialProps }

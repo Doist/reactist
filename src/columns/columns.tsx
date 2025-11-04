@@ -1,13 +1,14 @@
 import * as React from 'react'
+
+import { Box } from '../box'
 import { polymorphicComponent } from '../utils/polymorphism'
 import { getClassNames, mapResponsiveProp } from '../utils/responsive-props'
-import { Box } from '../box'
-
-import type { ResponsiveProp, ResponsiveBreakpoints } from '../utils/responsive-props'
-import type { Space } from '../utils/common-types'
-import type { ReusableBoxProps } from '../box'
 
 import styles from './columns.module.css'
+
+import type { ReusableBoxProps } from '../box'
+import type { Space } from '../utils/common-types'
+import type { ResponsiveBreakpoints, ResponsiveProp } from '../utils/responsive-props'
 
 type ColumnWidth =
     | 'auto'
@@ -85,8 +86,8 @@ const Columns = polymorphicComponent<'div', ColumnsProps>(function Columns(
                 collapseBelow === 'desktop'
                     ? { mobile: 'column', tablet: 'column', desktop: 'row' }
                     : collapseBelow === 'tablet'
-                    ? { mobile: 'column', tablet: 'row' }
-                    : 'row'
+                      ? { mobile: 'column', tablet: 'row' }
+                      : 'row'
             }
             alignItems={mapResponsiveProp(alignY, (alignY) =>
                 alignY === 'top' ? 'flexStart' : alignY === 'bottom' ? 'flexEnd' : alignY,
@@ -103,11 +104,11 @@ const Columns = polymorphicComponent<'div', ColumnsProps>(function Columns(
 
 export type {
     ColumnProps,
-    ColumnsProps,
-    ColumnWidth,
     ColumnsCollapseBelow,
     ColumnsHorizontalAlignment,
+    ColumnsProps,
     ColumnsVerticalAlignment,
+    ColumnWidth,
 }
 
 export { Column, Columns }

@@ -1,6 +1,8 @@
 import * as React from 'react'
-import { HiddenVisually } from '../../hidden-visually'
+
 import classNames from 'classnames'
+
+import { HiddenVisually } from '../../hidden-visually'
 
 import styles from './progress-bar.module.css'
 

@@ -1,10 +1,10 @@
+export type { MenuGroupProps, MenuItemProps } from './menu'
 export {
+    ContextMenuTrigger,
     Menu,
     MenuButton,
-    ContextMenuTrigger,
-    MenuList,
-    MenuItem,
-    SubMenu,
     MenuGroup,
+    MenuItem,
+    MenuList,
+    SubMenu,
 } from './menu'
-export type { MenuItemProps, MenuGroupProps } from './menu'

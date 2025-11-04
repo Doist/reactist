@@ -1,4 +1,4 @@
-import { getInitials, emailToIndex } from './utils'
+import { emailToIndex, getInitials } from './utils'
 
 describe('Utils', () => {
     describe('getInitials', () => {

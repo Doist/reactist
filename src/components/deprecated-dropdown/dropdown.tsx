@@ -1,10 +1,11 @@
+import './dropdown.less'
+
 import * as React from 'react'
 import ReactDOM from 'react-dom'
+
 import classNames from 'classnames'
 
 import Button from '../deprecated-button'
-
-import './dropdown.less'
 
 type BoxProps = {
     onShowBody?: () => void
@@ -144,8 +145,8 @@ class Box extends React.Component<BoxProps, BoxState> {
             typeof body === 'function'
                 ? body(props)
                 : body
-                ? React.cloneElement(body, props)
-                : undefined
+                  ? React.cloneElement(body, props)
+                  : undefined
         return (
             <div className={className} style={{ position: 'relative' }}>
                 {contentMarkup}

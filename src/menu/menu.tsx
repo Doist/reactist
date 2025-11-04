@@ -1,23 +1,24 @@
+import './menu.less'
+
 import * as React from 'react'
-import classNames from 'classnames'
 
 import {
-    Portal,
-    MenuStore,
-    MenuStoreProps,
-    useMenuStore,
-    MenuProps as AriakitMenuProps,
     Menu as AriakitMenu,
+    MenuButton as AriakitMenuButton,
+    MenuButtonProps as AriakitMenuButtonProps,
     MenuGroup as AriakitMenuGroup,
     MenuItem as AriakitMenuItem,
     MenuItemProps as AriakitMenuItemProps,
-    MenuButton as AriakitMenuButton,
-    MenuButtonProps as AriakitMenuButtonProps,
+    MenuProps as AriakitMenuProps,
+    MenuStore,
+    MenuStoreProps,
+    Portal,
     Role,
     RoleProps,
+    useMenuStore,
 } from '@ariakit/react'
+import classNames from 'classnames'
 
-import './menu.less'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
 type MenuContextState = {
@@ -386,5 +387,5 @@ const MenuGroup = React.forwardRef<HTMLDivElement, MenuGroupProps>(function Menu
     )
 })
 
-export { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, SubMenu, MenuGroup }
-export type { MenuButtonProps, MenuListProps, MenuItemProps, MenuGroupProps }
+export { ContextMenuTrigger, Menu, MenuButton, MenuGroup, MenuItem, MenuList, SubMenu }
+export type { MenuButtonProps, MenuGroupProps, MenuItemProps, MenuListProps }

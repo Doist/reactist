@@ -1,7 +1,9 @@
 import * as React from 'react'
+
 import { render, screen } from '@testing-library/react'
-import { Heading } from './heading'
 import { axe } from 'jest-axe'
+
+import { Heading } from './heading'
 
 describe('Heading', () => {
     it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {

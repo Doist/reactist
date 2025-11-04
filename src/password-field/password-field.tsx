@@ -1,10 +1,9 @@
 import * as React from 'react'
 
-import { PasswordVisibleIcon } from '../icons/password-visible-icon'
-import { PasswordHiddenIcon } from '../icons/password-hidden-icon'
-
-import { TextField, TextFieldProps } from '../text-field'
 import { IconButton } from '../button'
+import { PasswordHiddenIcon } from '../icons/password-hidden-icon'
+import { PasswordVisibleIcon } from '../icons/password-visible-icon'
+import { TextField, TextFieldProps } from '../text-field'
 
 import type { BaseFieldVariantProps } from '../base-field'
 

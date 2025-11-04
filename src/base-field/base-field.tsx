@@ -1,13 +1,15 @@
 import * as React from 'react'
+
 import { Box, BoxProps } from '../box'
-import { useId } from '../utils/common-helpers'
-import { Text } from '../text'
-import styles from './base-field.module.css'
+import { Column, Columns } from '../columns'
+import { Spinner } from '../spinner'
 import { Stack } from '../stack'
+import { Text } from '../text'
+import { useId } from '../utils/common-helpers'
+
+import styles from './base-field.module.css'
 
 import type { WithEnhancedClassName } from '../utils/common-types'
-import { Spinner } from '../spinner'
-import { Column, Columns } from '../columns'
 
 // Define the remaining characters before the character count turns red
 // See: https://twist.com/a/1585/ch/765851/t/6664583/c/93631846 for latest spec
@@ -263,6 +265,9 @@ function BaseField({
 
     const inputLength = validateInputLength({ value, maxLength })
 
+    const [previousValue, setPreviousValue] = React.useState<BaseFieldProps['value']>(value)
+    const [previousMaxLength, setPreviousMaxLength] =
+        React.useState<BaseFieldProps['maxLength']>(maxLength)
     const [characterCount, setCharacterCount] = React.useState<string | null>(inputLength.count)
     const [characterCountTone, setCharacterCountTone] = React.useState<FieldTone>(inputLength.tone)
 
@@ -298,22 +303,12 @@ function BaseField({
         characterCountElement: renderCharacterCountInline ? renderCharacterCount() : null,
     }
 
-    React.useEffect(
-        function updateCharacterCountOnPropChange() {
-            if (!maxLength) {
-                return
-            }
-
-            const inputLength = validateInputLength({
-                value,
-                maxLength,
-            })
-
-            setCharacterCount(inputLength.count)
-            setCharacterCountTone(inputLength.tone)
-        },
-        [maxLength, value],
-    )
+    if (value !== previousValue || maxLength !== previousMaxLength) {
+        setPreviousValue(value)
+        setPreviousMaxLength(maxLength)
+        setCharacterCount(inputLength.count)
+        setCharacterCountTone(inputLength.tone)
+    }
 
     return (
         <Stack space="xsmall" hidden={hidden}>

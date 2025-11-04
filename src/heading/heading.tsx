@@ -1,9 +1,12 @@
 import * as React from 'react'
-import { getClassNames } from '../utils/responsive-props'
+
 import { Box } from '../box'
+import { getClassNames } from '../utils/responsive-props'
+
 import styles from './heading.module.css'
-import type { ObfuscatedClassName, Tone } from '../utils/common-types'
+
 import type { BoxProps } from '../box'
+import type { ObfuscatedClassName, Tone } from '../utils/common-types'
 
 type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6 | '1' | '2' | '3' | '4' | '5' | '6'
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -113,5 +116,5 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps & ObfuscatedCl
     },
 )
 
-export type { HeadingProps, HeadingLevel }
+export type { HeadingLevel, HeadingProps }
 export { Heading }

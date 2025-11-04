@@ -1,20 +1,22 @@
 import * as React from 'react'
-import classNames from 'classnames'
+
 import {
-    useTabStore,
     Tab as BaseTab,
-    TabProps as BaseTabProps,
     TabList as BaseTabList,
     TabPanel as BaseTabPanel,
     TabPanelProps as BaseTabPanelProps,
+    TabProps as BaseTabProps,
     TabStore,
+    useTabStore,
 } from '@ariakit/react'
+import classNames from 'classnames'
+
 import { Box, BoxJustifyContent } from '../box'
 import { Inline } from '../inline'
 
-import type { ObfuscatedClassName, Space } from '../utils/common-types'
-
 import styles from './tabs.module.css'
+
+import type { ObfuscatedClassName, Space } from '../utils/common-types'
 
 type TabsContextValue = Required<Pick<TabsProps, 'variant'>> & {
     tabStore: TabStore
@@ -380,4 +382,4 @@ function TabAwareSlot({ children }: TabAwareSlotProps): React.ReactElement | nul
     return tabContextValue ? children({ selectedId }) : null
 }
 
-export { Tab, Tabs, TabList, TabPanel, TabAwareSlot }
+export { Tab, TabAwareSlot, TabList, TabPanel, Tabs }

@@ -1,8 +1,11 @@
 import * as React from 'react'
+
 import classNames from 'classnames'
 import { useMergeRefs } from 'use-callback-ref'
+
 import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-field'
 import { Box } from '../box'
+
 import styles from './text-area.module.css'
 
 interface TextAreaProps

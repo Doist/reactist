@@ -1,8 +1,9 @@
 import * as React from 'react'
 
 import { Stack } from '../stack'
-import { Text } from './text'
 import { ResponsiveWidthRef, select, selectWithNone } from '../utils/storybook-helper'
+
+import { Text } from './text'
 
 export default {
     title: 'Design system/Text',

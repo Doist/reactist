@@ -1,8 +1,9 @@
 import * as React from 'react'
-import { screen, render, fireEvent } from '@testing-library/react'
+
+import { fireEvent, render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import { KeyCapturer, KeyCapturerResolver, SUPPORTED_KEYS } from './key-capturer'
-import userEvent from '@testing-library/user-event'
 
 describe('KeyCapturer', () => {
     describe('Capturer', () => {

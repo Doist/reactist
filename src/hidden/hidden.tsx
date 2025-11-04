@@ -1,8 +1,11 @@
 import * as React from 'react'
+
 import { Box } from '../box'
-import styles from './hidden.module.css'
-import type { ResponsiveBreakpoints } from '../utils/responsive-props'
 import { polymorphicComponent } from '../utils/polymorphism'
+
+import styles from './hidden.module.css'
+
+import type { ResponsiveBreakpoints } from '../utils/responsive-props'
 
 type AboveProp = {
     /**

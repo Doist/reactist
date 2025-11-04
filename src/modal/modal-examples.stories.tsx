@@ -1,31 +1,31 @@
 import * as React from 'react'
+
 import { action } from '@storybook/addon-actions'
 
 import { Box } from '../box'
 import { IconButton } from '../button'
 import { Column, Columns } from '../columns'
+import ThreeDotsIcon from '../components/icons/ThreeDotsIcon.svg'
 import { Heading } from '../heading'
 import { Inline } from '../inline'
-import { Menu, MenuButton, MenuList, MenuItem } from '../menu'
+import { Menu, MenuButton, MenuItem, MenuList } from '../menu'
 import { Stack } from '../stack'
-import { Tabs, Tab, TabList, TabPanel } from '../tabs'
+import { Tab, TabList, TabPanel, Tabs } from '../tabs'
 import { Text } from '../text'
 import { TextField } from '../text-field'
-import ThreeDotsIcon from '../components/icons/ThreeDotsIcon.svg'
 
 import * as ModalComponents from './modal'
-
 import {
-    openModal,
-    ModalStoryStateProvider,
-    ModalOptionsForm,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    ModalActions,
     Button,
     Link,
+    Modal,
+    ModalActions,
+    ModalBody,
+    ModalFooter,
+    ModalHeader,
+    ModalOptionsForm,
+    ModalStoryStateProvider,
+    openModal,
     ScrollableContent,
 } from './modal-stories-components'
 

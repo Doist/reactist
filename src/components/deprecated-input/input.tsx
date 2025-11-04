@@ -1,7 +1,8 @@
-import * as React from 'react'
-import classNames from 'classnames'
-
 import './input.less'
+
+import * as React from 'react'
+
+import classNames from 'classnames'
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string

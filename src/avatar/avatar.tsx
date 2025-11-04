@@ -1,10 +1,12 @@
 import * as React from 'react'
 
-import { getInitials, emailToIndex } from './utils'
-
-import { getClassNames, ResponsiveProp } from '../utils/responsive-props'
-import styles from './avatar.module.css'
 import { Box } from '../box'
+import { getClassNames, ResponsiveProp } from '../utils/responsive-props'
+
+import { emailToIndex, getInitials } from './utils'
+
+import styles from './avatar.module.css'
+
 import type { ObfuscatedClassName } from '../utils/common-types'
 
 const AVATAR_COLORS = [

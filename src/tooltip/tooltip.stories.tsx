@@ -1,12 +1,14 @@
 import * as React from 'react'
 import { createPortal } from 'react-dom'
 
-import { Tooltip, TooltipProps, TooltipProvider } from './tooltip'
+import { Box } from '../box'
 import { Button } from '../button'
 import { Stack } from '../stack'
-import { TextField } from '../text-field'
-import { Box } from '../box'
 import { Text } from '../text'
+import { TextField } from '../text-field'
+
+import { Tooltip, TooltipProps, TooltipProvider } from './tooltip'
+
 import type { TooltipStore } from '@ariakit/react'
 
 //

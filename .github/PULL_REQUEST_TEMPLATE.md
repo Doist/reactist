@@ -16,9 +16,9 @@ Please describe your implementation and any details that we should keep in mind 
 Feel free to leave unchecked or remove the lines that are not applicable.
 -->
 
--   [ ] Added tests for bugs / new features
--   [ ] Updated docs (storybooks, readme)
--   [ ] Reviewed and approved Chromatic visual regression tests in CI
+- [ ] Added tests for bugs / new features
+- [ ] Updated docs (storybooks, readme)
+- [ ] Reviewed and approved Chromatic visual regression tests in CI
 
 <!--
 _Note:_ versioning is handled by [release-please](https://github.com/googleapis/release-please) action, based on the PR title.
