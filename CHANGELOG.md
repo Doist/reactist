@@ -1,5 +1,22 @@
 # Changelog
 
+## [29.0.0](https://github.com/Doist/reactist/compare/v28.7.4...v29.0.0) (2025-11-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* Update Ariakit to 0.4.19 ([#981](https://github.com/Doist/reactist/issues/981))
+
+### 🚀 Features
+
+* Update Ariakit to 0.4.19 ([#981](https://github.com/Doist/reactist/issues/981)) ([0a521a9](https://github.com/Doist/reactist/commit/0a521a90a5fa3740992defcd68465278d54992a1))
+
+
+### 🧰 Maintenance
+
+* Bump eslint-related dependencies and fix errors ([#982](https://github.com/Doist/reactist/issues/982)) ([67d7d0d](https://github.com/Doist/reactist/commit/67d7d0d604309b550bd51263064ffe2f2883f4df))
+* Update TypeScript to 5.9 ([#980](https://github.com/Doist/reactist/issues/980)) ([389931a](https://github.com/Doist/reactist/commit/389931ad3080241b5fbb5c456be776ce26ea3da7))
+
 ## [28.7.4](https://github.com/Doist/reactist/compare/v28.7.3...v28.7.4) (2025-10-31)
 
 ### 🧰 Maintenance
