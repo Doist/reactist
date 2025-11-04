@@ -3,10 +3,12 @@ import * as React from 'react'
 import classNames from 'classnames'
 import { useMergeRefs } from 'use-callback-ref'
 
-import { BaseField, BaseFieldVariantProps, FieldComponentProps } from '../base-field'
+import { BaseField } from '../base-field'
 import { Box } from '../box'
 
 import styles from './text-area.module.css'
+
+import type { BaseFieldVariantProps, FieldComponentProps } from '../base-field'
 
 interface TextAreaProps
     extends Omit<FieldComponentProps<HTMLTextAreaElement>, 'characterCountPosition'>,

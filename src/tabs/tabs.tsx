@@ -4,18 +4,21 @@ import {
     Tab as BaseTab,
     TabList as BaseTabList,
     TabPanel as BaseTabPanel,
-    TabPanelProps as BaseTabPanelProps,
-    TabProps as BaseTabProps,
-    TabStore,
     useTabStore,
 } from '@ariakit/react'
 import classNames from 'classnames'
 
-import { Box, BoxJustifyContent } from '../box'
+import { Box } from '../box'
 import { Inline } from '../inline'
 
 import styles from './tabs.module.css'
 
+import type {
+    TabPanelProps as BaseTabPanelProps,
+    TabProps as BaseTabProps,
+    TabStore,
+} from '@ariakit/react'
+import type { BoxJustifyContent } from '../box'
 import type { ObfuscatedClassName, Space } from '../utils/common-types'
 
 type TabsContextValue = Required<Pick<TabsProps, 'variant'>> & {

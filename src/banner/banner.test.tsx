@@ -4,7 +4,9 @@ import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
-import { Banner, SystemBannerType } from './banner'
+import { Banner } from './banner'
+
+import type { SystemBannerType } from './banner'
 
 describe('Banner', () => {
     it('renders as a <div /> element', () => {

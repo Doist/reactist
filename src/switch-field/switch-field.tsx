@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { FieldComponentProps, FieldMessage } from '../base-field'
+import { FieldMessage } from '../base-field'
 import { Box } from '../box'
 import { HiddenVisually } from '../hidden-visually'
 import { Stack } from '../stack'
@@ -8,6 +8,8 @@ import { Text } from '../text'
 import { useId } from '../utils/common-helpers'
 
 import styles from './switch-field.module.css'
+
+import type { FieldComponentProps } from '../base-field'
 
 interface SwitchFieldProps
     extends Omit<

@@ -3,9 +3,10 @@ import * as React from 'react'
 import { IconButton } from '../button'
 import { PasswordHiddenIcon } from '../icons/password-hidden-icon'
 import { PasswordVisibleIcon } from '../icons/password-visible-icon'
-import { TextField, TextFieldProps } from '../text-field'
+import { TextField } from '../text-field'
 
 import type { BaseFieldVariantProps } from '../base-field'
+import type { TextFieldProps } from '../text-field'
 
 interface PasswordFieldProps
     extends Omit<TextFieldProps, 'type' | 'startSlot' | 'endSlot'>,

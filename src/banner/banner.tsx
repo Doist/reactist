@@ -1,13 +1,15 @@
 import * as React from 'react'
 
 import { Box } from '../box'
-import { Button, ButtonProps, IconButton } from '../button'
+import { Button, IconButton } from '../button'
 import { BannerIcon } from '../icons/banner-icon'
 import { CloseIcon } from '../icons/close-icon'
 import { TextLink } from '../text-link'
 import { useId } from '../utils/common-helpers'
 
 import styles from './banner.module.css'
+
+import type { ButtonProps } from '../button'
 
 /**
  * Represents the type of a banner.

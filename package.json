@@ -82,7 +82,7 @@
         "@babel/register": "^7.0.0",
         "@doist/eslint-config": "12.0.0",
         "@doist/prettier-config": "4.0.0",
-        "@doist/tsconfig": "^1.0.0",
+        "@doist/tsconfig": "2.0.0",
         "@geometricpanda/storybook-addon-badges": "^0.2.2",
         "@rollup/plugin-commonjs": "28.0.9",
         "@rollup/plugin-node-resolve": "16.0.3",
@@ -97,7 +97,7 @@
         "@storybook/addon-postcss": "^2.0.0",
         "@storybook/addons": "^6.5.3",
         "@storybook/jest": "^0.0.10",
-        "@storybook/react": "^6.5.3",
+        "@storybook/react": "6.5.17-alpha.0",
         "@storybook/testing-library": "^0.0.13",
         "@testing-library/jest-dom": "^5.14.1",
         "@testing-library/react": "^12.0.0",
@@ -127,6 +127,7 @@
         "eslint-plugin-jsx-a11y": "^6.5.1",
         "eslint-plugin-prettier": "5.5.4",
         "eslint-plugin-react": "7.37.5",
+        "fork-ts-checker-webpack-plugin": "6.5.3",
         "husky": "^4.3.0",
         "jest": "^28.1.0",
         "jest-axe": "^5.0.1",
@@ -156,7 +157,7 @@
         "svg-url-loader": "^6.0.0",
         "ts-loader": "^8.0.2",
         "tslib": "^2.0.0",
-        "typescript": "^4.8.3",
+        "typescript": "5.9.3",
         "webpack": "^4.43.0"
     },
     "dependencies": {
@@ -168,5 +169,8 @@
         "react-keyed-flatten-children": "^1.3.0",
         "react-markdown": "^5.0.3",
         "use-callback-ref": "^1.3.0"
+    },
+    "overrides": {
+        "fork-ts-checker-webpack-plugin": "$fork-ts-checker-webpack-plugin"
     }
 }

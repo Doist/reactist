@@ -87,4 +87,5 @@ const TimeUtils = {
     },
 }
 
-export { TimeConfig, TimeUtils }
+export type { TimeConfig }
+export { TimeUtils }
