@@ -61,13 +61,14 @@
         "plop": "plop"
     },
     "peerDependencies": {
-        "@ariakit/react": "0.4.19",
+        "@ariakit/react": "~0.4.19",
         "classnames": "^2.2.5",
         "prop-types": "^15.6.2",
         "react": "^17.0.0 || ^18.0.0",
         "react-dom": "^17.0.0 || ^18.0.0"
     },
     "devDependencies": {
+        "@ariakit/react": "0.4.19",
         "@babel/core": "^7.9.6",
         "@babel/plugin-proposal-class-properties": "^7.10.1",
         "@babel/plugin-proposal-export-default-from": "^7.0.0",
