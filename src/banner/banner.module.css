@@ -32,6 +32,22 @@
 
 .content {
     padding: var(--reactist-spacing-large);
+    display: flex;
+    gap: var(--reactist-spacing-small);
+    align-items: flex-start;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--reactist-spacing-small);
+    flex-grow: 1;
+}
+
+.topContent {
+    display: flex;
+    gap: var(--reactist-spacing-small);
+    align-items: flex-start;
 }
 
 .title,
@@ -74,23 +90,30 @@
 
 .copy {
     padding: calc(var(--reactist-spacing-xsmall) / 2) 0;
+    flex: 1 1 auto;
 }
 .copy .inlineLink:first-of-type {
     margin-left: var(--reactist-spacing-xsmall);
 }
 
-@container banner (width < 235px) {
-    .content,
-    .staticContent {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+.childrenSection {
+    gap: var(--reactist-spacing-small);
+}
 
+@container banner (width < 235px) {
+    .content {
+        flex-direction: column;
+        align-items: stretch;
+    }
     .icon {
         display: flex;
         width: 100%;
         align-items: center;
         justify-content: space-between;
+    }
+    .topContent {
+        flex-direction: column;
+        align-items: stretch;
     }
     .icon:has(.closeButton:only-child) {
         display: flex;
@@ -101,8 +124,7 @@
     .icon .closeButton:only-child {
         margin-left: auto;
     }
-
-    .actions .closeButton {
-        display: none;
+    .childrenSection {
+        margin-top: var(--reactist-spacing-medium);
     }
 }
