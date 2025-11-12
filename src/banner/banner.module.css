@@ -107,10 +107,10 @@
     .icon .closeButton:only-child {
         margin-left: auto;
     }
-    .actions .closeButton {
-        display: none;
-    }
     .actions {
         align-self: flex-start;
+    }
+    .actions .closeButton {
+        display: none;
     }
 }
