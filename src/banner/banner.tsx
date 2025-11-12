@@ -161,13 +161,7 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
                     {closeButton}
                 </Box>
 
-                <Box
-                    className={styles.body}
-                    display="flex"
-                    flexDirection="column"
-                    gap="small"
-                    flexGrow={1}
-                >
+                <Box display="flex" flexDirection="column" gap="small" flexGrow={1}>
                     <Box
                         className={styles.topContent}
                         display="flex"
@@ -207,12 +201,7 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
                         </Box>
 
                         {action || closeButton ? (
-                            <Box
-                                className={styles.actions}
-                                display="flex"
-                                gap="small"
-                                alignSelf="center"
-                            >
+                            <Box className={styles.actions} display="flex" gap="small">
                                 {action ? (
                                     isActionObject(action) ? (
                                         action.type === 'button' ? (
@@ -229,15 +218,7 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
                         ) : null}
                     </Box>
 
-                    {children ? (
-                        <Box
-                            className={styles.childrenSection}
-                            display="flex"
-                            flexDirection="column"
-                        >
-                            {children}
-                        </Box>
-                    ) : null}
+                    {children}
                 </Box>
             </Box>
         </Box>

@@ -32,21 +32,6 @@
 
 .content {
     padding: var(--reactist-spacing-large);
-    display: flex;
-    gap: var(--reactist-spacing-small);
-    align-items: flex-start;
-}
-
-.body {
-    display: flex;
-    flex-direction: column;
-    gap: var(--reactist-spacing-small);
-    flex-grow: 1;
-}
-
-.topContent {
-    display: flex;
-    gap: var(--reactist-spacing-small);
     align-items: flex-start;
 }
 
@@ -95,15 +80,13 @@
 .copy .inlineLink:first-of-type {
     margin-left: var(--reactist-spacing-xsmall);
 }
-
-.childrenSection {
-    gap: var(--reactist-spacing-small);
+.actions {
+    align-self: center;
 }
 
 @container banner (width < 235px) {
     .content {
         flex-direction: column;
-        align-items: stretch;
     }
     .icon {
         display: flex;
@@ -124,7 +107,10 @@
     .icon .closeButton:only-child {
         margin-left: auto;
     }
-    .childrenSection {
-        margin-top: var(--reactist-spacing-medium);
+    .actions .closeButton {
+        display: none;
+    }
+    .actions {
+        align-self: flex-start;
     }
 }
