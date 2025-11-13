@@ -5,6 +5,8 @@ import { Stack } from '../stack'
 import { Banner } from './banner'
 import { Button } from '../button'
 import { PromoImage } from './story-promo-image'
+import { Notice } from '../notice'
+import { CheckboxField } from '../checkbox-field'
 
 <Meta
     title="Design system/Banner"
@@ -33,6 +35,10 @@ export function getButton(buttonText) {
             {buttonText}
         </Button>
     )
+}
+
+export function getLongDescription() {
+    return 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident cumque recusandae quibusdam, veniam cum illo? Inventore, doloremque necessitatibus! Sequi porro alias mollitia, temporibus quidem, aut modi tempora placeat laborum eos sapiente necessitatibus autem ipsum officia rerum distinctio consectetur tenetur qui! Perspiciatis ab corporis, itaque alias ex optio voluptatum nulla consequatur aut explicabo dolorem rerum ratione magnam. Mollitia dignissimos et ad commodi quasi molestias fugiat repellendus, magni distinctio voluptate neque quos esse asperiores iure excepturi eligendi eaque veniam voluptas blanditiis temporibus, omnis laborum quidem autem totam. Iure, numquam. Totam facilis dolorum, consequatur, eligendi est dolores modi dolore maiores ipsum magnam a.'
 }
 
 export function PlaygroundTemplate({ type, title, description, action }) {
@@ -168,6 +174,29 @@ export function BannerActionExamples({ theme }) {
                     }}
                     onClose={() => ({})}
                 />
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    title="This is a sample title"
+                    description={getLongDescription()}
+                    action={{
+                        type: 'button',
+                        label: 'Action',
+                        variant: 'primary',
+                    }}
+                />
+                <Banner
+                    type="neutral"
+                    icon={<ArchiveIcon />}
+                    title="This is a sample title"
+                    description={getLongDescription()}
+                    action={{
+                        type: 'button',
+                        label: 'Action',
+                        variant: 'primary',
+                    }}
+                    onClose={() => ({})}
+                />
             </Stack>
         </Stack>
     )
@@ -225,6 +254,102 @@ export function BannerImageExamples({ theme }) {
                         image={<PromoImage />}
                     />
                 </div>
+            </Stack>
+        </Stack>
+    )
+}
+
+export function BannerContentExamples({ theme }) {
+    return (
+        <Stack space="medium" align="start">
+            <Stack space="large">
+                <Banner
+                    type="neutral"
+                    title="This is a sample title"
+                    description="Here’s the message below the title, sometimes the copy spans over two lines."
+                >
+                    <Text tone="secondary">Some extra content here</Text>
+                </Banner>
+                <Banner
+                    type="neutral"
+                    title="This is a sample title"
+                    description="Here’s the message below the title, sometimes the copy spans over two lines."
+                    action={getButton('Click me!')}
+                >
+                    <Text tone="secondary">Some extra content here</Text>
+                </Banner>
+                <Banner
+                    type="neutral"
+                    title="This is a sample title"
+                    description="Here’s the message below the title, sometimes the copy spans over two lines."
+                    action={getButton('Click me!')}
+                    onClose={() => ({})}
+                >
+                    <Text tone="secondary">Some extra content here</Text>
+                </Banner>
+                <Banner
+                    type="neutral"
+                    title="This is a sample title"
+                    description="Here’s the message below the title, sometimes the copy spans over two lines."
+                    icon={<ArchiveIcon />}
+                >
+                    <Text tone="secondary">Some extra content here</Text>
+                </Banner>
+                <Banner
+                    type="neutral"
+                    title="This is a sample title"
+                    description="Here’s the message below the title, sometimes the copy spans over two lines."
+                    inlineLinks={[{ label: 'Learn more', href: '#' }]}
+                    icon={<ArchiveIcon />}
+                    action={getButton('Click me!')}
+                >
+                    <Text tone="secondary">Some extra content here</Text>
+                </Banner>
+                <Banner
+                    type="neutral"
+                    title="This is a sample title"
+                    description="Here’s the message below the title, sometimes the copy spans over two lines."
+                    inlineLinks={[{ label: 'Learn more', href: '#' }]}
+                    icon={<ArchiveIcon />}
+                    action={getButton('Click me!')}
+                >
+                    <Stack space="large">
+                        <Text tone="secondary">Some extra content here</Text>
+                    </Stack>
+                </Banner>
+                <Banner
+                    type="neutral"
+                    title="This is a sample title"
+                    description={getLongDescription()}
+                    inlineLinks={[{ label: 'Learn more', href: '#' }]}
+                    icon={<ArchiveIcon />}
+                    action={getButton('Click me!')}
+                >
+                    <Stack space="large">
+                        <Text tone="secondary">{getLongDescription()}</Text>
+                        <Notice tone="info">
+                            <Text>Please check the box to continue.</Text>
+                        </Notice>
+                        <CheckboxField label="Check me!" />
+                    </Stack>
+                </Banner>
+                <Banner
+                    type="neutral"
+                    title="This is a sample title"
+                    description={getLongDescription()}
+                    inlineLinks={[{ label: 'Learn more', href: '#' }]}
+                    icon={<ArchiveIcon />}
+                    action={getButton('Click me!')}
+                    onClose={() => ({})}
+                >
+                    <Stack space="large">
+                        <Text tone="secondary">{getLongDescription()}</Text>
+                        <Notice tone="info">
+                            <Text>Please check the box to continue.</Text>
+                        </Notice>
+                        <CheckboxField label="Check me!" />
+                    </Stack>
+                </Banner>
             </Stack>
         </Stack>
     )
@@ -337,6 +462,22 @@ Image banners do not feature icons but can include body text or a combination of
         }}
     >
         <BannerImageExamples theme="light" />
+    </Story>
+</Canvas>
+
+### Content
+
+Banners can include extra content.
+
+<Canvas>
+    <Story
+        name="Content"
+        parameters={{
+            docs: { source: { type: 'code' } },
+            chromatic: { disableSnapshot: false },
+        }}
+    >
+        <BannerContentExamples theme="light" />
     </Story>
 </Canvas>
 

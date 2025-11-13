@@ -66,6 +66,7 @@ type BaseBanner = {
     id?: string
     title?: React.ReactNode
     description: Exclude<React.ReactNode, null | undefined | boolean>
+    children?: React.ReactNode
     action?: Action | React.ReactNode
     inlineLinks?: InlineLink[]
 } & CloseButton
@@ -112,6 +113,7 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
         type,
         title,
         description,
+        children,
         action,
         icon,
         image,
@@ -153,57 +155,71 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
         >
             {image ? <Box className={styles.image}>{image}</Box> : null}
 
-            <Box className={styles.content} display="flex" gap="small" alignItems="center">
-                <Box className={styles.staticContent} display="flex" gap="small" flexGrow={1}>
-                    <Box className={styles.icon}>
-                        {type === 'neutral' ? icon : <BannerIcon type={type} />}
-                        {closeButton}
-                    </Box>
-
-                    <Box className={styles.copy} display="flex" flexDirection="column">
-                        {title ? (
-                            <Box id={titleId} className={styles.title}>
-                                {title}
-                            </Box>
-                        ) : null}
-                        <Box
-                            id={descriptionId}
-                            className={[styles.description, title ? styles.secondary : null]}
-                        >
-                            {description}
-                            {inlineLinks?.map(({ label, ...props }, index) => {
-                                return (
-                                    <React.Fragment key={index}>
-                                        <TextLink
-                                            {...props}
-                                            exceptionallySetClassName={styles.inlineLink}
-                                        >
-                                            {label}
-                                        </TextLink>
-                                        {index < inlineLinks.length - 1 ? <span> · </span> : ''}
-                                    </React.Fragment>
-                                )
-                            })}
-                        </Box>
-                    </Box>
+            <Box className={styles.content} display="flex" gap="small">
+                <Box className={styles.icon}>
+                    {type === 'neutral' ? icon : <BannerIcon type={type} />}
+                    {closeButton}
                 </Box>
 
-                {action || closeButton ? (
-                    <Box className={styles.actions} display="flex" gap="small">
-                        {action ? (
-                            isActionObject(action) ? (
-                                action.type === 'button' ? (
-                                    <ActionButton {...action} />
-                                ) : (
-                                    <ActionLink {...action} />
-                                )
-                            ) : (
-                                action
-                            )
+                <Box display="flex" flexDirection="column" gap="small" flexGrow={1}>
+                    <Box
+                        className={styles.topContent}
+                        display="flex"
+                        gap="small"
+                        alignItems="flexStart"
+                    >
+                        <Box
+                            className={styles.copy}
+                            display="flex"
+                            flexDirection="column"
+                            flexGrow={1}
+                        >
+                            {title ? (
+                                <Box id={titleId} className={styles.title}>
+                                    {title}
+                                </Box>
+                            ) : null}
+                            <Box
+                                id={descriptionId}
+                                className={[styles.description, title ? styles.secondary : null]}
+                            >
+                                {description}
+                                {inlineLinks?.map(({ label, ...props }, index) => {
+                                    return (
+                                        <React.Fragment key={index}>
+                                            <TextLink
+                                                {...props}
+                                                exceptionallySetClassName={styles.inlineLink}
+                                            >
+                                                {label}
+                                            </TextLink>
+                                            {index < inlineLinks.length - 1 ? <span> · </span> : ''}
+                                        </React.Fragment>
+                                    )
+                                })}
+                            </Box>
+                        </Box>
+
+                        {action || closeButton ? (
+                            <Box className={styles.actions} display="flex" gap="small">
+                                {action ? (
+                                    isActionObject(action) ? (
+                                        action.type === 'button' ? (
+                                            <ActionButton {...action} />
+                                        ) : (
+                                            <ActionLink {...action} />
+                                        )
+                                    ) : (
+                                        action
+                                    )
+                                ) : null}
+                                {closeButton}
+                            </Box>
                         ) : null}
-                        {closeButton}
                     </Box>
-                ) : null}
+
+                    {children}
+                </Box>
             </Box>
         </Box>
     )
