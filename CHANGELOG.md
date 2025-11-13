@@ -6,7 +6,6 @@
 ### 🚀 Features
 
 * Add `children` prop to `<Banner>` component to pass extra content ([#985](https://github.com/Doist/reactist/issues/985)) ([bed2ebc](https://github.com/Doist/reactist/commit/bed2ebc881730fbde52444842e00162f4ba2d993))
-* Add `children` prop to `<Banner>` component to pass extra content ([#985](https://github.com/Doist/reactist/issues/985)) ([bed2ebc](https://github.com/Doist/reactist/commit/bed2ebc881730fbde52444842e00162f4ba2d993))
 
 ## [29.0.0](https://github.com/Doist/reactist/compare/v28.7.4...v29.0.0) (2025-11-04)
 
