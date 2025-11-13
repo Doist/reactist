@@ -5,6 +5,8 @@ import { Stack } from '../stack'
 import { Banner } from './banner'
 import { Button } from '../button'
 import { PromoImage } from './story-promo-image'
+import { Notice } from '../notice'
+import { CheckboxField } from '../checkbox-field'
 
 <Meta
     title="Design system/Banner"
@@ -311,9 +313,8 @@ export function BannerContentExamples({ theme }) {
                     icon={<ArchiveIcon />}
                     action={getButton('Click me!')}
                 >
-                    <Stack space="large" width="minContent">
+                    <Stack space="large">
                         <Text tone="secondary">Some extra content here</Text>
-                        <PromoImage />
                     </Stack>
                 </Banner>
                 <Banner
@@ -324,9 +325,12 @@ export function BannerContentExamples({ theme }) {
                     icon={<ArchiveIcon />}
                     action={getButton('Click me!')}
                 >
-                    <Stack space="large" width="minContent">
-                        <Text tone="secondary">Some extra content here</Text>
-                        <PromoImage />
+                    <Stack space="large">
+                        <Text tone="secondary">{getLongDescription()}</Text>
+                        <Notice tone="info">
+                            <Text>Please check the box to continue.</Text>
+                        </Notice>
+                        <CheckboxField label="Check me!" />
                     </Stack>
                 </Banner>
                 <Banner
@@ -338,9 +342,12 @@ export function BannerContentExamples({ theme }) {
                     action={getButton('Click me!')}
                     onClose={() => ({})}
                 >
-                    <Stack space="large" width="minContent">
-                        <Text tone="secondary">Some extra content here</Text>
-                        <PromoImage />
+                    <Stack space="large">
+                        <Text tone="secondary">{getLongDescription()}</Text>
+                        <Notice tone="info">
+                            <Text>Please check the box to continue.</Text>
+                        </Notice>
+                        <CheckboxField label="Check me!" />
                     </Stack>
                 </Banner>
             </Stack>

@@ -245,4 +245,13 @@ describe('Banner', () => {
         const results = await axe(container)
         expect(results).toHaveNoViolations()
     })
+
+    it('renders a banner with children', () => {
+        render(
+            <Banner type="info" description="Info">
+                <p>Child content</p>
+            </Banner>,
+        )
+        expect(screen.getByText('Child content')).toBeInTheDocument()
+    })
 })
