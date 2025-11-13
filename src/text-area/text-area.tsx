@@ -104,7 +104,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
             maxWidth={maxWidth}
             maxLength={maxLength}
         >
-            {({ onChange, ...extraProps }) => (
+            {({ onChange, characterCountElement, ...extraProps }) => (
                 <Box
                     width="full"
                     display="flex"
