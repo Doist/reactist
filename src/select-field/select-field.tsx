@@ -49,7 +49,7 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
             hidden={hidden}
             aria-describedby={ariaDescribedBy}
         >
-            {(extraProps) => (
+            {({ characterCountElement, ...extraProps }) => (
                 <Box
                     data-testid="select-wrapper"
                     className={[
