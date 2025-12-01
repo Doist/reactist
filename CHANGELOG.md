@@ -1,5 +1,12 @@
 # Changelog
 
+## [29.1.1](https://github.com/Doist/reactist/compare/v29.1.0...v29.1.1) (2025-12-01)
+
+
+### 🐛 Bug Fixes
+
+* Prevent characterCountElement prop from being set on DOM elements ([#986](https://github.com/Doist/reactist/issues/986)) ([432e7c8](https://github.com/Doist/reactist/commit/432e7c8e1b7ec9496fc026ba141e51df9fb41425))
+
 ## [29.1.0](https://github.com/Doist/reactist/compare/v29.0.0...v29.1.0) (2025-11-13)
 
 
