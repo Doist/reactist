@@ -65,6 +65,7 @@
         "classnames": "^2.2.5",
         "prop-types": "^15.6.2",
         "react": "^17.0.0 || ^18.0.0",
+        "react-compiler-runtime": "^1.0.0",
         "react-dom": "^17.0.0 || ^18.0.0"
     },
     "devDependencies": {
@@ -118,6 +119,7 @@
         "autoprefixer": "^9.8.0",
         "babel-core": "^7.0.0-bridge.0",
         "babel-loader": "^8.1.0",
+        "babel-plugin-react-compiler": "1.0.0",
         "chromatic": "^6.11.4",
         "classnames": "^2.2.5",
         "css-loader": "^4.2.2",
@@ -147,6 +149,7 @@
         "prettier": "3.6.2",
         "raw-loader": "^4.0.1",
         "react": "^17.0.2",
+        "react-compiler-runtime": "1.0.0",
         "react-docgen-typescript-loader": "^3.7.2",
         "react-dom": "^17.0.2",
         "react-is": "^17.0.2",
