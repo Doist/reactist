@@ -11,5 +11,13 @@ module.exports = {
         '@babel/preset-react',
         '@babel/preset-typescript',
     ],
-    plugins: ['@babel/proposal-object-rest-spread'],
+    plugins: [
+        [
+            'babel-plugin-react-compiler',
+            {
+                target: '18',
+            },
+        ],
+        '@babel/proposal-object-rest-spread',
+    ],
 }
