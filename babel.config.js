@@ -15,7 +15,8 @@ module.exports = {
         [
             'babel-plugin-react-compiler',
             {
-                target: '18',
+                // Support React 17 as a minimum
+                target: '17',
             },
         ],
         '@babel/proposal-object-rest-spread',
