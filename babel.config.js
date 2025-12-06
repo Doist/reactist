@@ -68,6 +68,13 @@ module.exports = {
             },
         ],
         '@babel/proposal-object-rest-spread',
-        '@babel/plugin-transform-runtime',
+        [
+            '@babel/plugin-transform-runtime',
+            {
+                // Prevent helpers from being inlined in the output code
+                // https://babeljs.io/docs/babel-plugin-transform-runtime#version
+                version: '^7.28.4',
+            },
+        ],
     ],
 }
