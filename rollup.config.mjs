@@ -5,6 +5,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import styles from 'rollup-plugin-styles'
 import terser from '@rollup/plugin-terser'
 import { exec } from 'child_process'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 const isWatchMode = process.env.ROLLUP_WATCH === 'true'
 const onSuccessCallback = process.env.ON_SUCCESS
@@ -79,6 +80,7 @@ function createConfig({
     preserveModules,
     withDeclarations,
     withMinification,
+    withVisualizer,
     onSuccessCommand,
 }) {
     return {
@@ -116,6 +118,7 @@ function createConfig({
                   ]
                 : []),
             ...(withMinification ? [terser()] : []),
+            ...(withVisualizer ? [visualizer({ gzipSize: true })] : []),
             ...(onSuccessCommand ? [onSuccess(onSuccessCommand)] : []),
         ],
     }
@@ -126,6 +129,7 @@ const es = createConfig({
     format: 'esm',
     outputDir: 'es',
     preserveModules: true,
+    withVisualizer: true,
 })
 
 // CJS unbundled build with TypeScript declarations (lib/ folder)
