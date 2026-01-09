@@ -1,16 +1,20 @@
 import typescript from '@rollup/plugin-typescript'
 import resolve from '@rollup/plugin-node-resolve'
+import { babel } from '@rollup/plugin-babel'
 import commonjs from '@rollup/plugin-commonjs'
 import styles from 'rollup-plugin-styles'
 import terser from '@rollup/plugin-terser'
 import { exec } from 'child_process'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 const isWatchMode = process.env.ROLLUP_WATCH === 'true'
 const onSuccessCallback = process.env.ON_SUCCESS
 
 const external = [
+    /@babel\/runtime/,
     'react',
     'react-dom',
+    'react-compiler-runtime',
     'classnames',
     'prop-types',
     '@ariakit/react',
@@ -23,7 +27,17 @@ const external = [
     'tslib',
 ]
 
-const basePlugins = [resolve(), commonjs()]
+const basePlugins = [
+    resolve({
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+    }),
+    commonjs(),
+    babel({
+        babelHelpers: 'runtime',
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        exclude: 'node_modules/**',
+    }),
+]
 
 const baseStylesConfig = {
     autoModules: /\.module\.css$/,
@@ -66,6 +80,7 @@ function createConfig({
     preserveModules,
     withDeclarations,
     withMinification,
+    withVisualizer,
     onSuccessCommand,
 }) {
     return {
@@ -88,16 +103,22 @@ function createConfig({
                 ...baseStylesConfig,
                 ...(withMinification && { minimize: true }),
             }),
-            typescript({
-                ...baseTypescriptConfig,
-                compilerOptions: {
-                    outDir: outputDir || 'dist',
-                    ...(withDeclarations
-                        ? { declaration: true, declarationMap: false }
-                        : { declaration: false, declarationMap: false, declarationDir: undefined }),
-                },
-            }),
+            ...(withDeclarations
+                ? [
+                      typescript({
+                          ...baseTypescriptConfig,
+                          noForceEmit: true,
+                          compilerOptions: {
+                              outDir: outputDir || 'dist',
+                              declaration: true,
+                              declarationMap: false,
+                              emitDeclarationOnly: true,
+                          },
+                      }),
+                  ]
+                : []),
             ...(withMinification ? [terser()] : []),
+            ...(withVisualizer ? [visualizer({ gzipSize: true })] : []),
             ...(onSuccessCommand ? [onSuccess(onSuccessCommand)] : []),
         ],
     }
@@ -108,6 +129,7 @@ const es = createConfig({
     format: 'esm',
     outputDir: 'es',
     preserveModules: true,
+    withVisualizer: true,
 })
 
 // CJS unbundled build with TypeScript declarations (lib/ folder)
