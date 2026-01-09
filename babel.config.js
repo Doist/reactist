@@ -30,37 +30,12 @@ module.exports = {
                         ) {
                             if (event.kind === 'CompileError') {
                                 console.warn(
-                                    `\n[React Compiler] \x1b[33mCompilation skipped\x1b[0m: ${filename}`,
+                                    `\n[React Compiler] \x1b[33m${event.kind}\x1b[0m: ${filename}`,
                                 )
                             }
 
                             if (event.detail?.reason) {
                                 console.error(`Reason: ${event.detail.reason}`)
-                            }
-
-                            if (event.detail?.description) {
-                                console.error(`Details: ${event.detail.description}`)
-                            }
-
-                            if (event.detail.primaryLocation) {
-                                const sourceLocation = event.detail.primaryLocation()
-
-                                if (sourceLocation?.start) {
-                                    console.error(
-                                        `Location: Line ${sourceLocation.start.line}, Column ${sourceLocation.start.column}`,
-                                    )
-                                }
-                            }
-
-                            if (event.detail?.suggestions?.length) {
-                                console.error('Suggestions:')
-                                for (const suggestion of event.detail.suggestions) {
-                                    console.error(`• ${suggestion.description}`)
-                                }
-                            }
-
-                            if (event.data) {
-                                console.error(`Data: ${event.data}`)
                             }
                         }
                     },
