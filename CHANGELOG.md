@@ -1,5 +1,12 @@
 # Changelog
 
+## [29.1.2](https://github.com/Doist/reactist/compare/v29.1.1...v29.1.2) (2026-01-09)
+
+
+### 🧰 Maintenance
+
+* Ship components optimized with React Compiler ([#992](https://github.com/Doist/reactist/issues/992)) ([7895774](https://github.com/Doist/reactist/commit/78957741ec20d9cad9ac82330616c6b52ed83801))
+
 ## [29.1.1](https://github.com/Doist/reactist/compare/v29.1.0...v29.1.1) (2025-12-01)
 
 
