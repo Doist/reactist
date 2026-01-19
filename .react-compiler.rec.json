@@ -1,0 +1,30 @@
+{
+    "recordVersion": 1,
+    "react-compiler-version": "1.0.0",
+    "files": {
+        "src/checkbox-field/checkbox-field.tsx": {
+            "CompileError": 1
+        },
+        "src/checkbox-field/use-fork-ref.ts": {
+            "CompileError": 1
+        },
+        "src/components/keyboard-shortcut/keyboard-shortcut.tsx": {
+            "CompileError": 1
+        },
+        "src/hooks/use-previous/use-previous.ts": {
+            "CompileError": 1
+        },
+        "src/menu/menu.tsx": {
+            "CompileError": 2
+        },
+        "src/tabs/tabs.tsx": {
+            "CompileError": 4
+        },
+        "src/tooltip/tooltip.tsx": {
+            "CompileError": 1
+        },
+        "src/utils/common-helpers.ts": {
+            "CompileError": 2
+        }
+    }
+}
