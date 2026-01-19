@@ -10,6 +10,8 @@ jobs:
         steps:
             - name: Checkout repository
               uses: actions/checkout@v5
+              with:
+                  fetch-depth: 0
 
             - name: Prepare Node.js environment
               uses: actions/setup-node@v6
@@ -27,6 +29,16 @@ jobs:
             - name: Install project npm dependencies
               if: ${{ steps.node-modules-cache.outputs.cache-hit != 'true' }}
               run: npm ci
+
+            - name: Check React Compiler compatibility
+              run: |
+                  CHANGED_FILES=$(git diff --name-only --diff-filter=ACMR origin/${{ github.base_ref }}...HEAD -- 'src/**/*.ts' 'src/**/*.tsx' 'src/**/*.js' 'src/**/*.jsx' | tr '\n' ' ')
+                  if [ -n "$CHANGED_FILES" ]; then
+                    echo "Checking React Compiler compatibility for: $CHANGED_FILES"
+                    npx @doist/react-compiler-tracker --check-files $CHANGED_FILES
+                  else
+                    echo "No source files changed, skipping React Compiler check"
+                  fi
 
             - run: npm run lint
             - run: npm run type-check
