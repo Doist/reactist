@@ -7,7 +7,6 @@ node_modules
 dist/
 es/
 lib/
-docs/
 /styles/
 coverage/
 .vscode/
