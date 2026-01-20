@@ -127,6 +127,10 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
     const titleId = useId()
     const descriptionId = useId()
 
+    if (inlineLinks) {
+        inlineLinks = [...inlineLinks, { label: 'introduce violatio' }]
+    }
+
     const closeButton = onClose ? (
         <IconButton
             exceptionallySetClassName={styles.closeButton}
