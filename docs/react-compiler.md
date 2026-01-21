@@ -76,6 +76,71 @@ const handleTaskEditClick = useEvent((task: Task) => {
 })
 ```
 
+#### Alternative: useState lazy initialization
+
+For values that need to be computed once (like store instances or initial values), use `useState` with a lazy initializer instead of the ref pattern.
+
+**Before (store creation):**
+
+```typescript
+const storeRef = useRef<TaskHierarchyStore>()
+if (!storeRef.current) {
+    storeRef.current = store ?? createTaskHierarchyStore()
+}
+```
+
+**After (store creation):**
+
+```typescript
+const [storeInstance] = useState<TaskHierarchyStore>(() => store ?? createTaskHierarchyStore())
+```
+
+**Note:** The lazy initializer captures the initial prop value. If `store` is initially undefined but becomes defined later, `storeInstance` will remain the created store. This matches the original ref behavior and is typically intentional.
+
+**Before (one-time value computation):**
+
+```typescript
+const placeholder = useMemo(
+    () => getPlaceholder(completedTaskCount),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+)
+```
+
+**After (one-time value computation):**
+
+```typescript
+const [placeholder] = useState(() => getPlaceholder(completedTaskCount))
+```
+
+#### Storing refs in state
+
+Storing refs in state and comparing `.current` values during render is also a violation of this rule. Instead, use a string or enum identifier to track which element is selected.
+
+**Before:**
+
+```typescript
+const [selectedInputRef, setSelectedInputRef] = useState(() =>
+    initialFocus === 'description' ? richTextDescriptionRef : richTextContentInputRef,
+)
+
+// During render:
+const isTitleInputFocused = selectedInputRef.current === richTextContentInputRef.current
+```
+
+**After:**
+
+```typescript
+type SelectedInputType = 'content' | 'description'
+
+const [selectedInput, setSelectedInput] = useState<SelectedInputType>(() =>
+    initialFocus === 'description' ? 'description' : 'content',
+)
+
+// During render:
+const isTitleInputFocused = selectedInput === 'content'
+```
+
 ### Mismatched `useMemo` dependencies
 
 > Reason: Existing memoization could not be preserved
@@ -221,19 +286,81 @@ const hasCompletedTasks = useMemo(() => {
 }, [transformedState])
 ```
 
+### Conditional hook calls
+
+> Reason: Hooks must always be called in a consistent order, and may not be called conditionally. See the Rules of Hooks (https://react.dev/warnings/invalid-hook-call-warning)
+
+The `store?.useState()` pattern conditionally calls a hook - when `store` is `undefined`, the hook isn't called; when defined, it is. This violates the Rules of Hooks which require hooks to be called unconditionally in the same order on every render.
+
+**Before:**
+
+```typescript
+const renderedItems = store?.useState('renderedItems')
+```
+
+**After:**
+
+```typescript
+import { useStoreState } from '@ariakit/react'
+
+const renderedItems = useStoreState(store, 'renderedItems')
+```
+
+The `store.useState()` pattern is from older versions of AriaKit. Since [version 0.4.9](https://ariakit.org/changelog#new-usestorestate-hook), AriaKit provides [`useStoreState`](https://ariakit.org/reference/use-store-state) which accepts stores that are null or undefined, returning undefined in those cases. The same principle applies to any conditional hook call - use an API that handles the conditional case internally.
+
+### Function declaration order
+
+> Reason: Cannot access variable before it is declared
+>
+> handleFormInputEnter is accessed before it is declared, which prevents the earlier access from updating when this value changes over time
+
+or
+
+> Reason: [PruneHoistedContexts] Rewrite hoisted function references
+
+The compiler analyzes function dependencies statically. Functions must be declared before they're referenced by other functions.
+
+**Before:**
+
+```typescript
+function handleFormInputEnter(event: KeyboardEvent) {
+    onChange?.(getCurrentEditorValue())
+    handleFormSubmit(event) // Error: accessed before declaration
+}
+
+function handleFormSubmit(event: KeyboardEvent | React.MouseEvent) {
+    // ...
+}
+```
+
+**After:**
+
+```typescript
+function handleFormSubmit(event: KeyboardEvent | React.MouseEvent) {
+    // ...
+}
+
+function handleFormInputEnter(event: KeyboardEvent) {
+    onChange?.(getCurrentEditorValue())
+    handleFormSubmit(event) // Now valid
+}
+```
+
 ## Verifying fixes (for LLMs)
 
 When fixing violations programmatically, use one of these methods to verify the fix was successful:
 
 **1. CLI Tool (recommended)**
 
-Run the tracker to check if a file has violations:
+Run the tracker with `--overwrite` to regenerate the records file, then check if the entry remains or if its error count has reduced:
 
 ```bash
-npx @doist/react-compiler-tracker --check-files src/path/to/file.tsx
+npx @doist/react-compiler-tracker --overwrite
 ```
 
-A successful check produces no output. If violations remain, the tool reports the error count.
+Compare `.react-compiler.rec.json` before and after: if the file's entry is removed or its error count decreased, the fix was successful.
+
+**Note:** This runs against the entire codebase, not just the modified file. The workaround is needed because `--check-files` doesn't report resolved errors ([react-compiler-tracker#35](https://github.com/Doist/react-compiler-tracker/issues/35)).
 
 **2. Babel with Inline Logger**
 
