@@ -22,7 +22,7 @@
         "**/*.css"
     ],
     "engines": {
-        "node": "^22.14.0 || >= 24.10.0",
+        "node": "^22.22.0 || >= 24.13.0",
         "npm": "^10.9.2 || >= 11.5.1"
     },
     "publishConfig": {
@@ -87,6 +87,7 @@
         "@babel/register": "^7.0.0",
         "@doist/eslint-config": "12.0.0",
         "@doist/prettier-config": "4.0.0",
+        "@doist/react-compiler-tracker": "2.0.3",
         "@doist/tsconfig": "2.0.0",
         "@geometricpanda/storybook-addon-badges": "^0.2.2",
         "@rollup/plugin-babel": "6.1.0",
