@@ -346,9 +346,81 @@ function handleFormInputEnter(event: KeyboardEvent) {
 }
 ```
 
-## Verifying fixes (for LLMs)
+### Optional chaining in try/catch blocks
 
-When fixing violations programmatically, use one of these methods to verify the fix was successful:
+> Reason: Support value blocks (conditional, logical, optional chaining, etc) within a try/catch statement
+
+The compiler can't handle optional chaining (`?.()`) inside try/catch blocks.
+
+**Before:**
+
+```typescript
+try {
+    await doSomething()
+    onSuccessCallback?.()
+} catch (error) {
+    onFailureCallback?.(error)
+}
+```
+
+**After:**
+
+```typescript
+try {
+    await doSomething()
+    if (onSuccessCallback) {
+        onSuccessCallback()
+    }
+} catch (error) {
+    if (onFailureCallback) {
+        onFailureCallback(error)
+    }
+}
+```
+
+### Mutable objects created with useMemo
+
+> Reason: This value cannot be modified. Modifying a value previously passed as an argument to a hook is not allowed.
+
+Creating mutable objects (Web Workers, stores, etc.) with `useMemo` and then mutating them in `useEffect` triggers a compiler error because the compiler tracks values through hooks.
+
+**Before:**
+
+```typescript
+const worker = useMemo(() => createWebWorker(), [])
+
+useEffect(() => {
+    worker.onmessage = handleMessage // Error: mutating hook return value
+}, [worker])
+```
+
+**After:**
+
+```typescript
+const workerRef = useRef<Worker | null>(null)
+
+function getWorker(): Worker {
+    if (!workerRef.current) {
+        workerRef.current = createWebWorker()
+    }
+    return workerRef.current
+}
+
+useEffect(() => {
+    const worker = getWorker()
+    worker.onmessage = handleMessage
+    return () => {
+        worker.onmessage = null
+    }
+    // getWorker is non-reactive (only accesses a stable ref), so it's safe to omit from deps
+}, [])
+```
+
+## Identifying violations and verifying fixes (for LLMs)
+
+When fixing violations programmatically, first identify modules with violations by checking `.react-compiler.rec.json`, then use Babel with Inline Logger (method 2 below) on the file to see the exact errors. Extract the error reason and location to plan the fix.
+
+Once the fix is applied, verify it using one of the following methods:
 
 **1. CLI Tool (recommended)**
 
