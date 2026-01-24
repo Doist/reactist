@@ -1,7 +1,7 @@
 {
     "name": "@doist/reactist",
     "description": "Open source React components by Doist",
-    "version": "29.1.2",
+    "version": "30.0.0",
     "repository": "https://github.com/Doist/reactist",
     "homepage": "https://github.com/Doist/reactist#readme",
     "bugs": {
