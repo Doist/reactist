@@ -1,5 +1,16 @@
 # Changelog
 
+## [30.0.0](https://github.com/Doist/reactist/compare/v29.1.2...v30.0.0) (2026-01-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* Bump node version requirement to v22.22; integrate react-compiler-tracker ([#994](https://github.com/Doist/reactist/issues/994))
+
+### chore
+
+* Bump node version requirement to v22.22; integrate react-compiler-tracker ([#994](https://github.com/Doist/reactist/issues/994)) ([ee3b106](https://github.com/Doist/reactist/commit/ee3b10660ddd55146e42755e2392f81adef3838c))
+
 ## [29.1.2](https://github.com/Doist/reactist/compare/v29.1.1...v29.1.2) (2026-01-09)
 
 
