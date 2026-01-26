@@ -1,5 +1,12 @@
 # Changelog
 
+## [30.0.1](https://github.com/Doist/reactist/compare/v30.0.0...v30.0.1) (2026-01-26)
+
+
+### chore
+
+* release 30.0.1 ([#1003](https://github.com/Doist/reactist/issues/1003)) ([fbee885](https://github.com/Doist/reactist/commit/fbee88569a03c83ead82b708000cb37bdedde60a))
+
 ## [30.0.0](https://github.com/Doist/reactist/compare/v29.1.2...v30.0.0) (2026-01-24)
 
 
