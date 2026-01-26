@@ -21,10 +21,6 @@
     "sideEffects": [
         "**/*.css"
     ],
-    "engines": {
-        "node": "^22.22.0 || >= 24.13.0",
-        "npm": "^10.9.2 || >= 11.5.1"
-    },
     "publishConfig": {
         "access": "public"
     },
