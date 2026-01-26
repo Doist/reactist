@@ -21,10 +21,6 @@
     "sideEffects": [
         "**/*.css"
     ],
-    "engines": {
-        "node": "^22.22.0 || >= 24.13.0",
-        "npm": "^10.9.2 || >= 11.5.1"
-    },
     "publishConfig": {
         "access": "public"
     },
@@ -87,7 +83,7 @@
         "@babel/register": "^7.0.0",
         "@doist/eslint-config": "12.0.0",
         "@doist/prettier-config": "4.0.0",
-        "@doist/react-compiler-tracker": "2.1.1",
+        "@doist/react-compiler-tracker": "2.1.2",
         "@doist/tsconfig": "2.0.0",
         "@geometricpanda/storybook-addon-badges": "^0.2.2",
         "@rollup/plugin-babel": "6.1.0",
