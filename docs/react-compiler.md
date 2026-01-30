@@ -596,6 +596,118 @@ useEffect(() => {
 }, [])
 ```
 
+### Mutating function or hook return values
+
+> Reason: This value cannot be modified. Modifying a value returned by a function is not allowed.
+
+Objects returned from functions or hooks should be treated as immutable. Create new objects instead of mutating properties directly.
+
+**Before:**
+
+```typescript
+function FilterSection({ onSetViewOptions }) {
+    const parsedQuery = parseFilterQueryOrDefault(filterBy)
+
+    function handleAssignedChange(assigneeFilter: string) {
+        // Violation: mutating returned object
+        parsedQuery.assignees = assigneeFilter === '!assigned' ? 'NOT_ASSIGNED' : 'ANY'
+        onSetViewOptions({ filterBy: buildFilterQuery(parsedQuery) })
+    }
+}
+```
+
+**After:**
+
+```typescript
+function FilterSection({ onSetViewOptions }) {
+    const parsedQuery = parseFilterQueryOrDefault(filterBy)
+
+    function handleAssignedChange(assigneeFilter: string) {
+        const newAssignees = assigneeFilter === '!assigned' ? 'NOT_ASSIGNED' : 'ANY'
+        // Create new object with spread operator
+        onSetViewOptions({
+            filterBy: buildFilterQuery({ ...parsedQuery, assignees: newAssignees }),
+        })
+    }
+}
+```
+
+### DOM mutations
+
+> Reason: This value cannot be modified.
+
+The compiler treats DOM property assignments as mutations that cannot be tracked.
+
+#### Redirects during render
+
+Assigning to `window.location.href` during render is a side effect. Move these to `useEffect`.
+
+**Before:**
+
+```typescript
+function PublicRouteWrapper({ children }: { children: React.ReactNode }) {
+    const authenticatedUser = localStorage.getItem('User')
+
+    if (authenticatedUser) {
+        // Violation: DOM mutation during render
+        window.location.href = '/app'
+        return null
+    }
+
+    return <>{children}</>
+}
+```
+
+**After:**
+
+```typescript
+function PublicRouteWrapper({ children }: { children: React.ReactNode }) {
+    const authenticatedUser = localStorage.getItem('User')
+
+    function shouldRedirectToApp() {
+        return Boolean(authenticatedUser)
+    }
+
+    useEffect(() => {
+        if (shouldRedirectToApp()) {
+            window.location.href = '/app'
+        }
+    }, [authenticatedUser])
+
+    if (shouldRedirectToApp()) {
+        return null
+    }
+
+    return <>{children}</>
+}
+```
+
+#### Element property assignments
+
+Assigning to element properties like `scrollTop` also triggers this error. Use the equivalent method call instead.
+
+**Before:**
+
+```typescript
+useLayoutEffect(() => {
+    if (resultList && resultList.scrollHeight > resultList.clientHeight) {
+        // Violation: direct property assignment
+        resultList.scrollTop = elementBottom - resultList.clientHeight
+    }
+}, [currentId, resultList])
+```
+
+**After:**
+
+```typescript
+useLayoutEffect(() => {
+    if (resultList && resultList.scrollHeight > resultList.clientHeight) {
+        // Use scroll() method instead of scrollTop assignment
+        resultList.scroll({ top: elementBottom - resultList.clientHeight })
+    }
+}, [currentId, resultList])
+```
+
 ## Identifying violations and verifying fixes (for LLMs)
 
 When fixing violations programmatically, first identify modules with violations by checking `.react-compiler.rec.json`, then use the tracker CLI with `--show-errors` to see the exact errors:
