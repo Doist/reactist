@@ -230,6 +230,125 @@ function DndTaskWrapper({ task, stableTaskId: stableTaskIdProp }: Props) {
 }
 ```
 
+The same violation applies to other expression types in default parameters:
+
+#### ArrowFunctionExpression
+
+> Reason: (BuildHIR::node.lowerReorderableExpression) Expression type `ArrowFunctionExpression` cannot be safely reordered
+
+**Before:**
+
+```typescript
+function useField<T>(
+    deserialize: (val: unknown) => T = (val) => val as T, // Violation
+)
+```
+
+**After:**
+
+```typescript
+// Extract to module-level function declaration
+function defaultDeserialize<T>(val: unknown): T {
+    return val as T
+}
+
+function useField<T>(deserialize: (val: unknown) => T = defaultDeserialize)
+```
+
+#### JSXElement
+
+> Reason: (BuildHIR::node.lowerReorderableExpression) Expression type `JSXElement` cannot be safely reordered
+
+**Before:**
+
+```typescript
+function Layout({
+    illustration = <DefaultIllustration />, // Violation
+}: Props)
+```
+
+**After:**
+
+```typescript
+function Layout({ illustration: illustrationProp }: Props) {
+    const illustration = illustrationProp ?? <DefaultIllustration />
+}
+```
+
+#### CallExpression
+
+> Reason: (BuildHIR::node.lowerReorderableExpression) Expression type `CallExpression` cannot be safely reordered
+
+**Before:**
+
+```typescript
+function TimeInput({
+    referenceDate = startOfDay(new Date()), // Violation
+}: Props)
+```
+
+**After:**
+
+```typescript
+function TimeInput({ referenceDate: referenceDateProp }: Props) {
+    const referenceDate = referenceDateProp ?? startOfDay(new Date())
+}
+```
+
+For static values that don't change, extract to a module-level constant:
+
+**Before:**
+
+```typescript
+function Popover({
+    timezone = Intl.DateTimeFormat().resolvedOptions().timeZone, // Violation
+}: Props)
+```
+
+**After:**
+
+```typescript
+const DEFAULT_TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone
+
+function Popover({ timezone = DEFAULT_TIMEZONE }: Props)
+```
+
+### `switch(true)` pattern
+
+> Reason: (BuildHIR::node.lowerReorderableExpression) Expression type `BinaryExpression` cannot be safely reordered
+>
+> Reason: (BuildHIR::node.lowerReorderableExpression) Expression type `LogicalExpression` cannot be safely reordered
+
+The compiler cannot safely optimize `switch(true)` statements with complex case conditions. Convert to a switch on the variable directly:
+
+**Before:**
+
+```typescript
+switch (true) {
+    case status === 'pending':
+        return { content: <Loader /> }
+    case status === 'resolved' && data !== undefined:
+        return { content: <Result data={data} /> }
+}
+```
+
+**After:**
+
+```typescript
+switch (status) {
+    case 'pending':
+        return { content: <Loader /> }
+    case 'resolved':
+        if (data !== undefined) {
+            return { content: <Result data={data} /> }
+        }
+        break
+    case 'idle':
+        return { content: <Idle /> }
+}
+return { content: <Default /> }
+```
+
 ### Computed property keys
 
 > Reason: (BuildHIR::lowerExpression) Expected Identifier, got `LogicalExpression` key in ObjectExpression
@@ -346,6 +465,67 @@ function handleFormInputEnter(event: KeyboardEvent) {
 }
 ```
 
+#### Self-referential callbacks
+
+When a callback references itself (for retry logic with `setTimeout` or animation loops with `requestAnimationFrame`), reordering won't help. Instead, use an **inner function declaration** for the self-referencing logic.
+
+**Before:**
+
+```typescript
+const _logout = useEvent(() => {
+    if (syncStatus === 'ready') {
+        logout()
+        return
+    }
+    setTimeout(_logout, 500) // Error: _logout accessed before declared
+})
+```
+
+**After:**
+
+```typescript
+const _logout = useEvent(() => {
+    function handleLogout() {
+        if (syncStatus === 'ready') {
+            logout()
+            return
+        }
+        setTimeout(handleLogout, 500)
+    }
+    handleLogout()
+})
+```
+
+The inner function declaration is hoisted within its scope, allowing self-reference without depending on the outer variable. This pattern works for both `useEvent` and `useCallback`.
+
+**Warning: Stale closures with async operations.** The inner function captures state values when the outer function is invoked. If the inner function is called later via `setTimeout`, it will see stale values. Use `useRef` instead for values read across async callbacks (like retry counters), since `.current` is read at access time rather than captured in the closure.
+
+#### Avoiding self-reference entirely
+
+If the self-reference is for "run once" behavior (like detaching a listener after first call), consider refactoring to avoid self-reference entirely:
+
+```typescript
+// Instead of detaching inside the handler via self-reference:
+const onEvent = useEvent(function handler() {
+    subject.detach(handler) // Self-reference violation
+    // ...
+})
+
+// Use a ref to track state and detach in useEffect cleanup:
+const hasRunRef = useRef(false)
+
+const onEvent = useEvent(() => {
+    if (hasRunRef.current) return
+    hasRunRef.current = true
+    // ...
+})
+
+useEffect(() => {
+    subject.attach(onEvent)
+    return () => subject.detach(onEvent)
+}, [onEvent])
+```
+
 ### Optional chaining in try/catch blocks
 
 > Reason: Support value blocks (conditional, logical, optional chaining, etc) within a try/catch statement
@@ -418,23 +598,57 @@ useEffect(() => {
 
 ## Identifying violations and verifying fixes (for LLMs)
 
-When fixing violations programmatically, first identify modules with violations by checking `.react-compiler.rec.json`, then use Babel with Inline Logger (method 2 below) on the file to see the exact errors. Extract the error reason and location to plan the fix.
+When fixing violations programmatically, first identify modules with violations by checking `.react-compiler.rec.json`, then use the tracker CLI with `--show-errors` to see the exact errors:
+
+```bash
+npx @doist/react-compiler-tracker --check-files --show-errors src/path/to/file.tsx
+```
+
+Example output:
+
+```
+🔍 Checking 1 file for React Compiler errors…
+⚠️ Found 4 React Compiler issues across 1 file
+
+Detailed errors:
+ - src/path/to/file.tsx: Line 15: Cannot access refs during render (x2)
+ - src/path/to/file.tsx: Line 28: Existing memoization could not be preserved (x2)
+```
+
+Parse the output to extract error reasons (e.g., "Cannot access refs during render") and line numbers to plan the fix.
 
 Once the fix is applied, verify it using one of the following methods:
 
 **1. CLI Tool (recommended)**
 
-Run the tracker with `--overwrite` to regenerate the records file, then check if the entry remains or if its error count has reduced:
+Run the tracker with `--check-files` to verify changes against the records file:
 
 ```bash
-npx @doist/react-compiler-tracker --overwrite
+npx @doist/react-compiler-tracker --check-files src/path/to/file.tsx
 ```
 
-Compare `.react-compiler.rec.json` before and after: if the file's entry is removed or its error count decreased, the fix was successful.
+The tool compares the current errors against `.react-compiler.rec.json` and reports changes:
 
-**Note:** This runs against the entire codebase, not just the modified file. The workaround is needed because `--check-files` doesn't report resolved errors ([react-compiler-tracker#35](https://github.com/Doist/react-compiler-tracker/issues/35)).
+- **Errors increased** (exit code 1):
 
-**2. Babel with Inline Logger**
+    ```
+    React Compiler errors have increased in:
+     • src/path/to/file.tsx: +2
+    Please fix the errors and run the command again.
+    ```
+
+- **Errors decreased** (exit code 0):
+
+    ```
+    🎉 React Compiler errors have decreased in:
+     • src/path/to/file.tsx: -2
+    ```
+
+- **No changes** (exit code 0): No output about changes, just the check summary.
+
+This is faster than `--overwrite` as it only checks the specified files rather than the entire codebase.
+
+**2. Babel with Inline Logger (alternative)**
 
 Run a Node script that uses Babel's API with a custom logger to see exact errors:
 
