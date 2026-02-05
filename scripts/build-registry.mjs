@@ -84,7 +84,7 @@ function rewriteImport(importPath, sourceFile, registryItem) {
 }
 
 /**
- * Rewrites all import/require paths in a TypeScript/JavaScript source string.
+ * Rewrites all import/export paths in a TypeScript/JavaScript source string.
  */
 function rewriteImports(source, sourceFile, registryItem) {
     // Match: import ... from '...' / import '...' / export ... from '...'
