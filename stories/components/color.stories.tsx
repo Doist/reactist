@@ -1,4 +1,4 @@
-import './styles/color-story.less'
+import './styles/color-story.css'
 
 import * as React from 'react'
 

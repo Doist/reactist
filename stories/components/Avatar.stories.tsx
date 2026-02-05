@@ -1,4 +1,4 @@
-import './styles/avatar_story.less'
+import './styles/avatar_story.css'
 
 import * as React from 'react'
 

@@ -1,6 +1,6 @@
 import { addParameters } from '@storybook/react'
 import BaseDecorator from './BaseDecorator'
-import '../stories/components/styles/story.less'
+import '../stories/components/styles/story.css'
 
 export const decorators = [BaseDecorator]
 
