@@ -65,8 +65,14 @@ function rewriteImport(importPath, sourceFile) {
     }
 
     // Component directories → @reactist/ui/<component-dir>
+    // If importing a specific file (not the dir index), preserve the subpath
     const parts = relative.split('/')
-    if (parts.length >= 1) {
+    if (parts.length >= 2) {
+        // e.g. banner/banner → @reactist/ui/banner/banner (specific file)
+        return `@reactist/ui/${relative}`
+    }
+    if (parts.length === 1) {
+        // e.g. box → @reactist/ui/box (directory, resolves to index)
         return `@reactist/ui/${parts[0]}`
     }
 
@@ -92,14 +98,16 @@ function rewriteImports(source, sourceFile) {
 
 /**
  * Copies a source file to the registry directory, rewriting imports.
+ * @param {string} virtualSrcPath - Optional: pretend the file is at this path for import resolution
+ *   (used for extraFiles that are moved to a different component directory)
  */
-function copyWithRewrite(srcPath, destPath) {
+function copyWithRewrite(srcPath, destPath, virtualSrcPath) {
     fs.mkdirSync(path.dirname(destPath), { recursive: true })
 
     const ext = path.extname(srcPath)
     if (['.ts', '.tsx', '.js', '.jsx'].includes(ext)) {
         const content = fs.readFileSync(srcPath, 'utf-8')
-        const rewritten = rewriteImports(content, srcPath)
+        const rewritten = rewriteImports(content, virtualSrcPath || srcPath)
         fs.writeFileSync(destPath, rewritten)
     } else {
         fs.copyFileSync(srcPath, destPath)
@@ -346,6 +354,64 @@ const REGISTRY_ITEMS = [
         category: 'ui',
         registryDependencies: ['button', 'text-field', 'password-icons', 'base-field'],
     },
+
+    // Banner icon (separate item; has type-only import from banner but no registryDep
+    // to avoid circular dep — banner always brings in banner-icon via its own deps)
+    {
+        name: 'banner-icon',
+        srcDir: 'icons',
+        files: ['banner-icon.tsx', 'banner-icon.module.css'],
+        category: 'ui/icons',
+    },
+
+    // Layer 5: Complex components
+    {
+        name: 'banner',
+        srcDir: 'banner',
+        files: ['index.ts', 'banner.tsx', 'banner.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'button', 'text-link', 'banner-icon', 'close-icon', 'common-helpers'],
+    },
+    {
+        name: 'notice',
+        srcDir: 'notice',
+        files: ['index.ts', 'notice.tsx', 'notice.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'columns', 'alert-icon', 'responsive-props', 'common-types'],
+    },
+    {
+        name: 'menu',
+        srcDir: 'menu',
+        // NOTE: menu.less will become menu.module.css after rebasing on the less migration branch
+        files: ['index.ts', 'menu.tsx', 'menu.less'],
+        category: 'ui',
+        registryDependencies: ['common-types'],
+        dependencies: ['@ariakit/react', 'classnames'],
+    },
+    {
+        name: 'tabs',
+        srcDir: 'tabs',
+        files: ['index.ts', 'tabs.tsx', 'tabs.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'inline', 'common-types'],
+        dependencies: ['@ariakit/react', 'classnames'],
+    },
+    {
+        name: 'modal',
+        srcDir: 'modal',
+        files: ['index.ts', 'modal.tsx', 'modal.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'button', 'columns', 'divider', 'close-icon', 'inline', 'common-types'],
+        dependencies: ['@ariakit/react', 'react-focus-lock', 'aria-hidden', 'classnames'],
+    },
+    {
+        name: 'toast',
+        srcDir: 'toast',
+        files: ['index.ts', 'static-toast.tsx', 'use-toasts.tsx', 'toast-animation.ts', 'toast.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'button', 'stack', 'text', 'close-icon', 'common-helpers', 'common-types'],
+        dependencies: ['@ariakit/react'],
+    },
 ]
 
 // ─── Build ───────────────────────────────────────────────────────────────────
@@ -361,6 +427,16 @@ function build() {
             const destPath = path.join(REGISTRY_DIR, item.category, item.name, file)
             copyWithRewrite(srcPath, destPath)
         }
+        // Extra files from other source directories bundled into this item
+        // Use virtual source path so imports resolve relative to the target component
+        if (item.extraFiles) {
+            for (const extra of item.extraFiles) {
+                const srcPath = path.join(SRC, extra.srcDir, extra.file)
+                const destPath = path.join(REGISTRY_DIR, item.category, item.name, extra.file)
+                const virtualSrcPath = path.join(SRC, item.srcDir, extra.file)
+                copyWithRewrite(srcPath, destPath, virtualSrcPath)
+            }
+        }
     }
 
     // Generate registry.json
@@ -373,11 +449,18 @@ function build() {
             type: 'registry:file',
             dependencies: item.dependencies || [],
             registryDependencies: item.registryDependencies || [],
-            files: item.files.map((file) => ({
-                path: `registry/${item.category}/${item.name}/${file}`,
-                type: 'registry:file',
-                target: `${TARGET_BASE}/${item.category}/${item.name}/${file}`,
-            })),
+            files: [
+                ...item.files.map((file) => ({
+                    path: `registry/${item.category}/${item.name}/${file}`,
+                    type: 'registry:file',
+                    target: `${TARGET_BASE}/${item.category}/${item.name}/${file}`,
+                })),
+                ...(item.extraFiles || []).map((extra) => ({
+                    path: `registry/${item.category}/${item.name}/${extra.file}`,
+                    type: 'registry:file',
+                    target: `${TARGET_BASE}/${item.category}/${item.name}/${extra.file}`,
+                })),
+            ],
         })),
     }
 
