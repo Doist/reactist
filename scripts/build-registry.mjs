@@ -239,6 +239,113 @@ const REGISTRY_ITEMS = [
         category: 'ui',
         registryDependencies: ['box', 'polymorphism', 'responsive-props', 'common-types'],
     },
+
+    // Layer 3: Interactive components
+    {
+        name: 'tooltip',
+        srcDir: 'tooltip',
+        files: ['index.ts', 'tooltip.tsx', 'tooltip.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'common-types'],
+        dependencies: ['@ariakit/react'],
+    },
+    {
+        name: 'button',
+        srcDir: 'button',
+        files: ['index.ts', 'button.tsx', 'button.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'spinner', 'tooltip', 'common-types'],
+        dependencies: ['@ariakit/react', 'classnames'],
+    },
+    {
+        name: 'text-link',
+        srcDir: 'text-link',
+        files: ['index.ts', 'text-link.tsx', 'text-link.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'polymorphism', 'common-types'],
+    },
+    {
+        name: 'badge',
+        srcDir: 'badge',
+        files: ['index.ts', 'badge.tsx', 'badge.module.css'],
+        category: 'ui',
+        registryDependencies: ['box'],
+    },
+    {
+        name: 'avatar',
+        srcDir: 'avatar',
+        files: ['index.ts', 'avatar.tsx', 'avatar.module.css', 'utils.ts'],
+        category: 'ui',
+        registryDependencies: ['box', 'responsive-props', 'common-types'],
+    },
+    {
+        name: 'loading',
+        srcDir: 'loading',
+        files: ['index.ts', 'loading.tsx'],
+        category: 'ui',
+        registryDependencies: ['box', 'spinner', 'common-types'],
+    },
+    {
+        name: 'prose',
+        srcDir: 'prose',
+        files: ['index.ts', 'prose.tsx', 'prose.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'common-types'],
+        dependencies: ['marked'],
+    },
+
+    // Layer 4: Form fields
+    {
+        name: 'base-field',
+        srcDir: 'base-field',
+        files: ['index.ts', 'base-field.tsx', 'base-field.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'columns', 'spinner', 'stack', 'text', 'common-helpers', 'common-types'],
+    },
+    {
+        name: 'text-field',
+        srcDir: 'text-field',
+        files: ['index.ts', 'text-field.tsx', 'text-field.module.css'],
+        category: 'ui',
+        registryDependencies: ['base-field', 'box'],
+        dependencies: ['use-callback-ref'],
+    },
+    {
+        name: 'text-area',
+        srcDir: 'text-area',
+        files: ['index.ts', 'text-area.tsx', 'text-area.module.css'],
+        category: 'ui',
+        registryDependencies: ['base-field', 'box'],
+        dependencies: ['classnames', 'use-callback-ref'],
+    },
+    {
+        name: 'select-field',
+        srcDir: 'select-field',
+        files: ['index.ts', 'select-field.tsx', 'select-field.module.css'],
+        category: 'ui',
+        registryDependencies: ['base-field', 'box'],
+    },
+    {
+        name: 'checkbox-field',
+        srcDir: 'checkbox-field',
+        files: ['index.ts', 'checkbox-field.tsx', 'checkbox-field.module.css', 'checkbox-icon.tsx', 'use-fork-ref.ts'],
+        category: 'ui',
+        registryDependencies: ['box', 'text'],
+    },
+    {
+        name: 'switch-field',
+        srcDir: 'switch-field',
+        files: ['index.ts', 'switch-field.tsx', 'switch-field.module.css'],
+        category: 'ui',
+        registryDependencies: ['base-field', 'box', 'hidden-visually', 'stack', 'text', 'common-helpers'],
+    },
+    {
+        name: 'password-field',
+        srcDir: 'password-field',
+        files: ['index.ts', 'password-field.tsx'],
+        category: 'ui',
+        registryDependencies: ['button', 'text-field', 'password-icons', 'base-field'],
+    },
 ]
 
 // ─── Build ───────────────────────────────────────────────────────────────────
