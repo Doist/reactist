@@ -1,4 +1,4 @@
-import './menu.less'
+import styles from './menu.module.css'
 
 import * as React from 'react'
 
@@ -172,7 +172,7 @@ const MenuList = React.forwardRef<HTMLDivElement, MenuListProps>(function MenuLi
                 gutter={8}
                 shift={4}
                 ref={ref}
-                className={classNames('reactist_menulist', exceptionallySetClassName)}
+                className={classNames(styles.menulist, exceptionallySetClassName)}
                 getAnchorRect={getAnchorRect ?? undefined}
                 modal={modal}
                 flip={flip ?? (isSubMenu ? 'left bottom' : undefined)}
@@ -380,7 +380,7 @@ const MenuGroup = React.forwardRef<HTMLDivElement, MenuGroupProps>(function Menu
             className={exceptionallySetClassName}
         >
             {label ? (
-                <div role="presentation" className="reactist_menugroup__label">
+                <div role="presentation" className={styles.menuGroupLabel}>
                     {label}
                 </div>
             ) : null}

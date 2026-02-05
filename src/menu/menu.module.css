@@ -1,0 +1,76 @@
+/* minimum accessible target area */
+.menulist[role='menu'] {
+    min-height: 44px;
+    max-height: var(--popover-available-height); /* defined by ariakit */
+    overflow: auto;
+    display: block;
+    white-space: nowrap;
+    background: hsla(0, 100%, 100%, 0.99);
+    outline: none;
+    font-size: var(--reactist-font-size-copy);
+    padding: 4px 0;
+    min-width: 180px;
+    border: 1px solid var(--reactist-divider-secondary);
+    border-radius: 3px;
+    margin: -4px; /* Required to add spacing between the viewport, used in conjunction with unstable_offset */
+    z-index: var(--reactist-stacking-order-menu);
+}
+
+.menulist [role='menuitem'],
+.menulist .menuGroupLabel {
+    user-select: none;
+    outline: none;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    color: inherit;
+    border: none;
+    background-color: transparent;
+    font-family: var(--reactist-font-family);
+    font-size: var(--reactist-font-size-copy);
+}
+
+.menulist .menuGroupLabel {
+    color: var(--reactist-content-secondary);
+    font-size: var(--reactist-font-size-copy);
+}
+
+.menulist [role='menuitem'] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.menulist [role='menuitem']:hover,
+.menulist [role='menuitem']:focus,
+.menulist [role='menuitem'][aria-expanded='true'] {
+    color: var(--reactist-content-primary);
+    background-color: var(--reactist-bg-selected);
+}
+
+.menulist [role='menuitem'][aria-disabled='true'],
+.menulist [role='menuitem']:disabled {
+    color: var(--reactist-content-secondary);
+    pointer-events: none;
+}
+
+.menulist a[role='menuitem'] {
+    cursor: default;
+    text-decoration: none;
+}
+
+.menulist a[role='menuitem']:hover {
+    text-decoration: none;
+}
+
+/* sub-menus need to be shifted a bit towards the top to be aligned with its menu item */
+.menulist [role='menu'] {
+    margin-top: -5px;
+}
+
+.menulist hr {
+    border: none;
+    height: 1px;
+    background-color: var(--reactist-bg-selected);
+    margin: 4px 0;
+}
