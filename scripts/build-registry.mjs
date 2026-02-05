@@ -14,12 +14,9 @@ const ROOT = path.resolve(import.meta.dirname, '..')
 const SRC = path.join(ROOT, 'src')
 const REGISTRY_DIR = path.join(ROOT, 'registry')
 
-// Import path mappings: relative source path → registry alias
-// Components in src/<name>/ → @reactist/ui/<name>
-// Utils in src/utils/ → @reactist/lib/<name>
-// Styles in src/styles/ → @reactist/styles/<name>
-
-const UTIL_FILES = ['common-types', 'common-helpers', 'responsive-props', 'polymorphism']
+// Consumer target base path — where files end up in the consumer project.
+// Consumer adds tsconfig path: "@reactist/*" → ["./src/components/reactist/*"]
+const TARGET_BASE = 'src/components/reactist'
 
 /**
  * Maps a relative import path from a source file to its @reactist alias.
@@ -36,6 +33,11 @@ function rewriteImport(importPath, sourceFile) {
     const resolved = path.resolve(sourceDir, importPath)
     const relative = path.relative(SRC, resolved)
 
+    // CSS module imports (same directory) - keep relative
+    if (importPath.endsWith('.css') || importPath.endsWith('.module.css')) {
+        return null
+    }
+
     // utils/* → @reactist/lib/*
     if (relative.startsWith('utils/')) {
         const name = relative.replace('utils/', '')
@@ -48,12 +50,12 @@ function rewriteImport(importPath, sourceFile) {
         return `@reactist/styles/${name}`
     }
 
-    // CSS module imports (same directory) - keep relative
-    if (importPath.endsWith('.css') || importPath.endsWith('.module.css')) {
-        return null
+    // icons/* → @reactist/ui/icons/*
+    if (relative.startsWith('icons/')) {
+        return `@reactist/ui/${relative}`
     }
 
-    // Component directories → @reactist/ui/*
+    // Component directories → @reactist/ui/<component-dir>
     const parts = relative.split('/')
     if (parts.length >= 1) {
         return `@reactist/ui/${parts[0]}`
@@ -81,8 +83,6 @@ function rewriteImports(source, sourceFile) {
 
 /**
  * Copies a source file to the registry directory, rewriting imports.
- * @param {string} srcPath - Absolute path to source file
- * @param {string} destPath - Absolute path to destination
  */
 function copyWithRewrite(srcPath, destPath) {
     fs.mkdirSync(path.dirname(destPath), { recursive: true })
@@ -93,18 +93,52 @@ function copyWithRewrite(srcPath, destPath) {
         const rewritten = rewriteImports(content, srcPath)
         fs.writeFileSync(destPath, rewritten)
     } else {
-        // CSS, etc - copy as-is
         fs.copyFileSync(srcPath, destPath)
     }
 }
 
-/**
- * Registry item definitions. Each item maps to a shadcn registry entry.
- * @type {Array<{name: string, type: string, srcDir: string, files: string[], registryDependencies?: string[], dependencies?: string[]}>}
- */
-const REGISTRY_ITEMS = []
+// ─── Registry item definitions ───────────────────────────────────────────────
+// Each item: { name, srcDir, files[], category, registryDependencies?, dependencies? }
+// category: 'styles' | 'lib' | 'ui'
 
-// Build registry
+const REGISTRY_ITEMS = [
+    // Layer 0: Foundation
+    {
+        name: 'design-tokens',
+        srcDir: 'styles',
+        files: ['design-tokens.css'],
+        category: 'styles',
+    },
+    {
+        name: 'common-types',
+        srcDir: 'utils',
+        files: ['common-types.ts'],
+        category: 'lib',
+        dependencies: ['classnames'],
+    },
+    {
+        name: 'common-helpers',
+        srcDir: 'utils',
+        files: ['common-helpers.ts'],
+        category: 'lib',
+    },
+    {
+        name: 'responsive-props',
+        srcDir: 'utils',
+        files: ['responsive-props.ts'],
+        category: 'lib',
+    },
+    {
+        name: 'polymorphism',
+        srcDir: 'utils',
+        files: ['polymorphism.ts'],
+        category: 'lib',
+        registryDependencies: ['common-types'],
+    },
+]
+
+// ─── Build ───────────────────────────────────────────────────────────────────
+
 function build() {
     // Clean
     fs.rmSync(REGISTRY_DIR, { recursive: true, force: true })
@@ -113,39 +147,30 @@ function build() {
         const srcDir = path.join(SRC, item.srcDir)
         for (const file of item.files) {
             const srcPath = path.join(srcDir, file)
-            const destDir = item.type === 'registry:file' ? 'styles' : item.srcDir.startsWith('utils') ? 'lib' : 'ui'
-            const destPath = path.join(REGISTRY_DIR, destDir, item.name, file)
+            const destPath = path.join(REGISTRY_DIR, item.category, item.name, file)
             copyWithRewrite(srcPath, destPath)
         }
     }
 
-    // Generate registry.json with file paths pointing to registry/ dir
+    // Generate registry.json
     const registryJson = {
         $schema: 'https://ui.shadcn.com/schema/registry.json',
         name: 'reactist',
         homepage: 'https://github.com/Doist/reactist',
         items: REGISTRY_ITEMS.map((item) => ({
             name: item.name,
-            type: item.type,
+            type: 'registry:file',
             dependencies: item.dependencies || [],
             registryDependencies: item.registryDependencies || [],
-            files: item.files.map((file) => {
-                const destDir = item.type === 'registry:file' ? 'styles' : item.srcDir.startsWith('utils') ? 'lib' : 'ui'
-                const registryPath = `registry/${destDir}/${item.name}/${file}`
-                const isCss = file.endsWith('.css')
-                const isHook = file.startsWith('use-') || file.startsWith('use.')
-                const fileType = isCss ? 'registry:file' : isHook ? 'registry:hook' : 'registry:component'
-                const entry = { path: registryPath, type: fileType }
-                if (isCss) {
-                    entry.target = `components/reactist/${destDir}/${item.name}/${file}`
-                }
-                return entry
-            }),
+            files: item.files.map((file) => ({
+                path: `registry/${item.category}/${item.name}/${file}`,
+                type: 'registry:file',
+                target: `${TARGET_BASE}/${item.category}/${item.name}/${file}`,
+            })),
         })),
     }
 
     fs.writeFileSync(path.join(ROOT, 'registry.json'), JSON.stringify(registryJson, null, 4) + '\n')
-
     console.log(`Built ${REGISTRY_ITEMS.length} registry items`)
 }
 
