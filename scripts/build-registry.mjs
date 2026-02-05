@@ -172,6 +172,73 @@ const REGISTRY_ITEMS = [
         files: ['password-hidden-icon.tsx', 'password-visible-icon.tsx'],
         category: 'ui/icons',
     },
+
+    // Layer 2: Core layout
+    {
+        name: 'box',
+        srcDir: 'box',
+        files: ['index.ts', 'box.tsx', 'box.module.css', 'gap.module.css', 'margin.module.css', 'padding.module.css', 'width.module.css'],
+        category: 'ui',
+        registryDependencies: ['polymorphism', 'responsive-props', 'common-types', 'design-tokens'],
+        dependencies: ['classnames'],
+    },
+    {
+        name: 'hidden-visually',
+        srcDir: 'hidden-visually',
+        files: ['index.ts', 'hidden-visually.tsx', 'hidden-visually.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'polymorphism'],
+    },
+    {
+        name: 'hidden',
+        srcDir: 'hidden',
+        files: ['index.ts', 'hidden.tsx', 'hidden.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'polymorphism', 'responsive-props'],
+    },
+    {
+        name: 'divider',
+        srcDir: 'divider',
+        files: ['index.ts', 'divider.tsx', 'divider.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'responsive-props', 'common-types'],
+    },
+    {
+        name: 'heading',
+        srcDir: 'heading',
+        files: ['index.ts', 'heading.tsx', 'heading.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'responsive-props', 'common-types'],
+    },
+    {
+        name: 'text',
+        srcDir: 'text',
+        files: ['index.ts', 'text.tsx', 'text.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'polymorphism', 'responsive-props', 'common-types'],
+    },
+    {
+        name: 'stack',
+        srcDir: 'stack',
+        files: ['index.ts', 'stack.tsx'],
+        category: 'ui',
+        registryDependencies: ['box', 'divider', 'polymorphism', 'responsive-props', 'common-types'],
+        dependencies: ['react-keyed-flatten-children'],
+    },
+    {
+        name: 'inline',
+        srcDir: 'inline',
+        files: ['index.ts', 'inline.tsx'],
+        category: 'ui',
+        registryDependencies: ['box', 'polymorphism', 'responsive-props', 'common-types'],
+    },
+    {
+        name: 'columns',
+        srcDir: 'columns',
+        files: ['index.ts', 'columns.tsx', 'columns.module.css'],
+        category: 'ui',
+        registryDependencies: ['box', 'polymorphism', 'responsive-props', 'common-types'],
+    },
 ]
 
 // ─── Build ───────────────────────────────────────────────────────────────────
