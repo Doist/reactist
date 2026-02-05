@@ -28,13 +28,22 @@ function rewriteImport(importPath, sourceFile) {
     // Only rewrite relative imports
     if (!importPath.startsWith('.')) return null
 
+    // CSS module imports - always keep relative
+    if (importPath.endsWith('.css') || importPath.endsWith('.module.css')) {
+        return null
+    }
+
     // Resolve to absolute path
     const sourceDir = path.dirname(sourceFile)
     const resolved = path.resolve(sourceDir, importPath)
     const relative = path.relative(SRC, resolved)
+    const sourceRelative = path.relative(SRC, sourceFile)
 
-    // CSS module imports (same directory) - keep relative
-    if (importPath.endsWith('.css') || importPath.endsWith('.module.css')) {
+    // Same-directory imports (sibling files) - keep relative
+    // e.g. spinner/index.ts importing ./spinner → stays ./spinner
+    const sourceComponent = sourceRelative.split('/')[0]
+    const targetComponent = relative.split('/')[0]
+    if (sourceComponent === targetComponent && !relative.includes('/utils/') && !relative.includes('/styles/')) {
         return null
     }
 
@@ -134,6 +143,34 @@ const REGISTRY_ITEMS = [
         files: ['polymorphism.ts'],
         category: 'lib',
         registryDependencies: ['common-types'],
+    },
+
+    // Layer 1: Primitives
+    {
+        name: 'spinner',
+        srcDir: 'spinner',
+        files: ['index.ts', 'spinner.tsx', 'spinner.module.css'],
+        category: 'ui',
+        registryDependencies: ['design-tokens'],
+    },
+    {
+        name: 'close-icon',
+        srcDir: 'icons',
+        files: ['close-icon.tsx'],
+        category: 'ui/icons',
+    },
+    {
+        name: 'alert-icon',
+        srcDir: 'icons',
+        files: ['alert-icon.tsx'],
+        category: 'ui/icons',
+        registryDependencies: ['common-types'],
+    },
+    {
+        name: 'password-icons',
+        srcDir: 'icons',
+        files: ['password-hidden-icon.tsx', 'password-visible-icon.tsx'],
+        category: 'ui/icons',
     },
 ]
 
