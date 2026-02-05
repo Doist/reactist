@@ -13,3 +13,4 @@ coverage/
 stats.html
 public/
 registry/
+registry.json
