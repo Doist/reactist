@@ -12,3 +12,4 @@ coverage/
 .vscode/
 stats.html
 public/
+registry/

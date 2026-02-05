@@ -45,6 +45,7 @@
         "poststart:yalc": "yalc installations clean",
         "start:yalc:success": "./scripts/organize-styles.sh && yalc push --sig",
         "build": "scripts/build.sh",
+        "build:registry": "node scripts/build-registry.mjs && shadcn build -o ./public/r",
         "build:storybook": "build-storybook -o docs",
         "clean": "rimraf es lib styles dist",
         "test": "jest --passWithNoTests",
