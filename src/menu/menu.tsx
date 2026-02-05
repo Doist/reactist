@@ -1,5 +1,3 @@
-import styles from './menu.module.css'
-
 import * as React from 'react'
 
 import {
@@ -12,6 +10,8 @@ import {
     useMenuStore,
 } from '@ariakit/react'
 import classNames from 'classnames'
+
+import styles from './menu.module.css'
 
 import type {
     MenuButtonProps as AriakitMenuButtonProps,
