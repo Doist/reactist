@@ -22,9 +22,10 @@ const TARGET_BASE = 'src/components/reactist'
  * Maps a relative import path from a source file to its @reactist alias.
  * @param {string} importPath - The relative import path (e.g. '../box', '../utils/common-types')
  * @param {string} sourceFile - The absolute path of the file containing the import
+ * @param {{ srcDir: string, files: string[] }} registryItem - The registry item the source file belongs to
  * @returns {string|null} The rewritten path, or null if no rewrite needed
  */
-function rewriteImport(importPath, sourceFile) {
+function rewriteImport(importPath, sourceFile, registryItem) {
     // Only rewrite relative imports
     if (!importPath.startsWith('.')) return null
 
@@ -37,13 +38,16 @@ function rewriteImport(importPath, sourceFile) {
     const sourceDir = path.dirname(sourceFile)
     const resolved = path.resolve(sourceDir, importPath)
     const relative = path.relative(SRC, resolved)
-    const sourceRelative = path.relative(SRC, sourceFile)
 
-    // Same-directory imports (sibling files) - keep relative
+    // Same-item imports - keep relative (these files end up in the same output directory)
     // e.g. spinner/index.ts importing ./spinner → stays ./spinner
-    const sourceComponent = sourceRelative.split('/')[0]
-    const targetComponent = relative.split('/')[0]
-    if (sourceComponent === targetComponent && !relative.includes('/utils/') && !relative.includes('/styles/')) {
+    const itemDir = path.join(SRC, registryItem.srcDir)
+    const isInSameItem = registryItem.files.some((f) => {
+        const filePath = path.join(itemDir, f)
+        const filePathNoExt = filePath.replace(/\.(ts|tsx|js|jsx)$/, '')
+        return resolved === filePath || resolved === filePathNoExt
+    })
+    if (isInSameItem) {
         return null
     }
 
@@ -82,12 +86,12 @@ function rewriteImport(importPath, sourceFile) {
 /**
  * Rewrites all import/require paths in a TypeScript/JavaScript source string.
  */
-function rewriteImports(source, sourceFile) {
+function rewriteImports(source, sourceFile, registryItem) {
     // Match: import ... from '...' / import '...' / export ... from '...'
     return source.replace(
         /((?:import|export)\s+(?:(?:type\s+)?(?:\{[^}]*\}|[^'"]*)\s+from\s+)?['"])([^'"]+)(['"])/g,
         (match, prefix, importPath, suffix) => {
-            const rewritten = rewriteImport(importPath, sourceFile)
+            const rewritten = rewriteImport(importPath, sourceFile, registryItem)
             if (rewritten) {
                 return `${prefix}${rewritten}${suffix}`
             }
@@ -101,13 +105,13 @@ function rewriteImports(source, sourceFile) {
  * @param {string} virtualSrcPath - Optional: pretend the file is at this path for import resolution
  *   (used for extraFiles that are moved to a different component directory)
  */
-function copyWithRewrite(srcPath, destPath, virtualSrcPath) {
+function copyWithRewrite(srcPath, destPath, virtualSrcPath, registryItem) {
     fs.mkdirSync(path.dirname(destPath), { recursive: true })
 
     const ext = path.extname(srcPath)
     if (['.ts', '.tsx', '.js', '.jsx'].includes(ext)) {
         const content = fs.readFileSync(srcPath, 'utf-8')
-        const rewritten = rewriteImports(content, virtualSrcPath || srcPath)
+        const rewritten = rewriteImports(content, virtualSrcPath || srcPath, registryItem)
         fs.writeFileSync(destPath, rewritten)
     } else {
         fs.copyFileSync(srcPath, destPath)
@@ -425,7 +429,7 @@ function build() {
         for (const file of item.files) {
             const srcPath = path.join(srcDir, file)
             const destPath = path.join(REGISTRY_DIR, item.category, item.name, file)
-            copyWithRewrite(srcPath, destPath)
+            copyWithRewrite(srcPath, destPath, undefined, item)
         }
         // Extra files from other source directories bundled into this item
         // Use virtual source path so imports resolve relative to the target component
@@ -434,7 +438,7 @@ function build() {
                 const srcPath = path.join(SRC, extra.srcDir, extra.file)
                 const destPath = path.join(REGISTRY_DIR, item.category, item.name, extra.file)
                 const virtualSrcPath = path.join(SRC, item.srcDir, extra.file)
-                copyWithRewrite(srcPath, destPath, virtualSrcPath)
+                copyWithRewrite(srcPath, destPath, virtualSrcPath, item)
             }
         }
     }
