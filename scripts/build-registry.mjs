@@ -465,7 +465,20 @@ function build() {
     }
 
     fs.writeFileSync(path.join(ROOT, 'registry.json'), JSON.stringify(registryJson, null, 4) + '\n')
-    console.log(`Built ${REGISTRY_ITEMS.length} registry items`)
+
+    // Generate version manifest (published alongside registry for update detection)
+    const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, 'package.json'), 'utf-8'))
+    const manifest = {
+        registryUrl: 'https://doist.github.io/reactist/r',
+        version: pkg.version,
+        generatedAt: new Date().toISOString(),
+        items: REGISTRY_ITEMS.map((item) => item.name),
+    }
+    const outputDir = path.join(ROOT, 'public', 'r')
+    fs.mkdirSync(outputDir, { recursive: true })
+    fs.writeFileSync(path.join(outputDir, 'manifest.json'), JSON.stringify(manifest, null, 4) + '\n')
+
+    console.log(`Built ${REGISTRY_ITEMS.length} registry items (v${pkg.version})`)
 }
 
 build()
