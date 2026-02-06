@@ -38,7 +38,9 @@ If you prefer to include static files grab the [minified build from the dist fol
 <link rel="stylesheet" type="text/css" href="./node_modules/@doist/reactist/styles/reactist.css" />
 ```
 
-# Registry (shadcn/ui)
+# Registry (shadcn/ui) — experimental
+
+> **Note:** The shadcn registry is experimental and may change without notice.
 
 Reactist is also available as a [shadcn/ui registry](https://ui.shadcn.com/docs/registry), distributing component source files (TypeScript + CSS Modules) directly into your project.
 
