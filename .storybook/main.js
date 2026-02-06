@@ -50,6 +50,7 @@ module.exports = {
                             ? [
                                   {
                                       ...rule,
+                                      test: /\.module\.css$/,
                                       use: rule.use.map((useEntry) => {
                                           return useEntry.loader?.match(/\/css-loader/)
                                               ? {
@@ -72,7 +73,6 @@ module.exports = {
                                   },
                                   {
                                       ...rule,
-                                      test: /\.module\.css$/,
                                       exclude: /\.module\.css$/,
                                   },
                               ]

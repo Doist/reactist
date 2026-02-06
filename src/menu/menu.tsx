@@ -1,4 +1,4 @@
-import './menu.less'
+import './menu.module.css'
 
 import * as React from 'react'
 
