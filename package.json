@@ -49,6 +49,7 @@
         "build:storybook": "build-storybook -o docs",
         "clean": "rimraf es lib styles dist",
         "test": "jest --passWithNoTests",
+        "test:registry": "node --test scripts/__tests__/build-registry.test.mjs",
         "test:watch": "npm run test -- --watch",
         "test:coverage": "npm run test -- --coverage",
         "type-check": "tsc --noEmit -p ./tsconfig.json",
