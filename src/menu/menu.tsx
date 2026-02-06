@@ -1,3 +1,5 @@
+import './menu.module.css'
+
 import * as React from 'react'
 
 import {
@@ -10,8 +12,6 @@ import {
     useMenuStore,
 } from '@ariakit/react'
 import classNames from 'classnames'
-
-import styles from './menu.module.css'
 
 import type {
     MenuButtonProps as AriakitMenuButtonProps,
@@ -172,7 +172,7 @@ const MenuList = React.forwardRef<HTMLDivElement, MenuListProps>(function MenuLi
                 gutter={8}
                 shift={4}
                 ref={ref}
-                className={classNames(styles.menulist, exceptionallySetClassName)}
+                className={classNames('reactist_menulist', exceptionallySetClassName)}
                 getAnchorRect={getAnchorRect ?? undefined}
                 modal={modal}
                 flip={flip ?? (isSubMenu ? 'left bottom' : undefined)}
@@ -380,7 +380,7 @@ const MenuGroup = React.forwardRef<HTMLDivElement, MenuGroupProps>(function Menu
             className={exceptionallySetClassName}
         >
             {label ? (
-                <div role="presentation" className={styles.menuGroupLabel}>
+                <div role="presentation" className="reactist_menugroup__label">
                     {label}
                 </div>
             ) : null}

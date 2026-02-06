@@ -1,5 +1,5 @@
 /* minimum accessible target area */
-.menulist[role='menu'] {
+:global(.reactist_menulist)[role='menu'] {
     min-height: 44px;
     max-height: var(--popover-available-height); /* defined by ariakit */
     overflow: auto;
@@ -16,8 +16,8 @@
     z-index: var(--reactist-stacking-order-menu);
 }
 
-.menulist [role='menuitem'],
-.menulist .menuGroupLabel {
+:global(.reactist_menulist) [role='menuitem'],
+:global(.reactist_menulist) :global(.reactist_menugroup__label) {
     user-select: none;
     outline: none;
     text-align: left;
@@ -31,44 +31,44 @@
     font-size: var(--reactist-font-size-copy);
 }
 
-.menulist .menuGroupLabel {
+:global(.reactist_menulist) :global(.reactist_menugroup__label) {
     color: var(--reactist-content-secondary);
     font-size: var(--reactist-font-size-copy);
 }
 
-.menulist [role='menuitem'] {
+:global(.reactist_menulist) [role='menuitem'] {
     width: 100%;
     box-sizing: border-box;
 }
 
-.menulist [role='menuitem']:hover,
-.menulist [role='menuitem']:focus,
-.menulist [role='menuitem'][aria-expanded='true'] {
+:global(.reactist_menulist) [role='menuitem']:hover,
+:global(.reactist_menulist) [role='menuitem']:focus,
+:global(.reactist_menulist) [role='menuitem'][aria-expanded='true'] {
     color: var(--reactist-content-primary);
     background-color: var(--reactist-bg-selected);
 }
 
-.menulist [role='menuitem'][aria-disabled='true'],
-.menulist [role='menuitem']:disabled {
+:global(.reactist_menulist) [role='menuitem'][aria-disabled='true'],
+:global(.reactist_menulist) [role='menuitem']:disabled {
     color: var(--reactist-content-secondary);
     pointer-events: none;
 }
 
-.menulist a[role='menuitem'] {
+:global(.reactist_menulist) a[role='menuitem'] {
     cursor: default;
     text-decoration: none;
 }
 
-.menulist a[role='menuitem']:hover {
+:global(.reactist_menulist) a[role='menuitem']:hover {
     text-decoration: none;
 }
 
 /* sub-menus need to be shifted a bit towards the top to be aligned with its menu item */
-.menulist [role='menu'] {
+:global(.reactist_menulist) [role='menu'] {
     margin-top: -5px;
 }
 
-.menulist hr {
+:global(.reactist_menulist) hr {
     border: none;
     height: 1px;
     background-color: var(--reactist-bg-selected);
