@@ -135,7 +135,7 @@ const REGISTRY_ITEMS = [
         srcDir: 'utils',
         files: ['common-types.ts'],
         category: 'lib',
-        dependencies: ['classnames'],
+        dependencies: ['classnames@^2.2.5'],
     },
     {
         name: 'common-helpers',
@@ -192,7 +192,7 @@ const REGISTRY_ITEMS = [
         files: ['index.ts', 'box.tsx', 'box.module.css', 'gap.module.css', 'margin.module.css', 'padding.module.css', 'width.module.css'],
         category: 'ui',
         registryDependencies: ['polymorphism', 'responsive-props', 'common-types', 'design-tokens'],
-        dependencies: ['classnames'],
+        dependencies: ['classnames@^2.2.5'],
     },
     {
         name: 'hidden-visually',
@@ -235,7 +235,7 @@ const REGISTRY_ITEMS = [
         files: ['index.ts', 'stack.tsx'],
         category: 'ui',
         registryDependencies: ['box', 'divider', 'polymorphism', 'responsive-props', 'common-types'],
-        dependencies: ['react-keyed-flatten-children'],
+        dependencies: ['react-keyed-flatten-children@^1.3.0'],
     },
     {
         name: 'inline',
@@ -259,7 +259,7 @@ const REGISTRY_ITEMS = [
         files: ['index.ts', 'tooltip.tsx', 'tooltip.module.css'],
         category: 'ui',
         registryDependencies: ['box', 'common-types'],
-        dependencies: ['@ariakit/react'],
+        dependencies: ['@ariakit/react@~0.4.19'],
     },
     {
         name: 'button',
@@ -267,7 +267,7 @@ const REGISTRY_ITEMS = [
         files: ['index.ts', 'button.tsx', 'button.module.css'],
         category: 'ui',
         registryDependencies: ['box', 'spinner', 'tooltip', 'common-types'],
-        dependencies: ['@ariakit/react', 'classnames'],
+        dependencies: ['@ariakit/react@~0.4.19', 'classnames@^2.2.5'],
     },
     {
         name: 'text-link',
@@ -303,7 +303,7 @@ const REGISTRY_ITEMS = [
         files: ['index.ts', 'prose.tsx', 'prose.module.css'],
         category: 'ui',
         registryDependencies: ['box', 'common-types'],
-        dependencies: ['marked'],
+        dependencies: ['marked@^4.2.12'],
     },
 
     // Layer 4: Form fields
@@ -320,7 +320,7 @@ const REGISTRY_ITEMS = [
         files: ['index.ts', 'text-field.tsx', 'text-field.module.css'],
         category: 'ui',
         registryDependencies: ['base-field', 'box'],
-        dependencies: ['use-callback-ref'],
+        dependencies: ['use-callback-ref@^1.3.0'],
     },
     {
         name: 'text-area',
@@ -328,7 +328,7 @@ const REGISTRY_ITEMS = [
         files: ['index.ts', 'text-area.tsx', 'text-area.module.css'],
         category: 'ui',
         registryDependencies: ['base-field', 'box'],
-        dependencies: ['classnames', 'use-callback-ref'],
+        dependencies: ['classnames@^2.2.5', 'use-callback-ref@^1.3.0'],
     },
     {
         name: 'select-field',
@@ -390,7 +390,7 @@ const REGISTRY_ITEMS = [
         files: ['index.ts', 'menu.tsx', 'menu.less'],
         category: 'ui',
         registryDependencies: ['common-types'],
-        dependencies: ['@ariakit/react', 'classnames'],
+        dependencies: ['@ariakit/react@~0.4.19', 'classnames@^2.2.5'],
     },
     {
         name: 'tabs',
@@ -398,7 +398,7 @@ const REGISTRY_ITEMS = [
         files: ['index.ts', 'tabs.tsx', 'tabs.module.css'],
         category: 'ui',
         registryDependencies: ['box', 'inline', 'common-types'],
-        dependencies: ['@ariakit/react', 'classnames'],
+        dependencies: ['@ariakit/react@~0.4.19', 'classnames@^2.2.5'],
     },
     {
         name: 'modal',
@@ -406,7 +406,7 @@ const REGISTRY_ITEMS = [
         files: ['index.ts', 'modal.tsx', 'modal.module.css'],
         category: 'ui',
         registryDependencies: ['box', 'button', 'columns', 'divider', 'close-icon', 'inline', 'common-types'],
-        dependencies: ['@ariakit/react', 'react-focus-lock', 'aria-hidden', 'classnames'],
+        dependencies: ['@ariakit/react@~0.4.19', 'react-focus-lock@^2.9.1', 'aria-hidden@^1.2.1', 'classnames@^2.2.5'],
     },
     {
         name: 'toast',
@@ -414,7 +414,7 @@ const REGISTRY_ITEMS = [
         files: ['index.ts', 'static-toast.tsx', 'use-toasts.tsx', 'toast-animation.ts', 'toast.module.css'],
         category: 'ui',
         registryDependencies: ['box', 'button', 'stack', 'text', 'close-icon', 'common-helpers', 'common-types'],
-        dependencies: ['@ariakit/react'],
+        dependencies: ['@ariakit/react@~0.4.19'],
     },
 ]
 
