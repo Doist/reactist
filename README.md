@@ -38,6 +38,34 @@ If you prefer to include static files grab the [minified build from the dist fol
 <link rel="stylesheet" type="text/css" href="./node_modules/@doist/reactist/styles/reactist.css" />
 ```
 
+# Registry (shadcn/ui)
+
+Reactist is also available as a [shadcn/ui registry](https://ui.shadcn.com/docs/registry), distributing component source files (TypeScript + CSS Modules) directly into your project.
+
+```sh
+npx shadcn add https://doist.github.io/reactist/r
+```
+
+## Setup
+
+Your bundler must support CSS Modules (Vite, Next.js, and webpack do by default). Add a path alias so registry imports resolve correctly:
+
+```json
+{
+    "compilerOptions": {
+        "paths": {
+            "@reactist/*": ["./src/components/reactist/*"]
+        }
+    }
+}
+```
+
+## Mixing npm and registry
+
+Do not import the same component from both `@doist/reactist` (npm) and the registry. Each source applies its own CSS Module scoping, so duplicate components will have conflicting styles.
+
+Different components from different sources (e.g., Button from npm, Box from registry) work fine — CSS Modules scope independently. Migrate one component at a time.
+
 # Changelog
 
 You can find our changelog [here](./CHANGELOG.md).
