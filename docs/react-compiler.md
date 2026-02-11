@@ -520,10 +520,13 @@ const onEvent = useEvent(() => {
     // ...
 })
 
-useEffect(() => {
-    subject.attach(onEvent)
-    return () => subject.detach(onEvent)
-}, [onEvent])
+useEffect(
+    function attachEvent() {
+        subject.attach(onEvent)
+        return () => subject.detach(onEvent)
+    },
+    [onEvent],
+)
 ```
 
 ### Optional chaining in try/catch blocks
@@ -569,9 +572,12 @@ Creating mutable objects (Web Workers, stores, etc.) with `useMemo` and then mut
 ```typescript
 const worker = useMemo(() => createWebWorker(), [])
 
-useEffect(() => {
-    worker.onmessage = handleMessage // Error: mutating hook return value
-}, [worker])
+useEffect(
+    function assignMessageHandler() {
+        worker.onmessage = handleMessage // Error: mutating hook return value
+    },
+    [worker],
+)
 ```
 
 **After:**
@@ -586,7 +592,7 @@ function getWorker(): Worker {
     return workerRef.current
 }
 
-useEffect(() => {
+useEffect(function assignMessageHandler() {
     const worker = getWorker()
     worker.onmessage = handleMessage
     return () => {
@@ -668,7 +674,7 @@ function PublicRouteWrapper({ children }: { children: React.ReactNode }) {
         return Boolean(authenticatedUser)
     }
 
-    useEffect(() => {
+    useEffect(function redirectToApp() {
         if (shouldRedirectToApp()) {
             window.location.href = '/app'
         }
@@ -689,23 +695,29 @@ Assigning to element properties like `scrollTop` also triggers this error. Use t
 **Before:**
 
 ```typescript
-useLayoutEffect(() => {
-    if (resultList && resultList.scrollHeight > resultList.clientHeight) {
-        // Violation: direct property assignment
-        resultList.scrollTop = elementBottom - resultList.clientHeight
-    }
-}, [currentId, resultList])
+useLayoutEffect(
+    function scrollToElement() {
+        if (resultList && resultList.scrollHeight > resultList.clientHeight) {
+            // Violation: direct property assignment
+            resultList.scrollTop = elementBottom - resultList.clientHeight
+        }
+    },
+    [currentId, resultList],
+)
 ```
 
 **After:**
 
 ```typescript
-useLayoutEffect(() => {
-    if (resultList && resultList.scrollHeight > resultList.clientHeight) {
-        // Use scroll() method instead of scrollTop assignment
-        resultList.scroll({ top: elementBottom - resultList.clientHeight })
-    }
-}, [currentId, resultList])
+useLayoutEffect(
+    function scrollToElement() {
+        if (resultList && resultList.scrollHeight > resultList.clientHeight) {
+            // Use scroll() method instead of scrollTop assignment
+            resultList.scroll({ top: elementBottom - resultList.clientHeight })
+        }
+    },
+    [currentId, resultList],
+)
 ```
 
 ## Identifying violations and verifying fixes (for LLMs)
