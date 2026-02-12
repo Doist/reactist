@@ -32,6 +32,8 @@ A quick way to identify them is to install the [React Compiler Marker VSCode ext
 
 Once fixed, the file's entry will be removed from `.react-compiler.rec.json`.
 
+> **For LLM agents:** If a file is not in `.react-compiler.rec.json`, do not add `useMemo`, `useCallback`, or `React.memo` — the compiler handles memoization automatically. See [For LLM agents](#for-llm-agents) for the full workflow.
+
 ## Common errors
 
 ### Ref access during render
@@ -94,8 +96,6 @@ if (!storeRef.current) {
 ```typescript
 const [storeInstance] = useState<TaskHierarchyStore>(() => store ?? createTaskHierarchyStore())
 ```
-
-**Note:** The lazy initializer captures the initial prop value. If `store` is initially undefined but becomes defined later, `storeInstance` will remain the created store. This matches the original ref behavior and is typically intentional.
 
 **Before (one-time value computation):**
 
@@ -208,7 +208,7 @@ function ProjectBoardView({ showCompleted: showCompletedProp }) {
 >
 > Reason: (BuildHIR::node.lowerReorderableExpression) Expression type `OptionalMemberExpression` cannot be safely reordered
 
-The compiler can't safely reorder default parameter values that reference other parameters. This applies to both regular member access (`task.id`) and optional chaining (`task?.id`), since both depend on a sibling parameter being evaluated first.
+The compiler can't safely reorder default parameter values that reference other parameters.
 
 **Before:**
 
@@ -409,7 +409,7 @@ const hasCompletedTasks = useMemo(() => {
 
 > Reason: Hooks must always be called in a consistent order, and may not be called conditionally. See the Rules of Hooks (https://react.dev/warnings/invalid-hook-call-warning)
 
-The `store?.useState()` pattern conditionally calls a hook - when `store` is `undefined`, the hook isn't called; when defined, it is. This violates the Rules of Hooks which require hooks to be called unconditionally in the same order on every render.
+The `store?.useState()` pattern conditionally calls a hook, violating the Rules of Hooks.
 
 **Before:**
 
@@ -498,7 +498,7 @@ const _logout = useEvent(() => {
 
 The inner function declaration is hoisted within its scope, allowing self-reference without depending on the outer variable. This pattern works for both `useEvent` and `useCallback`.
 
-**Warning: Stale closures with async operations.** The inner function captures state values when the outer function is invoked. If the inner function is called later via `setTimeout`, it will see stale values. Use `useRef` instead for values read across async callbacks (like retry counters), since `.current` is read at access time rather than captured in the closure.
+**Warning:** The inner function captures state values at invocation time. For values read across async callbacks (like retry counters), use `useRef` instead.
 
 #### Avoiding self-reference entirely
 
@@ -529,7 +529,206 @@ useEffect(
 )
 ```
 
-### Optional chaining in try/catch blocks
+### Try/catch blocks
+
+React Compiler has limited support for try/catch statements. Several patterns cause violations:
+
+> **Note:** A fix for some of these limitations has been merged and may be available in a future compiler release. See [facebook/react#35606](https://github.com/facebook/react/pull/35606).
+
+#### Try-catch-finally
+
+> Reason: (BuildHIR::lowerStatement) Handle TryStatement with a finalizer ('finally') clause
+
+The `finally` clause causes compiler violations. Remove `finally` and explicitly handle cleanup in all code paths.
+
+**Before:**
+
+```typescript
+async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault()
+    setIsSubmitting(true)
+
+    try {
+        const response = await fetch('/api/endpoint', { method: 'POST' })
+        if (!response.ok) {
+            setError('Request failed')
+            return
+        }
+        setSuccess(true)
+    } catch {
+        setError('Unknown error')
+    } finally {
+        setIsSubmitting(false)
+    }
+}
+```
+
+**After:**
+
+```typescript
+async function handleSubmit(event: React.FormEvent) {
+    event.preventDefault()
+    setIsSubmitting(true)
+
+    try {
+        const response = await fetch('/api/endpoint', { method: 'POST' })
+        if (!response.ok) {
+            setError('Request failed')
+            setIsSubmitting(false)
+            return
+        }
+        setSuccess(true)
+        setIsSubmitting(false)
+    } catch {
+        setError('Unknown error')
+        setIsSubmitting(false)
+    }
+}
+```
+
+#### Try without catch
+
+> Reason: (BuildHIR::lowerStatement) Handle TryStatement without a catch clause
+
+Try statements must have a `catch` clause. A `try { } finally { }` without `catch` is not supported. Additionally, since `finally` itself can cause violations (see above), consider removing it entirely.
+
+**Before:**
+
+```typescript
+useEffect(function loadData() {
+    ;(async () => {
+        try {
+            const data = await fetchData()
+            setState(data)
+        } finally {
+            setIsLoading(false)
+        }
+    })().catch(() => setError('Failed'))
+}, [])
+```
+
+**After:**
+
+```typescript
+useEffect(function loadData() {
+    ;(async () => {
+        try {
+            const data = await fetchData()
+            setState(data)
+            setIsLoading(false)
+        } catch {
+            setError('Failed')
+            setIsLoading(false)
+        }
+    })()
+}, [])
+```
+
+#### ThrowStatement inside try/catch
+
+> Reason: ThrowStatement inside try/catch not yet supported
+
+Throwing errors inside try blocks causes violations. Handle errors directly instead of using throw.
+
+**Before:**
+
+```typescript
+try {
+    const response = await fetch(url)
+    if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+    }
+    return await response.json()
+} catch (error) {
+    console.error(error)
+    setLoadState('error')
+}
+```
+
+**After:**
+
+```typescript
+try {
+    const response = await fetch(url)
+    if (!response.ok) {
+        // Handle error directly instead of throwing
+        console.error(`HTTP Error: ${response.status} ${response.statusText}`)
+        setLoadState('error')
+        return
+    }
+    return await response.json()
+} catch (error) {
+    console.error(error)
+    setLoadState('error')
+}
+```
+
+#### Redundant try/catch
+
+When calling a function that already handles errors internally and returns a safe fallback, wrapping it in another try/catch is redundant and may cause violations.
+
+**Before:**
+
+```typescript
+// getLocalStorageValue already has internal try/catch, returns undefined on error
+function getLocalStorageValue<T>(key: string): T | undefined {
+    try {
+        const item = localStorage.getItem(key)
+        return item ? JSON.parse(item) : undefined
+    } catch {
+        return undefined
+    }
+}
+
+const [value, setValue] = useState<T>(() => {
+    try {
+        return getLocalStorageValue(key) ?? defaultValue
+    } catch {
+        return defaultValue
+    }
+})
+```
+
+**After:**
+
+```typescript
+// getLocalStorageValue already handles errors, no outer try/catch needed
+const [value, setValue] = useState<T>(() => getLocalStorageValue(key) ?? defaultValue)
+```
+
+#### Value blocks in try/catch (general pattern)
+
+> Reason: Support value blocks (conditional, logical, optional chaining, etc) within a try/catch statement
+
+Conditional expressions (`? :`), logical operators (`&&`, `||`), nullish coalescing (`??`), and other "value blocks" inside try/catch cause violations. The general fix is to extract the try/catch logic into a helper function outside the component.
+
+**Before:**
+
+```typescript
+const value = useMemo(() => {
+    try {
+        return riskyOperation() ?? fallback
+    } catch {
+        return fallback
+    }
+}, [deps])
+```
+
+**After:**
+
+```typescript
+function safeRiskyOperation(deps: Deps) {
+    try {
+        return riskyOperation(deps) ?? fallback
+    } catch {
+        return fallback
+    }
+}
+
+const value = useMemo(() => safeRiskyOperation(deps), [deps])
+```
+
+#### Optional chaining in try/catch blocks
 
 > Reason: Support value blocks (conditional, logical, optional chaining, etc) within a try/catch statement
 
@@ -598,7 +797,7 @@ useEffect(function assignMessageHandler() {
     return () => {
         worker.onmessage = null
     }
-    // getWorker is non-reactive (only accesses a stable ref), so it's safe to omit from deps
+    // getWorker only accesses a stable ref
 }, [])
 ```
 
@@ -655,7 +854,6 @@ function PublicRouteWrapper({ children }: { children: React.ReactNode }) {
     const authenticatedUser = localStorage.getItem('User')
 
     if (authenticatedUser) {
-        // Violation: DOM mutation during render
         window.location.href = '/app'
         return null
     }
@@ -720,9 +918,20 @@ useLayoutEffect(
 )
 ```
 
-## Identifying violations and verifying fixes (for LLMs)
+## For LLM agents
 
-When fixing violations programmatically, first identify modules with violations by checking `.react-compiler.rec.json`, then use the tracker CLI with `--show-errors` to see the exact errors:
+When working on React components or hooks in this codebase, follow this workflow:
+
+### 1. Check if the file needs attention
+
+Look up the file in `.react-compiler.rec.json`:
+
+- **Not listed** → Compiler is optimizing it. Do NOT add `useMemo`, `useCallback`, or `React.memo`.
+- **Listed with errors** → Continue to step 2.
+
+### 2. Identify violations
+
+Run the tracker with `--show-errors` to see exact errors:
 
 ```bash
 npx @doist/react-compiler-tracker --check-files --show-errors src/path/to/file.tsx
@@ -739,19 +948,21 @@ Detailed errors:
  - src/path/to/file.tsx: Line 28: Existing memoization could not be preserved (x2)
 ```
 
-Parse the output to extract error reasons (e.g., "Cannot access refs during render") and line numbers to plan the fix.
+Parse the output to extract error reasons and line numbers to plan the fix.
 
-Once the fix is applied, verify it using one of the following methods:
+### 3. Fix violations
 
-**1. CLI Tool (recommended)**
+Use the patterns in [Common errors](#common-errors) to fix each violation. Focus on making the code compiler-compatible rather than adding more manual memoization.
 
-Run the tracker with `--check-files` to verify changes against the records file:
+### 4. Verify the fix
+
+**CLI Tool (recommended)**
 
 ```bash
 npx @doist/react-compiler-tracker --check-files src/path/to/file.tsx
 ```
 
-The tool compares the current errors against `.react-compiler.rec.json` and reports changes:
+The tool compares current errors against `.react-compiler.rec.json`:
 
 - **Errors increased** (exit code 1):
 
@@ -770,9 +981,7 @@ The tool compares the current errors against `.react-compiler.rec.json` and repo
 
 - **No changes** (exit code 0): No output about changes, just the check summary.
 
-This is faster than `--overwrite` as it only checks the specified files rather than the entire codebase.
-
-**2. Babel with Inline Logger (alternative)**
+**Babel with Inline Logger (alternative)**
 
 Run a Node script that uses Babel's API with a custom logger to see exact errors:
 
@@ -796,39 +1005,12 @@ require('@babel/core').transformFileSync('src/path/to/file.tsx', {
 "
 ```
 
-This outputs the exact reason and location for each violation, regardless of repo-specific logging configuration.
+**Transpiled Code Inspection**
 
-**3. Transpiled Code Inspection**
-
-Successfully optimized code will include `react-compiler-runtime` imports and compiler-generated memoization:
-
-```typescript
-// Source
-function TaskList({ tasks }) {
-    const sorted = tasks.toSorted((a, b) => a.order - b.order)
-    return <List items={sorted} />
-}
-
-// Transpiled (successfully optimized)
-import { c as _c } from "react-compiler-runtime";
-function TaskList({ tasks }) {
-    const $ = _c(2);
-    let sorted;
-    if ($[0] !== tasks) {
-        sorted = tasks.toSorted((a, b) => a.order - b.order);
-        $[0] = tasks;
-        $[1] = sorted;
-    } else {
-        sorted = $[1];
-    }
-    return <List items={sorted} />;
-}
-```
-
-Key indicators of successful optimization:
+Successfully optimized code includes these patterns:
 
 - `import { c as _c } from "react-compiler-runtime"` at the top
 - `const $ = _c(N)` where N is the number of memo slots
 - Conditional blocks checking `$[n] !== value` for cache invalidation
 
-If the transpiled output lacks these patterns and looks unchanged from the source, the component was not optimized due to a violation.
+If the transpiled output lacks these patterns, the component was not optimized.
