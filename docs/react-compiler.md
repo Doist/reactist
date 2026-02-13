@@ -4,6 +4,71 @@
 
 We are incrementally adopting the compiler across all of our React codebases, where it is enabled but not all code may be compliant yet. As there are real performance risks if compiler violations are re-introduced, especially in cases where manual optimizations have been removed, we've put safeguards in place to prevent them from happening.
 
+## Workflow: Identifying and fixing violations
+
+When working on React components or hooks in this codebase, follow this workflow:
+
+> **Important:** Do NOT use ESLint to check for compiler violations. The `eslint-plugin-react-hooks` rules must still pass, but they are not an indicator of whether compiler violations exist. The project uses `@doist/react-compiler-tracker` which tracks violations at the file level via `.react-compiler.rec.json`. Always use the CLI commands shown below.
+
+### 1. Check if the file needs attention
+
+Look up the file in `.react-compiler.rec.json`:
+
+- **Not listed** → Compiler is optimizing it. Do NOT add `useMemo`, `useCallback`, or `React.memo`.
+- **Listed with errors** → Continue to step 2.
+
+### 2. Identify violations
+
+Run the tracker with `--show-errors` to see exact errors:
+
+```bash
+npx @doist/react-compiler-tracker --check-files --show-errors src/path/to/file.tsx
+```
+
+Example output:
+
+```
+🔍 Checking 1 file for React Compiler errors…
+⚠️ Found 4 React Compiler issues across 1 file
+
+Detailed errors:
+ - src/path/to/file.tsx: Line 15: Cannot access refs during render (x2)
+ - src/path/to/file.tsx: Line 28: Existing memoization could not be preserved (x2)
+```
+
+Parse the output to extract error reasons and line numbers to plan the fix.
+
+### 3. Fix violations
+
+Use the patterns in [Fix patterns](#fix-patterns) to fix each violation. Focus on making the code compiler-compatible rather than adding more manual memoization.
+
+### 4. Verify the fix
+
+```bash
+npx @doist/react-compiler-tracker --check-files src/path/to/file.tsx
+```
+
+The tool compares current errors against `.react-compiler.rec.json`:
+
+- **Errors increased** (exit code 1):
+
+    ```
+    React Compiler errors have increased in:
+     • src/path/to/file.tsx: +2
+    Please fix the errors and run the command again.
+    ```
+
+- **Errors decreased** (exit code 0):
+
+    ```
+    🎉 React Compiler errors have decreased in:
+     • src/path/to/file.tsx: -2
+    ```
+
+- **No changes** (exit code 0): No output about changes, just the check summary.
+
+A quick way to identify violations visually is to install the [React Compiler Marker VSCode extension](https://marketplace.visualstudio.com/items?itemName=blazejkustra.react-compiler-marker), which highlights your components and hooks with ✨ or 🚫 emojis in real time.
+
 ## Violation tracking
 
 We use [`@doist/react-compiler-tracker`](https://github.com/Doist/react-compiler-tracker) to track modules that the compiler cannot optimize.
@@ -24,17 +89,30 @@ Violations are recorded in a [`.react-compiler.rec.json`](https://github.com/Doi
 
 We leverage [lint-staged](https://github.com/lint-staged/lint-staged) to automatically update the records file on commit. If the numbers of errors are increased, the commit is blocked until the errors either go back to their previous levels, or if the records file is explicitly re-created. The same check is also run on CI.
 
-## Identifying and fixing violations
+Once all violations in a file are fixed, the file's entry will be removed from `.react-compiler.rec.json`.
 
-When modifying a file with violations, consider fixing them so we can take advantage of the compiler's optimizations.
+## Error reference
 
-A quick way to identify them is to install the [React Compiler Marker VSCode extension](https://marketplace.visualstudio.com/items?itemName=blazejkustra.react-compiler-marker), which highlights your components and hooks with ✨ or 🚫 emojis in real time.
+| Compiler error message                                                              | Pattern                      | Section                                          |
+| ----------------------------------------------------------------------------------- | ---------------------------- | ------------------------------------------------ |
+| Cannot access refs during render                                                    | Ref access during render     | [Link](#ref-access-during-render)                |
+| Existing memoization could not be preserved                                         | Mismatched useMemo deps      | [Link](#mismatched-usememo-dependencies)         |
+| Support destructuring of context variables                                          | Mutating props               | [Link](#mutating-props)                          |
+| Expression type `X` cannot be safely reordered                                      | Default parameters for props | [Link](#default-parameters-for-props)            |
+| Expression type `BinaryExpression` / `LogicalExpression` cannot be safely reordered | switch(true) pattern         | [Link](#switchtrue-pattern)                      |
+| Expected Identifier, got `X` key in ObjectExpression                                | Computed property keys       | [Link](#computed-property-keys)                  |
+| Destructure should never be Reassign                                                | Loop variable reassignment   | [Link](#loop-variable-reassignment)              |
+| Hooks must always be called in a consistent order                                   | Conditional hook calls       | [Link](#conditional-hook-calls)                  |
+| Cannot access variable before it is declared                                        | Function declaration order   | [Link](#function-declaration-order)              |
+| Handle TryStatement with a finalizer / without a catch clause                       | Try/catch blocks             | [Link](#trycatch-blocks)                         |
+| ThrowStatement inside try/catch not yet supported                                   | Try/catch blocks             | [Link](#trycatch-blocks)                         |
+| Support value blocks … within a try/catch statement                                 | Try/catch blocks             | [Link](#trycatch-blocks)                         |
+| This value cannot be modified (hook argument)                                       | Mutable objects with useMemo | [Link](#mutable-objects-created-with-usememo)    |
+| This value cannot be modified (function return)                                     | Mutating return values       | [Link](#mutating-function-or-hook-return-values) |
+| This value cannot be modified (DOM)                                                 | DOM mutations                | [Link](#dom-mutations)                           |
+| This value cannot be modified (test code)                                           | Render-time test mutations   | [Link](#render-time-mutations-in-test-code)      |
 
-Once fixed, the file's entry will be removed from `.react-compiler.rec.json`.
-
-> **For LLM agents:** If a file is not in `.react-compiler.rec.json`, do not add `useMemo`, `useCallback`, or `React.memo` — the compiler handles memoization automatically. See [For LLM agents](#for-llm-agents) for the full workflow.
-
-## Common errors
+## Fix patterns
 
 ### Ref access during render
 
@@ -208,7 +286,7 @@ function ProjectBoardView({ showCompleted: showCompletedProp }) {
 >
 > Reason: (BuildHIR::node.lowerReorderableExpression) Expression type `OptionalMemberExpression` cannot be safely reordered
 
-The compiler can't safely reorder default parameter values that reference other parameters.
+The compiler can't safely reorder default parameter values that contain expressions. The general fix is to remove the default parameter and use `??` (nullish coalescing) in the function body instead.
 
 **Before:**
 
@@ -230,88 +308,50 @@ function DndTaskWrapper({ task, stableTaskId: stableTaskIdProp }: Props) {
 }
 ```
 
-The same violation applies to other expression types in default parameters:
+The same violation applies to other expression types in default parameters. The fix follows the same principle — move the default out of the parameter list:
 
-#### ArrowFunctionExpression
+- **`ArrowFunctionExpression`** — extract to a module-level function declaration:
 
-> Reason: (BuildHIR::node.lowerReorderableExpression) Expression type `ArrowFunctionExpression` cannot be safely reordered
+    ```typescript
+    // Before
+    function useField<T>(
+        deserialize: (val: unknown) => T = (val) => val as T, // Violation
+    )
 
-**Before:**
+    // After
+    function defaultDeserialize<T>(val: unknown): T {
+        return val as T
+    }
+    function useField<T>(deserialize: (val: unknown) => T = defaultDeserialize)
+    ```
 
-```typescript
-function useField<T>(
-    deserialize: (val: unknown) => T = (val) => val as T, // Violation
-)
-```
+- **`JSXElement`** — move the default to the function body with `??`:
 
-**After:**
+    ```typescript
+    // Before
+    function Layout({ illustration = <DefaultIllustration /> }: Props) // Violation
 
-```typescript
-// Extract to module-level function declaration
-function defaultDeserialize<T>(val: unknown): T {
-    return val as T
-}
+    // After
+    function Layout({ illustration: illustrationProp }: Props) {
+        const illustration = illustrationProp ?? <DefaultIllustration />
+    }
+    ```
 
-function useField<T>(deserialize: (val: unknown) => T = defaultDeserialize)
-```
+- **`CallExpression`** — move the default to the function body with `??`, or extract to a module-level constant for static values:
 
-#### JSXElement
+    ```typescript
+    // Before
+    function TimeInput({ referenceDate = startOfDay(new Date()) }: Props) // Violation
 
-> Reason: (BuildHIR::node.lowerReorderableExpression) Expression type `JSXElement` cannot be safely reordered
+    // After
+    function TimeInput({ referenceDate: referenceDateProp }: Props) {
+        const referenceDate = referenceDateProp ?? startOfDay(new Date())
+    }
 
-**Before:**
-
-```typescript
-function Layout({
-    illustration = <DefaultIllustration />, // Violation
-}: Props)
-```
-
-**After:**
-
-```typescript
-function Layout({ illustration: illustrationProp }: Props) {
-    const illustration = illustrationProp ?? <DefaultIllustration />
-}
-```
-
-#### CallExpression
-
-> Reason: (BuildHIR::node.lowerReorderableExpression) Expression type `CallExpression` cannot be safely reordered
-
-**Before:**
-
-```typescript
-function TimeInput({
-    referenceDate = startOfDay(new Date()), // Violation
-}: Props)
-```
-
-**After:**
-
-```typescript
-function TimeInput({ referenceDate: referenceDateProp }: Props) {
-    const referenceDate = referenceDateProp ?? startOfDay(new Date())
-}
-```
-
-For static values that don't change, extract to a module-level constant:
-
-**Before:**
-
-```typescript
-function Popover({
-    timezone = Intl.DateTimeFormat().resolvedOptions().timeZone, // Violation
-}: Props)
-```
-
-**After:**
-
-```typescript
-const DEFAULT_TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone
-
-function Popover({ timezone = DEFAULT_TIMEZONE }: Props)
-```
+    // Alternative for static values: extract to module-level constant
+    const DEFAULT_TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone
+    function Popover({ timezone = DEFAULT_TIMEZONE }: Props)
+    ```
 
 ### `switch(true)` pattern
 
@@ -427,6 +467,23 @@ const renderedItems = useStoreState(store, 'renderedItems')
 
 The `store.useState()` pattern is from older versions of AriaKit. Since [version 0.4.9](https://ariakit.org/changelog#new-usestorestate-hook), AriaKit provides [`useStoreState`](https://ariakit.org/reference/use-store-state) which accepts stores that are null or undefined, returning undefined in those cases. The same principle applies to any conditional hook call - use an API that handles the conditional case internally.
 
+#### Selector callbacks on store hooks
+
+When migrating from `store.useState(selectorFn)`, fetch the raw state value with `useStoreState` and derive the result in a separate expression.
+
+**Before:**
+
+```typescript
+const hovercardPlacement = hovercardStore.useState((state) => state.currentPlacement.split('-')[0])
+```
+
+**After:**
+
+```typescript
+const currentPlacement = useStoreState(hovercardStore, 'currentPlacement')
+const hovercardPlacement = currentPlacement?.split('-')[0]
+```
+
 ### Function declaration order
 
 > Reason: Cannot access variable before it is declared
@@ -535,7 +592,11 @@ React Compiler has limited support for try/catch statements. Several patterns ca
 
 > **Note:** A fix for some of these limitations has been merged and may be available in a future compiler release. See [facebook/react#35606](https://github.com/facebook/react/pull/35606).
 
-#### Try-catch-finally
+#### Structural violations
+
+These violations occur when the compiler can't parse the shape of the try/catch statement itself.
+
+**Try-catch-finally**
 
 > Reason: (BuildHIR::lowerStatement) Handle TryStatement with a finalizer ('finally') clause
 
@@ -586,7 +647,7 @@ async function handleSubmit(event: React.FormEvent) {
 }
 ```
 
-#### Try without catch
+**Try without catch**
 
 > Reason: (BuildHIR::lowerStatement) Handle TryStatement without a catch clause
 
@@ -624,7 +685,11 @@ useEffect(function loadData() {
 }, [])
 ```
 
-#### ThrowStatement inside try/catch
+#### Content violations
+
+These violations occur because of what's inside the try/catch block.
+
+**ThrowStatement inside try/catch**
 
 > Reason: ThrowStatement inside try/catch not yet supported
 
@@ -663,7 +728,69 @@ try {
 }
 ```
 
-#### Redundant try/catch
+**Value blocks in try/catch**
+
+> Reason: Support value blocks (conditional, logical, optional chaining, etc) within a try/catch statement
+
+Conditional expressions (`? :`), logical operators (`&&`, `||`), nullish coalescing (`??`), and optional chaining (`?.()`) inside try/catch cause violations. The general fix is to extract the try/catch logic into a helper function, or replace optional chaining with explicit `if` checks.
+
+_Extract to helper function:_
+
+**Before:**
+
+```typescript
+const value = useMemo(() => {
+    try {
+        return riskyOperation() ?? fallback
+    } catch {
+        return fallback
+    }
+}, [deps])
+```
+
+**After:**
+
+```typescript
+function safeRiskyOperation(deps: Deps) {
+    try {
+        return riskyOperation(deps) ?? fallback
+    } catch {
+        return fallback
+    }
+}
+
+const value = useMemo(() => safeRiskyOperation(deps), [deps])
+```
+
+_Replace optional chaining with explicit checks:_
+
+**Before:**
+
+```typescript
+try {
+    await doSomething()
+    onSuccessCallback?.()
+} catch (error) {
+    onFailureCallback?.(error)
+}
+```
+
+**After:**
+
+```typescript
+try {
+    await doSomething()
+    if (onSuccessCallback) {
+        onSuccessCallback()
+    }
+} catch (error) {
+    if (onFailureCallback) {
+        onFailureCallback(error)
+    }
+}
+```
+
+**Redundant try/catch**
 
 When calling a function that already handles errors internally and returns a safe fallback, wrapping it in another try/catch is redundant and may cause violations.
 
@@ -694,70 +821,6 @@ const [value, setValue] = useState<T>(() => {
 ```typescript
 // getLocalStorageValue already handles errors, no outer try/catch needed
 const [value, setValue] = useState<T>(() => getLocalStorageValue(key) ?? defaultValue)
-```
-
-#### Value blocks in try/catch (general pattern)
-
-> Reason: Support value blocks (conditional, logical, optional chaining, etc) within a try/catch statement
-
-Conditional expressions (`? :`), logical operators (`&&`, `||`), nullish coalescing (`??`), and other "value blocks" inside try/catch cause violations. The general fix is to extract the try/catch logic into a helper function outside the component.
-
-**Before:**
-
-```typescript
-const value = useMemo(() => {
-    try {
-        return riskyOperation() ?? fallback
-    } catch {
-        return fallback
-    }
-}, [deps])
-```
-
-**After:**
-
-```typescript
-function safeRiskyOperation(deps: Deps) {
-    try {
-        return riskyOperation(deps) ?? fallback
-    } catch {
-        return fallback
-    }
-}
-
-const value = useMemo(() => safeRiskyOperation(deps), [deps])
-```
-
-#### Optional chaining in try/catch blocks
-
-> Reason: Support value blocks (conditional, logical, optional chaining, etc) within a try/catch statement
-
-The compiler can't handle optional chaining (`?.()`) inside try/catch blocks.
-
-**Before:**
-
-```typescript
-try {
-    await doSomething()
-    onSuccessCallback?.()
-} catch (error) {
-    onFailureCallback?.(error)
-}
-```
-
-**After:**
-
-```typescript
-try {
-    await doSomething()
-    if (onSuccessCallback) {
-        onSuccessCallback()
-    }
-} catch (error) {
-    if (onFailureCallback) {
-        onFailureCallback(error)
-    }
-}
 ```
 
 ### Mutable objects created with useMemo
@@ -918,70 +981,67 @@ useLayoutEffect(
 )
 ```
 
-## For LLM agents
+### Render-time mutations in test code
 
-When working on React components or hooks in this codebase, follow this workflow:
+> Reason: This value cannot be modified
 
-### 1. Check if the file needs attention
+Test files are compiled too, so patterns like mutating an external `let` variable or object property from inside a rendered component trigger this violation.
 
-Look up the file in `.react-compiler.rec.json`:
+#### Render counting with `React.Profiler`
 
-- **Not listed** → Compiler is optimizing it. Do NOT add `useMemo`, `useCallback`, or `React.memo`.
-- **Listed with errors** → Continue to step 2.
+**Before:**
 
-### 2. Identify violations
-
-Run the tracker with `--show-errors` to see exact errors:
-
-```bash
-npx @doist/react-compiler-tracker --check-files --show-errors src/path/to/file.tsx
+```typescript
+let renderCount = 0
+function TestComponent() {
+    renderCount += 1 // Violation: mutation during render
+    return <div />
+}
+render(<TestComponent />)
+expect(renderCount).toBe(1)
 ```
 
-Example output:
+**After:**
 
-```
-🔍 Checking 1 file for React Compiler errors…
-⚠️ Found 4 React Compiler issues across 1 file
-
-Detailed errors:
- - src/path/to/file.tsx: Line 15: Cannot access refs during render (x2)
- - src/path/to/file.tsx: Line 28: Existing memoization could not be preserved (x2)
-```
-
-Parse the output to extract error reasons and line numbers to plan the fix.
-
-### 3. Fix violations
-
-Use the patterns in [Common errors](#common-errors) to fix each violation. Focus on making the code compiler-compatible rather than adding more manual memoization.
-
-### 4. Verify the fix
-
-**CLI Tool (recommended)**
-
-```bash
-npx @doist/react-compiler-tracker --check-files src/path/to/file.tsx
+```typescript
+const onRender = jest.fn()
+function TestComponent() {
+    return <div />
+}
+render(
+    <React.Profiler id="test" onRender={onRender}>
+        <TestComponent />
+    </React.Profiler>,
+)
+expect(onRender).toHaveBeenCalledTimes(1)
 ```
 
-The tool compares current errors against `.react-compiler.rec.json`:
+#### Hook testing with `renderHook`
 
-- **Errors increased** (exit code 1):
+**Before:**
 
-    ```
-    React Compiler errors have increased in:
-     • src/path/to/file.tsx: +2
-    Please fix the errors and run the command again.
-    ```
+```typescript
+let state: ReturnType<typeof useMyHook>
+function TestComponent(options: Options) {
+    state = useMyHook(options) // Violation: mutation during render
+    return <div />
+}
+render(<TestComponent {...options} />)
+expect(state.someValue).toBe(expected)
+```
 
-- **Errors decreased** (exit code 0):
+**After:**
 
-    ```
-    🎉 React Compiler errors have decreased in:
-     • src/path/to/file.tsx: -2
-    ```
+```typescript
+const { result } = renderHook(() => useMyHook(options))
+expect(result.current.someValue).toBe(expected)
+```
 
-- **No changes** (exit code 0): No output about changes, just the check summary.
+## Appendix: Alternative verification methods
 
-**Babel with Inline Logger (alternative)**
+These methods are alternatives to the CLI tool for deeper debugging. The CLI tool (shown in [Verify the fix](#4-verify-the-fix)) is the recommended approach for day-to-day use.
+
+**Babel with Inline Logger**
 
 Run a Node script that uses Babel's API with a custom logger to see exact errors:
 
