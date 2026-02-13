@@ -1,0 +1,1110 @@
+exports[`registry build > import/export lines match snapshot 1`] = `
+{
+  "registry/lib/common-helpers/common-helpers.ts": [
+    "import * as React from 'react'",
+    "export function generateElementId(prefix: string): string {",
+    "export function useId(providedId?: string): string {"
+  ],
+  "registry/lib/common-types/common-types.ts": [
+    "import type classNames from 'classnames'",
+    "import type { HTMLAttributes } from 'react'",
+    "export type Space = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'",
+    "export type SpaceWithNegatives =",
+    "export type Tone = 'normal' | 'secondary' | 'danger' | 'positive'",
+    "export type AlertTone = 'info' | 'positive' | 'caution' | 'critical'",
+    "export type DividerWeight = 'primary' | 'secondary' | 'tertiary' | 'none'",
+    "export type WithEnhancedClassName<T = unknown> = T extends HTMLElement",
+    "export interface OpenInNewTab {",
+    "export type ObfuscatedClassName = {"
+  ],
+  "registry/lib/polymorphism/polymorphism.ts": [
+    "import * as React from 'react'",
+    "import type { ObfuscatedClassName } from '@reactist/lib/common-types'",
+    "export type { PolymorphicComponent }",
+    "export { polymorphicComponent }"
+  ],
+  "registry/lib/responsive-props/responsive-props.ts": [
+    "export type { ResponsiveBreakpoints, ResponsiveProp }",
+    "export { getClassNames, mapResponsiveProp }"
+  ],
+  "registry/ui/avatar/avatar.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { getClassNames } from '@reactist/lib/responsive-props'",
+    "import { emailToIndex, getInitials } from './utils'",
+    "import styles from './avatar.module.css'",
+    "import type { ObfuscatedClassName } from '@reactist/lib/common-types'",
+    "import type { ResponsiveProp } from '@reactist/lib/responsive-props'",
+    "export { Avatar }"
+  ],
+  "registry/ui/avatar/index.ts": [
+    "export * from './avatar'"
+  ],
+  "registry/ui/avatar/utils.ts": [
+    "export { emailToIndex, getInitials }"
+  ],
+  "registry/ui/badge/badge.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import styles from './badge.module.css'",
+    "export { Badge }",
+    "export type { BadgeProps }"
+  ],
+  "registry/ui/badge/index.ts": [
+    "export { Badge } from './badge'"
+  ],
+  "registry/ui/banner/banner.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { Button, IconButton } from '@reactist/ui/button'",
+    "import { BannerIcon } from '@reactist/ui/icons/banner-icon'",
+    "import { CloseIcon } from '@reactist/ui/icons/close-icon'",
+    "import { TextLink } from '@reactist/ui/text-link'",
+    "import { useId } from '@reactist/lib/common-helpers'",
+    "import styles from './banner.module.css'",
+    "import type { ButtonProps } from '@reactist/ui/button'",
+    "export type BannerType = 'neutral' | SystemBannerType",
+    "export type SystemBannerType = 'info' | 'upgrade' | 'experiment' | 'warning' | 'error' | 'success'",
+    "export { Banner }",
+    "export type { BannerProps }"
+  ],
+  "registry/ui/banner/index.ts": [
+    "export type { BannerProps } from './banner'",
+    "export { Banner } from './banner'"
+  ],
+  "registry/ui/base-field/base-field.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { Column, Columns } from '@reactist/ui/columns'",
+    "import { Spinner } from '@reactist/ui/spinner'",
+    "import { Stack } from '@reactist/ui/stack'",
+    "import { Text } from '@reactist/ui/text'",
+    "import { useId } from '@reactist/lib/common-helpers'",
+    "import styles from './base-field.module.css'",
+    "import type { BoxProps } from '@reactist/ui/box'",
+    "import type { WithEnhancedClassName } from '@reactist/lib/common-types'",
+    "export type BaseFieldProps = WithEnhancedClassName &",
+    "export { BaseField, FieldMessage }",
+    "export type { BaseFieldVariant, BaseFieldVariantProps, FieldComponentProps }"
+  ],
+  "registry/ui/base-field/index.ts": [
+    "export * from './base-field'"
+  ],
+  "registry/ui/box/box.tsx": [
+    "import * as React from 'react'",
+    "import classNames from 'classnames'",
+    "import { polymorphicComponent } from '@reactist/lib/polymorphism'",
+    "import { getClassNames } from '@reactist/lib/responsive-props'",
+    "import styles from './box.module.css'",
+    "import gapStyles from './gap.module.css'",
+    "import marginStyles from './margin.module.css'",
+    "import paddingStyles from './padding.module.css'",
+    "import widthStyles from './width.module.css'",
+    "import type {",
+    "import type { ResponsiveProp } from '@reactist/lib/responsive-props'",
+    "export type {",
+    "export { Box, getBoxClassNames }"
+  ],
+  "registry/ui/box/index.ts": [
+    "export * from './box'"
+  ],
+  "registry/ui/button/button.tsx": [
+    "import * as React from 'react'",
+    "import { Role } from '@ariakit/react'",
+    "import classNames from 'classnames'",
+    "import { Box, getBoxClassNames } from '@reactist/ui/box'",
+    "import { Spinner } from '@reactist/ui/spinner'",
+    "import { Tooltip } from '@reactist/ui/tooltip'",
+    "import styles from './button.module.css'",
+    "import type { RoleProps } from '@ariakit/react'",
+    "import type { TooltipProps } from '@reactist/ui/tooltip'",
+    "import type { ObfuscatedClassName } from '@reactist/lib/common-types'",
+    "export type { ButtonProps, ButtonTone, ButtonVariant, IconButtonProps }",
+    "export { Button, IconButton }"
+  ],
+  "registry/ui/button/index.ts": [
+    "export * from './button'"
+  ],
+  "registry/ui/checkbox-field/checkbox-field.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { Text } from '@reactist/ui/text'",
+    "import { CheckboxIcon } from './checkbox-icon'",
+    "import { useForkRef } from './use-fork-ref'",
+    "import styles from './checkbox-field.module.css'",
+    "export { CheckboxField }",
+    "export type { CheckboxFieldProps }"
+  ],
+  "registry/ui/checkbox-field/checkbox-icon.tsx": [
+    "import * as React from 'react'",
+    "export { CheckboxIcon }"
+  ],
+  "registry/ui/checkbox-field/index.ts": [
+    "export * from './checkbox-field'"
+  ],
+  "registry/ui/checkbox-field/use-fork-ref.ts": [
+    "import { useMemo } from 'react'",
+    "export { useForkRef }"
+  ],
+  "registry/ui/columns/columns.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { polymorphicComponent } from '@reactist/lib/polymorphism'",
+    "import { getClassNames, mapResponsiveProp } from '@reactist/lib/responsive-props'",
+    "import styles from './columns.module.css'",
+    "import type { ReusableBoxProps } from '@reactist/ui/box'",
+    "import type { Space } from '@reactist/lib/common-types'",
+    "import type { ResponsiveBreakpoints, ResponsiveProp } from '@reactist/lib/responsive-props'",
+    "export type {",
+    "export { Column, Columns }"
+  ],
+  "registry/ui/columns/index.ts": [
+    "export * from './columns'"
+  ],
+  "registry/ui/divider/divider.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { getClassNames } from '@reactist/lib/responsive-props'",
+    "import styles from './divider.module.css'",
+    "import type { DividerWeight } from '@reactist/lib/common-types'",
+    "export type { DividerProps, DividerWeight }",
+    "export { Divider }"
+  ],
+  "registry/ui/divider/index.ts": [
+    "export * from './divider'"
+  ],
+  "registry/ui/heading/heading.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { getClassNames } from '@reactist/lib/responsive-props'",
+    "import styles from './heading.module.css'",
+    "import type { BoxProps } from '@reactist/ui/box'",
+    "import type { ObfuscatedClassName, Tone } from '@reactist/lib/common-types'",
+    "export type { HeadingLevel, HeadingProps }",
+    "export { Heading }"
+  ],
+  "registry/ui/heading/index.ts": [
+    "export * from './heading'"
+  ],
+  "registry/ui/hidden-visually/hidden-visually.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { polymorphicComponent } from '@reactist/lib/polymorphism'",
+    "import styles from './hidden-visually.module.css'",
+    "export { HiddenVisually }"
+  ],
+  "registry/ui/hidden-visually/index.ts": [
+    "export * from './hidden-visually'"
+  ],
+  "registry/ui/hidden/hidden.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { polymorphicComponent } from '@reactist/lib/polymorphism'",
+    "import styles from './hidden.module.css'",
+    "import type { ResponsiveBreakpoints } from '@reactist/lib/responsive-props'",
+    "export { Hidden }",
+    "export type { HiddenProps }"
+  ],
+  "registry/ui/hidden/index.ts": [
+    "export * from './hidden'"
+  ],
+  "registry/ui/icons/alert-icon/alert-icon.tsx": [
+    "import * as React from 'react'",
+    "import type { AlertTone } from '@reactist/lib/common-types'",
+    "export { AlertIcon }"
+  ],
+  "registry/ui/icons/banner-icon/banner-icon.tsx": [
+    "import * as React from 'react'",
+    "import styles from './banner-icon.module.css'",
+    "import type { SystemBannerType } from '@reactist/ui/banner/banner'",
+    "export { BannerIcon }"
+  ],
+  "registry/ui/icons/close-icon/close-icon.tsx": [
+    "import * as React from 'react'",
+    "export { CloseIcon }"
+  ],
+  "registry/ui/icons/password-icons/password-hidden-icon.tsx": [
+    "import * as React from 'react'",
+    "export { PasswordHiddenIcon }"
+  ],
+  "registry/ui/icons/password-icons/password-visible-icon.tsx": [
+    "import * as React from 'react'",
+    "export { PasswordVisibleIcon }"
+  ],
+  "registry/ui/inline/index.ts": [
+    "export * from './inline'"
+  ],
+  "registry/ui/inline/inline.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { polymorphicComponent } from '@reactist/lib/polymorphism'",
+    "import { mapResponsiveProp } from '@reactist/lib/responsive-props'",
+    "import type { ReusableBoxProps } from '@reactist/ui/box'",
+    "import type { Space } from '@reactist/lib/common-types'",
+    "import type { ResponsiveProp } from '@reactist/lib/responsive-props'",
+    "export type { InlineAlign, InlineProps }",
+    "export { Inline }"
+  ],
+  "registry/ui/loading/index.ts": [
+    "export * from './loading'"
+  ],
+  "registry/ui/loading/loading.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { Spinner } from '@reactist/ui/spinner'",
+    "import type { ObfuscatedClassName } from '@reactist/lib/common-types'",
+    "export { Loading }",
+    "export type { LoadingProps }"
+  ],
+  "registry/ui/menu/index.ts": [
+    "export type { MenuGroupProps, MenuItemProps } from './menu'",
+    "export {"
+  ],
+  "registry/ui/menu/menu.tsx": [
+    "import './menu.less'",
+    "import * as React from 'react'",
+    "import {",
+    "import classNames from 'classnames'",
+    "import type {",
+    "import type { ObfuscatedClassName } from '@reactist/lib/common-types'",
+    "export { ContextMenuTrigger, Menu, MenuButton, MenuGroup, MenuItem, MenuList, SubMenu }",
+    "export type { MenuButtonProps, MenuGroupProps, MenuItemProps, MenuListProps }"
+  ],
+  "registry/ui/modal/index.ts": [
+    "export * from './modal'"
+  ],
+  "registry/ui/modal/modal.tsx": [
+    "import * as React from 'react'",
+    "import { forwardRef } from 'react'",
+    "import FocusLock from 'react-focus-lock'",
+    "import { Dialog, Portal, useDialogStore } from '@ariakit/react'",
+    "import { hideOthers } from 'aria-hidden'",
+    "import classNames from 'classnames'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { IconButton } from '@reactist/ui/button'",
+    "import { Column, Columns } from '@reactist/ui/columns'",
+    "import { Divider } from '@reactist/ui/divider'",
+    "import { CloseIcon } from '@reactist/ui/icons/close-icon'",
+    "import { Inline } from '@reactist/ui/inline'",
+    "import styles from './modal.module.css'",
+    "import type { DialogOptions, PortalOptions } from '@ariakit/react'",
+    "import type { IconButtonProps } from '@reactist/ui/button'",
+    "import type { DividerProps } from '@reactist/ui/divider'",
+    "import type { ObfuscatedClassName } from '@reactist/lib/common-types'",
+    "export interface ModalProps extends DivProps, ObfuscatedClassName {",
+    "export function Modal({",
+    "export interface ModalCloseButtonProps",
+    "export function ModalCloseButton(props: ModalCloseButtonProps) {",
+    "export interface ModalHeaderProps extends DivProps, ObfuscatedClassName {",
+    "export function ModalHeader({",
+    "export interface ModalBodyProps extends DivProps, ObfuscatedClassName {",
+    "export const ModalBody = forwardRef<HTMLDivElement, ModalBodyProps>(function ModalBody(",
+    "export interface ModalFooterProps extends DivProps, ObfuscatedClassName {",
+    "export function ModalFooter({",
+    "export type ModalActionsProps = ModalFooterProps",
+    "export function ModalActions({ children, ...props }: ModalActionsProps) {"
+  ],
+  "registry/ui/notice/index.ts": [
+    "export * from './notice'"
+  ],
+  "registry/ui/notice/notice.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { Column, Columns } from '@reactist/ui/columns'",
+    "import { AlertIcon } from '@reactist/ui/icons/alert-icon'",
+    "import { getClassNames } from '@reactist/lib/responsive-props'",
+    "import styles from './notice.module.css'",
+    "import type { AlertTone } from '@reactist/lib/common-types'",
+    "export { Notice }",
+    "export type { NoticeProps }"
+  ],
+  "registry/ui/password-field/index.ts": [
+    "export * from './password-field'"
+  ],
+  "registry/ui/password-field/password-field.tsx": [
+    "import * as React from 'react'",
+    "import { IconButton } from '@reactist/ui/button'",
+    "import { PasswordHiddenIcon } from '@reactist/ui/icons/password-hidden-icon'",
+    "import { PasswordVisibleIcon } from '@reactist/ui/icons/password-visible-icon'",
+    "import { TextField } from '@reactist/ui/text-field'",
+    "import type { BaseFieldVariantProps } from '@reactist/ui/base-field'",
+    "import type { TextFieldProps } from '@reactist/ui/text-field'",
+    "export { PasswordField }",
+    "export type { PasswordFieldProps }"
+  ],
+  "registry/ui/prose/index.ts": [
+    "export type { ProseProps } from './prose'",
+    "export { Prose } from './prose'"
+  ],
+  "registry/ui/prose/prose.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import styles from './prose.module.css'",
+    "import type { ObfuscatedClassName } from '@reactist/lib/common-types'",
+    "export { Prose }",
+    "export type { ProseProps }"
+  ],
+  "registry/ui/select-field/index.ts": [
+    "export * from './select-field'"
+  ],
+  "registry/ui/select-field/select-field.tsx": [
+    "import * as React from 'react'",
+    "import { BaseField } from '@reactist/ui/base-field'",
+    "import { Box } from '@reactist/ui/box'",
+    "import styles from './select-field.module.css'",
+    "import type { BaseFieldVariantProps, FieldComponentProps } from '@reactist/ui/base-field'",
+    "export { SelectField }",
+    "export type { SelectFieldProps }"
+  ],
+  "registry/ui/spinner/index.ts": [
+    "export * from './spinner'"
+  ],
+  "registry/ui/spinner/spinner.tsx": [
+    "import * as React from 'react'",
+    "import styles from './spinner.module.css'",
+    "export { Spinner }"
+  ],
+  "registry/ui/stack/index.ts": [
+    "export * from './stack'"
+  ],
+  "registry/ui/stack/stack.tsx": [
+    "import * as React from 'react'",
+    "import flattenChildren from 'react-keyed-flatten-children'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { Divider } from '@reactist/ui/divider'",
+    "import { polymorphicComponent } from '@reactist/lib/polymorphism'",
+    "import { mapResponsiveProp } from '@reactist/lib/responsive-props'",
+    "import type { BoxProps, ReusableBoxProps } from '@reactist/ui/box'",
+    "import type { DividerWeight, Space } from '@reactist/lib/common-types'",
+    "import type { ResponsiveProp } from '@reactist/lib/responsive-props'",
+    "export type { StackProps }",
+    "export { Stack }"
+  ],
+  "registry/ui/switch-field/index.ts": [
+    "export * from './switch-field'"
+  ],
+  "registry/ui/switch-field/switch-field.tsx": [
+    "import * as React from 'react'",
+    "import { FieldMessage } from '@reactist/ui/base-field'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { HiddenVisually } from '@reactist/ui/hidden-visually'",
+    "import { Stack } from '@reactist/ui/stack'",
+    "import { Text } from '@reactist/ui/text'",
+    "import { useId } from '@reactist/lib/common-helpers'",
+    "import styles from './switch-field.module.css'",
+    "import type { FieldComponentProps } from '@reactist/ui/base-field'",
+    "export { SwitchField }",
+    "export type { SwitchFieldProps }"
+  ],
+  "registry/ui/tabs/index.ts": [
+    "export * from './tabs'"
+  ],
+  "registry/ui/tabs/tabs.tsx": [
+    "import * as React from 'react'",
+    "import {",
+    "import classNames from 'classnames'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { Inline } from '@reactist/ui/inline'",
+    "import styles from './tabs.module.css'",
+    "import type {",
+    "import type { BoxJustifyContent } from '@reactist/ui/box'",
+    "import type { ObfuscatedClassName, Space } from '@reactist/lib/common-types'",
+    "export { Tab, TabAwareSlot, TabList, TabPanel, Tabs }"
+  ],
+  "registry/ui/text-area/index.ts": [
+    "export * from './text-area'"
+  ],
+  "registry/ui/text-area/text-area.tsx": [
+    "import * as React from 'react'",
+    "import classNames from 'classnames'",
+    "import { useMergeRefs } from 'use-callback-ref'",
+    "import { BaseField } from '@reactist/ui/base-field'",
+    "import { Box } from '@reactist/ui/box'",
+    "import styles from './text-area.module.css'",
+    "import type { BaseFieldVariantProps, FieldComponentProps } from '@reactist/ui/base-field'",
+    "export { TextArea }",
+    "export type { TextAreaProps }"
+  ],
+  "registry/ui/text-field/index.ts": [
+    "export * from './text-field'"
+  ],
+  "registry/ui/text-field/text-field.tsx": [
+    "import * as React from 'react'",
+    "import { useMergeRefs } from 'use-callback-ref'",
+    "import { BaseField } from '@reactist/ui/base-field'",
+    "import { Box } from '@reactist/ui/box'",
+    "import styles from './text-field.module.css'",
+    "import type { BaseFieldProps, BaseFieldVariantProps, FieldComponentProps } from '@reactist/ui/base-field'",
+    "export { TextField }",
+    "export type { TextFieldProps, TextFieldType }"
+  ],
+  "registry/ui/text-link/index.ts": [
+    "export * from './text-link'"
+  ],
+  "registry/ui/text-link/text-link.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { polymorphicComponent } from '@reactist/lib/polymorphism'",
+    "import styles from './text-link.module.css'",
+    "import type { OpenInNewTab } from '@reactist/lib/common-types'",
+    "export { TextLink }",
+    "export type { TextLinkProps }"
+  ],
+  "registry/ui/text/index.ts": [
+    "export * from './text'"
+  ],
+  "registry/ui/text/text.tsx": [
+    "import * as React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { polymorphicComponent } from '@reactist/lib/polymorphism'",
+    "import { getClassNames } from '@reactist/lib/responsive-props'",
+    "import styles from './text.module.css'",
+    "import type { BoxProps } from '@reactist/ui/box'",
+    "import type { Tone } from '@reactist/lib/common-types'",
+    "export type { TextProps }",
+    "export { Text }"
+  ],
+  "registry/ui/toast/index.ts": [
+    "export type { StaticToastProps } from './static-toast'",
+    "export { StaticToast } from './static-toast'",
+    "export type { ToastProps, ToastsProviderProps } from './use-toasts'",
+    "export { Toast, ToastsProvider, useToasts } from './use-toasts'"
+  ],
+  "registry/ui/toast/static-toast.tsx": [
+    "import React from 'react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { Button, IconButton } from '@reactist/ui/button'",
+    "import { CloseIcon } from '@reactist/ui/icons/close-icon'",
+    "import { Stack } from '@reactist/ui/stack'",
+    "import { Text } from '@reactist/ui/text'",
+    "import styles from './toast.module.css'",
+    "export { isActionObject, StaticToast }",
+    "export type { StaticToastProps }"
+  ],
+  "registry/ui/toast/toast-animation.ts": [
+    "import { useCallback, useLayoutEffect, useMemo } from 'react'",
+    "export { ANIMATION_TIMEOUT, useToastsAnimation }"
+  ],
+  "registry/ui/toast/use-toasts.tsx": [
+    "import React from 'react'",
+    "import { Portal } from '@ariakit/react'",
+    "import { Box } from '@reactist/ui/box'",
+    "import { Stack } from '@reactist/ui/stack'",
+    "import { generateElementId } from '@reactist/lib/common-helpers'",
+    "import { isActionObject, StaticToast } from './static-toast'",
+    "import { useToastsAnimation } from './toast-animation'",
+    "import styles from './toast.module.css'",
+    "import type { Space } from '@reactist/lib/common-types'",
+    "import type { StaticToastProps } from './static-toast'",
+    "export { Toast, ToastsProvider, useToasts }",
+    "export type { ToastProps, ToastsProviderProps }"
+  ],
+  "registry/ui/tooltip/index.ts": [
+    "export type { TooltipProps } from './tooltip'",
+    "export { Tooltip, TooltipProvider } from './tooltip'"
+  ],
+  "registry/ui/tooltip/tooltip.tsx": [
+    "import * as React from 'react'",
+    "import {",
+    "import { Box } from '@reactist/ui/box'",
+    "import styles from './tooltip.module.css'",
+    "import type { TooltipStore, TooltipStoreState } from '@ariakit/react'",
+    "import type { ObfuscatedClassName } from '@reactist/lib/common-types'",
+    "export type { TooltipProps }",
+    "export { Tooltip, TooltipProvider }"
+  ]
+}
+`;
+
+exports[`registry build > registry.json structure matches snapshot 1`] = `
+[
+  {
+    "name": "design-tokens",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [],
+    "fileTargets": [
+      "src/components/reactist/styles/design-tokens/design-tokens.css"
+    ]
+  },
+  {
+    "name": "common-types",
+    "type": "registry:file",
+    "dependencies": [
+      "classnames@^2.2.5"
+    ],
+    "registryDependencies": [],
+    "fileTargets": [
+      "src/components/reactist/lib/common-types/common-types.ts"
+    ]
+  },
+  {
+    "name": "common-helpers",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [],
+    "fileTargets": [
+      "src/components/reactist/lib/common-helpers/common-helpers.ts"
+    ]
+  },
+  {
+    "name": "responsive-props",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [],
+    "fileTargets": [
+      "src/components/reactist/lib/responsive-props/responsive-props.ts"
+    ]
+  },
+  {
+    "name": "polymorphism",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/lib/polymorphism/polymorphism.ts"
+    ]
+  },
+  {
+    "name": "spinner",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "design-tokens"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/spinner/index.ts",
+      "src/components/reactist/ui/spinner/spinner.tsx",
+      "src/components/reactist/ui/spinner/spinner.module.css"
+    ]
+  },
+  {
+    "name": "close-icon",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [],
+    "fileTargets": [
+      "src/components/reactist/ui/icons/close-icon/close-icon.tsx"
+    ]
+  },
+  {
+    "name": "alert-icon",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/icons/alert-icon/alert-icon.tsx"
+    ]
+  },
+  {
+    "name": "password-icons",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [],
+    "fileTargets": [
+      "src/components/reactist/ui/icons/password-icons/password-hidden-icon.tsx",
+      "src/components/reactist/ui/icons/password-icons/password-visible-icon.tsx"
+    ]
+  },
+  {
+    "name": "box",
+    "type": "registry:file",
+    "dependencies": [
+      "classnames@^2.2.5"
+    ],
+    "registryDependencies": [
+      "polymorphism",
+      "responsive-props",
+      "common-types",
+      "design-tokens"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/box/index.ts",
+      "src/components/reactist/ui/box/box.tsx",
+      "src/components/reactist/ui/box/box.module.css",
+      "src/components/reactist/ui/box/gap.module.css",
+      "src/components/reactist/ui/box/margin.module.css",
+      "src/components/reactist/ui/box/padding.module.css",
+      "src/components/reactist/ui/box/width.module.css"
+    ]
+  },
+  {
+    "name": "hidden-visually",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "box",
+      "polymorphism"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/hidden-visually/index.ts",
+      "src/components/reactist/ui/hidden-visually/hidden-visually.tsx",
+      "src/components/reactist/ui/hidden-visually/hidden-visually.module.css"
+    ]
+  },
+  {
+    "name": "hidden",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "box",
+      "polymorphism",
+      "responsive-props"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/hidden/index.ts",
+      "src/components/reactist/ui/hidden/hidden.tsx",
+      "src/components/reactist/ui/hidden/hidden.module.css"
+    ]
+  },
+  {
+    "name": "divider",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "box",
+      "responsive-props",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/divider/index.ts",
+      "src/components/reactist/ui/divider/divider.tsx",
+      "src/components/reactist/ui/divider/divider.module.css"
+    ]
+  },
+  {
+    "name": "heading",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "box",
+      "responsive-props",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/heading/index.ts",
+      "src/components/reactist/ui/heading/heading.tsx",
+      "src/components/reactist/ui/heading/heading.module.css"
+    ]
+  },
+  {
+    "name": "text",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "box",
+      "polymorphism",
+      "responsive-props",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/text/index.ts",
+      "src/components/reactist/ui/text/text.tsx",
+      "src/components/reactist/ui/text/text.module.css"
+    ]
+  },
+  {
+    "name": "stack",
+    "type": "registry:file",
+    "dependencies": [
+      "react-keyed-flatten-children@^1.3.0"
+    ],
+    "registryDependencies": [
+      "box",
+      "divider",
+      "polymorphism",
+      "responsive-props",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/stack/index.ts",
+      "src/components/reactist/ui/stack/stack.tsx"
+    ]
+  },
+  {
+    "name": "inline",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "box",
+      "polymorphism",
+      "responsive-props",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/inline/index.ts",
+      "src/components/reactist/ui/inline/inline.tsx"
+    ]
+  },
+  {
+    "name": "columns",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "box",
+      "polymorphism",
+      "responsive-props",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/columns/index.ts",
+      "src/components/reactist/ui/columns/columns.tsx",
+      "src/components/reactist/ui/columns/columns.module.css"
+    ]
+  },
+  {
+    "name": "tooltip",
+    "type": "registry:file",
+    "dependencies": [
+      "@ariakit/react@~0.4.19"
+    ],
+    "registryDependencies": [
+      "box",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/tooltip/index.ts",
+      "src/components/reactist/ui/tooltip/tooltip.tsx",
+      "src/components/reactist/ui/tooltip/tooltip.module.css"
+    ]
+  },
+  {
+    "name": "button",
+    "type": "registry:file",
+    "dependencies": [
+      "@ariakit/react@~0.4.19",
+      "classnames@^2.2.5"
+    ],
+    "registryDependencies": [
+      "box",
+      "spinner",
+      "tooltip",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/button/index.ts",
+      "src/components/reactist/ui/button/button.tsx",
+      "src/components/reactist/ui/button/button.module.css"
+    ]
+  },
+  {
+    "name": "text-link",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "box",
+      "polymorphism",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/text-link/index.ts",
+      "src/components/reactist/ui/text-link/text-link.tsx",
+      "src/components/reactist/ui/text-link/text-link.module.css"
+    ]
+  },
+  {
+    "name": "badge",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "box"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/badge/index.ts",
+      "src/components/reactist/ui/badge/badge.tsx",
+      "src/components/reactist/ui/badge/badge.module.css"
+    ]
+  },
+  {
+    "name": "avatar",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "box",
+      "responsive-props",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/avatar/index.ts",
+      "src/components/reactist/ui/avatar/avatar.tsx",
+      "src/components/reactist/ui/avatar/avatar.module.css",
+      "src/components/reactist/ui/avatar/utils.ts"
+    ]
+  },
+  {
+    "name": "loading",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "box",
+      "spinner",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/loading/index.ts",
+      "src/components/reactist/ui/loading/loading.tsx"
+    ]
+  },
+  {
+    "name": "prose",
+    "type": "registry:file",
+    "dependencies": [
+      "marked@^4.2.12"
+    ],
+    "registryDependencies": [
+      "box",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/prose/index.ts",
+      "src/components/reactist/ui/prose/prose.tsx",
+      "src/components/reactist/ui/prose/prose.module.css"
+    ]
+  },
+  {
+    "name": "base-field",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "box",
+      "columns",
+      "spinner",
+      "stack",
+      "text",
+      "common-helpers",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/base-field/index.ts",
+      "src/components/reactist/ui/base-field/base-field.tsx",
+      "src/components/reactist/ui/base-field/base-field.module.css"
+    ]
+  },
+  {
+    "name": "text-field",
+    "type": "registry:file",
+    "dependencies": [
+      "use-callback-ref@^1.3.0"
+    ],
+    "registryDependencies": [
+      "base-field",
+      "box"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/text-field/index.ts",
+      "src/components/reactist/ui/text-field/text-field.tsx",
+      "src/components/reactist/ui/text-field/text-field.module.css"
+    ]
+  },
+  {
+    "name": "text-area",
+    "type": "registry:file",
+    "dependencies": [
+      "classnames@^2.2.5",
+      "use-callback-ref@^1.3.0"
+    ],
+    "registryDependencies": [
+      "base-field",
+      "box"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/text-area/index.ts",
+      "src/components/reactist/ui/text-area/text-area.tsx",
+      "src/components/reactist/ui/text-area/text-area.module.css"
+    ]
+  },
+  {
+    "name": "select-field",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "base-field",
+      "box"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/select-field/index.ts",
+      "src/components/reactist/ui/select-field/select-field.tsx",
+      "src/components/reactist/ui/select-field/select-field.module.css"
+    ]
+  },
+  {
+    "name": "checkbox-field",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "box",
+      "text"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/checkbox-field/index.ts",
+      "src/components/reactist/ui/checkbox-field/checkbox-field.tsx",
+      "src/components/reactist/ui/checkbox-field/checkbox-field.module.css",
+      "src/components/reactist/ui/checkbox-field/checkbox-icon.tsx",
+      "src/components/reactist/ui/checkbox-field/use-fork-ref.ts"
+    ]
+  },
+  {
+    "name": "switch-field",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "base-field",
+      "box",
+      "hidden-visually",
+      "stack",
+      "text",
+      "common-helpers"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/switch-field/index.ts",
+      "src/components/reactist/ui/switch-field/switch-field.tsx",
+      "src/components/reactist/ui/switch-field/switch-field.module.css"
+    ]
+  },
+  {
+    "name": "password-field",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "button",
+      "text-field",
+      "password-icons",
+      "base-field"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/password-field/index.ts",
+      "src/components/reactist/ui/password-field/password-field.tsx"
+    ]
+  },
+  {
+    "name": "banner-icon",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [],
+    "fileTargets": [
+      "src/components/reactist/ui/icons/banner-icon/banner-icon.tsx",
+      "src/components/reactist/ui/icons/banner-icon/banner-icon.module.css"
+    ]
+  },
+  {
+    "name": "banner",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "box",
+      "button",
+      "text-link",
+      "banner-icon",
+      "close-icon",
+      "common-helpers"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/banner/index.ts",
+      "src/components/reactist/ui/banner/banner.tsx",
+      "src/components/reactist/ui/banner/banner.module.css"
+    ]
+  },
+  {
+    "name": "notice",
+    "type": "registry:file",
+    "dependencies": [],
+    "registryDependencies": [
+      "box",
+      "columns",
+      "alert-icon",
+      "responsive-props",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/notice/index.ts",
+      "src/components/reactist/ui/notice/notice.tsx",
+      "src/components/reactist/ui/notice/notice.module.css"
+    ]
+  },
+  {
+    "name": "menu",
+    "type": "registry:file",
+    "dependencies": [
+      "@ariakit/react@~0.4.19",
+      "classnames@^2.2.5"
+    ],
+    "registryDependencies": [
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/menu/index.ts",
+      "src/components/reactist/ui/menu/menu.tsx",
+      "src/components/reactist/ui/menu/menu.less"
+    ]
+  },
+  {
+    "name": "tabs",
+    "type": "registry:file",
+    "dependencies": [
+      "@ariakit/react@~0.4.19",
+      "classnames@^2.2.5"
+    ],
+    "registryDependencies": [
+      "box",
+      "inline",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/tabs/index.ts",
+      "src/components/reactist/ui/tabs/tabs.tsx",
+      "src/components/reactist/ui/tabs/tabs.module.css"
+    ]
+  },
+  {
+    "name": "modal",
+    "type": "registry:file",
+    "dependencies": [
+      "@ariakit/react@~0.4.19",
+      "react-focus-lock@^2.9.1",
+      "aria-hidden@^1.2.1",
+      "classnames@^2.2.5"
+    ],
+    "registryDependencies": [
+      "box",
+      "button",
+      "columns",
+      "divider",
+      "close-icon",
+      "inline",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/modal/index.ts",
+      "src/components/reactist/ui/modal/modal.tsx",
+      "src/components/reactist/ui/modal/modal.module.css"
+    ]
+  },
+  {
+    "name": "toast",
+    "type": "registry:file",
+    "dependencies": [
+      "@ariakit/react@~0.4.19"
+    ],
+    "registryDependencies": [
+      "box",
+      "button",
+      "stack",
+      "text",
+      "close-icon",
+      "common-helpers",
+      "common-types"
+    ],
+    "fileTargets": [
+      "src/components/reactist/ui/toast/index.ts",
+      "src/components/reactist/ui/toast/static-toast.tsx",
+      "src/components/reactist/ui/toast/use-toasts.tsx",
+      "src/components/reactist/ui/toast/toast-animation.ts",
+      "src/components/reactist/ui/toast/toast.module.css"
+    ]
+  }
+]
+`;
