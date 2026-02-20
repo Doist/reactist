@@ -93,24 +93,26 @@ Once all violations in a file are fixed, the file's entry will be removed from `
 
 ## Error reference
 
-| Compiler error message                                                              | Pattern                      | Section                                          |
-| ----------------------------------------------------------------------------------- | ---------------------------- | ------------------------------------------------ |
-| Cannot access refs during render                                                    | Ref access during render     | [Link](#ref-access-during-render)                |
-| Existing memoization could not be preserved                                         | Mismatched useMemo deps      | [Link](#mismatched-usememo-dependencies)         |
-| Support destructuring of context variables                                          | Mutating props               | [Link](#mutating-props)                          |
-| Expression type `X` cannot be safely reordered                                      | Default parameters for props | [Link](#default-parameters-for-props)            |
-| Expression type `BinaryExpression` / `LogicalExpression` cannot be safely reordered | switch(true) pattern         | [Link](#switchtrue-pattern)                      |
-| Expected Identifier, got `X` key in ObjectExpression                                | Computed property keys       | [Link](#computed-property-keys)                  |
-| Destructure should never be Reassign                                                | Loop variable reassignment   | [Link](#loop-variable-reassignment)              |
-| Hooks must always be called in a consistent order                                   | Conditional hook calls       | [Link](#conditional-hook-calls)                  |
-| Cannot access variable before it is declared                                        | Function declaration order   | [Link](#function-declaration-order)              |
-| Handle TryStatement with a finalizer / without a catch clause                       | Try/catch blocks             | [Link](#trycatch-blocks)                         |
-| ThrowStatement inside try/catch not yet supported                                   | Try/catch blocks             | [Link](#trycatch-blocks)                         |
-| Support value blocks … within a try/catch statement                                 | Try/catch blocks             | [Link](#trycatch-blocks)                         |
-| This value cannot be modified (hook argument)                                       | Mutable objects with useMemo | [Link](#mutable-objects-created-with-usememo)    |
-| This value cannot be modified (function return)                                     | Mutating return values       | [Link](#mutating-function-or-hook-return-values) |
-| This value cannot be modified (DOM)                                                 | DOM mutations                | [Link](#dom-mutations)                           |
-| This value cannot be modified (test code)                                           | Render-time test mutations   | [Link](#render-time-mutations-in-test-code)      |
+| Compiler error message                                                              | Pattern                       | Section                                          |
+| ----------------------------------------------------------------------------------- | ----------------------------- | ------------------------------------------------ |
+| Cannot access refs during render                                                    | Ref access during render      | [Link](#ref-access-during-render)                |
+| Existing memoization could not be preserved                                         | Mismatched useMemo deps       | [Link](#mismatched-usememo-dependencies)         |
+| Support destructuring of context variables                                          | Mutating props                | [Link](#mutating-props)                          |
+| Expression type `X` cannot be safely reordered                                      | Default parameters for props  | [Link](#default-parameters-for-props)            |
+| Expression type `BinaryExpression` / `LogicalExpression` cannot be safely reordered | switch(true) pattern          | [Link](#switchtrue-pattern)                      |
+| Expected Identifier, got `X` key in ObjectExpression                                | Computed property keys        | [Link](#computed-property-keys)                  |
+| Destructure should never be Reassign                                                | Loop variable reassignment    | [Link](#loop-variable-reassignment)              |
+| Hooks must always be called in a consistent order                                   | Conditional hook calls        | [Link](#conditional-hook-calls)                  |
+| Hooks must be the same function on every render                                     | Hooks passed as props         | [Link](#hooks-passed-as-props)                   |
+| Hooks must be called at the top level … not within function expressions             | Hooks in function expressions | [Link](#hooks-in-function-expressions)           |
+| Cannot access variable before it is declared                                        | Function declaration order    | [Link](#function-declaration-order)              |
+| Handle TryStatement with a finalizer / without a catch clause                       | Try/catch blocks              | [Link](#trycatch-blocks)                         |
+| ThrowStatement inside try/catch not yet supported                                   | Try/catch blocks              | [Link](#trycatch-blocks)                         |
+| Support value blocks … within a try/catch statement                                 | Try/catch blocks              | [Link](#trycatch-blocks)                         |
+| This value cannot be modified (hook argument)                                       | Mutable objects with useMemo  | [Link](#mutable-objects-created-with-usememo)    |
+| This value cannot be modified (function return)                                     | Mutating return values        | [Link](#mutating-function-or-hook-return-values) |
+| This value cannot be modified (DOM)                                                 | DOM mutations                 | [Link](#dom-mutations)                           |
+| This value cannot be modified (test code)                                           | Render-time test mutations    | [Link](#render-time-mutations-in-test-code)      |
 
 ## Fix patterns
 
@@ -482,6 +484,99 @@ const hovercardPlacement = hovercardStore.useState((state) => state.currentPlace
 ```typescript
 const currentPlacement = useStoreState(hovercardStore, 'currentPlacement')
 const hovercardPlacement = currentPlacement?.split('-')[0]
+```
+
+#### Hooks passed as props
+
+> Reason: Hooks must be the same function on every render, but this value may change over time to a different function. See https://react.dev/reference/rules/react-calls-components-and-hooks#dont-dynamically-use-hooks
+
+Passing a hook as a prop and calling it inside a child component is a violation — the hook identity can change between renders. Call the hook at the parent level and pass the result instead.
+
+**Before:**
+
+```typescript
+function Parent() {
+    const useValidator = useCallback(
+        function useValidator() {
+            return useFormValidator(formId)
+        },
+        [formId],
+    )
+    return <FormField useValidator={useValidator} />
+}
+
+function FormField({ useValidator }: Props) {
+    const [state, validate] = useValidator() // Violation
+    // ...
+}
+```
+
+**After:**
+
+```typescript
+function Parent() {
+    const validator = useFormValidator(formId)
+    return <FormField validator={validator} />
+}
+
+function FormField({ validator }: Props) {
+    const [state, validate] = validator
+    // ...
+}
+```
+
+#### Hooks in function expressions
+
+> Reason: Hooks must be called at the top level in the body of a function component or custom hook, and may not be called within function expressions. See the Rules of Hooks (https://react.dev/warnings/invalid-hook-call-warning)
+
+Defining a component inside `useMemo` and calling hooks within it is a violation — the compiler sees hooks called inside a non-component function expression. Extract the component to the top level and use Context to pass dynamic values from the parent scope.
+
+**Before:**
+
+```typescript
+function useCustomTrigger({ variant }: { variant: 'compact' | 'full' }) {
+    return useMemo(
+        () =>
+            function CustomTrigger(props: TriggerProps) {
+                const { items } = useListContext() // Violation
+                return (
+                    <button {...props}>
+                        {variant === 'compact' ? items.length : items.join(', ')}
+                    </button>
+                )
+            },
+        [variant],
+    )
+}
+
+function MySelect({ variant }: Props) {
+    const CustomTrigger = useCustomTrigger({ variant })
+    return <Select Trigger={CustomTrigger} />
+}
+```
+
+**After:**
+
+```typescript
+const VariantContext = createContext<'compact' | 'full'>('full')
+
+function CustomTrigger(props: TriggerProps) {
+    const variant = useContext(VariantContext)
+    const { items } = useListContext()
+    return (
+        <button {...props}>
+            {variant === 'compact' ? items.length : items.join(', ')}
+        </button>
+    )
+}
+
+function MySelect({ variant }: Props) {
+    return (
+        <VariantContext.Provider value={variant}>
+            <Select Trigger={CustomTrigger} />
+        </VariantContext.Provider>
+    )
+}
 ```
 
 ### Function declaration order
