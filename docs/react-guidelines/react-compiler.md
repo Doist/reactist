@@ -12,6 +12,8 @@ When React Compiler is enabled, **do not** use `useMemo`, `useCallback`, or `Rea
 
 If you find existing `useMemo` or `useCallback` calls in compiler-enabled code, they can be safely removed. See the [Mismatched useMemo dependencies](#mismatched-usememo-dependencies) fix pattern for guidance on handling existing manual memoization that the compiler flags.
 
+> **Warning:** Do **not** remove manual memoization if the component still has compiler violations (check `.react-compiler.rec.json`) or if the compiler is not enabled in the project. In those cases the compiler is not optimizing the component, and removing `useMemo`/`useCallback` would lose memoization entirely.
+
 ## Workflow: Identifying and fixing violations
 
 When working on React components or hooks in this codebase, follow this workflow:
@@ -1107,7 +1109,7 @@ expect(renderCount).toBe(1)
 **After:**
 
 ```typescript
-const onRender = jest.fn()
+const onRender = jest.fn() // or vi.fn() in Vitest
 function TestComponent() {
     return <div />
 }

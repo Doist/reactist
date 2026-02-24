@@ -111,7 +111,8 @@ Never export the store directly. Only export custom hooks. Consider using the `d
 
 ```typescript
 import { create } from 'zustand'
-import { devtools, immer } from 'zustand/middleware'
+import { devtools } from 'zustand/middleware'
+import { immer } from 'zustand/middleware/immer'
 
 // Store is private
 const useFilterStore = create((set) => ({
@@ -173,7 +174,7 @@ actions: {
 export function useFilteredTasks() {
     const query = useFilterQuery() // Zustand
     const tasks = useAppSelector(selectAllTasks) // Redux
-    return useMemo(() => tasks.filter((t) => t.content.includes(query)), [tasks, query])
+    return tasks.filter((t) => t.content.includes(query))
 }
 
 // Zustand + Router

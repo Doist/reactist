@@ -54,25 +54,20 @@ function ProjectPage({ projectId }: { projectId: string }) {
 
 ## Debouncing and Throttling
 
-Debounce user input that triggers expensive operations. Keep references stable.
+Debounce user input that triggers expensive operations.
 
 ```typescript
 function useSearchTasks() {
+    const dispatch = useAppDispatch()
     const [query, setQuery] = useState('')
 
-    const debouncedSearch = useMemo(
-        () => debounce((value: string) => dispatch(searchTasks(value)), 300),
-        [dispatch],
-    )
+    const debouncedSearch = debounce((value: string) => dispatch(searchTasks(value)), 300)
 
-    const handleChange = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            const value = event.target.value
-            setQuery(value)
-            debouncedSearch(value)
-        },
-        [debouncedSearch],
-    )
+    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+        const value = event.target.value
+        setQuery(value)
+        debouncedSearch(value)
+    }
 
     // Clean up on unmount
     useEffect(
