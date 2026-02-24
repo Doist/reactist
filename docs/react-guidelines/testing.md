@@ -5,7 +5,7 @@
 Use React Testing Library with `userEvent` for interactions. Query by role, not test ID.
 
 ```typescript
-import { screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 test('completes a task when checkbox is clicked', async () => {
