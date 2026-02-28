@@ -103,6 +103,15 @@ const selectActiveProjects = createAppSelector(
 )
 ```
 
+Reselect and React-Redux both run development-mode stability checks that catch common selector mistakes:
+
+| Check                                     | What it detects                                                      | Docs                                                                                        |
+| ----------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| Reselect `inputStabilityCheck`            | Input selectors that return new references on identical arguments    | [Reselect stability checks](https://reselect.js.org/api/development-only-stability-checks)  |
+| React-Redux `useSelector` check (v8.1.0+) | Selectors whose results change when called twice with the same state | [React-Redux dev-mode checks](https://react-redux.js.org/api/hooks#development-mode-checks) |
+
+Both are enabled by default (`'once'`) and fire warnings in dev mode. Don't suppress them; fix the root cause instead.
+
 ## Zustand
 
 ### Store Pattern
@@ -148,9 +157,35 @@ export const useLayout = () =>
 
 If a component needs multiple values, call multiple hooks.
 
+### Selector Stability
+
+Zustand v5 uses `Object.is` equality by default. If a selector returns a new reference on every call, the component re-renders, which triggers the selector again, producing another new reference; this infinite loop crashes the app. This isn't just a performance issue: unstable selectors are a correctness bug.
+
+**Inline fallbacks** are a common source of instability. Default values created inside the selector are new references every time:
+
+```typescript
+// Bad: new function reference on every call, will crash
+export const useOnDismiss = () => useModalStore((state) => state.onDismiss ?? () => {})
+
+// Good: hoist the fallback to module scope
+const noop = () => {}
+export const useOnDismiss = () => useModalStore((state) => state.onDismiss ?? noop)
+```
+
+When a component genuinely needs multiple values from one store, use `useShallow` from `zustand/shallow`. It compares each property with `Object.is`, avoiding the reference instability shown in the [Atomic Selectors](#atomic-selectors) "Bad" example above:
+
+```typescript
+import { useShallow } from 'zustand/shallow'
+
+export const useFilterCriteria = () =>
+    useFilterStore(useShallow((state) => ({ query: state.query, priority: state.priority })))
+```
+
+Prefer atomic selectors (one hook per value) as the default. Reach for `useShallow` only when multiple values are always consumed together and splitting would add noise.
+
 ### Actions
 
-Group actions in an `actions` namespace. Model actions as events describing what happened, not as setters.
+Group actions in an `actions` namespace. Model actions as events describing what happened, not as setters. The `actions` object is created once during store initialization and is never replaced by `set`, so `useFilterStore((state) => state.actions)` is a stable selector that won't cause re-renders.
 
 ```typescript
 // Good: event-style actions
@@ -192,3 +227,6 @@ export function useCurrentViewConfig() {
 - **Keep slices focused** - One domain per slice; cross-slice logic goes in thunks
 - **Derived state in selectors** - Use `createAppSelector` for memoized computations, never derive in components
 - **Actions are events** - Name them after what happened (`taskCompleted`), not what to set (`setCompleted`)
+- **Selectors must return stable references** - Unstable selectors cause infinite loops in Zustand v5 and wasted renders in Redux; hoist fallback values to module scope
+- **Use `useShallow` for multi-value Zustand selectors** - Prefer atomic selectors, but when multiple values are always consumed together, `useShallow` prevents reference instability
+- **Don't suppress dev-mode stability checks** - Reselect and React-Redux stability warnings catch real bugs; fix the root cause instead
