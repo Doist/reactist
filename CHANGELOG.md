@@ -1,5 +1,12 @@
 # Changelog
 
+## [30.0.2](https://github.com/Doist/reactist/compare/v30.0.1...v30.0.2) (2026-02-28)
+
+
+### 🧰 Maintenance
+
+* convert menu.less to menu.module.css ([#1007](https://github.com/Doist/reactist/issues/1007)) ([b63ce3a](https://github.com/Doist/reactist/commit/b63ce3a3a7511519e70c941345742da4677abf5d))
+
 ## [30.0.1](https://github.com/Doist/reactist/compare/v30.0.0...v30.0.1) (2026-01-26)
 
 
