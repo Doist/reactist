@@ -21,6 +21,45 @@ describe('ProgressBar', () => {
         expect(screen.getByRole('progressbar')).toHaveValue(100)
     })
 
+    describe('showScale', () => {
+        it('does not render scale by default', () => {
+            const { container } = render(<ProgressBar fillPercentage={50} />)
+            expect(container.querySelector('[aria-hidden="true"]')).not.toBeInTheDocument()
+        })
+
+        it('renders scale with correct labels when showScale is true', () => {
+            const { container } = render(<ProgressBar fillPercentage={50} showScale />)
+            const ticks = container.querySelector('[aria-hidden="true"]')
+            expect(ticks).toBeInTheDocument()
+
+            const spans = ticks!.querySelectorAll('span')
+            expect(spans).toHaveLength(5)
+            expect(spans[0]).toHaveTextContent('00')
+            expect(spans[1]).toHaveTextContent('25')
+            expect(spans[2]).toHaveTextContent('50')
+            expect(spans[3]).toHaveTextContent('75')
+            expect(spans[4]).toHaveTextContent('')
+        })
+
+        it('marks scale as aria-hidden', () => {
+            const { container } = render(<ProgressBar fillPercentage={50} showScale />)
+            const ticks = container.querySelector('[aria-hidden="true"]')
+            expect(ticks).toBeInTheDocument()
+        })
+
+        it('applies className to wrapper when showScale is true', () => {
+            const { container } = render(
+                <ProgressBar fillPercentage={50} showScale className="custom-class" />,
+            )
+            // The outermost div should have the custom class
+            expect(container.firstElementChild).toHaveClass('custom-class')
+            // The progress bar div should not have the custom class
+            expect(container.querySelector('[class*="progressBar"]')).not.toHaveClass(
+                'custom-class',
+            )
+        })
+    })
+
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = render(<ProgressBar fillPercentage={50} />)
@@ -35,6 +74,13 @@ describe('ProgressBar', () => {
                 'aria-valuetext',
                 'Step 2: Copying files...',
             )
+        })
+
+        it('renders with no a11y violations when showScale is true', async () => {
+            const { container } = render(<ProgressBar fillPercentage={50} showScale />)
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
         })
     })
 })
