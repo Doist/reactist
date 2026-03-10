@@ -4,6 +4,10 @@
     --reactist-progressbar-radius-inner: var(--reactist-progressbar-height);
     --reactist-progressbar-track: var(--reactist-framework-fill-crest);
     --reactist-progressbar-fill: var(--reactist-bg-brand);
+    --reactist-progressbar-scale-tint: var(--reactist-content-tertiary);
+    --reactist-progressbar-scale-tick-height: 8px;
+    --reactist-progressbar-scale-minor-tick-opacity: 0.15;
+    --reactist-progressbar-scale-major-tick-opacity: 0.35;
 }
 
 .progressBar {
@@ -17,4 +21,82 @@
     height: inherit;
     border-radius: var(--reactist-progressbar-radius-inner);
     background-color: var(--reactist-progressbar-fill);
+}
+
+.wrapper {
+    width: 100%;
+}
+
+.scaleContainer {
+    padding-top: var(--reactist-spacing-xsmall);
+}
+
+.ticks {
+    position: relative;
+    display: block;
+    /* Reserve space for tick marks above the labels: tick height + label line height */
+    padding-top: calc(var(--reactist-progressbar-scale-tick-height) + 16px);
+    color: var(--reactist-progressbar-scale-tint);
+    font-size: var(--reactist-font-size-caption);
+}
+
+.ticks > span {
+    position: absolute;
+    bottom: 0;
+    text-align: left;
+    /* Nudge labels 1px right to align with the 1px-wide tick marks */
+    padding-left: 1px;
+}
+
+.ticks > span:nth-child(1) {
+    left: 0%;
+}
+
+.ticks > span:nth-child(2) {
+    left: 25%;
+}
+
+.ticks > span:nth-child(3) {
+    left: 50%;
+}
+
+.ticks > span:nth-child(4) {
+    left: 75%;
+}
+
+.ticks > span:nth-child(5) {
+    left: 100%;
+}
+
+.ticks::before {
+    /* minor tick marks every 5% */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--reactist-progressbar-scale-tick-height);
+    background-image: repeating-linear-gradient(to right, currentColor 0 1px, transparent 1px 5%);
+    opacity: var(--reactist-progressbar-scale-minor-tick-opacity);
+}
+
+.ticks::after {
+    /* major tick marks at 0%, 25%, 50%, 75% and an explicit 100% end mark */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--reactist-progressbar-scale-tick-height);
+    background-image:
+        linear-gradient(to right, currentColor 0 1px, transparent 1px),
+        linear-gradient(currentColor, currentColor);
+    background-size:
+        25% 100%,
+        1px 100%;
+    background-repeat: repeat-x, no-repeat;
+    background-position:
+        left top,
+        right top;
+    opacity: var(--reactist-progressbar-scale-major-tick-opacity);
 }

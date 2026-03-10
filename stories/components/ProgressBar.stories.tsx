@@ -37,6 +37,27 @@ export const ProgressBarStory = () => (
     </section>
 )
 
+export const ProgressBarWithScaleStory = () => (
+    <section className="story">
+        <p>Progress Bars with Scale</p>
+        <Box paddingY="small">
+            <ProgressBar fillPercentage={0} showScale />
+        </Box>
+        <Box paddingY="small">
+            <ProgressBar fillPercentage={25} showScale />
+        </Box>
+        <Box paddingY="small">
+            <ProgressBar fillPercentage={50} showScale />
+        </Box>
+        <Box paddingY="small">
+            <ProgressBar fillPercentage={75} showScale />
+        </Box>
+        <Box paddingY="small">
+            <ProgressBar fillPercentage={100} showScale />
+        </Box>
+    </section>
+)
+
 export const ProgressBarPlaygroundStory = (args) => (
     <section className="story">
         <ProgressBar {...args} />
@@ -45,12 +66,18 @@ export const ProgressBarPlaygroundStory = (args) => (
 
 ProgressBarPlaygroundStory.args = {
     fillPercentage: 50,
+    showScale: false,
 }
 
 ProgressBarPlaygroundStory.argTypes = {
     fillPercentage: {
         control: {
             type: 'number',
+        },
+    },
+    showScale: {
+        control: {
+            type: 'boolean',
         },
     },
     className: {
