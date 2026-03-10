@@ -1,5 +1,23 @@
 # Changelog
 
+## [30.1.0](https://github.com/Doist/reactist/compare/v30.0.1...v30.1.0) (2026-03-10)
+
+
+### 🚀 Features
+
+* Add showScale prop to ProgressBar ([#1020](https://github.com/Doist/reactist/issues/1020)) ([1451b85](https://github.com/Doist/reactist/commit/1451b8502dd71575fdf31f0c3eaafdbe088ab77c))
+
+
+### 🐛 Bug Fixes
+
+* **ci:** use PAT for release-please to trigger CI on its PRs ([#1021](https://github.com/Doist/reactist/issues/1021)) ([c4cafbf](https://github.com/Doist/reactist/commit/c4cafbfe27cf8023bc289a551063999978f432b0))
+
+
+### 🧰 Maintenance
+
+* Add project conventions guide (CLAUDE.md) ([#1019](https://github.com/Doist/reactist/issues/1019)) ([c06b0bc](https://github.com/Doist/reactist/commit/c06b0bc4d6aa0f768ebadc49b0fd7fe876152d25))
+* convert menu.less to menu.module.css ([#1007](https://github.com/Doist/reactist/issues/1007)) ([b63ce3a](https://github.com/Doist/reactist/commit/b63ce3a3a7511519e70c941345742da4677abf5d))
+
 ## [30.0.1](https://github.com/Doist/reactist/compare/v30.0.0...v30.0.1) (2026-01-26)
 
 
