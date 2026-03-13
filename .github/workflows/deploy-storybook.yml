@@ -1,4 +1,4 @@
-name: Deploy Storybook to Pages
+name: Deploy Storybook and Registry to Pages
 
 on:
     push:
@@ -49,6 +49,12 @@ jobs:
 
             - name: Build storybook
               run: npm run build:storybook
+
+            - name: Build registry
+              run: npm run build:registry
+
+            - name: Copy registry into storybook output
+              run: cp -r public/r docs/r
 
             - name: Setup Pages
               uses: actions/configure-pages@v3
