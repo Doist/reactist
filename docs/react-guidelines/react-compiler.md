@@ -12,7 +12,11 @@ When React Compiler is enabled, **do not** use `useMemo`, `useCallback`, or `Rea
 
 If you find existing `useMemo` or `useCallback` calls in compiler-enabled code, they can be safely removed. See the [Mismatched useMemo dependencies](#mismatched-usememo-dependencies) fix pattern for guidance on handling existing manual memoization that the compiler flags.
 
-> **Warning:** Do **not** remove manual memoization if the component still has compiler violations (check `.react-compiler.rec.json`) or if the compiler is not enabled in the project. In those cases the compiler is not optimizing the component, and removing `useMemo`/`useCallback` would lose memoization entirely.
+> **Warning:** Do **not** remove manual memoization if:
+>
+> - The component still has compiler violations (check `.react-compiler.rec.json`)
+> - The compiler is not enabled in the project
+> - The memoized value is defined before other hook calls that separate it from its hook consumer (e.g., `useState`, `useEffect`). The compiler silently skips memoization in this case, even though the file compiles without errors. See [Memoization gap with intervening hooks](#memoization-gap-with-intervening-hooks).
 
 ## Workflow: Identifying and fixing violations
 
@@ -1142,6 +1146,43 @@ const { result } = renderHook(() => useMyHook(options))
 expect(result.current.someValue).toBe(expected)
 ```
 
+### Memoization gap with intervening hooks
+
+> This is not a compiler error — the file compiles cleanly and passes
+> `react-compiler-tracker --check-files`. The compiler silently produces
+> correct but unmemoized output.
+
+**Broken — `sorted` is NOT memoized (intervening hook between definition and consumer)** [(playground)](https://playground.react.dev/#N4Igzg9grgTgxgUxALhAMygOzgFwJYSYAEACjBAFYK4BCEAhjACYAUwRY1+hYANEU3o56RAL7JS5AA5gAlEWAAdYkTg8cHCDBwImRALwcuBTGAB0OCAGUtO1moC2UxggBimWcqKr1RANpqmDjkADYhugC6BkRQnADyOAAWCDAAEhAQANYsgsLy3gXeAPRFRIAJhEQARjAI9JlgREkIHGpSCF4+php+eEx8RjgAkn1RhrEIVsI6LJDaumYO9FIzxoQGAHxGuCZmvbKeKjU4sMQAPADCiXghepzbPPrAs3aiREXryqIgvCCBaHgAcxQIDwTlsjQAnm0FKQQlAAXhMHEpNxTGIiGhyA4iABySr0SoIEIAWikcIRmGJNXouGJjik1xSRSYeDAOBxAG5lMo2B0SvTrkITABZCBMBASRQgehhKWfDhCsD-BANEjkxHI1FyDnfcCJCAAd0GQRSmBlYBQaHNCFEQA)**:**
+
+```tsx
+function ProjectBoard({ sections, data }: Props) {
+    const sorted = sections.toSorted(compareFn)
+    const [controlled] = useOtherHook(data) // ← breaks the scope
+    const [ids, setIds] = useState(sorted.map((section) => section.id))
+    return <Child sections={sorted} />
+}
+```
+
+**Why:** The compiler identifies a memoization scope for `sorted` but prunes it because the intervening `useOtherHook` call cannot be placed inside a conditional cache block (Rules of Hooks). No warning is emitted. To confirm, [inspect the compiled output](#compiled-output-inspection) or [detect pruned memo blocks via the logger](#detecting-pruned-memoization-via-logger). See [facebook/react#34369](https://github.com/facebook/react/issues/34369) for the upstream issue.
+
+**Fix: extract a cohesive hook that groups the value with its consumer** [(playground)](https://playground.react.dev/#N4Igzg9grgTgxgUxALhAMygOzgFwJYSYAEUYCAyhDDggCbkK4GZgAUZThYyRDnmAbQC6ASiLAAOsSJwuOIpGp0iAXgWN8XAHQ4IlJbVayAtgAcAhjAQAxTCKlEZcogLy0wAGnU4Aku6GqJGTkOOY07FQ0tFrG5qbsGsyqAHzq-FpuIvbSVjiwxMAKkXRebp7efmBEAL5StZhSGNiaxAAKMBAAVhoAQhCWhoUcLeW0YeY1PO0QpmBiktKyLPJDxbSl7l5kvu41gaQUa3wjCfxzDk7LLks4HQA2d3QBagcA8jgAFggwABIQEABrVhjULZRy5fJEAA8AGEPng7rQ0iMVMBFFFqkQAPTJOogDwgJZoPAAcxQIDwZkiRBwAE9TAhxERWncoCS8JhXqYRns0B1jEQAOQAI3MwoQdwAtKZWezMJKrOZcJKTKYEd8sbQ8GAcIKANxSKSsBaOLFY1UIsLMACyEFoCB4EhA5geTrqCitYGJCCqLLZHK5IxEevx4A+EAA7j5MDQYJgXWAUGgEwhqkA)**:**
+
+```tsx
+function useSortedSections(sections: Section[]) {
+    const sorted = sections.toSorted(compareFn)
+    const [ids, setIds] = useState(sorted.map((section) => section.id))
+    return { sorted, ids, setIds }
+}
+
+function ProjectBoard({ sections, data }: Props) {
+    const { sorted, ids, setIds } = useSortedSections(sections)
+    const [controlled] = useOtherHook(data)
+    return <Child sections={sorted} />
+}
+```
+
+The extracted hook must contain at least one real hook call (here, `useState`) — otherwise the compiler treats it as a plain function and does not instrument it.
+
 ## Appendix: Alternative verification methods
 
 These methods are alternatives to the CLI tool for deeper debugging. The CLI tool (shown in [Verify the fix](#4-verify-the-fix)) is the recommended approach for day-to-day use.
@@ -1170,7 +1211,28 @@ require('@babel/core').transformFileSync('src/path/to/file.tsx', {
 "
 ```
 
-**Transpiled Code Inspection**
+**Compiled output inspection**
+
+To check whether the compiler memoizes a specific value, compile the file with `babel-plugin-react-compiler` and inspect the output:
+
+```bash
+node -e "
+const babel = require('@babel/core');
+const fs = require('fs');
+const code = fs.readFileSync('src/path/to/file.tsx', 'utf8');
+const result = babel.transformSync(code, {
+  filename: 'file.tsx',
+  presets: [
+    ['@babel/preset-react', { runtime: 'automatic' }],
+    '@babel/preset-typescript',
+  ],
+  plugins: [['babel-plugin-react-compiler', { target: '18' }]],
+});
+console.log(result.code);
+"
+```
+
+**Reading the output:**
 
 Successfully optimized code includes these patterns:
 
@@ -1179,3 +1241,62 @@ Successfully optimized code includes these patterns:
 - Conditional blocks checking `$[n] !== value` for cache invalidation
 
 If the transpiled output lacks these patterns, the component was not optimized.
+
+**Verifying a specific value is memoized:**
+
+Search the compiled output for the variable name. A memoized value appears inside a cache guard block with a corresponding cache assignment:
+
+```js
+// Memoized: value is cached at $[1], recomputed only when `sections` changes
+if ($[0] !== sections) {
+    sortedSections = [...sections].sort(_temp)
+    $[0] = sections
+    $[1] = sortedSections
+} else {
+    sortedSections = $[1]
+}
+```
+
+An unmemoized value appears as a bare `const` outside any cache block:
+
+```js
+// NOT memoized: recomputed every render, new reference each time
+const sortedSections = [...sections].sort(_temp)
+```
+
+This is the only reliable way to verify memoization for values affected by the [memoization gap with intervening hooks](#memoization-gap-with-intervening-hooks), since the compiler reports no errors for those cases.
+
+**Detecting pruned memoization via logger**
+
+The compiler's `CompileSuccess` event includes metrics that reveal when memoization scopes were identified but then pruned. Attach a logger that checks for `prunedMemoBlocks > 0`:
+
+```bash
+node -e "
+const babel = require('@babel/core');
+const fs = require('fs');
+const code = fs.readFileSync('src/path/to/file.tsx', 'utf8');
+babel.transformSync(code, {
+  filename: 'file.tsx',
+  presets: [
+    ['@babel/preset-react', { runtime: 'automatic' }],
+    '@babel/preset-typescript',
+  ],
+  plugins: [['babel-plugin-react-compiler', {
+    target: '18',
+    logger: {
+      logEvent(filename, event) {
+        if (event.kind === 'CompileSuccess') {
+          const name = event.fnName || '(anonymous)';
+          const pruned = event.prunedMemoBlocks || 0;
+          if (pruned > 0) {
+            console.warn('[PRUNED]', name, '—', pruned, 'memo block(s) pruned');
+          }
+        }
+      }
+    }
+  }]]
+});
+"
+```
+
+A pruned memo block means the compiler identified a value worth memoizing but could not create a conditional cache block for it (typically due to intervening hook calls). This is not a correctness issue, but it produces unstable references that can break patterns depending on referential stability.
