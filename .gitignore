@@ -11,3 +11,6 @@ lib/
 coverage/
 .vscode/
 stats.html
+public/
+registry/
+registry.json
