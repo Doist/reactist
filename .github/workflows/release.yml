@@ -14,6 +14,8 @@ permissions:
     pull-requests: write
     # Enable the use of OIDC for trusted publishing and npm provenance
     id-token: write
+    # Enable the use of GitHub Packages registry
+    packages: write
 
 # Release involves crucial steps that shouldn't be cancelled mid-run,
 # so new workflow runs are queued until the previous one finishes.
@@ -45,6 +47,10 @@ jobs:
             - name: Install dependencies
               run: npm ci
 
+            - name: Capture previous tag
+              id: previous_tag
+              run: echo "tag=$(git describe --tags --abbrev=0 2>/dev/null || true)" >> "$GITHUB_OUTPUT"
+
             - name: Release
               run: npx semantic-release
               env:
@@ -53,3 +59,34 @@ jobs:
                   GIT_AUTHOR_NAME: Doist Bot
                   GIT_COMMITTER_EMAIL: doistbot@users.noreply.github.com
                   GIT_COMMITTER_NAME: Doist Bot
+
+            - name: Check if release was created
+              id: check_release
+              env:
+                  PREVIOUS_TAG: ${{ steps.previous_tag.outputs.tag }}
+              run: |
+                  git fetch --force --tags origin
+                  new_tag="$(git describe --tags --abbrev=0 2>/dev/null || true)"
+                  if [ -z "${new_tag}" ] || [ "${new_tag}" = "${PREVIOUS_TAG}" ]; then
+                      echo "released=false" >> "$GITHUB_OUTPUT"
+                  else
+                      echo "released=true" >> "$GITHUB_OUTPUT"
+                  fi
+
+            - name: Remove Doist registry configuration from .npmrc
+              if: ${{ steps.check_release.outputs.released == 'true' }}
+              run: npm config delete @doist:registry --location=project
+
+            - name: Prepare Node.js environment for GitHub Packages registry
+              if: ${{ steps.check_release.outputs.released == 'true' }}
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: .node-version
+                  registry-url: https://npm.pkg.github.com/
+                  scope: '@doist'
+
+            - name: Publish package to GitHub Packages registry
+              if: ${{ steps.check_release.outputs.released == 'true' }}
+              run: npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
