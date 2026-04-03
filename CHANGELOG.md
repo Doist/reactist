@@ -1,3 +1,9 @@
+## [30.1.2](https://github.com/Doist/reactist/compare/v30.1.1...v30.1.2) (2026-04-03)
+
+### Bug Fixes
+
+- revert prose loose list spacing changes ([#1028](https://github.com/Doist/reactist/issues/1028)) ([1e0a45b](https://github.com/Doist/reactist/commit/1e0a45b9bc6fd2c883998ac71becc2ad9e90b5d9))
+
 ## [30.1.1](https://github.com/Doist/reactist/compare/v30.1.0...v30.1.1) (2026-04-03)
 
 ### Bug Fixes
