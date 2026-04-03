@@ -11,19 +11,11 @@ A second paragraph now. One that contains [a link to Doist.com](https://doist.co
 formatting examples, such as **bold text**, _italic text_, ~~strikethrough text~~ and \`monospace\`.
 These can also be combined, like [using _italics_, \`monospace\`, or _\`both\`_ within a link](https://en.wikipedia.org/wiki/Typography).
 
-Now let’s continue with a tight list (no blank lines between items):
+Now let’s continue with a list:
 
 -   this one
 -   that one
 -   the other one
-
-And a loose list (blank lines between items):
-
--   first item
-
--   second item
-
--   third item
 
 And a blockquote:
 
