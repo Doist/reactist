@@ -133,6 +133,12 @@
     margin-top: calc(0.5 * var(--reactist-prose-space-1));
 }
 
+/* Loose lists (blank lines between items) produce <p> inside <li>. Give them paragraph-level
+   spacing so the visual gap the user intended is preserved. */
+.prose li:has(> p) + li {
+    margin-top: var(--reactist-prose-space-2);
+}
+
 .prose ul ul,
 .prose ul ol,
 .prose ol ol,
