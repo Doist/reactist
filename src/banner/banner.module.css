@@ -59,21 +59,16 @@
 }
 
 .image img,
-.icon svg {
+.icon svg,
+.typeIcon svg {
     display: block;
 }
 
-.icon {
-    padding-top: calc(var(--reactist-spacing-xsmall) / 2);
-}
-
-/* The close button is invisible in this resolution, so we're hiding the container to prevent flex-gap from making extra space */
-.icon:empty,
-.icon:has(.closeButton:only-child) {
+.typeIcon:empty {
     display: none;
 }
 
-.icon .closeButton {
+.icon {
     display: none;
 }
 
@@ -92,24 +87,20 @@
     .content {
         flex-direction: column;
     }
-    .icon {
+    .icon:has(.closeButton) {
         display: flex;
         width: 100%;
-        align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
+    }
+    .icon .closeButton {
+        display: flex;
     }
     .topContent {
         flex-direction: column;
         align-items: stretch;
     }
-    .icon:has(.closeButton:only-child) {
-        display: flex;
-    }
-    .icon .closeButton {
-        display: flex;
-    }
-    .icon .closeButton:only-child {
-        margin-left: auto;
+    .iconCopy {
+        flex-direction: column;
     }
     .actions {
         align-self: flex-start;
