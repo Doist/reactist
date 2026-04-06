@@ -166,7 +166,7 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
                         className={styles.topContent}
                         display="flex"
                         gap="small"
-                        alignItems="flexStart"
+                        alignItems="center"
                     >
                         <Box
                             className={styles.copy}

@@ -32,7 +32,7 @@
 
 .content {
     padding: var(--reactist-spacing-large);
-    align-items: flex-start;
+    align-items: center;
 }
 
 .title,
@@ -61,6 +61,11 @@
 .image img,
 .icon svg {
     display: block;
+}
+
+.icon {
+    align-self: flex-start;
+    padding-top: calc(var(--reactist-spacing-xsmall) / 2);
 }
 
 /* The close button is invisible in this resolution, so we're hiding the container to prevent flex-gap from making extra space */
