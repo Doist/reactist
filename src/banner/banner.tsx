@@ -156,8 +156,6 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
             {image ? <Box className={styles.image}>{image}</Box> : null}
 
             <Box className={styles.content} display="flex" gap="small">
-                <Box className={styles.icon}>{closeButton}</Box>
-
                 <Box display="flex" flexDirection="column" gap="small" flexGrow={1}>
                     <Box
                         className={styles.topContent}
@@ -213,6 +211,7 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
                                     })}
                                 </Box>
                             </Box>
+                            {closeButton}
                         </Box>
 
                         {action || closeButton ? (
