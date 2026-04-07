@@ -22,8 +22,7 @@
         "**/*.css"
     ],
     "publishConfig": {
-        "access": "public",
-        "provenance": true
+        "access": "public"
     },
     "files": [
         "CHANGELOG.md",
@@ -55,8 +54,7 @@
         "lint": "eslint --format codeframe --cache --ext js,jsx,ts,tsx ./",
         "storybook": "start-storybook -p 6006",
         "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md,mdx}\"",
-        "plop": "plop",
-        "prepublishOnly": "npm run build && npm test"
+        "plop": "plop"
     },
     "peerDependencies": {
         "@ariakit/react": "~0.4.19",
