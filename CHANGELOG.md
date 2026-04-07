@@ -1,3 +1,9 @@
+## [30.1.3](https://github.com/Doist/reactist/compare/v30.1.2...v30.1.3) (2026-04-07)
+
+### Bug Fixes
+
+- Vertically center Banner text content when action or close button is present ([#1029](https://github.com/Doist/reactist/issues/1029)) ([6759976](https://github.com/Doist/reactist/commit/67599764ba151c480cb2a58c5366aac990525176))
+
 ## [30.1.2](https://github.com/Doist/reactist/compare/v30.1.1...v30.1.2) (2026-04-03)
 
 ### Bug Fixes
