@@ -1,3 +1,9 @@
+## [30.1.4](https://github.com/Doist/reactist/compare/v30.1.3...v30.1.4) (2026-04-08)
+
+### Bug Fixes
+
+- use OIDC trusted publishing instead of npm token for releases ([#1031](https://github.com/Doist/reactist/issues/1031)) ([e15f898](https://github.com/Doist/reactist/commit/e15f898d2dc04a034323628aff3e6f01d811f6d4))
+
 ## [30.1.3](https://github.com/Doist/reactist/compare/v30.1.2...v30.1.3) (2026-04-07)
 
 ### Bug Fixes
