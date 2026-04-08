@@ -4,6 +4,7 @@ on: push
 
 jobs:
     chromatic-deployment:
+        name: Chromatic Deployment
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository

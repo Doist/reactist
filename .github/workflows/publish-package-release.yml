@@ -28,10 +28,16 @@ concurrency:
     cancel-in-progress: false
 
 jobs:
+    ci-validation:
+        name: CI Validation
+        uses: ./.github/workflows/check-ci-validation.yml
+
     release-and-publish:
         name: Release & Publish
         runs-on: ubuntu-latest
         timeout-minutes: 30
+
+        needs: ci-validation
 
         steps:
             - name: Generate release bot token
