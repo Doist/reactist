@@ -133,6 +133,11 @@
     margin-top: calc(0.5 * var(--reactist-prose-space-1));
 }
 
+.prose ul:has(> li > p) > li + li,
+.prose ol:has(> li > p) > li + li {
+    margin-top: var(--reactist-prose-space-2);
+}
+
 .prose ul ul,
 .prose ul ol,
 .prose ol ol,
