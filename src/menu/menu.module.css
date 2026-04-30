@@ -3,6 +3,7 @@
     min-height: 44px;
     max-height: var(--popover-available-height); /* defined by ariakit */
     overflow: auto;
+    overscroll-behavior: contain;
     display: block;
     white-space: nowrap;
     background: hsla(0, 100%, 100%, 0.99);
