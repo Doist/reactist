@@ -6,6 +6,9 @@
     /* sizing */
     height: var(--reactist-field-height);
 
+    /* slot-to-control gap (only takes effect between rendered children) */
+    gap: 6px;
+
     /* default outer padding; shrunk on the side(s) where a slot is present (see below) */
     padding-inline: 10px;
 
@@ -75,9 +78,8 @@
 }
 
 /* Conditional outer padding. When a slot is present on a side, shrink
- * the outer padding on that side. The slot itself carries its own
- * margin (margin-inline-{end,start}: 6px) to space it from the
- * control — see .startSlot / .endSlot rules below. */
+ * the outer padding on that side; the wrapper's flex `gap` then provides
+ * the visual spacing between the slot and the control. */
 .container:has(.startSlot) {
     padding-left: 6px;
 }
@@ -110,16 +112,6 @@
 .slot {
     /* color */
     color: var(--reactist-field-slot-content);
-}
-
-.startSlot {
-    /* 6px gap from startSlot to the control */
-    margin-inline-end: 6px;
-}
-
-.endSlot {
-    /* 6px gap from the control to endSlot */
-    margin-inline-start: 6px;
 }
 
 /*
