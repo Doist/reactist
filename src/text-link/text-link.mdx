@@ -1,0 +1,36 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/addon-docs/blocks'
+import { Stack } from '../stack'
+import { TextLink } from './text-link'
+import * as TextLinkStories from './text-link.stories'
+
+<Meta of={TextLinkStories} />
+
+# TextLink
+
+A component used to create text-based hyperlinks.
+
+<Canvas>
+    <Story of={TextLinkStories.MainDemo} />
+</Canvas>
+
+## Props
+
+<Controls />
+
+## Nested elements
+
+When using nested elements inside a `TextLink`, hover styles are properly applied to all children.
+
+<Canvas>
+    <Story of={TextLinkStories.NestedElements} />
+</Canvas>
+
+## Style
+
+The `color` prop can be used to change the color of the link. The default color sets the link to color defined in `--reactist-text-link-idle-tint` and hover to `--reactist-text-link-hover-tint`. The `color` prop allows to change it to `inherit`.
+
+The `underline` prop can be used to change the underline style of the link. The default is `true`.
+
+<Canvas>
+    <Story of={TextLinkStories.Colors} />
+</Canvas>

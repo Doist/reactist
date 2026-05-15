@@ -1,0 +1,95 @@
+import { useEffect, useState } from 'react'
+import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { BADGE } from '@geometricpanda/storybook-addon-badges'
+import * as CheckboxFieldStories from './checkbox-field.stories'
+
+import { PartialProps } from '../utils/storybook-helper'
+import { CheckboxField } from '.'
+import { Stack } from '../stack'
+import { Text } from '../text'
+
+<Meta of={CheckboxFieldStories} />
+
+export function Icon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path
+                fill="currentColor"
+                d="M6 6.653a1 1 0 011.464-.886l10.246 5.37a1 1 0 01-.002 1.773L7.46 18.24a1 1 0 01-1.461-.887V13l6.96-.674a.328.328 0 000-.652L6 11V6.653z"
+            />
+        </svg>
+    )
+}
+
+# CheckboxField
+
+A checkbox field with a built-in label element.
+
+<Canvas>
+    <Story of={CheckboxFieldStories.BasicExample} />
+</Canvas>
+
+---
+
+<Description of={CheckboxField} />
+
+<Controls />
+
+## Stories
+
+export const Template = ({
+    disabled,
+    indeterminate,
+    label,
+    icon,
+    'aria-controls': ariaControls,
+    'aria-describedby': ariaDescribedby,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledby,
+}) => <CheckboxField disabled={disabled} indeterminate={indeterminate} label={label} icon={icon} />
+
+### Checkbox with icon
+
+A checkbox field with an icon and a string. The icon is rendered to the left of the label.
+
+#### Image as Icon
+
+<Canvas>
+    <Story of={CheckboxFieldStories.ImageAsIcon} />
+</Canvas>
+
+#### React element as Icon
+
+In this example we are passing an SVG image as icon.
+
+<Canvas>
+    <Story of={CheckboxFieldStories.ReactElementAsIcon} />
+</Canvas>
+
+### ReactNode as Label
+
+A checkbox field with a `ReactNode` as label.
+
+<Canvas>
+    <Story of={CheckboxFieldStories.ReactNodeAsLabel} />
+</Canvas>
+
+<CheckboxField
+    label={
+        <>
+            Accept our <strong>terms of service</strong>
+        </>
+    }
+/>
+
+### Indeterminate Example
+
+<Canvas>
+    <Story of={CheckboxFieldStories.IndeterminateExample} />
+</Canvas>
+
+## Accessibility
+
+<Canvas>
+    <Story of={CheckboxFieldStories.AccessibilityExamples} />
+</Canvas>

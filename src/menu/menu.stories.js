@@ -1,21 +1,15 @@
-import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
-import KeyboardShortcut from '../components/keyboard-shortcut'
+import * as React from 'react'
+
 import { Button, IconButton } from '../button'
+import { Column, Columns } from '../columns'
+import KeyboardShortcut from '../components/keyboard-shortcut'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
-import { Columns, Column } from '../columns'
-import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, MenuGroup, SubMenu } from '.'
 import { Text } from '../text'
 
-<Meta
-    title="Design system/Menu"
-    component={Menu}
-    parameters={{
-        badges: ['accessible'],
-    }}
-/>
+import { ContextMenuTrigger, Menu, MenuButton, MenuGroup, MenuItem, MenuList, SubMenu } from '.'
 
-export function ArrowDown() {
+function ArrowDown() {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +26,7 @@ export function ArrowDown() {
     )
 }
 
-export function ArrowRight() {
+function ArrowRight() {
     return (
         <svg width="24" height="24">
             <path
@@ -44,18 +38,37 @@ export function ArrowRight() {
     )
 }
 
-# Menu
+function StructuredMenuItem({ icon, label, shortcut }) {
+    return (
+        <Columns space="small" width="full" flexGrow={1}>
+            {icon ? (
+                <Column width="content" aria-hidden>
+                    {icon}
+                </Column>
+            ) : null}
+            <Column width="auto">
+                <Text size="copy">{label}</Text>
+            </Column>
+            {shortcut ? (
+                <Column width="content">
+                    <KeyboardShortcut>{shortcut}</KeyboardShortcut>
+                </Column>
+            ) : null}
+        </Columns>
+    )
+}
 
-A set of components that provide the means to construct a menu that can be triggered
-via an element or as a context menu.
+export default {
+    title: 'Design system/Menu',
+    component: Menu,
 
-<Canvas>
-    <Story
-        name="Simple Menu Story"
-        parameters={{
-            docs: { source: { type: 'code' } },
-        }}
-    >
+    parameters: {
+        badges: ['accessible'],
+    },
+}
+
+export const SimpleMenuStory = {
+    render: () => (
         <Menu>
             <MenuButton render={<Button variant="primary" endIcon={<ArrowDown />} />}>
                 Simple menu
@@ -68,20 +81,21 @@ via an element or as a context menu.
                 <MenuItem>Remove</MenuItem>
             </MenuList>
         </Menu>
-    </Story>
-</Canvas>
+    ),
 
-### `tooltip`
+    name: 'Simple Menu Story',
 
-The `tooltip` prop allows a tooltip to be shown over the menu button.
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
+}
 
-<Canvas>
-    <Story
-        name="Tooltip Story"
-        parameters={{
-            docs: { source: { type: 'code' } },
-        }}
-    >
+export const TooltipStory = {
+    render: () => (
         <Menu>
             <MenuButton render={<Button variant="primary" tooltip="I have a tooltip" />}>
                 Focus on or hover over me
@@ -94,21 +108,21 @@ The `tooltip` prop allows a tooltip to be shown over the menu button.
                 <MenuItem>Remove</MenuItem>
             </MenuList>
         </Menu>
-    </Story>
-</Canvas>
+    ),
 
-### `modal`
+    name: 'Tooltip Story',
 
-By default, interaction with elements below the menu is disallowed when the menu is open. This behaviour can
-be changed by passing `modal={false}` to `<MenuList>`
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
+}
 
-<Canvas>
-    <Story
-        name="Outside Interaction Story"
-        parameters={{
-            docs: { source: { type: 'code' } },
-        }}
-    >
+export const OutsideInteractionStory = {
+    render: () => (
         <Menu>
             <MenuButton render={<Button variant="primary" />}>Menu</MenuButton>
             <MenuList aria-label="Outside interaction menu" modal={false}>
@@ -119,22 +133,21 @@ be changed by passing `modal={false}` to `<MenuList>`
                 <MenuItem>Remove</MenuItem>
             </MenuList>
         </Menu>
-    </Story>
-</Canvas>
+    ),
 
-### `<SubMenu>`
+    name: 'Outside Interaction Story',
 
-You may nest the `<SubMenu>` component within `<Menu>` to create submenus.
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
+}
 
-On smaller viewports where there isn't enough space to render the submenu on either side, it will be rendered under its parent menu item instead.
-
-<Canvas>
-    <Story
-        name="SubMenu Story"
-        parameters={{
-            docs: { source: { type: 'code' } },
-        }}
-    >
+export const SubMenuStory = {
+    render: () => (
         <Menu>
             <MenuButton render={<Button variant="secondary" endIcon={<ArrowDown />} />}>
                 With SubMenu
@@ -168,23 +181,21 @@ On smaller viewports where there isn't enough space to render the submenu on eit
                 </SubMenu>
             </MenuList>
         </Menu>
-    </Story>
-</Canvas>
+    ),
 
-### `<ContextMenuTrigger>`
+    name: 'SubMenu Story',
 
-Using the `<ContextMenuTrigger>` component, an element can be defined as the right-click context menu trigger
-for the menu.
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
+}
 
-In the demo below, right click on the Settings button, or click on the more button:
-
-<Canvas>
-    <Story
-        name="ContextMenuTrigger Story"
-        parameters={{
-            docs: { source: { type: 'code' } },
-        }}
-    >
+export const ContextMenuTriggerStory = {
+    render: () => (
         <Stack space="small">
             <Menu>
                 <Inline space="xsmall">
@@ -208,21 +219,22 @@ In the demo below, right click on the Settings button, or click on the more butt
                 </MenuList>
             </Menu>
         </Stack>
-    </Story>
-</Canvas>
+    ),
 
-### Extra Features
+    name: 'ContextMenuTrigger Story',
 
-You may also use `<MenuGroup>` to group menu items, `disable` a menu item, or
-return `false` from `onSelect` to prevent the menu from closing when an item is selected.
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
+}
 
-<Canvas>
-    <Story
-        name="Extra Features Story"
-        parameters={{
-            docs: { source: { type: 'code' } },
-        }}
-    >
+export const ExtraFeaturesStory = {
+    render: () => (
+        // This prevents the menu from closing
         <Menu>
             <MenuButton render={<Button variant="tertiary" endIcon={<ArrowDown />} />}>
                 With extra features
@@ -236,7 +248,7 @@ return `false` from `onSelect` to prevent the menu from closing when an item is 
                 </MenuItem>
                 <MenuItem
                     onSelect={() => {
-                        return false // This prevents the menu from closing
+                        return false
                     }}
                 >
                     <StructuredMenuItem icon="👀" label="This will not close the menu" />
@@ -249,25 +261,15 @@ return `false` from `onSelect` to prevent the menu from closing when an item is 
                 </MenuGroup>
             </MenuList>
         </Menu>
-    </Story>
-</Canvas>
+    ),
 
-export function StructuredMenuItem({ icon, label, shortcut }) {
-    return (
-        <Columns space="small" width="full" flexGrow={1}>
-            {icon ? (
-                <Column width="content" aria-hidden>
-                    {icon}
-                </Column>
-            ) : null}
-            <Column width="auto">
-                <Text size="copy">{label}</Text>
-            </Column>
-            {shortcut ? (
-                <Column width="content">
-                    <KeyboardShortcut>{shortcut}</KeyboardShortcut>
-                </Column>
-            ) : null}
-        </Columns>
-    )
+    name: 'Extra Features Story',
+
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
 }

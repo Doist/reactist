@@ -1,33 +1,21 @@
-import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+import * as React from 'react'
 
 import { Stack } from '../stack'
 import { Text } from '../text'
-import { PasswordField } from './'
-
 import { selectWithNone } from '../utils/storybook-helper'
 
-<Meta
-    title="Design system/PasswordField"
-    component={PasswordField}
-    parameters={{
-        badges: ['accessible'],
-    }}
-/>
+import { PasswordField } from './'
 
-# PasswordField
-
-A component used to accept password input from the user.
-
-export function preventDefault(event) {
+function preventDefault(event) {
     event.preventDefault()
 }
 
-export function AlertIcon() {
+function AlertIcon() {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
             <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18Zm1-5.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-.014-7.014A.987.987 0 0 0 12 7.5h-.027l-.028.002a.987.987 0 0 0-.93 1.04l.236 4.25c.053.944 1.445.944 1.498 0l.236-4.25.001-.028v-.027Z"
                 fill="#DC4C3E"
             />
@@ -35,7 +23,7 @@ export function AlertIcon() {
     )
 }
 
-export function InteractivePropsStory({ label, auxiliaryLabel, endSlot = false, ...props }) {
+function InteractivePropsStory({ label, auxiliaryLabel, endSlot = false, ...props }) {
     return (
         <PasswordField
             {...props}
@@ -52,83 +40,115 @@ export function InteractivePropsStory({ label, auxiliaryLabel, endSlot = false, 
     )
 }
 
-<Canvas>
-    <Story
-        name="Interactive props"
-        parameters={{
-            chromatic: { disableSnapshot: false },
-        }}
-        argTypes={{
-            label: {
-                control: { type: 'text' },
-                defaultValue: 'Password',
-            },
-            value: { table: { disable: true } },
-            tone: {
-                options: ['neutral', 'success', 'error', 'loading'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'neutral',
-            },
-            maxWidth: selectWithNone(
-                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
-                'small',
-            ),
-            togglePasswordLabel: {
-                control: { type: 'text' },
-                defaultValue: 'Toggle password visibility',
-            },
-            variant: {
-                options: ['default', 'bordered'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'default',
-            },
-            auxiliaryLabel: {
-                control: { type: 'text' },
-                defaultValue: 'Forgot your password?',
-            },
-            message: {
-                control: { type: 'text' },
-                defaultValue:
-                    'Must be at least 100 characters long, and it should include each letter of the alphabet',
-            },
-            endSlot: {
-                control: { type: 'boolean' },
-                defaultValue: false,
-            },
-            placeholder: {
-                control: { type: 'text' },
-                defaultValue: 'Type your password',
-            },
-            disabled: {
-                control: { type: 'boolean' },
-                defaultValue: false,
-            },
-        }}
-    >
-        {InteractivePropsStory.bind({})}
-    </Story>
-</Canvas>
+export default {
+    title: 'Design system/PasswordField',
+    component: PasswordField,
 
-<ArgsTable of={PasswordField} />
+    parameters: {
+        badges: ['accessible'],
+    },
+}
 
-## Colors
+export const InteractiveProps = {
+    render: InteractivePropsStory.bind({}),
+    name: 'Interactive props',
 
-The following CSS custom properties are available so that the `PasswordField`'s border colors can be customized.
-Note that these variables are shared with other components such as `Textfield`, `SelectField`, and `TextArea`.
+    parameters: {
+        chromatic: {
+            disableSnapshot: false,
+        },
+    },
 
-```
---reactist-inputs-focus
---reactist-inputs-idle
---reactist-inputs-alert
-```
+    argTypes: {
+        label: {
+            control: {
+                type: 'text',
+            },
 
-<Canvas withToolbar>
-    <Story
-        name="Message tone"
-        parameters={{
-            chromatic: { disableSnapshot: false },
-        }}
-    >
+            defaultValue: 'Password',
+        },
+
+        value: {
+            table: {
+                disable: true,
+            },
+        },
+
+        tone: {
+            options: ['neutral', 'success', 'error', 'loading'],
+
+            control: {
+                type: 'inline-radio',
+            },
+
+            defaultValue: 'neutral',
+        },
+
+        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'], 'small'),
+
+        togglePasswordLabel: {
+            control: {
+                type: 'text',
+            },
+
+            defaultValue: 'Toggle password visibility',
+        },
+
+        variant: {
+            options: ['default', 'bordered'],
+
+            control: {
+                type: 'inline-radio',
+            },
+
+            defaultValue: 'default',
+        },
+
+        auxiliaryLabel: {
+            control: {
+                type: 'text',
+            },
+
+            defaultValue: 'Forgot your password?',
+        },
+
+        message: {
+            control: {
+                type: 'text',
+            },
+
+            defaultValue:
+                'Must be at least 100 characters long, and it should include each letter of the alphabet',
+        },
+
+        endSlot: {
+            control: {
+                type: 'boolean',
+            },
+
+            defaultValue: false,
+        },
+
+        placeholder: {
+            control: {
+                type: 'text',
+            },
+
+            defaultValue: 'Type your password',
+        },
+
+        disabled: {
+            control: {
+                type: 'boolean',
+            },
+
+            defaultValue: false,
+        },
+    },
+}
+
+export const MessageTone = {
+    render: () => (
         <Stack space="xxlarge" dividers="secondary">
             <PasswordField
                 label="Password confirmation"
@@ -156,11 +176,19 @@ Note that these variables are shared with other components such as `Textfield`, 
                 maxWidth="small"
             />
         </Stack>
-    </Story>
-</Canvas>
+    ),
 
-<Canvas withToolbar>
-    <Story name="Without label">
+    name: 'Message tone',
+
+    parameters: {
+        chromatic: {
+            disableSnapshot: false,
+        },
+    },
+}
+
+export const WithoutLabel = {
+    render: () => (
         <Stack space="xlarge" dividers="secondary" maxWidth="small">
             <Stack as="label" htmlFor="custom-textarea" space="small">
                 <Text size="subtitle">Custom label is up here</Text>
@@ -181,5 +209,7 @@ Note that these variables are shared with other components such as `Textfield`, 
                 </Text>
             </Stack>
         </Stack>
-    </Story>
-</Canvas>
+    ),
+
+    name: 'Without label',
+}

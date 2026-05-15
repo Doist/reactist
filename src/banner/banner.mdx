@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
 import { Box } from '../box'
 import { Text } from '../text'
 import { Stack } from '../stack'
@@ -7,14 +7,9 @@ import { Button } from '../button'
 import { PromoImage } from './story-promo-image'
 import { Notice } from '../notice'
 import { CheckboxField } from '../checkbox-field'
+import * as BannerStories from './banner.stories'
 
-<Meta
-    title="Design system/Banner"
-    component={Banner}
-    parameters={{
-        badges: ['accessible'],
-    }}
-/>
+<Meta of={BannerStories} />
 
 export function ArchiveIcon() {
     return (
@@ -360,39 +355,7 @@ export function BannerContentExamples({ theme }) {
 A simple banner component meant to be used to _inform_ the user of promotional content, disclaimers, warnings, as well as success and error states.
 
 <Canvas>
-    <Story
-        name="Playground"
-        parameters={{ docs: { source: { type: 'code' } } }}
-        argTypes={{
-            type: {
-                options: [
-                    'neutral',
-                    'info',
-                    'upgrade',
-                    'experiment',
-                    'warning',
-                    'error',
-                    'success',
-                ],
-                control: { type: 'inline-radio' },
-                defaultValue: 'info',
-            },
-            image: { control: false },
-            icon: { control: false },
-            title: {
-                control: { type: 'text' },
-                defaultValue: 'Title of the Banner',
-            },
-            description: {
-                control: { type: 'text' },
-                defaultValue: 'Description of the Banner.',
-            },
-            action: { control: false },
-            id: { control: false },
-        }}
-    >
-        {PlaygroundTemplate.bind({})}
-    </Story>
+    <Story of={BannerStories.Playground} />
 </Canvas>
 
 ## Examples
@@ -402,15 +365,7 @@ A simple banner component meant to be used to _inform_ the user of promotional c
 Banners can feature different icons or no icon at all. When the type is neutral, a custom icon can be provided; otherwise, preset icons corresponding to the respective type will be used.
 
 <Canvas>
-    <Story
-        name="Icon variants"
-        parameters={{
-            docs: { source: { type: 'code' } },
-            chromatic: { disableSnapshot: false },
-        }}
-    >
-        <BannerIconExamples theme="light" />
-    </Story>
+    <Story of={BannerStories.IconVariants} />
 </Canvas>
 
 ### Actions
@@ -420,15 +375,7 @@ Banners can have an optional dismiss action, or a primary or tertiary CTA, but n
 These actions can be combined, such as a primary CTA with a dismiss option, or a primary CTA with a dismiss option and an inline link.
 
 <Canvas>
-    <Story
-        name="Actions"
-        parameters={{
-            docs: { source: { type: 'code' } },
-            chromatic: { disableSnapshot: false },
-        }}
-    >
-        <BannerActionExamples theme="light" />
-    </Story>
+    <Story of={BannerStories.Actions} />
 </Canvas>
 
 ### Copy
@@ -436,15 +383,7 @@ These actions can be combined, such as a primary CTA with a dismiss option, or a
 Banners have two content options: a regular text that can span over multiple lines, or a bold header and a description with a secondary text color.
 
 <Canvas>
-    <Story
-        name="Copy"
-        parameters={{
-            docs: { source: { type: 'code' } },
-            chromatic: { disableSnapshot: false },
-        }}
-    >
-        <BannerCopyExamples theme="light" />
-    </Story>
+    <Story of={BannerStories.Copy} />
 </Canvas>
 
 ### Image
@@ -454,15 +393,7 @@ Banners can include images placed at the top, separated from the copy by a divid
 Image banners do not feature icons but can include body text or a combination of a header and description. They also support optional inline links and a dismiss action.
 
 <Canvas>
-    <Story
-        name="Image"
-        parameters={{
-            docs: { source: { type: 'code' } },
-            chromatic: { disableSnapshot: false },
-        }}
-    >
-        <BannerImageExamples theme="light" />
-    </Story>
+    <Story of={BannerStories.Image} />
 </Canvas>
 
 ### Content
@@ -470,20 +401,12 @@ Image banners do not feature icons but can include body text or a combination of
 Banners can include extra content.
 
 <Canvas>
-    <Story
-        name="Content"
-        parameters={{
-            docs: { source: { type: 'code' } },
-            chromatic: { disableSnapshot: false },
-        }}
-    >
-        <BannerContentExamples theme="light" />
-    </Story>
+    <Story of={BannerStories.Content} />
 </Canvas>
 
 ## Props
 
-<ArgsTable of={Banner} />
+<Controls />
 
 ## Colors
 
@@ -545,13 +468,5 @@ up, here's a demo on how easily you can prepare banners for dark mode by setting
 properties.
 
 <Canvas>
-    <Story
-        name="Dark mode"
-        parameters={{
-            docs: { source: { type: 'dynamic' } },
-            chromatic: { disableSnapshot: false },
-        }}
-    >
-        {DarkModeTemplate.bind({})}
-    </Story>
+    <Story of={BannerStories.DarkMode} />
 </Canvas>

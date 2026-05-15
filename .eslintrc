@@ -19,6 +19,8 @@
         "dist/**",
         "docs/**",
         "lib/**",
+        "storybook-static/**",
+        "storybook-static-*/**",
         "postcss.config.js",
         "scripts/**",
         "rollup.config.mjs",
@@ -38,17 +40,40 @@
     },
     "overrides": [
         {
+            // Files in .react-compiler.rec.json with known CompileErrors.
+            // eslint-plugin-react-hooks@7+ flags the same issues via runtime checks.
+            // They're pre-existing accepted technical debt; suppress so the
+            // migration doesn't turn them into hard lint failures.
+            "files": [
+                "src/checkbox-field/use-fork-ref.ts",
+                "src/tabs/tabs.tsx",
+                "src/tooltip/tooltip.tsx"
+            ],
+            "rules": {
+                "react-hooks/refs": "off",
+                "react-hooks/exhaustive-deps": "warn",
+                "react-hooks/use-memo": "off",
+                "react-hooks/set-state-in-effect": "off",
+                "react/use": "off"
+            }
+        },
+        {
             // Stories and tests have looser typing requirements. Storybook's package
             // exports (e.g. `storybook/actions`) aren't understood by the default ESLint
             // import resolver, so `import/no-unresolved` is disabled for stories.
-            "files": ["stories/**/*", "**/*.stories.*", "*.test.*"],
+            "files": ["stories/**/*", "**/*.stories.*", "**/*-stories-*.{ts,tsx}", "*.test.*"],
+            "env": {
+                "browser": true
+            },
             "rules": {
                 "react/no-unescaped-entities": "off",
                 "import/no-unresolved": "off",
                 "@typescript-eslint/no-unsafe-member-access": "off",
                 "@typescript-eslint/no-unsafe-call": "off",
                 "@typescript-eslint/no-unsafe-assignment": "off",
-                "@typescript-eslint/no-unsafe-return": "off"
+                "@typescript-eslint/no-unsafe-return": "off",
+                "@typescript-eslint/no-unused-vars": "off",
+                "@typescript-eslint/no-floating-promises": "off"
             }
         }
     ],

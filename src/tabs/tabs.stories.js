@@ -1,24 +1,12 @@
-import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
-import { Tabs, TabList, Tab, TabPanel, TabAwareSlot } from './tabs'
+import * as React from 'react'
+
 import { Box } from '../box'
+import { Column, Columns } from '../columns'
 import { Text } from '../text'
-import { Columns, Column } from '../columns'
 
-<Meta
-    title="Design system/Tabs"
-    component={Tabs}
-    parameters={{
-        badges: ['accessible'],
-    }}
-/>
+import { Tab, TabAwareSlot, TabList, TabPanel, Tabs } from './tabs'
 
-# Tabs
-
-A set of components that allow tabs to be rendered, which controls the visibility of their corresponding tab panels.
-This component is powered by [Ariakit's Tab component](https://ariakit.org/examples/tab). For more details of its expected
-behaviour, see [ARIA: tab role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role).
-
-export const Template = ({
+const Template = ({
     variant,
     space,
     selectedId,
@@ -57,146 +45,108 @@ export const Template = ({
     </Tabs>
 )
 
-<Canvas>
-    <Story
-        name="Main demo"
-        parameters={{
-            docs: { source: { type: 'code' } },
-            controls: { exclude: ['children'] },
-            chromatic: { disableSnapshot: false },
-        }}
-        args={{
-            'aria-label': 'Main demo for Tabs',
-            defaultSelectedId: 'tab3',
-        }}
-        argTypes={{
-            selectedId: {
-                options: ['tab1', 'tab2', 'tab3', null, undefined],
-                control: { type: 'inline-radio' },
+export default {
+    title: 'Design system/Tabs',
+    component: Tabs,
+
+    parameters: {
+        badges: ['accessible'],
+    },
+}
+
+export const MainDemo = {
+    render: Template.bind({}),
+    name: 'Main demo',
+
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
             },
-            defaultSelectedId: {
-                options: ['tab1', 'tab2', 'tab3', null, undefined],
-                control: { type: 'inline-radio' },
+        },
+
+        controls: {
+            exclude: ['children'],
+        },
+
+        chromatic: {
+            disableSnapshot: false,
+        },
+    },
+
+    args: {
+        'aria-label': 'Main demo for Tabs',
+        defaultSelectedId: 'tab3',
+    },
+
+    argTypes: {
+        selectedId: {
+            options: ['tab1', 'tab2', 'tab3', null, undefined],
+
+            control: {
+                type: 'inline-radio',
             },
-            variant: {
-                options: ['themed', 'neutral'],
-                control: { type: 'inline-radio' },
+        },
+
+        defaultSelectedId: {
+            options: ['tab1', 'tab2', 'tab3', null, undefined],
+
+            control: {
+                type: 'inline-radio',
             },
-            space: {
-                options: ['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge'],
-                control: { type: 'inline-radio' },
+        },
+
+        variant: {
+            options: ['themed', 'neutral'],
+
+            control: {
+                type: 'inline-radio',
             },
-            renderMode: {
-                options: ['always', 'active', 'lazy'],
-                control: { type: 'inline-radio' },
+        },
+
+        space: {
+            options: ['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge'],
+
+            control: {
+                type: 'inline-radio',
             },
-            onSelectedIdChange: { action: 'onSelectedIdChange' },
-        }}
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
+        },
 
-## `<Tabs>`
+        renderMode: {
+            options: ['always', 'active', 'lazy'],
 
-<Description of={Tabs} />
-<ArgsTable of={Tabs} />
+            control: {
+                type: 'inline-radio',
+            },
+        },
 
-## `<TabList>`
+        onSelectedIdChange: {
+            action: 'onSelectedIdChange',
+        },
+    },
+}
 
-<Description of={TabList} />
-<ArgsTable of={TabList} />
+export const ThemedVariant = {
+    render: Template.bind({}),
 
-## `<Tab>`
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
 
-<Description of={Tab} />
-<ArgsTable of={Tab} />
+    args: {
+        'aria-label': 'Tabs with themed variant style',
+        variant: 'themed',
+    },
 
-## `<TabPanel>`
+    name: 'Themed variant',
+}
 
-<Description of={TabPanel} />
-<ArgsTable of={TabPanel} />
-
-## `<TabAwareSlot>`
-
-<Description of={TabAwareSlot} />
-<ArgsTable of={TabAwareSlot} />
-
-## Colors
-
-The following CSS custom properties are available so that the tabs' colors can be customized:
-
-```
---reactist-tab-neutral-selected-tint
---reactist-tab-neutral-selected-fill
---reactist-tab-neutral-unselected-tint
---reactist-tab-neutral-unselected-fill
---reactist-tab-neutral-hover-tint
---reactist-tab-neutral-hover-fill
---reactist-tab-neutral-disabled-tint
---reactist-tab-neutral-disabled-fill
---reactist-tab-neutral-track
---reactist-tab-neutral-border
-
---reactist-tab-themed-selected-tint
---reactist-tab-themed-selected-fill
---reactist-tab-themed-unselected-tint
---reactist-tab-themed-unselected-fill
---reactist-tab-themed-hover-tint
---reactist-tab-themed-hover-fill
---reactist-tab-themed-disabled-tint
---reactist-tab-themed-disabled-fill
---reactist-tab-themed-track
---reactist-tab-themed-border
-```
-
-## Sizes
-
-The following CSS custom properties are available so that the tabs' sizes can be customized:
-
-```
---reactist-tab-track-border-radius
---reactist-tab-track-border-width
---reactist-tab-border-radius
---reactist-tab-border-width
---reactist-tab-padding-x
---reactist-tab-padding-y
---reactist-tab-line-height
-```
-
-## Other
-
-The following CSS custom properties are also available to customize other tabs' styles:
-
-```
---reactist-tab-neutral-shadow
-
---reactist-tab-themed-shadow
-
---reactist-tab-selected-transition
-```
-
-## Stories
-
-### Themed variant
-
-<Canvas withToolbar>
-    <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
-        args={{
-            'aria-label': 'Tabs with themed variant style',
-            variant: 'themed',
-        }}
-        name="Themed variant"
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
-### Full container width tabs
-
-<Canvas withToolbar>
-    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Full container width tabs">
+export const FullContainerWidthTabs = {
+    render: () => (
         <Tabs>
             <TabList aria-label="Full width tabs example" width="full">
                 <Tab id="tab1">Tab 1</Tab>
@@ -219,13 +169,21 @@ The following CSS custom properties are also available to customize other tabs' 
                 </Box>
             </TabPanel>
         </Tabs>
-    </Story>
-</Canvas>
+    ),
 
-### Tabs aligned to the center
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
 
-<Canvas withToolbar>
-    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Tabs aligned to the center">
+    name: 'Full container width tabs',
+}
+
+export const TabsAlignedToTheCenter = {
+    render: () => (
         <Tabs>
             <TabList aria-label="Full width tabs example" align="center">
                 <Tab id="tab1">Tab 1</Tab>
@@ -248,17 +206,21 @@ The following CSS custom properties are also available to customize other tabs' 
                 </Box>
             </TabPanel>
         </Tabs>
-    </Story>
-</Canvas>
+    ),
 
-### Selected tab with slide animation
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
 
-<Canvas withToolbar>
-    <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
-        name="Selected tab with slide animation"
-        style={{ border: '1px solid red' }}
-    >
+    name: 'Tabs aligned to the center',
+}
+
+export const SelectedTabWithSlideAnimation = {
+    render: () => (
         <Tabs>
             <style>
                 {
@@ -286,16 +248,25 @@ The following CSS custom properties are also available to customize other tabs' 
                 </Box>
             </TabPanel>
         </Tabs>
-    </Story>
-</Canvas>
+    ),
 
-### Using the `<TabAwareSlot>` component
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
 
-<Canvas withToolbar>
-    <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
-        name="Using the TabAwareSlot component"
-    >
+    name: 'Selected tab with slide animation',
+
+    style: {
+        border: '1px solid red',
+    },
+}
+
+export const UsingTheTabAwareSlotComponent = {
+    render: () => (
         <Tabs>
             <Columns>
                 <Column width="content">
@@ -314,7 +285,7 @@ The following CSS custom properties are also available to customize other tabs' 
                                 alignItems="center"
                                 justifyContent="flexEnd"
                             >
-                                <Text>Currently showing the {selectedId} tab</Text>
+                                <Text>Currently showing the {selectedId}tab</Text>
                             </Box>
                         )}
                     </TabAwareSlot>
@@ -336,15 +307,21 @@ The following CSS custom properties are also available to customize other tabs' 
                 </Box>
             </TabPanel>
         </Tabs>
-    </Story>
-</Canvas>
+    ),
 
-### Multiple `<TabList>` instances
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
 
-As long as they exist within the same `<Tabs>` component tree, multiple `<TabList>` instances can be rendered.
+    name: 'Using the TabAwareSlot component',
+}
 
-<Canvas withToolbar>
-    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Multiple TabList instances">
+export const MultipleTabListInstances = {
+    render: () => (
         <Tabs>
             <TabList aria-label="Multiple tablist example tabs">
                 <Tab id="tab1">Tab 1</Tab>
@@ -372,18 +349,21 @@ As long as they exist within the same `<Tabs>` component tree, multiple `<TabLis
                 <Tab id="tab3">Tab 3</Tab>
             </TabList>
         </Tabs>
-    </Story>
-</Canvas>
+    ),
 
-### Polymorphism
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
 
-By default, the `TabPanel` renders an unstyled div. When more control is needed, an element type or component
-can be specified with the `as` prop.
+    name: 'Multiple TabList instances',
+}
 
-Note that when combined with the `renderMode="active"` prop, the entire tabpanel will be affected, including the actual polymorphic component/element passed into `as`.
-
-<Canvas withToolbar>
-    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Polymorphism">
+export const Polymorphism = {
+    render: () => (
         <Tabs>
             <TabList aria-label="Multiple tablist example tabs">
                 <Tab id="tab1">Tab 1</Tab>
@@ -412,5 +392,15 @@ Note that when combined with the `renderMode="active"` prop, the entire tabpanel
                 <Column>Column 3</Column>
             </TabPanel>
         </Tabs>
-    </Story>
-</Canvas>
+    ),
+
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
+
+    name: 'Polymorphism',
+}

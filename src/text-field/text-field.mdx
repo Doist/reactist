@@ -1,4 +1,5 @@
-import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import * as TextFieldStories from './text-field.stories'
 
 import { TextField } from './'
 import { Box } from '../box'
@@ -9,13 +10,7 @@ import { Tooltip } from '../tooltip'
 
 import { selectWithNone } from '../utils/storybook-helper'
 
-<Meta
-    title="Design system/TextField"
-    component={TextField}
-    parameters={{
-        badges: ['accessible'],
-    }}
-/>
+<Meta of={TextFieldStories} />
 
 # TextField
 
@@ -72,81 +67,10 @@ export function InteractivePropsStory({
 }
 
 <Canvas>
-    <Story
-        name="Interactive props"
-        parameters={{
-            chromatic: { disableSnapshot: false },
-        }}
-        argTypes={{
-            label: {
-                control: { type: 'text' },
-                defaultValue: 'Your name',
-            },
-            value: { table: { disable: true } },
-            tone: {
-                options: ['neutral', 'success', 'error', 'loading'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'neutral',
-            },
-            maxWidth: selectWithNone(
-                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
-                'small',
-            ),
-            startSlot: {
-                control: { type: 'boolean' },
-                defaultValue: false,
-            },
-            endSlot: {
-                control: { type: 'boolean' },
-                defaultValue: false,
-            },
-            variant: {
-                options: ['default', 'bordered'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'default',
-            },
-            auxiliaryLabel: {
-                control: { type: 'text' },
-                defaultValue: 'Need help?',
-            },
-            message: {
-                control: { type: 'text' },
-                defaultValue:
-                    'We need your name for billing and shipping purposes. Make sure to enter it correctly.',
-            },
-            placeholder: {
-                control: { type: 'text' },
-                defaultValue: 'Enter your name as it appears in your ID',
-            },
-            maxLength: {
-                control: { type: 'number' },
-                defaultValue: null,
-            },
-            disabled: {
-                control: { type: 'boolean' },
-                defaultValue: false,
-            },
-            readOnly: {
-                control: { type: 'boolean' },
-                defaultValue: false,
-            },
-            characterCountPosition: {
-                options: [undefined, 'hidden', 'inline', 'below'],
-                control: { type: 'inline-radio' },
-                defaultValue: undefined,
-            },
-            endSlotPosition: {
-                options: [undefined, 'bottom', 'fullHeight'],
-                control: { type: 'inline-radio' },
-                defaultValue: undefined,
-            },
-        }}
-    >
-        {InteractivePropsStory.bind({})}
-    </Story>
+    <Story of={TextFieldStories.InteractiveProps} />
 </Canvas>
 
-<ArgsTable of={TextField} />
+<Controls />
 
 ## Colors
 
@@ -160,88 +84,15 @@ Note that these variables are shared with other components such as `PasswordFiel
 ```
 
 <Canvas withToolbar>
-    <Story
-        name="Message tone"
-        parameters={{
-            chromatic: { disableSnapshot: false },
-        }}
-    >
-        <Stack space="xxlarge" dividers="secondary">
-            <TextField
-                label="Verification code"
-                message="Verifying code…"
-                tone="loading"
-                disabled
-                maxWidth="small"
-            />
-            <TextField
-                label="Verification code"
-                message="Invalid code. Please, try again."
-                tone="error"
-                maxWidth="small"
-            />
-            <TextField
-                label="Verification code"
-                message="Code verification successful!"
-                tone="success"
-                maxWidth="small"
-            />
-            <TextField
-                label="Verification code"
-                message="This is the supporting text (helper or error) of the field, provided by the message prop"
-                tone="neutral"
-                maxWidth="small"
-            />
-        </Stack>
-    </Story>
+    <Story of={TextFieldStories.MessageTone} />
 </Canvas>
 
 <Canvas withToolbar>
-    <Story name="Without label">
-        <Stack space="xlarge" dividers="secondary" maxWidth="small">
-            <Stack as="label" htmlFor="custom-textfield" space="small">
-                <Text size="subtitle">Custom label is up here</Text>
-                <Text size="caption" tone="secondary" aria-hidden>
-                    <em>(click me to focus the input element)</em>
-                </Text>
-            </Stack>
-            <TextField
-                label={null}
-                id="custom-textfield"
-                aria-describedby="custom-description"
-                placeholder="Text field without a built-in label"
-            />
-            <Stack space="small" id="custom-description">
-                <Text size="body">Custom description is down here</Text>
-                <Text size="caption" tone="secondary" aria-hidden>
-                    <em>(inspect the input element accessibility properties if you are curious)</em>
-                </Text>
-            </Stack>
-        </Stack>
-    </Story>
+    <Story of={TextFieldStories.WithoutLabel} />
 </Canvas>
 
 <Canvas withToolbar>
-    <Story
-        name="Icons"
-        parameters={{
-            chromatic: { disableSnapshot: false },
-        }}
-    >
-        <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
-            <TextField
-                label="Search (default variant)"
-                startSlot={<SearchIcon />}
-                placeholder="Text field with an icon"
-            />
-            <TextField
-                variant="bordered"
-                label="Search (bordered variant)"
-                startSlot={<SearchIcon />}
-                placeholder="Text field with an icon"
-            />
-        </Box>
-    </Story>
+    <Story of={TextFieldStories.Icons} />
 </Canvas>
 
 export function ClearButtonIcon() {
@@ -286,17 +137,7 @@ export function ClearButtonExample({ slot }) {
 }
 
 <Canvas withToolbar>
-    <Story
-        name="Action button"
-        parameters={{
-            chromatic: { disableSnapshot: false },
-        }}
-    >
-        <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
-            <ClearButtonExample slot="startSlot" />
-            <ClearButtonExample slot="endSlot" />
-        </Box>
-    </Story>
+    <Story of={TextFieldStories.ActionButton} />
 </Canvas>
 
 export function WithTooltipExample() {
@@ -330,9 +171,7 @@ the same time, the field forces the value back to valid when blurred.
 Hence, the description is never needed when the field is not focused anyway.
 
 <Canvas withToolbar>
-    <Story name="With tooltip">
-        <WithTooltipExample />
-    </Story>
+    <Story of={TextFieldStories.WithTooltip} />
 </Canvas>
 
 ## Variants
@@ -358,13 +197,7 @@ export function WithBorderedAndEndSlotExample({ endSlotPosition = 'fullHeight' }
 }
 
 <Canvas withToolbar>
-    <Story name="Bordered variant">
-        <Stack space="xxlarge" dividers="secondary">
-            <WithBorderedExample />
-            <WithBorderedAndEndSlotExample />
-            <WithBorderedAndEndSlotExample endSlotPosition="bottom" />
-        </Stack>
-    </Story>
+    <Story of={TextFieldStories.BorderedVariant} />
 </Canvas>
 
 ## Max length
@@ -385,9 +218,7 @@ export function WithMaxLengthExample() {
 }
 
 <Canvas withToolbar>
-    <Story name="Max Length">
-        <WithMaxLengthExample />
-    </Story>
+    <Story of={TextFieldStories.MaxLength} />
 </Canvas>
 
 ## Character count position
@@ -428,11 +259,5 @@ export function WithCharacterCountPositionHiddenExample() {
 }
 
 <Canvas withToolbar>
-    <Story name="Character count position">
-        <Stack space="xxlarge" dividers="secondary">
-            <WithCharacterCountPositionExample />
-            <WithCharacterCountPositionBelowExample />
-            <WithCharacterCountPositionHiddenExample />
-        </Stack>
-    </Story>
+    <Story of={TextFieldStories.CharacterCountPosition} />
 </Canvas>

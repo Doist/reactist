@@ -1,26 +1,20 @@
-import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs'
+import * as React from 'react'
+
 import { Stack } from '../stack'
+
 import { TextLink } from './text-link'
 
-<Meta
-    title="Design system/TextLink"
-    component={TextLink}
-    parameters={{
+export default {
+    title: 'Design system/TextLink',
+    component: TextLink,
+
+    parameters: {
         badges: ['accessible'],
-    }}
-/>
+    },
+}
 
-# TextLink
-
-A component used to create text-based hyperlinks.
-
-<Canvas>
-    <Story
-        name="Main demo"
-        parameters={{
-            chromatic: { disableSnapshot: false },
-        }}
-    >
+export const MainDemo = {
+    render: () => (
         <Stack space="medium" align="start">
             <TextLink href="https://www.doist.com/">regular</TextLink>
             <TextLink href="https://www.doist.com/" openInNewTab={true}>
@@ -35,24 +29,19 @@ A component used to create text-based hyperlinks.
                 button link
             </TextLink>
         </Stack>
-    </Story>
-</Canvas>
+    ),
 
-## Props
+    name: 'Main demo',
 
-<ArgsTable of={TextLink} />
+    parameters: {
+        chromatic: {
+            disableSnapshot: false,
+        },
+    },
+}
 
-## Nested elements
-
-When using nested elements inside a `TextLink`, hover styles are properly applied to all children.
-
-<Canvas>
-    <Story
-        name="Nested elements"
-        parameters={{
-            chromatic: { disableSnapshot: false },
-        }}
-    >
+export const NestedElements = {
+    render: () => (
         <Stack space="medium" align="start">
             <TextLink href="https://www.doist.com/">
                 <span>Link with nested span</span>
@@ -61,32 +50,29 @@ When using nested elements inside a `TextLink`, hover styles are properly applie
                 <div>Link with nested div</div>
             </TextLink>
             <TextLink href="https://www.doist.com/">
-                Text with <strong>bold</strong> section
+                Text with <strong>bold</strong>section
             </TextLink>
             <TextLink href="https://www.doist.com/">
                 Text with{' '}
-                <a href="https://www.doist.com" target="_blank">
+                <a href="https://www.doist.com" target="_blank" rel="noreferrer">
                     link
                 </a>{' '}
                 section
             </TextLink>
         </Stack>
-    </Story>
-</Canvas>
+    ),
 
-## Style
+    name: 'Nested elements',
 
-The `color` prop can be used to change the color of the link. The default color sets the link to color defined in `--reactist-text-link-idle-tint` and hover to `--reactist-text-link-hover-tint`. The `color` prop allows to change it to `inherit`.
+    parameters: {
+        chromatic: {
+            disableSnapshot: false,
+        },
+    },
+}
 
-The `underline` prop can be used to change the underline style of the link. The default is `true`.
-
-<Canvas>
-    <Story
-        name="Colors"
-        parameters={{
-            chromatic: { disableSnapshot: false },
-        }}
-    >
+export const Colors = {
+    render: () => (
         <Stack space="medium" align="start">
             <TextLink href="https://www.doist.com/" color="inherit">
                 inherit color
@@ -95,5 +81,13 @@ The `underline` prop can be used to change the underline style of the link. The 
                 no underline
             </TextLink>
         </Stack>
-    </Story>
-</Canvas>
+    ),
+
+    name: 'Colors',
+
+    parameters: {
+        chromatic: {
+            disableSnapshot: false,
+        },
+    },
+}

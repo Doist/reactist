@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { action as storybookAction } from '@storybook/addon-actions'
+import { action as storybookAction } from 'storybook/actions'
 
 import { Box } from '../box'
 import { Button, IconButton } from '../button'

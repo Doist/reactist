@@ -1,21 +1,14 @@
+import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+
 import { Box } from '../box'
+import { IconButton } from '../button'
+import { Heading } from '../heading'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
 import { Text } from '../text'
-import { Heading } from '../heading'
-import { IconButton } from '../button'
 
-<Meta
-    title="Design system/IconButton"
-    component={IconButton}
-    parameters={{
-        badges: ['accessible'],
-    }}
-/>
-
-export function Icon() {
+function Icon() {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
             <path
@@ -26,7 +19,7 @@ export function Icon() {
     )
 }
 
-export function LoadingButton(props) {
+function LoadingButton(props) {
     const [loading, setLoading] = useState(false)
     useEffect(() => {
         if (!loading) return undefined
@@ -38,21 +31,86 @@ export function LoadingButton(props) {
     )
 }
 
-# IconButton
+function PlaygroundTemplate({ label, ...props }) {
+    return (
+        <Stack space="large">
+            <Heading level="2">Click on the buttons to see the loading state</Heading>
+            <Inline space="large">
+                <Box>
+                    <Stack space="large">
+                        <Box maxWidth="xsmall">
+                            <LoadingButton {...props} aria-label={label} />
+                        </Box>
+                        <Box maxWidth="xsmall">
+                            <LoadingButton {...props} disabled aria-label={label} />
+                        </Box>
+                    </Stack>
+                </Box>
+            </Inline>
+        </Stack>
+    )
+}
 
-<Description of={IconButton} />
-<ArgsTable of={IconButton} />
+function DarkModeTemplate(props) {
+    return (
+        <Box
+            padding="xlarge"
+            style={{
+                backgroundColor: 'rgb(31, 31, 31)',
+                '--reactist-content-primary': 'rgba(255, 255, 255, 0.88)',
+                // variant="primary"
+                '--reactist-actionable-primary-idle-tint': '#eceeee',
+                '--reactist-actionable-primary-idle-fill': '#008099',
+                '--reactist-actionable-primary-hover-tint': '#eceeee',
+                '--reactist-actionable-primary-hover-fill': '#1f8fa5',
+                '--reactist-actionable-primary-disabled-tint': '#767777',
+                '--reactist-actionable-primary-disabled-fill': '#00404c',
+                // variant="secondary"
+                '--reactist-actionable-secondary-idle-tint': '#eceeee',
+                '--reactist-actionable-secondary-idle-fill': '#283233',
+                '--reactist-actionable-secondary-hover-tint': '#eceeee',
+                '--reactist-actionable-secondary-hover-fill': '#31393b',
+                '--reactist-actionable-secondary-disabled-tint': '#767777',
+                '--reactist-actionable-secondary-disabled-fill': '#283233',
+                // variant="tertiary"
+                '--reactist-actionable-tertiary-idle-tint': '#22a5bf',
+                '--reactist-actionable-tertiary-hover-tint': '#22a5bf',
+                '--reactist-actionable-tertiary-hover-fill': '#283233',
+                '--reactist-actionable-tertiary-disabled-tint': '#11525f',
+                // variant="quaternary"
+                '--reactist-actionable-quaternary-idle-tint': '#8fa0a3',
+                '--reactist-actionable-quaternary-hover-tint': '#eceeee',
+                '--reactist-actionable-quaternary-hover-fill': '#283233',
+                '--reactist-actionable-quaternary-disabled-tint': '#444d4f',
+                // colour for the desctructive tone (used in certain ways by all variants)
+                '--reactist-actionable-primary-destructive-idle-tint': '#fff',
+                '--reactist-actionable-primary-destructive-idle-fill': '#d26160',
+                '--reactist-actionable-primary-destructive-hover-tint': '#fff',
+                '--reactist-actionable-primary-destructive-hover-fill': '#e98786',
+                '--reactist-actionable-primary-destructive-disabled-tint': '#767777',
+                '--reactist-actionable-primary-destructive-disabled-fill': '#7f2c24',
+                /* secondary destructive button colors (no fill, as these are transparent and bordered) */
+                '--reactist-actionable-secondary-destructive-idle-tint': '#f68584',
+                '--reactist-actionable-secondary-destructive-hover-tint': '#eFa9a9',
+                '--reactist-actionable-secondary-destructive-disabled-tint': '#8a5853',
+            }}
+        >
+            <PlaygroundTemplate {...props} />
+        </Box>
+    )
+}
 
-## Main demo
+export default {
+    title: 'Design system/IconButton',
+    component: IconButton,
 
-<Canvas>
-    <Story
-        name="Main demo"
-        parameters={{
-            docs: { source: { type: 'code' } },
-            chromatic: { disableSnapshot: false },
-        }}
-    >
+    parameters: {
+        badges: ['accessible'],
+    },
+}
+
+export const MainDemo = {
+    render: () => (
         <Stack space="xxlarge">
             <Stack space="large">
                 <pre>tone="normal"</pre>
@@ -185,22 +243,25 @@ export function LoadingButton(props) {
                 </Inline>
             </Stack>
         </Stack>
-    </Story>
-</Canvas>
+    ),
 
-### With different size
+    name: 'Main demo',
 
-Buttons have a default `normal` size, but they can also be larger or smaller. Use the `size` prop
-for this purpose.
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
 
-<Canvas>
-    <Story
-        name="With different size"
-        parameters={{
-            docs: { source: { type: 'code' } },
-            chromatic: { disableSnapshot: false },
-        }}
-    >
+        chromatic: {
+            disableSnapshot: false,
+        },
+    },
+}
+
+export const WithDifferentSize = {
+    render: () => (
         <Stack space="xxlarge">
             <Stack space="large">
                 <pre>size="small"</pre>
@@ -314,34 +375,25 @@ for this purpose.
                 </Inline>
             </Stack>
         </Stack>
-    </Story>
-</Canvas>
+    ),
 
-### Customized colors
+    name: 'With different size',
 
-Though probably not the final official way to do it, this is a way to achieve one-off alternative
-styles for buttons.
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
 
-```jsx
-<Button
-    variant="primary"
-    style={{
-        '--reactist-btn-idle-tint': '#eee',
-        '--reactist-btn-idle-fill': '#666',
-        '--reactist-btn-hover-tint': '#fff',
-        '--reactist-btn-hover-fill': '#777',
-        '--reactist-btn-disabled-tint': '#fff',
-        '--reactist-btn-disabled-fill': '#ccc',
-    }}
->
-    Click me
-</Button>
-```
+        chromatic: {
+            disableSnapshot: false,
+        },
+    },
+}
 
-And here's how that look like:
-
-<Canvas>
-    <Story parameters={{ docs: { source: { type: 'code' } } }} name="Customized colors">
+export const CustomizedColors = {
+    render: () => (
         <Inline space="large">
             <Box>
                 <LoadingButton
@@ -373,197 +425,173 @@ And here's how that look like:
                 />
             </Box>
         </Inline>
-    </Story>
-</Canvas>
+    ),
 
-### Playground
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
 
-export function PlaygroundTemplate({ label, ...props }) {
-    return (
-        <Stack space="large">
-            <Heading level="2">Click on the buttons to see the loading state</Heading>
-            <Inline space="large">
-                <Box>
-                    <Stack space="large">
-                        <Box maxWidth="xsmall">
-                            <LoadingButton {...props} aria-label={label} />
-                        </Box>
-                        <Box maxWidth="xsmall">
-                            <LoadingButton {...props} disabled aria-label={label} />
-                        </Box>
-                    </Stack>
-                </Box>
-            </Inline>
-        </Stack>
-    )
+    name: 'Customized colors',
 }
 
-<Canvas>
-    <Story
-        parameters={{ docs: { source: { type: 'code' } } }}
-        argTypes={{
-            label: {
-                control: { type: 'select' },
-                options: ['OK', 'Submit', 'Mark as done'],
-                defaultValue: 'Submit',
-            },
-            variant: {
-                options: ['primary', 'secondary', 'tertiary', 'quaternary'],
-                control: { type: 'select' },
-                defaultValue: 'primary',
-            },
-            tone: {
-                options: ['normal', 'destructive'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'normal',
-            },
-            size: {
-                options: ['small', 'normal', 'large'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'normal',
-            },
-            shape: {
-                options: ['normal', 'rounded'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'normal',
-            },
-            disabled: { control: false },
-            icon: { control: false },
-            tooltip: { control: false },
-            exceptionallySetClassName: { control: false },
-        }}
-        name="Playground"
-    >
-        {PlaygroundTemplate.bind({})}
-    </Story>
-</Canvas>
+export const Playground = {
+    render: PlaygroundTemplate.bind({}),
 
-### Dark mode
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
 
-export function DarkModeTemplate(props) {
-    return (
-        <Box
-            padding="xlarge"
-            style={{
-                backgroundColor: 'rgb(31, 31, 31)',
-                '--reactist-content-primary': 'rgba(255, 255, 255, 0.88)',
-                // variant="primary"
-                '--reactist-actionable-primary-idle-tint': '#eceeee',
-                '--reactist-actionable-primary-idle-fill': '#008099',
-                '--reactist-actionable-primary-hover-tint': '#eceeee',
-                '--reactist-actionable-primary-hover-fill': '#1f8fa5',
-                '--reactist-actionable-primary-disabled-tint': '#767777',
-                '--reactist-actionable-primary-disabled-fill': '#00404c',
-                // variant="secondary"
-                '--reactist-actionable-secondary-idle-tint': '#eceeee',
-                '--reactist-actionable-secondary-idle-fill': '#283233',
-                '--reactist-actionable-secondary-hover-tint': '#eceeee',
-                '--reactist-actionable-secondary-hover-fill': '#31393b',
-                '--reactist-actionable-secondary-disabled-tint': '#767777',
-                '--reactist-actionable-secondary-disabled-fill': '#283233',
-                // variant="tertiary"
-                '--reactist-actionable-tertiary-idle-tint': '#22a5bf',
-                '--reactist-actionable-tertiary-hover-tint': '#22a5bf',
-                '--reactist-actionable-tertiary-hover-fill': '#283233',
-                '--reactist-actionable-tertiary-disabled-tint': '#11525f',
-                // variant="quaternary"
-                '--reactist-actionable-quaternary-idle-tint': '#8fa0a3',
-                '--reactist-actionable-quaternary-hover-tint': '#eceeee',
-                '--reactist-actionable-quaternary-hover-fill': '#283233',
-                '--reactist-actionable-quaternary-disabled-tint': '#444d4f',
-                // colour for the desctructive tone (used in certain ways by all variants)
-                '--reactist-actionable-primary-destructive-idle-tint': '#fff',
-                '--reactist-actionable-primary-destructive-idle-fill': '#d26160',
-                '--reactist-actionable-primary-destructive-hover-tint': '#fff',
-                '--reactist-actionable-primary-destructive-hover-fill': '#e98786',
-                '--reactist-actionable-primary-destructive-disabled-tint': '#767777',
-                '--reactist-actionable-primary-destructive-disabled-fill': '#7f2c24',
-                /* secondary destructive button colors (no fill, as these are transparent and bordered) */
-                '--reactist-actionable-secondary-destructive-idle-tint': '#f68584',
-                '--reactist-actionable-secondary-destructive-hover-tint': '#eFa9a9',
-                '--reactist-actionable-secondary-destructive-disabled-tint': '#8a5853',
-            }}
-        >
-            <PlaygroundTemplate {...props} />
-        </Box>
-    )
+    argTypes: {
+        label: {
+            control: {
+                type: 'select',
+            },
+
+            options: ['OK', 'Submit', 'Mark as done'],
+            defaultValue: 'Submit',
+        },
+
+        variant: {
+            options: ['primary', 'secondary', 'tertiary', 'quaternary'],
+
+            control: {
+                type: 'select',
+            },
+
+            defaultValue: 'primary',
+        },
+
+        tone: {
+            options: ['normal', 'destructive'],
+
+            control: {
+                type: 'inline-radio',
+            },
+
+            defaultValue: 'normal',
+        },
+
+        size: {
+            options: ['small', 'normal', 'large'],
+
+            control: {
+                type: 'inline-radio',
+            },
+
+            defaultValue: 'normal',
+        },
+
+        shape: {
+            options: ['normal', 'rounded'],
+
+            control: {
+                type: 'inline-radio',
+            },
+
+            defaultValue: 'normal',
+        },
+
+        disabled: {
+            control: false,
+        },
+
+        icon: {
+            control: false,
+        },
+
+        tooltip: {
+            control: false,
+        },
+
+        exceptionallySetClassName: {
+            control: false,
+        },
+    },
+
+    name: 'Playground',
 }
 
-Even though Reactist does not yet owns the concept of dark mode, and leaves it for apps to set it
-up, here's a demo on how easily you can set it up by manipulating color variables only.
+export const DarkMode = {
+    render: DarkModeTemplate.bind({}),
 
-<Canvas>
-    <Story
-        parameters={{ docs: { source: { type: 'dynamic' } } }}
-        name="Dark mode"
-        argTypes={{
-            label: {
-                control: { type: 'select' },
-                options: [
-                    'Submit',
-                    'Mark as done',
-                    'Yes, cancel my subscription',
-                    'Click me <em>now</em>',
-                ],
-                defaultValue: 'Submit',
+    parameters: {
+        docs: {
+            source: {
+                type: 'dynamic',
             },
-            variant: {
-                options: ['primary', 'secondary', 'tertiary', 'quaternary'],
-                control: { type: 'select' },
-                defaultValue: 'primary',
+        },
+    },
+
+    name: 'Dark mode',
+
+    argTypes: {
+        label: {
+            control: {
+                type: 'select',
             },
-            tone: {
-                options: ['normal', 'destructive'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'normal',
+
+            options: [
+                'Submit',
+                'Mark as done',
+                'Yes, cancel my subscription',
+                'Click me <em>now</em>',
+            ],
+
+            defaultValue: 'Submit',
+        },
+
+        variant: {
+            options: ['primary', 'secondary', 'tertiary', 'quaternary'],
+
+            control: {
+                type: 'select',
             },
-            size: {
-                options: ['small', 'normal', 'large'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'normal',
+
+            defaultValue: 'primary',
+        },
+
+        tone: {
+            options: ['normal', 'destructive'],
+
+            control: {
+                type: 'inline-radio',
             },
-            disabled: { control: false },
-            icon: { control: false },
-            tooltip: { control: false },
-            exceptionallySetClassName: { control: false },
-        }}
-    >
-        {DarkModeTemplate.bind({})}
-    </Story>
-</Canvas>
 
-## Style customization
+            defaultValue: 'normal',
+        },
 
-### Colors
+        size: {
+            options: ['small', 'normal', 'large'],
 
-The following CSS custom properties are available to customize the button-like element appearance.
+            control: {
+                type: 'inline-radio',
+            },
 
-```
---reactist-actionable-primary-idle-tint
---reactist-actionable-primary-idle-fill
---reactist-actionable-primary-hover-tint
---reactist-actionable-primary-hover-fill
---reactist-actionable-primary-disabled-tint
---reactist-actionable-primary-disabled-fill
+            defaultValue: 'normal',
+        },
 
---reactist-actionable-secondary-idle-tint
---reactist-actionable-secondary-idle-fill
---reactist-actionable-secondary-hover-tint
---reactist-actionable-secondary-hover-fill
---reactist-actionable-secondary-disabled-tint
---reactist-actionable-secondary-disabled-fill
+        disabled: {
+            control: false,
+        },
 
---reactist-actionable-tertiary-idle-tint
---reactist-actionable-tertiary-idle-fill
---reactist-actionable-tertiary-hover-tint
---reactist-actionable-tertiary-hover-fill
---reactist-actionable-tertiary-disabled-tint
---reactist-actionable-tertiary-disabled-fill
+        icon: {
+            control: false,
+        },
 
---reactist-actionable-destructive-idle-tint
---reactist-actionable-destructive-idle-fill
---reactist-actionable-destructive-hover-tint
---reactist-actionable-destructive-hover-fill
---reactist-actionable-destructive-disabled-tint
---reactist-actionable-destructive-disabled-fill
-```
+        tooltip: {
+            control: false,
+        },
+
+        exceptionallySetClassName: {
+            control: false,
+        },
+    },
+}

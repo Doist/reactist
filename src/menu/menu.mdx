@@ -1,0 +1,116 @@
+import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import KeyboardShortcut from '../components/keyboard-shortcut'
+import { Button, IconButton } from '../button'
+import { Inline } from '../inline'
+import { Stack } from '../stack'
+import { Columns, Column } from '../columns'
+import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, MenuGroup, SubMenu } from '.'
+import { Text } from '../text'
+import * as MenuStories from './menu.stories'
+
+<Meta of={MenuStories} />
+
+export function ArrowDown() {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+        >
+            <path
+                fillRule="evenodd"
+                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+            />
+        </svg>
+    )
+}
+
+export function ArrowRight() {
+    return (
+        <svg width="24" height="24">
+            <path
+                d="M14.243 12L9.646 7.404a.5.5 0 1 1 .708-.707l4.95 4.95a.5.5 0 0 1 0 .707l-4.95 4.95a.5.5 0 0 1-.708-.708L14.243 12z"
+                fill="currentColor"
+                fillRule="evenodd"
+            />
+        </svg>
+    )
+}
+
+# Menu
+
+A set of components that provide the means to construct a menu that can be triggered
+via an element or as a context menu.
+
+<Canvas>
+    <Story of={MenuStories.SimpleMenuStory} />
+</Canvas>
+
+### `tooltip`
+
+The `tooltip` prop allows a tooltip to be shown over the menu button.
+
+<Canvas>
+    <Story of={MenuStories.TooltipStory} />
+</Canvas>
+
+### `modal`
+
+By default, interaction with elements below the menu is disallowed when the menu is open. This behaviour can
+be changed by passing `modal={false}` to `<MenuList>`
+
+<Canvas>
+    <Story of={MenuStories.OutsideInteractionStory} />
+</Canvas>
+
+### `<SubMenu>`
+
+You may nest the `<SubMenu>` component within `<Menu>` to create submenus.
+
+On smaller viewports where there isn't enough space to render the submenu on either side, it will be rendered under its parent menu item instead.
+
+<Canvas>
+    <Story of={MenuStories.SubMenuStory} />
+</Canvas>
+
+### `<ContextMenuTrigger>`
+
+Using the `<ContextMenuTrigger>` component, an element can be defined as the right-click context menu trigger
+for the menu.
+
+In the demo below, right click on the Settings button, or click on the more button:
+
+<Canvas>
+    <Story of={MenuStories.ContextMenuTriggerStory} />
+</Canvas>
+
+### Extra Features
+
+You may also use `<MenuGroup>` to group menu items, `disable` a menu item, or
+return `false` from `onSelect` to prevent the menu from closing when an item is selected.
+
+<Canvas>
+    <Story of={MenuStories.ExtraFeaturesStory} />
+</Canvas>
+
+export function StructuredMenuItem({ icon, label, shortcut }) {
+    return (
+        <Columns space="small" width="full" flexGrow={1}>
+            {icon ? (
+                <Column width="content" aria-hidden>
+                    {icon}
+                </Column>
+            ) : null}
+            <Column width="auto">
+                <Text size="copy">{label}</Text>
+            </Column>
+            {shortcut ? (
+                <Column width="content">
+                    <KeyboardShortcut>{shortcut}</KeyboardShortcut>
+                </Column>
+            ) : null}
+        </Columns>
+    )
+}

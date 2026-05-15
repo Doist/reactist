@@ -1,0 +1,88 @@
+import * as React from 'react'
+
+import { Stack } from '../stack'
+import { Text } from '../text'
+
+import { Notice } from './notice'
+
+function Template({ tone, content, closeLabel }) {
+    const text =
+        content === 'long' ? (
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non gravida lacus. Sed sit amet congue diam, ac ultrices elit.'
+        ) : content === 'short' ? (
+            'Lorem ipsum dolor sit amet.'
+        ) : (
+            <Stack space="medium">
+                <Text>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non gravida
+                    lacus. Sed sit amet congue diam, ac ultrices elit.
+                </Text>
+                <Text>
+                    Suspendisse at neque leo. Duis facilisis nulla non lectus malesuada, vitae
+                    scelerisque massa hendrerit. Nulla lacinia luctus risus, dapibus semper turpis
+                    vestibulum eu.
+                </Text>
+            </Stack>
+        )
+    return <Notice tone={tone}>{text}</Notice>
+}
+
+export default {
+    title: 'Design system/Notice',
+    component: Notice,
+
+    parameters: {
+        badges: ['accessible'],
+    },
+}
+
+export const Playground = {
+    render: Template.bind({}),
+
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
+
+    argTypes: {
+        content: {
+            control: {
+                type: 'inline-radio',
+            },
+
+            options: ['short', 'long', 'longer'],
+            defaultValue: 'short',
+        },
+
+        tone: {
+            options: ['info', 'positive', 'caution', 'critical'],
+
+            control: {
+                type: 'inline-radio',
+            },
+
+            defaultValue: 'info',
+        },
+
+        closeLabel: {
+            control: {
+                type: 'text',
+            },
+
+            defaultValue: 'Close',
+        },
+
+        id: {
+            control: false,
+        },
+
+        onClose: {
+            control: false,
+        },
+    },
+
+    name: 'Playground',
+}

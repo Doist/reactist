@@ -1,4 +1,5 @@
-import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import * as BadgeStories from './badge.stories'
 
 import { Box } from '../box'
 import { Button } from '../button'
@@ -10,13 +11,7 @@ import { Text } from '../text'
 
 import { Badge } from './badge'
 
-<Meta
-    title="Design system/Badge"
-    component={Badge}
-    parameters={{
-        badges: ['accessible'],
-    }}
-/>
+<Meta of={BadgeStories} />
 
 # Badge
 
@@ -82,69 +77,24 @@ export function BadgeExamples() {
 }
 
 <Canvas>
-    <Story
-        name="Playground"
-        parameters={{ docs: { source: { type: 'code' } } }}
-        argTypes={{
-            tone: {
-                options: ['info', 'positive', 'promote', 'attention', 'warning'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'info',
-            },
-            label: {
-                control: { type: 'text' },
-                defaultValue: 'Upgrade',
-            },
-            id: { control: false },
-        }}
-    >
-        {PlaygroundTemplate.bind({})}
-    </Story>
+    <Story of={BadgeStories.Playground} />
 </Canvas>
 
 ## Examples
 
 <Canvas>
-    <Story
-        name="Main demo"
-        parameters={{
-            docs: { source: { type: 'dynamic' } },
-            chromatic: { disableSnapshot: false },
-        }}
-    >
-        <BadgeExamples />
-    </Story>
+    <Story of={BadgeStories.MainDemo} />
 </Canvas>
 
 ## Inside other elements
 
 <Canvas>
-    <Story
-        name="Inside other elements"
-        parameters={{
-            docs: { source: { type: 'dynamic' } },
-            chromatic: { disableSnapshot: false },
-        }}
-    >
-        <Stack space="medium" paddingX="medium">
-            <Box marginX="-large">
-                <Button variant="secondary" size="large">
-                    Reminders <Badge tone="promote" label="Pro" />
-                </Button>
-            </Box>
-            <div>
-                You can have badges inside{' '}
-                <TextLink>
-                    links <Badge tone="info" label="New" />
-                </TextLink>
-            </div>
-        </Stack>
-    </Story>
+    <Story of={BadgeStories.InsideOtherElements} />
 </Canvas>
 
 ## Props
 
-<ArgsTable of={Badge} />
+<Controls />
 
 ## Colors
 
@@ -207,12 +157,5 @@ up, here's a demo on how easily you can prepare badges for dark mode by setting 
 properties.
 
 <Canvas>
-    <Story
-        name="Dark mode"
-        parameters={{
-            docs: { source: { type: 'dynamic' } },
-        }}
-    >
-        {DarkModeTemplate.bind({})}
-    </Story>
+    <Story of={BadgeStories.DarkMode} />
 </Canvas>

@@ -1,0 +1,192 @@
+import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { Tabs, TabList, Tab, TabPanel, TabAwareSlot } from './tabs'
+import { Box } from '../box'
+import { Text } from '../text'
+import { Columns, Column } from '../columns'
+import * as TabsStories from './tabs.stories'
+
+<Meta of={TabsStories} />
+
+# Tabs
+
+A set of components that allow tabs to be rendered, which controls the visibility of their corresponding tab panels.
+This component is powered by [Ariakit's Tab component](https://ariakit.org/examples/tab). For more details of its expected
+behaviour, see [ARIA: tab role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role).
+
+export const Template = ({
+    variant,
+    space,
+    selectedId,
+    defaultSelectedId,
+    renderMode,
+    onSelectedIdChange,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledby,
+}) => (
+    <Tabs
+        variant={variant}
+        selectedId={selectedId}
+        defaultSelectedId={defaultSelectedId}
+        onSelectedIdChange={onSelectedIdChange}
+    >
+        <TabList aria-label={ariaLabel} aria-labelledby={ariaLabelledby} space={space}>
+            <Tab id="tab1">Tab 1</Tab>
+            <Tab id="tab2">Tab 2</Tab>
+            <Tab id="tab3">Tab 3</Tab>
+        </TabList>
+        <TabPanel id="tab1" renderMode={renderMode}>
+            <Box paddingX="small" paddingY="xlarge">
+                <Text>Content of tab 1</Text>
+            </Box>
+        </TabPanel>
+        <TabPanel id="tab2" renderMode={renderMode}>
+            <Box paddingX="small" paddingY="xlarge">
+                <Text>Content of tab 2</Text>
+            </Box>
+        </TabPanel>
+        <TabPanel id="tab3" renderMode={renderMode}>
+            <Box paddingX="small" paddingY="xlarge">
+                <Text>Content of tab 3</Text>
+            </Box>
+        </TabPanel>
+    </Tabs>
+)
+
+<Canvas>
+    <Story of={TabsStories.MainDemo} />
+</Canvas>
+
+## `<Tabs>`
+
+<Description of={Tabs} />
+
+<Controls />
+
+## `<TabList>`
+
+<Description of={TabList} />
+
+<Controls />
+
+## `<Tab>`
+
+<Description of={Tab} />
+
+<Controls />
+
+## `<TabPanel>`
+
+<Description of={TabPanel} />
+
+<Controls />
+
+## `<TabAwareSlot>`
+
+<Description of={TabAwareSlot} />
+
+<Controls />
+
+## Colors
+
+The following CSS custom properties are available so that the tabs' colors can be customized:
+
+```
+--reactist-tab-neutral-selected-tint
+--reactist-tab-neutral-selected-fill
+--reactist-tab-neutral-unselected-tint
+--reactist-tab-neutral-unselected-fill
+--reactist-tab-neutral-hover-tint
+--reactist-tab-neutral-hover-fill
+--reactist-tab-neutral-disabled-tint
+--reactist-tab-neutral-disabled-fill
+--reactist-tab-neutral-track
+--reactist-tab-neutral-border
+
+--reactist-tab-themed-selected-tint
+--reactist-tab-themed-selected-fill
+--reactist-tab-themed-unselected-tint
+--reactist-tab-themed-unselected-fill
+--reactist-tab-themed-hover-tint
+--reactist-tab-themed-hover-fill
+--reactist-tab-themed-disabled-tint
+--reactist-tab-themed-disabled-fill
+--reactist-tab-themed-track
+--reactist-tab-themed-border
+```
+
+## Sizes
+
+The following CSS custom properties are available so that the tabs' sizes can be customized:
+
+```
+--reactist-tab-track-border-radius
+--reactist-tab-track-border-width
+--reactist-tab-border-radius
+--reactist-tab-border-width
+--reactist-tab-padding-x
+--reactist-tab-padding-y
+--reactist-tab-line-height
+```
+
+## Other
+
+The following CSS custom properties are also available to customize other tabs' styles:
+
+```
+--reactist-tab-neutral-shadow
+
+--reactist-tab-themed-shadow
+
+--reactist-tab-selected-transition
+```
+
+## Stories
+
+### Themed variant
+
+<Canvas withToolbar>
+    <Story of={TabsStories.ThemedVariant} />
+</Canvas>
+
+### Full container width tabs
+
+<Canvas withToolbar>
+    <Story of={TabsStories.FullContainerWidthTabs} />
+</Canvas>
+
+### Tabs aligned to the center
+
+<Canvas withToolbar>
+    <Story of={TabsStories.TabsAlignedToTheCenter} />
+</Canvas>
+
+### Selected tab with slide animation
+
+<Canvas withToolbar>
+    <Story of={TabsStories.SelectedTabWithSlideAnimation} />
+</Canvas>
+
+### Using the `<TabAwareSlot>` component
+
+<Canvas withToolbar>
+    <Story of={TabsStories.UsingTheTabAwareSlotComponent} />
+</Canvas>
+
+### Multiple `<TabList>` instances
+
+As long as they exist within the same `<Tabs>` component tree, multiple `<TabList>` instances can be rendered.
+
+<Canvas withToolbar>
+    <Story of={TabsStories.MultipleTabListInstances} />
+</Canvas>
+
+### Polymorphism
+
+By default, the `TabPanel` renders an unstyled div. When more control is needed, an element type or component
+can be specified with the `as` prop.
+
+Note that when combined with the `renderMode="active"` prop, the entire tabpanel will be affected, including the actual polymorphic component/element passed into `as`.
+
+<Canvas withToolbar>
+    <Story of={TabsStories.Polymorphism} />
+</Canvas>
