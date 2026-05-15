@@ -65,3 +65,4 @@ addParameters({
         },
     },
 })
+export const tags = ['autodocs']
