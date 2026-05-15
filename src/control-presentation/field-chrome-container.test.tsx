@@ -7,6 +7,12 @@ import { axe } from 'jest-axe'
 import { FieldChromeContainer } from './field-chrome-container'
 
 describe('FieldChromeContainer', () => {
+    // Note: CSS `:has()`-driven state styling (readonly/disabled tinting, error
+    // border via aria-invalid, hover/focus border colors) is verified by visual
+    // regression / Chromatic, not Jest. jsdom does not implement `:has()` for
+    // computed styles, so asserting these rules in Jest would require parsing
+    // the CSS module and computing match — out of scope.
+
     it('renders children', () => {
         render(
             <FieldChromeContainer>
@@ -33,6 +39,41 @@ describe('FieldChromeContainer', () => {
             </FieldChromeContainer>,
         )
         expect(container.firstElementChild).toHaveClass('custom')
+    })
+
+    describe('chrome class wiring', () => {
+        it('applies the base container class to the wrapper', () => {
+            const { container } = render(
+                <FieldChromeContainer>
+                    <input aria-label="control" />
+                </FieldChromeContainer>,
+            )
+            // The class is hashed by CSS Modules in production but the import yields
+            // an object whose `.container` value is the actual className used.
+            // We assert presence of the class indirectly via toHaveClass with the
+            // module's resolved class name.
+            expect(container.firstElementChild?.className).toMatch(/container/)
+        })
+
+        it('applies the small border-radius class by default', () => {
+            const { container } = render(
+                <FieldChromeContainer>
+                    <input aria-label="control" />
+                </FieldChromeContainer>,
+            )
+            expect(container.firstElementChild?.className).toMatch(/borderRadiusSmall/)
+            expect(container.firstElementChild?.className).not.toMatch(/borderRadiusLarge/)
+        })
+
+        it('applies the large border-radius class when borderRadius="large"', () => {
+            const { container } = render(
+                <FieldChromeContainer borderRadius="large">
+                    <input aria-label="control" />
+                </FieldChromeContainer>,
+            )
+            expect(container.firstElementChild?.className).toMatch(/borderRadiusLarge/)
+            expect(container.firstElementChild?.className).not.toMatch(/borderRadiusSmall/)
+        })
     })
 
     describe('click-to-focus dispatch', () => {
