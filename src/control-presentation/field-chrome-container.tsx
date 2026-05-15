@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { type ComponentProps, forwardRef } from 'react'
+import { forwardRef } from 'react'
 
 import { Box } from '../box'
 
@@ -9,12 +9,15 @@ import type { ObfuscatedClassName } from '../utils/common-types'
 
 export type FieldChromeContainerProps = {
     /**
-     * The control element to wrap. The wrapper chrome (border, hover/focus,
-     * disabled/read-only background tint, error border) derives from
-     * attributes on this descendant.
+     * The control element (or a layout containing one) to wrap. The wrapper
+     * chrome (border, hover/focus, disabled/read-only background tint, error
+     * border) derives from attributes on the focusable descendant. Clicking
+     * the wrapper focuses the first focusable input/select/textarea
+     * descendant and dispatches a `.click()` (or `.showPicker()` for native
+     * `<select>`).
      *
-     * Clicking the wrapper focuses the first focusable descendant and
-     * dispatches a `.click()` (or `.showPicker()` for native `<select>`).
+     * Contract: assumes a single focusable control descendant. Behavior is
+     * undefined if multiple focusable controls are inside.
      */
     children: React.ReactNode
 
@@ -24,8 +27,16 @@ export type FieldChromeContainerProps = {
      * - `large` — used by `BorderedTextField`'s outlined chrome.
      */
     borderRadius?: 'small' | 'large'
-} & ObfuscatedClassName &
-    Omit<ComponentProps<typeof Box>, 'className'>
+
+    /**
+     * Optional click handler. Fires before the click-to-focus dispatch.
+     * Intended for composition with library wrappers (e.g. Ariakit's
+     * render-prop pattern) that forward an upstream onClick to the chrome
+     * element. Component-level click handling normally lives on the inner
+     * control.
+     */
+    onClick?: React.MouseEventHandler<HTMLDivElement>
+} & ObfuscatedClassName
 
 /**
  * Private primitive shared by `ControlPresentation` and `BorderedTextField`.
@@ -40,15 +51,11 @@ export type FieldChromeContainerProps = {
  */
 export const FieldChromeContainer = forwardRef<HTMLDivElement, FieldChromeContainerProps>(
     function FieldChromeContainer(
-        { borderRadius = 'small', exceptionallySetClassName, children, ...rest },
+        { borderRadius = 'small', exceptionallySetClassName, onClick, children },
         ref,
     ) {
         const controlWrapperRef = React.useRef<HTMLDivElement>(null)
         const isDispatchedReentryRef = React.useRef(false)
-
-        const { onClick, ...restWithoutClick } = rest as typeof rest & {
-            onClick?: React.MouseEventHandler<HTMLDivElement>
-        }
 
         function handleWrapperClick(event: React.MouseEvent<HTMLDivElement>) {
             if (isDispatchedReentryRef.current) {
@@ -86,7 +93,6 @@ export const FieldChromeContainer = forwardRef<HTMLDivElement, FieldChromeContai
         return (
             <Box
                 ref={ref}
-                {...restWithoutClick}
                 className={[
                     styles.container,
                     borderRadius === 'large' ? styles.borderRadiusLarge : styles.borderRadiusSmall,
