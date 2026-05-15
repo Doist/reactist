@@ -5,11 +5,9 @@ import classNames from 'classnames'
 
 import { Box } from '../box'
 
-import { FieldChromeContainer } from './field-chrome-container'
+import { OutlinedControlContainer } from './outlined-control-container'
 
 import styles from './control-presentation.module.css'
-
-import type { ObfuscatedClassName } from '../utils/common-types'
 
 type SlotContent = React.ReactElement | string | number
 
@@ -26,20 +24,7 @@ export type ControlPresentationProps = {
      * or dropdown-trigger chevron).
      */
     endSlot?: SlotContent
-
-    /**
-     * The control element (an `<input>`, an Ariakit Select trigger,
-     * `<select>`, etc.). Attributes belonging to the control — `type`,
-     * `value`, `onChange`, `readOnly`, `disabled`, `aria-invalid`, and so on —
-     * are set on this element directly. The wrapper chrome derives from those
-     * attributes.
-     *
-     * Click handlers belong on the control itself, not on this wrapper.
-     * Clicking the wrapper focuses the control.
-     */
-    children: React.ReactNode
-} & ObfuscatedClassName &
-    Omit<ComponentProps<typeof Box>, 'className'>
+} & Omit<ComponentProps<typeof OutlinedControlContainer>, 'borderRadius'>
 
 /**
  * The visual chrome of an inline, single-row, text-field-style input: a
@@ -52,14 +37,11 @@ export type ControlPresentationProps = {
  */
 export const ControlPresentation = forwardRef<HTMLDivElement, ControlPresentationProps>(
     function ControlPresentation(
-        { startSlot, endSlot, exceptionallySetClassName, children, ...rest },
+        { startSlot, endSlot, exceptionallySetClassName, onClick, children },
         ref,
     ) {
-        // Only `onClick` is meaningful to forward to FCC; other Box props are
-        // silently dropped pending CP API tightening in a follow-up.
-        const { onClick } = rest as { onClick?: React.MouseEventHandler<HTMLDivElement> }
         return (
-            <FieldChromeContainer
+            <OutlinedControlContainer
                 ref={ref}
                 borderRadius="small"
                 onClick={onClick}
@@ -70,7 +52,7 @@ export const ControlPresentation = forwardRef<HTMLDivElement, ControlPresentatio
                 ) : null}
                 <div className={styles.control}>{children}</div>
                 {endSlot ? <Slot className={[styles.slot, styles.endSlot]}>{endSlot}</Slot> : null}
-            </FieldChromeContainer>
+            </OutlinedControlContainer>
         )
     },
 )

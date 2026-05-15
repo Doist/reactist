@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { Box } from '../box'
 import { selectWithNone } from '../utils/storybook-helper'
 
 import { ControlActionButton } from './control-action-button'
@@ -38,20 +39,21 @@ export function PlaygroundStory({
 }: PlaygroundArgs) {
     return (
         <section className="story playground">
-            <ControlPresentation
-                maxWidth={maxWidth}
-                startSlot={startSlot ? <InfoIcon /> : undefined}
-                endSlot={endSlot ? <ChevronDownIcon /> : undefined}
-            >
-                <input
-                    aria-label="Demo input"
-                    placeholder={placeholder}
-                    readOnly={readOnly}
-                    disabled={disabled}
-                    aria-invalid={invalid || undefined}
-                    defaultValue={defaultValue}
-                />
-            </ControlPresentation>
+            <Box maxWidth={maxWidth}>
+                <ControlPresentation
+                    startSlot={startSlot ? <InfoIcon /> : undefined}
+                    endSlot={endSlot ? <ChevronDownIcon /> : undefined}
+                >
+                    <input
+                        aria-label="Demo input"
+                        placeholder={placeholder}
+                        readOnly={readOnly}
+                        disabled={disabled}
+                        aria-invalid={invalid || undefined}
+                        defaultValue={defaultValue}
+                    />
+                </ControlPresentation>
+            </Box>
         </section>
     )
 }
@@ -83,13 +85,11 @@ PlaygroundStory.parameters = {
 export function PlaceholderStory() {
     return (
         <section className="story">
-            <ControlPresentation
-                maxWidth="small"
-                startSlot={<InfoIcon />}
-                endSlot={<ChevronDownIcon />}
-            >
-                <input aria-label="Placeholder" placeholder="Select a value" />
-            </ControlPresentation>
+            <Box maxWidth="small">
+                <ControlPresentation startSlot={<InfoIcon />} endSlot={<ChevronDownIcon />}>
+                    <input aria-label="Placeholder" placeholder="Select a value" />
+                </ControlPresentation>
+            </Box>
         </section>
     )
 }
@@ -102,13 +102,11 @@ PlaceholderStory.parameters = {
 export function WithValueStory() {
     return (
         <section className="story">
-            <ControlPresentation
-                maxWidth="small"
-                startSlot={<InfoIcon />}
-                endSlot={<ChevronDownIcon />}
-            >
-                <input aria-label="With value" defaultValue="Sample value" />
-            </ControlPresentation>
+            <Box maxWidth="small">
+                <ControlPresentation startSlot={<InfoIcon />} endSlot={<ChevronDownIcon />}>
+                    <input aria-label="With value" defaultValue="Sample value" />
+                </ControlPresentation>
+            </Box>
         </section>
     )
 }
@@ -121,13 +119,11 @@ WithValueStory.parameters = {
 export function ReadOnlyStory() {
     return (
         <section className="story">
-            <ControlPresentation
-                maxWidth="small"
-                startSlot={<InfoIcon />}
-                endSlot={<ChevronDownIcon />}
-            >
-                <input aria-label="Read-only" defaultValue="Sample value" readOnly />
-            </ControlPresentation>
+            <Box maxWidth="small">
+                <ControlPresentation startSlot={<InfoIcon />} endSlot={<ChevronDownIcon />}>
+                    <input aria-label="Read-only" defaultValue="Sample value" readOnly />
+                </ControlPresentation>
+            </Box>
         </section>
     )
 }
@@ -140,13 +136,11 @@ ReadOnlyStory.parameters = {
 export function DisabledStory() {
     return (
         <section className="story">
-            <ControlPresentation
-                maxWidth="small"
-                startSlot={<InfoIcon />}
-                endSlot={<ChevronDownIcon />}
-            >
-                <input aria-label="Disabled" defaultValue="Sample value" disabled />
-            </ControlPresentation>
+            <Box maxWidth="small">
+                <ControlPresentation startSlot={<InfoIcon />} endSlot={<ChevronDownIcon />}>
+                    <input aria-label="Disabled" defaultValue="Sample value" disabled />
+                </ControlPresentation>
+            </Box>
         </section>
     )
 }
@@ -159,13 +153,11 @@ DisabledStory.parameters = {
 export function ErrorStory() {
     return (
         <section className="story">
-            <ControlPresentation
-                maxWidth="small"
-                startSlot={<InfoIcon />}
-                endSlot={<ChevronDownIcon />}
-            >
-                <input aria-label="Error" defaultValue="Invalid value" aria-invalid />
-            </ControlPresentation>
+            <Box maxWidth="small">
+                <ControlPresentation startSlot={<InfoIcon />} endSlot={<ChevronDownIcon />}>
+                    <input aria-label="Error" defaultValue="Invalid value" aria-invalid />
+                </ControlPresentation>
+            </Box>
         </section>
     )
 }
@@ -178,9 +170,11 @@ ErrorStory.parameters = {
 export function EndSlotAsUnitStory() {
     return (
         <section className="story">
-            <ControlPresentation maxWidth="small" startSlot={<InfoIcon />} endSlot="kg">
-                <input aria-label="Weight" type="number" defaultValue="72" />
-            </ControlPresentation>
+            <Box maxWidth="small">
+                <ControlPresentation startSlot={<InfoIcon />} endSlot="kg">
+                    <input aria-label="Weight" type="number" defaultValue="72" />
+                </ControlPresentation>
+            </Box>
         </section>
     )
 }
@@ -193,13 +187,14 @@ EndSlotAsUnitStory.parameters = {
 export function EndSlotAsClearButtonStory() {
     return (
         <section className="story">
-            <ControlPresentation
-                maxWidth="small"
-                startSlot={<InfoIcon />}
-                endSlot={<ControlActionButton icon={<XIcon />} aria-label="Clear" />}
-            >
-                <input aria-label="Search" defaultValue="sample query" />
-            </ControlPresentation>
+            <Box maxWidth="small">
+                <ControlPresentation
+                    startSlot={<InfoIcon />}
+                    endSlot={<ControlActionButton icon={<XIcon />} aria-label="Clear" />}
+                >
+                    <input aria-label="Search" defaultValue="sample query" />
+                </ControlPresentation>
+            </Box>
         </section>
     )
 }
@@ -212,21 +207,19 @@ EndSlotAsClearButtonStory.parameters = {
 export function WrappingSelectStory() {
     return (
         <section className="story">
-            <ControlPresentation
-                maxWidth="small"
-                startSlot={<InfoIcon />}
-                endSlot={<ChevronDownIcon />}
-            >
-                <select
-                    aria-label="Favourite fruit"
-                    defaultValue="banana"
-                    style={{ appearance: 'none' }}
-                >
-                    <option value="apple">Apple</option>
-                    <option value="banana">Banana</option>
-                    <option value="cherry">Cherry</option>
-                </select>
-            </ControlPresentation>
+            <Box maxWidth="small">
+                <ControlPresentation startSlot={<InfoIcon />} endSlot={<ChevronDownIcon />}>
+                    <select
+                        aria-label="Favourite fruit"
+                        defaultValue="banana"
+                        style={{ appearance: 'none' }}
+                    >
+                        <option value="apple">Apple</option>
+                        <option value="banana">Banana</option>
+                        <option value="cherry">Cherry</option>
+                    </select>
+                </ControlPresentation>
+            </Box>
         </section>
     )
 }

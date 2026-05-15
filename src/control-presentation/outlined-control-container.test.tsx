@@ -4,9 +4,9 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
-import { FieldChromeContainer } from './field-chrome-container'
+import { OutlinedControlContainer } from './outlined-control-container'
 
-describe('FieldChromeContainer', () => {
+describe('OutlinedControlContainer', () => {
     // Note: CSS `:has()`-driven state styling (readonly/disabled tinting, error
     // border via aria-invalid, hover/focus border colors) is verified by visual
     // regression / Chromatic, not Jest. jsdom does not implement `:has()` for
@@ -15,9 +15,9 @@ describe('FieldChromeContainer', () => {
 
     it('renders children', () => {
         render(
-            <FieldChromeContainer>
+            <OutlinedControlContainer>
                 <input data-testid="control" aria-label="control" />
-            </FieldChromeContainer>,
+            </OutlinedControlContainer>,
         )
         expect(screen.getByTestId('control')).toBeInTheDocument()
     })
@@ -25,18 +25,18 @@ describe('FieldChromeContainer', () => {
     it('forwards ref to the wrapper element', () => {
         const ref = React.createRef<HTMLDivElement>()
         const { container } = render(
-            <FieldChromeContainer ref={ref}>
+            <OutlinedControlContainer ref={ref}>
                 <input aria-label="control" />
-            </FieldChromeContainer>,
+            </OutlinedControlContainer>,
         )
         expect(ref.current).toBe(container.firstElementChild)
     })
 
     it('merges exceptionallySetClassName onto the wrapper', () => {
         const { container } = render(
-            <FieldChromeContainer exceptionallySetClassName="custom">
+            <OutlinedControlContainer exceptionallySetClassName="custom">
                 <input aria-label="control" />
-            </FieldChromeContainer>,
+            </OutlinedControlContainer>,
         )
         expect(container.firstElementChild).toHaveClass('custom')
     })
@@ -44,9 +44,9 @@ describe('FieldChromeContainer', () => {
     describe('chrome class wiring', () => {
         it('applies the base container class to the wrapper', () => {
             const { container } = render(
-                <FieldChromeContainer>
+                <OutlinedControlContainer>
                     <input aria-label="control" />
-                </FieldChromeContainer>,
+                </OutlinedControlContainer>,
             )
             // The class is hashed by CSS Modules in production but the import yields
             // an object whose `.container` value is the actual className used.
@@ -57,9 +57,9 @@ describe('FieldChromeContainer', () => {
 
         it('applies the small border-radius class by default', () => {
             const { container } = render(
-                <FieldChromeContainer>
+                <OutlinedControlContainer>
                     <input aria-label="control" />
-                </FieldChromeContainer>,
+                </OutlinedControlContainer>,
             )
             expect(container.firstElementChild?.className).toMatch(/borderRadiusSmall/)
             expect(container.firstElementChild?.className).not.toMatch(/borderRadiusLarge/)
@@ -67,9 +67,9 @@ describe('FieldChromeContainer', () => {
 
         it('applies the large border-radius class when borderRadius="large"', () => {
             const { container } = render(
-                <FieldChromeContainer borderRadius="large">
+                <OutlinedControlContainer borderRadius="large">
                     <input aria-label="control" />
-                </FieldChromeContainer>,
+                </OutlinedControlContainer>,
             )
             expect(container.firstElementChild?.className).toMatch(/borderRadiusLarge/)
             expect(container.firstElementChild?.className).not.toMatch(/borderRadiusSmall/)
@@ -79,9 +79,9 @@ describe('FieldChromeContainer', () => {
     describe('click-to-focus dispatch', () => {
         it('focuses the inner control when the wrapper is clicked', () => {
             const { container } = render(
-                <FieldChromeContainer>
+                <OutlinedControlContainer>
                     <input data-testid="control" aria-label="control" />
-                </FieldChromeContainer>,
+                </OutlinedControlContainer>,
             )
             const control = screen.getByTestId('control')
             expect(control).not.toHaveFocus()
@@ -93,11 +93,11 @@ describe('FieldChromeContainer', () => {
         it('does not double-fire when the inner control is clicked directly', () => {
             const onControlClick = jest.fn()
             render(
-                <FieldChromeContainer>
+                <OutlinedControlContainer>
                     <button type="button" data-testid="control" onClick={onControlClick}>
                         click
                     </button>
-                </FieldChromeContainer>,
+                </OutlinedControlContainer>,
             )
             userEvent.click(screen.getByTestId('control'))
             expect(onControlClick).toHaveBeenCalledTimes(1)
@@ -106,9 +106,9 @@ describe('FieldChromeContainer', () => {
         it('calls a consumer onClick passed via Box props when the wrapper is clicked', () => {
             const onClick = jest.fn()
             const { container } = render(
-                <FieldChromeContainer onClick={onClick}>
+                <OutlinedControlContainer onClick={onClick}>
                     <input aria-label="control" />
-                </FieldChromeContainer>,
+                </OutlinedControlContainer>,
             )
             userEvent.click(container.firstElementChild as Element)
             expect(onClick).toHaveBeenCalledTimes(1)
@@ -117,11 +117,11 @@ describe('FieldChromeContainer', () => {
         it('uses showPicker for native <select>', () => {
             const showPicker = jest.fn()
             const { container } = render(
-                <FieldChromeContainer>
+                <OutlinedControlContainer>
                     <select aria-label="fruit" data-testid="control">
                         <option value="a">A</option>
                     </select>
-                </FieldChromeContainer>,
+                </OutlinedControlContainer>,
             )
             // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
             const select = screen.getByRole('combobox') as unknown as HTMLSelectElement
@@ -139,9 +139,9 @@ describe('FieldChromeContainer', () => {
             const { container } = render(
                 <>
                     <label htmlFor="plain">Plain</label>
-                    <FieldChromeContainer>
+                    <OutlinedControlContainer>
                         <input id="plain" />
-                    </FieldChromeContainer>
+                    </OutlinedControlContainer>
                 </>,
             )
             expect(await axe(container)).toHaveNoViolations()
