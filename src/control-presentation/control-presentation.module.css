@@ -1,0 +1,136 @@
+:root {
+    --reactist-field-height: 32px;
+}
+
+.container {
+    /* sizing */
+    height: var(--reactist-field-height);
+
+    /* default outer padding; shrunk on the side(s) where a slot is present (see below) */
+    padding-inline: 10px;
+
+    /* border */
+    border: 1px solid var(--reactist-inputs-idle);
+
+    /* color */
+    background: var(--reactist-field-background);
+    color: var(--reactist-field-content);
+
+    /* Read-only: matches native :read-only on form controls (scoped to
+     * <input> / <textarea> to avoid catching unrelated elements that
+     * default to :read-only), the ARIA convention (aria-readonly="true"),
+     * and the data-attr convention used by Ariakit/Radix-style components.
+     * The :not(='false') exclusion treats aria-readonly="false" /
+     * data-readonly="false" as "not read-only" per the ARIA spec. */
+    &:has(
+        input:read-only,
+        textarea:read-only,
+        [aria-readonly]:not([aria-readonly='false']),
+        [data-readonly]:not([data-readonly='false'])
+    ) {
+        background-color: var(--reactist-field-readonly-background);
+        color: var(--reactist-field-readonly-content);
+    }
+
+    /* Disabled: matches the native disabled attribute (form controls),
+     * the soft-disable ARIA convention (used by Reactist's own Button to
+     * keep elements focusable while announcing as disabled), and the
+     * data-attr convention used by Ariakit/Radix. */
+    &:has(
+        :disabled,
+        [aria-disabled]:not([aria-disabled='false']),
+        [data-disabled]:not([data-disabled='false'])
+    ) {
+        background-color: var(--reactist-field-disabled-background);
+        color: var(--reactist-field-disabled-content);
+    }
+
+    /* Interactive border (hover/focus) — suppressed when the control is
+     * in any disabled state (same three conventions as the disabled
+     * background-color rule above). */
+    &:not(
+        :has(
+            :disabled,
+            [aria-disabled]:not([aria-disabled='false']),
+            [data-disabled]:not([data-disabled='false'])
+        )
+    ) {
+        &:hover {
+            border-color: var(--reactist-inputs-hover);
+        }
+
+        &:focus-within {
+            border-color: var(--reactist-inputs-focus);
+        }
+    }
+
+    /* Invalid: matches the ARIA convention only. Native :invalid is
+     * deliberately omitted — it fires before user interaction (e.g. on
+     * any required-but-empty field at first paint), which is rarely the
+     * desired UX. Consumers that want HTML5-validation-driven errors
+     * forward :invalid → aria-invalid in their own component. */
+    &:has([aria-invalid]:not([aria-invalid='false'])) {
+        border-color: var(--reactist-inputs-alert) !important;
+    }
+}
+
+/* Conditional outer padding. When a slot is present on a side, shrink
+ * the outer padding on that side. The slot itself carries its own
+ * margin (margin-inline-{end,start}: 6px) to space it from the
+ * control — see .startSlot / .endSlot rules below. */
+.container:has(.startSlot) {
+    padding-left: 6px;
+}
+
+.container:has(.endSlot) {
+    padding-right: 4px;
+}
+
+.control {
+    display: contents;
+
+    & > * {
+        /* layout */
+        flex: 1;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+
+        /* border */
+        border: none;
+        outline: none; /* focus state is handled by the wrapper border */
+
+        /* color */
+        background: transparent;
+        color: inherit;
+    }
+}
+
+.slot {
+    /* color */
+    color: var(--reactist-field-slot-content);
+}
+
+.startSlot {
+    /* 6px gap from startSlot to the control */
+    margin-inline-end: 6px;
+}
+
+.endSlot {
+    /* 6px gap from the control to endSlot */
+    margin-inline-start: 6px;
+}
+
+/*
+ * Compact 24×24 action button variant for use inside `endSlot`. The 3px
+ * border-radius and reduced min-width make it fit the field chrome alongside a
+ * 16px icon glyph.
+ */
+.controlActionButton.controlActionButton {
+    &.controlActionButton {
+        --reactist-btn-height: 24px;
+    }
+    border-radius: 3px;
+    min-width: var(--reactist-btn-height);
+}

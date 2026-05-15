@@ -29,6 +29,7 @@ export * from './text-link'
 
 // form fields
 export * from './checkbox-field'
+export * from './control-presentation'
 export * from './password-field'
 export * from './select-field'
 export * from './switch-field'
