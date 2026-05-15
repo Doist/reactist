@@ -1,22 +1,12 @@
-import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+import * as React from 'react'
+
 import { Box } from '../box'
-import { Text } from '../text'
 import { Stack } from '../stack'
+import { Text } from '../text'
+
 import { Loading } from './loading'
 
-<Meta
-    title="Design system/Loading"
-    component={Loading}
-    parameters={{
-        badges: ['accessible'],
-    }}
-/>
-
-# Loading
-
-A loading indicator that comes in three sizes.
-
-export function Example({ children, size }) {
+function Example({ children, size }) {
     return (
         <Stack space="xxlarge" align="center">
             <Box>{children}</Box>
@@ -25,8 +15,17 @@ export function Example({ children, size }) {
     )
 }
 
-<Canvas>
-    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="All Sizes">
+export default {
+    title: 'Design system/Loading',
+    component: Loading,
+
+    parameters: {
+        badges: ['accessible'],
+    },
+}
+
+export const AllSizes = {
+    render: () => (
         <Box display="flex" flexDirection="row" justifyContent="spaceEvenly" alignItems="flexEnd">
             <Example size="xsmall">
                 <Loading aria-label="Loading Demo" size="xsmall" />
@@ -41,29 +40,29 @@ export function Example({ children, size }) {
                 <Loading aria-label="Loading Demo" size="large" />
             </Example>
         </Box>
-    </Story>
-</Canvas>
+    ),
 
----
+    parameters: {
+        docs: {
+            source: {
+                type: 'dynamic',
+            },
+        },
+    },
 
-<Description of={Loading} />
-<ArgsTable of={Loading} />
+    name: 'All Sizes',
+}
 
-## Stories
-
-### Customized color
-
-The loading indicator adopts the current brand background color defined in the `--reactist-spinner-tint`
-CSS variable.
-
-<Canvas withToolbar>
-    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Customize Color">
+export const CustomizeColor = {
+    render: () => (
         <Box
             display="flex"
             flexDirection="row"
             justifyContent="spaceEvenly"
             alignItems="flexEnd"
-            style={{ '--reactist-spinner-tint': 'red' }}
+            style={{
+                '--reactist-spinner-tint': 'red',
+            }}
         >
             <Example size="xsmall">
                 <Loading aria-label="Loading Demo" size="xsmall" />
@@ -78,13 +77,21 @@ CSS variable.
                 <Loading aria-label="Loading Demo" size="large" />
             </Example>
         </Box>
-    </Story>
-</Canvas>
+    ),
 
-## Accessibility
+    parameters: {
+        docs: {
+            source: {
+                type: 'dynamic',
+            },
+        },
+    },
 
-<Canvas>
-    <Story parameters={{ docs: { source: { type: 'dynamic' } } }} name="Accessibility Attributes">
+    name: 'Customize Color',
+}
+
+export const AccessibilityAttributes = {
+    render: () => (
         <Box display="flex" flexDirection="row" justifyContent="spaceEvenly" alignItems="flexEnd">
             <Stack space="xxlarge" align="center">
                 <Loading aria-label="Loading puppies" />
@@ -105,18 +112,21 @@ CSS variable.
                 <Box as="pre">aria-describedby</Box>
             </Stack>
         </Box>
-    </Story>
-</Canvas>
+    ),
 
-#### Usage Considerations
+    parameters: {
+        docs: {
+            source: {
+                type: 'dynamic',
+            },
+        },
+    },
 
-If the `Loading` component is describing the loading progress of a particular region of a page, you should use the `aria-describedby` attribute to point to the status, and set the `aria-busy` attribute to `true` on the region until it is finished loading.
+    name: 'Accessibility Attributes',
+}
 
-<Canvas>
-    <Story
-        parameters={{ docs: { source: { type: 'dynamic' } } }}
-        name="Accessibility Considerations"
-    >
+export const AccessibilityConsiderations = {
+    render: () => (
         <Box
             alignItems="center"
             aria-busy={true}
@@ -135,5 +145,15 @@ If the `Loading` component is describing the loading progress of a particular re
                 50% complete
             </Text>
         </Box>
-    </Story>
-</Canvas>
+    ),
+
+    parameters: {
+        docs: {
+            source: {
+                type: 'dynamic',
+            },
+        },
+    },
+
+    name: 'Accessibility Considerations',
+}

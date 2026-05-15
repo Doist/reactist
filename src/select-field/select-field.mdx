@@ -1,0 +1,72 @@
+import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import * as SelectFieldStories from './select-field.stories'
+
+import { SelectField } from './'
+import { Stack } from '../stack'
+import { Text } from '../text'
+
+import { selectWithNone } from '../utils/storybook-helper'
+
+<Meta of={SelectFieldStories} />
+
+# SelectField
+
+A component that provides a menu of options, similar to the native `<select>` HTML element.
+
+export function preventDefault(event) {
+    event.preventDefault()
+}
+
+export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
+    return (
+        <SelectField
+            {...props}
+            label={label}
+            auxiliaryLabel={
+                auxiliaryLabel ? (
+                    <a href="#" onClick={preventDefault}>
+                        {auxiliaryLabel}
+                    </a>
+                ) : undefined
+            }
+            defaultValue="-"
+        >
+            <option value="-" disabled>
+                Select theme
+            </option>
+            <optgroup label="Light themes">
+                <option value="default">Default theme</option>
+                <option value="bright">Extra bright</option>
+            </optgroup>
+            <optgroup label="Dark themes">
+                <option value="contrast">High contrast</option>
+                <option value="dark">Dark mode</option>
+            </optgroup>
+        </SelectField>
+    )
+}
+
+<Canvas>
+    <Story of={SelectFieldStories.InteractiveProps} />
+</Canvas>
+
+<Controls />
+
+## Colors
+
+The following CSS custom properties are available so that the `SelectField`'s border colors can be customized.
+Note that these variables are shared with other components such as `Textfield`, `PasswordField`, and `TextArea`.
+
+```
+--reactist-inputs-focus
+--reactist-inputs-idle
+--reactist-inputs-alert
+```
+
+<Canvas withToolbar>
+    <Story of={SelectFieldStories.MessageTone} />
+</Canvas>
+
+<Canvas withToolbar>
+    <Story of={SelectFieldStories.WithoutLabel} />
+</Canvas>

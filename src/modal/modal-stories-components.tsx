@@ -1,7 +1,6 @@
 import * as React from 'react'
 
-import { expect } from '@storybook/jest'
-import { userEvent, within } from '@storybook/testing-library'
+import { expect, userEvent, within } from 'storybook/test'
 
 import { Button } from '../button'
 import { SelectField } from '../select-field'

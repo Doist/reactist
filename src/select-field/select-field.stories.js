@@ -1,28 +1,16 @@
-import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+import * as React from 'react'
 
-import { SelectField } from './'
 import { Stack } from '../stack'
 import { Text } from '../text'
-
 import { selectWithNone } from '../utils/storybook-helper'
 
-<Meta
-    title="Design system/SelectField"
-    component={SelectField}
-    parameters={{
-        badges: ['accessible'],
-    }}
-/>
+import { SelectField } from './'
 
-# SelectField
-
-A component that provides a menu of options, similar to the native `<select>` HTML element.
-
-export function preventDefault(event) {
+function preventDefault(event) {
     event.preventDefault()
 }
 
-export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
+function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
     return (
         <SelectField
             {...props}
@@ -51,71 +39,91 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
     )
 }
 
-<Canvas>
-    <Story
-        name="Interactive props"
-        parameters={{
-            chromatic: { disableSnapshot: false },
-        }}
-        argTypes={{
-            label: {
-                control: { type: 'text' },
-                defaultValue: 'Theme',
-            },
-            value: { table: { disable: true } },
-            tone: {
-                options: ['neutral', 'success', 'error', 'loading'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'neutral',
-            },
-            maxWidth: selectWithNone(
-                ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
-                'small',
-            ),
-            variant: {
-                options: ['default', 'bordered'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'default',
-            },
-            auxiliaryLabel: {
-                control: { type: 'text' },
-                defaultValue: 'Need help?',
-            },
-            message: {
-                control: { type: 'text' },
-                defaultValue:
-                    'The theme you select will be applied immediately. If you upgrade to premium you will have more themes to choose from.',
-            },
-            disabled: {
-                control: { type: 'boolean' },
-                defaultValue: false,
-            },
-        }}
-    >
-        {InteractivePropsStory.bind({})}
-    </Story>
-</Canvas>
+export default {
+    title: 'Design system/SelectField',
+    component: SelectField,
 
-<ArgsTable of={SelectField} />
+    parameters: {
+        badges: ['accessible'],
+    },
+}
 
-## Colors
+export const InteractiveProps = {
+    render: InteractivePropsStory.bind({}),
+    name: 'Interactive props',
 
-The following CSS custom properties are available so that the `SelectField`'s border colors can be customized.
-Note that these variables are shared with other components such as `Textfield`, `PasswordField`, and `TextArea`.
+    parameters: {
+        chromatic: {
+            disableSnapshot: false,
+        },
+    },
 
-```
---reactist-inputs-focus
---reactist-inputs-idle
---reactist-inputs-alert
-```
+    argTypes: {
+        label: {
+            control: {
+                type: 'text',
+            },
 
-<Canvas withToolbar>
-    <Story
-        name="Message tone"
-        parameters={{
-            chromatic: { disableSnapshot: false },
-        }}
-    >
+            defaultValue: 'Theme',
+        },
+
+        value: {
+            table: {
+                disable: true,
+            },
+        },
+
+        tone: {
+            options: ['neutral', 'success', 'error', 'loading'],
+
+            control: {
+                type: 'inline-radio',
+            },
+
+            defaultValue: 'neutral',
+        },
+
+        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'], 'small'),
+
+        variant: {
+            options: ['default', 'bordered'],
+
+            control: {
+                type: 'inline-radio',
+            },
+
+            defaultValue: 'default',
+        },
+
+        auxiliaryLabel: {
+            control: {
+                type: 'text',
+            },
+
+            defaultValue: 'Need help?',
+        },
+
+        message: {
+            control: {
+                type: 'text',
+            },
+
+            defaultValue:
+                'The theme you select will be applied immediately. If you upgrade to premium you will have more themes to choose from.',
+        },
+
+        disabled: {
+            control: {
+                type: 'boolean',
+            },
+
+            defaultValue: false,
+        },
+    },
+}
+
+export const MessageTone = {
+    render: () => (
         <Stack space="xxlarge" dividers="secondary">
             <SelectField
                 label="Country of residence"
@@ -159,11 +167,19 @@ Note that these variables are shared with other components such as `Textfield`, 
                 </option>
             </SelectField>
         </Stack>
-    </Story>
-</Canvas>
+    ),
 
-<Canvas withToolbar>
-    <Story name="Without label">
+    name: 'Message tone',
+
+    parameters: {
+        chromatic: {
+            disableSnapshot: false,
+        },
+    },
+}
+
+export const WithoutLabel = {
+    render: () => (
         <Stack space="xlarge" dividers="secondary" maxWidth="small">
             <Stack as="label" htmlFor="custom-textarea" space="small">
                 <Text size="subtitle">Custom label is up here</Text>
@@ -185,5 +201,7 @@ Note that these variables are shared with other components such as `Textfield`, 
                 </Text>
             </Stack>
         </Stack>
-    </Story>
-</Canvas>
+    ),
+
+    name: 'Without label',
+}
