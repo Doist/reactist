@@ -23,15 +23,14 @@ export type ControlPresentationProps = {
      */
     endSlot?: SlotContent
 
-    forwardClickToControl?: boolean
-    onClick?: React.MouseEventHandler<HTMLDivElement>
-
     /**
      * The control element (an `<input>`, an Ariakit Select trigger,
      * `<select>`, etc.). Attributes belonging to the control — `type`,
      * `value`, `onChange`, `readOnly`, `disabled`, `aria-invalid`, and so on —
      * are set on this element directly. The wrapper chrome (read-only
      * background, disabled state, error border) derives from those attributes.
+     *
+     * Click handlers belong on the control itself, not on this wrapper.
      */
     children: React.ReactNode
 } & ObfuscatedClassName &
@@ -49,22 +48,23 @@ export type ControlPresentationProps = {
  */
 export const ControlPresentation = forwardRef<HTMLDivElement, ControlPresentationProps>(
     function ControlPresentation(
-        {
-            startSlot,
-            endSlot,
-            forwardClickToControl = true,
-            onClick,
-            exceptionallySetClassName,
-            children,
-            ...rest
-        },
+        { startSlot, endSlot, exceptionallySetClassName, children, ...rest },
         ref,
     ) {
         const controlWrapperRef = React.useRef<HTMLDivElement>(null)
         // The synthetic .click() we dispatch below bubbles back up to this
         // handler. Track that we're inside that re-entry so we can skip
-        // re-invoking onClick + activation for it.
+        // re-invoking the consumer onClick + activation for it.
         const isDispatchedReentryRef = React.useRef(false)
+
+        // `onClick` isn't part of `ControlPresentationProps` — consumers
+        // should put click handlers on the inner control. This extraction
+        // exists only to compose with onClick that arrives via render-prop
+        // wrapping (e.g. Ariakit's Select trigger uses `render={<ControlPresentation/>}`
+        // and forwards its own onClick), where the wrapper IS the trigger.
+        const { onClick, ...restWithoutClick } = rest as typeof rest & {
+            onClick?: React.MouseEventHandler<HTMLDivElement>
+        }
 
         function handleWrapperClick(event: React.MouseEvent<HTMLDivElement>) {
             if (isDispatchedReentryRef.current) {
@@ -73,7 +73,6 @@ export const ControlPresentation = forwardRef<HTMLDivElement, ControlPresentatio
             }
 
             onClick?.(event)
-            if (!forwardClickToControl) return
 
             const control = controlWrapperRef.current?.firstElementChild as HTMLElement | null
             if (!control) return
@@ -107,7 +106,7 @@ export const ControlPresentation = forwardRef<HTMLDivElement, ControlPresentatio
         return (
             <Box
                 ref={ref}
-                {...rest}
+                {...restWithoutClick}
                 className={[styles.container, exceptionallySetClassName]}
                 display="flex"
                 alignItems="center"
