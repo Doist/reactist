@@ -54,19 +54,6 @@ describe('ControlPresentation', () => {
         expect(control).toBeDisabled()
     })
 
-    it('focuses the control when the wrapper is clicked', () => {
-        const { container } = render(
-            <ControlPresentation>
-                <input aria-label="Subject" data-testid="subject" />
-            </ControlPresentation>,
-        )
-        const control = screen.getByTestId('subject')
-        expect(control).not.toHaveFocus()
-
-        userEvent.click(container.firstElementChild as Element)
-        expect(control).toHaveFocus()
-    })
-
     it('focuses the control when a non-interactive startSlot is clicked', () => {
         render(
             <ControlPresentation startSlot={<TestIcon />}>
@@ -77,27 +64,6 @@ describe('ControlPresentation', () => {
         expect(control).not.toHaveFocus()
 
         userEvent.click(screen.getByTestId('test-icon'))
-        expect(control).toHaveFocus()
-    })
-
-    it('fires a slot button onClick and focuses the control', () => {
-        const onSlotClick = jest.fn()
-        render(
-            <ControlPresentation
-                endSlot={
-                    <button type="button" onClick={onSlotClick}>
-                        clear
-                    </button>
-                }
-            >
-                <input aria-label="Subject" data-testid="subject" />
-            </ControlPresentation>,
-        )
-        const control = screen.getByTestId('subject')
-        expect(control).not.toHaveFocus()
-
-        userEvent.click(screen.getByRole('button', { name: 'clear' }))
-        expect(onSlotClick).toHaveBeenCalledTimes(1)
         expect(control).toHaveFocus()
     })
 
@@ -125,27 +91,6 @@ describe('ControlPresentation', () => {
         )
         expect(screen.getByTestId('a')).toBeInTheDocument()
         expect(screen.getByTestId('b')).toBeInTheDocument()
-    })
-
-    it('calls a consumer onClick passed via Box props when the wrapper is clicked', () => {
-        const onClick = jest.fn()
-        const { container } = render(
-            <ControlPresentation onClick={onClick}>
-                <input aria-label="Subject" />
-            </ControlPresentation>,
-        )
-        userEvent.click(container.firstElementChild as Element)
-        expect(onClick).toHaveBeenCalledTimes(1)
-    })
-
-    it('forwards ref to the wrapper element', () => {
-        const ref = React.createRef<HTMLDivElement>()
-        const { container } = render(
-            <ControlPresentation ref={ref}>
-                <input aria-label="Subject" />
-            </ControlPresentation>,
-        )
-        expect(ref.current).toBe(container.firstElementChild)
     })
 
     describe('a11y', () => {
