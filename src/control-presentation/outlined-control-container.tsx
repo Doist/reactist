@@ -3,11 +3,11 @@ import { forwardRef } from 'react'
 
 import { Box } from '../box'
 
-import styles from './field-chrome-container.module.css'
+import styles from './outlined-control-container.module.css'
 
 import type { ObfuscatedClassName } from '../utils/common-types'
 
-export type FieldChromeContainerProps = {
+export type OutlinedControlContainerProps = {
     /**
      * The control element (or a layout containing one) to wrap. The wrapper
      * chrome (border, hover/focus, disabled/read-only background tint, error
@@ -49,8 +49,8 @@ export type FieldChromeContainerProps = {
  * Contract: assumes a single focusable control descendant. Behavior is
  * undefined if multiple focusable controls are inside.
  */
-export const FieldChromeContainer = forwardRef<HTMLDivElement, FieldChromeContainerProps>(
-    function FieldChromeContainer(
+export const OutlinedControlContainer = forwardRef<HTMLDivElement, OutlinedControlContainerProps>(
+    function OutlinedControlContainer(
         { borderRadius = 'small', exceptionallySetClassName, onClick, children },
         ref,
     ) {
