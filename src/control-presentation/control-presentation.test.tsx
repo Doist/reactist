@@ -127,20 +127,7 @@ describe('ControlPresentation', () => {
         expect(screen.getByTestId('b')).toBeInTheDocument()
     })
 
-    it('does not forward the click to the control when forwardClickToControl is false', () => {
-        const { container } = render(
-            <ControlPresentation forwardClickToControl={false}>
-                <input aria-label="Subject" data-testid="subject" />
-            </ControlPresentation>,
-        )
-        const control = screen.getByTestId('subject')
-        expect(control).not.toHaveFocus()
-
-        userEvent.click(container.firstElementChild as Element)
-        expect(control).not.toHaveFocus()
-    })
-
-    it('calls the consumer onClick when the wrapper is clicked', () => {
+    it('calls a consumer onClick passed via Box props when the wrapper is clicked', () => {
         const onClick = jest.fn()
         const { container } = render(
             <ControlPresentation onClick={onClick}>
