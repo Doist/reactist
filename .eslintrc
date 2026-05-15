@@ -38,11 +38,13 @@
     },
     "overrides": [
         {
-            // Some types are missing in legacy version of Storybook, revisit after update.
-            // jest mocks are hard to type, allow incomplete types in tests.
-            "files": ["stories/**/*", "*.test.*"],
+            // Stories and tests have looser typing requirements. Storybook's package
+            // exports (e.g. `storybook/actions`) aren't understood by the default ESLint
+            // import resolver, so `import/no-unresolved` is disabled for stories.
+            "files": ["stories/**/*", "**/*.stories.*", "*.test.*"],
             "rules": {
                 "react/no-unescaped-entities": "off",
+                "import/no-unresolved": "off",
                 "@typescript-eslint/no-unsafe-member-access": "off",
                 "@typescript-eslint/no-unsafe-call": "off",
                 "@typescript-eslint/no-unsafe-assignment": "off",

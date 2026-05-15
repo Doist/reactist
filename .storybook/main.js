@@ -1,25 +1,28 @@
 const customWebpack = require('./webpack.config.js')
 
 module.exports = {
-    stories: ['../src/**/*.stories.@(tsx|mdx)', '../stories/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
+    stories: [
+        '../src/**/*.@(mdx|stories.@(tsx))',
+        '../stories/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
+    ],
     siteUrl: 'https://github.com/Doist/reactist',
+
     features: {
         // Needed for Chromatic/Storybooks interactive tests
         // See https://storybook.js.org/docs/react/writing-tests/interaction-testing
         // See https://www.chromatic.com/docs/interactions#how-to-write-interaction-tests
         interactionsDebugger: true,
     },
+
     addons: [
         '@storybook/addon-postcss',
-        '@storybook/addon-actions',
         {
             name: '@storybook/addon-docs',
             options: { configureJSX: true },
         },
-        '@storybook/addon-controls',
         '@geometricpanda/storybook-addon-badges',
-        '@storybook/addon-interactions',
     ],
+
     typescript: {
         check: true,
         checkOptions: {},
@@ -29,6 +32,7 @@ module.exports = {
             propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
         },
     },
+
     webpackFinal: (config) => {
         const resolveConfig = {
             ...config.resolve,
