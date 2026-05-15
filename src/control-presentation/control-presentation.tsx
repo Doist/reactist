@@ -67,7 +67,30 @@ export const ControlPresentation = forwardRef<HTMLDivElement, ControlPresentatio
             if (!forwardClickToControl) return
 
             const control = controlWrapperRef.current?.firstElementChild as HTMLElement | null
-            control?.focus?.()
+            if (!control) return
+
+            // Don't re-fire when the click already came from inside the control —
+            // it handled itself, and re-dispatching would double-activate.
+            if (event.target instanceof Node && control.contains(event.target)) return
+
+            // .focus() handles inputs (cursor/keyboard focus). The activation
+            // hop differs by element type:
+            //  - Native <select>: synthetic .click() is blocked by browsers
+            //    for the native dropdown. .showPicker() is the correct API.
+            //  - Everything else (inputs, native <button>, Ariakit Select
+            //    triggers, anchors): .click() either activates the click
+            //    handler or is harmlessly redundant.
+            control.focus()
+            if (control instanceof HTMLSelectElement && typeof control.showPicker === 'function') {
+                try {
+                    control.showPicker()
+                } catch {
+                    // showPicker can throw (e.g. focus state issues) — fall back
+                    // silently; the focus above is the minimum useful behavior.
+                }
+                return
+            }
+            control.click()
         }
 
         return (
