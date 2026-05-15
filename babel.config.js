@@ -42,7 +42,6 @@ module.exports = {
                 },
             },
         ],
-        '@babel/proposal-object-rest-spread',
         [
             '@babel/plugin-transform-runtime',
             {
