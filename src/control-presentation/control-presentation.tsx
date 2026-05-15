@@ -39,7 +39,7 @@ export type ControlPresentationProps = {
      */
     children: React.ReactNode
 } & ObfuscatedClassName &
-    Omit<ComponentProps<typeof FieldChromeContainer>, 'borderRadius'>
+    Omit<ComponentProps<typeof Box>, 'className'>
 
 /**
  * The visual chrome of an inline, single-row, text-field-style input: a
@@ -55,15 +55,15 @@ export const ControlPresentation = forwardRef<HTMLDivElement, ControlPresentatio
         { startSlot, endSlot, exceptionallySetClassName, children, ...rest },
         ref,
     ) {
+        // Only `onClick` is meaningful to forward to FCC; other Box props are
+        // silently dropped pending CP API tightening in a follow-up.
+        const { onClick } = rest as { onClick?: React.MouseEventHandler<HTMLDivElement> }
         return (
             <FieldChromeContainer
                 ref={ref}
-                {...rest}
                 borderRadius="small"
+                onClick={onClick}
                 exceptionallySetClassName={classNames(styles.container, exceptionallySetClassName)}
-                display="flex"
-                alignItems="center"
-                overflow="hidden"
             >
                 {startSlot ? (
                     <Slot className={[styles.slot, styles.startSlot]}>{startSlot}</Slot>
