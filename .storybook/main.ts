@@ -9,11 +9,7 @@ const config: StorybookConfig = {
         name: '@storybook/react-vite',
         options: {},
     },
-    addons: [
-        '@storybook/addon-docs',
-        '@storybook/addon-links',
-        '@geometricpanda/storybook-addon-badges',
-    ],
+    addons: ['@storybook/addon-docs', '@storybook/addon-links'],
     typescript: {
         reactDocgen: false,
     },
