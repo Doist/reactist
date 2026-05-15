@@ -1,0 +1,109 @@
+import * as React from 'react'
+
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { axe } from 'jest-axe'
+
+import { FieldChromeContainer } from './field-chrome-container'
+
+describe('FieldChromeContainer', () => {
+    it('renders children', () => {
+        render(
+            <FieldChromeContainer>
+                <input data-testid="control" aria-label="control" />
+            </FieldChromeContainer>,
+        )
+        expect(screen.getByTestId('control')).toBeInTheDocument()
+    })
+
+    it('forwards ref to the wrapper element', () => {
+        const ref = React.createRef<HTMLDivElement>()
+        const { container } = render(
+            <FieldChromeContainer ref={ref}>
+                <input aria-label="control" />
+            </FieldChromeContainer>,
+        )
+        expect(ref.current).toBe(container.firstElementChild)
+    })
+
+    it('merges exceptionallySetClassName onto the wrapper', () => {
+        const { container } = render(
+            <FieldChromeContainer exceptionallySetClassName="custom">
+                <input aria-label="control" />
+            </FieldChromeContainer>,
+        )
+        expect(container.firstElementChild).toHaveClass('custom')
+    })
+
+    describe('click-to-focus dispatch', () => {
+        it('focuses the inner control when the wrapper is clicked', () => {
+            const { container } = render(
+                <FieldChromeContainer>
+                    <input data-testid="control" aria-label="control" />
+                </FieldChromeContainer>,
+            )
+            const control = screen.getByTestId('control')
+            expect(control).not.toHaveFocus()
+
+            userEvent.click(container.firstElementChild as Element)
+            expect(control).toHaveFocus()
+        })
+
+        it('does not double-fire when the inner control is clicked directly', () => {
+            const onControlClick = jest.fn()
+            render(
+                <FieldChromeContainer>
+                    <button type="button" data-testid="control" onClick={onControlClick}>
+                        click
+                    </button>
+                </FieldChromeContainer>,
+            )
+            userEvent.click(screen.getByTestId('control'))
+            expect(onControlClick).toHaveBeenCalledTimes(1)
+        })
+
+        it('calls a consumer onClick passed via Box props when the wrapper is clicked', () => {
+            const onClick = jest.fn()
+            const { container } = render(
+                <FieldChromeContainer onClick={onClick}>
+                    <input aria-label="control" />
+                </FieldChromeContainer>,
+            )
+            userEvent.click(container.firstElementChild as Element)
+            expect(onClick).toHaveBeenCalledTimes(1)
+        })
+
+        it('uses showPicker for native <select>', () => {
+            const showPicker = jest.fn()
+            const { container } = render(
+                <FieldChromeContainer>
+                    <select aria-label="fruit" data-testid="control">
+                        <option value="a">A</option>
+                    </select>
+                </FieldChromeContainer>,
+            )
+            // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+            const select = screen.getByRole('combobox') as unknown as HTMLSelectElement
+            // jsdom does not implement showPicker; stub it.
+            Object.assign(select, { showPicker })
+
+            userEvent.click(container.firstElementChild as Element)
+            expect(showPicker).toHaveBeenCalledTimes(1)
+            expect(select).toHaveFocus()
+        })
+    })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(
+                <>
+                    <label htmlFor="plain">Plain</label>
+                    <FieldChromeContainer>
+                        <input id="plain" />
+                    </FieldChromeContainer>
+                </>,
+            )
+            expect(await axe(container)).toHaveNoViolations()
+        })
+    })
+})
