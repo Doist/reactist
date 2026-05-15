@@ -61,15 +61,24 @@ export const ControlPresentation = forwardRef<HTMLDivElement, ControlPresentatio
         ref,
     ) {
         const controlWrapperRef = React.useRef<HTMLDivElement>(null)
+        // The synthetic .click() we dispatch below bubbles back up to this
+        // handler. Track that we're inside that re-entry so we can skip
+        // re-invoking onClick + activation for it.
+        const isDispatchedReentryRef = React.useRef(false)
 
         function handleWrapperClick(event: React.MouseEvent<HTMLDivElement>) {
+            if (isDispatchedReentryRef.current) {
+                isDispatchedReentryRef.current = false
+                return
+            }
+
             onClick?.(event)
             if (!forwardClickToControl) return
 
             const control = controlWrapperRef.current?.firstElementChild as HTMLElement | null
             if (!control) return
 
-            // Don't re-fire when the click already came from inside the control —
+            // Don't re-fire when the user clicked directly on the control —
             // it handled itself, and re-dispatching would double-activate.
             if (event.target instanceof Node && control.contains(event.target)) return
 
@@ -90,6 +99,8 @@ export const ControlPresentation = forwardRef<HTMLDivElement, ControlPresentatio
                 }
                 return
             }
+
+            isDispatchedReentryRef.current = true
             control.click()
         }
 
