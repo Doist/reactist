@@ -1,11 +1,8 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
-import { BADGE } from '@geometricpanda/storybook-addon-badges'
-
 import { Stack } from '../stack'
 import { Text } from '../text'
-import { PartialProps } from '../utils/storybook-helper'
 
 import { CheckboxField } from '.'
 
