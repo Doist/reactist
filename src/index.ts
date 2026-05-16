@@ -28,6 +28,7 @@ export * from './button'
 export * from './text-link'
 
 // form fields
+export * from './bordered-text-field'
 export * from './checkbox-field'
 export * from './control-presentation'
 export * from './password-field'
