@@ -6,8 +6,6 @@ import { axe } from 'jest-axe'
 
 import { TextField } from './'
 
-import type { TextFieldProps } from './'
-
 describe('TextField', () => {
     it('supports having an externally provided id attribute', () => {
         render(<TextField data-testid="text-field" id="custom-id" label="Whatʼs your name?" />)
@@ -249,39 +247,6 @@ describe('TextField', () => {
 
             expect(results).toHaveNoViolations()
         })
-    })
-
-    describe('endSlotPosition', () => {
-        test.each<TextFieldProps['endSlotPosition']>(['bottom', 'fullHeight', undefined])(
-            'renders the end slot for default variant when endSlotPosition is %s',
-            (endSlotPosition) => {
-                render(
-                    <TextField
-                        label="Whatʼs your name?"
-                        maxLength={30}
-                        endSlot="Kwijibo"
-                        endSlotPosition={endSlotPosition}
-                    />,
-                )
-                expect(screen.getByText('Kwijibo')).toBeInTheDocument()
-            },
-        )
-
-        test.each<TextFieldProps['endSlotPosition']>(['bottom', 'fullHeight', undefined])(
-            'renders the end slot for bordered variant when endSlotPosition is %s',
-            (endSlotPosition) => {
-                render(
-                    <TextField
-                        label="Whatʼs your name?"
-                        maxLength={30}
-                        endSlot="Kwijibo"
-                        endSlotPosition={endSlotPosition}
-                        variant="bordered"
-                    />,
-                )
-                expect(screen.getByText('Kwijibo')).toBeInTheDocument()
-            },
-        )
     })
 
     describe('character count', () => {

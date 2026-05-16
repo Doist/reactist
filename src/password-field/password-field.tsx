@@ -5,12 +5,9 @@ import { PasswordHiddenIcon } from '../icons/password-hidden-icon'
 import { PasswordVisibleIcon } from '../icons/password-visible-icon'
 import { TextField } from '../text-field'
 
-import type { BaseFieldVariantProps } from '../base-field'
 import type { TextFieldProps } from '../text-field'
 
-interface PasswordFieldProps
-    extends Omit<TextFieldProps, 'type' | 'startSlot' | 'endSlot'>,
-        BaseFieldVariantProps {
+interface PasswordFieldProps extends Omit<TextFieldProps, 'type' | 'startSlot' | 'endSlot'> {
     togglePasswordLabel?: string
     endSlot?: React.ReactElement | string | number
 }

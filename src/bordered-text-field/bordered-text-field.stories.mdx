@@ -1,0 +1,98 @@
+import { Meta, Story, Canvas, ArgsTable, Description } from '@storybook/addon-docs'
+import { BorderedTextField } from './bordered-text-field'
+import { Box } from '../box'
+import { IconButton } from '../button'
+
+<Meta
+    title="Design system/BorderedTextField"
+    component={BorderedTextField}
+    parameters={{
+        badges: ['accessible'],
+    }}
+    argTypes={{
+        label: { control: { type: 'text' }, defaultValue: 'Company name' },
+        message: { control: { type: 'text' } },
+        tone: {
+            options: ['neutral', 'success', 'error', 'loading'],
+            control: { type: 'inline-radio' },
+            defaultValue: 'neutral',
+        },
+        characterCountPosition: {
+            options: ['below', 'hidden'],
+            control: { type: 'inline-radio' },
+            defaultValue: 'below',
+        },
+        maxLength: { control: { type: 'number' } },
+        disabled: { control: { type: 'boolean' } },
+        readOnly: { control: { type: 'boolean' } },
+    }}
+/>
+
+# BorderedTextField
+
+The outlined text-field layout: the label sits inside a rounded chrome,
+above the input. Used when a field's label should be visually integrated
+with its control (e.g. dense form layouts).
+
+`BorderedTextField` is a sibling to `TextField`, not a variant of it. The
+two have meaningfully different APIs:
+
+- `BorderedTextField` does **not** support `startSlot`.
+- `endSlot`, when set, is rendered as a full-height side column. There is
+  no inline `endSlot` position.
+- `characterCountPosition` does not support `'inline'`. Use `'below'`
+  (default) or `'hidden'`.
+
+## Playground
+
+<Canvas withToolbar>
+    <Story name="Playground">
+        {(args) => (
+            <Box maxWidth="small">
+                <BorderedTextField {...args} />
+            </Box>
+        )}
+    </Story>
+</Canvas>
+
+<ArgsTable story="Playground" />
+
+## With a full-height endSlot
+
+<Canvas>
+    <Story name="With endSlot">
+        <Box maxWidth="small">
+            <BorderedTextField
+                label="API key"
+                endSlot={<IconButton variant="primary" icon="🔁" aria-label="Regenerate" />}
+            />
+        </Box>
+    </Story>
+</Canvas>
+
+## States
+
+<Canvas>
+    <Story name="States">
+        <Box maxWidth="small" display="flex" flexDirection="column" gap="medium">
+            <BorderedTextField label="Default" />
+            <BorderedTextField label="With value" defaultValue="Hello" />
+            <BorderedTextField label="Read-only" defaultValue="Hello" readOnly />
+            <BorderedTextField label="Disabled" defaultValue="Hello" disabled />
+            <BorderedTextField
+                label="Error"
+                defaultValue="oops"
+                tone="error"
+                message="Invalid value"
+            />
+        </Box>
+    </Story>
+</Canvas>
+
+## Migration from `TextField variant="bordered"`
+
+Replace `<TextField variant="bordered" .../>` with
+`<BorderedTextField .../>`. Drop any `startSlot`, `endSlotPosition`, or
+`characterCountPosition="inline"` props — those are no longer supported in
+the outlined layout. If you need a leading icon, consider using `TextField`
+(default) instead. If you need a side action, use `endSlot`.

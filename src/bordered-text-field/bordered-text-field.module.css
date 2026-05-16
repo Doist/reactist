@@ -1,0 +1,39 @@
+.outlinedChrome {
+    padding: var(--reactist-spacing-small);
+    cursor: text;
+}
+
+.label {
+    font-size: var(--reactist-font-size-caption);
+    font-weight: 500;
+    letter-spacing: -0.15px;
+    line-height: inherit;
+    padding-bottom: 4px;
+    cursor: text;
+}
+
+.label > span {
+    cursor: default;
+}
+
+.input {
+    font-size: var(--reactist-font-size-body);
+    font-weight: var(--reactist-font-weight-regular);
+    line-height: calc(var(--reactist-font-size-body) + 7px);
+    letter-spacing: -0.15px;
+
+    color: var(--reactist-content-primary);
+    height: 24px;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.fullHeightSlot {
+    padding-left: var(--reactist-spacing-small);
+    align-self: stretch;
+}

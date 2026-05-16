@@ -72,11 +72,6 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
                 ['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'],
                 'small',
             ),
-            variant: {
-                options: ['default', 'bordered'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'default',
-            },
             auxiliaryLabel: {
                 control: { type: 'text' },
                 defaultValue: 'Need help?',
@@ -101,13 +96,15 @@ export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
 ## Colors
 
 The following CSS custom properties are available so that the `SelectField`'s border colors can be customized.
-Note that these variables are shared with other components such as `Textfield`, `PasswordField`, and `TextArea`.
+Note that these variables are shared with other components such as `TextField`, `PasswordField`, and `TextArea`.
 
 ```
 --reactist-inputs-focus
 --reactist-inputs-idle
 --reactist-inputs-alert
 ```
+
+> **Note:** The `variant` prop has been removed. `SelectField` now always renders using the default (outlined) style. A bordered variant is no longer supported.
 
 <Canvas withToolbar>
     <Story

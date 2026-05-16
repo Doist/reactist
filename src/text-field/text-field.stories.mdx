@@ -21,6 +21,8 @@ import { selectWithNone } from '../utils/storybook-helper'
 
 A component used to accept textual input from the user.
 
+For the outlined layout with the label inside the chrome, see `BorderedTextField`.
+
 export function SearchIcon() {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
@@ -100,11 +102,6 @@ export function InteractivePropsStory({
                 control: { type: 'boolean' },
                 defaultValue: false,
             },
-            variant: {
-                options: ['default', 'bordered'],
-                control: { type: 'inline-radio' },
-                defaultValue: 'default',
-            },
             auxiliaryLabel: {
                 control: { type: 'text' },
                 defaultValue: 'Need help?',
@@ -132,11 +129,6 @@ export function InteractivePropsStory({
             },
             characterCountPosition: {
                 options: [undefined, 'hidden', 'inline', 'below'],
-                control: { type: 'inline-radio' },
-                defaultValue: undefined,
-            },
-            endSlotPosition: {
-                options: [undefined, 'bottom', 'fullHeight'],
                 control: { type: 'inline-radio' },
                 defaultValue: undefined,
             },
@@ -230,13 +222,7 @@ Note that these variables are shared with other components such as `PasswordFiel
     >
         <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
             <TextField
-                label="Search (default variant)"
-                startSlot={<SearchIcon />}
-                placeholder="Text field with an icon"
-            />
-            <TextField
-                variant="bordered"
-                label="Search (bordered variant)"
+                label="Search"
                 startSlot={<SearchIcon />}
                 placeholder="Text field with an icon"
             />
@@ -332,38 +318,6 @@ Hence, the description is never needed when the field is not focused anyway.
 <Canvas withToolbar>
     <Story name="With tooltip">
         <WithTooltipExample />
-    </Story>
-</Canvas>
-
-## Variants
-
-The `variant` prop is used to change the style of the text field. The default variant is `default`. The other variant is `bordered`.
-
-export function WithBorderedExample() {
-    return (
-        <TextField label="Company name" placeholder="Text field with a border" variant="bordered" />
-    )
-}
-
-export function WithBorderedAndEndSlotExample({ endSlotPosition = 'fullHeight' } = {}) {
-    return (
-        <TextField
-            label="Company name"
-            placeholder="Text field with a border and end slot"
-            variant="bordered"
-            endSlot={<IconButton variant="primary" icon="😄" aria-label="Say cheese!" />}
-            endSlotPosition={endSlotPosition}
-        />
-    )
-}
-
-<Canvas withToolbar>
-    <Story name="Bordered variant">
-        <Stack space="xxlarge" dividers="secondary">
-            <WithBorderedExample />
-            <WithBorderedAndEndSlotExample />
-            <WithBorderedAndEndSlotExample endSlotPosition="bottom" />
-        </Stack>
     </Story>
 </Canvas>
 
