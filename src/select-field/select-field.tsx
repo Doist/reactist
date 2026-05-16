@@ -1,26 +1,23 @@
 import * as React from 'react'
 
 import { BaseField } from '../base-field'
-import { Box } from '../box'
+import { ControlPresentation } from '../control-presentation'
 
 import styles from './select-field.module.css'
 
-import type { BaseFieldVariantProps, FieldComponentProps } from '../base-field'
+import type { FieldComponentProps } from '../base-field'
 
-interface SelectFieldProps
-    extends Omit<
-            FieldComponentProps<HTMLSelectElement>,
-            | 'maxLength'
-            | 'characterCountPosition'
-            | 'endSlot'
-            | 'supportsStartAndEndSlots'
-            | 'endSlotPosition'
-        >,
-        BaseFieldVariantProps {}
+type SelectFieldProps = Omit<
+    FieldComponentProps<HTMLSelectElement>,
+    | 'maxLength'
+    | 'characterCountPosition'
+    | 'endSlot'
+    | 'supportsStartAndEndSlots'
+    | 'endSlotPosition'
+>
 
 const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(function SelectField(
     {
-        variant = 'default',
         id,
         label,
         value,
@@ -38,7 +35,6 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
 ) {
     return (
         <BaseField
-            variant={variant}
             id={id}
             label={label}
             value={value}
@@ -49,27 +45,23 @@ const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(functi
             hidden={hidden}
             aria-describedby={ariaDescribedBy}
         >
-            {({ characterCountElement, ...extraProps }) => (
-                <Box
-                    data-testid="select-wrapper"
-                    className={[
-                        styles.selectWrapper,
-                        tone === 'error' ? styles.error : null,
-                        variant === 'bordered' ? styles.bordered : null,
-                    ]}
-                >
+            {({ id: resolvedId, 'aria-describedby': describedBy, 'aria-invalid': invalid }) => (
+                <ControlPresentation endSlot={<SelectChevron aria-hidden />}>
                     <select
                         {...props}
-                        {...extraProps}
                         ref={ref}
+                        id={resolvedId}
+                        value={value}
+                        className={styles.select}
+                        aria-describedby={describedBy}
+                        aria-invalid={invalid}
                         onChange={(event) => {
                             originalOnChange?.(event)
                         }}
                     >
                         {children}
                     </select>
-                    <SelectChevron aria-hidden />
-                </Box>
+                </ControlPresentation>
             )}
         </BaseField>
     )
