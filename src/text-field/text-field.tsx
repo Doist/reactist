@@ -8,7 +8,7 @@ import type { BaseFieldProps, FieldComponentProps } from '../base-field'
 type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 
 interface TextFieldProps
-    extends Omit<FieldComponentProps<HTMLInputElement>, 'type' | 'supportsStartAndEndSlots'>,
+    extends Omit<FieldComponentProps<HTMLInputElement>, 'type'>,
         Pick<BaseFieldProps, 'characterCountPosition'> {
     type?: TextFieldType
     startSlot?: React.ReactElement | string | number

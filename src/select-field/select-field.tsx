@@ -9,11 +9,7 @@ import type { FieldComponentProps } from '../base-field'
 
 type SelectFieldProps = Omit<
     FieldComponentProps<HTMLSelectElement>,
-    | 'maxLength'
-    | 'characterCountPosition'
-    | 'endSlot'
-    | 'supportsStartAndEndSlots'
-    | 'endSlotPosition'
+    'maxLength' | 'characterCountPosition'
 >
 
 const SelectField = React.forwardRef<HTMLSelectElement, SelectFieldProps>(function SelectField(

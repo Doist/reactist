@@ -11,14 +11,7 @@ import type { FieldComponentProps } from '../base-field'
 type BorderedTextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 
 interface BorderedTextFieldProps
-    extends Omit<
-        FieldComponentProps<HTMLInputElement>,
-        | 'type'
-        | 'supportsStartAndEndSlots'
-        | 'endSlot'
-        | 'endSlotPosition'
-        | 'characterCountPosition'
-    > {
+    extends Omit<FieldComponentProps<HTMLInputElement>, 'type' | 'characterCountPosition'> {
     type?: BorderedTextFieldType
     /** Optional full-height slot rendered to the right of the label+input column. */
     endSlot?: React.ReactElement | string | number
