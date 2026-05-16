@@ -5,17 +5,14 @@ import { useMergeRefs } from 'use-callback-ref'
 
 import { BaseField } from '../base-field'
 import { Box } from '../box'
+import { OutlinedControlContainer } from '../control-presentation/outlined-control-container'
 
 import styles from './text-area.module.css'
 
-import type { BaseFieldVariantProps, FieldComponentProps } from '../base-field'
+import type { FieldComponentProps } from '../base-field'
 
 interface TextAreaProps
-    extends Omit<FieldComponentProps<HTMLTextAreaElement>, 'characterCountPosition'>,
-        Omit<
-            BaseFieldVariantProps,
-            'supportsStartAndEndSlots' | 'endSlot' | 'endSlotPosition' | 'value'
-        > {
+    extends Omit<FieldComponentProps<HTMLTextAreaElement>, 'characterCountPosition'> {
     /**
      * The value of the text area.
      *
@@ -55,7 +52,6 @@ interface TextAreaProps
 
 const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function TextArea(
     {
-        variant = 'default',
         id,
         label,
         value,
@@ -87,7 +83,6 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
 
     return (
         <BaseField
-            variant={variant}
             id={id}
             label={label}
             value={value}
@@ -96,34 +91,42 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
             tone={tone}
             hidden={hidden}
             aria-describedby={ariaDescribedBy}
-            className={[
-                styles.textAreaContainer,
-                tone === 'error' ? styles.error : null,
-                variant === 'bordered' ? styles.bordered : null,
-            ]}
             maxWidth={maxWidth}
             maxLength={maxLength}
         >
-            {({ onChange, characterCountElement, ...extraProps }) => (
-                <Box
-                    width="full"
-                    display="flex"
-                    className={styles.innerContainer}
-                    ref={containerRef}
+            {({
+                id: resolvedId,
+                'aria-describedby': describedBy,
+                'aria-invalid': invalid,
+                onChange,
+            }) => (
+                <OutlinedControlContainer
+                    borderRadius="small"
+                    exceptionallySetClassName={styles.chrome}
                 >
-                    <textarea
-                        {...props}
-                        {...extraProps}
-                        ref={combinedRef}
-                        rows={rows}
-                        className={textAreaClassName}
-                        maxLength={maxLength}
-                        onChange={(event) => {
-                            originalOnChange?.(event)
-                            onChange?.(event)
-                        }}
-                    />
-                </Box>
+                    <Box
+                        width="full"
+                        display="flex"
+                        className={styles.innerContainer}
+                        ref={containerRef}
+                    >
+                        <textarea
+                            {...props}
+                            ref={combinedRef}
+                            id={resolvedId}
+                            rows={rows}
+                            value={value}
+                            maxLength={maxLength}
+                            aria-describedby={describedBy}
+                            aria-invalid={invalid}
+                            className={textAreaClassName}
+                            onChange={(event) => {
+                                originalOnChange?.(event)
+                                onChange?.(event)
+                            }}
+                        />
+                    </Box>
+                </OutlinedControlContainer>
             )}
         </BaseField>
     )
