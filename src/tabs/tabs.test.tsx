@@ -5,17 +5,14 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
-import { Tab, TabAwareSlot, TabList, TabPanel, Tabs } from './'
+import { flushMicrotasks } from '../utils/test-helpers'
 
-async function flushAriakitUpdates() {
-    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()))
-    await new Promise<void>((resolve) => setTimeout(resolve, 0))
-}
+import { Tab, TabAwareSlot, TabList, TabPanel, Tabs } from './'
 
 async function click(...args: Parameters<typeof userEvent.click>) {
     await act(async () => {
         userEvent.click(...args)
-        await flushAriakitUpdates()
+        await flushMicrotasks()
     })
 }
 

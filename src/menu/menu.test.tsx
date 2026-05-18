@@ -16,29 +16,24 @@ function getFocusedElement() {
     return document.activeElement
 }
 
-async function flushAriakitUpdates() {
-    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()))
-    await new Promise<void>((resolve) => setTimeout(resolve, 0))
-}
-
 async function click(...args: Parameters<typeof userEvent.click>) {
     await act(async () => {
         userEvent.click(...args)
-        await flushAriakitUpdates()
+        await flushMicrotasks()
     })
 }
 
 async function hover(...args: Parameters<typeof userEvent.hover>) {
     await act(async () => {
         userEvent.hover(...args)
-        await flushAriakitUpdates()
+        await flushMicrotasks()
     })
 }
 
 async function keyboard(text: string) {
     await act(async () => {
         userEvent.keyboard(text)
-        await flushAriakitUpdates()
+        await flushMicrotasks()
     })
 }
 
