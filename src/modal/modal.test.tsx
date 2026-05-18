@@ -1,10 +1,23 @@
 import * as React from 'react'
+import { act } from 'react'
 
-import { act, render, screen, within } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
 import { Modal, ModalActions, ModalBody, ModalCloseButton, ModalFooter, ModalHeader } from './modal'
+
+function click(...args: Parameters<typeof userEvent.click>) {
+    act(() => {
+        userEvent.click(...args)
+    })
+}
+
+function type(element: Element, text: string) {
+    act(() => {
+        userEvent.type(element, text)
+    })
+}
 
 // Ariakit's dialog performs async updates and must be wrapped in an act to prevent warnings
 function renderModal(children: React.ReactElement) {
@@ -26,7 +39,7 @@ function closeModal() {
 
     if (modal) {
         jest.useFakeTimers()
-        userEvent.type(modal, '{Esc}')
+        type(modal, '{Esc}')
 
         act(() => {
             jest.runOnlyPendingTimers()
@@ -109,30 +122,30 @@ describe('Modal', () => {
     it('is dismissed if isOpen="false"', () => {
         renderModal(<TestCaseWithState />)
         expect(screen.queryByRole('dialog', { name: 'modal' })).not.toBeInTheDocument()
-        userEvent.click(screen.getByRole('button', { name: 'Click me' }))
+        click(screen.getByRole('button', { name: 'Click me' }))
         expect(screen.getByRole('dialog', { name: 'modal' })).toBeInTheDocument()
-        userEvent.click(screen.getByRole('button', { name: 'Close me' }))
+        click(screen.getByRole('button', { name: 'Close me' }))
         expect(screen.queryByRole('dialog', { name: 'modal' })).not.toBeInTheDocument()
     })
 
     it('hides the content underneath from assistive technologies', () => {
         renderModal(<TestCaseWithState />)
-        userEvent.click(screen.getByRole('button', { name: 'Click me' }))
+        click(screen.getByRole('button', { name: 'Click me' }))
 
         // Button is present, but not found by role
         expect(screen.queryByRole('button', { name: 'Click me' })).not.toBeInTheDocument()
         expect(screen.getByText('Click me')).toBeInTheDocument()
 
         // Button is visible by role again once the modal is gone
-        userEvent.click(screen.getByRole('button', { name: 'Close me' }))
+        click(screen.getByRole('button', { name: 'Close me' }))
         expect(screen.getByRole('button', { name: 'Click me' })).toBeInTheDocument()
     })
 
     it('is dismissed when clicking in the overlay', () => {
         renderModal(<TestCaseWithState />)
-        userEvent.click(screen.getByRole('button', { name: 'Click me' }))
+        click(screen.getByRole('button', { name: 'Click me' }))
         expect(screen.getByRole('dialog', { name: 'modal' })).toBeInTheDocument()
-        userEvent.click(screen.getByTestId('modal-overlay'))
+        click(screen.getByTestId('modal-overlay'))
         expect(screen.queryByRole('dialog', { name: 'modal' })).not.toBeInTheDocument()
     })
 
@@ -143,7 +156,7 @@ describe('Modal', () => {
                 <button type="button">Close me</button>
             </Modal>,
         )
-        userEvent.click(screen.getByTestId('modal-overlay'))
+        click(screen.getByTestId('modal-overlay'))
         expect(onDismiss).not.toHaveBeenCalled()
     })
 
@@ -230,7 +243,7 @@ describe('ModalHeader', () => {
             </Modal>,
         )
         expect(onDismiss).not.toHaveBeenCalled()
-        userEvent.click(screen.getByRole('button', { name: 'Close modal' }))
+        click(screen.getByRole('button', { name: 'Close modal' }))
         expect(onDismiss).toHaveBeenCalledTimes(1)
     })
 
@@ -484,7 +497,7 @@ describe('ModalCloseButton', () => {
         jest.useFakeTimers()
         expect(onDismiss).not.toHaveBeenCalled()
 
-        userEvent.click(button)
+        click(button)
 
         expect(onDismiss).toHaveBeenCalledTimes(1)
     })
@@ -543,7 +556,7 @@ describe('a11y', () => {
         const modal = screen.getByRole('dialog', { name: 'modal' })
 
         expect(onDismiss).not.toHaveBeenCalled()
-        userEvent.type(modal, '{esc}')
+        type(modal, '{esc}')
         expect(onDismiss).toHaveBeenCalledTimes(1)
     })
 
@@ -557,7 +570,7 @@ describe('a11y', () => {
         const modal = screen.getByRole('dialog', { name: 'modal' })
 
         expect(onDismiss).not.toHaveBeenCalled()
-        userEvent.type(modal, '{esc}')
+        type(modal, '{esc}')
         expect(onDismiss).not.toHaveBeenCalled()
     })
 })

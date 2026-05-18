@@ -2,13 +2,10 @@ import './styles/avatar_story.css'
 
 import * as React from 'react'
 
-import { withKnobs } from '@storybook/addon-knobs'
-
 import { Avatar, Box, Inline } from '../../src'
 
 export default {
     title: 'Components/Avatar',
-    decorators: [withKnobs],
     component: Avatar,
 }
 

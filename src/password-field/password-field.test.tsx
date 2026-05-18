@@ -1,10 +1,17 @@
 import * as React from 'react'
+import { act } from 'react'
 
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
 import { PasswordField } from './'
+
+function click(...args: Parameters<typeof userEvent.click>) {
+    act(() => {
+        userEvent.click(...args)
+    })
+}
 
 describe('PasswordField', () => {
     it('supports having an externally provided id attribute', () => {
@@ -171,10 +178,10 @@ describe('PasswordField', () => {
 
         expect(passwordField).toHaveAttribute('type', 'password')
 
-        userEvent.click(togglePasswordButton)
+        click(togglePasswordButton)
         expect(passwordField).toHaveAttribute('type', 'text')
 
-        userEvent.click(togglePasswordButton)
+        click(togglePasswordButton)
         expect(passwordField).toHaveAttribute('type', 'password')
     })
 
@@ -199,10 +206,10 @@ describe('PasswordField', () => {
 
         expect(passwordField).toHaveAttribute('type', 'password')
 
-        userEvent.click(togglePasswordButton)
+        click(togglePasswordButton)
         expect(passwordField).toHaveAttribute('type', 'text')
 
-        userEvent.click(togglePasswordButton)
+        click(togglePasswordButton)
         expect(passwordField).toHaveAttribute('type', 'password')
     })
 

@@ -15,8 +15,8 @@ module.exports = {
         [
             'babel-plugin-react-compiler',
             {
-                // Support React 17 as a minimum
-                target: '17',
+                // Support React 18 as a minimum
+                target: '18',
                 logger: {
                     /**
                      * @param {string | null} filename

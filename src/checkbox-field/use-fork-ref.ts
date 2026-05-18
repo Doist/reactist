@@ -30,7 +30,7 @@ function useForkRef(...refs: Array<React.Ref<unknown> | undefined>) {
                 refs.forEach((ref) => setRef(ref, value))
             }
         },
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/use-memo
         refs,
     )
 }

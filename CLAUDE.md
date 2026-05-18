@@ -49,12 +49,12 @@ Every component has `index.ts`, `component.tsx`, `component.module.css`, `compon
 
 - Import React as `import * as React from 'react'`
 - Use `React.forwardRef` with a named function matching the component name:
-  ```tsx
-  const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-      { variant, size = 'normal', ...props },
-      ref,
-  ) { ... })
-  ```
+    ```tsx
+    const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+        { variant, size = 'normal', ...props },
+        ref,
+    ) { ... })
+    ```
 - Use named exports only - no default exports for design system components
 - Export types explicitly: `export type { ButtonProps }`
 - Add JSDoc comments to every prop
@@ -89,10 +89,10 @@ New components must be added to `src/index.ts`. Components are grouped by catego
 - Query elements by role: `screen.getByRole('button', { name: 'Click me' })`
 - Use `flushMicrotasks()` from `src/utils/test-helpers.tsx` after ariakit component interactions
 - Use `jest-axe` for accessibility checks:
-  ```tsx
-  const { container } = render(<Component />)
-  expect(await axe(container)).toHaveNoViolations()
-  ```
+    ```tsx
+    const { container } = render(<Component />)
+    expect(await axe(container)).toHaveNoViolations()
+    ```
 - Use `TestIcon` from test-helpers when a test needs an icon element
 - Use `runSpaceTests()` from test-helpers for components that accept a `space` prop
 
@@ -105,4 +105,4 @@ New components must be added to `src/index.ts`. Components are grouped by catego
 
 ## React Compiler
 
-The project uses `babel-plugin-react-compiler` targeting React 17+. Compilation status is tracked in `.react-compiler.rec.json`. Some files are currently opted out due to compilation errors. The pre-commit hook automatically updates this tracking file.
+The project uses `babel-plugin-react-compiler` targeting React 18+. Compilation status is tracked in `.react-compiler.rec.json`. Some files are currently opted out due to compilation errors. The pre-commit hook automatically updates this tracking file.

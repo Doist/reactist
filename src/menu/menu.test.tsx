@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { act } from 'react'
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -13,6 +14,27 @@ function getFocusedElement() {
         throw new Error('No element with focus was found')
     }
     return document.activeElement
+}
+
+async function click(...args: Parameters<typeof userEvent.click>) {
+    await act(async () => {
+        userEvent.click(...args)
+        await flushMicrotasks()
+    })
+}
+
+async function hover(...args: Parameters<typeof userEvent.hover>) {
+    await act(async () => {
+        userEvent.hover(...args)
+        await flushMicrotasks()
+    })
+}
+
+async function keyboard(text: string) {
+    await act(async () => {
+        userEvent.keyboard(text)
+        await flushMicrotasks()
+    })
 }
 
 describe('Menu', () => {
@@ -35,11 +57,11 @@ describe('Menu', () => {
         // really make sure they're not in the DOM we're querying by text here
         expect(screen.queryByText('First option')).not.toBeInTheDocument()
 
-        userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+        await click(screen.getByRole('button', { name: 'Options menu' }))
         expect(screen.getByRole('menu')).toBeInTheDocument()
         expect(screen.getByRole('menuitem', { name: 'First option' })).toBeInTheDocument()
 
-        userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+        await click(screen.getByRole('button', { name: 'Options menu' }))
         expect(screen.queryByText('First option')).not.toBeInTheDocument()
         await flushMicrotasks()
     })
@@ -59,22 +81,22 @@ describe('Menu', () => {
         )
 
         // 'First option' closes the menu
-        userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+        await click(screen.getByRole('button', { name: 'Options menu' }))
         expect(screen.getByRole('menuitem', { name: 'First option' })).toBeVisible()
 
-        userEvent.click(screen.getByRole('menuitem', { name: 'First option' }))
+        await click(screen.getByRole('menuitem', { name: 'First option' }))
         expect(screen.queryByRole('menu')).not.toBeInTheDocument()
         expect(screen.queryByRole('menuitem')).not.toBeInTheDocument()
 
         // 'Second option' does not close the menu
-        userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+        await click(screen.getByRole('button', { name: 'Options menu' }))
         expect(screen.getByRole('menuitem', { name: 'Second option' })).toBeVisible()
 
-        userEvent.click(screen.getByRole('menuitem', { name: 'Second option' }))
+        await click(screen.getByRole('menuitem', { name: 'Second option' }))
         expect(screen.getByRole('menu')).toBeInTheDocument()
 
         // 'Third option' does not close the menu
-        userEvent.click(screen.getByRole('menuitem', { name: 'Third option' }))
+        await click(screen.getByRole('menuitem', { name: 'Third option' }))
         expect(screen.getByRole('menu')).toBeInTheDocument()
 
         await flushMicrotasks()
@@ -99,8 +121,8 @@ describe('Menu', () => {
         )
 
         for (const opt of ['1st', '2nd']) {
-            userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
-            userEvent.click(screen.getByRole('menuitem', { name: `${opt} option` }))
+            await click(screen.getByRole('button', { name: 'Options menu' }))
+            await click(screen.getByRole('menuitem', { name: `${opt} option` }))
             expect(onItemSelect).toHaveBeenCalledWith(opt)
             expect(onSelect).toHaveBeenCalledWith(`${opt} option`)
         }
@@ -131,9 +153,14 @@ describe('Menu', () => {
             </Menu>,
         )
 
-        screen.getByRole('button', { name: 'Options menu' }).focus()
-        userEvent.keyboard('{Enter}')
+        act(() => {
+            screen.getByRole('button', { name: 'Options menu' }).focus()
+        })
+        await keyboard('{Enter}')
         expect(await screen.findByRole('menu')).toBeVisible()
+        await waitFor(() => {
+            expect(screen.getByRole('menu')).toHaveFocus()
+        })
 
         fireEvent.keyDown(getFocusedElement(), { key: 'ArrowDown' })
         expect(screen.getByRole('menuitem', { name: '1st option' })).toHaveFocus()
@@ -147,7 +174,7 @@ describe('Menu', () => {
         fireEvent.keyDown(getFocusedElement(), { key: 'ArrowUp' })
         expect(screen.getByRole('menuitem', { name: '2nd option' })).toHaveFocus()
 
-        userEvent.keyboard('{Enter}')
+        await keyboard('{Enter}')
 
         await waitFor(() => {
             expect(onSelect).toHaveBeenCalledWith('2nd option')
@@ -167,7 +194,7 @@ describe('Menu', () => {
                 </MenuList>
             </Menu>,
         )
-        userEvent.click(screen.getByRole('button', { name: 'Links' }))
+        await click(screen.getByRole('button', { name: 'Links' }))
 
         // Prevent act warning
         await waitFor(() => {
@@ -197,8 +224,8 @@ describe('Menu', () => {
             </Menu>,
         )
 
-        userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
-        userEvent.click(screen.getByRole('menuitem', { name: 'Click me' }))
+        await click(screen.getByRole('button', { name: 'Options menu' }))
+        await click(screen.getByRole('menuitem', { name: 'Click me' }))
 
         await waitFor(() => {
             expect(screen.queryByRole('menu')).not.toBeInTheDocument()
@@ -220,13 +247,13 @@ describe('Menu', () => {
 
         expect(screen.queryByText('First option')).not.toBeInTheDocument()
 
-        userEvent.click(screen.getByText('Options menu'), { button: 2 })
+        await click(screen.getByText('Options menu'), { button: 2 })
 
         expect(screen.getByRole('menu')).toBeInTheDocument()
         expect(screen.getByRole('menuitem', { name: 'First option' })).toBeInTheDocument()
 
         // Close menu to avoid act warning after test ends
-        userEvent.keyboard('{Escape}')
+        await keyboard('{Escape}')
         await flushMicrotasks()
     })
 
@@ -249,14 +276,14 @@ describe('Menu', () => {
             </Menu>,
         )
 
-        userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
-        userEvent.hover(screen.getByRole('menuitem', { name: 'More options' }))
+        await click(screen.getByRole('button', { name: 'Options menu' }))
+        await hover(screen.getByRole('menuitem', { name: 'More options' }))
 
         await waitFor(() => {
             expect(screen.getByRole('menuitem', { name: 'Save' })).toBeVisible()
         })
 
-        userEvent.click(screen.getByRole('menuitem', { name: 'Save' }))
+        await click(screen.getByRole('menuitem', { name: 'Save' }))
 
         expect(handleSave).toHaveBeenCalled()
         expect(screen.queryByText('More options')).not.toBeInTheDocument()
@@ -282,20 +309,20 @@ describe('Menu', () => {
             </Menu>,
         )
 
-        userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+        await click(screen.getByRole('button', { name: 'Options menu' }))
 
         await waitFor(() => {
             expect(screen.getByRole('menu')).toHaveFocus()
         })
 
-        userEvent.keyboard('{ArrowDown}')
+        await keyboard('{ArrowDown}')
         expect(screen.getByRole('menuitem', { name: 'New' })).toHaveFocus()
 
-        userEvent.keyboard('{ArrowDown}')
+        await keyboard('{ArrowDown}')
         expect(screen.getByRole('menuitem', { name: 'More options' })).toHaveFocus()
 
         expect(screen.queryByRole('menuitem', { name: 'Save' })).not.toBeInTheDocument()
-        userEvent.keyboard('{ArrowRight}')
+        await keyboard('{ArrowRight}')
         expect(screen.getByRole('menuitem', { name: 'Save' })).toBeVisible()
     })
 
@@ -323,9 +350,9 @@ describe('Menu', () => {
             )
 
             // Open menu
-            userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+            await click(screen.getByRole('button', { name: 'Options menu' }))
             expect(await axe(container)).toHaveNoViolations()
-            userEvent.keyboard('{Escape}')
+            await keyboard('{Escape}')
             await flushMicrotasks()
         })
 
@@ -341,13 +368,13 @@ describe('Menu', () => {
             )
 
             // Open menu
-            userEvent.click(screen.getByRole('button', { name: 'Options menu' }))
+            await click(screen.getByRole('button', { name: 'Options menu' }))
 
             await waitFor(() => {
                 expect(screen.getByRole('menu')).toHaveFocus()
             })
 
-            userEvent.keyboard('{Escape}') // Close menu
+            await keyboard('{Escape}') // Close menu
             await flushMicrotasks()
 
             await waitFor(() => {

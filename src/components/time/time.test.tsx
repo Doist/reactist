@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { act } from 'react'
 
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -29,11 +30,18 @@ describe('Time', () => {
 
         expect(screen.getByText('March 22, 1991')).toBeVisible()
 
-        userEvent.hover(screen.getByText('March 22, 1991'))
+        act(() => {
+            userEvent.hover(screen.getByText('March 22, 1991'))
+        })
         expect(screen.getByText('March 22, 1991, 1:37 PM')).toBeVisible()
 
         // <Time> checks that the mouse coordinates have changed before setting state
-        userEvent.unhover(screen.getByText('March 22, 1991, 1:37 PM'), { clientX: 10, clientY: 10 })
+        act(() => {
+            userEvent.unhover(screen.getByText('March 22, 1991, 1:37 PM'), {
+                clientX: 10,
+                clientY: 10,
+            })
+        })
         expect(screen.getByText('March 22, 1991')).toBeVisible()
     })
 
@@ -42,11 +50,15 @@ describe('Time', () => {
 
         expect(screen.getByText('March 22, 1991')).toBeVisible()
 
-        userEvent.hover(screen.getByText('March 22, 1991'))
+        act(() => {
+            userEvent.hover(screen.getByText('March 22, 1991'))
+        })
         expect(screen.getByText('March 22, 1991, 1:37 PM')).toBeVisible()
 
         // <Time> checks that the mouse coordinates have changed before setting state
-        userEvent.unhover(screen.getByText('March 22, 1991, 1:37 PM'))
+        act(() => {
+            userEvent.unhover(screen.getByText('March 22, 1991, 1:37 PM'))
+        })
         expect(screen.getByText('March 22, 1991, 1:37 PM')).toBeVisible()
     })
 
@@ -58,7 +70,9 @@ describe('Time', () => {
     it('renders short absolute time when hovered and expandedOnHover is set', () => {
         render(<Time time={testDate} expandOnHover />)
 
-        userEvent.hover(screen.getByText('March 22, 1991'))
+        act(() => {
+            userEvent.hover(screen.getByText('March 22, 1991'))
+        })
         expect(screen.getByText('March 22, 1991')).toBeVisible()
     })
 
@@ -71,7 +85,9 @@ describe('Time', () => {
         jest.useRealTimers()
         render(<Time time={testDate} tooltipOnHover />)
 
-        userEvent.hover(screen.getByText('March 22, 1991'))
+        act(() => {
+            userEvent.hover(screen.getByText('March 22, 1991'))
+        })
         await waitFor(() => {
             expect(screen.getByRole('tooltip', { name: 'March 22, 1991, 1:37 PM' })).toBeVisible()
         })
@@ -80,7 +96,9 @@ describe('Time', () => {
     it('renders with custom tooltip when supplied', async () => {
         render(<Time time={testDate} tooltipOnHover tooltip="Test" />)
 
-        userEvent.hover(screen.getByText('March 22, 1991'))
+        act(() => {
+            userEvent.hover(screen.getByText('March 22, 1991'))
+        })
         await waitFor(() => {
             expect(screen.getByRole('tooltip', { name: 'Test' })).toBeVisible()
         })
@@ -88,7 +106,9 @@ describe('Time', () => {
 
     it('does not render short absolute time on hover when tooltipOnHover is set', async () => {
         render(<Time time={dayjs().unix()} tooltipOnHover expandOnHover />)
-        userEvent.hover(screen.getByText('moments ago'))
+        act(() => {
+            userEvent.hover(screen.getByText('moments ago'))
+        })
 
         await waitFor(() => {
             expect(screen.getByRole('tooltip', { name: dayjs().format('LL, LT') })).toBeVisible()
@@ -98,7 +118,9 @@ describe('Time', () => {
 
     it('does not render full absolute time on hover when tooltipOnHover is set', async () => {
         render(<Time time={dayjs().unix()} tooltipOnHover expandFullyOnHover />)
-        userEvent.hover(screen.getByText('moments ago'))
+        act(() => {
+            userEvent.hover(screen.getByText('moments ago'))
+        })
 
         await waitFor(() => {
             expect(screen.getByRole('tooltip', { name: dayjs().format('LL, LT') })).toBeVisible()

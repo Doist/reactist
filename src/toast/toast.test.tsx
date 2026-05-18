@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { act } from 'react'
 
-import { act, render, screen, waitFor, within } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
@@ -43,7 +43,9 @@ describe('useToast', () => {
             ),
             showToast(this: void, props: Partial<ToastProps> = {}) {
                 propsRef.current = props
-                userEvent.click(screen.getByRole('button', { name: 'Show toast' }))
+                act(() => {
+                    userEvent.click(screen.getByRole('button', { name: 'Show toast' }))
+                })
             },
         }
     }
@@ -89,7 +91,11 @@ describe('useToast', () => {
             'The project could not be deleted',
         ])
 
-        userEvent.click(within(getToast('Task was created')).getByRole('button', { name: 'Close' }))
+        act(() => {
+            userEvent.click(
+                within(getToast('Task was created')).getByRole('button', { name: 'Close' }),
+            )
+        })
 
         await waitFor(() => {
             expect(screen.getAllByRole('alert').map((node) => node.textContent)).toEqual([
@@ -104,7 +110,9 @@ describe('useToast', () => {
         const { showToast } = renderTestCase()
         showToast({ action: { label: 'Undo', onClick: actionFn } })
         expect(actionFn).not.toHaveBeenCalled()
-        userEvent.click(within(screen.getByRole('alert')).getByRole('button', { name: 'Undo' }))
+        act(() => {
+            userEvent.click(within(screen.getByRole('alert')).getByRole('button', { name: 'Undo' }))
+        })
         expect(actionFn).toHaveBeenCalledTimes(1)
         await waitFor(() => {
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
@@ -133,11 +141,13 @@ describe('useToast', () => {
                 action: { label: 'A sticky toast action', onClick: actionFn, closeToast: false },
             })
             expect(actionFn).not.toHaveBeenCalled()
-            userEvent.click(
-                within(screen.getByRole('alert')).getByRole('button', {
-                    name: 'A sticky toast action',
-                }),
-            )
+            act(() => {
+                userEvent.click(
+                    within(screen.getByRole('alert')).getByRole('button', {
+                        name: 'A sticky toast action',
+                    }),
+                )
+            })
             expect(actionFn).toHaveBeenCalledTimes(1)
 
             // closeToast has kept it in view
@@ -153,11 +163,13 @@ describe('useToast', () => {
                 action: { label: 'A sticky toast action', onClick: actionFn },
             })
             expect(actionFn).not.toHaveBeenCalled()
-            userEvent.click(
-                within(screen.getByRole('alert')).getByRole('button', {
-                    name: 'A sticky toast action',
-                }),
-            )
+            act(() => {
+                userEvent.click(
+                    within(screen.getByRole('alert')).getByRole('button', {
+                        name: 'A sticky toast action',
+                    }),
+                )
+            })
             expect(actionFn).toHaveBeenCalledTimes(1)
 
             await waitFor(() => {
@@ -196,9 +208,11 @@ describe('useToast', () => {
         it('removes the toast from view when clicked', async () => {
             const { showToast } = renderTestCase()
             showToast()
-            userEvent.click(
-                within(screen.getByRole('alert')).getByRole('button', { name: 'Close' }),
-            )
+            act(() => {
+                userEvent.click(
+                    within(screen.getByRole('alert')).getByRole('button', { name: 'Close' }),
+                )
+            })
             await waitFor(() => {
                 expect(screen.queryByRole('alert')).not.toBeInTheDocument()
             })
@@ -216,9 +230,11 @@ describe('useToast', () => {
             showToast({ onDismiss })
 
             expect(onDismiss).not.toHaveBeenCalled()
-            userEvent.click(
-                within(screen.getByRole('alert')).getByRole('button', { name: 'Close' }),
-            )
+            act(() => {
+                userEvent.click(
+                    within(screen.getByRole('alert')).getByRole('button', { name: 'Close' }),
+                )
+            })
             expect(onDismiss).toHaveBeenCalledTimes(1)
         })
     })
@@ -286,7 +302,9 @@ describe('useToast', () => {
             jest.advanceTimersByTime(9500)
 
             // Hover, and check that it does not disappear after the remainig time
-            userEvent.hover(screen.getByRole('alert'))
+            act(() => {
+                userEvent.hover(screen.getByRole('alert'))
+            })
             jest.advanceTimersByTime(500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
 
@@ -295,7 +313,9 @@ describe('useToast', () => {
             expect(screen.getByRole('alert')).toBeInTheDocument()
 
             // unhover, and check that we have to wait the default delay all over again
-            userEvent.unhover(screen.getByRole('alert'))
+            act(() => {
+                userEvent.unhover(screen.getByRole('alert'))
+            })
             jest.advanceTimersByTime(9500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
             act(() => {
@@ -370,11 +390,15 @@ describe('Toast', () => {
             </ToastsProvider>,
         )
         expect(screen.queryByRole('alert')).not.toBeInTheDocument()
-        userEvent.click(screen.getByRole('button', { name: 'Toggle' }))
+        act(() => {
+            userEvent.click(screen.getByRole('button', { name: 'Toggle' }))
+        })
         await waitFor(() => {
             expect(screen.getByRole('alert')).toHaveTextContent('A toast that can be toggled')
         })
-        userEvent.click(screen.getByRole('button', { name: 'Toggle' }))
+        act(() => {
+            userEvent.click(screen.getByRole('button', { name: 'Toggle' }))
+        })
         await waitFor(() => {
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         })
@@ -406,9 +430,11 @@ describe('StaticToast', () => {
             const onClick = jest.fn()
             renderTestCase({ action: { label: 'Retry', onClick } })
             expect(onClick).not.toHaveBeenCalled()
-            userEvent.click(
-                within(screen.getByRole('alert')).getByRole('button', { name: 'Retry' }),
-            )
+            act(() => {
+                userEvent.click(
+                    within(screen.getByRole('alert')).getByRole('button', { name: 'Retry' }),
+                )
+            })
             expect(onClick).toHaveBeenCalledTimes(1)
         })
 
@@ -430,9 +456,11 @@ describe('StaticToast', () => {
             const onDismiss = jest.fn()
             renderTestCase({ onDismiss })
             expect(onDismiss).not.toHaveBeenCalled()
-            userEvent.click(
-                within(screen.getByRole('alert')).getByRole('button', { name: 'Close' }),
-            )
+            act(() => {
+                userEvent.click(
+                    within(screen.getByRole('alert')).getByRole('button', { name: 'Close' }),
+                )
+            })
             expect(onDismiss).toHaveBeenCalledTimes(1)
         })
 
