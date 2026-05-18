@@ -7,15 +7,17 @@ import { axe } from 'jest-axe'
 
 import { Button, IconButton } from './button'
 
-function click(...args: Parameters<typeof userEvent.click>) {
-    act(() => {
-        userEvent.click(...args)
+type User = ReturnType<typeof userEvent.setup>
+
+async function click(user: User, ...args: Parameters<User['click']>) {
+    await act(async () => {
+        await user.click(...args)
     })
 }
 
-function tab() {
-    act(() => {
-        userEvent.tab()
+async function tab(user: User) {
+    await act(async () => {
+        await user.tab()
     })
 }
 
@@ -31,48 +33,51 @@ describe('Button', () => {
         expect(screen.getByRole('button', { name: 'Click me' })).toBeInTheDocument()
     })
 
-    it('calls the onClick handler when clicked', () => {
+    it('calls the onClick handler when clicked', async () => {
         const onClick = jest.fn()
         render(
             <Button variant="primary" onClick={onClick}>
                 Click me
             </Button>,
         )
+        const user = userEvent.setup()
         const button = screen.getByRole('button', { name: 'Click me' })
         expect(button).not.toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        click(button)
+        await click(user, button)
         expect(onClick).toHaveBeenCalledTimes(1)
     })
 
-    it('ignore clicks when disabled', () => {
+    it('ignore clicks when disabled', async () => {
         const onClick = jest.fn()
         render(
             <Button variant="primary" onClick={onClick} disabled>
                 Click me
             </Button>,
         )
+        const user = userEvent.setup()
         const button = screen.getByRole('button', { name: 'Click me' })
         expect(button).toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        click(button)
+        await click(user, button)
         expect(onClick).not.toHaveBeenCalled()
     })
 
-    it('only applies a soft disabled state to the button', () => {
+    it('only applies a soft disabled state to the button', async () => {
         render(
             <Button variant="primary" disabled>
                 Click me
             </Button>,
         )
+        const user = userEvent.setup()
         const button = screen.getByRole('button', { name: 'Click me' })
         expect(button).not.toBeDisabled()
         expect(button).toHaveAttribute('aria-disabled', 'true')
-        tab()
+        await tab(user)
         expect(button).toHaveFocus()
     })
 
-    it('submits a form when used with type="submit"', () => {
+    it('submits a form when used with type="submit"', async () => {
         const onSubmit = jest.fn().mockImplementation((event) => event.preventDefault())
         render(
             <form onSubmit={onSubmit}>
@@ -81,15 +86,16 @@ describe('Button', () => {
                 </Button>
             </form>,
         )
+        const user = userEvent.setup()
         const button = screen.getByRole('button', { name: 'Submit' })
         expect(button).not.toHaveAttribute('aria-disabled', 'true')
         expect(button).toHaveAttribute('type', 'submit')
         expect(onSubmit).not.toHaveBeenCalled()
-        click(button)
+        await click(user, button)
         expect(onSubmit).toHaveBeenCalledTimes(1)
     })
 
-    it('does not submit a form when disabled', () => {
+    it('does not submit a form when disabled', async () => {
         const onSubmit = jest.fn().mockImplementation((event) => event.preventDefault())
         render(
             <form onSubmit={onSubmit}>
@@ -98,10 +104,11 @@ describe('Button', () => {
                 </Button>
             </form>,
         )
+        const user = userEvent.setup()
         const button = screen.getByRole('button', { name: 'Submit' })
         expect(button).toHaveAttribute('aria-disabled', 'true')
         expect(onSubmit).not.toHaveBeenCalled()
-        click(button)
+        await click(user, button)
         expect(onSubmit).not.toHaveBeenCalled()
     })
 
@@ -140,8 +147,9 @@ describe('Button', () => {
                 Click me
             </Button>,
         )
+        const user = userEvent.setup()
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-        tab()
+        await tab(user)
         expect(screen.getByRole('button', { name: 'Click me' })).toHaveFocus()
         expect(
             await screen.findByRole('tooltip', { name: 'tooltip content here' }),
@@ -266,18 +274,19 @@ describe('Button', () => {
     })
 
     describe('when loading={true}', () => {
-        it('ignores clicks', () => {
+        it('ignores clicks', async () => {
             const onClick = jest.fn()
             render(
                 <Button variant="primary" loading onClick={onClick}>
                     Click me
                 </Button>,
             )
-            click(screen.getByRole('button', { name: 'Click me' }))
+            const user = userEvent.setup()
+            await click(user, screen.getByRole('button', { name: 'Click me' }))
             expect(onClick).not.toHaveBeenCalled()
         })
 
-        it('does not submit a form', () => {
+        it('does not submit a form', async () => {
             const onSubmit = jest.fn().mockImplementation((event) => event.preventDefault())
             render(
                 <form onSubmit={onSubmit}>
@@ -286,11 +295,12 @@ describe('Button', () => {
                     </Button>
                 </form>,
             )
+            const user = userEvent.setup()
             const button = screen.getByRole('button', { name: 'Submit' })
             expect(button).toHaveAttribute('aria-disabled', 'true')
             expect(button).toHaveAttribute('type', 'submit')
             expect(onSubmit).not.toHaveBeenCalled()
-            click(button)
+            await click(user, button)
             expect(onSubmit).not.toHaveBeenCalled()
         })
 
@@ -442,17 +452,18 @@ describe('IconButton', () => {
         expect(screen.getByRole('button', { name: 'Click me' })).toBeInTheDocument()
     })
 
-    it('calls the onClick handler when clicked', () => {
+    it('calls the onClick handler when clicked', async () => {
         const onClick = jest.fn()
         render(<IconButton variant="primary" icon="😄" aria-label="Click me" onClick={onClick} />)
+        const user = userEvent.setup()
         const button = screen.getByRole('button', { name: 'Click me' })
         expect(button).not.toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        click(button)
+        await click(user, button)
         expect(onClick).toHaveBeenCalledTimes(1)
     })
 
-    it('ignore clicks when disabled', () => {
+    it('ignore clicks when disabled', async () => {
         const onClick = jest.fn()
         render(
             <IconButton
@@ -463,38 +474,41 @@ describe('IconButton', () => {
                 disabled
             />,
         )
+        const user = userEvent.setup()
         const button = screen.getByRole('button', { name: 'Click me' })
         expect(button).toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        click(button)
+        await click(user, button)
         expect(onClick).not.toHaveBeenCalled()
     })
 
-    it('only applies a soft disabled state to the button', () => {
+    it('only applies a soft disabled state to the button', async () => {
         render(<IconButton variant="primary" icon="😄" aria-label="Click me" disabled />)
+        const user = userEvent.setup()
         const button = screen.getByRole('button', { name: 'Click me' })
         expect(button).not.toBeDisabled()
         expect(button).toHaveAttribute('aria-disabled', 'true')
-        tab()
+        await tab(user)
         expect(button).toHaveFocus()
     })
 
-    it('submits a form when used with type="submit"', () => {
+    it('submits a form when used with type="submit"', async () => {
         const onSubmit = jest.fn().mockImplementation((event) => event.preventDefault())
         render(
             <form onSubmit={onSubmit}>
                 <IconButton variant="primary" type="submit" icon="😄" aria-label="Submit" />
             </form>,
         )
+        const user = userEvent.setup()
         const button = screen.getByRole('button', { name: 'Submit' })
         expect(button).not.toHaveAttribute('aria-disabled', 'true')
         expect(button).toHaveAttribute('type', 'submit')
         expect(onSubmit).not.toHaveBeenCalled()
-        click(button)
+        await click(user, button)
         expect(onSubmit).toHaveBeenCalledTimes(1)
     })
 
-    it('does not submit a form when disabled', () => {
+    it('does not submit a form when disabled', async () => {
         const onSubmit = jest.fn().mockImplementation((event) => event.preventDefault())
         render(
             <form onSubmit={onSubmit}>
@@ -507,10 +521,11 @@ describe('IconButton', () => {
                 />
             </form>,
         )
+        const user = userEvent.setup()
         const button = screen.getByRole('button', { name: 'Submit' })
         expect(button).toHaveAttribute('aria-disabled', 'true')
         expect(onSubmit).not.toHaveBeenCalled()
-        click(button)
+        await click(user, button)
         expect(onSubmit).not.toHaveBeenCalled()
     })
 
@@ -522,26 +537,29 @@ describe('IconButton', () => {
 
     it('renders with the aria-label implicitly used as its tooltip', async () => {
         render(<IconButton variant="primary" icon="😄" aria-label="Smile" />)
+        const user = userEvent.setup()
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-        tab()
+        await tab(user)
         expect(screen.getByRole('button', { name: 'Smile' })).toHaveFocus()
         expect(await screen.findByRole('tooltip', { name: 'Smile' })).toBeInTheDocument()
     })
 
     it('renders a different tooltip if given explicitly', async () => {
         render(<IconButton variant="primary" icon="😄" aria-label="Smile" tooltip="Say cheese!" />)
+        const user = userEvent.setup()
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-        tab()
+        await tab(user)
         expect(screen.getByRole('button', { name: 'Smile' })).toHaveFocus()
         expect(await screen.findByRole('tooltip', { name: 'Say cheese!' })).toBeInTheDocument()
     })
 
-    it('allows to supress the implicit "aria-label as tooltip" behaviour by passing tooltip={null}', () => {
+    it('allows to supress the implicit "aria-label as tooltip" behaviour by passing tooltip={null}', async () => {
         jest.useFakeTimers()
 
         render(<IconButton variant="primary" icon="😄" aria-label="Smile" tooltip={null} />)
+        const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime })
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-        tab()
+        await tab(user)
         expect(screen.getByRole('button', { name: 'Smile' })).toHaveFocus()
 
         act(() => {
@@ -564,21 +582,22 @@ describe('<Button render={<a href="…" />} />', () => {
         expect(screen.getByRole('link', { name: 'Click me' })).toBeInTheDocument()
     })
 
-    it('calls the onClick handler when clicked', () => {
+    it('calls the onClick handler when clicked', async () => {
         const onClick = jest.fn()
         render(
             <Button variant="primary" onClick={onClick} render={<a href="/" />}>
                 Click me
             </Button>,
         )
+        const user = userEvent.setup()
         const link = screen.getByRole('link', { name: 'Click me' })
         expect(link).not.toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        click(link)
+        await click(user, link)
         expect(onClick).toHaveBeenCalledTimes(1)
     })
 
-    it('ignore clicks when disabled', () => {
+    it('ignore clicks when disabled', async () => {
         let isNavigationPrevented = false
         const clickSpy: React.MouseEventHandler<HTMLDivElement> = jest
             .fn()
@@ -594,25 +613,27 @@ describe('<Button render={<a href="…" />} />', () => {
                 </Button>
             </div>,
         )
+        const user = userEvent.setup()
         const link = screen.getByRole('link', { name: 'Click me' })
 
         expect(link).toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        click(link)
+        await click(user, link)
         expect(onClick).not.toHaveBeenCalled()
         expect(isNavigationPrevented).toBe(true)
     })
 
-    it('only applies a soft disabled state to the link', () => {
+    it('only applies a soft disabled state to the link', async () => {
         render(
             <Button variant="primary" disabled render={<a href="/" />}>
                 Click me
             </Button>,
         )
+        const user = userEvent.setup()
         const link = screen.getByRole('link', { name: 'Click me' })
         expect(link).not.toBeDisabled()
         expect(link).toHaveAttribute('aria-disabled', 'true')
-        tab()
+        await tab(user)
         expect(link).toHaveFocus()
     })
 })
@@ -630,7 +651,7 @@ describe('<IconButton render={<a href="…" />} />', () => {
         expect(screen.getByRole('link', { name: 'Click me' })).toBeInTheDocument()
     })
 
-    it('calls the onClick handler when clicked', () => {
+    it('calls the onClick handler when clicked', async () => {
         const onClick = jest.fn()
         render(
             <IconButton
@@ -641,14 +662,15 @@ describe('<IconButton render={<a href="…" />} />', () => {
                 aria-label="Click me"
             />,
         )
+        const user = userEvent.setup()
         const link = screen.getByRole('link', { name: 'Click me' })
         expect(link).not.toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        click(link)
+        await click(user, link)
         expect(onClick).toHaveBeenCalledTimes(1)
     })
 
-    it('ignore clicks when disabled', () => {
+    it('ignore clicks when disabled', async () => {
         let isNavigationPrevented = false
         const clickSpy: React.MouseEventHandler<HTMLDivElement> = jest
             .fn()
@@ -669,16 +691,17 @@ describe('<IconButton render={<a href="…" />} />', () => {
                 />
             </div>,
         )
+        const user = userEvent.setup()
         const link = screen.getByRole('link', { name: 'Click me' })
 
         expect(link).toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        click(link)
+        await click(user, link)
         expect(onClick).not.toHaveBeenCalled()
         expect(isNavigationPrevented).toBe(true)
     })
 
-    it('only applies a soft disabled state to the link', () => {
+    it('only applies a soft disabled state to the link', async () => {
         render(
             <IconButton
                 variant="primary"
@@ -688,10 +711,11 @@ describe('<IconButton render={<a href="…" />} />', () => {
                 aria-label="Click me"
             />,
         )
+        const user = userEvent.setup()
         const link = screen.getByRole('link', { name: 'Click me' })
         expect(link).not.toBeDisabled()
         expect(link).toHaveAttribute('aria-disabled', 'true')
-        tab()
+        await tab(user)
         expect(link).toHaveFocus()
     })
 })

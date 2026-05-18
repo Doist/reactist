@@ -84,37 +84,40 @@ describe('SwitchField', () => {
         expect(switchElement).toHaveAttribute('data-something', 'whatever')
     })
 
-    it('allows to be toggled on and off', () => {
+    it('allows to be toggled on and off', async () => {
         render(<SwitchField label="Accept terms and conditions" />)
+        const user = userEvent.setup()
 
         const switchElement = screen.getByRole('checkbox', { name: 'Accept terms and conditions' })
         expect(switchElement).not.toBeChecked()
 
-        userEvent.click(switchElement)
+        await user.click(switchElement)
         expect(switchElement).toBeChecked()
 
-        userEvent.click(switchElement)
+        await user.click(switchElement)
         expect(switchElement).not.toBeChecked()
     })
 
-    it('can be disabled', () => {
+    it('can be disabled', async () => {
         render(<SwitchField label="Accept terms and conditions" disabled />)
+        const user = userEvent.setup()
         const switchElement = screen.getByRole('checkbox', { name: 'Accept terms and conditions' })
         expect(switchElement).toBeDisabled()
         expect(switchElement).not.toBeChecked()
-        userEvent.click(switchElement)
+        await user.click(switchElement)
         expect(switchElement).not.toBeChecked()
     })
 
-    it('can be uncontrolled and set to true by default', () => {
+    it('can be uncontrolled and set to true by default', async () => {
         render(<SwitchField label="Accept terms and conditions" defaultChecked />)
+        const user = userEvent.setup()
         const switchElement = screen.getByRole('checkbox', { name: 'Accept terms and conditions' })
         expect(switchElement).toBeChecked()
-        userEvent.click(switchElement)
+        await user.click(switchElement)
         expect(switchElement).not.toBeChecked()
     })
 
-    it('can be a controlled input field', () => {
+    it('can be a controlled input field', async () => {
         function TestCase() {
             const [checked, setChecked] = React.useState(false)
             return (
@@ -130,15 +133,16 @@ describe('SwitchField', () => {
         }
 
         render(<TestCase />)
+        const user = userEvent.setup()
         const switchElement = screen.getByRole('checkbox', { name: 'Accept terms and conditions' })
         expect(switchElement).not.toBeChecked()
         expect(screen.getByTestId('value')).toHaveTextContent('off')
 
-        userEvent.click(switchElement)
+        await user.click(switchElement)
         expect(switchElement).toBeChecked()
         expect(screen.getByTestId('value')).toHaveTextContent('on')
 
-        userEvent.click(switchElement)
+        await user.click(switchElement)
         expect(switchElement).not.toBeChecked()
         expect(screen.getByTestId('value')).toHaveTextContent('off')
     })

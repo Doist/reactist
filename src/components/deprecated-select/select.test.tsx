@@ -17,7 +17,7 @@ describe('Select', () => {
         expect(container).toMatchSnapshot()
     })
 
-    it('calls onChange handler with selected value', () => {
+    it('calls onChange handler with selected value', async () => {
         const onChangeSpy = jest.fn()
 
         render(
@@ -27,8 +27,9 @@ describe('Select', () => {
                 options={[{ value: 'test2', text: 'test2' }]}
             />,
         )
+        const user = userEvent.setup()
 
-        userEvent.selectOptions(screen.getByRole('combobox'), 'test2')
+        await user.selectOptions(screen.getByRole('combobox'), 'test2')
 
         expect(onChangeSpy).toHaveBeenLastCalledWith('test2')
     })

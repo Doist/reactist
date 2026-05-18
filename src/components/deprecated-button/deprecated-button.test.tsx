@@ -11,36 +11,42 @@ describe('Button (deprecated)', () => {
         expect(screen.getByRole('button')).toHaveTextContent('Click me')
     })
 
-    it('calls onClick when clicked', () => {
+    it('calls onClick when clicked', async () => {
         const clickSpy = jest.fn()
         render(
             <Button variant="primary" onClick={clickSpy}>
                 Click me
             </Button>,
         )
-        userEvent.click(screen.getByRole('button', { name: 'Click me' }))
+        const user = userEvent.setup()
+
+        await user.click(screen.getByRole('button', { name: 'Click me' }))
         expect(clickSpy).toHaveBeenCalled()
     })
 
-    it('does not call onClick when disabled', () => {
+    it('does not call onClick when disabled', async () => {
         const clickSpy = jest.fn()
         render(
             <Button variant="primary" disabled onClick={clickSpy}>
                 Click me
             </Button>,
         )
-        userEvent.click(screen.getByRole('button', { name: 'Click me' }))
+        const user = userEvent.setup()
+
+        await user.click(screen.getByRole('button', { name: 'Click me' }))
         expect(clickSpy).not.toHaveBeenCalled()
     })
 
-    it('does not call onClick when loading', () => {
+    it('does not call onClick when loading', async () => {
         const clickSpy = jest.fn()
         render(
             <Button variant="primary" loading onClick={clickSpy}>
                 Click me
             </Button>,
         )
-        userEvent.click(screen.getByRole('button', { name: 'Click me' }))
+        const user = userEvent.setup()
+
+        await user.click(screen.getByRole('button', { name: 'Click me' }))
         expect(clickSpy).not.toHaveBeenCalled()
     })
 
@@ -50,8 +56,9 @@ describe('Button (deprecated)', () => {
                 Click me
             </Button>,
         )
+        const user = userEvent.setup()
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-        userEvent.tab()
+        await user.tab()
         expect(screen.getByRole('button', { name: 'Click me' })).toHaveFocus()
         expect(
             await screen.findByRole('tooltip', { name: 'tooltip content here' }),

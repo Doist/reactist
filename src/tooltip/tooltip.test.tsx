@@ -11,21 +11,23 @@ import { flushMicrotasks } from '../utils/test-helpers'
 
 import { Tooltip } from './tooltip'
 
-function hover(...args: Parameters<typeof userEvent.hover>) {
-    act(() => {
-        userEvent.hover(...args)
+type User = ReturnType<typeof userEvent.setup>
+
+async function hover(user: User, ...args: Parameters<User['hover']>) {
+    await act(async () => {
+        await user.hover(...args)
     })
 }
 
-function unhover(...args: Parameters<typeof userEvent.unhover>) {
-    act(() => {
-        userEvent.unhover(...args)
+async function unhover(user: User, ...args: Parameters<User['unhover']>) {
+    await act(async () => {
+        await user.unhover(...args)
     })
 }
 
-function tab() {
-    act(() => {
-        userEvent.tab()
+async function tab(user: User) {
+    await act(async () => {
+        await user.tab()
     })
 }
 
@@ -37,14 +39,15 @@ describe('Tooltip', () => {
             </Tooltip>,
         )
         const button = screen.getByRole('button', { name: 'Click me' })
+        const user = userEvent.setup()
 
-        tab()
+        await tab(user)
         expect(button).toHaveFocus()
         expect(
             await screen.findByRole('tooltip', { name: 'tooltip content here' }),
         ).toBeInTheDocument()
 
-        tab()
+        await tab(user)
 
         // TODO: Works in the browser, but not in the test
         // await waitFor(() => {
@@ -59,13 +62,14 @@ describe('Tooltip', () => {
             </Tooltip>,
         )
         const button = screen.getByRole('button', { name: 'Click me' })
+        const user = userEvent.setup()
 
-        hover(button)
+        await hover(user, button)
         expect(
             await screen.findByRole('tooltip', { name: 'tooltip content here' }),
         ).toBeInTheDocument()
 
-        unhover(button)
+        await unhover(user, button)
         // TODO: Works in the browser, but not in the test
         // await waitFor(() => {
         //     expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
@@ -80,16 +84,17 @@ describe('Tooltip', () => {
             </Tooltip>,
         )
         const button = screen.getByRole('button', { name: 'Click me' })
+        const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime })
 
         // mouse over and wait more than enough
-        hover(button)
+        await hover(user, button)
         act(() => {
             jest.advanceTimersByTime(1000)
         })
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
 
         // focus on button and wait more than enough
-        tab()
+        await tab(user)
         expect(button).toHaveFocus()
         await act(() => {
             jest.advanceTimersByTime(1000)
@@ -121,6 +126,7 @@ describe('Tooltip', () => {
             </Tooltip>,
         )
         const button = screen.getByRole('button', { name: 'Click me' })
+        const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime })
 
         // assert that content has not been generated internally even, not even after a delay
         act(() => {
@@ -129,7 +135,7 @@ describe('Tooltip', () => {
         expect(content).not.toHaveBeenCalled()
 
         // content is generated when the tooltip is needed to be shown
-        hover(button)
+        await hover(user, button)
         act(() => {
             jest.advanceTimersByTime(500)
         })
@@ -144,7 +150,7 @@ describe('Tooltip', () => {
     /**
      * @see https://github.com/ariakit/ariakit/discussions/749
      */
-    it('does not show the tooltip if the button received focus in a way not associated with a key event', () => {
+    it('does not show the tooltip if the button received focus in a way not associated with a key event', async () => {
         jest.useFakeTimers()
 
         function getTooltipButton() {
@@ -159,9 +165,10 @@ describe('Tooltip', () => {
                 <button onClick={() => getTooltipButton().focus()}>Trigger focus</button>
             </>,
         )
+        const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime })
 
-        act(() => {
-            userEvent.click(screen.getByRole('button', { name: 'Trigger focus' }))
+        await act(async () => {
+            await user.click(screen.getByRole('button', { name: 'Trigger focus' }))
         })
         expect(getTooltipButton()).toHaveFocus()
 
@@ -194,14 +201,15 @@ describe('Tooltip', () => {
         )
 
         const button = screen.getByRole('button', { name: 'Click me' })
+        const user = userEvent.setup()
         expect(button).toBeVisible()
 
-        hover(button)
+        await hover(user, button)
         expect(
             await screen.findByRole('tooltip', { name: 'tooltip content here' }),
         ).toBeInTheDocument()
 
-        unhover(button)
+        await unhover(user, button)
         // TODO: Works in the browser, but not in the test
         // await waitFor(() => {
         //     expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
@@ -219,7 +227,8 @@ describe('Tooltip', () => {
             )
 
             const button = screen.getByRole('button', { name: 'Click me' })
-            hover(button)
+            const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime })
+            await hover(user, button)
 
             act(() => {
                 jest.advanceTimersByTime(1000)
@@ -248,7 +257,8 @@ describe('Tooltip', () => {
         )
         // Since the content is only rendered when the tooltip appears, this description is only
         // available when we hover or focus the button, and not before.
-        tab()
+        const user = userEvent.setup()
+        await tab(user)
 
         const tooltip = await screen.findByRole('tooltip', { name: 'I’m a tooltip' })
         expect(tooltip).toHaveClass('right')

@@ -7,7 +7,7 @@ import { KeyCapturer, KeyCapturerResolver, SUPPORTED_KEYS } from './key-capturer
 
 describe('KeyCapturer', () => {
     describe('Capturer', () => {
-        it('captures arrow down and cancels event', () => {
+        it('captures arrow down and cancels event', async () => {
             const parentSpy = jest.fn()
             const spy = jest.fn()
 
@@ -18,14 +18,15 @@ describe('KeyCapturer', () => {
                     </KeyCapturer>
                 </div>,
             )
+            const user = userEvent.setup()
 
-            userEvent.type(screen.getByRole('textbox'), '{arrowdown}')
+            await user.type(screen.getByRole('textbox'), '{arrowdown}')
 
             expect(spy).toHaveBeenCalledTimes(1)
             expect(parentSpy).not.toHaveBeenCalled()
         })
 
-        it('does not cancel event when propagate prop is set', () => {
+        it('does not cancel event when propagate prop is set', async () => {
             const parentSpy = jest.fn()
             const spy = jest.fn()
 
@@ -36,14 +37,15 @@ describe('KeyCapturer', () => {
                     </KeyCapturer>
                 </div>,
             )
+            const user = userEvent.setup()
 
-            userEvent.type(screen.getByRole('textbox'), '{arrowdown}')
+            await user.type(screen.getByRole('textbox'), '{arrowdown}')
 
             expect(spy).toHaveBeenCalledTimes(1)
             expect(parentSpy).toHaveBeenCalledTimes(1)
         })
 
-        it('does not crash when no callback is supplied', () => {
+        it('does not crash when no callback is supplied', async () => {
             const spy = jest.fn()
 
             render(
@@ -51,8 +53,9 @@ describe('KeyCapturer', () => {
                     <input type="text" />
                 </KeyCapturer>,
             )
+            const user = userEvent.setup()
 
-            userEvent.type(screen.getByRole('textbox'), '{arrowdown}')
+            await user.type(screen.getByRole('textbox'), '{arrowdown}')
 
             expect(spy).not.toHaveBeenCalled()
         })
@@ -91,7 +94,7 @@ describe('KeyCapturer', () => {
             expect(spy).toHaveBeenCalledTimes(1)
         })
 
-        it('forwards the event to the handler', () => {
+        it('forwards the event to the handler', async () => {
             const onEnter: jest.MockedFunction<React.EventHandler<React.SyntheticEvent>> = jest.fn()
 
             render(
@@ -99,7 +102,9 @@ describe('KeyCapturer', () => {
                     <input type="text" />
                 </KeyCapturer>,
             )
-            userEvent.type(screen.getByRole('textbox'), '{Enter}')
+            const user = userEvent.setup()
+
+            await user.type(screen.getByRole('textbox'), '{Enter}')
 
             // Instance of React synthetic event
             expect(Object.keys(onEnter.mock.calls[0]?.[0] ?? {})).toEqual(
@@ -107,33 +112,35 @@ describe('KeyCapturer', () => {
             )
         })
 
-        it('prevents the Enter key from firing the onEnter handler if composition has started', () => {
+        it('prevents the Enter key from firing the onEnter handler if composition has started', async () => {
             const onEnter = jest.fn()
             render(
                 <KeyCapturer eventName="onKeyDown" onEnter={onEnter}>
                     <input type="text" />
                 </KeyCapturer>,
             )
+            const user = userEvent.setup()
 
             const input = screen.getByRole('textbox')
             fireEvent.compositionStart(input)
-            userEvent.type(screen.getByRole('textbox'), '{Enter}')
+            await user.type(screen.getByRole('textbox'), '{Enter}')
 
             expect(onEnter).not.toHaveBeenCalled()
         })
 
-        it('fires the onEnter handler when Enter key is pressed if composition has ended', () => {
+        it('fires the onEnter handler when Enter key is pressed if composition has ended', async () => {
             const onEnter = jest.fn()
             render(
                 <KeyCapturer eventName="onKeyDown" onEnter={onEnter}>
                     <input type="text" />
                 </KeyCapturer>,
             )
+            const user = userEvent.setup()
 
             const input = screen.getByRole('textbox')
             fireEvent.compositionStart(input)
             fireEvent.compositionEnd(input)
-            userEvent.type(screen.getByRole('textbox'), '{Enter}')
+            await user.type(screen.getByRole('textbox'), '{Enter}')
 
             expect(onEnter).toHaveBeenCalledTimes(1)
         })

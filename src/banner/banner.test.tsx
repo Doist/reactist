@@ -123,7 +123,7 @@ describe('Banner', () => {
         expect(screen.getByRole('status', { name: 'Hello World' })).toBeInTheDocument()
     })
 
-    it('renders action button', () => {
+    it('renders action button', async () => {
         const onClickSpy = jest.fn()
         render(
             <Banner
@@ -137,7 +137,9 @@ describe('Banner', () => {
                 }}
             />,
         )
-        userEvent.click(screen.getByRole('button', { name: 'Click Me' }))
+        const user = userEvent.setup()
+
+        await user.click(screen.getByRole('button', { name: 'Click Me' }))
         expect(onClickSpy).toHaveBeenCalled()
     })
 
@@ -210,7 +212,7 @@ describe('Banner', () => {
         expect(screen.getAllByRole('button', { name: 'Custom close label' })).toHaveLength(2)
     })
 
-    it('calls onClose when close button is clicked', () => {
+    it('calls onClose when close button is clicked', async () => {
         const onClose = jest.fn()
         render(
             <Banner
@@ -220,10 +222,11 @@ describe('Banner', () => {
                 onClose={onClose}
             />,
         )
+        const user = userEvent.setup()
         // close button is rendered twice because depending on banner size it can be in two places,
         // but only one is visible at a time (the other is set to display: none with CSS)
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        userEvent.click(screen.getAllByRole('button', { name: 'Custom close label' })[0]!)
+        await user.click(screen.getAllByRole('button', { name: 'Custom close label' })[0]!)
         expect(onClose).toHaveBeenCalledTimes(1)
     })
 

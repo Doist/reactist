@@ -9,9 +9,11 @@ import { flushMicrotasks } from '../utils/test-helpers'
 
 import { Tab, TabAwareSlot, TabList, TabPanel, Tabs } from './'
 
-async function click(...args: Parameters<typeof userEvent.click>) {
+type User = ReturnType<typeof userEvent.setup>
+
+async function click(user: User, ...args: Parameters<User['click']>) {
     await act(async () => {
-        userEvent.click(...args)
+        await user.click(...args)
         await flushMicrotasks()
     })
 }
@@ -30,13 +32,14 @@ describe('Tabs', () => {
                 <TabPanel id="tab3">Content of tab 3</TabPanel>
             </Tabs>,
         )
+        const user = userEvent.setup()
 
         expect(await screen.findByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
         expect(screen.getByText('Content of tab 1')).toBeVisible()
         expect(screen.getByText('Content of tab 2')).not.toBeVisible()
         expect(screen.getByText('Content of tab 3')).not.toBeVisible()
 
-        await click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await click(user, screen.getByRole('tab', { name: 'Tab 2' }))
 
         await waitFor(() => {
             expect(screen.getByText('Content of tab 1')).not.toBeVisible()
@@ -46,7 +49,7 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 2')).toBeVisible()
         expect(screen.getByText('Content of tab 3')).not.toBeVisible()
 
-        await click(screen.getByRole('tab', { name: 'Tab 3' }))
+        await click(user, screen.getByRole('tab', { name: 'Tab 3' }))
 
         await waitFor(() => {
             expect(screen.getByText('Content of tab 2')).not.toBeVisible()
@@ -76,19 +79,20 @@ describe('Tabs', () => {
                 </TabPanel>
             </Tabs>,
         )
+        const user = userEvent.setup()
 
         expect(await screen.findByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
         expect(screen.getByText('Content of tab 1')).toBeVisible()
         expect(screen.queryByText('Content of tab 2')).not.toBeInTheDocument()
         expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
 
-        await click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await click(user, screen.getByRole('tab', { name: 'Tab 2' }))
         expect(screen.queryByText('Content of tab 1')).not.toBeInTheDocument()
         expect(screen.getByRole('tabpanel', { name: 'Tab 2' })).toBeVisible()
         expect(screen.getByText('Content of tab 2')).toBeVisible()
         expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
 
-        await click(screen.getByRole('tab', { name: 'Tab 3' }))
+        await click(user, screen.getByRole('tab', { name: 'Tab 3' }))
         expect(screen.queryByText('Content of tab 1')).not.toBeInTheDocument()
         expect(screen.queryByText('Content of tab 2')).not.toBeInTheDocument()
         expect(screen.getByRole('tabpanel', { name: 'Tab 3' })).toBeVisible()
@@ -114,13 +118,14 @@ describe('Tabs', () => {
                 </TabPanel>
             </Tabs>,
         )
+        const user = userEvent.setup()
 
         expect(await screen.findByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
         expect(screen.getByText('Content of tab 1')).toBeVisible()
         expect(screen.queryByText('Content of tab 2')).not.toBeInTheDocument()
         expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
 
-        await click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await click(user, screen.getByRole('tab', { name: 'Tab 2' }))
 
         await waitFor(() => {
             expect(screen.getByText('Content of tab 1')).not.toBeVisible()
@@ -130,7 +135,7 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 2')).toBeVisible()
         expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
 
-        await click(screen.getByRole('tab', { name: 'Tab 3' }))
+        await click(user, screen.getByRole('tab', { name: 'Tab 3' }))
 
         await waitFor(() => {
             expect(screen.getByText('Content of tab 2')).not.toBeVisible()
@@ -154,8 +159,9 @@ describe('Tabs', () => {
                 <TabPanel id="tab3">Content of tab 3</TabPanel>
             </Tabs>,
         )
+        const user = userEvent.setup()
 
-        await click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await click(user, screen.getByRole('tab', { name: 'Tab 2' }))
 
         expect(screen.getByText('Content of tab 2')).toBeVisible()
         expect(screen.getByText('Content of tab 1')).not.toBeVisible()
@@ -183,7 +189,7 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 1')).not.toBeVisible()
         expect(screen.getByText('Content of tab 3')).toBeVisible()
 
-        await click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await click(user, screen.getByRole('tab', { name: 'Tab 2' }))
 
         expect(onSelectedIdChange).toHaveBeenCalledTimes(1)
         expect(onSelectedIdChange).toHaveBeenCalledWith('tab2')
@@ -229,14 +235,15 @@ describe('Tabs', () => {
                 <TabPanel id="tab3">Content of tab 3</TabPanel>
             </Tabs>,
         )
+        const user = userEvent.setup()
 
         expect(await screen.findByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
         expect(screen.getByText('Currently rendering tab1')).toBeVisible()
 
-        await click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await click(user, screen.getByRole('tab', { name: 'Tab 2' }))
         expect(screen.getByText('Currently rendering tab2')).toBeVisible()
 
-        await click(screen.getByRole('tab', { name: 'Tab 3' }))
+        await click(user, screen.getByRole('tab', { name: 'Tab 3' }))
         expect(screen.getByText('Currently rendering tab3')).toBeVisible()
     })
 
@@ -266,6 +273,7 @@ describe('Tabs', () => {
                 </TabPanel>
             </Tabs>,
         )
+        const user = userEvent.setup()
 
         const customTabPanel = await screen.findByTestId('custom-tab-panel')
         await waitFor(() => {
@@ -273,7 +281,7 @@ describe('Tabs', () => {
         })
         expect(screen.getByText('Content of tab 1')).toBe(customTabPanel)
 
-        await click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await click(user, screen.getByRole('tab', { name: 'Tab 2' }))
         expect(screen.getByRole('tabpanel', { name: 'Tab 2' })).toBeVisible()
         expect(screen.getByRole('tabpanel', { name: 'Tab 2' })).toBe(
             document.querySelector('section'),
@@ -295,8 +303,10 @@ describe('Tabs', () => {
                 <TabPanel id="tab2">Content of tab 2</TabPanel>
             </Tabs>,
         )
+        const user = userEvent.setup()
+
         expect(onClick).not.toHaveBeenCalled()
-        await click(screen.getByRole('tab', { name: 'Tab 1' }))
+        await click(user, screen.getByRole('tab', { name: 'Tab 1' }))
         expect(onClick).toHaveBeenCalledTimes(1)
     })
 
