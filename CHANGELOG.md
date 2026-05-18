@@ -1,3 +1,13 @@
+## [31.0.0](https://github.com/Doist/reactist/compare/v30.1.4...v31.0.0) (2026-05-18)
+
+### ⚠ BREAKING CHANGES
+
+- drop React 17 support (#1040)
+
+### Miscellaneous Chores
+
+- drop React 17 support ([#1040](https://github.com/Doist/reactist/issues/1040)) ([f8d34e0](https://github.com/Doist/reactist/commit/f8d34e00dadccc0c524f633188fe10be3186ddff))
+
 ## [30.1.4](https://github.com/Doist/reactist/compare/v30.1.3...v30.1.4) (2026-04-08)
 
 ### Bug Fixes
