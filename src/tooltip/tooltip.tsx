@@ -143,6 +143,7 @@ const Tooltip = React.forwardRef<TooltipStore, TooltipProps>(
             return child
         }
 
+        /* eslint-disable react-hooks/refs */
         if (typeof child.ref === 'string') {
             throw new Error('Tooltip: String refs cannot be used as they cannot be forwarded')
         }
@@ -174,6 +175,7 @@ const Tooltip = React.forwardRef<TooltipStore, TooltipProps>(
                 ) : null}
             </>
         )
+        /* eslint-enable react-hooks/refs */
     },
 )
 

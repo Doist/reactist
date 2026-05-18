@@ -32,6 +32,12 @@ module.exports = {
     webpackFinal: (config) => {
         const resolveConfig = {
             ...config.resolve,
+            alias: {
+                ...config.resolve?.alias,
+                '@mdx-js/react': require.resolve(
+                    '@storybook/addon-docs/node_modules/@mdx-js/react',
+                ),
+            },
         }
 
         return {

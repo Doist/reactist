@@ -344,6 +344,7 @@ const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(function TabPan
     React.useEffect(
         function trackTabRenderedState() {
             if (!tabRendered && tabIsActive) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
                 setTabRendered(true)
             }
         },
