@@ -58,10 +58,10 @@
             }
         },
         {
-            // Stories and tests have looser typing requirements. Storybook's package
+            // Stories have looser typing requirements. Storybook's package
             // exports (e.g. `storybook/actions`) aren't understood by the default ESLint
             // import resolver, so `import/no-unresolved` is disabled for stories.
-            "files": ["stories/**/*", "**/*.stories.*", "**/*-stories-*.{ts,tsx}", "*.test.*"],
+            "files": ["stories/**/*", "**/*.stories.*", "**/*-stories-*.{ts,tsx}"],
             "env": {
                 "browser": true
             },
@@ -74,6 +74,21 @@
                 "@typescript-eslint/no-unsafe-return": "off",
                 "@typescript-eslint/no-unused-vars": "off",
                 "@typescript-eslint/no-floating-promises": "off"
+            }
+        },
+        {
+            // Jest tests keep no-floating-promises enabled so async userEvent,
+            // axe, and helper calls must be awaited.
+            "files": ["**/*.test.*"],
+            "env": {
+                "browser": true
+            },
+            "rules": {
+                "@typescript-eslint/no-unsafe-member-access": "off",
+                "@typescript-eslint/no-unsafe-call": "off",
+                "@typescript-eslint/no-unsafe-assignment": "off",
+                "@typescript-eslint/no-unsafe-return": "off",
+                "@typescript-eslint/no-unused-vars": "off"
             }
         }
     ],
