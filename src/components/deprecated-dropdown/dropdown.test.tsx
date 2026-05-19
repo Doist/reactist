@@ -1,16 +1,9 @@
 import * as React from 'react'
-import { act } from 'react'
 
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { Dropdown } from './dropdown'
-
-function click(...args: Parameters<typeof userEvent.click>) {
-    act(() => {
-        userEvent.click(...args)
-    })
-}
 
 describe('Dropdown', () => {
     describe('Dropdown.Box', () => {
@@ -38,84 +31,89 @@ describe('Dropdown', () => {
             expect(box).toHaveClass('additional class')
         })
 
-        it('sets the correct positioning style attributes to the Body component', () => {
+        it('sets the correct positioning style attributes to the Body component', async () => {
             render(
                 <Dropdown.Box top right>
                     <Dropdown.Trigger>Click me</Dropdown.Trigger>
                     <Dropdown.Body />
                 </Dropdown.Box>,
             )
+            const user = userEvent.setup()
 
-            click(screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
 
             const body = screen.getByTestId('reactist-dropdown-body')
 
             expect(body).toHaveStyle({ top: 'auto', right: 'auto', left: 0, bottom: 0 })
         })
 
-        it('toggles the Body component with each Trigger click', () => {
+        it('toggles the Body component with each Trigger click', async () => {
             render(
                 <Dropdown.Box>
                     <Dropdown.Trigger>Click me</Dropdown.Trigger>
                     <Dropdown.Body>My content</Dropdown.Body>
                 </Dropdown.Box>,
             )
+            const user = userEvent.setup()
 
             expect(screen.queryByTestId('reactist-dropdown-body')).not.toBeInTheDocument()
 
-            click(screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
             expect(screen.getByTestId('reactist-dropdown-body')).toBeVisible()
             expect(screen.getByText('My content')).toBeVisible()
 
-            click(screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
             expect(screen.queryByTestId('reactist-dropdown-body')).not.toBeInTheDocument()
             expect(screen.queryByText('My content')).not.toBeInTheDocument()
         })
 
-        it('toggles the Body component as a function with each Trigger click', () => {
+        it('toggles the Body component as a function with each Trigger click', async () => {
             render(
                 <Dropdown.Box>
                     <Dropdown.Trigger>Click me</Dropdown.Trigger>
                     {(props) => <Dropdown.Body {...props}>My content</Dropdown.Body>}
                 </Dropdown.Box>,
             )
+            const user = userEvent.setup()
 
             expect(screen.queryByTestId('reactist-dropdown-body')).not.toBeInTheDocument()
 
-            click(screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
             expect(screen.getByTestId('reactist-dropdown-body')).toBeVisible()
 
-            click(screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
             expect(screen.queryByTestId('reactist-dropdown-body')).not.toBeInTheDocument()
         })
 
-        it('renders the Trigger component first when top prop is not provided', () => {
+        it('renders the Trigger component first when top prop is not provided', async () => {
             const { container } = render(
                 <Dropdown.Box>
                     <Dropdown.Trigger>Click me</Dropdown.Trigger>
                     <Dropdown.Body />
                 </Dropdown.Box>,
             )
+            const user = userEvent.setup()
 
-            click(screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
 
             expect(container).toMatchSnapshot()
         })
 
-        it('renders the Body component first when top prop is provided', () => {
+        it('renders the Body component first when top prop is provided', async () => {
             const { container } = render(
                 <Dropdown.Box top>
                     <Dropdown.Trigger>Click me</Dropdown.Trigger>
                     <Dropdown.Body />
                 </Dropdown.Box>,
             )
+            const user = userEvent.setup()
 
-            click(screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
 
             expect(container).toMatchSnapshot()
         })
 
-        it('calls onShowBody and onHideBody callbacks when the Body component is shown and hidden', () => {
+        it('calls onShowBody and onHideBody callbacks when the Body component is shown and hidden', async () => {
             const onShowBodySpy = jest.fn()
             const onHideBodySpy = jest.fn()
 
@@ -125,12 +123,13 @@ describe('Dropdown', () => {
                     <Dropdown.Body />
                 </Dropdown.Box>,
             )
+            const user = userEvent.setup()
 
-            click(screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
             expect(onShowBodySpy).toHaveBeenCalledTimes(1)
             expect(onHideBodySpy).not.toHaveBeenCalled()
 
-            click(screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
             expect(onShowBodySpy).toHaveBeenCalledTimes(1)
             expect(onHideBodySpy).toHaveBeenCalledTimes(1)
         })

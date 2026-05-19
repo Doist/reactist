@@ -1,17 +1,10 @@
 import * as React from 'react'
-import { act } from 'react'
 
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
 import { PasswordField } from './'
-
-function click(...args: Parameters<typeof userEvent.click>) {
-    act(() => {
-        userEvent.click(...args)
-    })
-}
 
 describe('PasswordField', () => {
     it('supports having an externally provided id attribute', () => {
@@ -168,8 +161,9 @@ describe('PasswordField', () => {
         expect(passwordField).toHaveAttribute('type', 'password')
     })
 
-    it('allows to toggle visibility of the password value', () => {
+    it('allows to toggle visibility of the password value', async () => {
         render(<PasswordField data-testid="password-field" label="Password" />)
+        const user = userEvent.setup()
 
         const passwordField = screen.getByTestId('password-field')
         const togglePasswordButton = screen.getByRole('button', {
@@ -178,14 +172,14 @@ describe('PasswordField', () => {
 
         expect(passwordField).toHaveAttribute('type', 'password')
 
-        click(togglePasswordButton)
+        await user.click(togglePasswordButton)
         expect(passwordField).toHaveAttribute('type', 'text')
 
-        click(togglePasswordButton)
+        await user.click(togglePasswordButton)
         expect(passwordField).toHaveAttribute('type', 'password')
     })
 
-    it('allows to customize the toggle password visibility button', () => {
+    it('allows to customize the toggle password visibility button', async () => {
         render(
             <PasswordField
                 data-testid="password-field"
@@ -193,6 +187,7 @@ describe('PasswordField', () => {
                 togglePasswordLabel="Switch password visibility on/off"
             />,
         )
+        const user = userEvent.setup()
 
         const passwordField = screen.getByTestId('password-field')
 
@@ -206,10 +201,10 @@ describe('PasswordField', () => {
 
         expect(passwordField).toHaveAttribute('type', 'password')
 
-        click(togglePasswordButton)
+        await user.click(togglePasswordButton)
         expect(passwordField).toHaveAttribute('type', 'text')
 
-        click(togglePasswordButton)
+        await user.click(togglePasswordButton)
         expect(passwordField).toHaveAttribute('type', 'password')
     })
 
@@ -258,33 +253,36 @@ describe('PasswordField', () => {
         expect(inputElement).toHaveAttribute('data-something', 'whatever')
     })
 
-    it('allows to type text into it', () => {
+    it('allows to type text into it', async () => {
         render(<PasswordField data-testid="password-field" label="Confirm Password" />)
+        const user = userEvent.setup()
         const inputElement = screen.getByTestId('password-field')
         expect(inputElement).toHaveValue('')
-        userEvent.type(inputElement, 'super-p4$$w0rd')
+        await user.type(inputElement, 'super-p4$$w0rd')
         expect(inputElement).toHaveValue('super-p4$$w0rd')
     })
 
-    it('can be disabled', () => {
+    it('can be disabled', async () => {
         render(<PasswordField data-testid="password-field" label="Confirm Password" disabled />)
+        const user = userEvent.setup()
         const inputElement = screen.getByTestId('password-field')
         expect(inputElement).toBeDisabled()
         expect(inputElement).toHaveValue('')
-        userEvent.type(inputElement, 'Software developer')
+        await user.type(inputElement, 'Software developer')
         expect(inputElement).toHaveValue('')
     })
 
-    it('can be readonly', () => {
+    it('can be readonly', async () => {
         render(<PasswordField data-testid="password-field" label="Confirm Password" readOnly />)
+        const user = userEvent.setup()
         const inputElement = screen.getByTestId('password-field')
         expect(inputElement).not.toBeDisabled()
         expect(inputElement).toHaveValue('')
-        userEvent.type(inputElement, 'Software developer')
+        await user.type(inputElement, 'Software developer')
         expect(inputElement).toHaveValue('')
     })
 
-    it('can be a controlled input field', () => {
+    it('can be a controlled input field', async () => {
         function TestCase() {
             const [value, setValue] = React.useState('')
             return (
@@ -301,9 +299,10 @@ describe('PasswordField', () => {
         }
 
         render(<TestCase />)
+        const user = userEvent.setup()
         const inputElement = screen.getByTestId('password-field')
         expect(inputElement).toHaveValue('')
-        userEvent.type(inputElement, 'password value')
+        await user.type(inputElement, 'password value')
         expect(inputElement).toHaveValue('password value')
         expect(screen.getByTestId('value')).toHaveTextContent('password value')
     })

@@ -159,33 +159,36 @@ describe('TextField', () => {
         expect(inputElement).toHaveAttribute('data-something', 'whatever')
     })
 
-    it('allows to type text into it', () => {
+    it('allows to type text into it', async () => {
         render(<TextField label="Whatʼs your job title?" />)
+        const user = userEvent.setup()
         const inputElement = screen.getByRole('textbox', { name: 'Whatʼs your job title?' })
         expect(inputElement).toHaveValue('')
-        userEvent.type(inputElement, 'Software developer')
+        await user.type(inputElement, 'Software developer')
         expect(inputElement).toHaveValue('Software developer')
     })
 
-    it('can be disabled', () => {
+    it('can be disabled', async () => {
         render(<TextField label="Whatʼs your job title?" disabled />)
+        const user = userEvent.setup()
         const inputElement = screen.getByRole('textbox', { name: 'Whatʼs your job title?' })
         expect(inputElement).toBeDisabled()
         expect(inputElement).toHaveValue('')
-        userEvent.type(inputElement, 'Software developer')
+        await user.type(inputElement, 'Software developer')
         expect(inputElement).toHaveValue('')
     })
 
-    it('can be readonly', () => {
+    it('can be readonly', async () => {
         render(<TextField label="Whatʼs your job title?" readOnly />)
+        const user = userEvent.setup()
         const inputElement = screen.getByRole('textbox', { name: 'Whatʼs your job title?' })
         expect(inputElement).not.toBeDisabled()
         expect(inputElement).toHaveValue('')
-        userEvent.type(inputElement, 'Software developer')
+        await user.type(inputElement, 'Software developer')
         expect(inputElement).toHaveValue('')
     })
 
-    it('can be a controlled input field', () => {
+    it('can be a controlled input field', async () => {
         function TestCase() {
             const [value, setValue] = React.useState('')
             return (
@@ -201,35 +204,38 @@ describe('TextField', () => {
         }
 
         render(<TestCase />)
+        const user = userEvent.setup()
         const inputElement = screen.getByRole('textbox', { name: 'Whatʼs your job title?' })
         expect(inputElement).toHaveValue('')
-        userEvent.type(inputElement, 'Software developer')
+        await user.type(inputElement, 'Software developer')
         expect(inputElement).toHaveValue('Software developer')
         expect(screen.getByTestId('value')).toHaveTextContent('Software developer')
     })
 
-    it('focuses on the text field when clicking on an icon in startSlot', () => {
+    it('focuses on the text field when clicking on an icon in startSlot', async () => {
         render(<TextField label="Whatʼs your job title?" startSlot={<div>💼</div>} />)
+        const user = userEvent.setup()
 
         const inputElement = screen.getByRole('textbox', { name: 'Whatʼs your job title?' })
         expect(inputElement).not.toHaveFocus()
 
-        userEvent.click(screen.getByText('💼'))
+        await user.click(screen.getByText('💼'))
         expect(inputElement).toHaveFocus()
     })
 
-    it('focuses on the text field when clicking on a button in startSlot', () => {
+    it('focuses on the text field when clicking on a button in startSlot', async () => {
         render(
             <TextField
                 label="Whatʼs your job title?"
                 startSlot={<button type="button">x</button>}
             />,
         )
+        const user = userEvent.setup()
 
         const inputElement = screen.getByRole('textbox', { name: 'Whatʼs your job title?' })
         expect(inputElement).not.toHaveFocus()
 
-        userEvent.click(screen.getByRole('button', { name: 'x' }))
+        await user.click(screen.getByRole('button', { name: 'x' }))
         expect(inputElement).toHaveFocus()
     })
 

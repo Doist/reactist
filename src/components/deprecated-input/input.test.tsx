@@ -11,11 +11,12 @@ describe('Input', () => {
         expect(container).toMatchSnapshot()
     })
 
-    it('adds arbitrary props to the underlying input element', () => {
+    it('adds arbitrary props to the underlying input element', async () => {
         const onChange = jest.fn()
         render(<Input onChange={onChange} />)
+        const user = userEvent.setup()
 
-        userEvent.type(screen.getByRole('textbox'), 'Hello')
+        await user.type(screen.getByRole('textbox'), 'Hello')
         expect(onChange).toHaveBeenCalled()
     })
 
