@@ -1,7 +1,7 @@
 :root {
     --reactist-banner-background-color: #fcfaf8;
     --reactist-banner-border-color: #e6e6e6;
-    --reactist-divider-color: var(--reactist-divider-secondary);
+    --reactist-banner-divider-color: var(--reactist-divider-secondary);
 
     --reactist-banner-main-copy-font-size: 14px;
     --reactist-banner-main-copy-line-height: 21px;

@@ -1,0 +1,67 @@
+import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import KeyboardShortcut from '../components/keyboard-shortcut'
+import { Button, IconButton } from '../button'
+import { Inline } from '../inline'
+import { Stack } from '../stack'
+import { Columns, Column } from '../columns'
+import { ContextMenuTrigger, Menu, MenuButton, MenuList, MenuItem, MenuGroup, SubMenu } from '.'
+import { Text } from '../text'
+import * as MenuStories from './menu.stories'
+
+<Meta of={MenuStories} />
+
+# Menu
+
+A set of components that provide the means to construct a menu that can be triggered
+via an element or as a context menu.
+
+<Canvas>
+    <Story of={MenuStories.SimpleMenuStory} />
+</Canvas>
+
+### `tooltip`
+
+The `tooltip` prop allows a tooltip to be shown over the menu button.
+
+<Canvas>
+    <Story of={MenuStories.TooltipStory} />
+</Canvas>
+
+### `modal`
+
+By default, interaction with elements below the menu is disallowed when the menu is open. This behaviour can
+be changed by passing `modal={false}` to `<MenuList>`
+
+<Canvas>
+    <Story of={MenuStories.OutsideInteractionStory} />
+</Canvas>
+
+### `<SubMenu>`
+
+You may nest the `<SubMenu>` component within `<Menu>` to create submenus.
+
+On smaller viewports where there isn't enough space to render the submenu on either side, it will be rendered under its parent menu item instead.
+
+<Canvas>
+    <Story of={MenuStories.SubMenuStory} />
+</Canvas>
+
+### `<ContextMenuTrigger>`
+
+Using the `<ContextMenuTrigger>` component, an element can be defined as the right-click context menu trigger
+for the menu.
+
+In the demo below, right click on the Settings button, or click on the more button:
+
+<Canvas>
+    <Story of={MenuStories.ContextMenuTriggerStory} />
+</Canvas>
+
+### Extra Features
+
+You may also use `<MenuGroup>` to group menu items, `disable` a menu item, or
+return `false` from `onSelect` to prevent the menu from closing when an item is selected.
+
+<Canvas>
+    <Story of={MenuStories.ExtraFeaturesStory} />
+</Canvas>

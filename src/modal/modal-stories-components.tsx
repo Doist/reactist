@@ -1,7 +1,6 @@
 import * as React from 'react'
 
-import { expect } from '@storybook/jest'
-import { userEvent, within } from '@storybook/testing-library'
+import { expect, userEvent, within } from 'storybook/test'
 
 import { Button } from '../button'
 import { SelectField } from '../select-field'
@@ -195,12 +194,15 @@ function Modal(props: WithOptionals<ModalProps, 'isOpen' | 'onDismiss' | 'width'
     const { isOpen, closeModal, width, height, hideOn } = React.useContext(ModalStoryContext)
 
     /**
-     * Needed to make sure the modals are mounted inside the story's #root element
+     * Needed to make sure the modals are mounted inside the story's root element
      * @see https://www.chromatic.com/docs/snapshots#why-isn%E2%80%99t-my-modal-or-dialog-captured
      */
     const getPortalElement = React.useCallback(() => {
         const div = document.createElement('div')
-        const portalRoot = document.getElementById('root') ?? document.body
+        const portalRoot =
+            document.getElementById('storybook-root') ??
+            document.getElementById('root') ??
+            document.body
         portalRoot.appendChild(div)
         return div
     }, [])
