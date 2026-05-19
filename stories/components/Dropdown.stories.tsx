@@ -1,7 +1,5 @@
 import * as React from 'react'
 
-import LinkTo from '@storybook/addon-links/react'
-
 import { Banner } from '../../src/banner'
 import Button from '../../src/components/deprecated-button'
 import Dropdown from '../../src/components/deprecated-dropdown'
@@ -24,7 +22,10 @@ export const DropdownStory = () => (
                 description={
                     <>
                         <strong>Deprecated:</strong> While not a 1:1 replacement, consider using{' '}
-                        <LinkTo kind="design-system-menu">Menu</LinkTo> as an alternative
+                        <a href="?path=/docs/design-system-menu--docs" target="_top">
+                            Menu
+                        </a>{' '}
+                        as an alternative
                     </>
                 }
             />

@@ -1,34 +1,39 @@
 import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { {{pascalCase name}} } from './{{dashCase name}}'
 
-export default {
+const meta = {
     title: 'Design system/{{pascalCase name}}',
     component: {{pascalCase name}},
     parameters: {
         badges: ['accessible'],
     },
-}
+} satisfies Meta<typeof {{pascalCase name}}>
 
-export function {{pascalCase name}}PlaygroundStory(props: React.ComponentProps<typeof {{pascalCase name}}>) {
-    return (
-        <section>
-            <{{pascalCase name}} {...props} />
-        </section>
-    )
-}
+export default meta
 
-{{pascalCase name}}PlaygroundStory.storyName = 'Playground'
-{{pascalCase name}}PlaygroundStory.args = {
-    variant: 'primary',
-    children: 'Hello world',
-}
-{{pascalCase name}}PlaygroundStory.argTypes = {
-    variant: {
-        control: { type: 'inline-radio' },
-        options: ['primary', 'secondary'],
+type Story = StoryObj<typeof meta>
+
+export const Playground: Story = {
+    args: {
+        variant: 'primary',
+        children: 'Hello world',
     },
-    children: {
-        control: { type: 'text' },
+    argTypes: {
+        variant: {
+            control: { type: 'inline-radio' },
+            options: ['primary', 'secondary'],
+        },
+        children: {
+            control: { type: 'text' },
+        },
+    },
+    render(args) {
+        return (
+            <section>
+                <{{pascalCase name}} {...args} />
+            </section>
+        )
     },
 }
