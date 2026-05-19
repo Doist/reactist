@@ -7,20 +7,6 @@ import { axe } from 'jest-axe'
 
 import { Button, IconButton } from './button'
 
-type User = ReturnType<typeof userEvent.setup>
-
-async function click(user: User, ...args: Parameters<User['click']>) {
-    await act(async () => {
-        await user.click(...args)
-    })
-}
-
-async function tab(user: User) {
-    await act(async () => {
-        await user.tab()
-    })
-}
-
 jest.mock('../spinner', () => ({
     Spinner() {
         return '⏳'
@@ -44,7 +30,7 @@ describe('Button', () => {
         const button = screen.getByRole('button', { name: 'Click me' })
         expect(button).not.toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        await click(user, button)
+        await user.click(button)
         expect(onClick).toHaveBeenCalledTimes(1)
     })
 
@@ -59,7 +45,7 @@ describe('Button', () => {
         const button = screen.getByRole('button', { name: 'Click me' })
         expect(button).toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        await click(user, button)
+        await user.click(button)
         expect(onClick).not.toHaveBeenCalled()
     })
 
@@ -73,7 +59,7 @@ describe('Button', () => {
         const button = screen.getByRole('button', { name: 'Click me' })
         expect(button).not.toBeDisabled()
         expect(button).toHaveAttribute('aria-disabled', 'true')
-        await tab(user)
+        await user.tab()
         expect(button).toHaveFocus()
     })
 
@@ -91,7 +77,7 @@ describe('Button', () => {
         expect(button).not.toHaveAttribute('aria-disabled', 'true')
         expect(button).toHaveAttribute('type', 'submit')
         expect(onSubmit).not.toHaveBeenCalled()
-        await click(user, button)
+        await user.click(button)
         expect(onSubmit).toHaveBeenCalledTimes(1)
     })
 
@@ -108,7 +94,7 @@ describe('Button', () => {
         const button = screen.getByRole('button', { name: 'Submit' })
         expect(button).toHaveAttribute('aria-disabled', 'true')
         expect(onSubmit).not.toHaveBeenCalled()
-        await click(user, button)
+        await user.click(button)
         expect(onSubmit).not.toHaveBeenCalled()
     })
 
@@ -149,7 +135,7 @@ describe('Button', () => {
         )
         const user = userEvent.setup()
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-        await tab(user)
+        await user.tab()
         expect(screen.getByRole('button', { name: 'Click me' })).toHaveFocus()
         expect(
             await screen.findByRole('tooltip', { name: 'tooltip content here' }),
@@ -282,7 +268,7 @@ describe('Button', () => {
                 </Button>,
             )
             const user = userEvent.setup()
-            await click(user, screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
             expect(onClick).not.toHaveBeenCalled()
         })
 
@@ -300,7 +286,7 @@ describe('Button', () => {
             expect(button).toHaveAttribute('aria-disabled', 'true')
             expect(button).toHaveAttribute('type', 'submit')
             expect(onSubmit).not.toHaveBeenCalled()
-            await click(user, button)
+            await user.click(button)
             expect(onSubmit).not.toHaveBeenCalled()
         })
 
@@ -459,7 +445,7 @@ describe('IconButton', () => {
         const button = screen.getByRole('button', { name: 'Click me' })
         expect(button).not.toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        await click(user, button)
+        await user.click(button)
         expect(onClick).toHaveBeenCalledTimes(1)
     })
 
@@ -478,7 +464,7 @@ describe('IconButton', () => {
         const button = screen.getByRole('button', { name: 'Click me' })
         expect(button).toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        await click(user, button)
+        await user.click(button)
         expect(onClick).not.toHaveBeenCalled()
     })
 
@@ -488,7 +474,7 @@ describe('IconButton', () => {
         const button = screen.getByRole('button', { name: 'Click me' })
         expect(button).not.toBeDisabled()
         expect(button).toHaveAttribute('aria-disabled', 'true')
-        await tab(user)
+        await user.tab()
         expect(button).toHaveFocus()
     })
 
@@ -504,7 +490,7 @@ describe('IconButton', () => {
         expect(button).not.toHaveAttribute('aria-disabled', 'true')
         expect(button).toHaveAttribute('type', 'submit')
         expect(onSubmit).not.toHaveBeenCalled()
-        await click(user, button)
+        await user.click(button)
         expect(onSubmit).toHaveBeenCalledTimes(1)
     })
 
@@ -525,7 +511,7 @@ describe('IconButton', () => {
         const button = screen.getByRole('button', { name: 'Submit' })
         expect(button).toHaveAttribute('aria-disabled', 'true')
         expect(onSubmit).not.toHaveBeenCalled()
-        await click(user, button)
+        await user.click(button)
         expect(onSubmit).not.toHaveBeenCalled()
     })
 
@@ -539,7 +525,7 @@ describe('IconButton', () => {
         render(<IconButton variant="primary" icon="😄" aria-label="Smile" />)
         const user = userEvent.setup()
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-        await tab(user)
+        await user.tab()
         expect(screen.getByRole('button', { name: 'Smile' })).toHaveFocus()
         expect(await screen.findByRole('tooltip', { name: 'Smile' })).toBeInTheDocument()
     })
@@ -548,7 +534,7 @@ describe('IconButton', () => {
         render(<IconButton variant="primary" icon="😄" aria-label="Smile" tooltip="Say cheese!" />)
         const user = userEvent.setup()
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-        await tab(user)
+        await user.tab()
         expect(screen.getByRole('button', { name: 'Smile' })).toHaveFocus()
         expect(await screen.findByRole('tooltip', { name: 'Say cheese!' })).toBeInTheDocument()
     })
@@ -559,7 +545,7 @@ describe('IconButton', () => {
         render(<IconButton variant="primary" icon="😄" aria-label="Smile" tooltip={null} />)
         const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime })
         expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
-        await tab(user)
+        await user.tab()
         expect(screen.getByRole('button', { name: 'Smile' })).toHaveFocus()
 
         act(() => {
@@ -593,7 +579,7 @@ describe('<Button render={<a href="…" />} />', () => {
         const link = screen.getByRole('link', { name: 'Click me' })
         expect(link).not.toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        await click(user, link)
+        await user.click(link)
         expect(onClick).toHaveBeenCalledTimes(1)
     })
 
@@ -618,7 +604,7 @@ describe('<Button render={<a href="…" />} />', () => {
 
         expect(link).toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        await click(user, link)
+        await user.click(link)
         expect(onClick).not.toHaveBeenCalled()
         expect(isNavigationPrevented).toBe(true)
     })
@@ -633,7 +619,7 @@ describe('<Button render={<a href="…" />} />', () => {
         const link = screen.getByRole('link', { name: 'Click me' })
         expect(link).not.toBeDisabled()
         expect(link).toHaveAttribute('aria-disabled', 'true')
-        await tab(user)
+        await user.tab()
         expect(link).toHaveFocus()
     })
 })
@@ -666,7 +652,7 @@ describe('<IconButton render={<a href="…" />} />', () => {
         const link = screen.getByRole('link', { name: 'Click me' })
         expect(link).not.toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        await click(user, link)
+        await user.click(link)
         expect(onClick).toHaveBeenCalledTimes(1)
     })
 
@@ -696,7 +682,7 @@ describe('<IconButton render={<a href="…" />} />', () => {
 
         expect(link).toHaveAttribute('aria-disabled', 'true')
         expect(onClick).not.toHaveBeenCalled()
-        await click(user, link)
+        await user.click(link)
         expect(onClick).not.toHaveBeenCalled()
         expect(isNavigationPrevented).toBe(true)
     })
@@ -715,7 +701,7 @@ describe('<IconButton render={<a href="…" />} />', () => {
         const link = screen.getByRole('link', { name: 'Click me' })
         expect(link).not.toBeDisabled()
         expect(link).toHaveAttribute('aria-disabled', 'true')
-        await tab(user)
+        await user.tab()
         expect(link).toHaveFocus()
     })
 })

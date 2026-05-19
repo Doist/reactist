@@ -23,26 +23,6 @@ function getToast(content: string | RegExp) {
     })
 }
 
-type User = ReturnType<typeof userEvent.setup>
-
-async function click(user: User, ...args: Parameters<User['click']>) {
-    await act(async () => {
-        await user.click(...args)
-    })
-}
-
-async function hover(user: User, ...args: Parameters<User['hover']>) {
-    await act(async () => {
-        await user.hover(...args)
-    })
-}
-
-async function unhover(user: User, ...args: Parameters<User['unhover']>) {
-    await act(async () => {
-        await user.unhover(...args)
-    })
-}
-
 describe('useToast', () => {
     function TestCase({ getToastProps }: { getToastProps: () => Partial<ToastProps> }) {
         const showToast = useToasts()
@@ -55,7 +35,7 @@ describe('useToast', () => {
 
     function renderTestCase(
         providerProps?: Omit<ToastsProviderProps, 'children'>,
-        user: User = userEvent.setup(),
+        user: ReturnType<typeof userEvent.setup> = userEvent.setup(),
     ) {
         const propsRef: { current: Partial<ToastProps> } = { current: {} }
         return {
@@ -67,7 +47,7 @@ describe('useToast', () => {
             ),
             async showToast(this: void, props: Partial<ToastProps> = {}) {
                 propsRef.current = props
-                await click(user, screen.getByRole('button', { name: 'Show toast' }))
+                await user.click(screen.getByRole('button', { name: 'Show toast' }))
             },
         }
     }
@@ -113,8 +93,7 @@ describe('useToast', () => {
             'The project could not be deleted',
         ])
 
-        await click(
-            user,
+        await user.click(
             within(getToast('Task was created')).getByRole('button', { name: 'Close' }),
         )
 
@@ -131,7 +110,7 @@ describe('useToast', () => {
         const { showToast, user } = renderTestCase()
         await showToast({ action: { label: 'Undo', onClick: actionFn } })
         expect(actionFn).not.toHaveBeenCalled()
-        await click(user, within(screen.getByRole('alert')).getByRole('button', { name: 'Undo' }))
+        await user.click(within(screen.getByRole('alert')).getByRole('button', { name: 'Undo' }))
         expect(actionFn).toHaveBeenCalledTimes(1)
         await waitFor(() => {
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
@@ -160,8 +139,7 @@ describe('useToast', () => {
                 action: { label: 'A sticky toast action', onClick: actionFn, closeToast: false },
             })
             expect(actionFn).not.toHaveBeenCalled()
-            await click(
-                user,
+            await user.click(
                 within(screen.getByRole('alert')).getByRole('button', {
                     name: 'A sticky toast action',
                 }),
@@ -181,8 +159,7 @@ describe('useToast', () => {
                 action: { label: 'A sticky toast action', onClick: actionFn },
             })
             expect(actionFn).not.toHaveBeenCalled()
-            await click(
-                user,
+            await user.click(
                 within(screen.getByRole('alert')).getByRole('button', {
                     name: 'A sticky toast action',
                 }),
@@ -225,8 +202,7 @@ describe('useToast', () => {
         it('removes the toast from view when clicked', async () => {
             const { showToast, user } = renderTestCase()
             await showToast()
-            await click(
-                user,
+            await user.click(
                 within(screen.getByRole('alert')).getByRole('button', { name: 'Close' }),
             )
             await waitFor(() => {
@@ -246,8 +222,7 @@ describe('useToast', () => {
             await showToast({ onDismiss })
 
             expect(onDismiss).not.toHaveBeenCalled()
-            await click(
-                user,
+            await user.click(
                 within(screen.getByRole('alert')).getByRole('button', { name: 'Close' }),
             )
             expect(onDismiss).toHaveBeenCalledTimes(1)
@@ -321,7 +296,7 @@ describe('useToast', () => {
             jest.advanceTimersByTime(9500)
 
             // Hover, and check that it does not disappear after the remainig time
-            await hover(user, screen.getByRole('alert'))
+            await user.hover(screen.getByRole('alert'))
             jest.advanceTimersByTime(500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
 
@@ -330,7 +305,7 @@ describe('useToast', () => {
             expect(screen.getByRole('alert')).toBeInTheDocument()
 
             // unhover, and check that we have to wait the default delay all over again
-            await unhover(user, screen.getByRole('alert'))
+            await user.unhover(screen.getByRole('alert'))
             jest.advanceTimersByTime(9500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
             act(() => {
@@ -407,11 +382,11 @@ describe('Toast', () => {
         )
         const user = userEvent.setup()
         expect(screen.queryByRole('alert')).not.toBeInTheDocument()
-        await click(user, screen.getByRole('button', { name: 'Toggle' }))
+        await user.click(screen.getByRole('button', { name: 'Toggle' }))
         await waitFor(() => {
             expect(screen.getByRole('alert')).toHaveTextContent('A toast that can be toggled')
         })
-        await click(user, screen.getByRole('button', { name: 'Toggle' }))
+        await user.click(screen.getByRole('button', { name: 'Toggle' }))
         await waitFor(() => {
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         })
@@ -444,8 +419,7 @@ describe('StaticToast', () => {
             renderTestCase({ action: { label: 'Retry', onClick } })
             const user = userEvent.setup()
             expect(onClick).not.toHaveBeenCalled()
-            await click(
-                user,
+            await user.click(
                 within(screen.getByRole('alert')).getByRole('button', { name: 'Retry' }),
             )
             expect(onClick).toHaveBeenCalledTimes(1)
@@ -470,8 +444,7 @@ describe('StaticToast', () => {
             renderTestCase({ onDismiss })
             const user = userEvent.setup()
             expect(onDismiss).not.toHaveBeenCalled()
-            await click(
-                user,
+            await user.click(
                 within(screen.getByRole('alert')).getByRole('button', { name: 'Close' }),
             )
             expect(onDismiss).toHaveBeenCalledTimes(1)

@@ -1,18 +1,9 @@
 import * as React from 'react'
-import { act } from 'react'
 
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { Dropdown } from './dropdown'
-
-type User = ReturnType<typeof userEvent.setup>
-
-async function click(user: User, ...args: Parameters<User['click']>) {
-    await act(async () => {
-        await user.click(...args)
-    })
-}
 
 describe('Dropdown', () => {
     describe('Dropdown.Box', () => {
@@ -49,7 +40,7 @@ describe('Dropdown', () => {
             )
             const user = userEvent.setup()
 
-            await click(user, screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
 
             const body = screen.getByTestId('reactist-dropdown-body')
 
@@ -67,11 +58,11 @@ describe('Dropdown', () => {
 
             expect(screen.queryByTestId('reactist-dropdown-body')).not.toBeInTheDocument()
 
-            await click(user, screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
             expect(screen.getByTestId('reactist-dropdown-body')).toBeVisible()
             expect(screen.getByText('My content')).toBeVisible()
 
-            await click(user, screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
             expect(screen.queryByTestId('reactist-dropdown-body')).not.toBeInTheDocument()
             expect(screen.queryByText('My content')).not.toBeInTheDocument()
         })
@@ -87,10 +78,10 @@ describe('Dropdown', () => {
 
             expect(screen.queryByTestId('reactist-dropdown-body')).not.toBeInTheDocument()
 
-            await click(user, screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
             expect(screen.getByTestId('reactist-dropdown-body')).toBeVisible()
 
-            await click(user, screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
             expect(screen.queryByTestId('reactist-dropdown-body')).not.toBeInTheDocument()
         })
 
@@ -103,7 +94,7 @@ describe('Dropdown', () => {
             )
             const user = userEvent.setup()
 
-            await click(user, screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
 
             expect(container).toMatchSnapshot()
         })
@@ -117,7 +108,7 @@ describe('Dropdown', () => {
             )
             const user = userEvent.setup()
 
-            await click(user, screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
 
             expect(container).toMatchSnapshot()
         })
@@ -134,11 +125,11 @@ describe('Dropdown', () => {
             )
             const user = userEvent.setup()
 
-            await click(user, screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
             expect(onShowBodySpy).toHaveBeenCalledTimes(1)
             expect(onHideBodySpy).not.toHaveBeenCalled()
 
-            await click(user, screen.getByRole('button', { name: 'Click me' }))
+            await user.click(screen.getByRole('button', { name: 'Click me' }))
             expect(onShowBodySpy).toHaveBeenCalledTimes(1)
             expect(onHideBodySpy).toHaveBeenCalledTimes(1)
         })

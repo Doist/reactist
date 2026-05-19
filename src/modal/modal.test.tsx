@@ -7,20 +7,6 @@ import { axe } from 'jest-axe'
 
 import { Modal, ModalActions, ModalBody, ModalCloseButton, ModalFooter, ModalHeader } from './modal'
 
-type User = ReturnType<typeof userEvent.setup>
-
-async function click(user: User, ...args: Parameters<User['click']>) {
-    await act(async () => {
-        await user.click(...args)
-    })
-}
-
-async function keyboard(user: User, text: string) {
-    await act(async () => {
-        await user.keyboard(text)
-    })
-}
-
 // Ariakit's dialog performs async updates and must be wrapped in an act to prevent warnings
 function renderModal(children: React.ReactElement) {
     jest.useFakeTimers()
@@ -42,7 +28,7 @@ async function closeModal() {
     if (modal) {
         jest.useFakeTimers()
         const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime })
-        await keyboard(user, '{Escape}')
+        await user.keyboard('{Escape}')
 
         act(() => {
             jest.runOnlyPendingTimers()
@@ -127,9 +113,9 @@ describe('Modal', () => {
         const user = userEvent.setup()
 
         expect(screen.queryByRole('dialog', { name: 'modal' })).not.toBeInTheDocument()
-        await click(user, screen.getByRole('button', { name: 'Click me' }))
+        await user.click(screen.getByRole('button', { name: 'Click me' }))
         expect(screen.getByRole('dialog', { name: 'modal' })).toBeInTheDocument()
-        await click(user, screen.getByRole('button', { name: 'Close me' }))
+        await user.click(screen.getByRole('button', { name: 'Close me' }))
         expect(screen.queryByRole('dialog', { name: 'modal' })).not.toBeInTheDocument()
     })
 
@@ -137,14 +123,14 @@ describe('Modal', () => {
         renderModal(<TestCaseWithState />)
         const user = userEvent.setup()
 
-        await click(user, screen.getByRole('button', { name: 'Click me' }))
+        await user.click(screen.getByRole('button', { name: 'Click me' }))
 
         // Button is present, but not found by role
         expect(screen.queryByRole('button', { name: 'Click me' })).not.toBeInTheDocument()
         expect(screen.getByText('Click me')).toBeInTheDocument()
 
         // Button is visible by role again once the modal is gone
-        await click(user, screen.getByRole('button', { name: 'Close me' }))
+        await user.click(screen.getByRole('button', { name: 'Close me' }))
         expect(screen.getByRole('button', { name: 'Click me' })).toBeInTheDocument()
     })
 
@@ -152,9 +138,9 @@ describe('Modal', () => {
         renderModal(<TestCaseWithState />)
         const user = userEvent.setup()
 
-        await click(user, screen.getByRole('button', { name: 'Click me' }))
+        await user.click(screen.getByRole('button', { name: 'Click me' }))
         expect(screen.getByRole('dialog', { name: 'modal' })).toBeInTheDocument()
-        await click(user, screen.getByTestId('modal-overlay'))
+        await user.click(screen.getByTestId('modal-overlay'))
         expect(screen.queryByRole('dialog', { name: 'modal' })).not.toBeInTheDocument()
     })
 
@@ -167,7 +153,7 @@ describe('Modal', () => {
         )
         const user = userEvent.setup()
 
-        await click(user, screen.getByTestId('modal-overlay'))
+        await user.click(screen.getByTestId('modal-overlay'))
         expect(onDismiss).not.toHaveBeenCalled()
     })
 
@@ -255,7 +241,7 @@ describe('ModalHeader', () => {
         )
         const user = userEvent.setup()
         expect(onDismiss).not.toHaveBeenCalled()
-        await click(user, screen.getByRole('button', { name: 'Close modal' }))
+        await user.click(screen.getByRole('button', { name: 'Close modal' }))
         expect(onDismiss).toHaveBeenCalledTimes(1)
     })
 
@@ -510,7 +496,7 @@ describe('ModalCloseButton', () => {
         const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime })
         expect(onDismiss).not.toHaveBeenCalled()
 
-        await click(user, button)
+        await user.click(button)
 
         expect(onDismiss).toHaveBeenCalledTimes(1)
     })
@@ -569,7 +555,7 @@ describe('a11y', () => {
         const user = userEvent.setup()
 
         expect(onDismiss).not.toHaveBeenCalled()
-        await keyboard(user, '{Escape}')
+        await user.keyboard('{Escape}')
         expect(onDismiss).toHaveBeenCalledTimes(1)
     })
 
@@ -583,7 +569,7 @@ describe('a11y', () => {
         const user = userEvent.setup()
 
         expect(onDismiss).not.toHaveBeenCalled()
-        await keyboard(user, '{Escape}')
+        await user.keyboard('{Escape}')
         expect(onDismiss).not.toHaveBeenCalled()
     })
 })

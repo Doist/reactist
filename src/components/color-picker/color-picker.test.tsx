@@ -1,31 +1,22 @@
 import * as React from 'react'
-import { act } from 'react'
 
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { ColorItem, ColorPicker } from './color-picker'
 
-type User = ReturnType<typeof userEvent.setup>
-
-async function click(user: User, ...args: Parameters<User['click']>) {
-    await act(async () => {
-        await user.click(...args)
-    })
-}
-
 describe('ColorPicker', () => {
     it('renders without crashing', async () => {
         const { container } = render(<ColorPicker />)
         const user = userEvent.setup()
-        await click(user, screen.getByRole('button'))
+        await user.click(screen.getByRole('button'))
         expect(container).toMatchSnapshot()
     })
 
     it('renders with custom colorList', async () => {
         const { container } = render(<ColorPicker colorList={['red', 'green', '#0000FF']} />)
         const user = userEvent.setup()
-        await click(user, screen.getByRole('button'))
+        await user.click(screen.getByRole('button'))
         expect(container).toMatchSnapshot()
     })
 
@@ -33,7 +24,7 @@ describe('ColorPicker', () => {
         it('renders given color and does nothing when clicked without specified onClick handler', async () => {
             const { container } = render(<ColorItem color="#606060" colorIndex={0} />)
             const user = userEvent.setup()
-            await click(user, screen.getByTestId('reactist-color-item'))
+            await user.click(screen.getByTestId('reactist-color-item'))
             expect(container).toMatchSnapshot()
         })
 
@@ -47,7 +38,7 @@ describe('ColorPicker', () => {
             render(<ColorItem color="#fff" colorIndex={5} onClick={onClick} />)
             const user = userEvent.setup()
 
-            await click(user, screen.getByTestId('reactist-color-item'))
+            await user.click(screen.getByTestId('reactist-color-item'))
 
             expect(onClick).toHaveBeenLastCalledWith(5)
         })
