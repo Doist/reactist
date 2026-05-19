@@ -38,12 +38,13 @@ describe('Menu', () => {
         expect(screen.queryByText('First option')).not.toBeInTheDocument()
 
         await user.click(screen.getByRole('button', { name: 'Options menu' }))
+        await flushMicrotasks()
         expect(screen.getByRole('menu')).toBeInTheDocument()
         expect(screen.getByRole('menuitem', { name: 'First option' })).toBeInTheDocument()
 
         await user.click(screen.getByRole('button', { name: 'Options menu' }))
-        expect(screen.queryByText('First option')).not.toBeInTheDocument()
         await flushMicrotasks()
+        expect(screen.queryByText('First option')).not.toBeInTheDocument()
     })
 
     it('closes the menu when a menu item is selected (unless the onSelect handler returns false or hideOnSelect is false)', async () => {
@@ -63,24 +64,27 @@ describe('Menu', () => {
 
         // 'First option' closes the menu
         await user.click(screen.getByRole('button', { name: 'Options menu' }))
+        await flushMicrotasks()
         expect(screen.getByRole('menuitem', { name: 'First option' })).toBeVisible()
 
         await user.click(screen.getByRole('menuitem', { name: 'First option' }))
+        await flushMicrotasks()
         expect(screen.queryByRole('menu')).not.toBeInTheDocument()
         expect(screen.queryByRole('menuitem')).not.toBeInTheDocument()
 
         // 'Second option' does not close the menu
         await user.click(screen.getByRole('button', { name: 'Options menu' }))
+        await flushMicrotasks()
         expect(screen.getByRole('menuitem', { name: 'Second option' })).toBeVisible()
 
         await user.click(screen.getByRole('menuitem', { name: 'Second option' }))
+        await flushMicrotasks()
         expect(screen.getByRole('menu')).toBeInTheDocument()
 
         // 'Third option' does not close the menu
         await user.click(screen.getByRole('menuitem', { name: 'Third option' }))
-        expect(screen.getByRole('menu')).toBeInTheDocument()
-
         await flushMicrotasks()
+        expect(screen.getByRole('menu')).toBeInTheDocument()
     })
 
     it("calls the onSelect and the menu's onItemSelect with the value when menu items are selected", async () => {
@@ -104,14 +108,15 @@ describe('Menu', () => {
 
         for (const opt of ['1st', '2nd']) {
             await user.click(screen.getByRole('button', { name: 'Options menu' }))
+            await flushMicrotasks()
             await user.click(screen.getByRole('menuitem', { name: `${opt} option` }))
+            await flushMicrotasks()
             expect(onItemSelect).toHaveBeenCalledWith(opt)
             expect(onSelect).toHaveBeenCalledWith(`${opt} option`)
         }
 
         expect(onItemSelect).toHaveBeenCalledTimes(2)
         expect(onSelect).toHaveBeenCalledTimes(2)
-        await flushMicrotasks()
     })
 
     it('allows to navigate through the menu items using the keyboard', async () => {
@@ -180,6 +185,7 @@ describe('Menu', () => {
         const user = userEvent.setup()
 
         await user.click(screen.getByRole('button', { name: 'Links' }))
+        await flushMicrotasks()
 
         // Prevent act warning
         await waitFor(() => {
@@ -211,7 +217,9 @@ describe('Menu', () => {
         const user = userEvent.setup()
 
         await user.click(screen.getByRole('button', { name: 'Options menu' }))
+        await flushMicrotasks()
         await user.click(screen.getByRole('menuitem', { name: 'Click me' }))
+        await flushMicrotasks()
 
         await waitFor(() => {
             expect(screen.queryByRole('menu')).not.toBeInTheDocument()
@@ -268,6 +276,7 @@ describe('Menu', () => {
         const user = userEvent.setup()
 
         await user.click(screen.getByRole('button', { name: 'Options menu' }))
+        await flushMicrotasks()
         await act(async () => {
             await user.hover(screen.getByRole('menuitem', { name: 'More options' }))
             await flushMicrotasks()
@@ -308,6 +317,7 @@ describe('Menu', () => {
         const user = userEvent.setup()
 
         await user.click(screen.getByRole('button', { name: 'Options menu' }))
+        await flushMicrotasks()
 
         await waitFor(() => {
             expect(screen.getByRole('menu')).toHaveFocus()
@@ -321,6 +331,7 @@ describe('Menu', () => {
 
         expect(screen.queryByRole('menuitem', { name: 'Save' })).not.toBeInTheDocument()
         await user.keyboard('{ArrowRight}')
+        await flushMicrotasks()
         expect(screen.getByRole('menuitem', { name: 'Save' })).toBeVisible()
     })
 
@@ -350,6 +361,7 @@ describe('Menu', () => {
 
             // Open menu
             await user.click(screen.getByRole('button', { name: 'Options menu' }))
+            await flushMicrotasks()
             expect(await axe(container)).toHaveNoViolations()
             await user.keyboard('{Escape}')
             await flushMicrotasks()
@@ -369,6 +381,7 @@ describe('Menu', () => {
 
             // Open menu
             await user.click(screen.getByRole('button', { name: 'Options menu' }))
+            await flushMicrotasks()
 
             await waitFor(() => {
                 expect(screen.getByRole('menu')).toHaveFocus()
