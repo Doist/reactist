@@ -147,6 +147,11 @@
     /* fields */
     --reactist-field-readonly-background: rgb(246, 244, 244);
 
+    /* switches and checkboxes */
+    --reactist-switch-background: var(--reactist-framework-fill-summit);
+    --reactist-switch-checked: var(--reactist-content-positive);
+    --reactist-switch-toggle: var(--reactist-bg-default);
+
     /* toasts */
     --reactist-toast-actionable-primary-tint: #39d1ef;
     --reactist-toast-actionable-secondary-tint: #b6c1c3;
