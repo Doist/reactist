@@ -403,6 +403,12 @@ export const Playground = {
         },
     },
 
+    args: {
+        type: 'info',
+        title: 'Title of the Banner',
+        description: 'Description of the Banner.',
+    },
+
     argTypes: {
         type: {
             options: ['neutral', 'info', 'upgrade', 'experiment', 'warning', 'error', 'success'],

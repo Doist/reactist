@@ -639,6 +639,15 @@ export const FullWidth = {
         },
     },
 
+    args: {
+        label: 'Submit',
+        variant: 'primary',
+        tone: 'normal',
+        size: 'normal',
+        shape: 'normal',
+        width: 'full',
+    },
+
     argTypes: {
         label: {
             control: {
@@ -749,6 +758,14 @@ export const Playground = {
         },
     },
 
+    args: {
+        label: 'Submit',
+        variant: 'primary',
+        tone: 'normal',
+        size: 'normal',
+        shape: 'normal',
+    },
+
     argTypes: {
         label: {
             control: {
@@ -843,6 +860,13 @@ export const DarkMode = {
                 type: 'dynamic',
             },
         },
+    },
+
+    args: {
+        label: 'Submit',
+        variant: 'primary',
+        tone: 'normal',
+        size: 'normal',
     },
 
     argTypes: {

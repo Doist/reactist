@@ -100,6 +100,25 @@ export const InteractiveProps = {
         },
     },
 
+    args: {
+        label: 'User bio',
+        controlled: false,
+        value: '',
+        tone: 'neutral',
+        maxWidth: 'small',
+        variant: 'default',
+        auxiliaryLabel: 'Need help?',
+        message:
+            'You’ll have a better experience in our community if others get to know a little bit about you.',
+        rows: 2,
+        autoExpand: false,
+        disableResize: false,
+        placeholder: 'Tell us something about yourself. Don’t be shy.',
+        maxLength: null,
+        disabled: false,
+        readOnly: false,
+    },
+
     argTypes: {
         label: {
             control: {
@@ -298,6 +317,17 @@ export const AutoExpand = {
     render: AutoExpandStory.bind({}),
     name: 'Auto expand',
 
+    args: {
+        tone: 'neutral',
+        maxWidth: 'small',
+        variant: 'default',
+        message: '',
+        rows: 2,
+        autoExpand: false,
+        placeholder: '',
+        disabled: false,
+    },
+
     argTypes: {
         label: {
             control: false,
@@ -374,6 +404,19 @@ export const AutoExpand = {
 export const AutoExpandWithInitialValue = {
     render: AutoExpandWithInitialValueStory.bind({}),
     name: 'Auto expand with initial value',
+
+    args: {
+        tone: 'neutral',
+        maxWidth: 'small',
+        variant: 'default',
+        message: '',
+        rows: 2,
+        autoExpand: false,
+        disableResize: false,
+        placeholder: '',
+        disabled: false,
+        readOnly: false,
+    },
 
     argTypes: {
         label: {

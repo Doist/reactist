@@ -34,6 +34,13 @@ export const Playground = {
         },
     },
 
+    args: {
+        label: 'Show unread badge',
+        tone: 'neutral',
+        message: 'Show an icon badge to indicate that there are new threads and messages.',
+        disabled: false,
+    },
+
     argTypes: {
         label: {
             control: {

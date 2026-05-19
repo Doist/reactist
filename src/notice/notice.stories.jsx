@@ -84,5 +84,11 @@ export const Playground = {
         },
     },
 
+    args: {
+        content: 'short',
+        tone: 'info',
+        closeLabel: 'Close',
+    },
+
     name: 'Playground',
 }

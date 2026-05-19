@@ -449,6 +449,14 @@ export const Playground = {
         },
     },
 
+    args: {
+        label: 'Submit',
+        variant: 'primary',
+        tone: 'normal',
+        size: 'normal',
+        shape: 'normal',
+    },
+
     argTypes: {
         label: {
             control: {
@@ -531,6 +539,13 @@ export const DarkMode = {
     },
 
     name: 'Dark mode',
+
+    args: {
+        label: 'Submit',
+        variant: 'primary',
+        tone: 'normal',
+        size: 'normal',
+    },
 
     argTypes: {
         label: {

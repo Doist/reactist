@@ -203,6 +203,24 @@ export const InteractiveProps = {
         },
     },
 
+    args: {
+        label: 'Your name',
+        tone: 'neutral',
+        maxWidth: 'small',
+        startSlot: false,
+        endSlot: false,
+        variant: 'default',
+        auxiliaryLabel: 'Need help?',
+        message:
+            'We need your name for billing and shipping purposes. Make sure to enter it correctly.',
+        placeholder: 'Enter your name as it appears in your ID',
+        maxLength: null,
+        disabled: false,
+        readOnly: false,
+        characterCountPosition: undefined,
+        endSlotPosition: undefined,
+    },
+
     argTypes: {
         label: {
             control: {

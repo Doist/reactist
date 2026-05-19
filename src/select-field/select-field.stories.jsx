@@ -58,6 +58,17 @@ export const InteractiveProps = {
         },
     },
 
+    args: {
+        label: 'Theme',
+        tone: 'neutral',
+        maxWidth: 'small',
+        variant: 'default',
+        auxiliaryLabel: 'Need help?',
+        message:
+            'The theme you select will be applied immediately. If you upgrade to premium you will have more themes to choose from.',
+        disabled: false,
+    },
+
     argTypes: {
         label: {
             control: {

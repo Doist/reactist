@@ -116,6 +116,11 @@ export const Playground = {
         },
     },
 
+    args: {
+        tone: 'info',
+        label: 'Upgrade',
+    },
+
     argTypes: {
         tone: {
             options: ['info', 'positive', 'promote', 'attention', 'warning'],

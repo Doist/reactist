@@ -59,6 +59,20 @@ export const InteractiveProps = {
         },
     },
 
+    args: {
+        label: 'Password',
+        tone: 'neutral',
+        maxWidth: 'small',
+        togglePasswordLabel: 'Toggle password visibility',
+        variant: 'default',
+        auxiliaryLabel: 'Forgot your password?',
+        message:
+            'Must be at least 100 characters long, and it should include each letter of the alphabet',
+        endSlot: false,
+        placeholder: 'Type your password',
+        disabled: false,
+    },
+
     argTypes: {
         label: {
             control: {
