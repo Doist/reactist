@@ -1,3 +1,9 @@
+## [31.1.0](https://github.com/Doist/reactist/compare/v31.0.0...v31.1.0) (2026-05-19)
+
+### Features
+
+- upgrade storybook 6.5 -> 9 + vite ([#1038](https://github.com/Doist/reactist/issues/1038)) ([c125cdd](https://github.com/Doist/reactist/commit/c125cddc7d718d2d42cc7c3e2a1a6156eaef3e30))
+
 ## [31.0.0](https://github.com/Doist/reactist/compare/v30.1.4...v31.0.0) (2026-05-18)
 
 ### ⚠ BREAKING CHANGES
