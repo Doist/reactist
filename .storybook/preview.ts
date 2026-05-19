@@ -1,5 +1,7 @@
 import type { Preview } from '@storybook/react-vite'
+import { create } from 'storybook/theming/create'
 import BaseDecorator from './BaseDecorator'
+import '../src/styles/design-tokens.css'
 import '../stories/components/styles/story.css'
 
 const badgeFontStyles = {
@@ -11,6 +13,12 @@ const preview: Preview = {
     decorators: [BaseDecorator],
     parameters: {
         viewMode: 'docs',
+        docs: {
+            theme: create({
+                base: 'light',
+                fontBase: 'var(--reactist-font-family)',
+            }),
+        },
         options: {
             storySort: {
                 method: 'alphabetical',
