@@ -11,7 +11,7 @@ const config: StorybookConfig = {
     },
     addons: ['@storybook/addon-docs', '@storybook/addon-links'],
     typescript: {
-        reactDocgen: false,
+        reactDocgen: 'react-docgen-typescript',
     },
     async viteFinal(config) {
         const { mergeConfig } = await import('vite')
