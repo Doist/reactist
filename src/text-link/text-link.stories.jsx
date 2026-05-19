@@ -50,7 +50,7 @@ export const NestedElements = {
                 <div>Link with nested div</div>
             </TextLink>
             <TextLink href="https://www.doist.com/">
-                Text with <strong>bold</strong>section
+                Text with <strong>bold</strong> section
             </TextLink>
             <TextLink href="https://www.doist.com/">
                 Text with{' '}
