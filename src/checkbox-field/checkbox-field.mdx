@@ -8,17 +8,6 @@ import { Text } from '../text'
 
 <Meta of={CheckboxFieldStories} />
 
-export function Icon() {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <path
-                fill="currentColor"
-                d="M6 6.653a1 1 0 011.464-.886l10.246 5.37a1 1 0 01-.002 1.773L7.46 18.24a1 1 0 01-1.461-.887V13l6.96-.674a.328.328 0 000-.652L6 11V6.653z"
-            />
-        </svg>
-    )
-}
-
 # CheckboxField
 
 A checkbox field with a built-in label element.
@@ -31,20 +20,9 @@ A checkbox field with a built-in label element.
 
 <Description of={CheckboxField} />
 
-<Controls />
+<Controls of={CheckboxFieldStories.BasicExample} />
 
 ## Stories
-
-export const Template = ({
-    disabled,
-    indeterminate,
-    label,
-    icon,
-    'aria-controls': ariaControls,
-    'aria-describedby': ariaDescribedby,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledby,
-}) => <CheckboxField disabled={disabled} indeterminate={indeterminate} label={label} icon={icon} />
 
 ### Checkbox with icon
 

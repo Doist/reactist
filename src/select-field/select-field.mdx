@@ -13,44 +13,11 @@ import { selectWithNone } from '../utils/storybook-helper'
 
 A component that provides a menu of options, similar to the native `<select>` HTML element.
 
-export function preventDefault(event) {
-    event.preventDefault()
-}
-
-export function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
-    return (
-        <SelectField
-            {...props}
-            label={label}
-            auxiliaryLabel={
-                auxiliaryLabel ? (
-                    <a href="#" onClick={preventDefault}>
-                        {auxiliaryLabel}
-                    </a>
-                ) : undefined
-            }
-            defaultValue="-"
-        >
-            <option value="-" disabled>
-                Select theme
-            </option>
-            <optgroup label="Light themes">
-                <option value="default">Default theme</option>
-                <option value="bright">Extra bright</option>
-            </optgroup>
-            <optgroup label="Dark themes">
-                <option value="contrast">High contrast</option>
-                <option value="dark">Dark mode</option>
-            </optgroup>
-        </SelectField>
-    )
-}
-
 <Canvas>
     <Story of={SelectFieldStories.InteractiveProps} />
 </Canvas>
 
-<Controls />
+<Controls of={SelectFieldStories.InteractiveProps} />
 
 ## Colors
 

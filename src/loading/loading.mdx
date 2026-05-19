@@ -11,15 +11,6 @@ import * as LoadingStories from './loading.stories'
 
 A loading indicator that comes in three sizes.
 
-export function Example({ children, size }) {
-    return (
-        <Stack space="xxlarge" align="center">
-            <Box>{children}</Box>
-            <Box as="pre">size="{size}"</Box>
-        </Stack>
-    )
-}
-
 <Canvas>
     <Story of={LoadingStories.AllSizes} />
 </Canvas>
@@ -28,7 +19,7 @@ export function Example({ children, size }) {
 
 <Description of={Loading} />
 
-<Controls />
+<Controls of={LoadingStories.AllSizes} />
 
 ## Stories
 

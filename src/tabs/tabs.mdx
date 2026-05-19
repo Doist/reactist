@@ -13,45 +13,6 @@ A set of components that allow tabs to be rendered, which controls the visibilit
 This component is powered by [Ariakit's Tab component](https://ariakit.org/examples/tab). For more details of its expected
 behaviour, see [ARIA: tab role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role).
 
-export const Template = ({
-    variant,
-    space,
-    selectedId,
-    defaultSelectedId,
-    renderMode,
-    onSelectedIdChange,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledby,
-}) => (
-    <Tabs
-        variant={variant}
-        selectedId={selectedId}
-        defaultSelectedId={defaultSelectedId}
-        onSelectedIdChange={onSelectedIdChange}
-    >
-        <TabList aria-label={ariaLabel} aria-labelledby={ariaLabelledby} space={space}>
-            <Tab id="tab1">Tab 1</Tab>
-            <Tab id="tab2">Tab 2</Tab>
-            <Tab id="tab3">Tab 3</Tab>
-        </TabList>
-        <TabPanel id="tab1" renderMode={renderMode}>
-            <Box paddingX="small" paddingY="xlarge">
-                <Text>Content of tab 1</Text>
-            </Box>
-        </TabPanel>
-        <TabPanel id="tab2" renderMode={renderMode}>
-            <Box paddingX="small" paddingY="xlarge">
-                <Text>Content of tab 2</Text>
-            </Box>
-        </TabPanel>
-        <TabPanel id="tab3" renderMode={renderMode}>
-            <Box paddingX="small" paddingY="xlarge">
-                <Text>Content of tab 3</Text>
-            </Box>
-        </TabPanel>
-    </Tabs>
-)
-
 <Canvas>
     <Story of={TabsStories.MainDemo} />
 </Canvas>
@@ -60,31 +21,31 @@ export const Template = ({
 
 <Description of={Tabs} />
 
-<Controls />
+<Controls of={TabsStories.MainDemo} />
 
 ## `<TabList>`
 
 <Description of={TabList} />
 
-<Controls />
+<Controls of={TabsStories.MainDemo} />
 
 ## `<Tab>`
 
 <Description of={Tab} />
 
-<Controls />
+<Controls of={TabsStories.MainDemo} />
 
 ## `<TabPanel>`
 
 <Description of={TabPanel} />
 
-<Controls />
+<Controls of={TabsStories.MainDemo} />
 
 ## `<TabAwareSlot>`
 
 <Description of={TabAwareSlot} />
 
-<Controls />
+<Controls of={TabsStories.MainDemo} />
 
 ## Colors
 

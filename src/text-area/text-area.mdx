@@ -13,38 +13,11 @@ import { selectWithNone } from '../utils/storybook-helper'
 
 A component with an expandable writing area used to accept longer textual input from the user.
 
-export function preventDefault(event) {
-    event.preventDefault()
-}
-
-export function InteractivePropsStory({
-    label,
-    auxiliaryLabel,
-    value,
-    controlled: _controlled,
-    ...props
-}) {
-    return (
-        <TextArea
-            {...props}
-            value={value}
-            label={label}
-            auxiliaryLabel={
-                auxiliaryLabel ? (
-                    <a href="#" onClick={preventDefault}>
-                        {auxiliaryLabel}
-                    </a>
-                ) : undefined
-            }
-        />
-    )
-}
-
 <Canvas>
     <Story of={TextAreaStories.InteractiveProps} />
 </Canvas>
 
-<Controls />
+<Controls of={TextAreaStories.InteractiveProps} />
 
 ## Colors
 
@@ -65,56 +38,9 @@ Note that these variables are shared with other components such as `Textfield`, 
     <Story of={TextAreaStories.WithoutLabel} />
 </Canvas>
 
-export function AutoExpandStory(props) {
-    const [value, setValue] = React.useState('')
-    return (
-        <Stack space="large" dividers="secondary" maxWidth="medium">
-            <TextArea
-                {...props}
-                label="Text area with auto-expand"
-                auxiliaryLabel="(controlled)"
-                autoExpand
-                value={value}
-                onChange={(event) => setValue(event.target.value)}
-                message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
-                rows={1}
-                onKeyDown={(event) => {
-                    if (event.key === 'Enter') {
-                        event.preventDefault()
-                        setValue('') // Clear the input programmatically
-                    }
-                }}
-            />
-            <Text size="caption" tone="secondary">
-                If you press Enter, the input will be cleared. This allows you to test that
-                auto-expand works when the input is cleared programmatically, shrinking the textarea
-                to the new expected height.
-            </Text>
-        </Stack>
-    )
-}
-
 <Canvas>
     <Story of={TextAreaStories.AutoExpand} />
 </Canvas>
-
-export function AutoExpandWithInitialValueStory(props) {
-    const initialValue =
-        'This is some text that takes up multiple lines. It should cause the textarea to render initially as large as needed to fit this text, even if its initial rows are not enough.'
-    return (
-        <Stack space="xxlarge" dividers="secondary" maxWidth="medium">
-            <TextArea
-                {...props}
-                label="Text area with auto-expand and initial value"
-                auxiliaryLabel="(uncontrolled)"
-                message="Write as much or as little as you want. The input area will auto-expand to fit what you've typed."
-                defaultValue={initialValue}
-                rows={1}
-                autoExpand
-            />
-        </Stack>
-    )
-}
 
 <Canvas>
     <Story of={TextAreaStories.AutoExpandWithInitialValue} />
