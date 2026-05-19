@@ -151,8 +151,11 @@ describe('Tabs', () => {
 
         await user.click(screen.getByRole('tab', { name: 'Tab 2' }))
 
+        await waitFor(() => {
+            expect(screen.getByText('Content of tab 1')).not.toBeVisible()
+        })
+
         expect(screen.getByText('Content of tab 2')).toBeVisible()
-        expect(screen.getByText('Content of tab 1')).not.toBeVisible()
         expect(screen.getByText('Content of tab 3')).not.toBeVisible()
 
         const onSelectedIdChange = jest.fn()
@@ -201,10 +204,13 @@ describe('Tabs', () => {
             </Tabs>,
         )
 
+        await waitFor(() => {
+            expect(screen.getByText('Content of tab 3')).not.toBeVisible()
+        })
+
         expect(onSelectedIdChange).not.toHaveBeenCalled()
         expect(screen.getByText('Content of tab 1')).not.toBeVisible()
         expect(screen.getByText('Content of tab 2')).toBeVisible()
-        expect(screen.getByText('Content of tab 3')).not.toBeVisible()
     })
 
     it("calls TabAwareSlot's render prop with the current selectedId", async () => {
