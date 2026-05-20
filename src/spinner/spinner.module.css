@@ -1,5 +1,5 @@
 :root {
-    --reactist-spinner-tint: var(--reactist-bg-brand);
+    --reactist-spinner-tint: currentColor;
     --reactist-spinner-fill: var(--reactist-framework-fill-crest);
 }
 

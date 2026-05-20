@@ -16,11 +16,11 @@
 
     /* variant="primary" */
     --reactist-actionable-primary-idle-tint: #ffffff;
-    --reactist-actionable-primary-idle-fill: #008aa6;
+    --reactist-actionable-primary-idle-fill: currentColor;
     --reactist-actionable-primary-hover-tint: #ffffff;
-    --reactist-actionable-primary-hover-fill: #007992;
+    --reactist-actionable-primary-hover-fill: currentColor;
     --reactist-actionable-primary-disabled-tint: #ffffff;
-    --reactist-actionable-primary-disabled-fill: #99d0db;
+    --reactist-actionable-primary-disabled-fill: currentColor;
 
     /* variant="secondary" */
     --reactist-actionable-secondary-idle-tint: #282f30;
@@ -31,10 +31,10 @@
     --reactist-actionable-secondary-disabled-fill: #f2f6f7;
 
     /* variant="tertiary" (only has fill when hovered) */
-    --reactist-actionable-tertiary-idle-tint: #006f85;
-    --reactist-actionable-tertiary-hover-tint: #006f85;
+    --reactist-actionable-tertiary-idle-tint: currentColor;
+    --reactist-actionable-tertiary-hover-tint: currentColor;
     --reactist-actionable-tertiary-hover-fill: #f2f6f7;
-    --reactist-actionable-tertiary-disabled-tint: #99c5ce;
+    --reactist-actionable-tertiary-disabled-tint: currentColor;
 
     /* variant="quaternary" (only has fill when hovered) */
     --reactist-actionable-quaternary-idle-tint: #6c777a;
