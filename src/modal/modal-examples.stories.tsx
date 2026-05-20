@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import { action } from 'storybook/actions'
 
+import { openModal } from '../../.storybook/open-modal'
 import { Box } from '../box'
 import { IconButton } from '../button'
 import { Column, Columns } from '../columns'
@@ -27,7 +28,6 @@ import {
     ModalStoryStateProvider,
     ScrollableContent,
 } from './modal-stories-components'
-import { openModal } from './modal-story-play'
 
 export default {
     title: 'Design system/Modal/Examples',
