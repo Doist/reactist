@@ -9,7 +9,7 @@ const config: StorybookConfig = {
         name: '@storybook/react-vite',
         options: {},
     },
-    addons: ['@storybook/addon-docs', '@storybook/addon-links'],
+    addons: ['@storybook/addon-docs'],
     typescript: {
         reactDocgen: 'react-docgen-typescript',
     },

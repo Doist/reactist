@@ -1,7 +1,5 @@
 import * as React from 'react'
 
-import { expect, userEvent, within } from 'storybook/test'
-
 import { Button } from '../button'
 import { SelectField } from '../select-field'
 import { Stack } from '../stack'
@@ -242,19 +240,6 @@ function ModalFooter(props: WithOptionals<ModalFooterProps, 'withDivider'>) {
 function ModalActions(props: WithOptionals<ModalFooterProps, 'withDivider'>) {
     const { withScrollableContent } = React.useContext(ModalStoryContext)
     return <ModalComponents.ModalActions withDivider={withScrollableContent} {...props} />
-}
-
-/**
- * Used by stories in storybooks to programmatically open the modal on each story.
- *
- * Not only that, but it also serves the purpose of testing that the modal actually opens.
- *
- * @see https://storybook.js.org/docs/react/writing-tests/interaction-testing
- */
-export async function openModal({ canvasElement }: { canvasElement: HTMLElement }) {
-    const canvas = within(canvasElement)
-    userEvent.click(canvas.getByRole('button', { name: 'Open modal' }))
-    expect(await canvas.findByRole('dialog')).toBeInTheDocument()
 }
 
 export { ModalButton as Button, Link, ModalOptionsForm, ModalStoryStateProvider, ScrollableContent }

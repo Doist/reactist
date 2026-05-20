@@ -5,7 +5,7 @@ import { action } from 'storybook/actions'
 import KeyCapturer from '../../src/components/key-capturer'
 import { Stack } from '../../src/stack'
 
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 
 const meta: Meta<typeof KeyCapturer> = {
     title: 'Components/KeyCapturer',

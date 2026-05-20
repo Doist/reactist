@@ -1,6 +1,6 @@
 {
     "extends": "@doist/tsconfig",
-    "include": ["src", "types"],
+    "include": ["src", "types", ".storybook"],
     "compilerOptions": {
         "allowJs": true,
         "module": "esnext",
@@ -8,13 +8,14 @@
         "importHelpers": true,
         "declaration": true,
         "sourceMap": true,
-        "rootDir": "src",
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "moduleResolution": "node",
         "baseUrl": "./",
         "paths": {
             "@": ["./"],
+            "storybook/actions": ["node_modules/storybook/dist/actions/index.d.ts"],
+            "storybook/test": ["node_modules/storybook/dist/test/index.d.ts"],
             "*": ["src/*", "node_modules/*"]
         },
         "jsx": "react",
