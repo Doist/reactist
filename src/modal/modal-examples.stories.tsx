@@ -25,9 +25,9 @@ import {
     ModalHeader,
     ModalOptionsForm,
     ModalStoryStateProvider,
-    openModal,
     ScrollableContent,
 } from './modal-stories-components'
+import { openModal } from './modal-story-play'
 
 export default {
     title: 'Design system/Modal/Examples',
