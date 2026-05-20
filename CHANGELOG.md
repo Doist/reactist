@@ -1,3 +1,9 @@
+## [31.2.0](https://github.com/Doist/reactist/compare/v31.1.0...v31.2.0) (2026-05-20)
+
+### Features
+
+- **storybook:** restore a11y (and other) badges in toolbar ([#1042](https://github.com/Doist/reactist/issues/1042)) ([159f26c](https://github.com/Doist/reactist/commit/159f26c44ebee0d26559ed6127fa49ac4f4ceb7b))
+
 ## [31.1.0](https://github.com/Doist/reactist/compare/v31.0.0...v31.1.0) (2026-05-19)
 
 ### Features
