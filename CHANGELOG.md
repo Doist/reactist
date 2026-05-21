@@ -1,3 +1,25 @@
+## [31.2.0](https://github.com/Doist/reactist/compare/v31.1.0...v31.2.0) (2026-05-20)
+
+### Features
+
+- **storybook:** restore a11y (and other) badges in toolbar ([#1042](https://github.com/Doist/reactist/issues/1042)) ([159f26c](https://github.com/Doist/reactist/commit/159f26c44ebee0d26559ed6127fa49ac4f4ceb7b))
+
+## [31.1.0](https://github.com/Doist/reactist/compare/v31.0.0...v31.1.0) (2026-05-19)
+
+### Features
+
+- upgrade storybook 6.5 -> 9 + vite ([#1038](https://github.com/Doist/reactist/issues/1038)) ([c125cdd](https://github.com/Doist/reactist/commit/c125cddc7d718d2d42cc7c3e2a1a6156eaef3e30))
+
+## [31.0.0](https://github.com/Doist/reactist/compare/v30.1.4...v31.0.0) (2026-05-18)
+
+### ⚠ BREAKING CHANGES
+
+- drop React 17 support (#1040)
+
+### Miscellaneous Chores
+
+- drop React 17 support ([#1040](https://github.com/Doist/reactist/issues/1040)) ([f8d34e0](https://github.com/Doist/reactist/commit/f8d34e00dadccc0c524f633188fe10be3186ddff))
+
 ## [30.1.4](https://github.com/Doist/reactist/compare/v30.1.3...v30.1.4) (2026-04-08)
 
 ### Bug Fixes

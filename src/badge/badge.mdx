@@ -1,0 +1,75 @@
+import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import * as BadgeStories from './badge.stories'
+
+import { Box } from '../box'
+import { Button } from '../button'
+import { Columns, Column } from '../columns'
+import { Stack } from '../stack'
+
+import { TextLink } from '../text-link'
+import { Text } from '../text'
+
+import { Badge } from './badge'
+
+<Meta of={BadgeStories} />
+
+# Badge
+
+A badge used to bring attention to a particular UI element or functionality.
+
+The use of variants does not provide extra semantic meaning and is strictly visual. Ensure your content provides the necessary context for users by using the `aria-label` prop if needed.
+
+<Canvas>
+    <Story of={BadgeStories.Playground} />
+</Canvas>
+
+## Examples
+
+<Canvas>
+    <Story of={BadgeStories.MainDemo} />
+</Canvas>
+
+## Inside other elements
+
+<Canvas>
+    <Story of={BadgeStories.InsideOtherElements} />
+</Canvas>
+
+## Props
+
+<Controls of={BadgeStories.Playground} />
+
+## Colors
+
+The following CSS custom properties are available to customize the badge component appearance. The values appearing below are the default values.
+
+```css
+:root {
+    --reactist-badge-font-size: 10px;
+
+    --reactist-badge-info-tint: #666666;
+    --reactist-badge-info-fill: #eeeeee;
+
+    --reactist-badge-positive-tint: #058527;
+    --reactist-badge-positive-fill: #e0f0e3;
+
+    --reactist-badge-promote-tint: #8f4700;
+    --reactist-badge-promote-fill: #faead1;
+
+    --reactist-badge-attention-tint: #cf473a;
+    --reactist-badge-attention-fill: #f9e3e2;
+
+    --reactist-badge-warning-tint: #faead1;
+    --reactist-badge-warning-fill: #eb8909;
+}
+```
+
+### Dark mode
+
+Even though Reactist does not yet owns the concept of dark mode, and leaves it for apps to set it
+up, here's a demo on how easily you can prepare badges for dark mode by setting CSS custom
+properties.
+
+<Canvas>
+    <Story of={BadgeStories.DarkMode} />
+</Canvas>

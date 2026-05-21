@@ -179,7 +179,7 @@ describe('SelectField', () => {
         expect(selectElement).toHaveAttribute('data-something', 'whatever')
     })
 
-    it('allows to select from the options', () => {
+    it('allows to select from the options', async () => {
         render(
             <SelectField label="Theme" defaultValue="-">
                 <option value="-" disabled>
@@ -189,36 +189,38 @@ describe('SelectField', () => {
                 <option value="dark">Dark theme</option>
             </SelectField>,
         )
+        const user = userEvent.setup()
 
         const selectElement = screen.getByRole('combobox', { name: 'Theme' })
         expect(selectElement).toHaveValue('-')
         expect(selectElement).toHaveDisplayValue('Select theme')
 
-        userEvent.selectOptions(selectElement, 'light')
+        await user.selectOptions(selectElement, 'light')
         expect(selectElement).toHaveValue('light')
         expect(selectElement).toHaveDisplayValue('Light theme')
 
-        userEvent.selectOptions(selectElement, 'dark')
+        await user.selectOptions(selectElement, 'dark')
         expect(selectElement).toHaveValue('dark')
         expect(selectElement).toHaveDisplayValue('Dark theme')
     })
 
-    it('can be disabled', () => {
+    it('can be disabled', async () => {
         render(
             <SelectField label="Theme" defaultValue="dark" disabled>
                 <option value="light">Light theme</option>
                 <option value="dark">Dark theme</option>
             </SelectField>,
         )
+        const user = userEvent.setup()
 
         const selectElement = screen.getByRole('combobox', { name: 'Theme' })
         expect(selectElement).toBeDisabled()
         expect(selectElement).toHaveValue('dark')
-        userEvent.selectOptions(selectElement, 'light')
+        await user.selectOptions(selectElement, 'light')
         expect(selectElement).toHaveValue('dark')
     })
 
-    it('can be a controlled select field', () => {
+    it('can be a controlled select field', async () => {
         function TestCase() {
             const [theme, setTheme] = React.useState('dark')
             return (
@@ -236,11 +238,12 @@ describe('SelectField', () => {
         }
 
         render(<TestCase />)
+        const user = userEvent.setup()
         const selectElement = screen.getByRole('combobox', { name: 'Theme' })
         expect(selectElement).toHaveValue('dark')
         expect(screen.getByTestId('container')).toHaveAttribute('data-theme', 'dark')
 
-        userEvent.selectOptions(selectElement, 'light')
+        await user.selectOptions(selectElement, 'light')
         expect(selectElement).toHaveValue('light')
         expect(selectElement).toHaveDisplayValue('Light theme')
         expect(screen.getByTestId('container')).toHaveAttribute('data-theme', 'light')

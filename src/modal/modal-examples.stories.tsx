@@ -1,7 +1,8 @@
 import * as React from 'react'
 
-import { action } from '@storybook/addon-actions'
+import { action } from 'storybook/actions'
 
+import { openModal } from '../../.storybook/open-modal'
 import { Box } from '../box'
 import { IconButton } from '../button'
 import { Column, Columns } from '../columns'
@@ -25,7 +26,6 @@ import {
     ModalHeader,
     ModalOptionsForm,
     ModalStoryStateProvider,
-    openModal,
     ScrollableContent,
 } from './modal-stories-components'
 

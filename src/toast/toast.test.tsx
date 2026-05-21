@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { act } from 'react'
 
-import { act, render, screen, waitFor, within } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
@@ -33,41 +33,45 @@ describe('useToast', () => {
         )
     }
 
-    function renderTestCase(providerProps?: Omit<ToastsProviderProps, 'children'>) {
+    function renderTestCase(
+        providerProps?: Omit<ToastsProviderProps, 'children'>,
+        user: ReturnType<typeof userEvent.setup> = userEvent.setup(),
+    ) {
         const propsRef: { current: Partial<ToastProps> } = { current: {} }
         return {
+            user,
             ...render(
                 <ToastsProvider {...providerProps}>
                     <TestCase getToastProps={() => propsRef.current} />
                 </ToastsProvider>,
             ),
-            showToast(this: void, props: Partial<ToastProps> = {}) {
+            async showToast(this: void, props: Partial<ToastProps> = {}) {
                 propsRef.current = props
-                userEvent.click(screen.getByRole('button', { name: 'Show toast' }))
+                await user.click(screen.getByRole('button', { name: 'Show toast' }))
             },
         }
     }
 
     describe('ToastsProvider', () => {
-        it('allows to pass a custom className for the container', () => {
+        it('allows to pass a custom className for the container', async () => {
             const { showToast } = renderTestCase({
                 containerClassName: 'customContainerClassName',
             })
-            showToast()
+            await showToast()
 
             expect(screen.getByTestId('toasts-container')).toHaveClass('customContainerClassName')
         })
     })
 
-    it('renders a semantic alert with the given message', () => {
+    it('renders a semantic alert with the given message', async () => {
         const { showToast } = renderTestCase()
-        showToast({ message: 'Project has been published' })
+        await showToast({ message: 'Project has been published' })
         expect(screen.getByRole('alert').textContent).toBe('Project has been published')
     })
 
-    it('also renders the description if given', () => {
+    it('also renders the description if given', async () => {
         const { showToast } = renderTestCase()
-        showToast({
+        await showToast({
             message: 'No connection',
             description: 'You will be able to post comments when online',
         })
@@ -77,11 +81,11 @@ describe('useToast', () => {
     })
 
     it('allows to show more than one toast at once, and dismiss them individually', async () => {
-        const { showToast } = renderTestCase()
+        const { showToast, user } = renderTestCase()
 
-        showToast({ message: 'Your comment was sent' })
-        showToast({ message: 'Task was created' })
-        showToast({ message: 'The project could not be deleted' })
+        await showToast({ message: 'Your comment was sent' })
+        await showToast({ message: 'Task was created' })
+        await showToast({ message: 'The project could not be deleted' })
 
         expect(screen.getAllByRole('alert').map((node) => node.textContent)).toEqual([
             'Your comment was sent',
@@ -89,7 +93,9 @@ describe('useToast', () => {
             'The project could not be deleted',
         ])
 
-        userEvent.click(within(getToast('Task was created')).getByRole('button', { name: 'Close' }))
+        await user.click(
+            within(getToast('Task was created')).getByRole('button', { name: 'Close' }),
+        )
 
         await waitFor(() => {
             expect(screen.getAllByRole('alert').map((node) => node.textContent)).toEqual([
@@ -101,39 +107,39 @@ describe('useToast', () => {
 
     it('allows to render an action button that performs the action when clicked', async () => {
         const actionFn = jest.fn()
-        const { showToast } = renderTestCase()
-        showToast({ action: { label: 'Undo', onClick: actionFn } })
+        const { showToast, user } = renderTestCase()
+        await showToast({ action: { label: 'Undo', onClick: actionFn } })
         expect(actionFn).not.toHaveBeenCalled()
-        userEvent.click(within(screen.getByRole('alert')).getByRole('button', { name: 'Undo' }))
+        await user.click(within(screen.getByRole('alert')).getByRole('button', { name: 'Undo' }))
         expect(actionFn).toHaveBeenCalledTimes(1)
         await waitFor(() => {
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         })
     })
 
-    it('allows to render something custom in the action slot', () => {
+    it('allows to render something custom in the action slot', async () => {
         const { showToast } = renderTestCase()
-        showToast({ action: <a href="/whatever">Whatever</a> })
+        await showToast({ action: <a href="/whatever">Whatever</a> })
         expect(
             within(screen.getByRole('alert')).getByRole('link', { name: 'Whatever' }),
         ).toBeInTheDocument()
     })
 
-    it('renders an icon if given', () => {
+    it('renders an icon if given', async () => {
         const { showToast } = renderTestCase()
-        showToast({ icon: <TestIcon /> })
+        await showToast({ icon: <TestIcon /> })
         expect(within(screen.getByRole('alert')).getByTestId('test-icon')).toBeInTheDocument()
     })
 
     describe('if `closeToast` is false', () => {
-        it('keeps the toast visible after the action button is clicked', () => {
+        it('keeps the toast visible after the action button is clicked', async () => {
             const actionFn = jest.fn()
-            const { showToast } = renderTestCase()
-            showToast({
+            const { showToast, user } = renderTestCase()
+            await showToast({
                 action: { label: 'A sticky toast action', onClick: actionFn, closeToast: false },
             })
             expect(actionFn).not.toHaveBeenCalled()
-            userEvent.click(
+            await user.click(
                 within(screen.getByRole('alert')).getByRole('button', {
                     name: 'A sticky toast action',
                 }),
@@ -148,12 +154,12 @@ describe('useToast', () => {
     describe('if `closeToast` is true', () => {
         it('removes the toast from view after the action button is clicked', async () => {
             const actionFn = jest.fn()
-            const { showToast } = renderTestCase()
-            showToast({
+            const { showToast, user } = renderTestCase()
+            await showToast({
                 action: { label: 'A sticky toast action', onClick: actionFn },
             })
             expect(actionFn).not.toHaveBeenCalled()
-            userEvent.click(
+            await user.click(
                 within(screen.getByRole('alert')).getByRole('button', {
                     name: 'A sticky toast action',
                 }),
@@ -167,25 +173,25 @@ describe('useToast', () => {
     })
 
     describe('Dismiss button', () => {
-        it('is rendered with a default label', () => {
+        it('is rendered with a default label', async () => {
             const { showToast } = renderTestCase()
-            showToast()
+            await showToast()
             expect(
                 within(screen.getByRole('alert')).getByRole('button', { name: 'Close' }),
             ).toBeInTheDocument()
         })
 
-        it('is possible to customize the default label globally', () => {
+        it('is possible to customize the default label globally', async () => {
             const { showToast } = renderTestCase({ defaultDismissLabel: 'Cerrar' })
-            showToast()
+            await showToast()
             expect(
                 within(screen.getByRole('alert')).getByRole('button', { name: 'Cerrar' }),
             ).toBeInTheDocument()
         })
 
-        it('is possible to customize the dismiss button label for a specific toast', () => {
+        it('is possible to customize the dismiss button label for a specific toast', async () => {
             const { showToast } = renderTestCase()
-            showToast({ dismissLabel: 'Cerrar notificación' })
+            await showToast({ dismissLabel: 'Cerrar notificación' })
             expect(
                 within(screen.getByRole('alert')).getByRole('button', {
                     name: 'Cerrar notificación',
@@ -194,9 +200,9 @@ describe('useToast', () => {
         })
 
         it('removes the toast from view when clicked', async () => {
-            const { showToast } = renderTestCase()
-            showToast()
-            userEvent.click(
+            const { showToast, user } = renderTestCase()
+            await showToast()
+            await user.click(
                 within(screen.getByRole('alert')).getByRole('button', { name: 'Close' }),
             )
             await waitFor(() => {
@@ -204,19 +210,19 @@ describe('useToast', () => {
             })
         })
 
-        it('can be hidden', () => {
+        it('can be hidden', async () => {
             const { showToast } = renderTestCase()
-            showToast({ showDismissButton: false })
+            await showToast({ showDismissButton: false })
             expect(within(screen.getByRole('alert')).queryByRole('button')).not.toBeInTheDocument()
         })
 
-        it('calls the onDismiss callback, if given', () => {
+        it('calls the onDismiss callback, if given', async () => {
             const onDismiss = jest.fn()
-            const { showToast } = renderTestCase()
-            showToast({ onDismiss })
+            const { showToast, user } = renderTestCase()
+            await showToast({ onDismiss })
 
             expect(onDismiss).not.toHaveBeenCalled()
-            userEvent.click(
+            await user.click(
                 within(screen.getByRole('alert')).getByRole('button', { name: 'Close' }),
             )
             expect(onDismiss).toHaveBeenCalledTimes(1)
@@ -232,9 +238,10 @@ describe('useToast', () => {
             jest.useRealTimers()
         })
 
-        it('automatically hides from view after a few seconds', () => {
-            const { showToast } = renderTestCase()
-            showToast()
+        it('automatically hides from view after a few seconds', async () => {
+            const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime })
+            const { showToast } = renderTestCase(undefined, user)
+            await showToast()
             jest.advanceTimersByTime(9500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
             act(() => {
@@ -243,9 +250,10 @@ describe('useToast', () => {
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         })
 
-        it('is possible to customize the default autoDismissDelay globally', () => {
-            const { showToast } = renderTestCase({ defaultAutoDismissDelay: 5 })
-            showToast()
+        it('is possible to customize the default autoDismissDelay globally', async () => {
+            const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime })
+            const { showToast } = renderTestCase({ defaultAutoDismissDelay: 5 }, user)
+            await showToast()
             jest.advanceTimersByTime(4500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
             act(() => {
@@ -254,11 +262,12 @@ describe('useToast', () => {
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         })
 
-        it('is possible to customize the autoDismissDelay for a specific toast', () => {
-            const { showToast } = renderTestCase()
+        it('is possible to customize the autoDismissDelay for a specific toast', async () => {
+            const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime })
+            const { showToast } = renderTestCase(undefined, user)
 
             // Customized toast
-            showToast({ autoDismissDelay: 15 })
+            await showToast({ autoDismissDelay: 15 })
             jest.advanceTimersByTime(9500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
             jest.advanceTimersByTime(500)
@@ -269,7 +278,7 @@ describe('useToast', () => {
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
 
             // Other toasts keep using the default
-            showToast()
+            await showToast()
             jest.advanceTimersByTime(9500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
             act(() => {
@@ -278,15 +287,16 @@ describe('useToast', () => {
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         })
 
-        it('disables auto-dismiss behaviour when hovering over the toast', () => {
-            const { showToast } = renderTestCase()
+        it('disables auto-dismiss behaviour when hovering over the toast', async () => {
+            const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime })
+            const { showToast } = renderTestCase(undefined, user)
 
             // Show it, and advance nearly to auto-dismiss time
-            showToast()
+            await showToast()
             jest.advanceTimersByTime(9500)
 
             // Hover, and check that it does not disappear after the remainig time
-            userEvent.hover(screen.getByRole('alert'))
+            await user.hover(screen.getByRole('alert'))
             jest.advanceTimersByTime(500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
 
@@ -295,7 +305,7 @@ describe('useToast', () => {
             expect(screen.getByRole('alert')).toBeInTheDocument()
 
             // unhover, and check that we have to wait the default delay all over again
-            userEvent.unhover(screen.getByRole('alert'))
+            await user.unhover(screen.getByRole('alert'))
             jest.advanceTimersByTime(9500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
             act(() => {
@@ -304,9 +314,10 @@ describe('useToast', () => {
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         })
 
-        it('can be disabled', () => {
-            const { showToast } = renderTestCase()
-            showToast({ autoDismissDelay: false })
+        it('can be disabled', async () => {
+            const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime })
+            const { showToast } = renderTestCase(undefined, user)
+            await showToast({ autoDismissDelay: false })
             jest.advanceTimersByTime(9500)
             expect(screen.getByRole('alert')).toBeInTheDocument()
             jest.advanceTimersByTime(500)
@@ -321,20 +332,20 @@ describe('useToast', () => {
             const { container, showToast } = renderTestCase()
 
             // Show several toasts
-            showToast({
+            await showToast({
                 message: 'Task was completed',
                 description: 'You can now continue with your next task',
                 action: { label: 'Undo', onClick: () => undefined },
             })
-            showToast({
+            await showToast({
                 message: 'Task was deleted',
                 description: 'This action cannot be undone',
             })
-            showToast({
+            await showToast({
                 message: 'Your account is unverified',
                 action: { label: 'Click here to verify', onClick: () => undefined },
             })
-            showToast({
+            await showToast({
                 icon: <TestIcon />,
                 message: 'Your comment was sent',
             })
@@ -369,12 +380,13 @@ describe('Toast', () => {
                 <TestCase />
             </ToastsProvider>,
         )
+        const user = userEvent.setup()
         expect(screen.queryByRole('alert')).not.toBeInTheDocument()
-        userEvent.click(screen.getByRole('button', { name: 'Toggle' }))
+        await user.click(screen.getByRole('button', { name: 'Toggle' }))
         await waitFor(() => {
             expect(screen.getByRole('alert')).toHaveTextContent('A toast that can be toggled')
         })
-        userEvent.click(screen.getByRole('button', { name: 'Toggle' }))
+        await user.click(screen.getByRole('button', { name: 'Toggle' }))
         await waitFor(() => {
             expect(screen.queryByRole('alert')).not.toBeInTheDocument()
         })
@@ -402,11 +414,12 @@ describe('StaticToast', () => {
     })
 
     describe('action', () => {
-        it('allows to provide an object used to generate an action button', () => {
+        it('allows to provide an object used to generate an action button', async () => {
             const onClick = jest.fn()
             renderTestCase({ action: { label: 'Retry', onClick } })
+            const user = userEvent.setup()
             expect(onClick).not.toHaveBeenCalled()
-            userEvent.click(
+            await user.click(
                 within(screen.getByRole('alert')).getByRole('button', { name: 'Retry' }),
             )
             expect(onClick).toHaveBeenCalledTimes(1)
@@ -426,11 +439,12 @@ describe('StaticToast', () => {
     })
 
     describe('Dismiss button', () => {
-        it('calls onDismiss when clicked', () => {
+        it('calls onDismiss when clicked', async () => {
             const onDismiss = jest.fn()
             renderTestCase({ onDismiss })
+            const user = userEvent.setup()
             expect(onDismiss).not.toHaveBeenCalled()
-            userEvent.click(
+            await user.click(
                 within(screen.getByRole('alert')).getByRole('button', { name: 'Close' }),
             )
             expect(onDismiss).toHaveBeenCalledTimes(1)

@@ -1,0 +1,88 @@
+import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import * as TextFieldStories from './text-field.stories'
+
+import { TextField } from './'
+import { Box } from '../box'
+import { Stack } from '../stack'
+import { Text } from '../text'
+import { Button, IconButton } from '../button'
+import { Tooltip } from '../tooltip'
+
+import { selectWithNone } from '../utils/storybook-helper'
+
+<Meta of={TextFieldStories} />
+
+# TextField
+
+A component used to accept textual input from the user.
+
+<Canvas>
+    <Story of={TextFieldStories.InteractiveProps} />
+</Canvas>
+
+<Controls of={TextFieldStories.InteractiveProps} />
+
+## Colors
+
+The following CSS custom properties are available so that the `Textfield`'s border colors can be customized.
+Note that these variables are shared with other components such as `PasswordField`, `SelectField`, and `TextArea`.
+
+```
+--reactist-inputs-focus
+--reactist-inputs-idle
+--reactist-inputs-alert
+```
+
+<Canvas withToolbar>
+    <Story of={TextFieldStories.MessageTone} />
+</Canvas>
+
+<Canvas withToolbar>
+    <Story of={TextFieldStories.WithoutLabel} />
+</Canvas>
+
+<Canvas withToolbar>
+    <Story of={TextFieldStories.Icons} />
+</Canvas>
+
+<Canvas withToolbar>
+    <Story of={TextFieldStories.ActionButton} />
+</Canvas>
+
+As an alternative to the `message` prop, you can also use tooltips to
+associate a description to a text field. **This is not recommended in
+general**, because the description will not be visible unless you’re
+hovering or focusing on the field.
+
+However, it can work in a situation like the following: the description
+is only needed to convey that the value being typed is invalid, and at
+the same time, the field forces the value back to valid when blurred.
+Hence, the description is never needed when the field is not focused anyway.
+
+<Canvas withToolbar>
+    <Story of={TextFieldStories.WithTooltip} />
+</Canvas>
+
+## Variants
+
+The `variant` prop is used to change the style of the text field. The default variant is `default`. The other variant is `bordered`.
+
+<Canvas withToolbar>
+    <Story of={TextFieldStories.BorderedVariant} />
+</Canvas>
+
+## Max length
+
+The `maxLength` prop is used to limit the number of characters that the user can input. When the user tries to input more characters than the maximum allowed, the field won't accept the input.
+
+<Canvas withToolbar>
+    <Story of={TextFieldStories.MaxLength} />
+</Canvas>
+
+## Character count position
+
+The `characterCountPosition` prop is used to position the character count element. It can be shown <strong>below</strong> the field, <strong>inline</strong> with the field or <strong>hidden</strong>.
+
+<Canvas withToolbar>
+    <Story of={TextFieldStories.CharacterCountPosition} />
+</Canvas>

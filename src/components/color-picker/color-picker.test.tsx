@@ -6,22 +6,25 @@ import userEvent from '@testing-library/user-event'
 import { ColorItem, ColorPicker } from './color-picker'
 
 describe('ColorPicker', () => {
-    it('renders without crashing', () => {
+    it('renders without crashing', async () => {
         const { container } = render(<ColorPicker />)
-        userEvent.click(screen.getByRole('button'))
+        const user = userEvent.setup()
+        await user.click(screen.getByRole('button'))
         expect(container).toMatchSnapshot()
     })
 
-    it('renders with custom colorList', () => {
+    it('renders with custom colorList', async () => {
         const { container } = render(<ColorPicker colorList={['red', 'green', '#0000FF']} />)
-        userEvent.click(screen.getByRole('button'))
+        const user = userEvent.setup()
+        await user.click(screen.getByRole('button'))
         expect(container).toMatchSnapshot()
     })
 
     describe('ColorItem', () => {
-        it('renders given color and does nothing when clicked without specified onClick handler', () => {
+        it('renders given color and does nothing when clicked without specified onClick handler', async () => {
             const { container } = render(<ColorItem color="#606060" colorIndex={0} />)
-            userEvent.click(screen.getByTestId('reactist-color-item'))
+            const user = userEvent.setup()
+            await user.click(screen.getByTestId('reactist-color-item'))
             expect(container).toMatchSnapshot()
         })
 
@@ -30,11 +33,12 @@ describe('ColorPicker', () => {
             expect(screen.getByTestId('reactist-color-item')).toHaveClass('active')
         })
 
-        it('calls onClick after clicking it', () => {
+        it('calls onClick after clicking it', async () => {
             const onClick = jest.fn()
             render(<ColorItem color="#fff" colorIndex={5} onClick={onClick} />)
+            const user = userEvent.setup()
 
-            userEvent.click(screen.getByTestId('reactist-color-item'))
+            await user.click(screen.getByTestId('reactist-color-item'))
 
             expect(onClick).toHaveBeenLastCalledWith(5)
         })

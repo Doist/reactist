@@ -1,7 +1,5 @@
 import * as React from 'react'
 
-import LinkTo from '@storybook/addon-links/react'
-
 import { Banner } from '../../src/banner'
 import Select from '../../src/components/deprecated-select'
 import { Stack } from '../../src/stack'
@@ -37,7 +35,10 @@ export function SelectStory() {
                 description={
                     <>
                         <strong>Deprecated:</strong> Please use{' '}
-                        <LinkTo kind="design-system-selectfield">SelectField</LinkTo> instead
+                        <a href="?path=/docs/design-system-selectfield--docs" target="_top">
+                            SelectField
+                        </a>{' '}
+                        instead
                     </>
                 }
             />

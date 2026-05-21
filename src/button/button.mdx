@@ -1,0 +1,128 @@
+import { useEffect, useState } from 'react'
+import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { Box } from '../box'
+import { Inline } from '../inline'
+import { Stack } from '../stack'
+import { Text } from '../text'
+import { Heading } from '../heading'
+import { Button } from './button'
+import * as ButtonStories from './button.stories'
+
+<Meta of={ButtonStories} />
+
+# Button
+
+<Description of={Button} />
+
+<Controls of={ButtonStories.Playground} />
+
+## Main demo
+
+<Canvas>
+    <Story of={ButtonStories.MainDemo} />
+</Canvas>
+
+## With label and icon
+
+To have icons rendered before or after the label, you can use the `startIcon` or `endIcon` prop for
+this purpose.
+
+Nothing prevents you from passing both a `startIcon` and an `endIcon` at the same time. However,
+this is discouraged, and not guaranteed to be supported in the future.
+
+<Canvas>
+    <Story of={ButtonStories.WithLabelAndIcon} />
+</Canvas>
+
+## With different size
+
+Buttons have a default `normal` size, but they can also be larger or smaller. Use the `size` prop
+for this purpose.
+
+<Canvas>
+    <Story of={ButtonStories.WithDifferentSize} />
+</Canvas>
+
+## Customized colors
+
+Though probably not the final official way to do it, this is a way to achieve one-off alternative
+styles for buttons.
+
+```jsx
+<Button
+    variant="primary"
+    style={{
+        '--reactist-btn-idle-tint': '#eee',
+        '--reactist-btn-idle-fill': '#666',
+        '--reactist-btn-hover-tint': '#fff',
+        '--reactist-btn-hover-fill': '#777',
+        '--reactist-btn-disabled-tint': '#fff',
+        '--reactist-btn-disabled-fill': '#ccc',
+    }}
+>
+    Click me
+</Button>
+```
+
+And here's how that look like:
+
+<Canvas>
+    <Story of={ButtonStories.CustomizedColors} />
+</Canvas>
+
+## Full-width
+
+Buttons can be set to take the full width of their container by using the `width` prop.
+
+<Canvas>
+    <Story of={ButtonStories.FullWidth} />
+</Canvas>
+
+## Playground
+
+<Canvas>
+    <Story of={ButtonStories.Playground} />
+</Canvas>
+
+## Dark mode
+
+Even though Reactist does not yet owns the concept of dark mode, and leaves it for apps to set it
+up, here's a demo on how easily you can set it up by manipulating color variables only.
+
+<Canvas>
+    <Story of={ButtonStories.DarkMode} />
+</Canvas>
+
+## Colors
+
+The following CSS custom properties are available to customize the button-like element appearance.
+
+```
+--reactist-actionable-primary-idle-tint
+--reactist-actionable-primary-idle-fill
+--reactist-actionable-primary-hover-tint
+--reactist-actionable-primary-hover-fill
+--reactist-actionable-primary-disabled-tint
+--reactist-actionable-primary-disabled-fill
+
+--reactist-actionable-secondary-idle-tint
+--reactist-actionable-secondary-idle-fill
+--reactist-actionable-secondary-hover-tint
+--reactist-actionable-secondary-hover-fill
+--reactist-actionable-secondary-disabled-tint
+--reactist-actionable-secondary-disabled-fill
+
+--reactist-actionable-tertiary-idle-tint
+--reactist-actionable-tertiary-idle-fill
+--reactist-actionable-tertiary-hover-tint
+--reactist-actionable-tertiary-hover-fill
+--reactist-actionable-tertiary-disabled-tint
+--reactist-actionable-tertiary-disabled-fill
+
+--reactist-actionable-destructive-idle-tint
+--reactist-actionable-destructive-idle-fill
+--reactist-actionable-destructive-hover-tint
+--reactist-actionable-destructive-hover-fill
+--reactist-actionable-destructive-disabled-tint
+--reactist-actionable-destructive-disabled-fill
+```
