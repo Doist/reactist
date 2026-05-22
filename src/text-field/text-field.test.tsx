@@ -239,6 +239,17 @@ describe('TextField', () => {
         expect(inputElement).toHaveFocus()
     })
 
+    it('forwards exceptionallySetClassName to the underlying input element', () => {
+        render(
+            <TextField
+                data-testid="text-field"
+                label="Whatʼs your name?"
+                exceptionallySetClassName="custom-input-class"
+            />,
+        )
+        expect(screen.getByTestId('text-field')).toHaveClass('custom-input-class')
+    })
+
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = render(

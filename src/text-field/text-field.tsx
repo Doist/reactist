@@ -8,13 +8,15 @@ import { Box } from '../box'
 import styles from './text-field.module.css'
 
 import type { BaseFieldProps, BaseFieldVariantProps, FieldComponentProps } from '../base-field'
+import type { ObfuscatedClassName } from '../utils/common-types'
 
 type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 
 interface TextFieldProps
     extends Omit<FieldComponentProps<HTMLInputElement>, 'type' | 'supportsStartAndEndSlots'>,
         BaseFieldVariantProps,
-        Pick<BaseFieldProps, 'characterCountPosition'> {
+        Pick<BaseFieldProps, 'characterCountPosition'>,
+        ObfuscatedClassName {
     type?: TextFieldType
     startSlot?: React.ReactElement | string | number
     endSlot?: React.ReactElement | string | number
@@ -45,6 +47,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         onChange: originalOnChange,
         characterCountPosition = 'below',
         endSlotPosition = 'bottom',
+        exceptionallySetClassName,
         ...props
     },
     ref,
@@ -107,6 +110,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                         type={type}
                         ref={combinedRef}
                         maxLength={maxLength}
+                        className={exceptionallySetClassName}
                         onChange={(event) => {
                             originalOnChange?.(event)
                             onChange?.(event)
