@@ -5,6 +5,15 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { Avatar } from './avatar'
 
 describe('Avatar', () => {
+    function failCurrentAvatarImage(currentSrc: string) {
+        const image = screen.getByRole('img', { name: 'Jane Doe' })
+        Object.defineProperty(image, 'currentSrc', {
+            configurable: true,
+            value: currentSrc,
+        })
+        fireEvent.error(image)
+    }
+
     it('renders a string image URL', () => {
         render(<Avatar data-testid="avatar" size={36} name="Jane Doe" image="avatar.png" />)
 
@@ -70,22 +79,82 @@ describe('Avatar', () => {
         expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveAttribute('src', 'avatar.png')
     })
 
-    it('allows a source-map image to load after size changes away from a failed source', () => {
+    it('removes a failed source-map candidate and retries with the remaining candidates', () => {
+        render(
+            <Avatar
+                size={36}
+                name="Jane Doe"
+                image={{
+                    36: 'avatar-36.png',
+                    72: 'avatar-72.png',
+                    144: 'avatar-144.png',
+                }}
+            />,
+        )
+
+        failCurrentAvatarImage('avatar-144.png')
+
+        const image = screen.getByRole('img', { name: 'Jane Doe' })
+        expect(image).toHaveAttribute('src', 'avatar-72.png')
+        expect(image).toHaveAttribute('srcset', 'avatar-36.png 36w, avatar-72.png 72w')
+        expect(image).toHaveAttribute('sizes', '36px')
+    })
+
+    it('removes the selected source-map candidate when it is not the fallback src', () => {
+        render(
+            <Avatar
+                size={36}
+                name="Jane Doe"
+                image={{
+                    36: 'avatar-36.png',
+                    72: 'avatar-72.png',
+                    144: 'avatar-144.png',
+                }}
+            />,
+        )
+
+        failCurrentAvatarImage(new URL('avatar-72.png', document.baseURI).href)
+
+        const image = screen.getByRole('img', { name: 'Jane Doe' })
+        expect(image).toHaveAttribute('src', 'avatar-144.png')
+        expect(image).toHaveAttribute('srcset', 'avatar-36.png 36w, avatar-144.png 144w')
+        expect(image).toHaveAttribute('sizes', '36px')
+    })
+
+    it('keeps filtered source-map candidates when only the avatar size changes', () => {
         const image = {
-            36: 'missing-36.png',
+            36: 'avatar-36.png',
             72: 'avatar-72.png',
+            144: 'avatar-144.png',
         }
         const { rerender } = render(<Avatar size={36} name="Jane Doe" image={image} />)
 
-        fireEvent.error(screen.getByRole('img', { name: 'Jane Doe' }))
-        expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveTextContent('JD')
+        failCurrentAvatarImage('avatar-144.png')
 
         rerender(<Avatar size={72} name="Jane Doe" image={image} />)
 
-        expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveAttribute(
-            'src',
-            'avatar-72.png',
+        const retriedImage = screen.getByRole('img', { name: 'Jane Doe' })
+        expect(retriedImage).toHaveAttribute('src', 'avatar-72.png')
+        expect(retriedImage).toHaveAttribute('srcset', 'avatar-36.png 36w, avatar-72.png 72w')
+        expect(retriedImage).toHaveAttribute('sizes', '72px')
+    })
+
+    it('falls back to initials when every source-map candidate fails', () => {
+        render(
+            <Avatar
+                size={36}
+                name="Jane Doe"
+                image={{
+                    36: 'avatar-36.png',
+                    72: 'avatar-72.png',
+                }}
+            />,
         )
+
+        failCurrentAvatarImage('avatar-72.png')
+        failCurrentAvatarImage('avatar-36.png')
+
+        expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveTextContent('JD')
     })
 
     it('retries a failed image when the same image is provided after being removed', () => {

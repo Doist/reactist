@@ -5,6 +5,7 @@ import classNames from 'classnames'
 import { Box } from '../box'
 
 import {
+    getAvailableAvatarImageProps,
     getAvatarImageProps,
     getAvatarMetaColorIndex,
     getInitials,
@@ -55,7 +56,28 @@ function getAvatarImageKey(imageProps?: AvatarImageProps) {
         return 'fallback'
     }
 
-    return [imageProps.src, imageProps.srcSet, imageProps.sizes].filter(Boolean).join('|')
+    if (imageProps.sources) {
+        return imageProps.sources.map(({ sourceSize, src }) => `${sourceSize}:${src}`).join('|')
+    }
+
+    return imageProps.src
+}
+
+function getAbsoluteImageSource(src: string, image: HTMLImageElement) {
+    try {
+        return new URL(src, image.ownerDocument.baseURI).href
+    } catch {
+        return src
+    }
+}
+
+function getFailedImageSource(imageProps: AvatarImageProps, image: HTMLImageElement) {
+    const failedSrc = image.currentSrc || image.src || imageProps.src
+    const matchingSource = imageProps.sources?.find(
+        ({ src }) => src === failedSrc || getAbsoluteImageSource(src, image) === failedSrc,
+    )
+
+    return matchingSource?.src ?? imageProps.src
 }
 
 function AvatarContent({
@@ -67,9 +89,9 @@ function AvatarContent({
     exceptionallySetClassName,
     'data-testid': testId,
 }: AvatarContentProps) {
-    const [imageFailed, setImageFailed] = React.useState(false)
+    const [failedImageSources, setFailedImageSources] = React.useState<string[]>([])
 
-    const visibleImage = imageFailed ? undefined : imageProps
+    const visibleImage = getAvailableAvatarImageProps(imageProps, failedImageSources)
     const initials = getInitials(name)
     const label = alt ?? name
     const isDecorative = label === ''
@@ -99,7 +121,15 @@ function AvatarContent({
                     sizes={visibleImage.sizes}
                     alt={label ?? ''}
                     aria-hidden={isDecorative ? true : undefined}
-                    onError={() => setImageFailed(true)}
+                    onError={(event) => {
+                        const failedSource = getFailedImageSource(visibleImage, event.currentTarget)
+
+                        setFailedImageSources((currentFailedSources) =>
+                            currentFailedSources.includes(failedSource)
+                                ? currentFailedSources
+                                : [...currentFailedSources, failedSource],
+                        )
+                    }}
                 />
             ) : (
                 initials

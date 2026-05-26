@@ -3,10 +3,15 @@ const AVATAR_SIZES = [80, 72, 62, 50, 40, 36, 30, 28, 24, 20, 18, 16, 12] as con
 type AvatarSize = (typeof AVATAR_SIZES)[number]
 type AvatarShape = 'circle' | 'rounded'
 type AvatarImage = string | Record<number, string>
+type AvatarImageSource = {
+    sourceSize: number
+    src: string
+}
 type AvatarImageProps = {
     src: string
     srcSet?: string
     sizes?: string
+    sources?: AvatarImageSource[]
 }
 
 const AVATAR_META_COLOR_COUNT = 20
@@ -68,11 +73,27 @@ function getInitials(name?: string) {
     return firstInitial
 }
 
-function getSortedImageSources(image: Record<number, string>) {
+function getSortedImageSources(image: Record<number, string>): AvatarImageSource[] {
     return Object.entries(image)
         .map(([sourceSize, src]) => ({ sourceSize: Number(sourceSize), src }))
         .filter(({ sourceSize, src }) => Number.isFinite(sourceSize) && sourceSize > 0 && src)
         .sort((a, b) => a.sourceSize - b.sourceSize)
+}
+
+function getImagePropsFromSources(
+    sources: AvatarImageSource[],
+    sizes?: string,
+): AvatarImageProps | undefined {
+    if (sources.length === 0) {
+        return undefined
+    }
+
+    return {
+        src: sources[sources.length - 1]!.src,
+        srcSet: sources.map(({ sourceSize, src }) => `${src} ${sourceSize}w`).join(', '),
+        sizes,
+        sources,
+    }
 }
 
 function getAvatarImageProps(
@@ -88,15 +109,25 @@ function getAvatarImageProps(
     }
 
     const sources = getSortedImageSources(image)
-    if (sources.length === 0) {
+    return getImagePropsFromSources(sources, `${size}px`)
+}
+
+function getAvailableAvatarImageProps(
+    imageProps: AvatarImageProps | undefined,
+    failedSources: readonly string[],
+) {
+    if (!imageProps) {
         return undefined
     }
 
-    return {
-        src: sources[sources.length - 1]!.src,
-        srcSet: sources.map(({ sourceSize, src }) => `${src} ${sourceSize}w`).join(', '),
-        sizes: `${size}px`,
+    if (!imageProps.sources) {
+        return failedSources.includes(imageProps.src) ? undefined : imageProps
     }
+
+    return getImagePropsFromSources(
+        imageProps.sources.filter(({ src }) => !failedSources.includes(src)),
+        imageProps.sizes,
+    )
 }
 
 function getAvatarMetaColorIndex(name?: string) {
@@ -113,10 +144,11 @@ function getAvatarMetaColorIndex(name?: string) {
 export {
     AVATAR_META_COLOR_COUNT,
     AVATAR_SIZES,
+    getAvailableAvatarImageProps,
     getAvatarImageProps,
     getAvatarMetaColorIndex,
     getInitials,
     normalizeAvatarName,
     ROUNDED_AVATAR_RADIUS_BY_SIZE,
 }
-export type { AvatarImage, AvatarImageProps, AvatarShape, AvatarSize }
+export type { AvatarImage, AvatarImageProps, AvatarImageSource, AvatarShape, AvatarSize }

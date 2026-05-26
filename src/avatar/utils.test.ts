@@ -1,5 +1,6 @@
 import {
     AVATAR_META_COLOR_COUNT,
+    getAvailableAvatarImageProps,
     getAvatarImageProps,
     getAvatarMetaColorIndex,
     getInitials,
@@ -84,6 +85,11 @@ describe('Avatar utils', () => {
                 src: 'avatar-144.png',
                 srcSet: 'avatar-36.png 36w, avatar-72.png 72w, avatar-144.png 144w',
                 sizes: '36px',
+                sources: [
+                    { sourceSize: 36, src: 'avatar-36.png' },
+                    { sourceSize: 72, src: 'avatar-72.png' },
+                    { sourceSize: 144, src: 'avatar-144.png' },
+                ],
             })
         })
 
@@ -106,7 +112,37 @@ describe('Avatar utils', () => {
                 src: 'avatar-72.png',
                 srcSet: 'avatar-72.png 72w',
                 sizes: '36px',
+                sources: [{ sourceSize: 72, src: 'avatar-72.png' }],
             })
+        })
+    })
+
+    describe('getAvailableAvatarImageProps', () => {
+        it('removes failed source-map candidates and recomputes the fallback src', () => {
+            const imageProps = getAvatarImageProps(
+                {
+                    36: 'avatar-36.png',
+                    72: 'avatar-72.png',
+                    144: 'avatar-144.png',
+                },
+                36,
+            )
+
+            expect(getAvailableAvatarImageProps(imageProps, ['avatar-144.png'])).toEqual({
+                src: 'avatar-72.png',
+                srcSet: 'avatar-36.png 36w, avatar-72.png 72w',
+                sizes: '36px',
+                sources: [
+                    { sourceSize: 36, src: 'avatar-36.png' },
+                    { sourceSize: 72, src: 'avatar-72.png' },
+                ],
+            })
+        })
+
+        it('returns undefined when a string image has failed', () => {
+            expect(
+                getAvailableAvatarImageProps({ src: 'avatar.png' }, ['avatar.png']),
+            ).toBeUndefined()
         })
     })
 
