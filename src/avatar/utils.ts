@@ -1,7 +1,21 @@
 const AVATAR_SIZES = [80, 72, 62, 50, 40, 36, 30, 28, 24, 20, 18, 16, 12] as const
 
+/**
+ * Supported avatar sizes, in CSS pixels.
+ */
 type AvatarSize = (typeof AVATAR_SIZES)[number]
+
+/**
+ * Supported avatar clipping shapes.
+ */
 type AvatarShape = 'circle' | 'rounded'
+
+/**
+ * Avatar image source.
+ *
+ * Use a string for a single image URL, or a source map keyed by intrinsic image width. Source maps
+ * are converted to native `srcSet` width descriptors.
+ */
 type AvatarImage = string | Record<number, string>
 type AvatarImageSource = {
     sourceSize: number
