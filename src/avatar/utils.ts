@@ -28,6 +28,11 @@ function normalizeAvatarName(name?: string) {
     return name?.trim().replace(/\s+/g, ' ') ?? ''
 }
 
+function getFirstCodePoint(value?: string) {
+    const [firstCodePoint = ''] = Array.from(value ?? '')
+    return firstCodePoint
+}
+
 function getInitials(name?: string) {
     const words = normalizeAvatarName(name)
         .replace(FILTER_CHARS_REGEXP, '')
@@ -36,8 +41,8 @@ function getInitials(name?: string) {
 
     const firstWord = words[0]
     const lastWord = words[words.length - 1]
-    const firstInitial = firstWord?.[0] ?? ''
-    const lastInitial = lastWord?.[0] ?? ''
+    const firstInitial = getFirstCodePoint(firstWord)
+    const lastInitial = getFirstCodePoint(lastWord)
 
     if (!firstInitial) {
         return ''

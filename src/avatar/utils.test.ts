@@ -21,6 +21,10 @@ describe('Avatar utils', () => {
             expect(getInitials('jane')).toBe('J')
         })
 
+        it('preserves non-BMP Unicode letter initials', () => {
+            expect(getInitials('\u{10400}eseret doe')).toBe('\u{10400}D')
+        })
+
         it('returns one initial when first and last initials match', () => {
             expect(getInitials('jane johnson')).toBe('J')
         })
