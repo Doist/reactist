@@ -5,18 +5,18 @@ import classNames from 'classnames'
 import { Box } from '../box'
 
 import {
-    getAvailableAvatarImageProps,
+    getAvailableImageSources,
     getAvatarImageIdentityKey,
-    getAvatarImageProps,
     getAvatarMetaColorIndex,
     getInitials,
+    getSources,
     ROUNDED_AVATAR_RADIUS_BY_SIZE,
 } from './utils'
 
 import styles from './avatar.module.css'
 
 import type { ObfuscatedClassName } from '../utils/common-types'
-import type { AvatarImage, AvatarImageProps, AvatarShape, AvatarSize } from './utils'
+import type { AvatarImage, AvatarShape, AvatarSize, ImageSources } from './utils'
 
 type AvatarStyle = React.CSSProperties & {
     '--reactist-avatar-size': string
@@ -36,8 +36,6 @@ type AvatarProps = ObfuscatedClassName & {
     /**
      * The avatar shape.
      *
-     * Use `circle` for user avatars and `rounded` for workspace or object avatars.
-     *
      * @default 'circle'
      */
     shape?: AvatarShape
@@ -45,17 +43,17 @@ type AvatarProps = ObfuscatedClassName & {
     /**
      * The display name represented by the avatar.
      *
-     * Used as the default accessible label, to generate fallback initials, and to assign the
-     * deterministic fallback meta color.
+     * Used as the default accessible label, to generate fallback initials, and
+     * to assign the deterministic background color when rendering initials.
      */
     name?: string
 
     /**
      * The avatar image.
      *
-     * Pass a string for a single image URL, or a source map keyed by intrinsic image width. Source
-     * maps render as native `srcSet`/`sizes` hints, with the largest valid source used as the
-     * fallback `src`.
+     * Pass a string for a single image URL, or a source map keyed by intrinsic
+     * image width. Source maps render as native `srcSet`/`sizes` hints, with
+     * the largest valid source used as the fallback `src`.
      */
     image?: AvatarImage
 
@@ -73,32 +71,82 @@ type AvatarProps = ObfuscatedClassName & {
 }
 
 /**
- * Displays an avatar from an image URL or deterministic initials fallback.
+ * Displays an avatar from an image URL, a source map keyed by intrinsic
+ * image width, or initials derived from the provided name (with a background
+ * color).
  */
-function Avatar({ size, shape = 'circle', name, image, alt, ...props }: AvatarProps) {
-    const imageProps = getAvatarImageProps(image, size)
-
+function Avatar({ image, ...props }: AvatarProps) {
     return (
         <AvatarContent
+            // Allows `AvatarContent` to remount when the image map changes,
+            // which resets error states
             key={getAvatarImageIdentityKey(image)}
+            image={image}
             {...props}
-            size={size}
-            shape={shape}
-            name={name}
-            imageProps={imageProps}
-            alt={alt}
         />
     )
 }
-Avatar.displayName = 'Avatar'
 
-type AvatarContentProps = ObfuscatedClassName & {
-    size: AvatarSize
-    shape: AvatarShape
-    name?: string
-    imageProps?: AvatarImageProps
-    alt?: string
-    'data-testid'?: string
+function AvatarContent({
+    size,
+    shape = 'circle',
+    name,
+    image,
+    alt,
+    exceptionallySetClassName,
+    'data-testid': testId,
+}: AvatarProps) {
+    const imageSources = getSources(image, size)
+    const [failedImageSources, setFailedImageSources] = React.useState<string[]>([])
+    const availableImageSources = getAvailableImageSources(imageSources, failedImageSources)
+
+    const initials = getInitials(name)
+    const label = alt ?? name
+    const isDecorative = label === ''
+
+    return (
+        <Box
+            className={classNames(
+                styles.avatar,
+                styles[`shape-${shape}`],
+                exceptionallySetClassName,
+            )}
+            style={getAvatarStyle(size, name)}
+            data-testid={testId}
+        >
+            {availableImageSources ? (
+                <img
+                    className={styles.image}
+                    src={availableImageSources.src}
+                    srcSet={availableImageSources.srcSet}
+                    sizes={availableImageSources.sizes}
+                    alt={label ?? ''}
+                    aria-hidden={isDecorative}
+                    onError={(event) => {
+                        const failedSource = getFailedImageSource(
+                            availableImageSources,
+                            event.currentTarget,
+                        )
+
+                        setFailedImageSources((currentFailedSources) =>
+                            currentFailedSources.includes(failedSource)
+                                ? currentFailedSources
+                                : [...currentFailedSources, failedSource],
+                        )
+                    }}
+                />
+            ) : (
+                <div
+                    className={styles.initials}
+                    role={label ? 'img' : undefined}
+                    aria-label={label}
+                    aria-hidden={isDecorative}
+                >
+                    {initials}
+                </div>
+            )}
+        </Box>
+    )
 }
 
 function getAvatarStyle(size: AvatarSize, name?: string): AvatarStyle {
@@ -119,71 +167,13 @@ function getAbsoluteImageSource(src: string, image: HTMLImageElement) {
     }
 }
 
-function getFailedImageSource(imageProps: AvatarImageProps, image: HTMLImageElement) {
+function getFailedImageSource(imageProps: ImageSources, image: HTMLImageElement) {
     const failedSrc = image.currentSrc || image.src || imageProps.src
     const matchingSource = imageProps.sources?.find(
         ({ src }) => src === failedSrc || getAbsoluteImageSource(src, image) === failedSrc,
     )
 
     return matchingSource?.src ?? imageProps.src
-}
-
-function AvatarContent({
-    size,
-    shape,
-    name,
-    imageProps,
-    alt,
-    exceptionallySetClassName,
-    'data-testid': testId,
-}: AvatarContentProps) {
-    const [failedImageSources, setFailedImageSources] = React.useState<string[]>([])
-
-    const visibleImage = getAvailableAvatarImageProps(imageProps, failedImageSources)
-    const initials = getInitials(name)
-    const label = alt ?? name
-    const isDecorative = label === ''
-    const hasFallbackInitials = !visibleImage && initials
-    const isEmpty = !visibleImage && !initials
-
-    return (
-        <Box
-            className={classNames(
-                styles.avatar,
-                styles[`shape-${shape}`],
-                hasFallbackInitials ? styles.fallback : undefined,
-                isEmpty ? styles.empty : undefined,
-                exceptionallySetClassName,
-            )}
-            style={getAvatarStyle(size, name)}
-            data-testid={testId}
-            role={!visibleImage && label ? 'img' : undefined}
-            aria-label={!visibleImage && label ? label : undefined}
-            aria-hidden={!visibleImage && isDecorative ? true : undefined}
-        >
-            {visibleImage ? (
-                <img
-                    className={styles.image}
-                    src={visibleImage.src}
-                    srcSet={visibleImage.srcSet}
-                    sizes={visibleImage.sizes}
-                    alt={label ?? ''}
-                    aria-hidden={isDecorative ? true : undefined}
-                    onError={(event) => {
-                        const failedSource = getFailedImageSource(visibleImage, event.currentTarget)
-
-                        setFailedImageSources((currentFailedSources) =>
-                            currentFailedSources.includes(failedSource)
-                                ? currentFailedSources
-                                : [...currentFailedSources, failedSource],
-                        )
-                    }}
-                />
-            ) : (
-                initials
-            )}
-        </Box>
-    )
 }
 
 export { Avatar }

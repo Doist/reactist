@@ -1,10 +1,10 @@
 import {
     AVATAR_META_COLOR_COUNT,
-    getAvailableAvatarImageProps,
+    getAvailableImageSources,
     getAvatarImageIdentityKey,
-    getAvatarImageProps,
     getAvatarMetaColorIndex,
     getInitials,
+    getSources,
     normalizeAvatarName,
     ROUNDED_AVATAR_RADIUS_BY_SIZE,
 } from './utils'
@@ -86,11 +86,11 @@ describe('Avatar utils', () => {
         }
 
         it('returns a string image directly', () => {
-            expect(getAvatarImageProps('avatar.png', 36)).toEqual({ src: 'avatar.png' })
+            expect(getSources('avatar.png', 36)).toEqual({ src: 'avatar.png' })
         })
 
         it('uses the largest valid source as the fallback src for source maps', () => {
-            expect(getAvatarImageProps(imageMap, 36)).toEqual({
+            expect(getSources(imageMap, 36)).toEqual({
                 src: 'avatar-144.png',
                 srcSet: 'avatar-36.png 36w, avatar-72.png 72w, avatar-144.png 144w',
                 sizes: '36px',
@@ -103,12 +103,12 @@ describe('Avatar utils', () => {
         })
 
         it('returns undefined for an empty source map', () => {
-            expect(getAvatarImageProps({}, 36)).toBeUndefined()
+            expect(getSources({}, 36)).toBeUndefined()
         })
 
         it('ignores invalid source entries', () => {
             expect(
-                getAvatarImageProps(
+                getSources(
                     {
                         '-10': 'avatar-negative.png',
                         0: 'avatar-zero.png',
@@ -155,7 +155,7 @@ describe('Avatar utils', () => {
 
     describe('getAvailableAvatarImageProps', () => {
         it('removes failed source-map candidates and recomputes the fallback src', () => {
-            const imageProps = getAvatarImageProps(
+            const imageProps = getSources(
                 {
                     36: 'avatar-36.png',
                     72: 'avatar-72.png',
@@ -164,7 +164,7 @@ describe('Avatar utils', () => {
                 36,
             )
 
-            expect(getAvailableAvatarImageProps(imageProps, ['avatar-144.png'])).toEqual({
+            expect(getAvailableImageSources(imageProps, ['avatar-144.png'])).toEqual({
                 src: 'avatar-72.png',
                 srcSet: 'avatar-36.png 36w, avatar-72.png 72w',
                 sizes: '36px',
@@ -176,9 +176,7 @@ describe('Avatar utils', () => {
         })
 
         it('returns undefined when a string image has failed', () => {
-            expect(
-                getAvailableAvatarImageProps({ src: 'avatar.png' }, ['avatar.png']),
-            ).toBeUndefined()
+            expect(getAvailableImageSources({ src: 'avatar.png' }, ['avatar.png'])).toBeUndefined()
         })
     })
 
