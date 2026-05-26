@@ -33,6 +33,10 @@ function PeopleAvatar(props: Omit<React.ComponentProps<typeof Avatar>, 'shape'>)
     return <Avatar shape="circle" {...props} />
 }
 
+type AvatarPlaygroundStoryArgs = Omit<React.ComponentProps<typeof Avatar>, 'image'> & {
+    image?: string
+}
+
 export const InitialsAvatarStory = () => (
     <Inline space="small">
         {sizes.map((size) => (
@@ -103,7 +107,7 @@ export const EmptyAvatarStory = () => (
     </Inline>
 )
 
-export const AvatarPlaygroundStory = (args) => {
+export const AvatarPlaygroundStory = (args: AvatarPlaygroundStoryArgs) => {
     return (
         <Box>
             <Avatar
