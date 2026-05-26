@@ -3,6 +3,11 @@ const AVATAR_SIZES = [80, 72, 62, 50, 40, 36, 30, 28, 24, 20, 18, 16, 12] as con
 type AvatarSize = (typeof AVATAR_SIZES)[number]
 type AvatarShape = 'circle' | 'rounded'
 type AvatarImage = string | Record<number, string>
+type AvatarImageProps = {
+    src: string
+    srcSet?: string
+    sizes?: string
+}
 
 const AVATAR_META_COLOR_COUNT = 20
 
@@ -70,17 +75,16 @@ function getSortedImageSources(image: Record<number, string>) {
         .sort((a, b) => a.sourceSize - b.sourceSize)
 }
 
-function resolveAvatarImage(
+function getAvatarImageProps(
     image: AvatarImage | undefined,
     size: AvatarSize,
-    pixelRatio = typeof window === 'undefined' ? 1 : window.devicePixelRatio || 1,
-) {
+): AvatarImageProps | undefined {
     if (!image) {
         return undefined
     }
 
     if (typeof image === 'string') {
-        return image
+        return { src: image }
     }
 
     const sources = getSortedImageSources(image)
@@ -88,23 +92,11 @@ function resolveAvatarImage(
         return undefined
     }
 
-    const targetPixels = size * pixelRatio
-    return (
-        sources.find(({ sourceSize }) => sourceSize >= targetPixels) ?? sources[sources.length - 1]!
-    ).src
-}
-
-function getAvatarImageSrcSet(image: AvatarImage | undefined) {
-    if (!image || typeof image === 'string') {
-        return undefined
+    return {
+        src: sources[sources.length - 1]!.src,
+        srcSet: sources.map(({ sourceSize, src }) => `${src} ${sourceSize}w`).join(', '),
+        sizes: `${size}px`,
     }
-
-    const sources = getSortedImageSources(image)
-    if (sources.length === 0) {
-        return undefined
-    }
-
-    return sources.map(({ sourceSize, src }) => `${src} ${sourceSize}w`).join(', ')
 }
 
 function getAvatarMetaColorIndex(name?: string) {
@@ -121,11 +113,10 @@ function getAvatarMetaColorIndex(name?: string) {
 export {
     AVATAR_META_COLOR_COUNT,
     AVATAR_SIZES,
-    getAvatarImageSrcSet,
+    getAvatarImageProps,
     getAvatarMetaColorIndex,
     getInitials,
     normalizeAvatarName,
-    resolveAvatarImage,
     ROUNDED_AVATAR_RADIUS_BY_SIZE,
 }
-export type { AvatarImage, AvatarShape, AvatarSize }
+export type { AvatarImage, AvatarImageProps, AvatarShape, AvatarSize }

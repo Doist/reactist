@@ -1,10 +1,9 @@
 import {
     AVATAR_META_COLOR_COUNT,
-    getAvatarImageSrcSet,
+    getAvatarImageProps,
     getAvatarMetaColorIndex,
     getInitials,
     normalizeAvatarName,
-    resolveAvatarImage,
     ROUNDED_AVATAR_RADIUS_BY_SIZE,
 } from './utils'
 
@@ -69,7 +68,7 @@ describe('Avatar utils', () => {
         })
     })
 
-    describe('resolveAvatarImage', () => {
+    describe('getAvatarImageProps', () => {
         const imageMap = {
             36: 'avatar-36.png',
             72: 'avatar-72.png',
@@ -77,28 +76,24 @@ describe('Avatar utils', () => {
         }
 
         it('returns a string image directly', () => {
-            expect(resolveAvatarImage('avatar.png', 36, 2)).toBe('avatar.png')
+            expect(getAvatarImageProps('avatar.png', 36)).toEqual({ src: 'avatar.png' })
         })
 
-        it('chooses the smallest source at or above the target pixel size', () => {
-            expect(resolveAvatarImage(imageMap, 36, 2)).toBe('avatar-72.png')
-        })
-
-        it('uses the largest source when every source is smaller than the target', () => {
-            expect(resolveAvatarImage(imageMap, 80, 2)).toBe('avatar-144.png')
-        })
-
-        it('uses the smallest valid source for low pixel densities', () => {
-            expect(resolveAvatarImage(imageMap, 24, 1)).toBe('avatar-36.png')
+        it('uses the largest valid source as the fallback src for source maps', () => {
+            expect(getAvatarImageProps(imageMap, 36)).toEqual({
+                src: 'avatar-144.png',
+                srcSet: 'avatar-36.png 36w, avatar-72.png 72w, avatar-144.png 144w',
+                sizes: '36px',
+            })
         })
 
         it('returns undefined for an empty source map', () => {
-            expect(resolveAvatarImage({}, 36, 2)).toBeUndefined()
+            expect(getAvatarImageProps({}, 36)).toBeUndefined()
         })
 
         it('ignores invalid source entries', () => {
             expect(
-                resolveAvatarImage(
+                getAvatarImageProps(
                     {
                         '-10': 'avatar-negative.png',
                         0: 'avatar-zero.png',
@@ -106,36 +101,12 @@ describe('Avatar utils', () => {
                         72: 'avatar-72.png',
                     } as Record<number, string>,
                     36,
-                    1,
                 ),
-            ).toBe('avatar-72.png')
-        })
-    })
-
-    describe('getAvatarImageSrcSet', () => {
-        it('formats source maps as sorted width descriptors', () => {
-            expect(
-                getAvatarImageSrcSet({
-                    144: 'avatar-144.png',
-                    36: 'avatar-36.png',
-                    72: 'avatar-72.png',
-                }),
-            ).toBe('avatar-36.png 36w, avatar-72.png 72w, avatar-144.png 144w')
-        })
-
-        it('returns undefined for string images', () => {
-            expect(getAvatarImageSrcSet('avatar.png')).toBeUndefined()
-        })
-
-        it('ignores invalid source entries', () => {
-            expect(
-                getAvatarImageSrcSet({
-                    '-10': 'avatar-negative.png',
-                    0: 'avatar-zero.png',
-                    36: '',
-                    72: 'avatar-72.png',
-                } as Record<number, string>),
-            ).toBe('avatar-72.png 72w')
+            ).toEqual({
+                src: 'avatar-72.png',
+                srcSet: 'avatar-72.png 72w',
+                sizes: '36px',
+            })
         })
     })
 

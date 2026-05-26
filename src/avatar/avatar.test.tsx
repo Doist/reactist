@@ -5,13 +5,6 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { Avatar } from './avatar'
 
 describe('Avatar', () => {
-    afterEach(() => {
-        Object.defineProperty(window, 'devicePixelRatio', {
-            configurable: true,
-            value: 1,
-        })
-    })
-
     it('renders a string image URL', () => {
         render(<Avatar data-testid="avatar" size={36} name="Jane Doe" image="avatar.png" />)
 
@@ -21,12 +14,7 @@ describe('Avatar', () => {
         })
     })
 
-    it('renders a source-map image URL selected for pixel density', () => {
-        Object.defineProperty(window, 'devicePixelRatio', {
-            configurable: true,
-            value: 2,
-        })
-
+    it('renders a source-map image URL with native responsive image hints', () => {
         render(
             <Avatar
                 size={36}
@@ -40,7 +28,7 @@ describe('Avatar', () => {
         )
 
         const image = screen.getByRole('img', { name: 'Jane Doe' })
-        expect(image).toHaveAttribute('src', 'avatar-72.png')
+        expect(image).toHaveAttribute('src', 'avatar-144.png')
         expect(image).toHaveAttribute(
             'srcset',
             'avatar-36.png 36w, avatar-72.png 72w, avatar-144.png 144w',
