@@ -1,87 +1,113 @@
 import * as React from 'react'
 
-import { Box } from '../box'
-import { getClassNames } from '../utils/responsive-props'
+import classNames from 'classnames'
 
-import { getInitials } from './utils'
+import { Box } from '../box'
+
+import {
+    getAvatarImageSrcSet,
+    getAvatarMetaColorIndex,
+    getInitials,
+    resolveAvatarImage,
+    ROUNDED_AVATAR_RADIUS_BY_SIZE,
+} from './utils'
 
 import styles from './avatar.module.css'
 
 import type { ObfuscatedClassName } from '../utils/common-types'
-import type { ResponsiveProp } from '../utils/responsive-props'
+import type { AvatarImage, AvatarShape, AvatarSize } from './utils'
 
-const AVATAR_COLORS = [
-    '#fcc652',
-    '#e9952c',
-    '#e16b2d',
-    '#d84b40',
-    '#e8435a',
-    '#e5198a',
-    '#ad3889',
-    '#86389c',
-    '#a8a8a8',
-    '#98be2f',
-    '#5d9d50',
-    '#5f9f85',
-    '#5bbcb6',
-    '#32a3bf',
-    '#2bafeb',
-    '#2d88c3',
-    '#3863cc',
-    '#5e5e5e',
-]
-
-function emailToIndex(email: string, maxIndex: number) {
-    const seed = email.split('@')[0]
-    const hash = seed ? seed.charCodeAt(0) + seed.charCodeAt(seed.length - 1) || 0 : 0
-    return hash % maxIndex
+type AvatarStyle = React.CSSProperties & {
+    '--reactist-avatar-size': string
+    '--reactist-avatar-rounded-radius': string
+    '--reactist-avatar-meta-fill': string
 }
 
-type AvatarSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl'
+type AvatarProps = ObfuscatedClassName & {
+    size: AvatarSize
+    shape?: AvatarShape
+    name?: string
+    image?: AvatarImage
+    alt?: string
+    'data-testid'?: string
+}
 
-type Props = ObfuscatedClassName & {
-    /** @deprecated Please use `exceptionallySetClassName` */
-    className?: string
-    /** @deprecated */
-    colorList?: string[]
-    size?: ResponsiveProp<AvatarSize>
-    avatarUrl?: string
-    user: { name?: string; email: string }
+function getAvatarStyle(size: AvatarSize, name?: string): AvatarStyle {
+    const metaColorIndex = getAvatarMetaColorIndex(name)
+
+    return {
+        '--reactist-avatar-size': `${size}px`,
+        '--reactist-avatar-rounded-radius': ROUNDED_AVATAR_RADIUS_BY_SIZE[size],
+        '--reactist-avatar-meta-fill': `var(--reactist-avatar-meta-fill-${metaColorIndex})`,
+    }
+}
+
+function getAccessibleProps({ label, isImage }: { label: string | undefined; isImage: boolean }) {
+    if (isImage) {
+        return {}
+    }
+
+    if (label === '') {
+        return { 'aria-hidden': true } as const
+    }
+
+    if (label) {
+        return { role: 'img', 'aria-label': label } as const
+    }
+
+    return {}
 }
 
 function Avatar({
-    user,
-    avatarUrl,
-    size = 'l',
-    className,
-    colorList = AVATAR_COLORS,
+    size,
+    shape = 'circle',
+    name,
+    image,
+    alt,
     exceptionallySetClassName,
-    ...props
-}: Props) {
-    const userInitials = getInitials(user.name) || getInitials(user.email)
-    const avatarSize = size ? size : 'l'
+    'data-testid': testId,
+}: AvatarProps) {
+    const [failedImage, setFailedImage] = React.useState<AvatarImage | undefined>()
 
-    const style = avatarUrl
-        ? {
-              backgroundImage: `url(${avatarUrl})`,
-              textIndent: '-9999px', // hide the initials
-          }
-        : {
-              backgroundColor: colorList[emailToIndex(user.email, colorList.length)],
-          }
-
-    const sizeClassName = getClassNames(styles, 'size', avatarSize)
+    const imageFailed = failedImage === image
+    const resolvedImage = imageFailed ? undefined : resolveAvatarImage(image, size)
+    const srcSet = getAvatarImageSrcSet(image)
+    const initials = getInitials(name)
+    const label = alt ?? name
+    const isDecorative = label === ''
+    const hasFallbackInitials = !resolvedImage && initials
+    const isEmpty = !resolvedImage && !initials
 
     return (
         <Box
-            className={[className, styles.avatar, sizeClassName, exceptionallySetClassName]}
-            style={style}
-            {...props}
+            className={classNames(
+                styles.avatar,
+                styles[`shape-${shape}`],
+                hasFallbackInitials ? styles.fallback : undefined,
+                isEmpty ? styles.empty : undefined,
+                exceptionallySetClassName,
+            )}
+            style={getAvatarStyle(size, name)}
+            data-testid={testId}
+            {...getAccessibleProps({ label, isImage: Boolean(resolvedImage) })}
         >
-            {userInitials}
+            {resolvedImage ? (
+                <img
+                    className={styles.image}
+                    src={resolvedImage}
+                    srcSet={srcSet}
+                    sizes={srcSet ? `${size}px` : undefined}
+                    alt={label ?? ''}
+                    aria-hidden={isDecorative ? true : undefined}
+                    onError={() => setFailedImage(image)}
+                />
+            ) : (
+                initials
+            )}
         </Box>
     )
 }
 Avatar.displayName = 'Avatar'
 
 export { Avatar }
+export type { AvatarImage, AvatarProps, AvatarShape, AvatarSize }
