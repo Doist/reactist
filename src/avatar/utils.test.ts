@@ -18,8 +18,8 @@ describe('Avatar utils', () => {
             expect(getInitials('jane middle doe')).toBe('JD')
         })
 
-        it('returns first initial for a single name', () => {
-            expect(getInitials('jane')).toBe('J')
+        it('returns the first two grapheme clusters for a single name part', () => {
+            expect(getInitials('jane')).toBe('JA')
         })
 
         it('preserves non-BMP Unicode letter initials', () => {
@@ -30,20 +30,28 @@ describe('Avatar utils', () => {
             expect(getInitials('e\u0301lodie brule\u0301')).toBe('ÉB')
         })
 
+        it('preserves grapheme clusters that contain combining marks', () => {
+            expect(getInitials('q\u0307bert q\u0307uill')).toBe('Q\u0307Q\u0307')
+        })
+
         it('limits uppercase-expanding initials to one character per word', () => {
             expect(getInitials('ßmith Müller')).toBe('SM')
         })
 
-        it('returns one initial when first and last initials match', () => {
-            expect(getInitials('jane johnson')).toBe('J')
+        it('uppercases the whole name part before taking grapheme clusters', () => {
+            expect(getInitials('ßeta')).toBe('SS')
         })
 
-        it('returns one initial when first and last initials match after uppercasing', () => {
-            expect(getInitials('Jane johnson')).toBe('J')
+        it('keeps matching first and last initials for multiple name parts', () => {
+            expect(getInitials('jane johnson')).toBe('JJ')
         })
 
-        it('filters non-letter characters before creating initials', () => {
-            expect(getInitials('🍕 Francesca 🍕 Ciao 🍕')).toBe('FC')
+        it('splits name parts by Unicode whitespace', () => {
+            expect(getInitials('Jane\u2003Doe')).toBe('JD')
+        })
+
+        it('does not filter non-letter grapheme clusters from selected name parts', () => {
+            expect(getInitials('🍕 Francesca 🍕 Ciao 🍕')).toBe('🍕🍕')
         })
 
         it('returns an empty string for an empty name', () => {

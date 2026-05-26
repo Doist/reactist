@@ -32,45 +32,40 @@ const ROUNDED_AVATAR_RADIUS_BY_SIZE: Record<AvatarSize, string> = {
     12: '1.6px',
 }
 
-const FILTER_CHARS_REGEXP = new RegExp('[^\\p{L}\\p{M}\\p{Zs} ]', 'gu')
+const WHITESPACE_REGEXP = new RegExp('\\p{White_Space}+', 'gu')
+const GRAPHEME_SEGMENTER =
+    typeof Intl !== 'undefined' && 'Segmenter' in Intl
+        ? new Intl.Segmenter('und', { granularity: 'grapheme' })
+        : undefined
 
 function normalizeAvatarName(name?: string) {
-    return name?.normalize('NFC').trim().replace(/\s+/g, ' ') ?? ''
+    return name?.normalize('NFC').trim().replace(WHITESPACE_REGEXP, ' ') ?? ''
 }
 
-function getFirstCodePoint(value?: string) {
-    const [firstCodePoint = ''] = Array.from(value ?? '')
-    return firstCodePoint
+function getGraphemeClusters(value: string) {
+    if (GRAPHEME_SEGMENTER) {
+        return Array.from(GRAPHEME_SEGMENTER.segment(value), ({ segment }) => segment)
+    }
+
+    return Array.from(value)
 }
 
-function getInitial(value?: string) {
-    return getFirstCodePoint(getFirstCodePoint(value).toUpperCase())
-}
-
-function limitInitials(value: string) {
-    return Array.from(value).slice(0, 2).join('')
+function getInitialGrapheme(value?: string) {
+    return getGraphemeClusters(value?.toUpperCase() ?? '')[0] ?? ''
 }
 
 function getInitials(name?: string) {
-    const words = normalizeAvatarName(name)
-        .replace(FILTER_CHARS_REGEXP, '')
-        .split(' ')
-        .filter(Boolean)
+    const nameParts = normalizeAvatarName(name).split(WHITESPACE_REGEXP).filter(Boolean)
 
-    const firstWord = words[0]
-    const lastWord = words[words.length - 1]
-    const firstInitial = getInitial(firstWord)
-    const lastInitial = getInitial(lastWord)
-
-    if (!firstInitial) {
+    if (nameParts.length === 0) {
         return ''
     }
 
-    if (lastInitial && firstInitial !== lastInitial) {
-        return limitInitials(`${firstInitial}${lastInitial}`)
+    if (nameParts.length === 1) {
+        return getGraphemeClusters(nameParts[0]!.toUpperCase()).slice(0, 2).join('')
     }
 
-    return firstInitial
+    return `${getInitialGrapheme(nameParts[0])}${getInitialGrapheme(nameParts[nameParts.length - 1])}`
 }
 
 function getSortedImageSources(image: Record<number, string>): AvatarImageSource[] {
