@@ -82,6 +82,24 @@ describe('Avatar', () => {
         expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveAttribute('src', 'avatar.png')
     })
 
+    it('allows a source-map image to load after size changes away from a failed source', () => {
+        const image = {
+            36: 'missing-36.png',
+            72: 'avatar-72.png',
+        }
+        const { rerender } = render(<Avatar size={36} name="Jane Doe" image={image} />)
+
+        fireEvent.error(screen.getByRole('img', { name: 'Jane Doe' }))
+        expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveTextContent('JD')
+
+        rerender(<Avatar size={72} name="Jane Doe" image={image} />)
+
+        expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveAttribute(
+            'src',
+            'avatar-72.png',
+        )
+    })
+
     it('retries a failed image when the same image is provided after being removed', () => {
         const { rerender } = render(<Avatar size={36} name="Jane Doe" image="missing.png" />)
 
