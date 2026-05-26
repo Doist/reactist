@@ -23,12 +23,51 @@ type AvatarStyle = React.CSSProperties & {
     '--reactist-avatar-meta-fill': string
 }
 
+/**
+ * Props for the `Avatar` component.
+ */
 type AvatarProps = ObfuscatedClassName & {
+    /**
+     * The rendered avatar size, in CSS pixels.
+     */
     size: AvatarSize
+
+    /**
+     * The avatar shape.
+     *
+     * Use `circle` for user avatars and `rounded` for workspace or object avatars.
+     *
+     * @default 'circle'
+     */
     shape?: AvatarShape
+
+    /**
+     * The display name represented by the avatar.
+     *
+     * Used as the default accessible label, to generate fallback initials, and to assign the
+     * deterministic fallback meta color.
+     */
     name?: string
+
+    /**
+     * The avatar image.
+     *
+     * Pass a string for a single image URL, or a source map keyed by intrinsic image width. Source
+     * maps render as native `srcSet`/`sizes` hints, with the largest valid source used as the
+     * fallback `src`.
+     */
     image?: AvatarImage
+
+    /**
+     * Accessible text for the avatar image.
+     *
+     * Defaults to `name`. Pass an empty string when the avatar is decorative.
+     */
     alt?: string
+
+    /**
+     * Test identifier applied to the avatar root element.
+     */
     'data-testid'?: string
 }
 
@@ -138,6 +177,9 @@ function AvatarContent({
     )
 }
 
+/**
+ * Displays an avatar from an image URL or deterministic initials fallback.
+ */
 function Avatar({ size, shape = 'circle', name, image, alt, ...props }: AvatarProps) {
     const imageProps = getAvatarImageProps(image, size)
 
