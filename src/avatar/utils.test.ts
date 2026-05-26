@@ -30,6 +30,10 @@ describe('Avatar utils', () => {
             expect(getInitials('e\u0301lodie brule\u0301')).toBe('ÉB')
         })
 
+        it('limits uppercase-expanding initials to one character per word', () => {
+            expect(getInitials('ßmith Müller')).toBe('SM')
+        })
+
         it('returns one initial when first and last initials match', () => {
             expect(getInitials('jane johnson')).toBe('J')
         })

@@ -33,6 +33,14 @@ function getFirstCodePoint(value?: string) {
     return firstCodePoint
 }
 
+function getInitial(value?: string) {
+    return getFirstCodePoint(getFirstCodePoint(value).toUpperCase())
+}
+
+function limitInitials(value: string) {
+    return Array.from(value).slice(0, 2).join('')
+}
+
 function getInitials(name?: string) {
     const words = normalizeAvatarName(name)
         .normalize('NFC')
@@ -42,15 +50,15 @@ function getInitials(name?: string) {
 
     const firstWord = words[0]
     const lastWord = words[words.length - 1]
-    const firstInitial = getFirstCodePoint(firstWord).toUpperCase()
-    const lastInitial = getFirstCodePoint(lastWord).toUpperCase()
+    const firstInitial = getInitial(firstWord)
+    const lastInitial = getInitial(lastWord)
 
     if (!firstInitial) {
         return ''
     }
 
     if (lastInitial && firstInitial !== lastInitial) {
-        return `${firstInitial}${lastInitial}`
+        return limitInitials(`${firstInitial}${lastInitial}`)
     }
 
     return firstInitial
