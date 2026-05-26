@@ -1,5 +1,6 @@
 :root {
     --reactist-avatar-initials-color: #ffffff;
+    --reactist-avatar-border-tint: #0000001a;
     --reactist-avatar-empty-fill: var(--reactist-framework-fill-crest);
 
     --reactist-avatar-meta-fill-0: #b8255f;
@@ -52,6 +53,9 @@
     background-color: var(--reactist-avatar-empty-fill);
     width: var(--reactist-avatar-size);
     height: var(--reactist-avatar-size);
+
+    outline: 2px solid var(--reactist-avatar-border-tint);
+    outline-offset: -2px;
 }
 
 .avatar:has(.initials) {
