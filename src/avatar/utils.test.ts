@@ -1,6 +1,7 @@
 import {
     AVATAR_META_COLOR_COUNT,
     getAvailableAvatarImageProps,
+    getAvatarImageIdentityKey,
     getAvatarImageProps,
     getAvatarMetaColorIndex,
     getInitials,
@@ -122,6 +123,33 @@ describe('Avatar utils', () => {
                 sizes: '36px',
                 sources: [{ sourceSize: 72, src: 'avatar-72.png' }],
             })
+        })
+    })
+
+    describe('getAvatarImageIdentityKey', () => {
+        it('returns the string image as its identity', () => {
+            expect(getAvatarImageIdentityKey('avatar.png')).toBe('avatar.png')
+        })
+
+        it('returns a stable identity for source maps independent of entry order', () => {
+            expect(
+                getAvatarImageIdentityKey({
+                    144: 'avatar-144.png',
+                    36: 'avatar-36.png',
+                    72: 'avatar-72.png',
+                }),
+            ).toBe('36:avatar-36.png|72:avatar-72.png|144:avatar-144.png')
+        })
+
+        it('uses fallback identity when no valid image source exists', () => {
+            expect(getAvatarImageIdentityKey()).toBe('fallback')
+            expect(getAvatarImageIdentityKey({})).toBe('fallback')
+            expect(
+                getAvatarImageIdentityKey({
+                    0: 'avatar-zero.png',
+                    36: '',
+                }),
+            ).toBe('fallback')
         })
     })
 
