@@ -21,7 +21,7 @@ type AvatarImageSource = {
     sourceSize: number
     src: string
 }
-type AvatarImageProps = {
+type ImageSources = {
     src: string
     srcSet?: string
     sizes?: string
@@ -92,7 +92,7 @@ function getSortedImageSources(image: Record<number, string>): AvatarImageSource
 function getImagePropsFromSources(
     sources: AvatarImageSource[],
     sizes?: string,
-): AvatarImageProps | undefined {
+): ImageSources | undefined {
     if (sources.length === 0) {
         return undefined
     }
@@ -105,10 +105,7 @@ function getImagePropsFromSources(
     }
 }
 
-function getAvatarImageProps(
-    image: AvatarImage | undefined,
-    size: AvatarSize,
-): AvatarImageProps | undefined {
+function getSources(image: AvatarImage | undefined, size: AvatarSize): ImageSources | undefined {
     if (!image) {
         return undefined
     }
@@ -138,8 +135,8 @@ function getAvatarImageIdentityKey(image?: AvatarImage) {
     return sources.map(({ sourceSize, src }) => `${sourceSize}:${src}`).join('|')
 }
 
-function getAvailableAvatarImageProps(
-    imageProps: AvatarImageProps | undefined,
+function getAvailableImageSources(
+    imageProps: ImageSources | undefined,
     failedSources: readonly string[],
 ) {
     if (!imageProps) {
@@ -170,12 +167,12 @@ function getAvatarMetaColorIndex(name?: string) {
 export {
     AVATAR_META_COLOR_COUNT,
     AVATAR_SIZES,
-    getAvailableAvatarImageProps,
+    getAvailableImageSources,
     getAvatarImageIdentityKey,
-    getAvatarImageProps,
     getAvatarMetaColorIndex,
     getInitials,
+    getSources,
     normalizeAvatarName,
     ROUNDED_AVATAR_RADIUS_BY_SIZE,
 }
-export type { AvatarImage, AvatarImageProps, AvatarImageSource, AvatarShape, AvatarSize }
+export type { AvatarImage, AvatarImageSource, AvatarShape, AvatarSize, ImageSources }

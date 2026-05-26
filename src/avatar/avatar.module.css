@@ -2,26 +2,46 @@
     --reactist-avatar-initials-color: #ffffff;
     --reactist-avatar-empty-fill: var(--reactist-framework-fill-crest);
 
-    --reactist-avatar-meta-fill-0: #fcc652;
-    --reactist-avatar-meta-fill-1: #e9952c;
-    --reactist-avatar-meta-fill-2: #e16b2d;
-    --reactist-avatar-meta-fill-3: #d84b40;
-    --reactist-avatar-meta-fill-4: #e8435a;
-    --reactist-avatar-meta-fill-5: #e5198a;
-    --reactist-avatar-meta-fill-6: #ad3889;
-    --reactist-avatar-meta-fill-7: #86389c;
-    --reactist-avatar-meta-fill-8: #a8a8a8;
-    --reactist-avatar-meta-fill-9: #98be2f;
-    --reactist-avatar-meta-fill-10: #5d9d50;
-    --reactist-avatar-meta-fill-11: #5f9f85;
-    --reactist-avatar-meta-fill-12: #5bbcb6;
-    --reactist-avatar-meta-fill-13: #32a3bf;
-    --reactist-avatar-meta-fill-14: #2bafeb;
-    --reactist-avatar-meta-fill-15: #2d88c3;
-    --reactist-avatar-meta-fill-16: #3863cc;
-    --reactist-avatar-meta-fill-17: #5e5e5e;
-    --reactist-avatar-meta-fill-18: #7a6ff0;
-    --reactist-avatar-meta-fill-19: #f36d6d;
+    --reactist-avatar-meta-fill-0: #b8255f;
+    --reactist-avatar-meta-tint-0: #d43876;
+    --reactist-avatar-meta-fill-1: #dc4c3e;
+    --reactist-avatar-meta-tint-1: #ea584a;
+    --reactist-avatar-meta-fill-2: #f48318;
+    --reactist-avatar-meta-tint-2: #c77100;
+    --reactist-avatar-meta-fill-3: #fecf05;
+    --reactist-avatar-meta-tint-3: #b29104;
+    --reactist-avatar-meta-fill-4: #aeb83a;
+    --reactist-avatar-meta-tint-4: #949c31;
+    --reactist-avatar-meta-fill-5: #7ecc48;
+    --reactist-avatar-meta-tint-5: #65a33a;
+    --reactist-avatar-meta-fill-6: #369307;
+    --reactist-avatar-meta-tint-6: #369307;
+    --reactist-avatar-meta-fill-7: #52ccb8;
+    --reactist-avatar-meta-tint-7: #42a393;
+    --reactist-avatar-meta-fill-8: #148fad;
+    --reactist-avatar-meta-tint-8: #148fad;
+    --reactist-avatar-meta-fill-9: #3ab9e2;
+    --reactist-avatar-meta-tint-9: #319dc0;
+    --reactist-avatar-meta-fill-10: #96c3eb;
+    --reactist-avatar-meta-tint-10: #6988a4;
+    --reactist-avatar-meta-fill-11: #2a67e2;
+    --reactist-avatar-meta-tint-11: #4180ff;
+    --reactist-avatar-meta-fill-12: #692ec2;
+    --reactist-avatar-meta-tint-12: #692ec2;
+    --reactist-avatar-meta-fill-13: #ac30cc;
+    --reactist-avatar-meta-tint-13: #ca3fee;
+    --reactist-avatar-meta-fill-14: #eb96c8;
+    --reactist-avatar-meta-tint-14: #a4698c;
+    --reactist-avatar-meta-fill-15: #e05095;
+    --reactist-avatar-meta-tint-15: #e05095;
+    --reactist-avatar-meta-fill-16: #c9766f;
+    --reactist-avatar-meta-tint-16: #ff8e84;
+    --reactist-avatar-meta-fill-17: #808080;
+    --reactist-avatar-meta-tint-17: #808080;
+    --reactist-avatar-meta-fill-18: #999999;
+    --reactist-avatar-meta-tint-18: #999999;
+    --reactist-avatar-meta-fill-19: #ccae96;
+    --reactist-avatar-meta-tint-19: #8f7a69;
 }
 
 .avatar {
@@ -29,6 +49,7 @@
     --reactist-avatar-rounded-radius: 5px;
     --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-0);
 
+    background-color: var(--reactist-avatar-empty-fill);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -60,10 +81,6 @@
     object-fit: cover;
 }
 
-.fallback {
+.initials {
     background-color: var(--reactist-avatar-meta-fill);
-}
-
-.empty {
-    background-color: var(--reactist-avatar-empty-fill);
 }
