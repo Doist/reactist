@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Box } from '../box'
 import { getClassNames } from '../utils/responsive-props'
 
-import { emailToIndex, getInitials } from './utils'
+import { getInitials } from './utils'
 
 import styles from './avatar.module.css'
 
@@ -30,6 +30,12 @@ const AVATAR_COLORS = [
     '#3863cc',
     '#5e5e5e',
 ]
+
+function emailToIndex(email: string, maxIndex: number) {
+    const seed = email.split('@')[0]
+    const hash = seed ? seed.charCodeAt(0) + seed.charCodeAt(seed.length - 1) || 0 : 0
+    return hash % maxIndex
+}
 
 type AvatarSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl'
 

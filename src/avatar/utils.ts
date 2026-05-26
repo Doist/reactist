@@ -22,7 +22,7 @@ const ROUNDED_AVATAR_RADIUS_BY_SIZE: Record<AvatarSize, string> = {
     12: '1.6px',
 }
 
-const FILTER_CHARS_REGEXP = /[^\p{L}\p{M}\p{Zs} ]/gu
+const FILTER_CHARS_REGEXP = new RegExp('[^\\p{L}\\p{M}\\p{Zs} ]', 'gu')
 
 function normalizeAvatarName(name?: string) {
     return name?.trim().replace(/\s+/g, ' ') ?? ''
@@ -82,7 +82,7 @@ function resolveAvatarImage(
 
     const targetPixels = size * pixelRatio
     return (
-        sources.find(({ sourceSize }) => sourceSize >= targetPixels) ?? sources[sources.length - 1]
+        sources.find(({ sourceSize }) => sourceSize >= targetPixels) ?? sources[sources.length - 1]!
     ).src
 }
 
