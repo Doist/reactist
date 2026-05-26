@@ -113,6 +113,12 @@ function AvatarContent({
             )}
             style={getAvatarStyle(size, name)}
             data-testid={testId}
+            display="inlineFlex"
+            alignItems="center"
+            justifyContent="center"
+            flexShrink={0}
+            overflow="hidden"
+            textAlign="center"
         >
             {availableImageSources ? (
                 <img

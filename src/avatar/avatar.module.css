@@ -50,19 +50,12 @@
     --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-0);
 
     background-color: var(--reactist-avatar-empty-fill);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    overflow: hidden;
     width: var(--reactist-avatar-size);
     height: var(--reactist-avatar-size);
-    color: var(--reactist-avatar-initials-color);
-    font-size: calc(var(--reactist-avatar-size) / 2);
-    font-weight: var(--reactist-font-weight-medium);
-    line-height: 1;
-    text-align: center;
-    user-select: none;
+}
+
+.avatar:has(.initials) {
+    background-color: var(--reactist-avatar-meta-fill);
 }
 
 .shape-circle {
@@ -82,5 +75,9 @@
 }
 
 .initials {
-    background-color: var(--reactist-avatar-meta-fill);
+    color: var(--reactist-avatar-initials-color);
+    font-size: calc(var(--reactist-avatar-size) / 2);
+    font-weight: var(--reactist-font-weight-medium);
+    line-height: 1;
+    user-select: none;
 }

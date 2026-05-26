@@ -17,10 +17,12 @@ type AvatarShape = 'circle' | 'rounded'
  * are converted to native `srcSet` width descriptors.
  */
 type AvatarImage = string | Record<number, string>
+
 type AvatarImageSource = {
     sourceSize: number
     src: string
 }
+
 type ImageSources = {
     src: string
     srcSet?: string
