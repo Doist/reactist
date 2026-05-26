@@ -101,6 +101,7 @@ function AvatarContent({
     const availableImageSources = getAvailableImageSources(imageSources, failedImageSources)
 
     const initials = getInitials(name)
+    const hasInitials = initials !== ''
     const label = alt ?? name
     const isDecorative = label === ''
 
@@ -109,10 +110,12 @@ function AvatarContent({
             className={classNames(
                 styles.avatar,
                 styles[`shape-${shape}`],
+                !availableImageSources && !hasInitials && styles.empty,
                 exceptionallySetClassName,
             )}
             style={getAvatarStyle(size, name)}
             data-testid={testId}
+            aria-hidden={isDecorative || undefined}
             display="inlineFlex"
             alignItems="center"
             justifyContent="center"
@@ -141,7 +144,7 @@ function AvatarContent({
                         )
                     }}
                 />
-            ) : (
+            ) : hasInitials ? (
                 <div
                     className={styles.initials}
                     role={label ? 'img' : undefined}
@@ -150,7 +153,7 @@ function AvatarContent({
                 >
                     {initials}
                 </div>
-            )}
+            ) : null}
         </Box>
     )
 }

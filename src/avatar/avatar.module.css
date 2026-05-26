@@ -62,6 +62,10 @@
     background-color: var(--reactist-avatar-meta-fill);
 }
 
+.empty {
+    background-color: var(--reactist-avatar-empty-fill);
+}
+
 .shape-circle {
     border-radius: 50%;
 }
