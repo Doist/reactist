@@ -57,6 +57,12 @@ describe('Avatar', () => {
         })
     })
 
+    it('falls back to initials when image source map is empty', () => {
+        render(<Avatar size={36} name="Jane Doe" image={{}} />)
+
+        expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveTextContent('JD')
+    })
+
     it('falls back to initials when the image fails to load', () => {
         render(<Avatar size={36} name="Jane Doe" image="missing.png" />)
 
