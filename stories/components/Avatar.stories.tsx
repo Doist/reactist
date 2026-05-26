@@ -68,6 +68,13 @@ export const SourceMapAvatarStory = () => (
     </Inline>
 )
 
+export const FailedImageFallbackStory = () => (
+    <Inline space="small">
+        <Avatar size={36} name="Jane Doe" image="/missing-avatar-image.png" />
+        <Avatar size={36} shape="rounded" name="Design" image="/missing-workspace-image.png" />
+    </Inline>
+)
+
 export const ProductWrapperExamplesStory = () => (
     <Stack space="small">
         <Inline space="small" alignItems="center">

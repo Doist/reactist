@@ -35,6 +35,7 @@ function getFirstCodePoint(value?: string) {
 
 function getInitials(name?: string) {
     const words = normalizeAvatarName(name)
+        .normalize('NFC')
         .replace(FILTER_CHARS_REGEXP, '')
         .split(' ')
         .filter(Boolean)

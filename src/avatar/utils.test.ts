@@ -26,6 +26,10 @@ describe('Avatar utils', () => {
             expect(getInitials('\u{10400}eseret doe')).toBe('\u{10400}D')
         })
 
+        it('preserves decomposed accented initials', () => {
+            expect(getInitials('e\u0301lodie brule\u0301')).toBe('ÉB')
+        })
+
         it('returns one initial when first and last initials match', () => {
             expect(getInitials('jane johnson')).toBe('J')
         })
