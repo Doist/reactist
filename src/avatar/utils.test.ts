@@ -1,53 +1,123 @@
-import { emailToIndex, getInitials } from './utils'
+import {
+    AVATAR_META_COLOR_COUNT,
+    getAvatarImageSrcSet,
+    getAvatarMetaColorIndex,
+    getInitials,
+    resolveAvatarImage,
+    ROUNDED_AVATAR_RADIUS_BY_SIZE,
+} from './utils'
 
-describe('Utils', () => {
+describe('Avatar utils', () => {
     describe('getInitials', () => {
         it('returns uppercased initials for two names', () => {
-            const initials = getInitials('henning mus')
-            expect(initials).toBe('HM')
+            expect(getInitials('jane doe')).toBe('JD')
         })
 
-        it('returns first and last name initials for more than two names', () => {
-            const initials = getInitials('henning is awesome mus')
-            expect(initials).toBe('HM')
+        it('returns first and last initials for more than two names', () => {
+            expect(getInitials('jane middle doe')).toBe('JD')
         })
 
         it('returns first initial for a single name', () => {
-            const initials = getInitials('henningmus')
-            expect(initials).toBe('H')
+            expect(getInitials('jane')).toBe('J')
         })
 
-        it('returns only first initial if first and second initials are the same', () => {
-            const initials = getInitials('henning hen')
-            expect(initials).toBe('H')
+        it('returns one initial when first and last initials match', () => {
+            expect(getInitials('jane johnson')).toBe('J')
+        })
+
+        it('filters non-letter characters before creating initials', () => {
+            expect(getInitials('🍕 Francesca 🍕 Ciao 🍕')).toBe('FC')
         })
 
         it('returns an empty string for an empty name', () => {
-            const initials = getInitials('')
-            expect(initials).toBe('')
+            expect(getInitials('')).toBe('')
         })
 
-        it('returns an empty string for when called without name', () => {
-            const initials = getInitials()
-            expect(initials).toBe('')
+        it('returns an empty string when called without a name', () => {
+            expect(getInitials()).toBe('')
         })
     })
 
-    describe('emailToIndex', () => {
-        it('returns an index for a given mail', () => {
-            const index = emailToIndex('henning@doist.com', 13)
-            expect(index).toBe(12)
+    describe('resolveAvatarImage', () => {
+        const imageMap = {
+            36: 'avatar-36.png',
+            72: 'avatar-72.png',
+            144: 'avatar-144.png',
+        }
+
+        it('returns a string image directly', () => {
+            expect(resolveAvatarImage('avatar.png', 36, 2)).toBe('avatar.png')
         })
 
-        it('returns the index if the local part of email is the same', () => {
-            const index1 = emailToIndex('henning@doist.com', 13)
-            const index2 = emailToIndex('henning@foobar.com', 13)
-            expect(index1).toBe(index2)
+        it('chooses the smallest source at or above the target pixel size', () => {
+            expect(resolveAvatarImage(imageMap, 36, 2)).toBe('avatar-72.png')
         })
 
-        it('returns 0 index if local part of email is empty', () => {
-            const index1 = emailToIndex('@doist.com', 13)
-            expect(index1).toBe(0)
+        it('uses the largest source when every source is smaller than the target', () => {
+            expect(resolveAvatarImage(imageMap, 80, 2)).toBe('avatar-144.png')
+        })
+
+        it('uses the smallest valid source for low pixel densities', () => {
+            expect(resolveAvatarImage(imageMap, 24, 1)).toBe('avatar-36.png')
+        })
+
+        it('returns undefined for an empty source map', () => {
+            expect(resolveAvatarImage({}, 36, 2)).toBeUndefined()
+        })
+    })
+
+    describe('getAvatarImageSrcSet', () => {
+        it('formats source maps as sorted width descriptors', () => {
+            expect(
+                getAvatarImageSrcSet({
+                    144: 'avatar-144.png',
+                    36: 'avatar-36.png',
+                    72: 'avatar-72.png',
+                }),
+            ).toBe('avatar-36.png 36w, avatar-72.png 72w, avatar-144.png 144w')
+        })
+
+        it('returns undefined for string images', () => {
+            expect(getAvatarImageSrcSet('avatar.png')).toBeUndefined()
+        })
+    })
+
+    describe('getAvatarMetaColorIndex', () => {
+        it('uses 20 fixed meta color slots', () => {
+            expect(AVATAR_META_COLOR_COUNT).toBe(20)
+        })
+
+        it('returns a deterministic index based on the normalized full name', () => {
+            expect(getAvatarMetaColorIndex('Jane Doe')).toBe(0)
+            expect(getAvatarMetaColorIndex('Jane    Doe')).toBe(0)
+            expect(getAvatarMetaColorIndex('John Doe')).toBe(9)
+        })
+
+        it('always returns an index in the configured fixed slot range', () => {
+            const index = getAvatarMetaColorIndex('Francesca Ciao')
+
+            expect(index).toBeGreaterThanOrEqual(0)
+            expect(index).toBeLessThan(AVATAR_META_COLOR_COUNT)
+        })
+    })
+
+    describe('ROUNDED_AVATAR_RADIUS_BY_SIZE', () => {
+        it('contains the exclusive rounded radius mapping', () => {
+            expect(ROUNDED_AVATAR_RADIUS_BY_SIZE).toEqual({
+                80: '10px',
+                72: '10px',
+                62: '8.5px',
+                50: '7px',
+                40: '5.5px',
+                36: '5px',
+                30: '5px',
+                28: '5px',
+                24: '3.2px',
+                20: '3px',
+                18: '3px',
+                16: '2px',
+                12: '1.6px',
+            })
         })
     })
 })
