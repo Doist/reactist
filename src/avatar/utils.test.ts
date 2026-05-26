@@ -30,6 +30,10 @@ describe('Avatar utils', () => {
             expect(getInitials('jane johnson')).toBe('J')
         })
 
+        it('returns one initial when first and last initials match after uppercasing', () => {
+            expect(getInitials('Jane johnson')).toBe('J')
+        })
+
         it('filters non-letter characters before creating initials', () => {
             expect(getInitials('🍕 Francesca 🍕 Ciao 🍕')).toBe('FC')
         })

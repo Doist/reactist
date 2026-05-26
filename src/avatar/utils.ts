@@ -41,18 +41,18 @@ function getInitials(name?: string) {
 
     const firstWord = words[0]
     const lastWord = words[words.length - 1]
-    const firstInitial = getFirstCodePoint(firstWord)
-    const lastInitial = getFirstCodePoint(lastWord)
+    const firstInitial = getFirstCodePoint(firstWord).toUpperCase()
+    const lastInitial = getFirstCodePoint(lastWord).toUpperCase()
 
     if (!firstInitial) {
         return ''
     }
 
     if (lastInitial && firstInitial !== lastInitial) {
-        return `${firstInitial}${lastInitial}`.toUpperCase()
+        return `${firstInitial}${lastInitial}`
     }
 
-    return firstInitial.toUpperCase()
+    return firstInitial
 }
 
 function getSortedImageSources(image: Record<number, string>) {
