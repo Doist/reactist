@@ -5,17 +5,16 @@ import classNames from 'classnames'
 import { Box } from '../box'
 
 import {
-    getAvatarImageSrcSet,
+    getAvatarImageProps,
     getAvatarMetaColorIndex,
     getInitials,
-    resolveAvatarImage,
     ROUNDED_AVATAR_RADIUS_BY_SIZE,
 } from './utils'
 
 import styles from './avatar.module.css'
 
 import type { ObfuscatedClassName } from '../utils/common-types'
-import type { AvatarImage, AvatarShape, AvatarSize } from './utils'
+import type { AvatarImage, AvatarImageProps, AvatarShape, AvatarSize } from './utils'
 
 type AvatarStyle = React.CSSProperties & {
     '--reactist-avatar-size': string
@@ -32,6 +31,15 @@ type AvatarProps = ObfuscatedClassName & {
     'data-testid'?: string
 }
 
+type AvatarContentProps = ObfuscatedClassName & {
+    size: AvatarSize
+    shape: AvatarShape
+    name?: string
+    imageProps?: AvatarImageProps
+    alt?: string
+    'data-testid'?: string
+}
+
 function getAvatarStyle(size: AvatarSize, name?: string): AvatarStyle {
     const metaColorIndex = getAvatarMetaColorIndex(name)
 
@@ -42,29 +50,26 @@ function getAvatarStyle(size: AvatarSize, name?: string): AvatarStyle {
     }
 }
 
-function Avatar({
+function getAvatarImageKey(imageProps?: AvatarImageProps) {
+    if (!imageProps) {
+        return 'fallback'
+    }
+
+    return [imageProps.src, imageProps.srcSet, imageProps.sizes].filter(Boolean).join('|')
+}
+
+function AvatarContent({
     size,
-    shape = 'circle',
+    shape,
     name,
-    image,
+    imageProps,
     alt,
     exceptionallySetClassName,
     'data-testid': testId,
-}: AvatarProps) {
-    const [imageState, setImageState] = React.useState<{
-        failedSrc?: string
-        previousResolvedImage?: string
-    }>({})
+}: AvatarContentProps) {
+    const [imageFailed, setImageFailed] = React.useState(false)
 
-    const resolvedImage = resolveAvatarImage(image, size)
-    if (imageState.previousResolvedImage !== resolvedImage) {
-        setImageState({ previousResolvedImage: resolvedImage })
-    }
-
-    const imageFailed =
-        imageState.previousResolvedImage === resolvedImage && imageState.failedSrc === resolvedImage
-    const visibleImage = imageFailed ? undefined : resolvedImage
-    const srcSet = getAvatarImageSrcSet(image)
+    const visibleImage = imageFailed ? undefined : imageProps
     const initials = getInitials(name)
     const label = alt ?? name
     const isDecorative = label === ''
@@ -89,22 +94,33 @@ function Avatar({
             {visibleImage ? (
                 <img
                     className={styles.image}
-                    src={visibleImage}
-                    srcSet={srcSet}
-                    sizes={srcSet ? `${size}px` : undefined}
+                    src={visibleImage.src}
+                    srcSet={visibleImage.srcSet}
+                    sizes={visibleImage.sizes}
                     alt={label ?? ''}
                     aria-hidden={isDecorative ? true : undefined}
-                    onError={() =>
-                        setImageState({
-                            failedSrc: visibleImage,
-                            previousResolvedImage: resolvedImage,
-                        })
-                    }
+                    onError={() => setImageFailed(true)}
                 />
             ) : (
                 initials
             )}
         </Box>
+    )
+}
+
+function Avatar({ size, shape = 'circle', name, image, alt, ...props }: AvatarProps) {
+    const imageProps = getAvatarImageProps(image, size)
+
+    return (
+        <AvatarContent
+            key={getAvatarImageKey(imageProps)}
+            {...props}
+            size={size}
+            shape={shape}
+            name={name}
+            imageProps={imageProps}
+            alt={alt}
+        />
     )
 }
 Avatar.displayName = 'Avatar'
