@@ -3,6 +3,7 @@ import {
     getAvatarImageSrcSet,
     getAvatarMetaColorIndex,
     getInitials,
+    normalizeAvatarName,
     resolveAvatarImage,
     ROUNDED_AVATAR_RADIUS_BY_SIZE,
 } from './utils'
@@ -42,6 +43,20 @@ describe('Avatar utils', () => {
         })
     })
 
+    describe('normalizeAvatarName', () => {
+        it('trims and collapses whitespace', () => {
+            expect(normalizeAvatarName('  Jane    Doe  ')).toBe('Jane Doe')
+        })
+
+        it('returns an empty string for undefined', () => {
+            expect(normalizeAvatarName()).toBe('')
+        })
+
+        it('returns an empty string for an empty string', () => {
+            expect(normalizeAvatarName('')).toBe('')
+        })
+    })
+
     describe('resolveAvatarImage', () => {
         const imageMap = {
             36: 'avatar-36.png',
@@ -68,6 +83,21 @@ describe('Avatar utils', () => {
         it('returns undefined for an empty source map', () => {
             expect(resolveAvatarImage({}, 36, 2)).toBeUndefined()
         })
+
+        it('ignores invalid source entries', () => {
+            expect(
+                resolveAvatarImage(
+                    {
+                        '-10': 'avatar-negative.png',
+                        0: 'avatar-zero.png',
+                        36: '',
+                        72: 'avatar-72.png',
+                    } as Record<number, string>,
+                    36,
+                    1,
+                ),
+            ).toBe('avatar-72.png')
+        })
     })
 
     describe('getAvatarImageSrcSet', () => {
@@ -83,6 +113,17 @@ describe('Avatar utils', () => {
 
         it('returns undefined for string images', () => {
             expect(getAvatarImageSrcSet('avatar.png')).toBeUndefined()
+        })
+
+        it('ignores invalid source entries', () => {
+            expect(
+                getAvatarImageSrcSet({
+                    '-10': 'avatar-negative.png',
+                    0: 'avatar-zero.png',
+                    36: '',
+                    72: 'avatar-72.png',
+                } as Record<number, string>),
+            ).toBe('avatar-72.png 72w')
         })
     })
 
