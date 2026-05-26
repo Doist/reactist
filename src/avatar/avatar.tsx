@@ -42,22 +42,6 @@ function getAvatarStyle(size: AvatarSize, name?: string): AvatarStyle {
     }
 }
 
-function getAccessibleProps({ label, isImage }: { label: string | undefined; isImage: boolean }) {
-    if (isImage) {
-        return {}
-    }
-
-    if (label === '') {
-        return { 'aria-hidden': true } as const
-    }
-
-    if (label) {
-        return { role: 'img', 'aria-label': label } as const
-    }
-
-    return {}
-}
-
 function Avatar({
     size,
     shape = 'circle',
@@ -98,7 +82,9 @@ function Avatar({
             )}
             style={getAvatarStyle(size, name)}
             data-testid={testId}
-            {...getAccessibleProps({ label, isImage: Boolean(visibleImage) })}
+            role={!visibleImage && label ? 'img' : undefined}
+            aria-label={!visibleImage && label ? label : undefined}
+            aria-hidden={!visibleImage && isDecorative ? true : undefined}
         >
             {visibleImage ? (
                 <img
