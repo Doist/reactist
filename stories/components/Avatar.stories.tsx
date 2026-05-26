@@ -23,6 +23,14 @@ function WorkspaceAvatar(props: Omit<React.ComponentProps<typeof Avatar>, 'shape
     return <Avatar shape="rounded" {...props} />
 }
 
+function PersonAvatar(props: Omit<React.ComponentProps<typeof Avatar>, 'shape'>) {
+    return <Avatar shape="circle" {...props} />
+}
+
+function PeopleAvatar(props: Omit<React.ComponentProps<typeof Avatar>, 'shape'>) {
+    return <Avatar shape="circle" {...props} />
+}
+
 export const InitialsAvatarStory = () => (
     <Inline space="small">
         {sizes.map((size) => (
@@ -65,8 +73,8 @@ export const ProductWrapperExamplesStory = () => (
         <Inline space="small" alignItems="center">
             <UserAvatar size={36} name="Jane Doe" image={sourceMap} />
             <WorkspaceAvatar size={36} name="Design" image={sourceMap} />
-            <Avatar size={24} name="Person" image={sourceMap} alt="Person" />
-            <Avatar size={24} name="People" image={sourceMap} alt="People" />
+            <PersonAvatar size={24} name="Person" image={sourceMap} alt="Person" />
+            <PeopleAvatar size={24} name="People" image={sourceMap} alt="People" />
         </Inline>
     </Stack>
 )
