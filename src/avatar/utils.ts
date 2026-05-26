@@ -121,6 +121,23 @@ function getAvatarImageProps(
     return getImagePropsFromSources(sources, `${size}px`)
 }
 
+function getAvatarImageIdentityKey(image?: AvatarImage) {
+    if (!image) {
+        return 'fallback'
+    }
+
+    if (typeof image === 'string') {
+        return image
+    }
+
+    const sources = getSortedImageSources(image)
+    if (sources.length === 0) {
+        return 'fallback'
+    }
+
+    return sources.map(({ sourceSize, src }) => `${sourceSize}:${src}`).join('|')
+}
+
 function getAvailableAvatarImageProps(
     imageProps: AvatarImageProps | undefined,
     failedSources: readonly string[],
@@ -154,6 +171,7 @@ export {
     AVATAR_META_COLOR_COUNT,
     AVATAR_SIZES,
     getAvailableAvatarImageProps,
+    getAvatarImageIdentityKey,
     getAvatarImageProps,
     getAvatarMetaColorIndex,
     getInitials,

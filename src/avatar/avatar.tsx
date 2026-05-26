@@ -6,6 +6,7 @@ import { Box } from '../box'
 
 import {
     getAvailableAvatarImageProps,
+    getAvatarImageIdentityKey,
     getAvatarImageProps,
     getAvatarMetaColorIndex,
     getInitials,
@@ -71,6 +72,26 @@ type AvatarProps = ObfuscatedClassName & {
     'data-testid'?: string
 }
 
+/**
+ * Displays an avatar from an image URL or deterministic initials fallback.
+ */
+function Avatar({ size, shape = 'circle', name, image, alt, ...props }: AvatarProps) {
+    const imageProps = getAvatarImageProps(image, size)
+
+    return (
+        <AvatarContent
+            key={getAvatarImageIdentityKey(image)}
+            {...props}
+            size={size}
+            shape={shape}
+            name={name}
+            imageProps={imageProps}
+            alt={alt}
+        />
+    )
+}
+Avatar.displayName = 'Avatar'
+
 type AvatarContentProps = ObfuscatedClassName & {
     size: AvatarSize
     shape: AvatarShape
@@ -88,18 +109,6 @@ function getAvatarStyle(size: AvatarSize, name?: string): AvatarStyle {
         '--reactist-avatar-rounded-radius': ROUNDED_AVATAR_RADIUS_BY_SIZE[size],
         '--reactist-avatar-meta-fill': `var(--reactist-avatar-meta-fill-${metaColorIndex})`,
     }
-}
-
-function getAvatarImageKey(imageProps?: AvatarImageProps) {
-    if (!imageProps) {
-        return 'fallback'
-    }
-
-    if (imageProps.sources) {
-        return imageProps.sources.map(({ sourceSize, src }) => `${sourceSize}:${src}`).join('|')
-    }
-
-    return imageProps.src
 }
 
 function getAbsoluteImageSource(src: string, image: HTMLImageElement) {
@@ -176,26 +185,6 @@ function AvatarContent({
         </Box>
     )
 }
-
-/**
- * Displays an avatar from an image URL or deterministic initials fallback.
- */
-function Avatar({ size, shape = 'circle', name, image, alt, ...props }: AvatarProps) {
-    const imageProps = getAvatarImageProps(image, size)
-
-    return (
-        <AvatarContent
-            key={getAvatarImageKey(imageProps)}
-            {...props}
-            size={size}
-            shape={shape}
-            name={name}
-            imageProps={imageProps}
-            alt={alt}
-        />
-    )
-}
-Avatar.displayName = 'Avatar'
 
 export { Avatar }
 export type { AvatarImage, AvatarProps, AvatarShape, AvatarSize }
