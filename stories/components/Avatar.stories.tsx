@@ -1,142 +1,127 @@
-import './styles/avatar_story.css'
-
 import * as React from 'react'
 
-import { Avatar, Box, Inline } from '../../src'
+import { Avatar, Box, Inline, Stack } from '../../src'
 
 export default {
     title: 'Components/Avatar',
     component: Avatar,
 }
 
-const exampleData = [
-    {
-        size: 'xxs',
-        user: { name: 'Henning Mu', email: 'henning@foo.com' },
-        image: 'https://loremflickr.com/320/320',
-    },
-    {
-        size: 'xs',
-        user: { name: 'João Va', email: 'joao@foo.com' },
-        image: 'https://loremflickr.com/320/320',
-    },
-    {
-        size: 's',
-        user: { name: 'Amir Sa', email: 'amir@foo.com' },
-        image: 'https://loremflickr.com/320/320',
-    },
-    {
-        size: 'm',
-        user: { name: 'Alex Mu', email: 'alex@foo.com' },
-        image: 'https://loremflickr.com/320/320',
-    },
-    {
-        size: 'l',
-        user: { name: 'Julia', email: 'julia@foo.com' },
-        image: 'https://loremflickr.com/320/320',
-    },
-    {
-        size: 'xl',
-        user: { name: 'Janusz Gr', email: 'janusz@foo.com' },
-        image: 'https://loremflickr.com/320/320',
-    },
-    {
-        size: 'xxl',
-        user: { name: 'Jaime Az', email: 'jaime@foo.com' },
-        image: 'https://loremflickr.com/320/320',
-    },
-    {
-        size: 'xxxl',
-        user: { name: 'Igor Kh', email: 'igor@foo.com' },
-        image: 'https://loremflickr.com/320/320',
-    },
-] as const
+const sizes = [80, 72, 62, 50, 40, 36, 30, 28, 24, 20, 18, 16, 12] as const
 
-// Story Definitions ==========================================================
+const sourceMap = {
+    36: 'https://loremflickr.com/36/36',
+    72: 'https://loremflickr.com/72/72',
+    144: 'https://loremflickr.com/144/144',
+}
+
+function UserAvatar(props: Omit<React.ComponentProps<typeof Avatar>, 'shape'>) {
+    return <Avatar shape="circle" {...props} />
+}
+
+function WorkspaceAvatar(props: Omit<React.ComponentProps<typeof Avatar>, 'shape'>) {
+    return <Avatar shape="rounded" {...props} />
+}
 
 export const InitialsAvatarStory = () => (
     <Inline space="small">
-        {exampleData.map((data, index) => (
-            <Avatar key={index} size={data.size} user={data.user} />
+        {sizes.map((size) => (
+            <Avatar key={size} size={size} name="Jane Doe" />
         ))}
     </Inline>
 )
 
-export const CustomColorAvatarStory = () => (
+export const RoundedAvatarStory = () => (
     <Inline space="small">
-        {exampleData.map((data, index) => (
-            <Avatar
-                colorList={['palevioletred', 'palegoldenrod', 'palegreen', 'paleturquoise']}
-                key={index}
-                size={data.size}
-                user={data.user}
-            />
+        {sizes.map((size) => (
+            <Avatar key={size} size={size} shape="rounded" name="Design System" />
         ))}
     </Inline>
 )
 
 export const PictureAvatarStory = () => (
     <Inline space="small">
-        {exampleData.map((data, index) => (
-            <Avatar key={index} size={data.size} user={data.user} avatarUrl={data.image} />
+        {sizes.map((size) => (
+            <Avatar
+                key={size}
+                size={size}
+                name="Jane Doe"
+                image={`https://loremflickr.com/${size}/${size}`}
+            />
         ))}
+    </Inline>
+)
+
+export const SourceMapAvatarStory = () => (
+    <Inline space="small">
+        <Avatar size={36} name="Jane Doe" image={sourceMap} />
+        <Avatar size={72} name="Jane Doe" image={sourceMap} />
+        <Avatar size={36} shape="rounded" name="Design" image={sourceMap} />
+    </Inline>
+)
+
+export const ProductWrapperExamplesStory = () => (
+    <Stack space="small">
+        <Inline space="small" alignItems="center">
+            <UserAvatar size={36} name="Jane Doe" image={sourceMap} />
+            <WorkspaceAvatar size={36} name="Design" image={sourceMap} />
+            <Avatar size={24} name="Person" image={sourceMap} alt="Person" />
+            <Avatar size={24} name="People" image={sourceMap} alt="People" />
+        </Inline>
+    </Stack>
+)
+
+export const EmptyAvatarStory = () => (
+    <Inline space="small">
+        <Avatar size={36} />
+        <Avatar size={36} shape="rounded" />
     </Inline>
 )
 
 export const AvatarPlaygroundStory = (args) => {
     return (
-        <Box className="story Avatar">
+        <Box>
             <Avatar
-                {...args}
-                user={{
-                    name: args.userName,
-                    email: args.email,
-                }}
+                size={args.size}
+                shape={args.shape}
+                name={args.name}
+                image={args.image || undefined}
+                alt={args.alt}
             />
         </Box>
     )
 }
 
 AvatarPlaygroundStory.args = {
-    size: 'l',
-    avatarUrl: 'https://loremflickr.com/320/320',
-    userName: '',
-    email: '',
+    size: 36,
+    shape: 'circle',
+    name: 'Jane Doe',
+    image: 'https://loremflickr.com/144/144',
+    alt: undefined,
 }
 
 AvatarPlaygroundStory.argTypes = {
     size: {
         type: 'select',
-        options: ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'],
+        options: sizes,
     },
-    avatarUrl: {
+    shape: {
+        type: 'select',
+        options: ['circle', 'rounded'],
+    },
+    name: {
         control: {
             type: 'text',
         },
     },
-    userName: {
+    image: {
         control: {
             type: 'text',
         },
     },
-    email: {
+    alt: {
         control: {
             type: 'text',
-        },
-    },
-    className: {
-        control: {
-            type: null,
-        },
-    },
-    user: {
-        control: {
-            type: null,
-        },
-    },
-    colorList: {
-        control: {
-            type: null,
         },
     },
 }
