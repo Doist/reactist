@@ -25,7 +25,7 @@ const ROUNDED_AVATAR_RADIUS_BY_SIZE: Record<AvatarSize, string> = {
 const FILTER_CHARS_REGEXP = new RegExp('[^\\p{L}\\p{M}\\p{Zs} ]', 'gu')
 
 function normalizeAvatarName(name?: string) {
-    return name?.trim().replace(/\s+/g, ' ') ?? ''
+    return name?.normalize('NFC').trim().replace(/\s+/g, ' ') ?? ''
 }
 
 function getFirstCodePoint(value?: string) {
@@ -43,7 +43,6 @@ function limitInitials(value: string) {
 
 function getInitials(name?: string) {
     const words = normalizeAvatarName(name)
-        .normalize('NFC')
         .replace(FILTER_CHARS_REGEXP, '')
         .split(' ')
         .filter(Boolean)

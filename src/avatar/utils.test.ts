@@ -150,6 +150,12 @@ describe('Avatar utils', () => {
             expect(getAvatarMetaColorIndex('John Doe')).toBe(9)
         })
 
+        it('uses the same index for canonically equivalent Unicode names', () => {
+            expect(getAvatarMetaColorIndex('Élodie Brulé')).toBe(
+                getAvatarMetaColorIndex('E\u0301lodie Brule\u0301'),
+            )
+        })
+
         it('always returns an index in the configured fixed slot range', () => {
             const index = getAvatarMetaColorIndex('Francesca Ciao')
 

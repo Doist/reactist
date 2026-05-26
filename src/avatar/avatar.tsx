@@ -68,22 +68,24 @@ function Avatar({
     'data-testid': testId,
 }: AvatarProps) {
     const [imageState, setImageState] = React.useState<{
-        failedImage?: AvatarImage
-        previousImage?: AvatarImage
+        failedSrc?: string
+        previousResolvedImage?: string
     }>({})
 
-    if (imageState.previousImage !== image) {
-        setImageState({ previousImage: image })
+    const resolvedImage = resolveAvatarImage(image, size)
+    if (imageState.previousResolvedImage !== resolvedImage) {
+        setImageState({ previousResolvedImage: resolvedImage })
     }
 
-    const imageFailed = imageState.previousImage === image && imageState.failedImage === image
-    const resolvedImage = imageFailed ? undefined : resolveAvatarImage(image, size)
+    const imageFailed =
+        imageState.previousResolvedImage === resolvedImage && imageState.failedSrc === resolvedImage
+    const visibleImage = imageFailed ? undefined : resolvedImage
     const srcSet = getAvatarImageSrcSet(image)
     const initials = getInitials(name)
     const label = alt ?? name
     const isDecorative = label === ''
-    const hasFallbackInitials = !resolvedImage && initials
-    const isEmpty = !resolvedImage && !initials
+    const hasFallbackInitials = !visibleImage && initials
+    const isEmpty = !visibleImage && !initials
 
     return (
         <Box
@@ -96,17 +98,22 @@ function Avatar({
             )}
             style={getAvatarStyle(size, name)}
             data-testid={testId}
-            {...getAccessibleProps({ label, isImage: Boolean(resolvedImage) })}
+            {...getAccessibleProps({ label, isImage: Boolean(visibleImage) })}
         >
-            {resolvedImage ? (
+            {visibleImage ? (
                 <img
                     className={styles.image}
-                    src={resolvedImage}
+                    src={visibleImage}
                     srcSet={srcSet}
                     sizes={srcSet ? `${size}px` : undefined}
                     alt={label ?? ''}
                     aria-hidden={isDecorative ? true : undefined}
-                    onError={() => setImageState({ failedImage: image, previousImage: image })}
+                    onError={() =>
+                        setImageState({
+                            failedSrc: visibleImage,
+                            previousResolvedImage: resolvedImage,
+                        })
+                    }
                 />
             ) : (
                 initials

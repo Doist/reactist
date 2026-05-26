@@ -15,6 +15,8 @@ const sourceMap = {
     144: 'https://loremflickr.com/144/144',
 }
 
+const metaColorNames = ['Ada Lovelace', 'Grace Hopper', 'Mary Jackson', 'Katherine Johnson']
+
 function UserAvatar(props: Omit<React.ComponentProps<typeof Avatar>, 'shape'>) {
     return <Avatar shape="circle" {...props} />
 }
@@ -35,6 +37,14 @@ export const InitialsAvatarStory = () => (
     <Inline space="small">
         {sizes.map((size) => (
             <Avatar key={size} size={size} name="Jane Doe" />
+        ))}
+    </Inline>
+)
+
+export const MetaColorAvatarStory = () => (
+    <Inline space="small">
+        {metaColorNames.map((name) => (
+            <Avatar key={name} size={36} name={name} />
         ))}
     </Inline>
 )
@@ -77,7 +87,7 @@ export const FailedImageFallbackStory = () => (
 
 export const ProductWrapperExamplesStory = () => (
     <Stack space="small">
-        <Inline space="small" alignItems="center">
+        <Inline space="small" alignY="center">
             <UserAvatar size={36} name="Jane Doe" image={sourceMap} />
             <WorkspaceAvatar size={36} name="Design" image={sourceMap} />
             <PersonAvatar size={24} name="Person" image={sourceMap} alt="Person" />
