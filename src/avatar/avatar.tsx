@@ -67,9 +67,16 @@ function Avatar({
     exceptionallySetClassName,
     'data-testid': testId,
 }: AvatarProps) {
-    const [failedImage, setFailedImage] = React.useState<AvatarImage | undefined>()
+    const [imageState, setImageState] = React.useState<{
+        failedImage?: AvatarImage
+        previousImage?: AvatarImage
+    }>({})
 
-    const imageFailed = failedImage === image
+    if (imageState.previousImage !== image) {
+        setImageState({ previousImage: image })
+    }
+
+    const imageFailed = imageState.previousImage === image && imageState.failedImage === image
     const resolvedImage = imageFailed ? undefined : resolveAvatarImage(image, size)
     const srcSet = getAvatarImageSrcSet(image)
     const initials = getInitials(name)
@@ -99,7 +106,7 @@ function Avatar({
                     sizes={srcSet ? `${size}px` : undefined}
                     alt={label ?? ''}
                     aria-hidden={isDecorative ? true : undefined}
-                    onError={() => setFailedImage(image)}
+                    onError={() => setImageState({ failedImage: image, previousImage: image })}
                 />
             ) : (
                 initials
