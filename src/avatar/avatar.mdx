@@ -11,6 +11,7 @@ import {
 
 import * as AvatarStories from './avatar.stories'
 import * as AvatarGroupStories from './avatar-group.stories'
+import * as AvatarPairStories from './avatar-pair.stories'
 
 <Meta of={AvatarStories} />
 
@@ -40,10 +41,11 @@ conveys the count to assistive tech.
 ## Avatar pairs
 
 Use `AvatarPair` when a surface represents two related people or entities. Pass
-the same `size` to the pair and its two direct `Avatar` children. The second
-child is positioned diagonally above-left of the first child.
+the same `size` to the pair and its exactly two direct `Avatar` children. The
+first child is the foreground avatar (positioned bottom-right); the second is
+positioned diagonally above-left of the first child.
 
-<Canvas of={AvatarStories.AvatarPairs} />
+<Canvas of={AvatarPairStories.People} />
 
 ## Migrating from the legacy API
 
@@ -204,7 +206,7 @@ the component props instead of overriding them directly.
     --reactist-avatar-pair-size: 28px;
     --reactist-avatar-pair-spacing: 12px;
     --reactist-avatar-pair-mask: 2px;
-    --reactist-avatar-pair-rounded-radius: 4px;
+    --reactist-avatar-pair-rounded-radius: 5px;
 }
 ```
 
