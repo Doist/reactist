@@ -85,34 +85,114 @@ component appearance. The values shown below are the default values.
 #### Avatar colors
 
 <ColorPalette>
-    <ColorItem title="--reactist-avatar-initials-color" colors={['#ffffff']} />
+    <ColorItem
+        title="--reactist-avatar-initials-color"
+        colors={['var(--reactist-actionable-primary-idle-tint)']}
+    />
     <ColorItem title="--reactist-avatar-border-tint" colors={['#0000001a']} />
-    <ColorItem title="--reactist-avatar-empty-fill" colors={['var(--reactist-framework-fill-crest)']} />
+    <ColorItem
+        title="--reactist-avatar-empty-fill"
+        colors={['var(--reactist-framework-fill-crest)']}
+    />
 </ColorPalette>
 
-#### Avatar meta fills
+#### Avatar meta colors
 
 <ColorPalette>
     <ColorItem title="--reactist-avatar-meta-fill-0" colors={['#b8255f']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-0"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-1" colors={['#dc4c3e']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-1"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-2" colors={['#f48318']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-2"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-3" colors={['#fecf05']} />
+    <ColorItem title="--reactist-avatar-meta-on-idle-tint-3" colors={['#202020']} />
     <ColorItem title="--reactist-avatar-meta-fill-4" colors={['#aeb83a']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-4"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-5" colors={['#7ecc48']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-5"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-6" colors={['#369307']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-6"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-7" colors={['#52ccb8']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-7"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-8" colors={['#148fad']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-8"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-9" colors={['#3ab9e2']} />
+    <ColorItem title="--reactist-avatar-meta-on-idle-tint-9" colors={['#202020']} />
     <ColorItem title="--reactist-avatar-meta-fill-10" colors={['#96c3eb']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-10"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-11" colors={['#2a67e2']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-11"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-12" colors={['#692ec2']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-12"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-13" colors={['#ac30cc']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-13"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-14" colors={['#eb96c8']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-14"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-15" colors={['#e05095']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-15"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-16" colors={['#c9766f']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-16"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-17" colors={['#808080']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-17"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-18" colors={['#999999']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-18"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
     <ColorItem title="--reactist-avatar-meta-fill-19" colors={['#ccae96']} />
+    <ColorItem
+        title="--reactist-avatar-meta-on-idle-tint-19"
+        colors={['var(--reactist-avatar-initials-color)']}
+    />
 </ColorPalette>
 
 ### Component-owned variables
@@ -125,7 +205,6 @@ the component props instead of overriding them directly.
 .avatar {
     --reactist-avatar-size: 36px;
     --reactist-avatar-rounded-radius: 5px;
-    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-0);
 }
 ```
 

@@ -1,48 +1,48 @@
 :root {
-    --reactist-avatar-initials-color: #ffffff;
+    --reactist-avatar-initials-color: var(--reactist-actionable-primary-idle-tint);
     --reactist-avatar-border-tint: #0000001a;
     --reactist-avatar-empty-fill: var(--reactist-framework-fill-crest);
 
     --reactist-avatar-meta-fill-0: #b8255f;
-    --reactist-avatar-meta-tint-0: #d43876;
+    --reactist-avatar-meta-on-idle-tint-0: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-1: #dc4c3e;
-    --reactist-avatar-meta-tint-1: #ea584a;
+    --reactist-avatar-meta-on-idle-tint-1: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-2: #f48318;
-    --reactist-avatar-meta-tint-2: #c77100;
+    --reactist-avatar-meta-on-idle-tint-2: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-3: #fecf05;
-    --reactist-avatar-meta-tint-3: #b29104;
+    --reactist-avatar-meta-on-idle-tint-3: #202020;
     --reactist-avatar-meta-fill-4: #aeb83a;
-    --reactist-avatar-meta-tint-4: #949c31;
+    --reactist-avatar-meta-on-idle-tint-4: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-5: #7ecc48;
-    --reactist-avatar-meta-tint-5: #65a33a;
+    --reactist-avatar-meta-on-idle-tint-5: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-6: #369307;
-    --reactist-avatar-meta-tint-6: #369307;
+    --reactist-avatar-meta-on-idle-tint-6: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-7: #52ccb8;
-    --reactist-avatar-meta-tint-7: #42a393;
+    --reactist-avatar-meta-on-idle-tint-7: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-8: #148fad;
-    --reactist-avatar-meta-tint-8: #148fad;
+    --reactist-avatar-meta-on-idle-tint-8: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-9: #3ab9e2;
-    --reactist-avatar-meta-tint-9: #319dc0;
+    --reactist-avatar-meta-on-idle-tint-9: #202020;
     --reactist-avatar-meta-fill-10: #96c3eb;
-    --reactist-avatar-meta-tint-10: #6988a4;
+    --reactist-avatar-meta-on-idle-tint-10: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-11: #2a67e2;
-    --reactist-avatar-meta-tint-11: #4180ff;
+    --reactist-avatar-meta-on-idle-tint-11: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-12: #692ec2;
-    --reactist-avatar-meta-tint-12: #692ec2;
+    --reactist-avatar-meta-on-idle-tint-12: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-13: #ac30cc;
-    --reactist-avatar-meta-tint-13: #ca3fee;
+    --reactist-avatar-meta-on-idle-tint-13: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-14: #eb96c8;
-    --reactist-avatar-meta-tint-14: #a4698c;
+    --reactist-avatar-meta-on-idle-tint-14: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-15: #e05095;
-    --reactist-avatar-meta-tint-15: #e05095;
+    --reactist-avatar-meta-on-idle-tint-15: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-16: #c9766f;
-    --reactist-avatar-meta-tint-16: #ff8e84;
+    --reactist-avatar-meta-on-idle-tint-16: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-17: #808080;
-    --reactist-avatar-meta-tint-17: #808080;
+    --reactist-avatar-meta-on-idle-tint-17: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-18: #999999;
-    --reactist-avatar-meta-tint-18: #999999;
+    --reactist-avatar-meta-on-idle-tint-18: var(--reactist-avatar-initials-color);
     --reactist-avatar-meta-fill-19: #ccae96;
-    --reactist-avatar-meta-tint-19: #8f7a69;
+    --reactist-avatar-meta-on-idle-tint-19: var(--reactist-avatar-initials-color);
 }
 
 .avatar {
@@ -60,6 +60,106 @@
 
 .avatar:has(.initials) {
     background-color: var(--reactist-avatar-meta-fill);
+}
+
+.metaColor-0 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-0);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-0);
+}
+
+.metaColor-1 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-1);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-1);
+}
+
+.metaColor-2 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-2);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-2);
+}
+
+.metaColor-3 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-3);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-3);
+}
+
+.metaColor-4 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-4);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-4);
+}
+
+.metaColor-5 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-5);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-5);
+}
+
+.metaColor-6 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-6);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-6);
+}
+
+.metaColor-7 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-7);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-7);
+}
+
+.metaColor-8 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-8);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-8);
+}
+
+.metaColor-9 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-9);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-9);
+}
+
+.metaColor-10 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-10);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-10);
+}
+
+.metaColor-11 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-11);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-11);
+}
+
+.metaColor-12 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-12);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-12);
+}
+
+.metaColor-13 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-13);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-13);
+}
+
+.metaColor-14 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-14);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-14);
+}
+
+.metaColor-15 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-15);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-15);
+}
+
+.metaColor-16 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-16);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-16);
+}
+
+.metaColor-17 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-17);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-17);
+}
+
+.metaColor-18 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-18);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-18);
+}
+
+.metaColor-19 {
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-19);
+    --reactist-avatar-initials-color: var(--reactist-avatar-meta-on-idle-tint-19);
 }
 
 .empty {

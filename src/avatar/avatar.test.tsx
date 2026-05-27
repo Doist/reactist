@@ -49,9 +49,13 @@ describe('Avatar', () => {
         render(<Avatar data-testid="avatar" size={36} name="Jane Doe" />)
 
         expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveTextContent('JD')
-        expect(screen.getByTestId('avatar')).toHaveStyle({
-            '--reactist-avatar-meta-fill': 'var(--reactist-avatar-meta-fill-0)',
-        })
+        expect(screen.getByTestId('avatar')).toHaveClass('metaColor-0')
+    })
+
+    it('applies the deterministic meta color class for the avatar name', () => {
+        render(<Avatar data-testid="avatar" size={36} name="John Doe" />)
+
+        expect(screen.getByTestId('avatar')).toHaveClass('metaColor-9')
     })
 
     it('falls back to initials when image source map is empty', () => {
