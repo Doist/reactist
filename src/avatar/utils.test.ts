@@ -178,6 +178,18 @@ describe('Avatar utils', () => {
         it('returns undefined when a string image has failed', () => {
             expect(getAvailableImageSources({ src: 'avatar.png' }, ['avatar.png'])).toBeUndefined()
         })
+
+        it('returns the original image sources when no candidates have failed', () => {
+            const imageProps = getSources(
+                {
+                    36: 'avatar-36.png',
+                    72: 'avatar-72.png',
+                },
+                36,
+            )
+
+            expect(getAvailableImageSources(imageProps, [])).toBe(imageProps)
+        })
     })
 
     describe('getAvatarMetaColorIndex', () => {
