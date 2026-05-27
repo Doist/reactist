@@ -1,0 +1,148 @@
+import {
+    Canvas,
+    ColorItem,
+    ColorPalette,
+    Controls,
+    Meta,
+    Subtitle,
+    Title,
+} from '@storybook/addon-docs/blocks'
+
+import * as AvatarStories from './avatar.stories'
+
+<Meta of={AvatarStories} />
+
+<Title />
+
+<Subtitle>Image, initials, and empty-state avatar primitive.</Subtitle>
+
+## Basic usage
+
+Use `Avatar` for people by default. Pass `size`, `name`, and an optional
+`image`; `name` supplies the default accessible label, the initials fallback,
+and the deterministic meta color used when initials render.
+
+<Canvas of={AvatarStories.Default} />
+
+## Initials fallback
+
+When `image` is not supplied, cannot be resolved, or every responsive image
+candidate fails, Avatar falls back to initials derived from `name`. Names are
+normalized before initials are generated.
+
+<Canvas of={AvatarStories.InitialsFallback} />
+
+## Workspace avatars
+
+Use `shape="rounded"` for workspace-like entities. Product code can wrap
+Avatar with a small convention component when a surface always represents the
+same kind of entity.
+
+<Canvas of={AvatarStories.WorkspaceAvatar} />
+
+## Image sources
+
+Pass a string for a single image URL, or a source map keyed by intrinsic image
+width. Source maps render native `srcSet` width descriptors and a `sizes` hint
+based on the selected avatar size.
+
+<Canvas of={AvatarStories.ImageSources} />
+
+## Sizes
+
+Avatar supports a fixed set of CSS pixel sizes. Use one of the supported
+numeric values instead of styling the avatar dimensions from the outside.
+
+<Canvas of={AvatarStories.Sizes} />
+
+## Accessibility
+
+Images default to `name` for alt text. Pass `alt` when the visual needs a more
+specific label, and pass `alt=""` when the avatar is decorative.
+
+<Canvas of={AvatarStories.Accessibility} />
+
+## Playground
+
+Use the controls to inspect the component API and common image/name
+combinations.
+
+<Canvas of={AvatarStories.Playground} />
+
+### API
+
+<Controls of={AvatarStories.Playground} />
+
+## Custom properties
+
+The following CSS custom properties are available to customize the avatar
+component appearance. The values shown below are the default values.
+
+<Canvas of={AvatarStories.MetaColors} />
+
+### Customizable properties
+
+#### Avatar colors
+
+<ColorPalette>
+    <ColorItem title="--reactist-avatar-initials-color" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-border-tint" colors={['#0000001a']} />
+    <ColorItem title="--reactist-avatar-empty-fill" colors={['var(--reactist-framework-fill-crest)']} />
+</ColorPalette>
+
+#### Avatar meta fills
+
+<ColorPalette>
+    <ColorItem title="--reactist-avatar-meta-fill-0" colors={['#b8255f']} />
+    <ColorItem title="--reactist-avatar-meta-fill-1" colors={['#dc4c3e']} />
+    <ColorItem title="--reactist-avatar-meta-fill-2" colors={['#f48318']} />
+    <ColorItem title="--reactist-avatar-meta-fill-3" colors={['#fecf05']} />
+    <ColorItem title="--reactist-avatar-meta-fill-4" colors={['#aeb83a']} />
+    <ColorItem title="--reactist-avatar-meta-fill-5" colors={['#7ecc48']} />
+    <ColorItem title="--reactist-avatar-meta-fill-6" colors={['#369307']} />
+    <ColorItem title="--reactist-avatar-meta-fill-7" colors={['#52ccb8']} />
+    <ColorItem title="--reactist-avatar-meta-fill-8" colors={['#148fad']} />
+    <ColorItem title="--reactist-avatar-meta-fill-9" colors={['#3ab9e2']} />
+    <ColorItem title="--reactist-avatar-meta-fill-10" colors={['#96c3eb']} />
+    <ColorItem title="--reactist-avatar-meta-fill-11" colors={['#2a67e2']} />
+    <ColorItem title="--reactist-avatar-meta-fill-12" colors={['#692ec2']} />
+    <ColorItem title="--reactist-avatar-meta-fill-13" colors={['#ac30cc']} />
+    <ColorItem title="--reactist-avatar-meta-fill-14" colors={['#eb96c8']} />
+    <ColorItem title="--reactist-avatar-meta-fill-15" colors={['#e05095']} />
+    <ColorItem title="--reactist-avatar-meta-fill-16" colors={['#c9766f']} />
+    <ColorItem title="--reactist-avatar-meta-fill-17" colors={['#808080']} />
+    <ColorItem title="--reactist-avatar-meta-fill-18" colors={['#999999']} />
+    <ColorItem title="--reactist-avatar-meta-fill-19" colors={['#ccae96']} />
+</ColorPalette>
+
+### Component-owned variables
+
+Avatar sets these variables at render time from the `size`, `shape`, and
+`name` props. They are listed for completeness, but consumers should prefer
+the component props instead of overriding them directly.
+
+```css
+.avatar {
+    --reactist-avatar-size: 36px;
+    --reactist-avatar-rounded-radius: 5px;
+    --reactist-avatar-meta-fill: var(--reactist-avatar-meta-fill-0);
+}
+```
+
+## What the consumer owns
+
+- **Identity data** — choose the `name`, `image`, and any custom `alt` text.
+- **Source selection** — provide either one URL or a width-keyed source map.
+- **Entity convention** — choose `shape="circle"` for people and
+  `shape="rounded"` for workspace-like entities.
+- **Decorative usage** — pass `alt=""` when surrounding UI already names the
+  represented entity.
+- **Persistence and fetching** — Avatar does not load, cache, or persist remote
+  user/workspace data.
+
+## Accessibility
+
+- `name` becomes the default image `alt` text and initials `aria-label`.
+- `alt` overrides the accessible label for both image and initials rendering.
+- `alt=""` marks image and initials avatars as decorative.
+- An avatar with no `name` and no `image` renders as an empty decorative visual.
