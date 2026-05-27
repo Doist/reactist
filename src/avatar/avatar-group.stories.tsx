@@ -15,8 +15,12 @@ const contributors = [
 
 const workspaceNames = ['Reactist', 'Todoist', 'Twist', 'Doist'] as const
 
-function getContributor(index: number) {
-    return contributors[index % contributors.length]
+function getContributor(index: number): (typeof contributors)[number] {
+    return contributors[index % contributors.length]!
+}
+
+function getWorkspaceName(index: number): (typeof workspaceNames)[number] {
+    return workspaceNames[index % workspaceNames.length]!
 }
 
 function getGithubAvatarUrl(githubUserId: string, width: number) {
@@ -220,8 +224,8 @@ export const Sizes = {
                             <AvatarGroup size={size} count={3}>
                                 {[0, 1, 2].map((offset) => (
                                     <UserAvatar
-                                        key={getContributor(index + offset)!.name}
-                                        contributor={getContributor(index + offset)!}
+                                        key={getContributor(index + offset).name}
+                                        contributor={getContributor(index + offset)}
                                         size={size}
                                     />
                                 ))}
@@ -243,11 +247,7 @@ export const Sizes = {
                                     <WorkspaceAvatar
                                         key={`${size}-${offset}`}
                                         size={size}
-                                        name={
-                                            workspaceNames[
-                                                (index + offset) % workspaceNames.length
-                                            ]!
-                                        }
+                                        name={getWorkspaceName(index + offset)}
                                     />
                                 ))}
                             </AvatarGroup>

@@ -15,8 +15,12 @@ const contributors = [
 
 const workspaceNames = ['Reactist', 'Todoist', 'Twist', 'Doist'] as const
 
-function getContributor(index: number) {
-    return contributors[index % contributors.length]
+function getContributor(index: number): (typeof contributors)[number] {
+    return contributors[index % contributors.length]!
+}
+
+function getWorkspaceName(index: number): (typeof workspaceNames)[number] {
+    return workspaceNames[index % workspaceNames.length]!
 }
 
 function getGithubAvatarUrl(githubUserId: string, width: number) {
@@ -194,8 +198,8 @@ export const Sizes = {
                     {([80, 62, 50, 36, 28, 20, 16, 12] as const).map((size, index) => (
                         <AvatarExample key={size} label={`${size}px`}>
                             <AvatarPair size={size}>
-                                <UserAvatar contributor={getContributor(index)!} size={size} />
-                                <UserAvatar contributor={getContributor(index + 1)!} size={size} />
+                                <UserAvatar contributor={getContributor(index)} size={size} />
+                                <UserAvatar contributor={getContributor(index + 1)} size={size} />
                             </AvatarPair>
                         </AvatarExample>
                     ))}
@@ -210,14 +214,8 @@ export const Sizes = {
                     {([80, 62, 50, 36, 28, 20, 16, 12] as const).map((size, index) => (
                         <AvatarExample key={size} label={`${size}px`}>
                             <AvatarPair size={size} shape="rounded">
-                                <WorkspaceAvatar
-                                    size={size}
-                                    name={workspaceNames[index % workspaceNames.length]!}
-                                />
-                                <WorkspaceAvatar
-                                    size={size}
-                                    name={workspaceNames[(index + 1) % workspaceNames.length]!}
-                                />
+                                <WorkspaceAvatar size={size} name={getWorkspaceName(index)} />
+                                <WorkspaceAvatar size={size} name={getWorkspaceName(index + 1)} />
                             </AvatarPair>
                         </AvatarExample>
                     ))}
