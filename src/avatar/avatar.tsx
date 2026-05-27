@@ -10,6 +10,7 @@ import {
     getAvatarMetaColorIndex,
     getInitials,
     getSources,
+    normalizeAvatarName,
     ROUNDED_AVATAR_RADIUS_BY_SIZE,
 } from './utils'
 
@@ -88,10 +89,11 @@ const AvatarContent = React.forwardRef<HTMLDivElement, AvatarProps>(function Ava
     const imageSources = getSources(image, size)
     const [failedImageSources, setFailedImageSources] = React.useState<string[]>([])
     const availableImageSources = getAvailableImageSources(imageSources, failedImageSources)
+    const normalizedName = normalizeAvatarName(name)
     const initials = getInitials(name)
 
     const hasInitials = initials !== ''
-    const label = ariaLabel ?? alt ?? name
+    const label = ariaLabel ?? alt ?? normalizedName
     const isDecorative = ariaHidden || label === ''
     const metaColorIndex = getAvatarMetaColorIndex(name)
 
