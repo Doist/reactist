@@ -21,7 +21,6 @@ import type { AvatarImage, AvatarShape, AvatarSize, ImageSources } from './utils
 type AvatarStyle = React.CSSProperties & {
     '--reactist-avatar-size': string
     '--reactist-avatar-rounded-radius': string
-    '--reactist-avatar-meta-fill': string
 }
 
 /**
@@ -104,16 +103,18 @@ function AvatarContent({
     const hasInitials = initials !== ''
     const label = alt ?? name
     const isDecorative = label === ''
+    const metaColorIndex = getAvatarMetaColorIndex(name)
 
     return (
         <Box
             className={classNames(
                 styles.avatar,
                 styles[`shape-${shape}`],
+                styles[`metaColor-${metaColorIndex}`],
                 !availableImageSources && !hasInitials && styles.empty,
                 exceptionallySetClassName,
             )}
-            style={getAvatarStyle(size, name)}
+            style={getAvatarStyle(size)}
             data-testid={testId}
             aria-hidden={isDecorative || undefined}
             display="inlineFlex"
@@ -158,13 +159,10 @@ function AvatarContent({
     )
 }
 
-function getAvatarStyle(size: AvatarSize, name?: string): AvatarStyle {
-    const metaColorIndex = getAvatarMetaColorIndex(name)
-
+function getAvatarStyle(size: AvatarSize): AvatarStyle {
     return {
         '--reactist-avatar-size': `${size}px`,
         '--reactist-avatar-rounded-radius': ROUNDED_AVATAR_RADIUS_BY_SIZE[size],
-        '--reactist-avatar-meta-fill': `var(--reactist-avatar-meta-fill-${metaColorIndex})`,
     }
 }
 
