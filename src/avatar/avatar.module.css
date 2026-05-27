@@ -219,8 +219,7 @@
     margin-left: calc(-1 * var(--reactist-avatar-group-overlap));
 }
 
-.avatarGroupShape-circle > * + *,
-.avatarGroupShape-circle[data-count]::after {
+.avatarGroupShape-circle > * + * {
     -webkit-mask-image: radial-gradient(
         circle calc((var(--reactist-avatar-group-size) / 2) + var(--reactist-avatar-group-mask)) at
             var(--reactist-avatar-group-previous-center-x) 50%,
@@ -235,8 +234,7 @@
     );
 }
 
-.avatarGroupShape-rounded > * + *,
-.avatarGroupShape-rounded[data-count]::after {
+.avatarGroupShape-rounded > * + * {
     -webkit-mask-image:
         linear-gradient(#000 0 0),
         radial-gradient(
@@ -287,8 +285,7 @@
     mask-repeat: no-repeat;
 }
 
-.avatarGroup[data-count]::after {
-    content: attr(data-count);
+.avatarGroupCount {
     position: absolute;
     top: 0;
     right: 0;
@@ -307,11 +304,11 @@
     user-select: none;
 }
 
-.avatarGroupShape-rounded[data-count]::after {
+.avatarGroupShape-rounded > .avatarGroupCount {
     border-radius: var(--reactist-avatar-group-rounded-radius);
 }
 
-.avatarGroup[data-count]:has(> :first-child:last-child)::after {
+.avatarGroup > .avatarGroupCount:nth-child(2) {
     -webkit-mask-image: none;
     mask-image: none;
 }
