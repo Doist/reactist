@@ -197,5 +197,5 @@ function polymorphicComponent<
     >
 }
 
-export type { PolymorphicComponent }
+export type { PolymorphicComponent, PolymorphicComponentProps }
 export { polymorphicComponent }

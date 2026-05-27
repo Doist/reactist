@@ -193,6 +193,36 @@ describe('Avatar', () => {
         expect(screen.getByTestId('avatar')).toHaveTextContent('')
     })
 
+    it('can render the root as a different element', () => {
+        render(<Avatar as="section" data-testid="avatar" size={36} name="Jane Doe" />)
+
+        expect(screen.getByTestId('avatar').tagName).toBe('SECTION')
+    })
+
+    it('derives the root ref type from the element rendered with as', () => {
+        const anchorRef = React.createRef<HTMLAnchorElement>()
+        const buttonRef = React.createRef<HTMLButtonElement>()
+
+        render(
+            <Avatar
+                as="a"
+                data-testid="avatar"
+                href="/profile"
+                ref={anchorRef}
+                size={36}
+                name="Jane Doe"
+            />,
+        )
+
+        expect(anchorRef.current).toBe(screen.getByTestId('avatar'))
+
+        const invalidRefElement = (
+            // @ts-expect-error refs must match the element selected with as
+            <Avatar as="a" href="/profile" ref={buttonRef} size={36} name="Jane Doe" />
+        )
+        expect(invalidRefElement).toBeTruthy()
+    })
+
     it('supports rounded shape with size-aware radius', () => {
         render(<Avatar data-testid="avatar" size={50} shape="rounded" name="Design" />)
 
