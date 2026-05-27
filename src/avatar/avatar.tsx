@@ -31,6 +31,7 @@ type AvatarGroupStyle = React.CSSProperties & {
     '--reactist-avatar-group-overlap': string
     '--reactist-avatar-group-mask': string
     '--reactist-avatar-group-rounded-radius': string
+    '--reactist-avatar-group-rounded-mask-radius': string
 }
 
 const AVATAR_GROUP_OVERLAP_BY_SIZE: Record<AvatarSize, string> = {
@@ -328,11 +329,15 @@ function getAvatarStyle(size: AvatarSize): AvatarStyle {
 }
 
 function getAvatarGroupStyle(size: AvatarSize): AvatarGroupStyle {
+    const mask = AVATAR_GROUP_MASK_BY_SIZE[size]
+    const roundedRadius = ROUNDED_AVATAR_RADIUS_BY_SIZE[size]
+
     return {
         '--reactist-avatar-group-size': `${size}px`,
         '--reactist-avatar-group-overlap': AVATAR_GROUP_OVERLAP_BY_SIZE[size],
-        '--reactist-avatar-group-mask': AVATAR_GROUP_MASK_BY_SIZE[size],
-        '--reactist-avatar-group-rounded-radius': ROUNDED_AVATAR_RADIUS_BY_SIZE[size],
+        '--reactist-avatar-group-mask': mask,
+        '--reactist-avatar-group-rounded-radius': roundedRadius,
+        '--reactist-avatar-group-rounded-mask-radius': `calc(${roundedRadius} + ${mask})`,
     }
 }
 

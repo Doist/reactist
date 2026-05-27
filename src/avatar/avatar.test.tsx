@@ -331,6 +331,7 @@ describe('AvatarGroup', () => {
             '--reactist-avatar-group-size': '36px',
             '--reactist-avatar-group-overlap': '4px',
             '--reactist-avatar-group-mask': '2.5px',
+            '--reactist-avatar-group-rounded-mask-radius': 'calc(5px + 2.5px)',
         })
     })
 
@@ -346,6 +347,7 @@ describe('AvatarGroup', () => {
             '--reactist-avatar-group-size': '80px',
             '--reactist-avatar-group-overlap': '8px',
             '--reactist-avatar-group-mask': '3px',
+            '--reactist-avatar-group-rounded-mask-radius': 'calc(10px + 3px)',
         })
     })
 

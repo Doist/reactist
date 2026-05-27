@@ -195,7 +195,14 @@
     --reactist-avatar-group-overlap: 4px;
     --reactist-avatar-group-mask: 2.5px;
     --reactist-avatar-group-rounded-radius: 5px;
+    --reactist-avatar-group-rounded-mask-radius: 7.5px;
     --reactist-avatar-group-count-overlay: rgba(0, 0, 0, 0.6);
+    --reactist-avatar-group-rounded-mask-width: calc(
+        var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask)
+    );
+    --reactist-avatar-group-rounded-mask-corner-x: calc(
+        var(--reactist-avatar-group-overlap) - var(--reactist-avatar-group-rounded-radius)
+    );
     --reactist-avatar-group-previous-center-x: calc(
         (var(--reactist-avatar-group-size) / 2) - var(--reactist-avatar-group-size) +
             var(--reactist-avatar-group-overlap)
@@ -227,17 +234,68 @@
     );
 }
 
-.avatarGroupShape-rounded > * + * {
-    -webkit-mask-image: linear-gradient(
-        to right,
-        transparent 0 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask)),
-        #000 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask))
-    );
-    mask-image: linear-gradient(
-        to right,
-        transparent 0 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask)),
-        #000 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask))
-    );
+.avatarGroupShape-rounded > * + *,
+.avatarGroupShape-rounded[data-count]::after {
+    -webkit-mask-image:
+        linear-gradient(#000 0 0),
+        radial-gradient(
+            circle var(--reactist-avatar-group-rounded-mask-radius) at
+                var(--reactist-avatar-group-rounded-mask-corner-x)
+                var(--reactist-avatar-group-rounded-radius),
+            #000 99%,
+            transparent 100%
+        ),
+        radial-gradient(
+            circle var(--reactist-avatar-group-rounded-mask-radius) at
+                var(--reactist-avatar-group-rounded-mask-corner-x)
+                calc(100% - var(--reactist-avatar-group-rounded-radius)),
+            #000 99%,
+            transparent 100%
+        ),
+        linear-gradient(#000 0 0);
+    mask-image:
+        linear-gradient(#000 0 0),
+        radial-gradient(
+            circle var(--reactist-avatar-group-rounded-mask-radius) at
+                var(--reactist-avatar-group-rounded-mask-corner-x)
+                var(--reactist-avatar-group-rounded-radius),
+            #000 99%,
+            transparent 100%
+        ),
+        radial-gradient(
+            circle var(--reactist-avatar-group-rounded-mask-radius) at
+                var(--reactist-avatar-group-rounded-mask-corner-x)
+                calc(100% - var(--reactist-avatar-group-rounded-radius)),
+            #000 99%,
+            transparent 100%
+        ),
+        linear-gradient(#000 0 0);
+    -webkit-mask-position:
+        left center,
+        0 0,
+        0 0,
+        0 0;
+    mask-position:
+        left center,
+        0 0,
+        0 0,
+        0 0;
+    -webkit-mask-size:
+        var(--reactist-avatar-group-rounded-mask-width)
+            calc(100% - (2 * var(--reactist-avatar-group-rounded-radius))),
+        100% 100%,
+        100% 100%,
+        100% 100%;
+    mask-size:
+        var(--reactist-avatar-group-rounded-mask-width)
+            calc(100% - (2 * var(--reactist-avatar-group-rounded-radius))),
+        100% 100%,
+        100% 100%,
+        100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-composite: destination-out, destination-out, destination-out;
+    mask-composite: subtract;
 }
 
 .avatarGroup[data-count]::after {
@@ -274,16 +332,6 @@
 
 .avatarGroupShape-rounded[data-count]::after {
     border-radius: var(--reactist-avatar-group-rounded-radius);
-    -webkit-mask-image: linear-gradient(
-        to right,
-        transparent 0 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask)),
-        #000 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask))
-    );
-    mask-image: linear-gradient(
-        to right,
-        transparent 0 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask)),
-        #000 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask))
-    );
 }
 
 .avatarGroup[data-count]:has(> :first-child:last-child)::after {
