@@ -90,12 +90,12 @@ const AvatarContent = React.forwardRef<HTMLDivElement, AvatarProps>(function Ava
     const [failedImageSources, setFailedImageSources] = React.useState<string[]>([])
     const availableImageSources = getAvailableImageSources(imageSources, failedImageSources)
     const normalizedName = normalizeAvatarName(name)
-    const initials = getInitials(name)
+    const initials = availableImageSources ? '' : getInitials(name)
 
     const hasInitials = initials !== ''
     const label = ariaLabel ?? alt ?? normalizedName
     const isDecorative = ariaHidden || label === ''
-    const metaColorIndex = getAvatarMetaColorIndex(name)
+    const metaColorIndex = hasInitials ? getAvatarMetaColorIndex(name) : undefined
 
     return (
         <Box
@@ -103,7 +103,7 @@ const AvatarContent = React.forwardRef<HTMLDivElement, AvatarProps>(function Ava
             className={classNames(
                 styles.avatar,
                 styles[`shape-${shape}`],
-                styles[`metaColor-${metaColorIndex}`],
+                metaColorIndex !== undefined && styles[`meta-color-${metaColorIndex}`],
                 !availableImageSources && !hasInitials && styles.empty,
                 exceptionallySetClassName,
             )}

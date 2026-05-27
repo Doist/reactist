@@ -24,6 +24,16 @@ describe('Avatar', () => {
         })
     })
 
+    it('does not apply meta color classes while rendering an image', () => {
+        render(<Avatar data-testid="avatar" size={36} name="Jane Doe" image="avatar.png" />)
+
+        expect(
+            Array.from(screen.getByTestId('avatar').classList).some((className) =>
+                className.startsWith('meta-color-'),
+            ),
+        ).toBe(false)
+    })
+
     it('renders a source-map image URL with native responsive image hints', () => {
         render(
             <Avatar
@@ -50,13 +60,13 @@ describe('Avatar', () => {
         render(<Avatar data-testid="avatar" size={36} name="Jane Doe" />)
 
         expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveTextContent('JD')
-        expect(screen.getByTestId('avatar')).toHaveClass('metaColor-0')
+        expect(screen.getByTestId('avatar')).toHaveClass('meta-color-0')
     })
 
     it('applies the deterministic meta color class for the avatar name', () => {
         render(<Avatar data-testid="avatar" size={36} name="John Doe" />)
 
-        expect(screen.getByTestId('avatar')).toHaveClass('metaColor-9')
+        expect(screen.getByTestId('avatar')).toHaveClass('meta-color-9')
     })
 
     it('falls back to initials when image source map is empty', () => {
