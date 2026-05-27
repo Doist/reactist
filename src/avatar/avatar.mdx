@@ -3,6 +3,7 @@ import {
     ColorItem,
     ColorPalette,
     Controls,
+    Markdown,
     Meta,
     Subtitle,
     Title,
@@ -30,14 +31,16 @@ The previous Avatar API accepted `user`, `avatarUrl`, `colorList`, string or
 responsive `size` values, and a deprecated `className`. The current API uses
 direct identity props instead:
 
+<Markdown>{`
 | Legacy prop                    | Current API                                                              |
 | ------------------------------ | ------------------------------------------------------------------------ |
-| `user.name`                    | `name`                                                                   |
-| `avatarUrl`                    | `image`                                                                  |
-| `user.email`                   | No replacement. Email is no longer used for initials or color selection. |
-| `colorList`                    | Customize the CSS custom properties listed below.                        |
-| `size="l"` or responsive sizes | Pass one supported numeric CSS-pixel `size`.                             |
-| `className`                    | `exceptionallySetClassName`                                              |
+| \`user.name\`                    | \`name\`                                                                   |
+| \`avatarUrl\`                    | \`image\`                                                                  |
+| \`user.email\`                   | No replacement. Email is no longer used for initials or color selection. |
+| \`colorList\`                    | Customize the CSS custom properties listed below.                        |
+| \`size="l"\` or responsive sizes | Pass one supported numeric CSS-pixel \`size\`.                             |
+| \`className\`                    | \`exceptionallySetClassName\`                                              |
+`}</Markdown>
 
 ```tsx
 <Avatar size={36} name={user.name} image={avatarUrl} exceptionallySetClassName={className} />
