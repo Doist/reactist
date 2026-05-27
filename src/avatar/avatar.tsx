@@ -123,7 +123,6 @@ const AvatarContent = React.forwardRef<HTMLDivElement, AvatarProps>(function Ava
                     srcSet={availableImageSources.srcSet}
                     sizes={availableImageSources.sizes}
                     alt={label ?? ''}
-                    aria-hidden={isDecorative}
                     onError={(event) => {
                         const failedSource = getFailedImageSource(
                             availableImageSources,
@@ -142,7 +141,6 @@ const AvatarContent = React.forwardRef<HTMLDivElement, AvatarProps>(function Ava
                     className={styles.initials}
                     role={label ? 'img' : undefined}
                     aria-label={label}
-                    aria-hidden={isDecorative}
                 >
                     {initials}
                 </div>
