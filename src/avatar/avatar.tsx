@@ -15,6 +15,7 @@ import {
 
 import styles from './avatar.module.css'
 
+import type { ComponentProps } from 'react'
 import type { ObfuscatedClassName } from '../utils/common-types'
 import type { AvatarImage, AvatarShape, AvatarSize, ImageSources } from './utils'
 
@@ -67,46 +68,36 @@ type AvatarProps = ObfuscatedClassName & {
      * Test identifier applied to the avatar root element.
      */
     'data-testid'?: string
-}
+} & Omit<ComponentProps<'div'>, 'className' | 'style'>
 
-/**
- * Displays an avatar from an image URL, a source map keyed by intrinsic
- * image width, or initials derived from the provided name (with a background
- * color).
- */
-function Avatar({ image, ...props }: AvatarProps) {
-    return (
-        <AvatarContent
-            // Allows `AvatarContent` to remount when the image map changes,
-            // which resets error states
-            key={getAvatarImageIdentityKey(image)}
-            image={image}
-            {...props}
-        />
-    )
-}
-
-function AvatarContent({
-    size,
-    shape = 'circle',
-    name,
-    image,
-    alt,
-    exceptionallySetClassName,
-    'data-testid': testId,
-}: AvatarProps) {
+const AvatarContent = React.forwardRef<HTMLDivElement, AvatarProps>(function AvatarContent(
+    {
+        size,
+        shape = 'circle',
+        name,
+        image,
+        alt,
+        exceptionallySetClassName,
+        'data-testid': testId,
+        'aria-hidden': ariaHidden,
+        'aria-label': ariaLabel,
+        ...restProps
+    },
+    ref,
+) {
     const imageSources = getSources(image, size)
     const [failedImageSources, setFailedImageSources] = React.useState<string[]>([])
     const availableImageSources = getAvailableImageSources(imageSources, failedImageSources)
-
     const initials = getInitials(name)
+
     const hasInitials = initials !== ''
-    const label = alt ?? name
-    const isDecorative = label === ''
+    const label = ariaLabel ?? alt ?? name
+    const isDecorative = ariaHidden || label === ''
     const metaColorIndex = getAvatarMetaColorIndex(name)
 
     return (
         <Box
+            ref={ref}
             className={classNames(
                 styles.avatar,
                 styles[`shape-${shape}`],
@@ -123,6 +114,7 @@ function AvatarContent({
             flexShrink={0}
             overflow="hidden"
             textAlign="center"
+            {...restProps}
         >
             {availableImageSources ? (
                 <img
@@ -157,7 +149,28 @@ function AvatarContent({
             ) : null}
         </Box>
     )
-}
+})
+
+/**
+ * Displays an avatar from an image URL, a source map keyed by intrinsic
+ * image width, or initials derived from the provided name (with a background
+ * color).
+ */
+const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(function Avatar(
+    { image, ...restProps },
+    ref,
+) {
+    return (
+        <AvatarContent
+            ref={ref}
+            // Allows `AvatarContent` to remount when the image map changes,
+            // which resets error states
+            key={getAvatarImageIdentityKey(image)}
+            image={image}
+            {...restProps}
+        />
+    )
+})
 
 function getAvatarStyle(size: AvatarSize): AvatarStyle {
     return {
