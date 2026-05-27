@@ -242,60 +242,48 @@
             circle var(--reactist-avatar-group-rounded-mask-radius) at
                 var(--reactist-avatar-group-rounded-mask-corner-x)
                 var(--reactist-avatar-group-rounded-radius),
-            #000 99%,
-            transparent 100%
+            transparent 99%,
+            #000 100%
         ),
         radial-gradient(
             circle var(--reactist-avatar-group-rounded-mask-radius) at
-                var(--reactist-avatar-group-rounded-mask-corner-x)
-                calc(100% - var(--reactist-avatar-group-rounded-radius)),
-            #000 99%,
-            transparent 100%
-        ),
-        linear-gradient(#000 0 0);
+                var(--reactist-avatar-group-rounded-mask-corner-x) 0,
+            transparent 99%,
+            #000 100%
+        );
     mask-image:
         linear-gradient(#000 0 0),
         radial-gradient(
             circle var(--reactist-avatar-group-rounded-mask-radius) at
                 var(--reactist-avatar-group-rounded-mask-corner-x)
                 var(--reactist-avatar-group-rounded-radius),
-            #000 99%,
-            transparent 100%
+            transparent 99%,
+            #000 100%
         ),
         radial-gradient(
             circle var(--reactist-avatar-group-rounded-mask-radius) at
-                var(--reactist-avatar-group-rounded-mask-corner-x)
-                calc(100% - var(--reactist-avatar-group-rounded-radius)),
-            #000 99%,
-            transparent 100%
-        ),
-        linear-gradient(#000 0 0);
+                var(--reactist-avatar-group-rounded-mask-corner-x) 0,
+            transparent 99%,
+            #000 100%
+        );
     -webkit-mask-position:
-        left center,
-        0 0,
-        0 0,
-        0 0;
+        right top,
+        left top,
+        left bottom;
     mask-position:
-        left center,
-        0 0,
-        0 0,
-        0 0;
+        right top,
+        left top,
+        left bottom;
     -webkit-mask-size:
-        var(--reactist-avatar-group-rounded-mask-width)
-            calc(100% - (2 * var(--reactist-avatar-group-rounded-radius))),
-        100% 100%,
-        100% 100%,
-        100% 100%;
+        calc(100% - var(--reactist-avatar-group-rounded-mask-width)) 100%,
+        var(--reactist-avatar-group-rounded-mask-width) var(--reactist-avatar-group-rounded-radius),
+        var(--reactist-avatar-group-rounded-mask-width) var(--reactist-avatar-group-rounded-radius);
     mask-size:
-        var(--reactist-avatar-group-rounded-mask-width)
-            calc(100% - (2 * var(--reactist-avatar-group-rounded-radius))),
-        100% 100%,
-        100% 100%,
-        100% 100%;
+        calc(100% - var(--reactist-avatar-group-rounded-mask-width)) 100%,
+        var(--reactist-avatar-group-rounded-mask-width) var(--reactist-avatar-group-rounded-radius),
+        var(--reactist-avatar-group-rounded-mask-width) var(--reactist-avatar-group-rounded-radius);
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-    -webkit-mask-composite: destination-out, destination-out, destination-out;
-    mask-composite: subtract;
 }
 
 .avatarGroup[data-count]::after {
