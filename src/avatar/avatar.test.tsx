@@ -465,6 +465,34 @@ describe('AvatarGroup', () => {
         )
         expect(invalidRefElement).toBeTruthy()
     })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(
+                <>
+                    <AvatarGroup size={36}>
+                        <Avatar size={36} name="Jane Doe" image="avatar.png" />
+                        <Avatar size={36} name="John Doe" />
+                    </AvatarGroup>
+                    <AvatarGroup size={36} count={3}>
+                        <Avatar size={36} name="Jane Doe" />
+                        <Avatar size={36} name="John Doe" />
+                    </AvatarGroup>
+                    <AvatarGroup size={36} shape="rounded" count={5}>
+                        <Avatar size={36} shape="rounded" name="Reactist" />
+                        <Avatar size={36} shape="rounded" name="Todoist" />
+                    </AvatarGroup>
+                    <AvatarGroup as="button" aria-label="Manage 5 members" size={36} count={3}>
+                        <Avatar size={36} name="Jane Doe" />
+                        <Avatar size={36} name="John Doe" />
+                    </AvatarGroup>
+                </>,
+            )
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
+    })
 })
 
 describe('AvatarPair', () => {
@@ -574,5 +602,29 @@ describe('AvatarPair', () => {
             </AvatarPair>
         )
         expect(invalidRefElement).toBeTruthy()
+    })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(
+                <>
+                    <AvatarPair size={28}>
+                        <Avatar size={28} name="Jane Doe" image="avatar.png" />
+                        <Avatar size={28} name="John Doe" />
+                    </AvatarPair>
+                    <AvatarPair size={36} shape="rounded">
+                        <Avatar size={36} shape="rounded" name="Reactist" />
+                        <Avatar size={36} shape="rounded" name="Design System" />
+                    </AvatarPair>
+                    <AvatarPair as="button" aria-label="Open shared workspace" size={28}>
+                        <Avatar size={28} name="Workspace" />
+                        <Avatar size={28} name="Design System" />
+                    </AvatarPair>
+                </>,
+            )
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
     })
 })
