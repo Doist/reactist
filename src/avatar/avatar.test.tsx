@@ -351,7 +351,7 @@ describe('AvatarGroup', () => {
         })
     })
 
-    it('exposes positive count through data-count', () => {
+    it('renders the count overlay when count is positive', () => {
         render(
             <AvatarGroup data-testid="group" size={36} count={3}>
                 <Avatar size={36} name="Jane Doe" />
@@ -359,10 +359,10 @@ describe('AvatarGroup', () => {
             </AvatarGroup>,
         )
 
-        expect(screen.getByTestId('group')).toHaveAttribute('data-count', '3')
+        expect(screen.getByText('+3')).toBeInTheDocument()
     })
 
-    it('omits data-count when count is not positive', () => {
+    it('omits the count overlay when count is not positive', () => {
         render(
             <AvatarGroup data-testid="group" size={36} count={0}>
                 <Avatar size={36} name="Jane Doe" />
@@ -370,10 +370,10 @@ describe('AvatarGroup', () => {
             </AvatarGroup>,
         )
 
-        expect(screen.getByTestId('group')).not.toHaveAttribute('data-count')
+        expect(screen.queryByText(/^\+/)).not.toBeInTheDocument()
     })
 
-    it('omits data-count when count is not provided', () => {
+    it('omits the count overlay when count is not provided', () => {
         render(
             <AvatarGroup data-testid="group" size={36}>
                 <Avatar size={36} name="Jane Doe" />
@@ -381,7 +381,18 @@ describe('AvatarGroup', () => {
             </AvatarGroup>,
         )
 
-        expect(screen.getByTestId('group')).not.toHaveAttribute('data-count')
+        expect(screen.queryByText(/^\+/)).not.toBeInTheDocument()
+    })
+
+    it('renders the count overlay alongside a single avatar', () => {
+        render(
+            <AvatarGroup data-testid="group" size={36} count={4}>
+                <Avatar size={36} name="Jane Doe" />
+            </AvatarGroup>,
+        )
+
+        expect(screen.getByText('+4')).toBeInTheDocument()
+        expect(screen.getByRole('img', { name: 'Jane Doe' })).toBeInTheDocument()
     })
 
     it('leaves the count overlay custom property available for CSS customization', () => {

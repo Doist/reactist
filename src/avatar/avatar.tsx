@@ -296,7 +296,7 @@ const AvatarGroup = polymorphicComponent<'div', AvatarGroupOwnProps, 'omitClassN
         },
         ref,
     ) {
-        const countAttribute = count != null && count > 0 ? String(count) : undefined
+        const overflowCount = count != null && count > 0 ? count : null
 
         return (
             <Box
@@ -308,7 +308,6 @@ const AvatarGroup = polymorphicComponent<'div', AvatarGroupOwnProps, 'omitClassN
                     exceptionallySetClassName,
                 )}
                 style={getAvatarGroupStyle(size)}
-                data-count={countAttribute}
                 data-testid={testId}
                 display="inlineFlex"
                 alignItems="center"
@@ -316,6 +315,9 @@ const AvatarGroup = polymorphicComponent<'div', AvatarGroupOwnProps, 'omitClassN
                 {...restProps}
             >
                 {children}
+                {overflowCount !== null ? (
+                    <span className={styles.avatarGroupCount}>{`+${overflowCount}`}</span>
+                ) : null}
             </Box>
         )
     },
