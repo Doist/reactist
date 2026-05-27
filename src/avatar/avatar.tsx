@@ -217,7 +217,9 @@ type AvatarPairOwnProps = ObfuscatedClassName & {
     shape?: AvatarShape
 
     /**
-     * Paired Avatar children.
+     * Exactly two paired Avatar children. The first child is the foreground
+     * avatar (positioned bottom-right); the second is the diagonal overlay
+     * (positioned top-left, masked where it overlaps the first).
      */
     children: React.ReactNode
 
