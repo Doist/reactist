@@ -219,7 +219,8 @@
     margin-left: calc(-1 * var(--reactist-avatar-group-overlap));
 }
 
-.avatarGroupShape-circle > * + * {
+.avatarGroupShape-circle > * + *,
+.avatarGroupShape-circle[data-count]::after {
     -webkit-mask-image: radial-gradient(
         circle calc((var(--reactist-avatar-group-size) / 2) + var(--reactist-avatar-group-mask)) at
             var(--reactist-avatar-group-previous-center-x) 50%,
@@ -304,18 +305,6 @@
     line-height: 1;
     pointer-events: none;
     user-select: none;
-    -webkit-mask-image: radial-gradient(
-        circle calc((var(--reactist-avatar-group-size) / 2) + var(--reactist-avatar-group-mask)) at
-            var(--reactist-avatar-group-previous-center-x) 50%,
-        transparent 99%,
-        #000 100%
-    );
-    mask-image: radial-gradient(
-        circle calc((var(--reactist-avatar-group-size) / 2) + var(--reactist-avatar-group-mask)) at
-            var(--reactist-avatar-group-previous-center-x) 50%,
-        transparent 99%,
-        #000 100%
-    );
 }
 
 .avatarGroupShape-rounded[data-count]::after {
