@@ -5,6 +5,7 @@ import { Avatar, Box, Inline, Stack, Text } from '../index'
 import { AVATAR_SIZES, getAvatarMetaColorIndex } from './utils'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { AvatarProps } from './avatar'
 
 const sizes = AVATAR_SIZES
 
@@ -159,11 +160,11 @@ function AvatarExample({ label, children }: { label: string; children: React.Rea
     )
 }
 
-function UserAvatar(props: Omit<React.ComponentProps<typeof Avatar>, 'shape'>) {
+function UserAvatar(props: Omit<AvatarProps, 'shape'>) {
     return <Avatar shape="circle" {...props} />
 }
 
-function WorkspaceAvatarExample(props: Omit<React.ComponentProps<typeof Avatar>, 'shape'>) {
+function WorkspaceAvatarExample(props: Omit<AvatarProps, 'shape'>) {
     return <Avatar shape="rounded" {...props} />
 }
 
@@ -177,7 +178,7 @@ function AvatarColorExample({ index, name }: { index: number; name: string }) {
 
 type PlaygroundImage = keyof typeof playgroundImages
 
-type PlaygroundArgs = Omit<React.ComponentProps<typeof Avatar>, 'image'> & {
+type PlaygroundArgs = Omit<AvatarProps, 'image'> & {
     image?: PlaygroundImage
 }
 
