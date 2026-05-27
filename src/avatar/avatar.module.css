@@ -189,3 +189,104 @@
     line-height: 1;
     user-select: none;
 }
+
+.avatarGroup {
+    --reactist-avatar-group-size: 36px;
+    --reactist-avatar-group-overlap: 4px;
+    --reactist-avatar-group-mask: 2.5px;
+    --reactist-avatar-group-rounded-radius: 5px;
+    --reactist-avatar-group-count-overlay: rgba(0, 0, 0, 0.6);
+    --reactist-avatar-group-previous-center-x: calc(
+        (var(--reactist-avatar-group-size) / 2) - var(--reactist-avatar-group-size) +
+            var(--reactist-avatar-group-overlap)
+    );
+
+    position: relative;
+}
+
+.avatarGroup > * {
+    flex-shrink: 0;
+}
+
+.avatarGroup > * + * {
+    margin-left: calc(-1 * var(--reactist-avatar-group-overlap));
+}
+
+.avatarGroupShape-circle > * + * {
+    -webkit-mask-image: radial-gradient(
+        circle calc((var(--reactist-avatar-group-size) / 2) + var(--reactist-avatar-group-mask)) at
+            var(--reactist-avatar-group-previous-center-x) 50%,
+        transparent 99%,
+        #000 100%
+    );
+    mask-image: radial-gradient(
+        circle calc((var(--reactist-avatar-group-size) / 2) + var(--reactist-avatar-group-mask)) at
+            var(--reactist-avatar-group-previous-center-x) 50%,
+        transparent 99%,
+        #000 100%
+    );
+}
+
+.avatarGroupShape-rounded > * + * {
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask)),
+        #000 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask))
+    );
+    mask-image: linear-gradient(
+        to right,
+        transparent 0 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask)),
+        #000 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask))
+    );
+}
+
+.avatarGroup[data-count]::after {
+    content: attr(data-count);
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--reactist-avatar-group-size);
+    height: var(--reactist-avatar-group-size);
+    border-radius: 50%;
+    background: var(--reactist-avatar-group-count-overlay);
+    color: var(--reactist-avatar-initials-color);
+    font-size: calc(var(--reactist-avatar-group-size) / 2);
+    font-weight: var(--reactist-font-weight-medium);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    -webkit-mask-image: radial-gradient(
+        circle calc((var(--reactist-avatar-group-size) / 2) + var(--reactist-avatar-group-mask)) at
+            var(--reactist-avatar-group-previous-center-x) 50%,
+        transparent 99%,
+        #000 100%
+    );
+    mask-image: radial-gradient(
+        circle calc((var(--reactist-avatar-group-size) / 2) + var(--reactist-avatar-group-mask)) at
+            var(--reactist-avatar-group-previous-center-x) 50%,
+        transparent 99%,
+        #000 100%
+    );
+}
+
+.avatarGroupShape-rounded[data-count]::after {
+    border-radius: var(--reactist-avatar-group-rounded-radius);
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask)),
+        #000 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask))
+    );
+    mask-image: linear-gradient(
+        to right,
+        transparent 0 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask)),
+        #000 calc(var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask))
+    );
+}
+
+.avatarGroup[data-count]:has(> :first-child:last-child)::after {
+    -webkit-mask-image: none;
+    mask-image: none;
+}

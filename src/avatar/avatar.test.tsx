@@ -3,7 +3,7 @@ import * as React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { axe } from 'jest-axe'
 
-import { Avatar } from './avatar'
+import { Avatar, AvatarGroup } from './avatar'
 
 describe('Avatar', () => {
     function failCurrentAvatarImage(currentSrc: string) {
@@ -301,5 +301,121 @@ describe('Avatar', () => {
 
             expect(results).toHaveNoViolations()
         })
+    })
+})
+
+describe('AvatarGroup', () => {
+    it('renders direct Avatar children without wrappers', () => {
+        render(
+            <AvatarGroup data-testid="group" size={36}>
+                <Avatar data-testid="first" size={36} name="Jane Doe" />
+                <Avatar data-testid="second" size={36} name="John Doe" />
+            </AvatarGroup>,
+        )
+
+        expect(screen.getByTestId('group')).toContainElement(screen.getByTestId('first'))
+        expect(screen.getByTestId('group')).toContainElement(screen.getByTestId('second'))
+        expect(screen.getByTestId('first').parentElement).toBe(screen.getByTestId('group'))
+        expect(screen.getByTestId('second').parentElement).toBe(screen.getByTestId('group'))
+    })
+
+    it('sets size-derived spacing variables', () => {
+        render(
+            <AvatarGroup data-testid="group" size={36}>
+                <Avatar size={36} name="Jane Doe" />
+                <Avatar size={36} name="John Doe" />
+            </AvatarGroup>,
+        )
+
+        expect(screen.getByTestId('group')).toHaveStyle({
+            '--reactist-avatar-group-size': '36px',
+            '--reactist-avatar-group-overlap': '4px',
+            '--reactist-avatar-group-mask': '2.5px',
+        })
+    })
+
+    it('sets large size-derived spacing variables', () => {
+        render(
+            <AvatarGroup data-testid="group" size={80}>
+                <Avatar size={80} name="Jane Doe" />
+                <Avatar size={80} name="John Doe" />
+            </AvatarGroup>,
+        )
+
+        expect(screen.getByTestId('group')).toHaveStyle({
+            '--reactist-avatar-group-size': '80px',
+            '--reactist-avatar-group-overlap': '8px',
+            '--reactist-avatar-group-mask': '3px',
+        })
+    })
+
+    it('exposes positive count through data-count', () => {
+        render(
+            <AvatarGroup data-testid="group" size={36} count={3}>
+                <Avatar size={36} name="Jane Doe" />
+                <Avatar size={36} name="John Doe" />
+            </AvatarGroup>,
+        )
+
+        expect(screen.getByTestId('group')).toHaveAttribute('data-count', '3')
+    })
+
+    it('omits data-count when count is not positive', () => {
+        render(
+            <AvatarGroup data-testid="group" size={36} count={0}>
+                <Avatar size={36} name="Jane Doe" />
+                <Avatar size={36} name="John Doe" />
+            </AvatarGroup>,
+        )
+
+        expect(screen.getByTestId('group')).not.toHaveAttribute('data-count')
+    })
+
+    it('omits data-count when count is not provided', () => {
+        render(
+            <AvatarGroup data-testid="group" size={36}>
+                <Avatar size={36} name="Jane Doe" />
+                <Avatar size={36} name="John Doe" />
+            </AvatarGroup>,
+        )
+
+        expect(screen.getByTestId('group')).not.toHaveAttribute('data-count')
+    })
+
+    it('leaves the count overlay custom property available for CSS customization', () => {
+        render(
+            <AvatarGroup data-testid="group" size={36} count={3}>
+                <Avatar size={36} name="Jane Doe" />
+                <Avatar size={36} name="John Doe" />
+            </AvatarGroup>,
+        )
+
+        expect(
+            screen
+                .getByTestId('group')
+                .style.getPropertyValue('--reactist-avatar-group-count-overlay'),
+        ).toBe('')
+    })
+
+    it('applies the group shape class', () => {
+        render(
+            <AvatarGroup data-testid="group" size={36} shape="rounded">
+                <Avatar size={36} shape="rounded" name="Workspace" />
+                <Avatar size={36} shape="rounded" name="Design System" />
+            </AvatarGroup>,
+        )
+
+        expect(screen.getByTestId('group')).toHaveClass('avatarGroupShape-rounded')
+    })
+
+    it('applies the escape hatch class name', () => {
+        render(
+            <AvatarGroup data-testid="group" size={36} exceptionallySetClassName="custom-group">
+                <Avatar size={36} name="Jane Doe" />
+                <Avatar size={36} name="John Doe" />
+            </AvatarGroup>,
+        )
+
+        expect(screen.getByTestId('group')).toHaveClass('custom-group')
     })
 })

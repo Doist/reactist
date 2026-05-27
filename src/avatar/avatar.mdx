@@ -25,6 +25,14 @@ and the deterministic meta color used when initials render.
 
 <Canvas of={AvatarStories.Default} />
 
+## Avatar groups
+
+Use `AvatarGroup` when a compact surface represents several people. Pass the
+same `size` to the group and its direct `Avatar` children. The optional `count`
+is rendered as plain numeric text on top of the final avatar.
+
+<Canvas of={AvatarStories.AvatarGroups} />
+
 ## Migrating from the legacy API
 
 The previous Avatar API accepted `user`, `avatarUrl`, `colorList`, string or
@@ -110,6 +118,7 @@ component appearance. The values shown below are the default values.
     <ColorItem title="--reactist-avatar-initials-color" colors={['#ffffff']} />
     <ColorItem title="--reactist-avatar-border-tint" colors={['#0000001a']} />
     <ColorItem title="--reactist-avatar-empty-fill" colors={['#e6e6e6']} />
+    <ColorItem title="--reactist-avatar-group-count-overlay" colors={['rgba(0, 0, 0, 0.6)']} />
 </ColorPalette>
 
 #### Avatar meta colors
@@ -167,6 +176,13 @@ the component props instead of overriding them directly.
 .avatar {
     --reactist-avatar-size: 36px;
     --reactist-avatar-rounded-radius: 5px;
+}
+
+.avatarGroup {
+    --reactist-avatar-group-size: 36px;
+    --reactist-avatar-group-overlap: 4px;
+    --reactist-avatar-group-mask: 2.5px;
+    --reactist-avatar-group-rounded-radius: 5px;
 }
 ```
 
