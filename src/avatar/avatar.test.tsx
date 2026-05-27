@@ -204,6 +204,20 @@ describe('Avatar', () => {
         expect(screen.getByRole('img', { name: 'Account avatar' })).toBeInTheDocument()
     })
 
+    it('uses custom alt text as the accessible label for initials avatars', () => {
+        render(<Avatar size={36} name="Jane Doe" alt="Account avatar" />)
+
+        expect(screen.getByRole('img', { name: 'Account avatar' })).toHaveTextContent('JD')
+    })
+
+    it('normalizes the default accessible label before deciding whether it is decorative', () => {
+        render(<Avatar data-testid="avatar" size={36} name="   " image="avatar.png" />)
+
+        expect(screen.queryByRole('img')).not.toBeInTheDocument()
+        expect(screen.getByAltText('')).toHaveAttribute('src', 'avatar.png')
+        expect(screen.getByTestId('avatar')).toHaveAttribute('aria-hidden', 'true')
+    })
+
     it('supports decorative image avatars with empty alt text', () => {
         render(<Avatar size={36} name="Jane Doe" image="avatar.png" alt="" />)
 
