@@ -145,6 +145,10 @@ function getAvailableImageSources(
         return undefined
     }
 
+    if (failedSources.length === 0) {
+        return imageProps
+    }
+
     if (!imageProps.sources) {
         return failedSources.includes(imageProps.src) ? undefined : imageProps
     }
