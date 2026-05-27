@@ -2,10 +2,9 @@ import * as React from 'react'
 
 import { Avatar, Box, Inline, Stack, Text } from '../index'
 
-export default {
-    title: 'Components/Avatar',
-    component: Avatar,
-}
+import { getAvatarMetaColorIndex } from './utils'
+
+import type { Meta, StoryObj } from '@storybook/react-vite'
 
 const sizes = [80, 72, 62, 50, 40, 36, 30, 28, 24, 20, 18, 16, 12] as const
 
@@ -62,6 +61,29 @@ const initialsExamples = [
         name: 'Åsa Núñez',
     },
 ] as const
+
+const metaColorExamples = [
+    'Ada 28',
+    'Ben 15',
+    'Cam 38',
+    'Dee 3',
+    'Eli 2',
+    'Flo 17',
+    'Gia 3',
+    'Hao 27',
+    'Ivy 26',
+    'Jon 4',
+    'Kai 3',
+    'Lia 3',
+    'Max 8',
+    'Nia 3',
+    'Oli 2',
+    'Pia 3',
+    'Quin 3',
+    'Rae 7',
+    'Sol 6',
+    'Tia 3',
+].map((name) => ({ name, index: getAvatarMetaColorIndex(name) }))
 
 const playgroundImages = {
     None: '',
@@ -141,280 +163,290 @@ function UserAvatar(props: Omit<React.ComponentProps<typeof Avatar>, 'shape'>) {
     return <Avatar shape="circle" {...props} />
 }
 
-function WorkspaceAvatar(props: Omit<React.ComponentProps<typeof Avatar>, 'shape'>) {
+function WorkspaceAvatarExample(props: Omit<React.ComponentProps<typeof Avatar>, 'shape'>) {
     return <Avatar shape="rounded" {...props} />
+}
+
+function AvatarColorExample({ index, name }: { index: number; name: string }) {
+    return (
+        <AvatarExample label={`fill-${index}`}>
+            <UserAvatar size={36} name={name} />
+        </AvatarExample>
+    )
 }
 
 type PlaygroundImage = keyof typeof playgroundImages
 
-type AvatarPlaygroundStoryArgs = Omit<React.ComponentProps<typeof Avatar>, 'image'> & {
+type PlaygroundArgs = Omit<React.ComponentProps<typeof Avatar>, 'image'> & {
     image?: PlaygroundImage
 }
 
-export const OverviewStory = () => (
-    <StoryLayout>
-        <StorySection
-            title="Common outcomes"
-            description="Avatar handles image URLs, responsive image maps, initials, rounded shapes, failed images, and decorative empty states."
-        >
-            <Inline space="medium" alignY="top">
-                <AvatarExample label="User image">
-                    <UserAvatar
-                        size={36}
-                        name={contributors[1].name}
-                        image={getGithubAvatarUrl(contributors[1].githubUserId, 72)}
-                    />
-                </AvatarExample>
-                <AvatarExample label="Initials">
-                    <UserAvatar size={36} name="Pawel Grimm" />
-                </AvatarExample>
-                <AvatarExample label="Workspace">
-                    <WorkspaceAvatar size={36} name="Reactist" />
-                </AvatarExample>
-                <AvatarExample label="Source map">
-                    <UserAvatar
-                        size={36}
-                        name={contributors[2].name}
-                        image={getGithubSourceMap(contributors[2].githubUserId, 36)}
-                    />
-                </AvatarExample>
-                <AvatarExample label="Failed image">
-                    <UserAvatar size={36} name={contributors[3].name} image="/missing-avatar.png" />
-                </AvatarExample>
-                <AvatarExample label="Decorative">
-                    <UserAvatar
-                        size={36}
-                        name={contributors[4].name}
-                        image={getGithubAvatarUrl(contributors[4].githubUserId, 72)}
-                        alt=""
-                    />
-                </AvatarExample>
-                <AvatarExample label="Empty">
-                    <Avatar size={36} alt="" />
-                </AvatarExample>
-            </Inline>
-        </StorySection>
-    </StoryLayout>
-)
+const meta = {
+    title: 'Components/Avatar',
+    component: Avatar,
+    parameters: {
+        badges: ['accessible'],
+    },
+} satisfies Meta<typeof Avatar>
 
-export const UserAvatarsStory = () => (
-    <StoryLayout>
-        <StorySection
-            title="User avatars"
-            description="Use the default circle shape for people. Pass a name for labeling and initials fallback."
-        >
-            <Inline space="medium" alignY="top">
-                {contributors.slice(1).map((contributor) => (
-                    <AvatarExample key={contributor.name} label={contributor.name}>
-                        <UserAvatar
-                            size={36}
-                            name={contributor.name}
-                            image={getGithubAvatarUrl(contributor.githubUserId, 72)}
-                        />
-                    </AvatarExample>
-                ))}
-            </Inline>
-        </StorySection>
+export default meta
 
-        <StorySection
-            title="Fallback initials"
-            description="When an image is missing or fails to load, Avatar derives two characters from the provided name."
-        >
-            <Inline space="medium" alignY="top">
-                <AvatarExample label="No image">
-                    <UserAvatar size={36} name="Pawel Grimm" />
-                </AvatarExample>
-                <AvatarExample label="Failed image">
-                    <UserAvatar size={36} name="Craig Reactist" image="/missing-user-avatar.png" />
-                </AvatarExample>
-            </Inline>
-        </StorySection>
-    </StoryLayout>
-)
+type Story = StoryObj<typeof meta>
+type PlaygroundStory = StoryObj<PlaygroundArgs>
 
-export const WorkspaceAvatarsStory = () => (
-    <StoryLayout>
-        <StorySection
-            title="Workspace avatars"
-            description='Workspace-like surfaces can encode their convention with a small wrapper that sets shape="rounded".'
-        >
-            <Inline space="medium" alignY="top">
-                <AvatarExample label="Workspace image">
-                    <WorkspaceAvatar
-                        size={36}
-                        name="Reactist"
-                        image={getGithubAvatarUrl(contributors[0].githubUserId, 72)}
-                    />
-                </AvatarExample>
-                <AvatarExample label="Workspace initials">
-                    <WorkspaceAvatar size={36} name="Design System" />
-                </AvatarExample>
-                <AvatarExample label="Failed image">
-                    <WorkspaceAvatar
-                        size={36}
-                        name="Todoist Web"
-                        image="/missing-workspace-avatar.png"
-                    />
-                </AvatarExample>
-                <AvatarExample label="Empty">
-                    <Avatar size={36} shape="rounded" alt="" />
-                </AvatarExample>
-            </Inline>
-        </StorySection>
-    </StoryLayout>
-)
-
-export const ImageSourcesStory = () => (
-    <StoryLayout>
-        <StorySection
-            title="Image sources"
-            description="Pass a string for a single image, or a source map keyed by image width. These examples include 1x, 2x, and 3x source links."
-        >
-            <Inline space="medium" alignY="top">
-                <AvatarExample label="String URL">
-                    <UserAvatar
-                        size={36}
-                        name={contributors[1].name}
-                        image={getGithubAvatarUrl(contributors[1].githubUserId, 72)}
-                    />
-                </AvatarExample>
-                <AvatarExample label="Source map">
-                    <UserAvatar
-                        size={36}
-                        name={contributors[2].name}
-                        image={getGithubSourceMap(contributors[2].githubUserId, 36)}
-                    />
-                </AvatarExample>
-                <AvatarExample label="Large avatar">
-                    <UserAvatar
-                        size={72}
-                        name={contributors[3].name}
-                        image={getGithubSourceMap(contributors[3].githubUserId, 72)}
-                    />
-                </AvatarExample>
-            </Inline>
-        </StorySection>
-    </StoryLayout>
-)
-
-export const NamesAndInitialsStory = () => (
-    <StoryLayout>
-        <StorySection
-            title="Names and initials"
-            description="Initials are derived from normalized names and meta colors are assigned deterministically from the full name."
-        >
-            <Inline space="medium" alignY="top">
-                {initialsExamples.map(({ label, name }) => (
-                    <AvatarExample key={label} label={label}>
-                        <UserAvatar size={36} name={name} />
-                    </AvatarExample>
-                ))}
-            </Inline>
-        </StorySection>
-
-        <StorySection
-            title="Deterministic meta colors"
-            description="The same name receives the same meta color across sizes; different names spread across the configured palette."
-        >
-            <Inline space="medium" alignY="top">
-                <AvatarExample label="Same name, 36">
-                    <UserAvatar size={36} name="Pawel Grimm" />
-                </AvatarExample>
-                <AvatarExample label="Same name, 50">
-                    <UserAvatar size={50} name="Pawel Grimm" />
-                </AvatarExample>
-                {contributors.slice(2, 6).map((contributor) => (
-                    <AvatarExample key={contributor.name} label={contributor.name}>
-                        <UserAvatar size={36} name={contributor.name} />
-                    </AvatarExample>
-                ))}
-            </Inline>
-        </StorySection>
-    </StoryLayout>
-)
-
-export const SizesStory = () => (
-    <StoryLayout>
-        <StorySection
-            title="Supported sizes"
-            description="Avatar supports this exact set of CSS pixel sizes. Each image example includes 1x, 2x, and 3x source links."
-        >
-            <Inline space="medium" alignY="top">
-                {sizes.map((size, index) => {
-                    const contributor = getContributor(index)
-
-                    return (
-                        <AvatarExample key={size} label={`${size}px`}>
+export const Default = {
+    render: () => (
+        <StoryLayout>
+            <StorySection
+                title="User avatar"
+                description="Use the default circle shape for people. Pass a name for labeling and initials fallback."
+            >
+                <Inline space="medium" alignY="top">
+                    {contributors.slice(1, 6).map((contributor) => (
+                        <AvatarExample key={contributor.name} label={contributor.name}>
                             <UserAvatar
-                                size={size}
-                                name={contributor!.name}
-                                image={getGithubSourceMap(contributor!.githubUserId, size)}
+                                size={36}
+                                name={contributor.name}
+                                image={getGithubAvatarUrl(contributor.githubUserId, 72)}
                             />
                         </AvatarExample>
-                    )
-                })}
-            </Inline>
-        </StorySection>
+                    ))}
+                </Inline>
+            </StorySection>
+        </StoryLayout>
+    ),
+} satisfies Story
 
-        <StorySection
-            title="Initials at every size"
-            description="Initials scale with the avatar size and keep the same two-character derivation."
-        >
-            <Inline space="medium" alignY="top">
-                {sizes.map((size, index) => {
-                    const contributor = getContributor(index)
-
-                    return (
-                        <AvatarExample key={size} label={`${size}px`}>
-                            <UserAvatar size={size} name={contributor!.name} />
+export const InitialsFallback = {
+    render: () => (
+        <StoryLayout>
+            <StorySection
+                title="Initials fallback"
+                description="When no image is available, Avatar derives initials from the normalized name and assigns a deterministic meta color."
+            >
+                <Inline space="medium" alignY="top">
+                    {initialsExamples.map(({ label, name }) => (
+                        <AvatarExample key={label} label={label}>
+                            <UserAvatar size={36} name={name} />
                         </AvatarExample>
-                    )
-                })}
-            </Inline>
-        </StorySection>
-    </StoryLayout>
-)
+                    ))}
+                    <AvatarExample label="Failed image">
+                        <UserAvatar size={36} name="Craig Reactist" image="/missing-avatar.png" />
+                    </AvatarExample>
+                </Inline>
+            </StorySection>
+        </StoryLayout>
+    ),
+} satisfies Story
 
-export const AccessibilityStory = () => (
-    <StoryLayout>
-        <StorySection
-            title="Accessible names"
-            description='Images default to name for alt text. Pass alt for a custom label, or alt="" for decorative avatars.'
-        >
-            <Inline space="medium" alignY="top">
-                <AvatarExample label="Default from name">
-                    <UserAvatar
-                        size={36}
-                        name={contributors[1].name}
-                        image={getGithubAvatarUrl(contributors[1].githubUserId, 72)}
-                    />
-                </AvatarExample>
-                <AvatarExample label="Custom alt">
-                    <UserAvatar
-                        size={36}
-                        name={contributors[0].name}
-                        image={getGithubAvatarUrl(contributors[0].githubUserId, 72)}
-                        alt="Reactist automation account"
-                    />
-                </AvatarExample>
-                <AvatarExample label="Decorative image">
-                    <UserAvatar
-                        size={36}
-                        name={contributors[3].name}
-                        image={getGithubAvatarUrl(contributors[3].githubUserId, 72)}
-                        alt=""
-                    />
-                </AvatarExample>
-                <AvatarExample label="Decorative empty">
-                    <Avatar size={36} alt="" />
-                </AvatarExample>
-            </Inline>
-        </StorySection>
-    </StoryLayout>
-)
+export const WorkspaceAvatar = {
+    render: () => (
+        <StoryLayout>
+            <StorySection
+                title="Workspace avatars"
+                description='Use shape="rounded" for workspace-like entities, either directly or through a small product wrapper.'
+            >
+                <Inline space="medium" alignY="top">
+                    <AvatarExample label="Workspace image">
+                        <WorkspaceAvatarExample
+                            size={36}
+                            name="Reactist"
+                            image={getGithubAvatarUrl(contributors[0].githubUserId, 72)}
+                        />
+                    </AvatarExample>
+                    <AvatarExample label="Workspace initials">
+                        <WorkspaceAvatarExample size={36} name="Design System" />
+                    </AvatarExample>
+                    <AvatarExample label="Failed image">
+                        <WorkspaceAvatarExample
+                            size={36}
+                            name="Todoist Web"
+                            image="/missing-workspace-avatar.png"
+                        />
+                    </AvatarExample>
+                    <AvatarExample label="Empty">
+                        <Avatar size={36} shape="rounded" alt="" />
+                    </AvatarExample>
+                </Inline>
+            </StorySection>
+        </StoryLayout>
+    ),
+} satisfies Story
 
-export const AvatarPlaygroundStory = (args: AvatarPlaygroundStoryArgs) => {
-    return (
+export const ImageSources = {
+    render: () => (
+        <StoryLayout>
+            <StorySection
+                title="Image sources"
+                description="Pass a string for a single image, or a source map keyed by intrinsic image width. Source maps render native srcSet and sizes hints."
+            >
+                <Inline space="medium" alignY="top">
+                    <AvatarExample label="String URL">
+                        <UserAvatar
+                            size={36}
+                            name={contributors[1].name}
+                            image={getGithubAvatarUrl(contributors[1].githubUserId, 72)}
+                        />
+                    </AvatarExample>
+                    <AvatarExample label="Source map">
+                        <UserAvatar
+                            size={36}
+                            name={contributors[2].name}
+                            image={getGithubSourceMap(contributors[2].githubUserId, 36)}
+                        />
+                    </AvatarExample>
+                    <AvatarExample label="Large source map">
+                        <UserAvatar
+                            size={72}
+                            name={contributors[3].name}
+                            image={getGithubSourceMap(contributors[3].githubUserId, 72)}
+                        />
+                    </AvatarExample>
+                </Inline>
+            </StorySection>
+        </StoryLayout>
+    ),
+} satisfies Story
+
+export const Sizes = {
+    render: () => (
+        <StoryLayout>
+            <StorySection
+                title="Supported sizes"
+                description="Avatar supports this exact set of CSS pixel sizes. The same size value is also used in image source-map sizes hints."
+            >
+                <Inline space="medium" alignY="top">
+                    {sizes.map((size, index) => {
+                        const contributor = getContributor(index)
+
+                        return (
+                            <AvatarExample key={size} label={`${size}px`}>
+                                <UserAvatar
+                                    size={size}
+                                    name={contributor!.name}
+                                    image={getGithubSourceMap(contributor!.githubUserId, size)}
+                                />
+                            </AvatarExample>
+                        )
+                    })}
+                </Inline>
+            </StorySection>
+
+            <StorySection
+                title="Initials at every size"
+                description="Initials scale with the avatar size and keep the same two-character derivation."
+            >
+                <Inline space="medium" alignY="top">
+                    {sizes.map((size, index) => {
+                        const contributor = getContributor(index)
+
+                        return (
+                            <AvatarExample key={size} label={`${size}px`}>
+                                <UserAvatar size={size} name={contributor!.name} />
+                            </AvatarExample>
+                        )
+                    })}
+                </Inline>
+            </StorySection>
+        </StoryLayout>
+    ),
+} satisfies Story
+
+export const Accessibility = {
+    render: () => (
+        <StoryLayout>
+            <StorySection
+                title="Accessible names"
+                description='Images default to name for alt text. Pass alt for a custom label, or alt="" for decorative avatars.'
+            >
+                <Inline space="medium" alignY="top">
+                    <AvatarExample label="Default from name">
+                        <UserAvatar
+                            size={36}
+                            name={contributors[1].name}
+                            image={getGithubAvatarUrl(contributors[1].githubUserId, 72)}
+                        />
+                    </AvatarExample>
+                    <AvatarExample label="Custom alt">
+                        <UserAvatar
+                            size={36}
+                            name={contributors[0].name}
+                            image={getGithubAvatarUrl(contributors[0].githubUserId, 72)}
+                            alt="Reactist automation account"
+                        />
+                    </AvatarExample>
+                    <AvatarExample label="Decorative image">
+                        <UserAvatar
+                            size={36}
+                            name={contributors[3].name}
+                            image={getGithubAvatarUrl(contributors[3].githubUserId, 72)}
+                            alt=""
+                        />
+                    </AvatarExample>
+                    <AvatarExample label="Decorative initials">
+                        <UserAvatar size={36} name="Jane Doe" alt="" />
+                    </AvatarExample>
+                    <AvatarExample label="Decorative empty">
+                        <Avatar size={36} alt="" />
+                    </AvatarExample>
+                </Inline>
+            </StorySection>
+        </StoryLayout>
+    ),
+} satisfies Story
+
+export const MetaColors = {
+    render: () => (
+        <StoryLayout>
+            <StorySection
+                title="Meta colors"
+                description="Avatar assigns one of 20 meta fill colors deterministically from the provided name."
+            >
+                <Inline space="medium" alignY="top">
+                    {metaColorExamples.map(({ index, name }) => (
+                        <AvatarColorExample key={index} index={index} name={name} />
+                    ))}
+                </Inline>
+            </StorySection>
+        </StoryLayout>
+    ),
+} satisfies Story
+
+export const Playground = {
+    args: {
+        size: 36,
+        shape: 'circle',
+        name: contributors[1].name,
+        image: 'pawel, 72px',
+        alt: undefined,
+    },
+    argTypes: {
+        size: {
+            control: { type: 'select' },
+            options: sizes,
+        },
+        shape: {
+            control: { type: 'select' },
+            options: ['circle', 'rounded'],
+        },
+        name: {
+            control: {
+                type: 'text',
+            },
+        },
+        image: {
+            options: Object.keys(playgroundImages),
+            control: {
+                type: 'select',
+            },
+        },
+        alt: {
+            control: {
+                type: 'text',
+            },
+        },
+    },
+    render: (args: PlaygroundArgs) => (
         <Box>
             <Avatar
                 size={args.size}
@@ -424,40 +456,5 @@ export const AvatarPlaygroundStory = (args: AvatarPlaygroundStoryArgs) => {
                 alt={args.alt}
             />
         </Box>
-    )
-}
-
-AvatarPlaygroundStory.args = {
-    size: 36,
-    shape: 'circle',
-    name: contributors[1].name,
-    image: 'pawel, 72px',
-    alt: undefined,
-}
-
-AvatarPlaygroundStory.argTypes = {
-    size: {
-        type: 'select',
-        options: sizes,
-    },
-    shape: {
-        type: 'select',
-        options: ['circle', 'rounded'],
-    },
-    name: {
-        control: {
-            type: 'text',
-        },
-    },
-    image: {
-        options: Object.keys(playgroundImages),
-        control: {
-            type: 'select',
-        },
-    },
-    alt: {
-        control: {
-            type: 'text',
-        },
-    },
-}
+    ),
+} satisfies PlaygroundStory
