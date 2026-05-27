@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import { fireEvent, render, screen } from '@testing-library/react'
+import { axe } from 'jest-axe'
 
 import { Avatar } from './avatar'
 
@@ -229,5 +230,22 @@ describe('Avatar', () => {
         )
 
         expect(screen.getByTestId('avatar')).toHaveClass('custom-avatar')
+    })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(
+                <>
+                    <Avatar size={36} name="Jane Doe" image="avatar.png" />
+                    <Avatar size={36} name="John Doe" />
+                    <Avatar size={36} name="Decorative Image" image="decorative.png" alt="" />
+                    <Avatar size={36} name="Decorative Initials" alt="" />
+                    <Avatar size={36} />
+                </>,
+            )
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
     })
 })
