@@ -71,7 +71,7 @@ function getInitialGrapheme(value?: string) {
 }
 
 function getInitials(name?: string) {
-    const nameParts = normalizeAvatarName(name).split(WHITESPACE_REGEXP).filter(Boolean)
+    const nameParts = normalizeAvatarName(name).split(' ').filter(Boolean)
 
     if (nameParts.length === 0) {
         return ''
