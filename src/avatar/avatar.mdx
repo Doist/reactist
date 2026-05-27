@@ -24,6 +24,25 @@ and the deterministic meta color used when initials render.
 
 <Canvas of={AvatarStories.Default} />
 
+## Migrating from the legacy API
+
+The previous Avatar API accepted `user`, `avatarUrl`, `colorList`, string or
+responsive `size` values, and a deprecated `className`. The current API uses
+direct identity props instead:
+
+| Legacy prop                    | Current API                                                              |
+| ------------------------------ | ------------------------------------------------------------------------ |
+| `user.name`                    | `name`                                                                   |
+| `avatarUrl`                    | `image`                                                                  |
+| `user.email`                   | No replacement. Email is no longer used for initials or color selection. |
+| `colorList`                    | Customize the CSS custom properties listed below.                        |
+| `size="l"` or responsive sizes | Pass one supported numeric CSS-pixel `size`.                             |
+| `className`                    | `exceptionallySetClassName`                                              |
+
+```tsx
+<Avatar size={36} name={user.name} image={avatarUrl} exceptionallySetClassName={className} />
+```
+
 ## Initials fallback
 
 When `image` is not supplied, cannot be resolved, or every responsive image
