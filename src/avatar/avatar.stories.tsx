@@ -2,11 +2,11 @@ import * as React from 'react'
 
 import { Avatar, Box, Inline, Stack, Text } from '../index'
 
-import { getAvatarMetaColorIndex } from './utils'
+import { AVATAR_SIZES, getAvatarMetaColorIndex } from './utils'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-const sizes = [80, 72, 62, 50, 40, 36, 30, 28, 24, 20, 18, 16, 12] as const
+const sizes = AVATAR_SIZES
 
 const contributors = [
     {
