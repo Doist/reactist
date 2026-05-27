@@ -33,6 +33,14 @@ is rendered as plain numeric text on top of the final avatar.
 
 <Canvas of={AvatarStories.AvatarGroups} />
 
+## Avatar pairs
+
+Use `AvatarPair` when a surface represents two related people or entities. Pass
+the same `size` to the pair and its two direct `Avatar` children. The second
+child is positioned diagonally above-left of the first child.
+
+<Canvas of={AvatarStories.AvatarPairs} />
+
 ## Migrating from the legacy API
 
 The previous Avatar API accepted `user`, `avatarUrl`, `colorList`, string or
@@ -183,6 +191,13 @@ the component props instead of overriding them directly.
     --reactist-avatar-group-overlap: 4px;
     --reactist-avatar-group-mask: 2.5px;
     --reactist-avatar-group-rounded-radius: 5px;
+}
+
+.avatarPair {
+    --reactist-avatar-pair-size: 28px;
+    --reactist-avatar-pair-spacing: 12px;
+    --reactist-avatar-pair-mask: 2px;
+    --reactist-avatar-pair-rounded-radius: 4px;
 }
 ```
 

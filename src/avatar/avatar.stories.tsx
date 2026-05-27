@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Avatar, AvatarGroup, Box, Inline, Stack, Text } from '../index'
+import { Avatar, AvatarGroup, AvatarPair, Box, Inline, Stack, Text } from '../index'
 
 import { AVATAR_SIZES, getAvatarMetaColorIndex } from './utils'
 
@@ -309,6 +309,81 @@ export const AvatarGroups = {
                             </AvatarGroup>
                         </AvatarExample>
                     ))}
+                </Inline>
+            </StorySection>
+        </StoryLayout>
+    ),
+} satisfies Story
+
+export const AvatarPairs = {
+    render: () => (
+        <StoryLayout>
+            <StorySection
+                title="Avatar pairs"
+                description="AvatarPair positions the second direct Avatar child diagonally above-left of the first."
+            >
+                <Inline space="medium" alignY="top">
+                    <AvatarExample label="User pair">
+                        <AvatarPair size={28}>
+                            <UserAvatar
+                                size={28}
+                                name={contributors[1].name}
+                                image={getGithubAvatarUrl(contributors[1].githubUserId, 56)}
+                            />
+                            <UserAvatar
+                                size={28}
+                                name={contributors[2].name}
+                                image={getGithubAvatarUrl(contributors[2].githubUserId, 56)}
+                            />
+                        </AvatarPair>
+                    </AvatarExample>
+                    <AvatarExample label="Initials pair">
+                        <AvatarPair size={28}>
+                            <UserAvatar size={28} name="Pawel Grimm" />
+                            <UserAvatar size={28} name="Craig Reactist" />
+                        </AvatarPair>
+                    </AvatarExample>
+                    <AvatarExample label="Workspace pair">
+                        <AvatarPair size={28} shape="rounded">
+                            <WorkspaceAvatarExample size={28} name="Reactist" />
+                            <WorkspaceAvatarExample size={28} name="Todoist" />
+                        </AvatarPair>
+                    </AvatarExample>
+                </Inline>
+            </StorySection>
+
+            <StorySection
+                title="Size-dependent pair spacing"
+                description="The diagonal offset and transparent mask width are derived from the pair size."
+            >
+                <Inline space="medium" alignY="top">
+                    {([80, 62, 50, 36, 28, 20, 16, 12] as const).map((size, index) => {
+                        const firstContributor = getContributor(index)!
+                        const secondContributor = getContributor(index + 1)!
+
+                        return (
+                            <AvatarExample key={size} label={`${size}px`}>
+                                <AvatarPair size={size}>
+                                    <UserAvatar
+                                        size={size}
+                                        name={firstContributor.name}
+                                        image={getGithubSourceMap(
+                                            firstContributor.githubUserId,
+                                            size,
+                                        )}
+                                    />
+                                    <UserAvatar
+                                        size={size}
+                                        name={secondContributor.name}
+                                        image={getGithubSourceMap(
+                                            secondContributor.githubUserId,
+                                            size,
+                                        )}
+                                    />
+                                </AvatarPair>
+                            </AvatarExample>
+                        )
+                    })}
                 </Inline>
             </StorySection>
         </StoryLayout>

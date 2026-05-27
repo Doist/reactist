@@ -3,7 +3,7 @@ import * as React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { axe } from 'jest-axe'
 
-import { Avatar, AvatarGroup } from './avatar'
+import { Avatar, AvatarGroup, AvatarPair } from './avatar'
 
 describe('Avatar', () => {
     function failCurrentAvatarImage(currentSrc: string) {
@@ -419,5 +419,149 @@ describe('AvatarGroup', () => {
         )
 
         expect(screen.getByTestId('group')).toHaveClass('custom-group')
+    })
+
+    it('can render as a button', () => {
+        render(
+            <AvatarGroup as="button" aria-label="Manage members" size={36}>
+                <Avatar size={36} name="Jane Doe" />
+                <Avatar size={36} name="John Doe" />
+            </AvatarGroup>,
+        )
+
+        expect(screen.getByRole('button', { name: 'Manage members' })).toBeVisible()
+    })
+
+    it('derives the root ref type from the element rendered with as', () => {
+        const anchorRef = React.createRef<HTMLAnchorElement>()
+        const buttonRef = React.createRef<HTMLButtonElement>()
+
+        render(
+            <AvatarGroup as="a" data-testid="group" href="/members" ref={anchorRef} size={36}>
+                <Avatar size={36} name="Jane Doe" />
+                <Avatar size={36} name="John Doe" />
+            </AvatarGroup>,
+        )
+
+        expect(anchorRef.current).toBe(screen.getByTestId('group'))
+
+        const invalidRefElement = (
+            // @ts-expect-error refs must match the element selected with as
+            <AvatarGroup as="a" href="/members" ref={buttonRef} size={36}>
+                <Avatar size={36} name="Jane Doe" />
+                <Avatar size={36} name="John Doe" />
+            </AvatarGroup>
+        )
+        expect(invalidRefElement).toBeTruthy()
+    })
+})
+
+describe('AvatarPair', () => {
+    it('renders direct Avatar children without wrappers', () => {
+        render(
+            <AvatarPair data-testid="pair" size={28}>
+                <Avatar data-testid="first" size={28} name="Jane Doe" />
+                <Avatar data-testid="second" size={28} name="John Doe" />
+            </AvatarPair>,
+        )
+
+        expect(screen.getByTestId('pair')).toContainElement(screen.getByTestId('first'))
+        expect(screen.getByTestId('pair')).toContainElement(screen.getByTestId('second'))
+        expect(screen.getByTestId('first').parentElement).toBe(screen.getByTestId('pair'))
+        expect(screen.getByTestId('second').parentElement).toBe(screen.getByTestId('pair'))
+    })
+
+    it('sets size-derived pair variables', () => {
+        render(
+            <AvatarPair data-testid="pair" size={28}>
+                <Avatar size={28} name="Jane Doe" />
+                <Avatar size={28} name="John Doe" />
+            </AvatarPair>,
+        )
+
+        expect(screen.getByTestId('pair')).toHaveStyle({
+            '--reactist-avatar-pair-size': '28px',
+            '--reactist-avatar-pair-spacing': '12px',
+            '--reactist-avatar-pair-mask': '2px',
+            '--reactist-avatar-pair-rounded-mask-radius': 'calc(5px + 2px)',
+        })
+    })
+
+    it('sets large size-derived pair variables', () => {
+        render(
+            <AvatarPair data-testid="pair" size={80}>
+                <Avatar size={80} name="Jane Doe" />
+                <Avatar size={80} name="John Doe" />
+            </AvatarPair>,
+        )
+
+        expect(screen.getByTestId('pair')).toHaveStyle({
+            '--reactist-avatar-pair-size': '80px',
+            '--reactist-avatar-pair-spacing': '36px',
+            '--reactist-avatar-pair-mask': '3px',
+            '--reactist-avatar-pair-rounded-mask-radius': 'calc(10px + 3px)',
+        })
+    })
+
+    it('applies the pair shape class', () => {
+        render(
+            <AvatarPair data-testid="pair" size={28} shape="rounded">
+                <Avatar size={28} shape="rounded" name="Workspace" />
+                <Avatar size={28} shape="rounded" name="Design System" />
+            </AvatarPair>,
+        )
+
+        expect(screen.getByTestId('pair')).toHaveClass('avatarPairShape-rounded')
+    })
+
+    it('applies the escape hatch class name', () => {
+        render(
+            <AvatarPair data-testid="pair" size={28} exceptionallySetClassName="custom-pair">
+                <Avatar size={28} name="Jane Doe" />
+                <Avatar size={28} name="John Doe" />
+            </AvatarPair>,
+        )
+
+        expect(screen.getByTestId('pair')).toHaveClass('custom-pair')
+    })
+
+    it('can render as a button', () => {
+        render(
+            <AvatarPair as="button" aria-label="Open workspace pair" size={28}>
+                <Avatar size={28} name="Workspace" />
+                <Avatar size={28} name="Design System" />
+            </AvatarPair>,
+        )
+
+        expect(screen.getByRole('button', { name: 'Open workspace pair' })).toBeVisible()
+    })
+
+    it('derives the root ref type from the element rendered with as', () => {
+        const anchorRef = React.createRef<HTMLAnchorElement>()
+        const buttonRef = React.createRef<HTMLButtonElement>()
+
+        render(
+            <AvatarPair
+                as="a"
+                data-testid="pair"
+                href="/workspaces/design"
+                ref={anchorRef}
+                size={28}
+            >
+                <Avatar size={28} name="Workspace" />
+                <Avatar size={28} name="Design System" />
+            </AvatarPair>,
+        )
+
+        expect(anchorRef.current).toBe(screen.getByTestId('pair'))
+
+        const invalidRefElement = (
+            // @ts-expect-error refs must match the element selected with as
+            <AvatarPair as="a" href="/workspaces/design" ref={buttonRef} size={28}>
+                <Avatar size={28} name="Workspace" />
+                <Avatar size={28} name="Design System" />
+            </AvatarPair>
+        )
+        expect(invalidRefElement).toBeTruthy()
     })
 })
