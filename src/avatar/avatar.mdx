@@ -122,7 +122,10 @@ component appearance. The values shown below are the default values.
     <ColorItem title="--reactist-avatar-initials-color" colors={['#ffffff']} />
     <ColorItem title="--reactist-avatar-border-tint" colors={['#0000001a']} />
     <ColorItem title="--reactist-avatar-empty-fill" colors={['#e6e6e6']} />
-    <ColorItem title="--reactist-avatar-group-count-overlay" colors={['rgba(0, 0, 0, 0.6)']} />
+    <ColorItem
+        title="--reactist-avatar-group-count-overlay-background"
+        colors={['rgba(0, 0, 0, 0.6)']}
+    />
 </ColorPalette>
 
 #### Avatar meta colors
@@ -185,7 +188,7 @@ the component props instead of overriding them directly.
 .avatarGroup {
     --reactist-avatar-group-size: 36px;
     --reactist-avatar-group-overlap: 4px;
-    --reactist-avatar-group-mask: 2.5px;
+    --reactist-avatar-group-mask-thickness: 2.5px;
     --reactist-avatar-group-rounded-radius: 5px;
 }
 ```

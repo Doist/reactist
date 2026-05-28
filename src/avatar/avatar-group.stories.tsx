@@ -111,7 +111,7 @@ function CustomOverlayStyle() {
         <style>
             {`
                 .avatarGroupCustomOverlay {
-                    --reactist-avatar-group-count-overlay: rgba(220, 76, 62, 0.72);
+                    --reactist-avatar-group-count-overlay-background: rgba(220, 76, 62, 0.72);
                 }
             `}
         </style>

@@ -1,18 +1,37 @@
+/*
+ * AvatarGroup overlaps each child avatar over the previous one (negative
+ * margin-left). Because that partly covers the previous avatar, every
+ * non-first child uses a mask-image to cut a transparent notch where the
+ * previous sibling sits — letting it show through cleanly. Per-size custom
+ * properties (set by .avatarGroupSize-N) tune the overlap, mask thickness,
+ * and rounded-corner radius.
+ */
+
 .avatarGroup {
-    --reactist-avatar-group-size: 36px;
-    --reactist-avatar-group-overlap: 4px;
-    --reactist-avatar-group-mask: 2.5px;
-    --reactist-avatar-group-rounded-radius: 5px;
+    --reactist-avatar-group-count-overlay-background: rgba(0, 0, 0, 0.6);
+
+    /* Radius of the corner-cutter gradient (rounded shape): the previous
+       avatar's own corner radius, padded by the mask gap. */
     --reactist-avatar-group-rounded-mask-radius: calc(
-        var(--reactist-avatar-group-rounded-radius) + var(--reactist-avatar-group-mask)
+        var(--reactist-avatar-group-rounded-radius) + var(--reactist-avatar-group-mask-thickness)
     );
-    --reactist-avatar-group-count-overlay: rgba(0, 0, 0, 0.6);
+
+    /* Horizontal slice on the left that holds the rounded corner cut-outs;
+       everything to its right is shown unmasked. */
     --reactist-avatar-group-rounded-mask-width: calc(
-        var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask)
+        var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask-thickness)
     );
+
+    /* x-coordinate of the rounded corner-cutter's center. Sits one corner
+       radius to the left of where the overlap ends, so the curve lines up
+       with the previous avatar's rounded corner. */
     --reactist-avatar-group-rounded-mask-corner-x: calc(
         var(--reactist-avatar-group-overlap) - var(--reactist-avatar-group-rounded-radius)
     );
+
+    /* x-coordinate of the previous avatar's center in this avatar's local
+       coordinate space. Negative: the previous sibling lies to the left.
+       Used to place the circle mask's notch. */
     --reactist-avatar-group-previous-center-x: calc(
         (var(--reactist-avatar-group-size) / 2) - var(--reactist-avatar-group-size) +
             var(--reactist-avatar-group-overlap)
@@ -21,94 +40,105 @@
     position: relative;
 }
 
+/*
+ * Per-size knobs. AvatarGroup applies exactly one of these classes based on
+ * its `size` prop, so one of them always wins.
+ *
+ *   --reactist-avatar-group-size            avatar width/height (must match the children's `size`)
+ *   --reactist-avatar-group-overlap         how far each avatar slides over the previous one
+ *   --reactist-avatar-group-mask-thickness  padding around the cut-out so the previous avatar's outline doesn't bleed through
+ *   --reactist-avatar-group-rounded-radius  corner radius for shape="rounded"; mirrors
+ *                                           ROUNDED_AVATAR_RADIUS_BY_SIZE in src/avatar/utils.ts
+ */
+
 .avatarGroupSize-80 {
     --reactist-avatar-group-size: 80px;
     --reactist-avatar-group-overlap: 8px;
-    --reactist-avatar-group-mask: 3px;
+    --reactist-avatar-group-mask-thickness: 3px;
     --reactist-avatar-group-rounded-radius: 10px;
 }
 
 .avatarGroupSize-72 {
     --reactist-avatar-group-size: 72px;
     --reactist-avatar-group-overlap: 8px;
-    --reactist-avatar-group-mask: 3px;
+    --reactist-avatar-group-mask-thickness: 3px;
     --reactist-avatar-group-rounded-radius: 10px;
 }
 
 .avatarGroupSize-62 {
     --reactist-avatar-group-size: 62px;
     --reactist-avatar-group-overlap: 8px;
-    --reactist-avatar-group-mask: 3px;
+    --reactist-avatar-group-mask-thickness: 3px;
     --reactist-avatar-group-rounded-radius: 8.5px;
 }
 
 .avatarGroupSize-50 {
     --reactist-avatar-group-size: 50px;
     --reactist-avatar-group-overlap: 4px;
-    --reactist-avatar-group-mask: 3px;
+    --reactist-avatar-group-mask-thickness: 3px;
     --reactist-avatar-group-rounded-radius: 7px;
 }
 
 .avatarGroupSize-40 {
     --reactist-avatar-group-size: 40px;
     --reactist-avatar-group-overlap: 4px;
-    --reactist-avatar-group-mask: 3px;
+    --reactist-avatar-group-mask-thickness: 3px;
     --reactist-avatar-group-rounded-radius: 5.5px;
 }
 
 .avatarGroupSize-36 {
     --reactist-avatar-group-size: 36px;
     --reactist-avatar-group-overlap: 4px;
-    --reactist-avatar-group-mask: 2.5px;
+    --reactist-avatar-group-mask-thickness: 2.5px;
     --reactist-avatar-group-rounded-radius: 5px;
 }
 
 .avatarGroupSize-30 {
     --reactist-avatar-group-size: 30px;
     --reactist-avatar-group-overlap: 2px;
-    --reactist-avatar-group-mask: 2.5px;
+    --reactist-avatar-group-mask-thickness: 2.5px;
     --reactist-avatar-group-rounded-radius: 5px;
 }
 
 .avatarGroupSize-28 {
     --reactist-avatar-group-size: 28px;
     --reactist-avatar-group-overlap: 2px;
-    --reactist-avatar-group-mask: 2px;
+    --reactist-avatar-group-mask-thickness: 2px;
     --reactist-avatar-group-rounded-radius: 5px;
 }
 
 .avatarGroupSize-24 {
     --reactist-avatar-group-size: 24px;
     --reactist-avatar-group-overlap: 2px;
-    --reactist-avatar-group-mask: 2px;
+    --reactist-avatar-group-mask-thickness: 2px;
     --reactist-avatar-group-rounded-radius: 3.2px;
 }
 
 .avatarGroupSize-20 {
     --reactist-avatar-group-size: 20px;
     --reactist-avatar-group-overlap: 2px;
-    --reactist-avatar-group-mask: 2px;
+    --reactist-avatar-group-mask-thickness: 2px;
     --reactist-avatar-group-rounded-radius: 3px;
 }
 
 .avatarGroupSize-18 {
     --reactist-avatar-group-size: 18px;
     --reactist-avatar-group-overlap: 2px;
-    --reactist-avatar-group-mask: 1.5px;
+    --reactist-avatar-group-mask-thickness: 1.5px;
     --reactist-avatar-group-rounded-radius: 3px;
 }
 
 .avatarGroupSize-16 {
     --reactist-avatar-group-size: 16px;
     --reactist-avatar-group-overlap: 2px;
-    --reactist-avatar-group-mask: 1.25px;
+    --reactist-avatar-group-mask-thickness: 1.25px;
     --reactist-avatar-group-rounded-radius: 2px;
 }
 
 .avatarGroupSize-12 {
     --reactist-avatar-group-size: 12px;
     --reactist-avatar-group-overlap: 1px;
-    --reactist-avatar-group-mask: 1px;
+    --reactist-avatar-group-mask-thickness: 1px;
     --reactist-avatar-group-rounded-radius: 1.6px;
 }
 
@@ -120,21 +150,53 @@
     margin-left: calc(-1 * var(--reactist-avatar-group-overlap));
 }
 
+/*
+ * Circle mask: one radial gradient centered on the previous avatar's center
+ * carves a transparent disc slightly larger than the avatar's outline
+ * (radius = size/2 + mask-thickness). The current avatar therefore shows
+ * nothing where the previous circle sits, letting it show through cleanly.
+ */
 .avatarGroupShape-circle > * + * {
     -webkit-mask-image: radial-gradient(
-        circle calc((var(--reactist-avatar-group-size) / 2) + var(--reactist-avatar-group-mask)) at
-            var(--reactist-avatar-group-previous-center-x) 50%,
+        circle
+            calc(
+                (var(--reactist-avatar-group-size) / 2) +
+                    var(--reactist-avatar-group-mask-thickness)
+            )
+            at var(--reactist-avatar-group-previous-center-x) 50%,
         transparent 99%,
         #000 100%
     );
     mask-image: radial-gradient(
-        circle calc((var(--reactist-avatar-group-size) / 2) + var(--reactist-avatar-group-mask)) at
-            var(--reactist-avatar-group-previous-center-x) 50%,
+        circle
+            calc(
+                (var(--reactist-avatar-group-size) / 2) +
+                    var(--reactist-avatar-group-mask-thickness)
+            )
+            at var(--reactist-avatar-group-previous-center-x) 50%,
         transparent 99%,
         #000 100%
     );
 }
 
+/*
+ * Rounded mask: built from three alpha-mask layers, listed top-to-bottom:
+ *
+ *   1. linear-gradient(#000), positioned `right top` at
+ *      (100% - mask-width) × 100% — reveals the whole right portion of the
+ *      avatar unmasked.
+ *
+ *   2. radial-gradient at the top-left, sized mask-width × rounded-radius —
+ *      carves a concave arc matching the previous avatar's top-right
+ *      rounded corner.
+ *
+ *   3. Same radial-gradient pinned to the bottom-left — same trick for the
+ *      previous avatar's bottom-right corner.
+ *
+ * The left-middle strip (between the two corner cut-outs) is intentionally
+ * uncovered by any layer, so it stays transparent — that's where the body of
+ * the previous avatar shows through.
+ */
 .avatarGroupShape-rounded > * + * {
     -webkit-mask-image:
         linear-gradient(#000 0 0),
@@ -196,7 +258,7 @@
     width: var(--reactist-avatar-group-size);
     height: var(--reactist-avatar-group-size);
     border-radius: 50%;
-    background: var(--reactist-avatar-group-count-overlay);
+    background: var(--reactist-avatar-group-count-overlay-background);
     color: var(--reactist-avatar-initials-color, var(--reactist-actionable-primary-idle-tint));
     font-size: calc(var(--reactist-avatar-group-size) / 2);
     font-weight: var(--reactist-font-weight-medium);
