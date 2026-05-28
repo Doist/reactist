@@ -186,26 +186,24 @@
  *           the L's inner ┘ corner where the strips meet.
  */
 .avatarPairShape-rounded > :last-child {
+    /* The three mask layers below correspond 1:1 to the L-shape construction
+     * described above (layer 1 = top strip, layer 2 = left strip, layer 3 =
+     * rounded inner corner). The same ordering applies to mask-position and
+     * mask-size. */
     -webkit-mask-image:
-        linear-gradient(#000 0 0),
-        /* layer 1: top strip */ linear-gradient(#000 0 0),
-        /* layer 2: left strip */
-            radial-gradient(
-                /* layer 3: rounded inner corner */ circle
-                    var(--reactist-avatar-pair-rounded-mask-radius) at 100% 100%,
-                transparent 99%,
-                #000 100%
-            );
+        linear-gradient(#000 0 0), linear-gradient(#000 0 0),
+        radial-gradient(
+            circle var(--reactist-avatar-pair-rounded-mask-radius) at 100% 100%,
+            transparent 99%,
+            #000 100%
+        );
     mask-image:
-        linear-gradient(#000 0 0),
-        /* layer 1: top strip */ linear-gradient(#000 0 0),
-        /* layer 2: left strip */
-            radial-gradient(
-                /* layer 3: rounded inner corner */ circle
-                    var(--reactist-avatar-pair-rounded-mask-radius) at 100% 100%,
-                transparent 99%,
-                #000 100%
-            );
+        linear-gradient(#000 0 0), linear-gradient(#000 0 0),
+        radial-gradient(
+            circle var(--reactist-avatar-pair-rounded-mask-radius) at 100% 100%,
+            transparent 99%,
+            #000 100%
+        );
     -webkit-mask-position:
         0 0,
         0 0,
