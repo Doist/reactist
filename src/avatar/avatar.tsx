@@ -145,7 +145,9 @@ type AvatarGroupOwnProps = ObfuscatedClassName & {
     shape?: AvatarShape
 
     /**
-     * The number of additional people represented by the final avatar.
+     * Additional people not shown in the group. When positive, rendered as a
+     * decorative `+N` overlay on top of the final avatar; hidden from
+     * assistive tech.
      */
     count?: number
 
