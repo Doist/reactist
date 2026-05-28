@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Avatar, AvatarGroup, Box, Inline, Stack, Text } from '../index'
+import { Avatar, Box, Inline, Stack, Text } from '../index'
 
 import { AVATAR_SIZES, getAvatarMetaColorIndex } from './utils'
 
@@ -168,18 +168,6 @@ function WorkspaceAvatarExample(props: Omit<AvatarProps, 'shape'>) {
     return <Avatar shape="rounded" {...props} />
 }
 
-function AvatarGroupCustomOverlayStyle() {
-    return (
-        <style>
-            {`
-                .avatarGroupCustomOverlay {
-                    --reactist-avatar-group-count-overlay: rgba(220, 76, 62, 0.72);
-                }
-            `}
-        </style>
-    )
-}
-
 function AvatarColorExample({ index, name }: { index: number; name: string }) {
     return (
         <AvatarExample label={`fill-${index}`}>
@@ -222,91 +210,6 @@ export const Default = {
                                 name={contributor.name}
                                 image={getGithubAvatarUrl(contributor.githubUserId, 72)}
                             />
-                        </AvatarExample>
-                    ))}
-                </Inline>
-            </StorySection>
-        </StoryLayout>
-    ),
-} satisfies Story
-
-export const AvatarGroups = {
-    render: () => (
-        <StoryLayout>
-            <AvatarGroupCustomOverlayStyle />
-
-            <StorySection
-                title="User groups"
-                description="AvatarGroup overlaps direct Avatar children. Pass count when the final avatar represents additional people."
-            >
-                <Inline space="medium" alignY="top">
-                    <AvatarExample label="With count">
-                        <AvatarGroup size={36} count={3}>
-                            {contributors.slice(1, 6).map((contributor) => (
-                                <UserAvatar
-                                    key={contributor.name}
-                                    size={36}
-                                    name={contributor.name}
-                                    image={getGithubAvatarUrl(contributor.githubUserId, 72)}
-                                />
-                            ))}
-                        </AvatarGroup>
-                    </AvatarExample>
-                    <AvatarExample label="No count">
-                        <AvatarGroup size={36}>
-                            {contributors.slice(2, 5).map((contributor) => (
-                                <UserAvatar
-                                    key={contributor.name}
-                                    size={36}
-                                    name={contributor.name}
-                                    image={getGithubAvatarUrl(contributor.githubUserId, 72)}
-                                />
-                            ))}
-                        </AvatarGroup>
-                    </AvatarExample>
-                    <AvatarExample label="Custom overlay">
-                        <AvatarGroup
-                            size={36}
-                            count={9}
-                            exceptionallySetClassName="avatarGroupCustomOverlay"
-                        >
-                            {contributors.slice(3, 7).map((contributor) => (
-                                <UserAvatar
-                                    key={contributor.name}
-                                    size={36}
-                                    name={contributor.name}
-                                    image={getGithubAvatarUrl(contributor.githubUserId, 72)}
-                                />
-                            ))}
-                        </AvatarGroup>
-                    </AvatarExample>
-                </Inline>
-            </StorySection>
-
-            <StorySection
-                title="Size-dependent spacing"
-                description="Overlap and transparent mask width are derived from the group size."
-            >
-                <Inline space="medium" alignY="top">
-                    {([80, 62, 50, 36, 24, 18, 12] as const).map((size, index) => (
-                        <AvatarExample key={size} label={`${size}px`}>
-                            <AvatarGroup size={size} count={3}>
-                                {[0, 1, 2].map((offset) => {
-                                    const contributor = getContributor(index + offset)!
-
-                                    return (
-                                        <UserAvatar
-                                            key={contributor.name}
-                                            size={size}
-                                            name={contributor.name}
-                                            image={getGithubSourceMap(
-                                                contributor.githubUserId,
-                                                size,
-                                            )}
-                                        />
-                                    )
-                                })}
-                            </AvatarGroup>
                         </AvatarExample>
                     ))}
                 </Inline>
