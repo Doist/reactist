@@ -1,5 +1,10 @@
+:root {
+    --reactist-tooltip-font-size: inherit;
+}
+
 .tooltip {
     text-overflow: ellipsis;
     max-width: 300px;
     z-index: var(--reactist-stacking-order-tooltip);
+    font-size: var(--reactist-tooltip-font-size);
 }
