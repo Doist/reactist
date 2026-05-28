@@ -19,9 +19,7 @@ describe('Avatar', () => {
         render(<Avatar data-testid="avatar" size={36} name="Jane Doe" image="avatar.png" />)
 
         expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveAttribute('src', 'avatar.png')
-        expect(screen.getByTestId('avatar')).toHaveStyle({
-            '--reactist-avatar-size': '36px',
-        })
+        expect(screen.getByTestId('avatar')).toHaveClass('size-36')
     })
 
     it('does not apply meta color classes while rendering an image', () => {
@@ -223,13 +221,11 @@ describe('Avatar', () => {
         expect(invalidRefElement).toBeTruthy()
     })
 
-    it('supports rounded shape with size-aware radius', () => {
+    it('supports rounded shape with size-driven CSS classes', () => {
         render(<Avatar data-testid="avatar" size={50} shape="rounded" name="Design" />)
 
         expect(screen.getByTestId('avatar')).toHaveClass('shape-rounded')
-        expect(screen.getByTestId('avatar')).toHaveStyle({
-            '--reactist-avatar-rounded-radius': '7px',
-        })
+        expect(screen.getByTestId('avatar')).toHaveClass('size-50')
     })
 
     it('defaults to circle shape', () => {

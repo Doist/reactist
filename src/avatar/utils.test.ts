@@ -6,7 +6,6 @@ import {
     getInitials,
     getSources,
     normalizeAvatarName,
-    ROUNDED_AVATAR_RADIUS_BY_SIZE,
 } from './utils'
 
 describe('Avatar utils', () => {
@@ -214,26 +213,6 @@ describe('Avatar utils', () => {
 
             expect(index).toBeGreaterThanOrEqual(0)
             expect(index).toBeLessThan(AVATAR_META_COLOR_COUNT)
-        })
-    })
-
-    describe('ROUNDED_AVATAR_RADIUS_BY_SIZE', () => {
-        it('contains the exclusive rounded radius mapping', () => {
-            expect(ROUNDED_AVATAR_RADIUS_BY_SIZE).toEqual({
-                80: '10px',
-                72: '10px',
-                62: '8.5px',
-                50: '7px',
-                40: '5.5px',
-                36: '5px',
-                30: '5px',
-                28: '5px',
-                24: '3.2px',
-                20: '3px',
-                18: '3px',
-                16: '2px',
-                12: '1.6px',
-            })
         })
     })
 })

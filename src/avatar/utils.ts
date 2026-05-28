@@ -32,22 +32,6 @@ type ImageSources = {
 
 const AVATAR_META_COLOR_COUNT = 20
 
-const ROUNDED_AVATAR_RADIUS_BY_SIZE: Record<AvatarSize, string> = {
-    80: '10px',
-    72: '10px',
-    62: '8.5px',
-    50: '7px',
-    40: '5.5px',
-    36: '5px',
-    30: '5px',
-    28: '5px',
-    24: '3.2px',
-    20: '3px',
-    18: '3px',
-    16: '2px',
-    12: '1.6px',
-}
-
 const WHITESPACE_REGEXP = new RegExp('\\p{White_Space}+', 'gu')
 const GRAPHEME_SEGMENTER =
     typeof Intl !== 'undefined' && 'Segmenter' in Intl
@@ -179,6 +163,5 @@ export {
     getInitials,
     getSources,
     normalizeAvatarName,
-    ROUNDED_AVATAR_RADIUS_BY_SIZE,
 }
 export type { AvatarImage, AvatarImageSource, AvatarShape, AvatarSize, ImageSources }

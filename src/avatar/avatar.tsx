@@ -12,7 +12,6 @@ import {
     getInitials,
     getSources,
     normalizeAvatarName,
-    ROUNDED_AVATAR_RADIUS_BY_SIZE,
 } from './utils'
 
 import styles from './avatar.module.css'
@@ -20,11 +19,6 @@ import styles from './avatar.module.css'
 import type { ObfuscatedClassName } from '../utils/common-types'
 import type { PolymorphicComponentProps } from '../utils/polymorphism'
 import type { AvatarImage, AvatarShape, AvatarSize, ImageSources } from './utils'
-
-type AvatarStyle = React.CSSProperties & {
-    '--reactist-avatar-size': string
-    '--reactist-avatar-rounded-radius': string
-}
 
 /**
  * Props for the `Avatar` component.
@@ -118,12 +112,12 @@ const AvatarContent = polymorphicComponent<'div', AvatarOwnProps, 'omitClassName
                 ref={ref}
                 className={classNames(
                     styles.avatar,
+                    styles[`size-${size}`],
                     styles[`shape-${shape}`],
                     metaColorIndex !== undefined && styles[`meta-color-${metaColorIndex}`],
                     !availableImageSources && !hasInitials && styles.empty,
                     exceptionallySetClassName,
                 )}
-                style={getAvatarStyle(size)}
                 data-testid={testId}
                 aria-hidden={isDecorative || undefined}
                 display="inlineFlex"
@@ -189,13 +183,6 @@ const Avatar = polymorphicComponent<'div', AvatarOwnProps, 'omitClassName'>(func
         />
     )
 })
-
-function getAvatarStyle(size: AvatarSize): AvatarStyle {
-    return {
-        '--reactist-avatar-size': `${size}px`,
-        '--reactist-avatar-rounded-radius': ROUNDED_AVATAR_RADIUS_BY_SIZE[size],
-    }
-}
 
 function getAbsoluteImageSource(src: string, image: HTMLImageElement) {
     try {

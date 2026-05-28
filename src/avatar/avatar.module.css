@@ -58,6 +58,71 @@
     outline-offset: -2px;
 }
 
+.size-80 {
+    --reactist-avatar-size: 80px;
+    --reactist-avatar-rounded-radius: 10px;
+}
+
+.size-72 {
+    --reactist-avatar-size: 72px;
+    --reactist-avatar-rounded-radius: 10px;
+}
+
+.size-62 {
+    --reactist-avatar-size: 62px;
+    --reactist-avatar-rounded-radius: 8.5px;
+}
+
+.size-50 {
+    --reactist-avatar-size: 50px;
+    --reactist-avatar-rounded-radius: 7px;
+}
+
+.size-40 {
+    --reactist-avatar-size: 40px;
+    --reactist-avatar-rounded-radius: 5.5px;
+}
+
+.size-36 {
+    --reactist-avatar-size: 36px;
+    --reactist-avatar-rounded-radius: 5px;
+}
+
+.size-30 {
+    --reactist-avatar-size: 30px;
+    --reactist-avatar-rounded-radius: 5px;
+}
+
+.size-28 {
+    --reactist-avatar-size: 28px;
+    --reactist-avatar-rounded-radius: 5px;
+}
+
+.size-24 {
+    --reactist-avatar-size: 24px;
+    --reactist-avatar-rounded-radius: 3.2px;
+}
+
+.size-20 {
+    --reactist-avatar-size: 20px;
+    --reactist-avatar-rounded-radius: 3px;
+}
+
+.size-18 {
+    --reactist-avatar-size: 18px;
+    --reactist-avatar-rounded-radius: 3px;
+}
+
+.size-16 {
+    --reactist-avatar-size: 16px;
+    --reactist-avatar-rounded-radius: 2px;
+}
+
+.size-12 {
+    --reactist-avatar-size: 12px;
+    --reactist-avatar-rounded-radius: 1.6px;
+}
+
 .avatar:has(.initials) {
     background-color: var(--reactist-avatar-meta-fill);
 }
