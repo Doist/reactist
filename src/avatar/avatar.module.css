@@ -307,8 +307,3 @@
 .avatarGroupShape-rounded > .avatarGroupCount {
     border-radius: var(--reactist-avatar-group-rounded-radius);
 }
-
-.avatarGroup > .avatarGroupCount {
-    -webkit-mask-image: none;
-    mask-image: none;
-}

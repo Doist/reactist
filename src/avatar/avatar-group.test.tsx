@@ -2,11 +2,24 @@ import * as React from 'react'
 
 import { render, screen } from '@testing-library/react'
 import { axe } from 'jest-axe'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 
 import { Avatar } from './avatar'
 import { AvatarGroup } from './avatar-group'
 
 describe('AvatarGroup', () => {
+    it('lets the count overlay inherit avatar clipping masks', () => {
+        const avatarStyles = readFileSync(join(__dirname, 'avatar.module.css'), 'utf8')
+
+        expect(avatarStyles).not.toMatch(
+            /\.avatarGroup\s*>\s*\.avatarGroupCount\s*{[^}]*-webkit-mask-image:\s*none/,
+        )
+        expect(avatarStyles).not.toMatch(
+            /\.avatarGroup\s*>\s*\.avatarGroupCount\s*{[^}]*mask-image:\s*none/,
+        )
+    })
+
     it('renders direct Avatar children without wrappers', () => {
         render(
             <AvatarGroup data-testid="group" size={36}>
