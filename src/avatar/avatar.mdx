@@ -29,7 +29,9 @@ and the deterministic meta color used when initials render.
 
 Use `AvatarGroup` when a compact surface represents several people. Pass the
 same `size` to the group and its direct `Avatar` children. The optional `count`
-is rendered as plain numeric text on top of the final avatar.
+is rendered as `+N` text on top of the final avatar. When the group represents
+a labeled entity (a button, link, or labeled region), supply an
+`aria-label` that conveys the count to assistive tech.
 
 <Canvas of={AvatarStories.AvatarGroups} />
 
