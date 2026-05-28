@@ -1,0 +1,117 @@
+.avatarGroup {
+    --reactist-avatar-group-size: 36px;
+    --reactist-avatar-group-overlap: 4px;
+    --reactist-avatar-group-mask: 2.5px;
+    --reactist-avatar-group-rounded-radius: 5px;
+    --reactist-avatar-group-rounded-mask-radius: 7.5px;
+    --reactist-avatar-group-count-overlay: rgba(0, 0, 0, 0.6);
+    --reactist-avatar-group-rounded-mask-width: calc(
+        var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask)
+    );
+    --reactist-avatar-group-rounded-mask-corner-x: calc(
+        var(--reactist-avatar-group-overlap) - var(--reactist-avatar-group-rounded-radius)
+    );
+    --reactist-avatar-group-previous-center-x: calc(
+        (var(--reactist-avatar-group-size) / 2) - var(--reactist-avatar-group-size) +
+            var(--reactist-avatar-group-overlap)
+    );
+
+    position: relative;
+}
+
+.avatarGroup > * {
+    flex-shrink: 0;
+}
+
+.avatarGroup > * + * {
+    margin-left: calc(-1 * var(--reactist-avatar-group-overlap));
+}
+
+.avatarGroupShape-circle > * + * {
+    -webkit-mask-image: radial-gradient(
+        circle calc((var(--reactist-avatar-group-size) / 2) + var(--reactist-avatar-group-mask)) at
+            var(--reactist-avatar-group-previous-center-x) 50%,
+        transparent 99%,
+        #000 100%
+    );
+    mask-image: radial-gradient(
+        circle calc((var(--reactist-avatar-group-size) / 2) + var(--reactist-avatar-group-mask)) at
+            var(--reactist-avatar-group-previous-center-x) 50%,
+        transparent 99%,
+        #000 100%
+    );
+}
+
+.avatarGroupShape-rounded > * + * {
+    -webkit-mask-image:
+        linear-gradient(#000 0 0),
+        radial-gradient(
+            circle var(--reactist-avatar-group-rounded-mask-radius) at
+                var(--reactist-avatar-group-rounded-mask-corner-x)
+                var(--reactist-avatar-group-rounded-radius),
+            transparent 99%,
+            #000 100%
+        ),
+        radial-gradient(
+            circle var(--reactist-avatar-group-rounded-mask-radius) at
+                var(--reactist-avatar-group-rounded-mask-corner-x) 0,
+            transparent 99%,
+            #000 100%
+        );
+    mask-image:
+        linear-gradient(#000 0 0),
+        radial-gradient(
+            circle var(--reactist-avatar-group-rounded-mask-radius) at
+                var(--reactist-avatar-group-rounded-mask-corner-x)
+                var(--reactist-avatar-group-rounded-radius),
+            transparent 99%,
+            #000 100%
+        ),
+        radial-gradient(
+            circle var(--reactist-avatar-group-rounded-mask-radius) at
+                var(--reactist-avatar-group-rounded-mask-corner-x) 0,
+            transparent 99%,
+            #000 100%
+        );
+    -webkit-mask-position:
+        right top,
+        left top,
+        left bottom;
+    mask-position:
+        right top,
+        left top,
+        left bottom;
+    -webkit-mask-size:
+        calc(100% - var(--reactist-avatar-group-rounded-mask-width)) 100%,
+        var(--reactist-avatar-group-rounded-mask-width) var(--reactist-avatar-group-rounded-radius),
+        var(--reactist-avatar-group-rounded-mask-width) var(--reactist-avatar-group-rounded-radius);
+    mask-size:
+        calc(100% - var(--reactist-avatar-group-rounded-mask-width)) 100%,
+        var(--reactist-avatar-group-rounded-mask-width) var(--reactist-avatar-group-rounded-radius),
+        var(--reactist-avatar-group-rounded-mask-width) var(--reactist-avatar-group-rounded-radius);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
+
+.avatarGroupCount {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--reactist-avatar-group-size);
+    height: var(--reactist-avatar-group-size);
+    border-radius: 50%;
+    background: var(--reactist-avatar-group-count-overlay);
+    color: var(--reactist-avatar-initials-color, var(--reactist-actionable-primary-idle-tint));
+    font-size: calc(var(--reactist-avatar-group-size) / 2);
+    font-weight: var(--reactist-font-weight-medium);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+}
+
+.avatarGroupShape-rounded > .avatarGroupCount {
+    border-radius: var(--reactist-avatar-group-rounded-radius);
+}
