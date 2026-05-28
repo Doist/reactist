@@ -6,15 +6,17 @@ import { Button, IconButton } from '../button'
 
 import styles from './control-presentation.module.css'
 
-import type { ComponentProps } from 'react'
+import type { ButtonProps, IconButtonProps } from '../button'
 
 export type ControlActionButtonProps =
     | ({
-          children: React.ReactElement
-      } & Omit<ComponentProps<typeof Button>, 'variant' | 'size'>)
+          children: NonNullable<ButtonProps['children']>
+          icon?: never
+      } & Omit<ButtonProps, 'children' | 'variant' | 'size'>)
     | ({
-          icon?: React.ReactElement
-      } & Omit<ComponentProps<typeof IconButton>, 'variant' | 'size'>)
+          icon: IconButtonProps['icon']
+          children?: never
+      } & Omit<IconButtonProps, 'children' | 'icon' | 'variant' | 'size'>)
 
 /**
  * A compact action button intended for `ControlPresentation`'s `endSlot`. Wraps
@@ -23,26 +25,19 @@ export type ControlActionButtonProps =
  */
 export const ControlActionButton = React.forwardRef<HTMLButtonElement, ControlActionButtonProps>(
     function ControlActionButton({ exceptionallySetClassName, ...props }, ref) {
+        const sharedProps = {
+            ref,
+            variant: 'quaternary' as const,
+            exceptionallySetClassName: classNames([
+                styles.controlActionButton,
+                exceptionallySetClassName,
+            ]),
+        }
+
         return 'children' in props ? (
-            <Button
-                ref={ref}
-                {...props}
-                variant="quaternary"
-                exceptionallySetClassName={classNames([
-                    styles.controlActionButton,
-                    exceptionallySetClassName,
-                ])}
-            />
+            <Button {...props} {...sharedProps} />
         ) : (
-            <IconButton
-                ref={ref}
-                {...props}
-                variant="quaternary"
-                exceptionallySetClassName={classNames([
-                    styles.controlActionButton,
-                    exceptionallySetClassName,
-                ])}
-            />
+            <IconButton {...props} {...sharedProps} />
         )
     },
 )
