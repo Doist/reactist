@@ -1,30 +1,167 @@
+const AVATAR_SIZES = [80, 72, 62, 50, 40, 36, 30, 28, 24, 20, 18, 16, 12] as const
+
+/**
+ * Supported avatar sizes, in CSS pixels.
+ */
+type AvatarSize = (typeof AVATAR_SIZES)[number]
+
+/**
+ * Supported avatar clipping shapes.
+ */
+type AvatarShape = 'circle' | 'rounded'
+
+/**
+ * Avatar image source.
+ *
+ * Use a string for a single image URL, or a source map keyed by intrinsic image width. Source maps
+ * are converted to native `srcSet` width descriptors.
+ */
+type AvatarImage = string | Record<number, string>
+
+type AvatarImageSource = {
+    sourceSize: number
+    src: string
+}
+
+type ImageSources = {
+    src: string
+    srcSet?: string
+    sizes?: string
+    sources?: AvatarImageSource[]
+}
+
+const AVATAR_META_COLOR_COUNT = 20
+
+const WHITESPACE_REGEXP = new RegExp('\\p{White_Space}+', 'gu')
+const GRAPHEME_SEGMENTER =
+    typeof Intl !== 'undefined' && 'Segmenter' in Intl
+        ? new Intl.Segmenter('und', { granularity: 'grapheme' })
+        : undefined
+
+function normalizeAvatarName(name?: string) {
+    return name?.normalize('NFC').trim().replace(WHITESPACE_REGEXP, ' ') ?? ''
+}
+
+function getGraphemeClusters(value: string) {
+    if (GRAPHEME_SEGMENTER) {
+        return Array.from(GRAPHEME_SEGMENTER.segment(value), ({ segment }) => segment)
+    }
+
+    return Array.from(value)
+}
+
+function getInitialGrapheme(value?: string) {
+    return getGraphemeClusters(value?.toUpperCase() ?? '')[0] ?? ''
+}
+
 function getInitials(name?: string) {
-    if (!name) {
+    const nameParts = normalizeAvatarName(name).split(' ').filter(Boolean)
+
+    if (nameParts.length === 0) {
         return ''
     }
 
-    const seed = name.trim().split(' ')
-    const firstInitial = seed[0]
-    const lastInitial = seed[seed.length - 1]
-
-    let initials = firstInitial?.[0]
-    if (
-        firstInitial != null &&
-        lastInitial != null &&
-        initials != null &&
-        // Better readable this way.
-        // eslint-disable-next-line @typescript-eslint/prefer-string-starts-ends-with
-        firstInitial[0] !== lastInitial[0]
-    ) {
-        initials += lastInitial[0]
+    if (nameParts.length === 1) {
+        return getGraphemeClusters(nameParts[0]!.toUpperCase()).slice(0, 2).join('')
     }
-    return initials?.toUpperCase()
+
+    return `${getInitialGrapheme(nameParts[0])}${getInitialGrapheme(nameParts[nameParts.length - 1])}`
 }
 
-function emailToIndex(email: string, maxIndex: number) {
-    const seed = email.split('@')[0]
-    const hash = seed ? seed.charCodeAt(0) + seed.charCodeAt(seed.length - 1) || 0 : 0
-    return hash % maxIndex
+function getSortedImageSources(image: Record<number, string>): AvatarImageSource[] {
+    return Object.entries(image)
+        .map(([sourceSize, src]) => ({ sourceSize: Number(sourceSize), src }))
+        .filter(({ sourceSize, src }) => Number.isFinite(sourceSize) && sourceSize > 0 && src)
+        .sort((a, b) => a.sourceSize - b.sourceSize)
 }
 
-export { emailToIndex, getInitials }
+function getImagePropsFromSources(
+    sources: AvatarImageSource[],
+    sizes?: string,
+): ImageSources | undefined {
+    if (sources.length === 0) {
+        return undefined
+    }
+
+    return {
+        src: sources[sources.length - 1]!.src,
+        srcSet: sources.map(({ sourceSize, src }) => `${src} ${sourceSize}w`).join(', '),
+        sizes,
+        sources,
+    }
+}
+
+function getSources(image: AvatarImage | undefined, size: AvatarSize): ImageSources | undefined {
+    if (!image) {
+        return undefined
+    }
+
+    if (typeof image === 'string') {
+        return { src: image }
+    }
+
+    const sources = getSortedImageSources(image)
+    return getImagePropsFromSources(sources, `${size}px`)
+}
+
+function getAvatarImageIdentityKey(image?: AvatarImage) {
+    if (!image) {
+        return 'fallback'
+    }
+
+    if (typeof image === 'string') {
+        return image
+    }
+
+    const sources = getSortedImageSources(image)
+    if (sources.length === 0) {
+        return 'fallback'
+    }
+
+    return sources.map(({ sourceSize, src }) => `${sourceSize}:${src}`).join('|')
+}
+
+function getAvailableImageSources(
+    imageProps: ImageSources | undefined,
+    failedSources: readonly string[],
+) {
+    if (!imageProps) {
+        return undefined
+    }
+
+    if (failedSources.length === 0) {
+        return imageProps
+    }
+
+    if (!imageProps.sources) {
+        return failedSources.includes(imageProps.src) ? undefined : imageProps
+    }
+
+    return getImagePropsFromSources(
+        imageProps.sources.filter(({ src }) => !failedSources.includes(src)),
+        imageProps.sizes,
+    )
+}
+
+function getAvatarMetaColorIndex(name?: string) {
+    const normalizedName = normalizeAvatarName(name)
+    let hash = 0
+
+    for (const char of normalizedName) {
+        hash = (hash * 31 + (char.codePointAt(0) ?? 0)) >>> 0
+    }
+
+    return hash % AVATAR_META_COLOR_COUNT
+}
+
+export {
+    AVATAR_META_COLOR_COUNT,
+    AVATAR_SIZES,
+    getAvailableImageSources,
+    getAvatarImageIdentityKey,
+    getAvatarMetaColorIndex,
+    getInitials,
+    getSources,
+    normalizeAvatarName,
+}
+export type { AvatarImage, AvatarImageSource, AvatarShape, AvatarSize, ImageSources }

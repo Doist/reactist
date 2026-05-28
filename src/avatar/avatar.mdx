@@ -1,0 +1,189 @@
+import {
+    Canvas,
+    ColorItem,
+    ColorPalette,
+    Controls,
+    Markdown,
+    Meta,
+    Subtitle,
+    Title,
+} from '@storybook/addon-docs/blocks'
+
+import * as AvatarStories from './avatar.stories'
+
+<Meta of={AvatarStories} />
+
+<Title />
+
+<Subtitle>Image, initials, and empty-state avatar primitive.</Subtitle>
+
+## Basic usage
+
+Use `Avatar` for people by default. Pass `size`, `name`, and an optional
+`image`; `name` supplies the default accessible label, the initials fallback,
+and the deterministic meta color used when initials render.
+
+<Canvas of={AvatarStories.Default} />
+
+## Migrating from the legacy API
+
+The previous Avatar API accepted `user`, `avatarUrl`, `colorList`, string or
+responsive `size` values, and a deprecated `className`. The current API uses
+direct identity props instead:
+
+<Markdown>{`
+| Legacy prop                    | Current API                                                              |
+| ------------------------------ | ------------------------------------------------------------------------ |
+| \`user.name\`                    | \`name\`                                                                   |
+| \`avatarUrl\`                    | \`image\`                                                                  |
+| \`user.email\`                   | No replacement. Email is no longer used for initials or color selection. |
+| \`colorList\`                    | Customize the CSS custom properties listed below.                        |
+| \`size="l"\` or responsive sizes | Pass one supported numeric CSS-pixel \`size\`.                             |
+| \`className\`                    | \`exceptionallySetClassName\`                                              |
+`}</Markdown>
+
+```tsx
+<Avatar size={36} name={user.name} image={avatarUrl} exceptionallySetClassName={className} />
+```
+
+## Initials fallback
+
+When `image` is not supplied, cannot be resolved, or every responsive image
+candidate fails, Avatar falls back to initials derived from `name`. Names are
+normalized before initials are generated.
+
+<Canvas of={AvatarStories.InitialsFallback} />
+
+## Workspace avatars
+
+Use `shape="rounded"` for workspace-like entities. Product code can wrap
+Avatar with a small convention component when a surface always represents the
+same kind of entity.
+
+<Canvas of={AvatarStories.WorkspaceAvatar} />
+
+## Image sources
+
+Pass a string for a single image URL, or a source map keyed by intrinsic image
+width. Source maps render native `srcSet` width descriptors and a `sizes` hint
+based on the selected avatar size.
+
+<Canvas of={AvatarStories.ImageSources} />
+
+## Sizes
+
+Avatar supports a fixed set of CSS pixel sizes. Use one of the supported
+numeric values instead of styling the avatar dimensions from the outside.
+
+<Canvas of={AvatarStories.Sizes} />
+
+## Accessibility
+
+Images default to `name` for alt text. Pass `alt` when the visual needs a more
+specific label, and pass `alt=""` when the avatar is decorative.
+
+<Canvas of={AvatarStories.Accessibility} />
+
+## Playground
+
+Use the controls to inspect the component API and common image/name
+combinations.
+
+<Canvas of={AvatarStories.Playground} />
+
+### API
+
+<Controls of={AvatarStories.Playground} />
+
+## Custom properties
+
+The following CSS custom properties are available to customize the avatar
+component appearance. The values shown below are the default values.
+
+<Canvas of={AvatarStories.MetaColors} />
+
+### Customizable properties
+
+#### Avatar colors
+
+<ColorPalette>
+    <ColorItem title="--reactist-avatar-initials-color" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-border-tint" colors={['#0000001a']} />
+    <ColorItem title="--reactist-avatar-empty-fill" colors={['#e6e6e6']} />
+</ColorPalette>
+
+#### Avatar meta colors
+
+<ColorPalette>
+    <ColorItem title="--reactist-avatar-meta-0-fill" colors={['#b8255f']} />
+    <ColorItem title="--reactist-avatar-meta-0-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-1-fill" colors={['#dc4c3e']} />
+    <ColorItem title="--reactist-avatar-meta-1-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-2-fill" colors={['#f48318']} />
+    <ColorItem title="--reactist-avatar-meta-2-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-3-fill" colors={['#fecf05']} />
+    <ColorItem title="--reactist-avatar-meta-3-on-idle-tint" colors={['#202020']} />
+    <ColorItem title="--reactist-avatar-meta-4-fill" colors={['#aeb83a']} />
+    <ColorItem title="--reactist-avatar-meta-4-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-5-fill" colors={['#7ecc48']} />
+    <ColorItem title="--reactist-avatar-meta-5-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-6-fill" colors={['#369307']} />
+    <ColorItem title="--reactist-avatar-meta-6-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-7-fill" colors={['#52ccb8']} />
+    <ColorItem title="--reactist-avatar-meta-7-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-8-fill" colors={['#148fad']} />
+    <ColorItem title="--reactist-avatar-meta-8-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-9-fill" colors={['#3ab9e2']} />
+    <ColorItem title="--reactist-avatar-meta-9-on-idle-tint" colors={['#202020']} />
+    <ColorItem title="--reactist-avatar-meta-10-fill" colors={['#96c3eb']} />
+    <ColorItem title="--reactist-avatar-meta-10-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-11-fill" colors={['#2a67e2']} />
+    <ColorItem title="--reactist-avatar-meta-11-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-12-fill" colors={['#692ec2']} />
+    <ColorItem title="--reactist-avatar-meta-12-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-13-fill" colors={['#ac30cc']} />
+    <ColorItem title="--reactist-avatar-meta-13-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-14-fill" colors={['#eb96c8']} />
+    <ColorItem title="--reactist-avatar-meta-14-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-15-fill" colors={['#e05095']} />
+    <ColorItem title="--reactist-avatar-meta-15-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-16-fill" colors={['#c9766f']} />
+    <ColorItem title="--reactist-avatar-meta-16-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-17-fill" colors={['#808080']} />
+    <ColorItem title="--reactist-avatar-meta-17-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-18-fill" colors={['#999999']} />
+    <ColorItem title="--reactist-avatar-meta-18-on-idle-tint" colors={['#ffffff']} />
+    <ColorItem title="--reactist-avatar-meta-19-fill" colors={['#ccae96']} />
+    <ColorItem title="--reactist-avatar-meta-19-on-idle-tint" colors={['#ffffff']} />
+</ColorPalette>
+
+### Component-owned variables
+
+Avatar's size classes set these variables from the `size` prop. They are
+listed for completeness, but consumers should prefer the component props
+instead of overriding them directly.
+
+```css
+.avatar {
+    --reactist-avatar-size: 36px;
+    --reactist-avatar-rounded-radius: 5px;
+}
+```
+
+## What the consumer owns
+
+- **Identity data** — choose the `name`, `image`, and any custom `alt` text.
+- **Source selection** — provide either one URL or a width-keyed source map.
+- **Entity convention** — choose `shape="circle"` for people and
+  `shape="rounded"` for workspace-like entities.
+- **Decorative usage** — pass `alt=""` when surrounding UI already names the
+  represented entity.
+- **Persistence and fetching** — Avatar does not load, cache, or persist remote
+  user/workspace data.
+
+## Accessibility
+
+- `name` becomes the default image `alt` text and initials `aria-label`.
+- `alt` overrides the accessible label for both image and initials rendering.
+- `alt=""` marks image and initials avatars as decorative.
+- An avatar with no `name` and no `image` renders as an empty decorative visual.
