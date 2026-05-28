@@ -10,6 +10,7 @@ import {
 } from '@storybook/addon-docs/blocks'
 
 import * as AvatarStories from './avatar.stories'
+import * as AvatarGroupStories from './avatar-group.stories'
 
 <Meta of={AvatarStories} />
 
@@ -24,6 +25,17 @@ Use `Avatar` for people by default. Pass `size`, `name`, and an optional
 and the deterministic meta color used when initials render.
 
 <Canvas of={AvatarStories.Default} />
+
+## Avatar groups
+
+Use `AvatarGroup` when a compact surface represents several people. Pass the
+same `size` to the group and its direct `Avatar` children. The optional `count`
+is rendered as a decorative `N` visual on top of the final avatar and is
+hidden from assistive tech. When the group represents a labeled entity (a
+button, link, or labeled region), supply an `aria-label` on the group that
+conveys the count to assistive tech.
+
+<Canvas of={AvatarGroupStories.People} />
 
 ## Migrating from the legacy API
 
@@ -110,6 +122,10 @@ component appearance. The values shown below are the default values.
     <ColorItem title="--reactist-avatar-initials-color" colors={['#ffffff']} />
     <ColorItem title="--reactist-avatar-border-tint" colors={['#0000001a']} />
     <ColorItem title="--reactist-avatar-empty-fill" colors={['#e6e6e6']} />
+    <ColorItem
+        title="--reactist-avatar-group-count-overlay-background"
+        colors={['rgba(0, 0, 0, 0.6)']}
+    />
 </ColorPalette>
 
 #### Avatar meta colors
@@ -167,6 +183,13 @@ the component props instead of overriding them directly.
 .avatar {
     --reactist-avatar-size: 36px;
     --reactist-avatar-rounded-radius: 5px;
+}
+
+.avatarGroup {
+    --reactist-avatar-group-size: 36px;
+    --reactist-avatar-group-overlap: 4px;
+    --reactist-avatar-group-mask-thickness: 2.5px;
+    --reactist-avatar-group-rounded-radius: 5px;
 }
 ```
 
