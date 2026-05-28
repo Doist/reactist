@@ -6,6 +6,8 @@ import { axe } from 'jest-axe'
 
 import { OutlinedControlContainer } from './outlined-control-container'
 
+import styles from './outlined-control-container.module.css'
+
 describe('OutlinedControlContainer', () => {
     // Note: CSS `:has()`-driven state styling (readonly/disabled tinting, error
     // border via aria-invalid, hover/focus border colors) is verified by visual
@@ -48,11 +50,7 @@ describe('OutlinedControlContainer', () => {
                     <input aria-label="control" />
                 </OutlinedControlContainer>,
             )
-            // The class is hashed by CSS Modules in production but the import yields
-            // an object whose `.container` value is the actual className used.
-            // We assert presence of the class indirectly via toHaveClass with the
-            // module's resolved class name.
-            expect(container.firstElementChild?.className).toMatch(/container/)
+            expect(container.firstElementChild).toHaveClass(styles.container!)
         })
 
         it('applies the small border-radius class by default', () => {
@@ -61,8 +59,8 @@ describe('OutlinedControlContainer', () => {
                     <input aria-label="control" />
                 </OutlinedControlContainer>,
             )
-            expect(container.firstElementChild?.className).toMatch(/borderRadiusSmall/)
-            expect(container.firstElementChild?.className).not.toMatch(/borderRadiusLarge/)
+            expect(container.firstElementChild).toHaveClass(styles.borderRadiusSmall!)
+            expect(container.firstElementChild).not.toHaveClass(styles.borderRadiusLarge!)
         })
 
         it('applies the large border-radius class when borderRadius="large"', () => {
@@ -71,8 +69,8 @@ describe('OutlinedControlContainer', () => {
                     <input aria-label="control" />
                 </OutlinedControlContainer>,
             )
-            expect(container.firstElementChild?.className).toMatch(/borderRadiusLarge/)
-            expect(container.firstElementChild?.className).not.toMatch(/borderRadiusSmall/)
+            expect(container.firstElementChild).toHaveClass(styles.borderRadiusLarge!)
+            expect(container.firstElementChild).not.toHaveClass(styles.borderRadiusSmall!)
         })
     })
 
