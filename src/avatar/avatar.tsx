@@ -316,7 +316,9 @@ const AvatarGroup = polymorphicComponent<'div', AvatarGroupOwnProps, 'omitClassN
             >
                 {children}
                 {overflowCount !== null ? (
-                    <span className={styles.avatarGroupCount}>{`+${overflowCount}`}</span>
+                    <span className={styles.avatarGroupCount} aria-hidden="true">
+                        {`+${overflowCount}`}
+                    </span>
                 ) : null}
             </Box>
         )
