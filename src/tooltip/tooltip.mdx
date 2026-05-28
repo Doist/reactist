@@ -1,0 +1,54 @@
+import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { Tooltip } from './tooltip'
+import * as TooltipStories from './tooltip.stories'
+
+<Meta of={TooltipStories} />
+
+# Tooltip
+
+<Description of={Tooltip} />
+
+<Canvas>
+    <Story of={TooltipStories.TooltipPlayground} />
+</Canvas>
+
+## Examples
+
+### Rich content
+
+<Canvas>
+    <Story of={TooltipStories.TooltipRichContent} />
+</Canvas>
+
+### Custom z-index
+
+<Canvas>
+    <Story of={TooltipStories.TooltipCustomZIndex} />
+</Canvas>
+
+### Global context
+
+<Canvas>
+    <Story of={TooltipStories.TooltipGlobalContext} />
+</Canvas>
+
+### Imperative control
+
+<Canvas>
+    <Story of={TooltipStories.TooltipImperativeControl} />
+</Canvas>
+
+## Props
+
+<Controls of={TooltipStories.TooltipPlayground} />
+
+## CSS custom properties
+
+The following CSS custom properties are available to customize the tooltip component appearance. The values appearing below are the default values.
+
+```css
+:root {
+    --reactist-tooltip-font-size: inherit;
+    --reactist-stacking-order-tooltip: 1000;
+}
+```
