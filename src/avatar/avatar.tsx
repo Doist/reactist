@@ -18,7 +18,7 @@ import styles from './avatar.module.css'
 
 import type { ObfuscatedClassName } from '../utils/common-types'
 import type { PolymorphicComponentProps } from '../utils/polymorphism'
-import type { AvatarImage, AvatarShape, AvatarSize, ImageSources } from './utils'
+import type { AvatarImage as AvatarImageProp, AvatarShape, AvatarSize, ImageSources } from './utils'
 
 /**
  * Props for the `Avatar` component.
@@ -51,7 +51,7 @@ type AvatarOwnProps = ObfuscatedClassName & {
      * image width. Source maps render as native `srcSet`/`sizes` hints, with
      * the largest valid source used as the fallback `src`.
      */
-    image?: AvatarImage
+    image?: AvatarImageProp
 
     /**
      * Accessible text for the avatar image.
@@ -78,111 +78,125 @@ type AvatarProps<ComponentType extends React.ElementType = 'div'> = PolymorphicC
     'omitClassName'
 >
 
-const AvatarContent = polymorphicComponent<'div', AvatarOwnProps, 'omitClassName'>(
-    function AvatarContent(
-        {
-            as,
-            size,
-            shape = 'circle',
-            name,
-            image,
-            alt,
-            exceptionallySetClassName,
-            'data-testid': testId,
-            'aria-hidden': ariaHidden,
-            'aria-label': ariaLabel,
-            ...restProps
-        },
-        ref,
-    ) {
-        const imageSources = getSources(image, size)
-        const [failedImageSources, setFailedImageSources] = React.useState<string[]>([])
-        const availableImageSources = getAvailableImageSources(imageSources, failedImageSources)
-        const normalizedName = normalizeAvatarName(name)
-        const initials = availableImageSources ? '' : getInitials(name)
-
-        const hasInitials = initials !== ''
-        const label = ariaLabel ?? alt ?? normalizedName
-        const isDecorative = ariaHidden || label === ''
-        const metaColorIndex = hasInitials ? getAvatarMetaColorIndex(name) : undefined
-
-        return (
-            <Box
-                as={as}
-                ref={ref}
-                className={classNames(
-                    styles.avatar,
-                    styles[`size-${size}`],
-                    styles[`shape-${shape}`],
-                    metaColorIndex !== undefined && styles[`meta-color-${metaColorIndex}`],
-                    !availableImageSources && !hasInitials && styles.empty,
-                    exceptionallySetClassName,
-                )}
-                data-testid={testId}
-                aria-hidden={isDecorative || undefined}
-                display="inlineFlex"
-                alignItems="center"
-                justifyContent="center"
-                flexShrink={0}
-                overflow="hidden"
-                textAlign="center"
-                {...restProps}
-            >
-                {availableImageSources ? (
-                    <img
-                        className={styles.image}
-                        src={availableImageSources.src}
-                        srcSet={availableImageSources.srcSet}
-                        sizes={availableImageSources.sizes}
-                        alt={label ?? ''}
-                        onError={(event) => {
-                            const failedSource = getFailedImageSource(
-                                availableImageSources,
-                                event.currentTarget,
-                            )
-
-                            setFailedImageSources((currentFailedSources) =>
-                                currentFailedSources.includes(failedSource)
-                                    ? currentFailedSources
-                                    : [...currentFailedSources, failedSource],
-                            )
-                        }}
-                    />
-                ) : hasInitials ? (
-                    <div
-                        className={styles.initials}
-                        role={label ? 'img' : undefined}
-                        aria-label={label}
-                    >
-                        {initials}
-                    </div>
-                ) : null}
-            </Box>
-        )
-    },
-)
-
 /**
  * Displays an avatar from an image URL, a source map keyed by intrinsic
  * image width, or initials derived from the provided name (with a background
  * color).
  */
 const Avatar = polymorphicComponent<'div', AvatarOwnProps, 'omitClassName'>(function Avatar(
-    { as, image, ...restProps },
+    {
+        as,
+        size,
+        shape = 'circle',
+        name,
+        image,
+        alt,
+        exceptionallySetClassName,
+        'data-testid': testId,
+        'aria-hidden': ariaHidden,
+        'aria-label': ariaLabel,
+        ...restProps
+    },
     ref,
 ) {
+    const label = getAvatarLabel({ alt, name, 'aria-label': ariaLabel })
+    const isDecorative = ariaHidden || label === ''
+
     return (
-        <AvatarContent
+        <Box
             as={as}
             ref={ref}
-            // Allows `AvatarContent` to remount when the image map changes,
-            // which resets error states
-            key={getAvatarImageIdentityKey(image)}
-            image={image}
+            className={classNames(
+                styles.avatar,
+                styles[`size-${size}`],
+                styles[`shape-${shape}`],
+                exceptionallySetClassName,
+            )}
+            data-testid={testId}
+            aria-hidden={isDecorative || undefined}
+            display="inlineFlex"
+            alignItems="center"
+            justifyContent="center"
+            flexShrink={0}
+            overflow="hidden"
+            textAlign="center"
             {...restProps}
-        />
+        >
+            <AvatarImage
+                // Allows `AvatarImage` to remount when the image map changes,
+                // which resets error states without replacing the avatar root.
+                key={getAvatarImageIdentityKey(image)}
+                size={size}
+                name={name}
+                image={image}
+                label={label}
+            />
+        </Box>
     )
 })
+
+function getAvatarLabel({
+    alt,
+    name,
+    'aria-label': ariaLabel,
+}: Pick<AvatarProps, 'alt' | 'name' | 'aria-label'>) {
+    return ariaLabel ?? alt ?? normalizeAvatarName(name)
+}
+
+type AvatarImageProps = {
+    size: AvatarSize
+    name?: string
+    image?: AvatarImageProp
+    label?: string
+}
+
+function AvatarImage({ size, name, image, label }: AvatarImageProps) {
+    const imageSources = getSources(image, size)
+    const [failedImageSources, setFailedImageSources] = React.useState<string[]>([])
+    const availableImageSources = getAvailableImageSources(imageSources, failedImageSources)
+    const initials = availableImageSources ? '' : getInitials(name)
+    const hasInitials = initials !== ''
+
+    if (availableImageSources) {
+        return (
+            <img
+                className={styles.image}
+                src={availableImageSources.src}
+                srcSet={availableImageSources.srcSet}
+                sizes={availableImageSources.sizes}
+                alt={label}
+                onError={(event) => {
+                    const failedSource = getFailedImageSource(
+                        availableImageSources,
+                        event.currentTarget,
+                    )
+
+                    setFailedImageSources((currentFailedSources) =>
+                        currentFailedSources.includes(failedSource)
+                            ? currentFailedSources
+                            : [...currentFailedSources, failedSource],
+                    )
+                }}
+            />
+        )
+    }
+    if (hasInitials) {
+        return (
+            <div
+                className={classNames(
+                    styles.initials,
+                    styles[`meta-color-${getAvatarMetaColorIndex(name)}`],
+                )}
+                role={label ? 'img' : undefined}
+                aria-label={label}
+            >
+                {initials}
+            </div>
+        )
+    }
+
+    return null
+}
 
 function getAbsoluteImageSource(src: string, image: HTMLImageElement) {
     try {
@@ -202,4 +216,5 @@ function getFailedImageSource(imageProps: ImageSources, image: HTMLImageElement)
 }
 
 export { Avatar }
-export type { AvatarImage, AvatarProps, AvatarShape, AvatarSize }
+export type { AvatarProps }
+export type { AvatarImage, AvatarShape, AvatarSize } from './utils'

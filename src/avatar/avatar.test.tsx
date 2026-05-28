@@ -57,14 +57,15 @@ describe('Avatar', () => {
     it('falls back to initials when no image is provided', () => {
         render(<Avatar data-testid="avatar" size={36} name="Jane Doe" />)
 
-        expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveTextContent('JD')
-        expect(screen.getByTestId('avatar')).toHaveClass('meta-color-0')
+        const initials = screen.getByRole('img', { name: 'Jane Doe' })
+        expect(initials).toHaveTextContent('JD')
+        expect(initials).toHaveClass('meta-color-0')
     })
 
     it('applies the deterministic meta color class for the avatar name', () => {
         render(<Avatar data-testid="avatar" size={36} name="John Doe" />)
 
-        expect(screen.getByTestId('avatar')).toHaveClass('meta-color-9')
+        expect(screen.getByRole('img', { name: 'John Doe' })).toHaveClass('meta-color-9')
     })
 
     it('falls back to initials when image source map is empty', () => {
@@ -89,6 +90,20 @@ describe('Avatar', () => {
 
         rerender(<Avatar size={36} name="Jane Doe" image="avatar.png" />)
 
+        expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveAttribute('src', 'avatar.png')
+    })
+
+    it('keeps the root element mounted when resetting failed image state', () => {
+        const { rerender } = render(
+            <Avatar data-testid="avatar" size={36} name="Jane Doe" image="missing.png" />,
+        )
+        const avatarRoot = screen.getByTestId('avatar')
+
+        fireEvent.error(screen.getByRole('img', { name: 'Jane Doe' }))
+
+        rerender(<Avatar data-testid="avatar" size={36} name="Jane Doe" image="avatar.png" />)
+
+        expect(screen.getByTestId('avatar')).toBe(avatarRoot)
         expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveAttribute('src', 'avatar.png')
     })
 
@@ -187,8 +202,9 @@ describe('Avatar', () => {
     it('renders a neutral empty avatar when no name or image is provided', () => {
         render(<Avatar data-testid="avatar" size={36} />)
 
-        expect(screen.getByTestId('avatar')).toHaveClass('empty')
+        expect(screen.getByTestId('avatar')).not.toHaveClass('meta-color-0')
         expect(screen.getByTestId('avatar')).toHaveTextContent('')
+        expect(screen.queryByRole('img')).not.toBeInTheDocument()
     })
 
     it('can render the root as a different element', () => {
