@@ -100,7 +100,7 @@ const Avatar = polymorphicComponent<'div', AvatarOwnProps, 'omitClassName'>(func
     ref,
 ) {
     const label = getAvatarLabel({ alt, name, 'aria-label': ariaLabel })
-    const isDecorative = ariaHidden || label === ''
+    const isDecorative = Boolean(ariaHidden ?? label === '')
 
     return (
         <Box
@@ -113,7 +113,6 @@ const Avatar = polymorphicComponent<'div', AvatarOwnProps, 'omitClassName'>(func
                 exceptionallySetClassName,
             )}
             data-testid={testId}
-            aria-hidden={isDecorative || undefined}
             display="inlineFlex"
             alignItems="center"
             justifyContent="center"
@@ -130,6 +129,7 @@ const Avatar = polymorphicComponent<'div', AvatarOwnProps, 'omitClassName'>(func
                 name={name}
                 image={image}
                 label={label}
+                aria-hidden={isDecorative}
             />
         </Box>
     )
@@ -148,9 +148,10 @@ type AvatarImageProps = {
     name?: string
     image?: AvatarImageProp
     label?: string
+    'aria-hidden'?: boolean
 }
 
-function AvatarImage({ size, name, image, label }: AvatarImageProps) {
+function AvatarImage({ size, name, image, label, 'aria-hidden': ariaHidden }: AvatarImageProps) {
     const imageSources = getSources(image, size)
     const [failedImageSources, setFailedImageSources] = React.useState<string[]>([])
     const availableImageSources = getAvailableImageSources(imageSources, failedImageSources)
@@ -165,6 +166,7 @@ function AvatarImage({ size, name, image, label }: AvatarImageProps) {
                 srcSet={availableImageSources.srcSet}
                 sizes={availableImageSources.sizes}
                 alt={label}
+                aria-hidden={ariaHidden}
                 onError={(event) => {
                     const failedSource = getFailedImageSource(
                         availableImageSources,
@@ -189,6 +191,7 @@ function AvatarImage({ size, name, image, label }: AvatarImageProps) {
                 )}
                 role={label ? 'img' : undefined}
                 aria-label={label}
+                aria-hidden={ariaHidden}
             >
                 {initials}
             </div>

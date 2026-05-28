@@ -267,7 +267,8 @@ describe('Avatar', () => {
 
         expect(screen.queryByRole('img')).not.toBeInTheDocument()
         expect(screen.getByAltText('')).toHaveAttribute('src', 'avatar.png')
-        expect(screen.getByTestId('avatar')).toHaveAttribute('aria-hidden', 'true')
+        expect(screen.getByAltText('')).toHaveAttribute('aria-hidden', 'true')
+        expect(screen.getByTestId('avatar')).not.toHaveAttribute('aria-hidden')
     })
 
     it('supports decorative image avatars with empty alt text', () => {
@@ -275,13 +276,15 @@ describe('Avatar', () => {
 
         expect(screen.queryByRole('img')).not.toBeInTheDocument()
         expect(screen.getByAltText('')).toHaveAttribute('src', 'avatar.png')
+        expect(screen.getByAltText('')).toHaveAttribute('aria-hidden', 'true')
     })
 
     it('supports decorative initials avatars with empty alt text', () => {
         render(<Avatar data-testid="avatar" size={36} name="Jane Doe" alt="" />)
 
         expect(screen.queryByRole('img')).not.toBeInTheDocument()
-        expect(screen.getByTestId('avatar')).toHaveAttribute('aria-hidden', 'true')
+        expect(screen.getByText('JD')).toHaveAttribute('aria-hidden', 'true')
+        expect(screen.getByTestId('avatar')).not.toHaveAttribute('aria-hidden')
         expect(screen.getByTestId('avatar')).toHaveTextContent('JD')
     })
 
