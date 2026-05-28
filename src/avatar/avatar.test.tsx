@@ -564,6 +564,16 @@ describe('AvatarPair', () => {
         expect(screen.getByTestId('pair')).toHaveClass('avatarPairShape-rounded')
     })
 
+    it('requires exactly two children at the type level', () => {
+        const invalidPair = (
+            // @ts-expect-error AvatarPair children must be a tuple of two elements
+            <AvatarPair size={28}>
+                <Avatar size={28} name="Jane Doe" />
+            </AvatarPair>
+        )
+        expect(invalidPair).toBeTruthy()
+    })
+
     it('applies the escape hatch class name', () => {
         render(
             <AvatarPair data-testid="pair" size={28} exceptionallySetClassName="custom-pair">

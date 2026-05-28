@@ -221,7 +221,7 @@ type AvatarPairOwnProps = ObfuscatedClassName & {
      * avatar (positioned bottom-right); the second is the diagonal overlay
      * (positioned top-left, masked where it overlaps the first).
      */
-    children: React.ReactNode
+    children: readonly [React.ReactElement, React.ReactElement]
 
     /**
      * Test identifier applied to the avatar pair root element.
