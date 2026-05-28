@@ -1,0 +1,88 @@
+.avatarPair {
+    --reactist-avatar-pair-size: 28px;
+    --reactist-avatar-pair-spacing: 12px;
+    --reactist-avatar-pair-mask: 2px;
+    --reactist-avatar-pair-rounded-radius: 5px;
+    --reactist-avatar-pair-rounded-mask-radius: 7px;
+    --reactist-avatar-pair-rounded-mask-start: calc(
+        var(--reactist-avatar-pair-spacing) - var(--reactist-avatar-pair-mask)
+    );
+    --reactist-avatar-pair-first-center-x: calc(
+        (var(--reactist-avatar-pair-size) / 2) + var(--reactist-avatar-pair-spacing)
+    );
+    --reactist-avatar-pair-first-center-y: calc(
+        (var(--reactist-avatar-pair-size) / 2) + var(--reactist-avatar-pair-spacing)
+    );
+
+    position: relative;
+    width: calc(var(--reactist-avatar-pair-size) + var(--reactist-avatar-pair-spacing));
+    height: calc(var(--reactist-avatar-pair-size) + var(--reactist-avatar-pair-spacing));
+}
+
+.avatarPair > * {
+    position: absolute;
+}
+
+.avatarPair > :first-child {
+    right: 0;
+    bottom: 0;
+}
+
+.avatarPair > :last-child {
+    top: 0;
+    left: 0;
+}
+
+.avatarPairShape-circle > :last-child {
+    -webkit-mask-image: radial-gradient(
+        circle calc((var(--reactist-avatar-pair-size) / 2) + var(--reactist-avatar-pair-mask)) at
+            var(--reactist-avatar-pair-first-center-x) var(--reactist-avatar-pair-first-center-y),
+        transparent 99%,
+        #000 100%
+    );
+    mask-image: radial-gradient(
+        circle calc((var(--reactist-avatar-pair-size) / 2) + var(--reactist-avatar-pair-mask)) at
+            var(--reactist-avatar-pair-first-center-x) var(--reactist-avatar-pair-first-center-y),
+        transparent 99%,
+        #000 100%
+    );
+}
+
+.avatarPairShape-rounded > :last-child {
+    -webkit-mask-image:
+        linear-gradient(#000 0 0), linear-gradient(#000 0 0),
+        radial-gradient(
+            circle var(--reactist-avatar-pair-rounded-mask-radius) at 100% 100%,
+            transparent 99%,
+            #000 100%
+        );
+    mask-image:
+        linear-gradient(#000 0 0), linear-gradient(#000 0 0),
+        radial-gradient(
+            circle var(--reactist-avatar-pair-rounded-mask-radius) at 100% 100%,
+            transparent 99%,
+            #000 100%
+        );
+    -webkit-mask-position:
+        0 0,
+        0 0,
+        var(--reactist-avatar-pair-rounded-mask-start)
+            var(--reactist-avatar-pair-rounded-mask-start);
+    mask-position:
+        0 0,
+        0 0,
+        var(--reactist-avatar-pair-rounded-mask-start)
+            var(--reactist-avatar-pair-rounded-mask-start);
+    -webkit-mask-size:
+        100% var(--reactist-avatar-pair-rounded-mask-start),
+        var(--reactist-avatar-pair-rounded-mask-start) 100%,
+        var(--reactist-avatar-pair-rounded-mask-radius)
+            var(--reactist-avatar-pair-rounded-mask-radius);
+    mask-size:
+        100% var(--reactist-avatar-pair-rounded-mask-start),
+        var(--reactist-avatar-pair-rounded-mask-start) 100%,
+        var(--reactist-avatar-pair-rounded-mask-radius)
+            var(--reactist-avatar-pair-rounded-mask-radius);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}

@@ -7,7 +7,7 @@ import { polymorphicComponent } from '../utils/polymorphism'
 
 import { ROUNDED_AVATAR_RADIUS_BY_SIZE } from './utils'
 
-import styles from './avatar.module.css'
+import styles from './avatar-pair.module.css'
 
 import type { ObfuscatedClassName } from '../utils/common-types'
 import type { PolymorphicComponentProps } from '../utils/polymorphism'
