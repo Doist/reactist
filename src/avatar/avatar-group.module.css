@@ -3,7 +3,9 @@
     --reactist-avatar-group-overlap: 4px;
     --reactist-avatar-group-mask: 2.5px;
     --reactist-avatar-group-rounded-radius: 5px;
-    --reactist-avatar-group-rounded-mask-radius: 7.5px;
+    --reactist-avatar-group-rounded-mask-radius: calc(
+        var(--reactist-avatar-group-rounded-radius) + var(--reactist-avatar-group-mask)
+    );
     --reactist-avatar-group-count-overlay: rgba(0, 0, 0, 0.6);
     --reactist-avatar-group-rounded-mask-width: calc(
         var(--reactist-avatar-group-overlap) + var(--reactist-avatar-group-mask)
@@ -17,6 +19,97 @@
     );
 
     position: relative;
+}
+
+.avatarGroupSize-80 {
+    --reactist-avatar-group-size: 80px;
+    --reactist-avatar-group-overlap: 8px;
+    --reactist-avatar-group-mask: 3px;
+    --reactist-avatar-group-rounded-radius: 10px;
+}
+
+.avatarGroupSize-72 {
+    --reactist-avatar-group-size: 72px;
+    --reactist-avatar-group-overlap: 8px;
+    --reactist-avatar-group-mask: 3px;
+    --reactist-avatar-group-rounded-radius: 10px;
+}
+
+.avatarGroupSize-62 {
+    --reactist-avatar-group-size: 62px;
+    --reactist-avatar-group-overlap: 8px;
+    --reactist-avatar-group-mask: 3px;
+    --reactist-avatar-group-rounded-radius: 8.5px;
+}
+
+.avatarGroupSize-50 {
+    --reactist-avatar-group-size: 50px;
+    --reactist-avatar-group-overlap: 4px;
+    --reactist-avatar-group-mask: 3px;
+    --reactist-avatar-group-rounded-radius: 7px;
+}
+
+.avatarGroupSize-40 {
+    --reactist-avatar-group-size: 40px;
+    --reactist-avatar-group-overlap: 4px;
+    --reactist-avatar-group-mask: 3px;
+    --reactist-avatar-group-rounded-radius: 5.5px;
+}
+
+.avatarGroupSize-36 {
+    --reactist-avatar-group-size: 36px;
+    --reactist-avatar-group-overlap: 4px;
+    --reactist-avatar-group-mask: 2.5px;
+    --reactist-avatar-group-rounded-radius: 5px;
+}
+
+.avatarGroupSize-30 {
+    --reactist-avatar-group-size: 30px;
+    --reactist-avatar-group-overlap: 2px;
+    --reactist-avatar-group-mask: 2.5px;
+    --reactist-avatar-group-rounded-radius: 5px;
+}
+
+.avatarGroupSize-28 {
+    --reactist-avatar-group-size: 28px;
+    --reactist-avatar-group-overlap: 2px;
+    --reactist-avatar-group-mask: 2px;
+    --reactist-avatar-group-rounded-radius: 5px;
+}
+
+.avatarGroupSize-24 {
+    --reactist-avatar-group-size: 24px;
+    --reactist-avatar-group-overlap: 2px;
+    --reactist-avatar-group-mask: 2px;
+    --reactist-avatar-group-rounded-radius: 3.2px;
+}
+
+.avatarGroupSize-20 {
+    --reactist-avatar-group-size: 20px;
+    --reactist-avatar-group-overlap: 2px;
+    --reactist-avatar-group-mask: 2px;
+    --reactist-avatar-group-rounded-radius: 3px;
+}
+
+.avatarGroupSize-18 {
+    --reactist-avatar-group-size: 18px;
+    --reactist-avatar-group-overlap: 2px;
+    --reactist-avatar-group-mask: 1.5px;
+    --reactist-avatar-group-rounded-radius: 3px;
+}
+
+.avatarGroupSize-16 {
+    --reactist-avatar-group-size: 16px;
+    --reactist-avatar-group-overlap: 2px;
+    --reactist-avatar-group-mask: 1.25px;
+    --reactist-avatar-group-rounded-radius: 2px;
+}
+
+.avatarGroupSize-12 {
+    --reactist-avatar-group-size: 12px;
+    --reactist-avatar-group-overlap: 1px;
+    --reactist-avatar-group-mask: 1px;
+    --reactist-avatar-group-rounded-radius: 1.6px;
 }
 
 .avatarGroup > * {

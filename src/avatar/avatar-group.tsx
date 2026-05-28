@@ -5,53 +5,11 @@ import classNames from 'classnames'
 import { Box } from '../box'
 import { polymorphicComponent } from '../utils/polymorphism'
 
-import { ROUNDED_AVATAR_RADIUS_BY_SIZE } from './utils'
-
 import styles from './avatar-group.module.css'
 
 import type { ObfuscatedClassName } from '../utils/common-types'
 import type { PolymorphicComponentProps } from '../utils/polymorphism'
 import type { AvatarShape, AvatarSize } from './utils'
-
-type AvatarGroupStyle = React.CSSProperties & {
-    '--reactist-avatar-group-size': string
-    '--reactist-avatar-group-overlap': string
-    '--reactist-avatar-group-mask': string
-    '--reactist-avatar-group-rounded-radius': string
-    '--reactist-avatar-group-rounded-mask-radius': string
-}
-
-const AVATAR_GROUP_OVERLAP_BY_SIZE: Record<AvatarSize, string> = {
-    80: '8px',
-    72: '8px',
-    62: '8px',
-    50: '4px',
-    40: '4px',
-    36: '4px',
-    30: '2px',
-    28: '2px',
-    24: '2px',
-    20: '2px',
-    18: '2px',
-    16: '2px',
-    12: '1px',
-}
-
-const AVATAR_GROUP_MASK_BY_SIZE: Record<AvatarSize, string> = {
-    80: '3px',
-    72: '3px',
-    62: '3px',
-    50: '3px',
-    40: '3px',
-    36: '2.5px',
-    30: '2.5px',
-    28: '2px',
-    24: '2px',
-    20: '2px',
-    18: '1.5px',
-    16: '1.25px',
-    12: '1px',
-}
 
 /**
  * Props for the `AvatarGroup` component.
@@ -129,10 +87,10 @@ const AvatarGroup = polymorphicComponent<'div', AvatarGroupOwnProps, 'omitClassN
                 ref={ref}
                 className={classNames(
                     styles.avatarGroup,
+                    styles[`avatarGroupSize-${size}`],
                     styles[`avatarGroupShape-${shape}`],
                     exceptionallySetClassName,
                 )}
-                style={getAvatarGroupStyle(size)}
                 data-testid={testId}
                 display="inlineFlex"
                 alignItems="center"
@@ -149,19 +107,6 @@ const AvatarGroup = polymorphicComponent<'div', AvatarGroupOwnProps, 'omitClassN
         )
     },
 )
-
-function getAvatarGroupStyle(size: AvatarSize): AvatarGroupStyle {
-    const mask = AVATAR_GROUP_MASK_BY_SIZE[size]
-    const roundedRadius = ROUNDED_AVATAR_RADIUS_BY_SIZE[size]
-
-    return {
-        '--reactist-avatar-group-size': `${size}px`,
-        '--reactist-avatar-group-overlap': AVATAR_GROUP_OVERLAP_BY_SIZE[size],
-        '--reactist-avatar-group-mask': mask,
-        '--reactist-avatar-group-rounded-radius': roundedRadius,
-        '--reactist-avatar-group-rounded-mask-radius': `calc(${roundedRadius} + ${mask})`,
-    }
-}
 
 export { AvatarGroup }
 export type { AvatarGroupProps }
