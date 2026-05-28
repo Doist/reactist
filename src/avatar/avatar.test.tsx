@@ -6,12 +6,16 @@ import { axe } from 'jest-axe'
 import { Avatar } from './avatar'
 
 describe('Avatar', () => {
-    function failCurrentAvatarImage(currentSrc: string) {
+    function failAvatarImage(currentSrc?: string) {
         const image = screen.getByRole('img', { name: 'Jane Doe' })
-        Object.defineProperty(image, 'currentSrc', {
-            configurable: true,
-            value: currentSrc,
-        })
+
+        if (currentSrc) {
+            Object.defineProperty(image, 'currentSrc', {
+                configurable: true,
+                value: currentSrc,
+            })
+        }
+
         fireEvent.error(image)
     }
 
@@ -77,7 +81,7 @@ describe('Avatar', () => {
     it('falls back to initials when the image fails to load', () => {
         render(<Avatar size={36} name="Jane Doe" image="missing.png" />)
 
-        fireEvent.error(screen.getByRole('img', { name: 'Jane Doe' }))
+        failAvatarImage()
 
         expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveTextContent('JD')
     })
@@ -85,7 +89,7 @@ describe('Avatar', () => {
     it('allows a new image to load after a failed image changes', () => {
         const { rerender } = render(<Avatar size={36} name="Jane Doe" image="missing.png" />)
 
-        fireEvent.error(screen.getByRole('img', { name: 'Jane Doe' }))
+        failAvatarImage()
         expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveTextContent('JD')
 
         rerender(<Avatar size={36} name="Jane Doe" image="avatar.png" />)
@@ -99,7 +103,7 @@ describe('Avatar', () => {
         )
         const avatarRoot = screen.getByTestId('avatar')
 
-        fireEvent.error(screen.getByRole('img', { name: 'Jane Doe' }))
+        failAvatarImage()
 
         rerender(<Avatar data-testid="avatar" size={36} name="Jane Doe" image="avatar.png" />)
 
@@ -120,7 +124,7 @@ describe('Avatar', () => {
             />,
         )
 
-        failCurrentAvatarImage('avatar-144.png')
+        failAvatarImage('avatar-144.png')
 
         const image = screen.getByRole('img', { name: 'Jane Doe' })
         expect(image).toHaveAttribute('src', 'avatar-72.png')
@@ -141,7 +145,7 @@ describe('Avatar', () => {
             />,
         )
 
-        failCurrentAvatarImage(new URL('avatar-72.png', document.baseURI).href)
+        failAvatarImage(new URL('avatar-72.png', document.baseURI).href)
 
         const image = screen.getByRole('img', { name: 'Jane Doe' })
         expect(image).toHaveAttribute('src', 'avatar-144.png')
@@ -157,7 +161,7 @@ describe('Avatar', () => {
         }
         const { rerender } = render(<Avatar size={36} name="Jane Doe" image={image} />)
 
-        failCurrentAvatarImage('avatar-144.png')
+        failAvatarImage('avatar-144.png')
 
         rerender(<Avatar size={72} name="Jane Doe" image={image} />)
 
@@ -179,8 +183,8 @@ describe('Avatar', () => {
             />,
         )
 
-        failCurrentAvatarImage('avatar-72.png')
-        failCurrentAvatarImage('avatar-36.png')
+        failAvatarImage('avatar-72.png')
+        failAvatarImage('avatar-36.png')
 
         expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveTextContent('JD')
     })
@@ -188,7 +192,7 @@ describe('Avatar', () => {
     it('retries a failed image when the same image is provided after being removed', () => {
         const { rerender } = render(<Avatar size={36} name="Jane Doe" image="missing.png" />)
 
-        fireEvent.error(screen.getByRole('img', { name: 'Jane Doe' }))
+        failAvatarImage()
         expect(screen.getByRole('img', { name: 'Jane Doe' })).toHaveTextContent('JD')
 
         rerender(<Avatar size={36} name="Jane Doe" />)
