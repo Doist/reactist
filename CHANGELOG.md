@@ -1,3 +1,13 @@
+## [32.0.0](https://github.com/Doist/reactist/compare/v31.3.0...v32.0.0) (2026-05-28)
+
+### ⚠ BREAKING CHANGES
+
+- Revamped Avatar component (#1048)
+
+### Features
+
+- Revamped Avatar component ([#1048](https://github.com/Doist/reactist/issues/1048)) ([fbf1e54](https://github.com/Doist/reactist/commit/fbf1e54f17d965912edac24d6ca049bf4c5d756a))
+
 ## [31.3.0](https://github.com/Doist/reactist/compare/v31.2.0...v31.3.0) (2026-05-28)
 
 ### Features
