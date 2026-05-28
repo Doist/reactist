@@ -78,14 +78,44 @@ describe('OutlinedControlContainer', () => {
         it('focuses the inner control when the wrapper is clicked', async () => {
             const { container } = render(
                 <OutlinedControlContainer>
-                    <input data-testid="control" aria-label="control" />
+                    <input aria-label="control" />
                 </OutlinedControlContainer>,
             )
-            const control = screen.getByTestId('control')
+            const control = screen.getByRole('textbox', { name: 'control' })
             expect(control).not.toHaveFocus()
 
             await userEvent.click(container.firstElementChild as Element)
             expect(control).toHaveFocus()
+        })
+
+        it('does not dispatch a synthetic click for text inputs', async () => {
+            const onControlClick = jest.fn()
+            const { container } = render(
+                <OutlinedControlContainer>
+                    <input aria-label="control" onClick={onControlClick} />
+                </OutlinedControlContainer>,
+            )
+            const control = screen.getByRole('textbox', { name: 'control' })
+
+            await userEvent.click(container.firstElementChild as Element)
+
+            expect(control).toHaveFocus()
+            expect(onControlClick).not.toHaveBeenCalled()
+        })
+
+        it('does not dispatch a synthetic click for textareas', async () => {
+            const onControlClick = jest.fn()
+            const { container } = render(
+                <OutlinedControlContainer>
+                    <textarea aria-label="control" onClick={onControlClick} />
+                </OutlinedControlContainer>,
+            )
+            const control = screen.getByRole('textbox', { name: 'control' })
+
+            await userEvent.click(container.firstElementChild as Element)
+
+            expect(control).toHaveFocus()
+            expect(onControlClick).not.toHaveBeenCalled()
         })
 
         it('does not double-fire when the inner control is clicked directly', async () => {
@@ -98,6 +128,23 @@ describe('OutlinedControlContainer', () => {
                 </OutlinedControlContainer>,
             )
             await userEvent.click(screen.getByTestId('control'))
+            expect(onControlClick).toHaveBeenCalledTimes(1)
+        })
+
+        it('activates button-like controls when the wrapper is clicked', async () => {
+            const onControlClick = jest.fn()
+            const { container } = render(
+                <OutlinedControlContainer>
+                    <button type="button" onClick={onControlClick}>
+                        Choose
+                    </button>
+                </OutlinedControlContainer>,
+            )
+            const control = screen.getByRole('button', { name: 'Choose' })
+
+            await userEvent.click(container.firstElementChild as Element)
+
+            expect(control).toHaveFocus()
             expect(onControlClick).toHaveBeenCalledTimes(1)
         })
 
@@ -131,6 +178,36 @@ describe('OutlinedControlContainer', () => {
             control.blur()
             await userEvent.click(wrapper)
             expect(control).toHaveFocus()
+        })
+
+        it('does not activate aria-disabled controls from wrapper clicks', async () => {
+            const onControlClick = jest.fn()
+            const { container } = render(
+                <OutlinedControlContainer>
+                    <button type="button" aria-disabled onClick={onControlClick}>
+                        Choose
+                    </button>
+                </OutlinedControlContainer>,
+            )
+
+            await userEvent.click(container.firstElementChild as Element)
+
+            expect(onControlClick).not.toHaveBeenCalled()
+        })
+
+        it('does not activate data-disabled controls from wrapper clicks', async () => {
+            const onControlClick = jest.fn()
+            const { container } = render(
+                <OutlinedControlContainer>
+                    <button type="button" data-disabled onClick={onControlClick}>
+                        Choose
+                    </button>
+                </OutlinedControlContainer>,
+            )
+
+            await userEvent.click(container.firstElementChild as Element)
+
+            expect(onControlClick).not.toHaveBeenCalled()
         })
 
         it('uses showPicker for native <select>', async () => {

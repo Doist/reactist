@@ -12,22 +12,22 @@ describe('ControlPresentation', () => {
     it('renders the control passed as children', () => {
         render(
             <ControlPresentation>
-                <input aria-label="Subject" data-testid="subject" />
+                <input aria-label="Subject" />
             </ControlPresentation>,
         )
-        const control = screen.getByTestId('subject')
+        const control = screen.getByRole('textbox', { name: 'Subject' })
         expect(control.tagName).toBe('INPUT')
     })
 
-    it('is polymorphic — any element can be the control', () => {
+    it('is polymorphic - any element can be the control', () => {
         render(
             <ControlPresentation>
-                <button type="button" aria-label="Subject" data-testid="subject">
+                <button type="button" aria-label="Subject">
                     Choose
                 </button>
             </ControlPresentation>,
         )
-        const control = screen.getByTestId('subject')
+        const control = screen.getByRole('button', { name: 'Subject' })
         expect(control.tagName).toBe('BUTTON')
         expect(control).toHaveTextContent('Choose')
     })
@@ -46,7 +46,7 @@ describe('ControlPresentation', () => {
                 />
             </ControlPresentation>,
         )
-        const control = screen.getByTestId('subject')
+        const control = screen.getByRole('textbox', { name: 'Subject' })
         expect(control).toHaveAttribute('type', 'email')
         expect(control).toHaveAttribute('placeholder', 'you@example.com')
         expect(control).toHaveAttribute('data-custom', 'yes')
@@ -57,14 +57,37 @@ describe('ControlPresentation', () => {
     it('focuses the control when a non-interactive startSlot is clicked', async () => {
         render(
             <ControlPresentation startSlot={<TestIcon />}>
-                <input aria-label="Subject" data-testid="subject" />
+                <input aria-label="Subject" />
             </ControlPresentation>,
         )
-        const control = screen.getByTestId('subject')
+        const control = screen.getByRole('textbox', { name: 'Subject' })
         expect(control).not.toHaveFocus()
 
         await userEvent.click(screen.getByTestId('test-icon'))
         expect(control).toHaveFocus()
+    })
+
+    it('does not forward interactive slot clicks to the control', async () => {
+        const onControlClick = jest.fn()
+        const onSlotClick = jest.fn()
+        render(
+            <ControlPresentation
+                endSlot={
+                    <button type="button" onClick={onSlotClick}>
+                        Clear
+                    </button>
+                }
+            >
+                <input aria-label="Subject" onClick={onControlClick} />
+            </ControlPresentation>,
+        )
+
+        const slotButton = screen.getByRole('button', { name: 'Clear' })
+        await userEvent.click(slotButton)
+
+        expect(onSlotClick).toHaveBeenCalledTimes(1)
+        expect(onControlClick).not.toHaveBeenCalled()
+        expect(slotButton).toHaveFocus()
     })
 
     it('merges exceptionallySetClassName onto the wrapper', () => {
@@ -91,6 +114,15 @@ describe('ControlPresentation', () => {
         )
         expect(screen.getByTestId('a')).toBeInTheDocument()
         expect(screen.getByTestId('b')).toBeInTheDocument()
+    })
+
+    it('renders numeric zero slot content', () => {
+        render(
+            <ControlPresentation startSlot={0} endSlot={0}>
+                <input aria-label="Subject" />
+            </ControlPresentation>,
+        )
+        expect(screen.getAllByText('0')).toHaveLength(2)
     })
 
     describe('a11y', () => {

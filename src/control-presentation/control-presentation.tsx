@@ -24,7 +24,12 @@ export type ControlPresentationProps = {
      * or dropdown-trigger chevron).
      */
     endSlot?: SlotContent
-} & Omit<ComponentProps<typeof OutlinedControlContainer>, 'borderRadius'>
+
+    /**
+     * The single control element to wrap.
+     */
+    children: React.ReactElement
+} & Omit<ComponentProps<typeof OutlinedControlContainer>, 'borderRadius' | 'children'>
 
 /**
  * The visual chrome of an inline, single-row, text-field-style input: a
@@ -47,11 +52,15 @@ export const ControlPresentation = forwardRef<HTMLDivElement, ControlPresentatio
                 onClick={onClick}
                 exceptionallySetClassName={classNames(styles.container, exceptionallySetClassName)}
             >
-                {startSlot ? (
+                {startSlot != null ? (
                     <Slot className={[styles.slot, styles.startSlot]}>{startSlot}</Slot>
                 ) : null}
-                <div className={styles.control}>{children}</div>
-                {endSlot ? <Slot className={[styles.slot, styles.endSlot]}>{endSlot}</Slot> : null}
+                <div className={styles.control} data-reactist-control>
+                    {children}
+                </div>
+                {endSlot != null ? (
+                    <Slot className={[styles.slot, styles.endSlot]}>{endSlot}</Slot>
+                ) : null}
             </OutlinedControlContainer>
         )
     },

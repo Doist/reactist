@@ -18,11 +18,17 @@
  * The :not(='false') exclusion treats aria-readonly="false" /
  * data-readonly="false" as "not read-only" per the ARIA spec. */
 .container:has(
-    input:read-only,
-    textarea:read-only,
-    [aria-readonly]:not([aria-readonly='false']),
-    [data-readonly]:not([data-readonly='false'])
-) {
+    [data-reactist-control] input:read-only,
+    [data-reactist-control] textarea:read-only,
+    [data-reactist-control] [aria-readonly]:not([aria-readonly='false']),
+    [data-reactist-control] [data-readonly]:not([data-readonly='false'])
+),
+.container:not(:has([data-reactist-control])):has(
+        input:read-only,
+        textarea:read-only,
+        [aria-readonly]:not([aria-readonly='false']),
+        [data-readonly]:not([data-readonly='false'])
+    ) {
     background-color: var(--reactist-field-readonly-background);
     color: var(--reactist-field-readonly-content);
 }
@@ -32,17 +38,29 @@
  * keep elements focusable while announcing as disabled), and the
  * data-attr convention used by Ariakit/Radix. */
 .container:has(
-    :disabled,
-    [aria-disabled]:not([aria-disabled='false']),
-    [data-disabled]:not([data-disabled='false'])
-) {
+    [data-reactist-control] :disabled,
+    [data-reactist-control] [aria-disabled]:not([aria-disabled='false']),
+    [data-reactist-control] [data-disabled]:not([data-disabled='false'])
+),
+.container:not(:has([data-reactist-control])):has(
+        :disabled,
+        [aria-disabled]:not([aria-disabled='false']),
+        [data-disabled]:not([data-disabled='false'])
+    ) {
     background-color: var(--reactist-field-disabled-background);
     color: var(--reactist-field-disabled-content);
 }
 
 /* Interactive border (hover/focus) — suppressed when the control is
  * in any disabled state. */
-.container:not(
+.container:has([data-reactist-control]):not(
+        :has(
+            [data-reactist-control] :disabled,
+            [data-reactist-control] [aria-disabled]:not([aria-disabled='false']),
+            [data-reactist-control] [data-disabled]:not([data-disabled='false'])
+        )
+    ):hover,
+.container:not(:has([data-reactist-control])):not(
         :has(
             :disabled,
             [aria-disabled]:not([aria-disabled='false']),
@@ -52,7 +70,14 @@
     border-color: var(--reactist-inputs-hover);
 }
 
-.container:not(
+.container:has([data-reactist-control]):not(
+        :has(
+            [data-reactist-control] :disabled,
+            [data-reactist-control] [aria-disabled]:not([aria-disabled='false']),
+            [data-reactist-control] [data-disabled]:not([data-disabled='false'])
+        )
+    ):focus-within,
+.container:not(:has([data-reactist-control])):not(
         :has(
             :disabled,
             [aria-disabled]:not([aria-disabled='false']),
@@ -63,7 +88,8 @@
 }
 
 /* Invalid: matches the ARIA convention only. */
-.container:has([aria-invalid]:not([aria-invalid='false'])) {
+.container:has([data-reactist-control] [aria-invalid]:not([aria-invalid='false'])),
+.container:not(:has([data-reactist-control])):has([aria-invalid]:not([aria-invalid='false'])) {
     border-color: var(--reactist-inputs-alert) !important;
 }
 
