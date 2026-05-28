@@ -54,7 +54,7 @@ describe('ControlPresentation', () => {
         expect(control).toBeDisabled()
     })
 
-    it('focuses the control when a non-interactive startSlot is clicked', () => {
+    it('focuses the control when a non-interactive startSlot is clicked', async () => {
         render(
             <ControlPresentation startSlot={<TestIcon />}>
                 <input aria-label="Subject" data-testid="subject" />
@@ -63,7 +63,7 @@ describe('ControlPresentation', () => {
         const control = screen.getByTestId('subject')
         expect(control).not.toHaveFocus()
 
-        userEvent.click(screen.getByTestId('test-icon'))
+        await userEvent.click(screen.getByTestId('test-icon'))
         expect(control).toHaveFocus()
     })
 

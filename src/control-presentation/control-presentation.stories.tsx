@@ -6,15 +6,20 @@ import { selectWithNone } from '../utils/storybook-helper'
 import { ControlActionButton } from './control-action-button'
 import { ControlPresentation } from './control-presentation'
 
+import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { ComponentProps } from 'react'
 
-export default {
+const meta = {
     title: 'Design system/ControlPresentation',
     component: ControlPresentation,
     parameters: {
         badges: ['accessible'],
     },
-}
+} satisfies Meta<typeof ControlPresentation>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
 
 type PlaygroundArgs = {
     startSlot: boolean
@@ -27,7 +32,7 @@ type PlaygroundArgs = {
     maxWidth: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'full'
 }
 
-export function PlaygroundStory({
+function PlaygroundTemplate({
     startSlot,
     endSlot,
     readOnly,
@@ -58,32 +63,37 @@ export function PlaygroundStory({
     )
 }
 
-PlaygroundStory.storyName = 'Playground'
-PlaygroundStory.args = {
-    startSlot: true,
-    endSlot: true,
-    readOnly: false,
-    disabled: false,
-    invalid: false,
-    placeholder: 'Select a value',
-    defaultValue: '',
-}
-PlaygroundStory.argTypes = {
-    maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'], 'small'),
-    startSlot: { control: { type: 'boolean' } },
-    endSlot: { control: { type: 'boolean' } },
-    readOnly: { control: { type: 'boolean' } },
-    disabled: { control: { type: 'boolean' } },
-    invalid: { control: { type: 'boolean' } },
-    placeholder: { control: { type: 'text' } },
-    defaultValue: { control: { type: 'text' } },
-}
-PlaygroundStory.parameters = {
-    chromatic: { disableSnapshot: false },
+export const Playground: StoryObj<PlaygroundArgs> = {
+    name: 'Playground',
+    render: PlaygroundTemplate,
+    args: {
+        startSlot: true,
+        endSlot: true,
+        readOnly: false,
+        disabled: false,
+        invalid: false,
+        placeholder: 'Select a value',
+        defaultValue: '',
+        maxWidth: 'small',
+    },
+    argTypes: {
+        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'], 'small'),
+        startSlot: { control: { type: 'boolean' } },
+        endSlot: { control: { type: 'boolean' } },
+        readOnly: { control: { type: 'boolean' } },
+        disabled: { control: { type: 'boolean' } },
+        invalid: { control: { type: 'boolean' } },
+        placeholder: { control: { type: 'text' } },
+        defaultValue: { control: { type: 'text' } },
+    },
+    parameters: {
+        chromatic: { disableSnapshot: false },
+    },
 }
 
-export function PlaceholderStory() {
-    return (
+export const Placeholder: Story = {
+    name: 'Placeholder',
+    render: () => (
         <section className="story">
             <Box maxWidth="small">
                 <ControlPresentation startSlot={<InfoIcon />} endSlot={<ChevronDownIcon />}>
@@ -91,16 +101,15 @@ export function PlaceholderStory() {
                 </ControlPresentation>
             </Box>
         </section>
-    )
+    ),
+    parameters: {
+        chromatic: { disableSnapshot: false },
+    },
 }
 
-PlaceholderStory.storyName = 'Placeholder'
-PlaceholderStory.parameters = {
-    chromatic: { disableSnapshot: false },
-}
-
-export function WithValueStory() {
-    return (
+export const WithValue: Story = {
+    name: 'With value',
+    render: () => (
         <section className="story">
             <Box maxWidth="small">
                 <ControlPresentation startSlot={<InfoIcon />} endSlot={<ChevronDownIcon />}>
@@ -108,16 +117,15 @@ export function WithValueStory() {
                 </ControlPresentation>
             </Box>
         </section>
-    )
+    ),
+    parameters: {
+        chromatic: { disableSnapshot: false },
+    },
 }
 
-WithValueStory.storyName = 'With value'
-WithValueStory.parameters = {
-    chromatic: { disableSnapshot: false },
-}
-
-export function ReadOnlyStory() {
-    return (
+export const ReadOnly: Story = {
+    name: 'Read-only',
+    render: () => (
         <section className="story">
             <Box maxWidth="small">
                 <ControlPresentation startSlot={<InfoIcon />} endSlot={<ChevronDownIcon />}>
@@ -125,16 +133,15 @@ export function ReadOnlyStory() {
                 </ControlPresentation>
             </Box>
         </section>
-    )
+    ),
+    parameters: {
+        chromatic: { disableSnapshot: false },
+    },
 }
 
-ReadOnlyStory.storyName = 'Read-only'
-ReadOnlyStory.parameters = {
-    chromatic: { disableSnapshot: false },
-}
-
-export function DisabledStory() {
-    return (
+export const Disabled: Story = {
+    name: 'Disabled',
+    render: () => (
         <section className="story">
             <Box maxWidth="small">
                 <ControlPresentation startSlot={<InfoIcon />} endSlot={<ChevronDownIcon />}>
@@ -142,16 +149,15 @@ export function DisabledStory() {
                 </ControlPresentation>
             </Box>
         </section>
-    )
+    ),
+    parameters: {
+        chromatic: { disableSnapshot: false },
+    },
 }
 
-DisabledStory.storyName = 'Disabled'
-DisabledStory.parameters = {
-    chromatic: { disableSnapshot: false },
-}
-
-export function ErrorStory() {
-    return (
+export const Error: Story = {
+    name: 'Error (aria-invalid)',
+    render: () => (
         <section className="story">
             <Box maxWidth="small">
                 <ControlPresentation startSlot={<InfoIcon />} endSlot={<ChevronDownIcon />}>
@@ -159,16 +165,15 @@ export function ErrorStory() {
                 </ControlPresentation>
             </Box>
         </section>
-    )
+    ),
+    parameters: {
+        chromatic: { disableSnapshot: false },
+    },
 }
 
-ErrorStory.storyName = 'Error (aria-invalid)'
-ErrorStory.parameters = {
-    chromatic: { disableSnapshot: false },
-}
-
-export function EndSlotAsUnitStory() {
-    return (
+export const EndSlotAsUnit: Story = {
+    name: 'endSlot as trailing unit',
+    render: () => (
         <section className="story">
             <Box maxWidth="small">
                 <ControlPresentation startSlot={<InfoIcon />} endSlot="kg">
@@ -176,16 +181,15 @@ export function EndSlotAsUnitStory() {
                 </ControlPresentation>
             </Box>
         </section>
-    )
+    ),
+    parameters: {
+        chromatic: { disableSnapshot: false },
+    },
 }
 
-EndSlotAsUnitStory.storyName = 'endSlot as trailing unit'
-EndSlotAsUnitStory.parameters = {
-    chromatic: { disableSnapshot: false },
-}
-
-export function EndSlotAsClearButtonStory() {
-    return (
+export const EndSlotAsClearButton: Story = {
+    name: 'endSlot with clear button',
+    render: () => (
         <section className="story">
             <Box maxWidth="small">
                 <ControlPresentation
@@ -196,16 +200,15 @@ export function EndSlotAsClearButtonStory() {
                 </ControlPresentation>
             </Box>
         </section>
-    )
+    ),
+    parameters: {
+        chromatic: { disableSnapshot: false },
+    },
 }
 
-EndSlotAsClearButtonStory.storyName = 'endSlot with clear button'
-EndSlotAsClearButtonStory.parameters = {
-    chromatic: { disableSnapshot: false },
-}
-
-export function WrappingSelectStory() {
-    return (
+export const WrappingSelect: Story = {
+    name: 'Wrapping a <select>',
+    render: () => (
         <section className="story">
             <Box maxWidth="small">
                 <ControlPresentation startSlot={<InfoIcon />} endSlot={<ChevronDownIcon />}>
@@ -221,12 +224,10 @@ export function WrappingSelectStory() {
                 </ControlPresentation>
             </Box>
         </section>
-    )
-}
-
-WrappingSelectStory.storyName = 'Wrapping a <select>'
-WrappingSelectStory.parameters = {
-    chromatic: { disableSnapshot: false },
+    ),
+    parameters: {
+        chromatic: { disableSnapshot: false },
+    },
 }
 
 function ChevronDownIcon(props: ComponentProps<'svg'>) {

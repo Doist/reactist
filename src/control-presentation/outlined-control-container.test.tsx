@@ -77,7 +77,7 @@ describe('OutlinedControlContainer', () => {
     })
 
     describe('click-to-focus dispatch', () => {
-        it('focuses the inner control when the wrapper is clicked', () => {
+        it('focuses the inner control when the wrapper is clicked', async () => {
             const { container } = render(
                 <OutlinedControlContainer>
                     <input data-testid="control" aria-label="control" />
@@ -86,11 +86,11 @@ describe('OutlinedControlContainer', () => {
             const control = screen.getByTestId('control')
             expect(control).not.toHaveFocus()
 
-            userEvent.click(container.firstElementChild as Element)
+            await userEvent.click(container.firstElementChild as Element)
             expect(control).toHaveFocus()
         })
 
-        it('does not double-fire when the inner control is clicked directly', () => {
+        it('does not double-fire when the inner control is clicked directly', async () => {
             const onControlClick = jest.fn()
             render(
                 <OutlinedControlContainer>
@@ -99,22 +99,22 @@ describe('OutlinedControlContainer', () => {
                     </button>
                 </OutlinedControlContainer>,
             )
-            userEvent.click(screen.getByTestId('control'))
+            await userEvent.click(screen.getByTestId('control'))
             expect(onControlClick).toHaveBeenCalledTimes(1)
         })
 
-        it('calls a consumer onClick passed via Box props when the wrapper is clicked', () => {
+        it('calls a consumer onClick passed via Box props when the wrapper is clicked', async () => {
             const onClick = jest.fn()
             const { container } = render(
                 <OutlinedControlContainer onClick={onClick}>
                     <input aria-label="control" />
                 </OutlinedControlContainer>,
             )
-            userEvent.click(container.firstElementChild as Element)
+            await userEvent.click(container.firstElementChild as Element)
             expect(onClick).toHaveBeenCalledTimes(1)
         })
 
-        it('uses showPicker for native <select>', () => {
+        it('uses showPicker for native <select>', async () => {
             const showPicker = jest.fn()
             const { container } = render(
                 <OutlinedControlContainer>
@@ -128,7 +128,7 @@ describe('OutlinedControlContainer', () => {
             // jsdom does not implement showPicker; stub it.
             Object.assign(select, { showPicker })
 
-            userEvent.click(container.firstElementChild as Element)
+            await userEvent.click(container.firstElementChild as Element)
             expect(showPicker).toHaveBeenCalledTimes(1)
             expect(select).toHaveFocus()
         })
