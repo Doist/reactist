@@ -296,7 +296,7 @@ const AvatarGroup = polymorphicComponent<'div', AvatarGroupOwnProps, 'omitClassN
         },
         ref,
     ) {
-        const overflowCount = count != null && count > 0 ? count : null
+        const overflowCount = count && count > 0 ? count : null
 
         return (
             <Box
