@@ -431,4 +431,32 @@ describe('AvatarGroup', () => {
 
         expect(screen.getByTestId('group')).toHaveClass('custom-group')
     })
+
+    describe('a11y', () => {
+        it('renders with no a11y violations', async () => {
+            const { container } = render(
+                <>
+                    <AvatarGroup size={36}>
+                        <Avatar size={36} name="Jane Doe" image="avatar.png" />
+                        <Avatar size={36} name="John Doe" />
+                    </AvatarGroup>
+                    <AvatarGroup size={36} count={3}>
+                        <Avatar size={36} name="Jane Doe" />
+                        <Avatar size={36} name="John Doe" />
+                    </AvatarGroup>
+                    <AvatarGroup size={36} shape="rounded" count={5}>
+                        <Avatar size={36} shape="rounded" name="Reactist" />
+                        <Avatar size={36} shape="rounded" name="Todoist" />
+                    </AvatarGroup>
+                    <AvatarGroup as="button" aria-label="Manage 5 members" size={36} count={3}>
+                        <Avatar size={36} name="Jane Doe" />
+                        <Avatar size={36} name="John Doe" />
+                    </AvatarGroup>
+                </>,
+            )
+            const results = await axe(container)
+
+            expect(results).toHaveNoViolations()
+        })
+    })
 })
