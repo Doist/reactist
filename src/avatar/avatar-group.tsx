@@ -75,7 +75,7 @@ type AvatarGroupOwnProps = ObfuscatedClassName & {
 
     /**
      * Additional people not shown in the group. When positive, rendered as a
-     * decorative `+N` overlay on top of the final avatar; hidden from
+     * decorative `N` overlay on top of the final avatar; hidden from
      * assistive tech.
      */
     count?: number
@@ -142,7 +142,7 @@ const AvatarGroup = polymorphicComponent<'div', AvatarGroupOwnProps, 'omitClassN
                 {children}
                 {overflowCount !== null ? (
                     <span className={styles.avatarGroupCount} aria-hidden="true">
-                        {`+${overflowCount}`}
+                        {overflowCount}
                     </span>
                 ) : null}
             </Box>

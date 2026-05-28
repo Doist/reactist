@@ -53,7 +53,7 @@ describe('AvatarGroup', () => {
         })
     })
 
-    it('renders the count overlay when count is positive', () => {
+    it('renders the count overlay without a plus sign when count is positive', () => {
         render(
             <AvatarGroup data-testid="group" size={36} count={3}>
                 <Avatar size={36} name="Jane Doe" />
@@ -61,7 +61,8 @@ describe('AvatarGroup', () => {
             </AvatarGroup>,
         )
 
-        expect(screen.getByText('+3')).toBeInTheDocument()
+        expect(screen.getByText('3')).toBeInTheDocument()
+        expect(screen.queryByText('+3')).not.toBeInTheDocument()
     })
 
     it('hides the count overlay from assistive tech', () => {
@@ -72,7 +73,7 @@ describe('AvatarGroup', () => {
             </AvatarGroup>,
         )
 
-        expect(screen.getByText('+3')).toHaveAttribute('aria-hidden', 'true')
+        expect(screen.getByText('3')).toHaveAttribute('aria-hidden', 'true')
     })
 
     it('omits the count overlay when count is not positive', () => {
@@ -104,7 +105,7 @@ describe('AvatarGroup', () => {
             </AvatarGroup>,
         )
 
-        expect(screen.getByText('+4')).toBeInTheDocument()
+        expect(screen.getByText('4')).toBeInTheDocument()
         expect(screen.getByRole('img', { name: 'Jane Doe' })).toBeInTheDocument()
     })
 
