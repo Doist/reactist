@@ -362,6 +362,17 @@ describe('AvatarGroup', () => {
         expect(screen.getByText('+3')).toBeInTheDocument()
     })
 
+    it('hides the count overlay from assistive tech', () => {
+        render(
+            <AvatarGroup data-testid="group" size={36} count={3}>
+                <Avatar size={36} name="Jane Doe" />
+                <Avatar size={36} name="John Doe" />
+            </AvatarGroup>,
+        )
+
+        expect(screen.getByText('+3')).toHaveAttribute('aria-hidden', 'true')
+    })
+
     it('omits the count overlay when count is not positive', () => {
         render(
             <AvatarGroup data-testid="group" size={36} count={0}>
