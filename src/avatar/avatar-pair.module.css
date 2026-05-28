@@ -1,18 +1,34 @@
+/*
+ * AvatarPair renders two stacked Avatars:
+ *   - First child (back):  anchored bottom-right.
+ *   - Last child (front):  anchored top-left, painted on top.
+ *
+ * To make the back avatar read as a distinct element on *any* background, we
+ * cut a transparent hole through the front avatar wherever the back avatar
+ * peeks through, with a small `--mask-thickness` gap around it. Masks (not
+ * borders or box-shadow) are used because the parent background is unknown —
+ * masks make the region truly transparent, so whatever sits behind the pair
+ * shows through.
+ *
+ * Sizing is driven entirely by CSS variables. The `.avatarPairSize-{N}`
+ * classes (applied from JS) override the defaults per avatar size.
+ */
+
 .avatarPair {
+    /* Inputs (overridden per size by .avatarPairSize-{N}) */
     --reactist-avatar-pair-size: 28px;
     --reactist-avatar-pair-spacing: 12px;
-    --reactist-avatar-pair-mask: 2px;
+    --reactist-avatar-pair-mask-thickness: 2px;
     --reactist-avatar-pair-rounded-radius: 5px;
+
+    /* Derived (CSS-internal — not part of the JS contract) */
     --reactist-avatar-pair-rounded-mask-radius: calc(
-        var(--reactist-avatar-pair-rounded-radius) + var(--reactist-avatar-pair-mask)
+        var(--reactist-avatar-pair-rounded-radius) + var(--reactist-avatar-pair-mask-thickness)
     );
     --reactist-avatar-pair-rounded-mask-start: calc(
-        var(--reactist-avatar-pair-spacing) - var(--reactist-avatar-pair-mask)
+        var(--reactist-avatar-pair-spacing) - var(--reactist-avatar-pair-mask-thickness)
     );
-    --reactist-avatar-pair-first-center-x: calc(
-        (var(--reactist-avatar-pair-size) / 2) + var(--reactist-avatar-pair-spacing)
-    );
-    --reactist-avatar-pair-first-center-y: calc(
+    --reactist-avatar-pair-first-center: calc(
         (var(--reactist-avatar-pair-size) / 2) + var(--reactist-avatar-pair-spacing)
     );
 
@@ -24,91 +40,91 @@
 .avatarPairSize-80 {
     --reactist-avatar-pair-size: 80px;
     --reactist-avatar-pair-spacing: 36px;
-    --reactist-avatar-pair-mask: 3px;
+    --reactist-avatar-pair-mask-thickness: 3px;
     --reactist-avatar-pair-rounded-radius: 10px;
 }
 
 .avatarPairSize-72 {
     --reactist-avatar-pair-size: 72px;
     --reactist-avatar-pair-spacing: 32px;
-    --reactist-avatar-pair-mask: 3px;
+    --reactist-avatar-pair-mask-thickness: 3px;
     --reactist-avatar-pair-rounded-radius: 10px;
 }
 
 .avatarPairSize-62 {
     --reactist-avatar-pair-size: 62px;
     --reactist-avatar-pair-spacing: 28px;
-    --reactist-avatar-pair-mask: 3px;
+    --reactist-avatar-pair-mask-thickness: 3px;
     --reactist-avatar-pair-rounded-radius: 8.5px;
 }
 
 .avatarPairSize-50 {
     --reactist-avatar-pair-size: 50px;
     --reactist-avatar-pair-spacing: 22px;
-    --reactist-avatar-pair-mask: 3px;
+    --reactist-avatar-pair-mask-thickness: 3px;
     --reactist-avatar-pair-rounded-radius: 7px;
 }
 
 .avatarPairSize-40 {
     --reactist-avatar-pair-size: 40px;
     --reactist-avatar-pair-spacing: 18px;
-    --reactist-avatar-pair-mask: 3px;
+    --reactist-avatar-pair-mask-thickness: 3px;
     --reactist-avatar-pair-rounded-radius: 5.5px;
 }
 
 .avatarPairSize-36 {
     --reactist-avatar-pair-size: 36px;
     --reactist-avatar-pair-spacing: 16px;
-    --reactist-avatar-pair-mask: 2.5px;
+    --reactist-avatar-pair-mask-thickness: 2.5px;
     --reactist-avatar-pair-rounded-radius: 5px;
 }
 
 .avatarPairSize-30 {
     --reactist-avatar-pair-size: 30px;
     --reactist-avatar-pair-spacing: 14px;
-    --reactist-avatar-pair-mask: 2.5px;
+    --reactist-avatar-pair-mask-thickness: 2.5px;
     --reactist-avatar-pair-rounded-radius: 5px;
 }
 
 .avatarPairSize-28 {
     --reactist-avatar-pair-size: 28px;
     --reactist-avatar-pair-spacing: 12px;
-    --reactist-avatar-pair-mask: 2px;
+    --reactist-avatar-pair-mask-thickness: 2px;
     --reactist-avatar-pair-rounded-radius: 5px;
 }
 
 .avatarPairSize-24 {
     --reactist-avatar-pair-size: 24px;
     --reactist-avatar-pair-spacing: 12px;
-    --reactist-avatar-pair-mask: 2px;
+    --reactist-avatar-pair-mask-thickness: 2px;
     --reactist-avatar-pair-rounded-radius: 3.2px;
 }
 
 .avatarPairSize-20 {
     --reactist-avatar-pair-size: 20px;
     --reactist-avatar-pair-spacing: 10px;
-    --reactist-avatar-pair-mask: 2px;
+    --reactist-avatar-pair-mask-thickness: 2px;
     --reactist-avatar-pair-rounded-radius: 3px;
 }
 
 .avatarPairSize-18 {
     --reactist-avatar-pair-size: 18px;
     --reactist-avatar-pair-spacing: 10px;
-    --reactist-avatar-pair-mask: 1.5px;
+    --reactist-avatar-pair-mask-thickness: 1.5px;
     --reactist-avatar-pair-rounded-radius: 3px;
 }
 
 .avatarPairSize-16 {
     --reactist-avatar-pair-size: 16px;
     --reactist-avatar-pair-spacing: 8px;
-    --reactist-avatar-pair-mask: 1.25px;
+    --reactist-avatar-pair-mask-thickness: 1.25px;
     --reactist-avatar-pair-rounded-radius: 2px;
 }
 
 .avatarPairSize-12 {
     --reactist-avatar-pair-size: 12px;
     --reactist-avatar-pair-spacing: 6px;
-    --reactist-avatar-pair-mask: 1px;
+    --reactist-avatar-pair-mask-thickness: 1px;
     --reactist-avatar-pair-rounded-radius: 1.6px;
 }
 
@@ -116,46 +132,80 @@
     position: absolute;
 }
 
+/* Back avatar: anchored bottom-right, painted underneath. */
 .avatarPair > :first-child {
     right: 0;
     bottom: 0;
 }
 
+/* Front avatar: anchored top-left, painted on top — receives the mask cutout. */
 .avatarPair > :last-child {
     top: 0;
     left: 0;
 }
 
+/*
+ * Circle shape: a single radial-gradient cuts a circular hole centered on
+ * the back avatar, sized to leave a `--mask-thickness` gap around it.
+ */
 .avatarPairShape-circle > :last-child {
     -webkit-mask-image: radial-gradient(
-        circle calc((var(--reactist-avatar-pair-size) / 2) + var(--reactist-avatar-pair-mask)) at
-            var(--reactist-avatar-pair-first-center-x) var(--reactist-avatar-pair-first-center-y),
+        circle
+            calc(
+                (var(--reactist-avatar-pair-size) / 2) + var(--reactist-avatar-pair-mask-thickness)
+            )
+            at var(--reactist-avatar-pair-first-center) var(--reactist-avatar-pair-first-center),
         transparent 99%,
         #000 100%
     );
     mask-image: radial-gradient(
-        circle calc((var(--reactist-avatar-pair-size) / 2) + var(--reactist-avatar-pair-mask)) at
-            var(--reactist-avatar-pair-first-center-x) var(--reactist-avatar-pair-first-center-y),
+        circle
+            calc(
+                (var(--reactist-avatar-pair-size) / 2) + var(--reactist-avatar-pair-mask-thickness)
+            )
+            at var(--reactist-avatar-pair-first-center) var(--reactist-avatar-pair-first-center),
         transparent 99%,
         #000 100%
     );
 }
 
+/*
+ * Rounded shape: CSS has no built-in "rounded-rectangle cutout" mask, so we
+ * compose the *visible* (un-cut) area of the front avatar from three mask
+ * layers. What's left over — the bottom-right rectangle with a rounded
+ * top-left corner — is the hole that reveals the back avatar.
+ *
+ *   strip  = spacing − mask-thickness   (thickness of the L-shaped frame)
+ *   corner = rounded-mask-radius        (radius of the L's inner corner)
+ *
+ * Layer 1 — top strip of the L:        100% wide, strip tall, at (0, 0).
+ * Layer 2 — left strip of the L:       strip wide, 100% tall, at (0, 0).
+ * Layer 3 — rounded inner corner fill: a corner × corner tile at
+ *           (strip, strip), filled by a radial-gradient that's opaque
+ *           outside the corner radius and transparent inside, so it rounds
+ *           the L's inner ┘ corner where the strips meet.
+ */
 .avatarPairShape-rounded > :last-child {
     -webkit-mask-image:
-        linear-gradient(#000 0 0), linear-gradient(#000 0 0),
-        radial-gradient(
-            circle var(--reactist-avatar-pair-rounded-mask-radius) at 100% 100%,
-            transparent 99%,
-            #000 100%
-        );
+        linear-gradient(#000 0 0),
+        /* layer 1: top strip */ linear-gradient(#000 0 0),
+        /* layer 2: left strip */
+            radial-gradient(
+                /* layer 3: rounded inner corner */ circle
+                    var(--reactist-avatar-pair-rounded-mask-radius) at 100% 100%,
+                transparent 99%,
+                #000 100%
+            );
     mask-image:
-        linear-gradient(#000 0 0), linear-gradient(#000 0 0),
-        radial-gradient(
-            circle var(--reactist-avatar-pair-rounded-mask-radius) at 100% 100%,
-            transparent 99%,
-            #000 100%
-        );
+        linear-gradient(#000 0 0),
+        /* layer 1: top strip */ linear-gradient(#000 0 0),
+        /* layer 2: left strip */
+            radial-gradient(
+                /* layer 3: rounded inner corner */ circle
+                    var(--reactist-avatar-pair-rounded-mask-radius) at 100% 100%,
+                transparent 99%,
+                #000 100%
+            );
     -webkit-mask-position:
         0 0,
         0 0,
