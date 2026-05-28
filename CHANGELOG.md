@@ -1,3 +1,9 @@
+## [31.3.0](https://github.com/Doist/reactist/compare/v31.2.0...v31.3.0) (2026-05-28)
+
+### Features
+
+- **tooltip:** expose `--reactist-tooltip-font-size` custom property ([#1049](https://github.com/Doist/reactist/issues/1049)) ([65811a3](https://github.com/Doist/reactist/commit/65811a36bf3e3de2e34867254af876101bf9c284))
+
 ## [31.2.0](https://github.com/Doist/reactist/compare/v31.1.0...v31.2.0) (2026-05-20)
 
 ### Features
