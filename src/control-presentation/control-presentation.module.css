@@ -26,23 +26,25 @@
 
 .control {
     display: contents;
+}
 
-    & > * {
-        /* layout */
-        flex: 1;
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        width: 100%;
+/* The wrapped control inherits chrome styling so that native elements
+ * (input/select/textarea) render flush with the surrounding wrapper. */
+.control > * {
+    /* layout */
+    flex: 1;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 
-        /* border */
-        border: none;
-        outline: none; /* focus state is handled by the wrapper border */
+    /* border */
+    border: none;
+    outline: none; /* focus state is handled by the wrapper border */
 
-        /* color */
-        background: transparent;
-        color: inherit;
-    }
+    /* color */
+    background: transparent;
+    color: inherit;
 }
 
 .slot {
@@ -53,12 +55,12 @@
 /*
  * Compact 24×24 action button variant for use inside `endSlot`. The 3px
  * border-radius and reduced min-width make it fit the field chrome alongside a
- * 16px icon glyph.
+ * 16px icon glyph. The tripled class boosts specificity above Button's
+ * size-class rules (e.g. `.baseButton.size-normal`) so the height override
+ * wins regardless of stylesheet load order.
  */
-.controlActionButton.controlActionButton {
-    &.controlActionButton {
-        --reactist-btn-height: 24px;
-    }
+.controlActionButton.controlActionButton.controlActionButton {
+    --reactist-btn-height: 24px;
     border-radius: 3px;
     min-width: var(--reactist-btn-height);
 }
