@@ -308,7 +308,7 @@
     border-radius: var(--reactist-avatar-group-rounded-radius);
 }
 
-.avatarGroup > .avatarGroupCount:nth-child(2) {
+.avatarGroup > .avatarGroupCount {
     -webkit-mask-image: none;
     mask-image: none;
 }
