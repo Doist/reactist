@@ -58,7 +58,7 @@ const AVATAR_GROUP_OVERLAP_BY_SIZE: Record<AvatarSize, string> = {
     12: '1px',
 }
 
-const AVATAR_GROUP_MASK_BY_SIZE: Record<AvatarSize, string> = {
+const AVATAR_MASK_BY_SIZE: Record<AvatarSize, string> = {
     80: '3px',
     72: '3px',
     62: '3px',
@@ -440,7 +440,7 @@ function getAvatarStyle(size: AvatarSize): AvatarStyle {
 }
 
 function getAvatarPairStyle(size: AvatarSize): AvatarPairStyle {
-    const mask = AVATAR_GROUP_MASK_BY_SIZE[size]
+    const mask = AVATAR_MASK_BY_SIZE[size]
     const roundedRadius = ROUNDED_AVATAR_RADIUS_BY_SIZE[size]
 
     return {
@@ -453,7 +453,7 @@ function getAvatarPairStyle(size: AvatarSize): AvatarPairStyle {
 }
 
 function getAvatarGroupStyle(size: AvatarSize): AvatarGroupStyle {
-    const mask = AVATAR_GROUP_MASK_BY_SIZE[size]
+    const mask = AVATAR_MASK_BY_SIZE[size]
     const roundedRadius = ROUNDED_AVATAR_RADIUS_BY_SIZE[size]
 
     return {
