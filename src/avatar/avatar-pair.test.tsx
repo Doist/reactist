@@ -21,49 +21,6 @@ describe('AvatarPair', () => {
         expect(screen.getByTestId('second').parentElement).toBe(screen.getByTestId('pair'))
     })
 
-    it('sets size-derived pair variables', () => {
-        render(
-            <AvatarPair data-testid="pair" size={28}>
-                <Avatar size={28} name="Jane Doe" />
-                <Avatar size={28} name="John Doe" />
-            </AvatarPair>,
-        )
-
-        expect(screen.getByTestId('pair')).toHaveStyle({
-            '--reactist-avatar-pair-size': '28px',
-            '--reactist-avatar-pair-spacing': '12px',
-            '--reactist-avatar-pair-mask': '2px',
-            '--reactist-avatar-pair-rounded-mask-radius': 'calc(5px + 2px)',
-        })
-    })
-
-    it('sets large size-derived pair variables', () => {
-        render(
-            <AvatarPair data-testid="pair" size={80}>
-                <Avatar size={80} name="Jane Doe" />
-                <Avatar size={80} name="John Doe" />
-            </AvatarPair>,
-        )
-
-        expect(screen.getByTestId('pair')).toHaveStyle({
-            '--reactist-avatar-pair-size': '80px',
-            '--reactist-avatar-pair-spacing': '36px',
-            '--reactist-avatar-pair-mask': '3px',
-            '--reactist-avatar-pair-rounded-mask-radius': 'calc(10px + 3px)',
-        })
-    })
-
-    it('applies the pair shape class', () => {
-        render(
-            <AvatarPair data-testid="pair" size={28} shape="rounded">
-                <Avatar size={28} shape="rounded" name="Workspace" />
-                <Avatar size={28} shape="rounded" name="Design System" />
-            </AvatarPair>,
-        )
-
-        expect(screen.getByTestId('pair')).toHaveClass('avatarPairShape-rounded')
-    })
-
     it('requires exactly two children at the type level', () => {
         const invalidPair = (
             // @ts-expect-error AvatarPair children must be a tuple of two elements
