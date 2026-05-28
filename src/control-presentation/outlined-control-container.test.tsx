@@ -114,6 +114,27 @@ describe('OutlinedControlContainer', () => {
             expect(onClick).toHaveBeenCalledTimes(1)
         })
 
+        it('does not latch the dispatch guard if the dispatched click does not bubble', async () => {
+            const { container } = render(
+                <OutlinedControlContainer>
+                    <input
+                        aria-label="control"
+                        data-testid="control"
+                        onClick={(e) => e.stopPropagation()}
+                    />
+                </OutlinedControlContainer>,
+            )
+            const wrapper = container.firstElementChild as Element
+            const control = screen.getByTestId('control')
+
+            await userEvent.click(wrapper)
+            expect(control).toHaveFocus()
+
+            control.blur()
+            await userEvent.click(wrapper)
+            expect(control).toHaveFocus()
+        })
+
         it('uses showPicker for native <select>', async () => {
             const showPicker = jest.fn()
             const { container } = render(

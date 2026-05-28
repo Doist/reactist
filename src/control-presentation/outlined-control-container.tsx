@@ -58,10 +58,7 @@ export const OutlinedControlContainer = forwardRef<HTMLDivElement, OutlinedContr
         const isDispatchedReentryRef = React.useRef(false)
 
         function handleWrapperClick(event: React.MouseEvent<HTMLDivElement>) {
-            if (isDispatchedReentryRef.current) {
-                isDispatchedReentryRef.current = false
-                return
-            }
+            if (isDispatchedReentryRef.current) return
 
             onClick?.(event)
 
@@ -86,8 +83,12 @@ export const OutlinedControlContainer = forwardRef<HTMLDivElement, OutlinedContr
                 return
             }
 
+            // Guard against the synchronous re-entry from control.click() bubbling
+            // back to this handler. Always clear after the dispatch returns so the
+            // guard cannot latch if a consumer's onClick stops propagation.
             isDispatchedReentryRef.current = true
             control.click()
+            isDispatchedReentryRef.current = false
         }
 
         return (
