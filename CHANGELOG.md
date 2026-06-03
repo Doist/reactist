@@ -1,3 +1,13 @@
+## [33.0.0](https://github.com/Doist/reactist/compare/v32.0.0...v33.0.0) (2026-06-03)
+
+### ⚠ BREAKING CHANGES
+
+- remove deprecated Select, Button, and Dropdown from public API (#1053)
+
+### Miscellaneous Chores
+
+- remove deprecated Select, Button, and Dropdown from public API ([#1053](https://github.com/Doist/reactist/issues/1053)) ([7e2f648](https://github.com/Doist/reactist/commit/7e2f648f8c39c46dac15be96477b72ef3e83dabb))
+
 ## [32.0.0](https://github.com/Doist/reactist/compare/v31.3.0...v32.0.0) (2026-05-28)
 
 ### ⚠ BREAKING CHANGES
