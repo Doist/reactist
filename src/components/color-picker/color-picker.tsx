@@ -5,7 +5,8 @@ import * as React from 'react'
 import classnames from 'classnames'
 
 import { Tooltip } from '../../tooltip'
-import DeprecatedDropdown from '../deprecated-dropdown'
+
+import DeprecatedDropdown from './deprecated-dropdown'
 
 type NamedColor = { name: string; color: string }
 

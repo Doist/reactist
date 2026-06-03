@@ -4,7 +4,7 @@ import * as React from 'react'
 
 import classNames from 'classnames'
 
-import { Tooltip } from '../../tooltip'
+import { Tooltip } from '../../../tooltip'
 
 type NativeButtonProps = React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
