@@ -57,7 +57,4 @@ export { default as Time } from './components/time'
 // Deprecated components
 //
 
-export { default as DeprecatedButton } from './components/deprecated-button'
-export { default as DeprecatedDropdown } from './components/deprecated-dropdown'
 export { default as DeprecatedInput } from './components/deprecated-input'
-export { default as DeprecatedSelect } from './components/deprecated-select'
