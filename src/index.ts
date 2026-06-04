@@ -58,3 +58,4 @@ export { default as Time } from './components/time'
 //
 
 export { default as DeprecatedInput } from './components/deprecated-input'
+export * from './deprecated-avatar'

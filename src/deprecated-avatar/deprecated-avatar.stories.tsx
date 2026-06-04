@@ -1,8 +1,8 @@
-import './styles/avatar_story.css'
+import '../../stories/components/styles/avatar_story.css'
 
 import * as React from 'react'
 
-import { Box, DeprecatedAvatar, Inline } from '../../src'
+import { Box, DeprecatedAvatar, Inline } from '../index'
 
 export default {
     title: 'Deprecated Components/Avatar',
