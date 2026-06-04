@@ -1,3 +1,9 @@
+## [33.0.1](https://github.com/Doist/reactist/compare/v33.0.0...v33.0.1) (2026-06-04)
+
+### Bug Fixes
+
+- Use size-based avatar outline widths ([#1057](https://github.com/Doist/reactist/issues/1057)) ([2b4d578](https://github.com/Doist/reactist/commit/2b4d578966f35bfd4d9bfdea6546b012f9da7686))
+
 ## [33.0.0](https://github.com/Doist/reactist/compare/v32.0.0...v33.0.0) (2026-06-03)
 
 ### ⚠ BREAKING CHANGES
