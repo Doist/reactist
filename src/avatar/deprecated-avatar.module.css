@@ -1,0 +1,128 @@
+:root {
+    --reactist-deprecated-avatar-size-xxsmall: 16px;
+    --reactist-deprecated-avatar-size-xsmall: 20px;
+    --reactist-deprecated-avatar-size-small: 30px;
+    --reactist-deprecated-avatar-size-medium: 32px;
+    --reactist-deprecated-avatar-size-large: 34px;
+    --reactist-deprecated-avatar-size-xlarge: 48px;
+    --reactist-deprecated-avatar-size-xxlarge: 70px;
+    --reactist-deprecated-avatar-size-xxxlarge: 100px;
+}
+
+.deprecated-avatar {
+    --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-large);
+
+    flex-shrink: 0;
+    background-position: center;
+    color: white;
+    text-align: center;
+    border-radius: 50%;
+
+    width: var(--reactist-deprecated-avatar-size);
+    height: var(--reactist-deprecated-avatar-size);
+    line-height: var(--reactist-deprecated-avatar-size);
+    background-size: var(--reactist-deprecated-avatar-size);
+    font-size: calc(var(--reactist-deprecated-avatar-size) / 2);
+}
+
+.deprecated-size-xxs {
+    --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-xxsmall);
+}
+
+.deprecated-size-xs {
+    --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-xsmall);
+}
+
+.deprecated-size-s {
+    --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-small);
+}
+
+.deprecated-size-m {
+    --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-medium);
+}
+
+.deprecated-size-l {
+    --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-large);
+}
+
+.deprecated-size-xl {
+    --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-xlarge);
+}
+
+.deprecated-size-xxl {
+    --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-xxlarge);
+}
+
+.deprecated-size-xxxl {
+    --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-xxxlarge);
+}
+
+/* avatar size for tablet */
+@media (min-width: 768px /* --reactist-breakpoint-tablet */) {
+    .tablet-deprecated-size-xxs {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-xxsmall);
+    }
+
+    .tablet-deprecated-size-xs {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-xsmall);
+    }
+
+    .tablet-deprecated-size-s {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-small);
+    }
+
+    .tablet-deprecated-size-m {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-medium);
+    }
+
+    .tablet-deprecated-size-l {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-large);
+    }
+
+    .tablet-deprecated-size-xl {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-xlarge);
+    }
+
+    .tablet-deprecated-size-xxl {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-xxlarge);
+    }
+
+    .tablet-deprecated-size-xxxl {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-xxxlarge);
+    }
+}
+
+/* avatar size for desktop */
+@media (min-width: 992px /* --reactist-breakpoint-desktop */) {
+    .desktop-deprecated-size-xxs {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-xxsmall);
+    }
+
+    .desktop-deprecated-size-xs {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-xsmall);
+    }
+
+    .desktop-deprecated-size-s {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-small);
+    }
+
+    .desktop-deprecated-size-m {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-medium);
+    }
+
+    .desktop-deprecated-size-l {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-large);
+    }
+
+    .desktop-deprecated-size-xl {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-xlarge);
+    }
+
+    .desktop-deprecated-size-xxl {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-xxlarge);
+    }
+
+    .desktop-deprecated-size-xxxl {
+        --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-xxxlarge);
+    }
+}
