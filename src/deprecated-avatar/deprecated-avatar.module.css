@@ -7,11 +7,11 @@
     --reactist-deprecated-avatar-size-xlarge: 48px;
     --reactist-deprecated-avatar-size-xxlarge: 70px;
     --reactist-deprecated-avatar-size-xxxlarge: 100px;
+
+    --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-large);
 }
 
 .deprecated-avatar {
-    --reactist-deprecated-avatar-size: var(--reactist-deprecated-avatar-size-large);
-
     flex-shrink: 0;
     background-position: center;
     color: white;

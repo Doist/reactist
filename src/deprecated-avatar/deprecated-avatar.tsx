@@ -3,6 +3,8 @@ import * as React from 'react'
 import { Box } from '../box'
 import { getClassNames } from '../utils/responsive-props'
 
+import { emailToIndex, getInitials } from './utils'
+
 import styles from './deprecated-avatar.module.css'
 
 import type { ObfuscatedClassName } from '../utils/common-types'
@@ -32,7 +34,7 @@ const AVATAR_COLORS = [
 type DeprecatedAvatarSize = 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'xxxl'
 
 type DeprecatedAvatarProps = ObfuscatedClassName & {
-    /** @deprecated Please use `exceptionallySetClassName`. */
+    /** @deprecated Please use `exceptionallySetClassName` */
     className?: string
     /** @deprecated */
     colorList?: string[]
@@ -53,18 +55,19 @@ function DeprecatedAvatar({
     exceptionallySetClassName,
     ...props
 }: DeprecatedAvatarProps) {
-    const userInitials = getLegacyInitials(user.name) || getLegacyInitials(user.email)
+    const userInitials = getInitials(user.name) || getInitials(user.email)
+    const avatarSize = size ? size : 'l'
 
     const style = avatarUrl
         ? {
               backgroundImage: `url(${avatarUrl})`,
-              textIndent: '-9999px',
+              textIndent: '-9999px', // hide the initials
           }
         : {
               backgroundColor: colorList[emailToIndex(user.email, colorList.length)],
           }
 
-    const sizeClassName = getClassNames(styles, 'deprecated-size', size)
+    const sizeClassName = getClassNames(styles, 'deprecated-size', avatarSize)
 
     return (
         <Box
@@ -82,35 +85,6 @@ function DeprecatedAvatar({
     )
 }
 DeprecatedAvatar.displayName = 'DeprecatedAvatar'
-
-function getLegacyInitials(name?: string) {
-    if (!name) {
-        return ''
-    }
-
-    const seed = name.trim().split(' ')
-    const firstInitial = seed[0]
-    const lastInitial = seed[seed.length - 1]
-
-    let initials = firstInitial?.[0]
-    if (
-        firstInitial != null &&
-        lastInitial != null &&
-        initials != null &&
-        // Better readable this way.
-        // eslint-disable-next-line @typescript-eslint/prefer-string-starts-ends-with
-        firstInitial[0] !== lastInitial[0]
-    ) {
-        initials += lastInitial[0]
-    }
-    return initials?.toUpperCase()
-}
-
-function emailToIndex(email: string, maxIndex: number) {
-    const seed = email.split('@')[0]
-    const hash = seed ? seed.charCodeAt(0) + seed.charCodeAt(seed.length - 1) || 0 : 0
-    return hash % maxIndex
-}
 
 export { DeprecatedAvatar }
 export type { DeprecatedAvatarProps, DeprecatedAvatarSize }
