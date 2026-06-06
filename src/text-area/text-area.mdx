@@ -45,3 +45,11 @@ Note that these variables are shared with other components such as `Textfield`, 
 <Canvas>
     <Story of={TextAreaStories.AutoExpandWithInitialValue} />
 </Canvas>
+
+## Read-only variant
+
+When `readOnly` is set, the `readOnlyVariant` prop controls the field's visual treatment. The default `filled` variant adds a subtle grey fill to signal that the value is present but not editable. Use `plain` to remove the fill so the field looks identical to its editable state, which is useful when it sits alongside other read-only content that should not appear boxed-in.
+
+<Canvas withToolbar>
+    <Story of={TextAreaStories.ReadOnlyVariant} />
+</Canvas>

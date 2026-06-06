@@ -188,6 +188,30 @@ describe('TextField', () => {
         expect(inputElement).toHaveValue('')
     })
 
+    it('applies the read-only fill by default', () => {
+        render(<TextField label="Whatʼs your job title?" readOnly />)
+        const wrapper = screen
+            .getByRole('textbox', { name: 'Whatʼs your job title?' })
+            .closest('.inputWrapper')
+        expect(wrapper).toHaveClass('readOnly')
+    })
+
+    it('omits the read-only fill when readOnlyVariant is "plain"', () => {
+        render(<TextField label="Whatʼs your job title?" readOnly readOnlyVariant="plain" />)
+        const wrapper = screen
+            .getByRole('textbox', { name: 'Whatʼs your job title?' })
+            .closest('.inputWrapper')
+        expect(wrapper).not.toHaveClass('readOnly')
+    })
+
+    it('does not apply the read-only fill to an editable field', () => {
+        render(<TextField label="Whatʼs your job title?" />)
+        const wrapper = screen
+            .getByRole('textbox', { name: 'Whatʼs your job title?' })
+            .closest('.inputWrapper')
+        expect(wrapper).not.toHaveClass('readOnly')
+    })
+
     it('can be a controlled input field', async () => {
         function TestCase() {
             const [value, setValue] = React.useState('')

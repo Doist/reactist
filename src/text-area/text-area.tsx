@@ -8,10 +8,15 @@ import { Box } from '../box'
 
 import styles from './text-area.module.css'
 
-import type { BaseFieldVariantProps, FieldComponentProps } from '../base-field'
+import type {
+    BaseFieldVariantProps,
+    FieldComponentProps,
+    ReadOnlyVariantProps,
+} from '../base-field'
 
 interface TextAreaProps
     extends Omit<FieldComponentProps<HTMLTextAreaElement>, 'characterCountPosition'>,
+        ReadOnlyVariantProps,
         Omit<
             BaseFieldVariantProps,
             'supportsStartAndEndSlots' | 'endSlot' | 'endSlotPosition' | 'value'
@@ -70,6 +75,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
         autoExpand = false,
         disableResize = false,
         onChange: originalOnChange,
+        readOnlyVariant = 'filled',
         ...props
     },
     ref,
@@ -83,6 +89,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
     const textAreaClassName = classNames([
         autoExpand ? styles.disableResize : null,
         disableResize ? styles.disableResize : null,
+        props.readOnly && readOnlyVariant === 'filled' ? styles.readOnly : null,
     ])
 
     return (

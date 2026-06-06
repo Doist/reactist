@@ -217,6 +217,7 @@ export const InteractiveProps = {
         maxLength: null,
         disabled: false,
         readOnly: false,
+        readOnlyVariant: 'filled',
         characterCountPosition: undefined,
         endSlotPosition: undefined,
     },
@@ -321,6 +322,16 @@ export const InteractiveProps = {
             },
 
             defaultValue: false,
+        },
+
+        readOnlyVariant: {
+            options: ['filled', 'plain'],
+
+            control: {
+                type: 'inline-radio',
+            },
+
+            defaultValue: 'filled',
         },
 
         characterCountPosition: {
@@ -487,4 +498,31 @@ export const CharacterCountPosition = {
     ),
 
     name: 'Character count position',
+}
+
+export const ReadOnlyVariant = {
+    render: () => (
+        <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
+            <TextField
+                label="Filled (default)"
+                value="Read-only with a grey fill"
+                readOnly
+                readOnlyVariant="filled"
+            />
+            <TextField
+                label="Plain"
+                value="Read-only with no fill"
+                readOnly
+                readOnlyVariant="plain"
+            />
+        </Box>
+    ),
+
+    name: 'Read-only variant',
+
+    parameters: {
+        chromatic: {
+            disableSnapshot: false,
+        },
+    },
 }

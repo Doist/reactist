@@ -29,7 +29,7 @@ See https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
     overflow-wrap: anywhere; /* to stop unnecessary horizontal expansion of text-area when `autoExpand` is enabled.*/
 }
 
-.textAreaContainer textarea[readonly] {
+.textAreaContainer textarea.readOnly {
     background-color: var(--reactist-field-readonly-background);
     color: var(--reactist-content-primary);
 }

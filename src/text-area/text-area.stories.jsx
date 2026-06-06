@@ -117,6 +117,7 @@ export const InteractiveProps = {
         maxLength: null,
         disabled: false,
         readOnly: false,
+        readOnlyVariant: 'filled',
     },
 
     argTypes: {
@@ -242,6 +243,43 @@ export const InteractiveProps = {
             },
 
             defaultValue: false,
+        },
+
+        readOnlyVariant: {
+            options: ['filled', 'plain'],
+
+            control: {
+                type: 'inline-radio',
+            },
+
+            defaultValue: 'filled',
+        },
+    },
+}
+
+export const ReadOnlyVariant = {
+    render: () => (
+        <Box maxWidth="small" display="flex" flexDirection="column" gap="large">
+            <TextArea
+                label="Filled (default)"
+                value="Read-only with a grey fill"
+                readOnly
+                readOnlyVariant="filled"
+            />
+            <TextArea
+                label="Plain"
+                value="Read-only with no fill"
+                readOnly
+                readOnlyVariant="plain"
+            />
+        </Box>
+    ),
+
+    name: 'Read-only variant',
+
+    parameters: {
+        chromatic: {
+            disableSnapshot: false,
         },
     },
 }

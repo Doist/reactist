@@ -124,6 +124,25 @@ type BaseFieldVariantProps = {
     variant?: BaseFieldVariant
 }
 
+type ReadOnlyVariant = 'filled' | 'plain'
+
+type ReadOnlyVariantProps = {
+    /**
+     * Controls the visual treatment of the field while it is `readOnly`.
+     *
+     * - `'filled'` (the default) gives the field a subtle grey fill, signalling that a value is
+     *   present but not editable.
+     * - `'plain'` removes the fill, so the read-only field looks visually identical to its
+     *   editable state. Use this when the field sits alongside other read-only content that
+     *   should not appear boxed-in.
+     *
+     * Has no effect unless `readOnly` is also set.
+     *
+     * @default 'filled'
+     */
+    readOnlyVariant?: ReadOnlyVariant
+}
+
 export type BaseFieldProps = WithEnhancedClassName &
     Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'maxLength' | 'aria-describedby'> & {
         /**
@@ -376,4 +395,10 @@ function BaseField({
 }
 
 export { BaseField, FieldMessage }
-export type { BaseFieldVariant, BaseFieldVariantProps, FieldComponentProps }
+export type {
+    BaseFieldVariant,
+    BaseFieldVariantProps,
+    FieldComponentProps,
+    ReadOnlyVariant,
+    ReadOnlyVariantProps,
+}

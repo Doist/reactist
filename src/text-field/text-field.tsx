@@ -7,13 +7,19 @@ import { Box } from '../box'
 
 import styles from './text-field.module.css'
 
-import type { BaseFieldProps, BaseFieldVariantProps, FieldComponentProps } from '../base-field'
+import type {
+    BaseFieldProps,
+    BaseFieldVariantProps,
+    FieldComponentProps,
+    ReadOnlyVariantProps,
+} from '../base-field'
 
 type TextFieldType = 'email' | 'search' | 'tel' | 'text' | 'url'
 
 interface TextFieldProps
     extends Omit<FieldComponentProps<HTMLInputElement>, 'type' | 'supportsStartAndEndSlots'>,
         BaseFieldVariantProps,
+        ReadOnlyVariantProps,
         Pick<BaseFieldProps, 'characterCountPosition'> {
     type?: TextFieldType
     startSlot?: React.ReactElement | string | number
@@ -45,6 +51,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
         onChange: originalOnChange,
         characterCountPosition = 'below',
         endSlotPosition = 'bottom',
+        readOnlyVariant = 'filled',
         ...props
     },
     ref,
@@ -87,7 +94,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
                         styles.inputWrapper,
                         tone === 'error' ? styles.error : null,
                         variant === 'bordered' ? styles.bordered : null,
-                        props.readOnly ? styles.readOnly : null,
+                        props.readOnly && readOnlyVariant === 'filled' ? styles.readOnly : null,
                     ]}
                     onClick={handleClick}
                 >

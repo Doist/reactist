@@ -230,6 +230,27 @@ describe('TextArea', () => {
         expect(textareaElement).toHaveValue('')
     })
 
+    it('applies the read-only fill by default', () => {
+        render(<TextArea label="Tell us a bit about you" readOnly />)
+        expect(screen.getByRole('textbox', { name: 'Tell us a bit about you' })).toHaveClass(
+            'readOnly',
+        )
+    })
+
+    it('omits the read-only fill when readOnlyVariant is "plain"', () => {
+        render(<TextArea label="Tell us a bit about you" readOnly readOnlyVariant="plain" />)
+        expect(screen.getByRole('textbox', { name: 'Tell us a bit about you' })).not.toHaveClass(
+            'readOnly',
+        )
+    })
+
+    it('does not apply the read-only fill to an editable field', () => {
+        render(<TextArea label="Tell us a bit about you" />)
+        expect(screen.getByRole('textbox', { name: 'Tell us a bit about you' })).not.toHaveClass(
+            'readOnly',
+        )
+    })
+
     it('can be a controlled field', async () => {
         function TestCase() {
             const [value, setValue] = React.useState('')
