@@ -196,12 +196,13 @@ describe('TextField', () => {
         expect(wrapper).toHaveClass('readOnly')
     })
 
-    it('omits the read-only fill when readOnlyVariant is "plain"', () => {
+    it('omits the read-only fill when readOnlyVariant is "plain", but stays read-only', async () => {
         render(<TextField label="Whatʼs your job title?" readOnly readOnlyVariant="plain" />)
-        const wrapper = screen
-            .getByRole('textbox', { name: 'Whatʼs your job title?' })
-            .closest('.inputWrapper')
-        expect(wrapper).not.toHaveClass('readOnly')
+        const user = userEvent.setup()
+        const inputElement = screen.getByRole('textbox', { name: 'Whatʼs your job title?' })
+        expect(inputElement.closest('.inputWrapper')).not.toHaveClass('readOnly')
+        await user.type(inputElement, 'Software developer')
+        expect(inputElement).toHaveValue('')
     })
 
     it('does not apply the read-only fill to an editable field', () => {

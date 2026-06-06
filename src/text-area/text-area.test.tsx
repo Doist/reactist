@@ -237,11 +237,13 @@ describe('TextArea', () => {
         )
     })
 
-    it('omits the read-only fill when readOnlyVariant is "plain"', () => {
+    it('omits the read-only fill when readOnlyVariant is "plain", but stays read-only', async () => {
         render(<TextArea label="Tell us a bit about you" readOnly readOnlyVariant="plain" />)
-        expect(screen.getByRole('textbox', { name: 'Tell us a bit about you' })).not.toHaveClass(
-            'readOnly',
-        )
+        const user = userEvent.setup()
+        const textareaElement = screen.getByRole('textbox', { name: 'Tell us a bit about you' })
+        expect(textareaElement).not.toHaveClass('readOnly')
+        await user.type(textareaElement, 'I love to travel around the world')
+        expect(textareaElement).toHaveValue('')
     })
 
     it('does not apply the read-only fill to an editable field', () => {
