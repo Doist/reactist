@@ -36,7 +36,12 @@
     cursor: default;
 }
 
-.container.bordered:hover {
+/* Read-only fields use a subdued border and don't react to hover */
+.container.bordered.readOnly {
+    border-color: var(--reactist-divider-tertiary);
+}
+
+.container.bordered:not(.readOnly):hover {
     border-color: var(--reactist-inputs-hover) !important;
 }
 

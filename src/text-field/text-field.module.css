@@ -3,11 +3,11 @@
     height: var(--reactist-input-wrapper-height);
 }
 
-.inputWrapper.readOnly {
+.inputWrapper.readOnlyFilled {
     background-color: var(--reactist-field-readonly-background);
 }
 
-.inputWrapper.readOnly input {
+.inputWrapper.readOnlyFilled input {
     background-color: var(--reactist-field-readonly-background);
     color: var(--reactist-content-primary);
 }
@@ -20,6 +20,11 @@
     overflow: clip;
 }
 
+/* Read-only fields use a subdued border and don't react to hover (see :not(.readOnly) below) */
+.inputWrapper:not(.bordered).readOnly {
+    border-color: var(--reactist-divider-tertiary);
+}
+
 .inputWrapper.bordered {
     --reactist-input-wrapper-height: 24px;
 }
@@ -29,7 +34,7 @@
     height: var(--reactist-input-wrapper-height);
 }
 
-.inputWrapper:not(.bordered):hover {
+.inputWrapper:not(.bordered):not(.readOnly):hover {
     border-color: var(--reactist-inputs-hover);
 }
 

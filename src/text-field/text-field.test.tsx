@@ -188,29 +188,33 @@ describe('TextField', () => {
         expect(inputElement).toHaveValue('')
     })
 
-    it('applies the read-only fill by default', () => {
+    it('applies the read-only state and fill by default', () => {
         render(<TextField label="Whatʼs your job title?" readOnly />)
         const wrapper = screen
             .getByRole('textbox', { name: 'Whatʼs your job title?' })
             .closest('.inputWrapper')
-        expect(wrapper).toHaveClass('readOnly')
+        expect(wrapper).toHaveClass('readOnly', 'readOnlyFilled')
     })
 
-    it('omits the read-only fill when readOnlyVariant is "plain", but stays read-only', async () => {
+    it('omits the fill when readOnlyVariant is "plain", but stays read-only', async () => {
         render(<TextField label="Whatʼs your job title?" readOnly readOnlyVariant="plain" />)
         const user = userEvent.setup()
         const inputElement = screen.getByRole('textbox', { name: 'Whatʼs your job title?' })
-        expect(inputElement.closest('.inputWrapper')).not.toHaveClass('readOnly')
+        const wrapper = inputElement.closest('.inputWrapper')
+        // Plain keeps the read-only state (subdued border, no hover) but drops the grey fill
+        expect(wrapper).toHaveClass('readOnly')
+        expect(wrapper).not.toHaveClass('readOnlyFilled')
         await user.type(inputElement, 'Software developer')
         expect(inputElement).toHaveValue('')
     })
 
-    it('does not apply the read-only fill to an editable field', () => {
+    it('does not apply any read-only styling to an editable field', () => {
         render(<TextField label="Whatʼs your job title?" />)
         const wrapper = screen
             .getByRole('textbox', { name: 'Whatʼs your job title?' })
             .closest('.inputWrapper')
         expect(wrapper).not.toHaveClass('readOnly')
+        expect(wrapper).not.toHaveClass('readOnlyFilled')
     })
 
     it('can be a controlled input field', async () => {

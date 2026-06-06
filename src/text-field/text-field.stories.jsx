@@ -515,6 +515,19 @@ export const ReadOnlyVariant = {
                 readOnly
                 readOnlyVariant="plain"
             />
+            <TextField
+                variant="bordered"
+                label="Filled, bordered"
+                value="Read-only with a grey fill"
+                readOnly
+            />
+            <TextField
+                variant="bordered"
+                label="Plain, bordered"
+                value="Read-only with no fill"
+                readOnly
+                readOnlyVariant="plain"
+            />
         </Box>
     ),
 

@@ -29,7 +29,7 @@ See https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
     overflow-wrap: anywhere; /* to stop unnecessary horizontal expansion of text-area when `autoExpand` is enabled.*/
 }
 
-.textAreaContainer textarea.readOnly {
+.textAreaContainer textarea.readOnlyFilled {
     background-color: var(--reactist-field-readonly-background);
     color: var(--reactist-content-primary);
 }
@@ -50,8 +50,14 @@ See https://css-tricks.com/the-cleanest-trick-for-autogrowing-textareas/
     border: 1px solid var(--reactist-inputs-idle);
 }
 
-.textAreaContainer:not(.bordered) textarea:hover,
-.textAreaContainer.bordered:hover {
+/* Read-only fields use a subdued border and don't react to hover (see :not(.readOnly) below) */
+.textAreaContainer:not(.bordered) textarea.readOnly,
+.textAreaContainer.bordered.readOnly {
+    border-color: var(--reactist-divider-tertiary);
+}
+
+.textAreaContainer:not(.bordered) textarea:not(.readOnly):hover,
+.textAreaContainer.bordered:not(.readOnly):hover {
     border-color: var(--reactist-inputs-hover);
 }
 

@@ -230,27 +230,30 @@ describe('TextArea', () => {
         expect(textareaElement).toHaveValue('')
     })
 
-    it('applies the read-only fill by default', () => {
+    it('applies the read-only state and fill by default', () => {
         render(<TextArea label="Tell us a bit about you" readOnly />)
         expect(screen.getByRole('textbox', { name: 'Tell us a bit about you' })).toHaveClass(
             'readOnly',
+            'readOnlyFilled',
         )
     })
 
-    it('omits the read-only fill when readOnlyVariant is "plain", but stays read-only', async () => {
+    it('omits the fill when readOnlyVariant is "plain", but stays read-only', async () => {
         render(<TextArea label="Tell us a bit about you" readOnly readOnlyVariant="plain" />)
         const user = userEvent.setup()
         const textareaElement = screen.getByRole('textbox', { name: 'Tell us a bit about you' })
-        expect(textareaElement).not.toHaveClass('readOnly')
+        // Plain keeps the read-only state (subdued border, no hover) but drops the grey fill
+        expect(textareaElement).toHaveClass('readOnly')
+        expect(textareaElement).not.toHaveClass('readOnlyFilled')
         await user.type(textareaElement, 'I love to travel around the world')
         expect(textareaElement).toHaveValue('')
     })
 
-    it('does not apply the read-only fill to an editable field', () => {
+    it('does not apply any read-only styling to an editable field', () => {
         render(<TextArea label="Tell us a bit about you" />)
-        expect(screen.getByRole('textbox', { name: 'Tell us a bit about you' })).not.toHaveClass(
-            'readOnly',
-        )
+        const textareaElement = screen.getByRole('textbox', { name: 'Tell us a bit about you' })
+        expect(textareaElement).not.toHaveClass('readOnly')
+        expect(textareaElement).not.toHaveClass('readOnlyFilled')
     })
 
     it('can be a controlled field', async () => {

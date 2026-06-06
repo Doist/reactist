@@ -89,7 +89,8 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
     const textAreaClassName = classNames([
         autoExpand ? styles.disableResize : null,
         disableResize ? styles.disableResize : null,
-        props.readOnly && readOnlyVariant === 'filled' ? styles.readOnly : null,
+        props.readOnly ? styles.readOnly : null,
+        props.readOnly && readOnlyVariant === 'filled' ? styles.readOnlyFilled : null,
     ])
 
     return (
@@ -103,10 +104,12 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
             tone={tone}
             hidden={hidden}
             aria-describedby={ariaDescribedBy}
+            readOnly={props.readOnly}
             className={[
                 styles.textAreaContainer,
                 tone === 'error' ? styles.error : null,
                 variant === 'bordered' ? styles.bordered : null,
+                props.readOnly ? styles.readOnly : null,
             ]}
             maxWidth={maxWidth}
             maxLength={maxLength}

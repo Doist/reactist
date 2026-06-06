@@ -272,6 +272,19 @@ export const ReadOnlyVariant = {
                 readOnly
                 readOnlyVariant="plain"
             />
+            <TextArea
+                variant="bordered"
+                label="Filled, bordered"
+                value="Read-only with a grey fill"
+                readOnly
+            />
+            <TextArea
+                variant="bordered"
+                label="Plain, bordered"
+                value="Read-only with no fill"
+                readOnly
+                readOnlyVariant="plain"
+            />
         </Box>
     ),
 

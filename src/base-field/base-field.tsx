@@ -144,7 +144,10 @@ type ReadOnlyVariantProps = {
 }
 
 export type BaseFieldProps = WithEnhancedClassName &
-    Pick<HtmlInputProps<HTMLInputElement>, 'id' | 'hidden' | 'maxLength' | 'aria-describedby'> & {
+    Pick<
+        HtmlInputProps<HTMLInputElement>,
+        'id' | 'hidden' | 'maxLength' | 'aria-describedby' | 'readOnly'
+    > & {
         /**
          * The main label for this field element.
          *
@@ -279,6 +282,7 @@ function BaseField({
     characterCountPosition = 'below',
     endSlot,
     endSlotPosition = 'bottom',
+    readOnly,
 }: BaseFieldProps & BaseFieldVariantProps & WithEnhancedClassName) {
     const id = useId(originalId)
     const messageId = useId()
@@ -340,6 +344,7 @@ function BaseField({
                     styles.container,
                     tone === 'error' ? styles.error : null,
                     variant === 'bordered' ? styles.bordered : null,
+                    readOnly ? styles.readOnly : null,
                 ]}
                 maxWidth={maxWidth}
                 alignItems="center"
