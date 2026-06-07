@@ -105,6 +105,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(function T
             hidden={hidden}
             aria-describedby={ariaDescribedBy}
             readOnly={props.readOnly}
+            readOnlyFilled={props.readOnly && readOnlyVariant === 'filled'}
             className={[
                 styles.textAreaContainer,
                 tone === 'error' ? styles.error : null,

@@ -83,6 +83,7 @@ const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(function Te
             aria-describedby={ariaDescribedBy}
             characterCountPosition={characterCountPosition}
             readOnly={props.readOnly}
+            readOnlyFilled={props.readOnly && readOnlyVariant === 'filled'}
             supportsStartAndEndSlots
             endSlot={endSlot}
             endSlotPosition={variant === 'bordered' ? endSlotPosition : undefined}

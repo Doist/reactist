@@ -226,6 +226,14 @@ export type BaseFieldProps = WithEnhancedClassName &
         maxLength?: number
 
         /**
+         * Used internally by field components to fill the bordered container when the field is
+         * read-only with the `filled` variant. In the bordered variant the container owns the
+         * border and padding, so the fill must live here for it to reach the border edge to edge.
+         * Not exposed as part of the public props of such components.
+         */
+        readOnlyFilled?: boolean
+
+        /**
          * Used internally by components composed using `BaseField`. It is not exposed as part of
          * the public props of such components.
          */
@@ -283,6 +291,7 @@ function BaseField({
     endSlot,
     endSlotPosition = 'bottom',
     readOnly,
+    readOnlyFilled,
 }: BaseFieldProps & BaseFieldVariantProps & WithEnhancedClassName) {
     const id = useId(originalId)
     const messageId = useId()
@@ -345,6 +354,7 @@ function BaseField({
                     tone === 'error' ? styles.error : null,
                     variant === 'bordered' ? styles.bordered : null,
                     readOnly ? styles.readOnly : null,
+                    readOnlyFilled ? styles.readOnlyFilled : null,
                 ]}
                 maxWidth={maxWidth}
                 alignItems="center"

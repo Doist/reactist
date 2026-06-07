@@ -41,6 +41,12 @@
     border-color: var(--reactist-divider-tertiary);
 }
 
+/* In the bordered variant the container owns the border and padding, so a filled read-only field
+   is filled here (rather than on the inner field) to reach the border edge to edge */
+.container.bordered.readOnlyFilled {
+    background-color: var(--reactist-field-readonly-background);
+}
+
 .container.bordered:not(.readOnly):hover {
     border-color: var(--reactist-inputs-hover) !important;
 }
