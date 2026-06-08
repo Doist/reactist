@@ -217,6 +217,14 @@ describe('TextField', () => {
         expect(wrapper).not.toHaveClass('readOnlyFilled')
     })
 
+    it('applies the read-only class to the bordered container when variant is "bordered"', () => {
+        render(<TextField label="Whatʼs your job title?" readOnly variant="bordered" />)
+        const container = screen
+            .getByRole('textbox', { name: 'Whatʼs your job title?' })
+            .closest('.bordered')
+        expect(container).toHaveClass('readOnly')
+    })
+
     it('can be a controlled input field', async () => {
         function TestCase() {
             const [value, setValue] = React.useState('')

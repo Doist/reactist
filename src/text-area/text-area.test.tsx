@@ -256,6 +256,14 @@ describe('TextArea', () => {
         expect(textareaElement).not.toHaveClass('readOnlyFilled')
     })
 
+    it('applies the read-only class to the container when variant is "bordered"', () => {
+        render(<TextArea label="Tell us a bit about you" readOnly variant="bordered" />)
+        const container = screen
+            .getByRole('textbox', { name: 'Tell us a bit about you' })
+            .closest('.textAreaContainer')
+        expect(container).toHaveClass('readOnly')
+    })
+
     it('can be a controlled field', async () => {
         function TestCase() {
             const [value, setValue] = React.useState('')
