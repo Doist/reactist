@@ -395,4 +395,63 @@ describe('Menu', () => {
             })
         })
     })
+
+    describe('persistent elements', () => {
+        it('keeps elements marked with data-reactist-persist interactive while a modal menu is open', async () => {
+            render(
+                <>
+                    <div data-testid="drag-region" data-reactist-persist />
+                    <div data-testid="other-content" />
+                    <Menu>
+                        <MenuButton>Options menu</MenuButton>
+                        <MenuList aria-label="Some options">
+                            <MenuItem>First option</MenuItem>
+                        </MenuList>
+                    </Menu>
+                </>,
+            )
+            const user = userEvent.setup()
+
+            await user.click(screen.getByRole('button', { name: 'Options menu' }))
+            await flushMicrotasks()
+            expect(screen.getByRole('menu')).toBeInTheDocument()
+
+            // Ariakit disables the tree outside a modal menu (via `inert` where supported, and
+            // `aria-hidden` + `pointer-events: none` as a fallback in jsdom). The persistent
+            // element is exempted, so it stays interactive while a sibling without the attribute
+            // does not.
+            await waitFor(() => {
+                expect(screen.getByTestId('other-content')).toHaveAttribute('aria-hidden', 'true')
+            })
+            expect(screen.getByTestId('drag-region')).not.toHaveAttribute('aria-hidden')
+        })
+
+        it('still honors a consumer-provided getPersistentElements callback', async () => {
+            render(
+                <>
+                    <div data-testid="custom-persist" />
+                    <div data-testid="other-content" />
+                    <Menu>
+                        <MenuButton>Options menu</MenuButton>
+                        <MenuList
+                            aria-label="Some options"
+                            getPersistentElements={() => [screen.getByTestId('custom-persist')]}
+                        >
+                            <MenuItem>First option</MenuItem>
+                        </MenuList>
+                    </Menu>
+                </>,
+            )
+            const user = userEvent.setup()
+
+            await user.click(screen.getByRole('button', { name: 'Options menu' }))
+            await flushMicrotasks()
+            expect(screen.getByRole('menu')).toBeInTheDocument()
+
+            await waitFor(() => {
+                expect(screen.getByTestId('other-content')).toHaveAttribute('aria-hidden', 'true')
+            })
+            expect(screen.getByTestId('custom-persist')).not.toHaveAttribute('aria-hidden')
+        })
+    })
 })
