@@ -1,3 +1,9 @@
+## [33.1.0](https://github.com/Doist/reactist/compare/v33.0.1...v33.1.0) (2026-06-11)
+
+### Features
+
+- **prose:** add table styling support ([#1063](https://github.com/Doist/reactist/issues/1063)) ([b02c094](https://github.com/Doist/reactist/commit/b02c094f082b989835afe798f120715b770cf6f3))
+
 ## [33.0.1](https://github.com/Doist/reactist/compare/v33.0.0...v33.0.1) (2026-06-04)
 
 ### Bug Fixes
