@@ -74,6 +74,14 @@ Now a nested list:
 
     Do not bump wooden spoon or it will fall.
 
+And here's a table, with column alignment:
+
+| Item    | Quantity | Price |
+| ------- | :------: | ----: |
+| Carrots |        3 | $1.20 |
+| Celery  |        1 | $0.95 |
+| Lentils |      500g | $2.40 |
+
 ---
 
 A horizontal rule follows.
