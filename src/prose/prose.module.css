@@ -12,6 +12,13 @@
     --reactist-prose-horizontal-rule-color: var(--reactist-divider-primary);
 
     --reactist-prose-table-border: var(--reactist-divider-primary);
+
+    /* `transparent` (the initial value of `background-color`) rather than `initial`, which is
+       special-cased in custom property values to mean "guaranteed invalid", or `inherit`, which
+       backgrounds achieve through transparency rather than inheritance. */
+    --reactist-prose-table-header-fill: transparent;
+    --reactist-prose-table-row-odd-fill: transparent;
+    --reactist-prose-table-row-even-fill: transparent;
 }
 
 /* Internals for spacing. These are not considered public API. */
@@ -235,6 +242,20 @@
 .prose td {
     border: 1px solid var(--reactist-prose-table-border);
     padding: calc(var(--reactist-prose-space-1) / 2) var(--reactist-prose-space-1);
+}
+
+/* The header fill goes on the row rather than `th` so that row headers in table bodies
+   (`<tbody><tr><th scope="row">…`) stripe with their row instead of picking up the header fill. */
+.prose thead tr {
+    background-color: var(--reactist-prose-table-header-fill);
+}
+
+.prose tbody tr:nth-child(odd) {
+    background-color: var(--reactist-prose-table-row-odd-fill);
+}
+
+.prose tbody tr:nth-child(even) {
+    background-color: var(--reactist-prose-table-row-even-fill);
 }
 
 .prose th {

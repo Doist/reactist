@@ -100,3 +100,17 @@ instead of stretching the surrounding content:
 | Prose styles | https://github.com/Doist/reactist/blob/main/src/prose/prose.module.css |
 | Prose stories | https://github.com/Doist/reactist/blob/main/src/prose/prose.stories.tsx |
 `)
+
+export const proseTableColorsExample = marked(`
+Consumers can give the header row and odd/even body rows their own background colors via the
+\`--reactist-prose-table-header-fill\`, \`--reactist-prose-table-row-odd-fill\`, and
+\`--reactist-prose-table-row-even-fill\` custom properties (all default to \`transparent\`):
+
+| Item    | Quantity | Price |
+| ------- | :------: | ----: |
+| Carrots |        3 | $1.20 |
+| Celery  |        1 | $0.95 |
+| Lentils |     500g | $2.40 |
+| Onions  |        2 | $0.80 |
+| Stock   |       1L | $3.10 |
+`)
