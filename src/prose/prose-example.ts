@@ -90,3 +90,13 @@ A horizontal rule follows.
 
 The End
 `)
+
+export const proseTableOverflowExample = marked(`
+Tables whose content cannot wrap any further (e.g. long unbreakable links) scroll horizontally
+instead of stretching the surrounding content:
+
+| Resource | Reference |
+| -------- | --------- |
+| Prose styles | https://github.com/Doist/reactist/blob/main/src/prose/prose.module.css |
+| Prose stories | https://github.com/Doist/reactist/blob/main/src/prose/prose.stories.tsx |
+`)
