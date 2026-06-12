@@ -8,7 +8,7 @@ import Input from '../../src/components/deprecated-input'
 // Story setup ================================================================
 
 export default {
-    title: 'Components/Input',
+    title: '📝 Form/Input',
     component: Input,
     parameters: {
         badges: ['deprecated'],

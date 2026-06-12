@@ -8,7 +8,7 @@ import { Stack } from '../../src/stack'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 const meta: Meta<typeof KeyCapturer> = {
-    title: 'Components/KeyCapturer',
+    title: '⚙️ Utility/KeyCapturer',
     component: KeyCapturer,
 }
 export default meta

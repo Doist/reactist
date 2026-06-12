@@ -10,7 +10,7 @@ function Template({ label, message, disabled }) {
 }
 
 export default {
-    title: 'Design system/SwitchField',
+    title: '📝 Form/SwitchField',
     component: SwitchField,
 
     parameters: {

@@ -17,7 +17,7 @@ import type { TooltipProps } from './tooltip'
 //
 
 export default {
-    title: 'Design system/Tooltip',
+    title: '🪟 Overlays/Tooltip',
     parameters: {
         badges: ['accessible'],
     },

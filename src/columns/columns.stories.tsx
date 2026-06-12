@@ -23,7 +23,7 @@ import type {
 } from './columns'
 
 export default {
-    title: 'Design system/Columns',
+    title: '📐 Layout/Columns',
     component: Columns,
     subcomponents: { Column },
     argTypes: {

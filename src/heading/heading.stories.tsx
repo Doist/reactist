@@ -6,7 +6,7 @@ import { ResponsiveWidthRef, select, selectWithNone } from '../utils/storybook-h
 import { Heading } from './heading'
 
 export default {
-    title: 'Design system/Heading',
+    title: '🔤 Typography/Heading',
     component: Heading,
     parameters: {
         badges: ['accessible'],

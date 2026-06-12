@@ -40,7 +40,7 @@ function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
 }
 
 export default {
-    title: 'Design system/SelectField',
+    title: '📝 Form/SelectField',
     component: SelectField,
 
     parameters: {

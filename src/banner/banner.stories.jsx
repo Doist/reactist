@@ -383,7 +383,7 @@ function DarkModeTemplate() {
 }
 
 export default {
-    title: 'Design system/Banner',
+    title: '💬 Feedback/Banner',
     component: Banner,
 
     parameters: {

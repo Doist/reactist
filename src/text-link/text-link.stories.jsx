@@ -5,7 +5,7 @@ import { Stack } from '../stack'
 import { TextLink } from './text-link'
 
 export default {
-    title: 'Design system/TextLink',
+    title: '🔘 Buttons & links/TextLink',
     component: TextLink,
 
     parameters: {

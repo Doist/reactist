@@ -82,7 +82,7 @@ function AutoExpandWithInitialValueStory(props) {
 }
 
 export default {
-    title: 'Design system/TextArea',
+    title: '📝 Form/TextArea',
     component: TextArea,
 
     parameters: {
