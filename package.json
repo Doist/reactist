@@ -38,7 +38,7 @@
     "scripts": {
         "postinstall": "patch-package",
         "setup": "npm install && npm run validate",
-        "validate": "npm run lint && npm run type-check && npm run test",
+        "validate": "npm run lint && npm run type-check && npm run test && npm run test:react18",
         "start": "ON_SUCCESS=\"./scripts/organize-styles.sh\" rollup -c --watch --no-watch.clearScreen",
         "prestart:yalc": "npm run clean && yalc publish",
         "start:yalc": "ON_SUCCESS=\"npm run start:yalc:success\" rollup -c --watch --no-watch.clearScreen",
@@ -49,6 +49,8 @@
         "clean": "rimraf es lib styles dist",
         "test": "jest --passWithNoTests",
         "test:watch": "npm run test -- --watch",
+        "test:react18": "jest --config jest.config.react18.js",
+        "test:react18:watch": "npm run test:react18 -- --watch",
         "test:coverage": "npm run test -- --coverage",
         "type-check": "tsc --noEmit -p ./tsconfig.json",
         "lint": "eslint --format codeframe --cache --ext js,jsx,ts,tsx ./",
@@ -127,9 +129,11 @@
         "plop": "^3.1.1",
         "prettier": "3.6.2",
         "react": "19.2.7",
+        "react-18": "npm:react@18.3.1",
         "react-compiler-runtime": "1.0.0",
         "react-docgen-typescript": "2.4.0",
         "react-dom": "19.2.7",
+        "react-dom-18": "npm:react-dom@18.3.1",
         "react-is": "19.2.7",
         "rimraf": "^3.0.2",
         "rollup": "2.79.2",
@@ -155,6 +159,9 @@
         "pretty-format": {
             "react-is": "$react-is"
         },
-        "react-element-to-jsx-string": "15.0.0"
+        "react-element-to-jsx-string": "15.0.0",
+        "react-dom-18": {
+            "react": "$react"
+        }
     }
 }
