@@ -88,6 +88,10 @@ jobs:
               run: |
                   npm run type-check
 
+            - name: Perform type checking with TypeScript (React 18 typings)
+              run: |
+                  npm run type-check:react18
+
             - name: Check React Compiler compatibility
               if: ${{ github.event_name == 'pull_request' }}
               run: |

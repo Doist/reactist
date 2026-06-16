@@ -38,7 +38,7 @@
     "scripts": {
         "postinstall": "patch-package",
         "setup": "npm install && npm run validate",
-        "validate": "npm run lint && npm run type-check && npm run test && npm run test:react18",
+        "validate": "npm run lint && npm run type-check && npm run type-check:react18 && npm run test && npm run test:react18",
         "start": "ON_SUCCESS=\"./scripts/organize-styles.sh\" rollup -c --watch --no-watch.clearScreen",
         "prestart:yalc": "npm run clean && yalc publish",
         "start:yalc": "ON_SUCCESS=\"npm run start:yalc:success\" rollup -c --watch --no-watch.clearScreen",
@@ -53,6 +53,7 @@
         "test:react18:watch": "npm run test:react18 -- --watch",
         "test:coverage": "npm run test -- --coverage",
         "type-check": "tsc --noEmit -p ./tsconfig.json",
+        "type-check:react18": "tsc --noEmit -p ./tsconfig.react18.json",
         "lint": "eslint --format codeframe --cache --ext js,jsx,ts,tsx ./",
         "storybook": "storybook dev -p 6006",
         "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md,mdx}\"",
@@ -97,7 +98,9 @@
         "@types/jest-axe": "^3.5.3",
         "@types/marked": "^4.0.8",
         "@types/react": "19.2.17",
+        "@types/react-18": "npm:@types/react@^18.3",
         "@types/react-dom": "19.2.3",
+        "@types/react-dom-18": "npm:@types/react-dom@^18.3",
         "@typescript-eslint/eslint-plugin": "8.46.2",
         "@typescript-eslint/parser": "8.46.2",
         "@vitejs/plugin-react": "5.2.0",
@@ -160,6 +163,9 @@
         "react-element-to-jsx-string": "15.0.0",
         "react-dom-18": {
             "react": "$react"
+        },
+        "@types/react-dom-18": {
+            "@types/react": "$@types/react"
         }
     }
 }
