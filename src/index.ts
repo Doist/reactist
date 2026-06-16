@@ -38,6 +38,7 @@ export * from './text-field'
 // other components
 export * from './avatar'
 export * from './badge'
+export * from './expansion-panel'
 export * from './menu'
 export * from './modal'
 export * from './tabs'
