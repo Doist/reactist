@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react'
 
-import type * as PropTypes from 'prop-types'
 import type { ObfuscatedClassName } from './common-types'
 
 type Merge<P1, P2> = Omit<P1, keyof P2> & P2
@@ -170,9 +169,6 @@ interface PolymorphicComponent<
     ): React.ReactElement | null
     readonly $$typeof: symbol
     defaultProps?: Partial<
-        PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>
-    >
-    propTypes?: PropTypes.WeakValidationMap<
         PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>
     >
     displayName?: string

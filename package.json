@@ -61,7 +61,6 @@
     "peerDependencies": {
         "@ariakit/react": "~0.4.19",
         "classnames": "^2.2.5",
-        "prop-types": "^15.6.2",
         "react": ">=18.0.0 <20.0.0",
         "react-compiler-runtime": "^1.0.0",
         "react-dom": ">=18.0.0 <20.0.0"
@@ -97,7 +96,6 @@
         "@types/jest": "28.1.8",
         "@types/jest-axe": "^3.5.3",
         "@types/marked": "^4.0.8",
-        "@types/prop-types": "^15.7.15",
         "@types/react": "19.2.17",
         "@types/react-dom": "19.2.3",
         "@typescript-eslint/eslint-plugin": "8.46.2",
