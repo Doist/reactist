@@ -54,15 +54,18 @@ const Stack = polymorphicComponent<'div', StackProps>(function Stack(
             ref={ref}
         >
             {dividers !== 'none'
-                ? React.Children.map(flattenChildren(children), (child, index) =>
-                      index > 0 ? (
-                          <>
-                              <Divider weight={dividers} />
-                              {child}
-                          </>
-                      ) : (
-                          child
-                      ),
+                ? React.Children.map(
+                      // react-keyed-flatten-children returns ReactChild[], a type removed in React 19.
+                      flattenChildren(children) as React.ReactNode[],
+                      (child, index) =>
+                          index > 0 ? (
+                              <>
+                                  <Divider weight={dividers} />
+                                  {child}
+                              </>
+                          ) : (
+                              child
+                          ),
                   )
                 : children}
         </Box>

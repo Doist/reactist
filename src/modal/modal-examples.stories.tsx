@@ -29,6 +29,8 @@ import {
     ScrollableContent,
 } from './modal-stories-components'
 
+import type { JSX } from 'react'
+
 export default {
     title: '🪟 Overlays/Modal/Examples',
     component: ModalComponents.Modal,

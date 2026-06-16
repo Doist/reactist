@@ -286,8 +286,10 @@ describe('Menu', () => {
             expect(screen.getByRole('menuitem', { name: 'Save' })).toBeVisible()
         })
 
+        // Select via keyboard: in React 19 the hover-opened submenu closes synchronously when the pointer moves onto an item, unmounting it before a click can land.
+        await user.keyboard('{ArrowRight}')
         await act(async () => {
-            await user.click(screen.getByRole('menuitem', { name: 'Save' }))
+            await user.keyboard('{Enter}')
             await flushMicrotasks()
         })
 

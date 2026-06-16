@@ -6,6 +6,8 @@ import classNames from 'classnames'
 
 import Button from '../deprecated-button'
 
+import type { JSX } from 'react'
+
 type BoxProps = {
     onShowBody?: () => void
     onHideBody?: () => void

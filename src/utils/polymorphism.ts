@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import * as React from 'react'
 
+import type * as PropTypes from 'prop-types'
 import type { ObfuscatedClassName } from './common-types'
 
 type Merge<P1, P2> = Omit<P1, keyof P2> & P2
@@ -172,11 +172,23 @@ interface PolymorphicComponent<
     defaultProps?: Partial<
         PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>
     >
-    propTypes?: React.WeakValidationMap<
+    propTypes?: PropTypes.WeakValidationMap<
         PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>
     >
     displayName?: string
 }
+
+/** The render function shape React 19's `forwardRef` expects (props wrapped in `PropsWithoutRef`). */
+type PolymorphicRenderFunction<
+    ComponentType extends React.ElementType,
+    OwnProps,
+    ShouldObfuscateClassName extends ObfuscateClassNameMode,
+> = React.ForwardRefRenderFunction<
+    ElementByTagOrAny<ComponentType>,
+    React.PropsWithoutRef<
+        PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>
+    >
+>
 
 /**
  * A wrapper to use React.forwardRef with polymorphic components in a type-safe manner. This is a
@@ -190,11 +202,9 @@ function polymorphicComponent<
     OwnProps = EmptyObject,
     ShouldObfuscateClassName extends ObfuscateClassNameMode = 'obfuscateClassName',
 >(render: ForwardRefFunction<ComponentType, OwnProps, ShouldObfuscateClassName>) {
-    return React.forwardRef(render) as PolymorphicComponent<
-        ComponentType,
-        OwnProps,
-        ShouldObfuscateClassName
-    >
+    return React.forwardRef(
+        render as PolymorphicRenderFunction<ComponentType, OwnProps, ShouldObfuscateClassName>,
+    ) as PolymorphicComponent<ComponentType, OwnProps, ShouldObfuscateClassName>
 }
 
 export type { PolymorphicComponent, PolymorphicComponentProps }
