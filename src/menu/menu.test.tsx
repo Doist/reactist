@@ -286,7 +286,13 @@ describe('Menu', () => {
             expect(screen.getByRole('menuitem', { name: 'Save' })).toBeVisible()
         })
 
-        // Select via keyboard: in React 19 the hover-opened submenu closes synchronously when the pointer moves onto an item, unmounting it before a click can land.
+        // Without providing the correct DOMRects, Ariakit can't compute the geometry needed to
+        // determine whether the hovercard should stay open ([ref](https://github.com/ariakit/ariakit/blob/200aa56676b8373fe10ec6c5fac61003ae82c1de/packages/ariakit-react-core/src/hovercard/hovercard.tsx#L201-L222)),
+        // so it schedules for it to be closed. In React 18, we used to be able to assert that
+        // clicks happen on the menu before the closed menu renders, but in React 19, the render
+        // happens before that ([ref](https://github.com/facebook/react/pull/26512)).
+        // Since we don't want to test Ariakit's internals, we fall back to testing keyboard
+        // navigation to bypass this.
         await user.keyboard('{ArrowRight}')
         await act(async () => {
             await user.keyboard('{Enter}')
