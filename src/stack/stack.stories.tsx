@@ -19,7 +19,7 @@ import type { DividerWeight } from '../divider'
 import type { PartialProps } from '../utils/storybook-helper'
 
 export default {
-    title: 'Design system/Stack',
+    title: '📐 Layout/Stack',
     component: Stack,
     argTypes: {
         space: selectSize(),

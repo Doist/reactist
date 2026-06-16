@@ -96,7 +96,7 @@ function DarkModeTemplate() {
 }
 
 export default {
-    title: 'Design system/Badge',
+    title: '📊 Data display/Badge',
     component: Badge,
 
     parameters: {

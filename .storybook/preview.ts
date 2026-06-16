@@ -22,7 +22,21 @@ const preview: Preview = {
         options: {
             storySort: {
                 method: 'alphabetical',
-                order: ['Reactist', 'Design tokens', 'Design system', 'Hooks', 'Components'],
+                order: [
+                    'Reactist',
+                    'Design tokens',
+                    '🔘 Buttons & links',
+                    '📊 Data display',
+                    '💬 Feedback',
+                    '📝 Form',
+                    '📐 Layout',
+                    '📑 Menus & tabs',
+                    '🪟 Overlays',
+                    '🔤 Typography',
+                    '⚙️ Utility',
+                    '🪝 Hooks',
+                    'Tips and tricks',
+                ],
             },
         },
         chromatic: {

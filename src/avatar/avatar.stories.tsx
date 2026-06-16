@@ -183,7 +183,7 @@ type PlaygroundArgs = Omit<AvatarProps, 'image'> & {
 }
 
 const meta = {
-    title: 'Components/Avatar',
+    title: '📊 Data display/Avatar',
     component: Avatar,
     parameters: {
         badges: ['accessible'],

@@ -46,7 +46,7 @@ const Template = ({
 )
 
 export default {
-    title: 'Design system/Tabs',
+    title: '📑 Menus & tabs/Tabs',
     component: Tabs,
 
     parameters: {

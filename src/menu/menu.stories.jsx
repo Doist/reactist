@@ -59,7 +59,7 @@ function StructuredMenuItem({ icon, label, shortcut }) {
 }
 
 export default {
-    title: 'Design system/Menu',
+    title: '📑 Menus & tabs/Menu',
     component: Menu,
 
     parameters: {

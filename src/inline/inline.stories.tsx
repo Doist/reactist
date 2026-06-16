@@ -18,7 +18,7 @@ import type { PartialProps } from '../utils/storybook-helper'
 import type { InlineAlign } from './inline'
 
 export default {
-    title: 'Design system/Inline',
+    title: '📐 Layout/Inline',
     component: Inline,
     argTypes: {
         space: selectSize('medium'),

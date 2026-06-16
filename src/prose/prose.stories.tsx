@@ -8,7 +8,7 @@ import { proseExample, proseTableColorsExample, proseTableOverflowExample } from
 import type { ProseProps } from './prose'
 
 export default {
-    title: 'Design system/Prose',
+    title: '🔤 Typography/Prose',
     component: Prose,
     parameters: {
         badges: ['accessible'],

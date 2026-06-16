@@ -32,7 +32,7 @@ import type {
 import type { BoxBorderRadius } from './box'
 
 export default {
-    title: 'Design system/Box',
+    title: '📐 Layout/Box',
     component: Box,
     parameters: {
         badges: ['accessible'],

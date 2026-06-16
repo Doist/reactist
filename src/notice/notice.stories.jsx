@@ -28,7 +28,7 @@ function Template({ tone, content, closeLabel }) {
 }
 
 export default {
-    title: 'Design system/Notice',
+    title: '💬 Feedback/Notice',
     component: Notice,
 
     parameters: {

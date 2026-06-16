@@ -30,7 +30,7 @@ import {
 } from './modal-stories-components'
 
 export default {
-    title: 'Design system/Modal/Examples',
+    title: '🪟 Overlays/Modal/Examples',
     component: ModalComponents.Modal,
     parameters: {
         viewMode: 'story',

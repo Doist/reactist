@@ -22,7 +22,7 @@ import type { ButtonVariant } from '../button'
 import type { StaticToastProps } from './static-toast'
 
 export default {
-    title: 'Design system/Toast',
+    title: '💬 Feedback/Toast',
     parameters: {
         badges: ['accessible'],
         layout: 'fullscreen',

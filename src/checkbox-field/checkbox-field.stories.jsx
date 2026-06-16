@@ -29,7 +29,7 @@ const Template = ({
 }) => <CheckboxField disabled={disabled} indeterminate={indeterminate} label={label} icon={icon} />
 
 export default {
-    title: 'Design system/CheckboxField',
+    title: '📝 Form/CheckboxField',
     component: CheckboxField,
 
     parameters: {

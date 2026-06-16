@@ -183,7 +183,7 @@ function DarkModeTemplate(props) {
 }
 
 export default {
-    title: 'Design system/Button',
+    title: '🔘 Buttons & links/Button',
     component: Button,
 
     parameters: {

@@ -6,7 +6,7 @@ import { ResponsiveWidthRef, select, selectWithNone } from '../utils/storybook-h
 import { Text } from './text'
 
 export default {
-    title: 'Design system/Text',
+    title: '🔤 Typography/Text',
     component: Text,
     parameters: {
         badges: ['accessible'],

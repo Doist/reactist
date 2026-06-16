@@ -41,7 +41,7 @@ function InteractivePropsStory({ label, auxiliaryLabel, endSlot = false, ...prop
 }
 
 export default {
-    title: 'Design system/PasswordField',
+    title: '📝 Form/PasswordField',
     component: PasswordField,
 
     parameters: {

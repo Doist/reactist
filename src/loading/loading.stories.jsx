@@ -16,7 +16,7 @@ function Example({ children, size }) {
 }
 
 export default {
-    title: 'Design system/Loading',
+    title: '💬 Feedback/Loading',
     component: Loading,
 
     parameters: {
