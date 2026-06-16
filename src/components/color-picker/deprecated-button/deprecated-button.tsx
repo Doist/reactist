@@ -83,10 +83,4 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
 
 Button.displayName = 'Button'
 
-Button.defaultProps = {
-    size: 'default',
-    loading: false,
-    disabled: false,
-}
-
 export { Button }

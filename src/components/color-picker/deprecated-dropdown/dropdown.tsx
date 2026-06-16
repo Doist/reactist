@@ -1,7 +1,6 @@
 import './dropdown.less'
 
 import * as React from 'react'
-import ReactDOM from 'react-dom'
 
 import classNames from 'classnames'
 
@@ -29,6 +28,8 @@ type BoxState = {
 class Box extends React.Component<BoxProps, BoxState> {
     public static displayName: string
 
+    private rootRef = React.createRef<HTMLDivElement>()
+
     constructor(props: BoxProps, context: React.Context<unknown>) {
         super(props, context)
         this.state = {
@@ -48,7 +49,7 @@ class Box extends React.Component<BoxProps, BoxState> {
     _timeout?: ReturnType<typeof setTimeout>
 
     _handleClickOutside = (event: MouseEvent) => {
-        const dropdownDOMNode = ReactDOM.findDOMNode(this)
+        const dropdownDOMNode = this.rootRef.current
 
         if (dropdownDOMNode && !dropdownDOMNode.contains(event.target as Node))
             this._toggleShowBody()
@@ -93,13 +94,12 @@ class Box extends React.Component<BoxProps, BoxState> {
             )
 
             if (scrollingParent) {
-                const dropdown = ReactDOM.findDOMNode(this)
+                const dropdown = this.rootRef.current
                 if (!dropdown) {
                     return
                 }
-                const dropdownVerticalPosition = (ReactDOM.findDOMNode(this) as HTMLElement)
-                    .offsetTop
-                const dropdownTrigger = (dropdown as Element).querySelector('.trigger')
+                const dropdownVerticalPosition = dropdown.offsetTop
+                const dropdownTrigger = dropdown.querySelector('.trigger')
                 if (!dropdownTrigger) {
                     return
                 }
@@ -160,6 +160,7 @@ class Box extends React.Component<BoxProps, BoxState> {
 
         return (
             <div
+                ref={this.rootRef}
                 style={{ display: 'inline-block' }}
                 className={className}
                 data-testid="reactist-dropdown-box"
