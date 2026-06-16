@@ -103,11 +103,10 @@ interface ForwardRefFunction<
     ShouldObfuscateClassName extends ObfuscateClassNameMode,
 > {
     (
-        props: PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>,
-        ref:
-            | ((instance: ElementByTagOrAny<ComponentType> | null) => void)
-            | React.MutableRefObject<ElementByTagOrAny<ComponentType> | null>
-            | null,
+        props: React.PropsWithoutRef<
+            PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>
+        >,
+        ref: React.ForwardedRef<ElementByTagOrAny<ComponentType>>,
     ): React.ReactElement | null
     displayName?: string
 }
@@ -174,18 +173,6 @@ interface PolymorphicComponent<
     displayName?: string
 }
 
-/** The render function shape React 19's `forwardRef` expects (props wrapped in `PropsWithoutRef`). */
-type PolymorphicRenderFunction<
-    ComponentType extends React.ElementType,
-    OwnProps,
-    ShouldObfuscateClassName extends ObfuscateClassNameMode,
-> = React.ForwardRefRenderFunction<
-    ElementByTagOrAny<ComponentType>,
-    React.PropsWithoutRef<
-        PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>
-    >
->
-
 /**
  * A wrapper to use React.forwardRef with polymorphic components in a type-safe manner. This is a
  * convenience over merely using React.forwardRef directly, and then manually forcing the resulting
@@ -198,9 +185,11 @@ function polymorphicComponent<
     OwnProps = EmptyObject,
     ShouldObfuscateClassName extends ObfuscateClassNameMode = 'obfuscateClassName',
 >(render: ForwardRefFunction<ComponentType, OwnProps, ShouldObfuscateClassName>) {
-    return React.forwardRef(
-        render as PolymorphicRenderFunction<ComponentType, OwnProps, ShouldObfuscateClassName>,
-    ) as PolymorphicComponent<ComponentType, OwnProps, ShouldObfuscateClassName>
+    return React.forwardRef(render) as PolymorphicComponent<
+        ComponentType,
+        OwnProps,
+        ShouldObfuscateClassName
+    >
 }
 
 export type { PolymorphicComponent, PolymorphicComponentProps }
