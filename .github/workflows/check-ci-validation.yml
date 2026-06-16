@@ -129,9 +129,13 @@ jobs:
               run: |
                   npm ci
 
-            - name: Test codebase correctness
+            - name: Test codebase correctness (React 19)
               run: |
                   npm run test
+
+            - name: Test codebase correctness (React 18)
+              run: |
+                  npm run test:react18
 
     build-package:
         name: Build Package
