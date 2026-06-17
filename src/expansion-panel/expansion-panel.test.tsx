@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { axe } from 'jest-axe'
 
 import {
     ExpansionPanel,
@@ -27,13 +28,40 @@ function renderPanel(overrides: PanelOverrides = {}) {
     )
 }
 
+function renderButtonTogglePanel(overrides: PanelOverrides = {}) {
+    return render(
+        <ExpansionPanel id="panel-content" {...overrides}>
+            <ExpansionPanelHeader>
+                <ExpansionPanelToggle>Section label</ExpansionPanelToggle>
+            </ExpansionPanelHeader>
+            <ExpansionPanelContent>
+                <span>Body content</span>
+            </ExpansionPanelContent>
+        </ExpansionPanel>,
+    )
+}
+
 describe('ExpansionPanel', () => {
+    it('has no accessibility violations', async () => {
+        const { container } = renderPanel({ initiallyExpanded: true })
+        expect(await axe(container)).toHaveNoViolations()
+    })
+
     it('wires the toggle to the content via aria-controls', () => {
         renderPanel()
 
         const toggle = screen.getByRole('button', { name: 'Toggle section' })
         expect(toggle).toHaveAttribute('aria-controls', 'panel-content')
         expect(document.getElementById('panel-content')).toBeInTheDocument()
+    })
+
+    it('shows content when expanded and hides it when collapsed', () => {
+        const { unmount } = renderPanel({ initiallyExpanded: true })
+        expect(screen.getByText('Body content')).toBeVisible()
+        unmount()
+
+        renderPanel({ initiallyExpanded: false })
+        expect(screen.getByText('Body content')).not.toBeVisible()
     })
 
     it('toggles its expanded state in uncontrolled mode', async () => {
@@ -60,5 +88,17 @@ describe('ExpansionPanel', () => {
 
         await user.click(toggle)
         expect(onToggleExpand).toHaveBeenCalledTimes(1)
+    })
+
+    it('renders a full-width button toggle (named by its children) when given children', async () => {
+        const user = userEvent.setup()
+        renderButtonTogglePanel({ initiallyExpanded: true })
+
+        const toggle = screen.getByRole('button', { name: 'Section label' })
+        expect(toggle).toHaveAttribute('aria-expanded', 'true')
+        expect(toggle).toHaveAttribute('aria-controls', 'panel-content')
+
+        await user.click(toggle)
+        expect(toggle).toHaveAttribute('aria-expanded', 'false')
     })
 })

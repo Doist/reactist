@@ -10,12 +10,24 @@ import { ChevronDownIcon, ChevronDownSmallIcon } from './chevron-down-icon'
 
 import styles from './expansion-panel.module.css'
 
-/** Make the listed keys of `T` optional. */
-type SetOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
+/**
+ * Returns the `[isExpanded, toggle]` pair. Controlled mode is derived from
+ * whether `isExpanded` is provided (not from `onToggleExpand`), so a controlled
+ * panel always reflects later prop updates. The uncontrolled toggle is a stable
+ * callback so the context value below doesn't change on every render.
+ */
+function useControlledState(
+    controlledValue: boolean | undefined,
+    onToggle: (() => void) | undefined,
+    initiallyExpanded: boolean | undefined,
+): [boolean, () => void] {
+    const [internalState, setInternalState] = React.useState(initiallyExpanded ?? false)
+    const toggleInternal = React.useCallback(() => setInternalState((expanded) => !expanded), [])
 
-function useControlledState(value = false, onToggle?: () => void): [boolean, () => void] {
-    const [state, setState] = React.useState(value)
-    return onToggle === undefined ? [state, () => setState(!state)] : [value, onToggle]
+    if (controlledValue !== undefined) {
+        return [controlledValue, onToggle ?? toggleInternal]
+    }
+    return [internalState, toggleInternal]
 }
 
 type ExpansionPanelState = {
@@ -32,10 +44,11 @@ const ExpansionPanelStateContext = React.createContext<ExpansionPanelState>({
 
 type ExpansionPanelProps = {
     /**
-     * The id to apply to the expanded content, used by the toggle's
-     * aria-controls attribute
+     * The id applied to the expanded content, used by the toggle's
+     * `aria-controls` attribute. Defaults to an auto-generated id; provide one
+     * only when you need a specific, stable DOM id.
      */
-    id: string
+    id?: string
     children: React.ReactNode
 } & (
     | {
@@ -61,121 +74,169 @@ type ExpansionPanelProps = {
  * `ExpansionPanelToggle`, and `ExpansionPanelContent` as children.
  *
  * Supports both controlled (`isExpanded` + `onToggleExpand`) and uncontrolled
- * (`initiallyExpanded`) modes; mixing the two logs a warning and falls back to
- * controlled.
+ * (`initiallyExpanded`) modes.
  */
-function ExpansionPanel({ children, initiallyExpanded, id, ...props }: ExpansionPanelProps) {
-    if (
-        initiallyExpanded !== undefined &&
-        (props.isExpanded !== undefined || props.onToggleExpand !== undefined)
-    ) {
-        // eslint-disable-next-line no-console
-        console.warn('[ExpansionPanel]: cannot use initiallyExpanded in controlled mode')
-        initiallyExpanded = undefined
-    }
+const ExpansionPanel = React.forwardRef<HTMLDivElement, ExpansionPanelProps>(
+    function ExpansionPanel({ children, initiallyExpanded, id: providedId, ...props }, ref) {
+        if (
+            initiallyExpanded !== undefined &&
+            (props.isExpanded !== undefined || props.onToggleExpand !== undefined)
+        ) {
+            // eslint-disable-next-line no-console
+            console.warn('[ExpansionPanel]: cannot use initiallyExpanded in controlled mode')
+        }
+        if (props.isExpanded !== undefined && props.onToggleExpand === undefined) {
+            // eslint-disable-next-line no-console
+            console.warn('[ExpansionPanel]: `isExpanded` must be paired with `onToggleExpand`')
+        }
 
-    const [isExpanded, onToggleExpand] = useControlledState(
-        props.isExpanded || initiallyExpanded,
-        props.onToggleExpand,
-    )
-    const contextValue = React.useMemo(
-        () => ({ isExpanded, onToggleExpand, id }),
-        [isExpanded, onToggleExpand, id],
-    )
+        const generatedId = React.useId()
+        const id = providedId ?? generatedId
 
-    return (
-        <ExpansionPanelStateContext.Provider value={contextValue}>
-            <Box>{children}</Box>
-        </ExpansionPanelStateContext.Provider>
-    )
-}
+        const [isExpanded, onToggleExpand] = useControlledState(
+            props.isExpanded,
+            props.onToggleExpand,
+            initiallyExpanded,
+        )
+        const contextValue = React.useMemo(
+            () => ({ isExpanded, onToggleExpand, id }),
+            [isExpanded, onToggleExpand, id],
+        )
+
+        return (
+            <ExpansionPanelStateContext.Provider value={contextValue}>
+                <Box ref={ref}>{children}</Box>
+            </ExpansionPanelStateContext.Provider>
+        )
+    },
+)
+
+type ExpansionPanelHeaderProps = React.ComponentProps<typeof Box>
 
 /**
  * Semantic wrapper for the panel's header row. A thin alias over `Box` — use it
  * to colocate the toggle with sibling controls (e.g. add/delete buttons) without
  * making the whole row clickable.
  */
-function ExpansionPanelHeader({
-    children,
-    ...props
-}: React.ComponentProps<typeof Box>): React.ReactElement {
-    return <Box {...props}>{children}</Box>
-}
-
-type ExpansionPanelToggleProps = {
-    /**
-     * Required accessible label for the toggle button. The consumer owns
-     * localization — typically something like `"Toggle list of Projects"`.
-     */
-    'aria-label': string
-    'aria-describedby'?: string
-
-    /** Chevron icon size. Defaults to `'24'`. */
-    size?: '24' | '16'
-} & (
-    | ({
-          children: React.ReactNode
-      } & Omit<SetOptional<React.ComponentProps<typeof Button>, 'variant'>, 'size'>)
-    | ({
-          children?: never
-      } & Omit<SetOptional<React.ComponentProps<typeof IconButton>, 'variant'>, 'size' | 'icon'>)
+const ExpansionPanelHeader = React.forwardRef<HTMLDivElement, ExpansionPanelHeaderProps>(
+    function ExpansionPanelHeader({ children, ...props }, ref) {
+        return (
+            <Box ref={ref} {...props}>
+                {children}
+            </Box>
+        )
+    },
 )
 
 /**
- * Button that toggles the panel's expand/collapse state. Wires up
- * `aria-expanded` and `aria-controls` automatically from the parent
+ * Props the toggle owns internally and consumers must not override — omitted
+ * from the public prop types. (`size` here refers to the chevron size below, not
+ * the button's own `size`, which is also internal.)
+ */
+type InternalToggleProps =
+    | 'variant'
+    | 'size'
+    | 'icon'
+    | 'startIcon'
+    | 'onClick'
+    | 'aria-expanded'
+    | 'aria-controls'
+    | 'aria-label'
+    | 'children'
+
+type ButtonTogglePassthrough = Omit<React.ComponentProps<typeof Button>, InternalToggleProps>
+type IconButtonTogglePassthrough = Omit<
+    React.ComponentProps<typeof IconButton>,
+    InternalToggleProps
+>
+
+type ExpansionPanelToggleProps =
+    | ({
+          /**
+           * Visible label for the button. `aria-label` is optional here since
+           * the children already name the button.
+           */
+          children: React.ReactNode
+          'aria-label'?: string
+          /** Chevron icon size. Defaults to `'24'`. */
+          size?: '24' | '16'
+      } & ButtonTogglePassthrough)
+    | ({
+          children?: never
+          /** Required accessible label for the icon-only toggle. */
+          'aria-label': string
+          /** Chevron icon size. Defaults to `'24'`. */
+          size?: '24' | '16'
+      } & IconButtonTogglePassthrough)
+
+/**
+ * Button that toggles the panel's expand/collapse state. Wires up `onClick`,
+ * `aria-expanded`, and `aria-controls` automatically from the parent
  * `ExpansionPanel`'s context.
  *
- * Renders an `IconButton` when no children are passed, or a full-width `Button`
- * with a chevron start icon otherwise. Remaining props forward to the underlying
- * button.
+ * Renders an `IconButton` when no children are passed (`aria-label` required),
+ * or a full-width `Button` with a chevron start icon otherwise. Remaining props
+ * forward to the underlying button.
  */
-function ExpansionPanelToggle({
-    exceptionallySetClassName,
-    children,
-    'aria-label': ariaLabel,
-    'aria-describedby': ariaDescribedBy,
-    size = '24',
-    ...props
-}: ExpansionPanelToggleProps) {
-    const { id, isExpanded, onToggleExpand } = React.useContext(ExpansionPanelStateContext)
+const ExpansionPanelToggle = React.forwardRef<HTMLButtonElement, ExpansionPanelToggleProps>(
+    function ExpansionPanelToggle(
+        { exceptionallySetClassName, children, 'aria-label': ariaLabel, size = '24', ...props },
+        ref,
+    ) {
+        const { id, isExpanded, onToggleExpand } = React.useContext(ExpansionPanelStateContext)
 
-    const ChevronIcon = size === '24' ? ChevronDownIcon : ChevronDownSmallIcon
+        const ChevronIcon = size === '24' ? ChevronDownIcon : ChevronDownSmallIcon
 
-    if (!children) {
+        // `props` is the toggle's discriminated union minus the destructured keys.
+        // Destructuring `children` doesn't narrow the rest, so assert the variant
+        // we've already branched on.
+        if (!children) {
+            return (
+                <IconButton
+                    ref={ref}
+                    variant="quaternary"
+                    size="small"
+                    {...(props as unknown as Omit<
+                        IconButtonTogglePassthrough,
+                        'exceptionallySetClassName'
+                    >)}
+                    onClick={onToggleExpand}
+                    aria-expanded={isExpanded}
+                    aria-controls={id}
+                    // Required by the icon-only variant's type; the `!children` branch guarantees it.
+                    aria-label={ariaLabel as string}
+                    icon={<ChevronIcon className={styles.toggleIcon} />}
+                    exceptionallySetClassName={classNames(styles.toggle, exceptionallySetClassName)}
+                />
+            )
+        }
+
         return (
-            <IconButton
+            <Button
+                ref={ref}
                 variant="quaternary"
-                size="small"
-                {...props}
+                width="full"
+                align="start"
+                {...(props as unknown as Omit<
+                    ButtonTogglePassthrough,
+                    'exceptionallySetClassName'
+                >)}
                 onClick={onToggleExpand}
                 aria-expanded={isExpanded}
                 aria-controls={id}
                 aria-label={ariaLabel}
-                aria-describedby={ariaDescribedBy}
-                icon={<ChevronIcon className={styles.toggleIcon} />}
+                startIcon={<ChevronIcon className={styles.toggleIcon} />}
                 exceptionallySetClassName={classNames(styles.toggle, exceptionallySetClassName)}
-            />
+            >
+                {children}
+            </Button>
         )
-    }
+    },
+)
 
-    return (
-        <Button
-            variant="quaternary"
-            width="full"
-            align="start"
-            {...props}
-            onClick={onToggleExpand}
-            aria-expanded={isExpanded}
-            aria-controls={id}
-            aria-label={ariaLabel}
-            aria-describedby={ariaDescribedBy}
-            startIcon={<ChevronIcon className={styles.toggleIcon} />}
-            exceptionallySetClassName={classNames(styles.toggle, exceptionallySetClassName)}
-        >
-            {children}
-        </Button>
-    )
+type ExpansionPanelContentProps = Omit<React.ComponentProps<typeof Box>, 'id'> & {
+    /** Called once the expand animation finishes (not fired on collapse). */
+    onEntered?: () => void
 }
 
 /**
@@ -183,24 +244,25 @@ function ExpansionPanelToggle({
  * expand/collapse driven by the parent `ExpansionPanel`'s state. Extra props
  * forward to the inner `Box`.
  */
-function ExpansionPanelContent({
-    children,
-    onEntered,
-    ...props
-}: Omit<React.ComponentProps<typeof Box>, 'id'> & {
-    /** Called once the expand animation finishes (not fired on collapse). */
-    onEntered?: () => void
-}) {
-    const { isExpanded, id } = React.useContext(ExpansionPanelStateContext)
-    return (
-        <Box>
-            <AnimatedExpansionPanelContent isExpanded={isExpanded} onEntered={onEntered}>
-                <Box {...props} id={id}>
-                    {children}
-                </Box>
-            </AnimatedExpansionPanelContent>
-        </Box>
-    )
-}
+const ExpansionPanelContent = React.forwardRef<HTMLDivElement, ExpansionPanelContentProps>(
+    function ExpansionPanelContent({ children, onEntered, ...props }, ref) {
+        const { isExpanded, id } = React.useContext(ExpansionPanelStateContext)
+        return (
+            <Box>
+                <AnimatedExpansionPanelContent isExpanded={isExpanded} onEntered={onEntered}>
+                    <Box {...props} ref={ref} id={id}>
+                        {children}
+                    </Box>
+                </AnimatedExpansionPanelContent>
+            </Box>
+        )
+    },
+)
 
 export { ExpansionPanel, ExpansionPanelContent, ExpansionPanelHeader, ExpansionPanelToggle }
+export type {
+    ExpansionPanelContentProps,
+    ExpansionPanelHeaderProps,
+    ExpansionPanelProps,
+    ExpansionPanelToggleProps,
+}
