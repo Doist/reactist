@@ -4,11 +4,6 @@ import BaseDecorator from './BaseDecorator'
 import '../src/styles/design-tokens.css'
 import '../stories/components/styles/story.css'
 
-const badgeFontStyles = {
-    fontSize: '12px',
-    lineHeight: '14px',
-}
-
 const preview: Preview = {
     decorators: [BaseDecorator],
     parameters: {
@@ -42,42 +37,24 @@ const preview: Preview = {
         chromatic: {
             disableSnapshot: true,
         },
+        // The \uFE0E after each symbol forces text (not emoji) presentation, so the glyph
+        // inherits the badge tint color instead of falling back to the black emoji font.
         badgesConfig: {
             accessible: {
-                title: '✔ Accessible (WCAG 2.0 AA)',
-                styles: {
-                    backgroundColor: 'rgba(5, 133, 39, 0.1)',
-                    borderColor: 'rgb(5, 133, 39)',
-                    color: 'rgb(5, 133, 39)',
-                    ...badgeFontStyles,
-                },
+                title: '✔\uFE0E Accessible (WCAG 2.0 AA)',
+                tone: 'positive',
             },
             partiallyAccessible: {
-                title: '⚠ Partially Accessible',
-                styles: {
-                    backgroundColor: 'rgba(235, 141, 19, 0.1)',
-                    borderColor: 'rgb(235, 141, 19)',
-                    color: 'rgb(235, 141, 19)',
-                    ...badgeFontStyles,
-                },
+                title: '⚠\uFE0E Partially Accessible',
+                tone: 'warning',
             },
             notAccessible: {
-                title: '✖ Not accessible',
-                styles: {
-                    backgroundColor: 'rgba(209, 69, 59, 0.1)',
-                    borderColor: 'rgb(209, 69, 59)',
-                    color: 'rgb(209, 69, 59)',
-                    ...badgeFontStyles,
-                },
+                title: '✖\uFE0E Not accessible',
+                tone: 'attention',
             },
             deprecated: {
-                title: '✖ Deprecated',
-                styles: {
-                    backgroundColor: 'rgba(209, 69, 59, 0.1)',
-                    borderColor: 'rgb(209, 69, 59)',
-                    color: 'rgb(209, 69, 59)',
-                    ...badgeFontStyles,
-                },
+                title: '✖\uFE0E Deprecated',
+                tone: 'attention',
             },
         },
     },

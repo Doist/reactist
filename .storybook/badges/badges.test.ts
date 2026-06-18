@@ -6,42 +6,46 @@ describe('resolveBadges', () => {
             resolveBadges(['accessible', 'deprecated'], {
                 accessible: {
                     title: 'Accessible',
-                    styles: { color: 'green' },
+                    tone: 'positive',
                 },
                 deprecated: {
                     title: 'Deprecated',
-                    styles: { color: 'red' },
+                    tone: 'attention',
                 },
             }),
         ).toEqual([
             {
                 id: 'accessible',
                 title: 'Accessible',
-                styles: { color: 'green' },
+                tone: 'positive',
             },
             {
                 id: 'deprecated',
                 title: 'Deprecated',
-                styles: { color: 'red' },
+                tone: 'attention',
             },
         ])
     })
 
     it('filters unknown badges and invalid badge entries', () => {
         expect(
-            resolveBadges(['accessible', 'missing', 42, 'untitled'], {
+            resolveBadges(['accessible', 'missing', 42, 'untitled', 'untoned'], {
                 accessible: {
                     title: 'Accessible',
+                    tone: 'positive',
                 },
                 untitled: {
-                    styles: { color: 'orange' },
+                    tone: 'positive',
+                },
+                untoned: {
+                    title: 'Untoned',
                 },
             }),
         ).toEqual([
             {
                 id: 'accessible',
                 title: 'Accessible',
-                styles: undefined,
+                tone: 'positive',
             },
         ])
     })
@@ -53,20 +57,14 @@ describe('resolveBadges', () => {
         expect(resolveBadges(['accessible'], [])).toEqual([])
     })
 
-    it('ignores non-object styles', () => {
+    it('rejects an unknown tone', () => {
         expect(
             resolveBadges(['accessible'], {
                 accessible: {
                     title: 'Accessible',
-                    styles: 'color: green',
+                    tone: 'rainbow',
                 },
             }),
-        ).toEqual([
-            {
-                id: 'accessible',
-                title: 'Accessible',
-                styles: undefined,
-            },
-        ])
+        ).toEqual([])
     })
 })
