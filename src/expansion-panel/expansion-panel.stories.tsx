@@ -26,7 +26,7 @@ export const IconToggle = {
                     alignItems="center"
                     justifyContent="spaceBetween"
                 >
-                    <Text size="body" weight="semibold">
+                    <Text size="body" tone="secondary" weight="semibold">
                         Fruit
                     </Text>
                     <ExpansionPanelToggle size="16" aria-label="Toggle fruit list" />
