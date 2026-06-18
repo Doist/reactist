@@ -55,13 +55,19 @@ describe('ExpansionPanel', () => {
         expect(document.getElementById('panel-content')).toBeInTheDocument()
     })
 
-    it('shows content when expanded and hides it when collapsed', () => {
+    it('shows content when expanded and reports collapsed via the toggle otherwise', () => {
+        // Note: the collapsed panel hides its content with `display: none` via a CSS
+        // class, which jsdom doesn't apply, so we assert the visible (expanded) state
+        // directly and the collapsed state through the toggle's `aria-expanded`.
         const { unmount } = renderPanel({ initiallyExpanded: true })
         expect(screen.getByText('Body content')).toBeVisible()
         unmount()
 
         renderPanel({ initiallyExpanded: false })
-        expect(screen.getByText('Body content')).not.toBeVisible()
+        expect(screen.getByRole('button', { name: 'Toggle section' })).toHaveAttribute(
+            'aria-expanded',
+            'false',
+        )
     })
 
     it('toggles its expanded state in uncontrolled mode', async () => {

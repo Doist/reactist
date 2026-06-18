@@ -12,27 +12,27 @@ import {
 } from './expansion-panel'
 
 export default {
-    title: '📐 Layout/ExpansionPanel',
+    title: '🧭 Navigation & structure/ExpansionPanel',
     component: ExpansionPanel,
 }
 
 export const IconToggle = {
     name: 'Icon toggle',
     render: () => (
-        <Box maxWidth="small">
+        <Box maxWidth="small" background="aside" borderRadius="standard" padding="medium">
             <ExpansionPanel id="expansion-panel-fruit" initiallyExpanded>
                 <ExpansionPanelHeader
                     display="flex"
                     alignItems="center"
                     justifyContent="spaceBetween"
                 >
-                    <Text size="caption" weight="semibold" tone="secondary">
+                    <Text size="body" weight="semibold">
                         Fruit
                     </Text>
                     <ExpansionPanelToggle size="16" aria-label="Toggle fruit list" />
                 </ExpansionPanelHeader>
                 <ExpansionPanelContent>
-                    <Stack space="small" paddingY="small">
+                    <Stack space="small" paddingTop="small">
                         <Text>Apple</Text>
                         <Text>Banana</Text>
                         <Text>Cherry</Text>
@@ -46,7 +46,7 @@ export const IconToggle = {
 export const ButtonToggle = {
     name: 'Button toggle',
     render: () => (
-        <Box maxWidth="small">
+        <Box maxWidth="small" background="aside" borderRadius="standard" padding="medium">
             <ExpansionPanel id="expansion-panel-veg" initiallyExpanded>
                 <ExpansionPanelHeader>
                     <ExpansionPanelToggle aria-label="Toggle vegetable list">
@@ -54,7 +54,7 @@ export const ButtonToggle = {
                     </ExpansionPanelToggle>
                 </ExpansionPanelHeader>
                 <ExpansionPanelContent>
-                    <Stack space="small" paddingY="small">
+                    <Stack space="small" paddingTop="small">
                         <Text>Carrot</Text>
                         <Text>Potato</Text>
                         <Text>Spinach</Text>

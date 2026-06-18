@@ -5,7 +5,7 @@ import { Box } from '../box'
 
 import styles from './animated-expansion-panel-content.module.css'
 
-const HEIGHT_TRANSITION_DURATION = 200 /* milliseconds */
+const HEIGHT_TRANSITION_DURATION_MS = 200
 
 /** Vertical offset (px) the content drops in from as it opens. Negative = starts
  *  slightly above its resting place and settles down, matching the direction the
@@ -20,7 +20,7 @@ const OPEN_TRANSITION =
 const CLOSE_TRANSITION = 'opacity 140ms ease-in, transform 190ms cubic-bezier(0.4, 0, 0.2, 1)'
 
 function setElementHeight(element: HTMLElement, height: number | 'auto') {
-    element.style.transitionDuration = `${HEIGHT_TRANSITION_DURATION}ms`
+    element.style.transitionDuration = `${HEIGHT_TRANSITION_DURATION_MS}ms`
     element.style.height = height === 'auto' ? height : `${height}px`
 }
 
@@ -124,15 +124,15 @@ function AnimatedExpansionPanelContent({ isExpanded, children, onEntered }: Prop
             onEntered={handleEntered}
             onExiting={handleExiting}
             onExit={handleExit}
-            timeout={HEIGHT_TRANSITION_DURATION}
+            timeout={HEIGHT_TRANSITION_DURATION_MS}
             in={isExpanded}
         >
             {(state) => (
                 <Box
                     ref={transitionElementRef}
-                    overflow="hidden"
+                    overflow={state === 'entered' ? 'visible' : 'hidden'}
+                    display={state === 'exited' ? 'none' : 'block'}
                     className={[styles.container, state === 'entered' ? styles.entered : null]}
-                    style={state === 'exited' ? { display: 'none' } : undefined}
                 >
                     <Box display="flex" ref={wrapperRef}>
                         <Box width="full" ref={contentRef}>
