@@ -10,6 +10,10 @@ export default {
     title: '📊 Data display/KeyboardShortcut',
     parameters: {
         badges: ['accessible'],
+        figma: {
+            label: 'Web › Components / Todoist › Keyboard Shortcuts › Shortcut',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=9140-282739',
+        },
     },
 }
 

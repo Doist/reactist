@@ -10,6 +10,10 @@ export default {
     component: Text,
     parameters: {
         badges: ['accessible'],
+        figma: {
+            label: 'Global › Text Styles › SF *FOR WEB* › Body 1',
+            url: 'https://www.figma.com/design/xo9yAsH8PQUpi0eTJh9pmR/Product-Library---Global?node-id=2524-3594',
+        },
     },
 }
 

@@ -20,6 +20,10 @@ export default {
     title: '🪟 Overlays/Tooltip',
     parameters: {
         badges: ['accessible'],
+        figma: {
+            label: 'Web › Components / Todoist › Tooltips',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=14597-177215',
+        },
     },
 }
 
