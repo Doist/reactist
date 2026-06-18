@@ -145,11 +145,17 @@ const Tooltip = React.forwardRef<TooltipStore, TooltipProps>(
         }
 
         /* eslint-disable react-hooks/refs */
-        const childRef =
+        const rawRef =
             'ref' in child.props
-                ? (child.props.ref as React.Ref<HTMLDivElement>)
+                ? child.props.ref
                 : // child.ref access kept for React 18 compatibility
-                  (child as { ref?: React.Ref<HTMLDivElement> }).ref
+                  (child as { ref?: unknown }).ref
+
+        if (typeof rawRef === 'string') {
+            throw new Error('Tooltip: String refs cannot be used as they cannot be forwarded')
+        }
+
+        const childRef = rawRef as React.Ref<HTMLDivElement>
 
         return (
             <>
