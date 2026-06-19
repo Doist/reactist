@@ -14,6 +14,10 @@ export const FigmaTool = React.memo(function FigmaTool() {
     const figmaParameter = useParameter(FIGMA_PARAMETER, undefined)
     const links = React.useMemo(() => resolveFigmaLinks(figmaParameter), [figmaParameter])
 
+    if (figmaParameter === false) {
+        return null
+    }
+
     return (
         <Inline space="xsmall">
             {links.length === 0 ? (

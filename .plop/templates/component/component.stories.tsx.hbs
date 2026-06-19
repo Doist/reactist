@@ -8,6 +8,8 @@ const meta = {
     component: {{pascalCase name}},
     parameters: {
         badges: ['accessible'],
+        // Link a Figma design to show it in the toolbar, or set `figma: false`
+        // to hide the tool on pages with no matching design (e.g. hook docs):
         // figma: { path: 'Figma file › Page › Section › Component', url: 'https://www.figma.com/design/…?node-id=…' },
     },
 } satisfies Meta<typeof {{pascalCase name}}>
