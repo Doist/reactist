@@ -1,8 +1,11 @@
-import type { Preview } from '@storybook/react-vite'
-import { create } from 'storybook/theming/create'
-import BaseDecorator from './BaseDecorator'
 import '../src/styles/design-tokens.css'
 import '../stories/components/styles/story.css'
+
+import { create } from 'storybook/theming/create'
+
+import BaseDecorator from './BaseDecorator'
+
+import type { Preview } from '@storybook/react-vite'
 
 const badgeFontStyles = {
     fontSize: '12px',
@@ -31,6 +34,7 @@ const preview: Preview = {
                     '📝 Form',
                     '📐 Layout',
                     '📑 Menus & tabs',
+                    '🧭 Navigation & structure',
                     '🪟 Overlays',
                     '🔤 Typography',
                     '⚙️ Utility',
