@@ -1,3 +1,9 @@
+## [33.2.2](https://github.com/Doist/reactist/compare/v33.2.1...v33.2.2) (2026-06-19)
+
+### Bug Fixes
+
+- **tooltip:** Let ariakit merge the child ref to avoid React ref warning ([#1079](https://github.com/Doist/reactist/issues/1079)) ([bd2db2d](https://github.com/Doist/reactist/commit/bd2db2d828f2c2700964b3d44e6e33a0e9b66819))
+
 ## [33.2.1](https://github.com/Doist/reactist/compare/v33.2.0...v33.2.1) (2026-06-19)
 
 ### Bug Fixes
