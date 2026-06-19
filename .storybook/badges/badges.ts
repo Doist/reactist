@@ -8,7 +8,16 @@ type ResolvedBadge = {
     tone: BadgeTone
 }
 
-const VALID_TONES: readonly BadgeTone[] = ['info', 'positive', 'promote', 'attention', 'warning']
+// Ensure valid tones are checked against the Badge's tone prop
+const TONE_SET: Record<BadgeTone, true> = {
+    info: true,
+    positive: true,
+    promote: true,
+    attention: true,
+    warning: true,
+}
+
+const VALID_TONES = Object.keys(TONE_SET) as BadgeTone[]
 
 function isRecord(value: unknown): value is Record<string, unknown> {
     return typeof value === 'object' && value !== null && !Array.isArray(value)
