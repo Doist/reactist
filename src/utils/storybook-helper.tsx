@@ -6,6 +6,7 @@ import { Box } from '../box'
 import { Heading } from '../heading'
 import { Stack } from '../stack'
 
+import type { JSX } from 'react'
 import type { BoxProps } from '../box'
 import type { Space } from './common-types'
 

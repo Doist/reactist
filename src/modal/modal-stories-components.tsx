@@ -8,6 +8,7 @@ import { Placeholder, times } from '../utils/storybook-helper'
 
 import * as ModalComponents from './modal'
 
+import type { JSX } from 'react'
 import type { ModalFooterProps, ModalHeaderProps, ModalProps } from './modal'
 
 function Link({ children, ...props }: JSX.IntrinsicElements['a']) {

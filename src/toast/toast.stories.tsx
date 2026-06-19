@@ -18,6 +18,7 @@ import { Text } from '../text'
 import { StaticToast } from './static-toast'
 import { Toast, ToastsProvider, useToasts } from './use-toasts'
 
+import type { JSX } from 'react'
 import type { ButtonVariant } from '../button'
 import type { StaticToastProps } from './static-toast'
 

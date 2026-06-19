@@ -5,6 +5,7 @@ import { Box } from '../box'
 
 import styles from './select-field.module.css'
 
+import type { JSX } from 'react'
 import type { BaseFieldVariantProps, FieldComponentProps } from '../base-field'
 
 interface SelectFieldProps
