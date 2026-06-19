@@ -17,9 +17,6 @@
     "src/menu/menu.tsx": {
       "CompileError": 2
     },
-    "src/tabs/tabs.tsx": {
-      "CompileError": 4
-    },
     "src/tooltip/tooltip.tsx": {
       "CompileError": 1
     },
