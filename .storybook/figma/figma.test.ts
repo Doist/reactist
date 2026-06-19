@@ -1,15 +1,6 @@
 import { resolveFigmaLinks } from './figma'
 
 describe('resolveFigmaLinks', () => {
-    it('resolves a bare string as both url and path', () => {
-        expect(resolveFigmaLinks('https://figma.com/design/abc?node-id=1-2')).toEqual([
-            {
-                path: 'https://figma.com/design/abc?node-id=1-2',
-                url: 'https://figma.com/design/abc?node-id=1-2',
-            },
-        ])
-    })
-
     it('resolves an object with path and url', () => {
         expect(
             resolveFigmaLinks({
@@ -33,22 +24,20 @@ describe('resolveFigmaLinks', () => {
     it('resolves an array, dropping malformed entries', () => {
         expect(
             resolveFigmaLinks([
-                'https://figma.com/a',
                 { path: 'B', url: 'https://figma.com/b' },
                 { path: 'C' },
                 { url: 42 },
                 '',
                 null,
             ]),
-        ).toEqual([
-            { path: 'https://figma.com/a', url: 'https://figma.com/a' },
-            { path: 'B', url: 'https://figma.com/b' },
-        ])
+        ).toEqual([{ path: 'B', url: 'https://figma.com/b' }])
     })
 
     it('treats malformed and empty params as no links', () => {
         expect(resolveFigmaLinks(undefined)).toEqual([])
         expect(resolveFigmaLinks(null)).toEqual([])
+        expect(resolveFigmaLinks(false)).toEqual([])
+        expect(resolveFigmaLinks('https://figma.com/x')).toEqual([])
         expect(resolveFigmaLinks('')).toEqual([])
         expect(resolveFigmaLinks({})).toEqual([])
         expect(resolveFigmaLinks({ path: 'no url' })).toEqual([])

@@ -8,10 +8,6 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 function resolveEntry(entry: unknown): ResolvedFigmaLink[] {
-    if (typeof entry === 'string') {
-        return entry.length > 0 ? [{ path: entry, url: entry }] : []
-    }
-
     if (isRecord(entry) && typeof entry.url === 'string' && entry.url.length > 0) {
         const path =
             typeof entry.path === 'string' && entry.path.length > 0 ? entry.path : entry.url
