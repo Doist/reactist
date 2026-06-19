@@ -1,5 +1,5 @@
 type ResolvedFigmaLink = {
-    label: string
+    path: string
     url: string
 }
 
@@ -9,13 +9,13 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function resolveEntry(entry: unknown): ResolvedFigmaLink[] {
     if (typeof entry === 'string') {
-        return entry.length > 0 ? [{ label: entry, url: entry }] : []
+        return entry.length > 0 ? [{ path: entry, url: entry }] : []
     }
 
     if (isRecord(entry) && typeof entry.url === 'string' && entry.url.length > 0) {
-        const label =
-            typeof entry.label === 'string' && entry.label.length > 0 ? entry.label : entry.url
-        return [{ label, url: entry.url }]
+        const path =
+            typeof entry.path === 'string' && entry.path.length > 0 ? entry.path : entry.url
+        return [{ path, url: entry.url }]
     }
 
     return []

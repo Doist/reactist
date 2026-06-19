@@ -24,8 +24,8 @@ export const FigmaTool = React.memo(function FigmaTool() {
                         key={link.url}
                         variant="quaternary"
                         icon={<FigmaIcon />}
-                        aria-label={`View in Figma: ${link.label}`}
-                        tooltip={link.label}
+                        aria-label={`View in Figma: ${link.path}`}
+                        tooltip={link.path}
                         render={<a href={link.url} target="_blank" rel="noopener noreferrer" />}
                     />
                 ))

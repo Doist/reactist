@@ -191,7 +191,7 @@ export default {
     parameters: {
         badges: ['accessible'],
         figma: {
-            label: '24Q3 Foundation › Text field',
+            path: '24Q3 Foundation › Text field',
             url: 'https://www.figma.com/design/5gTX7MuUxhCIvL6WK87JVA/24Q3-Foundation?node-id=1987-64913',
         },
     },

@@ -189,7 +189,7 @@ export default {
     parameters: {
         badges: ['accessible'],
         figma: {
-            label: 'Web › Components / Todoist › Buttons › Button',
+            path: 'Web › Components / Todoist › Buttons › Button',
             url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=507-10',
         },
     },

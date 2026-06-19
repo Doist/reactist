@@ -102,7 +102,7 @@ export default {
     parameters: {
         badges: ['accessible'],
         figma: {
-            label: 'Web › Components / Todoist › Badge',
+            path: 'Web › Components / Todoist › Badge',
             url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=9038-280657',
         },
     },

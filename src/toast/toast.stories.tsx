@@ -27,7 +27,7 @@ export default {
     parameters: {
         badges: ['accessible'],
         figma: {
-            label: 'Web › Components / Todoist › Toast › Toast',
+            path: 'Web › Components / Todoist › Toast › Toast',
             url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=6654-220700',
         },
         layout: 'fullscreen',

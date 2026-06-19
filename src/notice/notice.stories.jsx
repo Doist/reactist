@@ -34,7 +34,7 @@ export default {
     parameters: {
         badges: ['accessible'],
         figma: {
-            label: 'Web › Components / Todoist › Banner › Banner',
+            path: 'Web › Components / Todoist › Banner › Banner',
             url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=15487-102766',
         },
     },

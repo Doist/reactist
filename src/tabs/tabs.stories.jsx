@@ -52,7 +52,7 @@ export default {
     parameters: {
         badges: ['accessible'],
         figma: {
-            label: 'Web › Components / Todoist › Tabs › Tab Group',
+            path: 'Web › Components / Todoist › Tabs › Tab Group',
             url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=8371-275288',
         },
     },

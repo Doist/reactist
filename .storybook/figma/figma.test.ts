@@ -1,32 +1,32 @@
 import { resolveFigmaLinks } from './figma'
 
 describe('resolveFigmaLinks', () => {
-    it('resolves a bare string as both url and label', () => {
+    it('resolves a bare string as both url and path', () => {
         expect(resolveFigmaLinks('https://figma.com/design/abc?node-id=1-2')).toEqual([
             {
-                label: 'https://figma.com/design/abc?node-id=1-2',
+                path: 'https://figma.com/design/abc?node-id=1-2',
                 url: 'https://figma.com/design/abc?node-id=1-2',
             },
         ])
     })
 
-    it('resolves an object with label and url', () => {
+    it('resolves an object with path and url', () => {
         expect(
             resolveFigmaLinks({
-                label: 'Web › Buttons › Button',
+                path: 'Web › Buttons › Button',
                 url: 'https://figma.com/design/abc?node-id=1-2',
             }),
         ).toEqual([
             {
-                label: 'Web › Buttons › Button',
+                path: 'Web › Buttons › Button',
                 url: 'https://figma.com/design/abc?node-id=1-2',
             },
         ])
     })
 
-    it('falls back to the url as label when label is missing', () => {
+    it('falls back to the url as path when path is missing', () => {
         expect(resolveFigmaLinks({ url: 'https://figma.com/design/abc' })).toEqual([
-            { label: 'https://figma.com/design/abc', url: 'https://figma.com/design/abc' },
+            { path: 'https://figma.com/design/abc', url: 'https://figma.com/design/abc' },
         ])
     })
 
@@ -34,15 +34,15 @@ describe('resolveFigmaLinks', () => {
         expect(
             resolveFigmaLinks([
                 'https://figma.com/a',
-                { label: 'B', url: 'https://figma.com/b' },
-                { label: 'C' },
+                { path: 'B', url: 'https://figma.com/b' },
+                { path: 'C' },
                 { url: 42 },
                 '',
                 null,
             ]),
         ).toEqual([
-            { label: 'https://figma.com/a', url: 'https://figma.com/a' },
-            { label: 'B', url: 'https://figma.com/b' },
+            { path: 'https://figma.com/a', url: 'https://figma.com/a' },
+            { path: 'B', url: 'https://figma.com/b' },
         ])
     })
 
@@ -51,7 +51,7 @@ describe('resolveFigmaLinks', () => {
         expect(resolveFigmaLinks(null)).toEqual([])
         expect(resolveFigmaLinks('')).toEqual([])
         expect(resolveFigmaLinks({})).toEqual([])
-        expect(resolveFigmaLinks({ label: 'no url' })).toEqual([])
+        expect(resolveFigmaLinks({ path: 'no url' })).toEqual([])
         expect(resolveFigmaLinks({ url: 42 })).toEqual([])
         expect(resolveFigmaLinks([])).toEqual([])
     })

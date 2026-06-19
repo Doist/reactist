@@ -188,7 +188,7 @@ const meta = {
     parameters: {
         badges: ['accessible'],
         figma: {
-            label: 'Global › Avatar',
+            path: 'Global › Avatar',
             url: 'https://www.figma.com/design/xo9yAsH8PQUpi0eTJh9pmR/Product-Library---Global?node-id=6957-36532',
         },
     },

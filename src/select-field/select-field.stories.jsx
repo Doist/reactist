@@ -46,7 +46,7 @@ export default {
     parameters: {
         badges: ['accessible'],
         figma: {
-            label: 'Web › Components / Todoist › Context Menus › Dropdown',
+            path: 'Web › Components / Todoist › Context Menus › Dropdown',
             url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=20744-678051',
         },
     },
