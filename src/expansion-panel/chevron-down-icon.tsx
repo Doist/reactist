@@ -1,4 +1,5 @@
 import * as React from 'react'
+import type { JSX } from 'react'
 
 /**
  * Chevron used by `ExpansionPanelToggle`. Kept local to the component for now,
