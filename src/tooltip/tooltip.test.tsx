@@ -159,7 +159,7 @@ describe('Tooltip', () => {
         jest.useRealTimers()
     })
 
-    it("does not interfere with the trigger element's ref forwarding", () => {
+    it("does not interfere with the trigger element's ref forwarding", async () => {
         const buttonRef = React.createRef<HTMLButtonElement>()
 
         render(
@@ -168,7 +168,14 @@ describe('Tooltip', () => {
             </Tooltip>,
         )
 
-        expect(buttonRef.current).toBe(screen.getByRole('button'))
+        const button = screen.getByRole('button', { name: 'Click me' })
+        expect(buttonRef.current).toBe(button)
+
+        const user = userEvent.setup()
+        await user.hover(button)
+        expect(
+            await screen.findByRole('tooltip', { name: 'tooltip content here' }),
+        ).toBeInTheDocument()
     })
 
     it('supports components with an "as" prop as the anchor', async () => {
