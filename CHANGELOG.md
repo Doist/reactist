@@ -1,3 +1,9 @@
+## [33.2.0](https://github.com/Doist/reactist/compare/v33.1.0...v33.2.0) (2026-06-19)
+
+### Features
+
+- support React 19 ([#1074](https://github.com/Doist/reactist/issues/1074)) ([0637971](https://github.com/Doist/reactist/commit/06379714f9410ce1cc75e80c1f8e6d0a39a621c9))
+
 ## [33.1.0](https://github.com/Doist/reactist/compare/v33.0.1...v33.1.0) (2026-06-11)
 
 ### Features
