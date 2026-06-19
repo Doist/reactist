@@ -19,9 +19,6 @@
     },
     "src/tooltip/tooltip.tsx": {
       "CompileError": 1
-    },
-    "src/utils/common-helpers.ts": {
-      "CompileError": 2
     }
   }
 }

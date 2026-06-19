@@ -14,11 +14,6 @@ export function generateElementId(prefix: string): string {
  * @deprecated Use `useId` available from React 18 or above instead.
  */
 export function useId(providedId?: string): string {
-    const ref = React.useRef<string | null>(providedId ?? null)
-    // eslint-disable-next-line react-hooks/refs
-    if (!ref.current) {
-        ref.current = generateElementId('element')
-    }
-    // eslint-disable-next-line react-hooks/refs
-    return ref.current
+    const [id] = React.useState<string>(() => providedId || generateElementId('element'))
+    return id
 }
