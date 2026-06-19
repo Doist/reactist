@@ -144,22 +144,9 @@ const Tooltip = React.forwardRef<TooltipStore, TooltipProps>(
             return child
         }
 
-        /* eslint-disable react-hooks/refs */
-        const rawRef =
-            'ref' in child.props
-                ? child.props.ref
-                : // child.ref access kept for React 18 compatibility
-                  (child as { ref?: unknown }).ref
-
-        if (typeof rawRef === 'string') {
-            throw new Error('Tooltip: String refs cannot be used as they cannot be forwarded')
-        }
-
-        const childRef = rawRef as React.Ref<HTMLDivElement>
-
         return (
             <>
-                <TooltipAnchor render={child} store={tooltip} ref={childRef} />
+                <TooltipAnchor render={child} store={tooltip} />
                 {isOpen && content ? (
                     <AriakitTooltip
                         store={tooltip}
@@ -184,7 +171,6 @@ const Tooltip = React.forwardRef<TooltipStore, TooltipProps>(
                 ) : null}
             </>
         )
-        /* eslint-enable react-hooks/refs */
     },
 )
 
