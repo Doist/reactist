@@ -1,3 +1,9 @@
+## [33.2.1](https://github.com/Doist/reactist/compare/v33.2.0...v33.2.1) (2026-06-19)
+
+### Bug Fixes
+
+- avoid ref access in useId ([#1078](https://github.com/Doist/reactist/issues/1078)) ([4d44edf](https://github.com/Doist/reactist/commit/4d44edfb09f436f37e81d28d7876a65a9e439ac0))
+
 ## [33.2.0](https://github.com/Doist/reactist/compare/v33.1.0...v33.2.0) (2026-06-19)
 
 ### Features
