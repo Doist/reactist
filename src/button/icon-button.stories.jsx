@@ -106,6 +106,10 @@ export default {
 
     parameters: {
         badges: ['accessible'],
+        figma: {
+            path: 'Web › Components / Todoist › Buttons › Button (Variant=Icon)',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=507-10',
+        },
     },
 }
 

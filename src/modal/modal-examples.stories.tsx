@@ -37,6 +37,10 @@ export default {
     parameters: {
         viewMode: 'story',
         badges: ['accessible'],
+        figma: {
+            path: 'Web › Components / Todoist › Settings › Modal / Header',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=7443-241153',
+        },
         layout: 'fullscreen',
     },
     decorators: [

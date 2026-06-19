@@ -64,6 +64,10 @@ export default {
 
     parameters: {
         badges: ['accessible'],
+        figma: {
+            path: 'Web › Components / Todoist › Context Menus › Context Menu',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=2057-40323',
+        },
     },
 }
 
