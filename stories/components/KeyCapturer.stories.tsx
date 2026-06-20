@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import { action } from 'storybook/actions'
 
+import { FIGMA_NOT_NEEDED } from '../../.storybook/figma/constants'
 import KeyCapturer from '../../src/components/key-capturer'
 import { Stack } from '../../src/stack'
 
@@ -10,6 +11,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 const meta: Meta<typeof KeyCapturer> = {
     title: '⚙️ Utility/KeyCapturer',
     component: KeyCapturer,
+    parameters: {
+        figma: FIGMA_NOT_NEEDED,
+    },
 }
 export default meta
 
