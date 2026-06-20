@@ -32,7 +32,7 @@ import {
 import type { JSX } from 'react'
 
 export default {
-    title: '🪟 Overlays/Modal/Examples',
+    title: '🪟 Overlays/Modal',
     component: ModalComponents.Modal,
     parameters: {
         viewMode: 'story',

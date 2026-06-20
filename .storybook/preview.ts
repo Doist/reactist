@@ -1,6 +1,7 @@
 import type { Preview } from '@storybook/react-vite'
 import { create } from 'storybook/theming/create'
 import BaseDecorator from './BaseDecorator'
+import { reactistBadgeTones } from './components/badge-tones'
 import '../src/styles/design-tokens.css'
 import '../stories/components/styles/story.css'
 
@@ -37,24 +38,22 @@ const preview: Preview = {
         chromatic: {
             disableSnapshot: true,
         },
-        // The \uFE0E after each symbol forces text (not emoji) presentation, so the glyph
-        // inherits the badge tint color instead of falling back to the black emoji font.
         badgesConfig: {
             accessible: {
-                title: '✔\uFE0E Accessible (WCAG 2.0 AA)',
-                tone: 'positive',
+                title: '✔︎ Accessible (WCAG 2.0 AA)',
+                styles: reactistBadgeTones.positive,
             },
             partiallyAccessible: {
-                title: '⚠\uFE0E Partially Accessible',
-                tone: 'warning',
+                title: '⚠︎ Partially Accessible',
+                styles: reactistBadgeTones.warning,
             },
             notAccessible: {
-                title: '✖\uFE0E Not accessible',
-                tone: 'attention',
+                title: '✖︎ Not accessible',
+                styles: reactistBadgeTones.attention,
             },
             deprecated: {
-                title: '✖\uFE0E Deprecated',
-                tone: 'attention',
+                title: '✖︎ Deprecated',
+                styles: reactistBadgeTones.attention,
             },
         },
     },
