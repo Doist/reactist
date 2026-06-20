@@ -1,30 +1,28 @@
-import type { BadgeProps } from '../../src/badge/badge'
+import type { CSSProperties } from 'react'
 
-type BadgeTone = BadgeProps['tone']
+type UnknownRecord = Record<string, unknown>
+
+type BadgeConfig = {
+    title?: unknown
+    styles?: unknown
+}
 
 type ResolvedBadge = {
     id: string
     title: string
-    tone: BadgeTone
+    styles: CSSProperties | undefined
 }
 
-// Ensure valid tones are checked against the Badge's tone prop
-const TONE_SET: Record<BadgeTone, true> = {
-    info: true,
-    positive: true,
-    promote: true,
-    attention: true,
-    warning: true,
-}
-
-const VALID_TONES = Object.keys(TONE_SET) as BadgeTone[]
-
-function isRecord(value: unknown): value is Record<string, unknown> {
+function isRecord(value: unknown): value is UnknownRecord {
     return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
-function isBadgeTone(value: unknown): value is BadgeTone {
-    return typeof value === 'string' && (VALID_TONES as readonly string[]).includes(value)
+function isBadgeConfig(value: unknown): value is BadgeConfig {
+    return isRecord(value)
+}
+
+function resolveStyles(styles: unknown): CSSProperties | undefined {
+    return isRecord(styles) ? (styles as CSSProperties) : undefined
 }
 
 function resolveBadges(badges: unknown, badgesConfig: unknown): ResolvedBadge[] {
@@ -39,11 +37,7 @@ function resolveBadges(badges: unknown, badgesConfig: unknown): ResolvedBadge[] 
 
         const badgeConfig = badgesConfig[badge]
 
-        if (!isRecord(badgeConfig) || typeof badgeConfig.title !== 'string') {
-            return []
-        }
-
-        if (!isBadgeTone(badgeConfig.tone)) {
+        if (!isBadgeConfig(badgeConfig) || typeof badgeConfig.title !== 'string') {
             return []
         }
 
@@ -51,7 +45,7 @@ function resolveBadges(badges: unknown, badgesConfig: unknown): ResolvedBadge[] 
             {
                 id: badge,
                 title: badgeConfig.title,
-                tone: badgeConfig.tone,
+                styles: resolveStyles(badgeConfig.styles),
             },
         ]
     })
