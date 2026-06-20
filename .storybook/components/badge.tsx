@@ -1,11 +1,5 @@
 import * as React from 'react'
 
-const containerStyle: React.CSSProperties = {
-    alignItems: 'center',
-    display: 'inline-flex',
-    gap: '4px',
-}
-
 const badgeStyle: React.CSSProperties = {
     alignItems: 'center',
     border: '1px solid currentColor',
@@ -30,13 +24,5 @@ function Badge({ label, styles }: BadgeProps) {
     return <span style={{ ...badgeStyle, ...styles }}>{label}</span>
 }
 
-function BadgeGroup({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-    return (
-        <div style={containerStyle} {...props}>
-            {children}
-        </div>
-    )
-}
-
-export { Badge, BadgeGroup }
+export { Badge }
 export type { BadgeProps }

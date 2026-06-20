@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Button } from 'storybook/internal/components'
 import { Tag, useParameter, useStorybookApi } from 'storybook/manager-api'
 
-import { Badge, BadgeGroup } from '../components/badge'
+import { Badge } from '../components/badge'
 import { reactistBadgeTones } from '../components/badge-tones'
 
 import { FIGMA_NOT_NEEDED, FIGMA_PARAMETER } from './constants'
@@ -49,9 +49,5 @@ export const FigmaTool = React.memo(function FigmaTool() {
         return null
     }
 
-    return (
-        <BadgeGroup>
-            <Badge label="No Figma link" styles={reactistBadgeTones.info} />
-        </BadgeGroup>
-    )
+    return <Badge label="No Figma link" styles={reactistBadgeTones.info} />
 })

@@ -2,10 +2,16 @@ import * as React from 'react'
 
 import { useParameter } from 'storybook/manager-api'
 
-import { Badge, BadgeGroup } from '../components/badge'
+import { Badge } from '../components/badge'
 
 import { resolveBadges } from './badges'
 import { BADGES_CONFIG_PARAMETER, BADGES_PARAMETER, TOOL_ID } from './constants'
+
+const containerStyle: React.CSSProperties = {
+    alignItems: 'center',
+    display: 'inline-flex',
+    gap: '4px',
+}
 
 const emptyBadges: unknown[] = []
 const emptyBadgesConfig: Record<string, unknown> = {}
@@ -24,14 +30,15 @@ export const BadgesTool = React.memo(function BadgesTool() {
     }
 
     return (
-        <BadgeGroup
+        <div
             key={TOOL_ID}
             aria-label="Story badges"
+            style={containerStyle}
             title={badges.map(({ title }) => title).join(', ')}
         >
             {badges.map(({ id, title, styles }, index) => (
                 <Badge key={`${id}-${index}`} label={title} styles={styles} />
             ))}
-        </BadgeGroup>
+        </div>
     )
 })
