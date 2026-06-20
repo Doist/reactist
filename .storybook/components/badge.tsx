@@ -4,7 +4,6 @@ const containerStyle: React.CSSProperties = {
     alignItems: 'center',
     display: 'inline-flex',
     gap: '4px',
-    marginInline: '6px',
 }
 
 const badgeStyle: React.CSSProperties = {
