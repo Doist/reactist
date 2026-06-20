@@ -1,17 +1,8 @@
 import { Meta, ArgTypes, Description } from '@storybook/addon-docs/blocks'
 import { Modal, ModalHeader, ModalBody, ModalFooter, ModalActions, ModalCloseButton } from './modal'
+import * as ModalStories from './modal.stories'
 
-<Meta
-    title="🪟 Overlays/Modal/Docs"
-    component={Modal}
-    parameters={{
-        badges: ['accessible'],
-        figma: {
-            path: 'Web › Components / Todoist › Settings › Modal / Header',
-            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=7443-241153',
-        },
-    }}
-/>
+<Meta of={ModalStories} />
 
 # Modal
 
