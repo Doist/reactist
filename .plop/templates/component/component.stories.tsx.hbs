@@ -7,10 +7,26 @@ const meta = {
     title: 'Design system/{{pascalCase name}}',
     component: {{pascalCase name}},
     parameters: {
+        /**
+         * Storybook toolbar badges
+         * Used to highlight the web accessibility standards the component meets or
+         * whether the component is deprecated.
+         * Possible values: `accessible`, `partiallyAccessible`, `notAccessible`, `deprecated`
+         * @see .storybook/badges/README.md
+         */
         badges: ['accessible'],
-        // Link a Figma design to show it in the toolbar, or set `figma: false`
-        // to hide the tool on pages with no matching design (e.g. hook docs):
-        // figma: { path: 'Figma file › Page › Section › Component', url: 'https://www.figma.com/design/…?node-id=…' },
+
+        /**
+         * Figma design link
+         * Used to link to the component's design in Figma
+         * For non-visual components, set `figma: FIGMA_NOT_NEEDED` (imported from
+         * `.storybook/figma/constants`) to hide the "No Figma link" hint.
+         * @see .storybook/figma/README.md
+         */
+        figma: {
+            path: 'Figma file › Page › Section › Component', 
+            url: 'https://www.figma.com/design/…?node-id=…', 
+        },
     },
 } satisfies Meta<typeof {{pascalCase name}}>
 
