@@ -64,7 +64,8 @@
         "classnames": "^2.2.5",
         "react": ">=18.0.0 <20.0.0",
         "react-compiler-runtime": "^1.0.0",
-        "react-dom": ">=18.0.0 <20.0.0"
+        "react-dom": ">=18.0.0 <20.0.0",
+        "react-transition-group": "^4.4.5"
     },
     "devDependencies": {
         "@ariakit/react": "0.4.19",
@@ -101,6 +102,7 @@
         "@types/react-18": "npm:@types/react@^18.3",
         "@types/react-dom": "19.2.3",
         "@types/react-dom-18": "npm:@types/react-dom@^18.3",
+        "@types/react-transition-group": "4.4.6",
         "@typescript-eslint/eslint-plugin": "8.46.2",
         "@typescript-eslint/parser": "8.46.2",
         "@vitejs/plugin-react": "5.2.0",
@@ -136,6 +138,7 @@
         "react-dom": "19.2.7",
         "react-dom-18": "npm:react-dom@18.3.1",
         "react-is": "19.2.7",
+        "react-transition-group": "4.4.5",
         "rimraf": "^3.0.2",
         "rollup": "2.79.2",
         "rollup-plugin-styles": "4.0.0",

@@ -1,9 +1,12 @@
-import type { Preview } from '@storybook/react-vite'
-import { create } from 'storybook/theming/create'
-import BaseDecorator from './BaseDecorator'
-import { reactistBadgeTones } from './components/badge-tones'
 import '../src/styles/design-tokens.css'
 import '../stories/components/styles/story.css'
+
+import { create } from 'storybook/theming/create'
+
+import BaseDecorator from './BaseDecorator'
+import { reactistBadgeTones } from './components/badge-tones'
+
+import type { Preview } from '@storybook/react-vite'
 
 const preview: Preview = {
     decorators: [BaseDecorator],
@@ -27,6 +30,7 @@ const preview: Preview = {
                     '📝 Form',
                     '📐 Layout',
                     '📑 Menus & tabs',
+                    '🧭 Navigation & structure',
                     '🪟 Overlays',
                     '🔤 Typography',
                     '⚙️ Utility',

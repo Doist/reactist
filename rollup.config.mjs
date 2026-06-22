@@ -1,10 +1,11 @@
-import typescript from '@rollup/plugin-typescript'
-import resolve from '@rollup/plugin-node-resolve'
+import { exec } from 'child_process'
+
 import { babel } from '@rollup/plugin-babel'
 import commonjs from '@rollup/plugin-commonjs'
-import styles from 'rollup-plugin-styles'
+import resolve from '@rollup/plugin-node-resolve'
 import terser from '@rollup/plugin-terser'
-import { exec } from 'child_process'
+import typescript from '@rollup/plugin-typescript'
+import styles from 'rollup-plugin-styles'
 import { visualizer } from 'rollup-plugin-visualizer'
 
 const isWatchMode = process.env.ROLLUP_WATCH === 'true'
@@ -14,6 +15,7 @@ const external = [
     /@babel\/runtime/,
     'react',
     'react-dom',
+    'react-transition-group',
     'react-compiler-runtime',
     'classnames',
     'prop-types',
