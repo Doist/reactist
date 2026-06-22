@@ -4,6 +4,7 @@ import {
     Tab as BaseTab,
     TabList as BaseTabList,
     TabPanel as BaseTabPanel,
+    useStoreState,
     useTabStore,
 } from '@ariakit/react'
 import classNames from 'classnames'
@@ -71,7 +72,7 @@ function Tabs({
         selectedId,
         setSelectedId: onSelectedIdChange,
     })
-    const actualSelectedId = tabStore.useState('selectedId')
+    const actualSelectedId = useStoreState(tabStore, 'selectedId')
 
     const memoizedTabState = React.useMemo(
         () => ({ tabStore, variant, selectedId: selectedId ?? actualSelectedId ?? null }),
@@ -193,7 +194,7 @@ function TabList({
     const [selectedTabElement, setSelectedTabElement] = React.useState<HTMLElement | null>(null)
     const [selectedTabStyle, setSelectedTabStyle] = React.useState<React.CSSProperties>({})
 
-    const selectedId = tabContextValue?.tabStore.useState('selectedId')
+    const selectedId = useStoreState(tabContextValue?.tabStore, 'selectedId')
 
     const updateSelectedTabPosition = React.useCallback(
         function updateSelectedTabPositionCallback() {
@@ -338,7 +339,7 @@ const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(function TabPan
 ): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
     const [tabRendered, setTabRendered] = React.useState(false)
-    const selectedId = tabContextValue?.tabStore.useState('selectedId')
+    const selectedId = useStoreState(tabContextValue?.tabStore, 'selectedId')
     const tabIsActive = selectedId === id
 
     React.useEffect(
@@ -382,7 +383,7 @@ type TabAwareSlotProps = {
  */
 function TabAwareSlot({ children }: TabAwareSlotProps): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
-    const selectedId = tabContextValue?.tabStore.useState('selectedId')
+    const selectedId = useStoreState(tabContextValue?.tabStore, 'selectedId')
     return tabContextValue ? children({ selectedId }) : null
 }
 

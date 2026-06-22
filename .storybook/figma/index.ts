@@ -1,2 +1,2 @@
-export { BadgesTool } from './badges-tool'
+export { FigmaTool } from './figma-tool'
 export { ADDON_ID, TOOL_ID } from './constants'

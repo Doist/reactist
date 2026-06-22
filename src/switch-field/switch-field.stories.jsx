@@ -15,6 +15,10 @@ export default {
 
     parameters: {
         badges: ['accessible'],
+        figma: {
+            path: 'Web › Components / Todoist › Forms › Input Field (Input type=Binary)',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=533-60',
+        },
     },
 }
 

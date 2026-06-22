@@ -11,6 +11,10 @@ export default {
     component: ProgressBar,
     parameters: {
         badges: ['accessible'],
+        figma: {
+            path: 'Web › Components / Todoist › Progress › Progress bar',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=20195-258607',
+        },
     },
 }
 

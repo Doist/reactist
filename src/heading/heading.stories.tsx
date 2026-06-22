@@ -10,6 +10,10 @@ export default {
     component: Heading,
     parameters: {
         badges: ['accessible'],
+        figma: {
+            path: 'Global › Text Styles › SF *FOR WEB* › Header 1',
+            url: 'https://www.figma.com/design/xo9yAsH8PQUpi0eTJh9pmR/Product-Library---Global?node-id=2524-3589',
+        },
     },
 }
 

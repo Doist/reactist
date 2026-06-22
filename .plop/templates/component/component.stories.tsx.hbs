@@ -7,7 +7,26 @@ const meta = {
     title: 'Design system/{{pascalCase name}}',
     component: {{pascalCase name}},
     parameters: {
-        badges: ['accessible'],
+        /**
+         * Storybook toolbar badges
+         * Used to highlight the web accessibility standards the component meets or
+         * whether the component is deprecated.
+         * Possible values: `accessible`, `partiallyAccessible`, `notAccessible`, `deprecated`
+         * @see .storybook/badges/README.md
+         */
+        badges: ['notAccessible'],
+
+        /**
+         * Figma design link
+         * Used to link to the component's design in Figma. Until you add one, the toolbar shows a
+         * "No Figma link" reminder; for non-visual components set `figma: FIGMA_NOT_NEEDED` (imported
+         * from `.storybook/figma/constants`).
+         * @see .storybook/figma/README.md
+         */
+        figma: {
+            // path: 'Figma file › Page › Section › Component',
+            // url: 'https://www.figma.com/design/…?node-id=…',
+        },
     },
 } satisfies Meta<typeof {{pascalCase name}}>
 

@@ -21,6 +21,10 @@ export default {
 
     parameters: {
         badges: ['accessible'],
+        figma: {
+            path: 'Web › Components / Todoist › Progress › Progress circular',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=20195-258612',
+        },
     },
 }
 

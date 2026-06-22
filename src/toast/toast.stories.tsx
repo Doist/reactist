@@ -26,6 +26,10 @@ export default {
     title: '💬 Feedback/Toast',
     parameters: {
         badges: ['accessible'],
+        figma: {
+            path: 'Web › Components / Todoist › Toast › Toast',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=6654-220700',
+        },
         layout: 'fullscreen',
     },
     decorators: [
