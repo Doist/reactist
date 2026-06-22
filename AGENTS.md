@@ -1,3 +1,5 @@
+<!-- shared-config:agents -->
+
 # AGENTS
 
 > [!WARNING]
@@ -104,3 +106,5 @@ When asked to create a pull request, follow this mandatory process:
 ## Enforcement
 
 These guidelines are **non-negotiable**. Deviation from this process constitutes a failure to follow core instructions. When in doubt, ask for clarification.
+
+<!-- /shared-config:agents -->
