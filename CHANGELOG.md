@@ -1,3 +1,9 @@
+## [33.3.0](https://github.com/Doist/reactist/compare/v33.2.2...v33.3.0) (2026-06-22)
+
+### Features
+
+- add ExpansionPanel component ([#1075](https://github.com/Doist/reactist/issues/1075)) ([e70e130](https://github.com/Doist/reactist/commit/e70e130661f25ea0fe74ed0039531ff06b86f3d6))
+
 ## [33.2.2](https://github.com/Doist/reactist/compare/v33.2.1...v33.2.2) (2026-06-19)
 
 ### Bug Fixes
