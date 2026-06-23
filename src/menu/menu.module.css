@@ -63,6 +63,24 @@
     text-decoration: none;
 }
 
+/* Link menu items without an icon are styled like a text link */
+:global(.reactist_menulist) a[role='menuitem']:not(:has(svg)) {
+    color: var(--reactist-text-link-idle-tint, var(--reactist-actionable-tertiary-idle-tint));
+    --reactist-content-primary: var(
+        --reactist-text-link-idle-tint,
+        var(--reactist-actionable-tertiary-idle-tint)
+    );
+}
+
+:global(.reactist_menulist) a[role='menuitem']:not(:has(svg)):hover,
+:global(.reactist_menulist) a[role='menuitem']:not(:has(svg)):focus {
+    color: var(--reactist-text-link-hover-tint, var(--reactist-actionable-tertiary-hover-tint));
+    --reactist-content-primary: var(
+        --reactist-text-link-hover-tint,
+        var(--reactist-actionable-tertiary-hover-tint)
+    );
+}
+
 /* sub-menus need to be shifted a bit towards the top to be aligned with its menu item */
 :global(.reactist_menulist) [role='menu'] {
     margin-top: -5px;

@@ -198,6 +198,49 @@ export const SubMenuStory = {
     },
 }
 
+export const LinkMenuItemStory = {
+    render: () => (
+        <Menu>
+            <MenuButton render={<Button variant="primary" endIcon={<ArrowDown />} />}>
+                Menu with links
+            </MenuButton>
+            <MenuList aria-label="Menu with links">
+                <MenuItem>Regular item</MenuItem>
+                <MenuItem
+                    render={
+                        <a
+                            href="https://github.com/Doist/reactist"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                        />
+                    }
+                >
+                    <ArrowRight />
+                    Link with an icon
+                </MenuItem>
+                <hr />
+                <MenuItem
+                    render={
+                        <a href="https://doist.com" target="_blank" rel="noreferrer noopener" />
+                    }
+                >
+                    <Text size="copy">Link without an icon</Text>
+                </MenuItem>
+            </MenuList>
+        </Menu>
+    ),
+
+    name: 'Link Menu Item Story',
+
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
+}
+
 export const ContextMenuTriggerStory = {
     render: () => (
         <Stack space="small">

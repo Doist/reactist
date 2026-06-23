@@ -46,6 +46,14 @@ On smaller viewports where there isn't enough space to render the submenu on eit
     <Story of={MenuStories.SubMenuStory} />
 </Canvas>
 
+### Link menu items
+
+A `MenuItem` rendered as a link (via `render`) that has no icon is automatically styled like a text link. Link items that include an icon keep the default menu item styling.
+
+<Canvas>
+    <Story of={MenuStories.LinkMenuItemStory} />
+</Canvas>
+
 ### `<ContextMenuTrigger>`
 
 Using the `<ContextMenuTrigger>` component, an element can be defined as the right-click context menu trigger
