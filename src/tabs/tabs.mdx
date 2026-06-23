@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
 import { Tabs, TabList, Tab, TabPanel, TabAwareSlot } from './tabs'
 import { Box } from '../box'
 import { Text } from '../text'
@@ -13,9 +13,7 @@ A set of components that allow tabs to be rendered, which controls the visibilit
 This component is powered by [Ariakit's Tab component](https://ariakit.org/examples/tab). For more details of its expected
 behaviour, see [ARIA: tab role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role).
 
-<Canvas>
-    <Story of={TabsStories.MainDemo} />
-</Canvas>
+<Canvas of={TabsStories.MainDemo} />
 
 ## `<Tabs>`
 
@@ -105,41 +103,29 @@ The following CSS custom properties are also available to customize other tabs' 
 
 ### Themed variant
 
-<Canvas withToolbar>
-    <Story of={TabsStories.ThemedVariant} />
-</Canvas>
+<Canvas withToolbar of={TabsStories.ThemedVariant} />
 
 ### Full container width tabs
 
-<Canvas withToolbar>
-    <Story of={TabsStories.FullContainerWidthTabs} />
-</Canvas>
+<Canvas withToolbar of={TabsStories.FullContainerWidthTabs} />
 
 ### Tabs aligned to the center
 
-<Canvas withToolbar>
-    <Story of={TabsStories.TabsAlignedToTheCenter} />
-</Canvas>
+<Canvas withToolbar of={TabsStories.TabsAlignedToTheCenter} />
 
 ### Selected tab with slide animation
 
-<Canvas withToolbar>
-    <Story of={TabsStories.SelectedTabWithSlideAnimation} />
-</Canvas>
+<Canvas withToolbar of={TabsStories.SelectedTabWithSlideAnimation} />
 
 ### Using the `<TabAwareSlot>` component
 
-<Canvas withToolbar>
-    <Story of={TabsStories.UsingTheTabAwareSlotComponent} />
-</Canvas>
+<Canvas withToolbar of={TabsStories.UsingTheTabAwareSlotComponent} />
 
 ### Multiple `<TabList>` instances
 
 As long as they exist within the same `<Tabs>` component tree, multiple `<TabList>` instances can be rendered.
 
-<Canvas withToolbar>
-    <Story of={TabsStories.MultipleTabListInstances} />
-</Canvas>
+<Canvas withToolbar of={TabsStories.MultipleTabListInstances} />
 
 ### Polymorphism
 
@@ -148,6 +134,4 @@ can be specified with the `as` prop.
 
 Note that when combined with the `renderMode="active"` prop, the entire tabpanel will be affected, including the actual polymorphic component/element passed into `as`.
 
-<Canvas withToolbar>
-    <Story of={TabsStories.Polymorphism} />
-</Canvas>
+<Canvas withToolbar of={TabsStories.Polymorphism} />

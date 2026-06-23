@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
 import { SwitchField } from './switch-field'
 import { Stack } from '../stack'
 import { Text } from '../text'
@@ -10,9 +10,7 @@ import * as SwitchFieldStories from './switch-field.stories'
 
 A checkbox with a built-in label element that visually looks like a toggle switch.
 
-<Canvas>
-    <Story of={SwitchFieldStories.Playground} />
-</Canvas>
+<Canvas of={SwitchFieldStories.Playground} />
 
 ---
 
@@ -34,6 +32,4 @@ The following CSS custom properties are available to customize the SwitchField's
 
 ## Accessibility
 
-<Canvas>
-    <Story of={SwitchFieldStories.AccessibilityAttributes} />
-</Canvas>
+<Canvas of={SwitchFieldStories.AccessibilityAttributes} />

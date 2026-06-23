@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
 import * as CheckboxFieldStories from './checkbox-field.stories'
 
 import { CheckboxField } from '.'
@@ -12,9 +12,7 @@ import { Text } from '../text'
 
 A checkbox field with a built-in label element.
 
-<Canvas>
-    <Story of={CheckboxFieldStories.BasicExample} />
-</Canvas>
+<Canvas of={CheckboxFieldStories.BasicExample} />
 
 ---
 
@@ -30,25 +28,19 @@ A checkbox field with an icon and a string. The icon is rendered to the left of 
 
 #### Image as Icon
 
-<Canvas>
-    <Story of={CheckboxFieldStories.ImageAsIcon} />
-</Canvas>
+<Canvas of={CheckboxFieldStories.ImageAsIcon} />
 
 #### React element as Icon
 
 In this example we are passing an SVG image as icon.
 
-<Canvas>
-    <Story of={CheckboxFieldStories.ReactElementAsIcon} />
-</Canvas>
+<Canvas of={CheckboxFieldStories.ReactElementAsIcon} />
 
 ### ReactNode as Label
 
 A checkbox field with a `ReactNode` as label.
 
-<Canvas>
-    <Story of={CheckboxFieldStories.ReactNodeAsLabel} />
-</Canvas>
+<Canvas of={CheckboxFieldStories.ReactNodeAsLabel} />
 
 <CheckboxField
     label={
@@ -60,12 +52,8 @@ A checkbox field with a `ReactNode` as label.
 
 ### Indeterminate Example
 
-<Canvas>
-    <Story of={CheckboxFieldStories.IndeterminateExample} />
-</Canvas>
+<Canvas of={CheckboxFieldStories.IndeterminateExample} />
 
 ## Accessibility
 
-<Canvas>
-    <Story of={CheckboxFieldStories.AccessibilityExamples} />
-</Canvas>
+<Canvas of={CheckboxFieldStories.AccessibilityExamples} />
