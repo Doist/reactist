@@ -64,7 +64,7 @@
 }
 
 /* Link menu items without an icon are styled like a text link */
-:global(.reactist_menulist) a[role='menuitem']:not(:has(svg)) {
+:global(.reactist_menulist) a[role='menuitem']:not(:has(svg)):not([aria-disabled='true']) {
     color: var(--reactist-text-link-idle-tint, var(--reactist-actionable-tertiary-idle-tint));
     --reactist-content-primary: var(
         --reactist-text-link-idle-tint,
@@ -72,8 +72,8 @@
     );
 }
 
-:global(.reactist_menulist) a[role='menuitem']:not(:has(svg)):hover,
-:global(.reactist_menulist) a[role='menuitem']:not(:has(svg)):focus {
+:global(.reactist_menulist) a[role='menuitem']:not(:has(svg)):not([aria-disabled='true']):hover,
+:global(.reactist_menulist) a[role='menuitem']:not(:has(svg)):not([aria-disabled='true']):focus {
     color: var(--reactist-text-link-hover-tint, var(--reactist-actionable-tertiary-hover-tint));
     --reactist-content-primary: var(
         --reactist-text-link-hover-tint,

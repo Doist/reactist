@@ -226,6 +226,14 @@ export const LinkMenuItemStory = {
                 >
                     <Text size="copy">Link without an icon</Text>
                 </MenuItem>
+                <MenuItem
+                    disabled
+                    render={
+                        <a href="https://doist.com" target="_blank" rel="noreferrer noopener" />
+                    }
+                >
+                    <Text size="copy">Disabled link without an icon</Text>
+                </MenuItem>
             </MenuList>
         </Menu>
     ),
