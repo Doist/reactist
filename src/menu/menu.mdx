@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
 import KeyboardShortcut from '../components/keyboard-shortcut'
 import { Button, IconButton } from '../button'
 import { Inline } from '../inline'
@@ -15,26 +15,20 @@ import * as MenuStories from './menu.stories'
 A set of components that provide the means to construct a menu that can be triggered
 via an element or as a context menu.
 
-<Canvas>
-    <Story of={MenuStories.SimpleMenuStory} />
-</Canvas>
+<Canvas of={MenuStories.SimpleMenuStory} />
 
 ### `tooltip`
 
 The `tooltip` prop allows a tooltip to be shown over the menu button.
 
-<Canvas>
-    <Story of={MenuStories.TooltipStory} />
-</Canvas>
+<Canvas of={MenuStories.TooltipStory} />
 
 ### `modal`
 
 By default, interaction with elements below the menu is disallowed when the menu is open. This behaviour can
 be changed by passing `modal={false}` to `<MenuList>`
 
-<Canvas>
-    <Story of={MenuStories.OutsideInteractionStory} />
-</Canvas>
+<Canvas of={MenuStories.OutsideInteractionStory} />
 
 ### `<SubMenu>`
 
@@ -42,17 +36,13 @@ You may nest the `<SubMenu>` component within `<Menu>` to create submenus.
 
 On smaller viewports where there isn't enough space to render the submenu on either side, it will be rendered under its parent menu item instead.
 
-<Canvas>
-    <Story of={MenuStories.SubMenuStory} />
-</Canvas>
+<Canvas of={MenuStories.SubMenuStory} />
 
 ### Link menu items
 
 A `MenuItem` rendered as a link (via `render`) that has no icon is automatically styled like a text link. Link items that include an icon keep the default menu item styling.
 
-<Canvas>
-    <Story of={MenuStories.LinkMenuItemStory} />
-</Canvas>
+<Canvas of={MenuStories.LinkMenuItemStory} />
 
 ### `<ContextMenuTrigger>`
 
@@ -61,15 +51,11 @@ for the menu.
 
 In the demo below, right click on the Settings button, or click on the more button:
 
-<Canvas>
-    <Story of={MenuStories.ContextMenuTriggerStory} />
-</Canvas>
+<Canvas of={MenuStories.ContextMenuTriggerStory} />
 
 ### Extra Features
 
 You may also use `<MenuGroup>` to group menu items, `disable` a menu item, or
 return `false` from `onSelect` to prevent the menu from closing when an item is selected.
 
-<Canvas>
-    <Story of={MenuStories.ExtraFeaturesStory} />
-</Canvas>
+<Canvas of={MenuStories.ExtraFeaturesStory} />
