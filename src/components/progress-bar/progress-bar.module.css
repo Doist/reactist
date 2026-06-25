@@ -3,7 +3,7 @@
     --reactist-progressbar-radius-outer: var(--reactist-progressbar-height);
     --reactist-progressbar-radius-inner: var(--reactist-progressbar-height);
     --reactist-progressbar-track: var(--reactist-framework-fill-crest);
-    --reactist-progressbar-fill: var(--reactist-bg-brand);
+    --reactist-progressbar-fill: currentColor;
     --reactist-progressbar-scale-tint: var(--reactist-content-tertiary);
     --reactist-progressbar-scale-tick-height: 8px;
     --reactist-progressbar-scale-minor-tick-opacity: 0.15;
