@@ -114,7 +114,6 @@ For generic React Testing Library patterns (component tests, hook tests, provide
 - Pre-commit hooks run Prettier, ESLint, and React Compiler tracking - do not skip them
 
 <!-- shared-config:agents -->
-
 # AGENTS
 
 > [!WARNING]
@@ -221,5 +220,4 @@ When asked to create a pull request, follow this mandatory process:
 ## Enforcement
 
 These guidelines are **non-negotiable**. Deviation from this process constitutes a failure to follow core instructions. When in doubt, ask for clarification.
-
 <!-- /shared-config:agents -->
