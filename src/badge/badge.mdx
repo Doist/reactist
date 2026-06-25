@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
 import * as BadgeStories from './badge.stories'
 
 import { Box } from '../box'
@@ -19,21 +19,15 @@ A badge used to bring attention to a particular UI element or functionality.
 
 The use of variants does not provide extra semantic meaning and is strictly visual. Ensure your content provides the necessary context for users by using the `aria-label` prop if needed.
 
-<Canvas>
-    <Story of={BadgeStories.Playground} />
-</Canvas>
+<Canvas of={BadgeStories.Playground} />
 
 ## Examples
 
-<Canvas>
-    <Story of={BadgeStories.MainDemo} />
-</Canvas>
+<Canvas of={BadgeStories.MainDemo} />
 
 ## Inside other elements
 
-<Canvas>
-    <Story of={BadgeStories.InsideOtherElements} />
-</Canvas>
+<Canvas of={BadgeStories.InsideOtherElements} />
 
 ## Props
 
@@ -70,6 +64,4 @@ Even though Reactist does not yet owns the concept of dark mode, and leaves it f
 up, here's a demo on how easily you can prepare badges for dark mode by setting CSS custom
 properties.
 
-<Canvas>
-    <Story of={BadgeStories.DarkMode} />
-</Canvas>
+<Canvas of={BadgeStories.DarkMode} />

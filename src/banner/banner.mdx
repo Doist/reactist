@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
 import { Box } from '../box'
 import { Text } from '../text'
 import { Stack } from '../stack'
@@ -15,9 +15,7 @@ import * as BannerStories from './banner.stories'
 
 A simple banner component meant to be used to _inform_ the user of promotional content, disclaimers, warnings, as well as success and error states.
 
-<Canvas>
-    <Story of={BannerStories.Playground} />
-</Canvas>
+<Canvas of={BannerStories.Playground} />
 
 ## Examples
 
@@ -25,9 +23,7 @@ A simple banner component meant to be used to _inform_ the user of promotional c
 
 Banners can feature different icons or no icon at all. When the type is neutral, a custom icon can be provided; otherwise, preset icons corresponding to the respective type will be used.
 
-<Canvas>
-    <Story of={BannerStories.IconVariants} />
-</Canvas>
+<Canvas of={BannerStories.IconVariants} />
 
 ### Actions
 
@@ -35,17 +31,13 @@ Banners can have an optional dismiss action, or a primary or tertiary CTA, but n
 
 These actions can be combined, such as a primary CTA with a dismiss option, or a primary CTA with a dismiss option and an inline link.
 
-<Canvas>
-    <Story of={BannerStories.Actions} />
-</Canvas>
+<Canvas of={BannerStories.Actions} />
 
 ### Copy
 
 Banners have two content options: a regular text that can span over multiple lines, or a bold header and a description with a secondary text color.
 
-<Canvas>
-    <Story of={BannerStories.Copy} />
-</Canvas>
+<Canvas of={BannerStories.Copy} />
 
 ### Image
 
@@ -53,17 +45,13 @@ Banners can include images placed at the top, separated from the copy by a divid
 
 Image banners do not feature icons but can include body text or a combination of a header and description. They also support optional inline links and a dismiss action.
 
-<Canvas>
-    <Story of={BannerStories.Image} />
-</Canvas>
+<Canvas of={BannerStories.Image} />
 
 ### Content
 
 Banners can include extra content.
 
-<Canvas>
-    <Story of={BannerStories.Content} />
-</Canvas>
+<Canvas of={BannerStories.Content} />
 
 ## Props
 
@@ -95,6 +83,4 @@ Even though Reactist does not yet owns the concept of dark mode, and leaves it f
 up, here's a demo on how easily you can prepare banners for dark mode by setting CSS custom
 properties.
 
-<Canvas>
-    <Story of={BannerStories.DarkMode} />
-</Canvas>
+<Canvas of={BannerStories.DarkMode} />

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
 import { Box } from '../box'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
@@ -18,18 +18,14 @@ import * as IconButtonStories from './icon-button.stories'
 
 ## Main demo
 
-<Canvas>
-    <Story of={IconButtonStories.MainDemo} />
-</Canvas>
+<Canvas of={IconButtonStories.MainDemo} />
 
 ### With different size
 
 Buttons have a default `normal` size, but they can also be larger or smaller. Use the `size` prop
 for this purpose.
 
-<Canvas>
-    <Story of={IconButtonStories.WithDifferentSize} />
-</Canvas>
+<Canvas of={IconButtonStories.WithDifferentSize} />
 
 ### Customized colors
 
@@ -54,24 +50,18 @@ styles for buttons.
 
 And here's how that look like:
 
-<Canvas>
-    <Story of={IconButtonStories.CustomizedColors} />
-</Canvas>
+<Canvas of={IconButtonStories.CustomizedColors} />
 
 ### Playground
 
-<Canvas>
-    <Story of={IconButtonStories.Playground} />
-</Canvas>
+<Canvas of={IconButtonStories.Playground} />
 
 ### Dark mode
 
 Even though Reactist does not yet owns the concept of dark mode, and leaves it for apps to set it
 up, here's a demo on how easily you can set it up by manipulating color variables only.
 
-<Canvas>
-    <Story of={IconButtonStories.DarkMode} />
-</Canvas>
+<Canvas of={IconButtonStories.DarkMode} />
 
 ## Style customization
 

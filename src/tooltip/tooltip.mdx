@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
 import { Tooltip } from './tooltip'
 import * as TooltipStories from './tooltip.stories'
 
@@ -8,35 +8,25 @@ import * as TooltipStories from './tooltip.stories'
 
 <Description of={Tooltip} />
 
-<Canvas>
-    <Story of={TooltipStories.TooltipPlayground} />
-</Canvas>
+<Canvas of={TooltipStories.TooltipPlayground} />
 
 ## Examples
 
 ### Rich content
 
-<Canvas>
-    <Story of={TooltipStories.TooltipRichContent} />
-</Canvas>
+<Canvas of={TooltipStories.TooltipRichContent} />
 
 ### Custom z-index
 
-<Canvas>
-    <Story of={TooltipStories.TooltipCustomZIndex} />
-</Canvas>
+<Canvas of={TooltipStories.TooltipCustomZIndex} />
 
 ### Global context
 
-<Canvas>
-    <Story of={TooltipStories.TooltipGlobalContext} />
-</Canvas>
+<Canvas of={TooltipStories.TooltipGlobalContext} />
 
 ### Imperative control
 
-<Canvas>
-    <Story of={TooltipStories.TooltipImperativeControl} />
-</Canvas>
+<Canvas of={TooltipStories.TooltipImperativeControl} />
 
 ## Props
 

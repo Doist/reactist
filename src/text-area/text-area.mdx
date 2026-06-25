@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
 import * as TextAreaStories from './text-area.stories'
 
 import { Box } from '../box'
@@ -13,9 +13,7 @@ import { selectWithNone } from '../utils/storybook-helper'
 
 A component with an expandable writing area used to accept longer textual input from the user.
 
-<Canvas>
-    <Story of={TextAreaStories.InteractiveProps} />
-</Canvas>
+<Canvas of={TextAreaStories.InteractiveProps} />
 
 <Controls of={TextAreaStories.InteractiveProps} />
 
@@ -30,18 +28,10 @@ Note that these variables are shared with other components such as `Textfield`, 
 --reactist-inputs-alert
 ```
 
-<Canvas withToolbar>
-    <Story of={TextAreaStories.MessageTone} />
-</Canvas>
+<Canvas withToolbar of={TextAreaStories.MessageTone} />
 
-<Canvas withToolbar>
-    <Story of={TextAreaStories.WithoutLabel} />
-</Canvas>
+<Canvas withToolbar of={TextAreaStories.WithoutLabel} />
 
-<Canvas>
-    <Story of={TextAreaStories.AutoExpand} />
-</Canvas>
+<Canvas of={TextAreaStories.AutoExpand} />
 
-<Canvas>
-    <Story of={TextAreaStories.AutoExpandWithInitialValue} />
-</Canvas>
+<Canvas of={TextAreaStories.AutoExpandWithInitialValue} />

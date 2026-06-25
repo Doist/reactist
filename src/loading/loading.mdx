@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
 import { Box } from '../box'
 import { Text } from '../text'
 import { Stack } from '../stack'
@@ -11,9 +11,7 @@ import * as LoadingStories from './loading.stories'
 
 A loading indicator that comes in three sizes.
 
-<Canvas>
-    <Story of={LoadingStories.AllSizes} />
-</Canvas>
+<Canvas of={LoadingStories.AllSizes} />
 
 ---
 
@@ -28,20 +26,14 @@ A loading indicator that comes in three sizes.
 The loading indicator adopts the current brand background color defined in the `--reactist-spinner-tint`
 CSS variable.
 
-<Canvas withToolbar>
-    <Story of={LoadingStories.CustomizeColor} />
-</Canvas>
+<Canvas withToolbar of={LoadingStories.CustomizeColor} />
 
 ## Accessibility
 
-<Canvas>
-    <Story of={LoadingStories.AccessibilityAttributes} />
-</Canvas>
+<Canvas of={LoadingStories.AccessibilityAttributes} />
 
 #### Usage Considerations
 
 If the `Loading` component is describing the loading progress of a particular region of a page, you should use the `aria-describedby` attribute to point to the status, and set the `aria-busy` attribute to `true` on the region until it is finished loading.
 
-<Canvas>
-    <Story of={LoadingStories.AccessibilityConsiderations} />
-</Canvas>
+<Canvas of={LoadingStories.AccessibilityConsiderations} />

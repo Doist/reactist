@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Meta, Story, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
 import { Box } from '../box'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
@@ -18,9 +18,7 @@ import * as ButtonStories from './button.stories'
 
 ## Main demo
 
-<Canvas>
-    <Story of={ButtonStories.MainDemo} />
-</Canvas>
+<Canvas of={ButtonStories.MainDemo} />
 
 ## With label and icon
 
@@ -30,18 +28,14 @@ this purpose.
 Nothing prevents you from passing both a `startIcon` and an `endIcon` at the same time. However,
 this is discouraged, and not guaranteed to be supported in the future.
 
-<Canvas>
-    <Story of={ButtonStories.WithLabelAndIcon} />
-</Canvas>
+<Canvas of={ButtonStories.WithLabelAndIcon} />
 
 ## With different size
 
 Buttons have a default `normal` size, but they can also be larger or smaller. Use the `size` prop
 for this purpose.
 
-<Canvas>
-    <Story of={ButtonStories.WithDifferentSize} />
-</Canvas>
+<Canvas of={ButtonStories.WithDifferentSize} />
 
 ## Customized colors
 
@@ -66,32 +60,24 @@ styles for buttons.
 
 And here's how that look like:
 
-<Canvas>
-    <Story of={ButtonStories.CustomizedColors} />
-</Canvas>
+<Canvas of={ButtonStories.CustomizedColors} />
 
 ## Full-width
 
 Buttons can be set to take the full width of their container by using the `width` prop.
 
-<Canvas>
-    <Story of={ButtonStories.FullWidth} />
-</Canvas>
+<Canvas of={ButtonStories.FullWidth} />
 
 ## Playground
 
-<Canvas>
-    <Story of={ButtonStories.Playground} />
-</Canvas>
+<Canvas of={ButtonStories.Playground} />
 
 ## Dark mode
 
 Even though Reactist does not yet owns the concept of dark mode, and leaves it for apps to set it
 up, here's a demo on how easily you can set it up by manipulating color variables only.
 
-<Canvas>
-    <Story of={ButtonStories.DarkMode} />
-</Canvas>
+<Canvas of={ButtonStories.DarkMode} />
 
 ## Colors
 
