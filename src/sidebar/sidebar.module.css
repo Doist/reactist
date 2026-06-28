@@ -50,8 +50,66 @@
     margin-inline-end: calc(-1 * var(--reactist-sidebar-width, 0px));
 }
 
+/*
+ * Overlay: the panel floats over the content layer, anchored to its align edge
+ * and capped to the viewport. It slides off-edge with a compositor-only
+ * transform. Box geometry (insets, rounding, skin) is the consumer's; the inset
+ * custom properties let them inset a floating card without a specificity fight.
+ */
+.panel[data-overlay='true'] {
+    position: fixed;
+    top: var(--reactist-sidebar-overlay-inset-block);
+    bottom: var(--reactist-sidebar-overlay-inset-block);
+    z-index: var(--reactist-sidebar-overlay-z-index);
+    max-width: calc(100vw - var(--reactist-sidebar-overlay-viewport-margin));
+    transition: transform var(--reactist-sidebar-transition-duration)
+        var(--reactist-sidebar-transition-easing);
+}
+
+.panel[data-overlay='true'][data-align='start'] {
+    left: var(--reactist-sidebar-overlay-inset-inline);
+}
+
+.panel[data-overlay='true'][data-align='end'] {
+    right: var(--reactist-sidebar-overlay-inset-inline);
+}
+
+.panel[data-overlay='true'][data-state='closed'][data-align='start'] {
+    transform: translateX(-100%);
+}
+
+.panel[data-overlay='true'][data-state='closed'][data-align='end'] {
+    transform: translateX(100%);
+}
+
+/*
+ * Layout-neutral wrapper for the focus trap: it must not establish a positioning
+ * or stacking context, so the absolutely-positioned resize handle still resolves
+ * against the panel.
+ */
+.focusLock {
+    display: contents;
+}
+
+.backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: var(--reactist-sidebar-backdrop-z-index);
+    background-color: var(--reactist-sidebar-backdrop-color);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--reactist-sidebar-transition-duration)
+        var(--reactist-sidebar-transition-easing);
+}
+
+.backdrop[data-state='open'] {
+    opacity: var(--reactist-sidebar-backdrop-opacity);
+    pointer-events: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
-    .panel {
+    .panel,
+    .backdrop {
         transition: none;
     }
 }
