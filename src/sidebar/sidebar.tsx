@@ -29,6 +29,7 @@ type SidebarContextValue = {
     overlayOpen: boolean
     /** `overlayOpen && overlayMode === 'modal'`: trap focus and render the backdrop. */
     shouldTrap: boolean
+    unmountOnHide: boolean
     panelId: string
     panelRef: React.RefObject<HTMLElement | null>
     onDismiss?: () => void
@@ -145,6 +146,15 @@ type SidebarProps = {
     /** Step in px for keyboard (arrow-key) resize. */
     resizeStep?: number
 
+    /**
+     * Keeps the content mounted while closed by default so internal state (chat
+     * drafts, scroll position) survives. When `true`, the content unmounts at the
+     * end of the exit transition.
+     *
+     * @default false
+     */
+    unmountOnHide?: boolean
+
     /** The composed slots (`SidebarContent`, and an optional `SidebarResizeHandle`). */
     children?: React.ReactNode
 }
@@ -172,6 +182,7 @@ function Sidebar({
     maxWidth,
     defaultWidth,
     resizeStep,
+    unmountOnHide = false,
     children,
 }: SidebarProps) {
     const generatedId = React.useId()
@@ -204,6 +215,7 @@ function Sidebar({
         isOverlay,
         overlayOpen,
         shouldTrap,
+        unmountOnHide,
         panelId,
         panelRef,
         onDismiss,
@@ -284,6 +296,7 @@ const SidebarContent = polymorphicComponent<'aside', SidebarContentOwnProps, 'om
             isOverlay,
             overlayOpen,
             shouldTrap,
+            unmountOnHide,
             panelId,
             panelRef,
             width,
@@ -302,6 +315,10 @@ const SidebarContent = polymorphicComponent<'aside', SidebarContentOwnProps, 'om
                       [SIDEBAR_WIDTH_VAR]: `${width}px`,
                   } as React.CSSProperties)
                 : undefined
+
+        const childrenToRender = useDeferredUnmount({ isOpen, unmountOnHide, panelRef })
+            ? children
+            : null
 
         return (
             <Box
@@ -326,12 +343,66 @@ const SidebarContent = polymorphicComponent<'aside', SidebarContentOwnProps, 'om
                     className={styles.focusLock}
                     data-testid="sidebar-focus-lock"
                 >
-                    {children}
+                    {childrenToRender}
                 </FocusLock>
             </Box>
         )
     },
 )
+
+/**
+ * Returns whether the panel children should be rendered right now. With
+ * `unmountOnHide`, the children stay mounted through the exit transition and
+ * drop once it ends (with a duration fallback for reduced motion). Without it,
+ * the children are always mounted.
+ */
+function useDeferredUnmount({
+    isOpen,
+    unmountOnHide,
+    panelRef,
+}: {
+    isOpen: boolean
+    unmountOnHide: boolean
+    panelRef: React.RefObject<HTMLElement | null>
+}): boolean {
+    const [exited, setExited] = React.useState(() => unmountOnHide && !isOpen)
+    const [wasOpen, setWasOpen] = React.useState(isOpen)
+
+    // Adjust state during render (not in an effect) when the open prop flips:
+    // re-opening cancels a pending exit immediately so the next close animates again.
+    if (isOpen && !wasOpen) {
+        setWasOpen(true)
+        setExited(false)
+    } else if (!isOpen && wasOpen) {
+        setWasOpen(false)
+    }
+
+    React.useEffect(
+        function unmountAfterExitTransition() {
+            if (isOpen || !unmountOnHide) return
+
+            const panel = panelRef.current
+            // setExited only fires from async callbacks below, never synchronously here.
+            const fallbackTimeout = window.setTimeout(() => setExited(true), 500)
+
+            function handleTransitionEnd(event: TransitionEvent) {
+                if (event.target === panel) {
+                    window.clearTimeout(fallbackTimeout)
+                    setExited(true)
+                }
+            }
+
+            panel?.addEventListener('transitionend', handleTransitionEnd)
+            return function cleanup() {
+                window.clearTimeout(fallbackTimeout)
+                panel?.removeEventListener('transitionend', handleTransitionEnd)
+            }
+        },
+        [isOpen, unmountOnHide, panelRef],
+    )
+
+    return isOpen || !unmountOnHide || !exited
+}
 
 //
 // SidebarResizeHandle
