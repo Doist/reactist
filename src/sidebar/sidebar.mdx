@@ -1,0 +1,223 @@
+import { Canvas, Controls, Markdown, Meta, Subtitle, Title } from '@storybook/addon-docs/blocks'
+
+import * as SidebarStories from './sidebar.stories'
+
+<Meta of={SidebarStories} />
+
+<Title />
+
+<Subtitle>
+    A composable left or right sidebar: docked or overlay, resizable, and accessible.
+</Subtitle>
+
+`Sidebar` is one primitive for every side panel: a docked left nav, a resizable
+conversation list, a mobile drawer, or a floating side pane. The same component
+covers both edges through the `align` prop, and switches between docked and
+overlay presentation from a breakpoint the consumer owns.
+
+## Playground
+
+The fastest way to get a feel for the component: switch alignment, overlay mode,
+and resizability live, and drag or keyboard-resize the panel.
+
+<Canvas of={SidebarStories.Playground} />
+
+### API
+
+<Controls of={SidebarStories.Playground} />
+
+## Anatomy
+
+The component is composed from a provider and slots, so a consumer places and
+styles the real elements while the provider holds state and behavior.
+
+<Markdown>{`
+| Part | Renders | Owns |
+| --- | --- | --- |
+| \`Sidebar\` | the modal backdrop only (a sibling of the panel) | All controlled state and behavior: open, overlay, width and bounds, dismiss; derives the overlay state; runs the Escape dismiss effect; provides context |
+| \`SidebarContent\` | the panel element (\`as\`, default \`aside\`) | Positioning, the slide / collapse transition, dialog semantics, the committed width, and the focus trap while modal |
+| \`SidebarResizeHandle\` | a \`role="separator"\` | The pointer and keyboard resize affordance and its ARIA; self-positions on the inner edge from \`align\` |
+`}</Markdown>
+
+A sidebar is resizable when, and only when, the consumer renders a
+`SidebarResizeHandle` inside the content. There is no `resizable` prop.
+
+## The shell contract
+
+The sidebar sizes itself, but the surrounding flex context is the consumer's.
+Three things live on the shell, not the component, because a child cannot set
+them on its parent or siblings:
+
+- `display: flex` on the parent.
+- The main content as the absorber: `flexGrow={1}` and `minWidth={0}` so it
+  yields space when the sidebar resizes or the viewport shrinks. (Box defaults
+  `flex-shrink` to 1; the `min-width: 0` is the part that is easy to forget and
+  the one that prevents the row from overflowing.)
+- `inert` on the main element while a modal overlay is open, fed by the
+  sidebar's open state.
+
+```tsx
+// Compute overlay flips from your own breakpoint source. The right sidebar
+// needs the larger breakpoint, since it sits beyond the nav and the content.
+const navIsOverlay = viewportWidth < maxNavWidth + minContentWidth
+
+<Box display="flex">
+    <Sidebar align="start" isOpen={isOpen} isOverlay={navIsOverlay} overlayMode="modal" width={width} onWidthChange={setWidth}>
+        <SidebarContent as="nav" aria-label="Main navigation">
+            {/* nav content */}
+            <SidebarResizeHandle aria-label="Resize sidebar" />
+        </SidebarContent>
+    </Sidebar>
+    <Box as="main" flexGrow={1} minWidth={0} /* inert while the drawer is open */>
+        {/* main content */}
+    </Box>
+</Box>
+```
+
+## Docked
+
+A docked sidebar is an in-flow flex child that holds its width. Toggling `isOpen`
+collapses it with a `margin-inline` transition while the main content reflows
+into the freed space.
+
+<Canvas of={SidebarStories.Docked} />
+
+## Resizing
+
+Render a `SidebarResizeHandle` to make the panel resizable. The handle sits on
+the inner edge (right for `align="start"`, left for `align="end"`), drives a
+render-free pointer drag, and commits the width through `onWidthChange` on
+pointer up. Width is controlled by the consumer.
+
+<Canvas of={SidebarStories.Resizable} />
+
+Keyboard support, from the separator:
+
+- **Arrow keys** resize by `resizeStep`, edge-aware: with `align="start"` the
+  handle is on the right, so ArrowRight grows and ArrowLeft shrinks; `align="end"`
+  reverses it.
+- **Home / End** jump to `minWidth` and `maxWidth`.
+- **Double-click** resets to `defaultWidth`.
+- There is no Enter / Space and no PageUp / PageDown: it is a separator, not a
+  button. Escape-to-dismiss belongs to the panel, not the handle.
+
+`onWidthChange` fires on pointer up and on each keystroke during keyboard resize,
+so debounce persistence if it is expensive. `aria-valuenow` and `aria-valuetext`
+update on each keystroke and on commit after a drag (not mid-drag). Pass
+`aria-valuetext` to localize the announced width; it defaults to `"{width}px"`.
+
+## Overlays
+
+Two props describe an overlay. `isOverlay` is dynamic: the consumer computes it
+from a breakpoint, and `false` keeps the panel docked in flow. `overlayMode` is
+static: it sets what the overlay is while floating.
+
+<Markdown>{`
+| \`overlayMode\` | role=dialog | aria-modal | focus trap | Background | Backdrop |
+| --- | --- | --- | --- | --- | --- |
+| \`plain\` (default) | – | – | – | interactive | none |
+| \`dialog\` | yes | – | – | interactive | none |
+| \`modal\` | yes | yes | yes | inert (consumer-applied) | auto-rendered |
+`}</Markdown>
+
+The backdrop is not a component: `Sidebar` renders it automatically for
+`overlayMode="modal"`, dims and blocks the page, and dismisses on click. A
+non-modal overlay closes through its own control plus Escape; it renders no
+backdrop and leaves the background interactive.
+
+### Element and role
+
+`SidebarContent` defaults to `aside` (a `complementary` landmark). Choose the
+element with `as`, and the landmark with `landmarkRole` plus an accessible name:
+
+<Markdown>{`
+| Intent | \`as\` and host props |
+| --- | --- |
+| Top-level sidebar (peer of \`main\`) | \`as="aside"\` (default, \`complementary\`) |
+| Main navigation | \`as="nav"\` with \`aria-label\` |
+| Named nested pane | \`as="section"\` with \`aria-labelledby\` (a \`region\`) |
+| A dialog or modal overlay | \`as="div"\` (so the \`dialog\` role is valid) |
+`}</Markdown>
+
+When `overlayMode` is `dialog` or `modal`, the rendered role becomes `dialog`.
+An `aside` or `nav` cannot validly carry `role="dialog"`, so render the panel as
+a generic element (`as="div"`) when it becomes a dialog. The host `role` prop is
+ignored; the component owns the rendered role.
+
+### Modal drawer
+
+A mobile nav drawer: it floats, traps focus, dims the page, and dismisses on the
+backdrop or Escape. The shell applies `inert` to the main element while it is
+open.
+
+<Canvas of={SidebarStories.ModalDrawer} />
+
+### Non-modal dialog side pane
+
+An end-aligned contextual pane that floats but leaves the background interactive
+(no backdrop). It closes through its own control plus Escape. The rounded card
+skin is a child with `overflow: hidden`, so the resize handle on the panel edge
+stays outside the clip. The card is inset from the edges with the overlay inset
+custom properties.
+
+<Canvas of={SidebarStories.DialogSidePane} />
+
+## The toggle trigger
+
+Reactist ships no trigger. The toggle is the consumer's own button, wired by
+hand, so it can live anywhere (a top bar, a command palette) without hoisting the
+provider. Set the same `id` on `Sidebar` that the trigger points its
+`aria-controls` at.
+
+```tsx
+<button aria-expanded={isOpen} aria-controls="sidebar" onClick={toggle}>
+    {/* your icon / tooltip */}
+</button>
+```
+
+## Custom properties
+
+The component ships sensible defaults and exposes per-instance theming through
+CSS custom properties, set on `SidebarContent` (or any ancestor).
+
+<Markdown>{`
+| Property | Default | Purpose |
+| --- | --- | --- |
+| \`--reactist-sidebar-overlay-z-index\` | \`40\` | Layering of a floating panel |
+| \`--reactist-sidebar-overlay-viewport-margin\` | \`0px\` | Gap kept from the viewport edge by the overlay width cap |
+| \`--reactist-sidebar-overlay-inset-block\` | \`0px\` | Top and bottom inset of a floating panel |
+| \`--reactist-sidebar-overlay-inset-inline\` | \`0px\` | Inset of the anchored edge |
+| \`--reactist-sidebar-backdrop-color\` | \`#000000\` | Modal backdrop color |
+| \`--reactist-sidebar-backdrop-opacity\` | \`0.5\` | Modal backdrop opacity |
+| \`--reactist-sidebar-backdrop-z-index\` | \`39\` | Modal backdrop layering |
+| \`--reactist-sidebar-resize-handle-width\` | \`4px\` | Handle hit-area width |
+| \`--reactist-sidebar-resize-handle-idle-fill\` | \`transparent\` | Handle color at rest |
+| \`--reactist-sidebar-resize-handle-hover-fill\` | divider | Handle color on hover |
+| \`--reactist-sidebar-resize-handle-focus-fill\` | primary | Handle color on focus |
+`}</Markdown>
+
+## What the consumer owns
+
+- **The flex shell** — `display: flex`, the `flexGrow={1} minWidth={0}` main
+  absorber, and `inert` on main while a modal overlay is open.
+- **The breakpoint** — compute `isOverlay` from your own viewport or container
+  query; the component does not measure.
+- **State and persistence** — `isOpen` and `width` are controlled; persist them
+  yourself.
+- **The trigger** — wire your own button with `aria-expanded` / `aria-controls`.
+- **The visual skin** — background, rounding, and padding are a child or
+  `exceptionallySetClassName`; keep a clipping skin (`overflow: hidden`) a child
+  so the resize handle is not cut off.
+
+## Accessibility
+
+- The panel is a landmark while docked (or a `plain` overlay) and a `dialog`
+  while a `dialog` / `modal` overlay; give it an accessible name with `aria-label`
+  or `aria-labelledby`.
+- A `modal` overlay traps focus, sets `aria-modal`, and returns focus to the
+  trigger on close. The consumer applies `inert` to the main element so the rest
+  of the page leaves the accessibility tree.
+- Escape dismisses an open overlay when `dismissOverlayOnEscape` is set, and respects
+  `event.defaultPrevented` so app-level key handling can opt out.
+- The resize handle is a focusable `separator` while open, and leaves the tab
+  order and the accessibility tree while closed.
