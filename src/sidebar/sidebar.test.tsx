@@ -3,7 +3,7 @@ import * as React from 'react'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { axe } from 'jest-axe'
 
-import { Sidebar, SidebarContent } from './sidebar'
+import { Sidebar, SidebarContent, SidebarResizeHandle } from './sidebar'
 
 import type { SidebarProps } from './sidebar'
 
@@ -223,6 +223,117 @@ describe('focus management', () => {
     })
 })
 
+describe('SidebarResizeHandle', () => {
+    function renderResizable(props: Partial<SidebarProps> = {}) {
+        const onWidthChange = jest.fn()
+        render(
+            <Sidebar
+                align="start"
+                isOpen
+                id="sidebar"
+                width={280}
+                minWidth={210}
+                maxWidth={420}
+                defaultWidth={280}
+                resizeStep={40}
+                onWidthChange={onWidthChange}
+                {...props}
+            >
+                <SidebarContent aria-label="Main navigation">
+                    <div>Navigation</div>
+                    <SidebarResizeHandle aria-label="Resize sidebar" />
+                </SidebarContent>
+            </Sidebar>,
+        )
+        return { onWidthChange }
+    }
+
+    it('renders a vertical separator wired to the panel', () => {
+        renderResizable()
+        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
+        expect(handle).toHaveAttribute('aria-orientation', 'vertical')
+        expect(handle).toHaveAttribute('aria-controls', 'sidebar')
+        expect(handle).toHaveAttribute('aria-valuemin', '210')
+        expect(handle).toHaveAttribute('aria-valuemax', '420')
+        expect(handle).toHaveAttribute('aria-valuenow', '280')
+        expect(handle).toHaveAttribute('aria-valuetext', '280px')
+        expect(handle).toHaveAttribute('tabindex', '0')
+    })
+
+    it('grows with ArrowRight for align="start" (handle on the right edge)', () => {
+        const { onWidthChange } = renderResizable({ align: 'start' })
+        fireEvent.keyDown(screen.getByRole('separator', { name: 'Resize sidebar' }), {
+            key: 'ArrowRight',
+        })
+        expect(onWidthChange).toHaveBeenLastCalledWith(320)
+    })
+
+    it('shrinks with ArrowLeft for align="start"', () => {
+        const { onWidthChange } = renderResizable({ align: 'start' })
+        fireEvent.keyDown(screen.getByRole('separator', { name: 'Resize sidebar' }), {
+            key: 'ArrowLeft',
+        })
+        expect(onWidthChange).toHaveBeenLastCalledWith(240)
+    })
+
+    it('reverses the arrows for align="end" (handle on the left edge): ArrowRight shrinks', () => {
+        const { onWidthChange } = renderResizable({ align: 'end' })
+        fireEvent.keyDown(screen.getByRole('separator', { name: 'Resize sidebar' }), {
+            key: 'ArrowRight',
+        })
+        expect(onWidthChange).toHaveBeenLastCalledWith(240)
+    })
+
+    it('reverses the arrows for align="end": ArrowLeft grows', () => {
+        const { onWidthChange } = renderResizable({ align: 'end' })
+        fireEvent.keyDown(screen.getByRole('separator', { name: 'Resize sidebar' }), {
+            key: 'ArrowLeft',
+        })
+        expect(onWidthChange).toHaveBeenLastCalledWith(320)
+    })
+
+    it('jumps to min and max with Home and End', () => {
+        const { onWidthChange } = renderResizable()
+        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
+
+        fireEvent.keyDown(handle, { key: 'Home' })
+        expect(onWidthChange).toHaveBeenLastCalledWith(210)
+
+        fireEvent.keyDown(handle, { key: 'End' })
+        expect(onWidthChange).toHaveBeenLastCalledWith(420)
+    })
+
+    it('resets to the default width on double-click', () => {
+        const { onWidthChange } = renderResizable({ width: 360 })
+        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
+
+        fireEvent.doubleClick(handle)
+        expect(onWidthChange).toHaveBeenLastCalledWith(280)
+    })
+
+    it('clamps a keyboard step to the max width', () => {
+        const { onWidthChange } = renderResizable({ width: 410 })
+        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
+
+        fireEvent.keyDown(handle, { key: 'ArrowRight' })
+        expect(onWidthChange).toHaveBeenLastCalledWith(420)
+    })
+
+    it('drops out of the tab order and a11y tree while closed', () => {
+        renderResizable({ isOpen: false })
+        const handle = screen.getByRole('separator', { hidden: true })
+        expect(handle).toHaveAttribute('tabindex', '-1')
+        expect(handle).toHaveAttribute('aria-hidden', 'true')
+    })
+
+    it('does not resize while the sidebar is closed', () => {
+        const { onWidthChange } = renderResizable({ isOpen: false })
+        const handle = screen.getByRole('separator', { hidden: true })
+        fireEvent.keyDown(handle, { key: 'ArrowRight' })
+        expect(onWidthChange).not.toHaveBeenCalled()
+    })
+})
+
 describe('errors', () => {
     it('throws when a slot is used outside <Sidebar>', () => {
         const consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined)
@@ -234,6 +345,18 @@ describe('errors', () => {
 })
 
 describe('accessibility', () => {
+    it('has no axe violations as a docked nav', async () => {
+        const { container } = render(
+            <Sidebar align="start" isOpen id="nav">
+                <SidebarContent as="nav" aria-label="Main navigation">
+                    <a href="#projects">Projects</a>
+                    <SidebarResizeHandle aria-label="Resize sidebar" />
+                </SidebarContent>
+            </Sidebar>,
+        )
+        expect(await axe(container)).toHaveNoViolations()
+    })
+
     it('has no axe violations as a modal overlay', async () => {
         const { container } = render(
             <Sidebar align="start" isOpen isOverlay overlayMode="modal" id="nav">

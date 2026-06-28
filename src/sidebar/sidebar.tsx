@@ -7,6 +7,8 @@ import { useMergeRefs } from 'use-callback-ref'
 import { Box } from '../box'
 import { polymorphicComponent } from '../utils/polymorphism'
 
+import { useResizablePanel } from './use-resizable-panel'
+
 import styles from './sidebar.module.css'
 
 import type { ObfuscatedClassName } from '../utils/common-types'
@@ -31,6 +33,11 @@ type SidebarContextValue = {
     panelRef: React.RefObject<HTMLElement | null>
     onDismiss?: () => void
     width?: number
+    minWidth?: number
+    maxWidth?: number
+    defaultWidth?: number
+    resizeStep?: number
+    onWidthChange?: (width: number) => void
 }
 
 const SidebarContext = React.createContext<SidebarContextValue | null>(null)
@@ -120,6 +127,24 @@ type SidebarProps = {
      */
     width?: number
 
+    /**
+     * Commits a new width: on pointer up after a drag, and on each keystroke
+     * during keyboard resize. Debounce persistence if it is expensive.
+     */
+    onWidthChange?: (width: number) => void
+
+    /** Minimum width allowed during resize. */
+    minWidth?: number
+
+    /** Maximum width allowed during resize. */
+    maxWidth?: number
+
+    /** Width restored on a double-click reset of the handle. */
+    defaultWidth?: number
+
+    /** Step in px for keyboard (arrow-key) resize. */
+    resizeStep?: number
+
     /** The composed slots (`SidebarContent`, and an optional `SidebarResizeHandle`). */
     children?: React.ReactNode
 }
@@ -142,6 +167,11 @@ function Sidebar({
     dismissOverlayOnEscape = false,
     onDismiss,
     width,
+    onWidthChange,
+    minWidth,
+    maxWidth,
+    defaultWidth,
+    resizeStep,
     children,
 }: SidebarProps) {
     const generatedId = React.useId()
@@ -178,6 +208,11 @@ function Sidebar({
         panelRef,
         onDismiss,
         width,
+        minWidth,
+        maxWidth,
+        defaultWidth,
+        resizeStep,
+        onWidthChange,
     }
 
     return (
@@ -299,6 +334,91 @@ const SidebarContent = polymorphicComponent<'aside', SidebarContentOwnProps, 'om
 )
 
 //
+// SidebarResizeHandle
+//
+
+type SidebarResizeHandleProps = {
+    /** Accessible name for the separator, e.g. "Resize sidebar". */
+    'aria-label'?: string
+
+    /**
+     * Human-readable current width for assistive tech. Derived from the width as
+     * `"{width}px"` when omitted; pass a localized string to override.
+     */
+    'aria-valuetext'?: string
+}
+
+/**
+ * Adds drag and keyboard resize to the sidebar. Rendered by the consumer inside
+ * `<SidebarContent>`; the sidebar is not resizable without it. Renders a
+ * `role="separator"` on the inner edge (right for `align="start"`, left for
+ * `align="end"`) and wires `aria-controls` to the panel internally.
+ *
+ * Keyboard: arrows resize by `resizeStep` (edge-aware), Home/End jump to
+ * min/max, double-click resets to `defaultWidth`. There is no Enter/Space (it is
+ * a separator, not a button). The handle leaves the tab order and the
+ * accessibility tree while the sidebar is closed.
+ *
+ * @see Sidebar
+ * @see SidebarContent
+ */
+function SidebarResizeHandle({
+    'aria-label': ariaLabel,
+    'aria-valuetext': ariaValueText,
+}: SidebarResizeHandleProps) {
+    const {
+        align,
+        isOpen,
+        panelId,
+        panelRef,
+        width,
+        minWidth,
+        maxWidth,
+        defaultWidth,
+        resizeStep,
+        onWidthChange,
+    } = useSidebarContext('SidebarResizeHandle')
+
+    const edge = align === 'start' ? 'right' : 'left'
+    const committedWidth = width ?? defaultWidth ?? 0
+    const minValuePx = minWidth ?? committedWidth
+    const maxValuePx = maxWidth ?? committedWidth
+
+    const { currentValuePx, onDoubleClick, onKeyDown, onPointerDown } = useResizablePanel({
+        defaultValuePx: defaultWidth ?? committedWidth,
+        disabled: !isOpen,
+        edge,
+        maxValuePx,
+        minValuePx,
+        onValueCommit: (next) => onWidthChange?.(next),
+        panelRef,
+        stepPx: resizeStep ?? 0,
+        valuePx: committedWidth,
+    })
+
+    return (
+        <div
+            role="separator"
+            tabIndex={isOpen ? 0 : -1}
+            aria-hidden={isOpen ? undefined : true}
+            aria-controls={panelId}
+            aria-label={ariaLabel}
+            aria-orientation="vertical"
+            aria-valuemin={minValuePx}
+            aria-valuemax={maxValuePx}
+            aria-valuenow={currentValuePx}
+            aria-valuetext={ariaValueText ?? `${currentValuePx}px`}
+            data-align={align}
+            data-disabled={isOpen ? undefined : 'true'}
+            onDoubleClick={onDoubleClick}
+            onKeyDown={onKeyDown}
+            onPointerDown={onPointerDown}
+            className={styles.resizeHandle}
+        />
+    )
+}
+
+//
 // Backdrop (auto-rendered for modal overlays)
 //
 
@@ -328,5 +448,11 @@ function SidebarBackdrop() {
     )
 }
 
-export { Sidebar, SidebarContent, useSidebar }
-export type { SidebarAlign, SidebarContentProps, SidebarOverlayMode, SidebarProps }
+export { Sidebar, SidebarContent, SidebarResizeHandle, useSidebar }
+export type {
+    SidebarAlign,
+    SidebarContentProps,
+    SidebarOverlayMode,
+    SidebarProps,
+    SidebarResizeHandleProps,
+}
