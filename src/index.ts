@@ -41,6 +41,7 @@ export * from './badge'
 export * from './expansion-panel'
 export * from './menu'
 export * from './modal'
+export * from './sidebar'
 export * from './tabs'
 export * from './tooltip'
 
