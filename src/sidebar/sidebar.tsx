@@ -1,6 +1,7 @@
 import * as React from 'react'
 import FocusLock from 'react-focus-lock'
 
+import { hideOthers } from 'aria-hidden'
 import classNames from 'classnames'
 import { useMergeRefs } from 'use-callback-ref'
 
@@ -304,6 +305,16 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
 
         const isDialog = overlayOpen && (overlayMode === 'dialog' || overlayMode === 'modal')
         const ariaModal = overlayOpen && overlayMode === 'modal' ? true : undefined
+
+        React.useLayoutEffect(
+            function hideBackgroundFromAssistiveTech() {
+                if (!shouldTrap) return
+                const panel = panelRef.current
+                if (!panel) return
+                return hideOthers(panel)
+            },
+            [shouldTrap, panelRef],
+        )
 
         const widthStyle =
             width != null

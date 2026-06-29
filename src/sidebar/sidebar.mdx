@@ -35,7 +35,7 @@ styles the real elements while the provider holds state and behavior.
 | Part | Renders | Owns |
 | --- | --- | --- |
 | \`Sidebar\` | the modal backdrop only (a sibling of the panel) | All controlled state and behavior: open, overlay, width and bounds, dismiss; derives the overlay state; runs the Escape dismiss effect; provides context |
-| \`SidebarContent\` | the panel element (a neutral \`<div>\` with \`role="dialog"\` when needed) | Positioning, the slide / collapse transition, dialog semantics, the committed width, and the focus trap while modal |
+| \`SidebarContent\` | the panel element (a neutral \`<div>\` with \`role="dialog"\` when needed) | Positioning, the slide / collapse transition, dialog semantics, the committed width, and the focus trap and assistive-tech hiding while modal |
 | \`SidebarResizeHandle\` | a \`role="separator"\` | The pointer and keyboard resize affordance and its ARIA; self-positions on the inner edge from \`align\` |
 `}</Markdown>
 
@@ -117,7 +117,7 @@ static: it sets what the overlay is while floating.
 | --- | --- | --- | --- | --- | --- |
 | \`plain\` (default) | – | – | – | interactive | none |
 | \`dialog\` | yes | – | – | interactive | none |
-| \`modal\` | yes | yes | yes | inert (consumer-applied) | auto-rendered |
+| \`modal\` | yes | yes | yes | inert (consumer) + AT-hidden (auto) | auto-rendered |
 `}</Markdown>
 
 The backdrop is not a component: `Sidebar` renders it automatically for
@@ -240,9 +240,11 @@ CSS custom properties, set on `SidebarContent` (or any ancestor).
   Name it with `aria-labelledby` / `aria-label` on `SidebarContent`.
 - The panel's content should define a landmark as the component does not
   provide one.
-- A `modal` overlay traps focus, sets `aria-modal`, and returns focus to the
-  trigger on close. The consumer applies `inert` to the main element so the rest
-  of the page leaves the accessibility tree.
+- A `modal` overlay traps focus, sets `aria-modal`, returns focus to the trigger
+  on close, and hides the rest of the page from assistive technology
+  automatically (it marks sibling content `aria-hidden`). Still apply `inert` to
+  the main element: it also blocks pointer interaction, which the automatic
+  hiding does not.
 - Escape dismisses an open overlay when `dismissOverlayOnEscape` is set, and respects
   `event.defaultPrevented` so app-level key handling can opt out.
 - The resize handle is a focusable `separator` while open, and leaves the tab
