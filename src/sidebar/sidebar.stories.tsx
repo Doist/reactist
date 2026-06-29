@@ -71,6 +71,12 @@ const PANEL_SKIN = {
     borderRight: '1px solid var(--reactist-divider-secondary)',
 } satisfies React.CSSProperties
 
+// The mirror skin for an `align="end"` pane: the border sits on the inner edge.
+const PANEL_SKIN_END = {
+    background: 'var(--reactist-content-background, #faf9f8)',
+    borderLeft: '1px solid var(--reactist-divider-secondary)',
+} satisfies React.CSSProperties
+
 // Make the otherwise-transparent resize handle visible in the demos.
 const HANDLE_VISIBLE = {
     '--reactist-sidebar-resize-handle-idle-fill': 'var(--reactist-divider-secondary)',
@@ -534,6 +540,74 @@ export const StackedSidebars = {
                         </Text>
                     </Stack>
                 </Box>
+            </Box>
+        )
+    },
+} satisfies Story
+
+/**
+ * A left nav and a right details pane around the main absorber: the spec's full
+ * shell contract with both edges. `align="start"` and `align="end"` are the same
+ * component mirrored. Both panes resize from their inner edges.
+ */
+export const LeftAndRight = {
+    render: function LeftAndRight() {
+        const [navWidth, setNavWidth] = React.useState(240)
+        const [paneWidth, setPaneWidth] = React.useState(320)
+
+        return (
+            <Box display="flex" height="full">
+                <Sidebar
+                    id="lr-nav"
+                    align="start"
+                    isOpen
+                    width={navWidth}
+                    onWidthChange={setNavWidth}
+                    minWidth={200}
+                    maxWidth={320}
+                    defaultWidth={240}
+                    resizeStep={20}
+                >
+                    <SidebarContent
+                        as="nav"
+                        aria-label="Main navigation"
+                        style={{ ...PANEL_SKIN, ...HANDLE_VISIBLE }}
+                    >
+                        <DemoNav />
+                        <SidebarResizeHandle aria-label="Resize navigation" />
+                    </SidebarContent>
+                </Sidebar>
+                <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
+                    <Stack space="medium">
+                        <Heading level="2" size="larger">
+                            Main content
+                        </Heading>
+                        <Text tone="secondary">
+                            The main element is the absorber between both sidebars. Drag either
+                            pane's inner edge to resize it.
+                        </Text>
+                    </Stack>
+                </Box>
+                <Sidebar
+                    id="lr-pane"
+                    align="end"
+                    isOpen
+                    width={paneWidth}
+                    onWidthChange={setPaneWidth}
+                    minWidth={280}
+                    maxWidth={480}
+                    defaultWidth={320}
+                    resizeStep={20}
+                >
+                    <SidebarContent
+                        as="aside"
+                        aria-label="Details"
+                        style={{ ...PANEL_SKIN_END, ...HANDLE_VISIBLE }}
+                    >
+                        <DemoNav title="Details" />
+                        <SidebarResizeHandle aria-label="Resize details pane" />
+                    </SidebarContent>
+                </Sidebar>
             </Box>
         )
     },
