@@ -148,6 +148,10 @@ const meta = {
     component: Sidebar,
     parameters: {
         badges: ['accessible'],
+        figma: {
+            path: 'Web › Components / Todoist › Sidebar › Main Navigation / Sidebar',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=1194-17741',
+        },
         // Serialize the rendered composition into "Show code", not the story wrapper.
         docs: { source: { type: 'dynamic' } },
     },
