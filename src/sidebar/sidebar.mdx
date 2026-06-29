@@ -34,8 +34,8 @@ styles the real elements while the provider holds state and behavior.
 <Markdown>{`
 | Part | Renders | Owns |
 | --- | --- | --- |
-| \`Sidebar\` | the modal backdrop only (a sibling of the panel) | All controlled state and behavior: open, overlay, width and bounds, dismiss; derives the overlay state; runs the Escape dismiss effect; provides context |
-| \`SidebarContent\` | the panel element (a neutral \`<div>\` with \`role="dialog"\` when needed) | Positioning, the slide / collapse transition, dialog semantics, the committed width, and the focus trap and assistive-tech hiding while modal |
+| \`Sidebar\` | the modal backdrop only (a sibling of the panel) | All controlled state and behavior: open, overlay, width and bounds, dismiss; derives the overlay state; provides context |
+| \`SidebarContent\` | the panel element (a neutral \`<div>\` with \`role="dialog"\` when needed) | Positioning, the slide / collapse transition, dialog semantics, the committed width, the focus trap and assistive-tech hiding while modal, and panel-scoped Escape-to-dismiss |
 | \`SidebarResizeHandle\` | a \`role="separator"\` | The pointer and keyboard resize affordance and its ARIA; self-positions on the inner edge from \`align\` |
 `}</Markdown>
 
@@ -245,7 +245,9 @@ CSS custom properties, set on `SidebarContent` (or any ancestor).
   automatically (it marks sibling content `aria-hidden`). Still apply `inert` to
   the main element: it also blocks pointer interaction, which the automatic
   hiding does not.
-- Escape dismisses an open overlay when `dismissOverlayOnEscape` is set, and respects
-  `event.defaultPrevented` so app-level key handling can opt out.
+- Escape dismisses an open overlay when `dismissOverlayOnEscape` is set, but only
+  while focus is within the panel (it is handled on the panel, not app-wide). It
+  respects `event.defaultPrevented`, so a child that consumes Escape (an open menu
+  or tooltip) keeps it.
 - The resize handle is a focusable `separator` while open, and leaves the tab
   order and the accessibility tree while closed.
