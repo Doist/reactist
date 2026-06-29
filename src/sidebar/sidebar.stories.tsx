@@ -32,6 +32,8 @@ function DemoNav({ title = 'Workspace' }: { title?: string }) {
     )
 }
 
+DemoNav.displayName = 'DemoNav'
+
 const PANEL_SKIN = {
     background: 'var(--reactist-content-background, #faf9f8)',
     borderRight: '1px solid var(--reactist-divider-secondary)',
