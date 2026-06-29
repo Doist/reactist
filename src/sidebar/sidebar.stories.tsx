@@ -78,6 +78,33 @@ function useInert(active: boolean) {
     return ref
 }
 
+/**
+ * Flips `isOverlay` when the shell gets narrower than `breakpoint`. Computing the
+ * overlay state from a breakpoint is the consumer's job; this measures the
+ * container (rather than the viewport) so it works inside the bounded demo stage.
+ */
+function useOverlayBelow<T extends HTMLElement>(breakpoint: number) {
+    const shellRef = React.useRef<T>(null)
+    const [isOverlay, setIsOverlay] = React.useState(false)
+
+    React.useEffect(
+        function observeShellWidth() {
+            const node = shellRef.current
+            if (!node) return
+
+            const observer = new ResizeObserver((entries) => {
+                const entry = entries[0]
+                if (entry) setIsOverlay(entry.contentRect.width < breakpoint)
+            })
+            observer.observe(node)
+            return () => observer.disconnect()
+        },
+        [breakpoint],
+    )
+
+    return [shellRef, isOverlay] as const
+}
+
 const meta = {
     title: '🧭 Navigation & structure/Sidebar',
     component: Sidebar,
@@ -338,6 +365,73 @@ export const DialogSidePane = {
                         </div>
                     </SidebarContent>
                 </Sidebar>
+            </Box>
+        )
+    },
+} satisfies Story
+
+/**
+ * Responsive shell. The consumer computes `isOverlay` from the container width:
+ * above the breakpoint the nav is docked in flow; below it, the nav becomes a
+ * modal drawer with a trigger. Resize the canvas (or use the viewport toolbar) to
+ * cross the breakpoint. The panel stays `as="div"` with `landmarkRole="navigation"`
+ * so it is a navigation landmark while docked and a dialog while a modal overlay.
+ */
+export const Responsive = {
+    render: function Responsive() {
+        const [shellRef, isOverlay] = useOverlayBelow<HTMLDivElement>(640)
+        const [isOpen, setIsOpen] = React.useState(false)
+        const mainRef = useInert(isOverlay && isOpen)
+        // Docked: always in view. Overlay: toggled by the trigger.
+        const open = isOverlay ? isOpen : true
+
+        return (
+            <Box display="flex" height="full" ref={shellRef}>
+                <Sidebar
+                    id="responsive-nav"
+                    align="start"
+                    isOverlay={isOverlay}
+                    overlayMode="modal"
+                    isOpen={open}
+                    dismissOverlayOnEscape
+                    onDismiss={() => setIsOpen(false)}
+                    width={240}
+                >
+                    <SidebarContent
+                        as="div"
+                        landmarkRole="navigation"
+                        aria-label="Primary navigation"
+                        style={PANEL_SKIN}
+                    >
+                        <DemoNav />
+                    </SidebarContent>
+                </Sidebar>
+                <Box
+                    as="main"
+                    ref={mainRef}
+                    flexGrow={1}
+                    minWidth={0}
+                    padding="large"
+                    overflow="auto"
+                >
+                    <Stack space="medium">
+                        {isOverlay ? (
+                            <Button
+                                variant="primary"
+                                aria-expanded={isOpen}
+                                aria-controls="responsive-nav"
+                                onClick={() => setIsOpen(true)}
+                            >
+                                Open menu
+                            </Button>
+                        ) : null}
+                        <Text tone="secondary">
+                            Above 640px the nav is docked; below it the consumer flips `isOverlay`
+                            and the nav becomes a modal drawer. Resize the canvas to see it cross
+                            the breakpoint.
+                        </Text>
+                    </Stack>
+                </Box>
             </Box>
         )
     },

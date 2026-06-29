@@ -162,6 +162,15 @@ custom properties.
 
 <Canvas of={SidebarStories.DialogSidePane} />
 
+## Responsive
+
+The component never measures itself: the consumer computes `isOverlay` from a
+breakpoint (a container query or a `ResizeObserver`, whichever fits) and passes
+it in. Above the breakpoint the nav is docked; below it, it becomes a modal
+drawer. Resize the canvas to cross the breakpoint.
+
+<Canvas of={SidebarStories.Responsive} />
+
 ## The toggle trigger
 
 Reactist ships no trigger. The toggle is the consumer's own button, wired by
