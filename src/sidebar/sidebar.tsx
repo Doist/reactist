@@ -519,6 +519,8 @@ function SidebarBackdrop() {
     )
 }
 
+SidebarContent.displayName = 'SidebarContent'
+
 export { Sidebar, SidebarContent, SidebarResizeHandle, useSidebar }
 export type {
     SidebarAlign,

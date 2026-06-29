@@ -297,4 +297,6 @@ export type {
     ReusableBoxProps,
 }
 
+Box.displayName = 'Box'
+
 export { Box, getBoxClassNames }

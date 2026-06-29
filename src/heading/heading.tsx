@@ -116,5 +116,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps & ObfuscatedCl
     },
 )
 
+Heading.displayName = 'Heading'
+
 export type { HeadingLevel, HeadingProps }
 export { Heading }
