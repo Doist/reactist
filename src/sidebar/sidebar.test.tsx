@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { axe } from 'jest-axe'
 
 import { Sidebar, SidebarContent, SidebarResizeHandle } from './sidebar'
@@ -11,12 +11,16 @@ function renderSidebar(
     props: Partial<SidebarProps> = {},
     {
         contentProps = {},
-        children = <div>Navigation</div>,
+        children = <nav aria-label="Main navigation">Navigation</nav>,
     }: { contentProps?: Record<string, unknown>; children?: React.ReactNode } = {},
 ) {
     return render(
         <Sidebar align="start" isOpen={true} {...props}>
-            <SidebarContent aria-label="Main navigation" {...contentProps}>
+            <SidebarContent
+                data-testid="sidebar-panel"
+                aria-label="Main navigation"
+                {...contentProps}
+            >
                 {children}
             </SidebarContent>
         </Sidebar>,
@@ -24,41 +28,33 @@ function renderSidebar(
 }
 
 describe('Sidebar', () => {
-    it('renders the panel as an <aside> by default', () => {
+    it('renders a neutral <div> panel that wraps the consumer landmark child', () => {
         renderSidebar()
-        const panel = screen.getByRole('complementary', { name: 'Main navigation' })
-        expect(panel.tagName).toBe('ASIDE')
-    })
-
-    it('renders the panel as a custom element via `as`', () => {
-        renderSidebar({}, { contentProps: { as: 'nav' } })
-        const panel = screen.getByRole('navigation', { name: 'Main navigation' })
-        expect(panel.tagName).toBe('NAV')
+        const panel = screen.getByTestId('sidebar-panel')
+        expect(panel.tagName).toBe('DIV')
+        expect(panel).not.toHaveAttribute('role')
+        expect(screen.getByRole('navigation', { name: 'Main navigation' })).toBeInTheDocument()
     })
 
     it('applies the provider `id` to the panel', () => {
         renderSidebar({ id: 'app-sidebar' })
-        expect(screen.getByRole('complementary', { name: 'Main navigation' })).toHaveAttribute(
-            'id',
-            'app-sidebar',
-        )
+        expect(screen.getByTestId('sidebar-panel')).toHaveAttribute('id', 'app-sidebar')
     })
 
     it('auto-generates a panel id when none is given', () => {
         renderSidebar()
-        const panel = screen.getByRole('complementary', { name: 'Main navigation' })
-        expect(panel.getAttribute('id')).toBeTruthy()
+        expect(screen.getByTestId('sidebar-panel').getAttribute('id')).toBeTruthy()
     })
 
     it('reflects open / closed through data-state', () => {
         const { rerender } = renderSidebar({ isOpen: true })
-        const panel = screen.getByRole('complementary', { name: 'Main navigation' })
+        const panel = screen.getByTestId('sidebar-panel')
         expect(panel).toHaveAttribute('data-state', 'open')
 
         rerender(
             <Sidebar align="start" isOpen={false}>
-                <SidebarContent aria-label="Main navigation">
-                    <div>Navigation</div>
+                <SidebarContent data-testid="sidebar-panel" aria-label="Main navigation">
+                    <nav aria-label="Main navigation">Navigation</nav>
                 </SidebarContent>
             </Sidebar>,
         )
@@ -67,17 +63,14 @@ describe('Sidebar', () => {
 
     it('exposes the attach edge through data-align', () => {
         renderSidebar({ align: 'end' })
-        expect(screen.getByRole('complementary', { name: 'Main navigation' })).toHaveAttribute(
-            'data-align',
-            'end',
-        )
+        expect(screen.getByTestId('sidebar-panel')).toHaveAttribute('data-align', 'end')
     })
 
     it('ignores a host `role` so the component owns the rendered role', () => {
         renderSidebar({}, { contentProps: { role: 'banner' } })
-        // The landmark role stays `complementary` (the default aside), not the host `banner`.
+        // Docked, the panel is a neutral div with no role; a host role is ignored.
         expect(screen.queryByRole('banner')).not.toBeInTheDocument()
-        expect(screen.getByRole('complementary', { name: 'Main navigation' })).toBeInTheDocument()
+        expect(screen.getByTestId('sidebar-panel')).not.toHaveAttribute('role')
     })
 
     it('keeps children mounted while closed by default', () => {
@@ -87,27 +80,31 @@ describe('Sidebar', () => {
 })
 
 describe('overlay modes', () => {
-    it('uses the landmark role and adds no dialog while docked', () => {
+    it('keeps the child landmark and adds no dialog while docked', () => {
         renderSidebar({ isOverlay: false, overlayMode: 'modal' })
         expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
-        expect(screen.getByRole('complementary', { name: 'Main navigation' })).toBeInTheDocument()
+        expect(screen.getByRole('navigation', { name: 'Main navigation' })).toBeInTheDocument()
     })
 
     it('keeps a plain overlay free of a dialog role', () => {
         renderSidebar({ isOverlay: true, overlayMode: 'plain' })
         expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+        expect(screen.getByRole('navigation', { name: 'Main navigation' })).toBeInTheDocument()
     })
 
-    it('announces a dialog overlay as a non-modal dialog', () => {
-        // A dialog overlay renders a generic element (`as="div"`) so the `dialog`
-        // role is valid; the default `aside` cannot carry `role="dialog"`.
-        renderSidebar({ isOverlay: true, overlayMode: 'dialog' }, { contentProps: { as: 'div' } })
+    it('announces a dialog overlay as a non-modal dialog, landmark preserved inside', () => {
+        // The panel itself becomes the dialog (a neutral <div>), named via the
+        // aria-label on SidebarContent; the landmark child stays inside it.
+        renderSidebar({ isOverlay: true, overlayMode: 'dialog' })
         const dialog = screen.getByRole('dialog', { name: 'Main navigation' })
         expect(dialog).not.toHaveAttribute('aria-modal')
+        expect(
+            within(dialog).getByRole('navigation', { name: 'Main navigation' }),
+        ).toBeInTheDocument()
     })
 
     it('marks a modal overlay as a modal dialog', () => {
-        renderSidebar({ isOverlay: true, overlayMode: 'modal' }, { contentProps: { as: 'div' } })
+        renderSidebar({ isOverlay: true, overlayMode: 'modal' })
         const dialog = screen.getByRole('dialog', { name: 'Main navigation' })
         expect(dialog).toHaveAttribute('aria-modal', 'true')
     })
@@ -204,7 +201,7 @@ describe('focus management', () => {
     it('moves focus into the panel when opened as a modal overlay', async () => {
         render(
             <Sidebar align="start" isOpen isOverlay overlayMode="modal" id="nav">
-                <SidebarContent as="div" aria-label="Menu">
+                <SidebarContent aria-label="Menu">
                     <button type="button">First</button>
                     <button type="button">Second</button>
                 </SidebarContent>
@@ -348,8 +345,10 @@ describe('accessibility', () => {
     it('has no axe violations as a docked nav', async () => {
         const { container } = render(
             <Sidebar align="start" isOpen id="nav">
-                <SidebarContent as="nav" aria-label="Main navigation">
-                    <a href="#projects">Projects</a>
+                <SidebarContent>
+                    <nav aria-label="Main navigation">
+                        <a href="#projects">Projects</a>
+                    </nav>
                     <SidebarResizeHandle aria-label="Resize sidebar" />
                 </SidebarContent>
             </Sidebar>,
@@ -360,8 +359,10 @@ describe('accessibility', () => {
     it('has no axe violations as a modal overlay', async () => {
         const { container } = render(
             <Sidebar align="start" isOpen isOverlay overlayMode="modal" id="nav">
-                <SidebarContent as="div" aria-label="Main navigation">
-                    <a href="#projects">Projects</a>
+                <SidebarContent aria-label="Main navigation">
+                    <nav aria-label="Primary">
+                        <a href="#projects">Projects</a>
+                    </nav>
                 </SidebarContent>
             </Sidebar>,
         )

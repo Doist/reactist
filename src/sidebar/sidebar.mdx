@@ -35,7 +35,7 @@ styles the real elements while the provider holds state and behavior.
 | Part | Renders | Owns |
 | --- | --- | --- |
 | \`Sidebar\` | the modal backdrop only (a sibling of the panel) | All controlled state and behavior: open, overlay, width and bounds, dismiss; derives the overlay state; runs the Escape dismiss effect; provides context |
-| \`SidebarContent\` | the panel element (\`as\`, default \`aside\`) | Positioning, the slide / collapse transition, dialog semantics, the committed width, and the focus trap while modal |
+| \`SidebarContent\` | the panel element (a neutral \`<div>\` with \`role="dialog"\` when needed) | Positioning, the slide / collapse transition, dialog semantics, the committed width, and the focus trap while modal |
 | \`SidebarResizeHandle\` | a \`role="separator"\` | The pointer and keyboard resize affordance and its ARIA; self-positions on the inner edge from \`align\` |
 `}</Markdown>
 
@@ -63,8 +63,8 @@ const navIsOverlay = viewportWidth < maxNavWidth + minContentWidth
 
 <Box display="flex">
     <Sidebar align="start" isOpen={isOpen} isOverlay={navIsOverlay} overlayMode="modal" width={width} onWidthChange={setWidth}>
-        <SidebarContent as="nav" aria-label="Main navigation">
-            {/* nav content */}
+        <SidebarContent aria-label="Main navigation">
+            <nav aria-label="Main navigation">{/* nav content */}</nav>
             <SidebarResizeHandle aria-label="Resize sidebar" />
         </SidebarContent>
     </Sidebar>
@@ -127,22 +127,20 @@ backdrop and leaves the background interactive.
 
 ### Element and role
 
-`SidebarContent` defaults to `aside` (a `complementary` landmark). Choose the
-element with `as`, and the landmark with `landmarkRole` plus an accessible name:
+`SidebarContent` takes the `dialog` role when it is an overlay and `overlayMode`
+is `dialog` or `modal`, otherwise it has no landmark role of its own. Nest your
+landmark element as a child and name it there:
 
 <Markdown>{`
-| Intent | \`as\` and host props |
+| Intent | Landmark child |
 | --- | --- |
-| Top-level sidebar (peer of \`main\`) | \`as="aside"\` (default, \`complementary\`) |
-| Main navigation | \`as="nav"\` with \`aria-label\` |
-| Named nested pane | \`as="section"\` with \`aria-labelledby\` (a \`region\`) |
-| A dialog or modal overlay | \`as="div"\` (so the \`dialog\` role is valid) |
+| Top-level sidebar (peer of \`main\`) | \`<aside aria-label>\` (a \`complementary\` landmark) |
+| Main navigation | \`<nav aria-label>\` |
+| Named nested pane | \`<section aria-labelledby>\` (a \`region\`) |
 `}</Markdown>
 
-When `overlayMode` is `dialog` or `modal`, the rendered role becomes `dialog`.
-An `aside` or `nav` cannot validly carry `role="dialog"`, so render the panel as
-a generic element (`as="div"`) when it becomes a dialog. The host `role` prop is
-ignored; the component owns the rendered role.
+Name the dialog on `SidebarContent`: prefer `aria-labelledby` pointing at a
+visible heading in the panel when there is one, or `aria-label` otherwise.
 
 ### Modal drawer
 
@@ -230,15 +228,18 @@ CSS custom properties, set on `SidebarContent` (or any ancestor).
 - **State and persistence** — `isOpen` and `width` are controlled; persist them
   yourself.
 - **The trigger** — wire your own button with `aria-expanded` / `aria-controls`.
+- **The landmark** — nest your `<nav>` / `<aside>` / `<section>` as a child of
+  `SidebarContent`; the panel itself is a neutral container.
 - **The visual skin** — background, rounding, and padding are a child or
   `exceptionallySetClassName`; keep a clipping skin (`overflow: hidden`) a child
   so the resize handle is not cut off.
 
 ## Accessibility
 
-- The panel is a landmark while docked (or a `plain` overlay) and a `dialog`
-  while a `dialog` / `modal` overlay; give it an accessible name with `aria-label`
-  or `aria-labelledby`.
+- When floating as a `dialog` / `modal` overlay, the panel becomes a `dialog`.
+  Name it with `aria-labelledby` / `aria-label` on `SidebarContent`.
+- The panel's content should define a landmark as the component does not
+  provide one.
 - A `modal` overlay traps focus, sets `aria-modal`, and returns focus to the
   trigger on close. The consumer applies `inert` to the main element so the rest
   of the page leaves the accessibility tree.

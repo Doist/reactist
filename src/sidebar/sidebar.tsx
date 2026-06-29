@@ -5,14 +5,12 @@ import classNames from 'classnames'
 import { useMergeRefs } from 'use-callback-ref'
 
 import { Box } from '../box'
-import { polymorphicComponent } from '../utils/polymorphism'
 
 import { useResizablePanel } from './use-resizable-panel'
 
 import styles from './sidebar.module.css'
 
 import type { ObfuscatedClassName } from '../utils/common-types'
-import type { PolymorphicComponentProps } from '../utils/polymorphism'
 
 /** Which edge the sidebar attaches to; drives slide direction and the handle edge. */
 type SidebarAlign = 'start' | 'end'
@@ -31,7 +29,7 @@ type SidebarContextValue = {
     shouldTrap: boolean
     unmountOnHide: boolean
     panelId: string
-    panelRef: React.RefObject<HTMLElement | null>
+    panelRef: React.RefObject<HTMLDivElement | null>
     onDismiss?: () => void
     width?: number
     minWidth?: number
@@ -187,7 +185,7 @@ function Sidebar({
 }: SidebarProps) {
     const generatedId = React.useId()
     const panelId = id ?? generatedId
-    const panelRef = React.useRef<HTMLElement>(null)
+    const panelRef = React.useRef<HTMLDivElement>(null)
 
     const overlayOpen = isOverlay && isOpen
     const shouldTrap = overlayOpen && overlayMode === 'modal'
@@ -239,35 +237,37 @@ function Sidebar({
 // SidebarContent (the panel)
 //
 
-type SidebarContentOwnProps = ObfuscatedClassName & {
-    /**
-     * The landmark role applied while docked (or a `plain` overlay), together
-     * with an accessible name (`aria-label` / `aria-labelledby`). When
-     * `overlayMode` is `dialog` or `modal`, the rendered role becomes `dialog`
-     * instead. The native `role` host prop is ignored in favour of this.
-     */
-    landmarkRole?: string
+type SidebarContentProps = Omit<
+    React.ComponentPropsWithoutRef<'div'>,
+    'className' | 'role' | 'id' | 'aria-label' | 'aria-labelledby'
+> &
+    ObfuscatedClassName &
+    (
+        | { 'aria-label'?: string; 'aria-labelledby'?: never }
+        | { 'aria-label'?: never; 'aria-labelledby'?: string }
+    ) & {
+        /**
+         * The panel's skin and content: use a landmark child (`<nav>` / `<aside>` /
+         * `<section>`) plus an optional `<SidebarResizeHandle>`.
+         */
+        children?: React.ReactNode
 
-    /** The panel's skin and content, plus an optional `<SidebarResizeHandle>`. */
-    children?: React.ReactNode
+        /** Test identifier applied to the panel element. */
+        'data-testid'?: string
 
-    /** Test identifier applied to the panel element. */
-    'data-testid'?: string
-
-    // Let consumers forward arbitrary data-* attributes onto the panel element.
-    [dataAttribute: `data-${string}`]: unknown
-}
-
-type SidebarContentProps<ComponentType extends React.ElementType = 'aside'> =
-    PolymorphicComponentProps<ComponentType, SidebarContentOwnProps, 'omitClassName'>
+        // Let consumers forward arbitrary data-* attributes onto the panel element.
+        [dataAttribute: `data-${string}`]: unknown
+    }
 
 const SIDEBAR_WIDTH_VAR = '--reactist-sidebar-width'
 
 /**
- * The sidebar panel. A polymorphic `Box` (default `aside`) that owns positioning
- * (in-flow vs `position: fixed`), the slide / collapse transition, dialog
- * semantics from `overlayMode`, and the committed width. Wraps its children in a
- * focus trap while shown as a modal overlay.
+ * The sidebar panel provides the positioning as a docked panel, or as a
+ * floating dialog. It is responsible for the slide / collapse transition,
+ * and the committed width.
+ *
+ * Name it with `aria-label` / `aria-labelledby`, which will automatically be
+ * applied when rendered as a dialog.
  *
  * The visual skin (background, rounding, padding) stays a consumer child or
  * `exceptionallySetClassName`; keep the clipping skin (`overflow: hidden`) a
@@ -275,16 +275,14 @@ const SIDEBAR_WIDTH_VAR = '--reactist-sidebar-width'
  *
  * @see Sidebar
  */
-const SidebarContent = polymorphicComponent<'aside', SidebarContentOwnProps, 'omitClassName'>(
+const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
     function SidebarContent(
         {
-            as: component = 'aside',
-            landmarkRole,
             exceptionallySetClassName,
             children,
             style,
-            // The component owns the rendered role (landmark vs dialog); ignore any host role.
-            role: _ignoredRole,
+            'aria-label': ariaLabel,
+            'aria-labelledby': ariaLabelledby,
             ...rest
         },
         ref,
@@ -305,7 +303,6 @@ const SidebarContent = polymorphicComponent<'aside', SidebarContentOwnProps, 'om
         const mergedRef = useMergeRefs([panelRef, ref])
 
         const isDialog = overlayOpen && (overlayMode === 'dialog' || overlayMode === 'modal')
-        const resolvedRole = isDialog ? 'dialog' : landmarkRole
         const ariaModal = overlayOpen && overlayMode === 'modal' ? true : undefined
 
         const widthStyle =
@@ -323,14 +320,16 @@ const SidebarContent = polymorphicComponent<'aside', SidebarContentOwnProps, 'om
         return (
             <Box
                 {...rest}
-                as={component}
+                as="div"
                 ref={mergedRef}
                 display="flex"
                 flexDirection="column"
                 flexShrink={0}
                 id={panelId}
-                role={resolvedRole}
+                role={isDialog ? 'dialog' : undefined}
                 aria-modal={ariaModal}
+                aria-label={isDialog ? ariaLabel : undefined}
+                aria-labelledby={isDialog ? ariaLabelledby : undefined}
                 data-align={align}
                 data-overlay={isOverlay ? 'true' : 'false'}
                 data-state={isOpen ? 'open' : 'closed'}
@@ -363,7 +362,7 @@ function useDeferredUnmount({
 }: {
     isOpen: boolean
     unmountOnHide: boolean
-    panelRef: React.RefObject<HTMLElement | null>
+    panelRef: React.RefObject<HTMLDivElement | null>
 }): boolean {
     const [exited, setExited] = React.useState(() => unmountOnHide && !isOpen)
     const [wasOpen, setWasOpen] = React.useState(isOpen)

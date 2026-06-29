@@ -194,8 +194,10 @@ export const Docked = {
         return (
             <Box display="flex" height="full">
                 <Sidebar id="docked-nav" align="start" isOpen={isOpen} width={260}>
-                    <SidebarContent as="nav" aria-label="Primary" style={PANEL_SKIN}>
-                        <DemoNav />
+                    <SidebarContent style={PANEL_SKIN}>
+                        <Box as="nav" aria-label="Primary">
+                            <DemoNav />
+                        </Box>
                     </SidebarContent>
                 </Sidebar>
                 <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
@@ -243,12 +245,10 @@ export const Resizable = {
                     defaultWidth={280}
                     resizeStep={24}
                 >
-                    <SidebarContent
-                        as="nav"
-                        aria-label="Primary"
-                        style={{ ...PANEL_SKIN, ...HANDLE_VISIBLE }}
-                    >
-                        <DemoNav />
+                    <SidebarContent style={{ ...PANEL_SKIN, ...HANDLE_VISIBLE }}>
+                        <Box as="nav" aria-label="Primary">
+                            <DemoNav />
+                        </Box>
                         <SidebarResizeHandle aria-label="Resize sidebar" />
                     </SidebarContent>
                 </Sidebar>
@@ -271,8 +271,9 @@ export const Resizable = {
  * A modal overlay drawer (`isOverlay` + `overlayMode="modal"`). It floats over
  * the content, traps focus, renders a dimming backdrop, and dismisses on the
  * backdrop click or Escape. The consumer applies `inert` to the main element
- * while the drawer is open. A modal/dialog overlay renders a generic element
- * (`as="div"`) so the `dialog` role is valid.
+ * while the drawer is open. The panel becomes a `dialog` (named via `aria-label`
+ * on `SidebarContent`), and the consumer's `<nav>` landmark remains a child,
+ * preserved inside the dialog.
  */
 export const ModalDrawer = {
     render: function ModalDrawer() {
@@ -291,8 +292,10 @@ export const ModalDrawer = {
                     onDismiss={() => setIsOpen(false)}
                     width={260}
                 >
-                    <SidebarContent as="div" aria-label="Primary navigation" style={PANEL_SKIN}>
-                        <DemoNav />
+                    <SidebarContent aria-label="Primary navigation" style={PANEL_SKIN}>
+                        <Box as="nav" aria-label="Primary">
+                            <DemoNav />
+                        </Box>
                     </SidebarContent>
                 </Sidebar>
                 <Box
@@ -369,7 +372,7 @@ export const DialogSidePane = {
                     defaultWidth={340}
                     resizeStep={24}
                 >
-                    <SidebarContent as="div" aria-label="Assistant" style={CARD_INSETS}>
+                    <SidebarContent aria-labelledby="chat-pane-heading" style={CARD_INSETS}>
                         <div style={CARD_SKIN}>
                             <Box
                                 padding="medium"
@@ -382,7 +385,7 @@ export const DialogSidePane = {
                                     justifyContent="spaceBetween"
                                     alignItems="center"
                                 >
-                                    <Heading level="2" size="smaller">
+                                    <Heading level="2" size="smaller" id="chat-pane-heading">
                                         Assistant
                                     </Heading>
                                     <Button
@@ -416,8 +419,9 @@ export const DialogSidePane = {
  * Responsive shell. The consumer computes `isOverlay` from the container width:
  * above the breakpoint the nav is docked in flow; below it, the nav becomes a
  * modal drawer with a trigger. Resize the canvas (or use the viewport toolbar) to
- * cross the breakpoint. The panel stays `as="div"` with `landmarkRole="navigation"`
- * so it is a navigation landmark while docked and a dialog while a modal overlay.
+ * cross the breakpoint. The `<nav>` landmark is a child of `SidebarContent`, so it
+ * remains a navigation landmark while docked and is preserved inside the dialog while
+ * a modal overlay (the panel itself becomes the dialog).
  */
 export const Responsive = {
     render: function Responsive() {
@@ -439,13 +443,10 @@ export const Responsive = {
                     onDismiss={() => setIsOpen(false)}
                     width={240}
                 >
-                    <SidebarContent
-                        as="div"
-                        landmarkRole="navigation"
-                        aria-label="Primary navigation"
-                        style={PANEL_SKIN}
-                    >
-                        <DemoNav />
+                    <SidebarContent aria-label="Primary navigation" style={PANEL_SKIN}>
+                        <Box as="nav" aria-label="Primary navigation">
+                            <DemoNav />
+                        </Box>
                     </SidebarContent>
                 </Sidebar>
                 <Box
@@ -503,12 +504,10 @@ export const StackedSidebars = {
                     defaultWidth={64}
                     resizeStep={8}
                 >
-                    <SidebarContent
-                        as="nav"
-                        aria-label="Workspaces"
-                        style={{ ...RAIL_SKIN, ...HANDLE_VISIBLE }}
-                    >
-                        <DemoRail />
+                    <SidebarContent style={{ ...RAIL_SKIN, ...HANDLE_VISIBLE }}>
+                        <Box as="nav" aria-label="Workspaces">
+                            <DemoRail />
+                        </Box>
                         <SidebarResizeHandle aria-label="Resize workspace rail" />
                     </SidebarContent>
                 </Sidebar>
@@ -523,12 +522,10 @@ export const StackedSidebars = {
                     defaultWidth={260}
                     resizeStep={20}
                 >
-                    <SidebarContent
-                        as="section"
-                        aria-label="Conversations"
-                        style={{ ...PANEL_SKIN, ...HANDLE_VISIBLE }}
-                    >
-                        <DemoNav title="Conversations" />
+                    <SidebarContent style={{ ...PANEL_SKIN, ...HANDLE_VISIBLE }}>
+                        <Box as="section" aria-label="Conversations">
+                            <DemoNav title="Conversations" />
+                        </Box>
                         <SidebarResizeHandle aria-label="Resize conversation list" />
                     </SidebarContent>
                 </Sidebar>
@@ -572,12 +569,10 @@ export const LeftAndRight = {
                     defaultWidth={240}
                     resizeStep={20}
                 >
-                    <SidebarContent
-                        as="nav"
-                        aria-label="Main navigation"
-                        style={{ ...PANEL_SKIN, ...HANDLE_VISIBLE }}
-                    >
-                        <DemoNav />
+                    <SidebarContent style={{ ...PANEL_SKIN, ...HANDLE_VISIBLE }}>
+                        <Box as="nav" aria-label="Main navigation">
+                            <DemoNav />
+                        </Box>
                         <SidebarResizeHandle aria-label="Resize navigation" />
                     </SidebarContent>
                 </Sidebar>
@@ -603,12 +598,10 @@ export const LeftAndRight = {
                     defaultWidth={320}
                     resizeStep={20}
                 >
-                    <SidebarContent
-                        as="aside"
-                        aria-label="Details"
-                        style={{ ...PANEL_SKIN_END, ...HANDLE_VISIBLE }}
-                    >
-                        <DemoNav title="Details" />
+                    <SidebarContent style={{ ...PANEL_SKIN_END, ...HANDLE_VISIBLE }}>
+                        <Box as="aside" aria-label="Details">
+                            <DemoNav title="Details" />
+                        </Box>
                         <SidebarResizeHandle aria-label="Resize details pane" />
                     </SidebarContent>
                 </Sidebar>
@@ -687,7 +680,6 @@ export const Playground = {
                 resizeStep={24}
             >
                 <SidebarContent
-                    as={isOverlay && overlayMode !== 'plain' ? 'div' : 'aside'}
                     aria-label="Playground sidebar"
                     style={{ ...PANEL_SKIN, ...HANDLE_VISIBLE }}
                 >
