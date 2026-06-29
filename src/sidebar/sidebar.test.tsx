@@ -145,6 +145,34 @@ describe('modal backdrop', () => {
     })
 })
 
+describe('modal background', () => {
+    const tree = (isOpen: boolean, overlayMode: 'modal' | 'dialog') => (
+        <div>
+            <Sidebar align="start" isOpen={isOpen} isOverlay overlayMode={overlayMode}>
+                <SidebarContent aria-label="Menu">
+                    <nav aria-label="Primary">Nav</nav>
+                </SidebarContent>
+            </Sidebar>
+            <main>
+                <button type="button">Background action</button>
+            </main>
+        </div>
+    )
+
+    it('hides the background from accessibility queries while a modal overlay is open, restoring on close', () => {
+        const { rerender } = render(tree(true, 'modal'))
+        expect(screen.queryByRole('button', { name: 'Background action' })).not.toBeInTheDocument()
+
+        rerender(tree(false, 'modal'))
+        expect(screen.getByRole('button', { name: 'Background action' })).toBeInTheDocument()
+    })
+
+    it('leaves the background reachable for a non-modal (dialog) overlay', () => {
+        render(tree(true, 'dialog'))
+        expect(screen.getByRole('button', { name: 'Background action' })).toBeInTheDocument()
+    })
+})
+
 describe('Escape dismissal', () => {
     it('dismisses an open overlay on Escape when enabled', () => {
         const onDismiss = jest.fn()
