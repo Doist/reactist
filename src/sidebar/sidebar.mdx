@@ -184,6 +184,14 @@ provider. Set the same `id` on `Sidebar` that the trigger points its
 </button>
 ```
 
+## Stacked sidebars
+
+Two sidebars docked on the same side tile through the flex contract (each is a
+`flex-shrink: 0` child; the main absorbs the rest), like Comms' workspace rail
+plus its conversation list. Both panes resize independently.
+
+<Canvas of={SidebarStories.StackedSidebars} />
+
 ## Custom properties
 
 The component ships sensible defaults and exposes per-instance theming through

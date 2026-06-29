@@ -34,6 +34,38 @@ function DemoNav({ title = 'Workspace' }: { title?: string }) {
 
 DemoNav.displayName = 'DemoNav'
 
+function DemoRail() {
+    return (
+        <Stack space="small" padding="small" align="center">
+            {['T', 'C', 'A'].map((label) => (
+                <Box
+                    key={label}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    style={{
+                        width: 36,
+                        height: 36,
+                        borderRadius: 8,
+                        background: 'var(--reactist-divider-secondary)',
+                    }}
+                >
+                    <Text weight="semibold" size="caption">
+                        {label}
+                    </Text>
+                </Box>
+            ))}
+        </Stack>
+    )
+}
+
+DemoRail.displayName = 'DemoRail'
+
+const RAIL_SKIN = {
+    background: 'var(--reactist-divider-tertiary, #edf2f3)',
+    borderRight: '1px solid var(--reactist-divider-secondary)',
+} satisfies React.CSSProperties
+
 const PANEL_SKIN = {
     background: 'var(--reactist-content-background, #faf9f8)',
     borderRight: '1px solid var(--reactist-divider-secondary)',
@@ -429,6 +461,76 @@ export const Responsive = {
                             Above 640px the nav is docked; below it the consumer flips `isOverlay`
                             and the nav becomes a modal drawer. Resize the canvas to see it cross
                             the breakpoint.
+                        </Text>
+                    </Stack>
+                </Box>
+            </Box>
+        )
+    },
+} satisfies Story
+
+/**
+ * Two sidebars docked on the same side, like Comms' workspace rail plus its
+ * conversation list. They tile through the flex contract: each `<Sidebar>` is a
+ * `flex-shrink: 0` child, and the `flexGrow / minWidth={0}` main absorbs the
+ * rest. Both panes are independently resizable.
+ */
+export const StackedSidebars = {
+    render: function StackedSidebars() {
+        const [railWidth, setRailWidth] = React.useState(64)
+        const [listWidth, setListWidth] = React.useState(260)
+
+        return (
+            <Box display="flex" height="full">
+                <Sidebar
+                    id="workspace-rail"
+                    align="start"
+                    isOpen
+                    width={railWidth}
+                    onWidthChange={setRailWidth}
+                    minWidth={56}
+                    maxWidth={120}
+                    defaultWidth={64}
+                    resizeStep={8}
+                >
+                    <SidebarContent
+                        as="nav"
+                        aria-label="Workspaces"
+                        style={{ ...RAIL_SKIN, ...HANDLE_VISIBLE }}
+                    >
+                        <DemoRail />
+                        <SidebarResizeHandle aria-label="Resize workspace rail" />
+                    </SidebarContent>
+                </Sidebar>
+                <Sidebar
+                    id="conversations"
+                    align="start"
+                    isOpen
+                    width={listWidth}
+                    onWidthChange={setListWidth}
+                    minWidth={200}
+                    maxWidth={360}
+                    defaultWidth={260}
+                    resizeStep={20}
+                >
+                    <SidebarContent
+                        as="section"
+                        aria-label="Conversations"
+                        style={{ ...PANEL_SKIN, ...HANDLE_VISIBLE }}
+                    >
+                        <DemoNav title="Conversations" />
+                        <SidebarResizeHandle aria-label="Resize conversation list" />
+                    </SidebarContent>
+                </Sidebar>
+                <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
+                    <Stack space="medium">
+                        <Heading level="2" size="larger">
+                            Conversation
+                        </Heading>
+                        <Text tone="secondary">
+                            A workspace rail and a conversation list, both docked on the left and
+                            independently resizable. Drag either pane's right edge; the main content
+                            absorbs the change.
                         </Text>
                     </Stack>
                 </Box>
