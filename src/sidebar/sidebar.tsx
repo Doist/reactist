@@ -31,6 +31,7 @@ type SidebarContextValue = {
     unmountOnHide: boolean
     panelId: string
     panelRef: React.RefObject<HTMLDivElement | null>
+    dismissOverlayOnEscape: boolean
     onDismiss?: () => void
     width?: number
     minWidth?: number
@@ -191,22 +192,6 @@ function Sidebar({
     const overlayOpen = isOverlay && isOpen
     const shouldTrap = overlayOpen && overlayMode === 'modal'
 
-    React.useEffect(
-        function dismissOverlayOnEscapeEffect() {
-            if (!overlayOpen || !dismissOverlayOnEscape) return
-
-            function handleEscapeKeyDown(event: KeyboardEvent) {
-                if (event.key === 'Escape' && !event.defaultPrevented) {
-                    onDismiss?.()
-                }
-            }
-
-            window.addEventListener('keydown', handleEscapeKeyDown)
-            return () => window.removeEventListener('keydown', handleEscapeKeyDown)
-        },
-        [overlayOpen, dismissOverlayOnEscape, onDismiss],
-    )
-
     const contextValue: SidebarContextValue = {
         align,
         overlayMode,
@@ -217,6 +202,7 @@ function Sidebar({
         unmountOnHide,
         panelId,
         panelRef,
+        dismissOverlayOnEscape,
         onDismiss,
         width,
         minWidth,
@@ -282,6 +268,7 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
             exceptionallySetClassName,
             children,
             style,
+            onKeyDown: consumerOnKeyDown,
             'aria-label': ariaLabel,
             'aria-labelledby': ariaLabelledby,
             ...rest
@@ -299,6 +286,8 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
             panelId,
             panelRef,
             width,
+            dismissOverlayOnEscape,
+            onDismiss,
         } = useSidebarContext('SidebarContent')
 
         const mergedRef = useMergeRefs([panelRef, ref])
@@ -328,11 +317,24 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
             ? children
             : null
 
+        function handlePanelKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+            if (
+                overlayOpen &&
+                dismissOverlayOnEscape &&
+                event.key === 'Escape' &&
+                !event.defaultPrevented
+            ) {
+                onDismiss?.()
+            }
+            consumerOnKeyDown?.(event)
+        }
+
         return (
             <Box
                 {...rest}
                 as="div"
                 ref={mergedRef}
+                onKeyDown={handlePanelKeyDown}
                 display="flex"
                 flexDirection="column"
                 flexShrink={0}

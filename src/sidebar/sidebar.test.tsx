@@ -174,7 +174,7 @@ describe('modal background', () => {
 })
 
 describe('Escape dismissal', () => {
-    it('dismisses an open overlay on Escape when enabled', () => {
+    it('dismisses an open overlay on Escape from within the panel when enabled', () => {
         const onDismiss = jest.fn()
         renderSidebar({
             isOverlay: true,
@@ -182,33 +182,66 @@ describe('Escape dismissal', () => {
             dismissOverlayOnEscape: true,
             onDismiss,
         })
-        fireEvent.keyDown(document.body, { key: 'Escape' })
+        fireEvent.keyDown(screen.getByTestId('sidebar-panel'), { key: 'Escape' })
         expect(onDismiss).toHaveBeenCalledTimes(1)
     })
 
-    it('respects defaultPrevented so app handlers can opt out', () => {
+    it('dismisses a non-modal overlay on Escape from within the panel', () => {
         const onDismiss = jest.fn()
         renderSidebar({
             isOverlay: true,
-            overlayMode: 'modal',
+            overlayMode: 'dialog',
             dismissOverlayOnEscape: true,
             onDismiss,
         })
+        fireEvent.keyDown(screen.getByTestId('sidebar-panel'), { key: 'Escape' })
+        expect(onDismiss).toHaveBeenCalledTimes(1)
+    })
 
-        function preventEscape(event: KeyboardEvent) {
-            if (event.key === 'Escape') event.preventDefault()
-        }
-        document.body.addEventListener('keydown', preventEscape, { capture: true })
+    it('ignores Escape fired outside the panel', () => {
+        const onDismiss = jest.fn()
+        renderSidebar({
+            isOverlay: true,
+            overlayMode: 'dialog',
+            dismissOverlayOnEscape: true,
+            onDismiss,
+        })
         fireEvent.keyDown(document.body, { key: 'Escape' })
-        document.body.removeEventListener('keydown', preventEscape, { capture: true })
+        expect(onDismiss).not.toHaveBeenCalled()
+    })
 
+    it('respects defaultPrevented so a descendant can consume Escape', () => {
+        const onDismiss = jest.fn()
+        renderSidebar(
+            {
+                isOverlay: true,
+                overlayMode: 'modal',
+                dismissOverlayOnEscape: true,
+                onDismiss,
+            },
+            {
+                children: (
+                    <button
+                        type="button"
+                        onKeyDown={(event) => {
+                            if (event.key === 'Escape') event.preventDefault()
+                        }}
+                    >
+                        Consumes Escape
+                    </button>
+                ),
+            },
+        )
+        fireEvent.keyDown(screen.getByRole('button', { name: 'Consumes Escape' }), {
+            key: 'Escape',
+        })
         expect(onDismiss).not.toHaveBeenCalled()
     })
 
     it('does not dismiss while docked', () => {
         const onDismiss = jest.fn()
         renderSidebar({ isOverlay: false, dismissOverlayOnEscape: true, onDismiss })
-        fireEvent.keyDown(document.body, { key: 'Escape' })
+        fireEvent.keyDown(screen.getByTestId('sidebar-panel'), { key: 'Escape' })
         expect(onDismiss).not.toHaveBeenCalled()
     })
 
@@ -220,7 +253,7 @@ describe('Escape dismissal', () => {
             dismissOverlayOnEscape: false,
             onDismiss,
         })
-        fireEvent.keyDown(document.body, { key: 'Escape' })
+        fireEvent.keyDown(screen.getByTestId('sidebar-panel'), { key: 'Escape' })
         expect(onDismiss).not.toHaveBeenCalled()
     })
 })
