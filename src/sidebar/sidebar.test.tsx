@@ -456,7 +456,7 @@ describe('errors', () => {
 describe('accessibility', () => {
     it('has no axe violations as a docked nav', async () => {
         const { container } = render(
-            <Sidebar align="start" isOpen id="nav">
+            <Sidebar align="start" isOpen id="nav" width={280} minWidth={210} maxWidth={420}>
                 <SidebarContent>
                     <nav aria-label="Main navigation">
                         <a href="#projects">Projects</a>
