@@ -66,6 +66,13 @@ describe('Sidebar', () => {
         expect(screen.getByTestId('sidebar-panel')).toHaveAttribute('data-align', 'end')
     })
 
+    it('drives the panel width from a single CSS variable, with no literal width', () => {
+        renderSidebar({ width: 280 })
+        const panel = screen.getByTestId('sidebar-panel')
+        expect(panel.style.getPropertyValue('--reactist-sidebar-width')).toBe('280px')
+        expect(panel.style.width).toBe('')
+    })
+
     it('ignores a host `role` so the component owns the rendered role', () => {
         renderSidebar({}, { contentProps: { role: 'banner' } })
         // Docked, the panel is a neutral div with no role; a host role is ignored.

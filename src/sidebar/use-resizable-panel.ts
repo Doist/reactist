@@ -8,6 +8,8 @@ import * as React from 'react'
 export type ResizablePanelEdge = 'left' | 'right' | 'top' | 'bottom'
 
 type UseResizablePanelParams = {
+    /** When set, read/write this CSS custom property instead of `width` / `height`. */
+    cssVariable?: string
     /** Width restored on a double-click reset. */
     defaultValuePx: number
     /** When `true`, pointer and keyboard gestures are ignored. */
@@ -65,19 +67,32 @@ function getElementValuePx(
     element: HTMLElement | null,
     edge: ResizablePanelEdge,
     fallbackValuePx: number,
+    cssVariable?: string,
 ): number {
     if (!element) return fallbackValuePx
 
     const dimension = getDimension(edge)
-    const inlineValuePx = Number.parseFloat(element.style[dimension])
+    const inlineValuePx = Number.parseFloat(
+        cssVariable ? element.style.getPropertyValue(cssVariable) : element.style[dimension],
+    )
     if (Number.isFinite(inlineValuePx) && inlineValuePx > 0) return inlineValuePx
 
     const measuredValuePx = element.getBoundingClientRect()[dimension]
     return measuredValuePx > 0 ? measuredValuePx : fallbackValuePx
 }
 
-function setElementValuePx(element: HTMLElement | null, edge: ResizablePanelEdge, valuePx: number) {
-    if (element) element.style[getDimension(edge)] = `${valuePx}px`
+function setElementValuePx(
+    element: HTMLElement | null,
+    edge: ResizablePanelEdge,
+    valuePx: number,
+    cssVariable?: string,
+) {
+    if (!element) return
+    if (cssVariable) {
+        element.style.setProperty(cssVariable, `${valuePx}px`)
+    } else {
+        element.style[getDimension(edge)] = `${valuePx}px`
+    }
 }
 
 function getActiveElementForRestore(): HTMLElement | null {
@@ -121,6 +136,7 @@ function getKeyboardDeltaPx(edge: ResizablePanelEdge, key: string, stepPx: numbe
  * event handlers, the animation-frame callback, or an effect, never during render.
  */
 export function useResizablePanel({
+    cssVariable,
     defaultValuePx,
     disabled = false,
     edge,
@@ -150,7 +166,7 @@ export function useResizablePanel({
     function flushPreview() {
         if (pendingValueRef.current === null) return
 
-        setElementValuePx(panelRef.current, edge, pendingValueRef.current)
+        setElementValuePx(panelRef.current, edge, pendingValueRef.current, cssVariable)
         pendingValueRef.current = null
     }
 
@@ -174,7 +190,7 @@ export function useResizablePanel({
     function commitValue(nextValuePx: number) {
         const clampedValuePx = clamp(nextValuePx, minValuePx, maxValuePx)
 
-        setElementValuePx(panelRef.current, edge, clampedValuePx)
+        setElementValuePx(panelRef.current, edge, clampedValuePx, cssVariable)
         onValueCommit(clampedValuePx)
     }
 
@@ -206,7 +222,7 @@ export function useResizablePanel({
         endDrag()
 
         const startValuePx = clamp(
-            getElementValuePx(panelRef.current, edge, currentValuePx),
+            getElementValuePx(panelRef.current, edge, currentValuePx, cssVariable),
             minValuePx,
             maxValuePx,
         )
@@ -256,15 +272,16 @@ export function useResizablePanel({
         event.preventDefault()
         commitValue(
             nextValuePx ??
-                getElementValuePx(panelRef.current, edge, currentValuePx) + (deltaPx ?? 0),
+                getElementValuePx(panelRef.current, edge, currentValuePx, cssVariable) +
+                    (deltaPx ?? 0),
         )
     }
 
     React.useEffect(
         function reapplyCommittedValue() {
-            setElementValuePx(panelRef.current, edge, currentValuePx)
+            setElementValuePx(panelRef.current, edge, currentValuePx, cssVariable)
         },
-        [currentValuePx, edge, panelRef],
+        [currentValuePx, edge, panelRef, cssVariable],
     )
 
     React.useEffect(function cleanupOnUnmount() {
