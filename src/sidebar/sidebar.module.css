@@ -23,6 +23,7 @@
 .panel {
     position: relative;
     box-sizing: border-box;
+    width: var(--reactist-sidebar-width);
     /*
      * `contain: layout` bounds the collapse reflow without `paint`, so consumer
      * popovers, focus rings, the resize handle, and an overlay card's shadow are

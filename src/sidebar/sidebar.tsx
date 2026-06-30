@@ -307,10 +307,7 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
 
         const widthStyle =
             width != null
-                ? ({
-                      width: `${width}px`,
-                      [SIDEBAR_WIDTH_VAR]: `${width}px`,
-                  } as React.CSSProperties)
+                ? ({ [SIDEBAR_WIDTH_VAR]: `${width}px` } as React.CSSProperties)
                 : undefined
 
         const childrenToRender = useDeferredUnmount({ isOpen, unmountOnHide, panelRef })
@@ -468,6 +465,7 @@ function SidebarResizeHandle({
     const maxValuePx = maxWidth ?? committedWidth
 
     const { currentValuePx, onDoubleClick, onKeyDown, onPointerDown } = useResizablePanel({
+        cssVariable: SIDEBAR_WIDTH_VAR,
         defaultValuePx: defaultWidth ?? committedWidth,
         disabled: !isOpen,
         edge,
