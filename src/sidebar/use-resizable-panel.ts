@@ -125,6 +125,24 @@ function getKeyboardDeltaPx(edge: ResizablePanelEdge, key: string, stepPx: numbe
 }
 
 /**
+ * Maps a Home/End keypress to the absolute width it should jump to, or `null`
+ * for any other key. `edge` changes the keys' directions: on `right`/`bottom`
+ * edges Home returns `minValuePx` and End returns `maxValuePx`, while on
+ * `left`/`top` edges they will be swapped.
+ */
+function getKeyboardJumpPx(
+    edge: ResizablePanelEdge,
+    key: string,
+    minValuePx: number,
+    maxValuePx: number,
+): number | null {
+    const growsForward = getDirection(edge) === 1
+    if (key === 'Home') return growsForward ? minValuePx : maxValuePx
+    if (key === 'End') return growsForward ? maxValuePx : minValuePx
+    return null
+}
+
+/**
  * The imperative, render-free resize engine ported from Automations. A pointer
  * drag writes the panel size straight to the DOM (batched to one write per
  * animation frame) and commits once on pointer up; keyboard resize commits on
@@ -263,8 +281,7 @@ export function useResizablePanel({
     function onKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
         if (disabled) return
 
-        const nextValuePx =
-            event.key === 'Home' ? minValuePx : event.key === 'End' ? maxValuePx : null
+        const nextValuePx = getKeyboardJumpPx(edge, event.key, minValuePx, maxValuePx)
         const deltaPx = getKeyboardDeltaPx(edge, event.key, stepPx)
 
         if (nextValuePx === null && deltaPx === null) return
