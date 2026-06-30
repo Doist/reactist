@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { fireEvent, render, screen, waitFor, within } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { axe } from 'jest-axe'
 
 import { Sidebar, SidebarContent, SidebarResizeHandle } from './sidebar'
@@ -285,6 +285,50 @@ describe('focus management', () => {
         const { container } = renderSidebar({ isOverlay: false })
         const lock = container.querySelector('[data-focus-lock-disabled]')
         expect(lock).toHaveAttribute('data-focus-lock-disabled', 'disabled')
+    })
+})
+
+describe('unmountOnHide', () => {
+    const tree = (isOpen: boolean) => (
+        <Sidebar align="start" isOpen={isOpen} unmountOnHide>
+            <SidebarContent data-testid="sidebar-panel" aria-label="Nav">
+                <nav aria-label="Primary">Panel body</nav>
+            </SidebarContent>
+        </Sidebar>
+    )
+
+    it('keeps children through the exit, then drops them on transitionend', () => {
+        const { rerender } = render(tree(true))
+        expect(screen.getByText('Panel body')).toBeInTheDocument()
+
+        rerender(tree(false))
+        expect(screen.getByText('Panel body')).toBeInTheDocument()
+
+        fireEvent.transitionEnd(screen.getByTestId('sidebar-panel'))
+        expect(screen.queryByText('Panel body')).not.toBeInTheDocument()
+    })
+
+    it('cancels a pending unmount when reopened mid-exit', () => {
+        const { rerender } = render(tree(true))
+        rerender(tree(false))
+        rerender(tree(true))
+        fireEvent.transitionEnd(screen.getByTestId('sidebar-panel'))
+        expect(screen.getByText('Panel body')).toBeInTheDocument()
+    })
+
+    it('unmounts without a transitionend when there is no transition (reduced motion)', () => {
+        jest.useFakeTimers()
+        try {
+            const { rerender } = render(tree(true))
+            rerender(tree(false))
+            expect(screen.getByText('Panel body')).toBeInTheDocument()
+            act(() => {
+                jest.runOnlyPendingTimers()
+            })
+            expect(screen.queryByText('Panel body')).not.toBeInTheDocument()
+        } finally {
+            jest.useRealTimers()
+        }
     })
 })
 

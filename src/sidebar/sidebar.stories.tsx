@@ -618,6 +618,7 @@ type PlaygroundArgs = {
     width: number
     resizable: boolean
     dismissOverlayOnEscape: boolean
+    unmountOnHide: boolean
 }
 
 export const Playground = {
@@ -629,6 +630,7 @@ export const Playground = {
         width: 280,
         resizable: true,
         dismissOverlayOnEscape: true,
+        unmountOnHide: false,
     },
     argTypes: {
         align: { control: { type: 'inline-radio' }, options: ['start', 'end'] },
@@ -638,6 +640,7 @@ export const Playground = {
         width: { control: { type: 'range', min: 210, max: 400, step: 10 } },
         resizable: { control: { type: 'boolean' } },
         dismissOverlayOnEscape: { control: { type: 'boolean' } },
+        unmountOnHide: { control: { type: 'boolean' } },
     },
     render: function Playground({
         align,
@@ -647,6 +650,7 @@ export const Playground = {
         width: widthArg,
         resizable,
         dismissOverlayOnEscape,
+        unmountOnHide,
     }: PlaygroundArgs) {
         const [isOpen, setIsOpen] = React.useState(isOpenArg)
         const [width, setWidth] = React.useState(widthArg)
@@ -671,6 +675,7 @@ export const Playground = {
                 overlayMode={overlayMode}
                 isOpen={isOpen}
                 dismissOverlayOnEscape={dismissOverlayOnEscape}
+                unmountOnHide={unmountOnHide}
                 onDismiss={() => setIsOpen(false)}
                 width={width}
                 onWidthChange={setWidth}

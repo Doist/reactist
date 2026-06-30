@@ -392,7 +392,10 @@ function useDeferredUnmount({
 
             const panel = panelRef.current
             // setExited only fires from async callbacks below, never synchronously here.
-            const fallbackTimeout = window.setTimeout(() => setExited(true), 500)
+            const fallbackTimeout = window.setTimeout(
+                () => setExited(true),
+                getExitTimeoutMs(panel),
+            )
 
             function handleTransitionEnd(event: TransitionEvent) {
                 if (event.target === panel) {
@@ -411,6 +414,23 @@ function useDeferredUnmount({
     )
 
     return isOpen || !unmountOnHide || !exited
+}
+
+function parseCssDurationMs(value: string): number {
+    return value.split(',').reduce((max, part) => {
+        const trimmed = part.trim()
+        const numeric = Number.parseFloat(trimmed)
+        if (!Number.isFinite(numeric)) return max
+        return Math.max(max, trimmed.endsWith('ms') ? numeric : numeric * 1000)
+    }, 0)
+}
+
+function getExitTimeoutMs(panel: HTMLElement | null): number {
+    if (!panel) return 0
+    const style = window.getComputedStyle(panel)
+    const durationMs = parseCssDurationMs(style.transitionDuration)
+    if (durationMs === 0) return 0
+    return durationMs + parseCssDurationMs(style.transitionDelay) + 50
 }
 
 //
