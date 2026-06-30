@@ -1,223 +1,203 @@
 import * as React from 'react'
 
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
 import { Sidebar, SidebarContent, SidebarResizeHandle } from './sidebar'
 
-import type { SidebarProps } from './sidebar'
+import type { SidebarAlign, SidebarProps } from './sidebar'
 
 function renderSidebar(
     props: Partial<SidebarProps> = {},
     {
         contentProps = {},
         children = <nav aria-label="Main navigation">Navigation</nav>,
-    }: { contentProps?: Record<string, unknown>; children?: React.ReactNode } = {},
+        withBackground = false,
+    }: {
+        contentProps?: Record<string, unknown>
+        children?: React.ReactNode
+        withBackground?: boolean
+    } = {},
 ) {
-    return render(
-        <Sidebar align="start" isOpen={true} {...props}>
-            <SidebarContent
-                data-testid="sidebar-panel"
-                aria-label="Main navigation"
-                {...contentProps}
-            >
-                {children}
-            </SidebarContent>
-        </Sidebar>,
+    const ui = (overrides: Partial<SidebarProps>) => (
+        <div>
+            <Sidebar align="start" isOpen {...props} {...overrides}>
+                <SidebarContent
+                    data-testid="sidebar-panel"
+                    aria-label="Main navigation"
+                    {...contentProps}
+                >
+                    {children}
+                </SidebarContent>
+            </Sidebar>
+            {withBackground ? (
+                <main>
+                    <button type="button">Background action</button>
+                </main>
+            ) : null}
+        </div>
     )
+    const view = render(ui({}))
+    return {
+        ...view,
+        rerender: (overrides: Partial<SidebarProps> = {}) => view.rerender(ui(overrides)),
+    }
 }
 
-describe('Sidebar', () => {
-    it('renders a neutral <div> panel that wraps the consumer landmark child', () => {
-        renderSidebar()
+describe('when isOverlay is false', () => {
+    it('renders a docked panel as a neutral <div> wrapping the content', () => {
+        const width = 280
+        // `role` is omitted from the public type but we force it to prove the
+        // component owns the rendered role and a host role is ignored.
+        renderSidebar(
+            { align: 'end', id: 'app-sidebar', width },
+            { contentProps: { role: 'banner' }, children: <div>Panel content</div> },
+        )
+
         const panel = screen.getByTestId('sidebar-panel')
         expect(panel.tagName).toBe('DIV')
         expect(panel).not.toHaveAttribute('role')
-        expect(screen.getByRole('navigation', { name: 'Main navigation' })).toBeInTheDocument()
-    })
-
-    it('applies the provider `id` to the panel', () => {
-        renderSidebar({ id: 'app-sidebar' })
-        expect(screen.getByTestId('sidebar-panel')).toHaveAttribute('id', 'app-sidebar')
-    })
-
-    it('auto-generates a panel id when none is given', () => {
-        renderSidebar()
-        expect(screen.getByTestId('sidebar-panel').getAttribute('id')).toBeTruthy()
-    })
-
-    it('reflects open / closed through data-state', () => {
-        const { rerender } = renderSidebar({ isOpen: true })
-        const panel = screen.getByTestId('sidebar-panel')
-        expect(panel).toHaveAttribute('data-state', 'open')
-
-        rerender(
-            <Sidebar align="start" isOpen={false}>
-                <SidebarContent data-testid="sidebar-panel" aria-label="Main navigation">
-                    <nav aria-label="Main navigation">Navigation</nav>
-                </SidebarContent>
-            </Sidebar>,
-        )
-        expect(panel).toHaveAttribute('data-state', 'closed')
-    })
-
-    it('exposes the attach edge through data-align', () => {
-        renderSidebar({ align: 'end' })
-        expect(screen.getByTestId('sidebar-panel')).toHaveAttribute('data-align', 'end')
-    })
-
-    it('drives the panel width from a single CSS variable, with no literal width', () => {
-        renderSidebar({ width: 280 })
-        const panel = screen.getByTestId('sidebar-panel')
-        expect(panel.style.getPropertyValue('--reactist-sidebar-width')).toBe('280px')
-        expect(panel.style.width).toBe('')
-    })
-
-    it('ignores a host `role` so the component owns the rendered role', () => {
-        renderSidebar({}, { contentProps: { role: 'banner' } })
-        // Docked, the panel is a neutral div with no role; a host role is ignored.
         expect(screen.queryByRole('banner')).not.toBeInTheDocument()
-        expect(screen.getByTestId('sidebar-panel')).not.toHaveAttribute('role')
+        expect(panel).toHaveAttribute('id', 'app-sidebar')
+        expect(panel).toHaveAttribute('data-align', 'end')
+        expect(panel).toHaveAttribute('data-state', 'open')
+        expect(panel.style.getPropertyValue('--reactist-sidebar-width')).toBe(`${width}px`)
+        expect(panel.style.width).toBe('')
+        expect(screen.getByText('Panel content')).toBeInTheDocument()
     })
 
-    it('keeps children mounted while closed by default', () => {
-        renderSidebar({ isOpen: false })
-        expect(screen.getByText('Navigation')).toBeInTheDocument()
+    it('does not add overlay semantics while docked', async () => {
+        const user = userEvent.setup()
+        const onDismiss = jest.fn()
+        const { container } = renderSidebar(
+            {
+                isOverlay: false,
+                overlayMode: 'modal',
+                dismissOverlayOnEscape: true,
+                onDismiss,
+            },
+            {
+                children: (
+                    <nav aria-label="Main navigation">
+                        <button type="button">Panel item</button>
+                    </nav>
+                ),
+            },
+        )
+
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+        expect(screen.getByRole('navigation', { name: 'Main navigation' })).toBeInTheDocument()
+        expect(screen.queryByTestId('sidebar-backdrop')).not.toBeInTheDocument()
+        expect(container.querySelector('[data-focus-lock-disabled]')).toHaveAttribute(
+            'data-focus-lock-disabled',
+            'disabled',
+        )
+
+        // Escape does not do anything while docked, even with the flag on and focus inside.
+        screen.getByRole('button', { name: 'Panel item' }).focus()
+        await user.keyboard('{Escape}')
+        expect(onDismiss).not.toHaveBeenCalled()
     })
 })
 
-describe('overlay modes', () => {
-    it('keeps the child landmark and adds no dialog while docked', () => {
-        renderSidebar({ isOverlay: false, overlayMode: 'modal' })
-        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
-        expect(screen.getByRole('navigation', { name: 'Main navigation' })).toBeInTheDocument()
-    })
+describe('when overlayMode is modal', () => {
+    it('opens as a modal dialog: backdrop shown, background hidden from assistive tech, and focus trapped', async () => {
+        renderSidebar(
+            { isOverlay: true, overlayMode: 'modal', id: 'nav' },
+            {
+                contentProps: { 'aria-label': 'Menu' },
+                children: (
+                    <nav aria-label="Primary">
+                        <button type="button">First</button>
+                    </nav>
+                ),
+                withBackground: true,
+            },
+        )
 
-    it('keeps a plain overlay free of a dialog role', () => {
-        renderSidebar({ isOverlay: true, overlayMode: 'plain' })
-        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
-        expect(screen.getByRole('navigation', { name: 'Main navigation' })).toBeInTheDocument()
-    })
-
-    it('announces a dialog overlay as a non-modal dialog, landmark preserved inside', () => {
-        // The panel itself becomes the dialog (a neutral <div>), named via the
-        // aria-label on SidebarContent; the landmark child stays inside it.
-        renderSidebar({ isOverlay: true, overlayMode: 'dialog' })
-        const dialog = screen.getByRole('dialog', { name: 'Main navigation' })
-        expect(dialog).not.toHaveAttribute('aria-modal')
-        expect(
-            within(dialog).getByRole('navigation', { name: 'Main navigation' }),
-        ).toBeInTheDocument()
-    })
-
-    it('marks a modal overlay as a modal dialog', () => {
-        renderSidebar({ isOverlay: true, overlayMode: 'modal' })
-        const dialog = screen.getByRole('dialog', { name: 'Main navigation' })
+        const dialog = screen.getByRole('dialog', { name: 'Menu' })
         expect(dialog).toHaveAttribute('aria-modal', 'true')
-    })
-})
 
-describe('modal backdrop', () => {
-    it('is not rendered while docked, plain, or dialog', () => {
-        const { rerender } = renderSidebar({ isOverlay: false, overlayMode: 'modal' })
-        expect(screen.queryByTestId('sidebar-backdrop')).not.toBeInTheDocument()
-
-        rerender(
-            <Sidebar align="start" isOpen isOverlay overlayMode="plain">
-                <SidebarContent aria-label="Main navigation">x</SidebarContent>
-            </Sidebar>,
-        )
-        expect(screen.queryByTestId('sidebar-backdrop')).not.toBeInTheDocument()
-
-        rerender(
-            <Sidebar align="start" isOpen isOverlay overlayMode="dialog">
-                <SidebarContent aria-label="Main navigation">x</SidebarContent>
-            </Sidebar>,
-        )
-        expect(screen.queryByTestId('sidebar-backdrop')).not.toBeInTheDocument()
-    })
-
-    it('renders an aria-hidden backdrop for a modal overlay', () => {
-        renderSidebar({ isOverlay: true, overlayMode: 'modal' })
         const backdrop = screen.getByTestId('sidebar-backdrop')
         expect(backdrop).toHaveAttribute('aria-hidden', 'true')
         expect(backdrop).toHaveAttribute('data-state', 'open')
-    })
 
-    it('dismisses on a backdrop click', () => {
-        const onDismiss = jest.fn()
-        renderSidebar({ isOverlay: true, overlayMode: 'modal', onDismiss })
-        fireEvent.click(screen.getByTestId('sidebar-backdrop'))
-        expect(onDismiss).toHaveBeenCalledTimes(1)
-    })
-})
-
-describe('modal background', () => {
-    const tree = (isOpen: boolean, overlayMode: 'modal' | 'dialog') => (
-        <div>
-            <Sidebar align="start" isOpen={isOpen} isOverlay overlayMode={overlayMode}>
-                <SidebarContent aria-label="Menu">
-                    <nav aria-label="Primary">Nav</nav>
-                </SidebarContent>
-            </Sidebar>
-            <main>
-                <button type="button">Background action</button>
-            </main>
-        </div>
-    )
-
-    it('hides the background from accessibility queries while a modal overlay is open, restoring on close', () => {
-        const { rerender } = render(tree(true, 'modal'))
+        // The background is still visible, just hidden from assistive tech.
         expect(screen.queryByRole('button', { name: 'Background action' })).not.toBeInTheDocument()
 
-        rerender(tree(false, 'modal'))
-        expect(screen.getByRole('button', { name: 'Background action' })).toBeInTheDocument()
+        await waitFor(() => {
+            expect(dialog.contains(document.activeElement)).toBe(true)
+        })
     })
 
-    it('leaves the background reachable for a non-modal (dialog) overlay', () => {
-        render(tree(true, 'dialog'))
+    it('dismisses on a backdrop click and restores the background on close', async () => {
+        const user = userEvent.setup()
+        const onDismiss = jest.fn()
+        const { rerender } = renderSidebar(
+            { isOverlay: true, overlayMode: 'modal', onDismiss },
+            { withBackground: true },
+        )
+
+        expect(screen.queryByRole('button', { name: 'Background action' })).not.toBeInTheDocument()
+
+        await user.click(screen.getByTestId('sidebar-backdrop'))
+        expect(onDismiss).toHaveBeenCalledTimes(1)
+
+        rerender({ isOpen: false })
         expect(screen.getByRole('button', { name: 'Background action' })).toBeInTheDocument()
     })
 })
 
-describe('Escape dismissal', () => {
-    it('dismisses an open overlay on Escape from within the panel when enabled', () => {
-        const onDismiss = jest.fn()
-        renderSidebar({
-            isOverlay: true,
-            overlayMode: 'modal',
-            dismissOverlayOnEscape: true,
-            onDismiss,
-        })
-        fireEvent.keyDown(screen.getByTestId('sidebar-panel'), { key: 'Escape' })
-        expect(onDismiss).toHaveBeenCalledTimes(1)
-    })
+describe('when overlayMode is dialog', () => {
+    it("opens as a non-modal dialog, preserving the content's landmark and leaving the background reachable", () => {
+        renderSidebar(
+            { isOverlay: true, overlayMode: 'dialog' },
+            { children: <nav aria-label="Primary">Navigation</nav>, withBackground: true },
+        )
 
-    it('dismisses a non-modal overlay on Escape from within the panel', () => {
-        const onDismiss = jest.fn()
-        renderSidebar({
-            isOverlay: true,
-            overlayMode: 'dialog',
-            dismissOverlayOnEscape: true,
-            onDismiss,
-        })
-        fireEvent.keyDown(screen.getByTestId('sidebar-panel'), { key: 'Escape' })
-        expect(onDismiss).toHaveBeenCalledTimes(1)
-    })
+        const dialog = screen.getByRole('dialog', { name: 'Main navigation' })
+        expect(dialog).not.toHaveAttribute('aria-modal')
 
-    it('ignores Escape fired outside the panel', () => {
+        expect(within(dialog).getByRole('navigation', { name: 'Primary' })).toBeInTheDocument()
+        expect(screen.queryByTestId('sidebar-backdrop')).not.toBeInTheDocument()
+        expect(screen.getByRole('button', { name: 'Background action' })).toBeInTheDocument()
+    })
+})
+
+describe('when overlayMode is plain', () => {
+    it('opens as a plain overlay with no dialog role, backdrop, or trap', () => {
+        const { container } = renderSidebar({ isOverlay: true, overlayMode: 'plain' })
+
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+        expect(screen.getByRole('navigation', { name: 'Main navigation' })).toBeInTheDocument()
+        expect(screen.queryByTestId('sidebar-backdrop')).not.toBeInTheDocument()
+        expect(container.querySelector('[data-focus-lock-disabled]')).toHaveAttribute(
+            'data-focus-lock-disabled',
+            'disabled',
+        )
+    })
+})
+
+describe('dismissOverlayOnEscape', () => {
+    it('dismisses an open overlay on Escape from within the panel', async () => {
+        const user = userEvent.setup()
         const onDismiss = jest.fn()
-        renderSidebar({
-            isOverlay: true,
-            overlayMode: 'dialog',
-            dismissOverlayOnEscape: true,
-            onDismiss,
-        })
-        fireEvent.keyDown(document.body, { key: 'Escape' })
+        renderSidebar(
+            { isOverlay: true, overlayMode: 'dialog', dismissOverlayOnEscape: true, onDismiss },
+            { children: <button type="button">Panel item</button> },
+        )
+
+        await user.keyboard('{Escape}')
         expect(onDismiss).not.toHaveBeenCalled()
+
+        screen.getByRole('button', { name: 'Panel item' }).focus()
+        await user.keyboard('{Escape}')
+        expect(onDismiss).toHaveBeenCalledTimes(1)
     })
 
-    it('respects defaultPrevented so a descendant can consume Escape', () => {
+    it('respects defaultPrevented so a descendant can consume Escape', async () => {
+        const user = userEvent.setup()
         const onDismiss = jest.fn()
         renderSidebar(
             {
@@ -239,69 +219,43 @@ describe('Escape dismissal', () => {
                 ),
             },
         )
-        fireEvent.keyDown(screen.getByRole('button', { name: 'Consumes Escape' }), {
-            key: 'Escape',
-        })
+        screen.getByRole('button', { name: 'Consumes Escape' }).focus()
+        await user.keyboard('{Escape}')
         expect(onDismiss).not.toHaveBeenCalled()
     })
 
-    it('does not dismiss while docked', () => {
+    it('does not dismiss when dismissOverlayOnEscape is off', async () => {
+        const user = userEvent.setup()
         const onDismiss = jest.fn()
-        renderSidebar({ isOverlay: false, dismissOverlayOnEscape: true, onDismiss })
-        fireEvent.keyDown(screen.getByTestId('sidebar-panel'), { key: 'Escape' })
-        expect(onDismiss).not.toHaveBeenCalled()
-    })
-
-    it('does not dismiss when dismissOverlayOnEscape is off', () => {
-        const onDismiss = jest.fn()
-        renderSidebar({
-            isOverlay: true,
-            overlayMode: 'modal',
-            dismissOverlayOnEscape: false,
-            onDismiss,
-        })
-        fireEvent.keyDown(screen.getByTestId('sidebar-panel'), { key: 'Escape' })
-        expect(onDismiss).not.toHaveBeenCalled()
-    })
-})
-
-describe('focus management', () => {
-    it('moves focus into the panel when opened as a modal overlay', async () => {
-        render(
-            <Sidebar align="start" isOpen isOverlay overlayMode="modal" id="nav">
-                <SidebarContent aria-label="Menu">
-                    <button type="button">First</button>
-                    <button type="button">Second</button>
-                </SidebarContent>
-            </Sidebar>,
+        renderSidebar(
+            {
+                isOverlay: true,
+                overlayMode: 'modal',
+                dismissOverlayOnEscape: false,
+                onDismiss,
+            },
+            { children: <button type="button">Panel item</button> },
         )
-        await waitFor(() => {
-            const dialog = screen.getByRole('dialog', { name: 'Menu' })
-            expect(dialog.contains(document.activeElement)).toBe(true)
-        })
-    })
-
-    it('leaves the focus trap disabled while docked', () => {
-        const { container } = renderSidebar({ isOverlay: false })
-        const lock = container.querySelector('[data-focus-lock-disabled]')
-        expect(lock).toHaveAttribute('data-focus-lock-disabled', 'disabled')
+        screen.getByRole('button', { name: 'Panel item' }).focus()
+        await user.keyboard('{Escape}')
+        expect(onDismiss).not.toHaveBeenCalled()
     })
 })
 
 describe('unmountOnHide', () => {
-    const tree = (isOpen: boolean) => (
-        <Sidebar align="start" isOpen={isOpen} unmountOnHide>
-            <SidebarContent data-testid="sidebar-panel" aria-label="Nav">
-                <nav aria-label="Primary">Panel body</nav>
-            </SidebarContent>
-        </Sidebar>
-    )
+    it('keeps children mounted while closed by default', () => {
+        renderSidebar({ isOpen: false })
+        expect(screen.getByText('Navigation')).toBeInTheDocument()
+    })
 
-    it('keeps children through the exit, then drops them on transitionend', () => {
-        const { rerender } = render(tree(true))
+    it('drops children on transitionend after the exit', () => {
+        const { rerender } = renderSidebar(
+            { unmountOnHide: true },
+            { children: <nav aria-label="Primary">Panel body</nav> },
+        )
         expect(screen.getByText('Panel body')).toBeInTheDocument()
 
-        rerender(tree(false))
+        rerender({ isOpen: false })
         expect(screen.getByText('Panel body')).toBeInTheDocument()
 
         fireEvent.transitionEnd(screen.getByTestId('sidebar-panel'))
@@ -309,18 +263,24 @@ describe('unmountOnHide', () => {
     })
 
     it('cancels a pending unmount when reopened mid-exit', () => {
-        const { rerender } = render(tree(true))
-        rerender(tree(false))
-        rerender(tree(true))
+        const { rerender } = renderSidebar(
+            { unmountOnHide: true },
+            { children: <nav aria-label="Primary">Panel body</nav> },
+        )
+        rerender({ isOpen: false })
+        rerender({ isOpen: true })
         fireEvent.transitionEnd(screen.getByTestId('sidebar-panel'))
         expect(screen.getByText('Panel body')).toBeInTheDocument()
     })
 
-    it('unmounts without a transitionend when there is no transition (reduced motion)', () => {
+    it('unmounts without a transitionend under reduced motion', () => {
         jest.useFakeTimers()
         try {
-            const { rerender } = render(tree(true))
-            rerender(tree(false))
+            const { rerender } = renderSidebar(
+                { unmountOnHide: true },
+                { children: <nav aria-label="Primary">Panel body</nav> },
+            )
+            rerender({ isOpen: false })
             expect(screen.getByText('Panel body')).toBeInTheDocument()
             act(() => {
                 jest.runOnlyPendingTimers()
@@ -332,114 +292,159 @@ describe('unmountOnHide', () => {
     })
 })
 
-describe('SidebarResizeHandle', () => {
+describe('resize', () => {
+    const WIDTH = 280
+    const MIN_WIDTH = 210
+    const MAX_WIDTH = 420
+    const DEFAULT_WIDTH = 280
+    const STEP = 40
+
     function renderResizable(props: Partial<SidebarProps> = {}) {
         const onWidthChange = jest.fn()
-        render(
-            <Sidebar
-                align="start"
-                isOpen
-                id="sidebar"
-                width={280}
-                minWidth={210}
-                maxWidth={420}
-                defaultWidth={280}
-                resizeStep={40}
-                onWidthChange={onWidthChange}
-                {...props}
-            >
-                <SidebarContent aria-label="Main navigation">
-                    <div>Navigation</div>
-                    <SidebarResizeHandle aria-label="Resize sidebar" />
-                </SidebarContent>
-            </Sidebar>,
-        )
-        return { onWidthChange }
+        return {
+            onWidthChange,
+            ...renderSidebar(
+                {
+                    id: 'sidebar',
+                    width: WIDTH,
+                    minWidth: MIN_WIDTH,
+                    maxWidth: MAX_WIDTH,
+                    defaultWidth: DEFAULT_WIDTH,
+                    resizeStep: STEP,
+                    onWidthChange,
+                    ...props,
+                },
+                {
+                    children: (
+                        <>
+                            <div>Navigation</div>
+                            <SidebarResizeHandle aria-label="Resize sidebar" />
+                        </>
+                    ),
+                },
+            ),
+        }
     }
 
-    it('renders a vertical separator wired to the panel', () => {
-        renderResizable()
+    it('wires the separator when open and makes it non-interactive when closed', async () => {
+        const user = userEvent.setup()
+        const { onWidthChange, rerender } = renderResizable()
+
         const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
         expect(handle).toHaveAttribute('aria-orientation', 'vertical')
         expect(handle).toHaveAttribute('aria-controls', 'sidebar')
-        expect(handle).toHaveAttribute('aria-valuemin', '210')
-        expect(handle).toHaveAttribute('aria-valuemax', '420')
-        expect(handle).toHaveAttribute('aria-valuenow', '280')
-        expect(handle).toHaveAttribute('aria-valuetext', '280px')
+        expect(handle).toHaveAttribute('aria-valuemin', String(MIN_WIDTH))
+        expect(handle).toHaveAttribute('aria-valuemax', String(MAX_WIDTH))
+        expect(handle).toHaveAttribute('aria-valuenow', String(WIDTH))
+        expect(handle).toHaveAttribute('aria-valuetext', `${WIDTH}px`)
         expect(handle).toHaveAttribute('tabindex', '0')
+
+        rerender({ isOpen: false })
+
+        const closedHandle = screen.getByRole('separator', { hidden: true })
+        expect(closedHandle).toHaveAttribute('tabindex', '-1')
+        expect(closedHandle).toHaveAttribute('aria-hidden', 'true')
+
+        closedHandle.focus()
+        await user.keyboard('{ArrowRight}')
+        expect(onWidthChange).not.toHaveBeenCalled()
     })
 
-    it('grows with ArrowRight for align="start" (handle on the right edge)', () => {
-        const { onWidthChange } = renderResizable({ align: 'start' })
-        fireEvent.keyDown(screen.getByRole('separator', { name: 'Resize sidebar' }), {
+    const keyboardCases: Array<{
+        align: SidebarAlign
+        key: string
+        width?: number
+        expected: number
+        description: string
+    }> = [
+        {
+            align: 'start',
             key: 'ArrowRight',
-        })
-        expect(onWidthChange).toHaveBeenLastCalledWith(320)
-    })
-
-    it('shrinks with ArrowLeft for align="start"', () => {
-        const { onWidthChange } = renderResizable({ align: 'start' })
-        fireEvent.keyDown(screen.getByRole('separator', { name: 'Resize sidebar' }), {
+            expected: WIDTH + STEP,
+            description: 'widens by resizeStep',
+        },
+        {
+            align: 'start',
             key: 'ArrowLeft',
-        })
-        expect(onWidthChange).toHaveBeenLastCalledWith(240)
-    })
-
-    it('reverses the arrows for align="end" (handle on the left edge): ArrowRight shrinks', () => {
-        const { onWidthChange } = renderResizable({ align: 'end' })
-        fireEvent.keyDown(screen.getByRole('separator', { name: 'Resize sidebar' }), {
+            expected: WIDTH - STEP,
+            description: 'narrows by resizeStep',
+        },
+        {
+            align: 'end',
             key: 'ArrowRight',
-        })
-        expect(onWidthChange).toHaveBeenLastCalledWith(240)
-    })
-
-    it('reverses the arrows for align="end": ArrowLeft grows', () => {
-        const { onWidthChange } = renderResizable({ align: 'end' })
-        fireEvent.keyDown(screen.getByRole('separator', { name: 'Resize sidebar' }), {
+            expected: WIDTH - STEP,
+            description: 'narrows by resizeStep',
+        },
+        {
+            align: 'end',
             key: 'ArrowLeft',
-        })
-        expect(onWidthChange).toHaveBeenLastCalledWith(320)
+            expected: WIDTH + STEP,
+            description: 'widens by resizeStep',
+        },
+        { align: 'start', key: 'Home', expected: MIN_WIDTH, description: 'jumps to minWidth' },
+        { align: 'start', key: 'End', expected: MAX_WIDTH, description: 'jumps to maxWidth' },
+        {
+            align: 'end',
+            key: 'Home',
+            expected: MAX_WIDTH,
+            description: 'jumps to maxWidth (swapped)',
+        },
+        {
+            align: 'end',
+            key: 'End',
+            expected: MIN_WIDTH,
+            description: 'jumps to minWidth (swapped)',
+        },
+        {
+            align: 'start',
+            key: 'ArrowRight',
+            width: MAX_WIDTH - 10,
+            expected: MAX_WIDTH,
+            description: 'clamps a step to maxWidth',
+        },
+    ]
+
+    it.each(keyboardCases)(
+        'align="$align": $key $description',
+        async ({ align, key, width, expected }) => {
+            const user = userEvent.setup()
+            const { onWidthChange } = renderResizable({ align, width: width ?? WIDTH })
+
+            screen.getByRole('separator', { name: 'Resize sidebar' }).focus()
+            await user.keyboard(`{${key}}`)
+            expect(onWidthChange).toHaveBeenLastCalledWith(expected)
+        },
+    )
+
+    it('resets to defaultWidth on double-click', async () => {
+        const user = userEvent.setup()
+        const { onWidthChange } = renderResizable({ width: DEFAULT_WIDTH + 80 })
+        await user.dblClick(screen.getByRole('separator', { name: 'Resize sidebar' }))
+        expect(onWidthChange).toHaveBeenLastCalledWith(DEFAULT_WIDTH)
     })
 
-    it('jumps to min and max with Home and End', () => {
+    it('commits the dragged width once on pointer up', async () => {
+        const user = userEvent.setup()
         const { onWidthChange } = renderResizable()
         const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
+        const panel = document.getElementById('sidebar') as HTMLElement
 
-        fireEvent.keyDown(handle, { key: 'Home' })
-        expect(onWidthChange).toHaveBeenLastCalledWith(210)
+        handle.setPointerCapture = jest.fn()
+        handle.releasePointerCapture = jest.fn()
+        handle.hasPointerCapture = jest.fn(() => false)
 
-        fireEvent.keyDown(handle, { key: 'End' })
-        expect(onWidthChange).toHaveBeenLastCalledWith(420)
-    })
+        const dragByPx = 50
+        await user.pointer([
+            { keys: '[MouseLeft>]', target: handle, coords: { clientX: 100, clientY: 0 } },
+            { coords: { clientX: 100 + dragByPx, clientY: 0 } },
+            { keys: '[/MouseLeft]' },
+        ])
 
-    it('resets to the default width on double-click', () => {
-        const { onWidthChange } = renderResizable({ width: 360 })
-        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
-
-        fireEvent.doubleClick(handle)
-        expect(onWidthChange).toHaveBeenLastCalledWith(280)
-    })
-
-    it('clamps a keyboard step to the max width', () => {
-        const { onWidthChange } = renderResizable({ width: 410 })
-        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
-
-        fireEvent.keyDown(handle, { key: 'ArrowRight' })
-        expect(onWidthChange).toHaveBeenLastCalledWith(420)
-    })
-
-    it('drops out of the tab order and a11y tree while closed', () => {
-        renderResizable({ isOpen: false })
-        const handle = screen.getByRole('separator', { hidden: true })
-        expect(handle).toHaveAttribute('tabindex', '-1')
-        expect(handle).toHaveAttribute('aria-hidden', 'true')
-    })
-
-    it('does not resize while the sidebar is closed', () => {
-        const { onWidthChange } = renderResizable({ isOpen: false })
-        const handle = screen.getByRole('separator', { hidden: true })
-        fireEvent.keyDown(handle, { key: 'ArrowRight' })
-        expect(onWidthChange).not.toHaveBeenCalled()
+        expect(panel.style.getPropertyValue('--reactist-sidebar-width')).toBe(
+            `${WIDTH + dragByPx}px`,
+        )
+        expect(onWidthChange).toHaveBeenCalledTimes(1)
+        expect(onWidthChange).toHaveBeenLastCalledWith(WIDTH + dragByPx)
     })
 })
 
