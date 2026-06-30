@@ -135,7 +135,6 @@ export function useResizablePanel({
     const frameRef = React.useRef<number | null>(null)
     const listenersRef = React.useRef<Listeners | null>(null)
     const pendingValueRef = React.useRef<number | null>(null)
-    const [isResizing, setIsResizing] = React.useState(false)
     const currentValuePx = clamp(valuePx, minValuePx, maxValuePx)
 
     function clearListeners() {
@@ -196,7 +195,6 @@ export function useResizablePanel({
 
         drag.previousFocusedElement?.focus({ preventScroll: true })
         dragRef.current = null
-        setIsResizing(false)
         clearListeners()
     }
 
@@ -223,7 +221,6 @@ export function useResizablePanel({
             startValuePx,
         }
         event.currentTarget.focus({ preventScroll: true })
-        setIsResizing(true)
         clearListeners()
 
         const pointerMove = (moveEvent: PointerEvent) => {
@@ -289,7 +286,6 @@ export function useResizablePanel({
 
     return {
         currentValuePx,
-        isResizing,
         onDoubleClick,
         onKeyDown,
         onPointerDown,
