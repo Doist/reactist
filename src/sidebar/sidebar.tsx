@@ -484,6 +484,19 @@ function SidebarResizeHandle({
     const minValuePx = minWidth ?? committedWidth
     const maxValuePx = maxWidth ?? committedWidth
 
+    const hasResizeRange = minWidth != null && maxWidth != null && minWidth < maxWidth
+    if (width == null) {
+        // eslint-disable-next-line no-console
+        console.warn(
+            '[Sidebar]: <SidebarResizeHandle> needs a controlled `width` on <Sidebar> to resize; the handle renders but cannot move.',
+        )
+    } else if (!hasResizeRange) {
+        // eslint-disable-next-line no-console
+        console.warn(
+            '[Sidebar]: <SidebarResizeHandle> needs `minWidth` and `maxWidth` (with minWidth < maxWidth) on <Sidebar>; without a range the handle renders but cannot move.',
+        )
+    }
+
     const { currentValuePx, onDoubleClick, onKeyDown, onPointerDown } = useResizablePanel({
         cssVariable: SIDEBAR_WIDTH_VAR,
         defaultValuePx: defaultWidth ?? committedWidth,

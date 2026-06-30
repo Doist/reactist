@@ -89,6 +89,11 @@ the inner edge (right for `align="start"`, left for `align="end"`), drives a
 render-free pointer drag, and commits the width through `onWidthChange` on
 pointer up. Width is controlled by the consumer.
 
+A resizable sidebar needs `width`, `minWidth`, and `maxWidth` on `Sidebar` (with
+`minWidth` below `maxWidth`), plus `resizeStep` for keyboard steps and
+`defaultWidth` for the double-click reset. Without a usable range the handle
+renders and focuses but cannot move, and logs a development warning.
+
 <Canvas of={SidebarStories.Resizable} />
 
 Keyboard support, from the separator:
