@@ -35,7 +35,8 @@ styles the real elements while the provider holds state and behavior.
 | Part | Renders | Owns |
 | --- | --- | --- |
 | \`Sidebar\` | the modal backdrop only (a sibling of the panel) | All controlled state and behavior: open, overlay, width and bounds, dismiss; derives the overlay state; provides context |
-| \`SidebarContent\` | the panel element (a neutral \`<div>\` with \`role="dialog"\` when needed) | Positioning, the slide / collapse transition, dialog semantics, the committed width, the focus trap and assistive-tech hiding while modal, and panel-scoped Escape-to-dismiss |
+| \`SidebarContent\` | the panel element (a neutral \`<div>\` with \`role="dialog"\` when needed) | Positioning, the slide / collapse transition, dialog semantics, the committed width, the focus trap and assistive-tech hiding while modal, making its contents \`inert\` while closed, and panel-scoped Escape-to-dismiss |
+| \`SidebarPersistentContent\` | an optional slot inside the panel | A control that stays live while the sidebar is closed (e.g. a collapse toggle): kept out of the closed-state \`inert\`, while it rides the collapse transition and joins the focus trap |
 | \`SidebarResizeHandle\` | a \`role="separator"\` | The pointer and keyboard resize affordance and its ARIA; self-positions on the inner edge from \`align\` |
 `}</Markdown>
 
@@ -187,6 +188,27 @@ provider. Set the same `id` on `Sidebar` that the trigger points its
 </button>
 ```
 
+## A control that stays live while closed
+
+While a sidebar is closed, its contents are made `inert`, so off-screen controls leave the tab order and the accessibility tree. `SidebarPersistentContent` is the exception: a control placed in it stays usable while the sidebar is closed, the canonical case being a collapse toggle that peeks out of the slid-off panel and reopens it. Unlike the external trigger above, this is for a toggle that belongs _in_ the panel.
+
+<Canvas of={SidebarStories.CollapsibleNav} />
+
+Its children render inside the panel, so they ride the collapse transition and join the focus trap when modal, but outside the closed-state `inert`. It works at any nesting depth, so a toggle already living deep in the content does not need hoisting.
+
+```tsx
+<SidebarContent aria-label="Main navigation">
+    <SidebarPersistentContent>
+        <button aria-expanded={isOpen} aria-controls="sidebar" data-no-autofocus onClick={toggle}>
+            {/* your icon / tooltip */}
+        </button>
+    </SidebarPersistentContent>
+    <nav aria-label="Main navigation">{/* nav content */}</nav>
+</SidebarContent>
+```
+
+When the panel opens as a modal, the trap's initial focus goes to the first focusable, often the persistent control. Whether that is wanted is the consumer's call: add `data-no-autofocus` to your control (a react-focus-lock attribute) to keep a toggle from grabbing it, the way `Modal` opts its close button out, or `data-autofocus` to send initial focus to a specific element; the control stays tabbable either way. The consumer owns the control, its `aria-*`, and its positioning (e.g. a peek offset while collapsed).
+
 ## Left and right sidebars
 
 A left nav and a right pane around the main absorber is the full shell contract.
@@ -256,3 +278,9 @@ CSS custom properties, set on `SidebarContent` (or any ancestor).
   or tooltip) keeps it.
 - The resize handle is a focusable `separator` while open, and leaves the tab
   order and the accessibility tree while closed.
+- While closed, the panel's contents are made `inert`, so off-screen controls
+  leave the tab order and the accessibility tree. A control in
+  `SidebarPersistentContent` is exempt and stays interactive. When the panel opens
+  as a modal it receives initial focus by default (it is first in the trap), so add
+  `data-no-autofocus` to it if it should not grab focus, as `Modal` does for its
+  close button.

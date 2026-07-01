@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { createPortal } from 'react-dom'
 import FocusLock from 'react-focus-lock'
 
 import { hideOthers } from 'aria-hidden'
@@ -42,6 +43,13 @@ type SidebarContextValue = {
 }
 
 const SidebarContext = React.createContext<SidebarContextValue | null>(null)
+
+/**
+ * Scoped to `<SidebarContent>`: carries the live region that `<SidebarPersistentContent>`
+ * portals into. `undefined` (the default) means there is no enclosing `<SidebarContent>`;
+ * `null` means one is present but its region element has not attached yet.
+ */
+const SidebarContentContext = React.createContext<HTMLElement | null | undefined>(undefined)
 
 function useSidebarContext(componentName: string): SidebarContextValue {
     const context = React.useContext(SidebarContext)
@@ -291,6 +299,8 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
         } = useSidebarContext('SidebarContent')
 
         const mergedRef = useMergeRefs([panelRef, ref])
+        const inertContentRef = React.useRef<HTMLDivElement>(null)
+        const [persistentRegion, setPersistentRegion] = React.useState<HTMLElement | null>(null)
 
         const isDialog = overlayOpen && (overlayMode === 'dialog' || overlayMode === 'modal')
         const ariaModal = overlayOpen && overlayMode === 'modal' ? true : undefined
@@ -303,6 +313,14 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
                 return hideOthers(panel)
             },
             [shouldTrap, panelRef],
+        )
+
+        // `inert` is a prop only in React 19+; toggle it imperatively to support React 18.
+        React.useEffect(
+            function inertContentWhileClosed() {
+                inertContentRef.current?.toggleAttribute('inert', !isOpen)
+            },
+            [isOpen],
         )
 
         const widthStyle =
@@ -352,7 +370,12 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
                     className={styles.focusLock}
                     data-testid="sidebar-focus-lock"
                 >
-                    {childrenToRender}
+                    <div ref={setPersistentRegion} className={styles.persistentContent} />
+                    <SidebarContentContext.Provider value={persistentRegion}>
+                        <div ref={inertContentRef} className={styles.inertContent}>
+                            {childrenToRender}
+                        </div>
+                    </SidebarContentContext.Provider>
                 </FocusLock>
             </Box>
         )
@@ -533,6 +556,39 @@ function SidebarResizeHandle({
 }
 
 //
+// SidebarPersistentContent
+//
+
+/**
+ * Renders its children inside the panel but outside the closed-state `inert`
+ * wrapper, so a control placed here (e.g. a collapse toggle) stays operable while
+ * the sidebar is closed, rides the collapse transition, and joins the focus trap
+ * when modal. Portals into a region `<SidebarContent>` provides, so it works at any
+ * depth within it; used outside a `<SidebarContent>` it warns and renders nothing.
+ * The consumer owns the control, its `aria-*`, and its positioning.
+ *
+ * @see Sidebar
+ * @see SidebarContent
+ */
+function SidebarPersistentContent({ children }: { children?: React.ReactNode }) {
+    const region = React.useContext(SidebarContentContext)
+
+    React.useEffect(
+        function warnWhenOutsideContent() {
+            if (region === undefined) {
+                // eslint-disable-next-line no-console
+                console.warn(
+                    '[Sidebar]: <SidebarPersistentContent> must be nested within <SidebarContent>; its children will not render.',
+                )
+            }
+        },
+        [region],
+    )
+
+    return region ? createPortal(children, region) : null
+}
+
+//
 // Backdrop (auto-rendered for modal overlays)
 //
 
@@ -564,7 +620,7 @@ function SidebarBackdrop() {
 
 SidebarContent.displayName = 'SidebarContent'
 
-export { Sidebar, SidebarContent, SidebarResizeHandle, useSidebar }
+export { Sidebar, SidebarContent, SidebarPersistentContent, SidebarResizeHandle, useSidebar }
 export type {
     SidebarAlign,
     SidebarContentProps,

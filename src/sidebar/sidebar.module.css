@@ -1,6 +1,7 @@
 :root {
     /* Overlay layering and viewport behaviour. */
     --reactist-sidebar-overlay-z-index: 40;
+    --reactist-sidebar-collapsed-z-index: 1;
     --reactist-sidebar-overlay-viewport-margin: 0px;
     --reactist-sidebar-overlay-inset-block: 0px;
     --reactist-sidebar-overlay-inset-inline: 0px;
@@ -52,6 +53,15 @@
 }
 
 /*
+ * Collapsed + docked, the panel's own `contain: layout` traps a persistent
+ * control's z-index in the panel's stacking context, so it paints under a main
+ * that is itself a stacking context. Lift the panel to keep the control visible.
+ */
+.panel[data-overlay='false'][data-state='closed'] {
+    z-index: var(--reactist-sidebar-collapsed-z-index);
+}
+
+/*
  * Overlay: the panel floats over the content layer, anchored to its align edge
  * and capped to the viewport. It slides off-edge with a compositor-only
  * transform. Box geometry (insets, rounding, skin) is the consumer's; the inset
@@ -89,6 +99,11 @@
  * against the panel.
  */
 .focusLock {
+    display: contents;
+}
+
+.persistentContent,
+.inertContent {
     display: contents;
 }
 

@@ -4,7 +4,7 @@ import { act, fireEvent, render, screen, waitFor, within } from '@testing-librar
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
-import { Sidebar, SidebarContent, SidebarResizeHandle } from './sidebar'
+import { Sidebar, SidebarContent, SidebarPersistentContent, SidebarResizeHandle } from './sidebar'
 
 import type { SidebarAlign, SidebarProps } from './sidebar'
 
@@ -289,6 +289,34 @@ describe('unmountOnHide', () => {
         } finally {
             jest.useRealTimers()
         }
+    })
+})
+
+describe('SidebarPersistentContent', () => {
+    it('renders in the panel and stays visible when open, and out of the inert when closed', async () => {
+        const { rerender } = renderSidebar(
+            {},
+            {
+                children: (
+                    <nav aria-label="Main navigation">
+                        <SidebarPersistentContent>
+                            <button type="button">Toggle sidebar</button>
+                        </SidebarPersistentContent>
+                        <a href="#projects">Projects</a>
+                    </nav>
+                ),
+            },
+        )
+
+        const panel = screen.getByTestId('sidebar-panel')
+        const toggle = await within(panel).findByRole('button', { name: 'Toggle sidebar' })
+        expect(toggle).toBeVisible()
+        expect(toggle.closest('[inert]')).toBeNull()
+        expect(screen.getByText('Projects').closest('[inert]')).toBeNull()
+
+        rerender({ isOpen: false })
+        expect(screen.getByText('Projects').closest('[inert]')).not.toBeNull()
+        expect(toggle.closest('[inert]')).toBeNull()
     })
 })
 
