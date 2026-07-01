@@ -44,8 +44,12 @@ export const FigmaTool = React.memo(function FigmaTool() {
 
     // Standalone documentation pages (unattached MDX, e.g. tips & tricks pages not associated
     // with a component) do not have a corresponding Figma design.
-    const tags = api.getCurrentStoryData()?.tags ?? []
-    if (tags.includes(Tag.UNATTACHED_MDX)) {
+    const storyData = api.getCurrentStoryData()
+    if (storyData?.tags?.includes(Tag.UNATTACHED_MDX)) {
+        return null
+    }
+
+    if (!storyData?.prepared) {
         return null
     }
 
