@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import { Box, Button, Heading, Stack, Text } from '../index'
+import { Box, Button, Heading, IconButton, Stack, Text } from '../index'
 
-import { Sidebar, SidebarContent, SidebarResizeHandle } from './sidebar'
+import { Sidebar, SidebarContent, SidebarPersistentContent, SidebarResizeHandle } from './sidebar'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { SidebarAlign, SidebarOverlayMode } from './sidebar'
@@ -102,8 +102,11 @@ const CARD_SKIN = {
 
 /**
  * Applies `inert` to the main element while a modal sidebar is open. This is the
- * consumer's job (the sidebar can't set attributes on a sibling); it is wired
- * imperatively here because this `@types/react` does not type the `inert` prop.
+ * consumer's job (the sidebar can't set attributes on a sibling). It is set
+ * imperatively rather than via an `inert` prop because Reactist supports React 18,
+ * where `@types/react` doesn't type `inert` and the runtime doesn't toggle it from a
+ * boolean; first-class `inert` support is React 19+.
+ * @see https://github.com/facebook/react/blob/main/CHANGELOG.md#1900-december-5-2024 — React 19.0.0: "Add support for `inert`" (#24730 by @eps1lon)
  */
 function useInert(active: boolean) {
     const ref = React.useRef<HTMLElement>(null)
@@ -213,6 +216,97 @@ export const Docked = {
                         <Text tone="secondary">
                             The main element is the flex absorber: `flexGrow` with `minWidth={0}`,
                             so the sidebar can resize or collapse without overflowing the row.
+                        </Text>
+                    </Stack>
+                </Box>
+            </Box>
+        )
+    },
+} satisfies Story
+
+function SidebarToggleIcon() {
+    return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <rect
+                x="1.75"
+                y="2.75"
+                width="12.5"
+                height="10.5"
+                rx="1.5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+            />
+            <line x1="6" x2="6" y1="3" y2="13" stroke="currentColor" strokeWidth="1.5" />
+        </svg>
+    )
+}
+
+SidebarToggleIcon.displayName = 'SidebarToggleIcon'
+
+/**
+ * A docked main nav whose collapse toggle lives in `<SidebarPersistentContent>`, the
+ * pattern Todoist, Comms, and Automations share. The toggle rides the collapse
+ * animation and peeks at the freed edge while collapsed, staying reachable to reopen.
+ */
+export const CollapsibleNav = {
+    render: function CollapsibleNav() {
+        const [isOpen, setIsOpen] = React.useState(true)
+
+        const toggle = (
+            <IconButton
+                variant="secondary"
+                icon={<SidebarToggleIcon />}
+                aria-label={isOpen ? 'Collapse sidebar' : 'Open sidebar'}
+                aria-controls="collapsible-nav"
+                aria-expanded={isOpen}
+                onClick={() => setIsOpen((open) => !open)}
+            />
+        )
+
+        return (
+            <Box display="flex" height="full">
+                <Sidebar id="collapsible-nav" align="start" isOpen={isOpen} width={260}>
+                    <SidebarContent style={PANEL_SKIN}>
+                        <SidebarPersistentContent>
+                            {isOpen ? (
+                                <Box display="flex" justifyContent="flexEnd" padding="small">
+                                    {toggle}
+                                </Box>
+                            ) : (
+                                <div
+                                    style={{
+                                        position: 'absolute',
+                                        top: 8,
+                                        left: '100%',
+                                        zIndex: 2,
+                                    }}
+                                >
+                                    {toggle}
+                                </div>
+                            )}
+                        </SidebarPersistentContent>
+                        <Box as="nav" aria-label="Primary">
+                            <DemoNav />
+                        </Box>
+                    </SidebarContent>
+                </Sidebar>
+                <Box
+                    as="main"
+                    flexGrow={1}
+                    minWidth={0}
+                    paddingY="large"
+                    paddingRight="large"
+                    paddingLeft={isOpen ? 'large' : 'xxlarge'}
+                    overflow="auto"
+                >
+                    <Stack space="medium">
+                        <Heading level="2" size="larger">
+                            Main content
+                        </Heading>
+                        <Text tone="secondary">
+                            Collapse the nav with the toggle in its header. While collapsed the
+                            panel slides away and the toggle peeks at the edge, staying reachable to
+                            reopen.
                         </Text>
                     </Stack>
                 </Box>
