@@ -1,0 +1,167 @@
+:root {
+    /* Overlay layering and viewport behaviour. */
+    --reactist-sidebar-overlay-z-index: 40;
+    --reactist-sidebar-collapsed-z-index: 1;
+    --reactist-sidebar-overlay-viewport-margin: 0px;
+    --reactist-sidebar-overlay-inset-block: 0px;
+    --reactist-sidebar-overlay-inset-inline: 0px;
+
+    /* Modal backdrop. */
+    --reactist-sidebar-backdrop-color: #000000;
+    --reactist-sidebar-backdrop-opacity: 0.5;
+    --reactist-sidebar-backdrop-z-index: 39;
+
+    /* Resize handle. `fill` is the line colour; the state prefix selects idle / hover / focus. */
+    --reactist-sidebar-resize-handle-width: 4px;
+    --reactist-sidebar-resize-handle-idle-fill: transparent;
+    --reactist-sidebar-resize-handle-hover-fill: var(--reactist-divider-primary);
+    --reactist-sidebar-resize-handle-focus-fill: var(--reactist-actionable-primary-idle-fill);
+
+    --reactist-sidebar-transition-duration: 300ms;
+    --reactist-sidebar-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.panel {
+    position: relative;
+    box-sizing: border-box;
+    width: var(--reactist-sidebar-width);
+    /*
+     * `contain: layout` bounds the collapse reflow without `paint`, so consumer
+     * popovers, focus rings, the resize handle, and an overlay card's shadow are
+     * never clipped to the panel box.
+     */
+    contain: layout;
+}
+
+/*
+ * Docked: the panel is an in-flow flex child that holds its width (`flex-shrink`
+ * comes from the Box prop). Collapsing slides it out with a negative inline
+ * margin so the main absorber reflows into the freed space.
+ */
+.panel[data-overlay='false'] {
+    height: 100%;
+    transition: margin var(--reactist-sidebar-transition-duration)
+        var(--reactist-sidebar-transition-easing);
+}
+
+.panel[data-overlay='false'][data-state='closed'][data-align='start'] {
+    margin-inline-start: calc(-1 * var(--reactist-sidebar-width, 0px));
+}
+
+.panel[data-overlay='false'][data-state='closed'][data-align='end'] {
+    margin-inline-end: calc(-1 * var(--reactist-sidebar-width, 0px));
+}
+
+/*
+ * Collapsed + docked, the panel's own `contain: layout` traps a persistent
+ * control's z-index in the panel's stacking context, so it paints under a main
+ * that is itself a stacking context. Lift the panel to keep the control visible.
+ */
+.panel[data-overlay='false'][data-state='closed'] {
+    z-index: var(--reactist-sidebar-collapsed-z-index);
+}
+
+/*
+ * Overlay: the panel floats over the content layer, anchored to its align edge
+ * and capped to the viewport. It slides off-edge with a compositor-only
+ * transform. Box geometry (insets, rounding, skin) is the consumer's; the inset
+ * custom properties let them inset a floating card without a specificity fight.
+ */
+.panel[data-overlay='true'] {
+    position: fixed;
+    top: var(--reactist-sidebar-overlay-inset-block);
+    bottom: var(--reactist-sidebar-overlay-inset-block);
+    z-index: var(--reactist-sidebar-overlay-z-index);
+    max-width: calc(100vw - var(--reactist-sidebar-overlay-viewport-margin));
+    transition: transform var(--reactist-sidebar-transition-duration)
+        var(--reactist-sidebar-transition-easing);
+}
+
+.panel[data-overlay='true'][data-align='start'] {
+    left: var(--reactist-sidebar-overlay-inset-inline);
+}
+
+.panel[data-overlay='true'][data-align='end'] {
+    right: var(--reactist-sidebar-overlay-inset-inline);
+}
+
+.panel[data-overlay='true'][data-state='closed'][data-align='start'] {
+    transform: translateX(-100%);
+}
+
+.panel[data-overlay='true'][data-state='closed'][data-align='end'] {
+    transform: translateX(100%);
+}
+
+/*
+ * Layout-neutral wrapper for the focus trap: it must not establish a positioning
+ * or stacking context, so the absolutely-positioned resize handle still resolves
+ * against the panel.
+ */
+.focusLock {
+    display: contents;
+}
+
+.persistentContent,
+.inertContent {
+    display: contents;
+}
+
+.backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: var(--reactist-sidebar-backdrop-z-index);
+    background-color: var(--reactist-sidebar-backdrop-color);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--reactist-sidebar-transition-duration)
+        var(--reactist-sidebar-transition-easing);
+}
+
+.backdrop[data-state='open'] {
+    opacity: var(--reactist-sidebar-backdrop-opacity);
+    pointer-events: auto;
+}
+
+.resizeHandle {
+    position: absolute;
+    inset-block: 0;
+    z-index: 1;
+    width: var(--reactist-sidebar-resize-handle-width);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: var(--reactist-sidebar-resize-handle-idle-fill);
+    cursor: col-resize;
+    touch-action: none;
+    transition: background-color 120ms ease;
+}
+
+.resizeHandle[data-align='start'] {
+    right: 0;
+}
+
+.resizeHandle[data-align='end'] {
+    left: 0;
+}
+
+.resizeHandle:hover {
+    background-color: var(--reactist-sidebar-resize-handle-hover-fill);
+}
+
+.resizeHandle:focus-visible {
+    background-color: var(--reactist-sidebar-resize-handle-focus-fill);
+    outline: none;
+}
+
+.resizeHandle[data-disabled='true'] {
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .panel,
+    .backdrop,
+    .resizeHandle {
+        transition: none !important;
+    }
+}
