@@ -56,3 +56,24 @@ export const Playground: Story = {
         )
     },
 }
+
+export const Variants: Story = {
+    render() {
+        return (
+            <section>
+                <{{pascalCase name}} variant="primary">Primary</{{pascalCase name}}>{' '}
+                <{{pascalCase name}} variant="secondary">Secondary</{{pascalCase name}}>
+            </section>
+        )
+    },
+}
+
+export const Accessibility: Story = {
+    render() {
+        return (
+            <section>
+                <{{pascalCase name}} variant="primary">Accessible content</{{pascalCase name}}>
+            </section>
+        )
+    },
+}
