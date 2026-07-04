@@ -123,7 +123,7 @@ describe('when overlayMode is modal', () => {
         expect(backdrop).toHaveAttribute('aria-hidden', 'true')
         expect(backdrop).toHaveAttribute('data-state', 'open')
 
-        // The background is still visible, just hidden from assistive tech.
+        // The component neutralises the background (inert where supported, aria-hidden otherwise).
         expect(screen.queryByRole('button', { name: 'Background action' })).not.toBeInTheDocument()
 
         await waitFor(() => {

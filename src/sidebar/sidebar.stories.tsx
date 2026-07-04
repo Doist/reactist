@@ -101,25 +101,6 @@ const CARD_SKIN = {
 } satisfies React.CSSProperties
 
 /**
- * Applies `inert` to the main element while a modal sidebar is open. This is the
- * consumer's job (the sidebar can't set attributes on a sibling). It is set
- * imperatively rather than via an `inert` prop because Reactist supports React 18,
- * where `@types/react` doesn't type `inert` and the runtime doesn't toggle it from a
- * boolean; first-class `inert` support is React 19+.
- * @see https://github.com/facebook/react/blob/main/CHANGELOG.md#1900-december-5-2024 — React 19.0.0: "Add support for `inert`" (#24730 by @eps1lon)
- */
-function useInert(active: boolean) {
-    const ref = React.useRef<HTMLElement>(null)
-    React.useEffect(
-        function toggleInert() {
-            ref.current?.toggleAttribute('inert', active)
-        },
-        [active],
-    )
-    return ref
-}
-
-/**
  * Flips `isOverlay` when the shell gets narrower than `breakpoint`. Computing the
  * overlay state from a breakpoint is the consumer's job; this measures the
  * container (rather than the viewport) so it works inside the bounded demo stage.
@@ -359,15 +340,14 @@ export const Resizable = {
 /**
  * A modal overlay drawer (`isOverlay` + `overlayMode="modal"`). It floats over
  * the content, traps focus, renders a dimming backdrop, and dismisses on the
- * backdrop click or Escape. The consumer applies `inert` to the main element
- * while the drawer is open. The panel becomes a `dialog` (named via `aria-label`
+ * backdrop click or Escape. The component inerts the background itself, so the
+ * consumer no longer marks `main`. The panel becomes a `dialog` (named via `aria-label`
  * on `SidebarContent`), and the consumer's `<nav>` landmark remains a child,
  * preserved inside the dialog.
  */
 export const ModalDrawer = {
     render: function ModalDrawer() {
         const [isOpen, setIsOpen] = React.useState(false)
-        const mainRef = useInert(isOpen)
 
         return (
             <Box display="flex" height="full">
@@ -387,14 +367,7 @@ export const ModalDrawer = {
                         </Box>
                     </SidebarContent>
                 </Sidebar>
-                <Box
-                    as="main"
-                    ref={mainRef}
-                    flexGrow={1}
-                    minWidth={0}
-                    padding="large"
-                    overflow="auto"
-                >
+                <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
                     <Stack space="medium">
                         <Button
                             variant="primary"
@@ -516,7 +489,6 @@ export const Responsive = {
     render: function Responsive() {
         const [shellRef, isOverlay] = useOverlayBelow<HTMLDivElement>(640)
         const [isOpen, setIsOpen] = React.useState(false)
-        const mainRef = useInert(isOverlay && isOpen)
         // Docked: always in view. Overlay: toggled by the trigger.
         const open = isOverlay ? isOpen : true
 
@@ -538,14 +510,7 @@ export const Responsive = {
                         </Box>
                     </SidebarContent>
                 </Sidebar>
-                <Box
-                    as="main"
-                    ref={mainRef}
-                    flexGrow={1}
-                    minWidth={0}
-                    padding="large"
-                    overflow="auto"
-                >
+                <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
                     <Stack space="medium">
                         {isOverlay ? (
                             <Button
@@ -753,9 +718,6 @@ export const Playground = {
             setWidth(widthArg)
         }
 
-        const isModal = isOverlay && overlayMode === 'modal'
-        const mainRef = useInert(isModal && isOpen)
-
         const sidebar = (
             <Sidebar
                 id="playground-sidebar"
@@ -784,7 +746,7 @@ export const Playground = {
         )
 
         const main = (
-            <Box as="main" ref={mainRef} flexGrow={1} minWidth={0} padding="large" overflow="auto">
+            <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
                 <Stack space="medium">
                     <Button
                         variant="primary"

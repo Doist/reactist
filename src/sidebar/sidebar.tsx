@@ -2,7 +2,7 @@ import * as React from 'react'
 import { createPortal } from 'react-dom'
 import FocusLock from 'react-focus-lock'
 
-import { hideOthers } from 'aria-hidden'
+import { suppressOthers } from 'aria-hidden'
 import classNames from 'classnames'
 import { useMergeRefs } from 'use-callback-ref'
 
@@ -32,6 +32,7 @@ type SidebarContextValue = {
     unmountOnHide: boolean
     panelId: string
     panelRef: React.RefObject<HTMLDivElement | null>
+    backdropRef: React.RefObject<HTMLDivElement | null>
     dismissOverlayOnEscape: boolean
     onDismiss?: () => void
     width?: number
@@ -198,6 +199,7 @@ function Sidebar({
     const generatedId = React.useId()
     const panelId = id ?? generatedId
     const panelRef = React.useRef<HTMLDivElement>(null)
+    const backdropRef = React.useRef<HTMLDivElement>(null)
 
     const overlayOpen = isOverlay && isOpen
     const shouldTrap = overlayOpen && overlayMode === 'modal'
@@ -212,6 +214,7 @@ function Sidebar({
         unmountOnHide,
         panelId,
         panelRef,
+        backdropRef,
         dismissOverlayOnEscape,
         onDismiss,
         width,
@@ -295,6 +298,7 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
             unmountOnHide,
             panelId,
             panelRef,
+            backdropRef,
             width,
             dismissOverlayOnEscape,
             onDismiss,
@@ -308,13 +312,16 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
         const ariaModal = overlayOpen && overlayMode === 'modal' ? true : undefined
 
         React.useLayoutEffect(
-            function hideBackgroundFromAssistiveTech() {
+            function suppressBackgroundWhileModal() {
                 if (!shouldTrap) return
                 const panel = panelRef.current
                 if (!panel) return
-                return hideOthers(panel)
+                // Keep the backdrop out of the inert set so its click-to-dismiss
+                // survives; `inert` (unlike `aria-hidden`) would block the pointer.
+                const kept = backdropRef.current ? [panel, backdropRef.current] : [panel]
+                return suppressOthers(kept)
             },
-            [shouldTrap, panelRef],
+            [shouldTrap, panelRef, backdropRef],
         )
 
         // `inert` is a prop only in React 19+; toggle it imperatively to support React 18.
@@ -638,7 +645,9 @@ function SidebarPersistentContent({ children }: { children?: React.ReactNode }) 
  * trigger and Escape). Customize via `--reactist-sidebar-backdrop-*`.
  */
 function SidebarBackdrop() {
-    const { isOverlay, overlayMode, isOpen, onDismiss } = useSidebarContext('SidebarBackdrop')
+    const { isOverlay, overlayMode, isOpen, onDismiss, backdropRef } =
+        useSidebarContext('SidebarBackdrop')
+    const mergedBackdropRef = useMergeRefs([backdropRef])
 
     if (!isOverlay || overlayMode !== 'modal') return null
 
@@ -647,6 +656,7 @@ function SidebarBackdrop() {
         // pointer-only dismiss affordance (Escape is the keyboard close path).
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
         <div
+            ref={mergedBackdropRef}
             aria-hidden="true"
             data-state={isOpen ? 'open' : 'closed'}
             data-testid="sidebar-backdrop"
