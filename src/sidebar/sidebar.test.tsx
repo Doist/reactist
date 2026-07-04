@@ -378,6 +378,29 @@ describe('resize', () => {
         expect(onWidthChange).not.toHaveBeenCalled()
     })
 
+    it('forwards data-* attributes to the separator and keeps its own on collision', () => {
+        renderSidebar(
+            { id: 'sidebar', width: 280, minWidth: 200, maxWidth: 420 },
+            {
+                children: (
+                    <>
+                        <nav aria-label="Main navigation">Navigation</nav>
+                        <SidebarResizeHandle
+                            aria-label="Resize sidebar"
+                            data-testid="resize-handle"
+                            data-align="consumer-should-lose"
+                        />
+                    </>
+                ),
+            },
+        )
+
+        const handle = screen.getByTestId('resize-handle')
+        expect(handle).toHaveAttribute('data-testid', 'resize-handle')
+        // the component owns data-align; a consumer collision must not win
+        expect(handle).toHaveAttribute('data-align', 'start')
+    })
+
     const keyboardCases: Array<{
         align: SidebarAlign
         key: string

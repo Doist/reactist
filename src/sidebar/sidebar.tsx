@@ -469,6 +469,9 @@ type SidebarResizeHandleProps = {
      * `"{width}px"` when omitted; pass a localized string to override.
      */
     'aria-valuetext'?: string
+
+    /** Other `data-*` attributes are forwarded to the separator (e.g. a testid for E2E). */
+    [dataAttribute: `data-${string}`]: string | number | boolean | undefined
 }
 
 /**
@@ -488,6 +491,7 @@ type SidebarResizeHandleProps = {
 function SidebarResizeHandle({
     'aria-label': ariaLabel,
     'aria-valuetext': ariaValueText,
+    ...dataProps
 }: SidebarResizeHandleProps) {
     const {
         align,
@@ -535,6 +539,7 @@ function SidebarResizeHandle({
 
     return (
         <div
+            {...dataProps}
             role="separator"
             tabIndex={isOpen ? 0 : -1}
             aria-hidden={isOpen ? undefined : true}
