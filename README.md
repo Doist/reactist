@@ -76,6 +76,8 @@ The generated source files include the component implementation with sample prop
 
 You also need to export your new component by adding a reference to it in the [top-level index file](src/index.ts).
 
+The generator also creates a `<component-name>.mdx` documentation page next to the stories. Edit it to document the component: fill in the Overview and link the matching [design handbook page](https://github.com/Doist/component-libraries/tree/main/handbook/components), keep the sections that apply, and delete the ones that don't. For composable components (multiple exported parts), repeat the API block per part. Its live examples render from the generated `Playground`, `Variants`, and `Accessibility` stories.
+
 ## Storybook
 
 For the first development mode run:
