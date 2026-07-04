@@ -497,6 +497,26 @@ describe('resize', () => {
         expect(onWidthChange).toHaveBeenCalledTimes(1)
         expect(onWidthChange).toHaveBeenLastCalledWith(WIDTH + dragByPx)
     })
+
+    it('does not start a resize on a non-primary pointer button', async () => {
+        const user = userEvent.setup()
+        const { onWidthChange } = renderResizable()
+        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
+        const panel = document.getElementById('sidebar') as HTMLElement
+
+        handle.setPointerCapture = jest.fn()
+        handle.releasePointerCapture = jest.fn()
+        handle.hasPointerCapture = jest.fn(() => false)
+
+        await user.pointer([
+            { keys: '[MouseRight>]', target: handle, coords: { clientX: 100, clientY: 0 } },
+            { coords: { clientX: 150, clientY: 0 } },
+            { keys: '[/MouseRight]' },
+        ])
+
+        expect(panel.style.getPropertyValue('--reactist-sidebar-width')).toBe(`${WIDTH}px`)
+        expect(onWidthChange).not.toHaveBeenCalled()
+    })
 })
 
 describe('errors', () => {

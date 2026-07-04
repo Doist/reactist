@@ -241,6 +241,9 @@ export function useResizablePanel({
 
     function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {
         if (disabled) return
+        // Only the primary button starts a resize; let right/middle-click through
+        // so the context menu still opens.
+        if (event.button !== 0) return
 
         event.preventDefault()
         event.stopPropagation()
