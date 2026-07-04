@@ -244,7 +244,7 @@ describe('dismissOverlayOnEscape', () => {
 
 describe('unmountOnHide', () => {
     it('keeps children mounted while closed by default', () => {
-        renderSidebar({ isOpen: false })
+        renderSidebar({ isOpen: false, width: 280 })
         expect(screen.getByText('Navigation')).toBeInTheDocument()
     })
 
@@ -295,7 +295,7 @@ describe('unmountOnHide', () => {
 describe('SidebarPersistentContent', () => {
     it('renders in the panel and stays visible when open, and out of the inert when closed', async () => {
         const { rerender } = renderSidebar(
-            {},
+            { width: 280 },
             {
                 children: (
                     <nav aria-label="Main navigation">

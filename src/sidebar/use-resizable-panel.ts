@@ -8,6 +8,12 @@ import * as React from 'react'
 export type ResizablePanelEdge = 'left' | 'right' | 'top' | 'bottom'
 
 type UseResizablePanelParams = {
+    /**
+     * When `false`, the committed value is not written to the panel, so a panel
+     * with no controlled value keeps its natural size instead of collapsing.
+     * Defaults to `true`.
+     */
+    applyValue?: boolean
     /** When set, read/write this CSS custom property instead of `width` / `height`. */
     cssVariable?: string
     /** Width restored on a double-click reset. */
@@ -154,6 +160,7 @@ function getKeyboardJumpPx(
  * event handlers, the animation-frame callback, or an effect, never during render.
  */
 export function useResizablePanel({
+    applyValue = true,
     cssVariable,
     defaultValuePx,
     disabled = false,
@@ -296,9 +303,10 @@ export function useResizablePanel({
 
     React.useEffect(
         function reapplyCommittedValue() {
+            if (!applyValue) return
             setElementValuePx(panelRef.current, edge, currentValuePx, cssVariable)
         },
-        [currentValuePx, edge, panelRef, cssVariable],
+        [applyValue, currentValuePx, edge, panelRef, cssVariable],
     )
 
     React.useEffect(function cleanupOnUnmount() {

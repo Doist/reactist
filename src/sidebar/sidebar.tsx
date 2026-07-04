@@ -323,6 +323,18 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
             [isOpen],
         )
 
+        React.useEffect(
+            function warnWhenDockedCollapseHasNoWidth() {
+                if (!isOverlay && !isOpen && width == null && !unmountOnHide) {
+                    // eslint-disable-next-line no-console
+                    console.warn(
+                        '[Sidebar]: a docked <Sidebar> needs a controlled `width` to collapse when closed; without one the closed panel stays visible while its contents are inert.',
+                    )
+                }
+            },
+            [isOverlay, isOpen, width, unmountOnHide],
+        )
+
         const widthStyle =
             width != null
                 ? ({ [SIDEBAR_WIDTH_VAR]: `${width}px` } as React.CSSProperties)
@@ -512,22 +524,18 @@ function SidebarResizeHandle({
     const maxValuePx = maxWidth ?? committedWidth
 
     const hasResizeRange = minWidth != null && maxWidth != null && minWidth < maxWidth
-    if (width == null) {
-        // eslint-disable-next-line no-console
-        console.warn(
-            '[Sidebar]: <SidebarResizeHandle> needs a controlled `width` on <Sidebar> to resize; the handle renders but cannot move.',
-        )
-    } else if (!hasResizeRange) {
-        // eslint-disable-next-line no-console
-        console.warn(
-            '[Sidebar]: <SidebarResizeHandle> needs `minWidth` and `maxWidth` (with minWidth < maxWidth) on <Sidebar>; without a range the handle renders but cannot move.',
-        )
-    }
+    const resizeWarning =
+        width == null
+            ? '[Sidebar]: <SidebarResizeHandle> needs a controlled `width` on <Sidebar> to resize; the handle renders but cannot move.'
+            : !hasResizeRange
+              ? '[Sidebar]: <SidebarResizeHandle> needs `minWidth` and `maxWidth` (with minWidth < maxWidth) on <Sidebar>; without a range the handle renders but cannot move.'
+              : null
 
     const { currentValuePx, onDoubleClick, onKeyDown, onPointerDown } = useResizablePanel({
+        applyValue: width != null,
         cssVariable: SIDEBAR_WIDTH_VAR,
         defaultValuePx: defaultWidth ?? committedWidth,
-        disabled: !isOpen,
+        disabled: !isOpen || width == null,
         edge,
         maxValuePx,
         minValuePx,
@@ -536,6 +544,16 @@ function SidebarResizeHandle({
         stepPx: resizeStep ?? 0,
         valuePx: committedWidth,
     })
+
+    React.useEffect(
+        function warnOnDegenerateResizeConfig() {
+            if (resizeWarning) {
+                // eslint-disable-next-line no-console
+                console.warn(resizeWarning)
+            }
+        },
+        [resizeWarning],
+    )
 
     return (
         <div
