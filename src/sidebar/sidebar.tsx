@@ -62,15 +62,6 @@ function useSidebarContext(componentName: string): SidebarContextValue {
     return context
 }
 
-/**
- * Reads the nearest `<Sidebar>` context. The slots use it internally; it is also
- * available to advanced consumers rendering custom pieces inside the provider.
- * Throws when called outside a `<Sidebar>`.
- */
-function useSidebar(): SidebarContextValue {
-    return useSidebarContext('useSidebar')
-}
-
 //
 // Sidebar (provider)
 //
@@ -390,12 +381,7 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
                 style={{ ...style, ...widthStyle }}
                 className={classNames(styles.panel, exceptionallySetClassName)}
             >
-                <FocusLock
-                    disabled={!shouldTrap}
-                    returnFocus
-                    className={styles.focusLock}
-                    data-testid="sidebar-focus-lock"
-                >
+                <FocusLock disabled={!shouldTrap} returnFocus className={styles.focusLock}>
                     <div ref={setPersistentRegion} className={styles.persistentContent} />
                     <SidebarContentContext.Provider value={persistentContentValue}>
                         <div ref={inertContentRef} className={styles.inertContent}>
@@ -596,6 +582,8 @@ function SidebarResizeHandle({
 // SidebarPersistentContent
 //
 
+type SidebarPersistentContentProps = { children?: React.ReactNode }
+
 /**
  * Renders its children inside the panel but outside the closed-state `inert`
  * wrapper, so a control placed here (e.g. a collapse toggle) stays operable while
@@ -607,7 +595,7 @@ function SidebarResizeHandle({
  * @see Sidebar
  * @see SidebarContent
  */
-function SidebarPersistentContent({ children }: { children?: React.ReactNode }) {
+function SidebarPersistentContent({ children }: SidebarPersistentContentProps) {
     const content = React.useContext(SidebarContentContext)
     const region = content?.region ?? null
     const isOutsideContent = content === undefined
@@ -668,11 +656,12 @@ function SidebarBackdrop() {
 
 SidebarContent.displayName = 'SidebarContent'
 
-export { Sidebar, SidebarContent, SidebarPersistentContent, SidebarResizeHandle, useSidebar }
+export { Sidebar, SidebarContent, SidebarPersistentContent, SidebarResizeHandle }
 export type {
     SidebarAlign,
     SidebarContentProps,
     SidebarOverlayMode,
+    SidebarPersistentContentProps,
     SidebarProps,
     SidebarResizeHandleProps,
 }
