@@ -1,7 +1,8 @@
 import * as React from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
 
 import { {{pascalCase name}} } from './{{dashCase name}}'
+
+import type { Meta, StoryObj } from '@storybook/react'
 
 const meta = {
     title: 'Design system/{{pascalCase name}}',
@@ -48,7 +49,7 @@ export const Playground: Story = {
             control: { type: 'text' },
         },
     },
-    render(args) {
+    render(args: React.ComponentProps<typeof {{pascalCase name}}>) {
         return (
             <section>
                 <{{pascalCase name}} {...args} />
