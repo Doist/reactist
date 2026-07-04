@@ -1,0 +1,74 @@
+import { Canvas, Controls, Meta, Subtitle, Title } from '@storybook/addon-docs/blocks'
+
+import * as {{pascalCase name}}Stories from './{{dashCase name}}.stories'
+
+<Meta of={ {{pascalCase name}}Stories } />
+
+<Title />
+
+<Subtitle>One-line summary of what {{pascalCase name}} is for.</Subtitle>
+
+## Overview
+
+What {{pascalCase name}} is and the problem it solves, in a sentence or two. For design
+guidance (anatomy, when to use, do and don't), see the
+[{{pascalCase name}} handbook page](https://github.com/Doist/component-libraries/blob/main/handbook/components/{{dashCase name}}.md).
+
+{/* Verify this handbook link: the slug isn't always the component's dash-name (e.g.
+    buttons.md, menus.md, switches.md) and some pages don't exist yet. */}
+
+## When to use
+
+{/* Two or more concrete scenarios. Trim to what the handbook doesn't already cover. */}
+
+- Use {{pascalCase name}} when ...
+- Prefer another component when ...
+
+## Basic usage
+
+The simplest real example. Pass `variant` and `children`.
+
+<Canvas of={ {{pascalCase name}}Stories.Playground } />
+
+## Variants
+
+{{pascalCase name}} supports a `primary` and a `secondary` variant.
+
+<Canvas of={ {{pascalCase name}}Stories.Variants } />
+
+## States
+
+{/* Visual states (idle, hover, disabled, loading) live here. Add a `States` story and
+    reference it with <Canvas of={ {{pascalCase name}}Stories.States } />, or delete this
+    section if the component has no distinct states. */}
+
+## API
+
+<Controls of={ {{pascalCase name}}Stories.Playground } />
+
+{/* Composable components: add `ArgTypes` to the import above and document each exported
+    part with its own block, e.g.
+
+### `<{{pascalCase name}}.Item>`
+
+<ArgTypes of={ {{pascalCase name}}Item } />
+
+Repeat per exported sub-component. */}
+
+## Custom properties
+
+The following CSS custom properties customize the {{pascalCase name}} appearance. The values
+shown are the defaults.
+
+```css
+--reactist-{{dashCase name}}-tint
+--reactist-{{dashCase name}}-fill
+```
+
+## Accessibility
+
+- **Keyboard**: describe focus order and keys the component handles.
+- **Screen reader**: the name, role, and state it exposes (and via which prop).
+- **Focus**: focus management / trapping behavior, if any.
+
+<Canvas of={ {{pascalCase name}}Stories.Accessibility } />

@@ -56,6 +56,12 @@ function componentGenerator(plop) {
                 templateFile: templateFile('component/component.stories.tsx'),
             })
 
+            actions.push({
+                type: 'add',
+                path: 'src/{{dashCase name}}/{{dashCase name}}.mdx',
+                templateFile: templateFile('component/component.mdx'),
+            })
+
             return actions
         },
     })
