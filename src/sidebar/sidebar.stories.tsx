@@ -361,7 +361,16 @@ export const ModalDrawer = {
                     onDismiss={() => setIsOpen(false)}
                     width={260}
                 >
-                    <SidebarContent aria-label="Primary navigation" style={PANEL_SKIN}>
+                    {/* The panel forwards keydowns to this handler after its own Escape
+                        dismiss; a consumer that wants Escape kept from app-level handlers
+                        (e.g. a global hotkey) stops propagation here. */}
+                    <SidebarContent
+                        aria-label="Primary navigation"
+                        style={PANEL_SKIN}
+                        onKeyDown={(event) => {
+                            if (event.key === 'Escape') event.stopPropagation()
+                        }}
+                    >
                         <Box as="nav" aria-label="Primary">
                             <DemoNav />
                         </Box>
