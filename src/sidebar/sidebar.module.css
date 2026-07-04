@@ -159,6 +159,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+    :root {
+        --reactist-sidebar-transition-duration: 0s;
+    }
+
     .panel,
     .backdrop,
     .resizeHandle {
