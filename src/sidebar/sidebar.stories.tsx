@@ -319,7 +319,10 @@ export const Resizable = {
                         <Box as="nav" aria-label="Primary">
                             <DemoNav />
                         </Box>
-                        <SidebarResizeHandle aria-label="Resize sidebar" />
+                        <SidebarResizeHandle
+                            aria-label="Resize sidebar"
+                            data-testid="sidebar-resize-handle"
+                        />
                     </SidebarContent>
                 </Sidebar>
                 <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">

@@ -113,6 +113,11 @@ overrides it until `width` changes). `aria-valuenow` and `aria-valuetext`
 update on each keystroke and on commit after a drag (not mid-drag). Pass
 `aria-valuetext` to localize the announced width; it defaults to `"{width}px"`.
 
+The handle also forwards `data-*` attributes onto the `separator` (e.g. a
+`data-testid` for E2E, as the Resizable story sets); its own `role`,
+`tabindex`, `aria-*`, and `data-align` / `data-disabled` are applied after and
+win.
+
 ## Overlays
 
 Two props describe an overlay. `isOverlay` is dynamic: the consumer computes it
