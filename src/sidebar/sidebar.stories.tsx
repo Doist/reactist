@@ -252,38 +252,33 @@ export const CollapsibleNav = {
     render: function CollapsibleNav() {
         const [isOpen, setIsOpen] = React.useState(true)
 
-        const toggle = (
-            <IconButton
-                variant="secondary"
-                icon={<SidebarToggleIcon />}
-                aria-label={isOpen ? 'Collapse sidebar' : 'Open sidebar'}
-                aria-controls="collapsible-nav"
-                aria-expanded={isOpen}
-                onClick={() => setIsOpen((open) => !open)}
-            />
-        )
-
         return (
             <Box display="flex" height="full">
                 <Sidebar id="collapsible-nav" align="start" isOpen={isOpen} width={260}>
                     <SidebarContent style={PANEL_SKIN}>
                         <SidebarPersistentContent>
-                            {isOpen ? (
-                                <Box display="flex" justifyContent="flexEnd" padding="small">
-                                    {toggle}
-                                </Box>
-                            ) : (
-                                <div
-                                    style={{
-                                        position: 'absolute',
-                                        top: 8,
-                                        left: '100%',
-                                        zIndex: 2,
-                                    }}
-                                >
-                                    {toggle}
-                                </div>
-                            )}
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    top: 8,
+                                    right: 8,
+                                    zIndex: 2,
+                                    // Switch the toggle between its in-panel position and outside of it when collapsed.
+                                    // Transition at the same velocity as the panel so it appears as part of the same animation
+                                    transition:
+                                        'margin-right var(--reactist-sidebar-transition-duration) var(--reactist-sidebar-transition-easing)',
+                                    marginRight: isOpen ? 0 : -40,
+                                }}
+                            >
+                                <IconButton
+                                    variant="secondary"
+                                    icon={<SidebarToggleIcon />}
+                                    aria-label={isOpen ? 'Collapse sidebar' : 'Open sidebar'}
+                                    aria-controls="collapsible-nav"
+                                    aria-expanded={isOpen}
+                                    onClick={() => setIsOpen((open) => !open)}
+                                />
+                            </div>
                         </SidebarPersistentContent>
                         <Box as="nav" aria-label="Primary">
                             <DemoNav />
