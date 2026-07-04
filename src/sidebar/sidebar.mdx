@@ -100,13 +100,16 @@ Keyboard support, from the separator:
 - **Arrow keys** resize by `resizeStep`, edge-aware: with `align="start"` the
   handle is on the right, so ArrowRight grows and ArrowLeft shrinks; `align="end"`
   reverses it.
-- **Home / End** jump to `minWidth` and `maxWidth`.
+- **Home / End** jump to `minWidth` and `maxWidth`, also edge-aware: `align="end"`
+  swaps them, so Home jumps to `maxWidth`.
 - **Double-click** resets to `defaultWidth`.
 - There is no Enter / Space and no PageUp / PageDown: it is a separator, not a
   button. Escape-to-dismiss belongs to the panel, not the handle.
 
 `onWidthChange` fires on pointer up and on each keystroke during keyboard resize,
-so debounce persistence if it is expensive. `aria-valuenow` and `aria-valuetext`
+so debounce persistence if it is expensive. A consumer that ignores it keeps the
+dragged preview width on screen (the drag writes it imperatively; nothing
+overrides it until `width` changes). `aria-valuenow` and `aria-valuetext`
 update on each keystroke and on commit after a drag (not mid-drag). Pass
 `aria-valuetext` to localize the announced width; it defaults to `"{width}px"`.
 
@@ -205,7 +208,7 @@ Its children render inside the panel, so they ride the collapse transition and j
 </SidebarContent>
 ```
 
-When the panel opens as a modal, the trap's initial focus goes to the first focusable, often the persistent control. Whether that is wanted is the consumer's call: add `data-no-autofocus` to your control (a react-focus-lock attribute) to keep a toggle from grabbing it, the way `Modal` opts its close button out, or `data-autofocus` to send initial focus to a specific element; the control stays tabbable either way. The consumer owns the control, its `aria-*`, and its positioning (e.g. a peek offset while collapsed).
+When the panel opens as a modal, the trap's initial focus goes to the first focusable, often the persistent control. Whether that is wanted is the consumer's call: add `data-no-autofocus` to your control (a react-focus-lock attribute) to keep a toggle from grabbing it, or `data-autofocus` to send initial focus to a specific element; the control stays tabbable either way. `data-no-autofocus` is subtree-scoped, so setting it on a wrapping element opts the whole panel out of autofocus (focus stays on the trigger). The consumer owns the control, its `aria-*`, and its positioning (e.g. a peek offset while collapsed).
 
 ## Left and right sidebars
 
@@ -232,6 +235,7 @@ CSS custom properties, set on `SidebarContent` (or any ancestor).
 | Property | Default | Purpose |
 | --- | --- | --- |
 | \`--reactist-sidebar-overlay-z-index\` | \`40\` | Layering of a floating panel |
+| \`--reactist-sidebar-collapsed-z-index\` | \`1\` | Layering of a collapsed docked panel, so a persistent control paints above the main content |
 | \`--reactist-sidebar-overlay-min-viewport-gap\` | \`0px\` | Gap kept from the viewport edge by the overlay width cap |
 | \`--reactist-sidebar-overlay-inset-block\` | \`0px\` | Top and bottom inset of a floating panel |
 | \`--reactist-sidebar-overlay-inset-inline\` | \`0px\` | Inset of the anchored edge |
@@ -242,6 +246,8 @@ CSS custom properties, set on `SidebarContent` (or any ancestor).
 | \`--reactist-sidebar-resize-handle-idle-fill\` | \`transparent\` | Handle color at rest |
 | \`--reactist-sidebar-resize-handle-hover-fill\` | divider | Handle color on hover |
 | \`--reactist-sidebar-resize-handle-focus-fill\` | primary | Handle color on focus |
+| \`--reactist-sidebar-transition-duration\` | \`300ms\` | Panel slide and backdrop fade duration (shared) |
+| \`--reactist-sidebar-transition-easing\` | \`cubic-bezier(0.4, 0, 0.2, 1)\` | Panel slide and backdrop fade easing (shared) |
 `}</Markdown>
 
 ## What the consumer owns
@@ -280,5 +286,4 @@ CSS custom properties, set on `SidebarContent` (or any ancestor).
   leave the tab order and the accessibility tree. A control in
   `SidebarPersistentContent` is exempt and stays interactive. When the panel opens
   as a modal it receives initial focus by default (it is first in the trap), so add
-  `data-no-autofocus` to it if it should not grab focus, as `Modal` does for its
-  close button.
+  `data-no-autofocus` to it if it should not grab focus.
