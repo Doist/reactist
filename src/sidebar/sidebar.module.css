@@ -2,7 +2,7 @@
     /* Overlay layering and viewport behaviour. */
     --reactist-sidebar-overlay-z-index: 40;
     --reactist-sidebar-collapsed-z-index: 1;
-    --reactist-sidebar-overlay-viewport-margin: 0px;
+    --reactist-sidebar-overlay-min-viewport-gap: 0px;
     --reactist-sidebar-overlay-inset-block: 0px;
     --reactist-sidebar-overlay-inset-inline: 0px;
 
@@ -72,7 +72,7 @@
     top: var(--reactist-sidebar-overlay-inset-block);
     bottom: var(--reactist-sidebar-overlay-inset-block);
     z-index: var(--reactist-sidebar-overlay-z-index);
-    max-width: calc(100vw - var(--reactist-sidebar-overlay-viewport-margin));
+    max-width: calc(100vw - var(--reactist-sidebar-overlay-min-viewport-gap));
     transition: transform var(--reactist-sidebar-transition-duration)
         var(--reactist-sidebar-transition-easing);
 }
