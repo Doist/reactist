@@ -46,10 +46,12 @@ const SidebarContext = React.createContext<SidebarContextValue | null>(null)
 
 /**
  * Scoped to `<SidebarContent>`: carries the live region that `<SidebarPersistentContent>`
- * portals into. `undefined` (the default) means there is no enclosing `<SidebarContent>`;
- * `null` means one is present but its region element has not attached yet.
+ * portals into, plus the panel's `unmountOnHide` so the slot can warn when the two
+ * conflict. `undefined` (the default) means there is no enclosing `<SidebarContent>`;
+ * a `null` `region` means one is present but its element has not attached yet.
  */
-const SidebarContentContext = React.createContext<HTMLElement | null | undefined>(undefined)
+type SidebarContentContextValue = { region: HTMLElement | null; unmountOnHide: boolean }
+const SidebarContentContext = React.createContext<SidebarContentContextValue | undefined>(undefined)
 
 function useSidebarContext(componentName: string): SidebarContextValue {
     const context = React.useContext(SidebarContext)
@@ -344,6 +346,11 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
             ? children
             : null
 
+        const persistentContentValue = React.useMemo(
+            () => ({ region: persistentRegion, unmountOnHide }),
+            [persistentRegion, unmountOnHide],
+        )
+
         function handlePanelKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
             if (
                 overlayOpen &&
@@ -383,7 +390,7 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
                     data-testid="sidebar-focus-lock"
                 >
                     <div ref={setPersistentRegion} className={styles.persistentContent} />
-                    <SidebarContentContext.Provider value={persistentRegion}>
+                    <SidebarContentContext.Provider value={persistentContentValue}>
                         <div ref={inertContentRef} className={styles.inertContent}>
                             {childrenToRender}
                         </div>
@@ -594,18 +601,26 @@ function SidebarResizeHandle({
  * @see SidebarContent
  */
 function SidebarPersistentContent({ children }: { children?: React.ReactNode }) {
-    const region = React.useContext(SidebarContentContext)
+    const content = React.useContext(SidebarContentContext)
+    const region = content?.region ?? null
+    const isOutsideContent = content === undefined
+    const unmountsOnHide = content?.unmountOnHide ?? false
 
     React.useEffect(
-        function warnWhenOutsideContent() {
-            if (region === undefined) {
+        function warnOnMisconfiguration() {
+            if (isOutsideContent) {
                 // eslint-disable-next-line no-console
                 console.warn(
                     '[Sidebar]: <SidebarPersistentContent> must be nested within <SidebarContent>; its children will not render.',
                 )
+            } else if (unmountsOnHide) {
+                // eslint-disable-next-line no-console
+                console.warn(
+                    '[Sidebar]: `unmountOnHide` on <Sidebar> defeats <SidebarPersistentContent>; the control unmounts with the panel on close instead of staying operable while closed.',
+                )
             }
         },
-        [region],
+        [isOutsideContent, unmountsOnHide],
     )
 
     return region ? createPortal(children, region) : null
