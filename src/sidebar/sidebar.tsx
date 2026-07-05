@@ -110,8 +110,9 @@ type SidebarProps = {
     overlayMode?: SidebarOverlayMode
 
     /**
-     * Calls `onDismiss` when Escape is pressed while shown as an overlay. Respects
-     * `event.defaultPrevented`, so app-level key handling can opt out.
+     * Calls `onDismiss` when Escape is pressed with focus inside the panel while shown
+     * as an overlay (panel-scoped, not app-wide). Respects `event.defaultPrevented`, so
+     * app-level key handling can opt out.
      *
      * @default false
      */
