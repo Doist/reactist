@@ -99,7 +99,8 @@ Keyboard support, from the separator:
 
 - **Arrow keys** resize by `resizeStep`, edge-aware: with `align="start"` the
   handle is on the right, so ArrowRight grows and ArrowLeft shrinks; `align="end"`
-  reverses it.
+  reverses it. Omitting `resizeStep` disables arrow stepping (Home/End still
+  work).
 - **Home / End** jump to `minWidth` and `maxWidth`, also edge-aware: `align="end"`
   swaps them, so Home jumps to `maxWidth`.
 - **Double-click** resets to `defaultWidth`.

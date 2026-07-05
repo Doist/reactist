@@ -111,6 +111,8 @@ function getActiveElementForRestore(): HTMLElement | null {
 }
 
 function getKeyboardDeltaPx(edge: ResizablePanelEdge, key: string, stepPx: number): number | null {
+    // Without a positive step, arrow keys don't resize (Home/End still jump to the bounds).
+    if (stepPx <= 0) return null
     if (edge === 'left') {
         if (key === 'ArrowLeft') return stepPx
         if (key === 'ArrowRight') return -stepPx
@@ -225,7 +227,11 @@ export function useResizablePanel({
 
         cancelFrame()
         flushPreview()
-        onValueCommit(drag.currentValuePx)
+        // A press with no movement (a plain click on the handle) leaves the value
+        // unchanged; skip the commit so consumers don't get a no-op write.
+        if (drag.currentValuePx !== drag.startValuePx) {
+            onValueCommit(drag.currentValuePx)
+        }
 
         if (
             typeof drag.captureTarget.hasPointerCapture === 'function' &&

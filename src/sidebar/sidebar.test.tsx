@@ -236,6 +236,30 @@ describe('dismissOverlayOnEscape', () => {
         expect(onDismiss).not.toHaveBeenCalled()
     })
 
+    it("respects defaultPrevented from the panel's own onKeyDown handler", async () => {
+        const user = userEvent.setup()
+        const onDismiss = jest.fn()
+        renderSidebar(
+            {
+                isOverlay: true,
+                overlayMode: 'modal',
+                dismissOverlayOnEscape: true,
+                onDismiss,
+            },
+            {
+                contentProps: {
+                    onKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => {
+                        if (event.key === 'Escape') event.preventDefault()
+                    },
+                },
+                children: <button type="button">Panel item</button>,
+            },
+        )
+        screen.getByRole('button', { name: 'Panel item' }).focus()
+        await user.keyboard('{Escape}')
+        expect(onDismiss).not.toHaveBeenCalled()
+    })
+
     it('does not dismiss when dismissOverlayOnEscape is off', async () => {
         const user = userEvent.setup()
         const onDismiss = jest.fn()
@@ -527,6 +551,35 @@ describe('resize', () => {
         ])
 
         expect(panel.style.getPropertyValue('--reactist-sidebar-width')).toBe(`${WIDTH}px`)
+        expect(onWidthChange).not.toHaveBeenCalled()
+    })
+
+    it('leaves arrow keys inert when resizeStep is omitted, but keeps Home/End', () => {
+        const { onWidthChange } = renderResizable({ resizeStep: undefined })
+        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
+
+        // No step configured: an arrow press neither preventDefaults nor commits.
+        expect(fireEvent.keyDown(handle, { key: 'ArrowRight' })).toBe(true)
+        expect(onWidthChange).not.toHaveBeenCalled()
+
+        // Home/End do not depend on the step, so they still jump to the bounds.
+        expect(fireEvent.keyDown(handle, { key: 'End' })).toBe(false)
+        expect(onWidthChange).toHaveBeenLastCalledWith(MAX_WIDTH)
+    })
+
+    it('does not commit when the handle is pressed and released without moving', async () => {
+        const user = userEvent.setup()
+        const { onWidthChange } = renderResizable()
+        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
+        handle.setPointerCapture = jest.fn()
+        handle.releasePointerCapture = jest.fn()
+        handle.hasPointerCapture = jest.fn(() => false)
+
+        await user.pointer([
+            { keys: '[MouseLeft>]', target: handle, coords: { clientX: 100, clientY: 0 } },
+            { keys: '[/MouseLeft]' },
+        ])
+
         expect(onWidthChange).not.toHaveBeenCalled()
     })
 })

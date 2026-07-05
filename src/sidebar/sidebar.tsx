@@ -145,7 +145,10 @@ type SidebarProps = {
     /** Width restored on a double-click reset of the handle. */
     defaultWidth?: number
 
-    /** Step in px for keyboard (arrow-key) resize. */
+    /**
+     * Step in px for keyboard (arrow-key) resize. Omit (or pass `0`) to disable
+     * arrow stepping; Home/End still jump to the bounds.
+     */
     resizeStep?: number
 
     /**
@@ -352,15 +355,14 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
         )
 
         function handlePanelKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
-            if (
-                overlayOpen &&
-                dismissOverlayOnEscape &&
-                event.key === 'Escape' &&
-                !event.defaultPrevented
-            ) {
+            // Call the consumer's handler first so it can veto the built-in Escape
+            // dismissal with preventDefault, the same way a descendant handler already can
+            // (keydown bubbles up to the panel, and preventDefault does not stop propagation).
+            consumerOnKeyDown?.(event)
+            if (event.defaultPrevented) return
+            if (overlayOpen && dismissOverlayOnEscape && event.key === 'Escape') {
                 onDismiss?.()
             }
-            consumerOnKeyDown?.(event)
         }
 
         return (
@@ -637,6 +639,8 @@ function SidebarPersistentContent({ children }: SidebarPersistentContentProps) {
 function SidebarBackdrop() {
     const { isOverlay, overlayMode, isOpen, onDismiss, backdropRef } =
         useSidebarContext('SidebarBackdrop')
+    // Adapts the nullable context ref object to the `ref` prop, which React 18's
+    // types reject when passed a `RefObject<HTMLDivElement | null>` directly.
     const mergedBackdropRef = useMergeRefs([backdropRef])
 
     if (!isOverlay || overlayMode !== 'modal') return null
