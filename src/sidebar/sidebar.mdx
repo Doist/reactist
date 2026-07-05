@@ -1,5 +1,15 @@
-import { Canvas, Controls, Markdown, Meta, Subtitle, Title } from '@storybook/addon-docs/blocks'
+import {
+    ArgTypes,
+    Canvas,
+    Controls,
+    Description,
+    Markdown,
+    Meta,
+    Subtitle,
+    Title,
+} from '@storybook/addon-docs/blocks'
 
+import { SidebarContent, SidebarPersistentContent, SidebarResizeHandle } from './sidebar'
 import * as SidebarStories from './sidebar.stories'
 
 <Meta of={SidebarStories} />
@@ -43,6 +53,29 @@ styles the real elements while the provider holds state and behavior.
 A sidebar is resizable when, and only when, the consumer renders a
 `SidebarResizeHandle` inside the content. There is no `resizable` prop.
 
+## Props
+
+The Playground above covers `<Sidebar>`; the panel and its slots follow. Each also
+forwards `data-*` and native element attributes to its rendered node.
+
+### `<SidebarContent>`
+
+<Description of={SidebarContent} />
+
+<ArgTypes of={SidebarContent} />
+
+### `<SidebarPersistentContent>`
+
+<Description of={SidebarPersistentContent} />
+
+Takes only `children`: the control to keep operable while the sidebar is closed.
+
+### `<SidebarResizeHandle>`
+
+<Description of={SidebarResizeHandle} />
+
+<ArgTypes of={SidebarResizeHandle} />
+
 ## The shell contract
 
 The sidebar sizes itself, but the surrounding flex context is the consumer's.
@@ -54,13 +87,17 @@ them on its parent or siblings:
   yields space when the sidebar resizes or the viewport shrinks. (Box defaults
   `flex-shrink` to 1; the `min-width: 0` is the part that is easy to forget and
   the one that prevents the row from overflowing.)
+- `overflow: hidden` on the parent to clip the collapse overhang: a docked panel
+  slides out on a negative inline margin, so its box overhangs the shell's start
+  or end edge until the flex parent clips it. (Fixed overlays escape the clip, so
+  this only affects the docked slide.)
 
 ```tsx
 // Compute overlay flips from your own breakpoint source. The right sidebar
 // needs the larger breakpoint, since it sits beyond the nav and the content.
 const navIsOverlay = viewportWidth < maxNavWidth + minContentWidth
 
-<Box display="flex">
+<Box display="flex" overflow="hidden">
     <Sidebar align="start" isOpen={isOpen} isOverlay={navIsOverlay} overlayMode="modal" width={width} onWidthChange={setWidth}>
         <SidebarContent aria-label="Main navigation">
             <nav aria-label="Main navigation">{/* nav content */}</nav>
@@ -221,6 +258,8 @@ While a sidebar is closed, its contents are made `inert`, so off-screen controls
 <Canvas of={SidebarStories.CollapsibleNav} />
 
 Its children render inside the panel, so they ride the collapse transition and join the focus trap when modal, but outside the closed-state `inert`. It works at any nesting depth, so a toggle already living deep in the content does not need hoisting.
+
+Do not pair it with `unmountOnHide` on `<Sidebar>`: that unmounts the whole panel (this control included) at the end of the close transition, so nothing is left to stay operable while closed. The two contradict each other, and the component warns when both are set.
 
 ```tsx
 <SidebarContent aria-label="Main navigation">
