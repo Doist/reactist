@@ -5,13 +5,15 @@
     --reactist-sidebar-overlay-min-viewport-gap: 0px;
     --reactist-sidebar-overlay-inset-block: 0px;
     /*
-     * `-block` is the shorthand; `-block-start`/`-block-end` default from it so a
-     * consumer can inset a single edge (e.g. below a top title bar) without the
-     * other. Inline stays a single `-inline`: the overlay anchors to one inline
-     * edge and is width-sized, so only that edge is a positional inset.
+     * `-block` is the shorthand; the per-edge `-block-start`/`-block-end`
+     * longhands are read at the point of use below and fall back to it, so a
+     * consumer can inset a single edge (e.g. below a top title bar) or both via
+     * the shorthand. The longhands are deliberately not declared here: resolving
+     * their fallback at :root would bake in the shorthand's :root value and a
+     * consumer override set lower (on the panel or an ancestor) would not take.
+     * Inline stays a single `-inline`: the overlay anchors to one inline edge and
+     * is width-sized, so only that edge is a positional inset.
      */
-    --reactist-sidebar-overlay-inset-block-start: var(--reactist-sidebar-overlay-inset-block);
-    --reactist-sidebar-overlay-inset-block-end: var(--reactist-sidebar-overlay-inset-block);
     --reactist-sidebar-overlay-inset-inline: 0px;
 
     /* Modal backdrop. */
@@ -77,8 +79,14 @@
  */
 .panel[data-overlay='true'] {
     position: fixed;
-    inset-block-start: var(--reactist-sidebar-overlay-inset-block-start);
-    inset-block-end: var(--reactist-sidebar-overlay-inset-block-end);
+    inset-block-start: var(
+        --reactist-sidebar-overlay-inset-block-start,
+        var(--reactist-sidebar-overlay-inset-block)
+    );
+    inset-block-end: var(
+        --reactist-sidebar-overlay-inset-block-end,
+        var(--reactist-sidebar-overlay-inset-block)
+    );
     z-index: var(--reactist-sidebar-overlay-z-index);
     max-width: calc(
         100vw - var(--reactist-sidebar-overlay-inset-inline) -
