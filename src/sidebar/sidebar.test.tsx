@@ -52,13 +52,21 @@ describe('when isOverlay is false', () => {
         // component owns the rendered role and a host role is ignored.
         renderSidebar(
             { align: 'end', id: 'app-sidebar', width },
-            { contentProps: { role: 'banner' }, children: <div>Panel content</div> },
+            {
+                contentProps: { role: 'banner', exceptionallySetClassName: 'app-skin' },
+                children: <div>Panel content</div>,
+            },
         )
 
         const panel = screen.getByTestId('sidebar-panel')
         expect(panel.tagName).toBe('DIV')
         expect(panel).not.toHaveAttribute('role')
         expect(screen.queryByRole('banner')).not.toBeInTheDocument()
+        // `aria-label` is applied only to the dialog role, so a docked panel drops the
+        // name it was given (only `role` was asserted before).
+        expect(panel).not.toHaveAttribute('aria-label')
+        // `exceptionallySetClassName` passes through onto the panel element.
+        expect(panel).toHaveClass('app-skin')
         expect(panel).toHaveAttribute('id', 'app-sidebar')
         expect(panel).toHaveAttribute('data-align', 'end')
         expect(panel).toHaveAttribute('data-state', 'open')
@@ -353,6 +361,38 @@ describe('SidebarPersistentContent', () => {
         rerender({ isOpen: false })
         expect(screen.getByText('Projects').closest('[inert]')).not.toBeNull()
         expect(toggle.closest('[inert]')).toBeNull()
+    })
+
+    it('renders nothing and warns when misconfigured', () => {
+        const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined)
+
+        // Outside <SidebarContent>: it portals nowhere, so its child never renders.
+        const { unmount } = render(
+            <SidebarPersistentContent>
+                <button type="button">Ghost control</button>
+            </SidebarPersistentContent>,
+        )
+        expect(screen.queryByRole('button', { name: 'Ghost control' })).not.toBeInTheDocument()
+        expect(warn).toHaveBeenCalledWith(
+            expect.stringContaining('must be nested within <SidebarContent>'),
+        )
+        unmount()
+
+        // With `unmountOnHide`, the persistent control cannot survive a close, defeating the slot.
+        warn.mockClear()
+        renderSidebar(
+            { unmountOnHide: true, width: 280 },
+            {
+                children: (
+                    <SidebarPersistentContent>
+                        <button type="button">Toggle</button>
+                    </SidebarPersistentContent>
+                ),
+            },
+        )
+        expect(warn).toHaveBeenCalledWith(expect.stringContaining('unmountOnHide'))
+
+        warn.mockRestore()
     })
 })
 
