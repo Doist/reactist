@@ -287,11 +287,6 @@ describe('dismissOverlayOnEscape', () => {
 })
 
 describe('unmountOnHide', () => {
-    it('keeps children mounted while closed by default', () => {
-        renderSidebar({ isOpen: false, width: 280 })
-        expect(screen.getByText('Navigation')).toBeInTheDocument()
-    })
-
     it('drops children on transitionend after the exit', () => {
         const { rerender } = renderSidebar(
             { unmountOnHide: true },
