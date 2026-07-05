@@ -4,6 +4,14 @@
     --reactist-sidebar-collapsed-z-index: 1;
     --reactist-sidebar-overlay-min-viewport-gap: 0px;
     --reactist-sidebar-overlay-inset-block: 0px;
+    /*
+     * `-block` is the shorthand; `-block-start`/`-block-end` default from it so a
+     * consumer can inset a single edge (e.g. below a top title bar) without the
+     * other. Inline stays a single `-inline`: the overlay anchors to one inline
+     * edge and is width-sized, so only that edge is a positional inset.
+     */
+    --reactist-sidebar-overlay-inset-block-start: var(--reactist-sidebar-overlay-inset-block);
+    --reactist-sidebar-overlay-inset-block-end: var(--reactist-sidebar-overlay-inset-block);
     --reactist-sidebar-overlay-inset-inline: 0px;
 
     /* Modal backdrop. */
@@ -69,8 +77,8 @@
  */
 .panel[data-overlay='true'] {
     position: fixed;
-    top: var(--reactist-sidebar-overlay-inset-block);
-    bottom: var(--reactist-sidebar-overlay-inset-block);
+    inset-block-start: var(--reactist-sidebar-overlay-inset-block-start);
+    inset-block-end: var(--reactist-sidebar-overlay-inset-block-end);
     z-index: var(--reactist-sidebar-overlay-z-index);
     max-width: calc(
         100vw - var(--reactist-sidebar-overlay-inset-inline) -
