@@ -172,6 +172,25 @@ custom properties.
 
 <Canvas of={SidebarStories.DialogSidePane} />
 
+### One modal overlay at a time
+
+Keep only one `overlayMode="modal"` sidebar open at once. A modal overlay inerts
+everything outside its own panel and lays a backdrop over the page, so two open
+together inert each other's panels and stack backdrops, leaving neither usable.
+`Sidebar` has no cross-sidebar coordinator and the consumer owns `isOpen`, so
+holding to a single open modal is the consumer's responsibility.
+
+The same holds across breakpoint changes: default a modal sidebar to closed when
+it enters overlay mode rather than carrying an open state across the breakpoint
+(the app navs already behave this way). Derive the open state from the layout, so
+a docked panel is always shown and only the overlay obeys the toggle, as the
+Responsive example below does:
+
+```tsx
+// Docked: always in view. Overlay: toggled by the trigger (closed until opened).
+const open = isOverlay ? isOpen : true
+```
+
 ## Responsive
 
 The component never measures itself: the consumer computes `isOverlay` from a
