@@ -4,6 +4,11 @@ import * as React from 'react'
  * The panel edge a resize gesture acts on. The sidebar only ever resizes along
  * the inline axis (`left` / `right`), but the engine supports the block axis too
  * so it can be reused for other resizable surfaces.
+ *
+ * These are physical edges. The drag/keyboard direction is derived from `clientX`
+ * and arrow keys against a fixed edge, so it assumes LTR and does not flip under
+ * `dir="rtl"`; making it RTL-aware would mean reading the writing direction at
+ * gesture time (the caller maps `align` to an edge, see sidebar.tsx).
  */
 export type ResizablePanelEdge = 'left' | 'right' | 'top' | 'bottom'
 

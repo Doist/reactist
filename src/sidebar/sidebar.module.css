@@ -78,11 +78,11 @@
 }
 
 .panel[data-overlay='true'][data-align='start'] {
-    left: var(--reactist-sidebar-overlay-inset-inline);
+    inset-inline-start: var(--reactist-sidebar-overlay-inset-inline);
 }
 
 .panel[data-overlay='true'][data-align='end'] {
-    right: var(--reactist-sidebar-overlay-inset-inline);
+    inset-inline-end: var(--reactist-sidebar-overlay-inset-inline);
 }
 
 .panel[data-overlay='true'][data-state='closed'][data-align='start'] {
@@ -91,6 +91,19 @@
 
 .panel[data-overlay='true'][data-state='closed'][data-align='end'] {
     transform: translateX(100%);
+}
+
+/*
+ * `translateX` is physical, so flip the off-edge slide under RTL to stay aligned
+ * with the logical `inset-inline` anchor above. The pointer/keyboard resize
+ * direction is still physical and does not flip; see use-resizable-panel.ts.
+ */
+[dir='rtl'] .panel[data-overlay='true'][data-state='closed'][data-align='start'] {
+    transform: translateX(100%);
+}
+
+[dir='rtl'] .panel[data-overlay='true'][data-state='closed'][data-align='end'] {
+    transform: translateX(-100%);
 }
 
 /*
@@ -138,11 +151,11 @@
 }
 
 .resizeHandle[data-align='start'] {
-    right: 0;
+    inset-inline-end: 0;
 }
 
 .resizeHandle[data-align='end'] {
-    left: 0;
+    inset-inline-start: 0;
 }
 
 .resizeHandle:hover {

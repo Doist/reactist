@@ -522,6 +522,11 @@ function SidebarResizeHandle({
         onWidthChange,
     } = useSidebarContext('SidebarResizeHandle')
 
+    // Physical edge, LTR-assumed: `align="start"` sits the handle on the right and
+    // grows the panel rightward. The CSS layout (anchor, handle side, off-edge slide)
+    // is RTL-aware via logical properties, but this pointer/keyboard resize direction
+    // is not — a full RTL pass would read the writing direction at gesture time, here
+    // and in use-resizable-panel.ts.
     const edge = align === 'start' ? 'right' : 'left'
     const committedWidth = width ?? defaultWidth ?? 0
     const minValuePx = minWidth ?? committedWidth
