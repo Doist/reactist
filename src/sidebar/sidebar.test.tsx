@@ -124,7 +124,19 @@ describe('when overlayMode is modal', () => {
         expect(backdrop).toHaveAttribute('data-state', 'open')
 
         // The component neutralises the background (inert where supported, aria-hidden otherwise).
+        // Assert it directly: the background <main> carries the suppression marker, so its button
+        // drops out of the accessibility tree.
+        expect(screen.getByRole('main', { hidden: true })).toHaveAttribute(
+            'data-suppressed',
+            'true',
+        )
         expect(screen.queryByRole('button', { name: 'Background action' })).not.toBeInTheDocument()
+
+        // Regression (finding #1): the backdrop must stay OUT of that suppression set. On a mount
+        // that starts open+modal, SidebarContent's layout effect can run before the sibling
+        // backdrop's ref attaches, so suppressOthers wrongly marks the backdrop too, and `inert`
+        // (in supporting browsers) then kills its click-to-dismiss, soft-locking the page.
+        expect(backdrop).not.toHaveAttribute('data-suppressed')
 
         await waitFor(() => {
             expect(dialog.contains(document.activeElement)).toBe(true)

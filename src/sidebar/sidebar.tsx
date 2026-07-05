@@ -195,6 +195,22 @@ function Sidebar({
     const overlayOpen = isOverlay && isOpen
     const shouldTrap = overlayOpen && overlayMode === 'modal'
 
+    // Suppress the background (inert where supported, aria-hidden otherwise) while a modal overlay
+    // is open. This lives on `Sidebar`, not `SidebarContent`: a parent's layout effect runs after
+    // all descendants' refs have attached, so the sibling backdrop's ref is populated even when the
+    // sidebar mounts already open. Keep the backdrop out of the set so its click-to-dismiss
+    // survives; `inert` (unlike `aria-hidden`) would block the pointer.
+    React.useLayoutEffect(
+        function suppressBackgroundWhileModal() {
+            if (!shouldTrap) return
+            const panel = panelRef.current
+            if (!panel) return
+            const kept = backdropRef.current ? [panel, backdropRef.current] : [panel]
+            return suppressOthers(kept)
+        },
+        [shouldTrap, panelRef, backdropRef],
+    )
+
     const contextValue: SidebarContextValue = {
         align,
         overlayMode,
@@ -289,7 +305,6 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
             unmountOnHide,
             panelId,
             panelRef,
-            backdropRef,
             width,
             dismissOverlayOnEscape,
             onDismiss,
@@ -301,19 +316,6 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
 
         const isDialog = overlayOpen && (overlayMode === 'dialog' || overlayMode === 'modal')
         const ariaModal = overlayOpen && overlayMode === 'modal' ? true : undefined
-
-        React.useLayoutEffect(
-            function suppressBackgroundWhileModal() {
-                if (!shouldTrap) return
-                const panel = panelRef.current
-                if (!panel) return
-                // Keep the backdrop out of the inert set so its click-to-dismiss
-                // survives; `inert` (unlike `aria-hidden`) would block the pointer.
-                const kept = backdropRef.current ? [panel, backdropRef.current] : [panel]
-                return suppressOthers(kept)
-            },
-            [shouldTrap, panelRef, backdropRef],
-        )
 
         // `inert` is a prop only in React 19+; toggle it imperatively to support React 18.
         React.useEffect(
