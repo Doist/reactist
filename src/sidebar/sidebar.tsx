@@ -266,7 +266,6 @@ type SidebarContentProps = Omit<
         /** Test identifier applied to the panel element. */
         'data-testid'?: string
 
-        // Let consumers forward arbitrary data-* attributes onto the panel element.
         [dataAttribute: `data-${string}`]: unknown
     }
 
@@ -356,9 +355,8 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
         )
 
         function handlePanelKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
-            // Call the consumer's handler first so it can veto the built-in Escape
-            // dismissal with preventDefault, the same way a descendant handler already can
-            // (keydown bubbles up to the panel, and preventDefault does not stop propagation).
+            // Consumer handler first, so it can veto the built-in Escape dismissal
+            // with preventDefault.
             consumerOnKeyDown?.(event)
             if (event.defaultPrevented) return
             if (overlayOpen && dismissOverlayOnEscape && event.key === 'Escape') {
@@ -431,7 +429,6 @@ function useDeferredUnmount({
             if (isOpen || !unmountOnHide) return
 
             const panel = panelRef.current
-            // setExited only fires from async callbacks below, never synchronously here.
             const fallbackTimeout = window.setTimeout(
                 () => setExited(true),
                 getExitTimeoutMs(panel),
@@ -647,6 +644,7 @@ function SidebarBackdrop() {
         useSidebarContext('SidebarBackdrop')
     // Adapts the nullable context ref object to the `ref` prop, which React 18's
     // types reject when passed a `RefObject<HTMLDivElement | null>` directly.
+    // TODO(react-18): drop this single-ref wrapper when React 18 type support ends.
     const mergedBackdropRef = useMergeRefs([backdropRef])
 
     if (!isOverlay || overlayMode !== 'modal') return null

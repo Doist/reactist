@@ -114,8 +114,7 @@
 
 /*
  * `translateX` is physical, so flip the off-edge slide under RTL to stay aligned
- * with the logical `inset-inline` anchor above. The pointer/keyboard resize
- * direction is still physical and does not flip; see use-resizable-panel.ts.
+ * with the logical `inset-inline` anchor above.
  */
 [dir='rtl'] .panel[data-overlay='true'][data-state='closed'][data-align='start'] {
     transform: translateX(100%);
@@ -160,9 +159,6 @@
     inset-block: 0;
     z-index: 1;
     width: var(--reactist-sidebar-resize-handle-width);
-    margin: 0;
-    padding: 0;
-    border: 0;
     background-color: var(--reactist-sidebar-resize-handle-idle-fill);
     cursor: col-resize;
     touch-action: none;

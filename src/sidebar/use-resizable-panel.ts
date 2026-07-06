@@ -1,14 +1,10 @@
 import * as React from 'react'
 
 /**
- * The panel edge a resize gesture acts on. The sidebar only ever resizes along
- * the inline axis (`left` / `right`), but the engine supports the block axis too
- * so it can be reused for other resizable surfaces.
- *
- * These are physical edges. The drag/keyboard direction is derived from `clientX`
- * and arrow keys against a fixed edge, so it assumes LTR and does not flip under
- * `dir="rtl"`; making it RTL-aware would mean reading the writing direction at
- * gesture time (the caller maps `align` to an edge, see sidebar.tsx).
+ * The panel edge a resize gesture acts on. The sidebar only resizes along the
+ * inline axis (`left` / `right`); the engine keeps the block axis so it can be
+ * reused for other resizable surfaces. Physical, LTR-assumed edges: the caller
+ * maps `align` to an edge and owns the RTL story (see sidebar.tsx).
  */
 export type ResizablePanelEdge = 'left' | 'right' | 'top' | 'bottom'
 
@@ -53,6 +49,12 @@ type DragState = {
 type Listeners = {
     pointerEnd: () => void
     pointerMove: (event: PointerEvent) => void
+}
+
+function removeWindowListeners(listeners: Listeners) {
+    window.removeEventListener('pointermove', listeners.pointerMove)
+    window.removeEventListener('pointerup', listeners.pointerEnd)
+    window.removeEventListener('pointercancel', listeners.pointerEnd)
 }
 
 function clamp(value: number, min: number, max: number): number {
@@ -107,8 +109,6 @@ function setElementValuePx(
 }
 
 function getActiveElementForRestore(): HTMLElement | null {
-    if (typeof document === 'undefined') return null
-
     const activeElement = document.activeElement
     return activeElement instanceof HTMLElement && activeElement !== document.body
         ? activeElement
@@ -186,12 +186,8 @@ export function useResizablePanel({
     const currentValuePx = clamp(valuePx, minValuePx, maxValuePx)
 
     function clearListeners() {
-        const listeners = listenersRef.current
-        if (!listeners) return
-
-        window.removeEventListener('pointermove', listeners.pointerMove)
-        window.removeEventListener('pointerup', listeners.pointerEnd)
-        window.removeEventListener('pointercancel', listeners.pointerEnd)
+        if (!listenersRef.current) return
+        removeWindowListeners(listenersRef.current)
         listenersRef.current = null
     }
 
@@ -238,10 +234,7 @@ export function useResizablePanel({
             onValueCommit(drag.currentValuePx)
         }
 
-        if (
-            typeof drag.captureTarget.hasPointerCapture === 'function' &&
-            drag.captureTarget.hasPointerCapture(drag.pointerId)
-        ) {
+        if (drag.captureTarget.hasPointerCapture?.(drag.pointerId)) {
             drag.captureTarget.releasePointerCapture(drag.pointerId)
         }
 
@@ -276,7 +269,6 @@ export function useResizablePanel({
             startValuePx,
         }
         event.currentTarget.focus({ preventScroll: true })
-        clearListeners()
 
         const pointerMove = (moveEvent: PointerEvent) => {
             const drag = dragRef.current
@@ -329,12 +321,8 @@ export function useResizablePanel({
                 window.cancelAnimationFrame(frameRef.current)
                 frameRef.current = null
             }
-
-            const listeners = listenersRef.current
-            if (listeners) {
-                window.removeEventListener('pointermove', listeners.pointerMove)
-                window.removeEventListener('pointerup', listeners.pointerEnd)
-                window.removeEventListener('pointercancel', listeners.pointerEnd)
+            if (listenersRef.current) {
+                removeWindowListeners(listenersRef.current)
                 listenersRef.current = null
             }
         }

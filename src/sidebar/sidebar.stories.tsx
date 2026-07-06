@@ -82,7 +82,6 @@ const HANDLE_VISIBLE = {
     '--reactist-sidebar-resize-handle-idle-fill': 'var(--reactist-divider-secondary)',
 } as React.CSSProperties
 
-// Inset a floating overlay card from the viewport edges.
 const CARD_INSETS = {
     '--reactist-sidebar-overlay-inset-block': '12px',
     '--reactist-sidebar-overlay-inset-inline': '12px',

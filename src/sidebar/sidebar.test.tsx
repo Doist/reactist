@@ -63,9 +63,8 @@ describe('when isOverlay is false', () => {
         expect(panel).not.toHaveAttribute('role')
         expect(screen.queryByRole('banner')).not.toBeInTheDocument()
         // `aria-label` is applied only to the dialog role, so a docked panel drops the
-        // name it was given (only `role` was asserted before).
+        // name it was given.
         expect(panel).not.toHaveAttribute('aria-label')
-        // `exceptionallySetClassName` passes through onto the panel element.
         expect(panel).toHaveClass('app-skin')
         expect(panel).toHaveAttribute('id', 'app-sidebar')
         expect(panel).toHaveAttribute('data-align', 'end')
@@ -140,7 +139,7 @@ describe('when overlayMode is modal', () => {
         )
         expect(screen.queryByRole('button', { name: 'Background action' })).not.toBeInTheDocument()
 
-        // Regression (finding #1): the backdrop must stay OUT of that suppression set. On a mount
+        // Regression guard: the backdrop must stay OUT of that suppression set. On a mount
         // that starts open+modal, SidebarContent's layout effect can run before the sibling
         // backdrop's ref attaches, so suppressOthers wrongly marks the backdrop too, and `inert`
         // (in supporting browsers) then kills its click-to-dismiss, soft-locking the page.
@@ -425,6 +424,13 @@ describe('resize', () => {
         }
     }
 
+    // jsdom doesn't implement the Pointer Capture API; stub it so drags run.
+    function stubPointerCapture(handle: HTMLElement) {
+        handle.setPointerCapture = jest.fn()
+        handle.releasePointerCapture = jest.fn()
+        handle.hasPointerCapture = jest.fn(() => false)
+    }
+
     it('wires the separator when open and makes it non-interactive when closed', async () => {
         const user = userEvent.setup()
         const { onWidthChange, rerender } = renderResizable()
@@ -551,9 +557,7 @@ describe('resize', () => {
         const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
         const panel = document.getElementById('sidebar') as HTMLElement
 
-        handle.setPointerCapture = jest.fn()
-        handle.releasePointerCapture = jest.fn()
-        handle.hasPointerCapture = jest.fn(() => false)
+        stubPointerCapture(handle)
 
         const dragByPx = 50
         await user.pointer([
@@ -575,9 +579,7 @@ describe('resize', () => {
         const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
         const panel = document.getElementById('sidebar') as HTMLElement
 
-        handle.setPointerCapture = jest.fn()
-        handle.releasePointerCapture = jest.fn()
-        handle.hasPointerCapture = jest.fn(() => false)
+        stubPointerCapture(handle)
 
         await user.pointer([
             { keys: '[MouseRight>]', target: handle, coords: { clientX: 100, clientY: 0 } },
@@ -606,9 +608,7 @@ describe('resize', () => {
         const user = userEvent.setup()
         const { onWidthChange } = renderResizable()
         const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
-        handle.setPointerCapture = jest.fn()
-        handle.releasePointerCapture = jest.fn()
-        handle.hasPointerCapture = jest.fn(() => false)
+        stubPointerCapture(handle)
 
         await user.pointer([
             { keys: '[MouseLeft>]', target: handle, coords: { clientX: 100, clientY: 0 } },
