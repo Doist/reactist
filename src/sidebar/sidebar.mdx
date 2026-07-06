@@ -208,6 +208,12 @@ skin is a child with `overflow: hidden`, so the resize handle on the panel edge
 stays outside the clip. The card is inset from the edges with the overlay inset
 custom properties.
 
+A nonzero `--reactist-sidebar-overlay-inset-inline` stays on screen as a sliver
+of that width while the pane is closed: the panel slides off by its own width
+from the inset anchor, so the inset gap on the anchored edge stays visible
+(toggle the demo closed to see it). This is intended; keep the inline inset at
+`0` for a fully off-screen close.
+
 <Canvas of={SidebarStories.DialogSidePane} />
 
 ### One modal overlay at a time
