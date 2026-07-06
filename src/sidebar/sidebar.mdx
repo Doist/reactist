@@ -114,7 +114,9 @@ const navIsOverlay = viewportWidth < maxNavWidth + minContentWidth
 
 A docked sidebar is an in-flow flex child that holds its width. Toggling `isOpen`
 collapses it with a `margin-inline` transition while the main content reflows
-into the freed space.
+into the freed space. A `width` is required for the sidebar to collapse: it
+derives the collapse margin, so without one the panel never slides out. The
+component logs a dev warning when it's missing.
 
 <Canvas of={SidebarStories.Docked} />
 
@@ -144,10 +146,17 @@ Keyboard support, from the separator:
 - There is no Enter / Space and no PageUp / PageDown: it is a separator, not a
   button. Escape-to-dismiss belongs to the panel, not the handle.
 
-`onWidthChange` fires on pointer up and on each keystroke during keyboard resize,
-so debounce persistence if it is expensive. A consumer that ignores it keeps the
-dragged preview width on screen (the drag writes it imperatively; nothing
-overrides it until `width` changes). `aria-valuenow` and `aria-valuetext`
+Resize direction is not RTL-aware. The layout flips under `dir="rtl"` (the anchor
+edge, the off-edge slide, and the handle edge all mirror), but the pointer and
+keyboard resize direction assumes LTR, so in RTL a drag or arrow key resizes the
+opposite way. RTL is not officially supported, so treat the resize gesture
+direction as a known limitation.
+
+`onWidthChange` fires on pointer up, on each keystroke during keyboard resize, and
+on a double-click reset, so debounce persistence if it is expensive. A drag that
+does not move the handle does not fire it. A consumer that ignores it keeps the
+dragged preview width on screen (the drag writes it imperatively;
+nothing overrides it until `width` changes). `aria-valuenow` and `aria-valuetext`
 update on each keystroke and on commit after a drag (not mid-drag). Pass
 `aria-valuetext` to localize the announced width; it defaults to `"{width}px"`.
 
@@ -259,13 +268,24 @@ provider. Set the same `id` on `Sidebar` that the trigger points its
 
 ## A control that stays live while closed
 
-While a sidebar is closed, its contents are made `inert`, so off-screen controls leave the tab order and the accessibility tree. `SidebarPersistentContent` is the exception: a control placed in it stays usable while the sidebar is closed, the canonical case being a collapse toggle that peeks out of the slid-off panel and reopens it. Unlike the external trigger above, this is for a toggle that belongs _in_ the panel.
+While a sidebar is closed, its contents are made `inert`, so off-screen controls
+leave the tab order and the accessibility tree. `SidebarPersistentContent` is the
+exception: a control placed in it stays usable while the sidebar is closed, the
+canonical case being a collapse toggle that peeks out of the slid-off panel and
+reopens it. Unlike the external trigger above, this is for a toggle that belongs
+_in_ the panel.
 
 <Canvas of={SidebarStories.CollapsibleNav} />
 
-Its children render inside the panel, so they ride the collapse transition and join the focus trap when modal, but outside the closed-state `inert`. It works at any nesting depth, so a toggle already living deep in the content does not need hoisting.
+Its children render inside the panel, so they ride the collapse transition and
+join the focus trap when modal, but outside the closed-state `inert`. It works at
+any nesting depth, so a toggle already living deep in the content does not need
+hoisting.
 
-Do not pair it with `unmountOnHide` on `<Sidebar>`: that unmounts the whole panel (this control included) at the end of the close transition, so nothing is left to stay operable while closed. The two contradict each other, and the component warns when both are set.
+Do not pair it with `unmountOnHide` on `<Sidebar>`: that unmounts the whole panel
+(this control included) at the end of the close transition, so nothing is left to
+stay operable while closed. The two contradict each other, and the component
+warns when both are set.
 
 ```tsx
 <SidebarContent aria-label="Main navigation">
@@ -278,7 +298,14 @@ Do not pair it with `unmountOnHide` on `<Sidebar>`: that unmounts the whole pane
 </SidebarContent>
 ```
 
-When the panel opens as a modal, the trap's initial focus goes to the first focusable, often the persistent control. Whether that is wanted is the consumer's call: add `data-no-autofocus` to your control (a react-focus-lock attribute) to keep a toggle from grabbing it, or `data-autofocus` to send initial focus to a specific element; the control stays tabbable either way. `data-no-autofocus` is subtree-scoped, so setting it on a wrapping element opts the whole panel out of autofocus (focus stays on the trigger). The consumer owns the control, its `aria-*`, and its positioning (e.g. a peek offset while collapsed).
+When the panel opens as a modal, the trap's initial focus goes to the first
+focusable, often the persistent control. Whether that is wanted is the consumer's
+call: add `data-no-autofocus` to your control (a react-focus-lock attribute) to
+keep a toggle from grabbing it, or `data-autofocus` to send initial focus to a
+specific element; the control stays tabbable either way. `data-no-autofocus` is
+subtree-scoped, so setting it on a wrapping element opts the whole panel out of
+autofocus (focus stays on the trigger). The consumer owns the control, its
+`aria-*`, and its positioning (e.g. a peek offset while collapsed).
 
 ## Left and right sidebars
 
@@ -310,7 +337,7 @@ CSS custom properties, set on `SidebarContent` (or any ancestor).
 | \`--reactist-sidebar-overlay-inset-block\` | \`0px\` | Top and bottom inset of a floating panel (shorthand) |
 | \`--reactist-sidebar-overlay-inset-block-start\` | \`-inset-block\` | Top inset alone, e.g. below a title bar; unset, it falls back to the \`-inset-block\` shorthand |
 | \`--reactist-sidebar-overlay-inset-block-end\` | \`-inset-block\` | Bottom inset alone; unset, it falls back to the \`-inset-block\` shorthand |
-| \`--reactist-sidebar-overlay-inset-inline\` | \`0px\` | Inset of the anchored edge |
+| \`--reactist-sidebar-overlay-inset-inline\` | \`0px\` | Inset of the anchored edge; also subtracted from the overlay width cap |
 | \`--reactist-sidebar-backdrop-color\` | \`#000000\` | Modal backdrop color |
 | \`--reactist-sidebar-backdrop-opacity\` | \`0.5\` | Modal backdrop opacity |
 | \`--reactist-sidebar-backdrop-z-index\` | \`39\` | Modal backdrop layering |
@@ -339,23 +366,20 @@ CSS custom properties, set on `SidebarContent` (or any ancestor).
 
 ## Accessibility
 
-- When floating as a `dialog` / `modal` overlay, the panel becomes a `dialog`.
-  Name it with `aria-labelledby` / `aria-label` on `SidebarContent`.
-- The panel's content should define a landmark as the component does not
-  provide one.
+A checklist; each item links to the section with the full treatment.
+
+- A floating `dialog` / `modal` panel becomes a `dialog`; name it with
+  `aria-label` / `aria-labelledby` on `SidebarContent` (see
+  [Element and role](#element-and-role)).
+- The panel is a neutral container; its content must define the landmark.
 - A `modal` overlay traps focus, sets `aria-modal`, returns focus to the trigger
-  on close, and neutralises the rest of the page itself: it inerts everything
-  outside the panel and backdrop (`inert` where supported, `aria-hidden`
-  otherwise), blocking focus, pointer, and assistive tech. The consumer no longer
-  marks `main`.
-- Escape dismisses an open overlay when `dismissOverlayOnEscape` is set, but only
-  while focus is within the panel (it is handled on the panel, not app-wide). It
-  respects `event.defaultPrevented`, so a child that consumes Escape (an open menu
-  or tooltip) keeps it.
-- The resize handle is a focusable `separator` while open, and leaves the tab
-  order and the accessibility tree while closed.
-- While closed, the panel's contents are made `inert`, so off-screen controls
-  leave the tab order and the accessibility tree. A control in
-  `SidebarPersistentContent` is exempt and stays interactive. When the panel opens
-  as a modal it receives initial focus by default (it is first in the trap), so add
-  `data-no-autofocus` to it if it should not grab focus.
+  on close, and inerts everything outside the panel and backdrop (see
+  [Modal drawer](#modal-drawer)).
+- Escape dismisses an open overlay when `dismissOverlayOnEscape` is set, only
+  while focus is in the panel, and respects `event.defaultPrevented` (see
+  [Overlays](#overlays)).
+- The resize handle is a focusable `separator` while open and leaves the tab
+  order and accessibility tree while closed (see [Resizing](#resizing)).
+- Closed contents are `inert`, except a control in
+  [`SidebarPersistentContent`](#a-control-that-stays-live-while-closed); when the
+  panel opens as a modal, add `data-no-autofocus` to keep initial focus off it.
