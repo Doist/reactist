@@ -349,6 +349,26 @@ CSS custom properties, set on `SidebarContent` (or any ancestor).
 | \`--reactist-sidebar-transition-easing\` | \`cubic-bezier(0.4, 0, 0.2, 1)\` | Panel slide and backdrop fade easing (shared) |
 `}</Markdown>
 
+## Data attributes
+
+The component sets these `data-*` attributes as part of the public contract, so
+you can style or target them in tests.
+
+<Markdown>{`
+| Element | Attribute | Values |
+| --- | --- | --- |
+| Panel (\`SidebarContent\`) | \`data-state\` | \`open\` / \`closed\` |
+| Panel | \`data-align\` | \`start\` / \`end\` |
+| Panel | \`data-overlay\` | \`true\` / \`false\` |
+| Resize handle | \`data-align\` | \`start\` / \`end\` |
+| Resize handle | \`data-disabled\` | \`true\` while closed (absent when open) |
+| Backdrop | \`data-state\` | \`open\` / \`closed\` |
+| Backdrop | \`data-testid\` | \`sidebar-backdrop\` |
+`}</Markdown>
+
+The panel and handle also forward any `data-*` you pass; the handle's own
+`data-align` / `data-disabled` are applied last and win.
+
 ## What the consumer owns
 
 - **The flex shell** — `display: flex` and the `flexGrow={1} minWidth={0}` main
