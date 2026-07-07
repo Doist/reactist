@@ -576,7 +576,6 @@ function SidebarResizeHandle({
             aria-valuenow={currentValuePx}
             aria-valuetext={ariaValueText ?? `${currentValuePx}px`}
             data-align={align}
-            data-disabled={isOpen ? undefined : 'true'}
             onDoubleClick={onDoubleClick}
             onKeyDown={onKeyDown}
             onPointerDown={onPointerDown}

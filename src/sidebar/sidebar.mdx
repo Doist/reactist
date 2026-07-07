@@ -162,8 +162,7 @@ update on each keystroke and on commit after a drag (not mid-drag). Pass
 
 The handle also forwards `data-*` attributes onto the `separator` (e.g. a
 `data-testid` for E2E, as the Resizable story sets); its own `role`,
-`tabindex`, `aria-*`, and `data-align` / `data-disabled` are applied after and
-win.
+`tabindex`, `aria-*`, and `data-align` are applied after and win.
 
 ## Overlays
 
@@ -361,13 +360,12 @@ you can style or target them in tests.
 | Panel | \`data-align\` | \`start\` / \`end\` |
 | Panel | \`data-overlay\` | \`true\` / \`false\` |
 | Resize handle | \`data-align\` | \`start\` / \`end\` |
-| Resize handle | \`data-disabled\` | \`true\` while closed (absent when open) |
 | Backdrop | \`data-state\` | \`open\` / \`closed\` |
 | Backdrop | \`data-testid\` | \`sidebar-backdrop\` |
 `}</Markdown>
 
 The panel and handle also forward any `data-*` you pass; the handle's own
-`data-align` / `data-disabled` are applied last and win.
+`data-align` is applied last and wins.
 
 ## What the consumer owns
 

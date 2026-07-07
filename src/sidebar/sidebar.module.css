@@ -182,7 +182,8 @@
     outline: none;
 }
 
-.resizeHandle[data-disabled='true'] {
+/* The closed handle is `aria-hidden`; drop pointer events so it can't be grabbed. */
+.resizeHandle[aria-hidden='true'] {
     pointer-events: none;
 }
 
