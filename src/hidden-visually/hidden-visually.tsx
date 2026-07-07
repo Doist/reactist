@@ -28,4 +28,6 @@ const HiddenVisually = polymorphicComponent<'div', Props, 'omitClassName'>(
     },
 )
 
+HiddenVisually.displayName = 'HiddenVisually'
+
 export { HiddenVisually }

@@ -218,6 +218,8 @@ function getFailedImageSource(imageProps: ImageSources, image: HTMLImageElement)
     return matchingSource?.src ?? imageProps.src
 }
 
+Avatar.displayName = 'Avatar'
+
 export { Avatar }
 export type { AvatarProps }
 export type { AvatarImage, AvatarShape, AvatarSize } from './utils'

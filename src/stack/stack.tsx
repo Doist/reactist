@@ -72,5 +72,7 @@ const Stack = polymorphicComponent<'div', StackProps>(function Stack(
     )
 })
 
+Stack.displayName = 'Stack'
+
 export type { StackProps }
 export { Stack }

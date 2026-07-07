@@ -43,5 +43,7 @@ const TextLink = polymorphicComponent<'a', TextLinkProps>(function TextLink(
     )
 })
 
+TextLink.displayName = 'TextLink'
+
 export { TextLink }
 export type { TextLinkProps }
