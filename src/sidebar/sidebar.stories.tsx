@@ -175,7 +175,7 @@ export const Docked = {
         const [isOpen, setIsOpen] = React.useState(true)
 
         return (
-            <Box display="flex" height="full" overflow="hidden">
+            <Box display="flex" height="full">
                 <Sidebar id="docked-nav" align="start" isOpen={isOpen} width={260}>
                     <SidebarContent style={PANEL_SKIN}>
                         <Box as="nav" aria-label="Primary">
