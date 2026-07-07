@@ -57,7 +57,7 @@ function removeWindowListeners(listeners: Listeners) {
     window.removeEventListener('pointercancel', listeners.pointerEnd)
 }
 
-function clamp(value: number, min: number, max: number): number {
+export function clamp(value: number, min: number, max: number): number {
     return Math.round(Math.min(max, Math.max(min, value)))
 }
 

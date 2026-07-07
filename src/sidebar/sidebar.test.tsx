@@ -431,6 +431,20 @@ describe('resize', () => {
         handle.hasPointerCapture = jest.fn(() => false)
     }
 
+    it('re-clamps an out-of-range controlled width that changes on the same bound', () => {
+        const { rerender } = renderResizable({ width: 500 })
+        const panel = document.getElementById('sidebar') as HTMLElement
+        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
+
+        expect(panel.style.getPropertyValue('--reactist-sidebar-width')).toBe(`${MAX_WIDTH}px`)
+        expect(handle).toHaveAttribute('aria-valuenow', String(MAX_WIDTH))
+
+        rerender({ width: 460 })
+
+        expect(panel.style.getPropertyValue('--reactist-sidebar-width')).toBe(`${MAX_WIDTH}px`)
+        expect(handle).toHaveAttribute('aria-valuenow', String(MAX_WIDTH))
+    })
+
     it('wires the separator when open and makes it non-interactive when closed', async () => {
         const user = userEvent.setup()
         const { onWidthChange, rerender } = renderResizable()

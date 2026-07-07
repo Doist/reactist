@@ -8,7 +8,7 @@ import { useMergeRefs } from 'use-callback-ref'
 
 import { Box } from '../box'
 
-import { useResizablePanel } from './use-resizable-panel'
+import { clamp, useResizablePanel } from './use-resizable-panel'
 
 import styles from './sidebar.module.css'
 
@@ -309,6 +309,8 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
             panelId,
             panelRef,
             width,
+            minWidth,
+            maxWidth,
             dismissOverlayOnEscape,
             onDismiss,
         } = useSidebarContext('SidebarContent')
@@ -340,9 +342,11 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
             [isOverlay, isOpen, width, unmountOnHide],
         )
 
+        const clampedWidth =
+            width != null ? clamp(width, minWidth ?? width, maxWidth ?? width) : undefined
         const widthStyle =
-            width != null
-                ? ({ [SIDEBAR_WIDTH_VAR]: `${width}px` } as React.CSSProperties)
+            clampedWidth != null
+                ? ({ [SIDEBAR_WIDTH_VAR]: `${clampedWidth}px` } as React.CSSProperties)
                 : undefined
 
         const childrenToRender = useDeferredUnmount({ isOpen, unmountOnHide, panelRef })
