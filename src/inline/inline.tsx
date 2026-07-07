@@ -41,5 +41,7 @@ const Inline = polymorphicComponent<'div', InlineProps>(function Inline(
     )
 })
 
+Inline.displayName = 'Inline'
+
 export type { InlineAlign, InlineProps }
 export { Inline }

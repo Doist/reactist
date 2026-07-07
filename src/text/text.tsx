@@ -92,5 +92,7 @@ const Text = polymorphicComponent<'div', TextProps>(function Text(
     )
 })
 
+Text.displayName = 'Text'
+
 export type { TextProps }
 export { Text }
