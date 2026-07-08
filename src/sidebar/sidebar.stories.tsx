@@ -164,12 +164,7 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-/**
- * A docked left nav inside the shell contract: a `display: flex` parent, the
- * sidebar as a fixed-width flex child, and a `flexGrow` / `minWidth={0}` main
- * absorber. Toggling `isOpen` collapses the panel with a margin transition while
- * the main content reflows into the freed space.
- */
+/** Docked left nav: a fixed-width flex child that collapses on `isOpen`, beside a `flexGrow` main. */
 export const Docked = {
     render: function Docked() {
         const [isOpen, setIsOpen] = React.useState(true)
@@ -193,10 +188,6 @@ export const Docked = {
                         >
                             {isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
                         </Button>
-                        <Text tone="secondary">
-                            The main element is the flex absorber: `flexGrow` with `minWidth={0}`,
-                            so the sidebar can resize or collapse without overflowing the row.
-                        </Text>
                     </Stack>
                 </Box>
             </Box>
@@ -223,11 +214,7 @@ function SidebarToggleIcon() {
 
 SidebarToggleIcon.displayName = 'SidebarToggleIcon'
 
-/**
- * A docked main nav whose collapse toggle lives in `<SidebarPersistentContent>`, the
- * pattern Todoist, Comms, and Automations share. The toggle rides the collapse
- * animation and peeks at the freed edge while collapsed, staying reachable to reopen.
- */
+/** Docked nav with its collapse toggle in `<SidebarPersistentContent>`, kept reachable while collapsed. */
 export const CollapsibleNav = {
     render: function CollapsibleNav() {
         const [isOpen, setIsOpen] = React.useState(true)
@@ -290,13 +277,7 @@ export const CollapsibleNav = {
     },
 } satisfies Story
 
-/**
- * Adding a `<SidebarResizeHandle>` makes the panel resizable: the handle sits on
- * the inner edge (right for `align="start"`), drives a render-free pointer drag,
- * and supports keyboard resize (arrows step, Home/End jump to min/max,
- * double-click resets to `defaultWidth`). Width is controlled and committed
- * through `onWidthChange`.
- */
+/** Docked nav with a `<SidebarResizeHandle>`: pointer drag plus keyboard resize, width committed via `onWidthChange`. */
 export const Resizable = {
     render: function Resizable() {
         const [width, setWidth] = React.useState(280)
@@ -339,14 +320,7 @@ export const Resizable = {
     },
 } satisfies Story
 
-/**
- * A modal overlay drawer (`isOverlay` + `overlayMode="modal"`). It floats over
- * the content, traps focus, renders a dimming backdrop, and dismisses on the
- * backdrop click or Escape. The component inerts the background itself, so the
- * consumer no longer marks `main`. The panel becomes a `dialog` (named via `aria-label`
- * on `SidebarContent`), and the consumer's `<nav>` landmark remains a child,
- * preserved inside the dialog.
- */
+/** Modal overlay drawer: floats, traps focus, dims, and dismisses on the backdrop or Escape. */
 export const ModalDrawer = {
     render: function ModalDrawer() {
         const [isOpen, setIsOpen] = React.useState(false)
@@ -399,14 +373,7 @@ export const ModalDrawer = {
     },
 } satisfies Story
 
-/**
- * An end-aligned, non-modal dialog side pane (`align="end"` +
- * `overlayMode="dialog"`), modelled on a contextual chat. The background stays
- * interactive (no backdrop); it closes via its own control or Escape. The
- * rounded card skin is a child with `overflow: hidden`, so the resize handle on
- * the panel edge stays outside the clip. The card is inset from the viewport
- * edges via the overlay inset custom properties.
- */
+/** End-aligned non-modal dialog pane, modelled on a contextual chat, with a rounded inset card skin. */
 export const DialogSidePane = {
     render: function DialogSidePane() {
         const [isOpen, setIsOpen] = React.useState(true)
@@ -488,14 +455,7 @@ export const DialogSidePane = {
     },
 } satisfies Story
 
-/**
- * Responsive shell. The consumer computes `isOverlay` from the container width:
- * above the breakpoint the nav is docked in flow; below it, the nav becomes a
- * modal drawer with a trigger. Resize the canvas (or use the viewport toolbar) to
- * cross the breakpoint. The `<nav>` landmark is a child of `SidebarContent`, so it
- * remains a navigation landmark while docked and is preserved inside the dialog while
- * a modal overlay (the panel itself becomes the dialog).
- */
+/** Responsive shell: the consumer flips `isOverlay` at a container breakpoint, docked above and a modal drawer below. */
 export const Responsive = {
     render: function Responsive() {
         const [shellRef, isOverlay] = useOverlayBelow<HTMLDivElement>(640)
@@ -534,9 +494,7 @@ export const Responsive = {
                             </Button>
                         ) : null}
                         <Text tone="secondary">
-                            Above 640px the nav is docked; below it the consumer flips `isOverlay`
-                            and the nav becomes a modal drawer. Resize the canvas to see it cross
-                            the breakpoint.
+                            Resize the canvas to cross the 640px breakpoint.
                         </Text>
                     </Stack>
                 </Box>
@@ -545,12 +503,7 @@ export const Responsive = {
     },
 } satisfies Story
 
-/**
- * Two sidebars docked on the same side, like Comms' workspace rail plus its
- * conversation list. They tile through the flex contract: each `<Sidebar>` is a
- * `flex-shrink: 0` child, and the `flexGrow / minWidth={0}` main absorbs the
- * rest. Both panes are independently resizable.
- */
+/** Two sidebars docked on the same side, each independently resizable, tiling through the flex contract. */
 export const StackedSidebars = {
     render: function StackedSidebars() {
         const [railWidth, setRailWidth] = React.useState(64)
@@ -599,11 +552,7 @@ export const StackedSidebars = {
                         <Heading level="2" size="larger">
                             Conversation
                         </Heading>
-                        <Text tone="secondary">
-                            A workspace rail and a conversation list, both docked on the left and
-                            independently resizable. Drag either pane's right edge; the main content
-                            absorbs the change.
-                        </Text>
+                        <Text tone="secondary">Drag either pane's right edge to resize it.</Text>
                     </Stack>
                 </Box>
             </Box>
@@ -611,11 +560,7 @@ export const StackedSidebars = {
     },
 } satisfies Story
 
-/**
- * A left nav and a right details pane around the main absorber: the spec's full
- * shell contract with both edges. `align="start"` and `align="end"` are the same
- * component mirrored. Both panes resize from their inner edges.
- */
+/** A left nav and a right details pane around the main absorber: `align="start"` and `align="end"` mirrored. */
 export const LeftAndRight = {
     render: function LeftAndRight() {
         const [navWidth, setNavWidth] = React.useState(240)
@@ -646,10 +591,7 @@ export const LeftAndRight = {
                         <Heading level="2" size="larger">
                             Main content
                         </Heading>
-                        <Text tone="secondary">
-                            The main element is the absorber between both sidebars. Drag either
-                            pane's inner edge to resize it.
-                        </Text>
+                        <Text tone="secondary">Drag either pane's inner edge to resize it.</Text>
                     </Stack>
                 </Box>
                 <Sidebar

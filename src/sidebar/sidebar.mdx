@@ -78,9 +78,9 @@ Takes only `children`: the control to keep operable while the sidebar is closed.
 
 ## The shell contract
 
-The sidebar sizes itself, but the surrounding flex context is the consumer's.
-Two things live on the shell, not the component, because a child cannot set
-them on its parent or siblings:
+The sidebar sizes itself; the surrounding flex context, its controlled state, and
+its visual skin are the consumer's. The shell items live on the parent because a
+child cannot set them on its parent or siblings:
 
 - `display: flex` on the parent.
 - The main content as the absorber: `flexGrow={1}` and `minWidth={0}` so it
@@ -91,6 +91,11 @@ them on its parent or siblings:
   slides out on a negative inline margin, so its box overhangs the shell's start
   or end edge until the flex parent clips it. (Fixed overlays escape the clip, so
   this only affects the docked slide.)
+- **State and persistence** — `isOpen` and `width` are controlled; persist them
+  yourself.
+- **The visual skin** — background, rounding, and padding are a child or
+  `exceptionallySetClassName`; keep a clipping skin (`overflow: hidden`) a child
+  so the resize handle is not cut off.
 
 ```tsx
 // Compute overlay flips from your own breakpoint source. The right sidebar
@@ -146,11 +151,10 @@ Keyboard support, from the separator:
 - There is no Enter / Space and no PageUp / PageDown: it is a separator, not a
   button. Escape-to-dismiss belongs to the panel, not the handle.
 
-Resize direction is not RTL-aware. The layout flips under `dir="rtl"` (the anchor
-edge, the off-edge slide, and the handle edge all mirror), but the pointer and
-keyboard resize direction assumes LTR, so in RTL a drag or arrow key resizes the
-opposite way. RTL is not officially supported, so treat the resize gesture
-direction as a known limitation.
+Resize direction is not RTL-aware. The layout mirrors under `dir="rtl"` (anchor
+edge, off-edge slide, and handle edge), but the pointer and keyboard resize
+direction assumes LTR, so a drag or arrow key resizes the opposite way. RTL is not
+officially supported; treat this as a known limitation.
 
 `onWidthChange` fires on pointer up, on each keystroke during keyboard resize, and
 on a double-click reset, so debounce persistence if it is expensive. A drag that
@@ -159,10 +163,6 @@ dragged preview width on screen (the drag writes it imperatively;
 nothing overrides it until `width` changes). `aria-valuenow` and `aria-valuetext`
 update on each keystroke and on commit after a drag (not mid-drag). Pass
 `aria-valuetext` to localize the announced width; it defaults to `"{width}px"`.
-
-The handle also forwards `data-*` attributes onto the `separator` (e.g. a
-`data-testid` for E2E, as the Resizable story sets); its own `role`,
-`tabindex`, `aria-*`, and `data-align` are applied after and win.
 
 ## Overlays
 
@@ -202,9 +202,8 @@ visible heading in the panel when there is one, or `aria-label` otherwise.
 
 ### Modal drawer
 
-A mobile nav drawer: it floats, traps focus, dims the page, and dismisses on the
-backdrop or Escape. It inerts the background (everything outside the panel and
-backdrop) itself, so the shell no longer marks `main`.
+The full modal overlay from the table above; because it inerts the background
+itself, the shell no longer marks `main`.
 
 <Canvas of={SidebarStories.ModalDrawer} />
 
@@ -217,10 +216,9 @@ stays outside the clip. The card is inset from the edges with the overlay inset
 custom properties.
 
 A nonzero `--reactist-sidebar-overlay-inset-inline` stays on screen as a sliver
-of that width while the pane is closed: the panel slides off by its own width
-from the inset anchor, so the inset gap on the anchored edge stays visible
-(toggle the demo closed to see it). This is intended; keep the inline inset at
-`0` for a fully off-screen close.
+while the pane is closed: the panel slides off by its own width from the inset
+anchor, leaving the inset gap visible (toggle the demo closed to see it). Keep the
+inline inset at `0` for a fully off-screen close.
 
 <Canvas of={SidebarStories.DialogSidePane} />
 
@@ -366,21 +364,6 @@ you can style or target them in tests.
 
 The panel and handle also forward any `data-*` you pass; the handle's own
 `data-align` is applied last and wins.
-
-## What the consumer owns
-
-- **The flex shell** — `display: flex` and the `flexGrow={1} minWidth={0}` main
-  absorber.
-- **The breakpoint** — compute `isOverlay` from your own viewport or container
-  query; the component does not measure.
-- **State and persistence** — `isOpen` and `width` are controlled; persist them
-  yourself.
-- **The trigger** — wire your own button with `aria-expanded` / `aria-controls`.
-- **The landmark** — nest your `<nav>` / `<aside>` / `<section>` as a child of
-  `SidebarContent`; the panel itself is a neutral container.
-- **The visual skin** — background, rounding, and padding are a child or
-  `exceptionallySetClassName`; keep a clipping skin (`overflow: hidden`) a child
-  so the resize handle is not cut off.
 
 ## Accessibility
 
