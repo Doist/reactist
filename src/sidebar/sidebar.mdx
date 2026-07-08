@@ -16,25 +16,22 @@ import * as SidebarStories from './sidebar.stories'
 
 <Title />
 
-<Subtitle>
-    A composable left or right sidebar: docked or overlay, resizable, and accessible.
-</Subtitle>
+<Subtitle>A controlled, composable, and accessible sidebar</Subtitle>
 
-`Sidebar` is one primitive for every side panel: a docked left nav, a resizable
-conversation list, a mobile drawer, or a floating side pane. The same component
-covers both edges through the `align` prop, and switches between docked and
-overlay presentation from a breakpoint the consumer owns.
+The `Sidebar` component is a resizable panel that supports being docked on the left or right, or rendered as an overlay. Its uses
+include a docked left nav, a resizable conversation list, a mobile drawer, or a floating side pane. It's fully controlled, so the
+consumer owns the breakpoints and the state of the panel.
 
-## Playground
+Here it is as a docked navigation panel whose collapse toggle stays reachable
+while the panel is slid away:
 
-The fastest way to get a feel for the component: switch alignment, overlay mode,
-and resizability live, and drag or keyboard-resize the panel.
+<Canvas of={SidebarStories.CollapsibleNav} />
 
-<Canvas of={SidebarStories.Playground} />
-
-### API
-
-<Controls of={SidebarStories.Playground} />
+A docked sidebar is an in-flow flex child that holds its width. Toggling `isOpen`
+collapses it with a `margin-inline` transition while the main content reflows into
+the freed space. A `width` is required for the collapse: it derives the collapse
+margin, so without one the panel never slides out, and the component logs a dev
+warning.
 
 ## Anatomy
 
@@ -55,8 +52,9 @@ A sidebar is resizable when, and only when, the consumer renders a
 
 ## Props
 
-The Playground above covers `<Sidebar>`; the panel and its slots follow. Each also
-forwards `data-*` and native element attributes to its rendered node.
+`<Sidebar>`'s own props are in the Playground controls near the end of this page;
+the panel and its slots follow here. Each also forwards `data-*` and native element
+attributes to its rendered node.
 
 ### `<SidebarContent>`
 
@@ -114,16 +112,6 @@ const navIsOverlay = viewportWidth < maxNavWidth + minContentWidth
     </Box>
 </Box>
 ```
-
-## Docked
-
-A docked sidebar is an in-flow flex child that holds its width. Toggling `isOpen`
-collapses it with a `margin-inline` transition while the main content reflows
-into the freed space. A `width` is required for the sidebar to collapse: it
-derives the collapse margin, so without one the panel never slides out. The
-component logs a dev warning when it's missing.
-
-<Canvas of={SidebarStories.Docked} />
 
 ## Resizing
 
@@ -267,12 +255,10 @@ provider. Set the same `id` on `Sidebar` that the trigger points its
 
 While a sidebar is closed, its contents are made `inert`, so off-screen controls
 leave the tab order and the accessibility tree. `SidebarPersistentContent` is the
-exception: a control placed in it stays usable while the sidebar is closed, the
-canonical case being a collapse toggle that peeks out of the slid-off panel and
-reopens it. Unlike the external trigger above, this is for a toggle that belongs
-_in_ the panel.
-
-<Canvas of={SidebarStories.CollapsibleNav} />
+exception: a control placed in it stays usable while the sidebar is closed. The
+collapse toggle in the demo at the top of this page is the canonical case: it
+peeks out of the slid-off panel and reopens it. Unlike the external trigger above,
+this is for a toggle that belongs _in_ the panel.
 
 Its children render inside the panel, so they ride the collapse transition and
 join the focus trap when modal, but outside the closed-state `inert`. It works at
@@ -319,6 +305,17 @@ Two sidebars docked on the same side tile through the flex contract (each is a
 plus its conversation list. Both panes resize independently.
 
 <Canvas of={SidebarStories.StackedSidebars} />
+
+## Playground
+
+Switch alignment, overlay mode, and resizability live, and drag or keyboard-resize
+the panel. The controls below map to every `<Sidebar>` prop.
+
+<Canvas of={SidebarStories.Playground} />
+
+### API
+
+<Controls of={SidebarStories.Playground} />
 
 ## Custom properties
 

@@ -164,37 +164,6 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-/** Docked left nav: a fixed-width flex child that collapses on `isOpen`, beside a `flexGrow` main. */
-export const Docked = {
-    render: function Docked() {
-        const [isOpen, setIsOpen] = React.useState(true)
-
-        return (
-            <Box display="flex" height="full">
-                <Sidebar id="docked-nav" align="start" isOpen={isOpen} width={260}>
-                    <SidebarContent style={PANEL_SKIN}>
-                        <Box as="nav" aria-label="Primary">
-                            <DemoNav />
-                        </Box>
-                    </SidebarContent>
-                </Sidebar>
-                <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
-                    <Stack space="medium">
-                        <Button
-                            variant="secondary"
-                            aria-expanded={isOpen}
-                            aria-controls="docked-nav"
-                            onClick={() => setIsOpen((open) => !open)}
-                        >
-                            {isOpen ? 'Collapse sidebar' : 'Expand sidebar'}
-                        </Button>
-                    </Stack>
-                </Box>
-            </Box>
-        )
-    },
-} satisfies Story
-
 function SidebarToggleIcon() {
     return (
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
