@@ -9,6 +9,8 @@ import type { SidebarAlign, SidebarOverlayMode } from './sidebar'
 
 const NAV_ITEMS = ['Inbox', 'Today', 'Upcoming', 'Filters & Labels', 'Projects', 'Team']
 
+const DETAIL_ITEMS = ['Description', 'Sub-tasks', 'Comments', 'Activity', 'Attachments']
+
 function DemoNav({
     title = 'Workspace',
     navItems = NAV_ITEMS,
@@ -41,9 +43,15 @@ function DemoNav({
     )
 }
 
-function DemoRail() {
+function DemoRail({
+    'aria-label': ariaLabel,
+    children,
+}: {
+    'aria-label'?: string
+    children?: React.ReactNode
+}) {
     return (
-        <Box as="nav" background="aside" height="full">
+        <Box as="nav" aria-label={ariaLabel} background="aside" height="full">
             <Stack space="small" padding="small" align="center">
                 {['T', 'C', 'A'].map((label) => (
                     <Box
@@ -64,6 +72,7 @@ function DemoRail() {
                     </Box>
                 ))}
             </Stack>
+            {children}
         </Box>
     )
 }
@@ -73,27 +82,23 @@ const CARD_INSET_OVERRIDES = {
     '--reactist-sidebar-overlay-inset-inline': '12px',
 } as React.CSSProperties
 
-function useOverlayBelow<T extends HTMLElement>(breakpoint: number) {
+function useShellWidth<T extends HTMLElement>() {
     const shellRef = React.useRef<T>(null)
-    const [isOverlay, setIsOverlay] = React.useState(false)
-    const storyPadding = 32
+    const [width, setWidth] = React.useState(Infinity)
 
-    React.useEffect(
-        function observeShellWidth() {
-            const node = shellRef.current
-            if (!node) return
+    React.useEffect(function observeShellWidth() {
+        const node = shellRef.current
+        if (!node) return
 
-            const observer = new ResizeObserver((entries) => {
-                const entry = entries[0]
-                if (entry) setIsOverlay(entry.contentRect.width < breakpoint - storyPadding)
-            })
-            observer.observe(node)
-            return () => observer.disconnect()
-        },
-        [breakpoint],
-    )
+        const observer = new ResizeObserver((entries) => {
+            const entry = entries[0]
+            if (entry) setWidth(entry.contentRect.width)
+        })
+        observer.observe(node)
+        return () => observer.disconnect()
+    }, [])
 
-    return [shellRef, isOverlay] as const
+    return [shellRef, width] as const
 }
 
 const meta = {
@@ -391,62 +396,32 @@ export const DialogSidePane = {
     },
 } satisfies Story
 
-/** Responsive shell: the consumer flips `isOverlay` at a container breakpoint, docked above and a modal drawer below. */
-export const Responsive = {
-    render: function Responsive() {
-        const [shellRef, isOverlay] = useOverlayBelow<HTMLDivElement>(640)
-        const [isOpen, setIsOpen] = React.useState(false)
-        // Docked: always in view. Overlay: toggled by the trigger.
-        const open = isOverlay ? isOpen : true
+/**
+ * Three sidebars in one shell: a workspace rail and a main nav on the left, a
+ * details pane on the right, each with its own breakpoint. As the canvas narrows
+ * the details pane overlays first (it needs the most room), the nav next, and the
+ * rail stays docked.
+ */
+export const ResponsiveShell = {
+    render: function ResponsiveShell() {
+        const [shellRef, shellWidth] = useShellWidth<HTMLDivElement>()
+        const navIsOverlay = shellWidth < 640
+        const paneIsOverlay = shellWidth < 900
+
+        const [navOpen, setNavOpen] = React.useState(false)
+        const [paneOpen, setPaneOpen] = React.useState(false)
+        const [railWidth, setRailWidth] = React.useState(64)
+        const [navWidth, setNavWidth] = React.useState(240)
+        const [paneWidth, setPaneWidth] = React.useState(300)
+
+        // Docked panels stay in view; overlays start closed and obey their trigger.
+        const isNavOpen = navIsOverlay ? navOpen : true
+        const isPaneOpen = paneIsOverlay ? paneOpen : true
 
         return (
             <Box display="flex" height="full" ref={shellRef}>
                 <Sidebar
-                    id="responsive-nav"
-                    align="start"
-                    isOverlay={isOverlay}
-                    overlayMode="modal"
-                    isOpen={open}
-                    dismissOverlayOnEscape
-                    onDismiss={() => setIsOpen(false)}
-                    width={240}
-                >
-                    <SidebarContent aria-label="Primary navigation">
-                        <DemoNav />
-                    </SidebarContent>
-                </Sidebar>
-                <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
-                    <Stack space="medium">
-                        {isOverlay ? (
-                            <Button
-                                variant="primary"
-                                aria-expanded={isOpen}
-                                aria-controls="responsive-nav"
-                                onClick={() => setIsOpen(true)}
-                            >
-                                Open menu
-                            </Button>
-                        ) : null}
-                        <Text tone="secondary">
-                            Resize the canvas to cross the 640px breakpoint.
-                        </Text>
-                    </Stack>
-                </Box>
-            </Box>
-        )
-    },
-} satisfies Story
-
-/** Two sidebars docked on the same side, each independently resizable, tiling through the flex contract. */
-export const StackedSidebars = {
-    render: function StackedSidebars() {
-        const [railWidth, setRailWidth] = React.useState(64)
-        const [listWidth, setListWidth] = React.useState(260)
-
-        return (
-            <Box display="flex" height="full">
-                <Sidebar
-                    id="workspace-rail"
+                    id="rs-rail"
                     align="start"
                     isOpen
                     width={railWidth}
@@ -457,51 +432,19 @@ export const StackedSidebars = {
                     resizeStep={8}
                 >
                     <SidebarContent aria-label="Workspaces">
-                        <DemoRail />
-                        <SidebarResizeHandle aria-label="Resize workspace rail" />
+                        <DemoRail aria-label="Workspaces">
+                            <SidebarResizeHandle aria-label="Resize workspace rail" />
+                        </DemoRail>
                     </SidebarContent>
                 </Sidebar>
                 <Sidebar
-                    id="conversations"
+                    id="rs-nav"
                     align="start"
-                    isOpen
-                    width={listWidth}
-                    onWidthChange={setListWidth}
-                    minWidth={200}
-                    maxWidth={360}
-                    defaultWidth={260}
-                    resizeStep={20}
-                >
-                    <SidebarContent aria-label="Conversations">
-                        <DemoNav title="Conversations" as="section" />
-                        <SidebarResizeHandle aria-label="Resize conversation list" />
-                    </SidebarContent>
-                </Sidebar>
-                <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
-                    <Stack space="medium">
-                        <Heading level="2" size="larger">
-                            Conversation
-                        </Heading>
-                        <Text tone="secondary">Drag either pane's right edge to resize it.</Text>
-                    </Stack>
-                </Box>
-            </Box>
-        )
-    },
-} satisfies Story
-
-/** A left nav and a right details pane around the main absorber: `align="start"` and `align="end"` mirrored. */
-export const LeftAndRight = {
-    render: function LeftAndRight() {
-        const [navWidth, setNavWidth] = React.useState(240)
-        const [paneWidth, setPaneWidth] = React.useState(320)
-
-        return (
-            <Box display="flex" height="full">
-                <Sidebar
-                    id="lr-nav"
-                    align="start"
-                    isOpen
+                    isOverlay={navIsOverlay}
+                    overlayMode="modal"
+                    isOpen={isNavOpen}
+                    dismissOverlayOnEscape
+                    onDismiss={() => setNavOpen(false)}
                     width={navWidth}
                     onWidthChange={setNavWidth}
                     minWidth={200}
@@ -510,32 +453,73 @@ export const LeftAndRight = {
                     resizeStep={20}
                 >
                     <SidebarContent aria-label="Main navigation">
-                        <DemoNav />
-                        <SidebarResizeHandle aria-label="Resize navigation" />
+                        <DemoNav aria-label="Main navigation">
+                            <SidebarResizeHandle aria-label="Resize navigation" />
+                        </DemoNav>
                     </SidebarContent>
                 </Sidebar>
                 <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
                     <Stack space="medium">
+                        <Box display="flex" gap="small">
+                            {navIsOverlay ? (
+                                <Button
+                                    variant="secondary"
+                                    aria-expanded={navOpen}
+                                    aria-controls="rs-nav"
+                                    onClick={() => setNavOpen(true)}
+                                >
+                                    Open nav
+                                </Button>
+                            ) : null}
+                            {paneIsOverlay ? (
+                                <Button
+                                    variant="secondary"
+                                    aria-expanded={paneOpen}
+                                    aria-controls="rs-pane"
+                                    onClick={() => setPaneOpen((open) => !open)}
+                                >
+                                    {paneOpen ? 'Hide details' : 'Show details'}
+                                </Button>
+                            ) : null}
+                        </Box>
                         <Heading level="2" size="larger">
                             Main content
                         </Heading>
-                        <Text tone="secondary">Drag either pane's inner edge to resize it.</Text>
+                        <Text tone="secondary">
+                            Three sidebars in one shell. Resize the canvas: the details pane becomes
+                            an overlay below 900px and the nav below 640px, each with its own
+                            trigger, while the workspace rail stays docked.
+                        </Text>
                     </Stack>
                 </Box>
                 <Sidebar
-                    id="lr-pane"
+                    id="rs-pane"
                     align="end"
-                    isOpen
+                    isOverlay={paneIsOverlay}
+                    overlayMode="dialog"
+                    isOpen={isPaneOpen}
+                    dismissOverlayOnEscape
+                    onDismiss={() => setPaneOpen(false)}
                     width={paneWidth}
                     onWidthChange={setPaneWidth}
-                    minWidth={280}
-                    maxWidth={480}
-                    defaultWidth={320}
+                    minWidth={260}
+                    maxWidth={420}
+                    defaultWidth={300}
                     resizeStep={20}
                 >
-                    <SidebarContent aria-label="Details">
-                        <DemoNav title="Details" as="aside" />
-                        <SidebarResizeHandle aria-label="Resize details pane" />
+                    {/* Keep the details pane below the modal nav and its backdrop. */}
+                    <SidebarContent
+                        aria-label="Details"
+                        style={{ '--reactist-sidebar-overlay-z-index': 30 } as React.CSSProperties}
+                    >
+                        <DemoNav
+                            title="Details"
+                            as="aside"
+                            aria-label="Details"
+                            navItems={DETAIL_ITEMS}
+                        >
+                            <SidebarResizeHandle aria-label="Resize details pane" />
+                        </DemoNav>
                     </SidebarContent>
                 </Sidebar>
             </Box>

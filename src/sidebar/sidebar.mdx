@@ -200,21 +200,12 @@ The same holds across breakpoint changes: default a modal sidebar to closed when
 it enters overlay mode rather than carrying an open state across the breakpoint
 (the app navs already behave this way). Derive the open state from the layout, so
 a docked panel is always shown and only the overlay obeys the toggle, as the
-Responsive example below does:
+multi-sidebar example below does:
 
 ```tsx
 // Docked: always in view. Overlay: toggled by the trigger (closed until opened).
 const open = isOverlay ? isOpen : true
 ```
-
-## Responsive
-
-The component never measures itself: the consumer computes `isOverlay` from a
-breakpoint (a container query or a `ResizeObserver`, whichever fits) and passes
-it in. Above the breakpoint the nav is docked; below it, it becomes a modal
-drawer. Resize the canvas to cross the breakpoint.
-
-<Canvas of={SidebarStories.Responsive} />
 
 ## The toggle trigger
 
@@ -268,21 +259,22 @@ subtree-scoped, so setting it on a wrapping element opts the whole panel out of
 autofocus (focus stays on the trigger). The consumer owns the control, its
 `aria-*`, and its positioning (e.g. a peek offset while collapsed).
 
-## Left and right sidebars
+## Multiple sidebars
 
-A left nav and a right pane around the main absorber is the full shell contract.
-`align="start"` and `align="end"` are the same component mirrored; both panes
-resize from their inner edges.
+Several sidebars compose in one flex shell. Tile them on the same side (a
+workspace rail beside its nav) or place them on both edges (`align="start"` and
+`align="end"` are the same component mirrored). Each is a `flex-shrink: 0` child
+and the main content absorbs the rest, so every pane resizes from its inner edge
+independently.
 
-<Canvas of={SidebarStories.LeftAndRight} />
+Responsiveness is per sidebar: the consumer computes each panel's `isOverlay` from
+its own breakpoint (a container query or a `ResizeObserver`), so a layout can drop
+its panels to overlays at different widths as the viewport narrows. The demo docks
+a workspace rail, a main nav, and a right details pane, then flips the details
+pane to an overlay first (it needs the most room) and the nav next; the rail stays
+docked. Resize the canvas to cross the breakpoints.
 
-## Stacked sidebars
-
-Two sidebars docked on the same side tile through the flex contract (each is a
-`flex-shrink: 0` child; the main absorbs the rest), like Comms' workspace rail
-plus its conversation list. Both panes resize independently.
-
-<Canvas of={SidebarStories.StackedSidebars} />
+<Canvas of={SidebarStories.ResponsiveShell} />
 
 ## Playground
 
