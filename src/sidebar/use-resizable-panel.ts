@@ -1,39 +1,39 @@
 import * as React from 'react'
 
 /**
- * The panel edge a resize gesture acts on. The sidebar only resizes along the
- * inline axis (`left` / `right`); the engine keeps the block axis so it can be
- * reused for other resizable surfaces. Physical, LTR-assumed edges: the caller
- * maps `align` to an edge and owns the RTL story (see sidebar.tsx).
+ * The panel edge a resize gesture acts on.
  */
 export type ResizablePanelEdge = 'left' | 'right' | 'top' | 'bottom'
 
 type UseResizablePanelParams = {
     /**
-     * When `false`, the committed value is not written to the panel, so a panel
-     * with no controlled value keeps its natural size instead of collapsing.
-     * Defaults to `true`.
+     * When `false`, the committed value is not written to the panel, which allows
+     * an uncontrolled component to retain its dimensions during initial mount and
+     * after a resize. Defaults to `true`
      */
     applyValue?: boolean
-    /** When set, read/write this CSS custom property instead of `width` / `height`. */
+    /** When set, read/write this CSS custom property instead of `width`/`height` */
     cssVariable?: string
-    /** Width restored on a double-click reset. */
+    /** Width restored on a double-click reset */
     defaultValuePx: number
-    /** When `true`, pointer and keyboard gestures are ignored. */
+    /** When `true`, pointer and keyboard gestures are ignored */
     disabled?: boolean
-    /** The edge the handle sits on, which sets the drag direction. */
+    /** The edge the handle sits on, which sets the drag direction */
     edge: ResizablePanelEdge
-    /** Upper clamp for the committed value. */
+    /** Upper clamp for the committed value */
     maxValuePx: number
-    /** Lower clamp for the committed value. */
+    /** Lower clamp for the committed value */
     minValuePx: number
-    /** Called with the committed value on pointer up and on each keyboard step. */
+    /** Called with the committed value on pointer up and on each keyboard step */
     onValueCommit: (nextValuePx: number) => void
-    /** The element whose size the gesture writes to. */
+    /** The element whose size the gesture writes to */
     panelRef: React.RefObject<HTMLElement | null>
-    /** Keyboard arrow-key step in px. */
+    /**
+     * Keyboard arrow-key step in px. Arrow key resizing is disabled when this
+     * is non-positive
+     */
     stepPx: number
-    /** The controlled, committed value in px. */
+    /** The controlled, committed value in px */
     valuePx: number
 }
 
@@ -116,7 +116,6 @@ function getActiveElementForRestore(): HTMLElement | null {
 }
 
 function getKeyboardDeltaPx(edge: ResizablePanelEdge, key: string, stepPx: number): number | null {
-    // Without a positive step, arrow keys don't resize (Home/End still jump to the bounds).
     if (stepPx <= 0) return null
     if (edge === 'left') {
         if (key === 'ArrowLeft') return stepPx
@@ -138,10 +137,9 @@ function getKeyboardDeltaPx(edge: ResizablePanelEdge, key: string, stepPx: numbe
 }
 
 /**
- * Maps a Home/End keypress to the absolute width it should jump to, or `null`
- * for any other key. `edge` changes the keys' directions: on `right`/`bottom`
- * edges Home returns `minValuePx` and End returns `maxValuePx`, while on
- * `left`/`top` edges they will be swapped.
+ * Returns the amount the Home/End keys should jump by based on the edge provided.
+ * Home always resizes towards the left or top, while End moves towards the right
+ * or bottom
  */
 function getKeyboardJumpPx(
     edge: ResizablePanelEdge,
@@ -156,15 +154,13 @@ function getKeyboardJumpPx(
 }
 
 /**
- * The imperative, render-free resize engine ported from Automations. A pointer
- * drag writes the panel size straight to the DOM (batched to one write per
- * animation frame) and commits once on pointer up; keyboard resize commits on
- * each keystroke. Nothing re-renders React per frame, so the panel's children
- * and any backdrop stay untouched during a drag.
+ * Ported from Automations, this engine provides a performant way to
+ * resize a panel element with pointer devices and the keyboard. During drag,
+ * it writes the new dimension to either a provided CSS custom property,
+ * or onto the DOM element directly, bypassing the render cycle. On drag end,
+ * or via the keyboard, values are passed to the onValueCommit callback.
  *
- * The handlers are plain functions; the React Compiler memoizes them. The one
- * constraint that keeps it Compiler-clean: `panelRef.current` is only read inside
- * event handlers, the animation-frame callback, or an effect, never during render.
+ * Ref: https://github.com/Doist/automations/pull/3236
  */
 export function useResizablePanel({
     applyValue = true,
@@ -228,8 +224,7 @@ export function useResizablePanel({
 
         cancelFrame()
         flushPreview()
-        // A press with no movement (a plain click on the handle) leaves the value
-        // unchanged; skip the commit so consumers don't get a no-op write.
+
         if (drag.currentValuePx !== drag.startValuePx) {
             onValueCommit(drag.currentValuePx)
         }
@@ -245,8 +240,6 @@ export function useResizablePanel({
 
     function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {
         if (disabled) return
-        // Only the primary button starts a resize; let right/middle-click through
-        // so the context menu still opens.
         if (event.button !== 0) return
 
         event.preventDefault()
@@ -270,7 +263,7 @@ export function useResizablePanel({
         }
         event.currentTarget.focus({ preventScroll: true })
 
-        const pointerMove = (moveEvent: PointerEvent) => {
+        function pointerMove(moveEvent: PointerEvent) {
             const drag = dragRef.current
             if (!drag) return
 
