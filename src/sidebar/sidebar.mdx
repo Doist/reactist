@@ -9,52 +9,71 @@ import {
     Title,
 } from '@storybook/addon-docs/blocks'
 
-import { SidebarContent, SidebarPersistentContent, SidebarResizeHandle } from './sidebar'
+import { Sidebar, SidebarContent, SidebarPersistentContent, SidebarResizeHandle } from './sidebar'
 import * as SidebarStories from './sidebar.stories'
 
 <Meta of={SidebarStories} />
 
 <Title />
 
-<Subtitle>A controlled, composable, and accessible sidebar</Subtitle>
+<Subtitle>A controlled, composable, and accessible sidebar primitive</Subtitle>
 
-The `Sidebar` component is a resizable panel that supports being docked on the left or right, or rendered as an overlay. Its uses
-include a docked left nav, a resizable conversation list, a mobile drawer, or a floating side pane. It's fully controlled, so the
+The `Sidebar` component is a resizable panel that supports being docked on the left or right, or rendered as an overlay. It's fully controlled, so the
 consumer owns the breakpoints and the state of the panel.
 
-Here it is as a docked navigation panel whose collapse toggle stays reachable
-while the panel is slid away:
+## Basic usage
+
+To define a sidebar, render it in a flex parent. Use `align` to determine the side it's docked, `isOpen` to control its open state, and `width` for its default size.
+
+Use `<SidebarContent>` to host your styled panel, and a `<SidebarPersistentContent>` as its child to hold content that need to remain visible and interactive when the panel is closed.
 
 <Canvas of={SidebarStories.CollapsibleNav} />
 
-A docked sidebar is an in-flow flex child that holds its width. Toggling `isOpen`
-collapses it with a `margin-inline` transition while the main content reflows into
-the freed space. A `width` is required for the collapse: it derives the collapse
-margin, so without one the panel never slides out, and the component logs a dev
-warning.
-
 ## Anatomy
 
-The component is composed from a provider and slots, so a consumer places and
-styles the real elements while the provider holds state and behavior.
+A sidebar is comprised of the following components:
 
 <Markdown>{`
-| Part | Renders | Owns |
+| Component | Renders | Responsibilities |
 | --- | --- | --- |
-| \`Sidebar\` | the modal backdrop only (a sibling of the panel) | All controlled state and behavior: open, overlay, width and bounds, dismiss; derives the overlay state; provides context |
-| \`SidebarContent\` | the panel element (a neutral \`<div>\` with \`role="dialog"\` when needed) | Positioning, the slide / collapse transition, dialog semantics, the committed width, the focus trap and background inerting while modal, making its contents \`inert\` while closed, and panel-scoped Escape-to-dismiss |
-| \`SidebarPersistentContent\` | an optional slot inside the panel | A control that stays live while the sidebar is closed (e.g. a collapse toggle): kept out of the closed-state \`inert\`, while it rides the collapse transition and joins the focus trap |
-| \`SidebarResizeHandle\` | a \`role="separator"\` | The pointer and keyboard resize affordance and its ARIA; self-positions on the inner edge from \`align\` |
+| \`\<Sidebar\>\` | The main provider and the modal backdrop | Configuration options like \`width\`, \`resizeStep\`, \`overlayMode\`, and events like \`onDismiss\` |
+| \`\<SidebarContent\>\` | The panel element, with \`role="dialog"\` when needed | The panel's size and position, transitions, dialog and modal behaviour |
+| \`\<SidebarPersistentContent\>\` | An optional slot inside the panel | Hosts UI elements within the sidebar that need to be interactive while the sidebar is closed (e.g. a collapse toggle) |
+| \`\<SidebarResizeHandle\>\` | An element with \`role="separator"\` | Enables pointer and keyboard resize |
 `}</Markdown>
 
-A sidebar is resizable when, and only when, the consumer renders a
-`SidebarResizeHandle` inside the content. There is no `resizable` prop.
+Place the `<Sidebar>` in a flex parent, provide it the controlled `width` and `isOpen` props, and ensure that its sibling is able to absorb and yield space when the sidebar resizes.
+
+- **Parent**: When using a `Box`, assign `display="flex"`
+- **Sibling content**: Assign `flexGrow={1}`, and `minWidth={0}`, as `<Box>` already defaults to `flex-shrink: 1`
+- **State and persistence**: The open and overlay states are controlled, and persisted if required by the consumer
+- **The visual skin**: The component is headless, and only controls the container's width and transition, which can be further customized. The panel is styled through the children passed into `<SidebarContent>`
+
+```tsx
+const isOverlay = viewportWidth < maxNavWidth + minContentWidth
+
+<Box display="flex" overflow="hidden">
+    <Sidebar align="start" isOpen={isOpen} isOverlay={isOverlay} overlayMode="modal" width={width} onWidthChange={setWidth}>
+        <SidebarContent aria-label="Main navigation">
+            <Box as="nav" aria-label="Main navigation" height="full">
+                {/* nav content */}
+                <SidebarResizeHandle aria-label="Resize sidebar" />
+            </Box>
+        </SidebarContent>
+    </Sidebar>
+    <Box as="main" flexGrow={1} minWidth={0}>
+        {/* main content */}
+    </Box>
+</Box>
+```
 
 ## Props
 
-`<Sidebar>`'s own props are in the Playground controls near the end of this page;
-the panel and its slots follow here. Each also forwards `data-*` and native element
-attributes to its rendered node.
+### `<Sidebar>`
+
+<Description of={Sidebar} />
+
+<ArgTypes of={Sidebar} />
 
 ### `<SidebarContent>`
 
@@ -66,52 +85,11 @@ attributes to its rendered node.
 
 <Description of={SidebarPersistentContent} />
 
-Takes only `children`: the control to keep operable while the sidebar is closed.
-
 ### `<SidebarResizeHandle>`
 
 <Description of={SidebarResizeHandle} />
 
 <ArgTypes of={SidebarResizeHandle} />
-
-## The shell contract
-
-The sidebar sizes itself; the surrounding flex context, its controlled state, and
-its visual skin are the consumer's. The shell items live on the parent because a
-child cannot set them on its parent or siblings:
-
-- `display: flex` on the parent.
-- The main content as the absorber: `flexGrow={1}` and `minWidth={0}` so it
-  yields space when the sidebar resizes or the viewport shrinks. (Box defaults
-  `flex-shrink` to 1; the `min-width: 0` is the part that is easy to forget and
-  the one that prevents the row from overflowing.)
-- `overflow: hidden` on the parent to clip the collapse overhang: a docked panel
-  slides out on a negative inline margin, so its box overhangs the shell's start
-  or end edge until the flex parent clips it. (Fixed overlays escape the clip, so
-  this only affects the docked slide.)
-- **State and persistence** — `isOpen` and `width` are controlled; persist them
-  yourself.
-- **The visual skin** — background, rounding, and padding are a child or
-  `exceptionallySetClassName`; keep a clipping skin (`overflow: hidden`) a child
-  so the resize handle is not cut off.
-
-```tsx
-// Compute overlay flips from your own breakpoint source. The right sidebar
-// needs the larger breakpoint, since it sits beyond the nav and the content.
-const navIsOverlay = viewportWidth < maxNavWidth + minContentWidth
-
-<Box display="flex" overflow="hidden">
-    <Sidebar align="start" isOpen={isOpen} isOverlay={navIsOverlay} overlayMode="modal" width={width} onWidthChange={setWidth}>
-        <SidebarContent aria-label="Main navigation">
-            <nav aria-label="Main navigation">{/* nav content */}</nav>
-            <SidebarResizeHandle aria-label="Resize sidebar" />
-        </SidebarContent>
-    </Sidebar>
-    <Box as="main" flexGrow={1} minWidth={0}>
-        {/* main content */}
-    </Box>
-</Box>
-```
 
 ## Resizing
 

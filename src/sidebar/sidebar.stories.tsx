@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Box, Button, Heading, IconButton, Stack, Text } from '../index'
+import { Box, Button, Divider, Heading, IconButton, Stack, Text } from '../index'
 
 import { Sidebar, SidebarContent, SidebarPersistentContent, SidebarResizeHandle } from './sidebar'
 
@@ -9,104 +9,74 @@ import type { SidebarAlign, SidebarOverlayMode } from './sidebar'
 
 const NAV_ITEMS = ['Inbox', 'Today', 'Upcoming', 'Filters & Labels', 'Projects', 'Team']
 
-function DemoNav({ title = 'Workspace' }: { title?: string }) {
+function DemoNav({
+    title = 'Workspace',
+    navItems = NAV_ITEMS,
+    as = 'nav',
+    'aria-label': ariaLabel,
+    children,
+}: {
+    title?: string
+    navItems?: string[]
+    as?: React.ComponentProps<typeof Box>['as']
+    'aria-label'?: string
+    children?: React.ReactNode
+}) {
     return (
-        <Stack space="xsmall" padding="medium">
-            <Text weight="semibold" size="caption" tone="secondary">
-                {title}
-            </Text>
-            {NAV_ITEMS.map((item) => (
-                <Box
-                    key={item}
-                    as="a"
-                    href={`#${item}`}
-                    display="block"
-                    padding="xsmall"
-                    borderRadius="standard"
-                    style={{ color: 'inherit', textDecoration: 'none' }}
-                >
-                    <Text>{item}</Text>
-                </Box>
-            ))}
-        </Stack>
+        <Box as={as} aria-label={ariaLabel} background="aside" height="full">
+            <Box paddingLeft="large" paddingTop="large">
+                <Heading level={2}>{title}</Heading>
+            </Box>
+            <Stack paddingY="medium" paddingX="xsmall">
+                {navItems.map((item) => {
+                    return (
+                        <Button variant="quaternary" key={item} width="full" align="start">
+                            {item}
+                        </Button>
+                    )
+                })}
+            </Stack>
+            {children}
+        </Box>
     )
 }
-
-DemoNav.displayName = 'DemoNav'
 
 function DemoRail() {
     return (
-        <Stack space="small" padding="small" align="center">
-            {['T', 'C', 'A'].map((label) => (
-                <Box
-                    key={label}
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    style={{
-                        width: 36,
-                        height: 36,
-                        borderRadius: 8,
-                        background: 'var(--reactist-divider-secondary)',
-                    }}
-                >
-                    <Text weight="semibold" size="caption">
-                        {label}
-                    </Text>
-                </Box>
-            ))}
-        </Stack>
+        <Box as="nav" background="aside" height="full">
+            <Stack space="small" padding="small" align="center">
+                {['T', 'C', 'A'].map((label) => (
+                    <Box
+                        key={label}
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        style={{
+                            width: 36,
+                            height: 36,
+                            borderRadius: 8,
+                            background: 'var(--reactist-divider-secondary)',
+                        }}
+                    >
+                        <Text weight="semibold" size="caption">
+                            {label}
+                        </Text>
+                    </Box>
+                ))}
+            </Stack>
+        </Box>
     )
 }
 
-DemoRail.displayName = 'DemoRail'
-
-const RAIL_SKIN = {
-    background: 'var(--reactist-divider-tertiary, #edf2f3)',
-    borderRight: '1px solid var(--reactist-divider-secondary)',
-} satisfies React.CSSProperties
-
-const PANEL_SKIN = {
-    background: 'var(--reactist-content-background, #faf9f8)',
-    borderRight: '1px solid var(--reactist-divider-secondary)',
-} satisfies React.CSSProperties
-
-// The mirror skin for an `align="end"` pane: the border sits on the inner edge.
-const PANEL_SKIN_END = {
-    background: 'var(--reactist-content-background, #faf9f8)',
-    borderLeft: '1px solid var(--reactist-divider-secondary)',
-} satisfies React.CSSProperties
-
-// Make the otherwise-transparent resize handle visible in the demos.
-const HANDLE_VISIBLE = {
-    '--reactist-sidebar-resize-handle-idle-fill': 'var(--reactist-divider-secondary)',
-} as React.CSSProperties
-
-const CARD_INSETS = {
+const CARD_INSET_OVERRIDES = {
     '--reactist-sidebar-overlay-inset-block': '12px',
     '--reactist-sidebar-overlay-inset-inline': '12px',
 } as React.CSSProperties
 
-const CARD_SKIN = {
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-    overflow: 'hidden',
-    borderRadius: 12,
-    background: '#ffffff',
-    border: '1px solid var(--reactist-divider-secondary)',
-    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
-} satisfies React.CSSProperties
-
-/**
- * Flips `isOverlay` when the shell gets narrower than `breakpoint`. Computing the
- * overlay state from a breakpoint is the consumer's job; this measures the
- * container (rather than the viewport) so it works inside the bounded demo stage.
- */
 function useOverlayBelow<T extends HTMLElement>(breakpoint: number) {
     const shellRef = React.useRef<T>(null)
     const [isOverlay, setIsOverlay] = React.useState(false)
+    const storyPadding = 32
 
     React.useEffect(
         function observeShellWidth() {
@@ -115,7 +85,7 @@ function useOverlayBelow<T extends HTMLElement>(breakpoint: number) {
 
             const observer = new ResizeObserver((entries) => {
                 const entry = entries[0]
-                if (entry) setIsOverlay(entry.contentRect.width < breakpoint)
+                if (entry) setIsOverlay(entry.contentRect.width < breakpoint - storyPadding)
             })
             observer.observe(node)
             return () => observer.disconnect()
@@ -135,27 +105,24 @@ const meta = {
             path: 'Web › Components / Todoist › Sidebar › Main Navigation / Sidebar',
             url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=1194-17741',
         },
-        // Serialize the rendered composition into "Show code", not the story wrapper.
         docs: { source: { type: 'dynamic' } },
     },
     decorators: [
-        // A bounded, transformed stage (excluded from "Show code") that becomes the
-        // containing block for the sidebar's `position: fixed` overlays, so a
-        // floating panel and its backdrop scope to this box, not the whole canvas.
         (Story: () => React.JSX.Element) => (
-            <div
+            <Box
+                position="relative"
+                overflow="hidden"
+                border="secondary"
+                borderRadius="standard"
+                background="default"
                 style={{
-                    position: 'relative',
-                    height: 420,
-                    overflow: 'hidden',
+                    // Set as containing block for the overlay
                     transform: 'translateZ(0)',
-                    border: '1px solid var(--reactist-divider-secondary)',
-                    borderRadius: 8,
-                    background: '#ffffff',
+                    height: 420,
                 }}
             >
                 <Story />
-            </div>
+            </Box>
         ),
     ],
 } satisfies Meta<typeof Sidebar>
@@ -191,7 +158,7 @@ export const CollapsibleNav = {
         return (
             <Box display="flex" height="full">
                 <Sidebar id="collapsible-nav" align="start" isOpen={isOpen} width={260}>
-                    <SidebarContent style={PANEL_SKIN}>
+                    <SidebarContent>
                         <SidebarPersistentContent>
                             <div
                                 style={{
@@ -203,11 +170,11 @@ export const CollapsibleNav = {
                                     // Transition at the same velocity as the panel so it appears as part of the same animation
                                     transition:
                                         'margin-right var(--reactist-sidebar-transition-duration) var(--reactist-sidebar-transition-easing)',
-                                    marginRight: isOpen ? 0 : -40,
+                                    marginRight: isOpen ? 0 : -45,
                                 }}
                             >
                                 <IconButton
-                                    variant="secondary"
+                                    variant="quaternary"
                                     icon={<SidebarToggleIcon />}
                                     aria-label={isOpen ? 'Collapse sidebar' : 'Open sidebar'}
                                     aria-controls="collapsible-nav"
@@ -216,21 +183,18 @@ export const CollapsibleNav = {
                                 />
                             </div>
                         </SidebarPersistentContent>
-                        <Box as="nav" aria-label="Primary">
-                            <DemoNav />
-                        </Box>
+                        <DemoNav aria-label="Main navigation" />
                     </SidebarContent>
                 </Sidebar>
                 <Box
                     as="main"
                     flexGrow={1}
                     minWidth={0}
-                    paddingY="large"
-                    paddingRight="large"
-                    paddingLeft={isOpen ? 'large' : 'xxlarge'}
+                    paddingY="medium"
+                    paddingX="xxlarge"
                     overflow="auto"
                 >
-                    <Stack space="medium">
+                    <Stack space="medium" paddingLeft="small">
                         <Heading level="2" size="larger">
                             Main content
                         </Heading>
@@ -264,14 +228,13 @@ export const Resizable = {
                     defaultWidth={280}
                     resizeStep={24}
                 >
-                    <SidebarContent style={{ ...PANEL_SKIN, ...HANDLE_VISIBLE }}>
-                        <Box as="nav" aria-label="Primary">
-                            <DemoNav />
-                        </Box>
-                        <SidebarResizeHandle
-                            aria-label="Resize sidebar"
-                            data-testid="sidebar-resize-handle"
-                        />
+                    <SidebarContent>
+                        <DemoNav aria-label="Main navigation">
+                            <SidebarResizeHandle
+                                aria-label="Resize sidebar"
+                                data-testid="sidebar-resize-handle"
+                            />
+                        </DemoNav>
                     </SidebarContent>
                 </Sidebar>
                 <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
@@ -311,14 +274,11 @@ export const ModalDrawer = {
                         (e.g. a global hotkey) stops propagation here. */}
                     <SidebarContent
                         aria-label="Primary navigation"
-                        style={PANEL_SKIN}
                         onKeyDown={(event) => {
                             if (event.key === 'Escape') event.stopPropagation()
                         }}
                     >
-                        <Box as="nav" aria-label="Primary">
-                            <DemoNav />
-                        </Box>
+                        <DemoNav aria-label="Primary navigation" />
                     </SidebarContent>
                 </Sidebar>
                 <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
@@ -381,31 +341,38 @@ export const DialogSidePane = {
                     defaultWidth={340}
                     resizeStep={24}
                 >
-                    <SidebarContent aria-labelledby="chat-pane-heading" style={CARD_INSETS}>
-                        <div style={CARD_SKIN}>
+                    <SidebarContent
+                        aria-labelledby="chat-pane-heading"
+                        style={CARD_INSET_OVERRIDES}
+                    >
+                        <Box
+                            display="flex"
+                            flexDirection="column"
+                            position="relative"
+                            height="full"
+                            background="default"
+                            borderRadius="full"
+                            border="secondary"
+                            overflow="hidden"
+                        >
                             <Box
+                                display="flex"
+                                justifyContent="spaceBetween"
+                                alignItems="center"
                                 padding="medium"
-                                style={{
-                                    borderBottom: '1px solid var(--reactist-divider-secondary)',
-                                }}
                             >
-                                <Box
-                                    display="flex"
-                                    justifyContent="spaceBetween"
-                                    alignItems="center"
+                                <Heading level="2" size="smaller" id="chat-pane-heading">
+                                    Assistant
+                                </Heading>
+                                <Button
+                                    variant="tertiary"
+                                    size="small"
+                                    onClick={() => setIsOpen(false)}
                                 >
-                                    <Heading level="2" size="smaller" id="chat-pane-heading">
-                                        Assistant
-                                    </Heading>
-                                    <Button
-                                        variant="tertiary"
-                                        size="small"
-                                        onClick={() => setIsOpen(false)}
-                                    >
-                                        Close
-                                    </Button>
-                                </Box>
+                                    Close
+                                </Button>
                             </Box>
+                            <Divider weight="secondary" />
                             <Box padding="medium" overflow="auto" flexGrow={1}>
                                 <Text tone="secondary">
                                     Conversation history lives here. Drag the handle on the left
@@ -416,7 +383,7 @@ export const DialogSidePane = {
                                 way the Automations chat does it. Placing it as a sibling of the
                                 skin instead keeps it on the panel edge, uncropped. */}
                             <SidebarResizeHandle aria-label="Resize assistant" />
-                        </div>
+                        </Box>
                     </SidebarContent>
                 </Sidebar>
             </Box>
@@ -444,10 +411,8 @@ export const Responsive = {
                     onDismiss={() => setIsOpen(false)}
                     width={240}
                 >
-                    <SidebarContent aria-label="Primary navigation" style={PANEL_SKIN}>
-                        <Box as="nav" aria-label="Primary navigation">
-                            <DemoNav />
-                        </Box>
+                    <SidebarContent aria-label="Primary navigation">
+                        <DemoNav />
                     </SidebarContent>
                 </Sidebar>
                 <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
@@ -491,10 +456,8 @@ export const StackedSidebars = {
                     defaultWidth={64}
                     resizeStep={8}
                 >
-                    <SidebarContent style={{ ...RAIL_SKIN, ...HANDLE_VISIBLE }}>
-                        <Box as="nav" aria-label="Workspaces">
-                            <DemoRail />
-                        </Box>
+                    <SidebarContent aria-label="Workspaces">
+                        <DemoRail />
                         <SidebarResizeHandle aria-label="Resize workspace rail" />
                     </SidebarContent>
                 </Sidebar>
@@ -509,10 +472,8 @@ export const StackedSidebars = {
                     defaultWidth={260}
                     resizeStep={20}
                 >
-                    <SidebarContent style={{ ...PANEL_SKIN, ...HANDLE_VISIBLE }}>
-                        <Box as="section" aria-label="Conversations">
-                            <DemoNav title="Conversations" />
-                        </Box>
+                    <SidebarContent aria-label="Conversations">
+                        <DemoNav title="Conversations" as="section" />
                         <SidebarResizeHandle aria-label="Resize conversation list" />
                     </SidebarContent>
                 </Sidebar>
@@ -548,10 +509,8 @@ export const LeftAndRight = {
                     defaultWidth={240}
                     resizeStep={20}
                 >
-                    <SidebarContent style={{ ...PANEL_SKIN, ...HANDLE_VISIBLE }}>
-                        <Box as="nav" aria-label="Main navigation">
-                            <DemoNav />
-                        </Box>
+                    <SidebarContent aria-label="Main navigation">
+                        <DemoNav />
                         <SidebarResizeHandle aria-label="Resize navigation" />
                     </SidebarContent>
                 </Sidebar>
@@ -574,10 +533,8 @@ export const LeftAndRight = {
                     defaultWidth={320}
                     resizeStep={20}
                 >
-                    <SidebarContent style={{ ...PANEL_SKIN_END, ...HANDLE_VISIBLE }}>
-                        <Box as="aside" aria-label="Details">
-                            <DemoNav title="Details" />
-                        </Box>
+                    <SidebarContent aria-label="Details">
+                        <DemoNav title="Details" as="aside" />
                         <SidebarResizeHandle aria-label="Resize details pane" />
                     </SidebarContent>
                 </Sidebar>
@@ -657,12 +614,10 @@ export const Playground = {
                 defaultWidth={280}
                 resizeStep={24}
             >
-                <SidebarContent
-                    aria-label="Playground sidebar"
-                    style={{ ...PANEL_SKIN, ...HANDLE_VISIBLE }}
-                >
-                    <DemoNav />
-                    {resizable ? <SidebarResizeHandle aria-label="Resize sidebar" /> : null}
+                <SidebarContent aria-label="Playground sidebar">
+                    <DemoNav aria-label="Playground sidebar">
+                        {resizable ? <SidebarResizeHandle aria-label="Resize sidebar" /> : null}
+                    </DemoNav>
                 </SidebarContent>
             </Sidebar>
         )
