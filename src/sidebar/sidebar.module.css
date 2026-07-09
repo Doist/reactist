@@ -73,7 +73,7 @@
 
 /*
  * Overlay: the panel floats over the content layer, anchored to its align edge
- * and capped to the viewport. It slides off-edge with a compositor-only
+ * and capped to its containing block, bounded by the viewport. It slides off-edge with a compositor-only
  * transform. Box geometry (insets, rounding, skin) is the consumer's; the inset
  * custom properties let them inset a floating card without a specificity fight.
  */
@@ -89,7 +89,7 @@
     );
     z-index: var(--reactist-sidebar-overlay-z-index);
     max-width: calc(
-        100vw - var(--reactist-sidebar-overlay-inset-inline) -
+        min(100%, 100vw) - var(--reactist-sidebar-overlay-inset-inline) -
             var(--reactist-sidebar-overlay-min-viewport-gap)
     );
     transition: transform var(--reactist-sidebar-transition-duration)
