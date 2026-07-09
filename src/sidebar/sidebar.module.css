@@ -138,6 +138,15 @@
     display: contents;
 }
 
+/*
+ * While the panel is closed, hide its inert content (i.e. not the persistent slot)
+ * so content wider than the panel doesn't flow into the viewport/container
+ */
+.panel[data-state='closed'] .inertContent {
+    visibility: hidden;
+    transition: visibility 0s var(--reactist-sidebar-transition-duration);
+}
+
 .backdrop {
     position: fixed;
     inset: 0;
