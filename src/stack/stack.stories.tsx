@@ -57,8 +57,12 @@ export function InteractivePropsStory({
     )
 }
 
+InteractivePropsStory.args = {
+    itemCount: 5,
+}
+
 InteractivePropsStory.argTypes = {
-    itemCount: selectCount('Item count', 5),
+    itemCount: selectCount('Item count'),
 }
 
 export function ResponsiveStory({ itemCount }: { itemCount: number }) {
@@ -77,6 +81,10 @@ export function ResponsiveStory({ itemCount }: { itemCount: number }) {
             </Wrapper>
         </>
     )
+}
+
+ResponsiveStory.args = {
+    itemCount: 5,
 }
 
 ResponsiveStory.argTypes = {
@@ -109,8 +117,12 @@ export function NestedStacksStory(args: PartialProps<typeof Stack>) {
     )
 }
 
+NestedStacksStory.args = {
+    space: 'xlarge',
+}
+
 NestedStacksStory.argTypes = {
-    space: selectSize('xlarge'),
+    space: selectSize(),
     dividers: { control: false },
     ...disableResponsiveProps,
 }
