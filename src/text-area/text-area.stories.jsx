@@ -163,7 +163,7 @@ export const InteractiveProps = {
             defaultValue: 'neutral',
         },
 
-        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'], 'small'),
+        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full']),
 
         variant: {
             options: ['default', 'bordered'],
@@ -347,7 +347,7 @@ export const AutoExpand = {
             defaultValue: 'neutral',
         },
 
-        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'], 'small'),
+        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full']),
 
         variant: {
             options: ['default', 'bordered'],
@@ -437,7 +437,7 @@ export const AutoExpandWithInitialValue = {
             defaultValue: 'neutral',
         },
 
-        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'], 'small'),
+        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full']),
 
         variant: {
             options: ['default', 'bordered'],

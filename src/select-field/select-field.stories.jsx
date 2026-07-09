@@ -98,7 +98,7 @@ export const InteractiveProps = {
             defaultValue: 'neutral',
         },
 
-        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'], 'small'),
+        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full']),
 
         variant: {
             options: ['default', 'bordered'],

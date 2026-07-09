@@ -250,7 +250,7 @@ export const InteractiveProps = {
             defaultValue: 'neutral',
         },
 
-        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full'], 'small'),
+        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full']),
 
         startSlot: {
             control: {
