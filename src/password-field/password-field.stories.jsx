@@ -82,8 +82,6 @@ export const InteractiveProps = {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Password',
         },
 
         value: {
@@ -98,8 +96,6 @@ export const InteractiveProps = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'neutral',
         },
 
         maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full']),
@@ -108,8 +104,6 @@ export const InteractiveProps = {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Toggle password visibility',
         },
 
         variant: {
@@ -118,49 +112,36 @@ export const InteractiveProps = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'default',
         },
 
         auxiliaryLabel: {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Forgot your password?',
         },
 
         message: {
             control: {
                 type: 'text',
             },
-
-            defaultValue:
-                'Must be at least 100 characters long, and it should include each letter of the alphabet',
         },
 
         endSlot: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
 
         placeholder: {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Type your password',
         },
 
         disabled: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
     },
 }

@@ -78,8 +78,6 @@ export const InteractiveProps = {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Theme',
         },
 
         value: {
@@ -94,8 +92,6 @@ export const InteractiveProps = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'neutral',
         },
 
         maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full']),
@@ -106,33 +102,24 @@ export const InteractiveProps = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'default',
         },
 
         auxiliaryLabel: {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Need help?',
         },
 
         message: {
             control: {
                 type: 'text',
             },
-
-            defaultValue:
-                'The theme you select will be applied immediately. If you upgrade to premium you will have more themes to choose from.',
         },
 
         disabled: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
     },
 }

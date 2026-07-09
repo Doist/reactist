@@ -230,8 +230,6 @@ export const InteractiveProps = {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Your name',
         },
 
         value: {
@@ -246,8 +244,6 @@ export const InteractiveProps = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'neutral',
         },
 
         maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full']),
@@ -256,16 +252,12 @@ export const InteractiveProps = {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
 
         endSlot: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
 
         variant: {
@@ -274,57 +266,42 @@ export const InteractiveProps = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'default',
         },
 
         auxiliaryLabel: {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Need help?',
         },
 
         message: {
             control: {
                 type: 'text',
             },
-
-            defaultValue:
-                'We need your name for billing and shipping purposes. Make sure to enter it correctly.',
         },
 
         placeholder: {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Enter your name as it appears in your ID',
         },
 
         maxLength: {
             control: {
                 type: 'number',
             },
-
-            defaultValue: null,
         },
 
         disabled: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
 
         readOnly: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
 
         characterCountPosition: {
@@ -333,8 +310,6 @@ export const InteractiveProps = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: undefined,
         },
 
         endSlotPosition: {
@@ -343,8 +318,6 @@ export const InteractiveProps = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: undefined,
         },
     },
 }

@@ -128,16 +128,12 @@ export const InteractiveProps = {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'User bio',
         },
 
         controlled: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
 
         value: {
@@ -149,8 +145,6 @@ export const InteractiveProps = {
             control: {
                 type: 'text',
             },
-
-            defaultValue: '',
         },
 
         tone: {
@@ -159,8 +153,6 @@ export const InteractiveProps = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'neutral',
         },
 
         maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full']),
@@ -171,81 +163,60 @@ export const InteractiveProps = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'default',
         },
 
         auxiliaryLabel: {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Need help?',
         },
 
         message: {
             control: {
                 type: 'text',
             },
-
-            defaultValue:
-                'You’ll have a better experience in our community if others get to know a little bit about you.',
         },
 
         rows: {
             control: {
                 type: 'number',
             },
-
-            defaultValue: 2,
         },
 
         autoExpand: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
 
         disableResize: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
 
         placeholder: {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Tell us something about yourself. Don’t be shy.',
         },
 
         maxLength: {
             control: {
                 type: 'number',
             },
-
-            defaultValue: null,
         },
 
         disabled: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
 
         readOnly: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
     },
 }
@@ -343,8 +314,6 @@ export const AutoExpand = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'neutral',
         },
 
         maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full']),
@@ -355,8 +324,6 @@ export const AutoExpand = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'default',
         },
 
         auxiliaryLabel: {
@@ -367,40 +334,30 @@ export const AutoExpand = {
             control: {
                 type: 'text',
             },
-
-            defaultValue: '',
         },
 
         rows: {
             control: {
                 type: 'number',
             },
-
-            defaultValue: 2,
         },
 
         autoExpand: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
 
         placeholder: {
             control: {
                 type: 'text',
             },
-
-            defaultValue: '',
         },
 
         disabled: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
     },
 }
@@ -433,8 +390,6 @@ export const AutoExpandWithInitialValue = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'neutral',
         },
 
         maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full']),
@@ -445,8 +400,6 @@ export const AutoExpandWithInitialValue = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'default',
         },
 
         auxiliaryLabel: {
@@ -457,56 +410,42 @@ export const AutoExpandWithInitialValue = {
             control: {
                 type: 'text',
             },
-
-            defaultValue: '',
         },
 
         rows: {
             control: {
                 type: 'number',
             },
-
-            defaultValue: 2,
         },
 
         autoExpand: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
 
         disableResize: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
 
         placeholder: {
             control: {
                 type: 'text',
             },
-
-            defaultValue: '',
         },
 
         disabled: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
 
         readOnly: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
     },
 }

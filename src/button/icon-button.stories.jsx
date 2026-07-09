@@ -468,7 +468,6 @@ export const Playground = {
             },
 
             options: ['OK', 'Submit', 'Mark as done'],
-            defaultValue: 'Submit',
         },
 
         variant: {
@@ -477,8 +476,6 @@ export const Playground = {
             control: {
                 type: 'select',
             },
-
-            defaultValue: 'primary',
         },
 
         tone: {
@@ -487,8 +484,6 @@ export const Playground = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'normal',
         },
 
         size: {
@@ -497,8 +492,6 @@ export const Playground = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'normal',
         },
 
         shape: {
@@ -507,8 +500,6 @@ export const Playground = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'normal',
         },
 
         disabled: {
@@ -563,8 +554,6 @@ export const DarkMode = {
                 'Yes, cancel my subscription',
                 'Click me <em>now</em>',
             ],
-
-            defaultValue: 'Submit',
         },
 
         variant: {
@@ -573,8 +562,6 @@ export const DarkMode = {
             control: {
                 type: 'select',
             },
-
-            defaultValue: 'primary',
         },
 
         tone: {
@@ -583,8 +570,6 @@ export const DarkMode = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'normal',
         },
 
         size: {
@@ -593,8 +578,6 @@ export const DarkMode = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'normal',
         },
 
         disabled: {
