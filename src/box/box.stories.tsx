@@ -49,32 +49,41 @@ export function InteractivePropsStory({ children, ...props }: PartialProps<typeo
     )
 }
 
+InteractivePropsStory.args = {
+    children: 'The quick brown fox jumps over the lazy dog.',
+    display: 'block',
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    borderRadius: 'none',
+    overlayScroll: false,
+}
+
 InteractivePropsStory.argTypes = {
     children: {
         control: { type: 'text' },
-        defaultValue: 'The quick brown fox jumps over the lazy dog.',
     },
-    display: select<BoxDisplay>(['block', 'inlineBlock', 'inline', 'flex', 'none'], 'block'),
-    flexDirection: selectWithNone<BoxFlexDirection>(['column', 'row'], 'row'),
-    flexWrap: selectWithNone<BoxFlexWrap>(['wrap', 'nowrap'], 'nowrap'),
-    alignItems: selectWithNone<BoxAlignItems>(
-        ['center', 'flexEnd', 'flexStart', 'baseline'],
-        'none',
-    ),
-    justifyContent: selectWithNone<BoxJustifyContent>(
-        ['center', 'flexEnd', 'flexStart', 'spaceBetween'],
-        'none',
-    ),
-    textAlign: selectWithNone<BoxTextAlign>(['start', 'center', 'end', 'justify'], 'none'),
-    background: selectWithNone<BoxBackground>(
-        ['default', 'aside', 'highlight', 'selected', 'toast'],
-        'none',
-    ),
-    borderRadius: select<BoxBorderRadius>(['standard', 'none', 'full'], 'none'),
+    display: select<BoxDisplay>(['block', 'inlineBlock', 'inline', 'flex', 'none']),
+    flexDirection: selectWithNone<BoxFlexDirection>(['column', 'row']),
+    flexWrap: selectWithNone<BoxFlexWrap>(['wrap', 'nowrap']),
+    alignItems: selectWithNone<BoxAlignItems>(['center', 'flexEnd', 'flexStart', 'baseline']),
+    justifyContent: selectWithNone<BoxJustifyContent>([
+        'center',
+        'flexEnd',
+        'flexStart',
+        'spaceBetween',
+    ]),
+    textAlign: selectWithNone<BoxTextAlign>(['start', 'center', 'end', 'justify']),
+    background: selectWithNone<BoxBackground>([
+        'default',
+        'aside',
+        'highlight',
+        'selected',
+        'toast',
+    ]),
+    borderRadius: select<BoxBorderRadius>(['standard', 'none', 'full']),
     ...reusableBoxProps(),
     overlayScroll: {
         control: { type: 'boolean' },
-        defaultValue: false,
     },
 }
 
@@ -155,8 +164,12 @@ export function PaddingStory({ padding }: { padding: Space }) {
     )
 }
 
+PaddingStory.args = {
+    padding: 'medium',
+}
+
 PaddingStory.argTypes = {
-    padding: selectSize('medium'),
+    padding: selectSize(),
 }
 
 const marginToPadding: Record<keyof BoxMarginProps, keyof BoxPaddingProps> = {
@@ -225,25 +238,26 @@ export function MarginStory({ margin }: { margin: Space }) {
     )
 }
 
+MarginStory.args = {
+    margin: 'medium',
+}
+
 MarginStory.argTypes = {
-    margin: select<SpaceWithNegatives | 'none'>(
-        [
-            'xxlarge',
-            'xlarge',
-            'large',
-            'medium',
-            'small',
-            'xsmall',
-            'none',
-            '-xsmall',
-            '-small',
-            '-medium',
-            '-large',
-            '-xlarge',
-            '-xxlarge',
-        ],
+    margin: select<SpaceWithNegatives | 'none'>([
+        'xxlarge',
+        'xlarge',
+        'large',
         'medium',
-    ),
+        'small',
+        'xsmall',
+        'none',
+        '-xsmall',
+        '-small',
+        '-medium',
+        '-large',
+        '-xlarge',
+        '-xxlarge',
+    ]),
 }
 
 export function OverlayScrollStory() {
