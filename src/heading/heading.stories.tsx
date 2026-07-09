@@ -109,16 +109,22 @@ export function ResponsiveHeadingStory(props: React.ComponentProps<typeof Headin
     )
 }
 
+ResponsiveHeadingStory.args = {
+    level: '1',
+    weight: 'regular',
+    tone: 'normal',
+    children: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit',
+}
+
 ResponsiveHeadingStory.argTypes = {
-    level: select(['1', '2', '3', '4', '5', '6'], '1'),
-    size: selectWithNone(['largest', 'larger', 'smaller'], 'none'),
-    weight: select(['regular', 'light'], 'regular'),
-    lineClamp: selectWithNone([1, 2, 3, 4, 5], 'none'),
-    tone: select(['normal', 'secondary', 'danger'], 'normal'),
+    level: select(['1', '2', '3', '4', '5', '6']),
+    size: selectWithNone(['largest', 'larger', 'smaller']),
+    weight: select(['regular', 'light']),
+    lineClamp: selectWithNone([1, 2, 3, 4, 5]),
+    tone: select(['normal', 'secondary', 'danger']),
     align: { control: false },
     children: {
         control: { type: 'text' },
-        defaultValue: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit',
     },
 }
 
@@ -130,15 +136,21 @@ export function HeadingPlaygroundStory(props: React.ComponentProps<typeof Headin
     )
 }
 
+HeadingPlaygroundStory.args = {
+    level: '1',
+    weight: 'regular',
+    tone: 'normal',
+    children: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit',
+}
+
 HeadingPlaygroundStory.argTypes = {
-    level: select(['1', '2', '3', '4', '5', '6'], '1'),
-    size: selectWithNone(['largest', 'larger', 'smaller'], 'none'),
-    weight: select(['regular', 'medium', 'light'], 'regular'),
-    lineClamp: selectWithNone([1, 2, 3, 4, 5], 'none'),
-    tone: select(['normal', 'secondary', 'danger'], 'normal'),
-    align: selectWithNone(['start', 'center', 'end', 'justify'], 'none'),
+    level: select(['1', '2', '3', '4', '5', '6']),
+    size: selectWithNone(['largest', 'larger', 'smaller']),
+    weight: select(['regular', 'medium', 'light']),
+    lineClamp: selectWithNone([1, 2, 3, 4, 5]),
+    tone: select(['normal', 'secondary', 'danger']),
+    align: selectWithNone(['start', 'center', 'end', 'justify']),
     children: {
         control: { type: 'text' },
-        defaultValue: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit',
     },
 }
