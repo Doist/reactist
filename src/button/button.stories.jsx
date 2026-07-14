@@ -666,8 +666,6 @@ export const FullWidth = {
                 'Click me <em>now</em>',
                 'If you click me now, youʼll take away the biggest part of me',
             ],
-
-            defaultValue: 'Submit',
         },
 
         variant: {
@@ -676,8 +674,6 @@ export const FullWidth = {
             control: {
                 type: 'select',
             },
-
-            defaultValue: 'primary',
         },
 
         tone: {
@@ -686,8 +682,6 @@ export const FullWidth = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'normal',
         },
 
         size: {
@@ -696,8 +690,6 @@ export const FullWidth = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'normal',
         },
 
         shape: {
@@ -706,8 +698,6 @@ export const FullWidth = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'normal',
         },
 
         width: {
@@ -716,8 +706,6 @@ export const FullWidth = {
             control: {
                 type: 'select',
             },
-
-            defaultValue: 'full',
         },
 
         align: {
@@ -784,8 +772,6 @@ export const Playground = {
                 'Click me <em>now</em>',
                 'If you click me now, youʼll take away the biggest part of me',
             ],
-
-            defaultValue: 'Submit',
         },
 
         variant: {
@@ -794,8 +780,6 @@ export const Playground = {
             control: {
                 type: 'select',
             },
-
-            defaultValue: 'primary',
         },
 
         tone: {
@@ -804,8 +788,6 @@ export const Playground = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'normal',
         },
 
         size: {
@@ -814,8 +796,6 @@ export const Playground = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'normal',
         },
 
         shape: {
@@ -824,8 +804,6 @@ export const Playground = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'normal',
         },
 
         disabled: {
@@ -885,8 +863,6 @@ export const DarkMode = {
                 'Yes, cancel my subscription',
                 'Click me <em>now</em>',
             ],
-
-            defaultValue: 'Submit',
         },
 
         variant: {
@@ -895,8 +871,6 @@ export const DarkMode = {
             control: {
                 type: 'select',
             },
-
-            defaultValue: 'primary',
         },
 
         tone: {
@@ -905,8 +879,6 @@ export const DarkMode = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'normal',
         },
 
         size: {
@@ -915,8 +887,6 @@ export const DarkMode = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'normal',
         },
 
         disabled: {

@@ -20,8 +20,11 @@ import type { InlineAlign } from './inline'
 export default {
     title: '📐 Layout/Inline',
     component: Inline,
+    args: {
+        space: 'medium',
+    },
     argTypes: {
-        space: selectSize('medium'),
+        space: selectSize(),
         align: selectWithNone<InlineAlign>(['left', 'center', 'right']),
         ...reusableBoxProps(),
     },
@@ -100,8 +103,12 @@ export function NestedStackStory({ space }: PartialProps<typeof Inline>) {
     )
 }
 
+NestedStackStory.args = {
+    space: 'xlarge',
+}
+
 NestedStackStory.argTypes = {
-    space: selectSize('xlarge'),
+    space: selectSize(),
     align: { control: false },
     ...disableResponsiveProps,
 }

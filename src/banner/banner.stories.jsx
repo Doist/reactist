@@ -420,8 +420,6 @@ export const Playground = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'info',
         },
 
         image: {
@@ -436,16 +434,12 @@ export const Playground = {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Title of the Banner',
         },
 
         description: {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Description of the Banner.',
         },
 
         action: {

@@ -58,7 +58,6 @@ export const Playground = {
             },
 
             options: ['short', 'long', 'longer'],
-            defaultValue: 'short',
         },
 
         tone: {
@@ -67,16 +66,12 @@ export const Playground = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'info',
         },
 
         closeLabel: {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Close',
         },
 
         id: {

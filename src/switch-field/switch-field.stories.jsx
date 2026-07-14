@@ -50,8 +50,6 @@ export const Playground = {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Show unread badge',
         },
 
         tone: {
@@ -60,24 +58,18 @@ export const Playground = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'neutral',
         },
 
         message: {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Show an icon badge to indicate that there are new threads and messages.',
         },
 
         disabled: {
             control: {
                 type: 'boolean',
             },
-
-            defaultValue: false,
         },
     },
 }

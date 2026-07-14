@@ -132,16 +132,12 @@ export const Playground = {
             control: {
                 type: 'inline-radio',
             },
-
-            defaultValue: 'info',
         },
 
         label: {
             control: {
                 type: 'text',
             },
-
-            defaultValue: 'Upgrade',
         },
 
         id: {
