@@ -1,6 +1,11 @@
 /// <reference types="../types/css" />
 /// <reference types="../types/less" />
 
+// Bundles the product library's classless light palette so `var(--product-library-*)` resolves out
+// of the box. Dark/accent themes override via the package's `.theme_*` classes (imported by apps).
+// eslint-disable-next-line import/no-unresolved -- the `/css/*` subpath resolves at build time (Rollup and Vite) but not via eslint's default import resolver, which doesn't follow package `exports` maps (the stories override documents the same limitation).
+import '@doist/product-libraries-tokens/css/td-light.css'
+
 import './styles/design-tokens.css'
 
 // layout components

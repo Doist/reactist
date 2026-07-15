@@ -1,3 +1,4 @@
+import '@doist/product-libraries-tokens/css/td-light.css'
 import '../src/styles/design-tokens.css'
 import '../stories/components/styles/story.css'
 

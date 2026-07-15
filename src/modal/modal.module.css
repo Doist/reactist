@@ -8,7 +8,7 @@
 }
 
 :root {
-    --reactist-modal-overlay-fill: rgba(0, 0, 0, 0.5);
+    --reactist-modal-overlay-fill: var(--product-library-background-overlay);
     --reactist-modal-padding-top: 13vh;
 }
 
