@@ -1,10 +1,10 @@
 :root {
-    --reactist-banner-info-icon-color: #316fea;
-    --reactist-banner-upgrade-icon-color: #f48318;
-    --reactist-banner-experiment-icon-color: #f48318;
-    --reactist-banner-warning-icon-color: #eb8909;
-    --reactist-banner-error-icon-color: #dc4c3e;
-    --reactist-banner-success-icon-color: #058527;
+    --reactist-banner-info-icon-color: var(--product-library-info-neutral-primary-idle-fill);
+    --reactist-banner-upgrade-icon-color: var(--product-library-info-promote-primary-idle-fill);
+    --reactist-banner-experiment-icon-color: var(--product-library-info-promote-primary-idle-fill);
+    --reactist-banner-warning-icon-color: var(--product-library-info-warning-primary-on-idle-fill);
+    --reactist-banner-error-icon-color: var(--product-library-info-attention-primary-idle-fill);
+    --reactist-banner-success-icon-color: var(--product-library-info-positive-primary-idle-fill);
 }
 
 .info {

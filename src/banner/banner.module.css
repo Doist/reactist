@@ -1,16 +1,16 @@
 :root {
-    --reactist-banner-background-color: #fcfaf8;
-    --reactist-banner-border-color: #e6e6e6;
-    --reactist-banner-divider-color: var(--reactist-divider-secondary);
+    --reactist-banner-background-color: var(--product-library-background-base-secondary);
+    --reactist-banner-border-color: var(--product-library-border-idle-tint);
+    --reactist-banner-divider-color: var(--product-library-divider-secondary);
 
     --reactist-banner-main-copy-font-size: 14px;
     --reactist-banner-main-copy-line-height: 21px;
     --reactist-banner-main-copy-spacing: -0.15px;
-    --reactist-banner-main-copy-color: #202020;
+    --reactist-banner-main-copy-color: var(--product-library-display-primary-idle-tint);
 
     --reactist-banner-secondary-copy-font-size: 12px;
     --reactist-banner-secondary-copy-line-height: 20px;
-    --reactist-banner-secondary-copy-color: #666666;
+    --reactist-banner-secondary-copy-color: var(--product-library-display-secondary-idle-tint);
 
     --reactist-banner-min-width: 0;
 }

@@ -1,7 +1,7 @@
 :root {
-    --reactist-switch-background: var(--reactist-framework-fill-summit);
-    --reactist-switch-checked: var(--reactist-content-positive);
-    --reactist-switch-toggle: var(--reactist-bg-default);
+    --reactist-switch-background: var(--product-library-selectable-primary-unselected-fill);
+    --reactist-switch-checked: var(--product-library-actionable-primary-idle-fill);
+    --reactist-switch-toggle: var(--product-library-selectable-primary-on-selected-fill);
 }
 
 .container,

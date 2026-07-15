@@ -1,17 +1,17 @@
 :root {
-    --reactist-prose-code-fill: rgb(247, 250, 251);
-    --reactist-prose-code-tint: var(--reactist-content-primary);
-    --reactist-prose-code-border: var(--reactist-divider-primary);
-    --reactist-prose-quote-tint: #4a6368;
+    --reactist-prose-code-fill: var(--product-library-background-base-secondary);
+    --reactist-prose-code-tint: var(--product-library-display-primary-idle-tint);
+    --reactist-prose-code-border: var(--product-library-divider-primary);
+    --reactist-prose-quote-tint: var(--product-library-display-secondary-idle-tint);
 
-    --reactist-prose-link-idle-tint: #006f85;
-    --reactist-prose-link-idle-underline: var(--reactist-divider-primary);
-    --reactist-prose-link-hover-tint: #006f85;
-    --reactist-prose-link-hover-underline: #006f85;
+    --reactist-prose-link-idle-tint: inherit;
+    --reactist-prose-link-idle-underline: inherit;
+    --reactist-prose-link-hover-tint: var(--product-library-actionable-tertiary-hover-tint);
+    --reactist-prose-link-hover-underline: inherit;
 
-    --reactist-prose-horizontal-rule-color: var(--reactist-divider-primary);
+    --reactist-prose-horizontal-rule-color: var(--product-library-divider-primary);
 
-    --reactist-prose-table-border: var(--reactist-divider-primary);
+    --reactist-prose-table-border: var(--product-library-divider-primary);
 
     /* `transparent` (the initial value of `background-color`) rather than `initial`, which is
        special-cased in custom property values to mean "guaranteed invalid", or `inherit`, which
