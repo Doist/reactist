@@ -82,6 +82,7 @@
         "@babel/register": "7.29.3",
         "@doist/eslint-config": "12.0.1",
         "@doist/prettier-config": "4.0.1",
+        "@doist/product-libraries-tokens": "1.0.0",
         "@doist/react-compiler-tracker": "2.3.6",
         "@doist/tsconfig": "2.0.1",
         "@rollup/plugin-babel": "6.1.0",
