@@ -7,6 +7,9 @@ jobs:
         runs-on: ubuntu-latest
         # Based on historical data
         timeout-minutes: 15
+        strategy:
+            matrix:
+                node-version: [24, 26]
         steps:
             - name: Checkout repository
               uses: actions/checkout@v5
@@ -17,7 +20,7 @@ jobs:
               uses: actions/setup-node@v6
               with:
                   cache: npm
-                  node-version-file: .node-version
+                  node-version: ${{ matrix.node-version }}
 
             - name: Cache project 'node_modules' directory
               id: node-modules-cache
