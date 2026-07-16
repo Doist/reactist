@@ -21,5 +21,5 @@ Feel free to leave unchecked or remove the lines that are not applicable.
 - [ ] Reviewed and approved Chromatic visual regression tests in CI
 
 <!--
-_Note:_ versioning is handled by [release-please](https://github.com/googleapis/release-please) action, based on the PR title.
+_Note:_ versioning is handled by [semantic-release](https://github.com/semantic-release/semantic-release), based on the PR title.
 -->
