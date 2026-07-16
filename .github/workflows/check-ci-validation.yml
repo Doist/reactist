@@ -103,8 +103,8 @@ jobs:
                     echo "No source files changed, skipping React Compiler check"
                   fi
 
-    unit-testing:
-        name: Unit Testing
+    unit-testing-matrix:
+        name: Unit Testing (matrix)
         runs-on: ubuntu-latest
         timeout-minutes: 15
 
@@ -178,3 +178,20 @@ jobs:
             - name: Build `@doist/reactist` package
               run: |
                   npm run build
+
+    # Aggregate gate: reports a single stable `Unit Testing` status regardless
+    # of the node-version matrix, so branch protection can require one context
+    # that doesn't change when the matrix does.
+    unit-testing:
+        name: Unit Testing
+        runs-on: ubuntu-latest
+        needs:
+            - unit-testing-matrix
+        if: always()
+        steps:
+            - name: Verify the unit-testing matrix succeeded
+              run: |
+                  if [ "${{ needs.unit-testing-matrix.result }}" != "success" ]; then
+                      echo "unit-testing-matrix result: ${{ needs.unit-testing-matrix.result }}"
+                      exit 1
+                  fi
