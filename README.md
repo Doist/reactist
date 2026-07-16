@@ -203,7 +203,7 @@ When you open a GitHub PR, you'll notice the "UI Review" and "UI Tests" CI steps
 
 # Releasing
 
-This project uses [release-please](https://github.com/googleapis/release-please) to automate version management and package publishing.
+This project uses [semantic-release](https://github.com/semantic-release/semantic-release) to automate version management and package publishing.
 
 ## How it works
 
@@ -221,16 +221,12 @@ This project uses [release-please](https://github.com/googleapis/release-please)
     - `feat!:` or `fix!:` for breaking changes (major version bump)
     - `chore:` for maintenance tasks (NOTE: these are not included in the changelog)
 
-2. When commits are pushed to `main`:
-    - Release-please automatically creates/updates a release PR
-    - The PR includes version bump and changelog updates
-    - Review the PR and merge when ready
+2. When a PR is merged to `main`, the [Package Release](.github/workflows/publish-package-release.yml) workflow runs and semantic-release:
+    - Reads the merged commit's conventional-commit type to determine the version bump
+    - Updates `CHANGELOG.md`, `package.json`, and `package-lock.json`, and commits them back to `main`
+    - Creates a new tag and GitHub release
+    - Publishes the package to npm and GitHub Packages
 
-3. After merging the release PR:
-    - A new GitHub release is automatically created
-    - A new tag is created
-    - The `publish` workflow is triggered
-    - The package is published to npm and GitHub Packages
-    - Storybook documentation is automatically updated
+Merges with a releasing commit (`feat:`, `fix:`, `feat!:`, or `fix!:`, optionally scoped like `feat(button):` or `fix(tooltip)!:`) publish a release automatically. Merges that only contain non-releasing types (e.g. `chore:`, `docs:`) don't trigger one.
 
 The storybook hosted on GitHub pages will be automatically updated on each push to `main`. If there's a problem, try running the action manually from the [Actions settings](https://github.com/Doist/reactist/actions).
