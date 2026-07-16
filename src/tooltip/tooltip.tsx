@@ -12,6 +12,7 @@ import { Box } from '../box'
 import styles from './tooltip.module.css'
 
 import type { TooltipStore, TooltipStoreState } from '@ariakit/react'
+import type { JSX } from 'react'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
 const defaultShowTimeout = 500
@@ -143,13 +144,9 @@ const Tooltip = React.forwardRef<TooltipStore, TooltipProps>(
             return child
         }
 
-        if (typeof child.ref === 'string') {
-            throw new Error('Tooltip: String refs cannot be used as they cannot be forwarded')
-        }
-
         return (
             <>
-                <TooltipAnchor render={child} store={tooltip} ref={child.ref} />
+                <TooltipAnchor render={child} store={tooltip} />
                 {isOpen && content ? (
                     <AriakitTooltip
                         store={tooltip}

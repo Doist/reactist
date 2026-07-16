@@ -4,6 +4,8 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
+import { flushMicrotasks } from '../utils/test-helpers'
+
 import { Tab, TabAwareSlot, TabList, TabPanel, Tabs } from './'
 
 describe('Tabs', () => {
@@ -20,13 +22,15 @@ describe('Tabs', () => {
                 <TabPanel id="tab3">Content of tab 3</TabPanel>
             </Tabs>,
         )
+        const user = userEvent.setup()
 
         expect(await screen.findByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
         expect(screen.getByText('Content of tab 1')).toBeVisible()
         expect(screen.getByText('Content of tab 2')).not.toBeVisible()
         expect(screen.getByText('Content of tab 3')).not.toBeVisible()
 
-        userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await user.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await flushMicrotasks()
 
         await waitFor(() => {
             expect(screen.getByText('Content of tab 1')).not.toBeVisible()
@@ -36,7 +40,8 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 2')).toBeVisible()
         expect(screen.getByText('Content of tab 3')).not.toBeVisible()
 
-        userEvent.click(screen.getByRole('tab', { name: 'Tab 3' }))
+        await user.click(screen.getByRole('tab', { name: 'Tab 3' }))
+        await flushMicrotasks()
 
         await waitFor(() => {
             expect(screen.getByText('Content of tab 2')).not.toBeVisible()
@@ -66,19 +71,22 @@ describe('Tabs', () => {
                 </TabPanel>
             </Tabs>,
         )
+        const user = userEvent.setup()
 
         expect(await screen.findByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
         expect(screen.getByText('Content of tab 1')).toBeVisible()
         expect(screen.queryByText('Content of tab 2')).not.toBeInTheDocument()
         expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
 
-        userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await user.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await flushMicrotasks()
         expect(screen.queryByText('Content of tab 1')).not.toBeInTheDocument()
         expect(screen.getByRole('tabpanel', { name: 'Tab 2' })).toBeVisible()
         expect(screen.getByText('Content of tab 2')).toBeVisible()
         expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
 
-        userEvent.click(screen.getByRole('tab', { name: 'Tab 3' }))
+        await user.click(screen.getByRole('tab', { name: 'Tab 3' }))
+        await flushMicrotasks()
         expect(screen.queryByText('Content of tab 1')).not.toBeInTheDocument()
         expect(screen.queryByText('Content of tab 2')).not.toBeInTheDocument()
         expect(screen.getByRole('tabpanel', { name: 'Tab 3' })).toBeVisible()
@@ -104,13 +112,15 @@ describe('Tabs', () => {
                 </TabPanel>
             </Tabs>,
         )
+        const user = userEvent.setup()
 
         expect(await screen.findByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
         expect(screen.getByText('Content of tab 1')).toBeVisible()
         expect(screen.queryByText('Content of tab 2')).not.toBeInTheDocument()
         expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
 
-        userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await user.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await flushMicrotasks()
 
         await waitFor(() => {
             expect(screen.getByText('Content of tab 1')).not.toBeVisible()
@@ -120,7 +130,8 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 2')).toBeVisible()
         expect(screen.queryByText('Content of tab 3')).not.toBeInTheDocument()
 
-        userEvent.click(screen.getByRole('tab', { name: 'Tab 3' }))
+        await user.click(screen.getByRole('tab', { name: 'Tab 3' }))
+        await flushMicrotasks()
 
         await waitFor(() => {
             expect(screen.getByText('Content of tab 2')).not.toBeVisible()
@@ -144,11 +155,16 @@ describe('Tabs', () => {
                 <TabPanel id="tab3">Content of tab 3</TabPanel>
             </Tabs>,
         )
+        const user = userEvent.setup()
 
-        userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await user.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await flushMicrotasks()
+
+        await waitFor(() => {
+            expect(screen.getByText('Content of tab 1')).not.toBeVisible()
+        })
 
         expect(screen.getByText('Content of tab 2')).toBeVisible()
-        expect(screen.getByText('Content of tab 1')).not.toBeVisible()
         expect(screen.getByText('Content of tab 3')).not.toBeVisible()
 
         const onSelectedIdChange = jest.fn()
@@ -173,7 +189,8 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 1')).not.toBeVisible()
         expect(screen.getByText('Content of tab 3')).toBeVisible()
 
-        userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await user.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await flushMicrotasks()
 
         expect(onSelectedIdChange).toHaveBeenCalledTimes(1)
         expect(onSelectedIdChange).toHaveBeenCalledWith('tab2')
@@ -197,10 +214,13 @@ describe('Tabs', () => {
             </Tabs>,
         )
 
+        await waitFor(() => {
+            expect(screen.getByText('Content of tab 3')).not.toBeVisible()
+        })
+
         expect(onSelectedIdChange).not.toHaveBeenCalled()
         expect(screen.getByText('Content of tab 1')).not.toBeVisible()
         expect(screen.getByText('Content of tab 2')).toBeVisible()
-        expect(screen.getByText('Content of tab 3')).not.toBeVisible()
     })
 
     it("calls TabAwareSlot's render prop with the current selectedId", async () => {
@@ -219,14 +239,17 @@ describe('Tabs', () => {
                 <TabPanel id="tab3">Content of tab 3</TabPanel>
             </Tabs>,
         )
+        const user = userEvent.setup()
 
         expect(await screen.findByRole('tabpanel', { name: 'Tab 1' })).toBeVisible()
         expect(screen.getByText('Currently rendering tab1')).toBeVisible()
 
-        userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await user.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await flushMicrotasks()
         expect(screen.getByText('Currently rendering tab2')).toBeVisible()
 
-        userEvent.click(screen.getByRole('tab', { name: 'Tab 3' }))
+        await user.click(screen.getByRole('tab', { name: 'Tab 3' }))
+        await flushMicrotasks()
         expect(screen.getByText('Currently rendering tab3')).toBeVisible()
     })
 
@@ -256,6 +279,7 @@ describe('Tabs', () => {
                 </TabPanel>
             </Tabs>,
         )
+        const user = userEvent.setup()
 
         const customTabPanel = await screen.findByTestId('custom-tab-panel')
         await waitFor(() => {
@@ -263,7 +287,8 @@ describe('Tabs', () => {
         })
         expect(screen.getByText('Content of tab 1')).toBe(customTabPanel)
 
-        userEvent.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await user.click(screen.getByRole('tab', { name: 'Tab 2' }))
+        await flushMicrotasks()
         expect(screen.getByRole('tabpanel', { name: 'Tab 2' })).toBeVisible()
         expect(screen.getByRole('tabpanel', { name: 'Tab 2' })).toBe(
             document.querySelector('section'),
@@ -271,7 +296,7 @@ describe('Tabs', () => {
         expect(screen.getByText('Content of tab 2')).toBeVisible()
     })
 
-    it('allows to subscribe to the tab click event', () => {
+    it('allows to subscribe to the tab click event', async () => {
         const onClick = jest.fn()
         render(
             <Tabs>
@@ -285,8 +310,11 @@ describe('Tabs', () => {
                 <TabPanel id="tab2">Content of tab 2</TabPanel>
             </Tabs>,
         )
+        const user = userEvent.setup()
+
         expect(onClick).not.toHaveBeenCalled()
-        userEvent.click(screen.getByRole('tab', { name: 'Tab 1' }))
+        await user.click(screen.getByRole('tab', { name: 'Tab 1' }))
+        await flushMicrotasks()
         expect(onClick).toHaveBeenCalledTimes(1)
     })
 

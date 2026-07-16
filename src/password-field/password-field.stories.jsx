@@ -1,0 +1,214 @@
+import * as React from 'react'
+
+import { Stack } from '../stack'
+import { Text } from '../text'
+import { selectWithNone } from '../utils/storybook-helper'
+
+import { PasswordField } from './'
+
+function preventDefault(event) {
+    event.preventDefault()
+}
+
+function AlertIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18Zm1-5.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-.014-7.014A.987.987 0 0 0 12 7.5h-.027l-.028.002a.987.987 0 0 0-.93 1.04l.236 4.25c.053.944 1.445.944 1.498 0l.236-4.25.001-.028v-.027Z"
+                fill="#DC4C3E"
+            />
+        </svg>
+    )
+}
+
+function InteractivePropsStory({ label, auxiliaryLabel, endSlot = false, ...props }) {
+    return (
+        <PasswordField
+            {...props}
+            label={label}
+            auxiliaryLabel={
+                auxiliaryLabel ? (
+                    <a href="#" onClick={preventDefault}>
+                        {auxiliaryLabel}
+                    </a>
+                ) : undefined
+            }
+            endSlot={endSlot ? <AlertIcon /> : undefined}
+        />
+    )
+}
+
+export default {
+    title: '📝 Form/PasswordField',
+    component: PasswordField,
+
+    parameters: {
+        badges: ['accessible'],
+        figma: {
+            path: '24Q3 Foundation › Password',
+            url: 'https://www.figma.com/design/5gTX7MuUxhCIvL6WK87JVA/24Q3-Foundation?node-id=2295-76983',
+        },
+    },
+}
+
+export const InteractiveProps = {
+    render: InteractivePropsStory.bind({}),
+    name: 'Interactive props',
+
+    parameters: {
+        chromatic: {
+            disableSnapshot: false,
+        },
+    },
+
+    args: {
+        label: 'Password',
+        tone: 'neutral',
+        maxWidth: 'small',
+        togglePasswordLabel: 'Toggle password visibility',
+        variant: 'default',
+        auxiliaryLabel: 'Forgot your password?',
+        message:
+            'Must be at least 100 characters long, and it should include each letter of the alphabet',
+        endSlot: false,
+        placeholder: 'Type your password',
+        disabled: false,
+    },
+
+    argTypes: {
+        label: {
+            control: {
+                type: 'text',
+            },
+        },
+
+        value: {
+            table: {
+                disable: true,
+            },
+        },
+
+        tone: {
+            options: ['neutral', 'success', 'error', 'loading'],
+
+            control: {
+                type: 'inline-radio',
+            },
+        },
+
+        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full']),
+
+        togglePasswordLabel: {
+            control: {
+                type: 'text',
+            },
+        },
+
+        variant: {
+            options: ['default', 'bordered'],
+
+            control: {
+                type: 'inline-radio',
+            },
+        },
+
+        auxiliaryLabel: {
+            control: {
+                type: 'text',
+            },
+        },
+
+        message: {
+            control: {
+                type: 'text',
+            },
+        },
+
+        endSlot: {
+            control: {
+                type: 'boolean',
+            },
+        },
+
+        placeholder: {
+            control: {
+                type: 'text',
+            },
+        },
+
+        disabled: {
+            control: {
+                type: 'boolean',
+            },
+        },
+    },
+}
+
+export const MessageTone = {
+    render: () => (
+        <Stack space="xxlarge" dividers="secondary">
+            <PasswordField
+                label="Password confirmation"
+                message="Comparing to original password…"
+                tone="loading"
+                disabled
+                maxWidth="small"
+            />
+            <PasswordField
+                label="Password confirmation"
+                message="It does not match the original password"
+                tone="error"
+                maxWidth="small"
+            />
+            <PasswordField
+                label="Password confirmation"
+                message="Matches original password!"
+                tone="success"
+                maxWidth="small"
+            />
+            <PasswordField
+                label="Password confirmation"
+                message="This is the supporting text (helper or error) of the field, provided by the message prop"
+                tone="neutral"
+                maxWidth="small"
+            />
+        </Stack>
+    ),
+
+    name: 'Message tone',
+
+    parameters: {
+        chromatic: {
+            disableSnapshot: false,
+        },
+    },
+}
+
+export const WithoutLabel = {
+    render: () => (
+        <Stack space="xlarge" dividers="secondary" maxWidth="small">
+            <Stack as="label" htmlFor="custom-textarea" space="small">
+                <Text size="subtitle">Custom label is up here</Text>
+                <Text size="caption" tone="secondary" aria-hidden>
+                    <em>(click me to focus the textarea)</em>
+                </Text>
+            </Stack>
+            <PasswordField
+                label={null}
+                id="custom-textarea"
+                aria-describedby="custom-description"
+                placeholder="Password field without a built-in label"
+            />
+            <Stack space="small" id="custom-description">
+                <Text size="body">Custom description is down here</Text>
+                <Text size="caption" tone="secondary" aria-hidden>
+                    <em>(inspect the input element accessibility properties if you are curious)</em>
+                </Text>
+            </Stack>
+        </Stack>
+    ),
+
+    name: 'Without label',
+}

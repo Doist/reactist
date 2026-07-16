@@ -9,7 +9,7 @@ import Time from '../../src/components/time'
 // Story setup ================================================================
 
 export default {
-    title: 'Components/Time',
+    title: '📊 Data display/Time',
     component: Time,
     parameters: {
         badges: ['accessible'],

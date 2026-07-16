@@ -6,7 +6,7 @@ import { Placeholder, ResponsiveWidthRef } from '../utils/storybook-helper'
 import { Hidden } from './hidden'
 
 export default {
-    title: 'Design system/Hidden',
+    title: '📐 Layout/Hidden',
     component: Hidden,
     parameters: {
         badges: ['accessible'],

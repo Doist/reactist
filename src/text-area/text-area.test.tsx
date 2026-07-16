@@ -201,33 +201,36 @@ describe('TextArea', () => {
         expect(textarea).toHaveAttribute('rows', '4')
     })
 
-    it('allows to type text into it', () => {
+    it('allows to type text into it', async () => {
         render(<TextArea label="Tell us a bit about you" />)
+        const user = userEvent.setup()
         const textareaElement = screen.getByRole('textbox', { name: 'Tell us a bit about you' })
         expect(textareaElement).toHaveValue('')
-        userEvent.type(textareaElement, 'I love to travel around the world')
+        await user.type(textareaElement, 'I love to travel around the world')
         expect(textareaElement).toHaveValue('I love to travel around the world')
     })
 
-    it('can be disabled', () => {
+    it('can be disabled', async () => {
         render(<TextArea label="Tell us a bit about you" disabled />)
+        const user = userEvent.setup()
         const textareaElement = screen.getByRole('textbox', { name: 'Tell us a bit about you' })
         expect(textareaElement).toBeDisabled()
         expect(textareaElement).toHaveValue('')
-        userEvent.type(textareaElement, 'I love to travel around the world')
+        await user.type(textareaElement, 'I love to travel around the world')
         expect(textareaElement).toHaveValue('')
     })
 
-    it('can be readonly', () => {
+    it('can be readonly', async () => {
         render(<TextArea label="Tell us a bit about you" readOnly />)
+        const user = userEvent.setup()
         const textareaElement = screen.getByRole('textbox', { name: 'Tell us a bit about you' })
         expect(textareaElement).not.toBeDisabled()
         expect(textareaElement).toHaveValue('')
-        userEvent.type(textareaElement, 'I love to travel around the world')
+        await user.type(textareaElement, 'I love to travel around the world')
         expect(textareaElement).toHaveValue('')
     })
 
-    it('can be a controlled field', () => {
+    it('can be a controlled field', async () => {
         function TestCase() {
             const [value, setValue] = React.useState('')
             return (
@@ -243,9 +246,10 @@ describe('TextArea', () => {
         }
 
         render(<TestCase />)
+        const user = userEvent.setup()
         const textareaElement = screen.getByRole('textbox', { name: 'Tell us a bit about you' })
         expect(textareaElement).toHaveValue('')
-        userEvent.type(textareaElement, 'I love to travel around the world')
+        await user.type(textareaElement, 'I love to travel around the world')
         expect(textareaElement).toHaveValue('I love to travel around the world')
         expect(screen.getByTestId('value')).toHaveTextContent('I love to travel around the world')
     })

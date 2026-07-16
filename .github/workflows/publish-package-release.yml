@@ -1,0 +1,174 @@
+name: Package Release
+
+on:
+    push:
+        branches:
+            - main
+
+env:
+    GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+
+permissions:
+    # Enable the use of OIDC for trusted publishing and npm provenance
+    id-token: write
+    # Enable the use of GitHub Packages registry
+    packages: write
+    # Enable the CI validation workflow to checkout the repository
+    contents: read
+
+# The release workflow involves many crucial steps that once triggered shouldn't be cancelled until
+# finished, otherwise we might end up in an inconsistent state (e.g., published to GitHub Packages
+# but not npm), so new workflow runs are queued until the previous one has completely finished.
+concurrency:
+    group: ${{ github.workflow }}
+    cancel-in-progress: false
+
+jobs:
+    ci-validation:
+        name: CI Validation
+        uses: ./.github/workflows/check-ci-validation.yml
+
+    release-and-publish:
+        name: Release & Publish
+        runs-on: ubuntu-latest
+        timeout-minutes: 30
+
+        needs: ci-validation
+
+        steps:
+            - name: Generate release bot token
+              id: release-bot
+              uses: actions/create-github-app-token@v3
+              with:
+                  app-id: ${{ secrets.DOIST_RELEASE_BOT_ID }}
+                  private-key: ${{ secrets.DOIST_RELEASE_BOT_PRIVATE_KEY }}
+                  permission-contents: write
+                  permission-issues: write
+                  permission-pull-requests: write
+
+            - name: Checkout repository
+              uses: actions/checkout@v6
+              with:
+                  token: ${{ steps.release-bot.outputs.token }}
+                  fetch-depth: 0
+
+            - name: Prepare Node.js environment
+              uses: actions/setup-node@v6
+              with:
+                  cache: npm
+                  node-version-file: .node-version
+
+            - name: Cache project 'node_modules' directory
+              id: node-modules-cache
+              uses: actions/cache@v5
+              with:
+                  key: node-modules-cache-${{ hashFiles('**/package-lock.json', '**/.node-version', 'patches/**') }}
+                  path: node_modules/
+
+            - name: Install project npm dependencies
+              if: ${{ steps.node-modules-cache.outputs.cache-hit != 'true' }}
+              run: |
+                  npm ci
+
+            - name: Build package
+              run: |
+                  npm run build
+
+            - name: Capture previous tag
+              id: previous_tag
+              run: |
+                  echo "tag=$(git describe --tags --abbrev=0 --exclude='*-*' 2>/dev/null || true)" >> "$GITHUB_OUTPUT"
+
+            # The Node.js environment is prepared based on the `.npmrc` file in the repo, which
+            # configures Doist scoped packages to use the public npm registry with OIDC
+            # authentication for the initial `semantic-release` publish, after which we remove the
+            # Doist registry configuration, and prepare the Node.js environment for the GitHub
+            # Packages registry, providing a predictable release workflow for both registries.
+            - name: Publish package to public npm registry
+              id: semantic-release
+              run: |
+                  npx semantic-release
+              env:
+                  GITHUB_TOKEN: ${{ steps.release-bot.outputs.token }}
+                  GIT_AUTHOR_EMAIL: doistbot@users.noreply.github.com
+                  GIT_AUTHOR_NAME: Doist Bot
+                  GIT_COMMITTER_EMAIL: doistbot@users.noreply.github.com
+                  GIT_COMMITTER_NAME: Doist Bot
+
+            - name: Remove Doist registry configuration from `.npmrc`
+              if: ${{ steps.semantic-release.outputs.package-published == 'true' }}
+              run: |
+                  npm config delete @doist:registry --location=project
+
+            - name: Prepare Node.js environment for GitHub Packages registry
+              if: ${{ steps.semantic-release.outputs.package-published == 'true' }}
+              uses: actions/setup-node@v6
+              with:
+                  cache: npm
+                  node-version-file: .node-version
+                  registry-url: https://npm.pkg.github.com/
+                  scope: '@doist'
+
+            - name: Publish package to private GitHub Packages registry
+              if: ${{ steps.semantic-release.outputs.package-published == 'true' }}
+              run: |
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+
+            - name: Derive release announcement
+              if: ${{ steps.semantic-release.outputs.package-published == 'true' }}
+              id: announcement
+              env:
+                  PREVIOUS_TAG: ${{ steps.previous_tag.outputs.tag }}
+              run: |
+                  git fetch --force --tags origin
+
+                  new_tag="$(git describe --tags --abbrev=0 2>/dev/null || true)"
+                  if [ -z "${new_tag}" ] || [ "${new_tag}" = "${PREVIOUS_TAG}" ]; then
+                      echo "should_announce=false" >> "$GITHUB_OUTPUT"
+                      exit 0
+                  fi
+
+                  package_name="$(node -p "JSON.parse(require('fs').readFileSync('package.json', 'utf8')).name")"
+                  package_version="$(node -p "JSON.parse(require('fs').readFileSync('package.json', 'utf8')).version")"
+
+                  package_url="https://www.npmjs.com/package/${package_name}/v/${package_version}"
+                  release_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/releases/tag/${new_tag}"
+                  repo_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}"
+
+                  if [ -n "${PREVIOUS_TAG}" ]; then
+                      changelog="$(git log --no-merges --reverse --pretty='format:- %s (%H-%h)' "${PREVIOUS_TAG}..${new_tag}" | grep -v '^- chore(release): ' || true)"
+                  else
+                      changelog="$(git log --no-merges --reverse --pretty='format:- %s (%H-%h)' "${new_tag}" | grep -v '^- chore(release): ' || true)"
+                  fi
+
+                  if [ -z "${changelog}" ]; then
+                      changelog='- No additional commits listed.'
+                  else
+                      changelog="$(printf '%s\n' "${changelog}" | sed -E -e 's,\(([a-f0-9]+)-([a-f0-9]+)\),([`\2`]('"${repo_url}"'/commit/\1)),g' | sed -E -e 's,\(#([0-9]+)\),([#\1]('"${repo_url}"'/pull/\1)),g')"
+                  fi
+
+                  {
+                      echo "should_announce=true"
+                      echo "message<<EOF"
+                      echo "**Reactist ${new_tag} published 🚀**"
+                      echo
+                      printf '%s\n' "${changelog}"
+                      echo
+                      echo "[GitHub release](${release_url}) | [npm package](${package_url})"
+                      echo "EOF"
+                  } >> "$GITHUB_OUTPUT"
+
+            - name: Announce release in Comms
+              if: ${{ steps.semantic-release.outputs.package-published == 'true' && steps.announcement.outputs.should_announce == 'true' }}
+              uses: Doist/comms-actions/post-comment-action@cf057e327f43e3ded8a54ebc871911d2b44027e4
+              with:
+                  comms-client-id: ${{ secrets.COMMS_DOISTBOT_CLIENT_ID }}
+                  comms-client-secret: ${{ secrets.COMMS_DOISTBOT_CLIENT_SECRET }}
+                  comms-username: ${{ secrets.COMMS_DOISTBOT_USER }}
+                  comms-password: ${{ secrets.COMMS_DOISTBOT_PASSWORD }}
+                  workspace-id: 69
+                  thread-id: BPZsUohfX5WV4tFJKMHAh
+                  content: ${{ steps.announcement.outputs.message }}
+              continue-on-error: true

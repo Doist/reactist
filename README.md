@@ -203,34 +203,31 @@ When you open a GitHub PR, you'll notice the "UI Review" and "UI Tests" CI steps
 
 # Releasing
 
-This project uses [release-please](https://github.com/googleapis/release-please) to automate version management and package publishing.
+This project uses [semantic-release](https://github.com/semantic-release/semantic-release) to automate version management and package publishing.
 
 ## How it works
 
 1. Make your changes using [Conventional Commits](https://www.conventionalcommits.org/):
+    - Any type below with an added `!` suffix (e.g. `feat!:`, `fix!:`) or a `BREAKING CHANGE:` footer for breaking changes (major version bump)
     - `feat:` for new features (minor version bump)
     - `fix:` for bug fixes (patch version bump)
-    - `style:` for code style changes
-    - `perf:` for performance improvements
+    - `perf:` for performance improvements (patch version bump)
     - `refactor:` for refactoring code
     - `test:` for adding/updating tests
     - `build:` for build/dependency changes
     - `docs:` for documentation changes
     - `ci:` for CI changes
     - `revert:` for reverting previous commits
-    - `feat!:` or `fix!:` for breaking changes (major version bump)
     - `chore:` for maintenance tasks (NOTE: these are not included in the changelog)
 
-2. When commits are pushed to `main`:
-    - Release-please automatically creates/updates a release PR
-    - The PR includes version bump and changelog updates
-    - Review the PR and merge when ready
+    Any type can carry an optional scope, e.g. `feat(button):` or `perf(tooltip)!:`.
 
-3. After merging the release PR:
-    - A new GitHub release is automatically created
-    - A new tag is created
-    - The `publish` workflow is triggered
-    - The package is published to npm and GitHub Packages
-    - Storybook documentation is automatically updated
+2. When a PR is merged to `main`, the [Package Release](.github/workflows/publish-package-release.yml) workflow runs and semantic-release:
+    - Reads the merged commit's conventional-commit type to determine the version bump
+    - Updates `CHANGELOG.md`, `package.json`, and `package-lock.json`, and commits them back to `main`
+    - Creates a new tag and GitHub release
+    - Publishes the package to npm and GitHub Packages
+
+A merge triggers a release only when it includes a type marked with a version bump above; otherwise nothing is published.
 
 The storybook hosted on GitHub pages will be automatically updated on each push to `main`. If there's a problem, try running the action manually from the [Actions settings](https://github.com/Doist/reactist/actions).

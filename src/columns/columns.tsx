@@ -111,4 +111,7 @@ export type {
     ColumnWidth,
 }
 
+Column.displayName = 'Column'
+Columns.displayName = 'Columns'
+
 export { Column, Columns }

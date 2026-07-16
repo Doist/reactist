@@ -6,52 +6,44 @@ import { Box } from '../box'
 import { Heading } from '../heading'
 import { Stack } from '../stack'
 
+import type { JSX } from 'react'
 import type { BoxProps } from '../box'
 import type { Space } from './common-types'
 
 type SelectTypeOptionsProp<T> = Extract<T, PropertyKey>[] | readonly Extract<T, PropertyKey>[]
 
-function select<T extends string | number>(options: SelectTypeOptionsProp<T>, defaultValue?: T) {
+function select<T extends string | number>(options: SelectTypeOptionsProp<T>) {
     return {
         control: {
             type: 'select',
         },
         options,
-        defaultValue,
     }
 }
 
-function selectWithNone<T extends string | number>(
-    options: SelectTypeOptionsProp<T>,
-    defaultValue: T | 'none' = 'none',
-) {
+function selectWithNone<T extends string | number>(options: SelectTypeOptionsProp<T>) {
     return {
         control: {
             type: 'select',
         },
         options: ['none', ...options],
-        defaultValue,
         mapping: {
             none: undefined,
         },
     }
 }
 
-function selectSize(defaultValue: Space | 'none' = 'none') {
-    return selectWithNone<Space>(
-        ['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge'],
-        defaultValue,
-    )
+function selectSize() {
+    return selectWithNone<Space>(['xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge'])
 }
 
-function selectCount(label: string, defaultValue = 5) {
+function selectCount(label: string) {
     return {
         control: {
             type: 'number',
             min: 1,
         },
         name: label,
-        defaultValue,
     }
 }
 

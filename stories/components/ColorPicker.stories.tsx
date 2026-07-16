@@ -5,7 +5,7 @@ import ColorPicker from '../../src/components/color-picker'
 // Story setup ================================================================
 
 export default {
-    title: 'Components/ColorPicker',
+    title: '📊 Data display/ColorPicker',
     component: ColorPicker,
     parameters: {
         badges: ['notAccessible'],

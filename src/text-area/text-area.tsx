@@ -137,8 +137,8 @@ function useAutoExpand({
 }: {
     value: string | undefined
     autoExpand: boolean
-    containerRef: React.RefObject<HTMLDivElement>
-    internalRef: React.RefObject<HTMLTextAreaElement>
+    containerRef: React.RefObject<HTMLDivElement | null>
+    internalRef: React.RefObject<HTMLTextAreaElement | null>
 }) {
     const isControlled = value !== undefined
 

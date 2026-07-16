@@ -1,78 +1,194 @@
+## [34.0.0](https://github.com/Doist/reactist/compare/v33.4.0...v34.0.0) (2026-07-16)
+
+### ⚠ BREAKING CHANGES
+
+- remove warning tone from Badge component (#1096)
+
+### Features
+
+- remove warning tone from Badge component ([#1096](https://github.com/Doist/reactist/issues/1096)) ([154563f](https://github.com/Doist/reactist/commit/154563fb48329d0fb0b191bb07e3ea4457cccb35))
+
+## [33.4.0](https://github.com/Doist/reactist/compare/v33.3.0...v33.4.0) (2026-06-24)
+
+### Features
+
+- **menu:** style icon-less link items like text links ([#1083](https://github.com/Doist/reactist/issues/1083)) ([08d2672](https://github.com/Doist/reactist/commit/08d2672a0e62321079504d61681ad5acd3452d27))
+
+## [33.3.0](https://github.com/Doist/reactist/compare/v33.2.2...v33.3.0) (2026-06-22)
+
+### Features
+
+- add ExpansionPanel component ([#1075](https://github.com/Doist/reactist/issues/1075)) ([e70e130](https://github.com/Doist/reactist/commit/e70e130661f25ea0fe74ed0039531ff06b86f3d6))
+
+## [33.2.2](https://github.com/Doist/reactist/compare/v33.2.1...v33.2.2) (2026-06-19)
+
+### Bug Fixes
+
+- **tooltip:** Let ariakit merge the child ref to avoid React ref warning ([#1079](https://github.com/Doist/reactist/issues/1079)) ([bd2db2d](https://github.com/Doist/reactist/commit/bd2db2d828f2c2700964b3d44e6e33a0e9b66819))
+
+## [33.2.1](https://github.com/Doist/reactist/compare/v33.2.0...v33.2.1) (2026-06-19)
+
+### Bug Fixes
+
+- avoid ref access in useId ([#1078](https://github.com/Doist/reactist/issues/1078)) ([4d44edf](https://github.com/Doist/reactist/commit/4d44edfb09f436f37e81d28d7876a65a9e439ac0))
+
+## [33.2.0](https://github.com/Doist/reactist/compare/v33.1.0...v33.2.0) (2026-06-19)
+
+### Features
+
+- support React 19 ([#1074](https://github.com/Doist/reactist/issues/1074)) ([0637971](https://github.com/Doist/reactist/commit/06379714f9410ce1cc75e80c1f8e6d0a39a621c9))
+
+## [33.1.0](https://github.com/Doist/reactist/compare/v33.0.1...v33.1.0) (2026-06-11)
+
+### Features
+
+- **prose:** add table styling support ([#1063](https://github.com/Doist/reactist/issues/1063)) ([b02c094](https://github.com/Doist/reactist/commit/b02c094f082b989835afe798f120715b770cf6f3))
+
+## [33.0.1](https://github.com/Doist/reactist/compare/v33.0.0...v33.0.1) (2026-06-04)
+
+### Bug Fixes
+
+- Use size-based avatar outline widths ([#1057](https://github.com/Doist/reactist/issues/1057)) ([2b4d578](https://github.com/Doist/reactist/commit/2b4d578966f35bfd4d9bfdea6546b012f9da7686))
+
+## [33.0.0](https://github.com/Doist/reactist/compare/v32.0.0...v33.0.0) (2026-06-03)
+
+### ⚠ BREAKING CHANGES
+
+- remove deprecated Select, Button, and Dropdown from public API (#1053)
+
+### Miscellaneous Chores
+
+- remove deprecated Select, Button, and Dropdown from public API ([#1053](https://github.com/Doist/reactist/issues/1053)) ([7e2f648](https://github.com/Doist/reactist/commit/7e2f648f8c39c46dac15be96477b72ef3e83dabb))
+
+## [32.0.0](https://github.com/Doist/reactist/compare/v31.3.0...v32.0.0) (2026-05-28)
+
+### ⚠ BREAKING CHANGES
+
+- Revamped Avatar component (#1048)
+
+### Features
+
+- Revamped Avatar component ([#1048](https://github.com/Doist/reactist/issues/1048)) ([fbf1e54](https://github.com/Doist/reactist/commit/fbf1e54f17d965912edac24d6ca049bf4c5d756a))
+
+## [31.3.0](https://github.com/Doist/reactist/compare/v31.2.0...v31.3.0) (2026-05-28)
+
+### Features
+
+- **tooltip:** expose `--reactist-tooltip-font-size` custom property ([#1049](https://github.com/Doist/reactist/issues/1049)) ([65811a3](https://github.com/Doist/reactist/commit/65811a36bf3e3de2e34867254af876101bf9c284))
+
+## [31.2.0](https://github.com/Doist/reactist/compare/v31.1.0...v31.2.0) (2026-05-20)
+
+### Features
+
+- **storybook:** restore a11y (and other) badges in toolbar ([#1042](https://github.com/Doist/reactist/issues/1042)) ([159f26c](https://github.com/Doist/reactist/commit/159f26c44ebee0d26559ed6127fa49ac4f4ceb7b))
+
+## [31.1.0](https://github.com/Doist/reactist/compare/v31.0.0...v31.1.0) (2026-05-19)
+
+### Features
+
+- upgrade storybook 6.5 -> 9 + vite ([#1038](https://github.com/Doist/reactist/issues/1038)) ([c125cdd](https://github.com/Doist/reactist/commit/c125cddc7d718d2d42cc7c3e2a1a6156eaef3e30))
+
+## [31.0.0](https://github.com/Doist/reactist/compare/v30.1.4...v31.0.0) (2026-05-18)
+
+### ⚠ BREAKING CHANGES
+
+- drop React 17 support (#1040)
+
+### Miscellaneous Chores
+
+- drop React 17 support ([#1040](https://github.com/Doist/reactist/issues/1040)) ([f8d34e0](https://github.com/Doist/reactist/commit/f8d34e00dadccc0c524f633188fe10be3186ddff))
+
+## [30.1.4](https://github.com/Doist/reactist/compare/v30.1.3...v30.1.4) (2026-04-08)
+
+### Bug Fixes
+
+- use OIDC trusted publishing instead of npm token for releases ([#1031](https://github.com/Doist/reactist/issues/1031)) ([e15f898](https://github.com/Doist/reactist/commit/e15f898d2dc04a034323628aff3e6f01d811f6d4))
+
+## [30.1.3](https://github.com/Doist/reactist/compare/v30.1.2...v30.1.3) (2026-04-07)
+
+### Bug Fixes
+
+- Vertically center Banner text content when action or close button is present ([#1029](https://github.com/Doist/reactist/issues/1029)) ([6759976](https://github.com/Doist/reactist/commit/67599764ba151c480cb2a58c5366aac990525176))
+
+## [30.1.2](https://github.com/Doist/reactist/compare/v30.1.1...v30.1.2) (2026-04-03)
+
+### Bug Fixes
+
+- revert prose loose list spacing changes ([#1028](https://github.com/Doist/reactist/issues/1028)) ([1e0a45b](https://github.com/Doist/reactist/commit/1e0a45b9bc6fd2c883998ac71becc2ad9e90b5d9))
+
+## [30.1.1](https://github.com/Doist/reactist/compare/v30.1.0...v30.1.1) (2026-04-03)
+
+### Bug Fixes
+
+- pass NPM_TOKEN to semantic-release in release workflow ([#1026](https://github.com/Doist/reactist/issues/1026)) ([cc23af1](https://github.com/Doist/reactist/commit/cc23af175909ead975a0b4cc691d2e49c9b170e7))
+- preserve spacing for loose lists in Prose component ([#1025](https://github.com/Doist/reactist/issues/1025)) ([67d6aae](https://github.com/Doist/reactist/commit/67d6aae0cdd528ef6b0b0e17e39d1e70c94a2499))
+- revert partial 30.1.1 release to allow clean re-release ([#1027](https://github.com/Doist/reactist/issues/1027)) ([64c6447](https://github.com/Doist/reactist/commit/64c644753e4b2238aa54fd2574e3427599880ed6))
+
 # Changelog
 
 ## [30.1.0](https://github.com/Doist/reactist/compare/v30.0.1...v30.1.0) (2026-03-10)
 
-
 ### 🚀 Features
 
-* Add showScale prop to ProgressBar ([#1020](https://github.com/Doist/reactist/issues/1020)) ([1451b85](https://github.com/Doist/reactist/commit/1451b8502dd71575fdf31f0c3eaafdbe088ab77c))
-
+- Add showScale prop to ProgressBar ([#1020](https://github.com/Doist/reactist/issues/1020)) ([1451b85](https://github.com/Doist/reactist/commit/1451b8502dd71575fdf31f0c3eaafdbe088ab77c))
 
 ### 🐛 Bug Fixes
 
-* **ci:** use PAT for release-please to trigger CI on its PRs ([#1021](https://github.com/Doist/reactist/issues/1021)) ([c4cafbf](https://github.com/Doist/reactist/commit/c4cafbfe27cf8023bc289a551063999978f432b0))
-
+- **ci:** use PAT for release-please to trigger CI on its PRs ([#1021](https://github.com/Doist/reactist/issues/1021)) ([c4cafbf](https://github.com/Doist/reactist/commit/c4cafbfe27cf8023bc289a551063999978f432b0))
 
 ### 🧰 Maintenance
 
-* Add project conventions guide (CLAUDE.md) ([#1019](https://github.com/Doist/reactist/issues/1019)) ([c06b0bc](https://github.com/Doist/reactist/commit/c06b0bc4d6aa0f768ebadc49b0fd7fe876152d25))
-* convert menu.less to menu.module.css ([#1007](https://github.com/Doist/reactist/issues/1007)) ([b63ce3a](https://github.com/Doist/reactist/commit/b63ce3a3a7511519e70c941345742da4677abf5d))
+- Add project conventions guide (CLAUDE.md) ([#1019](https://github.com/Doist/reactist/issues/1019)) ([c06b0bc](https://github.com/Doist/reactist/commit/c06b0bc4d6aa0f768ebadc49b0fd7fe876152d25))
+- convert menu.less to menu.module.css ([#1007](https://github.com/Doist/reactist/issues/1007)) ([b63ce3a](https://github.com/Doist/reactist/commit/b63ce3a3a7511519e70c941345742da4677abf5d))
 
 ## [30.0.1](https://github.com/Doist/reactist/compare/v30.0.0...v30.0.1) (2026-01-26)
 
-
 ### chore
 
-* release 30.0.1 ([#1003](https://github.com/Doist/reactist/issues/1003)) ([fbee885](https://github.com/Doist/reactist/commit/fbee88569a03c83ead82b708000cb37bdedde60a))
+- release 30.0.1 ([#1003](https://github.com/Doist/reactist/issues/1003)) ([fbee885](https://github.com/Doist/reactist/commit/fbee88569a03c83ead82b708000cb37bdedde60a))
 
 ## [30.0.0](https://github.com/Doist/reactist/compare/v29.1.2...v30.0.0) (2026-01-24)
 
-
 ### ⚠ BREAKING CHANGES
 
-* Bump node version requirement to v22.22; integrate react-compiler-tracker ([#994](https://github.com/Doist/reactist/issues/994))
+- Bump node version requirement to v22.22; integrate react-compiler-tracker ([#994](https://github.com/Doist/reactist/issues/994))
 
 ### chore
 
-* Bump node version requirement to v22.22; integrate react-compiler-tracker ([#994](https://github.com/Doist/reactist/issues/994)) ([ee3b106](https://github.com/Doist/reactist/commit/ee3b10660ddd55146e42755e2392f81adef3838c))
+- Bump node version requirement to v22.22; integrate react-compiler-tracker ([#994](https://github.com/Doist/reactist/issues/994)) ([ee3b106](https://github.com/Doist/reactist/commit/ee3b10660ddd55146e42755e2392f81adef3838c))
 
 ## [29.1.2](https://github.com/Doist/reactist/compare/v29.1.1...v29.1.2) (2026-01-09)
 
-
 ### 🧰 Maintenance
 
-* Ship components optimized with React Compiler ([#992](https://github.com/Doist/reactist/issues/992)) ([7895774](https://github.com/Doist/reactist/commit/78957741ec20d9cad9ac82330616c6b52ed83801))
+- Ship components optimized with React Compiler ([#992](https://github.com/Doist/reactist/issues/992)) ([7895774](https://github.com/Doist/reactist/commit/78957741ec20d9cad9ac82330616c6b52ed83801))
 
 ## [29.1.1](https://github.com/Doist/reactist/compare/v29.1.0...v29.1.1) (2025-12-01)
 
-
 ### 🐛 Bug Fixes
 
-* Prevent characterCountElement prop from being set on DOM elements ([#986](https://github.com/Doist/reactist/issues/986)) ([432e7c8](https://github.com/Doist/reactist/commit/432e7c8e1b7ec9496fc026ba141e51df9fb41425))
+- Prevent characterCountElement prop from being set on DOM elements ([#986](https://github.com/Doist/reactist/issues/986)) ([432e7c8](https://github.com/Doist/reactist/commit/432e7c8e1b7ec9496fc026ba141e51df9fb41425))
 
 ## [29.1.0](https://github.com/Doist/reactist/compare/v29.0.0...v29.1.0) (2025-11-13)
 
-
 ### 🚀 Features
 
-* Add `children` prop to `<Banner>` component to pass extra content ([#985](https://github.com/Doist/reactist/issues/985)) ([bed2ebc](https://github.com/Doist/reactist/commit/bed2ebc881730fbde52444842e00162f4ba2d993))
+- Add `children` prop to `<Banner>` component to pass extra content ([#985](https://github.com/Doist/reactist/issues/985)) ([bed2ebc](https://github.com/Doist/reactist/commit/bed2ebc881730fbde52444842e00162f4ba2d993))
 
 ## [29.0.0](https://github.com/Doist/reactist/compare/v28.7.4...v29.0.0) (2025-11-04)
 
-
 ### ⚠ BREAKING CHANGES
 
-* Update Ariakit to 0.4.19 ([#981](https://github.com/Doist/reactist/issues/981))
+- Update Ariakit to 0.4.19 ([#981](https://github.com/Doist/reactist/issues/981))
 
 ### 🚀 Features
 
-* Update Ariakit to 0.4.19 ([#981](https://github.com/Doist/reactist/issues/981)) ([0a521a9](https://github.com/Doist/reactist/commit/0a521a90a5fa3740992defcd68465278d54992a1))
-
+- Update Ariakit to 0.4.19 ([#981](https://github.com/Doist/reactist/issues/981)) ([0a521a9](https://github.com/Doist/reactist/commit/0a521a90a5fa3740992defcd68465278d54992a1))
 
 ### 🧰 Maintenance
 
-* Bump eslint-related dependencies and fix errors ([#982](https://github.com/Doist/reactist/issues/982)) ([67d7d0d](https://github.com/Doist/reactist/commit/67d7d0d604309b550bd51263064ffe2f2883f4df))
-* Update TypeScript to 5.9 ([#980](https://github.com/Doist/reactist/issues/980)) ([389931a](https://github.com/Doist/reactist/commit/389931ad3080241b5fbb5c456be776ce26ea3da7))
+- Bump eslint-related dependencies and fix errors ([#982](https://github.com/Doist/reactist/issues/982)) ([67d7d0d](https://github.com/Doist/reactist/commit/67d7d0d604309b550bd51263064ffe2f2883f4df))
+- Update TypeScript to 5.9 ([#980](https://github.com/Doist/reactist/issues/980)) ([389931a](https://github.com/Doist/reactist/commit/389931ad3080241b5fbb5c456be776ce26ea3da7))
 
 ## [28.7.4](https://github.com/Doist/reactist/compare/v28.7.3...v28.7.4) (2025-10-31)
 

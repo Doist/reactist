@@ -8,6 +8,8 @@ import { useForkRef } from './use-fork-ref'
 
 import styles from './checkbox-field.module.css'
 
+import type { JSX } from 'react'
+
 interface CheckboxFieldProps
     extends Omit<
         JSX.IntrinsicElements['input'],

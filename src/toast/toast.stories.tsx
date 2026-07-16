@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { action as storybookAction } from '@storybook/addon-actions'
+import { action as storybookAction } from 'storybook/actions'
 
 import { Box } from '../box'
 import { Button, IconButton } from '../button'
@@ -18,13 +18,18 @@ import { Text } from '../text'
 import { StaticToast } from './static-toast'
 import { Toast, ToastsProvider, useToasts } from './use-toasts'
 
+import type { JSX } from 'react'
 import type { ButtonVariant } from '../button'
 import type { StaticToastProps } from './static-toast'
 
 export default {
-    title: 'Design system/Toast',
+    title: '💬 Feedback/Toast',
     parameters: {
         badges: ['accessible'],
+        figma: {
+            path: 'Web › Components / Todoist › Toast › Toast',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=6654-220700',
+        },
         layout: 'fullscreen',
     },
     decorators: [

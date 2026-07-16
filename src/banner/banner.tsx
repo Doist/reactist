@@ -156,48 +156,62 @@ const Banner = React.forwardRef<HTMLDivElement, BannerProps>(function Banner(
             {image ? <Box className={styles.image}>{image}</Box> : null}
 
             <Box className={styles.content} display="flex" gap="small">
-                <Box className={styles.icon}>
-                    {type === 'neutral' ? icon : <BannerIcon type={type} />}
-                    {closeButton}
-                </Box>
-
                 <Box display="flex" flexDirection="column" gap="small" flexGrow={1}>
                     <Box
                         className={styles.topContent}
                         display="flex"
                         gap="small"
-                        alignItems="flexStart"
+                        alignItems="center"
                     >
                         <Box
-                            className={styles.copy}
+                            className={styles.iconCopy}
                             display="flex"
-                            flexDirection="column"
+                            gap="small"
+                            alignItems="flexStart"
                             flexGrow={1}
                         >
-                            {title ? (
-                                <Box id={titleId} className={styles.title}>
-                                    {title}
-                                </Box>
-                            ) : null}
-                            <Box
-                                id={descriptionId}
-                                className={[styles.description, title ? styles.secondary : null]}
-                            >
-                                {description}
-                                {inlineLinks?.map(({ label, ...props }, index) => {
-                                    return (
-                                        <React.Fragment key={index}>
-                                            <TextLink
-                                                {...props}
-                                                exceptionallySetClassName={styles.inlineLink}
-                                            >
-                                                {label}
-                                            </TextLink>
-                                            {index < inlineLinks.length - 1 ? <span> · </span> : ''}
-                                        </React.Fragment>
-                                    )
-                                })}
+                            <Box className={styles.typeIcon}>
+                                {type === 'neutral' ? icon : <BannerIcon type={type} />}
                             </Box>
+                            <Box
+                                className={styles.copy}
+                                display="flex"
+                                flexDirection="column"
+                                flexGrow={1}
+                            >
+                                {title ? (
+                                    <Box id={titleId} className={styles.title}>
+                                        {title}
+                                    </Box>
+                                ) : null}
+                                <Box
+                                    id={descriptionId}
+                                    className={[
+                                        styles.description,
+                                        title ? styles.secondary : null,
+                                    ]}
+                                >
+                                    {description}
+                                    {inlineLinks?.map(({ label, ...props }, index) => {
+                                        return (
+                                            <React.Fragment key={index}>
+                                                <TextLink
+                                                    {...props}
+                                                    exceptionallySetClassName={styles.inlineLink}
+                                                >
+                                                    {label}
+                                                </TextLink>
+                                                {index < inlineLinks.length - 1 ? (
+                                                    <span> · </span>
+                                                ) : (
+                                                    ''
+                                                )}
+                                            </React.Fragment>
+                                        )
+                                    })}
+                                </Box>
+                            </Box>
+                            {closeButton}
                         </Box>
 
                         {action || closeButton ? (

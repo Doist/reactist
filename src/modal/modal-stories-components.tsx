@@ -1,8 +1,5 @@
 import * as React from 'react'
 
-import { expect } from '@storybook/jest'
-import { userEvent, within } from '@storybook/testing-library'
-
 import { Button } from '../button'
 import { SelectField } from '../select-field'
 import { Stack } from '../stack'
@@ -11,6 +8,7 @@ import { Placeholder, times } from '../utils/storybook-helper'
 
 import * as ModalComponents from './modal'
 
+import type { JSX } from 'react'
 import type { ModalFooterProps, ModalHeaderProps, ModalProps } from './modal'
 
 function Link({ children, ...props }: JSX.IntrinsicElements['a']) {
@@ -195,12 +193,15 @@ function Modal(props: WithOptionals<ModalProps, 'isOpen' | 'onDismiss' | 'width'
     const { isOpen, closeModal, width, height, hideOn } = React.useContext(ModalStoryContext)
 
     /**
-     * Needed to make sure the modals are mounted inside the story's #root element
+     * Needed to make sure the modals are mounted inside the story's root element
      * @see https://www.chromatic.com/docs/snapshots#why-isn%E2%80%99t-my-modal-or-dialog-captured
      */
     const getPortalElement = React.useCallback(() => {
         const div = document.createElement('div')
-        const portalRoot = document.getElementById('root') ?? document.body
+        const portalRoot =
+            document.getElementById('storybook-root') ??
+            document.getElementById('root') ??
+            document.body
         portalRoot.appendChild(div)
         return div
     }, [])
@@ -240,19 +241,6 @@ function ModalFooter(props: WithOptionals<ModalFooterProps, 'withDivider'>) {
 function ModalActions(props: WithOptionals<ModalFooterProps, 'withDivider'>) {
     const { withScrollableContent } = React.useContext(ModalStoryContext)
     return <ModalComponents.ModalActions withDivider={withScrollableContent} {...props} />
-}
-
-/**
- * Used by stories in storybooks to programmatically open the modal on each story.
- *
- * Not only that, but it also serves the purpose of testing that the modal actually opens.
- *
- * @see https://storybook.js.org/docs/react/writing-tests/interaction-testing
- */
-export async function openModal({ canvasElement }: { canvasElement: HTMLElement }) {
-    const canvas = within(canvasElement)
-    userEvent.click(canvas.getByRole('button', { name: 'Open modal' }))
-    expect(await canvas.findByRole('dialog')).toBeInTheDocument()
 }
 
 export { ModalButton as Button, Link, ModalOptionsForm, ModalStoryStateProvider, ScrollableContent }

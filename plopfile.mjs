@@ -23,18 +23,9 @@ function componentGenerator(plop) {
                 message:
                     'Component name (e.g. "dropdown select", "sortable-table", "PromotionBanner")',
             },
-            {
-                type: 'list',
-                name: 'storyType',
-                message:
-                    'Story type (select "both" if unsure, and you can decide later which one to keep)',
-                choices: ['.mdx', '.tsx', 'both'],
-                default: 'both',
-            },
         ],
 
-        /** @param {{ name: string; storyType: '.mdx' | '.tsx' | 'both' }} */
-        actions({ storyType }) {
+        actions() {
             /** @type {Array<ActionConfig>} */
             const actions = [
                 {
@@ -59,21 +50,11 @@ function componentGenerator(plop) {
                 },
             ]
 
-            if (storyType === '.mdx' || storyType === 'both') {
-                actions.push({
-                    type: 'add',
-                    path: 'src/{{dashCase name}}/{{dashCase name}}.stories.mdx',
-                    templateFile: templateFile('component/component.stories.mdx'),
-                })
-            }
-
-            if (storyType === '.tsx' || storyType === 'both') {
-                actions.push({
-                    type: 'add',
-                    path: 'src/{{dashCase name}}/{{dashCase name}}.stories.tsx',
-                    templateFile: templateFile('component/component.stories.tsx'),
-                })
-            }
+            actions.push({
+                type: 'add',
+                path: 'src/{{dashCase name}}/{{dashCase name}}.stories.tsx',
+                templateFile: templateFile('component/component.stories.tsx'),
+            })
 
             return actions
         },

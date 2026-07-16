@@ -1,0 +1,93 @@
+import * as React from 'react'
+
+import { Stack } from '../stack'
+import { Text } from '../text'
+
+import { Notice } from './notice'
+
+function Template({ tone, content, closeLabel }) {
+    const text =
+        content === 'long' ? (
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non gravida lacus. Sed sit amet congue diam, ac ultrices elit.'
+        ) : content === 'short' ? (
+            'Lorem ipsum dolor sit amet.'
+        ) : (
+            <Stack space="medium">
+                <Text>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non gravida
+                    lacus. Sed sit amet congue diam, ac ultrices elit.
+                </Text>
+                <Text>
+                    Suspendisse at neque leo. Duis facilisis nulla non lectus malesuada, vitae
+                    scelerisque massa hendrerit. Nulla lacinia luctus risus, dapibus semper turpis
+                    vestibulum eu.
+                </Text>
+            </Stack>
+        )
+    return <Notice tone={tone}>{text}</Notice>
+}
+
+export default {
+    title: '💬 Feedback/Notice',
+    component: Notice,
+
+    parameters: {
+        badges: ['accessible'],
+        figma: {
+            path: 'Web › Components / Todoist › Banner › Banner',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=15487-102766',
+        },
+    },
+}
+
+export const Playground = {
+    render: Template.bind({}),
+
+    parameters: {
+        docs: {
+            source: {
+                type: 'code',
+            },
+        },
+    },
+
+    argTypes: {
+        content: {
+            control: {
+                type: 'inline-radio',
+            },
+
+            options: ['short', 'long', 'longer'],
+        },
+
+        tone: {
+            options: ['info', 'positive', 'caution', 'critical'],
+
+            control: {
+                type: 'inline-radio',
+            },
+        },
+
+        closeLabel: {
+            control: {
+                type: 'text',
+            },
+        },
+
+        id: {
+            control: false,
+        },
+
+        onClose: {
+            control: false,
+        },
+    },
+
+    args: {
+        content: 'short',
+        tone: 'info',
+        closeLabel: 'Close',
+    },
+
+    name: 'Playground',
+}

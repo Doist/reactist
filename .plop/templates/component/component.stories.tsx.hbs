@@ -1,34 +1,58 @@
 import * as React from 'react'
+import type { Meta, StoryObj } from '@storybook/react'
 
 import { {{pascalCase name}} } from './{{dashCase name}}'
 
-export default {
+const meta = {
     title: 'Design system/{{pascalCase name}}',
     component: {{pascalCase name}},
     parameters: {
-        badges: ['accessible'],
-    },
-}
+        /**
+         * Storybook toolbar badges
+         * Used to highlight the web accessibility standards the component meets or
+         * whether the component is deprecated.
+         * Possible values: `accessible`, `partiallyAccessible`, `notAccessible`, `deprecated`
+         * @see .storybook/badges/README.md
+         */
+        badges: ['notAccessible'],
 
-export function {{pascalCase name}}PlaygroundStory(props: React.ComponentProps<typeof {{pascalCase name}}>) {
-    return (
-        <section>
-            <{{pascalCase name}} {...props} />
-        </section>
-    )
-}
-
-{{pascalCase name}}PlaygroundStory.storyName = 'Playground'
-{{pascalCase name}}PlaygroundStory.args = {
-    variant: 'primary',
-    children: 'Hello world',
-}
-{{pascalCase name}}PlaygroundStory.argTypes = {
-    variant: {
-        control: { type: 'inline-radio' },
-        options: ['primary', 'secondary'],
+        /**
+         * Figma design link
+         * Used to link to the component's design in Figma. Until you add one, the toolbar shows a
+         * "No Figma link" reminder; for non-visual components set `figma: FIGMA_NOT_NEEDED` (imported
+         * from `.storybook/figma/constants`).
+         * @see .storybook/figma/README.md
+         */
+        figma: {
+            // path: 'Figma file › Page › Section › Component',
+            // url: 'https://www.figma.com/design/…?node-id=…',
+        },
     },
-    children: {
-        control: { type: 'text' },
+} satisfies Meta<typeof {{pascalCase name}}>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Playground: Story = {
+    args: {
+        variant: 'primary',
+        children: 'Hello world',
+    },
+    argTypes: {
+        variant: {
+            control: { type: 'inline-radio' },
+            options: ['primary', 'secondary'],
+        },
+        children: {
+            control: { type: 'text' },
+        },
+    },
+    render(args) {
+        return (
+            <section>
+                <{{pascalCase name}} {...args} />
+            </section>
+        )
     },
 }

@@ -3,15 +3,19 @@ import * as React from 'react'
 import { Box } from '../box'
 
 import { Prose } from './prose'
-import { proseExample } from './prose-example'
+import { proseExample, proseTableColorsExample, proseTableOverflowExample } from './prose-example'
 
 import type { ProseProps } from './prose'
 
 export default {
-    title: 'Design system/Prose',
+    title: '🔤 Typography/Prose',
     component: Prose,
     parameters: {
         badges: ['accessible'],
+        figma: {
+            path: 'Web › Components / Todoist › Markdown › MarkdownElement',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=7391-224517',
+        },
     },
 }
 
@@ -67,4 +71,53 @@ ProsePlaygroundStory.argTypes = {
     children: { control: false },
     dangerouslySetInnerHTML: { control: false },
     exceptionallySetClassName: { control: false },
+}
+
+//
+// Table overflow
+//
+
+export function ProseTableOverflowStory() {
+    // The narrow container guarantees the table overflows into a horizontal scroll at any
+    // viewport size, so the snapshot exercises the scrolling layout deterministically.
+    return (
+        <Box padding="xlarge" style={{ maxWidth: 400 }}>
+            <Prose
+                darkModeTypography={false}
+                dangerouslySetInnerHTML={{ __html: proseTableOverflowExample }}
+            />
+        </Box>
+    )
+}
+
+ProseTableOverflowStory.storyName = 'Table overflow'
+ProseTableOverflowStory.parameters = {
+    chromatic: { disableSnapshot: false },
+}
+
+//
+// Table colors
+//
+
+export function ProseTableColorsStory() {
+    return (
+        <Box
+            padding="xlarge"
+            style={{
+                // @ts-expect-error
+                '--reactist-prose-table-header-fill': 'rgb(233, 239, 242)',
+                '--reactist-prose-table-row-even-fill': 'rgb(247, 250, 251)',
+            }}
+        >
+            <Prose
+                darkModeTypography={false}
+                dangerouslySetInnerHTML={{ __html: proseTableColorsExample }}
+            />
+        </Box>
+    )
+}
+
+ProseTableColorsStory.storyName = 'Table colors'
+ProseTableColorsStory.parameters = {
+    chromatic: { disableSnapshot: false },
 }

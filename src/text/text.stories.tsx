@@ -6,10 +6,14 @@ import { ResponsiveWidthRef, select, selectWithNone } from '../utils/storybook-h
 import { Text } from './text'
 
 export default {
-    title: 'Design system/Text',
+    title: '🔤 Typography/Text',
     component: Text,
     parameters: {
         badges: ['accessible'],
+        figma: {
+            path: 'Global › Text Styles › SF *FOR WEB* › Body 1',
+            url: 'https://www.figma.com/design/xo9yAsH8PQUpi0eTJh9pmR/Product-Library---Global?node-id=2524-3594',
+        },
     },
 }
 
@@ -148,15 +152,21 @@ export function ResponsiveTextStory(props: React.ComponentProps<typeof Text>) {
     )
 }
 
+ResponsiveTextStory.args = {
+    size: 'body',
+    weight: 'regular',
+    tone: 'normal',
+    children: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit',
+}
+
 ResponsiveTextStory.argTypes = {
-    size: select(['caption', 'copy', 'body', 'subtitle'], 'body'),
-    weight: select(['regular', 'semibold', 'bold'], 'regular'),
-    lineClamp: selectWithNone([1, 2, 3, 4, 5], 'none'),
-    tone: select(['normal', 'secondary', 'danger'], 'normal'),
+    size: select(['caption', 'copy', 'body', 'subtitle']),
+    weight: select(['regular', 'semibold', 'bold']),
+    lineClamp: selectWithNone([1, 2, 3, 4, 5]),
+    tone: select(['normal', 'secondary', 'danger']),
     align: { control: false },
     children: {
         control: { type: 'text' },
-        defaultValue: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit',
     },
 }
 
@@ -168,14 +178,20 @@ export function TextPlaygroundStory(props: React.ComponentProps<typeof Text>) {
     )
 }
 
+TextPlaygroundStory.args = {
+    size: 'body',
+    weight: 'regular',
+    tone: 'normal',
+    children: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit',
+}
+
 TextPlaygroundStory.argTypes = {
-    size: select(['caption', 'copy', 'body', 'subtitle'], 'body'),
-    weight: select(['regular', 'semibold', 'bold'], 'regular'),
-    lineClamp: selectWithNone([1, 2, 3, 4, 5], 'none'),
-    tone: select(['normal', 'secondary', 'danger'], 'normal'),
-    align: selectWithNone(['start', 'center', 'end', 'justify'], 'none'),
+    size: select(['caption', 'copy', 'body', 'subtitle']),
+    weight: select(['regular', 'semibold', 'bold']),
+    lineClamp: selectWithNone([1, 2, 3, 4, 5]),
+    tone: select(['normal', 'secondary', 'danger']),
+    align: selectWithNone(['start', 'center', 'end', 'justify']),
     children: {
         control: { type: 'text' },
-        defaultValue: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit',
     },
 }

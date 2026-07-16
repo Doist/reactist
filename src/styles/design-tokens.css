@@ -90,6 +90,43 @@
 
     /* component-specific */
 
+    /* actionable colors */
+    --reactist-actionable-primary-idle-tint: #ffffff;
+    --reactist-actionable-primary-idle-fill: #008aa6;
+    --reactist-actionable-primary-hover-tint: #ffffff;
+    --reactist-actionable-primary-hover-fill: #007992;
+    --reactist-actionable-primary-disabled-tint: #ffffff;
+    --reactist-actionable-primary-disabled-fill: #99d0db;
+
+    --reactist-actionable-secondary-idle-tint: #282f30;
+    --reactist-actionable-secondary-idle-fill: #f2f6f7;
+    --reactist-actionable-secondary-hover-tint: #282f30;
+    --reactist-actionable-secondary-hover-fill: #e3e7e8;
+    --reactist-actionable-secondary-disabled-tint: #a9acac;
+    --reactist-actionable-secondary-disabled-fill: #f2f6f7;
+
+    --reactist-actionable-tertiary-idle-tint: #006f85;
+    --reactist-actionable-tertiary-hover-tint: #006f85;
+    --reactist-actionable-tertiary-hover-fill: #f2f6f7;
+    --reactist-actionable-tertiary-disabled-tint: #99c5ce;
+
+    --reactist-actionable-quaternary-idle-tint: #6c777a;
+    --reactist-actionable-quaternary-hover-tint: #282f30;
+    --reactist-actionable-quaternary-hover-fill: #e0e7e8;
+    --reactist-actionable-quaternary-disabled-tint: #c4c9ca;
+
+    --reactist-actionable-primary-destructive-idle-tint: #ffffff;
+    --reactist-actionable-primary-destructive-idle-fill: #dc4c3e;
+    --reactist-actionable-primary-destructive-hover-tint: #ffffff;
+    --reactist-actionable-primary-destructive-hover-fill: #b03d32;
+    --reactist-actionable-primary-destructive-disabled-tint: #ffffff;
+    --reactist-actionable-primary-destructive-disabled-fill: #f1b7b2;
+
+    --reactist-actionable-secondary-destructive-idle-tint: #dc4c3e;
+    --reactist-actionable-secondary-destructive-hover-tint: #b03d32;
+    --reactist-actionable-secondary-destructive-hover-fill: transparent;
+    --reactist-actionable-secondary-destructive-disabled-tint: #f1b7b2;
+
     /* alerts */
     --reactist-alert-tone-info-icon: rgba(49, 111, 234);
     --reactist-alert-tone-info-border: rgba(238, 238, 238);
@@ -109,6 +146,11 @@
 
     /* fields */
     --reactist-field-readonly-background: rgb(246, 244, 244);
+
+    /* switches and checkboxes */
+    --reactist-switch-background: var(--reactist-framework-fill-summit);
+    --reactist-switch-checked: var(--reactist-content-positive);
+    --reactist-switch-toggle: var(--reactist-bg-default);
 
     /* toasts */
     --reactist-toast-actionable-primary-tint: #39d1ef;

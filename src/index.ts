@@ -38,6 +38,7 @@ export * from './text-field'
 // other components
 export * from './avatar'
 export * from './badge'
+export * from './expansion-panel'
 export * from './menu'
 export * from './modal'
 export * from './tabs'
@@ -57,7 +58,4 @@ export { default as Time } from './components/time'
 // Deprecated components
 //
 
-export { default as DeprecatedButton } from './components/deprecated-button'
-export { default as DeprecatedDropdown } from './components/deprecated-dropdown'
 export { default as DeprecatedInput } from './components/deprecated-input'
-export { default as DeprecatedSelect } from './components/deprecated-select'

@@ -23,7 +23,7 @@ import type {
 } from './columns'
 
 export default {
-    title: 'Design system/Columns',
+    title: '📐 Layout/Columns',
     component: Columns,
     subcomponents: { Column },
     argTypes: {
@@ -284,8 +284,12 @@ export function WidthsStory({ space }: PartialProps<typeof Columns>) {
     )
 }
 
+WidthsStory.args = {
+    space: 'medium',
+}
+
 WidthsStory.argTypes = {
-    space: selectSize('medium'),
+    space: selectSize(),
     align: { control: false },
     alignY: { control: false },
     ...disableResponsiveProps,
@@ -331,9 +335,14 @@ export function ResponsiveStory(args: PartialProps<typeof Columns>) {
     )
 }
 
+ResponsiveStory.args = {
+    space: 'medium',
+    collapseBelow: 'tablet',
+}
+
 ResponsiveStory.argTypes = {
-    space: selectSize('medium'),
-    collapseBelow: selectWithNone<ColumnsCollapseBelow>(['tablet', 'desktop'], 'tablet'),
+    space: selectSize(),
+    collapseBelow: selectWithNone<ColumnsCollapseBelow>(['tablet', 'desktop']),
     align: { control: false },
     alignY: { control: false },
     ...disableResponsiveProps,
@@ -358,8 +367,12 @@ export function FlexChildStory(args: PartialProps<typeof Columns>) {
     )
 }
 
+FlexChildStory.args = {
+    space: 'medium',
+}
+
 FlexChildStory.argTypes = {
-    space: selectSize('medium'),
+    space: selectSize(),
     align: { control: false },
     alignY: { control: false },
     ...disableResponsiveProps,
@@ -391,8 +404,12 @@ export function NestedColumnsStory(args: PartialProps<typeof Columns>) {
     )
 }
 
+NestedColumnsStory.args = {
+    space: 'medium',
+}
+
 NestedColumnsStory.argTypes = {
-    space: selectSize('medium'),
+    space: selectSize(),
     align: { control: false },
     alignY: { control: false },
     ...disableResponsiveProps,

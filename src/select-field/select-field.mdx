@@ -1,0 +1,33 @@
+import { Meta, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import * as SelectFieldStories from './select-field.stories'
+
+import { SelectField } from './'
+import { Stack } from '../stack'
+import { Text } from '../text'
+
+import { selectWithNone } from '../utils/storybook-helper'
+
+<Meta of={SelectFieldStories} />
+
+# SelectField
+
+A component that provides a menu of options, similar to the native `<select>` HTML element.
+
+<Canvas of={SelectFieldStories.InteractiveProps} />
+
+<Controls of={SelectFieldStories.InteractiveProps} />
+
+## Colors
+
+The following CSS custom properties are available so that the `SelectField`'s border colors can be customized.
+Note that these variables are shared with other components such as `Textfield`, `PasswordField`, and `TextArea`.
+
+```
+--reactist-inputs-focus
+--reactist-inputs-idle
+--reactist-inputs-alert
+```
+
+<Canvas withToolbar of={SelectFieldStories.MessageTone} />
+
+<Canvas withToolbar of={SelectFieldStories.WithoutLabel} />

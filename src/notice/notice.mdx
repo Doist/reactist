@@ -1,0 +1,19 @@
+import { Meta, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import { Text } from '../text'
+import { Stack } from '../stack'
+import { Notice } from './notice'
+import * as NoticeStories from './notice.stories'
+
+<Meta of={NoticeStories} />
+
+# Notice
+
+A simple Notice component.
+
+<Canvas of={NoticeStories.Playground} />
+
+---
+
+<Description of={Notice} />
+
+<Controls of={NoticeStories.Playground} />

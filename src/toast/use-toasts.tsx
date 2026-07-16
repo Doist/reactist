@@ -70,7 +70,7 @@ const InternalToast = React.forwardRef<HTMLDivElement, InternalToastProps>(funct
     },
     ref,
 ) {
-    const timeoutRef = React.useRef<number | undefined>()
+    const timeoutRef = React.useRef<number | undefined>(undefined)
 
     const removeToast = React.useCallback(
         function removeToast() {

@@ -1,0 +1,37 @@
+import { Meta, Canvas, Controls, Description } from '@storybook/addon-docs/blocks'
+import * as TextAreaStories from './text-area.stories'
+
+import { Box } from '../box'
+import { Stack } from '../stack'
+import { Text } from '../text'
+import { TextArea } from './'
+import { selectWithNone } from '../utils/storybook-helper'
+
+<Meta of={TextAreaStories} />
+
+# TextArea
+
+A component with an expandable writing area used to accept longer textual input from the user.
+
+<Canvas of={TextAreaStories.InteractiveProps} />
+
+<Controls of={TextAreaStories.InteractiveProps} />
+
+## Colors
+
+The following CSS custom properties are available so that the `TextArea`'s border colors can be customized.
+Note that these variables are shared with other components such as `Textfield`, `PasswordField`, and `SelectField`.
+
+```
+--reactist-inputs-focus
+--reactist-inputs-idle
+--reactist-inputs-alert
+```
+
+<Canvas withToolbar of={TextAreaStories.MessageTone} />
+
+<Canvas withToolbar of={TextAreaStories.WithoutLabel} />
+
+<Canvas of={TextAreaStories.AutoExpand} />
+
+<Canvas of={TextAreaStories.AutoExpandWithInitialValue} />

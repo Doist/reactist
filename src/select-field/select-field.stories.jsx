@@ -1,0 +1,209 @@
+import * as React from 'react'
+
+import { Stack } from '../stack'
+import { Text } from '../text'
+import { selectWithNone } from '../utils/storybook-helper'
+
+import { SelectField } from './'
+
+function preventDefault(event) {
+    event.preventDefault()
+}
+
+function InteractivePropsStory({ label, auxiliaryLabel, ...props }) {
+    return (
+        <SelectField
+            {...props}
+            label={label}
+            auxiliaryLabel={
+                auxiliaryLabel ? (
+                    <a href="#" onClick={preventDefault}>
+                        {auxiliaryLabel}
+                    </a>
+                ) : undefined
+            }
+            defaultValue="-"
+        >
+            <option value="-" disabled>
+                Select theme
+            </option>
+            <optgroup label="Light themes">
+                <option value="default">Default theme</option>
+                <option value="bright">Extra bright</option>
+            </optgroup>
+            <optgroup label="Dark themes">
+                <option value="contrast">High contrast</option>
+                <option value="dark">Dark mode</option>
+            </optgroup>
+        </SelectField>
+    )
+}
+
+export default {
+    title: '📝 Form/SelectField',
+    component: SelectField,
+
+    parameters: {
+        badges: ['accessible'],
+        figma: {
+            path: 'Web › Components / Todoist › Context Menus › Dropdown',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=20744-678051',
+        },
+    },
+}
+
+export const InteractiveProps = {
+    render: InteractivePropsStory.bind({}),
+    name: 'Interactive props',
+
+    parameters: {
+        chromatic: {
+            disableSnapshot: false,
+        },
+    },
+
+    args: {
+        label: 'Theme',
+        tone: 'neutral',
+        maxWidth: 'small',
+        variant: 'default',
+        auxiliaryLabel: 'Need help?',
+        message:
+            'The theme you select will be applied immediately. If you upgrade to premium you will have more themes to choose from.',
+        disabled: false,
+    },
+
+    argTypes: {
+        label: {
+            control: {
+                type: 'text',
+            },
+        },
+
+        value: {
+            table: {
+                disable: true,
+            },
+        },
+
+        tone: {
+            options: ['neutral', 'success', 'error', 'loading'],
+
+            control: {
+                type: 'inline-radio',
+            },
+        },
+
+        maxWidth: selectWithNone(['xsmall', 'small', 'medium', 'large', 'xlarge', 'full']),
+
+        variant: {
+            options: ['default', 'bordered'],
+
+            control: {
+                type: 'inline-radio',
+            },
+        },
+
+        auxiliaryLabel: {
+            control: {
+                type: 'text',
+            },
+        },
+
+        message: {
+            control: {
+                type: 'text',
+            },
+        },
+
+        disabled: {
+            control: {
+                type: 'boolean',
+            },
+        },
+    },
+}
+
+export const MessageTone = {
+    render: () => (
+        <Stack space="xxlarge" dividers="secondary">
+            <SelectField
+                label="Country of residence"
+                message="Saving…"
+                tone="loading"
+                disabled
+                maxWidth="small"
+            >
+                <option value="none" disabled>
+                    –
+                </option>
+            </SelectField>
+            <SelectField
+                label="Country of residence"
+                message="Something went wrong. Please, try again."
+                tone="error"
+                maxWidth="small"
+            >
+                <option value="none" disabled>
+                    –
+                </option>
+            </SelectField>
+            <SelectField
+                label="Country of residence"
+                message="Saved successfully!"
+                tone="success"
+                maxWidth="small"
+            >
+                <option value="none" disabled>
+                    –
+                </option>
+            </SelectField>
+            <SelectField
+                label="Country of residence"
+                message="This is the supporting text (helper or error) of the field, provided by the message prop"
+                tone="neutral"
+                maxWidth="small"
+            >
+                <option value="none" disabled>
+                    –
+                </option>
+            </SelectField>
+        </Stack>
+    ),
+
+    name: 'Message tone',
+
+    parameters: {
+        chromatic: {
+            disableSnapshot: false,
+        },
+    },
+}
+
+export const WithoutLabel = {
+    render: () => (
+        <Stack space="xlarge" dividers="secondary" maxWidth="small">
+            <Stack as="label" htmlFor="custom-textarea" space="small">
+                <Text size="subtitle">Custom label is up here</Text>
+                <Text size="caption" tone="secondary" aria-hidden>
+                    <em>(click me to focus the select element)</em>
+                </Text>
+            </Stack>
+            <SelectField label={null} id="custom-textarea" aria-describedby="custom-description">
+                <option value="none" disabled>
+                    –
+                </option>
+            </SelectField>
+            <Stack space="small" id="custom-description">
+                <Text size="body">Custom description is down here</Text>
+                <Text size="caption" tone="secondary" aria-hidden>
+                    <em>
+                        (inspect the select element accessibility properties if you are curious)
+                    </em>
+                </Text>
+            </Stack>
+        </Stack>
+    ),
+
+    name: 'Without label',
+}

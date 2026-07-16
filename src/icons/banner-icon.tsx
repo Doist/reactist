@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import styles from './banner-icon.module.css'
 
+import type { JSX } from 'react'
 import type { SystemBannerType } from '../banner/banner'
 
 const bannerIconForType: Record<SystemBannerType, typeof BannerInfoIcon> = {

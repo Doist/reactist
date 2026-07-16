@@ -102,5 +102,7 @@ const Hidden = polymorphicComponent<'div', HiddenProps>(function Hidden(
     )
 })
 
+Hidden.displayName = 'Hidden'
+
 export { Hidden }
 export type { HiddenProps }

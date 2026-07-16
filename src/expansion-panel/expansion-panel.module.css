@@ -1,0 +1,23 @@
+.toggle {
+    /* Remove button click animation */
+    transform: none !important;
+
+    /* No idle background — the revealed chevron stays flat until directly hovered. */
+    --reactist-btn-idle-fill: transparent;
+}
+
+/* An expanded panel sets aria-expanded="true", which Reactist would otherwise render
+   with an active fill. Keep it flat unless the chevron itself is hovered/focused, so
+   the background only appears when pointing at the chevron (not the whole header). */
+.toggle[aria-expanded='true']:not(:hover):not(:focus-visible) {
+    --reactist-btn-hover-fill: transparent;
+}
+
+.toggleIcon {
+    transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transform: rotate(-90deg);
+}
+
+[aria-expanded='true'] .toggleIcon {
+    transform: rotate(0deg);
+}

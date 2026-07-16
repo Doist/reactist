@@ -17,9 +17,13 @@ import type { TooltipProps } from './tooltip'
 //
 
 export default {
-    title: 'Design system/Tooltip',
+    title: '🪟 Overlays/Tooltip',
     parameters: {
         badges: ['accessible'],
+        figma: {
+            path: 'Web › Components / Todoist › Tooltips',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=14597-177215',
+        },
     },
 }
 

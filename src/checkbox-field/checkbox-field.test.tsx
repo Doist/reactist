@@ -122,37 +122,40 @@ describe('CheckboxField', () => {
         expect(switchElement).toHaveAttribute('data-something', 'whatever')
     })
 
-    it('allows to be toggled on and off', () => {
+    it('allows to be toggled on and off', async () => {
         render(<CheckboxField label="Accept terms and conditions" />)
+        const user = userEvent.setup()
 
         const switchElement = screen.getByRole('checkbox', { name: 'Accept terms and conditions' })
         expect(switchElement).not.toBeChecked()
 
-        userEvent.click(switchElement)
+        await user.click(switchElement)
         expect(switchElement).toBeChecked()
 
-        userEvent.click(switchElement)
+        await user.click(switchElement)
         expect(switchElement).not.toBeChecked()
     })
 
-    it('can be disabled', () => {
+    it('can be disabled', async () => {
         render(<CheckboxField label="Accept terms and conditions" disabled />)
+        const user = userEvent.setup()
         const switchElement = screen.getByRole('checkbox', { name: 'Accept terms and conditions' })
         expect(switchElement).toBeDisabled()
         expect(switchElement).not.toBeChecked()
-        userEvent.click(switchElement)
+        await user.click(switchElement)
         expect(switchElement).not.toBeChecked()
     })
 
-    it('can be uncontrolled and set to true by default', () => {
+    it('can be uncontrolled and set to true by default', async () => {
         render(<CheckboxField label="Accept terms and conditions" defaultChecked />)
+        const user = userEvent.setup()
         const switchElement = screen.getByRole('checkbox', { name: 'Accept terms and conditions' })
         expect(switchElement).toBeChecked()
-        userEvent.click(switchElement)
+        await user.click(switchElement)
         expect(switchElement).not.toBeChecked()
     })
 
-    it('can be a controlled input field', () => {
+    it('can be a controlled input field', async () => {
         function TestCase() {
             const [checked, setChecked] = React.useState(false)
             return (
@@ -168,15 +171,16 @@ describe('CheckboxField', () => {
         }
 
         render(<TestCase />)
+        const user = userEvent.setup()
         const switchElement = screen.getByRole('checkbox', { name: 'Accept terms and conditions' })
         expect(switchElement).not.toBeChecked()
         expect(screen.getByTestId('value')).toHaveTextContent('off')
 
-        userEvent.click(switchElement)
+        await user.click(switchElement)
         expect(switchElement).toBeChecked()
         expect(screen.getByTestId('value')).toHaveTextContent('on')
 
-        userEvent.click(switchElement)
+        await user.click(switchElement)
         expect(switchElement).not.toBeChecked()
         expect(screen.getByTestId('value')).toHaveTextContent('off')
     })
@@ -202,40 +206,41 @@ describe('CheckboxField', () => {
             return checkbox
         }
 
-        it('can be set as indeterminate when it is a controlled component', () => {
+        it('can be set as indeterminate when it is a controlled component', async () => {
             render(<IndeterminateTestCase initialState={[false, true, false]} />)
+            const user = userEvent.setup()
             const mainCheckbox = screen.getByTestId('main-checkbox')
 
             // it's initially indeterminate
             expect(mainCheckbox).toBePartiallyChecked()
 
             // check two remaining unchecked checkboxes, and it ceases to be indeterminate
-            userEvent.click(getCheckboxItem(0))
-            userEvent.click(getCheckboxItem(2))
+            await user.click(getCheckboxItem(0))
+            await user.click(getCheckboxItem(2))
             expect(mainCheckbox).toBeChecked()
 
             // uncheck all checkboxes one by one, and gradually check main checkbox status along the way
-            userEvent.click(getCheckboxItem(0))
+            await user.click(getCheckboxItem(0))
             expect(mainCheckbox).toBePartiallyChecked()
             expect(mainCheckbox).not.toBeChecked()
 
             // …second one
-            userEvent.click(getCheckboxItem(1))
+            await user.click(getCheckboxItem(1))
             expect(mainCheckbox).toBePartiallyChecked()
             expect(mainCheckbox).not.toBeChecked()
 
             // …last one
-            userEvent.click(getCheckboxItem(2))
+            await user.click(getCheckboxItem(2))
             expect(mainCheckbox).not.toBePartiallyChecked()
             expect(mainCheckbox).not.toBeChecked()
 
             // check them all via the main checkbox
-            userEvent.click(mainCheckbox)
+            await user.click(mainCheckbox)
             expect(mainCheckbox).toBeChecked()
             expect(mainCheckbox).not.toBePartiallyChecked()
 
             // uncheck a single checkbox item
-            userEvent.click(getCheckboxItem(2))
+            await user.click(getCheckboxItem(2))
             expect(mainCheckbox).not.toBeChecked()
             expect(mainCheckbox).toBePartiallyChecked()
         })
@@ -325,19 +330,20 @@ describe('CheckboxField', () => {
             )
         })
 
-        it('updates the `aria-checked` attribute correctly', () => {
+        it('updates the `aria-checked` attribute correctly', async () => {
             render(<IndeterminateTestCase initialState={[false, true, false]} />)
+            const user = userEvent.setup()
             const mainCheckbox = screen.getByTestId('main-checkbox')
 
             // it's initially indeterminate
             expect(mainCheckbox).toHaveAttribute('aria-checked', 'mixed')
 
             // updates to 'true' when clicked while mixed
-            userEvent.click(mainCheckbox)
+            await user.click(mainCheckbox)
             expect(mainCheckbox).toHaveAttribute('aria-checked', 'true')
 
             // updates to 'false' when clicked while true
-            userEvent.click(mainCheckbox)
+            await user.click(mainCheckbox)
             expect(mainCheckbox).toHaveAttribute('aria-checked', 'false')
         })
     })

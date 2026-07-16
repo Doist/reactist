@@ -2,15 +2,13 @@ import './styles/input_story.less'
 
 import * as React from 'react'
 
-import LinkTo from '@storybook/addon-links/react'
-
 import { Banner } from '../../src/banner'
 import Input from '../../src/components/deprecated-input'
 
 // Story setup ================================================================
 
 export default {
-    title: 'Components/Input',
+    title: '📝 Form/Input',
     component: Input,
     parameters: {
         badges: ['deprecated'],
@@ -27,7 +25,10 @@ export const InputStory = () => (
                 description={
                     <>
                         <strong>Deprecated:</strong> Please use{' '}
-                        <LinkTo kind="design-system-textfield">TextField</LinkTo> instead
+                        <a href="?path=/docs/design-system-textfield--docs" target="_top">
+                            TextField
+                        </a>{' '}
+                        instead
                     </>
                 }
             />

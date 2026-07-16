@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import * as React from 'react'
 
 import type { ObfuscatedClassName } from './common-types'
@@ -104,11 +103,10 @@ interface ForwardRefFunction<
     ShouldObfuscateClassName extends ObfuscateClassNameMode,
 > {
     (
-        props: PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>,
-        ref:
-            | ((instance: ElementByTagOrAny<ComponentType> | null) => void)
-            | React.MutableRefObject<ElementByTagOrAny<ComponentType> | null>
-            | null,
+        props: React.PropsWithoutRef<
+            PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>
+        >,
+        ref: React.ForwardedRef<ElementByTagOrAny<ComponentType>>,
     ): React.ReactElement | null
     displayName?: string
 }
@@ -172,9 +170,6 @@ interface PolymorphicComponent<
     defaultProps?: Partial<
         PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>
     >
-    propTypes?: React.WeakValidationMap<
-        PolymorphicComponentProps<ComponentType, OwnProps, ShouldObfuscateClassName>
-    >
     displayName?: string
 }
 
@@ -197,5 +192,5 @@ function polymorphicComponent<
     >
 }
 
-export type { PolymorphicComponent }
+export type { PolymorphicComponent, PolymorphicComponentProps }
 export { polymorphicComponent }
