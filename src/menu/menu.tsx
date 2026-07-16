@@ -149,10 +149,28 @@ interface MenuListProps
         ObfuscatedClassName {}
 
 /**
+ * Selector for elements that should remain interactive while a modal menu is open.
+ *
+ * A modal `MenuList` marks the entire element tree outside of it as `inert`, which removes those
+ * elements from hit-testing. On desktop apps (e.g. Electron) this breaks the native window
+ * drag region (`-webkit-app-region: drag`) of the title bar, since `inert` elements no longer
+ * receive the OS drag gesture. Marking such elements with `data-reactist-persist` keeps them
+ * interactive while the menu stays modal in every other respect.
+ */
+const PERSISTENT_ELEMENTS_SELECTOR = '[data-reactist-persist]'
+
+function getPersistentElementsDefault(): Element[] {
+    if (typeof document === 'undefined') {
+        return []
+    }
+    return Array.from(document.querySelectorAll(PERSISTENT_ELEMENTS_SELECTOR))
+}
+
+/**
  * The dropdown menu itself, containing a list of menu items.
  */
 const MenuList = React.forwardRef<HTMLDivElement, MenuListProps>(function MenuList(
-    { exceptionallySetClassName, modal = true, flip, ...props },
+    { exceptionallySetClassName, modal = true, flip, getPersistentElements, ...props },
     ref,
 ) {
     const { menuStore, getAnchorRect } = React.useContext(MenuContext)
@@ -163,6 +181,16 @@ const MenuList = React.forwardRef<HTMLDivElement, MenuListProps>(function MenuLi
     const { isSubMenu } = React.useContext(SubMenuContext)
 
     const isOpen = menuStore.useState('open')
+
+    const mergedGetPersistentElements = React.useCallback(
+        function mergedGetPersistentElements(): Element[] {
+            const consumerElements = getPersistentElements
+                ? Array.from(getPersistentElements())
+                : []
+            return [...getPersistentElementsDefault(), ...consumerElements]
+        },
+        [getPersistentElements],
+    )
 
     return isOpen ? (
         <Portal preserveTabOrder>
@@ -175,6 +203,7 @@ const MenuList = React.forwardRef<HTMLDivElement, MenuListProps>(function MenuLi
                 className={classNames('reactist_menulist', exceptionallySetClassName)}
                 getAnchorRect={getAnchorRect ?? undefined}
                 modal={modal}
+                getPersistentElements={mergedGetPersistentElements}
                 flip={flip ?? (isSubMenu ? 'left bottom' : undefined)}
             />
         </Portal>
