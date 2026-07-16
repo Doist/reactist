@@ -38,6 +38,24 @@ If you prefer to include static files grab the [minified build from the dist fol
 <link rel="stylesheet" type="text/css" href="./node_modules/@doist/reactist/styles/reactist.css" />
 ```
 
+## Theming
+
+Reactist bakes the product library's light palette (`@doist/product-libraries-tokens`) into `reactist.css`, so components render in the default light theme with no extra setup: its `--reactist-*` tokens resolve to `var(--product-library-*)` values shipped in that file.
+
+To use a dark or accent theme, load one of the theme files Reactist re-exports (all 16: light, dark, and the seven accents, each in light and dark) and toggle its class on the root element:
+
+```html
+<link rel="stylesheet" href="./node_modules/@doist/reactist/styles/tokens/td-dark.css" />
+```
+
+```js
+import '@doist/reactist/styles/tokens/td-dark.css'
+```
+
+Then set the matching class and `color-scheme` on `:root` (or a `:host`): `theme_dark`, `theme_lavender_dark`, `theme_blueberry`, and so on. Light is the classless default, so it needs no class. Each dark theme is a single combined class (e.g. `theme_lavender_dark`), not `theme_lavender` plus `theme_dark`.
+
+You do not need to install `@doist/product-libraries-tokens` yourself; Reactist bundles the light palette and re-ships every theme file.
+
 # Changelog
 
 You can find our changelog [here](./CHANGELOG.md).

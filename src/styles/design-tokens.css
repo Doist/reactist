@@ -52,110 +52,166 @@
     --reactist-font-weight-strong: 700;
 
     /* standard divider colors */
-    --reactist-divider-primary: #c4c7c8;
-    --reactist-divider-secondary: #dde2e3;
-    --reactist-divider-tertiary: #edf2f3;
+    --reactist-divider-primary: var(--product-library-divider-primary);
+    --reactist-divider-secondary: var(--product-library-divider-secondary);
+    --reactist-divider-tertiary: var(--product-library-divider-tertiary);
 
     /* input border colors */
-    --reactist-inputs-hover: var(--reactist-divider-primary);
-    --reactist-inputs-focus: var(--reactist-divider-primary);
-    --reactist-inputs-idle: var(--reactist-divider-secondary);
-    --reactist-inputs-alert: rgb(209, 69, 59);
+    --reactist-inputs-hover: var(--product-library-border-hover-tint);
+    --reactist-inputs-focus: var(--product-library-border-focus-tint);
+    --reactist-inputs-idle: var(--product-library-border-idle-tint);
+    --reactist-inputs-alert: var(--product-library-info-attention-primary-idle-tint);
 
     /* border-radius */
     --reactist-border-radius-small: 5px;
     --reactist-border-radius-large: 10px;
 
     /* background color */
-    --reactist-bg-default: rgb(255, 255, 255);
-    --reactist-bg-brand: rgb(36, 111, 224);
-    --reactist-bg-aside: rgb(250, 250, 250);
-    --reactist-bg-highlight: rgb(242, 242, 242);
-    --reactist-bg-selected: rgb(230, 230, 230);
-    --reactist-bg-toast: rgb(40, 40, 40);
+    --reactist-bg-default: var(--product-library-background-base-primary);
+    --reactist-bg-brand: rgb(36, 111, 224); /* no product-library source */
+    --reactist-bg-aside: var(--product-library-background-base-secondary);
+    --reactist-bg-highlight: var(--product-library-actionable-quaternary-hover-fill);
+    --reactist-bg-selected: var(--product-library-selectable-secondary-selected-fill);
+    --reactist-bg-toast: var(--product-library-background-raised-quaternary);
 
     /* colors */
-    --reactist-framework-fill-background: rgb(250, 250, 250);
-    --reactist-framework-fill-crest: rgb(230, 230, 230);
-    --reactist-framework-fill-selected: rgb(236, 236, 236);
-    --reactist-framework-fill-summit: rgb(214, 214, 214);
+    --reactist-framework-fill-background: var(--product-library-background-base-secondary);
+    --reactist-framework-fill-crest: rgb(230, 230, 230); /* no product-library source */
+    --reactist-framework-fill-selected: rgb(236, 236, 236); /* no product-library source */
+    --reactist-framework-fill-summit: var(--product-library-selectable-primary-unselected-fill);
 
-    --reactist-content-primary: rgba(0, 0, 0, 0.88);
-    --reactist-content-secondary: rgba(0, 0, 0, 0.56);
-    --reactist-content-tertiary: rgba(0, 0, 0, 0.4);
-    --reactist-toast-content-primary: rgb(255, 255, 255);
-    --reactist-toast-content-secondary: hsla(0, 0%, 100%, 0.56);
-    --reactist-content-positive: rgb(5, 133, 39);
-    --reactist-content-danger: rgb(209, 69, 59);
+    --reactist-content-primary: var(--product-library-display-primary-idle-tint);
+    --reactist-content-secondary: var(--product-library-display-secondary-idle-tint);
+    --reactist-content-tertiary: var(--product-library-display-tertiary-idle-tint);
+    --reactist-toast-content-primary: var(--product-library-display-primary-on-dark-tint);
+    --reactist-toast-content-secondary: hsla(0, 0%, 100%, 0.56); /* no product-library source */
+    --reactist-content-positive: rgb(5, 133, 39); /* no product-library source */
+    --reactist-content-danger: var(--product-library-actionable-destructive-idle-tint);
 
     /* component-specific */
 
     /* actionable colors */
-    --reactist-actionable-primary-idle-tint: #ffffff;
-    --reactist-actionable-primary-idle-fill: #008aa6;
-    --reactist-actionable-primary-hover-tint: #ffffff;
-    --reactist-actionable-primary-hover-fill: #007992;
-    --reactist-actionable-primary-disabled-tint: #ffffff;
-    --reactist-actionable-primary-disabled-fill: #99d0db;
+    --reactist-actionable-primary-idle-tint: var(--product-library-actionable-primary-on-idle-tint);
+    --reactist-actionable-primary-idle-fill: var(--product-library-actionable-primary-idle-fill);
+    --reactist-actionable-primary-hover-tint: var(
+        --product-library-actionable-primary-on-hover-tint
+    );
+    --reactist-actionable-primary-hover-fill: var(--product-library-actionable-primary-hover-fill);
+    --reactist-actionable-primary-disabled-tint: var(
+        --product-library-actionable-primary-on-disabled-tint
+    );
+    --reactist-actionable-primary-disabled-fill: var(
+        --product-library-actionable-primary-disabled-fill
+    );
 
-    --reactist-actionable-secondary-idle-tint: #282f30;
-    --reactist-actionable-secondary-idle-fill: #f2f6f7;
-    --reactist-actionable-secondary-hover-tint: #282f30;
-    --reactist-actionable-secondary-hover-fill: #e3e7e8;
-    --reactist-actionable-secondary-disabled-tint: #a9acac;
-    --reactist-actionable-secondary-disabled-fill: #f2f6f7;
+    --reactist-actionable-secondary-idle-tint: var(
+        --product-library-actionable-secondary-on-idle-tint
+    );
+    --reactist-actionable-secondary-idle-fill: var(
+        --product-library-actionable-secondary-idle-fill
+    );
+    --reactist-actionable-secondary-hover-tint: var(
+        --product-library-actionable-secondary-on-hover-tint
+    );
+    --reactist-actionable-secondary-hover-fill: var(
+        --product-library-actionable-secondary-hover-fill
+    );
+    --reactist-actionable-secondary-disabled-tint: var(
+        --product-library-actionable-secondary-on-disabled-tint
+    );
+    --reactist-actionable-secondary-disabled-fill: var(
+        --product-library-actionable-secondary-disabled-fill
+    );
 
-    --reactist-actionable-tertiary-idle-tint: #006f85;
-    --reactist-actionable-tertiary-hover-tint: #006f85;
-    --reactist-actionable-tertiary-hover-fill: #f2f6f7;
-    --reactist-actionable-tertiary-disabled-tint: #99c5ce;
+    --reactist-actionable-tertiary-idle-tint: var(--product-library-actionable-tertiary-idle-tint);
+    --reactist-actionable-tertiary-hover-tint: var(
+        --product-library-actionable-tertiary-on-hover-tint
+    );
+    --reactist-actionable-tertiary-hover-fill: var(
+        --product-library-actionable-tertiary-hover-fill
+    );
+    --reactist-actionable-tertiary-disabled-tint: var(
+        --product-library-actionable-tertiary-disabled-tint
+    );
 
-    --reactist-actionable-quaternary-idle-tint: #6c777a;
-    --reactist-actionable-quaternary-hover-tint: #282f30;
-    --reactist-actionable-quaternary-hover-fill: #e0e7e8;
-    --reactist-actionable-quaternary-disabled-tint: #c4c9ca;
+    --reactist-actionable-quaternary-idle-tint: var(
+        --product-library-actionable-quaternary-idle-tint
+    );
+    --reactist-actionable-quaternary-hover-tint: var(
+        --product-library-actionable-quaternary-on-hover-tint
+    );
+    --reactist-actionable-quaternary-hover-fill: var(
+        --product-library-actionable-quaternary-hover-fill
+    );
+    --reactist-actionable-quaternary-disabled-tint: var(
+        --product-library-actionable-quaternary-disabled-tint
+    );
 
-    --reactist-actionable-primary-destructive-idle-tint: #ffffff;
-    --reactist-actionable-primary-destructive-idle-fill: #dc4c3e;
-    --reactist-actionable-primary-destructive-hover-tint: #ffffff;
-    --reactist-actionable-primary-destructive-hover-fill: #b03d32;
-    --reactist-actionable-primary-destructive-disabled-tint: #ffffff;
-    --reactist-actionable-primary-destructive-disabled-fill: #f1b7b2;
+    --reactist-actionable-primary-destructive-idle-tint: var(
+        --product-library-actionable-destructive-on-idle-tint
+    );
+    --reactist-actionable-primary-destructive-idle-fill: var(
+        --product-library-actionable-destructive-idle-fill
+    );
+    --reactist-actionable-primary-destructive-hover-tint: var(
+        --product-library-actionable-destructive-on-hover-tint
+    );
+    --reactist-actionable-primary-destructive-hover-fill: var(
+        --product-library-actionable-destructive-hover-fill
+    );
+    --reactist-actionable-primary-destructive-disabled-tint: var(
+        --product-library-actionable-destructive-on-disabled-tint
+    );
+    --reactist-actionable-primary-destructive-disabled-fill: var(
+        --product-library-actionable-destructive-disabled-fill
+    );
 
-    --reactist-actionable-secondary-destructive-idle-tint: #dc4c3e;
-    --reactist-actionable-secondary-destructive-hover-tint: #b03d32;
+    --reactist-actionable-secondary-destructive-idle-tint: var(
+        --product-library-actionable-destructive-idle-tint
+    );
+    --reactist-actionable-secondary-destructive-hover-tint: var(
+        --product-library-actionable-destructive-hover-tint
+    );
     --reactist-actionable-secondary-destructive-hover-fill: transparent;
-    --reactist-actionable-secondary-destructive-disabled-tint: #f1b7b2;
+    --reactist-actionable-secondary-destructive-disabled-tint: var(
+        --product-library-actionable-destructive-disabled-tint
+    );
 
     /* alerts */
-    --reactist-alert-tone-info-icon: rgba(49, 111, 234);
-    --reactist-alert-tone-info-border: rgba(238, 238, 238);
-    --reactist-alert-tone-info-background: rgba(250, 250, 250);
+    --reactist-alert-tone-info-icon: var(--product-library-info-neutral-primary-idle-fill);
+    --reactist-alert-tone-info-border: var(--product-library-divider-primary);
+    --reactist-alert-tone-info-background: var(--product-library-background-base-secondary);
 
-    --reactist-alert-tone-positive-icon: rgba(5, 133, 39);
-    --reactist-alert-tone-positive-border: rgba(238, 238, 238);
-    --reactist-alert-tone-positive-background: rgba(250, 250, 250);
+    --reactist-alert-tone-positive-icon: var(--product-library-info-positive-primary-idle-fill);
+    --reactist-alert-tone-positive-border: var(--product-library-divider-primary);
+    --reactist-alert-tone-positive-background: var(--product-library-background-base-secondary);
 
-    --reactist-alert-tone-caution-icon: rgba(235, 137, 9);
-    --reactist-alert-tone-caution-border: rgba(238, 238, 238);
-    --reactist-alert-tone-caution-background: rgba(250, 250, 250);
+    --reactist-alert-tone-caution-icon: var(--product-library-info-warning-primary-on-idle-fill);
+    --reactist-alert-tone-caution-border: var(--product-library-divider-primary);
+    --reactist-alert-tone-caution-background: var(--product-library-background-base-secondary);
 
-    --reactist-alert-tone-critical-icon: rgba(220, 76, 62);
-    --reactist-alert-tone-critical-border: rgba(238, 238, 238);
-    --reactist-alert-tone-critical-background: rgba(250, 250, 250);
+    --reactist-alert-tone-critical-icon: var(--product-library-info-attention-primary-idle-fill);
+    --reactist-alert-tone-critical-border: var(--product-library-divider-primary);
+    --reactist-alert-tone-critical-background: var(--product-library-background-base-secondary);
 
     /* fields */
-    --reactist-field-readonly-background: rgb(246, 244, 244);
+    --reactist-field-readonly-background: var(--product-library-background-base-tertiary);
 
     /* switches and checkboxes */
-    --reactist-switch-background: var(--reactist-framework-fill-summit);
-    --reactist-switch-checked: var(--reactist-content-positive);
-    --reactist-switch-toggle: var(--reactist-bg-default);
+    --reactist-switch-background: var(--product-library-selectable-primary-unselected-fill);
+    --reactist-switch-checked: var(--product-library-actionable-primary-idle-fill);
+    --reactist-switch-toggle: var(--product-library-selectable-primary-on-selected-fill);
 
     /* toasts */
-    --reactist-toast-actionable-primary-tint: #39d1ef;
-    --reactist-toast-actionable-secondary-tint: #b6c1c3;
-    --reactist-toast-actionable-hover-fill: #506063;
+    --reactist-toast-actionable-primary-tint: var(
+        --product-library-actionable-tertiary-on-dark-idle-tint
+    );
+    --reactist-toast-actionable-secondary-tint: var(
+        --product-library-actionable-quaternary-on-dark-idle-tint
+    );
+    --reactist-toast-actionable-hover-fill: var(
+        --product-library-actionable-tertiary-on-dark-hover-fill
+    );
     --reactist-toast-box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 
     /* stacking orders */
@@ -165,5 +221,5 @@
     --reactist-stacking-order-tooltip: 1000;
 
     /* scrollbar colors */
-    --reactist-scrollbar-thumb-idle: rgba(0, 0, 0, 0.2);
+    --reactist-scrollbar-thumb-idle: rgba(0, 0, 0, 0.2); /* no product-library source */
 }
