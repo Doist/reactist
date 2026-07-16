@@ -1,3 +1,13 @@
+## [34.0.0](https://github.com/Doist/reactist/compare/v33.4.0...v34.0.0) (2026-07-16)
+
+### ⚠ BREAKING CHANGES
+
+- remove warning tone from Badge component (#1096)
+
+### Features
+
+- remove warning tone from Badge component ([#1096](https://github.com/Doist/reactist/issues/1096)) ([154563f](https://github.com/Doist/reactist/commit/154563fb48329d0fb0b191bb07e3ea4457cccb35))
+
 ## [33.4.0](https://github.com/Doist/reactist/compare/v33.3.0...v33.4.0) (2026-06-24)
 
 ### Features
