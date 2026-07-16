@@ -208,18 +208,20 @@ This project uses [semantic-release](https://github.com/semantic-release/semanti
 ## How it works
 
 1. Make your changes using [Conventional Commits](https://www.conventionalcommits.org/):
+    - Any type below with an added `!` suffix (e.g. `feat!:`, `fix!:`) or a `BREAKING CHANGE:` footer for breaking changes (major version bump)
     - `feat:` for new features (minor version bump)
     - `fix:` for bug fixes (patch version bump)
     - `style:` for code style changes
-    - `perf:` for performance improvements
+    - `perf:` for performance improvements (patch version bump)
     - `refactor:` for refactoring code
     - `test:` for adding/updating tests
     - `build:` for build/dependency changes
     - `docs:` for documentation changes
     - `ci:` for CI changes
     - `revert:` for reverting previous commits
-    - `feat!:` or `fix!:` for breaking changes (major version bump)
     - `chore:` for maintenance tasks (NOTE: these are not included in the changelog)
+
+    Any type can carry an optional scope, e.g. `feat(button):` or `perf(tooltip)!:`.
 
 2. When a PR is merged to `main`, the [Package Release](.github/workflows/publish-package-release.yml) workflow runs and semantic-release:
     - Reads the merged commit's conventional-commit type to determine the version bump
@@ -227,6 +229,6 @@ This project uses [semantic-release](https://github.com/semantic-release/semanti
     - Creates a new tag and GitHub release
     - Publishes the package to npm and GitHub Packages
 
-Merges with a releasing commit (`feat:`, `fix:`, `feat!:`, or `fix!:`, optionally scoped like `feat(button):` or `fix(tooltip)!:`) publish a release automatically. Merges that only contain non-releasing types (e.g. `chore:`, `docs:`) don't trigger one.
+A merge triggers a release only when it includes a type marked with a version bump above; otherwise nothing is published.
 
 The storybook hosted on GitHub pages will be automatically updated on each push to `main`. If there's a problem, try running the action manually from the [Actions settings](https://github.com/Doist/reactist/actions).

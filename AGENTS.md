@@ -109,7 +109,7 @@ For generic React Testing Library patterns (component tests, hook tests, provide
 ## Commits and PRs
 
 - PR titles must follow [conventional commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `chore:`, `refactor:`, `test:`, `docs:`, etc.
-- `feat:` triggers a minor version bump, `fix:` triggers a patch, `feat!:` or `fix!:` triggers a major (breaking)
+- `feat:` triggers a minor version bump, `fix:` and `perf:` trigger a patch, any type with `!` or a `BREAKING CHANGE:` footer triggers a major (breaking)
 - Versioning is automated by semantic-release based on PR title
 - Pre-commit hooks run Prettier, ESLint, and React Compiler tracking - do not skip them
 
