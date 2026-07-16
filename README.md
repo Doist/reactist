@@ -211,7 +211,6 @@ This project uses [semantic-release](https://github.com/semantic-release/semanti
     - Any type below with an added `!` suffix (e.g. `feat!:`, `fix!:`) or a `BREAKING CHANGE:` footer for breaking changes (major version bump)
     - `feat:` for new features (minor version bump)
     - `fix:` for bug fixes (patch version bump)
-    - `style:` for code style changes
     - `perf:` for performance improvements (patch version bump)
     - `refactor:` for refactoring code
     - `test:` for adding/updating tests
