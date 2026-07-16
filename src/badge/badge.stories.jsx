@@ -37,9 +37,6 @@ function BadgeExamples() {
                     <div>
                         <Badge tone="attention" label="Attention" />
                     </div>
-                    <div>
-                        <Badge tone="warning" label="Warning" />
-                    </div>
                 </Stack>
             </Column>
             <Column width="content">
@@ -56,9 +53,6 @@ function BadgeExamples() {
                     </div>
                     <div>
                         <Badge tone="attention" label="Save 25%" />
-                    </div>
-                    <div>
-                        <Badge tone="warning" label="Deprecated" />
                     </div>
                 </Stack>
             </Column>
@@ -85,9 +79,6 @@ function DarkModeTemplate() {
                 // tone="attention"
                 '--reactist-badge-attention-tint': '#CF473A',
                 '--reactist-badge-attention-fill': '#351E1C',
-                // tone="warning
-                '--reactist-badge-warning-tint': '#cf473a',
-                '--reactist-badge-warning-fill': '#faead1',
             }}
         >
             <BadgeExamples />
@@ -127,7 +118,7 @@ export const Playground = {
 
     argTypes: {
         tone: {
-            options: ['info', 'positive', 'promote', 'attention', 'warning'],
+            options: ['info', 'positive', 'promote', 'attention'],
 
             control: {
                 type: 'inline-radio',
