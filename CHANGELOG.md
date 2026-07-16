@@ -1,3 +1,13 @@
+## [35.0.0](https://github.com/Doist/reactist/compare/v34.0.0...v35.0.0) (2026-07-16)
+
+### ⚠ BREAKING CHANGES
+
+- require node >=24, test on 24 & 26, support npm >=11 (#1098)
+
+### Features
+
+- require node >=24, test on 24 & 26, support npm >=11 ([#1098](https://github.com/Doist/reactist/issues/1098)) ([50f9295](https://github.com/Doist/reactist/commit/50f9295c28d8f27bf1f1776f786b96a4ee895692))
+
 ## [34.0.0](https://github.com/Doist/reactist/compare/v33.4.0...v34.0.0) (2026-07-16)
 
 ### ⚠ BREAKING CHANGES
