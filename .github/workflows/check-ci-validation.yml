@@ -24,10 +24,6 @@ jobs:
         runs-on: ubuntu-latest
         timeout-minutes: 15
 
-        strategy:
-            matrix:
-                node-version: [24, 26]
-
         steps:
             - name: Checkout repository
               uses: actions/checkout@v6
@@ -36,13 +32,13 @@ jobs:
               uses: actions/setup-node@v6
               with:
                   cache: npm
-                  node-version: ${{ matrix.node-version }}
+                  node-version-file: .node-version
 
             - name: Cache project 'node_modules' directory
               id: node-modules-cache
               uses: actions/cache@v5
               with:
-                  key: node-modules-cache-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json', '**/.node-version', 'patches/**') }}
+                  key: node-modules-cache-${{ hashFiles('**/package-lock.json', '**/.node-version', 'patches/**') }}
                   path: node_modules/
 
             - name: Install project npm dependencies
@@ -54,10 +50,6 @@ jobs:
         name: Static Code Analysis
         runs-on: ubuntu-latest
         timeout-minutes: 15
-
-        strategy:
-            matrix:
-                node-version: [24, 26]
 
         needs:
             - prepare-workflow
@@ -74,13 +66,13 @@ jobs:
               uses: actions/setup-node@v6
               with:
                   cache: npm
-                  node-version: ${{ matrix.node-version }}
+                  node-version-file: .node-version
 
             - name: Cache project 'node_modules' directory
               id: node-modules-cache
               uses: actions/cache@v5
               with:
-                  key: node-modules-cache-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json', '**/.node-version', 'patches/**') }}
+                  key: node-modules-cache-${{ hashFiles('**/package-lock.json', '**/.node-version', 'patches/**') }}
                   path: node_modules/
 
             - name: Install project npm dependencies
@@ -116,12 +108,12 @@ jobs:
         runs-on: ubuntu-latest
         timeout-minutes: 15
 
+        needs:
+            - prepare-workflow
+
         strategy:
             matrix:
                 node-version: [24, 26]
-
-        needs:
-            - prepare-workflow
 
         steps:
             - name: Checkout repository
@@ -158,10 +150,6 @@ jobs:
         runs-on: ubuntu-latest
         timeout-minutes: 15
 
-        strategy:
-            matrix:
-                node-version: [24, 26]
-
         needs:
             - prepare-workflow
 
@@ -173,13 +161,13 @@ jobs:
               uses: actions/setup-node@v6
               with:
                   cache: npm
-                  node-version: ${{ matrix.node-version }}
+                  node-version-file: .node-version
 
             - name: Cache project 'node_modules' directory
               id: node-modules-cache
               uses: actions/cache@v5
               with:
-                  key: node-modules-cache-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json', '**/.node-version', 'patches/**') }}
+                  key: node-modules-cache-${{ hashFiles('**/package-lock.json', '**/.node-version', 'patches/**') }}
                   path: node_modules/
 
             - name: Install project npm dependencies
