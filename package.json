@@ -13,6 +13,10 @@
         "url": "http://doist.com"
     },
     "license": "MIT",
+    "engines": {
+        "node": ">=24",
+        "npm": ">=11"
+    },
     "prettier": "@doist/prettier-config",
     "main": "lib/index.js",
     "module": "es/index.js",
