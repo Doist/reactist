@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { {{pascalCase name}} } from './{{dashCase name}}'
 
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-vite'
 
 const meta = {
     title: '{{category}}/{{pascalCase name}}',
@@ -13,6 +13,8 @@ const meta = {
          * Used to highlight the web accessibility standards the component meets or
          * whether the component is deprecated.
          * Possible values: `accessible`, `partiallyAccessible`, `notAccessible`, `deprecated`
+         * Start at `notAccessible`; raise it only once the component has been through an
+         * accessibility review, so a fresh component never claims a standard it hasn't earned.
          * @see .storybook/badges/README.md
          */
         badges: ['notAccessible'],
@@ -35,6 +37,39 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
+export const Default: Story = {
+    render() {
+        return (
+            <section>
+                <{{pascalCase name}} variant="primary">Hello world</{{pascalCase name}}>
+            </section>
+        )
+    },
+}
+
+export const Variants: Story = {
+    render() {
+        return (
+            <section>
+                <{{pascalCase name}} variant="primary">Primary</{{pascalCase name}}>{' '}
+                <{{pascalCase name}} variant="secondary">Secondary</{{pascalCase name}}>
+            </section>
+        )
+    },
+}
+
+export const Accessibility: Story = {
+    // Demonstrate what the docs page's Accessibility section describes (the
+    // accessible name, keyboard behavior, decorative usage), not just default content.
+    render() {
+        return (
+            <section>
+                <{{pascalCase name}} variant="primary">Accessible content</{{pascalCase name}}>
+            </section>
+        )
+    },
+}
+
 export const Playground: Story = {
     args: {
         variant: 'primary',
@@ -53,27 +88,6 @@ export const Playground: Story = {
         return (
             <section>
                 <{{pascalCase name}} {...args} />
-            </section>
-        )
-    },
-}
-
-export const Variants: Story = {
-    render() {
-        return (
-            <section>
-                <{{pascalCase name}} variant="primary">Primary</{{pascalCase name}}>{' '}
-                <{{pascalCase name}} variant="secondary">Secondary</{{pascalCase name}}>
-            </section>
-        )
-    },
-}
-
-export const Accessibility: Story = {
-    render() {
-        return (
-            <section>
-                <{{pascalCase name}} variant="primary">Accessible content</{{pascalCase name}}>
             </section>
         )
     },
