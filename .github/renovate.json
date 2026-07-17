@@ -1,0 +1,28 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "github>doist/renovate-config:frontend-base",
+        "github>doist/renovate-config-internal:npm-registry-token"
+    ],
+    "packageRules": [
+        {
+            "description": "Reactist releases should mirror @doist/product-libraries-tokens releases. Simple token value changes are categorized as patches.",
+            "matchPackageNames": ["@doist/product-libraries-tokens"],
+            "matchUpdateTypes": ["patch"],
+            "semanticCommitType": "fix"
+        },
+        {
+            "description": "Reactist releases should mirror @doist/product-libraries-tokens releases. When new tokens are added, we categorize it as a minor release.",
+            "matchPackageNames": ["@doist/product-libraries-tokens"],
+            "matchUpdateTypes": ["minor"],
+            "semanticCommitType": "feat"
+        },
+        {
+            "description": "Reactist releases should mirror @doist/product-libraries-tokens releases. Token removals are categorized as breaking changes and should be reviewed.",
+            "matchPackageNames": ["@doist/product-libraries-tokens"],
+            "matchUpdateTypes": ["major"],
+            "commitMessagePrefix": "feat(deps)!:",
+            "automerge": false
+        }
+    ]
+}
