@@ -76,7 +76,24 @@ The generated source files include the component implementation with sample prop
 
 You also need to export your new component by adding a reference to it in the [top-level index file](src/index.ts).
 
-The generator also creates a `<component-name>.mdx` documentation page next to the stories. Edit it to document the component: fill in the Overview and link the matching [design handbook page](https://github.com/Doist/component-libraries/tree/main/handbook/components), keep the sections that apply, and delete the ones that don't. For composable components (multiple exported parts), repeat the API block per part. Its live examples render from the generated `Playground`, `Variants`, and `Accessibility` stories.
+### Documenting a component
+
+The generator also creates a `<component-name>.mdx` documentation page next to the stories; its live examples render from the generated `Default`, `Variants`, `Accessibility`, and `Playground` stories. For an existing component that lacks a docs page, `npm run plop docs` scaffolds just the `.mdx` (repoint its canvases at the component's real stories as your first step).
+
+Every docs page follows the same structure, in this order:
+
+1. `<Title />` and `<Subtitle>` (rendered from the story meta, so the page title matches the sidebar)
+2. **Overview**: what the component is and the problem it solves, linking the matching [design handbook page](https://github.com/Doist/component-libraries/tree/main/handbook/components) for anatomy and usage guidance
+3. **Anatomy** (compound components only): a table mapping each exported part to what it renders and owns
+4. **When to use**: concrete scenarios, including when to prefer another component
+5. **Basic usage**: the simplest real example
+6. **Variants** and **States**: visual variations; rename or replace these with domain sections when the component's modes need it (e.g. a Docked/Overlay split)
+7. **Props**: an interactive playground canvas with the props table directly below it; compound components add a `### <Component.Part>` block with `Description` and `ArgTypes` per exported part, importing the parts at the top of the file
+8. **Custom properties**: the component's CSS custom properties as a Property/Default/Purpose table (a `ColorPalette` is fine for long color lists)
+9. **What the consumer owns** (optional): integration responsibilities the component deliberately leaves to the consumer
+10. **Accessibility**: keyboard, screen reader, and focus behavior, with a demo canvas
+
+Keep the heading names and order. Optional sections are scaffolded as `{/* … */}` comments: uncomment the ones you fill in, delete the ones that don't apply. Constraints consumers must not violate (e.g. "only one modal overlay at a time") get a short callout inside the section they belong to. Markdown tables (Anatomy, Custom properties) must be wrapped in a `<Markdown>{` … `}</Markdown>` block with their inner backticks escaped, since this repo's MDX has no remark-gfm and renders bare tables as literal text (see `avatar.mdx`). Prettier does not format `.mdx` (its MDX parser predates MDX 2/3 and corrupts comments), so match the surrounding formatting by hand.
 
 ## Storybook
 
