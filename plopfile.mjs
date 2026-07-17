@@ -83,6 +83,31 @@ function componentGenerator(plop) {
 }
 
 /** @param {NodePlopAPI} plop */
+function docsGenerator(plop) {
+    plop.setGenerator('docs', {
+        description: 'MDX docs page for an existing component that lacks one',
+
+        prompts: [
+            {
+                type: 'input',
+                name: 'name',
+                message:
+                    'Existing component name, matching its directory (e.g. "toast", "text field")',
+            },
+        ],
+
+        actions: [
+            {
+                type: 'add',
+                path: 'src/{{dashCase name}}/{{dashCase name}}.mdx',
+                templateFile: templateFile('component/component.mdx'),
+            },
+        ],
+    })
+}
+
+/** @param {NodePlopAPI} plop */
 export default function (plop) {
     componentGenerator(plop)
+    docsGenerator(plop)
 }
