@@ -23,6 +23,21 @@ function componentGenerator(plop) {
                 message:
                     'Component name (e.g. "dropdown select", "sortable-table", "PromotionBanner")',
             },
+            {
+                type: 'list',
+                name: 'category',
+                message: 'Storybook category (the section the component belongs to)',
+                choices: [
+                    '📐 Layout',
+                    '🔤 Typography',
+                    '🔘 Buttons & links',
+                    '📝 Form',
+                    '📑 Menus & tabs',
+                    '📊 Data display',
+                    '💬 Feedback',
+                    '🪟 Overlays',
+                ],
+            },
         ],
 
         actions() {
