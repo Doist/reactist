@@ -1,0 +1,113 @@
+{{!-- Template-authoring note, stripped from the generated file: JSX braces that touch
+Handlebars braces form a triple-stache and break generation. Keep a space inside
+`of={ … }` and let `~` trim it from the output, e.g. `of={ {{~pascalCase name~}} Stories}`.
+Avoid inline `style={{ … }}` in this file for the same reason.
+Markdown tables don't render in this repo's MDX (no remark-gfm); wrap them in a
+`<Markdown>{` … `}</Markdown>` block and escape inner backticks as `\``, like avatar.mdx. --}}
+import { Canvas, Controls, Markdown, Meta, Subtitle, Title } from '@storybook/addon-docs/blocks'
+
+import * as {{pascalCase name}}Stories from './{{dashCase name}}.stories'
+
+<Meta of={ {{~pascalCase name~}} Stories} />
+
+<Title />
+
+<Subtitle>One-line summary of what {{pascalCase name}} is for.</Subtitle>
+
+## Overview
+
+What {{pascalCase name}} is and the problem it solves, in a sentence or two. For design
+guidance (anatomy, when to use, do and don't), see the
+[{{pascalCase name}} handbook page](https://github.com/Doist/component-libraries/blob/main/handbook/components/{{dashCase name}}.md).
+
+{/* Verify this handbook link: the slug isn't always the component's dash-name (e.g.
+    buttons.md, menus.md, switches.md) and some pages don't exist yet. */}
+
+{/* Compound components (multiple exported parts): describe the parts in an Anatomy table.
+
+## Anatomy
+
+<Markdown>{`
+| Part | Renders | Owns |
+| --- | --- | --- |
+| \`<{{pascalCase name}}>\` | the root element | context and coordination between parts |
+| \`<{{pascalCase name}}.Item>\` | one item | its own selection state |
+`}</Markdown>
+*/}
+
+## When to use
+
+{/* Two or more concrete scenarios. Trim to what the handbook doesn't already cover. */}
+
+- Use {{pascalCase name}} when ...
+- Prefer another component when ...
+
+## Basic usage
+
+The simplest real example. Pass `variant` and `children`.
+
+<Canvas of={ {{~pascalCase name~}} Stories.Default} />
+
+## Variants
+
+{{pascalCase name}} supports a `primary` and a `secondary` variant.
+
+<Canvas of={ {{~pascalCase name~}} Stories.Variants} />
+
+{/* Visual states (idle, hover, disabled, loading) get their own section. Add a States
+    story, then uncomment:
+
+## States
+
+<Canvas of={ {{~pascalCase name~}} Stories.States} />
+*/}
+
+## Props
+
+Try the props in the playground below; the table lists each prop with its type and default.
+
+<Canvas of={ {{~pascalCase name~}} Stories.Playground} />
+
+<Controls of={ {{~pascalCase name~}} Stories.Playground} />
+
+{/* Compound components: document each exported part with its own block. Import the parts
+    from the component module (e.g. `import { {{pascalCase name}}Item } from './{{dashCase name}}'`),
+    add `ArgTypes` and `Description` to the blocks import above, then repeat per part:
+
+### `<{{pascalCase name}}.Item>`
+
+<Description of={ {{~pascalCase name~}} Item} />
+
+<ArgTypes of={ {{~pascalCase name~}} Item} />
+*/}
+
+## Custom properties
+
+These CSS custom properties control the {{pascalCase name}} colors. The variant classes set
+them; the values below are what the `primary` variant sets.
+
+<Markdown>{`
+| Property | Default (primary variant) | Purpose |
+| --- | --- | --- |
+| \`--reactist-{{dashCase name}}-tint\` | \`var(--reactist-content-primary)\` | Content color |
+| \`--reactist-{{dashCase name}}-fill\` | \`var(--reactist-framework-fill-selected)\` | Background color |
+`}</Markdown>
+
+{/* Theming variables set on `:root` with literal defaults belong in this table too. For
+    long lists of color variables, a ColorPalette (see avatar.mdx) works better. */}
+
+{/* If integration responsibilities deliberately stay with the consumer (data fetching,
+    persistence, entity conventions), make the boundary explicit:
+
+## What the consumer owns
+
+- **Some responsibility**: what the component expects the consumer to handle, and why.
+*/}
+
+## Accessibility
+
+- **Keyboard**: describe focus order and keys the component handles.
+- **Screen reader**: the name, role, and state it exposes (and via which prop).
+- **Focus**: focus management / trapping behavior, if any.
+
+<Canvas of={ {{~pascalCase name~}} Stories.Accessibility} />

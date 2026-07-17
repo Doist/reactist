@@ -23,6 +23,21 @@ function componentGenerator(plop) {
                 message:
                     'Component name (e.g. "dropdown select", "sortable-table", "PromotionBanner")',
             },
+            {
+                type: 'list',
+                name: 'category',
+                message: 'Storybook category (the section the component belongs to)',
+                choices: [
+                    '📐 Layout',
+                    '🔤 Typography',
+                    '🔘 Buttons & links',
+                    '📝 Form',
+                    '📑 Menus & tabs',
+                    '📊 Data display',
+                    '💬 Feedback',
+                    '🪟 Overlays',
+                ],
+            },
         ],
 
         actions() {
@@ -56,12 +71,43 @@ function componentGenerator(plop) {
                 templateFile: templateFile('component/component.stories.tsx'),
             })
 
+            actions.push({
+                type: 'add',
+                path: 'src/{{dashCase name}}/{{dashCase name}}.mdx',
+                templateFile: templateFile('component/component.mdx'),
+            })
+
             return actions
         },
     })
 }
 
 /** @param {NodePlopAPI} plop */
+function docsGenerator(plop) {
+    plop.setGenerator('docs', {
+        description: 'MDX docs page for an existing component that lacks one',
+
+        prompts: [
+            {
+                type: 'input',
+                name: 'name',
+                message:
+                    'Existing component name, matching its directory (e.g. "toast", "text field")',
+            },
+        ],
+
+        actions: [
+            {
+                type: 'add',
+                path: 'src/{{dashCase name}}/{{dashCase name}}.mdx',
+                templateFile: templateFile('component/component.mdx'),
+            },
+        ],
+    })
+}
+
+/** @param {NodePlopAPI} plop */
 export default function (plop) {
     componentGenerator(plop)
+    docsGenerator(plop)
 }
