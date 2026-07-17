@@ -3,3 +3,5 @@ dist/**
 coverage/**
 docs/**
 lib/**
+# Prettier's MDX parser predates MDX 2/3 and corrupts {/* … */} comments (see PR #1091)
+*.mdx
