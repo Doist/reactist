@@ -1,0 +1,102 @@
+.container {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    /* border */
+    border: 1px solid var(--reactist-inputs-idle);
+
+    /* color */
+    background: var(--reactist-field-background);
+    color: var(--reactist-field-content);
+}
+
+/* Read-only: matches native :read-only on form controls (scoped to
+ * <input> / <textarea> to avoid catching unrelated elements that
+ * default to :read-only), the ARIA convention (aria-readonly="true"),
+ * and the data-attr convention used by Ariakit/Radix-style components.
+ * The :not(='false') exclusion treats aria-readonly="false" /
+ * data-readonly="false" as "not read-only" per the ARIA spec. */
+.container:has(
+    [data-reactist-control] input:read-only,
+    [data-reactist-control] textarea:read-only,
+    [data-reactist-control] [aria-readonly]:not([aria-readonly='false']),
+    [data-reactist-control] [data-readonly]:not([data-readonly='false'])
+),
+.container:not(:has([data-reactist-control])):has(
+        input:read-only,
+        textarea:read-only,
+        [aria-readonly]:not([aria-readonly='false']),
+        [data-readonly]:not([data-readonly='false'])
+    ) {
+    background-color: var(--reactist-field-readonly-background);
+    color: var(--reactist-field-readonly-content);
+}
+
+/* Disabled: matches the native disabled attribute (form controls),
+ * the soft-disable ARIA convention (used by Reactist's own Button to
+ * keep elements focusable while announcing as disabled), and the
+ * data-attr convention used by Ariakit/Radix. */
+.container:has(
+    [data-reactist-control] :disabled,
+    [data-reactist-control] [aria-disabled]:not([aria-disabled='false']),
+    [data-reactist-control] [data-disabled]:not([data-disabled='false'])
+),
+.container:not(:has([data-reactist-control])):has(
+        :disabled,
+        [aria-disabled]:not([aria-disabled='false']),
+        [data-disabled]:not([data-disabled='false'])
+    ) {
+    background-color: var(--reactist-field-disabled-background);
+    color: var(--reactist-field-disabled-content);
+}
+
+/* Interactive border (hover/focus) — suppressed when the control is
+ * in any disabled state. */
+.container:has([data-reactist-control]):not(
+        :has(
+            [data-reactist-control] :disabled,
+            [data-reactist-control] [aria-disabled]:not([aria-disabled='false']),
+            [data-reactist-control] [data-disabled]:not([data-disabled='false'])
+        )
+    ):hover,
+.container:not(:has([data-reactist-control])):not(
+        :has(
+            :disabled,
+            [aria-disabled]:not([aria-disabled='false']),
+            [data-disabled]:not([data-disabled='false'])
+        )
+    ):hover {
+    border-color: var(--reactist-inputs-hover);
+}
+
+.container:has([data-reactist-control]):not(
+        :has(
+            [data-reactist-control] :disabled,
+            [data-reactist-control] [aria-disabled]:not([aria-disabled='false']),
+            [data-reactist-control] [data-disabled]:not([data-disabled='false'])
+        )
+    ):focus-within,
+.container:not(:has([data-reactist-control])):not(
+        :has(
+            :disabled,
+            [aria-disabled]:not([aria-disabled='false']),
+            [data-disabled]:not([data-disabled='false'])
+        )
+    ):focus-within {
+    border-color: var(--reactist-inputs-focus);
+}
+
+/* Invalid: matches the ARIA convention only. */
+.container:has([data-reactist-control] [aria-invalid]:not([aria-invalid='false'])),
+.container:not(:has([data-reactist-control])):has([aria-invalid]:not([aria-invalid='false'])) {
+    border-color: var(--reactist-inputs-alert) !important;
+}
+
+.borderRadiusSmall {
+    border-radius: var(--reactist-border-radius-small);
+}
+
+.borderRadiusLarge {
+    border-radius: var(--reactist-border-radius-large);
+}

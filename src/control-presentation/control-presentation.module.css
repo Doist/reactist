@@ -1,0 +1,66 @@
+:root {
+    --reactist-field-height: 32px;
+}
+
+.container {
+    /* sizing */
+    height: var(--reactist-field-height);
+
+    /* slot-to-control gap (only takes effect between rendered children) */
+    gap: 6px;
+
+    /* default outer padding; shrunk on the side(s) where a slot is present */
+    padding-inline: 10px;
+}
+
+/* Conditional outer padding. When a slot is present on a side, shrink
+ * the outer padding on that side; the wrapper's flex `gap` then provides
+ * the visual spacing between the slot and the control. */
+.container:has(.startSlot) {
+    padding-left: 6px;
+}
+
+.container:has(.endSlot) {
+    padding-right: 4px;
+}
+
+.control {
+    display: contents;
+}
+
+/* The wrapped control inherits chrome styling so that native elements
+ * (input/select/textarea) render flush with the surrounding wrapper. */
+.control > * {
+    /* layout */
+    flex: 1;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    /* border */
+    border: none;
+    outline: none; /* focus state is handled by the wrapper border */
+
+    /* color */
+    background: transparent;
+    color: inherit;
+}
+
+.slot {
+    /* color */
+    color: var(--reactist-field-slot-content);
+}
+
+/*
+ * Compact 24×24 action button variant for use inside `endSlot`. The 3px
+ * border-radius and reduced min-width make it fit the field chrome alongside a
+ * 16px icon glyph. The tripled class boosts specificity above Button's
+ * size-class rules (e.g. `.baseButton.size-normal`) so the height override
+ * wins regardless of stylesheet load order.
+ */
+.controlActionButton.controlActionButton.controlActionButton {
+    --reactist-btn-height: 24px;
+    border-radius: 3px;
+    min-width: var(--reactist-btn-height);
+}
