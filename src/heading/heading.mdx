@@ -1,0 +1,33 @@
+import { Meta, ArgTypes, Description } from '@storybook/addon-docs/blocks'
+import { Heading } from './heading'
+import * as HeadingStories from './heading.stories'
+
+<Meta of={HeadingStories} />
+
+# Heading
+
+<Description of={Heading} />
+
+## Usage
+
+Use `level` according to the document outline. The matching visual variant is inferred for levels
+1-3; levels 4-6 use `heading-4`. Override `variant` only when semantics and visual hierarchy differ.
+
+```tsx
+<Heading level={1}>Page title</Heading>
+<Heading level={2}>Section title</Heading>
+<Heading level={2} variant="heading-1">Prominent section title</Heading>
+```
+
+Use the custom render path only to apply heading typography to a non-heading control. It does not
+add heading semantics.
+
+```tsx
+<Heading variant="heading-3" render={<button type="button" />}>
+    Edit title
+</Heading>
+```
+
+## Props
+
+<ArgTypes of={Heading} />
