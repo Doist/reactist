@@ -12,6 +12,8 @@ function span() {
     return <span />
 }
 
+const UI = { Link: RequiredLink }
+
 export function SafetyCases() {
     return (
         <>
@@ -28,6 +30,7 @@ export function SafetyCases() {
                 {/* TODO(reactist-codemod): dynamic Text as target */}
                 Lowercase variable component
             </Text>
+            <Text render={<UI.Link />}>Static member component</Text>
             <Text variant="body-3" size="body">
                 {/* TODO(reactist-codemod): Text mixes variant with legacy size or weight props */}
                 Mixed Text props

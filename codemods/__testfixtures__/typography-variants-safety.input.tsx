@@ -12,6 +12,8 @@ function span() {
     return <span />
 }
 
+const UI = { Link: RequiredLink }
+
 export function SafetyCases() {
     return (
         <>
@@ -23,6 +25,7 @@ export function SafetyCases() {
                 Custom component with required props
             </Text>
             <Text as={span}>Lowercase variable component</Text>
+            <Text as={UI.Link}>Static member component</Text>
             <Text variant="body-3" size="body">
                 Mixed Text props
             </Text>

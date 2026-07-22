@@ -169,6 +169,9 @@ function getStaticRenderName(j, attribute) {
     if (expression.type === 'Identifier' && /^[A-Z]/.test(expression.name)) {
         return j.jsxIdentifier(expression.name)
     }
+    if (expression.type === 'MemberExpression' && !expression.computed) {
+        return toJSXName(j, expression)
+    }
     return null
 }
 
