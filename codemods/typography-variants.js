@@ -166,7 +166,10 @@ function getStaticRenderName(j, attribute) {
     ) {
         return j.jsxIdentifier(String(expression.value))
     }
-    return toJSXName(j, expression)
+    if (expression.type === 'Identifier' && /^[A-Z]/.test(expression.name)) {
+        return j.jsxIdentifier(expression.name)
+    }
+    return null
 }
 
 function hasAttributesOtherThan(openingElement, names) {

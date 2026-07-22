@@ -65,6 +65,7 @@ test('reports unsafe legacy element and mixed typography props', () => {
     expect(report.mock.calls.map(([message]) => message)).toEqual([
         expect.stringMatching(/Text as migration requires no props besides size or weight$/),
         expect.stringMatching(/Text as migration requires no props besides size or weight$/),
+        expect.stringMatching(/dynamic Text as target$/),
         expect.stringMatching(/Text mixes variant with legacy size or weight props$/),
         expect.stringMatching(
             /Heading mixes variant or render with legacy level, size, or weight props$/,

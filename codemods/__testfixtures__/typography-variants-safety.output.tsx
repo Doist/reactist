@@ -24,7 +24,10 @@ export function SafetyCases() {
                 {/* TODO(reactist-codemod): Text as migration requires no props besides size or weight */}
                 Custom component with required props
             </Text>
-            <Text render={<span />}>Lowercase variable component</Text>
+            <Text as={span}>
+                {/* TODO(reactist-codemod): dynamic Text as target */}
+                Lowercase variable component
+            </Text>
             <Text variant="body-3" size="body">
                 {/* TODO(reactist-codemod): Text mixes variant with legacy size or weight props */}
                 Mixed Text props
