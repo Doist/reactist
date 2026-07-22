@@ -12,6 +12,7 @@ import type { TypographyStyleProps } from '../typography/typography'
 
 type DisplayVariant = 'display-1' | 'display-2' | 'display-3' | 'display-4' | 'display-5'
 
+/** Props for the Display component. */
 type DisplayProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'className'> &
     TypographyStyleProps & {
         /** Large display text content. */

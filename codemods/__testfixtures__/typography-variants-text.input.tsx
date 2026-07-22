@@ -1,10 +1,4 @@
-import * as React from 'react'
-
 import { Text, Text as Copy } from '@doist/reactist'
-
-function Link(props: React.ComponentProps<'a'>) {
-    return <a {...props} />
-}
 
 export function Example() {
     return (
@@ -17,7 +11,7 @@ export function Example() {
             <Text size="body" weight="semibold">
                 Body semibold
             </Text>
-            <Text size="body" weight="bold" as="span">
+            <Text size="body" weight="bold">
                 Body bold
             </Text>
             <Copy size="copy">Callout regular</Copy>
@@ -32,7 +26,7 @@ export function Example() {
                 Caption bold
             </Text>
             <Text>Default body</Text>
-            <Text as={Link}>Default link</Text>
+            <Text as="span">Default span</Text>
         </>
     )
 }

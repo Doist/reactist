@@ -47,6 +47,34 @@ test('marks ambiguous Text typography uses for manual migration', async () => {
     expect(() => j(output)).not.toThrow()
 })
 
+test('retains unsafe legacy element and mixed typography props for manual migration', async () => {
+    const output = await transformFixture('typography-variants-safety')
+
+    expect(() => j(output)).not.toThrow()
+})
+
+test('reports unsafe legacy element and mixed typography props', () => {
+    const source = fs.readFileSync(
+        path.join(fixturesDirectory, 'typography-variants-safety.input.tsx'),
+        'utf8',
+    )
+    const report = jest.fn()
+
+    transform({ path: 'src/safety.tsx', source }, { jscodeshift: j, report, stats: jest.fn() }, {})
+
+    expect(report.mock.calls.map(([message]) => message)).toEqual([
+        expect.stringMatching(/Text as migration requires a prop-free intrinsic element$/),
+        expect.stringMatching(/Text as target may require custom component props$/),
+        expect.stringMatching(/Text mixes variant with legacy size or weight props$/),
+        expect.stringMatching(
+            /Heading mixes variant or render with legacy level, size, or weight props$/,
+        ),
+        expect.stringMatching(
+            /Heading mixes variant or render with legacy level, size, or weight props$/,
+        ),
+    ])
+})
+
 test('reports every manual migration with file and line', () => {
     const source = fs.readFileSync(
         path.join(fixturesDirectory, 'typography-variants-manual.input.tsx'),

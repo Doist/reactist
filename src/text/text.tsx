@@ -66,6 +66,7 @@ type UppercaseTextProps = {
     case: 'uppercase'
 }
 
+/** Props for the Text component. */
 type TextProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'className'> &
     TypographyStyleProps & {
         /** Text content. */

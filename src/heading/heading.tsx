@@ -35,6 +35,7 @@ type RenderedHeadingProps = {
     render: React.ReactElement
 }
 
+/** Props for the Heading component. */
 type HeadingProps = HeadingBaseProps & (SemanticHeadingProps | RenderedHeadingProps)
 
 function getHeadingVariant(level: HeadingLevel | undefined): HeadingVariant {

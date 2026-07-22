@@ -169,6 +169,20 @@ function getStaticRenderName(j, attribute) {
     return toJSXName(j, expression)
 }
 
+function isIntrinsicElementName(name) {
+    return name?.type === 'JSXIdentifier' && /^[a-z][a-z0-9.-]*$/.test(name.name)
+}
+
+function hasAttributesOtherThan(openingElement, names) {
+    return openingElement.attributes.some(
+        (attribute) =>
+            attribute.type === 'JSXSpreadAttribute' ||
+            (attribute.type === 'JSXAttribute' &&
+                attribute.name.type === 'JSXIdentifier' &&
+                !names.includes(attribute.name.name)),
+    )
+}
+
 function replaceAsWithRender(j, openingElement, asAttribute, renderName) {
     const renderElement = j.jsxElement(j.jsxOpeningElement(renderName, [], true), null, [], true)
     asAttribute.name = j.jsxIdentifier('render')
@@ -209,6 +223,8 @@ function markManual(j, api, file, path, reasons) {
 function transformTextElement(j, api, file, path) {
     const openingElement = path.node.openingElement
     const hasVariant = Boolean(getAttribute(openingElement, 'variant'))
+    const legacySizeAttribute = getAttribute(openingElement, 'size')
+    const legacyWeightAttribute = getAttribute(openingElement, 'weight')
     const reasons = []
     if (hasSpread(openingElement))
         reasons.push('spread props may supply or override typography props')
@@ -216,8 +232,12 @@ function transformTextElement(j, api, file, path) {
         reasons.push('duplicate Text ' + name + ' props')
     }
 
-    const sizeAttribute = hasVariant ? undefined : getAttribute(openingElement, 'size')
-    const weightAttribute = hasVariant ? undefined : getAttribute(openingElement, 'weight')
+    if (hasVariant && (legacySizeAttribute || legacyWeightAttribute)) {
+        reasons.push('Text mixes variant with legacy size or weight props')
+    }
+
+    const sizeAttribute = hasVariant ? undefined : legacySizeAttribute
+    const weightAttribute = hasVariant ? undefined : legacyWeightAttribute
     const asAttribute = getAttribute(openingElement, 'as')
     const renderAttribute = getAttribute(openingElement, 'render')
     const size = readStaticString(sizeAttribute, 'body')
@@ -233,7 +253,13 @@ function transformTextElement(j, api, file, path) {
     }
 
     const renderName = asAttribute ? getStaticRenderName(j, asAttribute) : undefined
-    if (asAttribute && !renderName) reasons.push('dynamic Text as target')
+    if (asAttribute && !renderName) {
+        reasons.push('dynamic Text as target')
+    } else if (asAttribute && !isIntrinsicElementName(renderName)) {
+        reasons.push('Text as target may require custom component props')
+    } else if (asAttribute && !renderAttribute && hasAttributesOtherThan(openingElement, ['as'])) {
+        reasons.push('Text as migration requires a prop-free intrinsic element')
+    }
     if (asAttribute && renderAttribute) reasons.push('Text already has render prop')
 
     if (reasons.length > 0) {
@@ -254,7 +280,19 @@ function transformTextElement(j, api, file, path) {
 
 function transformHeadingElement(j, api, file, path) {
     const openingElement = path.node.openingElement
-    if (getAttribute(openingElement, 'variant') || getAttribute(openingElement, 'render')) {
+    const hasVariant = Boolean(getAttribute(openingElement, 'variant'))
+    const hasRender = Boolean(getAttribute(openingElement, 'render'))
+    const hasLegacyProps = ['level', 'size', 'weight'].some((name) =>
+        Boolean(getAttribute(openingElement, name)),
+    )
+
+    if ((hasVariant || hasRender) && hasLegacyProps) {
+        markManual(j, api, file, path, [
+            'Heading mixes variant or render with legacy level, size, or weight props',
+        ])
+        return true
+    }
+    if (hasVariant || hasRender) {
         return false
     }
 
