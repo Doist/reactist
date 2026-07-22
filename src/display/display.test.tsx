@@ -9,30 +9,22 @@ const displayVariants = ['display-1', 'display-2', 'display-3', 'display-4', 'di
 
 describe('Display', () => {
     it.each(displayVariants)('applies the %s variant', (variant) => {
-        render(
-            <Display data-testid="display-element" variant={variant}>
-                Display
-            </Display>,
+        render(<Display variant={variant}>Display</Display>)
+        expect(screen.getByText('Display')).toHaveClass(
+            'variant-' + variant,
+            'font-family-sf-for-web',
+            'display',
         )
-        expect(screen.getByTestId('display-element')).toHaveClass('variant-' + variant)
     })
 
     it('renders a div by default', () => {
-        render(
-            <Display data-testid="display-element" variant="display-1">
-                Display
-            </Display>,
-        )
-        expect(screen.getByTestId('display-element').tagName).toBe('DIV')
+        render(<Display variant="display-1">Display</Display>)
+        expect(screen.getByText('Display').tagName).toBe('DIV')
     })
 
     it('renders through Ariakit Role', () => {
         render(
-            <Display
-                data-testid="display-element"
-                variant="display-2"
-                render={<h1 id="page-title" />}
-            >
+            <Display variant="display-2" render={<h1 id="page-title" />}>
                 Page title
             </Display>,
         )
@@ -44,7 +36,6 @@ describe('Display', () => {
     it('does not acknowledge className but accepts exceptionallySetClassName', () => {
         render(
             <Display
-                data-testid="display-element"
                 variant="display-3"
                 // @ts-expect-error className is intentionally unavailable
                 className="wrong"
@@ -53,14 +44,13 @@ describe('Display', () => {
                 Display
             </Display>,
         )
-        expect(screen.getByTestId('display-element')).toHaveClass('right')
-        expect(screen.getByTestId('display-element')).not.toHaveClass('wrong')
+        expect(screen.getByText('Display')).toHaveClass('right')
+        expect(screen.getByText('Display')).not.toHaveClass('wrong')
     })
 
     it('supports tone, responsive alignment, and line clamping', () => {
         render(
             <Display
-                data-testid="display-element"
                 variant="display-4"
                 tone="secondary"
                 align={{ mobile: 'start', tablet: 'center', desktop: 'end' }}
@@ -69,7 +59,7 @@ describe('Display', () => {
                 Display
             </Display>,
         )
-        expect(screen.getByTestId('display-element')).toHaveClass(
+        expect(screen.getByText('Display')).toHaveClass(
             'tone-secondary',
             'textAlign-start',
             'tablet-textAlign-center',

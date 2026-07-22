@@ -1,11 +1,19 @@
 :root {
+    --reactist-typography-font-family-sf-for-web: 'SF Pro Display', sans-serif;
     --reactist-typography-font-weight-medium: 500;
     --reactist-typography-font-weight-semibold: 600;
 }
 
 .typography {
     color: var(--reactist-content-primary);
+}
+
+.font-family-default {
     font-family: var(--reactist-font-family);
+}
+
+.font-family-sf-for-web {
+    font-family: var(--reactist-typography-font-family-sf-for-web);
 }
 
 .tone-secondary {

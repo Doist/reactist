@@ -40,6 +40,8 @@ const Display = React.forwardRef<HTMLDivElement, DisplayProps>(function Display(
             render={render}
             className={getTypographyClassName({
                 variantClassName: styles['variant-' + variant]!,
+                fontFamilyClassName: styles['font-family-sf-for-web']!,
+                modifierClassNames: [styles.display],
                 tone,
                 align,
                 lineClamp,

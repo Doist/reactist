@@ -21,11 +21,13 @@ type TypographyStyleProps = ObfuscatedClassName & {
 
 type TypographyClassNameOptions = TypographyStyleProps & {
     variantClassName: string
+    fontFamilyClassName?: string
     modifierClassNames?: Array<string | undefined>
 }
 
 function getTypographyClassName({
     variantClassName,
+    fontFamilyClassName = styles.fontFamilyDefault,
     modifierClassNames,
     tone = 'normal',
     align,
@@ -41,6 +43,7 @@ function getTypographyClassName({
         }),
         exceptionallySetClassName,
         styles.typography,
+        fontFamilyClassName,
         variantClassName,
         modifierClassNames,
         tone !== 'normal' ? getClassNames(styles, 'tone', tone) : null,
