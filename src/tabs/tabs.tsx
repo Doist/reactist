@@ -12,7 +12,7 @@ import classNames from 'classnames'
 import { Box } from '../box'
 import { Inline } from '../inline'
 
-import styles from './tabs.module.css'
+import styles from '../segmented-control/segmented-control.module.css'
 
 import type {
     TabPanelProps as BaseTabPanelProps,
@@ -72,13 +72,8 @@ function Tabs({
         selectedId,
         setSelectedId: onSelectedIdChange,
     })
-    const actualSelectedId = useStoreState(tabStore, 'selectedId')
 
-    const memoizedTabState = React.useMemo(
-        () => ({ tabStore, variant, selectedId: selectedId ?? actualSelectedId ?? null }),
-        [variant, tabStore, selectedId, actualSelectedId],
-    )
-    return <TabsContext.Provider value={memoizedTabState}>{children}</TabsContext.Provider>
+    return <TabsContext.Provider value={{ tabStore, variant }}>{children}</TabsContext.Provider>
 }
 
 interface TabProps
@@ -104,14 +99,22 @@ interface TabProps
  * Represents the individual tab elements within the group. Each `<Tab>` must have a corresponding `<TabPanel>` component.
  */
 const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(
-    { children, id, disabled, exceptionallySetClassName, render, onClick },
+    {
+        children,
+        id,
+        disabled,
+        exceptionallySetClassName,
+        accessibleWhenDisabled = false,
+        render,
+        ...props
+    },
     ref,
 ): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
     if (!tabContextValue) return null
 
     const { variant, tabStore } = tabContextValue
-    const className = classNames(exceptionallySetClassName, styles.tab, styles[`tab-${variant}`])
+    const className = classNames(exceptionallySetClassName, styles.item, styles[`item-${variant}`])
 
     return (
         <BaseTab
@@ -119,9 +122,10 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(
             ref={ref}
             disabled={disabled}
             store={tabStore}
-            render={render}
             className={className}
-            onClick={onClick}
+            accessibleWhenDisabled={accessibleWhenDisabled}
+            render={render ?? (({ style, ...renderProps }) => <button {...renderProps} />)}
+            {...props}
         >
             {children}
         </BaseTab>
@@ -186,82 +190,7 @@ function TabList({
     exceptionallySetClassName,
     ...props
 }: TabListProps): React.ReactElement | null {
-    const tabListRef = React.useRef<HTMLDivElement | null>(null)
-    const tabListPrevWidthRef = React.useRef(0)
-
     const tabContextValue = React.useContext(TabsContext)
-
-    const [selectedTabElement, setSelectedTabElement] = React.useState<HTMLElement | null>(null)
-    const [selectedTabStyle, setSelectedTabStyle] = React.useState<React.CSSProperties>({})
-
-    const selectedId = useStoreState(tabContextValue?.tabStore, 'selectedId')
-
-    const updateSelectedTabPosition = React.useCallback(
-        function updateSelectedTabPositionCallback() {
-            if (!selectedId || !tabListRef.current) {
-                return
-            }
-
-            const tabs = tabListRef.current.querySelectorAll('[role="tab"]')
-
-            const selectedTab = Array.from(tabs).find(
-                (tab) => tab.getAttribute('id') === selectedId,
-            ) as HTMLElement | undefined
-
-            if (selectedTab) {
-                setSelectedTabElement(selectedTab)
-                setSelectedTabStyle({
-                    left: `${selectedTab.offsetLeft}px`,
-                    width: `${selectedTab.offsetWidth}px`,
-                })
-            }
-        },
-        [selectedId],
-    )
-
-    React.useEffect(
-        function updateSelectedTabPositionOnTabChange() {
-            updateSelectedTabPosition()
-        },
-        // `selectedId` is a dependency to ensure the effect runs when the selected tab changes
-        [selectedId, updateSelectedTabPosition],
-    )
-
-    React.useEffect(
-        function observeTabListWidthChange() {
-            let animationFrameId: number | null = null
-
-            const tabListObserver = new ResizeObserver(([entry]) => {
-                const width = entry?.contentRect.width
-
-                if (width && tabListPrevWidthRef.current !== width) {
-                    tabListPrevWidthRef.current = width
-
-                    if (animationFrameId !== null) {
-                        cancelAnimationFrame(animationFrameId)
-                    }
-
-                    animationFrameId = requestAnimationFrame(() => {
-                        updateSelectedTabPosition()
-                        animationFrameId = null
-                    })
-                }
-            })
-
-            if (tabListRef.current) {
-                tabListObserver.observe(tabListRef.current)
-            }
-
-            return function cleanupResizeObserver() {
-                if (animationFrameId) {
-                    cancelAnimationFrame(animationFrameId)
-                }
-
-                tabListObserver.disconnect()
-            }
-        },
-        [updateSelectedTabPosition],
-    )
 
     if (!tabContextValue) {
         return null
@@ -286,22 +215,24 @@ function TabList({
             <BaseTabList
                 store={tabStore}
                 render={
-                    <Box position="relative" width={width} className={exceptionallySetClassName} />
+                    <Box
+                        display="flex"
+                        position="relative"
+                        width={width}
+                        className={classNames(
+                            exceptionallySetClassName,
+                            styles.list,
+                            styles[`list-${variant}`],
+                        )}
+                    />
                 }
-                ref={tabListRef}
                 {...props}
             >
-                <Box className={[styles.track, styles[`track-${variant}`]]} />
-                {selectedTabElement ? (
-                    <Box
-                        className={[styles.selected, styles[`selected-${variant}`]]}
-                        style={selectedTabStyle}
-                    />
-                ) : null}
                 <Inline
                     space={space}
                     exceptionallySetClassName={classNames(
-                        width === 'full' ? styles.fullTabList : null,
+                        space === undefined ? styles['items-default-spacing'] : null,
+                        width === 'full' ? styles['full-items'] : null,
                     )}
                 >
                     {children}

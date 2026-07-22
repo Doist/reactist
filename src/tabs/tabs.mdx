@@ -47,7 +47,7 @@ behaviour, see [ARIA: tab role](https://developer.mozilla.org/en-US/docs/Web/Acc
 
 ## Colors
 
-The following CSS custom properties are available so that the tabs' colors can be customized:
+The following CSS custom properties are shared with Segmented Control and can be customized:
 
 ```
 --reactist-tab-neutral-selected-tint
@@ -87,7 +87,7 @@ The following CSS custom properties are available so that the tabs' sizes can be
 --reactist-tab-line-height
 ```
 
-## Other
+## Shadows
 
 The following CSS custom properties are also available to customize other tabs' styles:
 
@@ -95,8 +95,6 @@ The following CSS custom properties are also available to customize other tabs' 
 --reactist-tab-neutral-shadow
 
 --reactist-tab-themed-shadow
-
---reactist-tab-selected-transition
 ```
 
 ## Stories
@@ -112,10 +110,6 @@ The following CSS custom properties are also available to customize other tabs' 
 ### Tabs aligned to the center
 
 <Canvas withToolbar of={TabsStories.TabsAlignedToTheCenter} />
-
-### Selected tab with slide animation
-
-<Canvas withToolbar of={TabsStories.SelectedTabWithSlideAnimation} />
 
 ### Using the `<TabAwareSlot>` component
 
