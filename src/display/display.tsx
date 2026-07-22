@@ -4,6 +4,7 @@ import { Role } from '@ariakit/react'
 
 import { getTypographyClassName } from '../typography/typography'
 
+import typographyStyles from '../typography/typography.module.css'
 import styles from './display.module.css'
 
 import type { RoleProps } from '@ariakit/react'
@@ -40,7 +41,7 @@ const Display = React.forwardRef<HTMLDivElement, DisplayProps>(function Display(
             render={render}
             className={getTypographyClassName({
                 variantClassName: styles['variant-' + variant]!,
-                fontFamilyClassName: styles['font-family-sf-for-web']!,
+                fontFamilyClassName: typographyStyles['font-family-sf-for-web']!,
                 modifierClassNames: [styles.display],
                 tone,
                 align,

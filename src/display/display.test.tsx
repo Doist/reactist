@@ -2,6 +2,8 @@ import * as React from 'react'
 
 import { render, screen } from '@testing-library/react'
 import { axe } from 'jest-axe'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 
 import { Display } from './display'
 
@@ -15,6 +17,15 @@ describe('Display', () => {
             'font-family-sf-for-web',
             'display',
         )
+    })
+
+    it('uses the shared SF for Web CSS-module class', () => {
+        const source = readFileSync(join(__dirname, 'display.tsx'), 'utf8')
+
+        expect(source).toContain(
+            "import typographyStyles from '../typography/typography.module.css'",
+        )
+        expect(source).toContain("fontFamilyClassName: typographyStyles['font-family-sf-for-web']!")
     })
 
     it('renders a div by default', () => {

@@ -47,3 +47,15 @@ None.
 - `npm run type-check` — pass.
 - `npx @doist/react-compiler-tracker --check-files --show-errors src/display/display.tsx` — no new errors.
 - `git diff --check` — pass.
+
+## Mapping fix
+
+- Display now obtains `font-family-sf-for-web` from `typography.module.css`, where the class is defined, rather than from its local CSS module.
+- Added a source-mapping regression test because the global CSS mock returns every property name and cannot expose a wrong CSS-module lookup.
+
+## Mapping verification
+
+- `npm test -- src/display/display.test.tsx --runInBand` — RED: shared CSS-module mapping assertion failed before the import fix; GREEN: pass, 1 suite, 12 tests.
+- `npm run type-check` — pass.
+- `npx @doist/react-compiler-tracker --check-files --show-errors src/display/display.tsx` — no new errors.
+- `git diff --check` — pass.
