@@ -30,6 +30,7 @@ export * from './text-link'
 // form fields
 export * from './checkbox-field'
 export * from './password-field'
+export * from './segmented-control'
 export * from './select-field'
 export * from './switch-field'
 export * from './text-area'

@@ -46,7 +46,7 @@ const Template = ({
 )
 
 export default {
-    title: '📑 Menus & tabs/Tabs',
+    title: '📑 Menus & tabs/Tabs/Compound API',
     component: Tabs,
 
     parameters: {
@@ -221,52 +221,6 @@ export const TabsAlignedToTheCenter = {
     },
 
     name: 'Tabs aligned to the center',
-}
-
-export const SelectedTabWithSlideAnimation = {
-    render: () => (
-        <Tabs>
-            <style>
-                {
-                    '.transition { --reactist-tab-selected-transition: left 0.3s ease, width 0.3s ease; }'
-                }
-            </style>
-            <TabList aria-label="Full width tabs example" exceptionallySetClassName="transition">
-                <Tab id="tab1">Tab 1</Tab>
-                <Tab id="tab2">Tab 2</Tab>
-                <Tab id="tab3">Tab 3</Tab>
-            </TabList>
-            <TabPanel id="tab1">
-                <Box paddingX="small" paddingY="xlarge">
-                    <Text>Content of tab 1</Text>
-                </Box>
-            </TabPanel>
-            <TabPanel id="tab2">
-                <Box paddingX="small" paddingY="xlarge">
-                    <Text>Content of tab 2</Text>
-                </Box>
-            </TabPanel>
-            <TabPanel id="tab3">
-                <Box paddingX="small" paddingY="xlarge">
-                    <Text>Content of tab 3</Text>
-                </Box>
-            </TabPanel>
-        </Tabs>
-    ),
-
-    parameters: {
-        docs: {
-            source: {
-                type: 'code',
-            },
-        },
-    },
-
-    name: 'Selected tab with slide animation',
-
-    style: {
-        border: '1px solid red',
-    },
 }
 
 export const UsingTheTabAwareSlotComponent = {
