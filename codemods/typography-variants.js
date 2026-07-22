@@ -45,6 +45,18 @@ function getAttribute(openingElement, name) {
     )
 }
 
+function getDuplicateAttributes(openingElement, names) {
+    return names.filter(
+        (name) =>
+            openingElement.attributes.filter(
+                (attribute) =>
+                    attribute.type === 'JSXAttribute' &&
+                    attribute.name.type === 'JSXIdentifier' &&
+                    attribute.name.name === name,
+            ).length > 1,
+    )
+}
+
 function hasSpread(openingElement) {
     return openingElement.attributes.some((attribute) => attribute.type === 'JSXSpreadAttribute')
 }
@@ -175,6 +187,9 @@ module.exports = function transform(file, api) {
         const reasons = []
         if (hasSpread(openingElement))
             reasons.push('spread props may supply or override typography props')
+        for (const name of getDuplicateAttributes(openingElement, ['size', 'weight', 'as'])) {
+            reasons.push('duplicate Text ' + name + ' props')
+        }
 
         const sizeAttribute = hasVariant ? undefined : getAttribute(openingElement, 'size')
         const weightAttribute = hasVariant ? undefined : getAttribute(openingElement, 'weight')

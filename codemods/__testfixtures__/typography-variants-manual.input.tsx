@@ -15,6 +15,15 @@ export function ManualCases({ size, weight, useLabel, props }) {
             <Text as="span" render={<em />}>
                 Existing render
             </Text>
+            <Text size="body" size="caption">
+                Duplicate size
+            </Text>
+            <Text weight="semibold" weight="bold">
+                Duplicate weight
+            </Text>
+            <Text as="span" as="label">
+                Duplicate element
+            </Text>
             <Text {...props}>Spread</Text>
         </>
     )
