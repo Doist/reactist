@@ -11,33 +11,73 @@ describe('Heading', () => {
             <Heading
                 level="1"
                 data-testid="heading-element"
-                // @ts-expect-error
+                // @ts-expect-error className is intentionally unavailable
                 className="wrong"
                 exceptionallySetClassName="right"
             >
                 Heading
             </Heading>,
         )
+
         expect(screen.getByTestId('heading-element')).toHaveClass('right')
         expect(screen.getByTestId('heading-element')).not.toHaveClass('wrong')
     })
 
-    it('renders the expected heading tag name based on the level', () => {
-        const { rerender } = render(
-            <Heading data-testid="heading-element" level="1">
+    it.each([
+        [1, 'H1', 'heading-1'],
+        [2, 'H2', 'heading-2'],
+        [3, 'H3', 'heading-3'],
+        [4, 'H4', 'heading-4'],
+        [5, 'H5', 'heading-4'],
+        [6, 'H6', 'heading-4'],
+    ] as const)('renders level %s as %s with %s', (level, tagName, variant) => {
+        render(
+            <Heading data-testid="heading-element" level={level}>
                 Heading
             </Heading>,
         )
-        expect(screen.getByTestId('heading-element').tagName).toBe('H1')
+        const element = screen.getByTestId('heading-element')
 
-        for (const level of [2, 3, 4, 5, 6] as const) {
-            rerender(
-                <Heading data-testid="heading-element" level={level}>
-                    Heading
-                </Heading>,
-            )
-            expect(screen.getByTestId('heading-element').tagName).toBe(`H${level}`)
-        }
+        expect(element.tagName).toBe(tagName)
+        expect(element).toHaveClass('variant-' + variant)
+    })
+
+    it('lets semantic level and visual variant differ', () => {
+        render(
+            <Heading data-testid="heading-element" level={2} variant="heading-1">
+                Heading
+            </Heading>,
+        )
+        const element = screen.getByTestId('heading-element')
+
+        expect(element.tagName).toBe('H2')
+        expect(element).toHaveClass('variant-heading-1')
+    })
+
+    it('requires an explicit variant for custom rendering', () => {
+        render(
+            <Heading
+                data-testid="heading-element"
+                variant="heading-2"
+                render={<button type="button" />}
+            >
+                Edit title
+            </Heading>,
+        )
+
+        expect(screen.getByRole('button', { name: 'Edit title' })).toHaveClass('variant-heading-2')
+    })
+
+    it('forwards its semantic heading ref', () => {
+        const ref = React.createRef<HTMLHeadingElement>()
+
+        render(
+            <Heading level={2} ref={ref}>
+                Heading
+            </Heading>,
+        )
+
+        expect(ref.current?.tagName).toBe('H2')
     })
 
     it('renders its children as its content', () => {
@@ -46,59 +86,10 @@ describe('Heading', () => {
                 Hello <strong>world</strong>
             </Heading>,
         )
+
         expect(screen.getByTestId('heading-element').innerHTML).toMatchInlineSnapshot(
             `"Hello <strong>world</strong>"`,
         )
-    })
-
-    describe('size="…"', () => {
-        it('adds the appropriate class names', () => {
-            const { rerender } = render(
-                <Heading level="1" data-testid="heading-element">
-                    Heading
-                </Heading>,
-            )
-            const textElement = screen.getByTestId('heading-element')
-            expect(textElement).not.toHaveClass('size-smaller')
-            expect(textElement).not.toHaveClass('size-larger')
-            expect(textElement).not.toHaveClass('size-largest')
-
-            for (const size of ['smaller', 'larger', 'largest'] as const) {
-                rerender(
-                    <Heading level={1} data-testid="heading-element" size={size}>
-                        Heading
-                    </Heading>,
-                )
-                expect(textElement).toHaveClass(`size-${size}`)
-            }
-        })
-    })
-
-    describe('weight="…"', () => {
-        it('adds the appropriate class names', () => {
-            const { rerender } = render(
-                <Heading level="1" data-testid="heading-element" weight="regular">
-                    Heading
-                </Heading>,
-            )
-            const textElement = screen.getByTestId('heading-element')
-            expect(textElement).not.toHaveClass('weight-regular')
-            expect(textElement).not.toHaveClass('weight-light')
-
-            rerender(
-                <Heading level="1" data-testid="heading-element" weight="medium">
-                    Heading
-                </Heading>,
-            )
-            expect(textElement).toHaveClass('weight-medium')
-
-            rerender(
-                <Heading level="1" data-testid="heading-element" weight="light">
-                    Heading
-                </Heading>,
-            )
-            expect(textElement).toHaveClass('weight-light')
-        })
     })
 
     describe('tone="…"', () => {
@@ -109,6 +100,7 @@ describe('Heading', () => {
                 </Heading>,
             )
             const textElement = screen.getByTestId('heading-element')
+
             expect(textElement).not.toHaveClass('tone-normal')
             expect(textElement).not.toHaveClass('tone-secondary')
             expect(textElement).not.toHaveClass('tone-danger')
@@ -132,6 +124,7 @@ describe('Heading', () => {
                 </Heading>,
             )
             const textElement = screen.getByTestId('heading-element')
+
             expect(textElement).not.toHaveClass('textAlign-start')
             expect(textElement).not.toHaveClass('textAlign-center')
             expect(textElement).not.toHaveClass('textAlign-end')
@@ -158,6 +151,7 @@ describe('Heading', () => {
                 </Heading>,
             )
             const textElement = screen.getByTestId('heading-element')
+
             expect(textElement).toHaveClass('textAlign-start')
             expect(textElement).toHaveClass('tablet-textAlign-center')
             expect(textElement).toHaveClass('desktop-textAlign-end')
@@ -172,6 +166,7 @@ describe('Heading', () => {
                 </Heading>,
             )
             const textElement = screen.getByTestId('heading-element')
+
             expect(textElement.className).not.toMatch(/lineClamp/)
             expect(textElement).not.toHaveClass('paddingRight-xsmall')
 
@@ -182,7 +177,7 @@ describe('Heading', () => {
                     </Heading>,
                 )
                 expect(textElement).toHaveClass(`lineClamp-${lineClamp}`)
-                expect(textElement).not.toHaveClass(`lineClampMultipleLines`)
+                expect(textElement).not.toHaveClass('lineClampMultipleLines')
                 expect(textElement).toHaveClass('paddingRight-xsmall')
             }
 
@@ -193,7 +188,7 @@ describe('Heading', () => {
                     </Heading>,
                 )
                 expect(textElement).toHaveClass(`lineClamp-${lineClamp}`)
-                expect(textElement).toHaveClass(`lineClampMultipleLines`)
+                expect(textElement).toHaveClass('lineClampMultipleLines')
                 expect(textElement).toHaveClass('paddingRight-xsmall')
             }
         })
@@ -209,6 +204,12 @@ describe('Heading', () => {
                     <Heading level={4}>Heading</Heading>
                     <Heading level={5}>Heading</Heading>
                     <Heading level={6}>Heading</Heading>
+                    <Heading level={2} variant="heading-1">
+                        Overridden heading
+                    </Heading>
+                    <Heading variant="heading-2" render={<button type="button" />}>
+                        Button heading
+                    </Heading>
                 </>,
             )
             const results = await axe(container)
@@ -217,3 +218,19 @@ describe('Heading', () => {
         })
     })
 })
+
+const invalidHeadingProps = (
+    // @ts-expect-error level and render are mutually exclusive
+    <Heading level={2} variant="heading-1" render={<button type="button" />}>
+        Invalid
+    </Heading>
+)
+// eslint-disable-next-line no-void
+void invalidHeadingProps
+
+const missingRenderVariant = (
+    // @ts-expect-error custom render requires a variant
+    <Heading render={<button type="button" />}>Invalid</Heading>
+)
+// eslint-disable-next-line no-void
+void missingRenderVariant

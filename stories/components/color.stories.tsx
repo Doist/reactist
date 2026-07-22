@@ -47,7 +47,7 @@ function Swatch({ color }: { color: string }) {
 export function Colors() {
     return (
         <Stack space="xlarge" exceptionallySetClassName="story">
-            <Heading level={1} size="larger">
+            <Heading level={1} variant="heading-2">
                 Framework
             </Heading>
 
@@ -65,7 +65,7 @@ export function Colors() {
                 ))}
             </Stack>
 
-            <Heading level={1} size="larger">
+            <Heading level={1} variant="heading-2">
                 Content
             </Heading>
             <Stack space="small">
