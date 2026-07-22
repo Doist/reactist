@@ -35,7 +35,7 @@ type RenderedHeadingProps = {
     render: React.ReactElement
 }
 
-/** Props for the Heading component. */
+/** Renders a semantic heading or applies heading typography to a custom element. */
 type HeadingProps = HeadingBaseProps & (SemanticHeadingProps | RenderedHeadingProps)
 
 function getHeadingVariant(level: HeadingLevel | undefined): HeadingVariant {
@@ -48,6 +48,7 @@ function getHeadingRender(level: HeadingLevel | undefined) {
     return level == null ? undefined : React.createElement('h' + level)
 }
 
+/** Renders a semantic heading or applies heading typography to a custom element. */
 const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(function Heading(
     {
         level,

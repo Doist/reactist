@@ -12,7 +12,7 @@ import type { TypographyStyleProps } from '../typography/typography'
 
 type DisplayVariant = 'display-1' | 'display-2' | 'display-3' | 'display-4' | 'display-5'
 
-/** Props for the Display component. */
+/** Renders prominent display text with a required display typography variant. */
 type DisplayProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'className'> &
     TypographyStyleProps & {
         /** Large display text content. */
@@ -23,6 +23,7 @@ type DisplayProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'cla
         render?: RoleProps['render']
     }
 
+/** Renders prominent display text with a required display typography variant. */
 const Display = React.forwardRef<HTMLDivElement, DisplayProps>(function Display(
     {
         variant,

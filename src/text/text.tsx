@@ -66,7 +66,7 @@ type UppercaseTextProps = {
     case: 'uppercase'
 }
 
-/** Props for the Text component. */
+/** Renders non-heading interface copy with a named typography variant. */
 type TextProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'className'> &
     TypographyStyleProps & {
         /** Text content. */
@@ -75,6 +75,7 @@ type TextProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'classN
         render?: RoleProps['render']
     } & (StrikethroughTextProps | UnderlinedTextProps | UppercaseTextProps | UnmodifiedTextProps)
 
+/** Renders non-heading interface copy with a named typography variant. */
 const Text = React.forwardRef<HTMLDivElement, TextProps>(function Text(
     {
         variant = 'body-3',

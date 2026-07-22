@@ -169,10 +169,6 @@ function getStaticRenderName(j, attribute) {
     return toJSXName(j, expression)
 }
 
-function isIntrinsicElementName(name) {
-    return name?.type === 'JSXIdentifier' && /^[a-z][a-z0-9.-]*$/.test(name.name)
-}
-
 function hasAttributesOtherThan(openingElement, names) {
     return openingElement.attributes.some(
         (attribute) =>
@@ -255,10 +251,12 @@ function transformTextElement(j, api, file, path) {
     const renderName = asAttribute ? getStaticRenderName(j, asAttribute) : undefined
     if (asAttribute && !renderName) {
         reasons.push('dynamic Text as target')
-    } else if (asAttribute && !isIntrinsicElementName(renderName)) {
-        reasons.push('Text as target may require custom component props')
-    } else if (asAttribute && !renderAttribute && hasAttributesOtherThan(openingElement, ['as'])) {
-        reasons.push('Text as migration requires a prop-free intrinsic element')
+    } else if (
+        asAttribute &&
+        !renderAttribute &&
+        hasAttributesOtherThan(openingElement, ['as', 'size', 'weight'])
+    ) {
+        reasons.push('Text as migration requires no props besides size or weight')
     }
     if (asAttribute && renderAttribute) reasons.push('Text already has render prop')
 
@@ -282,11 +280,14 @@ function transformHeadingElement(j, api, file, path) {
     const openingElement = path.node.openingElement
     const hasVariant = Boolean(getAttribute(openingElement, 'variant'))
     const hasRender = Boolean(getAttribute(openingElement, 'render'))
-    const hasLegacyProps = ['level', 'size', 'weight'].some((name) =>
+    const hasLegacyVariantProps = ['size', 'weight'].some((name) =>
+        Boolean(getAttribute(openingElement, name)),
+    )
+    const hasLegacyRenderProps = ['level', 'size', 'weight'].some((name) =>
         Boolean(getAttribute(openingElement, name)),
     )
 
-    if ((hasVariant || hasRender) && hasLegacyProps) {
+    if ((hasVariant && hasLegacyVariantProps) || (hasRender && hasLegacyRenderProps)) {
         markManual(j, api, file, path, [
             'Heading mixes variant or render with legacy level, size, or weight props',
         ])

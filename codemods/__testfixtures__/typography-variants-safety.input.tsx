@@ -8,6 +8,10 @@ function RequiredLink({ targetId }: { targetId: string }) {
     return <a href={'#' + targetId} />
 }
 
+function span() {
+    return <span />
+}
+
 export function SafetyCases() {
     return (
         <>
@@ -18,10 +22,11 @@ export function SafetyCases() {
             <Text as={RequiredLink} targetId="project-name">
                 Custom component with required props
             </Text>
+            <Text as={span}>Lowercase variable component</Text>
             <Text variant="body-3" size="body">
                 Mixed Text props
             </Text>
-            <Heading variant="heading-1" level={1}>
+            <Heading variant="heading-1" size="largest">
                 Mixed Heading props
             </Heading>
             <Heading render={<button type="button" />} level={1}>

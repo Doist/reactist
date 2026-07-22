@@ -63,8 +63,8 @@ test('reports unsafe legacy element and mixed typography props', () => {
     transform({ path: 'src/safety.tsx', source }, { jscodeshift: j, report, stats: jest.fn() }, {})
 
     expect(report.mock.calls.map(([message]) => message)).toEqual([
-        expect.stringMatching(/Text as migration requires a prop-free intrinsic element$/),
-        expect.stringMatching(/Text as target may require custom component props$/),
+        expect.stringMatching(/Text as migration requires no props besides size or weight$/),
+        expect.stringMatching(/Text as migration requires no props besides size or weight$/),
         expect.stringMatching(/Text mixes variant with legacy size or weight props$/),
         expect.stringMatching(
             /Heading mixes variant or render with legacy level, size, or weight props$/,
@@ -73,6 +73,23 @@ test('reports unsafe legacy element and mixed typography props', () => {
             /Heading mixes variant or render with legacy level, size, or weight props$/,
         ),
     ])
+})
+
+test('leaves valid Heading level and variant props unchanged on a second transform', () => {
+    const source = fs.readFileSync(
+        path.join(fixturesDirectory, 'typography-variants-idempotence.input.tsx'),
+        'utf8',
+    )
+    const report = jest.fn()
+
+    const output = transform(
+        { path: 'src/idempotence.tsx', source },
+        { jscodeshift: j, report, stats: jest.fn() },
+        {},
+    )
+
+    expect(output).toBeNull()
+    expect(report).not.toHaveBeenCalled()
 })
 
 test('reports every manual migration with file and line', () => {
