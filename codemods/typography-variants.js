@@ -261,18 +261,21 @@ function transformHeadingElement(j, api, file, path) {
     const reasons = []
     if (hasSpread(openingElement)) {
         reasons.push('spread props may supply or override typography props')
-        markManual(j, api, file, path, reasons)
-        return true
     }
     for (const name of getDuplicateAttributes(openingElement, ['level', 'size', 'weight'])) {
         reasons.push('duplicate Heading ' + name + ' props')
     }
 
-    const level = readStaticLevel(getAttribute(openingElement, 'level'))
-    const size = readStaticString(getAttribute(openingElement, 'size'), 'default')
-    const weight = readStaticString(getAttribute(openingElement, 'weight'), 'regular')
+    const levelAttribute = getAttribute(openingElement, 'level')
+    const sizeAttribute = getAttribute(openingElement, 'size')
+    const weightAttribute = getAttribute(openingElement, 'weight')
+    const level = readStaticLevel(levelAttribute)
+    const size = readStaticString(sizeAttribute, 'default')
+    const weight = readStaticString(weightAttribute, 'regular')
 
-    if (level === DYNAMIC) reasons.push('dynamic Heading level')
+    if (level === DYNAMIC && (!hasSpread(openingElement) || levelAttribute)) {
+        reasons.push('dynamic Heading level')
+    }
     if (size === DYNAMIC) reasons.push('dynamic Heading size')
     if (weight === DYNAMIC) reasons.push('dynamic Heading weight')
 

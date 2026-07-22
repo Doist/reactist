@@ -40,7 +40,16 @@ export function ManualCases({ size, weight, useLabel, level, props }) {
                 Light
             </Heading>
             <Heading level={level}>Dynamic level</Heading>
+            <Heading level={1} size={size}>
+                Dynamic size
+            </Heading>
+            <Heading level={1} weight={weight}>
+                Dynamic weight
+            </Heading>
             <Heading {...props}>Spread</Heading>
+            <Heading {...props} level={level} size={size} weight={weight}>
+                Spread and dynamic props
+            </Heading>
         </>
     )
 }

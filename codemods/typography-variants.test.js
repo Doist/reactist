@@ -60,7 +60,7 @@ test('reports every manual migration with file and line', () => {
         {},
     )
 
-    expect(report).toHaveBeenCalledTimes(18)
+    expect(report).toHaveBeenCalledTimes(21)
     for (const [message] of report.mock.calls) {
         expect(message).toMatch(/^src\/manual\.tsx:\d+ /)
     }
