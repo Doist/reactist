@@ -2,9 +2,16 @@
     --reactist-tooltip-font-size: inherit;
 }
 
+/*
+ * Base UI splits positioning from the visual popup: the positioner is the element that is placed,
+ * so the stacking order has to live here rather than on the tooltip itself.
+ */
+.positioner {
+    z-index: var(--reactist-stacking-order-tooltip);
+}
+
 .tooltip {
     text-overflow: ellipsis;
     max-width: 300px;
-    z-index: var(--reactist-stacking-order-tooltip);
     font-size: var(--reactist-tooltip-font-size);
 }

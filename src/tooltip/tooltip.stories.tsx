@@ -9,8 +9,7 @@ import { TextField } from '../text-field'
 
 import { Tooltip, TooltipProvider } from './tooltip'
 
-import type { TooltipStore } from '@ariakit/react'
-import type { TooltipProps } from './tooltip'
+import type { TooltipHandle, TooltipProps } from './tooltip'
 
 //
 // Story setup
@@ -60,12 +59,7 @@ function StoryTemplate(props: Omit<TooltipProps, 'children'>) {
                 justifyContent="center"
                 padding="xxlarge"
             >
-                <Tooltip
-                    // Tooltip does not react to dynamic changes of some props so we force a new
-                    // component re-render every time these change.
-                    key={String(props.position) + String(props.gapSize)}
-                    {...props}
-                >
+                <Tooltip {...props}>
                     <Button variant="secondary">Hover or focus to see the tooltip in action</Button>
                 </Tooltip>
             </Box>
@@ -85,7 +79,6 @@ TooltipPlayground.args = {
     content: 'You did it!',
     position: 'top',
     gapSize: 5,
-    withArrow: false,
     showTimeout: 500,
     hideTimeout: 100,
 }
@@ -103,15 +96,13 @@ TooltipPlayground.argTypes = {
 export function TooltipRichContent({
     position,
     gapSize,
-    withArrow,
     showTimeout,
     hideTimeout,
-}: Pick<TooltipProps, 'position' | 'gapSize' | 'withArrow' | 'showTimeout' | 'hideTimeout'>) {
+}: Pick<TooltipProps, 'position' | 'gapSize' | 'showTimeout' | 'hideTimeout'>) {
     return (
         <StoryTemplate
             position={position}
             gapSize={gapSize}
-            withArrow={withArrow}
             showTimeout={showTimeout}
             hideTimeout={hideTimeout}
             content={
@@ -135,7 +126,6 @@ export function TooltipRichContent({
 TooltipRichContent.args = {
     position: 'bottom',
     gapSize: 10,
-    withArrow: true,
     showTimeout: 500,
     hideTimeout: 100,
 }
@@ -226,7 +216,7 @@ TooltipGlobalContext.args = {
 //
 
 export function TooltipImperativeControl() {
-    const tooltipRef = React.useRef<TooltipStore>(null)
+    const tooltipRef = React.useRef<TooltipHandle>(null)
 
     const handleForceHide = () => {
         tooltipRef.current?.hide()
