@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import { Text } from '@doist/reactist'
+import { Heading, Text } from '@doist/reactist'
 
-export function ManualCases({ size, weight, useLabel, props }) {
+export function ManualCases({ size, weight, useLabel, level, props }) {
     return (
         <>
             <Text size="copy" weight="bold">
@@ -25,6 +25,22 @@ export function ManualCases({ size, weight, useLabel, props }) {
                 Duplicate element
             </Text>
             <Text {...props}>Spread</Text>
+            <Heading level={1} size="larger">
+                24px
+            </Heading>
+            <Heading level={2}>16px</Heading>
+            <Heading level={3}>14px</Heading>
+            <Heading level={3} size="smaller">
+                12px
+            </Heading>
+            <Heading level={1} weight="medium">
+                Medium
+            </Heading>
+            <Heading level={1} weight="light">
+                Light
+            </Heading>
+            <Heading level={level}>Dynamic level</Heading>
+            <Heading {...props}>Spread</Heading>
         </>
     )
 }

@@ -5,6 +5,26 @@ const TEXT_VARIANTS = {
     caption: { regular: 'caption-3', semibold: 'caption-2', bold: 'caption-1' },
 }
 
+const HEADING_SIZES = {
+    1: { default: 20, smaller: 16, larger: 24, largest: 32 },
+    2: { default: 16, smaller: 14, larger: 20, largest: 24 },
+    3: { default: 14, smaller: 12, larger: 16, largest: 20 },
+    4: { default: 14, smaller: 14, larger: 16, largest: 20 },
+    5: { default: 14, smaller: 14, larger: 16, largest: 20 },
+    6: { default: 14, smaller: 14, larger: 16, largest: 20 },
+}
+
+const HEADING_WEIGHTS = {
+    regular: 700,
+    medium: 600,
+    light: 400,
+}
+
+const HEADING_VARIANTS = {
+    '32:700': 'heading-1',
+    '20:700': 'heading-3',
+}
+
 const DYNAMIC = Symbol('dynamic')
 
 function getImportedNames(root, j, importedName) {
@@ -23,7 +43,7 @@ function getImportedNames(root, j, importedName) {
     return names
 }
 
-function isImportedBinding(path, name) {
+function isImportedBinding(path, name, importedName) {
     const bindings = path.scope.lookup(name)?.getBindings()[name] ?? []
 
     return bindings.some(
@@ -32,7 +52,7 @@ function isImportedBinding(path, name) {
             binding.parent.parent?.node.type === 'ImportDeclaration' &&
             binding.parent.parent.node.source.value === '@doist/reactist' &&
             binding.parent.node.imported.type === 'Identifier' &&
-            binding.parent.node.imported.name === 'Text',
+            binding.parent.node.imported.name === importedName,
     )
 }
 
@@ -76,6 +96,24 @@ function readStaticString(attribute, fallback) {
     ) {
         return String(expression.value)
     }
+    return DYNAMIC
+}
+
+function readStaticLevel(attribute) {
+    const value = readStaticString(attribute, DYNAMIC)
+    if (value !== DYNAMIC && /^[1-6]$/.test(value)) return Number(value)
+
+    if (attribute?.value?.type !== 'JSXExpressionContainer') return DYNAMIC
+    const expression = attribute.value.expression
+    if (
+        (expression.type === 'NumericLiteral' || expression.type === 'Literal') &&
+        Number.isInteger(expression.value) &&
+        expression.value >= 1 &&
+        expression.value <= 6
+    ) {
+        return Number(expression.value)
+    }
+
     return DYNAMIC
 }
 
@@ -168,61 +206,109 @@ function markManual(j, api, file, path, reasons) {
     api.report?.(file.path + ':' + line + ' ' + reasons.join('; '))
 }
 
+function transformTextElement(j, api, file, path) {
+    const openingElement = path.node.openingElement
+    const hasVariant = Boolean(getAttribute(openingElement, 'variant'))
+    const reasons = []
+    if (hasSpread(openingElement))
+        reasons.push('spread props may supply or override typography props')
+    for (const name of getDuplicateAttributes(openingElement, ['size', 'weight', 'as'])) {
+        reasons.push('duplicate Text ' + name + ' props')
+    }
+
+    const sizeAttribute = hasVariant ? undefined : getAttribute(openingElement, 'size')
+    const weightAttribute = hasVariant ? undefined : getAttribute(openingElement, 'weight')
+    const asAttribute = getAttribute(openingElement, 'as')
+    const renderAttribute = getAttribute(openingElement, 'render')
+    const size = readStaticString(sizeAttribute, 'body')
+    const weight = readStaticString(weightAttribute, 'regular')
+
+    if (size === DYNAMIC) reasons.push('dynamic Text size')
+    if (weight === DYNAMIC) reasons.push('dynamic Text weight')
+
+    const variant =
+        size === DYNAMIC || weight === DYNAMIC ? undefined : TEXT_VARIANTS[size]?.[weight]
+    if (!hasVariant && (sizeAttribute || weightAttribute) && !variant && reasons.length === 0) {
+        reasons.push('Text size and weight have no exact variant')
+    }
+
+    const renderName = asAttribute ? getStaticRenderName(j, asAttribute) : undefined
+    if (asAttribute && !renderName) reasons.push('dynamic Text as target')
+    if (asAttribute && renderAttribute) reasons.push('Text already has render prop')
+
+    if (reasons.length > 0) {
+        markManual(j, api, file, path, reasons)
+        return true
+    }
+    if (!hasVariant && (sizeAttribute || weightAttribute)) {
+        addVariant(j, openingElement, variant)
+    }
+    if (asAttribute && renderName) {
+        replaceAsWithRender(j, openingElement, asAttribute, renderName)
+    }
+    return (
+        Boolean(!hasVariant && (sizeAttribute || weightAttribute)) ||
+        Boolean(asAttribute && renderName)
+    )
+}
+
+function transformHeadingElement(j, api, file, path) {
+    const openingElement = path.node.openingElement
+    if (getAttribute(openingElement, 'variant') || getAttribute(openingElement, 'render')) {
+        return false
+    }
+
+    const reasons = []
+    if (hasSpread(openingElement)) {
+        reasons.push('spread props may supply or override typography props')
+        markManual(j, api, file, path, reasons)
+        return true
+    }
+    for (const name of getDuplicateAttributes(openingElement, ['level', 'size', 'weight'])) {
+        reasons.push('duplicate Heading ' + name + ' props')
+    }
+
+    const level = readStaticLevel(getAttribute(openingElement, 'level'))
+    const size = readStaticString(getAttribute(openingElement, 'size'), 'default')
+    const weight = readStaticString(getAttribute(openingElement, 'weight'), 'regular')
+
+    if (level === DYNAMIC) reasons.push('dynamic Heading level')
+    if (size === DYNAMIC) reasons.push('dynamic Heading size')
+    if (weight === DYNAMIC) reasons.push('dynamic Heading weight')
+
+    let variant
+    if (reasons.length === 0) {
+        const fontSize = HEADING_SIZES[level]?.[size]
+        const fontWeight = HEADING_WEIGHTS[weight]
+        variant = HEADING_VARIANTS[fontSize + ':' + fontWeight]
+        if (!variant) reasons.push('Heading metrics have no exact variant')
+    }
+
+    if (reasons.length > 0) {
+        markManual(j, api, file, path, reasons)
+        return true
+    }
+
+    addVariant(j, openingElement, variant)
+    return true
+}
+
 module.exports = function transform(file, api) {
     const j = api.jscodeshift
     const root = j(file.source)
     const textNames = getImportedNames(root, j, 'Text')
+    const headingNames = getImportedNames(root, j, 'Heading')
     let changed = false
 
     root.find(j.JSXElement).forEach((path) => {
         const openingElement = path.node.openingElement
-        if (
-            openingElement.name.type !== 'JSXIdentifier' ||
-            !textNames.has(openingElement.name.name) ||
-            !isImportedBinding(path, openingElement.name.name)
-        )
-            return
+        if (openingElement.name.type !== 'JSXIdentifier') return
 
-        const hasVariant = Boolean(getAttribute(openingElement, 'variant'))
-        const reasons = []
-        if (hasSpread(openingElement))
-            reasons.push('spread props may supply or override typography props')
-        for (const name of getDuplicateAttributes(openingElement, ['size', 'weight', 'as'])) {
-            reasons.push('duplicate Text ' + name + ' props')
-        }
-
-        const sizeAttribute = hasVariant ? undefined : getAttribute(openingElement, 'size')
-        const weightAttribute = hasVariant ? undefined : getAttribute(openingElement, 'weight')
-        const asAttribute = getAttribute(openingElement, 'as')
-        const renderAttribute = getAttribute(openingElement, 'render')
-        const size = readStaticString(sizeAttribute, 'body')
-        const weight = readStaticString(weightAttribute, 'regular')
-
-        if (size === DYNAMIC) reasons.push('dynamic Text size')
-        if (weight === DYNAMIC) reasons.push('dynamic Text weight')
-
-        const variant =
-            size === DYNAMIC || weight === DYNAMIC ? undefined : TEXT_VARIANTS[size]?.[weight]
-        if (!hasVariant && (sizeAttribute || weightAttribute) && !variant && reasons.length === 0) {
-            reasons.push('Text size and weight have no exact variant')
-        }
-
-        const renderName = asAttribute ? getStaticRenderName(j, asAttribute) : undefined
-        if (asAttribute && !renderName) reasons.push('dynamic Text as target')
-        if (asAttribute && renderAttribute) reasons.push('Text already has render prop')
-
-        if (reasons.length > 0) {
-            markManual(j, api, file, path, reasons)
-            changed = true
-            return
-        }
-        if (!hasVariant && (sizeAttribute || weightAttribute)) {
-            addVariant(j, openingElement, variant)
-            changed = true
-        }
-        if (asAttribute && renderName) {
-            replaceAsWithRender(j, openingElement, asAttribute, renderName)
-            changed = true
+        const { name } = openingElement.name
+        if (textNames.has(name) && isImportedBinding(path, name, 'Text')) {
+            changed = transformTextElement(j, api, file, path) || changed
+        } else if (headingNames.has(name) && isImportedBinding(path, name, 'Heading')) {
+            changed = transformHeadingElement(j, api, file, path) || changed
         }
     })
 

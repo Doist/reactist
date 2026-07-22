@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import { Text } from '@doist/reactist'
+import { Heading, Text } from '@doist/reactist'
 
-export function ManualCases({ size, weight, useLabel, props }) {
+export function ManualCases({ size, weight, useLabel, level, props }) {
     return (
         <>
             <Text size="copy" weight="bold">
@@ -45,6 +45,38 @@ export function ManualCases({ size, weight, useLabel, props }) {
                 {/* TODO(reactist-codemod): spread props may supply or override typography props */}
                 Spread
             </Text>
+            <Heading level={1} size="larger">
+                {/* TODO(reactist-codemod): Heading metrics have no exact variant */}
+                24px
+            </Heading>
+            <Heading level={2}>
+                {/* TODO(reactist-codemod): Heading metrics have no exact variant */}
+                16px
+            </Heading>
+            <Heading level={3}>
+                {/* TODO(reactist-codemod): Heading metrics have no exact variant */}
+                14px
+            </Heading>
+            <Heading level={3} size="smaller">
+                {/* TODO(reactist-codemod): Heading metrics have no exact variant */}
+                12px
+            </Heading>
+            <Heading level={1} weight="medium">
+                {/* TODO(reactist-codemod): Heading metrics have no exact variant */}
+                Medium
+            </Heading>
+            <Heading level={1} weight="light">
+                {/* TODO(reactist-codemod): Heading metrics have no exact variant */}
+                Light
+            </Heading>
+            <Heading level={level}>
+                {/* TODO(reactist-codemod): dynamic Heading level */}
+                Dynamic level
+            </Heading>
+            <Heading {...props}>
+                {/* TODO(reactist-codemod): spread props may supply or override typography props */}
+                Spread
+            </Heading>
         </>
     )
 }

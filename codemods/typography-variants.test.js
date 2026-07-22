@@ -37,8 +37,32 @@ test('transforms exact Text typography variants', async () => {
     await transformFixture('typography-variants-text')
 })
 
+test('transforms exact Heading typography variants', async () => {
+    await transformFixture('typography-variants-heading')
+})
+
 test('marks ambiguous Text typography uses for manual migration', async () => {
     const output = await transformFixture('typography-variants-manual')
 
+    expect(() => j(output)).not.toThrow()
+})
+
+test('reports every manual migration with file and line', () => {
+    const source = fs.readFileSync(
+        path.join(fixturesDirectory, 'typography-variants-manual.input.tsx'),
+        'utf8',
+    )
+    const report = jest.fn()
+
+    const output = transform(
+        { path: 'src/manual.tsx', source },
+        { jscodeshift: j, report, stats: jest.fn() },
+        {},
+    )
+
+    expect(report).toHaveBeenCalledTimes(18)
+    for (const [message] of report.mock.calls) {
+        expect(message).toMatch(/^src\/manual\.tsx:\d+ /)
+    }
     expect(() => j(output)).not.toThrow()
 })
