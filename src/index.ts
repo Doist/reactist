@@ -19,6 +19,7 @@ export * from './notice'
 export * from './toast'
 
 // text and typography
+export * from './display'
 export * from './heading'
 export * from './prose'
 export * from './text'

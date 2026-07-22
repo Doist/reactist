@@ -5,6 +5,21 @@ import { ResponsiveWidthRef, select, selectWithNone } from '../utils/storybook-h
 
 import { Text } from './text'
 
+const textVariants = [
+    'subheader-1',
+    'subheader-2',
+    'body-1',
+    'body-2',
+    'body-3',
+    'callout-1',
+    'callout-2',
+    'caption-1',
+    'caption-2',
+    'caption-3',
+    'footnote-1',
+    'footnote-2',
+] as const
+
 export default {
     title: '🔤 Typography/Text',
     component: Text,
@@ -21,80 +36,19 @@ export function TextStory() {
     return (
         <section className="story">
             <Stack space="medium">
-                <Text size="subtitle" weight="regular">
-                    Subtitle Regular
+                {textVariants.map((variant) => (
+                    <Text key={variant} variant={variant}>
+                        {variant}
+                    </Text>
+                ))}
+                <Text variant="caption-2" decoration="underline">
+                    caption-2 underline
                 </Text>
-                <Text size="subtitle" tone="secondary">
-                    Subtitle Secondary
+                <Text variant="caption-3" decoration="strikethrough">
+                    caption-3 strikethrough
                 </Text>
-                <Text size="subtitle" tone="danger">
-                    Subtitle Danger
-                </Text>
-                <Text size="subtitle" tone="positive">
-                    Subtitle Positive
-                </Text>
-                <Text size="subtitle" weight="semibold">
-                    Subtitle Semibold
-                </Text>
-                <Text size="subtitle" weight="bold">
-                    Subtitle Bold
-                </Text>
-
-                <Text size="body" weight="regular">
-                    Body Regular
-                </Text>
-                <Text size="body" tone="secondary">
-                    Body Secondary
-                </Text>
-                <Text size="body" tone="danger">
-                    Body Danger
-                </Text>
-                <Text size="body" tone="positive">
-                    Body Positive
-                </Text>
-                <Text size="body" weight="semibold">
-                    Body Semibold
-                </Text>
-                <Text size="body" weight="bold">
-                    Body Bold
-                </Text>
-
-                <Text size="copy" weight="regular">
-                    Copy Regular
-                </Text>
-                <Text size="copy" tone="secondary">
-                    Copy Secondary
-                </Text>
-                <Text size="copy" tone="danger">
-                    Copy Danger
-                </Text>
-                <Text size="copy" tone="positive">
-                    Copy Positive
-                </Text>
-                <Text size="copy" weight="semibold">
-                    Copy Semibold
-                </Text>
-                <Text size="copy" weight="bold">
-                    Copy Bold
-                </Text>
-
-                <Text size="caption" weight="regular">
-                    Caption Regular
-                </Text>
-                <Text size="caption" tone="secondary">
-                    Caption Secondary
-                </Text>
-                <Text size="caption" tone="danger">
-                    Caption Danger
-                </Text>
-                <Text size="caption" tone="positive">
-                    Caption Positive
-                </Text>
-                <Text size="caption" weight="semibold">
-                    Caption Semibold
-                </Text>
-                <Text size="caption" weight="bold">
-                    Caption Bold
+                <Text variant="footnote-1" case="uppercase">
+                    footnote-1 uppercase
                 </Text>
             </Stack>
         </section>
@@ -153,15 +107,15 @@ export function ResponsiveTextStory(props: React.ComponentProps<typeof Text>) {
 }
 
 ResponsiveTextStory.args = {
-    size: 'body',
-    weight: 'regular',
+    variant: 'body-3',
     tone: 'normal',
     children: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit',
 }
 
 ResponsiveTextStory.argTypes = {
-    size: select(['caption', 'copy', 'body', 'subtitle']),
-    weight: select(['regular', 'semibold', 'bold']),
+    variant: select(textVariants),
+    decoration: selectWithNone(['strikethrough', 'underline']),
+    case: selectWithNone(['uppercase']),
     lineClamp: selectWithNone([1, 2, 3, 4, 5]),
     tone: select(['normal', 'secondary', 'danger']),
     align: { control: false },
@@ -179,15 +133,15 @@ export function TextPlaygroundStory(props: React.ComponentProps<typeof Text>) {
 }
 
 TextPlaygroundStory.args = {
-    size: 'body',
-    weight: 'regular',
+    variant: 'body-3',
     tone: 'normal',
     children: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit',
 }
 
 TextPlaygroundStory.argTypes = {
-    size: select(['caption', 'copy', 'body', 'subtitle']),
-    weight: select(['regular', 'semibold', 'bold']),
+    variant: select(textVariants),
+    decoration: selectWithNone(['strikethrough', 'underline']),
+    case: selectWithNone(['uppercase']),
     lineClamp: selectWithNone([1, 2, 3, 4, 5]),
     tone: select(['normal', 'secondary', 'danger']),
     align: selectWithNone(['start', 'center', 'end', 'justify']),

@@ -1,0 +1,25 @@
+import { Meta, ArgTypes, Description } from '@storybook/addon-docs/blocks'
+import { Display } from './display'
+import * as DisplayStories from './display.stories'
+
+<Meta of={DisplayStories} />
+
+# Display
+
+<Description of={Display} />
+
+## Usage
+
+Use `Display` for large, prominent text and always choose a display variant. It renders a `div` by
+default, so it has no heading semantics unless `render` supplies a heading element.
+
+```tsx
+<Display variant="display-3">42 completed tasks</Display>
+<Display variant="display-1" render={<h1 />}>Annual review</Display>
+```
+
+Choose semantic heading levels from the page structure, not from the display variant number.
+
+## Props
+
+<ArgTypes of={Display} />

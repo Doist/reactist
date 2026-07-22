@@ -1,0 +1,34 @@
+import { Meta, ArgTypes, Description } from '@storybook/addon-docs/blocks'
+import { Text } from './text'
+import * as TextStories from './text.stories'
+
+<Meta of={TextStories} />
+
+# Text
+
+<Description of={Text} />
+
+## Usage
+
+Use `Text` for non-heading interface copy. It renders a `div` and uses `body-3` by default. Choose
+one named variant for the complete Figma style; do not combine independent size and weight values.
+
+```tsx
+<Text>Default body copy</Text>
+<Text variant="body-1">Emphasized body copy</Text>
+<Text variant="caption-2" decoration="underline">Underlined caption</Text>
+<Text variant="footnote-1" case="uppercase">Metadata</Text>
+```
+
+Use `render` when the copy needs another HTML element. The rendered element owns its semantics.
+
+```tsx
+<Text variant="body-3" render={<label htmlFor="project-name" />}>
+    Project name
+</Text>
+<input id="project-name" />
+```
+
+## Props
+
+<ArgTypes of={Text} />

@@ -135,9 +135,9 @@ function StorySection({
     return (
         <Stack space="small">
             <Stack space="xsmall">
-                <Text weight="semibold">{title}</Text>
+                <Text variant="body-2">{title}</Text>
                 {description ? (
-                    <Text size="copy" tone="secondary">
+                    <Text variant="callout-2" tone="secondary">
                         {description}
                     </Text>
                 ) : null}
@@ -152,7 +152,7 @@ function AvatarExample({ label, children }: { label: string; children: React.Rea
         <Box width="fitContent">
             <Stack space="xsmall" align="center">
                 {children}
-                <Text size="caption" tone="secondary" align="center">
+                <Text variant="caption-3" tone="secondary" align="center">
                     {label}
                 </Text>
             </Stack>

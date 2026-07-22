@@ -30,7 +30,7 @@ function fieldToneToTextTone(tone: FieldTone) {
 
 function FieldMessage({ id, children, tone }: FieldMessageProps) {
     return (
-        <Text as="p" tone={fieldToneToTextTone(tone)} size="copy" id={id}>
+        <Text render={<p />} tone={fieldToneToTextTone(tone)} variant="callout-2" id={id}>
             {tone === 'loading' ? (
                 <Box
                     as="span"
@@ -53,7 +53,7 @@ type FieldCharacterCountProps = {
 
 function FieldCharacterCount({ children, tone }: FieldCharacterCountProps) {
     return (
-        <Text tone={fieldToneToTextTone(tone)} size="copy">
+        <Text tone={fieldToneToTextTone(tone)} variant="callout-2">
             {children}
         </Text>
     )
@@ -334,9 +334,8 @@ function BaseField({
                             alignItems="flexEnd"
                         >
                             <Text
-                                size={variant === 'bordered' ? 'caption' : 'body'}
-                                as="label"
-                                htmlFor={id}
+                                variant={variant === 'bordered' ? 'caption-3' : 'body-3'}
+                                render={<label htmlFor={id} />}
                             >
                                 {label ? (
                                     <span className={styles.primaryLabel}>{label}</span>
