@@ -1,98 +1,117 @@
 import * as React from 'react'
 
-import { Box } from '../box'
-import { polymorphicComponent } from '../utils/polymorphism'
-import { getClassNames } from '../utils/responsive-props'
+import { Role } from '@ariakit/react'
+
+import { getTypographyClassName } from '../typography/typography'
 
 import styles from './text.module.css'
 
-import type { BoxProps } from '../box'
-import type { Tone } from '../utils/common-types'
+import type { RoleProps } from '@ariakit/react'
+import type { TypographyStyleProps } from '../typography/typography'
 
-type TextProps = {
-    children: React.ReactNode
-    /**
-     * The size of the text.
-     *
-     * The supported values, from smaller size to larger size, are:
-     * 'caption', 'copy', 'body', and 'subtitle'
-     *
-     * @default 'body'
-     */
-    size?: 'caption' | 'copy' | 'body' | 'subtitle'
-    /**
-     * The weight of the text font.
-     *
-     * @default 'regular'
-     */
-    weight?: 'regular' | 'semibold' | 'bold'
-    /**
-     * The tone (semantic color) of the text.
-     *
-     * @default 'normal'
-     */
-    tone?: Tone
-    /**
-     * Used to truncate the text to a given number of lines.
-     *
-     * It will add an ellipsis (`…`) to the text at the end of the last line, only if the text was
-     * truncated. If the text fits without it being truncated, no ellipsis is added.
-     *
-     * By default, the text is not truncated at all, no matter how many lines it takes to render it.
-     *
-     * @default undefined
-     */
-    lineClamp?: 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
-    /**
-     * How to align the text horizontally.
-     *
-     * @default 'start'
-     */
-    align?: BoxProps['textAlign']
+type TextVariant =
+    | 'subheader-1'
+    | 'subheader-2'
+    | 'body-1'
+    | 'body-2'
+    | 'body-3'
+    | 'callout-1'
+    | 'callout-2'
+    | 'caption-1'
+    | 'caption-2'
+    | 'caption-3'
+    | 'footnote-1'
+    | 'footnote-2'
+
+type StrikethroughTextProps = {
+    /** Visual text style supporting strikethrough. */
+    variant:
+        | 'subheader-1'
+        | 'subheader-2'
+        | 'body-3'
+        | 'callout-1'
+        | 'callout-2'
+        | 'caption-2'
+        | 'caption-3'
+    /** Figma-supported strikethrough decoration. */
+    decoration: 'strikethrough'
+    /** Uppercase presentation is unavailable with strikethrough. */
+    case?: never
 }
 
-const Text = polymorphicComponent<'div', TextProps>(function Text(
+type UnderlinedTextProps = {
+    /** Visual caption style supporting underline. */
+    variant: 'caption-2' | 'caption-3'
+    /** Figma-supported underline decoration. */
+    decoration: 'underline'
+    /** Uppercase presentation is unavailable with underline. */
+    case?: never
+}
+
+type UnmodifiedTextProps = {
+    /** Visual text style; defaults to body-3. */
+    variant?: TextVariant
+    /** Decoration is omitted for the base variant. */
+    decoration?: never
+    /** Case override is omitted for the base variant. */
+    case?: never
+}
+
+type UppercaseTextProps = {
+    /** Visual footnote style supporting uppercase. */
+    variant: 'footnote-1'
+    /** Decoration is unavailable with uppercase presentation. */
+    decoration?: never
+    /** Figma-supported uppercase presentation. */
+    case: 'uppercase'
+}
+
+type TextProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'className'> &
+    TypographyStyleProps & {
+        /** Text content. */
+        children: React.ReactNode
+        /** Custom element rendered with text typography; defaults to a div. */
+        render?: RoleProps['render']
+    } & (StrikethroughTextProps | UnderlinedTextProps | UppercaseTextProps | UnmodifiedTextProps)
+
+const Text = React.forwardRef<HTMLDivElement, TextProps>(function Text(
     {
-        as,
-        size = 'body',
-        weight = 'regular',
+        variant = 'body-3',
+        decoration,
+        case: textCase,
         tone = 'normal',
         align,
-        children,
         lineClamp,
         exceptionallySetClassName,
+        render,
+        children,
         ...props
     },
     ref,
 ) {
-    const lineClampMultipleLines =
-        typeof lineClamp === 'string' ? Number(lineClamp) > 1 : (lineClamp ?? 1) > 1
-
     return (
-        <Box
+        <Role.div
             {...props}
-            as={as}
-            className={[
+            render={render}
+            className={getTypographyClassName({
+                variantClassName: styles['variant-' + variant]!,
+                modifierClassNames: [
+                    decoration ? styles['decoration-' + decoration] : undefined,
+                    textCase ? styles['case-' + textCase] : undefined,
+                ],
+                tone,
+                align,
+                lineClamp,
                 exceptionallySetClassName,
-                styles.text,
-                size !== 'body' ? getClassNames(styles, 'size', size) : null,
-                weight !== 'regular' ? getClassNames(styles, 'weight', weight) : null,
-                tone !== 'normal' ? getClassNames(styles, 'tone', tone) : null,
-                lineClampMultipleLines ? styles.lineClampMultipleLines : null,
-                lineClamp ? getClassNames(styles, 'lineClamp', lineClamp.toString()) : null,
-            ]}
-            textAlign={align}
-            // Prevents emojis from being cut-off
-            // See https://github.com/Doist/reactist/pull/528
-            paddingRight={lineClamp ? 'xsmall' : undefined}
+            })}
             ref={ref}
         >
             {children}
-        </Box>
+        </Role.div>
     )
 })
 
 Text.displayName = 'Text'
 
-export type { TextProps }
+export type { TextProps, TextVariant }
 export { Text }

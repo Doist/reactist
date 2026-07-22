@@ -137,9 +137,7 @@ export function ModalWithHeaderBodyAndCustomFooter() {
                 <ModalFooter>
                     <Columns alignY="center">
                         <Column width="auto">
-                            <Text weight="bold" size="subtitle">
-                                Do whatever you want down here
-                            </Text>
+                            <Text variant="subheader-1">Do whatever you want down here</Text>
                         </Column>
                         <Column width="content">
                             <Button variant="primary">Close</Button>
@@ -307,7 +305,7 @@ export function MinimalisticConfirmationModal() {
             </Box>
             <Modal height="fitContent" aria-label="Confirmation modal" width="small">
                 <Box padding="large">
-                    <Text size="subtitle">Are you sure you want to leave?</Text>
+                    <Text variant="subheader-2">Are you sure you want to leave?</Text>
                 </Box>
                 <ModalActions>
                     <Button variant="primary" size="small">
@@ -347,10 +345,8 @@ export function EnrichedConfirmationModal() {
                 </ModalHeader>
                 <ModalBody>
                     <Stack space="medium">
-                        <Text size="subtitle" weight="bold">
-                            Are you sure you want to leave?
-                        </Text>
-                        <Text size="subtitle" tone="danger">
+                        <Text variant="subheader-1">Are you sure you want to leave?</Text>
+                        <Text variant="subheader-2" tone="danger">
                             This action cannot be undone!
                         </Text>
                     </Stack>
@@ -382,7 +378,7 @@ export function ModalAutofocus() {
                 <Button variant="primary" action="open">
                     Open modal
                 </Button>
-                <Text size="subtitle">
+                <Text variant="subheader-2">
                     By default the `autoFocus` prop is `true`, which shifts the focus onto the first
                     focusable element in the modal. You can further refine this by using the
                     `data-autofocus` attribute if you wish to focus on elements other than the first
@@ -438,7 +434,7 @@ export function StackingModals() {
                 <Button variant="primary" action="open">
                     Open modal
                 </Button>
-                <Text size="subtitle">
+                <Text variant="subheader-2">
                     Modals may be stacked on top of one another, with each of them having their
                     independent states, e.g. `width` and `height`.
                 </Text>
@@ -449,7 +445,7 @@ export function StackingModals() {
                 </ModalHeader>
                 <ModalBody>
                     <Stack space="large">
-                        <Text size="subtitle">
+                        <Text variant="subheader-2">
                             Modals may be stacked on top of one another, with each of them having
                             their independent states, e.g. `width` and `height`.
                         </Text>
