@@ -273,9 +273,7 @@ function transformHeadingElement(j, api, file, path) {
     const size = readStaticString(sizeAttribute, 'default')
     const weight = readStaticString(weightAttribute, 'regular')
 
-    if (level === DYNAMIC && (!hasSpread(openingElement) || levelAttribute)) {
-        reasons.push('dynamic Heading level')
-    }
+    if (level === DYNAMIC) reasons.push('dynamic Heading level')
     if (size === DYNAMIC) reasons.push('dynamic Heading size')
     if (weight === DYNAMIC) reasons.push('dynamic Heading weight')
 

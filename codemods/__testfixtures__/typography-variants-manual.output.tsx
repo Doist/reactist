@@ -82,7 +82,7 @@ export function ManualCases({ size, weight, useLabel, level, props }) {
                 Dynamic weight
             </Heading>
             <Heading {...props}>
-                {/* TODO(reactist-codemod): spread props may supply or override typography props */}
+                {/* TODO(reactist-codemod): spread props may supply or override typography props; dynamic Heading level */}
                 Spread
             </Heading>
             <Heading {...props} level={level} size={size} weight={weight}>
