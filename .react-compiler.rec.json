@@ -16,9 +16,6 @@
     },
     "src/menu/menu.tsx": {
       "CompileError": 2
-    },
-    "src/tooltip/tooltip.tsx": {
-      "CompileError": 1
     }
   }
 }

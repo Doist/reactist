@@ -1,17 +1,11 @@
 import * as React from 'react'
 
-import {
-    Tooltip as AriakitTooltip,
-    TooltipAnchor,
-    TooltipArrow,
-    useTooltipStore,
-} from '@ariakit/react'
+import { Tooltip as BaseTooltip } from '@base-ui/react/tooltip'
 
 import { Box } from '../box'
 
 import styles from './tooltip.module.css'
 
-import type { TooltipStore, TooltipStoreState } from '@ariakit/react'
 import type { JSX } from 'react'
 import type { ObfuscatedClassName } from '../utils/common-types'
 
@@ -37,7 +31,53 @@ function TooltipProvider({
     hideTimeout?: number
 }>) {
     const value = React.useMemo(() => ({ showTimeout, hideTimeout }), [showTimeout, hideTimeout])
-    return <TooltipContext.Provider value={value}>{children}</TooltipContext.Provider>
+    return (
+        <TooltipContext.Provider value={value}>
+            {/*
+             * Base UI only groups tooltip delays inside a provider. Without this, moving between
+             * adjacent triggers re-waits the full show timeout every time.
+             */}
+            <BaseTooltip.Provider>{children}</BaseTooltip.Provider>
+        </TooltipContext.Provider>
+    )
+}
+
+/**
+ * How to place the tooltip relative to its trigger element.
+ */
+type TooltipPosition =
+    | 'top'
+    | 'top-start'
+    | 'top-end'
+    | 'right'
+    | 'right-start'
+    | 'right-end'
+    | 'bottom'
+    | 'bottom-start'
+    | 'bottom-end'
+    | 'left'
+    | 'left-start'
+    | 'left-end'
+
+/**
+ * Imperative control over a tooltip, obtained via the `ref` prop.
+ */
+type TooltipHandle = {
+    /** Shows the tooltip immediately, bypassing the show timeout. */
+    show: () => void
+    /** Hides the tooltip immediately, bypassing the hide timeout. */
+    hide: () => void
+}
+
+type TooltipSide = 'top' | 'right' | 'bottom' | 'left'
+type TooltipAlign = 'start' | 'center' | 'end'
+
+/**
+ * Splits our combined `position` value into the `side` and `align` pair that Base UI expects.
+ */
+function getSideAndAlign(position: TooltipPosition): { side: TooltipSide; align: TooltipAlign } {
+    const [side, align] = position.split('-') as [TooltipSide, 'start' | 'end' | undefined]
+    return { side, align: align ?? 'center' }
 }
 
 interface TooltipProps extends ObfuscatedClassName {
@@ -59,9 +99,12 @@ interface TooltipProps extends ObfuscatedClassName {
      * also be useful if the content dynamically changes often, so every time you trigger the
      * tooltip the content may have changed (e.g. if you show a ticking time clock in the tooltip).
      *
-     * The trigger element will be associated to this content via `aria-describedby`. This means
-     * that the tooltip content will be read by assistive technologies such as screen readers. It
-     * will likely read this content right after reading the trigger element label.
+     * Tooltips are visual-only affordances. The content is exposed via `role="tooltip"`, but the
+     * trigger is deliberately not associated with it (e.g. via `aria-describedby`), so assistive
+     * technologies will not announce it alongside the trigger. If the information matters, make
+     * sure the trigger is labelled with it, or put it in the page content instead.
+     *
+     * Tooltips also do not open on touch devices, so never hide essential information in one.
      */
     content: React.ReactNode | (() => React.ReactNode)
 
@@ -79,7 +122,7 @@ interface TooltipProps extends ObfuscatedClassName {
      *
      * @default 'top'
      */
-    position?: TooltipStoreState['placement']
+    position?: TooltipPosition
 
     /**
      * The separation (in pixels) between the trigger element and the tooltip.
@@ -88,93 +131,97 @@ interface TooltipProps extends ObfuscatedClassName {
     gapSize?: number
 
     /**
-     * Whether to show an arrow-like element attached to the tooltip, and pointing towards the
-     * trigger element.
-     * @default false
-     */
-    withArrow?: boolean
-
-    /**
      * The amount of time in milliseconds to wait before showing the tooltip
-     * Use `<TooltipContext.Provider>` to set a global value for all tooltips
+     * Use `<TooltipProvider>` to set a global value for all tooltips
      * @default 500
      */
     showTimeout?: number
 
     /**
      * The amount of time in milliseconds to wait before hiding the tooltip
-     * Use `<TooltipContext.Provider>` to set a global value for all tooltips
+     * Use `<TooltipProvider>` to set a global value for all tooltips
      * @default 100
      */
     hideTimeout?: number
 }
 
-const Tooltip = React.forwardRef<TooltipStore, TooltipProps>(
-    (
-        {
-            children,
-            content,
-            position = 'top',
-            gapSize = 3,
-            withArrow = false,
-            showTimeout,
-            hideTimeout,
-            exceptionallySetClassName,
-        },
-        ref,
-    ) => {
-        const { showTimeout: globalShowTimeout, hideTimeout: globalHideTimeout } =
-            React.useContext(TooltipContext)
-
-        const tooltip = useTooltipStore({
-            placement: position,
-            showTimeout: showTimeout ?? globalShowTimeout,
-            hideTimeout: hideTimeout ?? globalHideTimeout,
-        })
-
-        React.useImperativeHandle(ref, () => tooltip, [tooltip])
-
-        const isOpen = tooltip.useState('open')
-
-        const child = React.Children.only(
-            children as React.FunctionComponentElement<JSX.IntrinsicElements['div']> | null,
-        )
-
-        if (!child) {
-            return child
-        }
-
-        return (
-            <>
-                <TooltipAnchor render={child} store={tooltip} />
-                {isOpen && content ? (
-                    <AriakitTooltip
-                        store={tooltip}
-                        gutter={gapSize}
-                        render={
-                            <Box
-                                className={[styles.tooltip, exceptionallySetClassName]}
-                                background="toast"
-                                borderRadius="standard"
-                                paddingX="small"
-                                paddingY="xsmall"
-                                maxWidth="medium"
-                                width="fitContent"
-                                overflow="hidden"
-                                textAlign="center"
-                            />
-                        }
-                    >
-                        {withArrow ? <TooltipArrow /> : null}
-                        {typeof content === 'function' ? content() : content}
-                    </AriakitTooltip>
-                ) : null}
-            </>
-        )
+const Tooltip = React.forwardRef<TooltipHandle, TooltipProps>(function Tooltip(
+    {
+        children,
+        content,
+        position = 'top',
+        gapSize = 3,
+        showTimeout,
+        hideTimeout,
+        exceptionallySetClassName,
     },
-)
+    ref,
+) {
+    const { showTimeout: globalShowTimeout, hideTimeout: globalHideTimeout } =
+        React.useContext(TooltipContext)
 
-Tooltip.displayName = 'Tooltip'
+    const [open, setOpen] = React.useState(false)
+    const tooltipId = React.useId()
 
-export type { TooltipProps }
+    React.useImperativeHandle(
+        ref,
+        () => ({
+            show: () => setOpen(true),
+            hide: () => setOpen(false),
+        }),
+        [],
+    )
+
+    const child = React.Children.only(
+        children as React.FunctionComponentElement<JSX.IntrinsicElements['div']> | null,
+    )
+
+    if (!child) {
+        return child
+    }
+
+    const { side, align } = getSideAndAlign(position)
+
+    return (
+        <BaseTooltip.Root open={open} onOpenChange={setOpen}>
+            <BaseTooltip.Trigger
+                render={child}
+                delay={showTimeout ?? globalShowTimeout}
+                closeDelay={hideTimeout ?? globalHideTimeout}
+            />
+            {open && content ? (
+                <BaseTooltip.Portal>
+                    <BaseTooltip.Positioner
+                        side={side}
+                        align={align}
+                        sideOffset={gapSize}
+                        className={styles.positioner}
+                    >
+                        <BaseTooltip.Popup
+                            id={tooltipId}
+                            role="tooltip"
+                            render={
+                                <Box
+                                    className={[styles.tooltip, exceptionallySetClassName]}
+                                    background="toast"
+                                    borderRadius="standard"
+                                    paddingX="small"
+                                    paddingY="xsmall"
+                                    maxWidth="medium"
+                                    width="fitContent"
+                                    overflow="hidden"
+                                    textAlign="center"
+                                />
+                            }
+                        >
+                            {typeof content === 'function' ? content() : content}
+                        </BaseTooltip.Popup>
+                    </BaseTooltip.Positioner>
+                </BaseTooltip.Portal>
+            ) : null}
+        </BaseTooltip.Root>
+    )
+})
+
+export type { TooltipHandle, TooltipPosition, TooltipProps }
 export { Tooltip, TooltipProvider }

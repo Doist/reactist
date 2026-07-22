@@ -65,6 +65,7 @@
     },
     "peerDependencies": {
         "@ariakit/react": "~0.4.19",
+        "@base-ui/react": "^1.6.0",
         "classnames": "^2.2.5",
         "react": ">=18.0.0 <20.0.0",
         "react-compiler-runtime": "^1.0.0",
@@ -80,6 +81,7 @@
         "@babel/preset-react": "^7.0.0",
         "@babel/preset-typescript": "^7.10.1",
         "@babel/register": "^7.0.0",
+        "@base-ui/react": "1.6.0",
         "@doist/eslint-config": "12.0.0",
         "@doist/prettier-config": "4.0.0",
         "@doist/react-compiler-tracker": "2.1.2",
