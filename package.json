@@ -159,6 +159,7 @@
     },
     "dependencies": {
         "@babel/runtime": "7.29.7",
+        "@tanstack/react-table": "8.21.3",
         "aria-hidden": "1.2.6",
         "dayjs": "1.11.21",
         "patch-package": "8.0.1",
