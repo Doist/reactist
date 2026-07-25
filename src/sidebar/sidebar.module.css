@@ -1,4 +1,6 @@
 :root {
+    --reactist-sidebar-collapsed-z-index: 1;
+
     --reactist-sidebar-transition-duration: 300ms;
     --reactist-sidebar-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -32,6 +34,29 @@
 
 .panel[data-overlay='false'][data-state='closed'][data-align='end'] {
     margin-inline-end: calc(-1 * var(--reactist-sidebar-width, 0px));
+}
+
+/*
+ * Collapsed + docked, the panel's own `contain: layout` traps a persistent
+ * control's z-index in the panel's stacking context, so it paints under a main
+ * that is itself a stacking context. Lift the panel to keep the control visible.
+ */
+.panel[data-overlay='false'][data-state='closed'] {
+    z-index: var(--reactist-sidebar-collapsed-z-index);
+}
+
+.persistentContent,
+.inertContent {
+    display: contents;
+}
+
+/*
+ * While the panel is closed, hide its inert content (i.e. not the persistent slot)
+ * so content wider than the panel doesn't flow into the viewport/container
+ */
+.panel[data-state='closed'] .inertContent {
+    visibility: hidden;
+    transition: visibility 0s var(--reactist-sidebar-transition-duration);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { createPortal } from 'react-dom'
 
 import classNames from 'classnames'
 import { useMergeRefs } from 'use-callback-ref'
@@ -25,6 +26,15 @@ type SidebarContextValue = {
 }
 
 const SidebarContext = React.createContext<SidebarContextValue | null>(null)
+
+/**
+ * Scoped to `<SidebarContent>`, used to provide:
+ *   * The live region that `<SidebarPersistentContent>` portals into
+ *   * The panel's `unmountOnHide` option to emit warnings when it's used
+ *     in conjunction with `<SidebarPersistentContent>`
+ */
+type SidebarContentContextValue = { region: HTMLElement | null; unmountOnHide: boolean }
+const SidebarContentContext = React.createContext<SidebarContentContextValue | undefined>(undefined)
 
 function useSidebarContext(componentName: string): SidebarContextValue {
     const context = React.useContext(SidebarContext)
@@ -152,13 +162,24 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
             useSidebarContext('SidebarContent')
 
         const mergedRef = useMergeRefs([panelRef, ref])
+        const inertContentRef = React.useRef<HTMLDivElement>(null)
+        const [persistentRegion, setPersistentRegion] = React.useState<HTMLElement | null>(null)
+
+        // Note: `inert` is only supported as a prop in React 19+. When dropping support for React 18,
+        // add `inert={!isOpen}` to the `inertContentRef` element, and remove this effect
+        React.useEffect(
+            function inertContentWhileClosed() {
+                inertContentRef.current?.toggleAttribute('inert', !isOpen)
+            },
+            [isOpen],
+        )
 
         React.useEffect(
             function warnWhenDockedCollapseHasNoWidth() {
                 if (!isOpen && width == null && !unmountOnHide) {
                     // eslint-disable-next-line no-console
                     console.warn(
-                        '[Sidebar]: a docked <Sidebar> needs a controlled `width` to collapse when closed; without one the closed panel stays visible.',
+                        '[Sidebar]: a docked <Sidebar> needs a controlled `width` to collapse when closed; without one the closed panel stays visible while its contents are inert.',
                     )
                 }
             },
@@ -175,6 +196,11 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
         const childrenToRender = useDeferredUnmount({ isOpen, unmountOnHide, panelRef })
             ? children
             : null
+
+        const persistentContentValue = React.useMemo(
+            () => ({ region: persistentRegion, unmountOnHide }),
+            [persistentRegion, unmountOnHide],
+        )
 
         return (
             <Box
@@ -195,7 +221,12 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
                 style={{ ...style, ...widthStyle }}
                 className={classNames(styles.panel, exceptionallySetClassName)}
             >
-                {childrenToRender}
+                <div ref={setPersistentRegion} className={styles.persistentContent} />
+                <SidebarContentContext.Provider value={persistentContentValue}>
+                    <div ref={inertContentRef} className={styles.inertContent}>
+                        {childrenToRender}
+                    </div>
+                </SidebarContentContext.Provider>
             </Box>
         )
     },
@@ -271,7 +302,47 @@ function getExitTimeoutMs(panel: HTMLElement | null): number {
     return durationMs + parseCssDurationMs(style.transitionDelay) + 50
 }
 
+//
+// SidebarPersistentContent
+//
+
+type SidebarPersistentContentProps = { children?: React.ReactNode }
+
+/**
+ * This slot allows its children to be interactive when the sidebar is closed, and must be
+ * placed within `<SidebarContent>`.
+ *
+ * Typically used for a toggle that transitions between being inside the panel while open,
+ * and outside of it when closed. Content placed in this slot would sit outside of the region that's
+ * marked as inert when the panel is closed, but remain within the panel's tab order.
+ */
+function SidebarPersistentContent({ children }: SidebarPersistentContentProps) {
+    const content = React.useContext(SidebarContentContext)
+    const region = content?.region ?? null
+    const isOutsideContent = content === undefined
+    const unmountsOnHide = content?.unmountOnHide ?? false
+
+    React.useEffect(
+        function warnOnMisconfiguration() {
+            if (isOutsideContent) {
+                // eslint-disable-next-line no-console
+                console.warn(
+                    '[Sidebar]: <SidebarPersistentContent> must be nested within <SidebarContent>.',
+                )
+            } else if (unmountsOnHide) {
+                // eslint-disable-next-line no-console
+                console.warn(
+                    '[Sidebar]: `unmountOnHide` on <Sidebar> overrides <SidebarPersistentContent>, which causes its contents to unmount along with the panel.',
+                )
+            }
+        },
+        [isOutsideContent, unmountsOnHide],
+    )
+
+    return region ? createPortal(children, region) : null
+}
+
 SidebarContent.displayName = 'SidebarContent'
 
-export { Sidebar, SidebarContent }
-export type { SidebarAlign, SidebarContentProps, SidebarProps }
+export { Sidebar, SidebarContent, SidebarPersistentContent }
+export type { SidebarAlign, SidebarContentProps, SidebarPersistentContentProps, SidebarProps }

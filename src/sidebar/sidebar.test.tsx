@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import { act, fireEvent, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen, within } from '@testing-library/react'
 
-import { Sidebar, SidebarContent } from './sidebar'
+import { Sidebar, SidebarContent, SidebarPersistentContent } from './sidebar'
 
 import type { SidebarProps } from './sidebar'
 
@@ -115,6 +115,66 @@ describe('unmountOnHide', () => {
         } finally {
             jest.useRealTimers()
         }
+    })
+})
+
+describe('SidebarPersistentContent', () => {
+    it('renders in the panel and stays visible when open, and out of the inert when closed', async () => {
+        const { rerender } = renderSidebar(
+            { width: 280 },
+            {
+                children: (
+                    <nav aria-label="Main navigation">
+                        <SidebarPersistentContent>
+                            <button type="button">Toggle sidebar</button>
+                        </SidebarPersistentContent>
+                        <a href="#projects">Projects</a>
+                    </nav>
+                ),
+            },
+        )
+
+        const panel = screen.getByTestId('sidebar-panel')
+        const toggle = await within(panel).findByRole('button', { name: 'Toggle sidebar' })
+        expect(toggle).toBeVisible()
+        expect(toggle.closest('[inert]')).toBeNull()
+        expect(screen.getByText('Projects').closest('[inert]')).toBeNull()
+
+        rerender({ isOpen: false })
+        expect(screen.getByText('Projects').closest('[inert]')).not.toBeNull()
+        expect(toggle.closest('[inert]')).toBeNull()
+    })
+
+    it('renders nothing and warns when misconfigured', () => {
+        const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined)
+
+        // Outside <SidebarContent>: it portals nowhere, so its child never renders.
+        const { unmount } = render(
+            <SidebarPersistentContent>
+                <button type="button">Ghost control</button>
+            </SidebarPersistentContent>,
+        )
+        expect(screen.queryByRole('button', { name: 'Ghost control' })).not.toBeInTheDocument()
+        expect(warn).toHaveBeenCalledWith(
+            expect.stringContaining('must be nested within <SidebarContent>'),
+        )
+        unmount()
+
+        // With `unmountOnHide`, the persistent control cannot survive a close, defeating the slot.
+        warn.mockClear()
+        renderSidebar(
+            { unmountOnHide: true, width: 280 },
+            {
+                children: (
+                    <SidebarPersistentContent>
+                        <button type="button">Toggle</button>
+                    </SidebarPersistentContent>
+                ),
+            },
+        )
+        expect(warn).toHaveBeenCalledWith(expect.stringContaining('unmountOnHide'))
+
+        warn.mockRestore()
     })
 })
 

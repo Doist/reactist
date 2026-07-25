@@ -1,0 +1,159 @@
+import {
+    ArgTypes,
+    Canvas,
+    Description,
+    Markdown,
+    Meta,
+    Subtitle,
+    Title,
+} from '@storybook/addon-docs/blocks'
+
+import { Sidebar, SidebarContent, SidebarPersistentContent } from './sidebar'
+import * as SidebarStories from './sidebar.stories'
+
+<Meta of={SidebarStories} />
+
+<Title />
+
+<Subtitle>A controlled, composable, and accessible sidebar primitive</Subtitle>
+
+The `Sidebar` component is a panel that docks on the left or right. It's fully controlled, so the
+consumer owns the state of the panel.
+
+## Basic usage
+
+To define a sidebar, render it in a flex parent. Use `align` to determine the side it's docked, `isOpen` to control its open state, and `width` for its default size.
+
+Use `<SidebarContent>` to host your styled panel, and a `<SidebarPersistentContent>` as its child to hold content that need to remain visible and interactive when the panel is closed.
+
+<Canvas of={SidebarStories.CollapsibleNav} />
+
+## Anatomy
+
+A sidebar is comprised of the following components:
+
+<Markdown>{`
+| Component | Renders | Responsibilities |
+| --- | --- | --- |
+| \`\<Sidebar\>\` | The main provider | Configuration options like \`width\` |
+| \`\<SidebarContent\>\` | The panel element | The panel's size and position, transitions |
+| \`\<SidebarPersistentContent\>\` | An optional slot inside the panel | Hosts UI elements within the sidebar that need to be interactive while the sidebar is closed (e.g. a collapse toggle) |
+`}</Markdown>
+
+Place the `<Sidebar>` in a flex parent, provide it the controlled `width` and `isOpen` props, and ensure that its sibling is able to absorb and yield space when the sidebar resizes.
+
+- **Parent**: When using a `Box`, assign `display="flex"`
+- **Sibling content**: Assign `flexGrow={1}`, and `minWidth={0}`, as `<Box>` already defaults to `flex-shrink: 1`
+- **State and persistence**: The open state is controlled, and persisted if required by the consumer
+- **The visual skin**: The component is headless, and only controls the container's width and transition, which can be further customized. The panel is styled through the children passed into `<SidebarContent>`
+
+```tsx
+<Box display="flex" overflow="hidden">
+    <Sidebar align="start" isOpen={isOpen} width={width}>
+        <SidebarContent aria-label="Main navigation">
+            <Box as="nav" aria-label="Main navigation" height="full">
+                {/* nav content */}
+            </Box>
+        </SidebarContent>
+    </Sidebar>
+    <Box as="main" flexGrow={1} minWidth={0}>
+        {/* main content */}
+    </Box>
+</Box>
+```
+
+## Props
+
+### `<Sidebar>`
+
+<Description of={Sidebar} />
+
+<ArgTypes of={Sidebar} />
+
+### `<SidebarContent>`
+
+<Description of={SidebarContent} />
+
+<ArgTypes of={SidebarContent} />
+
+### `<SidebarPersistentContent>`
+
+<Description of={SidebarPersistentContent} />
+
+## The toggle trigger
+
+Reactist ships no trigger. The toggle is the consumer's own button, wired by
+hand, so it can live anywhere (a top bar, a command palette) without hoisting the
+provider. Set the same `id` on `Sidebar` that the trigger points its
+`aria-controls` at.
+
+```tsx
+<button aria-expanded={isOpen} aria-controls="sidebar" onClick={toggle}>
+    {/* your icon / tooltip */}
+</button>
+```
+
+## A control that stays live while closed
+
+While a sidebar is closed, its contents are made `inert`, so off-screen controls
+leave the tab order and the accessibility tree. `SidebarPersistentContent` is the
+exception: a control placed in it stays usable while the sidebar is closed. The
+collapse toggle in the demo at the top of this page is the canonical case: it
+peeks out of the slid-off panel and reopens it. Unlike the external trigger above,
+this is for a toggle that belongs _in_ the panel.
+
+Its children render inside the panel, so they ride the collapse transition, but
+outside the closed-state `inert`. It works at any nesting depth, so a toggle
+already living deep in the content does not need hoisting.
+
+Do not pair it with `unmountOnHide` on `<Sidebar>`: that unmounts the whole panel
+(this control included) at the end of the close transition, so nothing is left to
+stay operable while closed. The two contradict each other, and the component
+warns when both are set.
+
+```tsx
+<SidebarContent aria-label="Main navigation">
+    <SidebarPersistentContent>
+        <button aria-expanded={isOpen} aria-controls="sidebar" onClick={toggle}>
+            {/* your icon / tooltip */}
+        </button>
+    </SidebarPersistentContent>
+    <nav aria-label="Main navigation">{/* nav content */}</nav>
+</SidebarContent>
+```
+
+## Custom properties
+
+The component ships sensible defaults and exposes per-instance theming through
+CSS custom properties, set on `SidebarContent` (or any ancestor).
+
+<Markdown>{`
+| Property | Default | Purpose |
+| --- | --- | --- |
+| \`--reactist-sidebar-collapsed-z-index\` | \`1\` | Layering of a collapsed docked panel, so a persistent control paints above the main content |
+| \`--reactist-sidebar-transition-duration\` | \`300ms\` | Panel slide duration |
+| \`--reactist-sidebar-transition-easing\` | \`cubic-bezier(0.4, 0, 0.2, 1)\` | Panel slide easing |
+`}</Markdown>
+
+## Data attributes
+
+The component sets these `data-*` attributes as part of the public contract, so
+you can style or target them in tests.
+
+<Markdown>{`
+| Element | Attribute | Values |
+| --- | --- | --- |
+| Panel (\`SidebarContent\`) | \`data-state\` | \`open\` / \`closed\` |
+| Panel | \`data-align\` | \`start\` / \`end\` |
+| Panel | \`data-overlay\` | \`true\` / \`false\` |
+`}</Markdown>
+
+The panel also forwards any `data-*` you pass.
+
+## Accessibility
+
+A checklist; each item links to the section with the full treatment.
+
+- The panel is a neutral container; its content must define the landmark.
+- Closed contents are `inert`, except a control in
+  [`SidebarPersistentContent`](#a-control-that-stays-live-while-closed).
