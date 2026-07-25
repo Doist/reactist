@@ -8,7 +8,7 @@ import {
     Title,
 } from '@storybook/addon-docs/blocks'
 
-import { Sidebar, SidebarContent, SidebarPersistentContent } from './sidebar'
+import { Sidebar, SidebarContent, SidebarPersistentContent, SidebarResizeHandle } from './sidebar'
 import * as SidebarStories from './sidebar.stories'
 
 <Meta of={SidebarStories} />
@@ -17,7 +17,7 @@ import * as SidebarStories from './sidebar.stories'
 
 <Subtitle>A controlled, composable, and accessible sidebar primitive</Subtitle>
 
-The `Sidebar` component is a panel that docks on the left or right. It's fully controlled, so the
+The `Sidebar` component is a resizable panel that docks on the left or right. It's fully controlled, so the
 consumer owns the state of the panel.
 
 ## Basic usage
@@ -35,9 +35,10 @@ A sidebar is comprised of the following components:
 <Markdown>{`
 | Component | Renders | Responsibilities |
 | --- | --- | --- |
-| \`\<Sidebar\>\` | The main provider | Configuration options like \`width\` |
+| \`\<Sidebar\>\` | The main provider | Configuration options like \`width\` and \`resizeStep\` |
 | \`\<SidebarContent\>\` | The panel element | The panel's size and position, transitions |
 | \`\<SidebarPersistentContent\>\` | An optional slot inside the panel | Hosts UI elements within the sidebar that need to be interactive while the sidebar is closed (e.g. a collapse toggle) |
+| \`\<SidebarResizeHandle\>\` | An element with \`role="separator"\` | Enables pointer and keyboard resize |
 `}</Markdown>
 
 Place the `<Sidebar>` in a flex parent, provide it the controlled `width` and `isOpen` props, and ensure that its sibling is able to absorb and yield space when the sidebar resizes.
@@ -49,10 +50,11 @@ Place the `<Sidebar>` in a flex parent, provide it the controlled `width` and `i
 
 ```tsx
 <Box display="flex" overflow="hidden">
-    <Sidebar align="start" isOpen={isOpen} width={width}>
+    <Sidebar align="start" isOpen={isOpen} width={width} onWidthChange={setWidth}>
         <SidebarContent aria-label="Main navigation">
             <Box as="nav" aria-label="Main navigation" height="full">
                 {/* nav content */}
+                <SidebarResizeHandle aria-label="Resize sidebar" />
             </Box>
         </SidebarContent>
     </Sidebar>
@@ -79,6 +81,51 @@ Place the `<Sidebar>` in a flex parent, provide it the controlled `width` and `i
 ### `<SidebarPersistentContent>`
 
 <Description of={SidebarPersistentContent} />
+
+### `<SidebarResizeHandle>`
+
+<Description of={SidebarResizeHandle} />
+
+<ArgTypes of={SidebarResizeHandle} />
+
+## Resizing
+
+Render a `SidebarResizeHandle` to make the panel resizable. The handle sits on
+the inner edge (right for `align="start"`, left for `align="end"`), drives a
+render-free pointer drag, and commits the width through `onWidthChange` on
+pointer up. Width is controlled by the consumer.
+
+A resizable sidebar needs `width`, `minWidth`, and `maxWidth` on `Sidebar` (with
+`minWidth` below `maxWidth`), plus `resizeStep` for keyboard steps and
+`defaultWidth` for the double-click reset. Without a usable range the handle
+renders and focuses but cannot move, and logs a development warning.
+
+<Canvas of={SidebarStories.Resizable} />
+
+Keyboard support, from the separator:
+
+- **Arrow keys** resize by `resizeStep`, edge-aware: with `align="start"` the
+  handle is on the right, so ArrowRight grows and ArrowLeft shrinks; `align="end"`
+  reverses it. Omitting `resizeStep` disables arrow stepping (Home/End still
+  work).
+- **Home / End** jump to `minWidth` and `maxWidth`, also edge-aware: `align="end"`
+  swaps them, so Home jumps to `maxWidth`.
+- **Double-click** resets to `defaultWidth`.
+- There is no Enter / Space and no PageUp / PageDown: it is a separator, not a
+  button.
+
+Resize direction is not RTL-aware. The layout mirrors under `dir="rtl"` (anchor
+edge, off-edge slide, and handle edge), but the pointer and keyboard resize
+direction assumes LTR, so a drag or arrow key resizes the opposite way. RTL is not
+officially supported; treat this as a known limitation.
+
+`onWidthChange` fires on pointer up, on each keystroke during keyboard resize, and
+on a double-click reset, so debounce persistence if it is expensive. A drag that
+does not move the handle does not fire it. A consumer that ignores it keeps the
+dragged preview width on screen (the drag writes it imperatively;
+nothing overrides it until `width` changes). `aria-valuenow` and `aria-valuetext`
+update on each keystroke and on commit after a drag (not mid-drag). Pass
+`aria-valuetext` to localize the announced width; it defaults to `"{width}px"`.
 
 ## The toggle trigger
 
@@ -131,6 +178,10 @@ CSS custom properties, set on `SidebarContent` (or any ancestor).
 | Property | Default | Purpose |
 | --- | --- | --- |
 | \`--reactist-sidebar-collapsed-z-index\` | \`1\` | Layering of a collapsed docked panel, so a persistent control paints above the main content |
+| \`--reactist-sidebar-resize-handle-width\` | \`4px\` | Handle hit-area width |
+| \`--reactist-sidebar-resize-handle-idle-fill\` | \`transparent\` | Handle color at rest |
+| \`--reactist-sidebar-resize-handle-hover-fill\` | divider | Handle color on hover |
+| \`--reactist-sidebar-resize-handle-focus-fill\` | primary | Handle color on focus |
 | \`--reactist-sidebar-transition-duration\` | \`300ms\` | Panel slide duration |
 | \`--reactist-sidebar-transition-easing\` | \`cubic-bezier(0.4, 0, 0.2, 1)\` | Panel slide easing |
 `}</Markdown>
@@ -146,14 +197,18 @@ you can style or target them in tests.
 | Panel (\`SidebarContent\`) | \`data-state\` | \`open\` / \`closed\` |
 | Panel | \`data-align\` | \`start\` / \`end\` |
 | Panel | \`data-overlay\` | \`true\` / \`false\` |
+| Resize handle | \`data-align\` | \`start\` / \`end\` |
 `}</Markdown>
 
-The panel also forwards any `data-*` you pass.
+The panel and handle also forward any `data-*` you pass; the handle's own
+`data-align` is applied last and wins.
 
 ## Accessibility
 
 A checklist; each item links to the section with the full treatment.
 
 - The panel is a neutral container; its content must define the landmark.
+- The resize handle is a focusable `separator` while open and leaves the tab
+  order and accessibility tree while closed (see [Resizing](#resizing)).
 - Closed contents are `inert`, except a control in
   [`SidebarPersistentContent`](#a-control-that-stays-live-while-closed).

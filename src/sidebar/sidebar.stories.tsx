@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Box, Button, Heading, IconButton, Stack, Text } from '../index'
 
-import { Sidebar, SidebarContent, SidebarPersistentContent } from './sidebar'
+import { Sidebar, SidebarContent, SidebarPersistentContent, SidebarResizeHandle } from './sidebar'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
@@ -148,6 +148,48 @@ export const CollapsibleNav = {
                             reopen.
                         </Text>
                     </Stack>
+                </Box>
+            </Box>
+        )
+    },
+} satisfies Story
+
+/** Docked nav with a `<SidebarResizeHandle>`: pointer drag plus keyboard resize, width committed via `onWidthChange`. */
+export const Resizable = {
+    render: function Resizable() {
+        const [width, setWidth] = React.useState(280)
+
+        return (
+            <Box display="flex" height="full">
+                <Sidebar
+                    id="resizable-nav"
+                    align="start"
+                    isOpen
+                    width={width}
+                    onWidthChange={setWidth}
+                    minWidth={210}
+                    maxWidth={400}
+                    defaultWidth={280}
+                    resizeStep={24}
+                >
+                    <SidebarContent>
+                        <DemoNav aria-label="Main navigation">
+                            <SidebarResizeHandle
+                                aria-label="Resize sidebar"
+                                data-testid="sidebar-resize-handle"
+                            />
+                        </DemoNav>
+                    </SidebarContent>
+                </Sidebar>
+                <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
+                    <Text>
+                        Drag the handle on the sidebar's right edge, or focus it and use the arrow
+                        keys, Home / End, or double-click to reset. Current width:{' '}
+                        <Text as="span" weight="semibold">
+                            {width}px
+                        </Text>
+                        .
+                    </Text>
                 </Box>
             </Box>
         )

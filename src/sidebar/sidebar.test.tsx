@@ -1,10 +1,12 @@
 import * as React from 'react'
 
 import { act, fireEvent, render, screen, within } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { axe } from 'jest-axe'
 
-import { Sidebar, SidebarContent, SidebarPersistentContent } from './sidebar'
+import { Sidebar, SidebarContent, SidebarPersistentContent, SidebarResizeHandle } from './sidebar'
 
-import type { SidebarProps } from './sidebar'
+import type { SidebarAlign, SidebarProps } from './sidebar'
 
 function renderSidebar(
     props: Partial<SidebarProps> = {},
@@ -178,6 +180,249 @@ describe('SidebarPersistentContent', () => {
     })
 })
 
+describe('resize', () => {
+    const WIDTH = 280
+    const MIN_WIDTH = 210
+    const MAX_WIDTH = 420
+    const DEFAULT_WIDTH = 280
+    const STEP = 40
+
+    function renderResizable(props: Partial<SidebarProps> = {}) {
+        const onWidthChange = jest.fn()
+        return {
+            onWidthChange,
+            ...renderSidebar(
+                {
+                    id: 'sidebar',
+                    width: WIDTH,
+                    minWidth: MIN_WIDTH,
+                    maxWidth: MAX_WIDTH,
+                    defaultWidth: DEFAULT_WIDTH,
+                    resizeStep: STEP,
+                    onWidthChange,
+                    ...props,
+                },
+                {
+                    children: (
+                        <>
+                            <div>Navigation</div>
+                            <SidebarResizeHandle aria-label="Resize sidebar" />
+                        </>
+                    ),
+                },
+            ),
+        }
+    }
+
+    // jsdom doesn't implement the Pointer Capture API; stub it so drags run.
+    function stubPointerCapture(handle: HTMLElement) {
+        handle.setPointerCapture = jest.fn()
+        handle.releasePointerCapture = jest.fn()
+        handle.hasPointerCapture = jest.fn(() => false)
+    }
+
+    it('re-clamps an out-of-range controlled width that changes on the same bound', () => {
+        const { rerender } = renderResizable({ width: 500 })
+        const panel = document.getElementById('sidebar') as HTMLElement
+        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
+
+        expect(panel.style.getPropertyValue('--reactist-sidebar-width')).toBe(`${MAX_WIDTH}px`)
+        expect(handle).toHaveAttribute('aria-valuenow', String(MAX_WIDTH))
+
+        rerender({ width: 460 })
+
+        expect(panel.style.getPropertyValue('--reactist-sidebar-width')).toBe(`${MAX_WIDTH}px`)
+        expect(handle).toHaveAttribute('aria-valuenow', String(MAX_WIDTH))
+    })
+
+    it('wires the separator when open and makes it non-interactive when closed', async () => {
+        const user = userEvent.setup()
+        const { onWidthChange, rerender } = renderResizable()
+
+        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
+        expect(handle).toHaveAttribute('aria-orientation', 'vertical')
+        expect(handle).toHaveAttribute('aria-controls', 'sidebar')
+        expect(handle).toHaveAttribute('aria-valuemin', String(MIN_WIDTH))
+        expect(handle).toHaveAttribute('aria-valuemax', String(MAX_WIDTH))
+        expect(handle).toHaveAttribute('aria-valuenow', String(WIDTH))
+        expect(handle).toHaveAttribute('aria-valuetext', `${WIDTH}px`)
+        expect(handle).toHaveAttribute('tabindex', '0')
+
+        rerender({ isOpen: false })
+
+        const closedHandle = screen.getByRole('separator', { hidden: true })
+        expect(closedHandle).toHaveAttribute('tabindex', '-1')
+        expect(closedHandle).toHaveAttribute('aria-hidden', 'true')
+
+        closedHandle.focus()
+        await user.keyboard('{ArrowRight}')
+        expect(onWidthChange).not.toHaveBeenCalled()
+    })
+
+    it('forwards data-* attributes to the separator and keeps its own on collision', () => {
+        renderSidebar(
+            { id: 'sidebar', width: 280, minWidth: 200, maxWidth: 420 },
+            {
+                children: (
+                    <>
+                        <nav aria-label="Main navigation">Navigation</nav>
+                        <SidebarResizeHandle
+                            aria-label="Resize sidebar"
+                            data-testid="resize-handle"
+                            data-align="consumer-should-lose"
+                        />
+                    </>
+                ),
+            },
+        )
+
+        const handle = screen.getByTestId('resize-handle')
+        expect(handle).toHaveAttribute('data-testid', 'resize-handle')
+        // the component owns data-align; a consumer collision must not win
+        expect(handle).toHaveAttribute('data-align', 'start')
+    })
+
+    const keyboardCases: Array<{
+        align: SidebarAlign
+        key: string
+        width?: number
+        expected: number
+        description: string
+    }> = [
+        {
+            align: 'start',
+            key: 'ArrowRight',
+            expected: WIDTH + STEP,
+            description: 'widens by resizeStep',
+        },
+        {
+            align: 'start',
+            key: 'ArrowLeft',
+            expected: WIDTH - STEP,
+            description: 'narrows by resizeStep',
+        },
+        {
+            align: 'end',
+            key: 'ArrowRight',
+            expected: WIDTH - STEP,
+            description: 'narrows by resizeStep',
+        },
+        {
+            align: 'end',
+            key: 'ArrowLeft',
+            expected: WIDTH + STEP,
+            description: 'widens by resizeStep',
+        },
+        { align: 'start', key: 'Home', expected: MIN_WIDTH, description: 'jumps to minWidth' },
+        { align: 'start', key: 'End', expected: MAX_WIDTH, description: 'jumps to maxWidth' },
+        {
+            align: 'end',
+            key: 'Home',
+            expected: MAX_WIDTH,
+            description: 'jumps to maxWidth (swapped)',
+        },
+        {
+            align: 'end',
+            key: 'End',
+            expected: MIN_WIDTH,
+            description: 'jumps to minWidth (swapped)',
+        },
+        {
+            align: 'start',
+            key: 'ArrowRight',
+            width: MAX_WIDTH - 10,
+            expected: MAX_WIDTH,
+            description: 'clamps a step to maxWidth',
+        },
+    ]
+
+    it.each(keyboardCases)(
+        'align="$align": $key $description',
+        async ({ align, key, width, expected }) => {
+            const user = userEvent.setup()
+            const { onWidthChange } = renderResizable({ align, width: width ?? WIDTH })
+
+            screen.getByRole('separator', { name: 'Resize sidebar' }).focus()
+            await user.keyboard(`{${key}}`)
+            expect(onWidthChange).toHaveBeenLastCalledWith(expected)
+        },
+    )
+
+    it('resets to defaultWidth on double-click', async () => {
+        const user = userEvent.setup()
+        const { onWidthChange } = renderResizable({ width: DEFAULT_WIDTH + 80 })
+        await user.dblClick(screen.getByRole('separator', { name: 'Resize sidebar' }))
+        expect(onWidthChange).toHaveBeenLastCalledWith(DEFAULT_WIDTH)
+    })
+
+    it('commits the dragged width once on pointer up', async () => {
+        const user = userEvent.setup()
+        const { onWidthChange } = renderResizable()
+        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
+        const panel = document.getElementById('sidebar') as HTMLElement
+
+        stubPointerCapture(handle)
+
+        const dragByPx = 50
+        await user.pointer([
+            { keys: '[MouseLeft>]', target: handle, coords: { clientX: 100, clientY: 0 } },
+            { coords: { clientX: 100 + dragByPx, clientY: 0 } },
+            { keys: '[/MouseLeft]' },
+        ])
+
+        expect(panel.style.getPropertyValue('--reactist-sidebar-width')).toBe(
+            `${WIDTH + dragByPx}px`,
+        )
+        expect(onWidthChange).toHaveBeenCalledTimes(1)
+        expect(onWidthChange).toHaveBeenLastCalledWith(WIDTH + dragByPx)
+    })
+
+    it('does not start a resize on a non-primary pointer button', async () => {
+        const user = userEvent.setup()
+        const { onWidthChange } = renderResizable()
+        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
+        const panel = document.getElementById('sidebar') as HTMLElement
+
+        stubPointerCapture(handle)
+
+        await user.pointer([
+            { keys: '[MouseRight>]', target: handle, coords: { clientX: 100, clientY: 0 } },
+            { coords: { clientX: 150, clientY: 0 } },
+            { keys: '[/MouseRight]' },
+        ])
+
+        expect(panel.style.getPropertyValue('--reactist-sidebar-width')).toBe(`${WIDTH}px`)
+        expect(onWidthChange).not.toHaveBeenCalled()
+    })
+
+    it('leaves arrow keys inert when resizeStep is omitted, but keeps Home/End', () => {
+        const { onWidthChange } = renderResizable({ resizeStep: undefined })
+        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
+
+        // No step configured: an arrow press neither preventDefaults nor commits.
+        expect(fireEvent.keyDown(handle, { key: 'ArrowRight' })).toBe(true)
+        expect(onWidthChange).not.toHaveBeenCalled()
+
+        // Home/End do not depend on the step, so they still jump to the bounds.
+        expect(fireEvent.keyDown(handle, { key: 'End' })).toBe(false)
+        expect(onWidthChange).toHaveBeenLastCalledWith(MAX_WIDTH)
+    })
+
+    it('does not commit when the handle is pressed and released without moving', async () => {
+        const user = userEvent.setup()
+        const { onWidthChange } = renderResizable()
+        const handle = screen.getByRole('separator', { name: 'Resize sidebar' })
+        stubPointerCapture(handle)
+
+        await user.pointer([
+            { keys: '[MouseLeft>]', target: handle, coords: { clientX: 100, clientY: 0 } },
+            { keys: '[/MouseLeft]' },
+        ])
+
+        expect(onWidthChange).not.toHaveBeenCalled()
+    })
+})
+
 describe('errors', () => {
     it('throws when a slot is used outside <Sidebar>', () => {
         const consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined)
@@ -185,5 +430,21 @@ describe('errors', () => {
             'must be rendered inside <Sidebar>',
         )
         consoleError.mockRestore()
+    })
+})
+
+describe('accessibility', () => {
+    it('has no axe violations as a docked nav', async () => {
+        const { container } = render(
+            <Sidebar align="start" isOpen id="nav" width={280} minWidth={210} maxWidth={420}>
+                <SidebarContent>
+                    <nav aria-label="Main navigation">
+                        <a href="#projects">Projects</a>
+                    </nav>
+                    <SidebarResizeHandle aria-label="Resize sidebar" />
+                </SidebarContent>
+            </Sidebar>,
+        )
+        expect(await axe(container)).toHaveNoViolations()
     })
 })

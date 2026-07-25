@@ -6,7 +6,7 @@ import { useMergeRefs } from 'use-callback-ref'
 
 import { Box } from '../box'
 
-import { clamp } from './use-resizable-panel'
+import { clamp, useResizablePanel } from './use-resizable-panel'
 
 import styles from './sidebar.module.css'
 
@@ -23,6 +23,9 @@ type SidebarContextValue = {
     width?: number
     minWidth?: number
     maxWidth?: number
+    defaultWidth?: number
+    resizeStep?: number
+    onWidthChange?: (width: number) => void
 }
 
 const SidebarContext = React.createContext<SidebarContextValue | null>(null)
@@ -50,7 +53,8 @@ function useSidebarContext(componentName: string): SidebarContextValue {
 
 type SidebarProps = {
     /**
-     * The side the sidebar attaches to. Controls the slide direction
+     * The side the sidebar attaches to. Controls the slide direction, and the
+     * resize handle edge (side opposite from the viewport edge)
      */
     align: SidebarAlign
 
@@ -61,7 +65,8 @@ type SidebarProps = {
 
     /**
      * Identifies the sidebar instance. Applied as the `id` of the
-     * `<SidebarContent>` panel. Auto-generated when omitted.
+     * `<SidebarContent>` panel and various `aria-controls`. Auto-generated
+     * when omitted.
      */
     id?: string
 
@@ -71,14 +76,30 @@ type SidebarProps = {
     width?: number
 
     /**
-     * Lower bound for the controlled width
+     * Fired when a new width should be committed
+     */
+    onWidthChange?: (width: number) => void
+
+    /**
+     * Minimum width allowed during resize
      */
     minWidth?: number
 
     /**
-     * Upper bound for the controlled width
+     * Maximum width allowed during resize
      */
     maxWidth?: number
+
+    /**
+     * Width restored on a double-click reset of the handle
+     */
+    defaultWidth?: number
+
+    /**
+     * The step in px when resizing via arrow keys. When omitted or a non-positive value
+     * is set, arrow key resizing is disabled
+     */
+    resizeStep?: number
 
     /**
      * When `true`, the content unmounts at the end of the exit transition. Omit if the content's
@@ -89,7 +110,7 @@ type SidebarProps = {
     unmountOnHide?: boolean
 
     /**
-     * The content of the panel via `<SidebarContent>`
+     * The content of the panel via `<SidebarContent>`, and an optional `<SidebarResizeHandle>`
      */
     children?: React.ReactNode
 }
@@ -102,8 +123,11 @@ function Sidebar({
     isOpen,
     id,
     width,
+    onWidthChange,
     minWidth,
     maxWidth,
+    defaultWidth,
+    resizeStep,
     unmountOnHide = false,
     children,
 }: SidebarProps) {
@@ -120,6 +144,9 @@ function Sidebar({
         width,
         minWidth,
         maxWidth,
+        defaultWidth,
+        resizeStep,
+        onWidthChange,
     }
 
     return <SidebarContext.Provider value={contextValue}>{children}</SidebarContext.Provider>
@@ -140,7 +167,7 @@ type SidebarContentProps = Omit<
     ) & {
         /**
          * The panel's skin and content. It is recommended to use a landmark element, e.g. `<nav>`, `<aside>`, or
-         * `<section>`.
+         * `<section>`. An optional `<SidebarResizeHandle>` should be included for resize support.
          */
         children?: React.ReactNode
 
@@ -303,6 +330,106 @@ function getExitTimeoutMs(panel: HTMLElement | null): number {
 }
 
 //
+// SidebarResizeHandle
+//
+
+type SidebarResizeHandleProps = {
+    /** Accessible name for the separator */
+    'aria-label'?: string
+
+    /**
+     * Human-readable current width for assistive tech. Derived from the width as
+     * `"{width}px"` when omitted
+     */
+    'aria-valuetext'?: string
+    [dataAttribute: `data-${string}`]: string | number | boolean | undefined
+}
+
+/**
+ * When placed within `<SidebarContent>`, this adds drag and keyboard resize
+ * to the sidebar. Renders a `role="separator"` on the inner edge (right for
+ * `align="start"`, left for `align="end"`) and sets up `aria-controls` to the
+ * panel internally.
+ */
+function SidebarResizeHandle({
+    'aria-label': ariaLabel,
+    'aria-valuetext': ariaValueText,
+    ...dataProps
+}: SidebarResizeHandleProps) {
+    const {
+        align,
+        isOpen,
+        panelId,
+        panelRef,
+        width,
+        minWidth,
+        maxWidth,
+        defaultWidth,
+        resizeStep,
+        onWidthChange,
+    } = useSidebarContext('SidebarResizeHandle')
+
+    // RTL note: while the panel's position respects RTL via CSS, the resize direction does not
+    const edge = align === 'start' ? 'right' : 'left'
+    const committedWidth = width ?? defaultWidth ?? 0
+    const minValuePx = minWidth ?? committedWidth
+    const maxValuePx = maxWidth ?? committedWidth
+
+    const { currentValuePx, onDoubleClick, onKeyDown, onPointerDown } = useResizablePanel({
+        applyValue: width != null,
+        cssVariable: SIDEBAR_WIDTH_VAR,
+        defaultValuePx: defaultWidth ?? committedWidth,
+        disabled: !isOpen || width == null,
+        edge,
+        maxValuePx,
+        minValuePx,
+        onValueCommit: (next) => onWidthChange?.(next),
+        panelRef,
+        stepPx: resizeStep ?? 0,
+        valuePx: committedWidth,
+    })
+
+    const hasResizeRange = minWidth != null && maxWidth != null && minWidth < maxWidth
+    const resizeWarning =
+        width == null
+            ? '[Sidebar]: <SidebarResizeHandle> needs a controlled `width` on <Sidebar> to resize.'
+            : !hasResizeRange
+              ? '[Sidebar]: <SidebarResizeHandle> needs `minWidth` and `maxWidth` (with minWidth < maxWidth) on <Sidebar>.'
+              : null
+
+    React.useEffect(
+        function warnOnDegenerateResizeConfig() {
+            if (resizeWarning) {
+                // eslint-disable-next-line no-console
+                console.warn(resizeWarning)
+            }
+        },
+        [resizeWarning],
+    )
+
+    return (
+        <div
+            {...dataProps}
+            role="separator"
+            tabIndex={isOpen ? 0 : -1}
+            aria-hidden={isOpen ? undefined : true}
+            aria-controls={panelId}
+            aria-label={ariaLabel}
+            aria-orientation="vertical"
+            aria-valuemin={minValuePx}
+            aria-valuemax={maxValuePx}
+            aria-valuenow={currentValuePx}
+            aria-valuetext={ariaValueText ?? `${currentValuePx}px`}
+            data-align={align}
+            onDoubleClick={onDoubleClick}
+            onKeyDown={onKeyDown}
+            onPointerDown={onPointerDown}
+            className={styles.resizeHandle}
+        />
+    )
+}
+
+//
 // SidebarPersistentContent
 //
 
@@ -344,5 +471,11 @@ function SidebarPersistentContent({ children }: SidebarPersistentContentProps) {
 
 SidebarContent.displayName = 'SidebarContent'
 
-export { Sidebar, SidebarContent, SidebarPersistentContent }
-export type { SidebarAlign, SidebarContentProps, SidebarPersistentContentProps, SidebarProps }
+export { Sidebar, SidebarContent, SidebarPersistentContent, SidebarResizeHandle }
+export type {
+    SidebarAlign,
+    SidebarContentProps,
+    SidebarPersistentContentProps,
+    SidebarProps,
+    SidebarResizeHandleProps,
+}
