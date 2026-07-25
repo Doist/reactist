@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { act, fireEvent, render, screen, within } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
@@ -72,6 +72,96 @@ describe('when isOverlay is false', () => {
         expect(panel.style.getPropertyValue('--reactist-sidebar-width')).toBe(`${width}px`)
         expect(panel.style.width).toBe('')
         expect(screen.getByText('Panel content')).toBeInTheDocument()
+    })
+})
+
+describe('when overlayMode is modal', () => {
+    it('opens as a modal dialog: backdrop shown, background hidden from assistive tech, and focus trapped', async () => {
+        renderSidebar(
+            { isOverlay: true, overlayMode: 'modal', id: 'nav' },
+            {
+                contentProps: { 'aria-label': 'Menu' },
+                children: (
+                    <nav aria-label="Primary">
+                        <button type="button">First</button>
+                    </nav>
+                ),
+                withBackground: true,
+            },
+        )
+
+        const dialog = screen.getByRole('dialog', { name: 'Menu' })
+        expect(dialog).toHaveAttribute('aria-modal', 'true')
+
+        const backdrop = screen.getByTestId('sidebar-backdrop')
+        expect(backdrop).toHaveAttribute('aria-hidden', 'true')
+        expect(backdrop).toHaveAttribute('data-state', 'open')
+
+        // The component neutralises the background (inert where supported, aria-hidden otherwise).
+        // Assert it directly: the background <main> carries the suppression marker, so its button
+        // drops out of the accessibility tree.
+        expect(screen.getByRole('main', { hidden: true })).toHaveAttribute(
+            'data-suppressed',
+            'true',
+        )
+        expect(screen.queryByRole('button', { name: 'Background action' })).not.toBeInTheDocument()
+
+        // Regression guard: the backdrop must stay OUT of that suppression set. On a mount
+        // that starts open+modal, SidebarContent's layout effect can run before the sibling
+        // backdrop's ref attaches, so suppressOthers wrongly marks the backdrop too, and `inert`
+        // (in supporting browsers) then kills its click-to-dismiss, soft-locking the page.
+        expect(backdrop).not.toHaveAttribute('data-suppressed')
+
+        await waitFor(() => {
+            expect(dialog.contains(document.activeElement)).toBe(true)
+        })
+    })
+
+    it('dismisses on a backdrop click and restores the background on close', async () => {
+        const user = userEvent.setup()
+        const onDismiss = jest.fn()
+        const { rerender } = renderSidebar(
+            { isOverlay: true, overlayMode: 'modal', onDismiss },
+            { withBackground: true },
+        )
+
+        expect(screen.queryByRole('button', { name: 'Background action' })).not.toBeInTheDocument()
+
+        await user.click(screen.getByTestId('sidebar-backdrop'))
+        expect(onDismiss).toHaveBeenCalledTimes(1)
+
+        rerender({ isOpen: false })
+        expect(screen.getByRole('button', { name: 'Background action' })).toBeInTheDocument()
+    })
+})
+
+describe('when overlayMode is dialog', () => {
+    it("opens as a non-modal dialog, preserving the content's landmark and leaving the background reachable", () => {
+        renderSidebar(
+            { isOverlay: true, overlayMode: 'dialog' },
+            { children: <nav aria-label="Primary">Navigation</nav>, withBackground: true },
+        )
+
+        const dialog = screen.getByRole('dialog', { name: 'Main navigation' })
+        expect(dialog).not.toHaveAttribute('aria-modal')
+
+        expect(within(dialog).getByRole('navigation', { name: 'Primary' })).toBeInTheDocument()
+        expect(screen.queryByTestId('sidebar-backdrop')).not.toBeInTheDocument()
+        expect(screen.getByRole('button', { name: 'Background action' })).toBeInTheDocument()
+    })
+})
+
+describe('when overlayMode is plain', () => {
+    it('opens as a plain overlay with no dialog role, backdrop, or trap', () => {
+        const { container } = renderSidebar({ isOverlay: true, overlayMode: 'plain' })
+
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+        expect(screen.getByRole('navigation', { name: 'Main navigation' })).toBeInTheDocument()
+        expect(screen.queryByTestId('sidebar-backdrop')).not.toBeInTheDocument()
+        expect(container.querySelector('[data-focus-lock-disabled]')).toHaveAttribute(
+            'data-focus-lock-disabled',
+            'disabled',
+        )
     })
 })
 
@@ -442,6 +532,19 @@ describe('accessibility', () => {
                         <a href="#projects">Projects</a>
                     </nav>
                     <SidebarResizeHandle aria-label="Resize sidebar" />
+                </SidebarContent>
+            </Sidebar>,
+        )
+        expect(await axe(container)).toHaveNoViolations()
+    })
+
+    it('has no axe violations as a modal overlay', async () => {
+        const { container } = render(
+            <Sidebar align="start" isOpen isOverlay overlayMode="modal" id="nav">
+                <SidebarContent aria-label="Main navigation">
+                    <nav aria-label="Primary">
+                        <a href="#projects">Projects</a>
+                    </nav>
                 </SidebarContent>
             </Sidebar>,
         )

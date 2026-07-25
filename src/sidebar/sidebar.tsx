@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { createPortal } from 'react-dom'
+import FocusLock from 'react-focus-lock'
 
+import { suppressOthers } from 'aria-hidden'
 import classNames from 'classnames'
 import { useMergeRefs } from 'use-callback-ref'
 
@@ -14,12 +16,20 @@ import type { ObfuscatedClassName } from '../utils/common-types'
 
 type SidebarAlign = 'start' | 'end'
 
+type SidebarOverlayMode = 'plain' | 'dialog' | 'modal'
+
 type SidebarContextValue = {
     align: SidebarAlign
+    overlayMode: SidebarOverlayMode
     isOpen: boolean
+    isOverlay: boolean
+    overlayOpen: boolean
+    shouldTrap: boolean
     unmountOnHide: boolean
     panelId: string
     panelRef: React.RefObject<HTMLDivElement | null>
+    backdropRef: React.RefObject<HTMLDivElement | null>
+    onDismiss?: () => void
     width?: number
     minWidth?: number
     maxWidth?: number
@@ -53,8 +63,9 @@ function useSidebarContext(componentName: string): SidebarContextValue {
 
 type SidebarProps = {
     /**
-     * The side the sidebar attaches to. Controls the slide direction, and the
-     * resize handle edge (side opposite from the viewport edge)
+     * The side the sidebar attaches to. Controls the slide direction, which side
+     * to apply the overlay inset (i.e. side closer to the edge of the viewport),
+     * and the resize handle edge (side opposite from the viewport edge)
      */
     align: SidebarAlign
 
@@ -71,7 +82,32 @@ type SidebarProps = {
     id?: string
 
     /**
-     * Controlled width in px
+     * When true, the sidebar floats over the content. When false, it sits in flow
+     *
+     * @default false
+     */
+    isOverlay?: boolean
+
+    /**
+     * How the overlay behaves while floating:
+     *
+     * - `plain`: the background is interactive with no extra attributes applied
+     * - `dialog`: the panel is assigned the dialog role, with the background still interactive
+     * - `modal`: the background is blocked with a backdrop. On top of being a dialog, focus trap
+     *   and `aria-modal` are applied to the panel
+     *
+     * @default 'plain'
+     */
+    overlayMode?: SidebarOverlayMode
+
+    /**
+     * Called when the user intends to dismiss the sidebar
+     */
+    onDismiss?: () => void
+
+    /**
+     * Controlled width in px. The rendered width may be smaller when the viewport is
+     * constrained while in overlay mode
      */
     width?: number
 
@@ -122,6 +158,9 @@ function Sidebar({
     align,
     isOpen,
     id,
+    isOverlay = false,
+    overlayMode = 'plain',
+    onDismiss,
     width,
     onWidthChange,
     minWidth,
@@ -134,13 +173,34 @@ function Sidebar({
     const generatedId = React.useId()
     const panelId = id ?? generatedId
     const panelRef = React.useRef<HTMLDivElement>(null)
+    const backdropRef = React.useRef<HTMLDivElement>(null)
+
+    const overlayOpen = isOverlay && isOpen
+    const shouldTrap = overlayOpen && overlayMode === 'modal'
+
+    React.useLayoutEffect(
+        function suppressBackgroundWhileModal() {
+            if (!shouldTrap) return
+            const panel = panelRef.current
+            if (!panel) return
+            const kept = backdropRef.current ? [panel, backdropRef.current] : [panel]
+            return suppressOthers(kept)
+        },
+        [shouldTrap, panelRef, backdropRef],
+    )
 
     const contextValue: SidebarContextValue = {
         align,
+        overlayMode,
         isOpen,
+        isOverlay,
+        overlayOpen,
+        shouldTrap,
         unmountOnHide,
         panelId,
         panelRef,
+        backdropRef,
+        onDismiss,
         width,
         minWidth,
         maxWidth,
@@ -149,7 +209,12 @@ function Sidebar({
         onWidthChange,
     }
 
-    return <SidebarContext.Provider value={contextValue}>{children}</SidebarContext.Provider>
+    return (
+        <SidebarContext.Provider value={contextValue}>
+            {children}
+            <SidebarBackdrop />
+        </SidebarContext.Provider>
+    )
 }
 
 //
@@ -180,17 +245,44 @@ type SidebarContentProps = Omit<
 const SIDEBAR_WIDTH_VAR = '--reactist-sidebar-width'
 
 /**
- * Provides the positioning as a docked panel. It is responsible for the slide and collapse
- * transitions, and the committed width.
+ * Provides the positioning as a docked panel or as an overlaying dialog. It is responsible for
+ * the slide and collapse transitions, and the committed width.
+ *
+ * Its `aria-label`/`aria-labelledby` attributes are only applied when rendered as a dialog.
  */
 const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
-    function SidebarContent({ exceptionallySetClassName, children, style, ...rest }, ref) {
-        const { align, isOpen, unmountOnHide, panelId, panelRef, width, minWidth, maxWidth } =
-            useSidebarContext('SidebarContent')
+    function SidebarContent(
+        {
+            exceptionallySetClassName,
+            children,
+            style,
+            'aria-label': ariaLabel,
+            'aria-labelledby': ariaLabelledby,
+            ...rest
+        },
+        ref,
+    ) {
+        const {
+            align,
+            overlayMode,
+            isOpen,
+            isOverlay,
+            overlayOpen,
+            shouldTrap,
+            unmountOnHide,
+            panelId,
+            panelRef,
+            width,
+            minWidth,
+            maxWidth,
+        } = useSidebarContext('SidebarContent')
 
         const mergedRef = useMergeRefs([panelRef, ref])
         const inertContentRef = React.useRef<HTMLDivElement>(null)
         const [persistentRegion, setPersistentRegion] = React.useState<HTMLElement | null>(null)
+
+        const isDialog = overlayOpen && (overlayMode === 'dialog' || overlayMode === 'modal')
+        const ariaModal = overlayOpen && overlayMode === 'modal' ? true : undefined
 
         // Note: `inert` is only supported as a prop in React 19+. When dropping support for React 18,
         // add `inert={!isOpen}` to the `inertContentRef` element, and remove this effect
@@ -203,14 +295,14 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
 
         React.useEffect(
             function warnWhenDockedCollapseHasNoWidth() {
-                if (!isOpen && width == null && !unmountOnHide) {
+                if (!isOverlay && !isOpen && width == null && !unmountOnHide) {
                     // eslint-disable-next-line no-console
                     console.warn(
                         '[Sidebar]: a docked <Sidebar> needs a controlled `width` to collapse when closed; without one the closed panel stays visible while its contents are inert.',
                     )
                 }
             },
-            [isOpen, width, unmountOnHide],
+            [isOverlay, isOpen, width, unmountOnHide],
         )
 
         const clampedWidth =
@@ -238,22 +330,24 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
                 flexDirection="column"
                 flexShrink={0}
                 id={panelId}
-                role={undefined}
-                aria-modal={undefined}
-                aria-label={undefined}
-                aria-labelledby={undefined}
+                role={isDialog ? 'dialog' : undefined}
+                aria-modal={ariaModal}
+                aria-label={isDialog ? ariaLabel : undefined}
+                aria-labelledby={isDialog ? ariaLabelledby : undefined}
                 data-align={align}
-                data-overlay="false"
+                data-overlay={isOverlay ? 'true' : 'false'}
                 data-state={isOpen ? 'open' : 'closed'}
                 style={{ ...style, ...widthStyle }}
                 className={classNames(styles.panel, exceptionallySetClassName)}
             >
-                <div ref={setPersistentRegion} className={styles.persistentContent} />
-                <SidebarContentContext.Provider value={persistentContentValue}>
-                    <div ref={inertContentRef} className={styles.inertContent}>
-                        {childrenToRender}
-                    </div>
-                </SidebarContentContext.Provider>
+                <FocusLock disabled={!shouldTrap} returnFocus className={styles.focusLock}>
+                    <div ref={setPersistentRegion} className={styles.persistentContent} />
+                    <SidebarContentContext.Provider value={persistentContentValue}>
+                        <div ref={inertContentRef} className={styles.inertContent}>
+                            {childrenToRender}
+                        </div>
+                    </SidebarContentContext.Provider>
+                </FocusLock>
             </Box>
         )
     },
@@ -441,7 +535,8 @@ type SidebarPersistentContentProps = { children?: React.ReactNode }
  *
  * Typically used for a toggle that transitions between being inside the panel while open,
  * and outside of it when closed. Content placed in this slot would sit outside of the region that's
- * marked as inert when the panel is closed, but remain within the panel's tab order.
+ * marked as inert when the panel is closed, but remain within the panel's tab order and focus trap
+ * (when overlayMode is modal).
  */
 function SidebarPersistentContent({ children }: SidebarPersistentContentProps) {
     const content = React.useContext(SidebarContentContext)
@@ -469,12 +564,38 @@ function SidebarPersistentContent({ children }: SidebarPersistentContentProps) {
     return region ? createPortal(children, region) : null
 }
 
+//
+// Backdrop
+//
+
+function SidebarBackdrop() {
+    const { isOverlay, overlayMode, isOpen, onDismiss, backdropRef } =
+        useSidebarContext('SidebarBackdrop')
+
+    // Note: this is required for type-compatibility with React 18. `backdropRef` can be passed to `ref` directly below once we drop support
+    const mergedBackdropRef = useMergeRefs([backdropRef])
+
+    if (!isOverlay || overlayMode !== 'modal') return null
+
+    return (
+        <div
+            ref={mergedBackdropRef}
+            aria-hidden="true"
+            data-state={isOpen ? 'open' : 'closed'}
+            data-testid="sidebar-backdrop"
+            className={styles.backdrop}
+            onClick={onDismiss}
+        />
+    )
+}
+
 SidebarContent.displayName = 'SidebarContent'
 
 export { Sidebar, SidebarContent, SidebarPersistentContent, SidebarResizeHandle }
 export type {
     SidebarAlign,
     SidebarContentProps,
+    SidebarOverlayMode,
     SidebarPersistentContentProps,
     SidebarProps,
     SidebarResizeHandleProps,
