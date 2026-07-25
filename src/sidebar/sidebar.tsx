@@ -29,6 +29,7 @@ type SidebarContextValue = {
     panelId: string
     panelRef: React.RefObject<HTMLDivElement | null>
     backdropRef: React.RefObject<HTMLDivElement | null>
+    dismissOverlayOnEscape: boolean
     onDismiss?: () => void
     width?: number
     minWidth?: number
@@ -101,6 +102,14 @@ type SidebarProps = {
     overlayMode?: SidebarOverlayMode
 
     /**
+     * Determines whether `onDismiss` is called when the Esc key is pressed while the
+     * panel has focus in overlay mode
+     *
+     * @default false
+     */
+    dismissOverlayOnEscape?: boolean
+
+    /**
      * Called when the user intends to dismiss the sidebar
      */
     onDismiss?: () => void
@@ -160,6 +169,7 @@ function Sidebar({
     id,
     isOverlay = false,
     overlayMode = 'plain',
+    dismissOverlayOnEscape = false,
     onDismiss,
     width,
     onWidthChange,
@@ -200,6 +210,7 @@ function Sidebar({
         panelId,
         panelRef,
         backdropRef,
+        dismissOverlayOnEscape,
         onDismiss,
         width,
         minWidth,
@@ -256,6 +267,7 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
             exceptionallySetClassName,
             children,
             style,
+            onKeyDown: consumerOnKeyDown,
             'aria-label': ariaLabel,
             'aria-labelledby': ariaLabelledby,
             ...rest
@@ -275,6 +287,8 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
             width,
             minWidth,
             maxWidth,
+            dismissOverlayOnEscape,
+            onDismiss,
         } = useSidebarContext('SidebarContent')
 
         const mergedRef = useMergeRefs([panelRef, ref])
@@ -321,11 +335,21 @@ const SidebarContent = React.forwardRef<HTMLDivElement, SidebarContentProps>(
             [persistentRegion, unmountOnHide],
         )
 
+        function handlePanelKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+            // Execute the consumer's handler first, allowing it to set preventDefault if necessary
+            consumerOnKeyDown?.(event)
+            if (event.defaultPrevented) return
+            if (overlayOpen && dismissOverlayOnEscape && event.key === 'Escape') {
+                onDismiss?.()
+            }
+        }
+
         return (
             <Box
                 {...rest}
                 as="div"
                 ref={mergedRef}
+                onKeyDown={handlePanelKeyDown}
                 display="flex"
                 flexDirection="column"
                 flexShrink={0}

@@ -195,3 +195,53 @@ export const Resizable = {
         )
     },
 } satisfies Story
+
+/** Modal overlay drawer: floats, traps focus, dims, and dismisses on the backdrop or Escape. */
+export const ModalDrawer = {
+    render: function ModalDrawer() {
+        const [isOpen, setIsOpen] = React.useState(false)
+
+        return (
+            <Box display="flex" height="full">
+                <Sidebar
+                    id="modal-nav"
+                    align="start"
+                    isOverlay
+                    overlayMode="modal"
+                    isOpen={isOpen}
+                    dismissOverlayOnEscape
+                    onDismiss={() => setIsOpen(false)}
+                    width={260}
+                >
+                    {/* The panel forwards keydowns to this handler after its own Escape
+                        dismiss; a consumer that wants Escape kept from app-level handlers
+                        (e.g. a global hotkey) stops propagation here. */}
+                    <SidebarContent
+                        aria-label="Primary navigation"
+                        onKeyDown={(event) => {
+                            if (event.key === 'Escape') event.stopPropagation()
+                        }}
+                    >
+                        <DemoNav aria-label="Primary navigation" />
+                    </SidebarContent>
+                </Sidebar>
+                <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
+                    <Stack space="medium">
+                        <Button
+                            variant="primary"
+                            aria-expanded={isOpen}
+                            aria-controls="modal-nav"
+                            onClick={() => setIsOpen(true)}
+                        >
+                            Open menu
+                        </Button>
+                        <Text tone="secondary">
+                            Open the drawer, then dismiss it with the backdrop or the Escape key.
+                            Focus is trapped inside the drawer while it is open.
+                        </Text>
+                    </Stack>
+                </Box>
+            </Box>
+        )
+    },
+} satisfies Story

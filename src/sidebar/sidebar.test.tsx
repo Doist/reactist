@@ -73,6 +73,39 @@ describe('when isOverlay is false', () => {
         expect(panel.style.width).toBe('')
         expect(screen.getByText('Panel content')).toBeInTheDocument()
     })
+
+    it('does not add overlay semantics while docked', async () => {
+        const user = userEvent.setup()
+        const onDismiss = jest.fn()
+        const { container } = renderSidebar(
+            {
+                isOverlay: false,
+                overlayMode: 'modal',
+                dismissOverlayOnEscape: true,
+                onDismiss,
+            },
+            {
+                children: (
+                    <nav aria-label="Main navigation">
+                        <button type="button">Panel item</button>
+                    </nav>
+                ),
+            },
+        )
+
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+        expect(screen.getByRole('navigation', { name: 'Main navigation' })).toBeInTheDocument()
+        expect(screen.queryByTestId('sidebar-backdrop')).not.toBeInTheDocument()
+        expect(container.querySelector('[data-focus-lock-disabled]')).toHaveAttribute(
+            'data-focus-lock-disabled',
+            'disabled',
+        )
+
+        // Escape does not do anything while docked, even with the flag on and focus inside.
+        screen.getByRole('button', { name: 'Panel item' }).focus()
+        await user.keyboard('{Escape}')
+        expect(onDismiss).not.toHaveBeenCalled()
+    })
 })
 
 describe('when overlayMode is modal', () => {
@@ -162,6 +195,93 @@ describe('when overlayMode is plain', () => {
             'data-focus-lock-disabled',
             'disabled',
         )
+    })
+})
+
+describe('dismissOverlayOnEscape', () => {
+    it('dismisses an open overlay on Escape from within the panel', async () => {
+        const user = userEvent.setup()
+        const onDismiss = jest.fn()
+        renderSidebar(
+            { isOverlay: true, overlayMode: 'dialog', dismissOverlayOnEscape: true, onDismiss },
+            { children: <button type="button">Panel item</button> },
+        )
+
+        await user.keyboard('{Escape}')
+        expect(onDismiss).not.toHaveBeenCalled()
+
+        screen.getByRole('button', { name: 'Panel item' }).focus()
+        await user.keyboard('{Escape}')
+        expect(onDismiss).toHaveBeenCalledTimes(1)
+    })
+
+    it('respects defaultPrevented so a descendant can consume Escape', async () => {
+        const user = userEvent.setup()
+        const onDismiss = jest.fn()
+        renderSidebar(
+            {
+                isOverlay: true,
+                overlayMode: 'modal',
+                dismissOverlayOnEscape: true,
+                onDismiss,
+            },
+            {
+                children: (
+                    <button
+                        type="button"
+                        onKeyDown={(event) => {
+                            if (event.key === 'Escape') event.preventDefault()
+                        }}
+                    >
+                        Consumes Escape
+                    </button>
+                ),
+            },
+        )
+        screen.getByRole('button', { name: 'Consumes Escape' }).focus()
+        await user.keyboard('{Escape}')
+        expect(onDismiss).not.toHaveBeenCalled()
+    })
+
+    it("respects defaultPrevented from the panel's own onKeyDown handler", async () => {
+        const user = userEvent.setup()
+        const onDismiss = jest.fn()
+        renderSidebar(
+            {
+                isOverlay: true,
+                overlayMode: 'modal',
+                dismissOverlayOnEscape: true,
+                onDismiss,
+            },
+            {
+                contentProps: {
+                    onKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => {
+                        if (event.key === 'Escape') event.preventDefault()
+                    },
+                },
+                children: <button type="button">Panel item</button>,
+            },
+        )
+        screen.getByRole('button', { name: 'Panel item' }).focus()
+        await user.keyboard('{Escape}')
+        expect(onDismiss).not.toHaveBeenCalled()
+    })
+
+    it('does not dismiss when dismissOverlayOnEscape is off', async () => {
+        const user = userEvent.setup()
+        const onDismiss = jest.fn()
+        renderSidebar(
+            {
+                isOverlay: true,
+                overlayMode: 'modal',
+                dismissOverlayOnEscape: false,
+                onDismiss,
+            },
+            { children: <button type="button">Panel item</button> },
+        )
+        screen.getByRole('button', { name: 'Panel item' }).focus()
+        await user.keyboard('{Escape}')
+        expect(onDismiss).not.toHaveBeenCalled()
     })
 })
 

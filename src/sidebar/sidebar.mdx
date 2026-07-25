@@ -114,7 +114,7 @@ Keyboard support, from the separator:
   swaps them, so Home jumps to `maxWidth`.
 - **Double-click** resets to `defaultWidth`.
 - There is no Enter / Space and no PageUp / PageDown: it is a separator, not a
-  button.
+  button. Escape-to-dismiss belongs to the panel, not the handle.
 
 Resize direction is not RTL-aware. The layout mirrors under `dir="rtl"` (anchor
 edge, off-edge slide, and handle edge), but the pointer and keyboard resize
@@ -145,7 +145,7 @@ static: it sets what the overlay is while floating.
 
 The backdrop is not a component: `Sidebar` renders it automatically for
 `overlayMode="modal"`, dims and blocks the page, and dismisses on click. A
-non-modal overlay closes through its own control; it renders no
+non-modal overlay closes through its own control plus Escape; it renders no
 backdrop and leaves the background interactive.
 
 ### Element and role
@@ -164,6 +164,13 @@ own. Nest your landmark element as a child and name it there:
 
 Name the dialog on `SidebarContent`: prefer `aria-labelledby` pointing at a
 visible heading in the panel when there is one, or `aria-label` otherwise.
+
+### Modal drawer
+
+The full modal overlay from the table above; because it inerts the background
+itself, the shell no longer marks `main`.
+
+<Canvas of={SidebarStories.ModalDrawer} />
 
 ### One modal overlay at a time
 
@@ -290,6 +297,9 @@ A checklist; each item links to the section with the full treatment.
 - The panel is a neutral container; its content must define the landmark.
 - A `modal` overlay traps focus, sets `aria-modal`, returns focus to the trigger
   on close, and inerts everything outside the panel and backdrop (see
+  [Modal drawer](#modal-drawer)).
+- Escape dismisses an open overlay when `dismissOverlayOnEscape` is set, only
+  while focus is in the panel, and respects `event.defaultPrevented` (see
   [Overlays](#overlays)).
 - The resize handle is a focusable `separator` while open and leaves the tab
   order and accessibility tree while closed (see [Resizing](#resizing)).
