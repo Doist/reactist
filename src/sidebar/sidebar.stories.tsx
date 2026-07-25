@@ -1,12 +1,15 @@
 import * as React from 'react'
 
-import { Box, Button, Heading, IconButton, Stack, Text } from '../index'
+import { Box, Button, Divider, Heading, IconButton, Stack, Text } from '../index'
 
 import { Sidebar, SidebarContent, SidebarPersistentContent, SidebarResizeHandle } from './sidebar'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { SidebarAlign, SidebarOverlayMode } from './sidebar'
 
 const NAV_ITEMS = ['Inbox', 'Today', 'Upcoming', 'Filters & Labels', 'Projects', 'Team']
+
+const DETAIL_ITEMS = ['Description', 'Sub-tasks', 'Comments', 'Activity', 'Attachments']
 
 function DemoNav({
     title = 'Workspace',
@@ -38,6 +41,64 @@ function DemoNav({
             {children}
         </Box>
     )
+}
+
+function DemoRail({
+    'aria-label': ariaLabel,
+    children,
+}: {
+    'aria-label'?: string
+    children?: React.ReactNode
+}) {
+    return (
+        <Box as="nav" aria-label={ariaLabel} background="aside" height="full">
+            <Stack space="small" padding="small" align="center">
+                {['T', 'C', 'A'].map((label) => (
+                    <Box
+                        key={label}
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="center"
+                        style={{
+                            width: 36,
+                            height: 36,
+                            borderRadius: 8,
+                            background: 'var(--reactist-divider-secondary)',
+                        }}
+                    >
+                        <Text weight="semibold" size="caption">
+                            {label}
+                        </Text>
+                    </Box>
+                ))}
+            </Stack>
+            {children}
+        </Box>
+    )
+}
+
+const CARD_INSET_OVERRIDES = {
+    '--reactist-sidebar-overlay-inset-block': '12px',
+    '--reactist-sidebar-overlay-inset-inline': '12px',
+} as React.CSSProperties
+
+function useShellWidth<T extends HTMLElement>() {
+    const shellRef = React.useRef<T>(null)
+    const [width, setWidth] = React.useState(Infinity)
+
+    React.useEffect(function observeShellWidth() {
+        const node = shellRef.current
+        if (!node) return
+
+        const observer = new ResizeObserver((entries) => {
+            const entry = entries[0]
+            if (entry) setWidth(entry.contentRect.width)
+        })
+        observer.observe(node)
+        return () => observer.disconnect()
+    }, [])
+
+    return [shellRef, width] as const
 }
 
 const meta = {
@@ -245,3 +306,338 @@ export const ModalDrawer = {
         )
     },
 } satisfies Story
+
+/** End-aligned non-modal dialog pane, modelled on a contextual chat, with a rounded inset card skin. */
+export const DialogSidePane = {
+    render: function DialogSidePane() {
+        const [isOpen, setIsOpen] = React.useState(true)
+        const [width, setWidth] = React.useState(340)
+
+        return (
+            <Box display="flex" height="full">
+                <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
+                    <Stack space="medium">
+                        <Button
+                            variant="secondary"
+                            aria-expanded={isOpen}
+                            aria-controls="chat-pane"
+                            onClick={() => setIsOpen((open) => !open)}
+                        >
+                            {isOpen ? 'Hide assistant' : 'Show assistant'}
+                        </Button>
+                        <Text tone="secondary">
+                            The pane floats over this content but leaves it interactive: you can
+                            keep clicking here while it is open.
+                        </Text>
+                    </Stack>
+                </Box>
+                <Sidebar
+                    id="chat-pane"
+                    align="end"
+                    isOverlay
+                    overlayMode="dialog"
+                    isOpen={isOpen}
+                    dismissOverlayOnEscape
+                    onDismiss={() => setIsOpen(false)}
+                    width={width}
+                    onWidthChange={setWidth}
+                    minWidth={280}
+                    maxWidth={460}
+                    defaultWidth={340}
+                    resizeStep={24}
+                >
+                    <SidebarContent
+                        aria-labelledby="chat-pane-heading"
+                        style={CARD_INSET_OVERRIDES}
+                    >
+                        <Box
+                            display="flex"
+                            flexDirection="column"
+                            position="relative"
+                            height="full"
+                            background="default"
+                            borderRadius="full"
+                            border="secondary"
+                            overflow="hidden"
+                        >
+                            <Box
+                                display="flex"
+                                justifyContent="spaceBetween"
+                                alignItems="center"
+                                padding="medium"
+                            >
+                                <Heading level="2" size="smaller" id="chat-pane-heading">
+                                    Assistant
+                                </Heading>
+                                <Button
+                                    variant="tertiary"
+                                    size="small"
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    Close
+                                </Button>
+                            </Box>
+                            <Divider weight="secondary" />
+                            <Box padding="medium" overflow="auto" flexGrow={1}>
+                                <Text tone="secondary">
+                                    Conversation history lives here. Drag the handle on the left
+                                    edge to resize the pane.
+                                </Text>
+                            </Box>
+                            {/* Inside the rounded skin: the border-radius crops the handle, the
+                                way the Automations chat does it. Placing it as a sibling of the
+                                skin instead keeps it on the panel edge, uncropped. */}
+                            <SidebarResizeHandle aria-label="Resize assistant" />
+                        </Box>
+                    </SidebarContent>
+                </Sidebar>
+            </Box>
+        )
+    },
+} satisfies Story
+
+/**
+ * Three sidebars in one shell: a workspace rail and a main nav on the left, a
+ * details pane on the right, each with its own breakpoint. As the canvas narrows
+ * the details pane overlays first (it needs the most room), the nav next, and the
+ * rail stays docked.
+ */
+export const ResponsiveShell = {
+    render: function ResponsiveShell() {
+        const [shellRef, shellWidth] = useShellWidth<HTMLDivElement>()
+        const navIsOverlay = shellWidth < 640
+        const paneIsOverlay = shellWidth < 900
+
+        const [navOpen, setNavOpen] = React.useState(false)
+        const [paneOpen, setPaneOpen] = React.useState(false)
+        const [railWidth, setRailWidth] = React.useState(64)
+        const [navWidth, setNavWidth] = React.useState(240)
+        const [paneWidth, setPaneWidth] = React.useState(300)
+
+        // Docked panels stay in view; overlays start closed and obey their trigger.
+        const isNavOpen = navIsOverlay ? navOpen : true
+        const isPaneOpen = paneIsOverlay ? paneOpen : true
+
+        return (
+            <Box display="flex" height="full" ref={shellRef}>
+                <Sidebar
+                    id="rs-rail"
+                    align="start"
+                    isOpen
+                    width={railWidth}
+                    onWidthChange={setRailWidth}
+                    minWidth={56}
+                    maxWidth={120}
+                    defaultWidth={64}
+                    resizeStep={8}
+                >
+                    <SidebarContent aria-label="Workspaces">
+                        <DemoRail aria-label="Workspaces">
+                            <SidebarResizeHandle aria-label="Resize workspace rail" />
+                        </DemoRail>
+                    </SidebarContent>
+                </Sidebar>
+                <Sidebar
+                    id="rs-nav"
+                    align="start"
+                    isOverlay={navIsOverlay}
+                    overlayMode="modal"
+                    isOpen={isNavOpen}
+                    dismissOverlayOnEscape
+                    onDismiss={() => setNavOpen(false)}
+                    width={navWidth}
+                    onWidthChange={setNavWidth}
+                    minWidth={200}
+                    maxWidth={320}
+                    defaultWidth={240}
+                    resizeStep={20}
+                >
+                    <SidebarContent aria-label="Main navigation">
+                        <DemoNav aria-label="Main navigation">
+                            <SidebarResizeHandle aria-label="Resize navigation" />
+                        </DemoNav>
+                    </SidebarContent>
+                </Sidebar>
+                <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
+                    <Stack space="medium">
+                        <Box display="flex" gap="small">
+                            {navIsOverlay ? (
+                                <Button
+                                    variant="secondary"
+                                    aria-expanded={navOpen}
+                                    aria-controls="rs-nav"
+                                    onClick={() => setNavOpen(true)}
+                                >
+                                    Open nav
+                                </Button>
+                            ) : null}
+                            {paneIsOverlay ? (
+                                <Button
+                                    variant="secondary"
+                                    aria-expanded={paneOpen}
+                                    aria-controls="rs-pane"
+                                    onClick={() => setPaneOpen((open) => !open)}
+                                >
+                                    {paneOpen ? 'Hide details' : 'Show details'}
+                                </Button>
+                            ) : null}
+                        </Box>
+                        <Heading level="2" size="larger">
+                            Main content
+                        </Heading>
+                        <Text tone="secondary">
+                            Three sidebars in one shell. Resize the canvas: the details pane becomes
+                            an overlay below 900px and the nav below 640px, each with its own
+                            trigger, while the workspace rail stays docked.
+                        </Text>
+                    </Stack>
+                </Box>
+                <Sidebar
+                    id="rs-pane"
+                    align="end"
+                    isOverlay={paneIsOverlay}
+                    overlayMode="dialog"
+                    isOpen={isPaneOpen}
+                    dismissOverlayOnEscape
+                    onDismiss={() => setPaneOpen(false)}
+                    width={paneWidth}
+                    onWidthChange={setPaneWidth}
+                    minWidth={260}
+                    maxWidth={420}
+                    defaultWidth={300}
+                    resizeStep={20}
+                >
+                    {/* Keep the details pane below the modal nav and its backdrop. */}
+                    <SidebarContent
+                        aria-label="Details"
+                        style={{ '--reactist-sidebar-overlay-z-index': 30 } as React.CSSProperties}
+                    >
+                        <DemoNav
+                            title="Details"
+                            as="aside"
+                            aria-label="Details"
+                            navItems={DETAIL_ITEMS}
+                        >
+                            <SidebarResizeHandle aria-label="Resize details pane" />
+                        </DemoNav>
+                    </SidebarContent>
+                </Sidebar>
+            </Box>
+        )
+    },
+} satisfies Story
+
+type PlaygroundArgs = {
+    align: SidebarAlign
+    isOverlay: boolean
+    overlayMode: SidebarOverlayMode
+    isOpen: boolean
+    width: number
+    resizable: boolean
+    dismissOverlayOnEscape: boolean
+    unmountOnHide: boolean
+}
+
+export const Playground = {
+    args: {
+        align: 'start',
+        isOverlay: false,
+        overlayMode: 'plain',
+        isOpen: true,
+        width: 280,
+        resizable: true,
+        dismissOverlayOnEscape: true,
+        unmountOnHide: false,
+    },
+    argTypes: {
+        align: { control: { type: 'inline-radio' }, options: ['start', 'end'] },
+        overlayMode: { control: { type: 'inline-radio' }, options: ['plain', 'dialog', 'modal'] },
+        isOverlay: { control: { type: 'boolean' } },
+        isOpen: { control: { type: 'boolean' } },
+        width: { control: { type: 'range', min: 210, max: 400, step: 10 } },
+        resizable: { control: { type: 'boolean' } },
+        dismissOverlayOnEscape: { control: { type: 'boolean' } },
+        unmountOnHide: { control: { type: 'boolean' } },
+    },
+    render: function Playground({
+        align,
+        isOverlay,
+        overlayMode,
+        isOpen: isOpenArg,
+        width: widthArg,
+        resizable,
+        dismissOverlayOnEscape,
+        unmountOnHide,
+    }: PlaygroundArgs) {
+        const [isOpen, setIsOpen] = React.useState(isOpenArg)
+        const [width, setWidth] = React.useState(widthArg)
+        const [args, setArgs] = React.useState({ isOpenArg, widthArg })
+
+        // Sync the local interactive state to the controls during render (not in an
+        // effect) when the args change.
+        if (args.isOpenArg !== isOpenArg || args.widthArg !== widthArg) {
+            setArgs({ isOpenArg, widthArg })
+            setIsOpen(isOpenArg)
+            setWidth(widthArg)
+        }
+
+        const sidebar = (
+            <Sidebar
+                id="playground-sidebar"
+                align={align}
+                isOverlay={isOverlay}
+                overlayMode={overlayMode}
+                isOpen={isOpen}
+                dismissOverlayOnEscape={dismissOverlayOnEscape}
+                unmountOnHide={unmountOnHide}
+                onDismiss={() => setIsOpen(false)}
+                width={width}
+                onWidthChange={setWidth}
+                minWidth={210}
+                maxWidth={400}
+                defaultWidth={280}
+                resizeStep={24}
+            >
+                <SidebarContent aria-label="Playground sidebar">
+                    <DemoNav aria-label="Playground sidebar">
+                        {resizable ? <SidebarResizeHandle aria-label="Resize sidebar" /> : null}
+                    </DemoNav>
+                </SidebarContent>
+            </Sidebar>
+        )
+
+        const main = (
+            <Box as="main" flexGrow={1} minWidth={0} padding="large" overflow="auto">
+                <Stack space="medium">
+                    <Button
+                        variant="primary"
+                        aria-expanded={isOpen}
+                        aria-controls="playground-sidebar"
+                        onClick={() => setIsOpen((open) => !open)}
+                    >
+                        {isOpen ? 'Close sidebar' : 'Open sidebar'}
+                    </Button>
+                    <Text tone="secondary">
+                        Use the controls to switch alignment, overlay mode, and resizability.
+                    </Text>
+                </Stack>
+            </Box>
+        )
+
+        return (
+            <Box display="flex" height="full">
+                {align === 'start' ? (
+                    <>
+                        {sidebar}
+                        {main}
+                    </>
+                ) : (
+                    <>
+                        {main}
+                        {sidebar}
+                    </>
+                )}
+            </Box>
+        )
+    },
+} satisfies StoryObj<PlaygroundArgs>
