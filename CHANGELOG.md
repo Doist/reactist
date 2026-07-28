@@ -1,3 +1,9 @@
+## [35.0.1](https://github.com/Doist/reactist/compare/v35.0.0...v35.0.1) (2026-07-28)
+
+### Bug Fixes
+
+- **deps:** pin dependencies ([#1125](https://github.com/Doist/reactist/issues/1125)) ([a84416f](https://github.com/Doist/reactist/commit/a84416f6be085d10024c75ffe29fec334e2662c8))
+
 ## [35.0.0](https://github.com/Doist/reactist/compare/v34.0.0...v35.0.0) (2026-07-16)
 
 ### ⚠ BREAKING CHANGES
