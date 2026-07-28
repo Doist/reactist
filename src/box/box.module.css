@@ -358,7 +358,9 @@ pre.box {
     --product-library-display-primary-idle-tint: var(
         --product-library-display-primary-on-dark-tint
     );
-    --product-library-display-secondary-idle-tint: var(--reactist-toast-content-secondary);
+    --product-library-display-secondary-idle-tint: var(
+        --product-library-display-secondary-on-dark-tint
+    );
     --reactist-text-link-idle-tint: var(--product-library-display-primary-idle-tint);
     --reactist-text-link-idle-decoration: var(--reactist-text-link-hover-decoration);
     --product-library-actionable-tertiary-idle-tint: var(
@@ -468,7 +470,7 @@ pre.box {
 }
 
 .overlayScroll:hover::-webkit-scrollbar-thumb {
-    background-color: var(--reactist-scrollbar-thumb-idle);
+    background-color: var(--product-library-display-quaternary-idle-tint);
 }
 
 /* Firefox */
@@ -478,5 +480,5 @@ pre.box {
 }
 
 .overlayScroll:hover {
-    scrollbar-color: var(--reactist-scrollbar-thumb-idle) transparent;
+    scrollbar-color: var(--product-library-display-quaternary-idle-tint) transparent;
 }

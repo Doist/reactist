@@ -29,7 +29,7 @@
     color: var(--product-library-actionable-destructive-idle-tint);
 }
 .tone-positive {
-    color: var(--reactist-content-positive);
+    color: var(--product-library-info-positive-primary-idle-tint);
 }
 
 /* truncated text */

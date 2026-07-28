@@ -189,7 +189,7 @@
     --reactist-btn-idle-tint: var(--product-library-actionable-destructive-idle-tint);
     --reactist-btn-idle-fill: transparent;
     --reactist-btn-hover-tint: var(--product-library-actionable-destructive-hover-tint);
-    --reactist-btn-hover-fill: var(--reactist-actionable-secondary-destructive-hover-fill);
+    --reactist-btn-hover-fill: var(--product-library-info-attention-secondary-idle-fill);
     --reactist-btn-disabled-tint: var(--product-library-actionable-destructive-disabled-tint);
     --reactist-btn-disabled-fill: transparent;
 }

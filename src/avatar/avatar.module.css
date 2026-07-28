@@ -1,7 +1,7 @@
 :root {
     --reactist-avatar-initials-color: var(--product-library-actionable-primary-on-idle-tint);
     --reactist-avatar-border-tint: #0000001a;
-    --reactist-avatar-empty-fill: var(--reactist-framework-fill-crest);
+    --reactist-avatar-empty-fill: var(--product-library-background-base-tertiary);
 
     --reactist-avatar-meta-0-fill: #b8255f;
     --reactist-avatar-meta-0-on-idle-tint: var(--reactist-avatar-initials-color);

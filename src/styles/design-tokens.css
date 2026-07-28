@@ -56,20 +56,8 @@
     --reactist-border-radius-large: 10px;
 
     /*
-     * colors
-     *
-     * Reactist's colours come from `@doist/product-libraries-tokens` and are referenced as
-     * `var(--product-library-*)` directly wherever they are used, so there is no aliasing layer
-     * here. The tokens below are the exceptions: they have no product-library equivalent, so
-     * Reactist still defines them itself. They do not adapt to dark or accent themes -- an app
-     * that needs them to must override them.
+     * elevation
      */
-    --reactist-bg-brand: rgb(36, 111, 224);
-    --reactist-framework-fill-crest: rgb(230, 230, 230);
-    --reactist-content-positive: rgb(5, 133, 39);
-    --reactist-toast-content-secondary: hsla(0, 0%, 100%, 0.56);
-    --reactist-scrollbar-thumb-idle: rgba(0, 0, 0, 0.2);
-    --reactist-actionable-secondary-destructive-hover-fill: transparent;
     --reactist-toast-box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 
     /* stacking orders */
