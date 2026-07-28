@@ -30,9 +30,21 @@
     --reactist-width-xlarge: 1280px;
 
     /* font family */
+
+    /* 'Segoe UI' must be named before `system-ui`.
+     *
+     * On Windows, `system-ui` resolves to the locale's UI font. Under CJK locales that is
+     * Microsoft YaHei UI, Yu Gothic UI or Malgun Gothic: fonts whose Latin glyphs are wider
+     * and heavier than Segoe UI's, and which have no semibold weight. Naming 'Segoe UI'
+     * explicitly keeps Latin text consistent across locales, while CJK characters still fall
+     * through to the system font further down the stack.
+     * @see https://infinnie.github.io/blog/2017/systemui.html
+     *
+     * `-apple-system`(Safari and Firefox) and `BlinkMacSystemFont` (Chromium) both resolve to the Apple system font
+     * (San Francisco) */
     --reactist-font-family:
-        -apple-system, system-ui, 'Segoe UI', Roboto, Noto, Oxygen-Sans, Ubuntu, Cantrell,
-        'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+        -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --reactist-font-family-monospace:
         ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, 'Cascadia Mono', Consolas,
         'Liberation Mono', 'Courier New', monospace;
