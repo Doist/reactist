@@ -20,6 +20,7 @@ const external = [
     'classnames',
     'prop-types',
     '@ariakit/react',
+    '@tanstack/react-table',
     'aria-hidden',
     'dayjs',
     'dayjs/plugin/localizedFormat',
