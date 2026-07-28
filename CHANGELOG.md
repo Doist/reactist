@@ -1,3 +1,9 @@
+## [35.0.2](https://github.com/Doist/reactist/compare/v35.0.1...v35.0.2) (2026-07-28)
+
+### Bug Fixes
+
+- **deps:** pin dependency react-markdown to 5.0.3 ([#1126](https://github.com/Doist/reactist/issues/1126)) ([4a72851](https://github.com/Doist/reactist/commit/4a728512268d26c9dad7f828eeff31f4024a1636))
+
 ## [35.0.1](https://github.com/Doist/reactist/compare/v35.0.0...v35.0.1) (2026-07-28)
 
 ### Bug Fixes
