@@ -1,5 +1,5 @@
 :root {
-    --reactist-avatar-initials-color: var(--reactist-actionable-primary-idle-tint);
+    --reactist-avatar-initials-color: var(--product-library-actionable-primary-on-idle-tint);
     --reactist-avatar-border-tint: #0000001a;
     --reactist-avatar-empty-fill: var(--reactist-framework-fill-crest);
 

@@ -11,7 +11,7 @@
 }
 
 .slot {
-    color: var(--reactist-content-primary);
+    color: var(--product-library-display-primary-idle-tint);
 }
 
 @media (max-width: 500px) {

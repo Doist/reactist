@@ -253,7 +253,7 @@ export function ModalWithScrollableTabPanels() {
                         <Box
                             paddingBottom="large"
                             style={{
-                                borderBottom: '1px solid var(--reactist-divider-secondary)',
+                                borderBottom: '1px solid var(--product-library-divider-secondary)',
                             }}
                         >
                             <TabList aria-label="Multiple tablist example tabs">

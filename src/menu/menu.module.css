@@ -10,7 +10,7 @@
     font-size: var(--reactist-font-size-copy);
     padding: 4px 0;
     min-width: 180px;
-    border: 1px solid var(--reactist-divider-secondary);
+    border: 1px solid var(--product-library-divider-secondary);
     border-radius: 3px;
     margin: -4px; /* Required to add spacing between the viewport, used in conjunction with unstable_offset */
     z-index: var(--reactist-stacking-order-menu);
@@ -32,7 +32,7 @@
 }
 
 :global(.reactist_menulist) :global(.reactist_menugroup__label) {
-    color: var(--reactist-content-secondary);
+    color: var(--product-library-display-secondary-idle-tint);
     font-size: var(--reactist-font-size-copy);
 }
 
@@ -44,13 +44,13 @@
 :global(.reactist_menulist) [role='menuitem']:hover,
 :global(.reactist_menulist) [role='menuitem']:focus,
 :global(.reactist_menulist) [role='menuitem'][aria-expanded='true'] {
-    color: var(--reactist-content-primary);
-    background-color: var(--reactist-bg-selected);
+    color: var(--product-library-display-primary-idle-tint);
+    background-color: var(--product-library-selectable-secondary-selected-fill);
 }
 
 :global(.reactist_menulist) [role='menuitem'][aria-disabled='true'],
 :global(.reactist_menulist) [role='menuitem']:disabled {
-    color: var(--reactist-content-secondary);
+    color: var(--product-library-display-secondary-idle-tint);
     pointer-events: none;
 }
 
@@ -65,19 +65,25 @@
 
 /* Link menu items without an icon are styled like a text link */
 :global(.reactist_menulist) a[role='menuitem']:not(:has(svg)):not([aria-disabled='true']) {
-    color: var(--reactist-text-link-idle-tint, var(--reactist-actionable-tertiary-idle-tint));
+    color: var(
+        --reactist-text-link-idle-tint,
+        var(--product-library-actionable-tertiary-idle-tint)
+    );
     --reactist-content-primary: var(
         --reactist-text-link-idle-tint,
-        var(--reactist-actionable-tertiary-idle-tint)
+        var(--product-library-actionable-tertiary-idle-tint)
     );
 }
 
 :global(.reactist_menulist) a[role='menuitem']:not(:has(svg)):not([aria-disabled='true']):hover,
 :global(.reactist_menulist) a[role='menuitem']:not(:has(svg)):not([aria-disabled='true']):focus {
-    color: var(--reactist-text-link-hover-tint, var(--reactist-actionable-tertiary-hover-tint));
+    color: var(
+        --reactist-text-link-hover-tint,
+        var(--product-library-actionable-tertiary-on-hover-tint)
+    );
     --reactist-content-primary: var(
         --reactist-text-link-hover-tint,
-        var(--reactist-actionable-tertiary-hover-tint)
+        var(--product-library-actionable-tertiary-on-hover-tint)
     );
 }
 
@@ -89,6 +95,6 @@
 :global(.reactist_menulist) hr {
     border: none;
     height: 1px;
-    background-color: var(--reactist-bg-selected);
+    background-color: var(--product-library-selectable-secondary-selected-fill);
     margin: 4px 0;
 }

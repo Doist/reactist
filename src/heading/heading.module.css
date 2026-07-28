@@ -1,5 +1,5 @@
 .heading {
-    color: var(--reactist-content-primary);
+    color: var(--product-library-display-primary-idle-tint);
     font-weight: var(--reactist-font-weight-strong);
     font-family: var(--reactist-font-family);
 }
@@ -15,7 +15,7 @@
 /* tone */
 
 .tone-secondary {
-    color: var(--reactist-content-secondary);
+    color: var(--product-library-display-secondary-idle-tint);
 }
 .tone-danger {
     color: rgb(209, 69, 59);

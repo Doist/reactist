@@ -44,7 +44,7 @@
 
 .prose {
     font-size: var(--reactist-prose-content-font-size);
-    color: var(--reactist-content-primary);
+    color: var(--product-library-display-primary-idle-tint);
     line-height: 1.65;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -179,7 +179,7 @@
 
 .prose blockquote::before {
     content: '';
-    border-left: 2px solid var(--reactist-divider-primary);
+    border-left: 2px solid var(--product-library-divider-primary);
     position: absolute;
     top: 0.25em;
     bottom: 0.25em;

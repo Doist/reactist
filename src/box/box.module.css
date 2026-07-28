@@ -339,32 +339,44 @@ pre.box {
 
 /* background color */
 .bg-default {
-    background-color: var(--reactist-bg-default);
+    background-color: var(--product-library-background-base-primary);
 }
 .bg-aside {
-    background-color: var(--reactist-bg-aside);
+    background-color: var(--product-library-background-base-secondary);
 }
 .bg-highlight {
-    background-color: var(--reactist-bg-highlight);
+    background-color: var(--product-library-actionable-quaternary-hover-fill);
 }
 .bg-selected {
-    background-color: var(--reactist-bg-selected);
+    background-color: var(--product-library-selectable-secondary-selected-fill);
 }
 
 /* toasts background-color requires more customization as it features an inverted (dark) background, even in light mode */
 .bg-toast {
-    background-color: var(--reactist-bg-toast);
-    color: var(--reactist-content-primary);
-    --reactist-content-primary: var(--reactist-toast-content-primary);
+    background-color: var(--product-library-background-raised-quaternary);
+    color: var(--product-library-display-primary-idle-tint);
+    --reactist-content-primary: var(--product-library-display-primary-on-dark-tint);
     --reactist-content-secondary: var(--reactist-toast-content-secondary);
-    --reactist-text-link-idle-tint: var(--reactist-content-primary);
+    --reactist-text-link-idle-tint: var(--product-library-display-primary-idle-tint);
     --reactist-text-link-idle-decoration: var(--reactist-text-link-hover-decoration);
-    --reactist-actionable-tertiary-idle-tint: var(--reactist-toast-actionable-primary-tint);
-    --reactist-actionable-tertiary-hover-tint: var(--reactist-toast-actionable-primary-tint);
-    --reactist-actionable-tertiary-hover-fill: var(--reactist-toast-actionable-hover-fill);
-    --reactist-actionable-quaternary-idle-tint: var(--reactist-toast-actionable-secondary-tint);
-    --reactist-actionable-quaternary-hover-tint: var(--reactist-toast-actionable-secondary-tint);
-    --reactist-actionable-quaternary-hover-fill: var(--reactist-toast-actionable-hover-fill);
+    --reactist-actionable-tertiary-idle-tint: var(
+        --product-library-actionable-tertiary-on-dark-idle-tint
+    );
+    --reactist-actionable-tertiary-hover-tint: var(
+        --product-library-actionable-tertiary-on-dark-idle-tint
+    );
+    --reactist-actionable-tertiary-hover-fill: var(
+        --product-library-actionable-tertiary-on-dark-hover-fill
+    );
+    --reactist-actionable-quaternary-idle-tint: var(
+        --product-library-actionable-quaternary-on-dark-idle-tint
+    );
+    --reactist-actionable-quaternary-hover-tint: var(
+        --product-library-actionable-quaternary-on-dark-idle-tint
+    );
+    --reactist-actionable-quaternary-hover-fill: var(
+        --product-library-actionable-tertiary-on-dark-hover-fill
+    );
 }
 
 /* border radius */
@@ -377,13 +389,13 @@ pre.box {
 
 /* border */
 .border-primary {
-    border: 1px solid var(--reactist-divider-primary);
+    border: 1px solid var(--product-library-divider-primary);
 }
 .border-secondary {
-    border: 1px solid var(--reactist-divider-secondary);
+    border: 1px solid var(--product-library-divider-secondary);
 }
 .border-tertiary {
-    border: 1px solid var(--reactist-divider-tertiary);
+    border: 1px solid var(--product-library-divider-tertiary);
 }
 
 /* text-align */

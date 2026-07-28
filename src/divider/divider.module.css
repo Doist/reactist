@@ -1,9 +1,9 @@
 .weight-primary {
-    border-bottom: 1px solid var(--reactist-divider-primary);
+    border-bottom: 1px solid var(--product-library-divider-primary);
 }
 .weight-secondary {
-    border-bottom: 1px solid var(--reactist-divider-secondary);
+    border-bottom: 1px solid var(--product-library-divider-secondary);
 }
 .weight-tertiary {
-    border-bottom: 1px solid var(--reactist-divider-tertiary);
+    border-bottom: 1px solid var(--product-library-divider-tertiary);
 }

@@ -6,29 +6,24 @@ import { Box } from '../../src/box'
 import { Column, Columns } from '../../src/columns'
 import { Heading } from '../../src/heading'
 import { Stack } from '../../src/stack'
+import { Text } from '../../src/text'
 
 export default {
     title: 'Design tokens/Colors',
 }
 
-const frameworkFillColors = [
-    '--reactist-framework-fill-background',
+/**
+ * The `--reactist-*` colour tokens that still carry a Reactist decision. Everything else Reactist
+ * used to alias now reads `--product-library-*` directly at the callsite, so the product library
+ * is the place to look for the rest of the palette.
+ */
+const retainedColors = [
+    '--reactist-bg-brand',
     '--reactist-framework-fill-crest',
-    '--reactist-framework-fill-selected',
-    '--reactist-framework-fill-summit',
-]
-
-const frameworkBorderColors = [
-    '--reactist-divider-primary',
-    '--reactist-divider-secondary',
-    '--reactist-divider-tertiary',
-]
-
-const contentColors = [
-    '--reactist-content-primary',
-    '--reactist-content-secondary',
-    '--reactist-content-tertiary',
-    '--reactist-toast-content-primary',
+    '--reactist-content-positive',
+    '--reactist-toast-content-secondary',
+    '--reactist-scrollbar-thumb-idle',
+    '--reactist-actionable-secondary-destructive-hover-fill',
 ]
 
 function Swatch({ color }: { color: string }) {
@@ -48,31 +43,25 @@ export function Colors() {
     return (
         <Stack space="xlarge" exceptionallySetClassName="story">
             <Heading level={1} size="larger">
-                Framework
+                Retained Reactist colours
             </Heading>
 
-            <Heading level={2}>Framework-Fill</Heading>
+            <Text>
+                These are the only colour custom properties Reactist still defines itself, because
+                they have no product-library equivalent. Every other colour resolves to a{' '}
+                <code>--product-library-*</code> token at the point of use.
+            </Text>
+
             <Stack space="small">
-                {frameworkFillColors.map((color) => (
+                {retainedColors.map((color) => (
                     <Swatch color={color} key={color} />
                 ))}
             </Stack>
 
-            <Heading level={2}>Framework-Border</Heading>
-            <Stack space="small">
-                {frameworkBorderColors.map((color) => (
-                    <Swatch color={color} key={color} />
-                ))}
-            </Stack>
-
-            <Heading level={1} size="larger">
-                Content
-            </Heading>
-            <Stack space="small">
-                {contentColors.map((color) => (
-                    <Swatch color={color} key={color} />
-                ))}
-            </Stack>
+            <Text tone="secondary">
+                <code>--reactist-toast-box-shadow</code> is also retained, but it is a shadow rather
+                than a colour, so it is not shown as a swatch.
+            </Text>
         </Stack>
     )
 }

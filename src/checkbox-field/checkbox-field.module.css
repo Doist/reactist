@@ -18,13 +18,13 @@
 }
 
 .container svg {
-    color: var(--reactist-content-secondary);
+    color: var(--product-library-display-secondary-idle-tint);
     border-radius: 5px;
     min-width: 24px;
 }
 
 .container.checked svg {
-    color: var(--reactist-switch-checked);
+    color: var(--product-library-actionable-primary-idle-fill);
 }
 
 .container input[type='checkbox'] {
@@ -39,7 +39,7 @@
 }
 
 .container.keyFocused svg {
-    border: 2px solid var(--reactist-actionable-primary-idle-fill);
+    border: 2px solid var(--product-library-actionable-primary-idle-fill);
 }
 
 .icon {
