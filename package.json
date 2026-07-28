@@ -72,7 +72,7 @@
         "react-transition-group": "^4.4.5"
     },
     "devDependencies": {
-        "@ariakit/react": "0.4.19",
+        "@ariakit/react": "0.4.35",
         "@babel/cli": "7.28.3",
         "@babel/core": "7.29.6",
         "@babel/plugin-transform-runtime": "7.28.5",
