@@ -151,7 +151,7 @@
         "storybook": "10.4.0",
         "tslib": "^2.0.0",
         "typescript": "5.9.3",
-        "vite": "6.4.2"
+        "vite": "6.4.3"
     },
     "dependencies": {
         "@babel/runtime": "^7.28.4",
