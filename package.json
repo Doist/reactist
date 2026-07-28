@@ -144,7 +144,7 @@
         "react-is": "19.2.7",
         "react-transition-group": "4.4.5",
         "rimraf": "^3.0.2",
-        "rollup": "2.79.2",
+        "rollup": "2.80.0",
         "rollup-plugin-styles": "4.0.0",
         "rollup-plugin-visualizer": "6.0.5",
         "semantic-release": "25.0.3",
