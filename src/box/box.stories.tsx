@@ -280,7 +280,7 @@ export function OverlayScrollStory() {
                     {Array.from({ length: 20 }, (_, i) => (
                         <Box key={i} padding="medium" background="default" borderRadius="standard">
                             <Text>Content item {i + 1}</Text>
-                            <Text size="caption" color="secondary">
+                            <Text variant="caption-3" tone="secondary">
                                 This is some additional content to make the item taller and ensure
                                 scrolling is needed.
                             </Text>

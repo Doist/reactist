@@ -1,0 +1,44 @@
+:root {
+    --reactist-display-font-size-1: 96px;
+    --reactist-display-font-size-2: 88px;
+    --reactist-display-font-size-3: 72px;
+    --reactist-display-font-size-4: 56px;
+    --reactist-display-font-size-5: 42px;
+    --reactist-display-font-weight: var(--reactist-typography-font-weight-medium);
+    --reactist-display-line-height: normal;
+    --reactist-display-letter-spacing-1: 0;
+    --reactist-display-letter-spacing-2: 0;
+    --reactist-display-letter-spacing-3: 0.14px;
+    --reactist-display-letter-spacing-4: 0.3px;
+    --reactist-display-letter-spacing-5: 0.37px;
+}
+
+.display {
+    font-weight: var(--reactist-display-font-weight);
+    line-height: var(--reactist-display-line-height);
+}
+
+.variant-display-1 {
+    font-size: var(--reactist-display-font-size-1);
+    letter-spacing: var(--reactist-display-letter-spacing-1);
+}
+
+.variant-display-2 {
+    font-size: var(--reactist-display-font-size-2);
+    letter-spacing: var(--reactist-display-letter-spacing-2);
+}
+
+.variant-display-3 {
+    font-size: var(--reactist-display-font-size-3);
+    letter-spacing: var(--reactist-display-letter-spacing-3);
+}
+
+.variant-display-4 {
+    font-size: var(--reactist-display-font-size-4);
+    letter-spacing: var(--reactist-display-letter-spacing-4);
+}
+
+.variant-display-5 {
+    font-size: var(--reactist-display-font-size-5);
+    letter-spacing: var(--reactist-display-letter-spacing-5);
+}

@@ -20,55 +20,19 @@ export default {
 export function HeadingStory() {
     return (
         <section className="story">
-            <Stack dividers="primary" space="medium">
-                <Stack space="small">
-                    <Heading level={1} size="largest">
-                        Heading level 1, largest
-                    </Heading>
-                    <Heading level={1} size="larger">
-                        Heading level 1, larger
-                    </Heading>
-                    <Heading level={1}>Heading level 1</Heading>
-                    <Heading level={1} size="smaller">
-                        Heading level 1, smaller
-                    </Heading>
-                </Stack>
-
-                <Stack space="small">
-                    <Heading level={2} size="largest">
-                        Heading level 2, largest
-                    </Heading>
-                    <Heading level={2} size="larger">
-                        Heading level 2, larger
-                    </Heading>
-                    <Heading level={2}>Heading level 2</Heading>
-                    <Heading level={2} size="smaller">
-                        Heading level 2, smaller
-                    </Heading>
-                </Stack>
-
-                <Stack space="small">
-                    <Heading level={3} size="largest">
-                        Heading level 3, largest
-                    </Heading>
-                    <Heading level={3} size="larger">
-                        Heading level 3, larger
-                    </Heading>
-                    <Heading level={3}>Heading level 3</Heading>
-                    <Heading level={3} size="smaller">
-                        Heading level 3, smaller
-                    </Heading>
-                </Stack>
-
-                <Stack space="small">
-                    <Heading level={4} size="largest">
-                        Heading level 4 / 5 / 6, largest
-                    </Heading>
-                    <Heading level={4} size="larger">
-                        Heading level 4 / 5 / 6, larger
-                    </Heading>
-                    <Heading level={4}>Heading level 4 / 5 / 6</Heading>
-                </Stack>
+            <Stack space="medium">
+                <Heading level={1}>Heading 1</Heading>
+                <Heading level={2}>Heading 2</Heading>
+                <Heading level={3}>Heading 3</Heading>
+                <Heading level={4}>Heading 4</Heading>
+                <Heading level={5}>Heading 5, visually heading-4</Heading>
+                <Heading level={6}>Heading 6, visually heading-4</Heading>
+                <Heading level={2} variant="heading-1">
+                    Semantic h2, visual heading-1
+                </Heading>
+                <Heading variant="heading-3" render={<button type="button" />}>
+                    Button with heading typography
+                </Heading>
             </Stack>
         </section>
     )
@@ -81,7 +45,7 @@ HeadingStory.parameters = {
 export function TruncatedHeadingStory() {
     return (
         <section className="story">
-            <Heading level={1} size="largest" lineClamp={1}>
+            <Heading level={1} lineClamp={1}>
                 This is a long title which we will use demonstrate truncating content. When this
                 overflows and begins to drop to a new line, its overflowing content will be replaced
                 by ellipses.
@@ -111,15 +75,13 @@ export function ResponsiveHeadingStory(props: React.ComponentProps<typeof Headin
 
 ResponsiveHeadingStory.args = {
     level: '1',
-    weight: 'regular',
     tone: 'normal',
     children: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit',
 }
 
 ResponsiveHeadingStory.argTypes = {
     level: select(['1', '2', '3', '4', '5', '6']),
-    size: selectWithNone(['largest', 'larger', 'smaller']),
-    weight: select(['regular', 'light']),
+    variant: selectWithNone(['heading-1', 'heading-2', 'heading-3', 'heading-4']),
     lineClamp: selectWithNone([1, 2, 3, 4, 5]),
     tone: select(['normal', 'secondary', 'danger']),
     align: { control: false },
@@ -138,15 +100,13 @@ export function HeadingPlaygroundStory(props: React.ComponentProps<typeof Headin
 
 HeadingPlaygroundStory.args = {
     level: '1',
-    weight: 'regular',
     tone: 'normal',
     children: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit',
 }
 
 HeadingPlaygroundStory.argTypes = {
     level: select(['1', '2', '3', '4', '5', '6']),
-    size: selectWithNone(['largest', 'larger', 'smaller']),
-    weight: select(['regular', 'medium', 'light']),
+    variant: selectWithNone(['heading-1', 'heading-2', 'heading-3', 'heading-4']),
     lineClamp: selectWithNone([1, 2, 3, 4, 5]),
     tone: select(['normal', 'secondary', 'danger']),
     align: selectWithNone(['start', 'center', 'end', 'justify']),

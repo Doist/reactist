@@ -1,8 +1,40 @@
 import * as React from 'react'
 
 import { render, screen } from '@testing-library/react'
+import { axe } from 'jest-axe'
 
 import { Text } from './text'
+
+import type { TextProps } from './text'
+
+const textVariants = [
+    'subheader-1',
+    'subheader-2',
+    'body-1',
+    'body-2',
+    'body-3',
+    'callout-1',
+    'callout-2',
+    'caption-1',
+    'caption-2',
+    'caption-3',
+    'footnote-1',
+    'footnote-2',
+] as const
+
+const decoratedTextProps = [
+    { variant: 'subheader-1', decoration: 'strikethrough' },
+    { variant: 'subheader-2', decoration: 'strikethrough' },
+    { variant: 'body-3', decoration: 'strikethrough' },
+    { variant: 'callout-1', decoration: 'strikethrough' },
+    { variant: 'callout-2', decoration: 'strikethrough' },
+    { variant: 'caption-2', decoration: 'strikethrough' },
+    { variant: 'caption-2', decoration: 'underline' },
+    { variant: 'caption-3', decoration: 'strikethrough' },
+    { variant: 'caption-3', decoration: 'underline' },
+] as const satisfies ReadonlyArray<
+    Omit<Extract<TextProps, { decoration: 'strikethrough' | 'underline' }>, 'children'>
+>
 
 describe('Text', () => {
     it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {
@@ -20,13 +52,35 @@ describe('Text', () => {
         expect(screen.getByTestId('text-element')).not.toHaveClass('wrong')
     })
 
-    it('can be rendered as any HTML element', () => {
+    it('defaults to body-3', () => {
+        render(<Text data-testid="text-element">Text</Text>)
+        expect(screen.getByTestId('text-element')).toHaveClass('variant-body-3')
+    })
+
+    it.each(textVariants)('applies the %s variant', (variant) => {
         render(
-            <Text data-testid="text-element" as="nav">
+            <Text data-testid="text-element" variant={variant}>
                 Text
             </Text>,
         )
-        expect(screen.getByTestId('text-element').tagName).toBe('NAV')
+        expect(screen.getByTestId('text-element')).toHaveClass('variant-' + variant)
+    })
+
+    it('renders through Ariakit Role', () => {
+        render(
+            <Text data-testid="text-element" variant="body-1" render={<label htmlFor="name" />}>
+                Name
+            </Text>,
+        )
+        const element = screen.getByTestId('text-element')
+        expect(element.tagName).toBe('LABEL')
+        expect(element).toHaveAttribute('for', 'name')
+    })
+
+    it('forwards its ref', () => {
+        const ref = React.createRef<HTMLDivElement>()
+        render(<Text ref={ref}>Text</Text>)
+        expect(ref.current?.tagName).toBe('DIV')
     })
 
     it('renders its children as its content', () => {
@@ -38,53 +92,6 @@ describe('Text', () => {
         expect(screen.getByTestId('text-element').innerHTML).toMatchInlineSnapshot(
             `"Hello <strong>world</strong>"`,
         )
-    })
-
-    describe('size="…"', () => {
-        it('adds the appropriate class names', () => {
-            const { rerender } = render(
-                <Text data-testid="text-element" size="body">
-                    Text
-                </Text>,
-            )
-            const textElement = screen.getByTestId('text-element')
-            expect(textElement).not.toHaveClass('size-body')
-            expect(textElement).not.toHaveClass('size-caption')
-            expect(textElement).not.toHaveClass('size-copy')
-            expect(textElement).not.toHaveClass('size-subtitle')
-
-            for (const size of ['caption', 'copy', 'subtitle'] as const) {
-                rerender(
-                    <Text data-testid="text-element" size={size}>
-                        Text
-                    </Text>,
-                )
-                expect(textElement).toHaveClass(`size-${size}`)
-            }
-        })
-    })
-
-    describe('weight="…"', () => {
-        it('adds the appropriate class names', () => {
-            const { rerender } = render(
-                <Text data-testid="text-element" weight="regular">
-                    Text
-                </Text>,
-            )
-            const textElement = screen.getByTestId('text-element')
-            expect(textElement).not.toHaveClass('weight-regular')
-            expect(textElement).not.toHaveClass('weight-semibold')
-            expect(textElement).not.toHaveClass('weight-bold')
-
-            for (const weight of ['semibold', 'bold'] as const) {
-                rerender(
-                    <Text data-testid="text-element" weight={weight}>
-                        Text
-                    </Text>,
-                )
-                expect(textElement).toHaveClass(`weight-${weight}`)
-            }
-        })
     })
 
     describe('tone="…"', () => {
@@ -174,5 +181,49 @@ describe('Text', () => {
                 expect(textElement).toHaveClass('paddingRight-xsmall')
             }
         })
+    })
+
+    it.each(decoratedTextProps)('supports $variant with $decoration', (textProps) => {
+        render(
+            <Text data-testid="text-element" {...textProps}>
+                Text
+            </Text>,
+        )
+        expect(screen.getByTestId('text-element')).toHaveClass('decoration-' + textProps.decoration)
+    })
+
+    it('supports uppercase only for footnote-1', () => {
+        render(
+            <Text data-testid="text-element" variant="footnote-1" case="uppercase">
+                Text
+            </Text>,
+        )
+        expect(screen.getByTestId('text-element')).toHaveClass('case-uppercase')
+    })
+
+    it('rejects invalid modifiers at type level', () => {
+        const invalidTextModifier = (
+            // @ts-expect-error body-1 does not support decoration
+            <Text variant="body-1" decoration="underline">
+                Invalid
+            </Text>
+        )
+        expect(invalidTextModifier).toBeDefined()
+    })
+
+    it('has no accessibility violations', async () => {
+        const { container } = render(
+            <>
+                <Text>Default text</Text>
+                <Text variant="caption-2" decoration="underline">
+                    Caption
+                </Text>
+                <Text variant="body-1" render={<label htmlFor="name" />}>
+                    Name
+                </Text>
+                <input id="name" />
+            </>,
+        )
+        expect(await axe(container)).toHaveNoViolations()
     })
 })
