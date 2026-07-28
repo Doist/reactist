@@ -66,7 +66,7 @@ function DarkModeTemplate() {
             padding="xlarge"
             style={{
                 backgroundColor: '#202020',
-                '--reactist-content-primary': 'rgba(255, 255, 255, 0.88)',
+                '--product-library-display-primary-idle-tint': 'rgba(255, 255, 255, 0.88)',
                 // tone="info"
                 '--reactist-badge-info-tint': '#B3B3B3',
                 '--reactist-badge-info-fill': '#363636',

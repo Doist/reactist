@@ -69,7 +69,7 @@
         --reactist-text-link-idle-tint,
         var(--product-library-actionable-tertiary-idle-tint)
     );
-    --reactist-content-primary: var(
+    --product-library-display-primary-idle-tint: var(
         --reactist-text-link-idle-tint,
         var(--product-library-actionable-tertiary-idle-tint)
     );
@@ -81,7 +81,7 @@
         --reactist-text-link-hover-tint,
         var(--product-library-actionable-tertiary-on-hover-tint)
     );
-    --reactist-content-primary: var(
+    --product-library-display-primary-idle-tint: var(
         --reactist-text-link-hover-tint,
         var(--product-library-actionable-tertiary-on-hover-tint)
     );

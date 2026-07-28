@@ -1,9 +1,3 @@
-:root {
-    --reactist-switch-background: var(--product-library-selectable-primary-unselected-fill);
-    --reactist-switch-checked: var(--product-library-actionable-primary-idle-fill);
-    --reactist-switch-toggle: var(--product-library-selectable-primary-on-selected-fill);
-}
-
 .container,
 .container * {
     font-family: var(--reactist-font-family);

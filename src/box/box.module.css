@@ -355,26 +355,28 @@ pre.box {
 .bg-toast {
     background-color: var(--product-library-background-raised-quaternary);
     color: var(--product-library-display-primary-idle-tint);
-    --reactist-content-primary: var(--product-library-display-primary-on-dark-tint);
-    --reactist-content-secondary: var(--reactist-toast-content-secondary);
+    --product-library-display-primary-idle-tint: var(
+        --product-library-display-primary-on-dark-tint
+    );
+    --product-library-display-secondary-idle-tint: var(--reactist-toast-content-secondary);
     --reactist-text-link-idle-tint: var(--product-library-display-primary-idle-tint);
     --reactist-text-link-idle-decoration: var(--reactist-text-link-hover-decoration);
-    --reactist-actionable-tertiary-idle-tint: var(
+    --product-library-actionable-tertiary-idle-tint: var(
         --product-library-actionable-tertiary-on-dark-idle-tint
     );
-    --reactist-actionable-tertiary-hover-tint: var(
+    --product-library-actionable-tertiary-on-hover-tint: var(
         --product-library-actionable-tertiary-on-dark-idle-tint
     );
-    --reactist-actionable-tertiary-hover-fill: var(
+    --product-library-actionable-tertiary-hover-fill: var(
         --product-library-actionable-tertiary-on-dark-hover-fill
     );
-    --reactist-actionable-quaternary-idle-tint: var(
+    --product-library-actionable-quaternary-idle-tint: var(
         --product-library-actionable-quaternary-on-dark-idle-tint
     );
-    --reactist-actionable-quaternary-hover-tint: var(
+    --product-library-actionable-quaternary-on-hover-tint: var(
         --product-library-actionable-quaternary-on-dark-idle-tint
     );
-    --reactist-actionable-quaternary-hover-fill: var(
+    --product-library-actionable-quaternary-hover-fill: var(
         --product-library-actionable-tertiary-on-dark-hover-fill
     );
 }
