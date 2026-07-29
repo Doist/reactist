@@ -171,4 +171,5 @@ jobs:
                   workspace-id: 69
                   thread-id: BPZsUohfX5WV4tFJKMHAh
                   content: ${{ steps.announcement.outputs.message }}
+                  audience: thread
               continue-on-error: true
