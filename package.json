@@ -114,7 +114,7 @@
         "babel-plugin-react-compiler": "1.0.0",
         "chromatic": "16.10.1",
         "classnames": "2.5.1",
-        "conventional-changelog-conventionalcommits": "9.3.0",
+        "conventional-changelog-conventionalcommits": "9.3.1",
         "cssnano": "5.1.15",
         "eslint": "8.57.1",
         "eslint-config-prettier": "^8.5.0",
