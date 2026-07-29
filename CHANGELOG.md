@@ -1,3 +1,9 @@
+## [35.0.6](https://github.com/Doist/reactist/compare/v35.0.5...v35.0.6) (2026-07-29)
+
+### Bug Fixes
+
+- centralize the font stack and adopt Todoist's typography defaults ([#1119](https://github.com/Doist/reactist/issues/1119)) ([a399aaa](https://github.com/Doist/reactist/commit/a399aaaff0b73fca36b3287d514f4a4e0ca2630e))
+
 ## [35.0.5](https://github.com/Doist/reactist/compare/v35.0.4...v35.0.5) (2026-07-29)
 
 ### Bug Fixes
