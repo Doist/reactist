@@ -7,6 +7,7 @@ import { Box } from '../box'
 import { IconButton } from '../button'
 import { Column, Columns } from '../columns'
 import ThreeDotsIcon from '../components/icons/ThreeDotsIcon.svg'
+import { Divider } from '../divider'
 import { Heading } from '../heading'
 import { Inline } from '../inline'
 import { Menu, MenuButton, MenuItem, MenuList } from '../menu'
@@ -250,18 +251,14 @@ export function ModalWithScrollableTabPanels() {
                         </Inline>
                     </Stack>
                     <Tabs>
-                        <Box
-                            paddingBottom="large"
-                            style={{
-                                borderBottom: '1px solid var(--product-library-divider-secondary)',
-                            }}
-                        >
+                        <Box paddingBottom="large">
                             <TabList aria-label="Multiple tablist example tabs">
                                 <Tab id="tab1">Sub-tasks</Tab>
                                 <Tab id="tab2">Comments</Tab>
                                 <Tab id="tab3">Activity</Tab>
                             </TabList>
                         </Box>
+                        <Divider weight="secondary" />
                         <Box height="full" overflow="auto">
                             <TabPanel id="tab1">
                                 <Box paddingX="small" paddingY="xlarge">
