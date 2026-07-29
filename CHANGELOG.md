@@ -1,3 +1,9 @@
+## [35.0.3](https://github.com/Doist/reactist/compare/v35.0.2...v35.0.3) (2026-07-29)
+
+### Bug Fixes
+
+- set Comms audience to thread ([#1130](https://github.com/Doist/reactist/issues/1130)) ([5666082](https://github.com/Doist/reactist/commit/5666082d68a3ba439b4d46a6b3bdf4a6bdf4e948))
+
 ## [35.0.2](https://github.com/Doist/reactist/compare/v35.0.1...v35.0.2) (2026-07-28)
 
 ### Bug Fixes
