@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
+import { withDarkTheme } from '../../.storybook/dark-theme'
 import { Box } from '../box'
 import { Heading } from '../heading'
 import { Inline } from '../inline'
@@ -135,48 +136,7 @@ function PlaygroundTemplate({ label, ...props }) {
 
 function DarkModeTemplate(props) {
     return (
-        <Box
-            padding="xlarge"
-            style={{
-                backgroundColor: 'rgb(31, 31, 31)',
-                '--product-library-display-primary-idle-tint': 'rgba(255, 255, 255, 0.88)',
-                // variant="primary"
-                '--product-library-actionable-primary-on-idle-tint': '#eceeee',
-                '--product-library-actionable-primary-idle-fill': '#008099',
-                '--product-library-actionable-primary-on-hover-tint': '#eceeee',
-                '--product-library-actionable-primary-hover-fill': '#1f8fa5',
-                '--product-library-actionable-primary-on-disabled-tint': '#767777',
-                '--product-library-actionable-primary-disabled-fill': '#00404c',
-                // variant="secondary"
-                '--product-library-actionable-secondary-on-idle-tint': '#eceeee',
-                '--product-library-actionable-secondary-idle-fill': '#283233',
-                '--product-library-actionable-secondary-on-hover-tint': '#eceeee',
-                '--product-library-actionable-secondary-hover-fill': '#31393b',
-                '--product-library-actionable-secondary-on-disabled-tint': '#767777',
-                '--product-library-actionable-secondary-disabled-fill': '#283233',
-                // variant="tertiary"
-                '--product-library-actionable-tertiary-idle-tint': '#22a5bf',
-                '--product-library-actionable-tertiary-on-hover-tint': '#22a5bf',
-                '--product-library-actionable-tertiary-hover-fill': '#283233',
-                '--product-library-actionable-tertiary-disabled-tint': '#11525f',
-                // variant="quaternary"
-                '--product-library-actionable-quaternary-idle-tint': '#8fa0a3',
-                '--product-library-actionable-quaternary-on-hover-tint': '#eceeee',
-                '--product-library-actionable-quaternary-hover-fill': '#283233',
-                '--product-library-actionable-quaternary-disabled-tint': '#444d4f',
-                // colour for the desctructive tone (used in certain ways by all variants)
-                '--product-library-actionable-destructive-on-idle-tint': '#fff',
-                '--product-library-actionable-destructive-idle-fill': '#d26160',
-                '--product-library-actionable-destructive-on-hover-tint': '#fff',
-                '--product-library-actionable-destructive-hover-fill': '#e98786',
-                '--product-library-actionable-destructive-on-disabled-tint': '#767777',
-                '--product-library-actionable-destructive-disabled-fill': '#7f2c24',
-                /* secondary destructive button colors (no fill, as these are transparent and bordered) */
-                '--product-library-actionable-destructive-idle-tint': '#f68584',
-                '--product-library-actionable-destructive-hover-tint': '#eFa9a9',
-                '--product-library-actionable-destructive-disabled-tint': '#8a5853',
-            }}
-        >
+        <Box padding="xlarge" background="default">
             <PlaygroundTemplate {...props} />
         </Box>
     )
@@ -834,12 +794,18 @@ export const Playground = {
 
 export const DarkMode = {
     render: DarkModeTemplate.bind({}),
+    decorators: [withDarkTheme],
     name: 'Dark mode',
 
     parameters: {
         docs: {
             source: {
                 type: 'dynamic',
+            },
+            // Render as an iframe to scope `theme_dark` to the story
+            story: {
+                inline: false,
+                height: '320px',
             },
         },
     },
