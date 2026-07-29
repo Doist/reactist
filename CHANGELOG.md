@@ -1,3 +1,9 @@
+## [35.0.5](https://github.com/Doist/reactist/compare/v35.0.4...v35.0.5) (2026-07-29)
+
+### Bug Fixes
+
+- **deps:** update babel monorepo to v7.29.7 ([#1138](https://github.com/Doist/reactist/issues/1138)) ([cf8a9c9](https://github.com/Doist/reactist/commit/cf8a9c97a026b07b1b0b2ceb5b0e8aa43bbdedc2))
+
 ## [35.0.4](https://github.com/Doist/reactist/compare/v35.0.3...v35.0.4) (2026-07-29)
 
 ### Bug Fixes
