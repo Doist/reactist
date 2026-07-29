@@ -106,7 +106,7 @@
         "@types/react-18": "npm:@types/react@18.3.31",
         "@types/react-dom": "19.2.3",
         "@types/react-dom-18": "npm:@types/react-dom@18.3.7",
-        "@types/react-transition-group": "4.4.6",
+        "@types/react-transition-group": "4.4.12",
         "@typescript-eslint/eslint-plugin": "8.46.2",
         "@typescript-eslint/parser": "8.46.2",
         "@vitejs/plugin-react": "5.2.0",
