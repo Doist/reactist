@@ -23,7 +23,7 @@
 
 /* Internals for spacing. These are not considered public API. */
 :root {
-    --reactist-prose-content-font-size: 15px;
+    --reactist-prose-content-font-size: 14px;
     --reactist-prose-em-multiplier: 1.5;
     --reactist-prose-space-1: calc(
         var(--reactist-prose-em-multiplier) * var(--reactist-prose-content-font-size) / 3
