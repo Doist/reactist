@@ -1,3 +1,9 @@
+## [35.0.4](https://github.com/Doist/reactist/compare/v35.0.3...v35.0.4) (2026-07-29)
+
+### Bug Fixes
+
+- **deps:** update dependency dayjs to v1.11.21 ([#1135](https://github.com/Doist/reactist/issues/1135)) ([053a71f](https://github.com/Doist/reactist/commit/053a71f06e7fa4ef5311cd3c43bbaa20a0dcb266))
+
 ## [35.0.3](https://github.com/Doist/reactist/compare/v35.0.2...v35.0.3) (2026-07-29)
 
 ### Bug Fixes
