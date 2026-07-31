@@ -58,6 +58,12 @@
     box-sizing: border-box;
 }
 
+/* Drop the leading margin at the start of the container. Any additional spacing here should
+   be owned by the consumer */
+.prose > :first-child {
+    margin-top: 0;
+}
+
 /* paragraphs */
 
 .prose p {
