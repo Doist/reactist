@@ -1,3 +1,9 @@
+## [35.0.7](https://github.com/Doist/reactist/compare/v35.0.6...v35.0.7) (2026-07-31)
+
+### Bug Fixes
+
+- drop Prose's leading margin above its first block ([e6e2394](https://github.com/Doist/reactist/commit/e6e2394ac2b9e31c33abf89c733cae8c76998f5c))
+
 ## [35.0.6](https://github.com/Doist/reactist/compare/v35.0.5...v35.0.6) (2026-07-29)
 
 ### Bug Fixes
