@@ -1,3 +1,13 @@
+## [36.0.0](https://github.com/Doist/reactist/compare/v35.0.7...v36.0.0) (2026-08-01)
+
+### ⚠ BREAKING CHANGES
+
+- source color tokens from product-libraries-tokens (#1094)
+
+### Features
+
+- source color tokens from product-libraries-tokens ([#1094](https://github.com/Doist/reactist/issues/1094)) ([4aba31d](https://github.com/Doist/reactist/commit/4aba31d40d5a685d17624d012f2c1fbe360a8fec))
+
 ## [35.0.7](https://github.com/Doist/reactist/compare/v35.0.6...v35.0.7) (2026-07-31)
 
 ### Bug Fixes
