@@ -15,7 +15,7 @@
     right: 10px;
     top: 8px;
     bottom: 8px;
-    color: var(--reactist-content-secondary);
+    color: var(--product-library-display-secondary-idle-tint);
 }
 
 .selectWrapper select {
@@ -41,25 +41,25 @@
     appearance: none;
     box-sizing: border-box;
     width: 100%;
-    color: var(--reactist-content-primary);
+    color: var(--product-library-display-primary-idle-tint);
     background: none;
     border-radius: var(--reactist-border-radius-small);
-    border: 1px solid var(--reactist-inputs-idle);
+    border: 1px solid var(--product-library-border-idle-tint);
     margin: 0;
 }
 
 .selectWrapper:not(.bordered).error select {
-    border-color: var(--reactist-inputs-alert) !important;
+    border-color: var(--product-library-info-attention-primary-idle-tint) !important;
 }
 
 .selectWrapper:not(.bordered) option {
-    background-color: var(--reactist-bg-aside);
+    background-color: var(--product-library-background-base-secondary);
 }
 
 .selectWrapper:not(.bordered) select:hover {
-    border-color: var(--reactist-inputs-hover);
+    border-color: var(--product-library-border-hover-tint);
 }
 
 .selectWrapper:not(.bordered) select:focus {
-    border-color: var(--reactist-inputs-focus);
+    border-color: var(--product-library-border-focus-tint);
 }

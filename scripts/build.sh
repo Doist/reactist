@@ -10,3 +10,5 @@ rimraf dist/assets
 # We delete duplicate styles in dist/ & lib/
 ./scripts/organize-styles.sh
 
+# Copy the product-library theme CSS into styles/tokens/
+./scripts/copy-token-themes.sh

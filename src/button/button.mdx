@@ -74,41 +74,6 @@ Buttons can be set to take the full width of their container by using the `width
 
 ## Dark mode
 
-Even though Reactist does not yet owns the concept of dark mode, and leaves it for apps to set it
-up, here's a demo on how easily you can set it up by manipulating color variables only.
+Dark mode colors are applied when the `.theme_dark` class is set on the root element.
 
 <Canvas of={ButtonStories.DarkMode} />
-
-## Colors
-
-The following CSS custom properties are available to customize the button-like element appearance.
-
-```
---reactist-actionable-primary-idle-tint
---reactist-actionable-primary-idle-fill
---reactist-actionable-primary-hover-tint
---reactist-actionable-primary-hover-fill
---reactist-actionable-primary-disabled-tint
---reactist-actionable-primary-disabled-fill
-
---reactist-actionable-secondary-idle-tint
---reactist-actionable-secondary-idle-fill
---reactist-actionable-secondary-hover-tint
---reactist-actionable-secondary-hover-fill
---reactist-actionable-secondary-disabled-tint
---reactist-actionable-secondary-disabled-fill
-
---reactist-actionable-tertiary-idle-tint
---reactist-actionable-tertiary-idle-fill
---reactist-actionable-tertiary-hover-tint
---reactist-actionable-tertiary-hover-fill
---reactist-actionable-tertiary-disabled-tint
---reactist-actionable-tertiary-disabled-fill
-
---reactist-actionable-destructive-idle-tint
---reactist-actionable-destructive-idle-fill
---reactist-actionable-destructive-hover-tint
---reactist-actionable-destructive-hover-fill
---reactist-actionable-destructive-disabled-tint
---reactist-actionable-destructive-disabled-fill
-```

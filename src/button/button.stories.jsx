@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
+import { withDarkTheme } from '../../.storybook/dark-theme'
 import { Box } from '../box'
 import { Heading } from '../heading'
 import { Inline } from '../inline'
@@ -135,48 +136,7 @@ function PlaygroundTemplate({ label, ...props }) {
 
 function DarkModeTemplate(props) {
     return (
-        <Box
-            padding="xlarge"
-            style={{
-                backgroundColor: 'rgb(31, 31, 31)',
-                '--reactist-content-primary': 'rgba(255, 255, 255, 0.88)',
-                // variant="primary"
-                '--reactist-actionable-primary-idle-tint': '#eceeee',
-                '--reactist-actionable-primary-idle-fill': '#008099',
-                '--reactist-actionable-primary-hover-tint': '#eceeee',
-                '--reactist-actionable-primary-hover-fill': '#1f8fa5',
-                '--reactist-actionable-primary-disabled-tint': '#767777',
-                '--reactist-actionable-primary-disabled-fill': '#00404c',
-                // variant="secondary"
-                '--reactist-actionable-secondary-idle-tint': '#eceeee',
-                '--reactist-actionable-secondary-idle-fill': '#283233',
-                '--reactist-actionable-secondary-hover-tint': '#eceeee',
-                '--reactist-actionable-secondary-hover-fill': '#31393b',
-                '--reactist-actionable-secondary-disabled-tint': '#767777',
-                '--reactist-actionable-secondary-disabled-fill': '#283233',
-                // variant="tertiary"
-                '--reactist-actionable-tertiary-idle-tint': '#22a5bf',
-                '--reactist-actionable-tertiary-hover-tint': '#22a5bf',
-                '--reactist-actionable-tertiary-hover-fill': '#283233',
-                '--reactist-actionable-tertiary-disabled-tint': '#11525f',
-                // variant="quaternary"
-                '--reactist-actionable-quaternary-idle-tint': '#8fa0a3',
-                '--reactist-actionable-quaternary-hover-tint': '#eceeee',
-                '--reactist-actionable-quaternary-hover-fill': '#283233',
-                '--reactist-actionable-quaternary-disabled-tint': '#444d4f',
-                // colour for the desctructive tone (used in certain ways by all variants)
-                '--reactist-actionable-primary-destructive-idle-tint': '#fff',
-                '--reactist-actionable-primary-destructive-idle-fill': '#d26160',
-                '--reactist-actionable-primary-destructive-hover-tint': '#fff',
-                '--reactist-actionable-primary-destructive-hover-fill': '#e98786',
-                '--reactist-actionable-primary-destructive-disabled-tint': '#767777',
-                '--reactist-actionable-primary-destructive-disabled-fill': '#7f2c24',
-                /* secondary destructive button colors (no fill, as these are transparent and bordered) */
-                '--reactist-actionable-secondary-destructive-idle-tint': '#f68584',
-                '--reactist-actionable-secondary-destructive-hover-tint': '#eFa9a9',
-                '--reactist-actionable-secondary-destructive-disabled-tint': '#8a5853',
-            }}
-        >
+        <Box padding="xlarge" background="default">
             <PlaygroundTemplate {...props} />
         </Box>
     )
@@ -834,12 +794,18 @@ export const Playground = {
 
 export const DarkMode = {
     render: DarkModeTemplate.bind({}),
+    decorators: [withDarkTheme],
     name: 'Dark mode',
 
     parameters: {
         docs: {
             source: {
                 type: 'dynamic',
+            },
+            // Render as an iframe to scope `theme_dark` to the story
+            story: {
+                inline: false,
+                height: '320px',
             },
         },
     },

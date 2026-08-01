@@ -1,6 +1,12 @@
 /// <reference types="../types/css" />
 /// <reference types="../types/less" />
 
+// Bundle the product library's light palette. Following package `exports`
+// maps requires `eslint-import-resolver-typescript` on a newer version of
+// eslint, so we are disabling the rule for now
+// eslint-disable-next-line import/no-unresolved
+import '@doist/product-libraries-tokens/css/td-light.css'
+
 import './styles/design-tokens.css'
 
 // layout components

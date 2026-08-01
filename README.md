@@ -38,6 +38,39 @@ If you prefer to include static files grab the [minified build from the dist fol
 <link rel="stylesheet" type="text/css" href="./node_modules/@doist/reactist/styles/reactist.css" />
 ```
 
+## Theming
+
+Reactist bakes a light palette (`@doist/product-libraries-tokens`) into `reactist.css`. To use a dark or accent theme, load one of the theme files Reactist re-exports and toggle its class on the root element:
+
+```html
+<link rel="stylesheet" href="./node_modules/@doist/reactist/styles/tokens/<theme_name>.css" />
+```
+
+```js
+import '@doist/reactist/styles/tokens/<theme_name>.css'
+```
+
+Then set the matching class on `:root`. Each theme file sets its own `color-scheme`, so you do not need to declare it yourself — the column below is what you get, not what you set.
+
+| Theme / file name   | color-scheme | class                  |
+| ------------------- | ------------ | ---------------------- |
+| `td-light`          | `light`      | none                   |
+| `td-dark`           | `dark`       | `theme_dark`           |
+| `td-blueberry`      | `light`      | `theme_blueberry`      |
+| `td-blueberry-dark` | `dark`       | `theme_blueberry_dark` |
+| `td-gold`           | `light`      | `theme_gold`           |
+| `td-gold-dark`      | `dark`       | `theme_gold_dark`      |
+| `td-kale`           | `light`      | `theme_kale`           |
+| `td-kale-dark`      | `dark`       | `theme_kale_dark`      |
+| `td-lavender`       | `light`      | `theme_lavender`       |
+| `td-lavender-dark`  | `dark`       | `theme_lavender_dark`  |
+| `td-moonstone`      | `light`      | `theme_moonstone`      |
+| `td-moonstone-dark` | `dark`       | `theme_moonstone_dark` |
+| `td-raspberry`      | `light`      | `theme_raspberry`      |
+| `td-raspberry-dark` | `dark`       | `theme_raspberry_dark` |
+| `td-tangerine`      | `light`      | `theme_tangerine`      |
+| `td-tangerine-dark` | `dark`       | `theme_tangerine_dark` |
+
 # Changelog
 
 You can find our changelog [here](./CHANGELOG.md).

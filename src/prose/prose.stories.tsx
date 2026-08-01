@@ -31,15 +31,17 @@ export function ProsePlaygroundStory({ darkModeTypography, dangerouslySetInnerHT
                     ? {
                           backgroundColor: '#202020',
                           // @ts-expect-error
-                          '--reactist-content-primary': 'rgba(255, 255, 255, 0.88)',
+                          '--product-library-display-primary-idle-tint':
+                              'rgba(255, 255, 255, 0.88)',
                           '--reactist-prose-code-tint': 'rgba(255, 255, 255, 0.88)',
                           '--reactist-prose-code-fill': 'rgb(40, 40, 40)',
-                          '--reactist-prose-code-border': 'var(--reactist-divider-secondary)',
+                          '--reactist-prose-code-border':
+                              'var(--product-library-divider-secondary)',
                           '--reactist-prose-quote-tint': '#9db4b9',
                           // divider colors
-                          '--reactist-divider-primary': '#53595b',
-                          '--reactist-divider-secondary': '#424b4c',
-                          '--reactist-divider-tertiary': '#323839',
+                          '--product-library-divider-primary': '#53595b',
+                          '--product-library-divider-secondary': '#424b4c',
+                          '--product-library-divider-tertiary': '#323839',
                           // link colors
                           '--reactist-prose-link-idle-tint': '#22a5bf',
                           '--reactist-prose-link-idle-underline': '#53595b',

@@ -1,9 +1,3 @@
-:root {
-    --reactist-switch-background: var(--reactist-framework-fill-summit);
-    --reactist-switch-checked: var(--reactist-content-positive);
-    --reactist-switch-toggle: var(--reactist-bg-default);
-}
-
 .container,
 .container * {
     font-family: var(--reactist-font-family);
@@ -34,7 +28,7 @@
     height: var(--tmp-switch-height);
     min-height: auto;
     border-radius: calc(var(--tmp-switch-height) / 2);
-    background-color: var(--reactist-switch-background);
+    background-color: var(--product-library-selectable-primary-unselected-fill);
     cursor: pointer;
     position: relative;
 }
@@ -55,12 +49,12 @@
     width: var(--tmp-handle-size);
     height: var(--tmp-handle-size);
     border-radius: 50%;
-    background: var(--reactist-switch-toggle);
+    background: var(--product-library-selectable-primary-on-selected-fill);
     transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .checked .toggle {
-    background-color: var(--reactist-switch-checked);
+    background-color: var(--product-library-actionable-primary-idle-fill);
 }
 
 .checked .toggle .handle {
@@ -69,7 +63,7 @@
 
 .container.keyFocused .toggle:after {
     border-radius: calc(var(--tmp-switch-height) + 8px / 2);
-    border: 2px solid var(--reactist-actionable-primary-idle-fill);
+    border: 2px solid var(--product-library-actionable-primary-idle-fill);
     bottom: -4px;
     content: '';
     left: -4px;

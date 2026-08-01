@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { withDarkTheme } from '../../.storybook/dark-theme'
 import { Box } from '../box'
 import { Button } from '../button'
 import { Column, Columns } from '../columns'
@@ -62,25 +63,7 @@ function BadgeExamples() {
 
 function DarkModeTemplate() {
     return (
-        <Box
-            padding="xlarge"
-            style={{
-                backgroundColor: '#202020',
-                '--reactist-content-primary': 'rgba(255, 255, 255, 0.88)',
-                // tone="info"
-                '--reactist-badge-info-tint': '#B3B3B3',
-                '--reactist-badge-info-fill': '#363636',
-                // tone="positive"
-                '--reactist-badge-positive-tint': '#08A531',
-                '--reactist-badge-positive-fill': '#19231B',
-                // tone="promote"
-                '--reactist-badge-promote-tint': '#FF8C1A',
-                '--reactist-badge-promote-fill': '#412A06',
-                // tone="attention"
-                '--reactist-badge-attention-tint': '#CF473A',
-                '--reactist-badge-attention-fill': '#351E1C',
-            }}
-        >
+        <Box padding="xlarge" background="default">
             <BadgeExamples />
         </Box>
     )
@@ -188,12 +171,18 @@ export const InsideOtherElements = {
 
 export const DarkMode = {
     render: DarkModeTemplate.bind({}),
+    decorators: [withDarkTheme],
     name: 'Dark mode',
 
     parameters: {
         docs: {
             source: {
                 type: 'dynamic',
+            },
+            // Render as an iframe to scope `theme_dark` to the story
+            story: {
+                inline: false,
+                height: '260px',
             },
         },
     },

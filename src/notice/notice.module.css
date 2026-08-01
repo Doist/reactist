@@ -1,5 +1,5 @@
 .container {
-    color: var(--reactist-content-primary);
+    color: var(--product-library-display-primary-idle-tint);
 }
 
 .content {
@@ -11,17 +11,17 @@
 }
 
 .tone-info .icon {
-    color: var(--reactist-alert-tone-info-icon);
+    color: var(--product-library-info-neutral-primary-idle-fill);
 }
 
 .tone-positive .icon {
-    color: var(--reactist-alert-tone-positive-icon);
+    color: var(--product-library-info-positive-primary-idle-fill);
 }
 
 .tone-caution .icon {
-    color: var(--reactist-alert-tone-caution-icon);
+    color: var(--product-library-info-warning-primary-on-idle-fill);
 }
 
 .tone-critical .icon {
-    color: var(--reactist-alert-tone-critical-icon);
+    color: var(--product-library-info-attention-primary-idle-fill);
 }

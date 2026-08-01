@@ -2,7 +2,7 @@
     font-family: var(--reactist-font-family);
     font-size: var(--reactist-font-size-body);
     font-weight: var(--reactist-font-weight-regular);
-    color: var(--reactist-content-primary);
+    color: var(--product-library-display-primary-idle-tint);
 }
 
 .size-caption {
@@ -23,13 +23,13 @@
 }
 
 .tone-secondary {
-    color: var(--reactist-content-secondary);
+    color: var(--product-library-display-secondary-idle-tint);
 }
 .tone-danger {
-    color: var(--reactist-content-danger);
+    color: var(--product-library-actionable-destructive-idle-tint);
 }
 .tone-positive {
-    color: var(--reactist-content-positive);
+    color: var(--product-library-info-positive-primary-idle-tint);
 }
 
 /* truncated text */

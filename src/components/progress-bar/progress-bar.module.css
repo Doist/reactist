@@ -2,9 +2,9 @@
     --reactist-progressbar-height: var(--reactist-spacing-xsmall);
     --reactist-progressbar-radius-outer: var(--reactist-progressbar-height);
     --reactist-progressbar-radius-inner: var(--reactist-progressbar-height);
-    --reactist-progressbar-track: var(--reactist-framework-fill-crest);
-    --reactist-progressbar-fill: var(--reactist-bg-brand);
-    --reactist-progressbar-scale-tint: var(--reactist-content-tertiary);
+    --reactist-progressbar-track: var(--product-library-background-base-tertiary);
+    --reactist-progressbar-fill: var(--product-library-display-accent-primary-fill);
+    --reactist-progressbar-scale-tint: var(--product-library-display-tertiary-idle-tint);
     --reactist-progressbar-scale-tick-height: 8px;
     --reactist-progressbar-scale-minor-tick-opacity: 0.15;
     --reactist-progressbar-scale-major-tick-opacity: 0.35;
