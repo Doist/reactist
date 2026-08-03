@@ -383,15 +383,7 @@ export function ModalAutofocus() {
                     By default the `autoFocus` prop is `true`, which shifts the focus onto the first
                     focusable element in the modal. You can further refine this by using the
                     `data-autofocus` attribute if you wish to focus on elements other than the first
-                    one. This is made possible using React Focus Lock, please see its{' '}
-                    <a
-                        target="_blank"
-                        rel="noreferrer"
-                        href="https://github.com/theKashey/react-focus-lock/tree/v2.9.1#autofocus"
-                    >
-                        documentation
-                    </a>{' '}
-                    for more details.
+                    one.
                 </Text>
             </Stack>
             <Modal height="fitContent" aria-label="Confirmation modal" width="small">

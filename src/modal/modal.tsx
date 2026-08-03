@@ -1,9 +1,7 @@
 import * as React from 'react'
 import { forwardRef } from 'react'
-import FocusLock from 'react-focus-lock'
 
-import { Dialog, Portal, useDialogStore } from '@ariakit/react'
-import { hideOthers } from 'aria-hidden'
+import { Dialog } from '@base-ui/react/dialog'
 import classNames from 'classnames'
 
 import { Box } from '../box'
@@ -15,7 +13,6 @@ import { Inline } from '../inline'
 
 import styles from './modal.module.css'
 
-import type { DialogOptions, PortalOptions } from '@ariakit/react'
 import type { IconButtonProps } from '../button'
 import type { DividerProps } from '../divider'
 import type { ObfuscatedClassName } from '../utils/common-types'
@@ -100,12 +97,12 @@ export interface ModalProps extends DivProps, ObfuscatedClassName {
     /**
      * Controls if the modal is dismissed when pressing "Escape".
      */
-    hideOnEscape?: DialogOptions['hideOnEscape']
+    hideOnEscape?: boolean | ((event: KeyboardEvent) => boolean)
 
     /**
      * Controls if the modal is dismissed when clicking outside the modal body, on the overlay.
      */
-    hideOnInteractOutside?: DialogOptions['hideOnInteractOutside']
+    hideOnInteractOutside?: boolean | ((event: Event) => boolean)
 
     /**
      * An escape hatch in case you need to provide a custom class name to the overlay element.
@@ -131,23 +128,19 @@ export interface ModalProps extends DivProps, ObfuscatedClassName {
      *
      * @example
      * const [portal, setPortal] = useState(null);
-     * <Portal portalElement={portal} />;
+     * <Modal portalElement={portal} />;
      * <div ref={setPortal} />;
      *
      * @example
-     * const getPortalElement = useCallback(() => {
+     * const getPortalElement = () => {
      *   const div = document.createElement("div");
      *   const portalRoot = document.getElementById("portal-root");
      *   portalRoot.appendChild(div);
      *   return div;
-     * }, []);
-     * <Portal portalElement={getPortalElement} />;
+     * };
+     * <Modal portalElement={getPortalElement} />;
      */
-    portalElement?: PortalOptions['portalElement']
-}
-
-function isNotInternalFrame(element: HTMLElement) {
-    return !(element.ownerDocument === document && element.tagName.toLowerCase() === 'iframe')
+    portalElement?: HTMLElement | (() => HTMLElement | null) | null
 }
 
 /**
@@ -173,135 +166,130 @@ export function Modal({
     children,
     portalElement,
     onKeyDown,
-    // @ts-expect-error we want to make sure to not pass it to the Dialog component
+    // @ts-expect-error we want to make sure to not pass it to the dialog element
     className,
     ...props
 }: ModalProps) {
-    const setOpen = React.useCallback(
-        (visible: boolean) => {
-            if (!visible) {
-                onDismiss?.()
-            }
-        },
-        [onDismiss],
-    )
-    const store = useDialogStore({ open: isOpen, setOpen })
+    const contextValue: ModalContextValue = { onDismiss, height, dividers }
 
-    const contextValue: ModalContextValue = React.useMemo(
-        () => ({ onDismiss, height, dividers }),
-        [onDismiss, height, dividers],
-    )
-
-    const portalRef = React.useRef<HTMLElement | null>(null)
     const dialogRef = React.useRef<HTMLDivElement | null>(null)
-    const backdropRef = React.useRef<HTMLDivElement | null>(null)
-    const handleBackdropClick = React.useCallback(
-        (event: React.MouseEvent) => {
-            if (
-                // The focus lock element takes up the same space as the backdrop and is where the event bubbles up from,
-                // so instead of checking the backdrop as the event target, we need to make sure it's just above the dialog
-                !dialogRef.current?.contains(event.target as Node) &&
-                // Events fired from other portals will bubble up to the backdrop, even if it isn't a child in the DOM
-                backdropRef.current?.contains(event.target as Node)
-            ) {
-                event.stopPropagation()
-                onDismiss?.()
+
+    // Resolve the portal element upfront when given as a function, so that the dialog is only
+    // rendered once its final portal element is known
+    const [resolvedPortalElement, setResolvedPortalElement] = React.useState<HTMLElement | null>(
+        null,
+    )
+    React.useLayoutEffect(
+        function resolvePortalElement() {
+            if (typeof portalElement === 'function') {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
+                setResolvedPortalElement(portalElement())
             }
         },
-        [onDismiss],
+        [portalElement],
     )
 
-    React.useLayoutEffect(
-        function disableAccessibilityTreeOutside() {
-            if (!isOpen || !portalRef.current) {
+    function handleOpenChange(open: boolean, eventDetails: Dialog.Root.ChangeEventDetails) {
+        if (open) {
+            return
+        }
+
+        if (eventDetails.reason === 'outside-press') {
+            const shouldHide =
+                typeof hideOnInteractOutside === 'function'
+                    ? hideOnInteractOutside(eventDetails.event)
+                    : hideOnInteractOutside
+            if (shouldHide && onDismiss != null) {
+                onDismiss()
                 return
             }
+        }
 
-            return hideOthers(portalRef.current)
-        },
-        [isOpen],
-    )
+        // Reject any other close request. Escape is handled by our own keydown handler below, so a
+        // nested widget that handles Escape (and stops React propagation) does not also close the
+        // modal, and so the key does not propagate beyond the modal when it triggers the dismissal
+        eventDetails.cancel()
+    }
 
-    const handleKeyDown = React.useCallback(
-        function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
-            if (
-                hideOnEscape &&
-                onDismiss != null &&
-                event.key === 'Escape' &&
-                !event.defaultPrevented
-            ) {
+    function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+        if (event.key === 'Escape' && onDismiss != null && !event.defaultPrevented) {
+            const shouldHide =
+                typeof hideOnEscape === 'function' ? hideOnEscape(event.nativeEvent) : hideOnEscape
+            if (shouldHide) {
                 event.stopPropagation()
                 onDismiss()
             }
-            onKeyDown?.(event)
-        },
-        [onDismiss, hideOnEscape, onKeyDown],
-    )
+        }
+        onKeyDown?.(event)
+    }
 
-    if (!isOpen) {
+    function handleOverlayMouseDown(event: React.MouseEvent<HTMLDivElement>) {
+        // Keep focus inside the modal when pressing on the overlay, so keyboard handling (such as
+        // Escape to dismiss) keeps working even when the press does not close the modal
+        if (!dialogRef.current?.contains(event.target as Node)) {
+            event.preventDefault()
+        }
+    }
+
+    /**
+     * Focus the element marked with the `data-autofocus` attribute if present, or fall back to
+     * the default behaviour of focusing the first focusable element inside the modal.
+     */
+    function getInitialFocus() {
+        const autofocusElement = dialogRef.current?.querySelector('[data-autofocus]')
+        return autofocusElement instanceof HTMLElement ? autofocusElement : true
+    }
+
+    if (typeof portalElement === 'function' && resolvedPortalElement == null) {
         return null
     }
 
     return (
-        <Portal portalRef={portalRef} portalElement={portalElement}>
-            <Box
-                data-testid="modal-overlay"
-                data-overlay
-                className={classNames(
-                    styles.overlay,
-                    styles[height],
-                    styles[width],
-                    exceptionallySetOverlayClassName,
-                )}
-                /**
-                 * We're using `onPointerDown` instead of `onClick` to prevent the modal from
-                 * closing when the click starts inside the modal and ends on the backdrop.
-                 */
-                onPointerDown={hideOnInteractOutside ? handleBackdropClick : undefined}
-                ref={backdropRef}
+        <Dialog.Root open={isOpen} onOpenChange={handleOpenChange} modal>
+            <Dialog.Portal
+                container={
+                    (typeof portalElement === 'function' ? resolvedPortalElement : portalElement) ??
+                    undefined
+                }
             >
-                <FocusLock
-                    autoFocus={autoFocus}
-                    whiteList={isNotInternalFrame}
-                    returnFocus={true}
-                    crossFrame={false}
+                <Box
+                    data-testid="modal-overlay"
+                    data-overlay
+                    className={classNames(
+                        styles.overlay,
+                        styles[height],
+                        styles[width],
+                        exceptionallySetOverlayClassName,
+                    )}
+                    onMouseDown={handleOverlayMouseDown}
                 >
-                    <Dialog
-                        {...props}
-                        ref={dialogRef}
-                        render={
-                            <Box
-                                borderRadius="full"
-                                background="default"
-                                display="flex"
-                                flexDirection="column"
-                                overflow="hidden"
-                                height={height === 'expand' ? 'full' : undefined}
-                                flexGrow={height === 'expand' ? 1 : 0}
-                            />
-                        }
-                        className={classNames(exceptionallySetClassName, styles.container)}
-                        store={store}
-                        preventBodyScroll
-                        // Disable focus lock as we set up our own using ReactFocusLock
-                        modal={false}
-                        autoFocus={false}
-                        autoFocusOnShow={false}
-                        autoFocusOnHide={false}
-                        // Disable portal and backdrop as we control their markup
-                        portal={false}
-                        backdrop={false}
-                        hideOnInteractOutside={false}
-                        hideOnEscape={false}
-                        onKeyDown={handleKeyDown}
-                    >
-                        <ModalContext.Provider value={contextValue}>
-                            {children}
-                        </ModalContext.Provider>
-                    </Dialog>
-                </FocusLock>
-            </Box>
-        </Portal>
+                    <div className={styles.wrapper}>
+                        <Dialog.Popup
+                            {...props}
+                            ref={dialogRef}
+                            onKeyDown={handleKeyDown}
+                            initialFocus={autoFocus ? getInitialFocus : false}
+                            render={
+                                <Box
+                                    borderRadius="full"
+                                    background="default"
+                                    display="flex"
+                                    flexDirection="column"
+                                    overflow="hidden"
+                                    height={height === 'expand' ? 'full' : undefined}
+                                    flexGrow={height === 'expand' ? 1 : 0}
+                                />
+                            }
+                            className={classNames(exceptionallySetClassName, styles.container)}
+                        >
+                            <ModalContext.Provider value={contextValue}>
+                                {children}
+                            </ModalContext.Provider>
+                        </Dialog.Popup>
+                    </div>
+                </Box>
+            </Dialog.Portal>
+        </Dialog.Root>
     )
 }
 
