@@ -137,6 +137,7 @@ describe('Modal', () => {
                 Hello
             </Modal>,
         )
+        expect(screen.getByRole('dialog', { name: 'modal' })).toBeInTheDocument()
         expect(onCloseComplete).not.toHaveBeenCalled()
 
         rerender(
@@ -158,6 +159,7 @@ describe('Modal', () => {
                 Hello
             </Modal>,
         )
+        expect(screen.getByRole('dialog', { name: 'modal' })).toBeInTheDocument()
         rerender(
             <Modal isOpen={false} onCloseComplete={onCloseComplete} aria-label="modal">
                 Hello

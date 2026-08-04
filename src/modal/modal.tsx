@@ -194,7 +194,7 @@ export function Modal({
     const store = useDialogStore({ open: isOpen, setOpen })
 
     const wasOpenRef = React.useRef(isOpen)
-    React.useLayoutEffect(
+    React.useEffect(
         function notifyCloseComplete() {
             if (wasOpenRef.current && !isOpen) {
                 onCloseComplete?.()
