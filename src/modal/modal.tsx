@@ -65,6 +65,11 @@ export interface ModalProps extends DivProps, ObfuscatedClassName {
     onDismiss?(this: void): void
 
     /**
+     * Called after React has committed removal of the modal and its focus lock from the DOM.
+     */
+    onCloseComplete?: () => void
+
+    /**
      * A descriptive setting for how wide the modal should aim to be, depending on how much space
      * it has on screen.
      * @default 'medium'
@@ -162,6 +167,7 @@ function isNotInternalFrame(element: HTMLElement) {
 export function Modal({
     isOpen,
     onDismiss,
+    onCloseComplete,
     height = 'fitContent',
     dividers,
     width = 'medium',
@@ -186,6 +192,18 @@ export function Modal({
         [onDismiss],
     )
     const store = useDialogStore({ open: isOpen, setOpen })
+
+    const wasOpenRef = React.useRef(isOpen)
+    React.useLayoutEffect(
+        function notifyCloseComplete() {
+            if (wasOpenRef.current && !isOpen) {
+                onCloseComplete?.()
+            }
+
+            wasOpenRef.current = isOpen
+        },
+        [isOpen, onCloseComplete],
+    )
 
     const contextValue: ModalContextValue = React.useMemo(
         () => ({ onDismiss, height, dividers }),
