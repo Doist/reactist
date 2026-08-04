@@ -30,7 +30,7 @@
     z-index: var(--reactist-stacking-order-modal);
 }
 
-.overlay > [data-focus-lock-disabled] {
+.overlay > .wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -40,10 +40,10 @@
     padding: var(--reactist-spacing-xxlarge);
 }
 
-.overlay.fitContent > [data-focus-lock-disabled] {
+.overlay.fitContent > .wrapper {
     padding-top: var(--reactist-modal-padding-top);
 }
-.overlay.fitContent > [data-focus-lock-disabled] .container {
+.overlay.fitContent > .wrapper .container {
     max-height: calc(100vh - 2 * var(--reactist-modal-padding-top));
 }
 
@@ -96,7 +96,7 @@
         width: 100% !important;
         max-height: none;
     }
-    .overlay.expand:not(.xsmall):not(.small) > [data-focus-lock-disabled] {
+    .overlay.expand:not(.xsmall):not(.small) > .wrapper {
         padding-left: 0;
         padding-right: 0;
         padding-bottom: 0;
@@ -112,7 +112,7 @@
         width: 100% !important;
         max-height: none;
     }
-    .overlay.expand > [data-focus-lock-disabled] {
+    .overlay.expand > .wrapper {
         padding-left: 0;
         padding-right: 0;
         padding-bottom: 0;
