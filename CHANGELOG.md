@@ -1,3 +1,9 @@
+## [36.1.0](https://github.com/Doist/reactist/compare/v36.0.0...v36.1.0) (2026-08-04)
+
+### Features
+
+- add modal close completion callback ([#1148](https://github.com/Doist/reactist/issues/1148)) ([d1c02c1](https://github.com/Doist/reactist/commit/d1c02c106b6e8321b0a3e315248f03123b45808c))
+
 ## [36.0.0](https://github.com/Doist/reactist/compare/v35.0.7...v36.0.0) (2026-08-01)
 
 ### ⚠ BREAKING CHANGES
