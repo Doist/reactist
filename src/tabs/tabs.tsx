@@ -11,6 +11,7 @@ import classNames from 'classnames'
 
 import { Box } from '../box'
 import { Inline } from '../inline'
+import { justifyContentByAlignment } from '../segmented-control/segmented-control-helpers'
 
 import styles from '../segmented-control/segmented-control.module.css'
 
@@ -19,7 +20,7 @@ import type {
     TabProps as BaseTabProps,
     TabStore,
 } from '@ariakit/react'
-import type { BoxJustifyContent } from '../box'
+import type { SegmentedControlAlignment } from '../segmented-control/segmented-control-helpers'
 import type { ObfuscatedClassName, Space } from '../utils/common-types'
 
 type TabsContextValue = Required<Pick<TabsProps, 'variant'>> & {
@@ -128,7 +129,9 @@ const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(
             store={tabStore}
             className={className}
             accessibleWhenDisabled={accessibleWhenDisabled}
-            render={render ?? (({ style, ...renderProps }) => <button {...renderProps} />)}
+            render={
+                render ?? (({ style, ...renderProps }) => <button style={style} {...renderProps} />)
+            }
             {...props}
         >
             {children}
@@ -180,7 +183,7 @@ type TabListProps = (
      *
      * @default 'start'
      */
-    align?: 'start' | 'center' | 'end'
+    align?: SegmentedControlAlignment
 } & ObfuscatedClassName
 
 /**
@@ -204,19 +207,13 @@ function TabList({
 
     const { tabStore, variant } = tabContextValue
 
-    const justifyContentAlignMap: Record<typeof align, BoxJustifyContent> = {
-        start: 'flexStart',
-        end: 'flexEnd',
-        center: 'center',
-    }
-
     return (
         // This extra <Box> not only provides alignment for the tabs, but also prevents <Inline>'s
         // negative margins from collapsing when used in a flex container which will render the
         // track with the wrong height
         <Box
             display="flex"
-            justifyContent={width === 'full' ? 'center' : justifyContentAlignMap[align]}
+            justifyContent={width === 'full' ? 'center' : justifyContentByAlignment[align]}
         >
             <BaseTabList
                 store={tabStore}

@@ -7,7 +7,11 @@ import { Tab, TabList, TabPanel, Tabs } from '../tabs'
 import styles from './segmented-control.module.css'
 
 import type { StackProps } from '../stack'
-import type { AriaLabelProps } from './segmented-control'
+import type {
+    AriaLabelProps,
+    ControlledSelectionProps,
+    UncontrolledSelectionProps,
+} from './segmented-control'
 
 type SegmentedControlTabsOption<TOptionId extends string = string> = {
     /** A unique value for the option. */
@@ -44,20 +48,8 @@ type SegmentedControlTabsOption<TOptionId extends string = string> = {
         disabled?: boolean
     }
 
-type ControlledTabsSelectionProps<TOptionId extends string> = {
-    /** The currently selected option. */
-    selectedOptionId: TOptionId
-    initialSelectedOptionId?: never
-}
-
-type UncontrolledTabsSelectionProps<TOptionId extends string> = {
-    selectedOptionId?: never
-    /** The initially selected option. */
-    initialSelectedOptionId: TOptionId
-}
-
 type SegmentedControlTabsProps<TOptionId extends string = string> = AriaLabelProps &
-    (ControlledTabsSelectionProps<TOptionId> | UncontrolledTabsSelectionProps<TOptionId>) & {
+    (ControlledSelectionProps<TOptionId> | UncontrolledSelectionProps<TOptionId>) & {
         /** The options and corresponding panels displayed by the tab control. */
         options: ReadonlyArray<SegmentedControlTabsOption<TOptionId>>
 

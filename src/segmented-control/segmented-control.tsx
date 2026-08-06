@@ -5,10 +5,12 @@ import classNames from 'classnames'
 
 import { Box } from '../box'
 
+import { justifyContentByAlignment } from './segmented-control-helpers'
+
 import styles from './segmented-control.module.css'
 
 import type { RadioStoreProps } from '@ariakit/react'
-import type { BoxJustifyContent } from '../box'
+import type { SegmentedControlAlignment } from './segmented-control-helpers'
 
 type AriaLabelProps =
     | {
@@ -76,7 +78,7 @@ type SegmentedControlProps<TOptionId extends string = string> = AriaLabelProps &
         width?: 'maxContent' | 'full'
 
         /** How to align a content-width segmented control within its container. */
-        align?: 'start' | 'center' | 'end'
+        align?: SegmentedControlAlignment
     }
 
 type SegmentedControlRadioOption<TOptionId extends string = string> =
@@ -111,16 +113,10 @@ function SegmentedControlRadioInner<TOptionId extends string = string>(
         setValue: onSelectedOptionChange ? handleValueChange : undefined,
     })
 
-    const justifyContentAlignMap: Record<typeof align, BoxJustifyContent> = {
-        start: 'flexStart',
-        center: 'center',
-        end: 'flexEnd',
-    }
-
     return (
         <Box
             display="flex"
-            justifyContent={width === 'full' ? 'center' : justifyContentAlignMap[align]}
+            justifyContent={width === 'full' ? 'center' : justifyContentByAlignment[align]}
         >
             <RadioGroup
                 ref={ref}
@@ -183,8 +179,8 @@ const SegmentedControlRadio = React.forwardRef(SegmentedControlRadioInner) as <
 ) => React.ReactElement
 
 /**
- * @deprecated Use `SegmentedControlRadio`. This alias is retained so consumers of the initial
- * Reactist port can migrate without a breaking change.
+ * @deprecated Use `SegmentedControlRadio`. This temporary alias preserves the original component
+ * name used while the Todoist implementation was being ported to Reactist.
  */
 const SegmentedControl = SegmentedControlRadio
 
@@ -192,8 +188,10 @@ export { SegmentedControl, SegmentedControlRadio }
 export type {
     AriaDescriptionProps,
     AriaLabelProps,
+    ControlledSelectionProps,
     SegmentedControlOption,
     SegmentedControlProps,
     SegmentedControlRadioOption,
     SegmentedControlRadioProps,
+    UncontrolledSelectionProps,
 }

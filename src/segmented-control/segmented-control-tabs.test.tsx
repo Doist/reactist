@@ -1,21 +1,12 @@
 import * as React from 'react'
 
-import { act, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
-import { flushMicrotasks, TestIcon } from '../utils/test-helpers'
+import { flushAnimationFrames, flushMicrotasks, TestIcon } from '../utils/test-helpers'
 
 import { SegmentedControlTabs } from './segmented-control-tabs'
-
-async function flushAnimationFrames() {
-    await act(
-        () =>
-            new Promise<void>((resolve) =>
-                requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
-            ),
-    )
-}
 
 async function renderSegmentedControlTabs(element: React.ReactElement) {
     const result = render(element)
@@ -128,6 +119,7 @@ describe('SegmentedControlTabs', () => {
 
         expect(screen.getByRole('tab', { name: 'Mentions' })).toHaveFocus()
         expect(screen.getByRole('tab', { name: 'Unread' })).toBeDisabled()
+        expect(screen.getByRole('tabpanel', { name: 'Mentions' })).toBeVisible()
     })
 
     it('has no automated accessibility violations', async () => {

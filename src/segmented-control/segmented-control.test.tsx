@@ -1,12 +1,12 @@
 import * as React from 'react'
 
-import { act, render, screen } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
-import { flushMicrotasks, TestIcon } from '../utils/test-helpers'
+import { flushAnimationFrames, flushMicrotasks, TestIcon } from '../utils/test-helpers'
 
-import { SegmentedControl } from './segmented-control'
+import { SegmentedControlRadio } from './segmented-control'
 
 const OPTIONS = [
     { id: 'list', label: 'List' },
@@ -14,28 +14,19 @@ const OPTIONS = [
     { id: 'calendar', label: 'Calendar' },
 ] as const
 
-async function flushAnimationFrames() {
-    await act(
-        () =>
-            new Promise<void>((resolve) =>
-                requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
-            ),
-    )
-}
-
 async function renderSegmentedControl(element: React.ReactElement) {
     const result = render(element)
     await flushAnimationFrames()
     return result
 }
 
-describe('SegmentedControl', () => {
+describe('SegmentedControlRadio', () => {
     it('selects an option in uncontrolled mode', async () => {
         const onSelectedOptionChange = jest.fn()
         const user = userEvent.setup()
 
         await renderSegmentedControl(
-            <SegmentedControl
+            <SegmentedControlRadio
                 aria-label="Project layout"
                 initialSelectedOptionId="list"
                 options={OPTIONS}
@@ -56,7 +47,7 @@ describe('SegmentedControl', () => {
         const onSelectedOptionChange = jest.fn()
         const user = userEvent.setup()
         const { rerender } = await renderSegmentedControl(
-            <SegmentedControl
+            <SegmentedControlRadio
                 aria-label="Project layout"
                 selectedOptionId="list"
                 options={OPTIONS}
@@ -71,7 +62,7 @@ describe('SegmentedControl', () => {
         expect(screen.getByRole('radio', { name: 'List' })).toBeChecked()
 
         rerender(
-            <SegmentedControl
+            <SegmentedControlRadio
                 aria-label="Project layout"
                 selectedOptionId="board"
                 options={OPTIONS}
@@ -87,7 +78,7 @@ describe('SegmentedControl', () => {
         const user = userEvent.setup()
 
         await renderSegmentedControl(
-            <SegmentedControl
+            <SegmentedControlRadio
                 aria-label="Project layout"
                 initialSelectedOptionId="list"
                 options={OPTIONS}
@@ -112,7 +103,7 @@ describe('SegmentedControl', () => {
         }
 
         await renderSegmentedControl(
-            <SegmentedControl
+            <SegmentedControlRadio
                 aria-label="Project layout"
                 initialSelectedOptionId="list"
                 options={[
@@ -142,7 +133,7 @@ describe('SegmentedControl', () => {
             <>
                 <h2 id="layout-label">Project layout</h2>
                 <p id="layout-description">Changes how tasks are arranged.</p>
-                <SegmentedControl
+                <SegmentedControlRadio
                     aria-labelledby="layout-label"
                     aria-describedby="layout-description"
                     initialSelectedOptionId="list"
@@ -159,7 +150,7 @@ describe('SegmentedControl', () => {
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = await renderSegmentedControl(
-                <SegmentedControl
+                <SegmentedControlRadio
                     aria-label="Project layout"
                     initialSelectedOptionId="list"
                     options={OPTIONS}
