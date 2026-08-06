@@ -119,6 +119,55 @@ describe('Modal', () => {
         expect(screen.queryByRole('dialog', { name: 'modal' })).not.toBeInTheDocument()
     })
 
+    it('calls onCloseComplete after unmounting once per close, including after reopening', () => {
+        const onCloseComplete = jest.fn(() => {
+            expect(screen.queryByRole('dialog', { name: 'modal' })).not.toBeInTheDocument()
+            expect(document.querySelector('[data-focus-guard]')).not.toBeInTheDocument()
+        })
+        const { rerender } = renderModal(
+            <Modal isOpen={false} onCloseComplete={onCloseComplete} aria-label="modal">
+                Hello
+            </Modal>,
+        )
+
+        expect(onCloseComplete).not.toHaveBeenCalled()
+
+        rerender(
+            <Modal isOpen onCloseComplete={onCloseComplete} aria-label="modal">
+                Hello
+            </Modal>,
+        )
+        expect(screen.getByRole('dialog', { name: 'modal' })).toBeInTheDocument()
+        expect(onCloseComplete).not.toHaveBeenCalled()
+
+        rerender(
+            <Modal isOpen={false} onCloseComplete={onCloseComplete} aria-label="modal">
+                Hello
+            </Modal>,
+        )
+        expect(onCloseComplete).toHaveBeenCalledTimes(1)
+
+        rerender(
+            <Modal isOpen={false} onCloseComplete={onCloseComplete} aria-label="modal">
+                Hello
+            </Modal>,
+        )
+        expect(onCloseComplete).toHaveBeenCalledTimes(1)
+
+        rerender(
+            <Modal isOpen onCloseComplete={onCloseComplete} aria-label="modal">
+                Hello
+            </Modal>,
+        )
+        expect(screen.getByRole('dialog', { name: 'modal' })).toBeInTheDocument()
+        rerender(
+            <Modal isOpen={false} onCloseComplete={onCloseComplete} aria-label="modal">
+                Hello
+            </Modal>,
+        )
+        expect(onCloseComplete).toHaveBeenCalledTimes(2)
+    })
+
     it('hides the content underneath from assistive technologies', async () => {
         renderModal(<TestCaseWithState />)
         const user = userEvent.setup()

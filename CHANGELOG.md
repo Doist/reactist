@@ -1,3 +1,73 @@
+## [36.3.0](https://github.com/Doist/reactist/compare/v36.2.0...v36.3.0) (2026-08-06)
+
+### Features
+
+- **deps:** update dependency @doist/product-libraries-tokens to v1.2.0 ([#1150](https://github.com/Doist/reactist/issues/1150)) ([8b79edf](https://github.com/Doist/reactist/commit/8b79edfa3d1ad1f0c4645ba523e983ec12edf4bb))
+
+## [36.2.0](https://github.com/Doist/reactist/compare/v36.1.0...v36.2.0) (2026-08-06)
+
+### Features
+
+- **deps:** update dependency @doist/product-libraries-tokens to v1.1.0 ([#1149](https://github.com/Doist/reactist/issues/1149)) ([151db65](https://github.com/Doist/reactist/commit/151db65d13fe335184fe4a926e8f67a74c25c9e9))
+
+## [36.1.0](https://github.com/Doist/reactist/compare/v36.0.0...v36.1.0) (2026-08-04)
+
+### Features
+
+- add modal close completion callback ([#1148](https://github.com/Doist/reactist/issues/1148)) ([d1c02c1](https://github.com/Doist/reactist/commit/d1c02c106b6e8321b0a3e315248f03123b45808c))
+
+## [36.0.0](https://github.com/Doist/reactist/compare/v35.0.7...v36.0.0) (2026-08-01)
+
+### ⚠ BREAKING CHANGES
+
+- source color tokens from product-libraries-tokens (#1094)
+
+### Features
+
+- source color tokens from product-libraries-tokens ([#1094](https://github.com/Doist/reactist/issues/1094)) ([4aba31d](https://github.com/Doist/reactist/commit/4aba31d40d5a685d17624d012f2c1fbe360a8fec))
+
+## [35.0.7](https://github.com/Doist/reactist/compare/v35.0.6...v35.0.7) (2026-07-31)
+
+### Bug Fixes
+
+- drop Prose's leading margin above its first block ([e6e2394](https://github.com/Doist/reactist/commit/e6e2394ac2b9e31c33abf89c733cae8c76998f5c))
+
+## [35.0.6](https://github.com/Doist/reactist/compare/v35.0.5...v35.0.6) (2026-07-29)
+
+### Bug Fixes
+
+- centralize the font stack and adopt Todoist's typography defaults ([#1119](https://github.com/Doist/reactist/issues/1119)) ([a399aaa](https://github.com/Doist/reactist/commit/a399aaaff0b73fca36b3287d514f4a4e0ca2630e))
+
+## [35.0.5](https://github.com/Doist/reactist/compare/v35.0.4...v35.0.5) (2026-07-29)
+
+### Bug Fixes
+
+- **deps:** update babel monorepo to v7.29.7 ([#1138](https://github.com/Doist/reactist/issues/1138)) ([cf8a9c9](https://github.com/Doist/reactist/commit/cf8a9c97a026b07b1b0b2ceb5b0e8aa43bbdedc2))
+
+## [35.0.4](https://github.com/Doist/reactist/compare/v35.0.3...v35.0.4) (2026-07-29)
+
+### Bug Fixes
+
+- **deps:** update dependency dayjs to v1.11.21 ([#1135](https://github.com/Doist/reactist/issues/1135)) ([053a71f](https://github.com/Doist/reactist/commit/053a71f06e7fa4ef5311cd3c43bbaa20a0dcb266))
+
+## [35.0.3](https://github.com/Doist/reactist/compare/v35.0.2...v35.0.3) (2026-07-29)
+
+### Bug Fixes
+
+- set Comms audience to thread ([#1130](https://github.com/Doist/reactist/issues/1130)) ([5666082](https://github.com/Doist/reactist/commit/5666082d68a3ba439b4d46a6b3bdf4a6bdf4e948))
+
+## [35.0.2](https://github.com/Doist/reactist/compare/v35.0.1...v35.0.2) (2026-07-28)
+
+### Bug Fixes
+
+- **deps:** pin dependency react-markdown to 5.0.3 ([#1126](https://github.com/Doist/reactist/issues/1126)) ([4a72851](https://github.com/Doist/reactist/commit/4a728512268d26c9dad7f828eeff31f4024a1636))
+
+## [35.0.1](https://github.com/Doist/reactist/compare/v35.0.0...v35.0.1) (2026-07-28)
+
+### Bug Fixes
+
+- **deps:** pin dependencies ([#1125](https://github.com/Doist/reactist/issues/1125)) ([a84416f](https://github.com/Doist/reactist/commit/a84416f6be085d10024c75ffe29fec334e2662c8))
+
 ## [35.0.0](https://github.com/Doist/reactist/compare/v34.0.0...v35.0.0) (2026-07-16)
 
 ### ⚠ BREAKING CHANGES

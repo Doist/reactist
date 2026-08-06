@@ -1,6 +1,6 @@
 :root {
-    --reactist-spinner-tint: var(--reactist-bg-brand);
-    --reactist-spinner-fill: var(--reactist-framework-fill-crest);
+    --reactist-spinner-tint: var(--product-library-display-accent-primary-fill);
+    --reactist-spinner-fill: var(--product-library-display-accent-secondary-fill);
 }
 
 @keyframes spinner {

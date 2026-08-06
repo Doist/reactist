@@ -1,6 +1,6 @@
 :root {
-    --reactist-text-link-idle-tint: var(--reactist-actionable-tertiary-idle-tint);
-    --reactist-text-link-hover-tint: var(--reactist-actionable-tertiary-hover-tint);
+    --reactist-text-link-idle-tint: var(--product-library-actionable-tertiary-idle-tint);
+    --reactist-text-link-hover-tint: var(--product-library-actionable-tertiary-hover-tint);
     --reactist-text-link-idle-decoration: underline;
     --reactist-text-link-hover-decoration: underline;
 }

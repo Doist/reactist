@@ -1,6 +1,6 @@
 :root {
     --reactist-tab-themed-selected-tint: #006f85;
-    --reactist-tab-themed-selected-fill: var(--reactist-bg-default);
+    --reactist-tab-themed-selected-fill: var(--product-library-background-base-primary);
     --reactist-tab-themed-unselected-tint: #006f85;
     --reactist-tab-themed-unselected-fill: transparent;
     --reactist-tab-themed-hover-tint: #006f85;
@@ -8,19 +8,27 @@
     --reactist-tab-themed-disabled-tint: #006f85;
     --reactist-tab-themed-disabled-fill: transparent;
     --reactist-tab-themed-track: rgb(242, 246, 247);
-    --reactist-tab-themed-border: var(--reactist-divider-secondary);
+    --reactist-tab-themed-border: var(--product-library-divider-secondary);
     --reactist-tab-themed-shadow: none;
 
-    --reactist-tab-neutral-selected-tint: var(--reactist-content-primary);
-    --reactist-tab-neutral-selected-fill: var(--reactist-bg-default);
-    --reactist-tab-neutral-unselected-tint: var(--reactist-content-tertiary);
+    --reactist-tab-neutral-selected-tint: var(
+        --product-library-selectable-tertiary-on-selected-enabled-tint
+    );
+    --reactist-tab-neutral-selected-fill: var(--product-library-selectable-tertiary-selected-fill);
+    --reactist-tab-neutral-unselected-tint: var(
+        --product-library-selectable-tertiary-on-unselected-enabled-tint
+    );
     --reactist-tab-neutral-unselected-fill: transparent;
-    --reactist-tab-neutral-hover-tint: var(--reactist-content-tertiary);
+    --reactist-tab-neutral-hover-tint: var(
+        --product-library-selectable-tertiary-on-selected-enabled-tint
+    );
     --reactist-tab-neutral-hover-fill: transparent;
-    --reactist-tab-neutral-disabled-tint: var(--reactist-content-tertiary);
+    --reactist-tab-neutral-disabled-tint: var(
+        --product-library-selectable-tertiary-on-unselected-disabled-tint
+    );
     --reactist-tab-neutral-disabled-fill: transparent;
-    --reactist-tab-neutral-track: var(--reactist-framework-fill-selected);
-    --reactist-tab-neutral-border: var(--reactist-divider-primary);
+    --reactist-tab-neutral-track: var(--product-library-selectable-background);
+    --reactist-tab-neutral-border: var(--product-library-divider-primary);
     --reactist-tab-neutral-shadow: none;
 
     --reactist-tab-track-border-radius: 20px;

@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { withDarkTheme } from '../../.storybook/dark-theme'
 import { Box } from '../box'
 import { Button } from '../button'
 import { CheckboxField } from '../checkbox-field'
@@ -355,14 +356,7 @@ function DarkModeTemplate() {
             display="flex"
             flexDirection="column"
             padding="xlarge"
-            style={{
-                backgroundColor: '#202020',
-                '--reactist-banner-background-color': '#282828',
-                '--reactist-banner-border-color': '#3D3D3D',
-                '--reactist-banner-divider-color': '#3D3D3D',
-                '--reactist-banner-main-copy-color': '#FFFFFF',
-                '--reactist-banner-secondary-copy-color': '#B3B3B3',
-            }}
+            background="default"
             gap="large"
         >
             <Banner type="neutral" icon={<ArchiveIcon />} description="This is a neutral message" />
@@ -539,12 +533,18 @@ export const Content = {
 
 export const DarkMode = {
     render: DarkModeTemplate.bind({}),
+    decorators: [withDarkTheme],
     name: 'Dark mode',
 
     parameters: {
         docs: {
             source: {
                 type: 'dynamic',
+            },
+            // Render as an iframe to scope `theme_dark` to the story
+            story: {
+                inline: false,
+                height: '760px',
             },
         },
 
