@@ -59,6 +59,8 @@ interface TabsProps {
 
 /**
  * Used to group components that compose a set of tabs. There can only be one active tab within the same `<Tabs>` group.
+ *
+ * @deprecated Use `SegmentedControlTabs` instead.
  */
 function Tabs({
     children,
@@ -97,6 +99,8 @@ interface TabProps
 
 /**
  * Represents the individual tab elements within the group. Each `<Tab>` must have a corresponding `<TabPanel>` component.
+ *
+ * @deprecated Use `SegmentedControlTabs` instead.
  */
 const Tab = React.forwardRef<HTMLButtonElement, TabProps>(function Tab(
     {
@@ -181,6 +185,8 @@ type TabListProps = (
 
 /**
  * A component used to group `<Tab>` elements together.
+ *
+ * @deprecated Use `SegmentedControlTabs` instead.
  */
 function TabList({
     children,
@@ -263,6 +269,8 @@ interface TabPanelProps
 /**
  * Used to define the content to be rendered when a tab is active. Each `<TabPanel>` must have a
  * corresponding `<Tab>` component.
+ *
+ * @deprecated Use `SegmentedControlTabs` instead.
  */
 const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(function TabPanel(
     { children, id, renderMode = 'always', ...props },
@@ -311,6 +319,8 @@ type TabAwareSlotProps = {
 /**
  * Allows content to be rendered based on the current tab being selected while outside of the
  * TabPanel component. Can be placed freely within the main `<Tabs>` component.
+ *
+ * @deprecated Use `SegmentedControlTabs` instead.
  */
 function TabAwareSlot({ children }: TabAwareSlotProps): React.ReactElement | null {
     const tabContextValue = React.useContext(TabsContext)
