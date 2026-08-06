@@ -25,7 +25,7 @@ for src in $SRC_DIRS; do
     for f in "$src"/*.css; do
         name=$(basename "$f")
         {
-            printf '/* @doist/product-libraries-tokens@%s — generated theme, do not edit. Copied at Reactist build time. */\n' "$VERSION"
+            printf '/* @doist/product-libraries-tokens@%s — generated token CSS, do not edit. Copied at Reactist build time. */\n' "$VERSION"
             cat "$f"
         } >"$DEST/$name"
         count=$((count + 1))
