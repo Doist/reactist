@@ -113,7 +113,7 @@
         "@vitejs/plugin-react": "5.2.0",
         "autoprefixer": "10.5.4",
         "babel-plugin-react-compiler": "1.0.0",
-        "chromatic": "16.10.1",
+        "chromatic": "18.1.0",
         "classnames": "2.5.1",
         "conventional-changelog-conventionalcommits": "9.3.1",
         "cssnano": "5.1.15",
