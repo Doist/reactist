@@ -1,3 +1,9 @@
+## [36.2.0](https://github.com/Doist/reactist/compare/v36.1.0...v36.2.0) (2026-08-06)
+
+### Features
+
+- **deps:** update dependency @doist/product-libraries-tokens to v1.1.0 ([#1149](https://github.com/Doist/reactist/issues/1149)) ([151db65](https://github.com/Doist/reactist/commit/151db65d13fe335184fe4a926e8f67a74c25c9e9))
+
 ## [36.1.0](https://github.com/Doist/reactist/compare/v36.0.0...v36.1.0) (2026-08-04)
 
 ### Features
