@@ -1,3 +1,9 @@
+## [36.3.1](https://github.com/Doist/reactist/compare/v36.3.0...v36.3.1) (2026-08-07)
+
+### Bug Fixes
+
+- **tokens:** copy the radius CSS into the published styles ([#1151](https://github.com/Doist/reactist/issues/1151)) ([683fe9e](https://github.com/Doist/reactist/commit/683fe9eefa2f16d5833e2c50ab75e7bec9cf2ac7))
+
 ## [36.3.0](https://github.com/Doist/reactist/compare/v36.2.0...v36.3.0) (2026-08-06)
 
 ### Features
