@@ -35,7 +35,8 @@ src/
     component-name.tsx      # Implementation
     component-name.module.css   # CSS Modules styles
     component-name.test.tsx     # Tests
-    component-name.stories.mdx  # Storybook docs (or .tsx)
+    component-name.stories.tsx  # Storybook stories (CSF)
+    component-name.mdx          # Storybook MDX docs page
   styles/
     design-tokens.css       # Global CSS custom properties (--reactist-*)
   utils/
@@ -51,7 +52,7 @@ src/
 
 ### File structure
 
-Every component has `index.ts`, `component.tsx`, `component.module.css`, `component.test.tsx`, and a story file. Use `npm run plop component` to scaffold new components.
+Every component has `index.ts`, `component.tsx`, `component.module.css`, `component.test.tsx`, a `component.stories.tsx` story file, and a `component.mdx` docs page. Use `npm run plop component` to scaffold new components. The `component.mdx` docs page follows the section structure documented in README.md under "Documenting a component"; keep the heading names and order, uncomment the optional sections you fill in, wrap any markdown table in a `<Markdown>` block (no remark-gfm), and note that Prettier is never run on `.mdx` files.
 
 ### Implementation patterns
 

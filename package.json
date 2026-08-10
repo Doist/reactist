@@ -60,7 +60,7 @@
         "type-check:react18": "tsc --noEmit -p ./tsconfig.react18.json",
         "lint": "eslint --format codeframe --cache --ext js,jsx,ts,tsx ./",
         "storybook": "storybook dev -p 6006",
-        "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md,mdx}\"",
+        "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md}\"",
         "plop": "plop"
     },
     "peerDependencies": {
