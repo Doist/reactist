@@ -23,68 +23,17 @@ export function TextStory() {
     return (
         <section className="story">
             <Stack space="medium">
-                {bodyVariants.map((variant) => (
+                {allVariants.map((variant) => (
                     <Text key={variant} variant={variant}>
                         {variant}
                     </Text>
                 ))}
-                <Text variant="caption-2" decoration="underline">
-                    caption-2 underline
-                </Text>
-                <Text variant="caption-3" decoration="strikethrough">
-                    caption-3 strikethrough
-                </Text>
-                <Text variant="footnote-1" case="uppercase">
-                    footnote-1 uppercase
-                </Text>
             </Stack>
         </section>
     )
 }
 
 TextStory.parameters = {
-    chromatic: { disableSnapshot: false },
-}
-
-export function HeadingTextStory() {
-    return (
-        <section className="story">
-            <Stack space="medium">
-                {headingVariants.map((variant) => (
-                    <Text key={variant} variant={variant}>
-                        {variant}
-                    </Text>
-                ))}
-                <Text variant="heading-1" render={<h2 />}>
-                    Semantic h2, visual heading-1
-                </Text>
-                <Text variant="heading-3" render={<button type="button" />}>
-                    Button with heading typography
-                </Text>
-            </Stack>
-        </section>
-    )
-}
-
-HeadingTextStory.parameters = {
-    chromatic: { disableSnapshot: false },
-}
-
-export function DisplayTextStory() {
-    return (
-        <section className="story">
-            <Stack space="medium">
-                {displayVariants.map((variant) => (
-                    <Text key={variant} variant={variant}>
-                        {variant}
-                    </Text>
-                ))}
-            </Stack>
-        </section>
-    )
-}
-
-DisplayTextStory.parameters = {
     chromatic: { disableSnapshot: false },
 }
 

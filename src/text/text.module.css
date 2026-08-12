@@ -1,5 +1,63 @@
+:root {
+    --reactist-text-font-family-sf-for-web: 'SF Pro Display', sans-serif;
+    --reactist-text-font-weight-medium: 500;
+    --reactist-text-font-weight-semibold: 600;
+}
+
+.text {
+    color: var(--product-library-display-primary-idle-tint);
+}
+
+.font-family-default {
+    font-family: var(--reactist-font-family);
+}
+
+.font-family-sf-for-web {
+    font-family: var(--reactist-text-font-family-sf-for-web);
+}
+
+.tone-secondary {
+    color: var(--product-library-display-secondary-idle-tint);
+}
+
+.tone-danger {
+    color: var(--product-library-actionable-destructive-idle-tint);
+}
+
+.tone-positive {
+    color: var(--product-library-info-positive-primary-idle-tint);
+}
+
+.lineClampMultipleLines {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.lineClamp-1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lineClamp-2 {
+    -webkit-line-clamp: 2;
+}
+
+.lineClamp-3 {
+    -webkit-line-clamp: 3;
+}
+
+.lineClamp-4 {
+    -webkit-line-clamp: 4;
+}
+
+.lineClamp-5 {
+    -webkit-line-clamp: 5;
+}
+
 .display {
-    font-weight: var(--reactist-typography-font-weight-medium);
+    font-weight: var(--reactist-text-font-weight-medium);
     line-height: normal;
 }
 
@@ -51,14 +109,14 @@
 
 .variant-heading-4 {
     font-size: 18px;
-    font-weight: var(--reactist-typography-font-weight-semibold);
+    font-weight: var(--reactist-text-font-weight-semibold);
     letter-spacing: 0;
     line-height: normal;
 }
 
 .variant-subheader-1 {
     font-size: 16px;
-    font-weight: var(--reactist-typography-font-weight-semibold);
+    font-weight: var(--reactist-text-font-weight-semibold);
     letter-spacing: 0;
     line-height: 23px;
 }
@@ -79,7 +137,7 @@
 
 .variant-body-2 {
     font-size: 14px;
-    font-weight: var(--reactist-typography-font-weight-semibold);
+    font-weight: var(--reactist-text-font-weight-semibold);
     letter-spacing: -0.15px;
     line-height: 21px;
 }
@@ -93,7 +151,7 @@
 
 .variant-callout-1 {
     font-size: 13px;
-    font-weight: var(--reactist-typography-font-weight-semibold);
+    font-weight: var(--reactist-text-font-weight-semibold);
     letter-spacing: -0.15px;
     line-height: 20px;
 }
@@ -114,7 +172,7 @@
 
 .variant-caption-2 {
     font-size: 12px;
-    font-weight: var(--reactist-typography-font-weight-semibold);
+    font-weight: var(--reactist-text-font-weight-semibold);
     letter-spacing: -0.15px;
     line-height: 15px;
 }
@@ -135,7 +193,7 @@
 
 .variant-footnote-2 {
     font-size: 10px;
-    font-weight: var(--reactist-typography-font-weight-medium);
+    font-weight: var(--reactist-text-font-weight-medium);
     letter-spacing: 1px;
     line-height: 13px;
 }
