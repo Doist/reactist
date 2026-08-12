@@ -47,7 +47,7 @@ function StructuredMenuItem({ icon, label, shortcut }) {
                 </Column>
             ) : null}
             <Column width="auto">
-                <Text size="copy">{label}</Text>
+                <Text variant="callout-2">{label}</Text>
             </Column>
             {shortcut ? (
                 <Column width="content">
@@ -224,7 +224,7 @@ export const LinkMenuItemStory = {
                         <a href="https://doist.com" target="_blank" rel="noreferrer noopener" />
                     }
                 >
-                    <Text size="copy">Link without an icon</Text>
+                    <Text variant="callout-2">Link without an icon</Text>
                 </MenuItem>
                 <MenuItem
                     disabled
@@ -232,7 +232,7 @@ export const LinkMenuItemStory = {
                         <a href="https://doist.com" target="_blank" rel="noreferrer noopener" />
                     }
                 >
-                    <Text size="copy">Disabled link without an icon</Text>
+                    <Text variant="callout-2">Disabled link without an icon</Text>
                 </MenuItem>
             </MenuList>
         </Menu>

@@ -8,7 +8,6 @@ import { IconButton } from '../button'
 import { Column, Columns } from '../columns'
 import ThreeDotsIcon from '../components/icons/ThreeDotsIcon.svg'
 import { Divider } from '../divider'
-import { Heading } from '../heading'
 import { Inline } from '../inline'
 import { Menu, MenuButton, MenuItem, MenuList } from '../menu'
 import { Stack } from '../stack'
@@ -95,10 +94,10 @@ export function ModalWithStandardActionsFooter() {
                         </Columns>
                     }
                 >
-                    <Heading level="1">Modal with standard actions footer</Heading>
+                    <Text variant="heading-1">Modal with standard actions footer</Text>
                 </ModalHeader>
                 <ModalBody>
-                    <ModalOptionsForm title={<Heading level="2">Customize modal</Heading>} />
+                    <ModalOptionsForm title={<Text variant="heading-2">Customize modal</Text>} />
                 </ModalBody>
                 <ModalActions>
                     <Button variant="primary">Save</Button>
@@ -130,17 +129,15 @@ export function ModalWithHeaderBodyAndCustomFooter() {
             </Box>
             <Modal aria-label="Modal with header, body and custom footer">
                 <ModalHeader>
-                    <Heading level="1">Modal with header, body and custom footer</Heading>
+                    <Text variant="heading-1">Modal with header, body and custom footer</Text>
                 </ModalHeader>
                 <ModalBody>
-                    <ModalOptionsForm title={<Heading level="2">Customize modal</Heading>} />
+                    <ModalOptionsForm title={<Text variant="heading-2">Customize modal</Text>} />
                 </ModalBody>
                 <ModalFooter>
                     <Columns alignY="center">
                         <Column width="auto">
-                            <Text weight="bold" size="subtitle">
-                                Do whatever you want down here
-                            </Text>
+                            <Text variant="subheader-1">Do whatever you want down here</Text>
                         </Column>
                         <Column width="content">
                             <Button variant="primary">Close</Button>
@@ -176,7 +173,7 @@ export function ModalWithSidebar() {
                     <Column width="content">
                         <Box height="full" background="selected">
                             <Box padding="medium">
-                                <Heading level="1">Settings</Heading>
+                                <Text variant="heading-1">Settings</Text>
                             </Box>
                             <Stack as="ul" space="small" padding="medium" paddingRight="xxlarge">
                                 <li>
@@ -194,7 +191,7 @@ export function ModalWithSidebar() {
                     <Column width="auto">
                         <Box height="full" display="flex" flexDirection="column">
                             <ModalHeader>
-                                <Heading level="2">Customize modal</Heading>
+                                <Text variant="heading-2">Customize modal</Text>
                             </ModalHeader>
                             <ModalBody>
                                 <ModalOptionsForm />
@@ -242,7 +239,7 @@ export function ModalWithScrollableTabPanels() {
                     flexDirection="column"
                 >
                     <Stack space="medium" paddingBottom="xxlarge">
-                        <Heading level="1">Task content goest here</Heading>
+                        <Text variant="heading-1">Task content goest here</Text>
                         <Inline space="medium">
                             <button type="button">Schedule</button>
                             <button type="button">Labels</button>
@@ -304,7 +301,7 @@ export function MinimalisticConfirmationModal() {
             </Box>
             <Modal height="fitContent" aria-label="Confirmation modal" width="small">
                 <Box padding="large">
-                    <Text size="subtitle">Are you sure you want to leave?</Text>
+                    <Text variant="subheader-2">Are you sure you want to leave?</Text>
                 </Box>
                 <ModalActions>
                     <Button variant="primary" size="small">
@@ -340,14 +337,12 @@ export function EnrichedConfirmationModal() {
             </Box>
             <Modal height="fitContent" aria-label="Confirmation modal" width="small">
                 <ModalHeader withDivider button={null}>
-                    <Heading level="1">Please confirm</Heading>
+                    <Text variant="heading-1">Please confirm</Text>
                 </ModalHeader>
                 <ModalBody>
                     <Stack space="medium">
-                        <Text size="subtitle" weight="bold">
-                            Are you sure you want to leave?
-                        </Text>
-                        <Text size="subtitle" tone="danger">
+                        <Text variant="subheader-1">Are you sure you want to leave?</Text>
+                        <Text variant="subheader-2" tone="danger">
                             This action cannot be undone!
                         </Text>
                     </Stack>
@@ -379,7 +374,7 @@ export function ModalAutofocus() {
                 <Button variant="primary" action="open">
                     Open modal
                 </Button>
-                <Text size="subtitle">
+                <Text variant="subheader-2">
                     By default the `autoFocus` prop is `true`, which shifts the focus onto the first
                     focusable element in the modal. You can further refine this by using the
                     `data-autofocus` attribute if you wish to focus on elements other than the first
@@ -396,7 +391,7 @@ export function ModalAutofocus() {
             </Stack>
             <Modal height="fitContent" aria-label="Confirmation modal" width="small">
                 <ModalHeader>
-                    <Heading level={1}>Update your info</Heading>
+                    <Text variant="heading-1">Update your info</Text>
                 </ModalHeader>
                 <ModalBody>
                     <Stack space="large">
@@ -435,18 +430,18 @@ export function StackingModals() {
                 <Button variant="primary" action="open">
                     Open modal
                 </Button>
-                <Text size="subtitle">
+                <Text variant="subheader-2">
                     Modals may be stacked on top of one another, with each of them having their
                     independent states, e.g. `width` and `height`.
                 </Text>
             </Stack>
             <Modal aria-label="Modal 1">
                 <ModalHeader>
-                    <Heading level={1}>Parent modal</Heading>
+                    <Text variant="heading-1">Parent modal</Text>
                 </ModalHeader>
                 <ModalBody>
                     <Stack space="large">
-                        <Text size="subtitle">
+                        <Text variant="subheader-2">
                             Modals may be stacked on top of one another, with each of them having
                             their independent states, e.g. `width` and `height`.
                         </Text>
@@ -460,7 +455,7 @@ export function StackingModals() {
                             </Inline>
                             <Modal aria-label="Modal 2">
                                 <ModalHeader>
-                                    <Heading level={1}>Nested modal</Heading>
+                                    <Text variant="heading-1">Nested modal</Text>
                                 </ModalHeader>
                                 <ModalBody>
                                     <ModalOptionsForm />

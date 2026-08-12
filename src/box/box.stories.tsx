@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-import { Heading } from '../heading'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
 import { Text } from '../text'
@@ -148,7 +147,7 @@ function PaddedBox({ prop, value }: { prop: keyof BoxPaddingProps; value: Space 
 export function PaddingStory({ padding }: { padding: Space }) {
     return (
         <Stack space="large">
-            <Heading level="2">The transparent bordered box has padding</Heading>
+            <Text variant="heading-2">The transparent bordered box has padding</Text>
             <Inline space="large" align="center" alignY="center">
                 <PaddedBox prop="padding" value={padding} />
                 <PaddedBox prop="paddingX" value={padding} />
@@ -214,7 +213,7 @@ function MarginBox({ prop, value }: { prop: keyof BoxMarginProps; value: Space }
 export function MarginStory({ margin }: { margin: Space }) {
     return (
         <Stack space="large">
-            <Heading level="2">The shaded box has margin</Heading>
+            <Text variant="heading-2">The shaded box has margin</Text>
             <Text>
                 When margin is negative, you will see the outer bordered box appear to be inside the
                 shaded box.
@@ -272,7 +271,7 @@ export function OverlayScrollStory() {
                 background="aside"
             >
                 <Stack space="medium">
-                    <Heading level={3}>Scrollable Content with Overlay Scroll</Heading>
+                    <Text variant="heading-3">Scrollable Content with Overlay Scroll</Text>
                     <Text>
                         This Box component demonstrates the overlay scroll functionality. The
                         scrollbar is hidden by default and appears on hover.
@@ -280,7 +279,7 @@ export function OverlayScrollStory() {
                     {Array.from({ length: 20 }, (_, i) => (
                         <Box key={i} padding="medium" background="default" borderRadius="standard">
                             <Text>Content item {i + 1}</Text>
-                            <Text size="caption" color="secondary">
+                            <Text variant="caption-3" tone="secondary">
                                 This is some additional content to make the item taller and ensure
                                 scrolling is needed.
                             </Text>
