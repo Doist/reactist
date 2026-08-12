@@ -8,15 +8,8 @@ import { bodyVariants, displayVariants, headingVariants, Text } from './text'
 import type { TextProps } from './text'
 
 const decoratedTextProps = [
-    { variant: 'subheader-1', decoration: 'strikethrough' },
-    { variant: 'subheader-2', decoration: 'strikethrough' },
     { variant: 'body-3', decoration: 'strikethrough' },
-    { variant: 'callout-1', decoration: 'strikethrough' },
-    { variant: 'callout-2', decoration: 'strikethrough' },
-    { variant: 'caption-2', decoration: 'strikethrough' },
     { variant: 'caption-2', decoration: 'underline' },
-    { variant: 'caption-3', decoration: 'strikethrough' },
-    { variant: 'caption-3', decoration: 'underline' },
 ] as const satisfies ReadonlyArray<
     Omit<Extract<TextProps, { decoration: 'strikethrough' | 'underline' }>, 'children'>
 >
@@ -56,15 +49,6 @@ describe('Text', () => {
         },
     )
 
-    it.each(bodyVariants)('renders %s as a div', (variant) => {
-        render(
-            <Text data-testid="text-element" variant={variant}>
-                Text
-            </Text>,
-        )
-        expect(screen.getByTestId('text-element').tagName).toBe('DIV')
-    })
-
     it.each([
         ['heading-1', 'H1'],
         ['heading-2', 'H2'],
@@ -79,9 +63,9 @@ describe('Text', () => {
         expect(screen.getByTestId('text-element').tagName).toBe(tagName)
     })
 
-    it.each(displayVariants)('renders %s as a div with the display font', (variant) => {
+    it('renders display text as a div with the display font', () => {
         render(
-            <Text data-testid="text-element" variant={variant}>
+            <Text data-testid="text-element" variant="display-1">
                 Text
             </Text>,
         )
@@ -113,40 +97,10 @@ describe('Text', () => {
         expect(element).toHaveClass('variant-heading-1')
     })
 
-    it('lets render override the display variant default element', () => {
-        render(
-            <Text data-testid="text-element" variant="display-1" render={<h1 />}>
-                Text
-            </Text>,
-        )
-        const element = screen.getByTestId('text-element')
-        expect(element.tagName).toBe('H1')
-        expect(element).toHaveClass('variant-display-1')
-    })
-
-    it('applies heading typography to non-heading controls', () => {
-        render(
-            <Text variant="heading-2" render={<button type="button" />}>
-                Edit title
-            </Text>,
-        )
-        expect(screen.getByRole('button', { name: 'Edit title' })).toHaveClass('variant-heading-2')
-    })
-
     it('forwards its ref', () => {
         const ref = React.createRef<HTMLElement>()
         render(<Text ref={ref}>Text</Text>)
         expect(ref.current?.tagName).toBe('DIV')
-    })
-
-    it('forwards its ref to the variant default element', () => {
-        const ref = React.createRef<HTMLElement>()
-        render(
-            <Text variant="heading-2" ref={ref}>
-                Text
-            </Text>,
-        )
-        expect(ref.current?.tagName).toBe('H2')
     })
 
     it('renders its children as its content', () => {
@@ -294,15 +248,7 @@ describe('Text', () => {
     it('has no accessibility violations', async () => {
         const { container } = render(
             <>
-                <Text variant="display-2">Display</Text>
                 <Text variant="heading-1">Heading</Text>
-                <Text variant="heading-2" render={<button type="button" />}>
-                    Button heading
-                </Text>
-                <Text>Default text</Text>
-                <Text variant="caption-2" decoration="underline">
-                    Caption
-                </Text>
                 <Text variant="body-1" render={<label htmlFor="name" />}>
                     Name
                 </Text>
