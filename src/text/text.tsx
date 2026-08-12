@@ -1,14 +1,16 @@
 import * as React from 'react'
 
 import { Role } from '@ariakit/react'
+import classNames from 'classnames'
 
-import { getTypographyClassName } from '../typography/typography'
+import { getBoxClassNames } from '../box'
+import { getClassNames } from '../utils/responsive-props'
 
-import typographyStyles from '../typography/typography.module.css'
 import styles from './text.module.css'
 
 import type { RoleProps } from '@ariakit/react'
-import type { TypographyStyleProps } from '../typography/typography'
+import type { BoxProps } from '../box'
+import type { ObfuscatedClassName, Tone } from '../utils/common-types'
 
 const displayVariants = ['display-1', 'display-2', 'display-3', 'display-4', 'display-5'] as const
 
@@ -34,6 +36,22 @@ type HeadingTextVariant = (typeof headingVariants)[number]
 type BodyTextVariant = (typeof bodyVariants)[number]
 
 type TextVariant = DisplayTextVariant | HeadingTextVariant | BodyTextVariant
+type TextLineClamp = 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
+
+type TextStyleProps = ObfuscatedClassName & {
+    /** The semantic color of the text. */
+    tone?: Tone
+    /** Horizontal text alignment, including responsive values. */
+    align?: BoxProps['textAlign']
+    /** Truncates text after the given number of lines. */
+    lineClamp?: TextLineClamp
+}
+
+type TextClassNameOptions = TextStyleProps & {
+    variantClassName: string
+    fontFamilyClassName?: string
+    modifierClassNames?: Array<string | undefined>
+}
 
 type StrikethroughTextProps = {
     /** Visual text style supporting strikethrough. */
@@ -72,7 +90,7 @@ type UppercaseTextProps = {
 
 /** Renders interface copy with a named typography variant, from display text to footnotes. */
 type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'children' | 'className'> &
-    TypographyStyleProps & {
+    TextStyleProps & {
         children: React.ReactNode
         /**
          * Custom element rendered with the variant's typography. Defaults to the matching heading
@@ -97,6 +115,33 @@ function getDefaultRender(variant: TextVariant): RoleProps['render'] {
     return undefined
 }
 
+function getTextClassName({
+    variantClassName,
+    fontFamilyClassName = styles['font-family-default'],
+    modifierClassNames,
+    tone = 'normal',
+    align,
+    lineClamp,
+    exceptionallySetClassName,
+}: TextClassNameOptions) {
+    const lineClampMultipleLines = Number(lineClamp ?? 0) > 1
+
+    return classNames(
+        getBoxClassNames({
+            textAlign: align,
+            paddingRight: lineClamp ? 'xsmall' : undefined,
+        }),
+        exceptionallySetClassName,
+        styles.text,
+        fontFamilyClassName,
+        variantClassName,
+        modifierClassNames,
+        tone !== 'normal' ? getClassNames(styles, 'tone', tone) : null,
+        lineClampMultipleLines ? styles.lineClampMultipleLines : null,
+        lineClamp ? getClassNames(styles, 'lineClamp', String(lineClamp)) : null,
+    )
+}
+
 /** Renders interface copy with a named typography variant, from display text to footnotes. */
 const Text = React.forwardRef<HTMLElement, TextProps>(function Text(
     {
@@ -119,11 +164,9 @@ const Text = React.forwardRef<HTMLElement, TextProps>(function Text(
         <Role.div
             {...props}
             render={render ?? getDefaultRender(variant)}
-            className={getTypographyClassName({
+            className={getTextClassName({
                 variantClassName: styles['variant-' + variant]!,
-                fontFamilyClassName: display
-                    ? typographyStyles['font-family-sf-for-web']
-                    : undefined,
+                fontFamilyClassName: display ? styles['font-family-sf-for-web'] : undefined,
                 modifierClassNames: [
                     display ? styles.display : undefined,
                     decoration ? styles['decoration-' + decoration] : undefined,
