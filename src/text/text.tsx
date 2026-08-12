@@ -45,43 +45,34 @@ type StrikethroughTextProps = {
         | 'callout-2'
         | 'caption-2'
         | 'caption-3'
-    /** Figma-supported strikethrough decoration. */
     decoration: 'strikethrough'
-    /** Uppercase presentation is unavailable with strikethrough. */
     case?: never
 }
 
 type UnderlinedTextProps = {
     /** Visual caption style supporting underline. */
     variant: 'caption-2' | 'caption-3'
-    /** Figma-supported underline decoration. */
     decoration: 'underline'
-    /** Uppercase presentation is unavailable with underline. */
     case?: never
 }
 
 type UnmodifiedTextProps = {
     /** Visual text style; defaults to body-3. */
     variant?: TextVariant
-    /** Decoration is omitted for the base variant. */
     decoration?: never
-    /** Case override is omitted for the base variant. */
     case?: never
 }
 
 type UppercaseTextProps = {
     /** Visual footnote style supporting uppercase. */
     variant: 'footnote-1'
-    /** Decoration is unavailable with uppercase presentation. */
     decoration?: never
-    /** Figma-supported uppercase presentation. */
     case: 'uppercase'
 }
 
 /** Renders interface copy with a named typography variant, from display text to footnotes. */
 type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'children' | 'className'> &
     TypographyStyleProps & {
-        /** Text content. */
         children: React.ReactNode
         /**
          * Custom element rendered with the variant's typography. Defaults to the matching heading
