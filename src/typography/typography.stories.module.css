@@ -1,0 +1,39 @@
+.reference {
+    --reactist-content-primary: #000;
+
+    width: 400px;
+    height: 1628px;
+    color: #000;
+}
+
+.header {
+    box-sizing: border-box;
+    width: 400px;
+    height: 43px;
+    margin: 0;
+    padding: 0;
+    font-family: var(--reactist-font-family);
+    font-size: 32px;
+    font-weight: var(--reactist-font-weight-strong);
+    letter-spacing: 0.41px;
+    line-height: normal;
+}
+
+.rows {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 400px;
+}
+
+.row,
+.rowEnd {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    width: 400px;
+}
+
+.rowEnd {
+    align-items: flex-end;
+}
