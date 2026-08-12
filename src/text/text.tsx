@@ -132,7 +132,7 @@ function getTextClassName({
             paddingRight: lineClamp ? 'xsmall' : undefined,
         }),
         exceptionallySetClassName,
-        styles.text,
+        styles.typography,
         fontFamilyClassName,
         variantClassName,
         modifierClassNames,
