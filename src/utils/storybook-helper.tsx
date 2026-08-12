@@ -3,8 +3,8 @@ import '../styles/design-tokens.css'
 import * as React from 'react'
 
 import { Box } from '../box'
-import { Heading } from '../heading'
 import { Stack } from '../stack'
+import { Text } from '../text'
 
 import type { JSX } from 'react'
 import type { BoxProps } from '../box'
@@ -93,7 +93,7 @@ function Wrapper({
 }) {
     return (
         <Stack space="small">
-            {title ? <Heading level="2">{title}</Heading> : null}
+            {title ? <Text variant="heading-2">{title}</Text> : null}
             <Box width="full" style={border ? { border: '1px dotted black' } : undefined}>
                 {children}
             </Box>
