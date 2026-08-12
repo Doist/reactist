@@ -4,7 +4,7 @@
     --reactist-text-font-weight-semibold: 600;
 }
 
-.text {
+.typography {
     color: var(--product-library-display-primary-idle-tint);
 }
 
