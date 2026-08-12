@@ -140,25 +140,18 @@
     line-height: 13px;
 }
 
-.variant-subheader-1.decoration-strikethrough,
-.variant-subheader-2.decoration-strikethrough,
-.variant-body-3.decoration-strikethrough,
-.variant-callout-1.decoration-strikethrough,
-.variant-callout-2.decoration-strikethrough,
-.variant-caption-2.decoration-strikethrough,
-.variant-caption-3.decoration-strikethrough {
+.decoration-strikethrough {
     text-decoration-line: line-through;
     text-decoration-skip-ink: none;
     text-underline-position: from-font;
 }
 
-.variant-caption-2.decoration-underline,
-.variant-caption-3.decoration-underline {
+.decoration-underline {
     text-decoration-line: underline;
     text-decoration-skip-ink: none;
     text-underline-position: from-font;
 }
 
-.variant-footnote-1.case-uppercase {
+.case-uppercase {
     text-transform: uppercase;
 }
