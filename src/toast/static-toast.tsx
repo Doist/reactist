@@ -96,7 +96,7 @@ const StaticToast = React.forwardRef<HTMLDivElement, StaticToastProps>(function 
             <Box flexGrow={1} maxWidth="small">
                 {description ? (
                     <Stack space="small">
-                        <Text weight="bold">{message} </Text>
+                        <Text variant="body-1">{message} </Text>
                         <Text>{description}</Text>
                     </Stack>
                 ) : (

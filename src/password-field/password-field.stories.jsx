@@ -190,8 +190,8 @@ export const WithoutLabel = {
     render: () => (
         <Stack space="xlarge" dividers="secondary" maxWidth="small">
             <Stack as="label" htmlFor="custom-textarea" space="small">
-                <Text size="subtitle">Custom label is up here</Text>
-                <Text size="caption" tone="secondary" aria-hidden>
+                <Text variant="subheader-2">Custom label is up here</Text>
+                <Text variant="caption-3" tone="secondary" aria-hidden>
                     <em>(click me to focus the textarea)</em>
                 </Text>
             </Stack>
@@ -202,8 +202,8 @@ export const WithoutLabel = {
                 placeholder="Password field without a built-in label"
             />
             <Stack space="small" id="custom-description">
-                <Text size="body">Custom description is down here</Text>
-                <Text size="caption" tone="secondary" aria-hidden>
+                <Text variant="body-3">Custom description is down here</Text>
+                <Text variant="caption-3" tone="secondary" aria-hidden>
                     <em>(inspect the input element accessibility properties if you are curious)</em>
                 </Text>
             </Stack>
