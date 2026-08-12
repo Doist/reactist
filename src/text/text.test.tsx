@@ -3,28 +3,9 @@ import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { axe } from 'jest-axe'
 
-import { Text } from './text'
+import { bodyVariants, displayVariants, headingVariants, Text } from './text'
 
 import type { TextProps } from './text'
-
-const displayVariants = ['display-1', 'display-2', 'display-3', 'display-4', 'display-5'] as const
-
-const headingVariants = ['heading-1', 'heading-2', 'heading-3', 'heading-4'] as const
-
-const bodyVariants = [
-    'subheader-1',
-    'subheader-2',
-    'body-1',
-    'body-2',
-    'body-3',
-    'callout-1',
-    'callout-2',
-    'caption-1',
-    'caption-2',
-    'caption-3',
-    'footnote-1',
-    'footnote-2',
-] as const
 
 const decoratedTextProps = [
     { variant: 'subheader-1', decoration: 'strikethrough' },
