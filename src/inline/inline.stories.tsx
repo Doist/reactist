@@ -96,7 +96,9 @@ export function NestedStackStory({ space }: PartialProps<typeof Inline>) {
     const spaceStr = typeof space !== 'string' ? 'none' : space
     return (
         <Stack space={space}>
-            <Text variant="heading-1">Parent stack with space=&ldquo;{spaceStr}&rdquo;</Text>
+            <Text variant="heading-3" render={<h1 />}>
+                Parent stack with space=&ldquo;{spaceStr}&rdquo;
+            </Text>
             <Inline space="xsmall">{renderInlineContent()}</Inline>
             <Inline space="xsmall">{renderInlineContent()}</Inline>
         </Stack>

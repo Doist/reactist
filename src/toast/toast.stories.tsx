@@ -215,7 +215,9 @@ export function StaticToastStory() {
             </SelectField>
 
             <Stack space="medium">
-                <Text variant="heading-2">Message only</Text>
+                <Text variant="subheader-1" render={<h2 />}>
+                    Message only
+                </Text>
                 <StaticToast
                     message="Someone invited you to collaborate on a project"
                     {...commonProps}
@@ -223,7 +225,9 @@ export function StaticToastStory() {
             </Stack>
 
             <Stack space="medium">
-                <Text variant="heading-2">Message and description</Text>
+                <Text variant="subheader-1" render={<h2 />}>
+                    Message and description
+                </Text>
                 <StaticToast
                     message="Someone invited you to collaborate on a project"
                     description="You need to accept the invitation in order to collaborate."
@@ -232,7 +236,9 @@ export function StaticToastStory() {
             </Stack>
 
             <Stack space="medium">
-                <Text variant="heading-2">Very long content</Text>
+                <Text variant="subheader-1" render={<h2 />}>
+                    Very long content
+                </Text>
                 <StaticToast
                     message="The project you were invited to could not be loaded into your workspace at this time"
                     description="Please, try to access the project again in a few minutes. If the problem persists, contact our support team"

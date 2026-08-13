@@ -93,7 +93,11 @@ function Wrapper({
 }) {
     return (
         <Stack space="small">
-            {title ? <Text variant="heading-2">{title}</Text> : null}
+            {title ? (
+                <Text variant="subheader-1" render={<h2 />}>
+                    {title}
+                </Text>
+            ) : null}
             <Box width="full" style={border ? { border: '1px dotted black' } : undefined}>
                 {children}
             </Box>
