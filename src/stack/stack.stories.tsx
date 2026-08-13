@@ -99,7 +99,7 @@ export function NestedStacksStory(args: PartialProps<typeof Stack>) {
     const spaceStr = typeof args.space !== 'string' ? 'none' : args.space
     return (
         <Stack {...args}>
-            <Text variant="heading-3" render={<h1 />}>
+            <Text variant="header-3" render={<h1 />}>
                 Parent stack with space=&ldquo;{spaceStr}&rdquo;
             </Text>
             <Stack space="xsmall">

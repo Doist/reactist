@@ -13,7 +13,7 @@ import type { ObfuscatedClassName, Tone } from '../utils/common-types'
 
 const displayVariants = ['display-1', 'display-2', 'display-3', 'display-4', 'display-5'] as const
 
-const headingVariants = ['heading-1', 'heading-2', 'heading-3', 'heading-4'] as const
+const headerVariants = ['header-1', 'header-2', 'header-3', 'header-4'] as const
 
 const bodyVariants = [
     'subheader-1',
@@ -30,10 +30,10 @@ const bodyVariants = [
     'footnote-2',
 ] as const
 
-type HeadingTextVariant = (typeof headingVariants)[number]
+type HeaderTextVariant = (typeof headerVariants)[number]
 type BodyTextVariant = (typeof bodyVariants)[number]
 
-type TextVariant = (typeof displayVariants)[number] | HeadingTextVariant | BodyTextVariant
+type TextVariant = (typeof displayVariants)[number] | HeaderTextVariant | BodyTextVariant
 type TextLineClamp = 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
 
 type TextStyleProps = ObfuscatedClassName & {
@@ -67,20 +67,20 @@ type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'children' | 'className
         children: React.ReactNode
         /**
          * Custom element rendered with the variant's typography. Defaults to the matching heading
-         * element for heading variants, and a div otherwise.
+         * element for header variants, and a div otherwise.
          */
         render?: RoleProps['render']
     } & (DefaultCaseTextProps | UppercaseTextProps)
 
-function isHeadingVariant(variant: TextVariant): variant is HeadingTextVariant {
-    return variant.startsWith('heading-')
+function isHeaderVariant(variant: TextVariant): variant is HeaderTextVariant {
+    return variant.startsWith('header-')
 }
 
-const headingElements: Record<HeadingTextVariant, React.ReactElement> = {
-    'heading-1': <h1 />,
-    'heading-2': <h2 />,
-    'heading-3': <h3 />,
-    'heading-4': <h4 />,
+const headerElements: Record<HeaderTextVariant, React.ReactElement> = {
+    'header-1': <h1 />,
+    'header-2': <h2 />,
+    'header-3': <h3 />,
+    'header-4': <h4 />,
 }
 
 /** Renders interface copy with a named typography variant, from display text to footnotes. */
@@ -104,7 +104,7 @@ const Text = React.forwardRef<HTMLElement, TextProps>(function Text(
     return (
         <Role.div
             {...props}
-            render={render ?? (isHeadingVariant(variant) ? headingElements[variant] : undefined)}
+            render={render ?? (isHeaderVariant(variant) ? headerElements[variant] : undefined)}
             className={classNames(
                 getBoxClassNames({
                     textAlign: align,
@@ -132,4 +132,4 @@ const Text = React.forwardRef<HTMLElement, TextProps>(function Text(
 Text.displayName = 'Text'
 
 export type { TextProps, TextVariant }
-export { bodyVariants, displayVariants, headingVariants, Text }
+export { bodyVariants, displayVariants, headerVariants, Text }

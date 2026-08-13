@@ -94,7 +94,7 @@ export function ModalWithStandardActionsFooter() {
                         </Columns>
                     }
                 >
-                    <Text variant="heading-3" render={<h1 />}>
+                    <Text variant="header-3" render={<h1 />}>
                         Modal with standard actions footer
                     </Text>
                 </ModalHeader>
@@ -137,7 +137,7 @@ export function ModalWithHeaderBodyAndCustomFooter() {
             </Box>
             <Modal aria-label="Modal with header, body and custom footer">
                 <ModalHeader>
-                    <Text variant="heading-3" render={<h1 />}>
+                    <Text variant="header-3" render={<h1 />}>
                         Modal with header, body and custom footer
                     </Text>
                 </ModalHeader>
@@ -189,7 +189,7 @@ export function ModalWithSidebar() {
                     <Column width="content">
                         <Box height="full" background="selected">
                             <Box padding="medium">
-                                <Text variant="heading-3" render={<h1 />}>
+                                <Text variant="header-3" render={<h1 />}>
                                     Settings
                                 </Text>
                             </Box>
@@ -259,7 +259,7 @@ export function ModalWithScrollableTabPanels() {
                     flexDirection="column"
                 >
                     <Stack space="medium" paddingBottom="xxlarge">
-                        <Text variant="heading-3" render={<h1 />}>
+                        <Text variant="header-3" render={<h1 />}>
                             Task content goest here
                         </Text>
                         <Inline space="medium">
@@ -359,7 +359,7 @@ export function EnrichedConfirmationModal() {
             </Box>
             <Modal height="fitContent" aria-label="Confirmation modal" width="small">
                 <ModalHeader withDivider button={null}>
-                    <Text variant="heading-3" render={<h1 />}>
+                    <Text variant="header-3" render={<h1 />}>
                         Please confirm
                     </Text>
                 </ModalHeader>
@@ -415,7 +415,7 @@ export function ModalAutofocus() {
             </Stack>
             <Modal height="fitContent" aria-label="Confirmation modal" width="small">
                 <ModalHeader>
-                    <Text variant="heading-3" render={<h1 />}>
+                    <Text variant="header-3" render={<h1 />}>
                         Update your info
                     </Text>
                 </ModalHeader>
@@ -463,7 +463,7 @@ export function StackingModals() {
             </Stack>
             <Modal aria-label="Modal 1">
                 <ModalHeader>
-                    <Text variant="heading-3" render={<h1 />}>
+                    <Text variant="header-3" render={<h1 />}>
                         Parent modal
                     </Text>
                 </ModalHeader>
@@ -483,7 +483,7 @@ export function StackingModals() {
                             </Inline>
                             <Modal aria-label="Modal 2">
                                 <ModalHeader>
-                                    <Text variant="heading-3" render={<h1 />}>
+                                    <Text variant="header-3" render={<h1 />}>
                                         Nested modal
                                     </Text>
                                 </ModalHeader>

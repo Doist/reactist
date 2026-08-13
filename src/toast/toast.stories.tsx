@@ -64,7 +64,7 @@ export function NotificationToastsStory() {
     return (
         <Box padding="large">
             <Stack space="xlarge">
-                <Text variant="heading-2" render={<h1 />}>
+                <Text variant="header-2" render={<h1 />}>
                     Toasts
                 </Text>
                 <Text>
@@ -171,7 +171,7 @@ export function StaticToastStory() {
 
     return (
         <Stack space="xlarge" padding="large">
-            <Text variant="heading-2" render={<h1 />}>
+            <Text variant="header-2" render={<h1 />}>
                 Statically-rendered toasts
             </Text>
             <Text>

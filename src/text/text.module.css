@@ -76,28 +76,28 @@
     letter-spacing: 0.37px;
 }
 
-.variant-heading-1 {
+.variant-header-1 {
     font-size: 32px;
     font-weight: 700;
     letter-spacing: 0.41px;
     line-height: normal;
 }
 
-.variant-heading-2 {
+.variant-header-2 {
     font-size: 26px;
     font-weight: 700;
     letter-spacing: 0.22px;
     line-height: normal;
 }
 
-.variant-heading-3 {
+.variant-header-3 {
     font-size: 20px;
     font-weight: 700;
     letter-spacing: 0;
     line-height: normal;
 }
 
-.variant-heading-4 {
+.variant-header-4 {
     font-size: 18px;
     font-weight: 600;
     letter-spacing: 0;
