@@ -6,10 +6,6 @@
     font-family: var(--reactist-font-family);
 }
 
-.font-family-sf-for-web {
-    font-family: var(--reactist-font-family-sf-for-web);
-}
-
 .tone-secondary {
     color: var(--product-library-display-secondary-idle-tint);
 }

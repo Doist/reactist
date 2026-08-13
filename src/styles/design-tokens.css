@@ -47,7 +47,6 @@
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --reactist-font-family-monospace:
         ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
-    --reactist-font-family-sf-for-web: 'SF Pro Display', sans-serif;
 
     /* font sizes */
     --reactist-font-size-caption: 12px;
