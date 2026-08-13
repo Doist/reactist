@@ -111,7 +111,7 @@ const Text = React.forwardRef<HTMLElement, TextProps>(function Text(
                     paddingRight: lineClamp ? 'xsmall' : undefined,
                 }),
                 exceptionallySetClassName,
-                styles.typography,
+                styles.text,
                 styles['font-family-default'],
                 styles['variant-' + variant],
                 display ? styles.display : null,
