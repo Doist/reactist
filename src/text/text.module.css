@@ -1,9 +1,3 @@
-:root {
-    --reactist-text-font-family-sf-for-web: 'SF Pro Display', sans-serif;
-    --reactist-text-font-weight-medium: 500;
-    --reactist-text-font-weight-semibold: 600;
-}
-
 .typography {
     color: var(--product-library-display-primary-idle-tint);
 }
@@ -13,7 +7,7 @@
 }
 
 .font-family-sf-for-web {
-    font-family: var(--reactist-text-font-family-sf-for-web);
+    font-family: var(--reactist-font-family-sf-for-web);
 }
 
 .tone-secondary {
@@ -57,7 +51,7 @@
 }
 
 .display {
-    font-weight: var(--reactist-text-font-weight-medium);
+    font-weight: 500;
     line-height: normal;
 }
 
@@ -88,112 +82,112 @@
 
 .variant-heading-1 {
     font-size: 32px;
-    font-weight: var(--reactist-font-weight-strong);
+    font-weight: 700;
     letter-spacing: 0.41px;
     line-height: normal;
 }
 
 .variant-heading-2 {
     font-size: 26px;
-    font-weight: var(--reactist-font-weight-strong);
+    font-weight: 700;
     letter-spacing: 0.22px;
     line-height: normal;
 }
 
 .variant-heading-3 {
     font-size: 20px;
-    font-weight: var(--reactist-font-weight-strong);
+    font-weight: 700;
     letter-spacing: 0;
     line-height: normal;
 }
 
 .variant-heading-4 {
     font-size: 18px;
-    font-weight: var(--reactist-text-font-weight-semibold);
+    font-weight: 600;
     letter-spacing: 0;
     line-height: normal;
 }
 
 .variant-subheader-1 {
     font-size: 16px;
-    font-weight: var(--reactist-text-font-weight-semibold);
+    font-weight: 600;
     letter-spacing: 0;
     line-height: 23px;
 }
 
 .variant-subheader-2 {
     font-size: 16px;
-    font-weight: var(--reactist-font-weight-regular);
+    font-weight: 400;
     letter-spacing: 0;
     line-height: 23px;
 }
 
 .variant-body-1 {
     font-size: 14px;
-    font-weight: var(--reactist-font-weight-strong);
+    font-weight: 700;
     letter-spacing: -0.15px;
     line-height: 21px;
 }
 
 .variant-body-2 {
     font-size: 14px;
-    font-weight: var(--reactist-text-font-weight-semibold);
+    font-weight: 600;
     letter-spacing: -0.15px;
     line-height: 21px;
 }
 
 .variant-body-3 {
     font-size: 14px;
-    font-weight: var(--reactist-font-weight-regular);
+    font-weight: 400;
     letter-spacing: -0.15px;
     line-height: 21px;
 }
 
 .variant-callout-1 {
     font-size: 13px;
-    font-weight: var(--reactist-text-font-weight-semibold);
+    font-weight: 600;
     letter-spacing: -0.15px;
     line-height: 20px;
 }
 
 .variant-callout-2 {
     font-size: 13px;
-    font-weight: var(--reactist-font-weight-regular);
+    font-weight: 400;
     letter-spacing: -0.15px;
     line-height: 20px;
 }
 
 .variant-caption-1 {
     font-size: 12px;
-    font-weight: var(--reactist-font-weight-strong);
+    font-weight: 700;
     letter-spacing: 0;
     line-height: 20px;
 }
 
 .variant-caption-2 {
     font-size: 12px;
-    font-weight: var(--reactist-text-font-weight-semibold);
+    font-weight: 600;
     letter-spacing: -0.15px;
     line-height: 15px;
 }
 
 .variant-caption-3 {
     font-size: 12px;
-    font-weight: var(--reactist-font-weight-regular);
+    font-weight: 400;
     letter-spacing: 0;
     line-height: 20px;
 }
 
 .variant-footnote-1 {
     font-size: 10px;
-    font-weight: var(--reactist-font-weight-strong);
+    font-weight: 700;
     letter-spacing: 1px;
     line-height: 13px;
 }
 
 .variant-footnote-2 {
     font-size: 10px;
-    font-weight: var(--reactist-text-font-weight-medium);
+    font-weight: 500;
     letter-spacing: 1px;
     line-height: 13px;
 }
