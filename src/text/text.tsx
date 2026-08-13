@@ -112,7 +112,7 @@ const Text = React.forwardRef<HTMLElement, TextProps>(function Text(
                 }),
                 exceptionallySetClassName,
                 styles.typography,
-                display ? styles['font-family-sf-for-web'] : styles['font-family-default'],
+                styles['font-family-default'],
                 styles['variant-' + variant],
                 display ? styles.display : null,
                 decoration ? styles['decoration-' + decoration] : null,

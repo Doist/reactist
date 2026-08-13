@@ -13,8 +13,8 @@ export default {
     parameters: {
         badges: ['accessible'],
         figma: {
-            path: 'Global › Text Styles › SF *FOR WEB*',
-            url: 'https://www.figma.com/design/xo9yAsH8PQUpi0eTJh9pmR/Product-Library---Global?node-id=9062-3316',
+            path: 'Global › Text Styles',
+            url: 'https://www.figma.com/design/xo9yAsH8PQUpi0eTJh9pmR/Product-Library---Global?node-id=2527-3732&t=zfZi3AJ6FfmLeBUT-4',
         },
     },
 }

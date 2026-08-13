@@ -59,7 +59,7 @@ describe('Text', () => {
         expect(screen.getByTestId('text-element').tagName).toBe(tagName)
     })
 
-    it('renders display text as a div with the display font', () => {
+    it('renders display text as a div with the default font', () => {
         render(
             <Text data-testid="text-element" variant="display-1">
                 Text
@@ -68,7 +68,7 @@ describe('Text', () => {
         const element = screen.getByTestId('text-element')
         expect(element.tagName).toBe('DIV')
         expect(element).toHaveClass('display')
-        expect(element).toHaveClass('font-family-sf-for-web')
+        expect(element).toHaveClass('font-family-default')
     })
 
     it('renders custom elements through Ariakit Role', () => {
