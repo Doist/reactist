@@ -29,7 +29,7 @@ export default {
 export function TextStory() {
     return (
         <section className="story">
-            <Stack space="medium">
+            <Stack space="large">
                 {allVariants.map((variant) => (
                     <Text key={variant} variant={variant}>
                         {formatVariantName(variant)}
