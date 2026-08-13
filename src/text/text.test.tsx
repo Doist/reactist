@@ -30,7 +30,7 @@ describe('Text', () => {
         render(<Text data-testid="text-element">Text</Text>)
         const element = screen.getByTestId('text-element')
         expect(element.tagName).toBe('DIV')
-        expect(element).toHaveClass('variant-body-3')
+        expect(element).toHaveClass('text', 'variant-body-3')
     })
 
     it.each([...displayVariants, ...headingVariants, ...bodyVariants])(
