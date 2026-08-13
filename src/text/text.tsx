@@ -4,7 +4,6 @@ import { Role } from '@ariakit/react'
 import classNames from 'classnames'
 
 import { getBoxClassNames } from '../box'
-import { getClassNames } from '../utils/responsive-props'
 
 import styles from './text.module.css'
 
@@ -31,11 +30,10 @@ const bodyVariants = [
     'footnote-2',
 ] as const
 
-type DisplayTextVariant = (typeof displayVariants)[number]
 type HeadingTextVariant = (typeof headingVariants)[number]
 type BodyTextVariant = (typeof bodyVariants)[number]
 
-type TextVariant = DisplayTextVariant | HeadingTextVariant | BodyTextVariant
+type TextVariant = (typeof displayVariants)[number] | HeadingTextVariant | BodyTextVariant
 type TextLineClamp = 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
 
 type TextStyleProps = ObfuscatedClassName & {
@@ -45,12 +43,6 @@ type TextStyleProps = ObfuscatedClassName & {
     align?: BoxProps['textAlign']
     /** Truncates text after the given number of lines. */
     lineClamp?: TextLineClamp
-}
-
-type TextClassNameOptions = TextStyleProps & {
-    variantClassName: string
-    fontFamilyClassName?: string
-    modifierClassNames?: Array<string | undefined>
 }
 
 type StrikethroughTextProps = {
@@ -99,47 +91,15 @@ type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'children' | 'className
         render?: RoleProps['render']
     } & (StrikethroughTextProps | UnderlinedTextProps | UppercaseTextProps | UnmodifiedTextProps)
 
-function isDisplayVariant(variant: TextVariant): variant is DisplayTextVariant {
-    return variant.startsWith('display-')
-}
-
 function isHeadingVariant(variant: TextVariant): variant is HeadingTextVariant {
     return variant.startsWith('heading-')
 }
 
-function getDefaultRender(variant: TextVariant): RoleProps['render'] {
-    if (isHeadingVariant(variant)) {
-        return React.createElement('h' + variant.slice('heading-'.length))
-    }
-
-    return undefined
-}
-
-function getTextClassName({
-    variantClassName,
-    fontFamilyClassName = styles['font-family-default'],
-    modifierClassNames,
-    tone = 'normal',
-    align,
-    lineClamp,
-    exceptionallySetClassName,
-}: TextClassNameOptions) {
-    const lineClampMultipleLines = Number(lineClamp ?? 0) > 1
-
-    return classNames(
-        getBoxClassNames({
-            textAlign: align,
-            paddingRight: lineClamp ? 'xsmall' : undefined,
-        }),
-        exceptionallySetClassName,
-        styles.typography,
-        fontFamilyClassName,
-        variantClassName,
-        modifierClassNames,
-        tone !== 'normal' ? getClassNames(styles, 'tone', tone) : null,
-        lineClampMultipleLines ? styles.lineClampMultipleLines : null,
-        lineClamp ? getClassNames(styles, 'lineClamp', String(lineClamp)) : null,
-    )
+const headingElements: Record<HeadingTextVariant, React.ReactElement> = {
+    'heading-1': <h1 />,
+    'heading-2': <h2 />,
+    'heading-3': <h3 />,
+    'heading-4': <h4 />,
 }
 
 /** Renders interface copy with a named typography variant, from display text to footnotes. */
@@ -158,25 +118,28 @@ const Text = React.forwardRef<HTMLElement, TextProps>(function Text(
     },
     ref,
 ) {
-    const display = isDisplayVariant(variant)
+    const display = variant.startsWith('display-')
 
     return (
         <Role.div
             {...props}
-            render={render ?? getDefaultRender(variant)}
-            className={getTextClassName({
-                variantClassName: styles['variant-' + variant]!,
-                fontFamilyClassName: display ? styles['font-family-sf-for-web'] : undefined,
-                modifierClassNames: [
-                    display ? styles.display : undefined,
-                    decoration ? styles['decoration-' + decoration] : undefined,
-                    textCase ? styles['case-' + textCase] : undefined,
-                ],
-                tone,
-                align,
-                lineClamp,
+            render={render ?? (isHeadingVariant(variant) ? headingElements[variant] : undefined)}
+            className={classNames(
+                getBoxClassNames({
+                    textAlign: align,
+                    paddingRight: lineClamp ? 'xsmall' : undefined,
+                }),
                 exceptionallySetClassName,
-            })}
+                styles.typography,
+                display ? styles['font-family-sf-for-web'] : styles['font-family-default'],
+                styles['variant-' + variant],
+                display ? styles.display : null,
+                decoration ? styles['decoration-' + decoration] : null,
+                textCase ? styles['case-' + textCase] : null,
+                tone !== 'normal' ? styles['tone-' + tone] : null,
+                Number(lineClamp ?? 0) > 1 ? styles.lineClampMultipleLines : null,
+                lineClamp ? styles['lineClamp-' + lineClamp] : null,
+            )}
             // the rendered element varies by variant and render, so the ref is typed broadly
             ref={ref as React.ForwardedRef<HTMLDivElement>}
         >
