@@ -147,7 +147,9 @@ function PaddedBox({ prop, value }: { prop: keyof BoxPaddingProps; value: Space 
 export function PaddingStory({ padding }: { padding: Space }) {
     return (
         <Stack space="large">
-            <Text variant="heading-2">The transparent bordered box has padding</Text>
+            <Text variant="subheader-1" render={<h2 />}>
+                The transparent bordered box has padding
+            </Text>
             <Inline space="large" align="center" alignY="center">
                 <PaddedBox prop="padding" value={padding} />
                 <PaddedBox prop="paddingX" value={padding} />
@@ -213,7 +215,9 @@ function MarginBox({ prop, value }: { prop: keyof BoxMarginProps; value: Space }
 export function MarginStory({ margin }: { margin: Space }) {
     return (
         <Stack space="large">
-            <Text variant="heading-2">The shaded box has margin</Text>
+            <Text variant="subheader-1" render={<h2 />}>
+                The shaded box has margin
+            </Text>
             <Text>
                 When margin is negative, you will see the outer bordered box appear to be inside the
                 shaded box.
@@ -271,7 +275,9 @@ export function OverlayScrollStory() {
                 background="aside"
             >
                 <Stack space="medium">
-                    <Text variant="heading-3">Scrollable Content with Overlay Scroll</Text>
+                    <Text variant="body-1" render={<h3 />}>
+                        Scrollable Content with Overlay Scroll
+                    </Text>
                     <Text>
                         This Box component demonstrates the overlay scroll functionality. The
                         scrollbar is hidden by default and appears on hover.

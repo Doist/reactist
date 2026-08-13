@@ -52,7 +52,9 @@ function FullWidthTemplate({ label, ...otherProps }) {
     }
     return (
         <Stack space="medium">
-            <Text variant="heading-2">Full-width buttons and label alignment</Text>
+            <Text variant="subheader-1" render={<h2 />}>
+                Full-width buttons and label alignment
+            </Text>
             <Text>
                 When buttons have `width` other than the default `auto` they can also customize how
                 the label is aligned horizontally.
@@ -86,7 +88,9 @@ function PlaygroundTemplate({ label, ...props }) {
     }
     return (
         <Stack space="large">
-            <Text variant="heading-2">Click on the buttons to see the loading state</Text>
+            <Text variant="subheader-1" render={<h2 />}>
+                Click on the buttons to see the loading state
+            </Text>
             <Inline space="large">
                 <Box>
                     <Stack space="large">

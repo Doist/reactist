@@ -34,7 +34,9 @@ function LoadingButton(props) {
 function PlaygroundTemplate({ label, ...props }) {
     return (
         <Stack space="large">
-            <Text variant="heading-2">Click on the buttons to see the loading state</Text>
+            <Text variant="subheader-1" render={<h2 />}>
+                Click on the buttons to see the loading state
+            </Text>
             <Inline space="large">
                 <Box>
                     <Stack space="large">
