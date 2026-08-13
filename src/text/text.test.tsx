@@ -5,14 +5,10 @@ import { axe } from 'jest-axe'
 
 import { bodyVariants, displayVariants, headingVariants, Text } from './text'
 
-import type { TextProps } from './text'
-
-const decoratedTextProps = [
-    { variant: 'body-3', decoration: 'strikethrough' },
-    { variant: 'caption-2', decoration: 'underline' },
-] as const satisfies ReadonlyArray<
-    Omit<Extract<TextProps, { decoration: 'strikethrough' | 'underline' }>, 'children'>
->
+const decorations = ['strikethrough', 'underline'] as const
+const decoratedTextProps = [...displayVariants, ...headingVariants, ...bodyVariants].flatMap(
+    (variant) => decorations.map((decoration) => ({ variant, decoration })),
+)
 
 describe('Text', () => {
     it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {
@@ -212,37 +208,40 @@ describe('Text', () => {
         expect(screen.getByTestId('text-element')).toHaveClass('decoration-' + textProps.decoration)
     })
 
-    it('supports uppercase only for footnote-1', () => {
+    it.each(decorations)('supports the default variant with %s', (decoration) => {
         render(
-            <Text data-testid="text-element" variant="footnote-1" case="uppercase">
+            <Text data-testid="text-element" decoration={decoration}>
                 Text
             </Text>,
         )
-        expect(screen.getByTestId('text-element')).toHaveClass('case-uppercase')
+        expect(screen.getByTestId('text-element')).toHaveClass('decoration-' + decoration)
     })
 
-    it('rejects invalid modifiers at type level', () => {
-        const invalidBodyModifier = (
-            // @ts-expect-error body-1 does not support decoration
-            <Text variant="body-1" decoration="underline">
-                Invalid
-            </Text>
+    it('supports uppercase and decoration together for footnote-1', () => {
+        render(
+            <Text
+                data-testid="text-element"
+                variant="footnote-1"
+                case="uppercase"
+                decoration="strikethrough"
+            >
+                Text
+            </Text>,
         )
-        const invalidHeadingModifier = (
-            // @ts-expect-error heading variants do not support decoration
-            <Text variant="heading-1" decoration="strikethrough">
-                Invalid
-            </Text>
+        expect(screen.getByTestId('text-element')).toHaveClass(
+            'case-uppercase',
+            'decoration-strikethrough',
         )
-        const invalidDisplayModifier = (
+    })
+
+    it('rejects uppercase for unsupported variants at type level', () => {
+        const invalidCase = (
             // @ts-expect-error display variants do not support case
             <Text variant="display-1" case="uppercase">
                 Invalid
             </Text>
         )
-        expect(invalidBodyModifier).toBeDefined()
-        expect(invalidHeadingModifier).toBeDefined()
-        expect(invalidDisplayModifier).toBeDefined()
+        expect(invalidCase).toBeDefined()
     })
 
     it('has no accessibility violations', async () => {

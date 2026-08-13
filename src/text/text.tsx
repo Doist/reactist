@@ -43,40 +43,21 @@ type TextStyleProps = ObfuscatedClassName & {
     align?: BoxProps['textAlign']
     /** Truncates text after the given number of lines. */
     lineClamp?: TextLineClamp
+    /** Adds a line under or through the text. */
+    decoration?: 'strikethrough' | 'underline'
 }
 
-type StrikethroughTextProps = {
-    /** Visual text style supporting strikethrough. */
-    variant:
-        | 'subheader-1'
-        | 'subheader-2'
-        | 'body-3'
-        | 'callout-1'
-        | 'callout-2'
-        | 'caption-2'
-        | 'caption-3'
-    decoration: 'strikethrough'
-    case?: never
-}
-
-type UnderlinedTextProps = {
-    /** Visual caption style supporting underline. */
-    variant: 'caption-2' | 'caption-3'
-    decoration: 'underline'
-    case?: never
-}
-
-type UnmodifiedTextProps = {
+type DefaultCaseTextProps = {
     /** Visual text style; defaults to body-3. */
     variant?: TextVariant
-    decoration?: never
+    /** Uppercase text is only available with footnote-1. */
     case?: never
 }
 
 type UppercaseTextProps = {
     /** Visual footnote style supporting uppercase. */
     variant: 'footnote-1'
-    decoration?: never
+    /** Converts the text to uppercase. */
     case: 'uppercase'
 }
 
@@ -89,7 +70,7 @@ type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'children' | 'className
          * element for heading variants, and a div otherwise.
          */
         render?: RoleProps['render']
-    } & (StrikethroughTextProps | UnderlinedTextProps | UppercaseTextProps | UnmodifiedTextProps)
+    } & (DefaultCaseTextProps | UppercaseTextProps)
 
 function isHeadingVariant(variant: TextVariant): variant is HeadingTextVariant {
     return variant.startsWith('heading-')
