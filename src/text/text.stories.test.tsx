@@ -5,6 +5,12 @@ import { render, screen } from '@testing-library/react'
 import { TextStory } from './text.stories'
 
 describe('TextStory', () => {
+    it('uses a 16 px gap between variants', () => {
+        render(<TextStory />)
+
+        expect(screen.getByText('Display 1').parentElement).toHaveClass('gap-large')
+    })
+
     it('shows all variant names in Title Case', () => {
         render(<TextStory />)
 
