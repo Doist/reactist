@@ -16,18 +16,18 @@ Figma style; do not combine independent size and weight values. It uses `body-3`
 ```tsx
 <Text>Default body copy</Text>
 <Text variant="body-1">Emphasized body copy</Text>
-<Text variant="heading-2" decoration="underline">Underlined heading</Text>
+<Text variant="header-2" decoration="underline">Underlined heading</Text>
 <Text variant="footnote-1" case="uppercase" decoration="strikethrough">Metadata</Text>
 ```
 
 Every variant supports `underline` and `strikethrough`. Decoration can be combined with uppercase on
 `footnote-1`.
 
-Heading variants render the matching heading element (`heading-1` renders `h1`, and so on); all
+Header variants render the matching heading element (`header-1` renders `h1`, and so on); all
 other variants render `div`.
 
 ```tsx
-<Text variant="heading-1">Page title</Text> // renders an h1
+<Text variant="header-1">Page title</Text> // renders an h1
 <Text variant="display-3">42 completed tasks</Text> // renders a div
 ```
 
@@ -35,10 +35,10 @@ Use `render` when the copy needs another HTML element. The rendered element owns
 pick heading levels from the document outline, not from the variant number.
 
 ```tsx
-<Text variant="heading-1" render={<h2 />}>
+<Text variant="header-1" render={<h2 />}>
     Prominent section title
 </Text>
-<Text variant="heading-3" render={<button type="button" />}>
+<Text variant="header-3" render={<button type="button" />}>
     Edit title
 </Text>
 <Text variant="body-3" render={<label htmlFor="project-name" />}>

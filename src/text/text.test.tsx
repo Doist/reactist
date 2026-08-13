@@ -3,10 +3,10 @@ import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { axe } from 'jest-axe'
 
-import { bodyVariants, displayVariants, headingVariants, Text } from './text'
+import { bodyVariants, displayVariants, headerVariants, Text } from './text'
 
 const decorations = ['strikethrough', 'underline'] as const
-const decoratedTextProps = [...displayVariants, ...headingVariants, ...bodyVariants].flatMap(
+const decoratedTextProps = [...displayVariants, ...headerVariants, ...bodyVariants].flatMap(
     (variant) => decorations.map((decoration) => ({ variant, decoration })),
 )
 
@@ -33,7 +33,7 @@ describe('Text', () => {
         expect(element).toHaveClass('text', 'variant-body-3')
     })
 
-    it.each([...displayVariants, ...headingVariants, ...bodyVariants])(
+    it.each([...displayVariants, ...headerVariants, ...bodyVariants])(
         'applies the %s variant',
         (variant) => {
             render(
@@ -46,10 +46,10 @@ describe('Text', () => {
     )
 
     it.each([
-        ['heading-1', 'H1'],
-        ['heading-2', 'H2'],
-        ['heading-3', 'H3'],
-        ['heading-4', 'H4'],
+        ['header-1', 'H1'],
+        ['header-2', 'H2'],
+        ['header-3', 'H3'],
+        ['header-4', 'H4'],
     ] as const)('renders %s as %s', (variant, tagName) => {
         render(
             <Text data-testid="text-element" variant={variant}>
@@ -82,15 +82,15 @@ describe('Text', () => {
         expect(element).toHaveAttribute('for', 'name')
     })
 
-    it('lets render override the heading variant default element', () => {
+    it('lets render override the header variant default element', () => {
         render(
-            <Text data-testid="text-element" variant="heading-1" render={<h2 />}>
+            <Text data-testid="text-element" variant="header-1" render={<h2 />}>
                 Text
             </Text>,
         )
         const element = screen.getByTestId('text-element')
         expect(element.tagName).toBe('H2')
-        expect(element).toHaveClass('variant-heading-1')
+        expect(element).toHaveClass('variant-header-1')
     })
 
     it('forwards its ref', () => {
@@ -247,7 +247,7 @@ describe('Text', () => {
     it('has no accessibility violations', async () => {
         const { container } = render(
             <>
-                <Text variant="heading-1">Heading</Text>
+                <Text variant="header-1">Heading</Text>
                 <Text variant="body-1" render={<label htmlFor="name" />}>
                     Name
                 </Text>

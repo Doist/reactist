@@ -3,9 +3,16 @@ import * as React from 'react'
 import { Stack } from '../stack'
 import { ResponsiveWidthRef, select, selectWithNone } from '../utils/storybook-helper'
 
-import { bodyVariants, displayVariants, headingVariants, Text } from './text'
+import { bodyVariants, displayVariants, headerVariants, Text } from './text'
 
-const allVariants = [...displayVariants, ...headingVariants, ...bodyVariants] as const
+const allVariants = [...displayVariants, ...headerVariants, ...bodyVariants] as const
+
+function formatVariantName(variant: (typeof allVariants)[number]) {
+    return variant
+        .split('-')
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(' ')
+}
 
 export default {
     title: '🔤 Typography/Text',
@@ -25,7 +32,7 @@ export function TextStory() {
             <Stack space="medium">
                 {allVariants.map((variant) => (
                     <Text key={variant} variant={variant}>
-                        {variant}
+                        {formatVariantName(variant)}
                     </Text>
                 ))}
             </Stack>
@@ -67,7 +74,7 @@ export function TruncatedTextStory() {
                     dolorum, consequatur, eligendi est dolores modi dolore maiores ipsum magnam a.
                 </Text>
 
-                <Text variant="heading-1" lineClamp={1}>
+                <Text variant="header-1" lineClamp={1}>
                     This is a long title which we will use demonstrate truncating content. When this
                     overflows and begins to drop to a new line, its overflowing content will be
                     replaced by ellipses.
