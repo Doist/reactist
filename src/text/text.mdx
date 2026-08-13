@@ -16,9 +16,12 @@ Figma style; do not combine independent size and weight values. It uses `body-3`
 ```tsx
 <Text>Default body copy</Text>
 <Text variant="body-1">Emphasized body copy</Text>
-<Text variant="caption-2" decoration="underline">Underlined caption</Text>
-<Text variant="footnote-1" case="uppercase">Metadata</Text>
+<Text variant="heading-2" decoration="underline">Underlined heading</Text>
+<Text variant="footnote-1" case="uppercase" decoration="strikethrough">Metadata</Text>
 ```
+
+Every variant supports `underline` and `strikethrough`. Decoration can be combined with uppercase on
+`footnote-1`.
 
 Heading variants render the matching heading element (`heading-1` renders `h1`, and so on); all
 other variants render `div`.
