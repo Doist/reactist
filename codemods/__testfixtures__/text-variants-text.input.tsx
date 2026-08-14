@@ -9,6 +9,9 @@ export function Example() {
             <Text size="subtitle" weight="semibold">
                 Subheader semibold
             </Text>
+            <Text size="subtitle" weight="bold">
+                Subheader bold
+            </Text>
             <Text size="body">Body regular</Text>
             <Text size="body" weight="semibold">
                 Body semibold
@@ -19,6 +22,9 @@ export function Example() {
             <Copy size="copy">Callout regular</Copy>
             <Text size="copy" weight="semibold">
                 Callout semibold
+            </Text>
+            <Text size="copy" weight="bold">
+                Callout bold
             </Text>
             <Text size="caption">Caption regular</Text>
             <Text size={'caption'} weight={'semibold'}>

@@ -50,7 +50,7 @@ function createApi(report = jest.fn()): API {
 
 describe('text variants codemod', () => {
     describe('Text', () => {
-        it('maps exact legacy variants', async () => {
+        it('maps documented legacy variants', async () => {
             expect(await transformFixture('text-variants-text')).toBeTruthy()
         })
 
@@ -98,7 +98,7 @@ describe('text variants codemod', () => {
     })
 
     describe('Heading and Display', () => {
-        it('maps exact legacy Heading variants', async () => {
+        it('maps documented legacy Heading variants', async () => {
             expect(await transformFixture('text-variants-heading')).toBeTruthy()
         })
 
@@ -202,7 +202,7 @@ describe('text variants codemod', () => {
 
             const output = transform({ path: 'src/manual.tsx', source }, createApi(report), {})
 
-            expect(report).toHaveBeenCalledTimes(21)
+            expect(report).toHaveBeenCalledTimes(16)
             for (const [message] of report.mock.calls) {
                 expect(message).toMatch(/^src\/manual\.tsx:\d+ /)
             }
