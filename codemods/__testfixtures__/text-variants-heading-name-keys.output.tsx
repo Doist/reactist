@@ -1,4 +1,4 @@
-import { Text as Heading, Text as Title } from '@doist/reactist'
+import { Text, Text as Title } from '@doist/reactist'
 
 type Labels = {
     Heading: string
@@ -17,7 +17,7 @@ const UI = { Heading: 'div', Title: 'span' }
 export function HeadingNameKeys() {
     return (
         <>
-            <Heading variant="header-1">{headingLabel}</Heading>
+            <Text variant="header-1">{headingLabel}</Text>
             <Title variant="header-2" render={<h1 />}>
                 {titleLabel}
             </Title>
