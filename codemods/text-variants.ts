@@ -26,9 +26,9 @@ type ImportSpecifierWithKind = ImportSpecifier & {
 }
 
 const TEXT_VARIANTS: Record<string, Record<string, string>> = {
-    subtitle: { regular: 'subheader-2', semibold: 'subheader-1' },
+    subtitle: { regular: 'subheader-2', semibold: 'subheader-1', bold: 'subheader-1' },
     body: { regular: 'body-3', semibold: 'body-2', bold: 'body-1' },
-    copy: { regular: 'callout-2', semibold: 'callout-1' },
+    copy: { regular: 'callout-2', semibold: 'callout-1', bold: 'callout-1' },
     caption: { regular: 'caption-3', semibold: 'caption-2', bold: 'caption-1' },
 }
 
@@ -49,7 +49,17 @@ const HEADING_WEIGHTS: Record<string, number> = {
 
 const HEADING_VARIANTS: Record<string, string> = {
     '32:700': 'header-1',
+    '24:700': 'header-2',
     '20:700': 'header-3',
+    '16:700': 'subheader-1',
+    '16:600': 'subheader-1',
+    '16:400': 'subheader-2',
+    '14:700': 'body-1',
+    '14:600': 'body-2',
+    '14:400': 'body-3',
+    '12:700': 'caption-1',
+    '12:600': 'caption-2',
+    '12:400': 'caption-3',
 }
 
 const NAMED_HEADING_VARIANTS: Record<string, string> = {

@@ -5,10 +5,6 @@ import { Text as Heading, Text } from '@doist/reactist'
 export function ManualCases({ size, weight, useLabel, level, props }) {
     return (
         <>
-            <Text size="copy" weight="bold">
-                {/* TODO(reactist-codemod): Text size and weight have no exact variant */}
-                No exact match
-            </Text>
             <Text size={size}>
                 {/* TODO(reactist-codemod): dynamic Text size */}
                 Dynamic
@@ -45,22 +41,6 @@ export function ManualCases({ size, weight, useLabel, level, props }) {
                 {/* TODO(reactist-codemod): spread props may supply or override text props */}
                 Spread
             </Text>
-            <Heading level={1} size="larger">
-                {/* TODO(reactist-codemod): Heading metrics have no exact variant */}
-                24px
-            </Heading>
-            <Heading level={2}>
-                {/* TODO(reactist-codemod): Heading metrics have no exact variant */}
-                16px
-            </Heading>
-            <Heading level={3}>
-                {/* TODO(reactist-codemod): Heading metrics have no exact variant */}
-                14px
-            </Heading>
-            <Heading level={3} size="smaller">
-                {/* TODO(reactist-codemod): Heading metrics have no exact variant */}
-                12px
-            </Heading>
             <Heading level={1} weight="medium">
                 {/* TODO(reactist-codemod): Heading metrics have no exact variant */}
                 Medium
