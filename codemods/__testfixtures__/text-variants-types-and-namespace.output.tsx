@@ -35,18 +35,12 @@ const { Heading: NamespaceHeading, Display: NamespaceDisplay, Text: NamespaceTex
 export function NamespaceCases() {
     return (
         <>
-            <Reactist.Text size="caption">
-                {/* TODO(reactist-codemod): namespace Text reference requires manual migration */}
-                Caption
-            </Reactist.Text>
-            <Reactist.Heading level={1}>
-                {/* TODO(reactist-codemod): namespace Heading reference requires manual migration */}
-                Heading
-            </Reactist.Heading>
-            <Reactist.Display variant="display-1">
-                {/* TODO(reactist-codemod): namespace Display reference requires manual migration */}
-                Display
-            </Reactist.Display>
+            {/* TODO(reactist-codemod): namespace Text reference requires manual migration */}
+            <Reactist.Text size="caption">Caption</Reactist.Text>
+            {/* TODO(reactist-codemod): namespace Heading reference requires manual migration */}
+            <Reactist.Heading level={1}>Heading</Reactist.Heading>
+            {/* TODO(reactist-codemod): namespace Display reference requires manual migration */}
+            <Reactist.Display variant="display-1">Display</Reactist.Display>
         </>
     )
 }
