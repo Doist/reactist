@@ -85,7 +85,7 @@
         "@doist/product-libraries-tokens": "1.2.0",
         "@doist/react-compiler-tracker": "3.0.1",
         "@doist/tsconfig": "2.0.1",
-        "@rollup/plugin-babel": "6.1.0",
+        "@rollup/plugin-babel": "7.1.0",
         "@rollup/plugin-commonjs": "29.0.3",
         "@rollup/plugin-node-resolve": "16.0.3",
         "@rollup/plugin-terser": "1.0.0",
