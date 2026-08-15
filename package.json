@@ -116,7 +116,7 @@
         "chromatic": "18.1.0",
         "classnames": "2.5.1",
         "conventional-changelog-conventionalcommits": "10.2.1",
-        "cssnano": "5.1.15",
+        "cssnano": "8.0.5",
         "eslint": "8.57.1",
         "eslint-config-prettier": "^8.5.0",
         "eslint-formatter-codeframe": "^7.32.1",
