@@ -1,4 +1,4 @@
-# Reactist Text codemod
+# Text Variants codemod
 
 Migrates the breaking Text, Heading, and Display APIs to the consolidated Text component and its
 named variants.
@@ -33,8 +33,6 @@ npx jscodeshift@17.3.0 \
   --parser tsx \
   src
 ```
-
-Run Prettier and the application's type-check after the transform.
 
 ## Mappings
 
@@ -90,6 +88,3 @@ References such as `TextProps['size']` and `Pick<TextProps, 'size' | 'weight'>` 
 because the replacement type depends on the consumer API.
 
 The transform supports imports from `@doist/reactist`. Deep imports are outside its scope.
-
-Resolve every TODO before upgrading to the new Reactist major version. Do not mechanically choose
-an undocumented nearest variant: confirm the intended visual hierarchy with design.
