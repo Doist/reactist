@@ -63,7 +63,8 @@
         "lint": "eslint --format codeframe --cache --ext js,jsx,ts,tsx ./",
         "storybook": "storybook dev -p 6006",
         "prettify": "prettier --write \"./**/*.{js,jsx,ts,tsx,json,css,scss,less,md,mdx}\"",
-        "plop": "plop"
+        "plop": "plop",
+        "prepare": "npm run build"
     },
     "peerDependencies": {
         "@ariakit/react": "~0.4.19",
