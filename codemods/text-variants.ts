@@ -115,6 +115,10 @@ const TEXT_OWNED_PROPS = new Set([
 
 const DYNAMIC = Symbol('dynamic')
 
+// Distributing one conditional prop over the other multiplies their branches, so
+// cap the expansion and leave larger expressions as a manual migration.
+const MAX_VARIANT_COMBINATIONS = 16
+
 function hasRootReactistImport(source: string): boolean {
     let importStatement = ''
     let blockComment = false
@@ -144,6 +148,9 @@ function hasRootReactistImport(source: string): boolean {
         if (!importStatement) {
             if (!/^(?:import|export)\b/.test(trimmedLine)) continue
             importStatement = trimmedLine
+        } else if (braceDepth <= 0 && /^(?:import|export)\b/.test(trimmedLine)) {
+            // A new statement starts before the previous one named a module.
+            importStatement = trimmedLine
         } else {
             importStatement += ' ' + trimmedLine
         }
@@ -155,7 +162,10 @@ function hasRootReactistImport(source: string): boolean {
         if (/(?:\bfrom\s*|^import\s*)['"]@doist\/reactist['"]/.test(importStatement)) {
             return true
         }
-        if (braceDepth <= 0) importStatement = ''
+        // Balanced braces alone do not end an import; wait for the module specifier.
+        if (braceDepth <= 0 && /(?:\bfrom\s*|^import\s*)['"][^'"]*['"]/.test(importStatement)) {
+            importStatement = ''
+        }
     }
 
     return false
@@ -417,14 +427,15 @@ function markLegacyTextPropsReferences(
     reporter: ManualReporter,
 ): boolean {
     let changed = false
+    const textPropsNames = getImportedNames(root, j, 'TextProps')
 
     root.find(j.TSIndexedAccessType).forEach((path) => {
         const { objectType, indexType } = path.node
         if (
             objectType.type !== 'TSTypeReference' ||
             objectType.typeName.type !== 'Identifier' ||
-            objectType.typeName.name !== 'TextProps' ||
-            !isImportedBinding(path, 'TextProps', 'TextProps')
+            !textPropsNames.has(objectType.typeName.name) ||
+            !isImportedBinding(path, objectType.typeName.name, 'TextProps')
         ) {
             return
         }
@@ -436,7 +447,7 @@ function markLegacyTextPropsReferences(
                 j,
                 reporter,
                 path,
-                "TextProps['" + name + "'] uses a removed Text prop",
+                objectType.typeName.name + "['" + name + "'] uses a removed Text prop",
             ) || changed
     })
 
@@ -448,9 +459,9 @@ function markLegacyTextPropsReferences(
         if (
             sourceType?.type !== 'TSTypeReference' ||
             sourceType.typeName.type !== 'Identifier' ||
-            sourceType.typeName.name !== 'TextProps' ||
+            !textPropsNames.has(sourceType.typeName.name) ||
             !keysType ||
-            !isImportedBinding(path, 'TextProps', 'TextProps')
+            !isImportedBinding(path, sourceType.typeName.name, 'TextProps')
         ) {
             return
         }
@@ -464,7 +475,11 @@ function markLegacyTextPropsReferences(
                 j,
                 reporter,
                 path,
-                'Pick<TextProps> includes removed ' + removedNames.join(' and ') + ' props',
+                'Pick<' +
+                    sourceType.typeName.name +
+                    '> includes removed ' +
+                    removedNames.join(' and ') +
+                    ' props',
             ) || changed
     })
 
@@ -703,6 +718,19 @@ function mapFiniteStringExpression(
     return null
 }
 
+function countConditionalBranches(expression: Expression): number {
+    if (expression.type === 'ConditionalExpression') {
+        const conditional = expression as ConditionalExpression
+        return (
+            countConditionalBranches(conditional.consequent) +
+            countConditionalBranches(conditional.alternate)
+        )
+    }
+    const wrappedExpression = getWrappedExpression(expression)
+    if (wrappedExpression) return countConditionalBranches(wrappedExpression)
+    return 1
+}
+
 function mapFiniteStringPair(
     j: JSCodeshift,
     first: Expression,
@@ -711,6 +739,12 @@ function mapFiniteStringPair(
     secondFallback: string,
     mapValues: (firstValue: string, secondValue: string) => string | undefined,
 ): MappedVariantExpression | null {
+    if (
+        countConditionalBranches(first) * countConditionalBranches(second) >
+        MAX_VARIANT_COMBINATIONS
+    ) {
+        return null
+    }
     const firstValue = readStaticExpression(first, firstFallback)
     const secondValue = readStaticExpression(second, secondFallback)
     if (firstValue !== DYNAMIC && secondValue !== DYNAMIC) {
@@ -897,9 +931,62 @@ function canRenameToText(path: NodePath): boolean {
     return !path.scope.lookup('Text') || isImportedBinding(path, 'Text', 'Text')
 }
 
+function hasValueTextImport(root: Root, j: JSCodeshift): boolean {
+    let found = false
+    root.find(j.ImportDeclaration, { source: { value: '@doist/reactist' } }).forEach((path) => {
+        if (path.node.importKind === 'type') return
+        for (const specifier of path.node.specifiers ?? []) {
+            if (
+                specifier.type === 'ImportSpecifier' &&
+                specifier.imported.type === 'Identifier' &&
+                specifier.imported.name === 'Text' &&
+                (specifier as ImportSpecifierWithKind).importKind !== 'type' &&
+                (specifier.local?.type !== 'Identifier' || specifier.local.name === 'Text')
+            ) {
+                found = true
+            }
+        }
+    })
+    return found
+}
+
+function upgradeTypeOnlyTextImport(root: Root, j: JSCodeshift): boolean {
+    let upgraded = false
+    root.find(j.ImportDeclaration, { source: { value: '@doist/reactist' } }).forEach((path) => {
+        if (upgraded) return
+        for (const specifier of path.node.specifiers ?? []) {
+            if (
+                specifier.type !== 'ImportSpecifier' ||
+                specifier.imported.type !== 'Identifier' ||
+                specifier.imported.name !== 'Text' ||
+                (specifier.local?.type === 'Identifier' && specifier.local.name !== 'Text')
+            ) {
+                continue
+            }
+
+            const declarationIsTypeOnly = path.node.importKind === 'type'
+            const specifierIsTypeOnly = (specifier as ImportSpecifierWithKind).importKind === 'type'
+            if (!declarationIsTypeOnly && !specifierIsTypeOnly) continue
+
+            if (declarationIsTypeOnly) {
+                path.node.importKind = 'value'
+                for (const other of path.node.specifiers ?? []) {
+                    if (other !== specifier && other.type === 'ImportSpecifier') {
+                        ;(other as ImportSpecifierWithKind).importKind = 'type'
+                    }
+                }
+            }
+            ;(specifier as ImportSpecifierWithKind).importKind = 'value'
+            upgraded = true
+            return
+        }
+    })
+    return upgraded
+}
+
 function consolidateDirectComponentImports(root: Root, j: JSCodeshift): boolean {
     let changed = false
-    let hasTextImport = getImportedNames(root, j, 'Text').has('Text')
+    let hasTextImport = hasValueTextImport(root, j)
 
     root.find(j.ImportDeclaration, { source: { value: '@doist/reactist' } }).forEach(
         (importPath) => {
@@ -958,7 +1045,9 @@ function consolidateDirectComponentImports(root: Root, j: JSCodeshift): boolean 
                     ;(reference.node as Identifier).name = 'Text'
                 }
                 if (!hasTextImport) {
-                    nextSpecifiers.push(j.importSpecifier(j.identifier('Text')))
+                    if (!upgradeTypeOnlyTextImport(root, j)) {
+                        nextSpecifiers.push(j.importSpecifier(j.identifier('Text')))
+                    }
                     hasTextImport = true
                 }
                 changed = true

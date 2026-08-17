@@ -372,6 +372,49 @@ describe('text variants codemod', () => {
             expect(await transformSource(source)).toBe(await format(expected))
         })
 
+        it('upgrades an inline type-only Text import when consolidating direct components', async () => {
+            const source = `
+                import { Heading, type Text } from '@doist/reactist'
+
+                export function Example() {
+                    return <Heading level={1}>Title</Heading>
+                }
+            `
+            const expected = `
+                import { Text } from '@doist/reactist'
+
+                export function Example() {
+                    return <Text variant="header-3" render={<h1 />}>Title</Text>
+                }
+            `
+
+            expect(await transformSource(source)).toBe(await format(expected))
+        })
+
+        it('upgrades a type-only Text import declaration when consolidating direct components', async () => {
+            const source = `
+                import type { Text, TextProps } from '@doist/reactist'
+                import { Heading } from '@doist/reactist'
+
+                type Tone = TextProps['tone']
+
+                export function Example() {
+                    return <Heading level={1}>Title</Heading>
+                }
+            `
+            const expected = `
+                import { Text, type TextProps } from '@doist/reactist'
+
+                type Tone = TextProps['tone']
+
+                export function Example() {
+                    return <Text variant="header-3" render={<h1 />}>Title</Text>
+                }
+            `
+
+            expect(await transformSource(source)).toBe(await format(expected))
+        })
+
         it('removes an unused legacy import without adding a conflicting Text import', async () => {
             const source = `
                 import { Heading } from '@doist/reactist'
@@ -426,6 +469,50 @@ describe('text variants codemod', () => {
                 expect.stringMatching(/TextProps\['size'\] uses a removed Text prop$/),
                 expect.stringMatching(/Pick<TextProps> includes removed size and weight props$/),
             ])
+        })
+
+        it('reports aliased TextProps property references', () => {
+            const source = `
+                import { type TextProps as LegacyTextProps } from '@doist/reactist'
+
+                type Size = LegacyTextProps['size']
+                type Props = Pick<LegacyTextProps, 'size' | 'weight'>
+                type Tone = LegacyTextProps['tone']
+            `
+            const report = jest.fn()
+
+            const output = transform({ path: 'src/types.ts', source }, createApi(report), {})
+
+            expect(output).toContain(
+                "TODO(reactist-codemod): LegacyTextProps['size'] uses a removed Text prop",
+            )
+            expect(output).toContain(
+                'TODO(reactist-codemod): Pick<LegacyTextProps> includes removed size and weight props',
+            )
+            expect(report).toHaveBeenCalledTimes(2)
+        })
+
+        it('marks oversized conditional size and weight combinations for manual migration', () => {
+            const source = `
+                import { Text } from '@doist/reactist'
+
+                export function Example({ a, b, c, d, e, f, g }) {
+                    return (
+                        <Text
+                            size={a ? 'body' : b ? 'copy' : c ? 'caption' : d ? 'subtitle' : 'body'}
+                            weight={e ? 'bold' : f ? 'semibold' : g ? 'regular' : 'bold'}
+                        >
+                            Too many combinations
+                        </Text>
+                    )
+                }
+            `
+            const output = transform({ path: 'src/example.tsx', source }, createApi(), {})
+
+            expect(output).toContain(
+                'TODO(reactist-codemod): dynamic Text size; dynamic Text weight',
+            )
+            expect(output).not.toContain('variant=')
         })
 
         it('records manual totals and reason categories', () => {
@@ -501,6 +588,38 @@ describe('text variants codemod', () => {
                     {},
                 ),
             ).toBeNull()
+        })
+
+        it('transforms files whose Reactist import spans lines before the module name', async () => {
+            const source = `
+                import { Text }
+                from '@doist/reactist'
+
+                export const Example = () => (
+                    <Text size="caption" weight="bold">
+                        Caption
+                    </Text>
+                )
+            `
+            const expected = `
+                import { Text } from '@doist/reactist'
+
+                export const Example = () => <Text variant="caption-1">Caption</Text>
+            `
+
+            expect(await transformSource(source)).toBe(await format(expected))
+        })
+
+        it('detects multi-line Reactist re-exports', () => {
+            const source = `
+                export { Heading }
+                from '@doist/reactist'
+            `
+            const output = transform({ path: 'src/reexport.ts', source }, createApi(), {})
+
+            expect(output).toContain(
+                'TODO(reactist-codemod): re-exported Heading requires manual migration',
+            )
         })
 
         it('does not parse invalid files that only mention Reactist in data', () => {
