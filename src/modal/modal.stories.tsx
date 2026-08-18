@@ -4,7 +4,7 @@ import { action } from 'storybook/actions'
 
 import { openModal } from '../../.storybook/open-modal'
 import { Box } from '../box'
-import { IconButton } from '../button'
+import { Button as ReactistButton, IconButton } from '../button'
 import { Column, Columns } from '../columns'
 import ThreeDotsIcon from '../components/icons/ThreeDotsIcon.svg'
 import { Divider } from '../divider'
@@ -480,3 +480,87 @@ StackingModals.parameters = {
     docs: { source: { type: 'dynamic' } },
     chromatic: { disableSnapshot: false, pauseAnimationAtEnd: true },
 }
+
+//
+// Exact focus restoration
+//
+
+export function ExactFocusRestoration() {
+    const [isOpen, setIsOpen] = React.useState(false)
+    const [focusedElement, setFocusedElement] = React.useState('original main element')
+    const focusOriginRef = React.useRef<HTMLElement>(null)
+
+    React.useEffect(function focusOrigin() {
+        focusOriginRef.current?.focus()
+    }, [])
+
+    function handleOriginKeyDown(event: React.KeyboardEvent<HTMLElement>) {
+        if (event.ctrlKey && event.key === 'k') {
+            event.preventDefault()
+            setIsOpen(true)
+        }
+    }
+
+    function handleOriginFocus(event: React.FocusEvent<HTMLElement>) {
+        setFocusedElement(
+            event.target === event.currentTarget ? 'original main element' : 'fallback button',
+        )
+    }
+
+    return (
+        <>
+            <Box padding="large">
+                <Box
+                    as="main"
+                    ref={focusOriginRef}
+                    tabIndex={-1}
+                    maxWidth="large"
+                    padding="large"
+                    border="tertiary"
+                    borderRadius="standard"
+                    onKeyDown={handleOriginKeyDown}
+                    onFocus={handleOriginFocus}
+                >
+                    <Stack space="large" align="start">
+                        <Heading level="1">Exact focus restoration</Heading>
+                        <Stack space="small">
+                            <Text>
+                                Open this story in isolation mode because Storybook's own shortcuts
+                                can intercept Ctrl+k and Escape.
+                            </Text>
+                            <Text>Press Ctrl+k to open the modal, then Escape to close it.</Text>
+                        </Stack>
+                        <Box padding="medium" borderRadius="standard" background="selected">
+                            <Text weight="bold">
+                                Focused element after closing:{' '}
+                                {focusedElement === 'original main element' ? '✅' : '❌'}{' '}
+                                {focusedElement}
+                            </Text>
+                        </Box>
+                        <ReactistButton variant="secondary">Fallback focus target</ReactistButton>
+                    </Stack>
+                </Box>
+            </Box>
+            <ModalComponents.Modal
+                isOpen={isOpen}
+                onDismiss={() => setIsOpen(false)}
+                aria-label="Focus restoration"
+                width="small"
+            >
+                <ModalComponents.ModalHeader>
+                    <Heading level="1">Focus restoration</Heading>
+                </ModalComponents.ModalHeader>
+                <ModalComponents.ModalBody>
+                    <Stack space="medium">
+                        <Text>
+                            This modal opened while the non-tabbable main element had focus.
+                        </Text>
+                        <Text>Press Escape or use the close button to return to the story.</Text>
+                    </Stack>
+                </ModalComponents.ModalBody>
+            </ModalComponents.Modal>
+        </>
+    )
+}
+
+ExactFocusRestoration.storyName = 'Exact focus restoration'

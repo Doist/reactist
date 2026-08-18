@@ -5,6 +5,8 @@ import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
+import { flushMicrotasks } from '../utils/test-helpers'
+
 import { Modal, ModalActions, ModalBody, ModalCloseButton, ModalFooter, ModalHeader } from './modal'
 
 // Ariakit's dialog performs async updates and must be wrapped in an act to prevent warnings
@@ -117,6 +119,45 @@ describe('Modal', () => {
         expect(screen.getByRole('dialog', { name: 'modal' })).toBeInTheDocument()
         await user.click(screen.getByRole('button', { name: 'Close me' }))
         expect(screen.queryByRole('dialog', { name: 'modal' })).not.toBeInTheDocument()
+    })
+
+    it('restores focus to the trigger after closing', async () => {
+        renderModal(<TestCaseWithState />)
+        const user = userEvent.setup()
+        const trigger = screen.getByRole('button', { name: 'Click me' })
+
+        await user.click(trigger)
+        await user.click(screen.getByRole('button', { name: 'Close me' }))
+        await flushMicrotasks()
+
+        expect(trigger).toHaveFocus()
+    })
+
+    it('restores focus to the exact non-tabbable origin', async () => {
+        function TestCase({ isOpen }: { isOpen: boolean }) {
+            return (
+                <>
+                    <main tabIndex={-1}>
+                        <button type="button">Fallback descendant</button>
+                    </main>
+                    <Modal isOpen={isOpen} aria-label="modal">
+                        <button type="button">Close me</button>
+                    </Modal>
+                </>
+            )
+        }
+
+        const { rerender } = renderModal(<TestCase isOpen={false} />)
+        const origin = screen.getByRole('main')
+        origin.focus()
+
+        rerender(<TestCase isOpen />)
+        expect(screen.getByRole('button', { name: 'Close me' })).toHaveFocus()
+
+        rerender(<TestCase isOpen={false} />)
+        await flushMicrotasks()
+
+        expect(origin).toHaveFocus()
     })
 
     it('calls onCloseComplete after unmounting once per close, including after reopening', () => {
