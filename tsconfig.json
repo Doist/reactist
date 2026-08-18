@@ -3,6 +3,7 @@
     "include": [
         "src",
         "types",
+        "codemods/*.ts",
         ".storybook",
         ".storybook/components/**/*",
         ".storybook/figma/**/*",
