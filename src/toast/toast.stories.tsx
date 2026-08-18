@@ -5,7 +5,6 @@ import { action as storybookAction } from 'storybook/actions'
 import { Box } from '../box'
 import { Button, IconButton } from '../button'
 import { CheckboxField } from '../checkbox-field'
-import { Heading } from '../heading'
 import { AlertIcon } from '../icons/alert-icon'
 import { PasswordVisibleIcon } from '../icons/password-visible-icon'
 import { Inline } from '../inline'
@@ -65,9 +64,9 @@ export function NotificationToastsStory() {
     return (
         <Box padding="large">
             <Stack space="xlarge">
-                <Heading level={1} size="larger">
+                <Text variant="header-2" render={<h1 />}>
                     Toasts
-                </Heading>
+                </Text>
                 <Text>
                     Use the <code>useToast</code> hook to fire notification-like toasts.
                 </Text>
@@ -172,9 +171,9 @@ export function StaticToastStory() {
 
     return (
         <Stack space="xlarge" padding="large">
-            <Heading level={1} size="larger">
+            <Text variant="header-2" render={<h1 />}>
                 Statically-rendered toasts
-            </Heading>
+            </Text>
             <Text>
                 Use the <code>StaticToast</code> component to render a toast in custom positions.
             </Text>
@@ -216,7 +215,9 @@ export function StaticToastStory() {
             </SelectField>
 
             <Stack space="medium">
-                <Heading level="2">Message only</Heading>
+                <Text variant="subheader-1" render={<h2 />}>
+                    Message only
+                </Text>
                 <StaticToast
                     message="Someone invited you to collaborate on a project"
                     {...commonProps}
@@ -224,7 +225,9 @@ export function StaticToastStory() {
             </Stack>
 
             <Stack space="medium">
-                <Heading level="2">Message and description</Heading>
+                <Text variant="subheader-1" render={<h2 />}>
+                    Message and description
+                </Text>
                 <StaticToast
                     message="Someone invited you to collaborate on a project"
                     description="You need to accept the invitation in order to collaborate."
@@ -233,7 +236,9 @@ export function StaticToastStory() {
             </Stack>
 
             <Stack space="medium">
-                <Heading level="2">Very long content</Heading>
+                <Text variant="subheader-1" render={<h2 />}>
+                    Very long content
+                </Text>
                 <StaticToast
                     message="The project you were invited to could not be loaded into your workspace at this time"
                     description="Please, try to access the project again in a few minutes. If the problem persists, contact our support team"

@@ -1,98 +1,135 @@
 import * as React from 'react'
 
-import { Box } from '../box'
-import { polymorphicComponent } from '../utils/polymorphism'
-import { getClassNames } from '../utils/responsive-props'
+import { Role } from '@ariakit/react'
+import classNames from 'classnames'
+
+import { getBoxClassNames } from '../box'
 
 import styles from './text.module.css'
 
+import type { RoleProps } from '@ariakit/react'
 import type { BoxProps } from '../box'
-import type { Tone } from '../utils/common-types'
+import type { ObfuscatedClassName, Tone } from '../utils/common-types'
 
-type TextProps = {
-    children: React.ReactNode
-    /**
-     * The size of the text.
-     *
-     * The supported values, from smaller size to larger size, are:
-     * 'caption', 'copy', 'body', and 'subtitle'
-     *
-     * @default 'body'
-     */
-    size?: 'caption' | 'copy' | 'body' | 'subtitle'
-    /**
-     * The weight of the text font.
-     *
-     * @default 'regular'
-     */
-    weight?: 'regular' | 'semibold' | 'bold'
-    /**
-     * The tone (semantic color) of the text.
-     *
-     * @default 'normal'
-     */
+const displayVariants = ['display-1', 'display-2', 'display-3', 'display-4', 'display-5'] as const
+
+const headerVariants = ['header-1', 'header-2', 'header-3', 'header-4'] as const
+
+const bodyVariants = [
+    'subheader-1',
+    'subheader-2',
+    'body-1',
+    'body-2',
+    'body-3',
+    'callout-1',
+    'callout-2',
+    'caption-1',
+    'caption-2',
+    'caption-3',
+    'footnote-1',
+    'footnote-2',
+] as const
+
+type HeaderTextVariant = (typeof headerVariants)[number]
+type BodyTextVariant = (typeof bodyVariants)[number]
+
+type TextVariant = (typeof displayVariants)[number] | HeaderTextVariant | BodyTextVariant
+type TextLineClamp = 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
+
+type TextStyleProps = ObfuscatedClassName & {
+    /** The semantic color of the text. */
     tone?: Tone
-    /**
-     * Used to truncate the text to a given number of lines.
-     *
-     * It will add an ellipsis (`…`) to the text at the end of the last line, only if the text was
-     * truncated. If the text fits without it being truncated, no ellipsis is added.
-     *
-     * By default, the text is not truncated at all, no matter how many lines it takes to render it.
-     *
-     * @default undefined
-     */
-    lineClamp?: 1 | 2 | 3 | 4 | 5 | '1' | '2' | '3' | '4' | '5'
-    /**
-     * How to align the text horizontally.
-     *
-     * @default 'start'
-     */
+    /** Horizontal text alignment, including responsive values. */
     align?: BoxProps['textAlign']
+    /** Truncates text after the given number of lines. */
+    lineClamp?: TextLineClamp
+    /** Adds a line under or through the text. */
+    decoration?: 'strikethrough' | 'underline'
 }
 
-const Text = polymorphicComponent<'div', TextProps>(function Text(
+type DefaultCaseTextProps = {
+    /** Visual text style; defaults to body-3. */
+    variant?: TextVariant
+    /** Uppercase text is only available with footnote-1. */
+    case?: never
+}
+
+type UppercaseTextProps = {
+    /** Visual footnote style supporting uppercase. */
+    variant: 'footnote-1'
+    /** Converts the text to uppercase. */
+    case: 'uppercase'
+}
+
+/** Renders interface copy with a named typography variant, from display text to footnotes. */
+type TextProps = Omit<React.HTMLAttributes<HTMLElement>, 'children' | 'className'> &
+    TextStyleProps & {
+        children: React.ReactNode
+        /**
+         * Custom element rendered with the variant's typography. Defaults to the matching heading
+         * element for header variants, and a div otherwise.
+         */
+        render?: RoleProps['render']
+    } & (DefaultCaseTextProps | UppercaseTextProps)
+
+function isHeaderVariant(variant: TextVariant): variant is HeaderTextVariant {
+    return variant.startsWith('header-')
+}
+
+const headerElements: Record<HeaderTextVariant, React.ReactElement> = {
+    'header-1': <h1 />,
+    'header-2': <h2 />,
+    'header-3': <h3 />,
+    'header-4': <h4 />,
+}
+
+/** Renders interface copy with a named typography variant, from display text to footnotes. */
+const Text = React.forwardRef<HTMLElement, TextProps>(function Text(
     {
-        as,
-        size = 'body',
-        weight = 'regular',
+        variant = 'body-3',
+        decoration,
+        case: textCase,
         tone = 'normal',
         align,
-        children,
         lineClamp,
         exceptionallySetClassName,
+        render,
+        children,
         ...props
     },
     ref,
 ) {
-    const lineClampMultipleLines =
-        typeof lineClamp === 'string' ? Number(lineClamp) > 1 : (lineClamp ?? 1) > 1
+    const display = variant.startsWith('display-')
 
     return (
-        <Box
+        <Role.div
             {...props}
-            as={as}
-            className={[
+            render={render ?? (isHeaderVariant(variant) ? headerElements[variant] : undefined)}
+            className={classNames(
+                getBoxClassNames({
+                    textAlign: align,
+                    paddingRight: lineClamp ? 'xsmall' : undefined,
+                }),
                 exceptionallySetClassName,
                 styles.text,
-                size !== 'body' ? getClassNames(styles, 'size', size) : null,
-                weight !== 'regular' ? getClassNames(styles, 'weight', weight) : null,
-                tone !== 'normal' ? getClassNames(styles, 'tone', tone) : null,
-                lineClampMultipleLines ? styles.lineClampMultipleLines : null,
-                lineClamp ? getClassNames(styles, 'lineClamp', lineClamp.toString()) : null,
-            ]}
-            textAlign={align}
-            // Prevents emojis from being cut-off
-            // See https://github.com/Doist/reactist/pull/528
-            paddingRight={lineClamp ? 'xsmall' : undefined}
-            ref={ref}
+                styles['font-family-default'],
+                styles['variant-' + variant],
+                display ? styles.display : null,
+                decoration ? styles['decoration-' + decoration] : null,
+                textCase ? styles['case-' + textCase] : null,
+                tone !== 'normal' ? styles['tone-' + tone] : null,
+                Number(lineClamp ?? 0) > 1 ? styles.lineClampMultipleLines : null,
+                lineClamp ? styles['lineClamp-' + lineClamp] : null,
+            )}
+            // the rendered element varies by variant and render, so the ref is typed broadly
+            ref={ref as React.ForwardedRef<HTMLDivElement>}
         >
             {children}
-        </Box>
+        </Role.div>
     )
 })
 
 Text.displayName = 'Text'
 
-export type { TextProps }
-export { Text }
+export type { TextProps, TextVariant }
+export { bodyVariants, displayVariants, headerVariants, Text }

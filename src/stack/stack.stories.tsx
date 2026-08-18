@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Heading } from '../heading'
+import { Text } from '../text'
 import {
     disableResponsiveProps,
     Placeholder,
@@ -99,15 +99,21 @@ export function NestedStacksStory(args: PartialProps<typeof Stack>) {
     const spaceStr = typeof args.space !== 'string' ? 'none' : args.space
     return (
         <Stack {...args}>
-            <Heading level="1">Parent stack with space=&ldquo;{spaceStr}&rdquo;</Heading>
+            <Text variant="header-3" render={<h1 />}>
+                Parent stack with space=&ldquo;{spaceStr}&rdquo;
+            </Text>
             <Stack space="xsmall">
-                <Heading level="2">Nested stack with space=&ldquo;xsmall&rdquo;</Heading>
+                <Text variant="subheader-1" render={<h2 />}>
+                    Nested stack with space=&ldquo;xsmall&rdquo;
+                </Text>
                 <Placeholder />
                 <Placeholder />
                 <Placeholder />
             </Stack>
             <Stack space="xsmall">
-                <Heading level="2">Nested stack with space=&ldquo;xsmall&rdquo;</Heading>
+                <Text variant="subheader-1" render={<h2 />}>
+                    Nested stack with space=&ldquo;xsmall&rdquo;
+                </Text>
                 <Placeholder />
                 <Placeholder />
                 <Placeholder />

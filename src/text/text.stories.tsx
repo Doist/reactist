@@ -3,7 +3,16 @@ import * as React from 'react'
 import { Stack } from '../stack'
 import { ResponsiveWidthRef, select, selectWithNone } from '../utils/storybook-helper'
 
-import { Text } from './text'
+import { bodyVariants, displayVariants, headerVariants, Text } from './text'
+
+const allVariants = [...displayVariants, ...headerVariants, ...bodyVariants] as const
+
+function formatVariantName(variant: (typeof allVariants)[number]) {
+    return variant
+        .split('-')
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(' ')
+}
 
 export default {
     title: '🔤 Typography/Text',
@@ -11,8 +20,8 @@ export default {
     parameters: {
         badges: ['accessible'],
         figma: {
-            path: 'Global › Text Styles › SF *FOR WEB* › Body 1',
-            url: 'https://www.figma.com/design/xo9yAsH8PQUpi0eTJh9pmR/Product-Library---Global?node-id=2524-3594',
+            path: 'Global › Text Styles',
+            url: 'https://www.figma.com/design/xo9yAsH8PQUpi0eTJh9pmR/Product-Library---Global?node-id=2527-3732&t=zfZi3AJ6FfmLeBUT-4',
         },
     },
 }
@@ -20,82 +29,12 @@ export default {
 export function TextStory() {
     return (
         <section className="story">
-            <Stack space="medium">
-                <Text size="subtitle" weight="regular">
-                    Subtitle Regular
-                </Text>
-                <Text size="subtitle" tone="secondary">
-                    Subtitle Secondary
-                </Text>
-                <Text size="subtitle" tone="danger">
-                    Subtitle Danger
-                </Text>
-                <Text size="subtitle" tone="positive">
-                    Subtitle Positive
-                </Text>
-                <Text size="subtitle" weight="semibold">
-                    Subtitle Semibold
-                </Text>
-                <Text size="subtitle" weight="bold">
-                    Subtitle Bold
-                </Text>
-
-                <Text size="body" weight="regular">
-                    Body Regular
-                </Text>
-                <Text size="body" tone="secondary">
-                    Body Secondary
-                </Text>
-                <Text size="body" tone="danger">
-                    Body Danger
-                </Text>
-                <Text size="body" tone="positive">
-                    Body Positive
-                </Text>
-                <Text size="body" weight="semibold">
-                    Body Semibold
-                </Text>
-                <Text size="body" weight="bold">
-                    Body Bold
-                </Text>
-
-                <Text size="copy" weight="regular">
-                    Copy Regular
-                </Text>
-                <Text size="copy" tone="secondary">
-                    Copy Secondary
-                </Text>
-                <Text size="copy" tone="danger">
-                    Copy Danger
-                </Text>
-                <Text size="copy" tone="positive">
-                    Copy Positive
-                </Text>
-                <Text size="copy" weight="semibold">
-                    Copy Semibold
-                </Text>
-                <Text size="copy" weight="bold">
-                    Copy Bold
-                </Text>
-
-                <Text size="caption" weight="regular">
-                    Caption Regular
-                </Text>
-                <Text size="caption" tone="secondary">
-                    Caption Secondary
-                </Text>
-                <Text size="caption" tone="danger">
-                    Caption Danger
-                </Text>
-                <Text size="caption" tone="positive">
-                    Caption Positive
-                </Text>
-                <Text size="caption" weight="semibold">
-                    Caption Semibold
-                </Text>
-                <Text size="caption" weight="bold">
-                    Caption Bold
-                </Text>
+            <Stack space="large">
+                {allVariants.map((variant) => (
+                    <Text key={variant} variant={variant}>
+                        {formatVariantName(variant)}
+                    </Text>
+                ))}
             </Stack>
         </section>
     )
@@ -134,6 +73,12 @@ export function TruncatedTextStory() {
                     temporibus, omnis laborum quidem autem totam. Iure, numquam. Totam facilis
                     dolorum, consequatur, eligendi est dolores modi dolore maiores ipsum magnam a.
                 </Text>
+
+                <Text variant="header-1" lineClamp={1}>
+                    This is a long title which we will use demonstrate truncating content. When this
+                    overflows and begins to drop to a new line, its overflowing content will be
+                    replaced by ellipses.
+                </Text>
             </Stack>
         </section>
     )
@@ -153,15 +98,15 @@ export function ResponsiveTextStory(props: React.ComponentProps<typeof Text>) {
 }
 
 ResponsiveTextStory.args = {
-    size: 'body',
-    weight: 'regular',
+    variant: 'body-3',
     tone: 'normal',
     children: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit',
 }
 
 ResponsiveTextStory.argTypes = {
-    size: select(['caption', 'copy', 'body', 'subtitle']),
-    weight: select(['regular', 'semibold', 'bold']),
+    variant: select(allVariants),
+    decoration: selectWithNone(['strikethrough', 'underline']),
+    case: selectWithNone(['uppercase']),
     lineClamp: selectWithNone([1, 2, 3, 4, 5]),
     tone: select(['normal', 'secondary', 'danger']),
     align: { control: false },
@@ -179,15 +124,15 @@ export function TextPlaygroundStory(props: React.ComponentProps<typeof Text>) {
 }
 
 TextPlaygroundStory.args = {
-    size: 'body',
-    weight: 'regular',
+    variant: 'body-3',
     tone: 'normal',
     children: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit',
 }
 
 TextPlaygroundStory.argTypes = {
-    size: select(['caption', 'copy', 'body', 'subtitle']),
-    weight: select(['regular', 'semibold', 'bold']),
+    variant: select(allVariants),
+    decoration: selectWithNone(['strikethrough', 'underline']),
+    case: selectWithNone(['uppercase']),
     lineClamp: selectWithNone([1, 2, 3, 4, 5]),
     tone: select(['normal', 'secondary', 'danger']),
     align: selectWithNone(['start', 'center', 'end', 'justify']),

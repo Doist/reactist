@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { withDarkTheme } from '../../.storybook/dark-theme'
 import { Box } from '../box'
 import { IconButton } from '../button'
-import { Heading } from '../heading'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
 import { Text } from '../text'
@@ -35,7 +34,9 @@ function LoadingButton(props) {
 function PlaygroundTemplate({ label, ...props }) {
     return (
         <Stack space="large">
-            <Heading level="2">Click on the buttons to see the loading state</Heading>
+            <Text variant="subheader-1" render={<h2 />}>
+                Click on the buttons to see the loading state
+            </Text>
             <Inline space="large">
                 <Box>
                     <Stack space="large">

@@ -1,7 +1,7 @@
 import * as React from 'react'
 
-import { Heading } from '../heading'
 import { Stack } from '../stack'
+import { Text } from '../text'
 import {
     disableResponsiveProps,
     Placeholder,
@@ -96,7 +96,9 @@ export function NestedStackStory({ space }: PartialProps<typeof Inline>) {
     const spaceStr = typeof space !== 'string' ? 'none' : space
     return (
         <Stack space={space}>
-            <Heading level="1">Parent stack with space=&ldquo;{spaceStr}&rdquo;</Heading>
+            <Text variant="header-3" render={<h1 />}>
+                Parent stack with space=&ldquo;{spaceStr}&rdquo;
+            </Text>
             <Inline space="xsmall">{renderInlineContent()}</Inline>
             <Inline space="xsmall">{renderInlineContent()}</Inline>
         </Stack>

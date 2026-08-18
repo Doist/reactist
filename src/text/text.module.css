@@ -1,38 +1,22 @@
 .text {
-    font-family: var(--reactist-font-family);
-    font-size: var(--reactist-font-size-body);
-    font-weight: var(--reactist-font-weight-regular);
     color: var(--product-library-display-primary-idle-tint);
 }
 
-.size-caption {
-    font-size: var(--reactist-font-size-caption);
-}
-.size-copy {
-    font-size: var(--reactist-font-size-copy);
-}
-.size-subtitle {
-    font-size: var(--reactist-font-size-subtitle);
-}
-
-.weight-semibold {
-    font-weight: var(--reactist-font-weight-medium);
-}
-.weight-bold {
-    font-weight: var(--reactist-font-weight-strong);
+.font-family-default {
+    font-family: var(--reactist-font-family);
 }
 
 .tone-secondary {
     color: var(--product-library-display-secondary-idle-tint);
 }
+
 .tone-danger {
     color: var(--product-library-actionable-destructive-idle-tint);
 }
+
 .tone-positive {
     color: var(--product-library-info-positive-primary-idle-tint);
 }
-
-/* truncated text */
 
 .lineClampMultipleLines {
     display: -webkit-box;
@@ -41,20 +25,181 @@
 }
 
 .lineClamp-1 {
+    overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden;
 }
 
 .lineClamp-2 {
     -webkit-line-clamp: 2;
 }
+
 .lineClamp-3 {
     -webkit-line-clamp: 3;
 }
+
 .lineClamp-4 {
     -webkit-line-clamp: 4;
 }
+
 .lineClamp-5 {
     -webkit-line-clamp: 5;
+}
+
+.display {
+    font-weight: 500;
+    line-height: normal;
+}
+
+.variant-display-1 {
+    font-size: 96px;
+    letter-spacing: 0;
+}
+
+.variant-display-2 {
+    font-size: 88px;
+    letter-spacing: 0;
+}
+
+.variant-display-3 {
+    font-size: 72px;
+    letter-spacing: 0.14px;
+}
+
+.variant-display-4 {
+    font-size: 56px;
+    letter-spacing: 0.3px;
+}
+
+.variant-display-5 {
+    font-size: 42px;
+    letter-spacing: 0.37px;
+}
+
+.variant-header-1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 0.41px;
+    line-height: normal;
+}
+
+.variant-header-2 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.22px;
+    line-height: normal;
+}
+
+.variant-header-3 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.variant-header-4 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.variant-subheader-1 {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 23px;
+}
+
+.variant-subheader-2 {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 23px;
+}
+
+.variant-body-1 {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.15px;
+    line-height: 21px;
+}
+
+.variant-body-2 {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -0.15px;
+    line-height: 21px;
+}
+
+.variant-body-3 {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: -0.15px;
+    line-height: 21px;
+}
+
+.variant-callout-1 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -0.15px;
+    line-height: 20px;
+}
+
+.variant-callout-2 {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.15px;
+    line-height: 20px;
+}
+
+.variant-caption-1 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.variant-caption-2 {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: -0.15px;
+    line-height: 15px;
+}
+
+.variant-caption-3 {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.variant-footnote-1 {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 13px;
+}
+
+.variant-footnote-2 {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 13px;
+}
+
+.decoration-strikethrough {
+    text-decoration-line: line-through;
+    text-decoration-skip-ink: none;
+    text-underline-position: from-font;
+}
+
+.decoration-underline {
+    text-decoration-line: underline;
+    text-decoration-skip-ink: none;
+    text-underline-position: from-font;
+}
+
+.case-uppercase {
+    text-transform: uppercase;
 }

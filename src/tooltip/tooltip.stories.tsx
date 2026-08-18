@@ -116,9 +116,7 @@ export function TooltipRichContent({
             hideTimeout={hideTimeout}
             content={
                 <Stack space="medium" padding="small" align="start">
-                    <Text weight="bold" size="subtitle">
-                        Upgrade to Pro
-                    </Text>
+                    <Text variant="subheader-1">Upgrade to Pro</Text>
                     <ul style={{ textAlign: 'start', padding: '0 16px', margin: '0' }}>
                         <li>Add reminders to tasks</li>
                         <li>Unlimited projects</li>
@@ -253,7 +251,7 @@ export function TooltipImperativeControl() {
                 </Button>
             </Box>
 
-            <Text tone="secondary" size="caption">
+            <Text tone="secondary" variant="caption-3">
                 Try hovering the button, then clicking &quot;Force hide&quot; before the 3-second
                 timeout expires.
             </Text>

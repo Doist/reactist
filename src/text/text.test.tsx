@@ -1,8 +1,14 @@
 import * as React from 'react'
 
 import { render, screen } from '@testing-library/react'
+import { axe } from 'jest-axe'
 
-import { Text } from './text'
+import { bodyVariants, displayVariants, headerVariants, Text } from './text'
+
+const decorations = ['strikethrough', 'underline'] as const
+const decoratedTextProps = [...displayVariants, ...headerVariants, ...bodyVariants].flatMap(
+    (variant) => decorations.map((decoration) => ({ variant, decoration })),
+)
 
 describe('Text', () => {
     it('does not acknowledge the className prop, but exceptionallySetClassName instead', () => {
@@ -20,13 +26,77 @@ describe('Text', () => {
         expect(screen.getByTestId('text-element')).not.toHaveClass('wrong')
     })
 
-    it('can be rendered as any HTML element', () => {
+    it('defaults to body-3 rendered as a div', () => {
+        render(<Text data-testid="text-element">Text</Text>)
+        const element = screen.getByTestId('text-element')
+        expect(element.tagName).toBe('DIV')
+        expect(element).toHaveClass('text', 'variant-body-3')
+    })
+
+    it.each([...displayVariants, ...headerVariants, ...bodyVariants])(
+        'applies the %s variant',
+        (variant) => {
+            render(
+                <Text data-testid="text-element" variant={variant}>
+                    Text
+                </Text>,
+            )
+            expect(screen.getByTestId('text-element')).toHaveClass('variant-' + variant)
+        },
+    )
+
+    it.each([
+        ['header-1', 'H1'],
+        ['header-2', 'H2'],
+        ['header-3', 'H3'],
+        ['header-4', 'H4'],
+    ] as const)('renders %s as %s', (variant, tagName) => {
         render(
-            <Text data-testid="text-element" as="nav">
+            <Text data-testid="text-element" variant={variant}>
                 Text
             </Text>,
         )
-        expect(screen.getByTestId('text-element').tagName).toBe('NAV')
+        expect(screen.getByTestId('text-element').tagName).toBe(tagName)
+    })
+
+    it('renders display text as a div with the default font', () => {
+        render(
+            <Text data-testid="text-element" variant="display-1">
+                Text
+            </Text>,
+        )
+        const element = screen.getByTestId('text-element')
+        expect(element.tagName).toBe('DIV')
+        expect(element).toHaveClass('display')
+        expect(element).toHaveClass('font-family-default')
+    })
+
+    it('renders custom elements through Ariakit Role', () => {
+        render(
+            <Text data-testid="text-element" variant="body-1" render={<label htmlFor="name" />}>
+                Name
+            </Text>,
+        )
+        const element = screen.getByTestId('text-element')
+        expect(element.tagName).toBe('LABEL')
+        expect(element).toHaveAttribute('for', 'name')
+    })
+
+    it('lets render override the header variant default element', () => {
+        render(
+            <Text data-testid="text-element" variant="header-1" render={<h2 />}>
+                Text
+            </Text>,
+        )
+        const element = screen.getByTestId('text-element')
+        expect(element.tagName).toBe('H2')
+        expect(element).toHaveClass('variant-header-1')
+    })
+
+    it('forwards its ref', () => {
+        const ref = React.createRef<HTMLElement>()
+        render(<Text ref={ref}>Text</Text>)
+        expect(ref.current?.tagName).toBe('DIV')
     })
 
     it('renders its children as its content', () => {
@@ -38,53 +108,6 @@ describe('Text', () => {
         expect(screen.getByTestId('text-element').innerHTML).toMatchInlineSnapshot(
             `"Hello <strong>world</strong>"`,
         )
-    })
-
-    describe('size="…"', () => {
-        it('adds the appropriate class names', () => {
-            const { rerender } = render(
-                <Text data-testid="text-element" size="body">
-                    Text
-                </Text>,
-            )
-            const textElement = screen.getByTestId('text-element')
-            expect(textElement).not.toHaveClass('size-body')
-            expect(textElement).not.toHaveClass('size-caption')
-            expect(textElement).not.toHaveClass('size-copy')
-            expect(textElement).not.toHaveClass('size-subtitle')
-
-            for (const size of ['caption', 'copy', 'subtitle'] as const) {
-                rerender(
-                    <Text data-testid="text-element" size={size}>
-                        Text
-                    </Text>,
-                )
-                expect(textElement).toHaveClass(`size-${size}`)
-            }
-        })
-    })
-
-    describe('weight="…"', () => {
-        it('adds the appropriate class names', () => {
-            const { rerender } = render(
-                <Text data-testid="text-element" weight="regular">
-                    Text
-                </Text>,
-            )
-            const textElement = screen.getByTestId('text-element')
-            expect(textElement).not.toHaveClass('weight-regular')
-            expect(textElement).not.toHaveClass('weight-semibold')
-            expect(textElement).not.toHaveClass('weight-bold')
-
-            for (const weight of ['semibold', 'bold'] as const) {
-                rerender(
-                    <Text data-testid="text-element" weight={weight}>
-                        Text
-                    </Text>,
-                )
-                expect(textElement).toHaveClass(`weight-${weight}`)
-            }
-        })
     })
 
     describe('tone="…"', () => {
@@ -174,5 +197,63 @@ describe('Text', () => {
                 expect(textElement).toHaveClass('paddingRight-xsmall')
             }
         })
+    })
+
+    it.each(decoratedTextProps)('supports $variant with $decoration', (textProps) => {
+        render(
+            <Text data-testid="text-element" {...textProps}>
+                Text
+            </Text>,
+        )
+        expect(screen.getByTestId('text-element')).toHaveClass('decoration-' + textProps.decoration)
+    })
+
+    it.each(decorations)('supports the default variant with %s', (decoration) => {
+        render(
+            <Text data-testid="text-element" decoration={decoration}>
+                Text
+            </Text>,
+        )
+        expect(screen.getByTestId('text-element')).toHaveClass('decoration-' + decoration)
+    })
+
+    it('supports uppercase and decoration together for footnote-1', () => {
+        render(
+            <Text
+                data-testid="text-element"
+                variant="footnote-1"
+                case="uppercase"
+                decoration="strikethrough"
+            >
+                Text
+            </Text>,
+        )
+        expect(screen.getByTestId('text-element')).toHaveClass(
+            'case-uppercase',
+            'decoration-strikethrough',
+        )
+    })
+
+    it('rejects uppercase for unsupported variants at type level', () => {
+        const invalidCase = (
+            // @ts-expect-error display variants do not support case
+            <Text variant="display-1" case="uppercase">
+                Invalid
+            </Text>
+        )
+        expect(invalidCase).toBeDefined()
+    })
+
+    it('has no accessibility violations', async () => {
+        const { container } = render(
+            <>
+                <Text variant="header-1">Heading</Text>
+                <Text variant="body-1" render={<label htmlFor="name" />}>
+                    Name
+                </Text>
+                <input id="name" />
+            </>,
+        )
+        expect(await axe(container)).toHaveNoViolations()
     })
 })
