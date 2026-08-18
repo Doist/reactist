@@ -235,6 +235,8 @@ export function Modal({
         // element instead.
         if (
             !originalElement?.isConnected ||
+            originalElement === document.body ||
+            originalElement === document.documentElement ||
             originalElement === fallbackElement ||
             !originalElement.contains(fallbackElement)
         ) {
