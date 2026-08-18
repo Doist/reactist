@@ -1,3 +1,5 @@
+## [36.3.2](https://github.com/Doist/reactist/compare/v36.3.1...v36.3.2) (2026-08-18)
+
 ## [36.3.1](https://github.com/Doist/reactist/compare/v36.3.0...v36.3.1) (2026-08-07)
 
 ### Bug Fixes
