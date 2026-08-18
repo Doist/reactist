@@ -1,7 +1,7 @@
 # Text Variants codemod
 
 Migrates the breaking Text, Heading, and Display APIs to the consolidated Text component and its
-named variants.
+named variants, introduced in #1152.
 
 ## Run
 
