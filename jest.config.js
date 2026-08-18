@@ -11,8 +11,4 @@ module.exports = {
         '\\.(css|less)$': '<rootDir>/src/__mocks__/styleMock.ts',
     },
     testEnvironment: 'jsdom',
-    watchPlugins: [
-        require.resolve('jest-watch-typeahead/filename'),
-        require.resolve('jest-watch-typeahead/testname'),
-    ],
 }
