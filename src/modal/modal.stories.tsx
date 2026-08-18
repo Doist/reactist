@@ -547,7 +547,9 @@ export function ExactFocusRestoration() {
                     onFocus={handleOriginFocus}
                 >
                     <Stack space="large" align="start">
-                        <Heading level="1">Exact focus restoration</Heading>
+                        <Text variant="header-3" render={<h1 />}>
+                            Exact focus restoration
+                        </Text>
                         <Stack space="small">
                             <Text>
                                 Open this story in isolation mode because Storybook's own shortcuts
@@ -556,7 +558,7 @@ export function ExactFocusRestoration() {
                             <Text>Press Ctrl+k to open the modal, then Escape to close it.</Text>
                         </Stack>
                         <Box padding="medium" borderRadius="standard" background="selected">
-                            <Text weight="bold">
+                            <Text variant="body-1">
                                 Focused element after closing:{' '}
                                 {focusedElement === 'original main element' ? '✅' : '❌'}{' '}
                                 {focusedElement}
@@ -573,7 +575,9 @@ export function ExactFocusRestoration() {
                 width="small"
             >
                 <ModalComponents.ModalHeader>
-                    <Heading level="1">Focus restoration</Heading>
+                    <Text variant="header-3" render={<h1 />}>
+                        Focus restoration
+                    </Text>
                 </ModalComponents.ModalHeader>
                 <ModalComponents.ModalBody>
                     <Stack space="medium">
