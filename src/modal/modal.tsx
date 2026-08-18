@@ -213,6 +213,41 @@ export function Modal({
     const portalRef = React.useRef<HTMLElement | null>(null)
     const dialogRef = React.useRef<HTMLDivElement | null>(null)
     const backdropRef = React.useRef<HTMLDivElement | null>(null)
+    const originalFocusRef = React.useRef<HTMLElement | null>(null)
+
+    function handleFocusLockActivation() {
+        if (originalFocusRef.current) {
+            return
+        }
+
+        const activeElement = document.activeElement
+
+        originalFocusRef.current = activeElement instanceof HTMLElement ? activeElement : null
+    }
+
+    function handleReturnFocus(fallbackElement: Element) {
+        const originalElement = originalFocusRef.current
+
+        originalFocusRef.current = null
+
+        // When the element that had focus before the modal opened cannot be reached with Tab,
+        // Focus Lock chooses a focusable child as its fallback, so restore focus to the original
+        // element instead.
+        if (
+            !originalElement?.isConnected ||
+            originalElement === document.body ||
+            originalElement === document.documentElement ||
+            originalElement === fallbackElement ||
+            !originalElement.contains(fallbackElement)
+        ) {
+            return true
+        }
+
+        queueMicrotask(() => originalElement.focus())
+
+        return false
+    }
+
     const handleBackdropClick = React.useCallback(
         (event: React.MouseEvent) => {
             if (
@@ -281,8 +316,9 @@ export function Modal({
                 <FocusLock
                     autoFocus={autoFocus}
                     whiteList={isNotInternalFrame}
-                    returnFocus={true}
+                    returnFocus={handleReturnFocus}
                     crossFrame={false}
+                    onActivation={handleFocusLockActivation}
                 >
                     <Dialog
                         {...props}
