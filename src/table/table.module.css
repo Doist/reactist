@@ -1,12 +1,6 @@
 .table {
-    width: 100%;
     font-variant-numeric: tabular-nums;
-    background-color: var(--product-library-background-base-primary);
     border-collapse: collapse;
-}
-
-.header {
-    background-color: var(--product-library-background-base-primary);
 }
 
 .headerRow {
@@ -17,6 +11,7 @@
 .headerCell {
     height: 40px;
     padding: 0 var(--reactist-spacing-small);
+    vertical-align: middle;
     user-select: none;
 }
 

@@ -2,13 +2,15 @@ import * as React from 'react'
 
 import classNames from 'classnames'
 
+import { Box } from '../box'
+
 import { SortIndicator } from './sort-indicator'
 
 import styles from './table.module.css'
 
 import type { ObfuscatedClassName } from '../utils/common-types'
 
-type TableProps = Omit<React.TableHTMLAttributes<HTMLTableElement>, 'className'> &
+type TableProps = Omit<React.TableHTMLAttributes<HTMLTableElement>, 'className' | 'border'> &
     ObfuscatedClassName
 
 type TableHeaderProps = Omit<React.HTMLAttributes<HTMLTableSectionElement>, 'className'> &
@@ -102,10 +104,13 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
     ref,
 ) {
     return (
-        <table
+        <Box
             {...tableProps}
+            as="table"
             ref={ref}
-            className={classNames(styles.table, exceptionallySetClassName)}
+            width="full"
+            background="default"
+            className={[styles.table, exceptionallySetClassName]}
         />
     )
 })
@@ -140,13 +145,15 @@ const TableColumn = React.forwardRef<HTMLTableColElement, TableColumnProps>(func
 const TableHeader = React.forwardRef<HTMLTableSectionElement, TableHeaderProps>(
     function TableHeader({ children, exceptionallySetClassName, ...headerProps }, ref) {
         return (
-            <thead
+            <Box
                 {...headerProps}
+                as="thead"
                 ref={ref}
-                className={classNames(styles.header, exceptionallySetClassName)}
+                background="default"
+                className={exceptionallySetClassName}
             >
                 <tr className={styles.headerRow}>{children}</tr>
-            </thead>
+            </Box>
         )
     },
 )
