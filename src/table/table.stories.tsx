@@ -4,7 +4,7 @@ import {
     columnVisibilityFeature,
     createPaginatedRowModel,
     createSortedRowModel,
-    FlexRender,
+    flexRender,
     rowPaginationFeature,
     rowSortingFeature,
     sortFn_text,
@@ -448,13 +448,19 @@ export const TanStackIntegration = {
                                     sortAriaLabel={getSortAriaLabel(label, direction)}
                                 >
                                     <Text variant="body-2">
-                                        <FlexRender header={header} />
+                                        {flexRender(
+                                            header.column.columnDef.header,
+                                            header.getContext(),
+                                        )}
                                     </Text>
                                 </TableColumnHeader>
                             ) : (
                                 <TableColumnHeader key={header.id}>
                                     <Text variant="body-2">
-                                        <FlexRender header={header} />
+                                        {flexRender(
+                                            header.column.columnDef.header,
+                                            header.getContext(),
+                                        )}
                                     </Text>
                                 </TableColumnHeader>
                             )
@@ -466,7 +472,10 @@ export const TanStackIntegration = {
                                 {row.getVisibleCells().map((cell) => (
                                     <TableCell key={cell.id}>
                                         <Text variant="callout-2" lineClamp={1}>
-                                            <FlexRender cell={cell} />
+                                            {flexRender(
+                                                cell.column.columnDef.cell,
+                                                cell.getContext(),
+                                            )}
                                         </Text>
                                     </TableCell>
                                 ))}
