@@ -38,12 +38,14 @@ type Person = {
     email: string
     role: string
     access: 'Admin' | 'Member' | 'Guest'
+    projects: string
     activity: string
 }
 
 const people: Person[] = [
     {
         id: 'avery-morgan',
+        projects: '1,284',
         name: 'Avery Morgan',
         email: 'avery@example.com',
         role: 'Product designer',
@@ -52,6 +54,7 @@ const people: Person[] = [
     },
     {
         id: 'sam-rivera',
+        projects: '1,037',
         name: 'Sam Rivera',
         email: 'sam@example.com',
         role: 'Frontend engineer',
@@ -60,6 +63,7 @@ const people: Person[] = [
     },
     {
         id: 'mika-chen',
+        projects: '9,102',
         name: 'Mika Chen',
         email: 'mika@example.com',
         role: 'Product manager',
@@ -68,6 +72,7 @@ const people: Person[] = [
     },
     {
         id: 'noor-patel',
+        projects: '1,116',
         name: 'Noor Patel',
         email: 'noor@example.com',
         role: 'Research lead',
@@ -76,6 +81,7 @@ const people: Person[] = [
     },
     {
         id: 'theo-williams',
+        projects: '4,411',
         name: 'Theo Williams',
         email: 'theo@example.com',
         role: 'Operations',
@@ -164,8 +170,8 @@ export const Default = {
                 <TableColumnHeader>
                     <Text variant="body-2">Role</Text>
                 </TableColumnHeader>
-                <TableColumnHeader>
-                    <Text variant="body-2">Access</Text>
+                <TableColumnHeader align="end">
+                    <Text variant="body-2">Projects</Text>
                 </TableColumnHeader>
                 <TableColumnHeader align="end">
                     <Text variant="body-2">Last active</Text>
@@ -182,9 +188,9 @@ export const Default = {
                                 {person.role}
                             </Text>
                         </TableCell>
-                        <TableCell>
+                        <TableCell align="end">
                             <Text variant="callout-2" lineClamp={1}>
-                                {person.access}
+                                {person.projects}
                             </Text>
                         </TableCell>
                         <TableCell align="end">
@@ -217,8 +223,8 @@ export const SelectedAndClickableRows = {
                     <TableColumnHeader>
                         <Text variant="body-2">Role</Text>
                     </TableColumnHeader>
-                    <TableColumnHeader>
-                        <Text variant="body-2">Access</Text>
+                    <TableColumnHeader align="end">
+                        <Text variant="body-2">Projects</Text>
                     </TableColumnHeader>
                     <TableColumnHeader align="end">
                         <Text variant="body-2">Last active</Text>
@@ -241,9 +247,9 @@ export const SelectedAndClickableRows = {
                                     {person.role}
                                 </Text>
                             </TableCell>
-                            <TableCell>
+                            <TableCell align="end">
                                 <Text variant="callout-2" lineClamp={1}>
-                                    {person.access}
+                                    {person.projects}
                                 </Text>
                             </TableCell>
                             <TableCell align="end">
@@ -353,8 +359,8 @@ export const NarrowViewport = {
                 <TableColumnHeader>
                     <Text variant="body-2">Role</Text>
                 </TableColumnHeader>
-                <TableColumnHeader>
-                    <Text variant="body-2">Access</Text>
+                <TableColumnHeader align="end">
+                    <Text variant="body-2">Projects</Text>
                 </TableColumnHeader>
                 <TableColumnHeader align="end">
                     <Text variant="body-2">Last active</Text>
@@ -371,9 +377,9 @@ export const NarrowViewport = {
                                 {person.role}
                             </Text>
                         </TableCell>
-                        <TableCell>
+                        <TableCell align="end">
                             <Text variant="callout-2" lineClamp={1}>
-                                {person.access}
+                                {person.projects}
                             </Text>
                         </TableCell>
                         <TableCell align="end">
