@@ -11,16 +11,14 @@ import {
     tableFeatures,
     useTable,
 } from '@tanstack/react-table'
-import classNames from 'classnames'
 
 import { Avatar } from '../avatar'
+import { Badge } from '../badge'
 import { Box } from '../box'
 import { Button } from '../button'
 import { Text } from '../text'
 
 import { Table, TableBody, TableCell, TableColumnHeader, TableHeader, TableRow } from './table'
-
-import styles from './table.stories.module.css'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -32,7 +30,6 @@ type Person = {
     role: string
     access: 'Admin' | 'Member' | 'Guest'
     activity: string
-    placeholder?: boolean
 }
 
 const people: Person[] = [
@@ -78,37 +75,6 @@ const people: Person[] = [
     },
 ]
 
-const placeholderPeople: Person[] = [
-    ...people.slice(0, 1),
-    {
-        id: 'placeholder-1',
-        name: 'Jordan Lee',
-        email: 'jordan@example.com',
-        role: 'Design',
-        access: 'Member',
-        activity: 'Example',
-        placeholder: true,
-    },
-    {
-        id: 'placeholder-2',
-        name: 'Taylor Brooks',
-        email: 'taylor@example.com',
-        role: 'Engineering',
-        access: 'Member',
-        activity: 'Example',
-        placeholder: true,
-    },
-    {
-        id: 'placeholder-3',
-        name: 'Morgan Silva',
-        email: 'morgan@example.com',
-        role: 'Marketing',
-        access: 'Guest',
-        activity: 'Example',
-        placeholder: true,
-    },
-]
-
 const meta = {
     title: '📊 Data display/Table',
     component: Table,
@@ -133,28 +99,26 @@ type Story = StoryObj<typeof meta>
 
 function PersonCell({ person }: { person: Person }) {
     return (
-        <div className={styles.person}>
+        <Box display="flex" alignItems="center" gap="small">
             <Avatar size={28} shape="circle" name={person.name} />
-            <div className={styles.personText}>
-                <Text variant="callout-2">{person.name}</Text>
-                <Text variant="callout-2" tone="secondary">
+            <Box flexGrow={1} minWidth={0} overflow="hidden">
+                <Text variant="callout-2" lineClamp={1}>
+                    {person.name}
+                </Text>
+                <Text variant="callout-2" tone="secondary" lineClamp={1}>
                     {person.email}
                 </Text>
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }
 
 function ActivityCell({ person }: { person: Person }) {
     return (
-        <span
-            className={classNames(
-                styles.status,
-                person.activity !== 'Active now' && styles.statusMuted,
-            )}
-        >
-            {person.activity}
-        </span>
+        <Badge
+            tone={person.activity === 'Active now' ? 'positive' : 'info'}
+            label={person.activity}
+        />
     )
 }
 
@@ -177,7 +141,7 @@ function handleRowKeyDown(
 
 export const Default = {
     render: () => (
-        <Table aria-label="Workspace people" exceptionallySetClassName={styles.presentationTable}>
+        <Table aria-label="Workspace people">
             <TableHeader>
                 <TableColumnHeader>
                     <Text variant="body-2">Person</Text>
@@ -224,10 +188,7 @@ export const SelectedAndClickableRows = {
         const [selectedId, setSelectedId] = React.useState(people[1]!.id)
 
         return (
-            <Table
-                aria-label="Selectable workspace people"
-                exceptionallySetClassName={styles.presentationTable}
-            >
+            <Table aria-label="Selectable workspace people">
                 <TableHeader>
                     <TableColumnHeader>
                         <Text variant="body-2">Person</Text>
@@ -333,13 +294,22 @@ export const MultiLineCells = {
     ),
 } satisfies Story
 
-export const CustomPlaceholderRows = {
-    name: 'Custom placeholder rows',
+export const NarrowViewport = {
+    name: 'Narrow viewport',
+    parameters: {
+        viewport: {
+            options: {
+                narrow: {
+                    name: 'Narrow',
+                    styles: { width: '420px', height: '720px' },
+                    type: 'mobile',
+                },
+            },
+        },
+    },
+    globals: { viewport: { value: 'narrow' } },
     render: () => (
-        <Table
-            aria-label="Workspace people with examples"
-            exceptionallySetClassName={styles.presentationTable}
-        >
+        <Table aria-label="Workspace people">
             <TableHeader>
                 <TableColumnHeader>
                     <Text variant="body-2">Person</Text>
@@ -355,14 +325,8 @@ export const CustomPlaceholderRows = {
                 </TableColumnHeader>
             </TableHeader>
             <TableBody>
-                {placeholderPeople.map((person) => (
-                    <TableRow
-                        key={person.id}
-                        aria-hidden={person.placeholder || undefined}
-                        exceptionallySetClassName={
-                            person.placeholder ? styles.placeholderRow : undefined
-                        }
-                    >
+                {people.map((person) => (
+                    <TableRow key={person.id}>
                         <TableCell>
                             <PersonCell person={person} />
                         </TableCell>
@@ -383,55 +347,6 @@ export const CustomPlaceholderRows = {
                 ))}
             </TableBody>
         </Table>
-    ),
-} satisfies Story
-
-export const NarrowViewport = {
-    name: 'Narrow viewport',
-    render: () => (
-        <div className={styles.narrowScroll}>
-            <Table
-                aria-label="Workspace people"
-                exceptionallySetClassName={styles.presentationTable}
-            >
-                <TableHeader>
-                    <TableColumnHeader>
-                        <Text variant="body-2">Person</Text>
-                    </TableColumnHeader>
-                    <TableColumnHeader>
-                        <Text variant="body-2">Role</Text>
-                    </TableColumnHeader>
-                    <TableColumnHeader>
-                        <Text variant="body-2">Access</Text>
-                    </TableColumnHeader>
-                    <TableColumnHeader align="end">
-                        <Text variant="body-2">Last active</Text>
-                    </TableColumnHeader>
-                </TableHeader>
-                <TableBody>
-                    {people.map((person) => (
-                        <TableRow key={person.id}>
-                            <TableCell>
-                                <PersonCell person={person} />
-                            </TableCell>
-                            <TableCell>
-                                <Text variant="callout-2" tone="secondary" lineClamp={1}>
-                                    {person.role}
-                                </Text>
-                            </TableCell>
-                            <TableCell>
-                                <Text variant="callout-2" lineClamp={1}>
-                                    {person.access}
-                                </Text>
-                            </TableCell>
-                            <TableCell align="end">
-                                <ActivityCell person={person} />
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </div>
     ),
 } satisfies Story
 
