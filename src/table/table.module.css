@@ -1,13 +1,12 @@
 .table {
     width: 100%;
     border-collapse: collapse;
-    color: var(--reactist-table-content, var(--reactist-content-primary));
+    color: var(--product-library-display-primary-idle-tint);
     font-family: var(--reactist-font-family);
-    font-size: var(--reactist-font-size-body);
 }
 
 .header {
-    border-bottom: 1px solid var(--reactist-table-divider, var(--reactist-divider-secondary));
+    border-bottom: 1px solid var(--product-library-divider-primary);
 }
 
 .headerCell {
@@ -29,29 +28,28 @@
     border: 0;
     color: inherit;
     font: inherit;
-    font-weight: var(--reactist-font-weight-medium);
     text-align: left;
     background: transparent;
     cursor: pointer;
 }
 
 .sortButton:hover {
-    background-color: var(--reactist-table-header-hover, var(--reactist-bg-highlight));
+    background-color: var(--product-library-actionable-secondary-hover-fill);
 }
 
 .sortButton:focus-visible {
     outline: 2px solid
-        var(--reactist-table-focus-ring, var(--reactist-actionable-primary-idle-fill));
+        var(--product-library-display-primary-idle-tint);
     outline-offset: -2px;
 }
 
-.headerCellContent {
+.headerLabel {
     display: inline-flex;
     align-items: center;
 }
 
 .row {
-    border-bottom: 1px solid var(--reactist-table-divider, var(--reactist-divider-secondary));
+    border-bottom: 1px solid var(--product-library-divider-primary);
 }
 
 .row.clickable {
@@ -68,7 +66,7 @@
 }
 
 .row[aria-selected='true'] {
-    background-color: var(--reactist-table-selected-fill, var(--reactist-framework-fill-selected));
+    background-color: var(--product-library-selectable-secondary-selected-fill);
 }
 
 .row[aria-selected='true'] .cell:first-child {
@@ -83,7 +81,7 @@
 
 .row.clickable:focus-visible {
     outline: 2px solid
-        var(--reactist-table-focus-ring, var(--reactist-actionable-primary-idle-fill));
+        var(--product-library-display-primary-idle-tint);
     outline-offset: -2px;
 }
 
@@ -94,7 +92,7 @@
 
 .emptyCell {
     padding-block: var(--reactist-spacing-xxlarge);
-    color: var(--reactist-table-empty-content, var(--reactist-content-secondary));
+    color: var(--product-library-display-secondary-idle-tint);
     text-align: center;
 }
 
@@ -108,10 +106,18 @@
 .sortIndicatorIcon {
     width: 16px;
     height: 16px;
-    color: var(--reactist-table-sort-indicator, var(--reactist-content-secondary));
+    color: var(--product-library-display-secondary-idle-tint);
     fill: none;
     stroke: currentcolor;
     stroke-width: 1.5;
     stroke-linecap: round;
     stroke-linejoin: round;
+}
+
+.align-start {
+    text-align: left;
+}
+
+.align-end {
+    text-align: right;
 }

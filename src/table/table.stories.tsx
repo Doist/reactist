@@ -3,13 +3,13 @@ import * as React from 'react'
 import classNames from 'classnames'
 
 import { Avatar } from '../avatar'
+import { Text } from '../text'
 
-import { Table, TableCell, TableRow } from './table'
+import { Table, TableBody, TableCell, TableColumnHeader, TableHeader, TableRow } from './table'
 
 import styles from './table.stories.module.css'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import type { TableColumn, TableRowModel, TableSorting } from './table'
 
 type Person = {
     id: string
@@ -19,6 +19,11 @@ type Person = {
     access: 'Admin' | 'Member' | 'Guest'
     activity: string
     placeholder?: boolean
+}
+
+type Sorting = {
+    columnId: string
+    direction: 'asc' | 'desc'
 }
 
 const people: Person[] = [
@@ -95,37 +100,6 @@ const placeholderPeople: Person[] = [
     },
 ]
 
-const columns: TableColumn<Person>[] = [
-    {
-        accessorKey: 'name',
-        header: 'Person',
-        cell: ({ row }) => <PersonCell person={row.original} />,
-    },
-    {
-        accessorKey: 'role',
-        header: 'Role',
-        cell: ({ getValue }) => <span className={styles.role}>{String(getValue())}</span>,
-    },
-    { accessorKey: 'access', header: 'Access' },
-    {
-        accessorKey: 'activity',
-        header: 'Last active',
-        cell: ({ getValue }) => {
-            const activity = String(getValue())
-            return (
-                <span
-                    className={classNames(
-                        styles.status,
-                        activity !== 'Active now' && styles.statusMuted,
-                    )}
-                >
-                    {activity}
-                </span>
-            )
-        },
-    },
-]
-
 const columnLabels = new Map([
     ['name', 'Person'],
     ['role', 'Role'],
@@ -138,7 +112,6 @@ const meta = {
     component: Table,
     parameters: {
         badges: ['partiallyAccessible'],
-        layout: 'fullscreen',
         docs: {
             description: {
                 component:
@@ -164,32 +137,16 @@ function PersonCell({ person }: { person: Person }) {
     )
 }
 
-function PresentationFrame({
-    children,
-    count,
-    narrow = false,
-}: {
-    children: React.ReactNode
-    count: number
-    narrow?: boolean
-}) {
+function ActivityCell({ person }: { person: Person }) {
     return (
-        <main className={classNames(styles.canvas, narrow && styles.narrowCanvas)}>
-            <div className={styles.frame}>
-                <header className={styles.pageHeader}>
-                    <div>
-                        <h1 className={styles.title}>People</h1>
-                        <p className={styles.subtitle}>Everyone with access to this workspace</p>
-                    </div>
-                    <span className={styles.count}>
-                        {count} {count === 1 ? 'person' : 'people'}
-                    </span>
-                </header>
-                <div className={styles.surface}>
-                    <div className={styles.scrollArea}>{children}</div>
-                </div>
-            </div>
-        </main>
+        <span
+            className={classNames(
+                styles.status,
+                person.activity !== 'Active now' && styles.statusMuted,
+            )}
+        >
+            {person.activity}
+        </span>
     )
 }
 
@@ -206,7 +163,7 @@ function getSortAriaLabel({
     return `${label}, activate to sort ascending.`
 }
 
-function sortPeople(data: Person[], sorting: Exclude<TableSorting, null>) {
+function sortPeople(data: Person[], sorting: Sorting) {
     return [...data].sort((first, second) => {
         const firstValue = String(first[sorting.columnId as keyof Person] ?? '')
         const secondValue = String(second[sorting.columnId as keyof Person] ?? '')
@@ -215,150 +172,323 @@ function sortPeople(data: Person[], sorting: Exclude<TableSorting, null>) {
     })
 }
 
-function SortableTable({ narrow = false }: { narrow?: boolean }) {
-    const [sorting, setSorting] = React.useState<Exclude<TableSorting, null>>({
-        columnId: 'name',
-        direction: 'asc',
-    })
-    const sortedPeople = sortPeople(people, sorting)
-
-    function handleSort(columnId: string) {
-        setSorting((current) => ({
-            columnId,
-            direction:
-                current.columnId === columnId && current.direction === 'asc' ? 'desc' : 'asc',
-        }))
+function nextSorting(current: Sorting, columnId: string): Sorting {
+    return {
+        columnId,
+        direction: current.columnId === columnId && current.direction === 'asc' ? 'desc' : 'asc',
     }
-
-    return (
-        <PresentationFrame count={people.length} narrow={narrow}>
-            <Table
-                aria-label="Workspace people"
-                data={sortedPeople}
-                columns={columns}
-                getRowId={(person) => person.id}
-                sorting={sorting}
-                onSort={handleSort}
-                getSortAriaLabel={getSortAriaLabel}
-                exceptionallySetClassName={styles.presentationTable}
-            />
-        </PresentationFrame>
-    )
 }
 
 function handleRowKeyDown(
     event: React.KeyboardEvent<HTMLTableRowElement>,
-    row: TableRowModel<Person>,
-    onActivate: (rowId: string) => void,
+    personId: string,
+    onActivate: (personId: string) => void,
 ) {
     if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault()
-        onActivate(row.id)
+        onActivate(personId)
     }
 }
 
-function SelectableTable() {
-    const [selectedId, setSelectedId] = React.useState(people[1]!.id)
-    return (
-        <PresentationFrame count={people.length}>
-            <Table
-                aria-label="Selectable workspace people"
-                data={people}
-                columns={columns}
-                getRowId={(person) => person.id}
-                exceptionallySetClassName={styles.presentationTable}
-                renderRow={(row) => (
-                    <TableRow
-                        key={row.id}
-                        aria-selected={selectedId === row.id || undefined}
-                        tabIndex={0}
-                        onClick={() => setSelectedId(row.id)}
-                        onKeyDown={(event) => handleRowKeyDown(event, row, setSelectedId)}
-                    >
-                        {row.getVisibleCells().map((cell) => (
-                            <TableCell key={cell.id} cell={cell} />
-                        ))}
+export const Default = {
+    render: () => (
+        <Table aria-label="Workspace people" exceptionallySetClassName={styles.presentationTable}>
+            <TableHeader>
+                <TableColumnHeader>
+                    <Text variant="body-2">Person</Text>
+                </TableColumnHeader>
+                <TableColumnHeader>
+                    <Text variant="body-2">Role</Text>
+                </TableColumnHeader>
+                <TableColumnHeader>
+                    <Text variant="body-2">Access</Text>
+                </TableColumnHeader>
+                <TableColumnHeader align="end">
+                    <Text variant="body-2">Last active</Text>
+                </TableColumnHeader>
+            </TableHeader>
+            <TableBody>
+                {people.map((person) => (
+                    <TableRow key={person.id}>
+                        <TableCell>
+                            <PersonCell person={person} />
+                        </TableCell>
+                        <TableCell>
+                            <Text variant="callout-2" tone="secondary" lineClamp={1}>
+                                {person.role}
+                            </Text>
+                        </TableCell>
+                        <TableCell>
+                            <Text variant="callout-2" lineClamp={1}>
+                                {person.access}
+                            </Text>
+                        </TableCell>
+                        <TableCell align="end">
+                            <ActivityCell person={person} />
+                        </TableCell>
                     </TableRow>
-                )}
-            />
-        </PresentationFrame>
-    )
-}
-
-function PlaceholderTable() {
-    return (
-        <PresentationFrame count={1}>
-            <Table
-                aria-label="Workspace people with examples"
-                data={placeholderPeople}
-                columns={columns}
-                getRowId={(person) => person.id}
-                exceptionallySetClassName={styles.presentationTable}
-                renderRow={(row) => {
-                    const isPlaceholder = Boolean(row.original.placeholder)
-                    return (
-                        <TableRow
-                            key={row.id}
-                            aria-hidden={isPlaceholder || undefined}
-                            exceptionallySetClassName={
-                                isPlaceholder ? styles.placeholderRow : undefined
-                            }
-                        >
-                            {row.getVisibleCells().map((cell) => (
-                                <TableCell key={cell.id} cell={cell} inert={isPlaceholder} />
-                            ))}
-                        </TableRow>
-                    )
-                }}
-            />
-            <p className={styles.placeholderNote}>
-                Faded rows demonstrate inert, assistive-technology-hidden examples without exposing
-                the component’s CSS module.
-            </p>
-        </PresentationFrame>
-    )
-}
-
-export const Default = { render: () => <SortableTable /> } satisfies Story
+                ))}
+            </TableBody>
+        </Table>
+    ),
+} satisfies Story
 
 export const ControlledSorting = {
     name: 'Controlled sorting',
-    render: () => <SortableTable />,
+    render: function ControlledSorting() {
+        const [sorting, setSorting] = React.useState<Sorting>({
+            columnId: 'name',
+            direction: 'asc',
+        })
+        const sorted = sortPeople(people, sorting)
+
+        return (
+            <Table
+                aria-label="Workspace people"
+                exceptionallySetClassName={styles.presentationTable}
+            >
+                <TableHeader>
+                    <TableColumnHeader
+                        sortable
+                        sortDirection={sorting.columnId === 'name' ? sorting.direction : null}
+                        onSort={() => setSorting(nextSorting(sorting, 'name'))}
+                        sortAriaLabel={getSortAriaLabel({
+                            columnId: 'name',
+                            direction: sorting.columnId === 'name' ? sorting.direction : null,
+                        })}
+                    >
+                        <Text variant="body-2">Person</Text>
+                    </TableColumnHeader>
+                    <TableColumnHeader
+                        sortable
+                        sortDirection={sorting.columnId === 'role' ? sorting.direction : null}
+                        onSort={() => setSorting(nextSorting(sorting, 'role'))}
+                        sortAriaLabel={getSortAriaLabel({
+                            columnId: 'role',
+                            direction: sorting.columnId === 'role' ? sorting.direction : null,
+                        })}
+                    >
+                        <Text variant="body-2">Role</Text>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Text variant="body-2">Access</Text>
+                    </TableColumnHeader>
+                    <TableColumnHeader align="end">
+                        <Text variant="body-2">Last active</Text>
+                    </TableColumnHeader>
+                </TableHeader>
+                <TableBody>
+                    {sorted.map((person) => (
+                        <TableRow key={person.id}>
+                            <TableCell>
+                                <PersonCell person={person} />
+                            </TableCell>
+                            <TableCell>
+                                <Text variant="callout-2" tone="secondary" lineClamp={1}>
+                                    {person.role}
+                                </Text>
+                            </TableCell>
+                            <TableCell>
+                                <Text variant="callout-2" lineClamp={1}>
+                                    {person.access}
+                                </Text>
+                            </TableCell>
+                            <TableCell align="end">
+                                <ActivityCell person={person} />
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        )
+    },
 } satisfies Story
 
 export const SelectedAndClickableRows = {
     name: 'Selected and clickable rows',
-    render: () => <SelectableTable />,
+    render: function SelectedAndClickableRows() {
+        const [selectedId, setSelectedId] = React.useState(people[1]!.id)
+
+        return (
+            <Table
+                aria-label="Selectable workspace people"
+                exceptionallySetClassName={styles.presentationTable}
+            >
+                <TableHeader>
+                    <TableColumnHeader>
+                        <Text variant="body-2">Person</Text>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Text variant="body-2">Role</Text>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Text variant="body-2">Access</Text>
+                    </TableColumnHeader>
+                    <TableColumnHeader align="end">
+                        <Text variant="body-2">Last active</Text>
+                    </TableColumnHeader>
+                </TableHeader>
+                <TableBody>
+                    {people.map((person) => (
+                        <TableRow
+                            key={person.id}
+                            aria-selected={selectedId === person.id}
+                            tabIndex={0}
+                            exceptionallySetClassName={styles.clickableRow}
+                            onClick={() => setSelectedId(person.id)}
+                            onKeyDown={(event) => handleRowKeyDown(event, person.id, setSelectedId)}
+                        >
+                            <TableCell>
+                                <PersonCell person={person} />
+                            </TableCell>
+                            <TableCell>
+                                <Text variant="callout-2" tone="secondary" lineClamp={1}>
+                                    {person.role}
+                                </Text>
+                            </TableCell>
+                            <TableCell>
+                                <Text variant="callout-2" lineClamp={1}>
+                                    {person.access}
+                                </Text>
+                            </TableCell>
+                            <TableCell align="end">
+                                <ActivityCell person={person} />
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        )
+    },
 } satisfies Story
 
 export const EmptyState = {
     name: 'Empty state',
     render: () => (
-        <PresentationFrame count={0}>
-            <Table
-                aria-label="Empty workspace people"
-                data={[]}
-                columns={columns}
-                exceptionallySetClassName={styles.presentationTable}
-                emptyState={
-                    <div className={styles.emptyState}>
+        <Table
+            aria-label="Empty workspace people"
+            exceptionallySetClassName={styles.presentationTable}
+        >
+            <TableHeader>
+                <TableColumnHeader>
+                    <Text variant="body-2">Person</Text>
+                </TableColumnHeader>
+                <TableColumnHeader>
+                    <Text variant="body-2">Role</Text>
+                </TableColumnHeader>
+            </TableHeader>
+            <TableBody>
+                <TableRow>
+                    <TableCell colSpan={2} exceptionallySetClassName={styles.emptyCell}>
                         <p className={styles.emptyTitle}>No people to show</p>
                         <p className={styles.emptyDescription}>
                             People with workspace access will appear here.
                         </p>
-                    </div>
-                }
-            />
-        </PresentationFrame>
+                    </TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
     ),
 } satisfies Story
 
 export const CustomPlaceholderRows = {
     name: 'Custom placeholder rows',
-    render: () => <PlaceholderTable />,
+    render: () => (
+        <Table
+            aria-label="Workspace people with examples"
+            exceptionallySetClassName={styles.presentationTable}
+        >
+            <TableHeader>
+                <TableColumnHeader>
+                    <Text variant="body-2">Person</Text>
+                </TableColumnHeader>
+                <TableColumnHeader>
+                    <Text variant="body-2">Role</Text>
+                </TableColumnHeader>
+                <TableColumnHeader>
+                    <Text variant="body-2">Access</Text>
+                </TableColumnHeader>
+                <TableColumnHeader align="end">
+                    <Text variant="body-2">Last active</Text>
+                </TableColumnHeader>
+            </TableHeader>
+            <TableBody>
+                {placeholderPeople.map((person) => (
+                    <TableRow
+                        key={person.id}
+                        aria-hidden={person.placeholder || undefined}
+                        exceptionallySetClassName={
+                            person.placeholder ? styles.placeholderRow : undefined
+                        }
+                    >
+                        <TableCell>
+                            <PersonCell person={person} />
+                        </TableCell>
+                        <TableCell>
+                            <Text variant="callout-2" tone="secondary" lineClamp={1}>
+                                {person.role}
+                            </Text>
+                        </TableCell>
+                        <TableCell>
+                            <Text variant="callout-2" lineClamp={1}>
+                                {person.access}
+                            </Text>
+                        </TableCell>
+                        <TableCell align="end">
+                            <ActivityCell person={person} />
+                        </TableCell>
+                    </TableRow>
+                ))}
+            </TableBody>
+        </Table>
+    ),
 } satisfies Story
 
 export const NarrowViewport = {
     name: 'Narrow viewport (current behavior)',
-    render: () => <SortableTable narrow />,
+    render: () => (
+        <div className={styles.narrowScroll}>
+            <Table
+                aria-label="Workspace people"
+                exceptionallySetClassName={styles.presentationTable}
+            >
+                <TableHeader>
+                    <TableColumnHeader>
+                        <Text variant="body-2">Person</Text>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Text variant="body-2">Role</Text>
+                    </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Text variant="body-2">Access</Text>
+                    </TableColumnHeader>
+                    <TableColumnHeader align="end">
+                        <Text variant="body-2">Last active</Text>
+                    </TableColumnHeader>
+                </TableHeader>
+                <TableBody>
+                    {people.map((person) => (
+                        <TableRow key={person.id}>
+                            <TableCell>
+                                <PersonCell person={person} />
+                            </TableCell>
+                            <TableCell>
+                                <Text variant="callout-2" tone="secondary" lineClamp={1}>
+                                    {person.role}
+                                </Text>
+                            </TableCell>
+                            <TableCell>
+                                <Text variant="callout-2" lineClamp={1}>
+                                    {person.access}
+                                </Text>
+                            </TableCell>
+                            <TableCell align="end">
+                                <ActivityCell person={person} />
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        </div>
+    ),
 } satisfies Story
