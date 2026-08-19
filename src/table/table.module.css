@@ -115,11 +115,11 @@
 }
 
 .align-start {
-    text-align: left;
+    text-align: start;
 }
 
 .align-end {
-    text-align: right;
+    text-align: end;
 }
 
 .columnWidth-auto {
