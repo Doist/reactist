@@ -243,15 +243,6 @@ const TableColumnHeader = React.forwardRef<HTMLTableCellElement, TableColumnHead
     },
 )
 
-Table.displayName = 'Table'
-TableColumnGroup.displayName = 'TableColumnGroup'
-TableColumn.displayName = 'TableColumn'
-TableHeader.displayName = 'TableHeader'
-TableBody.displayName = 'TableBody'
-TableRow.displayName = 'TableRow'
-TableCell.displayName = 'TableCell'
-TableColumnHeader.displayName = 'TableColumnHeader'
-
 export {
     Table,
     TableBody,
