@@ -145,9 +145,11 @@ describe('TableColumnHeader sorting', () => {
     function SortableHeader({
         sortDirection = null,
         onSort = jest.fn(),
+        sortIcon,
     }: {
         sortDirection?: 'asc' | 'desc' | null
         onSort?: () => void
+        sortIcon?: React.ReactNode
     }) {
         return (
             <Table aria-label="People">
@@ -157,6 +159,7 @@ describe('TableColumnHeader sorting', () => {
                         sortDirection={sortDirection}
                         onSort={onSort}
                         sortAriaLabel="Person, activate to sort ascending."
+                        sortIcon={sortIcon}
                     >
                         Person
                     </TableColumnHeader>
@@ -201,4 +204,22 @@ describe('TableColumnHeader sorting', () => {
         await user.keyboard(' ')
         expect(onSort).toHaveBeenCalledTimes(3)
     })
+    it('renders the bundled sort icon when no slot is given', () => {
+        const { container } = render(<SortableHeader sortDirection="asc" />)
+        expect(container.querySelector('svg')).toBeInTheDocument()
+    })
+
+    it.each([['asc' as const], ['desc' as const], [null]])(
+        'replaces the bundled icon with the sortIcon slot when sorted %s',
+        (direction) => {
+            const { container } = render(
+                <SortableHeader
+                    sortDirection={direction}
+                    sortIcon={<span data-testid="custom-icon" />}
+                />,
+            )
+            expect(screen.getByTestId('custom-icon')).toBeInTheDocument()
+            expect(container.querySelector('svg')).not.toBeInTheDocument()
+        },
+    )
 })

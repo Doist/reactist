@@ -61,12 +61,16 @@ type SortableProps =
 
           /** Complete localized label for the sort button. */
           sortAriaLabel: string
+
+          /** Render a custom sort indicator icon. It should default to ascending and pointing upwards */
+          sortIcon?: React.ReactNode
       }
     | {
           sortable?: false
           sortDirection?: never
           onSort?: never
           sortAriaLabel?: never
+          sortIcon?: never
       }
 
 type TableColumnHeaderProps = Omit<
@@ -191,6 +195,7 @@ const TableColumnHeader = React.forwardRef<HTMLTableCellElement, TableColumnHead
             sortDirection = null,
             onSort,
             sortAriaLabel,
+            sortIcon,
             align = 'start',
             children,
             exceptionallySetClassName,
@@ -199,6 +204,7 @@ const TableColumnHeader = React.forwardRef<HTMLTableCellElement, TableColumnHead
         ref,
     ) {
         const label = <span className={styles.headerLabel}>{children}</span>
+        const indicatorDirection = sortDirection ?? 'asc'
 
         return (
             <th
@@ -227,7 +233,7 @@ const TableColumnHeader = React.forwardRef<HTMLTableCellElement, TableColumnHead
                                 !sortDirection && styles.sortIndicatorUnsorted,
                             )}
                         >
-                            <SortIndicator direction={sortDirection ?? 'asc'} />
+                            {sortIcon ?? <SortIndicator direction={indicatorDirection} />}
                         </span>
                     </button>
                 ) : (

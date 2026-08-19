@@ -103,9 +103,9 @@
 
 .sortIndicator {
     display: inline-flex;
+    flex: none;
     align-items: center;
-    width: 16px;
-    height: 16px;
+    justify-content: center;
 }
 
 .sortIndicatorIcon {
