@@ -1,11 +1,12 @@
 import * as React from 'react'
 
-import styles from './table.module.css'
-
-function SortIndicator({ direction }: { direction: 'asc' | 'desc' }) {
+function SortIndicator() {
     return (
-        <svg className={styles.sortIndicatorIcon} viewBox="0 0 16 16" focusable="false">
-            <path d={direction === 'asc' ? 'M4 10l4-4 4 4' : 'M4 6l4 4 4-4'} />
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" focusable="false">
+            <path
+                d="M3.64645 7.85352C3.45118 7.65825 3.45118 7.34175 3.64645 7.14648L7.64645 3.14648C7.84171 2.95122 8.15822 2.95122 8.35348 3.14648L12.3535 7.14648C12.5487 7.34175 12.5487 7.65825 12.3535 7.85352C12.1582 8.04878 11.8417 8.04878 11.6464 7.85352L8.49996 4.70703V12.5498C8.49996 12.7983 8.2761 13 7.99996 13C7.72382 13 7.49996 12.7983 7.49996 12.5498V4.70703L4.35348 7.85352C4.15822 8.04878 3.84171 8.04878 3.64645 7.85352Z"
+                fill="currentColor"
+            />
         </svg>
     )
 }

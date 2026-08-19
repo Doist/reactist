@@ -55,10 +55,6 @@
     outline-offset: -2px;
 }
 
-.sortIndicatorUnsorted {
-    opacity: 0;
-}
-
 .sortButton:hover .sortIndicatorUnsorted,
 .sortButton:focus-visible .sortIndicatorUnsorted {
     opacity: 1;
@@ -106,17 +102,16 @@
     flex: none;
     align-items: center;
     justify-content: center;
+    color: var(--product-library-display-secondary-idle-tint);
 }
 
-.sortIndicatorIcon {
-    width: 16px;
-    height: 16px;
-    color: var(--product-library-display-secondary-idle-tint);
-    fill: none;
-    stroke: currentcolor;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+.sortIndicatorUnsorted {
+    color: var(--product-library-display-tertiary-idle-tint);
+    opacity: 0;
+}
+
+.sortIndicatorDescending {
+    transform: rotate(180deg);
 }
 
 .align-start {

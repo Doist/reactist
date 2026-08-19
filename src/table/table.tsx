@@ -204,7 +204,7 @@ const TableColumnHeader = React.forwardRef<HTMLTableCellElement, TableColumnHead
         ref,
     ) {
         const label = <span className={styles.headerLabel}>{children}</span>
-        const indicatorDirection = sortDirection ?? 'asc'
+        const indicatorDirection = sortDirection ?? 'desc'
 
         return (
             <th
@@ -230,10 +230,11 @@ const TableColumnHeader = React.forwardRef<HTMLTableCellElement, TableColumnHead
                             aria-hidden="true"
                             className={classNames(
                                 styles.sortIndicator,
+                                indicatorDirection === 'desc' && styles.sortIndicatorDescending,
                                 !sortDirection && styles.sortIndicatorUnsorted,
                             )}
                         >
-                            {sortIcon ?? <SortIndicator direction={indicatorDirection} />}
+                            {sortIcon ?? <SortIndicator />}
                         </span>
                     </button>
                 ) : (

@@ -222,4 +222,14 @@ describe('TableColumnHeader sorting', () => {
             expect(container.querySelector('svg')).not.toBeInTheDocument()
         },
     )
+
+    it.each([
+        ['asc' as const, false],
+        ['desc' as const, true],
+        [null, true],
+    ])('rotates the indicator for sortDirection %s: %s', (direction, rotated) => {
+        const { container } = render(<SortableHeader sortDirection={direction} />)
+        const indicator = container.querySelector('th span[aria-hidden="true"]')
+        expect(indicator?.className.includes('sortIndicatorDescending')).toBe(rotated)
+    })
 })
