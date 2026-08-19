@@ -55,23 +55,6 @@
     background: var(--product-library-actionable-secondary-hover-fill);
 }
 
-.emptyCell {
-    padding-block: var(--reactist-spacing-xxlarge);
-    text-align: center;
-}
-
-.emptyTitle {
-    margin: 0;
-    color: var(--product-library-display-primary-idle-tint);
-    font-size: var(--reactist-font-size-subtitle);
-    font-weight: var(--reactist-font-weight-medium);
-}
-
-.emptyDescription {
-    margin: 6px 0 0;
-    color: var(--product-library-display-secondary-idle-tint);
-}
-
 .placeholderRow {
     opacity: 0.42;
     filter: grayscale(0.5);

@@ -1,8 +1,21 @@
 import * as React from 'react'
 
+import {
+    columnVisibilityFeature,
+    createPaginatedRowModel,
+    createSortedRowModel,
+    FlexRender,
+    rowPaginationFeature,
+    rowSortingFeature,
+    sortFn_text,
+    tableFeatures,
+    useTable,
+} from '@tanstack/react-table'
 import classNames from 'classnames'
 
 import { Avatar } from '../avatar'
+import { Box } from '../box'
+import { Button } from '../button'
 import { Text } from '../text'
 
 import { Table, TableBody, TableCell, TableColumnHeader, TableHeader, TableRow } from './table'
@@ -10,6 +23,7 @@ import { Table, TableBody, TableCell, TableColumnHeader, TableHeader, TableRow }
 import styles from './table.stories.module.css'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import type { ColumnDef } from '@tanstack/react-table'
 
 type Person = {
     id: string
@@ -19,11 +33,6 @@ type Person = {
     access: 'Admin' | 'Member' | 'Guest'
     activity: string
     placeholder?: boolean
-}
-
-type Sorting = {
-    columnId: string
-    direction: 'asc' | 'desc'
 }
 
 const people: Person[] = [
@@ -100,22 +109,19 @@ const placeholderPeople: Person[] = [
     },
 ]
 
-const columnLabels = new Map([
-    ['name', 'Person'],
-    ['role', 'Role'],
-    ['access', 'Access'],
-    ['activity', 'Last active'],
-])
-
 const meta = {
     title: '📊 Data display/Table',
     component: Table,
     parameters: {
-        badges: ['partiallyAccessible'],
+        badges: ['accessible'],
+        figma: {
+            path: 'Web › Components / Todoist › Table',
+            url: 'https://www.figma.com/design/LYlWNzvhMDh907l07mPPQk/Product-Library---Web?node-id=26089-87636',
+        },
         docs: {
             description: {
                 component:
-                    'Presentation prototype based on Todoist’s current flat data table. The API remains provisional while sorting, selection, dependency placement, and responsive behavior are reviewed.',
+                    'Compound primitives for tabular data. Compose Table with TableHeader, TableColumnHeader, TableBody, TableRow, and TableCell. The consumer owns the data, the sort state, and the selection state; pass aria-selected on a row to make it selectable.',
             },
         },
     },
@@ -152,33 +158,10 @@ function ActivityCell({ person }: { person: Person }) {
     )
 }
 
-function getSortAriaLabel({
-    columnId,
-    direction,
-}: {
-    columnId: string
-    direction: 'asc' | 'desc' | null
-}) {
-    const label = columnLabels.get(columnId) ?? columnId
+function getSortAriaLabel(label: string, direction: 'asc' | 'desc' | null) {
     if (direction === 'asc') return `${label}, sorted ascending. Activate to sort descending.`
     if (direction === 'desc') return `${label}, sorted descending. Activate to sort ascending.`
     return `${label}, activate to sort ascending.`
-}
-
-function sortPeople(data: Person[], sorting: Sorting) {
-    return [...data].sort((first, second) => {
-        const firstValue = String(first[sorting.columnId as keyof Person] ?? '')
-        const secondValue = String(second[sorting.columnId as keyof Person] ?? '')
-        const result = firstValue.localeCompare(secondValue)
-        return sorting.direction === 'asc' ? result : -result
-    })
-}
-
-function nextSorting(current: Sorting, columnId: string): Sorting {
-    return {
-        columnId,
-        direction: current.columnId === columnId && current.direction === 'asc' ? 'desc' : 'asc',
-    }
 }
 
 function handleRowKeyDown(
@@ -233,77 +216,6 @@ export const Default = {
             </TableBody>
         </Table>
     ),
-} satisfies Story
-
-export const ControlledSorting = {
-    name: 'Controlled sorting',
-    render: function ControlledSorting() {
-        const [sorting, setSorting] = React.useState<Sorting>({
-            columnId: 'name',
-            direction: 'asc',
-        })
-        const sorted = sortPeople(people, sorting)
-
-        return (
-            <Table
-                aria-label="Workspace people"
-                exceptionallySetClassName={styles.presentationTable}
-            >
-                <TableHeader>
-                    <TableColumnHeader
-                        sortable
-                        sortDirection={sorting.columnId === 'name' ? sorting.direction : null}
-                        onSort={() => setSorting(nextSorting(sorting, 'name'))}
-                        sortAriaLabel={getSortAriaLabel({
-                            columnId: 'name',
-                            direction: sorting.columnId === 'name' ? sorting.direction : null,
-                        })}
-                    >
-                        <Text variant="body-2">Person</Text>
-                    </TableColumnHeader>
-                    <TableColumnHeader
-                        sortable
-                        sortDirection={sorting.columnId === 'role' ? sorting.direction : null}
-                        onSort={() => setSorting(nextSorting(sorting, 'role'))}
-                        sortAriaLabel={getSortAriaLabel({
-                            columnId: 'role',
-                            direction: sorting.columnId === 'role' ? sorting.direction : null,
-                        })}
-                    >
-                        <Text variant="body-2">Role</Text>
-                    </TableColumnHeader>
-                    <TableColumnHeader>
-                        <Text variant="body-2">Access</Text>
-                    </TableColumnHeader>
-                    <TableColumnHeader align="end">
-                        <Text variant="body-2">Last active</Text>
-                    </TableColumnHeader>
-                </TableHeader>
-                <TableBody>
-                    {sorted.map((person) => (
-                        <TableRow key={person.id}>
-                            <TableCell>
-                                <PersonCell person={person} />
-                            </TableCell>
-                            <TableCell>
-                                <Text variant="callout-2" tone="secondary" lineClamp={1}>
-                                    {person.role}
-                                </Text>
-                            </TableCell>
-                            <TableCell>
-                                <Text variant="callout-2" lineClamp={1}>
-                                    {person.access}
-                                </Text>
-                            </TableCell>
-                            <TableCell align="end">
-                                <ActivityCell person={person} />
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        )
-    },
 } satisfies Story
 
 export const SelectedAndClickableRows = {
@@ -363,28 +275,57 @@ export const SelectedAndClickableRows = {
     },
 } satisfies Story
 
-export const EmptyState = {
-    name: 'Empty state',
+export const NoHeaderRow = {
+    name: 'No header row',
     render: () => (
-        <Table
-            aria-label="Empty workspace people"
-            exceptionallySetClassName={styles.presentationTable}
-        >
+        <Table aria-label="Workspace people">
+            <TableBody>
+                {people.map((person) => (
+                    <TableRow key={person.id}>
+                        <TableCell>
+                            <PersonCell person={person} />
+                        </TableCell>
+                        <TableCell>
+                            <Text variant="callout-2" lineClamp={1}>
+                                {person.role}
+                            </Text>
+                        </TableCell>
+                        <TableCell>
+                            <Text variant="callout-2" lineClamp={1}>
+                                {person.activity}
+                            </Text>
+                        </TableCell>
+                    </TableRow>
+                ))}
+            </TableBody>
+        </Table>
+    ),
+} satisfies Story
+
+export const MultiLineCells = {
+    name: 'Single and multi-line cells',
+    render: () => (
+        <Table aria-label="Cell content">
             <TableHeader>
                 <TableColumnHeader>
-                    <Text variant="body-2">Person</Text>
+                    <Text variant="body-2">Single line</Text>
                 </TableColumnHeader>
                 <TableColumnHeader>
-                    <Text variant="body-2">Role</Text>
+                    <Text variant="body-2">Two line</Text>
                 </TableColumnHeader>
             </TableHeader>
             <TableBody>
                 <TableRow>
-                    <TableCell colSpan={2} exceptionallySetClassName={styles.emptyCell}>
-                        <p className={styles.emptyTitle}>No people to show</p>
-                        <p className={styles.emptyDescription}>
-                            People with workspace access will appear here.
-                        </p>
+                    <TableCell>
+                        <Text variant="callout-2" lineClamp={1}>
+                            Cell content long enough that it has to truncate with an ellipsis
+                        </Text>
+                    </TableCell>
+                    <TableCell>
+                        <Text variant="callout-2">Cell content</Text>
+                        <Text variant="callout-2" tone="secondary">
+                            Secondary line
+                        </Text>
                     </TableCell>
                 </TableRow>
             </TableBody>
@@ -446,7 +387,7 @@ export const CustomPlaceholderRows = {
 } satisfies Story
 
 export const NarrowViewport = {
-    name: 'Narrow viewport (current behavior)',
+    name: 'Narrow viewport',
     render: () => (
         <div className={styles.narrowScroll}>
             <Table
@@ -492,4 +433,105 @@ export const NarrowViewport = {
             </Table>
         </div>
     ),
+} satisfies Story
+
+const features = tableFeatures({
+    columnVisibilityFeature,
+    rowPaginationFeature,
+    rowSortingFeature,
+    paginatedRowModel: createPaginatedRowModel(),
+    sortedRowModel: createSortedRowModel(),
+    sortFns: { text: sortFn_text },
+})
+
+const tanStackColumns: ColumnDef<typeof features, Person, unknown>[] = [
+    { accessorKey: 'name', header: 'Person', sortFn: 'text' },
+    { accessorKey: 'role', header: 'Role', sortFn: 'text' },
+    { accessorKey: 'access', header: 'Access', enableSorting: false },
+]
+
+export const TanStackIntegration = {
+    name: 'TanStack Table integration',
+    parameters: {
+        docs: {
+            description: {
+                story: 'The Table components do not dictate what external model layer they are used with. TanStack Table, for example, would be a good option for driving the data, including [sorting](https://tanstack.com/table/latest/docs/framework/react/guide/sorting) and [pagination](https://tanstack.com/table/latest/docs/framework/react/guide/pagination).',
+            },
+        },
+    },
+    render: function TanStackIntegration() {
+        const table = useTable({
+            features,
+            data: people,
+            columns: tanStackColumns,
+            getRowId: (person) => person.id,
+            initialState: { pagination: { pageIndex: 0, pageSize: 2 } },
+        })
+        const { pageIndex } = table.state.pagination ?? { pageIndex: 0 }
+
+        return (
+            <Box display="flex" flexDirection="column" gap="medium">
+                <Table aria-label="TanStack-driven people">
+                    <TableHeader>
+                        {table.getHeaderGroups()[0]?.headers.map((header) => {
+                            const direction = header.column.getIsSorted() || null
+                            const label = String(header.column.columnDef.header)
+
+                            return header.column.getCanSort() ? (
+                                <TableColumnHeader
+                                    key={header.id}
+                                    sortable
+                                    sortDirection={direction}
+                                    onSort={() => header.column.toggleSorting()}
+                                    sortAriaLabel={getSortAriaLabel(label, direction)}
+                                >
+                                    <Text variant="body-2">
+                                        <FlexRender header={header} />
+                                    </Text>
+                                </TableColumnHeader>
+                            ) : (
+                                <TableColumnHeader key={header.id}>
+                                    <Text variant="body-2">
+                                        <FlexRender header={header} />
+                                    </Text>
+                                </TableColumnHeader>
+                            )
+                        })}
+                    </TableHeader>
+                    <TableBody>
+                        {table.getRowModel().rows.map((row) => (
+                            <TableRow key={row.id}>
+                                {row.getVisibleCells().map((cell) => (
+                                    <TableCell key={cell.id}>
+                                        <Text variant="callout-2" lineClamp={1}>
+                                            <FlexRender cell={cell} />
+                                        </Text>
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+                <Box display="flex" alignItems="center" gap="small">
+                    <Button
+                        variant="secondary"
+                        disabled={!table.getCanPreviousPage()}
+                        onClick={() => table.previousPage()}
+                    >
+                        Previous
+                    </Button>
+                    <Button
+                        variant="secondary"
+                        disabled={!table.getCanNextPage()}
+                        onClick={() => table.nextPage()}
+                    >
+                        Next
+                    </Button>
+                    <Text variant="callout-2" tone="secondary">
+                        Page {pageIndex + 1} of {table.getPageCount()}
+                    </Text>
+                </Box>
+            </Box>
+        )
+    },
 } satisfies Story

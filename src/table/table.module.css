@@ -88,12 +88,6 @@
     vertical-align: middle;
 }
 
-.emptyCell {
-    padding-block: var(--reactist-spacing-xxlarge);
-    color: var(--product-library-display-secondary-idle-tint);
-    text-align: center;
-}
-
 .sortIndicator {
     display: inline-flex;
     align-items: center;
