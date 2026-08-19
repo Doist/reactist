@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { axe } from 'jest-axe'
 
 import { Text } from '../text'
@@ -108,5 +109,67 @@ describe('Table primitives', () => {
     it('has no automated accessibility violations', async () => {
         const { container } = render(<BasicTable />)
         expect(await axe(container)).toHaveNoViolations()
+    })
+})
+
+describe('TableColumnHeader sorting', () => {
+    function SortableHeader({
+        sortDirection = null,
+        onSort = jest.fn(),
+    }: {
+        sortDirection?: 'asc' | 'desc' | null
+        onSort?: () => void
+    }) {
+        return (
+            <Table aria-label="People">
+                <TableHeader>
+                    <TableColumnHeader
+                        sortable
+                        sortDirection={sortDirection}
+                        onSort={onSort}
+                        sortAriaLabel="Person, activate to sort ascending."
+                    >
+                        Person
+                    </TableColumnHeader>
+                </TableHeader>
+            </Table>
+        )
+    }
+
+    it('omits aria-sort on a non-sortable header', () => {
+        render(
+            <Table aria-label="People">
+                <TableHeader>
+                    <TableColumnHeader>Person</TableColumnHeader>
+                </TableHeader>
+            </Table>,
+        )
+        expect(screen.getByRole('columnheader')).not.toHaveAttribute('aria-sort')
+    })
+
+    it.each([
+        [null, 'none'],
+        ['asc' as const, 'ascending'],
+        ['desc' as const, 'descending'],
+    ])('maps sortDirection %s to aria-sort %s', (direction, expected) => {
+        render(<SortableHeader sortDirection={direction} />)
+        expect(screen.getByRole('columnheader')).toHaveAttribute('aria-sort', expected)
+    })
+
+    it('fires onSort exactly once per activation', async () => {
+        const onSort = jest.fn()
+        const user = userEvent.setup()
+        render(<SortableHeader onSort={onSort} />)
+        const button = screen.getByRole('button', { name: /Person/ })
+
+        await user.click(button)
+        expect(onSort).toHaveBeenCalledTimes(1)
+
+        button.focus()
+        await user.keyboard('{Enter}')
+        expect(onSort).toHaveBeenCalledTimes(2)
+
+        await user.keyboard(' ')
+        expect(onSort).toHaveBeenCalledTimes(3)
     })
 })
