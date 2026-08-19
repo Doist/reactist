@@ -83,11 +83,11 @@
 }
 
 .cell:first-child {
-    padding-left: var(--reactist-spacing-medium);
+    padding-inline-start: var(--reactist-spacing-medium);
 }
 
 .cell:last-child {
-    padding-right: var(--reactist-spacing-medium);
+    padding-inline-end: var(--reactist-spacing-medium);
 }
 
 .sortIndicator {
