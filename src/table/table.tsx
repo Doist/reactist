@@ -262,3 +262,14 @@ export {
     TableHeader,
     TableRow,
 }
+export type {
+    TableBodyProps,
+    TableCellProps,
+    TableColumnGroupProps,
+    TableColumnHeaderProps,
+    TableColumnProps,
+    TableColumnWidth,
+    TableHeaderProps,
+    TableProps,
+    TableRowProps,
+}
