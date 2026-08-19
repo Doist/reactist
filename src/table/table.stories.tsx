@@ -336,7 +336,6 @@ export const SelectedAndClickableRows = {
                             key={person.id}
                             aria-selected={selectedId === person.id}
                             tabIndex={0}
-                            exceptionallySetClassName={styles.clickableRow}
                             onClick={() => setSelectedId(person.id)}
                             onKeyDown={(event) => handleRowKeyDown(event, person.id, setSelectedId)}
                         >

@@ -28,10 +28,6 @@
     min-width: 760px;
 }
 
-.clickableRow {
-    cursor: pointer;
-}
-
 .person {
     display: flex;
     gap: 10px;

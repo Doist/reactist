@@ -83,6 +83,28 @@ describe('Table primitives', () => {
         expect(cellText.parentElement?.tagName).toBe('TD')
     })
 
+    it('marks only rows with aria-selected as selectable', () => {
+        render(
+            <Table aria-label="People">
+                <TableBody>
+                    <TableRow aria-selected={false}>
+                        <TableCell>Selectable</TableCell>
+                    </TableRow>
+                    <TableRow aria-selected>
+                        <TableCell>Selected</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>Plain</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>,
+        )
+        const rows = screen.getAllByRole('row')
+        expect(rows[0]).toHaveAttribute('aria-selected', 'false')
+        expect(rows[1]).toHaveAttribute('aria-selected', 'true')
+        expect(rows[2]).not.toHaveAttribute('aria-selected')
+    })
+
     it('has no automated accessibility violations', async () => {
         const { container } = render(<BasicTable />)
         expect(await axe(container)).toHaveNoViolations()
