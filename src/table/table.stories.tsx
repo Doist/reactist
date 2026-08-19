@@ -330,68 +330,6 @@ export const MultiLineCells = {
     ),
 } satisfies Story
 
-export const NarrowViewport = {
-    name: 'Narrow viewport',
-    parameters: {
-        viewport: {
-            options: {
-                narrow: {
-                    name: 'Narrow',
-                    styles: { width: '420px', height: '720px' },
-                    type: 'mobile',
-                },
-            },
-        },
-    },
-    globals: { viewport: { value: 'narrow' } },
-    render: () => (
-        <Table aria-label="Workspace people">
-            <TableColumnGroup>
-                <TableColumn width="2/5" />
-                <TableColumn width="1/5" />
-                <TableColumn width="1/5" />
-                <TableColumn width="1/5" />
-            </TableColumnGroup>
-            <TableHeader>
-                <TableColumnHeader>
-                    <Text variant="body-2">Person</Text>
-                </TableColumnHeader>
-                <TableColumnHeader>
-                    <Text variant="body-2">Role</Text>
-                </TableColumnHeader>
-                <TableColumnHeader align="end">
-                    <Text variant="body-2">Projects</Text>
-                </TableColumnHeader>
-                <TableColumnHeader align="end">
-                    <Text variant="body-2">Last active</Text>
-                </TableColumnHeader>
-            </TableHeader>
-            <TableBody>
-                {people.map((person) => (
-                    <TableRow key={person.id}>
-                        <TableCell>
-                            <PersonCell person={person} />
-                        </TableCell>
-                        <TableCell>
-                            <Text variant="callout-2" tone="secondary" lineClamp={1}>
-                                {person.role}
-                            </Text>
-                        </TableCell>
-                        <TableCell align="end">
-                            <Text variant="callout-2" lineClamp={1}>
-                                {person.projects}
-                            </Text>
-                        </TableCell>
-                        <TableCell align="end">
-                            <ActivityCell person={person} />
-                        </TableCell>
-                    </TableRow>
-                ))}
-            </TableBody>
-        </Table>
-    ),
-} satisfies Story
-
 const features = tableFeatures({
     columnVisibilityFeature,
     rowPaginationFeature,
