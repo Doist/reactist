@@ -30,13 +30,14 @@
 
 .person {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     align-items: center;
-    min-height: 36px;
 }
 
 .personText {
+    flex: 1 0 0;
     min-width: 0;
+    overflow: hidden;
 }
 
 .status {

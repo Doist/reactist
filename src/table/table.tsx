@@ -93,7 +93,7 @@ const TableHeader = React.forwardRef<HTMLTableSectionElement, TableHeaderProps>(
                 ref={ref}
                 className={classNames(styles.header, exceptionallySetClassName)}
             >
-                <tr className={styles.row}>{children}</tr>
+                <tr className={styles.headerRow}>{children}</tr>
             </thead>
         )
     },

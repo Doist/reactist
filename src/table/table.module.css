@@ -1,12 +1,18 @@
 .table {
     width: 100%;
-    border-collapse: collapse;
     color: var(--product-library-display-primary-idle-tint);
     font-family: var(--reactist-font-family);
+    background-color: var(--product-library-background-base-primary);
+    border-collapse: collapse;
 }
 
 .header {
-    border-bottom: 1px solid var(--product-library-divider-primary);
+    background-color: var(--product-library-background-base-primary);
+}
+
+.headerRow {
+    height: 40px;
+    border-bottom: 1px solid var(--product-library-border-idle-tint);
 }
 
 .headerCell {
@@ -29,7 +35,7 @@
     border: 0;
     color: inherit;
     font: inherit;
-    text-align: left;
+    text-align: inherit;
     background: transparent;
     cursor: pointer;
 }
@@ -59,7 +65,6 @@
 
 .row {
     height: 48px;
-    padding-inline: var(--reactist-spacing-xsmall);
     background-color: var(--product-library-background-base-primary);
     border-bottom: 1px solid var(--product-library-divider-primary);
 }
@@ -83,9 +88,16 @@
 }
 
 .cell {
-    min-height: 48px;
-    padding: var(--reactist-spacing-small);
+    padding: var(--reactist-spacing-xsmall) var(--reactist-spacing-small);
     vertical-align: middle;
+}
+
+.cell:first-child {
+    padding-left: var(--reactist-spacing-medium);
+}
+
+.cell:last-child {
+    padding-right: var(--reactist-spacing-medium);
 }
 
 .sortIndicator {

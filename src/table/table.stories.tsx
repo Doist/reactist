@@ -134,7 +134,7 @@ type Story = StoryObj<typeof meta>
 function PersonCell({ person }: { person: Person }) {
     return (
         <div className={styles.person}>
-            <Avatar size={30} shape="circle" name={person.name} />
+            <Avatar size={28} shape="circle" name={person.name} />
             <div className={styles.personText}>
                 <Text variant="callout-2">{person.name}</Text>
                 <Text variant="callout-2" tone="secondary">
