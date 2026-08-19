@@ -158,12 +158,16 @@ describe('TableColumnHeader sorting', () => {
     })
 
     it.each([
-        [null, 'none'],
         ['asc' as const, 'ascending'],
         ['desc' as const, 'descending'],
     ])('maps sortDirection %s to aria-sort %s', (direction, expected) => {
         render(<SortableHeader sortDirection={direction} />)
         expect(screen.getByRole('columnheader')).toHaveAttribute('aria-sort', expected)
+    })
+
+    it('omits aria-sort on a sortable header that is not sorted', () => {
+        render(<SortableHeader sortDirection={null} />)
+        expect(screen.getByRole('columnheader')).not.toHaveAttribute('aria-sort')
     })
 
     it('fires onSort exactly once per activation', async () => {

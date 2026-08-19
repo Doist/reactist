@@ -83,10 +83,8 @@ type TableColumnHeaderProps = Omit<
         align?: 'start' | 'end'
     }
 
-function ariaSortFor(sortDirection: 'asc' | 'desc' | null) {
-    if (sortDirection === 'asc') return 'ascending'
-    if (sortDirection === 'desc') return 'descending'
-    return 'none'
+function ariaSortFor(sortDirection: 'asc' | 'desc') {
+    return sortDirection === 'asc' ? 'ascending' : 'descending'
 }
 
 /**
@@ -210,7 +208,7 @@ const TableColumnHeader = React.forwardRef<HTMLTableCellElement, TableColumnHead
             <th
                 {...headerProps}
                 ref={ref}
-                aria-sort={sortable ? ariaSortFor(sortDirection) : undefined}
+                aria-sort={sortDirection ? ariaSortFor(sortDirection) : undefined}
                 className={classNames(
                     styles.headerCell,
                     styles[`align-${align}`],
