@@ -1,7 +1,5 @@
 .table {
     width: 100%;
-    color: var(--product-library-display-primary-idle-tint);
-    font-family: var(--reactist-font-family);
     font-variant-numeric: tabular-nums;
     background-color: var(--product-library-background-base-primary);
     border-collapse: collapse;
