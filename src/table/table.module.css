@@ -86,7 +86,8 @@
 }
 
 .cell {
-    padding: var(--reactist-spacing-small) var(--reactist-spacing-medium);
+    min-height: 48px;
+    padding: var(--reactist-spacing-small);
     vertical-align: middle;
 }
 

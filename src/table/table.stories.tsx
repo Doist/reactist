@@ -130,8 +130,10 @@ function PersonCell({ person }: { person: Person }) {
         <div className={styles.person}>
             <Avatar size={30} shape="circle" name={person.name} />
             <div className={styles.personText}>
-                <div className={styles.personName}>{person.name}</div>
-                <div className={styles.personEmail}>{person.email}</div>
+                <Text variant="callout-2">{person.name}</Text>
+                <Text variant="callout-2" tone="secondary">
+                    {person.email}
+                </Text>
             </div>
         </div>
     )

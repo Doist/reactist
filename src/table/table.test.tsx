@@ -3,6 +3,8 @@ import * as React from 'react'
 import { render, screen } from '@testing-library/react'
 import { axe } from 'jest-axe'
 
+import { Text } from '../text'
+
 import { Table, TableBody, TableCell, TableColumnHeader, TableHeader, TableRow } from './index'
 
 function BasicTable({ withHeader = true }: { withHeader?: boolean }) {
@@ -59,6 +61,26 @@ describe('Table primitives', () => {
         expect(refs.body.current?.tagName).toBe('TBODY')
         expect(refs.row.current?.tagName).toBe('TR')
         expect(refs.cell.current?.tagName).toBe('TD')
+    })
+
+    it('renders cell content untouched, imposing no type style of its own', () => {
+        render(
+            <Table aria-label="People">
+                <TableBody>
+                    <TableRow>
+                        <TableCell>
+                            <Text variant="callout-2" lineClamp={1}>
+                                Avery Morgan
+                            </Text>
+                        </TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>,
+        )
+        const cellText = screen.getByText('Avery Morgan')
+        expect(cellText.className).toContain('variant-callout-2')
+        expect(cellText.className).toContain('lineClamp-1')
+        expect(cellText.parentElement?.tagName).toBe('TD')
     })
 
     it('has no automated accessibility violations', async () => {

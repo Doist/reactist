@@ -43,22 +43,6 @@
     min-width: 0;
 }
 
-.personName {
-    overflow: hidden;
-    font-weight: var(--reactist-font-weight-medium);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.personEmail {
-    overflow: hidden;
-    margin-top: 2px;
-    color: var(--product-library-display-secondary-idle-tint);
-    font-size: var(--reactist-font-size-caption);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
 .status {
     display: inline-flex;
     align-items: center;
