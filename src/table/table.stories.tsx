@@ -18,7 +18,16 @@ import { Box } from '../box'
 import { Button } from '../button'
 import { Text } from '../text'
 
-import { Table, TableBody, TableCell, TableColumnHeader, TableHeader, TableRow } from './table'
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableColumnGroup,
+    TableColumnHeader,
+    TableHeader,
+    TableRow,
+} from './table'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -87,7 +96,7 @@ const meta = {
         docs: {
             description: {
                 component:
-                    'Compound primitives for tabular data. Compose Table with TableHeader, TableColumnHeader, TableBody, TableRow, and TableCell. The consumer owns the data, the sort state, and the selection state; pass aria-selected on a row to make it selectable.',
+                    'Compound primitives for tabular data. Compose Table with TableColumnGroup, TableHeader, TableColumnHeader, TableBody, TableRow, and TableCell. The consumer owns the data, the sort state, and the selection state; pass aria-selected on a row to make it selectable.',
             },
         },
     },
@@ -142,6 +151,12 @@ function handleRowKeyDown(
 export const Default = {
     render: () => (
         <Table aria-label="Workspace people">
+            <TableColumnGroup>
+                <TableColumn width="2/5" />
+                <TableColumn width="1/5" />
+                <TableColumn width="1/5" />
+                <TableColumn width="1/5" />
+            </TableColumnGroup>
             <TableHeader>
                 <TableColumnHeader>
                     <Text variant="body-2">Person</Text>
@@ -189,6 +204,12 @@ export const SelectedAndClickableRows = {
 
         return (
             <Table aria-label="Selectable workspace people">
+                <TableColumnGroup>
+                    <TableColumn width="2/5" />
+                    <TableColumn width="1/5" />
+                    <TableColumn width="1/5" />
+                    <TableColumn width="1/5" />
+                </TableColumnGroup>
                 <TableHeader>
                     <TableColumnHeader>
                         <Text variant="body-2">Person</Text>
@@ -240,6 +261,11 @@ export const NoHeaderRow = {
     name: 'No header row',
     render: () => (
         <Table aria-label="Workspace people">
+            <TableColumnGroup>
+                <TableColumn width="1/2" />
+                <TableColumn width="1/4" />
+                <TableColumn width="1/4" />
+            </TableColumnGroup>
             <TableBody>
                 {people.map((person) => (
                     <TableRow key={person.id}>
@@ -267,6 +293,10 @@ export const MultiLineCells = {
     name: 'Single and multi-line cells',
     render: () => (
         <Table aria-label="Cell content">
+            <TableColumnGroup>
+                <TableColumn width="1/2" />
+                <TableColumn width="1/2" />
+            </TableColumnGroup>
             <TableHeader>
                 <TableColumnHeader>
                     <Text variant="body-2">Single line</Text>
@@ -310,6 +340,12 @@ export const NarrowViewport = {
     globals: { viewport: { value: 'narrow' } },
     render: () => (
         <Table aria-label="Workspace people">
+            <TableColumnGroup>
+                <TableColumn width="2/5" />
+                <TableColumn width="1/5" />
+                <TableColumn width="1/5" />
+                <TableColumn width="1/5" />
+            </TableColumnGroup>
             <TableHeader>
                 <TableColumnHeader>
                     <Text variant="body-2">Person</Text>
@@ -387,6 +423,11 @@ export const TanStackIntegration = {
         return (
             <Box display="flex" flexDirection="column" gap="medium">
                 <Table aria-label="TanStack-driven people">
+                    <TableColumnGroup>
+                        <TableColumn width="1/2" />
+                        <TableColumn width="1/4" />
+                        <TableColumn width="1/4" />
+                    </TableColumnGroup>
                     <TableHeader>
                         {table.getHeaderGroups()[0]?.headers.map((header) => {
                             const direction = header.column.getIsSorted() || null

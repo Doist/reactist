@@ -6,7 +6,16 @@ import { axe } from 'jest-axe'
 
 import { Text } from '../text'
 
-import { Table, TableBody, TableCell, TableColumnHeader, TableHeader, TableRow } from './index'
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableColumnGroup,
+    TableColumnHeader,
+    TableHeader,
+    TableRow,
+} from './index'
 
 function BasicTable({ withHeader = true }: { withHeader?: boolean }) {
     return (
@@ -104,6 +113,26 @@ describe('Table primitives', () => {
         expect(rows[0]).toHaveAttribute('aria-selected', 'false')
         expect(rows[1]).toHaveAttribute('aria-selected', 'true')
         expect(rows[2]).not.toHaveAttribute('aria-selected')
+    })
+
+    it('maps the column width prop onto the column definition', () => {
+        const { container } = render(
+            <Table aria-label="People">
+                <TableColumnGroup>
+                    <TableColumn width="2/5" />
+                    <TableColumn />
+                </TableColumnGroup>
+                <TableBody>
+                    <TableRow>
+                        <TableCell>Avery Morgan</TableCell>
+                        <TableCell>Product designer</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>,
+        )
+        const [sized, defaulted] = Array.from(container.querySelectorAll('col'))
+        expect(sized?.className).toContain('columnWidth-2-5')
+        expect(defaulted?.className).toContain('columnWidth-auto')
     })
 
     it('has no automated accessibility violations', async () => {

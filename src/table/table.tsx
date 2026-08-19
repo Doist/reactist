@@ -26,6 +26,28 @@ type TableCellProps = Omit<React.TdHTMLAttributes<HTMLTableCellElement>, 'align'
         align?: 'start' | 'end'
     }
 
+type TableColumnWidth =
+    | 'auto'
+    | 'content'
+    | '1/2'
+    | '1/3'
+    | '2/3'
+    | '1/4'
+    | '3/4'
+    | '1/5'
+    | '2/5'
+    | '3/5'
+    | '4/5'
+
+type TableColumnGroupProps = Omit<React.HTMLAttributes<HTMLTableColElement>, 'className'> &
+    ObfuscatedClassName
+
+type TableColumnProps = Omit<React.ColHTMLAttributes<HTMLTableColElement>, 'className' | 'width'> &
+    ObfuscatedClassName & {
+        /** Width of this column, as a fraction of the table. */
+        width?: TableColumnWidth
+    }
+
 type SortableProps =
     | {
           /** Renders the sort control and makes the header activatable. */
@@ -65,6 +87,8 @@ function ariaSortFor(sortDirection: 'asc' | 'desc' | null) {
 
 /**
  * Tabular data in native table markup, composed from:
+ * * {@link TableColumnGroup}
+ * * {@link TableColumn}
  * * {@link TableHeader}
  * * {@link TableColumnHeader}
  * * {@link TableBody}
@@ -80,6 +104,32 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
             {...tableProps}
             ref={ref}
             className={classNames(styles.table, exceptionallySetClassName)}
+        />
+    )
+})
+
+/** Column definitions for the table. Render it as the first child of {@link Table}. */
+const TableColumnGroup = React.forwardRef<HTMLTableColElement, TableColumnGroupProps>(
+    function TableColumnGroup({ exceptionallySetClassName, ...groupProps }, ref) {
+        return (
+            <colgroup {...groupProps} ref={ref} className={classNames(exceptionallySetClassName)} />
+        )
+    },
+)
+
+/** A single column definition. */
+const TableColumn = React.forwardRef<HTMLTableColElement, TableColumnProps>(function TableColumn(
+    { width = 'auto', exceptionallySetClassName, ...columnProps },
+    ref,
+) {
+    return (
+        <col
+            {...columnProps}
+            ref={ref}
+            className={classNames(
+                styles[`columnWidth-${width.replace('/', '-')}`],
+                exceptionallySetClassName,
+            )}
         />
     )
 })
@@ -189,10 +239,21 @@ const TableColumnHeader = React.forwardRef<HTMLTableCellElement, TableColumnHead
 )
 
 Table.displayName = 'Table'
+TableColumnGroup.displayName = 'TableColumnGroup'
+TableColumn.displayName = 'TableColumn'
 TableHeader.displayName = 'TableHeader'
 TableBody.displayName = 'TableBody'
 TableRow.displayName = 'TableRow'
 TableCell.displayName = 'TableCell'
 TableColumnHeader.displayName = 'TableColumnHeader'
 
-export { Table, TableBody, TableCell, TableColumnHeader, TableHeader, TableRow }
+export {
+    Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableColumnGroup,
+    TableColumnHeader,
+    TableHeader,
+    TableRow,
+}
