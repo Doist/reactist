@@ -1,6 +1,6 @@
 import { ArgTypes, Canvas, Markdown, Meta, Subtitle, Title } from '@storybook/addon-docs/blocks'
 
-import { TableCell, TableColumn, TableColumnHeader } from './table'
+import { Table, TableCell, TableColumn, TableColumnHeader } from './table'
 
 import * as TableStories from './table.stories'
 
@@ -48,7 +48,11 @@ Every component forwards its native attributes, except for the deprecated [`bord
 [`align`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/td#align) attributes on `<Table>`, `<TableColumn>`, and
 `<TableCell>`/`<TableColumnHeader>`, respectively. All components accept `exceptionallySetClassName` instead of `className`.
 
-The three components below also include additional props:
+The four components below also include additional props:
+
+### `<Table>`
+
+<ArgTypes of={Table} />
 
 ### `<TableColumn>`
 
@@ -61,6 +65,15 @@ The three components below also include additional props:
 ### `<TableCell>`
 
 <ArgTypes of={TableCell} />
+
+## Edge padding
+
+The outermost cells hold their content off the table's edges, since the container around a table
+usually has padding of its own. Where it does not, `edgePadding="none"` sets the content flush with
+whatever sits above and below the table. Row dividers span the full width either way, so they are
+not dragged past the container with the content.
+
+<Canvas of={TableStories.EdgePadding} />
 
 ## Row selection
 
