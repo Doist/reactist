@@ -1,6 +1,38 @@
 .table {
+    /* How far the outermost cells hold their content off the table's edges.
+       Set through the `edgePadding` prop, not directly. */
+    --reactist-table-edge-padding: var(--reactist-spacing-medium);
+
     font-variant-numeric: tabular-nums;
     border-collapse: collapse;
+}
+
+.edgePadding-none {
+    --reactist-table-edge-padding: 0;
+}
+
+.edgePadding-xsmall {
+    --reactist-table-edge-padding: var(--reactist-spacing-xsmall);
+}
+
+.edgePadding-small {
+    --reactist-table-edge-padding: var(--reactist-spacing-small);
+}
+
+.edgePadding-medium {
+    --reactist-table-edge-padding: var(--reactist-spacing-medium);
+}
+
+.edgePadding-large {
+    --reactist-table-edge-padding: var(--reactist-spacing-large);
+}
+
+.edgePadding-xlarge {
+    --reactist-table-edge-padding: var(--reactist-spacing-xlarge);
+}
+
+.edgePadding-xxlarge {
+    --reactist-table-edge-padding: var(--reactist-spacing-xxlarge);
 }
 
 .headerRow {
@@ -82,12 +114,26 @@
     vertical-align: middle;
 }
 
-.cell:first-child {
-    padding-inline-start: var(--reactist-spacing-medium);
+/* Header and body share one edge padding, so a column header sits directly
+   above the cells it describes. */
+.cell:first-child,
+.headerCell:not(.headerCellSortable):first-child {
+    padding-inline-start: var(--reactist-table-edge-padding);
 }
 
-.cell:last-child {
-    padding-inline-end: var(--reactist-spacing-medium);
+.cell:last-child,
+.headerCell:not(.headerCellSortable):last-child {
+    padding-inline-end: var(--reactist-table-edge-padding);
+}
+
+/* A sortable header holds its padding on the button, so that the whole cell is
+   clickable. */
+.headerCellSortable:first-child .sortButton {
+    padding-inline-start: var(--reactist-table-edge-padding);
+}
+
+.headerCellSortable:last-child .sortButton {
+    padding-inline-end: var(--reactist-table-edge-padding);
 }
 
 .sortIndicator {

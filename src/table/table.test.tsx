@@ -113,6 +113,26 @@ describe('Table primitives', () => {
         expect(defaulted?.className).toContain('columnWidth-auto')
     })
 
+    it('maps the edge padding prop onto the table', () => {
+        const { container } = render(<BasicTable />)
+        expect(container.querySelector('table')?.className).toContain('edgePadding-medium')
+    })
+
+    it('carries the chosen edge padding instead of the default', () => {
+        const { container } = render(
+            <Table aria-label="People" edgePadding="none">
+                <TableBody>
+                    <TableRow>
+                        <TableCell>Avery Morgan</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>,
+        )
+        const className = container.querySelector('table')?.className
+        expect(className).toContain('edgePadding-none')
+        expect(className).not.toContain('edgePadding-medium')
+    })
+
     it('has no automated accessibility violations', async () => {
         const { container } = render(<BasicTable />)
         expect(await axe(container)).toHaveNoViolations()

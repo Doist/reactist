@@ -8,10 +8,21 @@ import { SortIndicator } from './sort-indicator'
 
 import styles from './table.module.css'
 
-import type { ObfuscatedClassName } from '../utils/common-types'
+import type { ObfuscatedClassName, Space } from '../utils/common-types'
 
 type TableProps = Omit<React.TableHTMLAttributes<HTMLTableElement>, 'className' | 'border'> &
-    ObfuscatedClassName
+    ObfuscatedClassName & {
+        /**
+         * How far the outermost cells hold their content off the table's edges.
+         *
+         * Row dividers always span the full width, so `none` sets the content
+         * flush with whatever sits above and below the table, without taking
+         * the dividers past it.
+         *
+         * @default 'medium'
+         */
+        edgePadding?: Space | 'none'
+    }
 
 type TableHeaderProps = Omit<React.HTMLAttributes<HTMLTableSectionElement>, 'className'> &
     ObfuscatedClassName
@@ -96,7 +107,7 @@ function ariaSortFor(sortDirection: 'asc' | 'desc') {
  * * {@link TableCell}
  */
 const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
-    { exceptionallySetClassName, ...tableProps },
+    { edgePadding = 'medium', exceptionallySetClassName, ...tableProps },
     ref,
 ) {
     return (
@@ -106,7 +117,11 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
             ref={ref}
             width="full"
             background="default"
-            className={[styles.table, exceptionallySetClassName]}
+            className={[
+                styles.table,
+                styles[`edgePadding-${edgePadding}`],
+                exceptionallySetClassName,
+            ]}
         />
     )
 })

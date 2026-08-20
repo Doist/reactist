@@ -16,6 +16,7 @@ import { Avatar } from '../avatar'
 import { Badge } from '../badge'
 import { Box } from '../box'
 import { Button } from '../button'
+import { Stack } from '../stack'
 import { Text } from '../text'
 
 import {
@@ -31,6 +32,7 @@ import {
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { ColumnDef } from '@tanstack/react-table'
+import type { TableProps } from './table'
 
 type Person = {
     id: string
@@ -292,6 +294,70 @@ export const NoHeaderRow = {
                 ))}
             </TableBody>
         </Table>
+    ),
+} satisfies Story
+
+function PeopleTable({ edgePadding }: { edgePadding?: TableProps['edgePadding'] }) {
+    return (
+        <Table aria-label="Workspace people" edgePadding={edgePadding}>
+            <TableColumnGroup>
+                <TableColumn width="1/2" />
+                <TableColumn width="1/4" />
+                <TableColumn width="1/4" />
+            </TableColumnGroup>
+            <TableHeader>
+                <TableColumnHeader>
+                    <Text variant="body-2">Person</Text>
+                </TableColumnHeader>
+                <TableColumnHeader>
+                    <Text variant="body-2">Role</Text>
+                </TableColumnHeader>
+                <TableColumnHeader align="end">
+                    <Text variant="body-2">Projects</Text>
+                </TableColumnHeader>
+            </TableHeader>
+            <TableBody>
+                {people.map((person) => (
+                    <TableRow key={person.id}>
+                        <TableCell>
+                            <PersonCell person={person} />
+                        </TableCell>
+                        <TableCell>
+                            <Text variant="callout-2" tone="secondary" lineClamp={1}>
+                                {person.role}
+                            </Text>
+                        </TableCell>
+                        <TableCell align="end">
+                            <Text variant="callout-2" lineClamp={1}>
+                                {person.projects}
+                            </Text>
+                        </TableCell>
+                    </TableRow>
+                ))}
+            </TableBody>
+        </Table>
+    )
+}
+
+export const EdgePadding = {
+    name: 'Edge padding',
+    render: () => (
+        <Stack space="xlarge">
+            <Stack space="small">
+                <Text variant="body-2" tone="secondary">
+                    Default. Content is held off the table's edges, as the surrounding container
+                    usually has padding of its own.
+                </Text>
+                <PeopleTable />
+            </Stack>
+            <Stack space="small">
+                <Text variant="body-2" tone="secondary">
+                    edgePadding=&quot;none&quot;. Content lines up with whatever sits above and
+                    below the table, while the row dividers still span its full width.
+                </Text>
+                <PeopleTable edgePadding="none" />
+            </Stack>
+        </Stack>
     ),
 } satisfies Story
 
