@@ -3,6 +3,7 @@ import * as React from 'react'
 import classNames from 'classnames'
 
 import { Box } from '../box'
+import { getClassNames } from '../utils/responsive-props'
 
 import { SortIndicator } from './sort-indicator'
 
@@ -119,7 +120,7 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
             background="default"
             className={[
                 styles.table,
-                styles[`edgePadding-${edgePadding}`],
+                getClassNames(styles, 'edgePadding', edgePadding),
                 exceptionallySetClassName,
             ]}
         />
