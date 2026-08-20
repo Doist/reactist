@@ -18,6 +18,10 @@
     color: var(--product-library-info-positive-primary-idle-tint);
 }
 
+.tone-actionable {
+    color: var(--product-library-actionable-tertiary-idle-tint);
+}
+
 .lineClampMultipleLines {
     display: -webkit-box;
     -webkit-box-orient: vertical;
