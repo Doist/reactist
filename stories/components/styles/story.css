@@ -1,4 +1,5 @@
 body {
+    color: var(--product-library-display-primary-idle-tint);
     font-family: var(--reactist-font-family);
 }
 
