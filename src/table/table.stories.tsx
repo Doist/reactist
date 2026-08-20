@@ -347,13 +347,6 @@ const tanStackColumns: ColumnDef<typeof features, Person, unknown>[] = [
 
 export const TanStackIntegration = {
     name: 'TanStack Table integration',
-    parameters: {
-        docs: {
-            description: {
-                story: 'The Table components do not dictate what external model layer they are used with. TanStack Table, for example, would be a good option for driving the data, including [sorting](https://tanstack.com/table/latest/docs/framework/react/guide/sorting) and [pagination](https://tanstack.com/table/latest/docs/framework/react/guide/pagination).',
-            },
-        },
-    },
     render: function TanStackIntegration() {
         const table = useTable({
             features,

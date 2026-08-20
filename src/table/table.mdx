@@ -1,0 +1,78 @@
+import { ArgTypes, Canvas, Markdown, Meta, Subtitle, Title } from '@storybook/addon-docs/blocks'
+
+import { TableCell, TableColumn, TableColumnHeader } from './table'
+
+import * as TableStories from './table.stories'
+
+<Meta of={TableStories} />
+
+<Title />
+
+<Subtitle>Styled primitives for tabular data.</Subtitle>
+
+## Overview
+
+The `<Table>` component is a set of styled primitives on top of `<table>`, `<thead>`, `<tr>`, `<th>`, and `<td>`. It
+handles the visual layer, e.g. column widths, spacing, dividers, row, and sort affordances, while leaving the data-source,
+sort, and selection states to the consumer.
+
+## Anatomy
+
+The component is fully composable and consumers only need to include what they need. For example, if column headers are not
+required, then `<TableHeader>` can be omitted.
+
+<Markdown>{`
+| Component | Renders | Responsibility |
+| --- | --- | --- |
+| \`<Table>\` | \`<table>\` | The full width table, and tabular figures styling |
+| \`<TableColumnGroup>\` | \`<colgroup>\` | The column definitions, as the first child of \`<Table>\` |
+| \`<TableColumn>\` | \`<col>\` | Defining the column's sizing |
+| \`<TableHeader>\` | \`<thead>\` and its single \`<tr>\` | The header row |
+| \`<TableColumnHeader>\` | \`<th>\` | The column label and its optional sort control |
+| \`<TableBody>\` | \`<tbody>\` | The data rows |
+| \`<TableRow>\` | \`<tr>\` | Row selection through \`aria-selected\` |
+| \`<TableCell>\` | \`<td>\` | The data cells |
+`}</Markdown>
+
+## Basic usage
+
+Render `<TableRow>`s and `<TableCell>` within `<Table>` and `<TableBody>` to render data. If consistent column sizing is needed,
+define the columns in `<TableColumnGroup>`.
+
+<Canvas of={TableStories.Default} />
+
+## Props
+
+Every component forwards its native attributes, except for the deprecated [`border`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/table#border),
+[`width`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/col#width), and
+[`align`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/td#align) attributes on `<Table>`, `<TableColumn>`, and
+`<TableCell>`/`<TableColumnHeader>`, respectively. All components accept `exceptionallySetClassName` instead of `className`.
+
+The three components below also include additional props:
+
+### `<TableColumn>`
+
+<ArgTypes of={TableColumn} />
+
+### `<TableColumnHeader>`
+
+<ArgTypes of={TableColumnHeader} />
+
+### `<TableCell>`
+
+<ArgTypes of={TableCell} />
+
+## Row selection
+
+Setting `aria-selected` on a `<TableRow>` would mark it as selected.
+
+<Canvas of={TableStories.SelectedAndClickableRows} />
+
+## With TanStack Table
+
+The `<Table>` components do not dictate what external model layer they are used with. TanStack Table,
+for example, would be a good option for driving the data, including
+[sorting](https://tanstack.com/table/latest/docs/framework/react/guide/sorting) and
+[pagination](https://tanstack.com/table/latest/docs/framework/react/guide/pagination).
+
+<Canvas of={TableStories.TanStackIntegration} />
