@@ -108,7 +108,7 @@ ResponsiveTextStory.argTypes = {
     decoration: selectWithNone(['strikethrough', 'underline']),
     case: selectWithNone(['uppercase']),
     lineClamp: selectWithNone([1, 2, 3, 4, 5]),
-    tone: select(['normal', 'secondary', 'danger']),
+    tone: select(['normal', 'secondary', 'danger', 'positive', 'actionable']),
     align: { control: false },
     children: {
         control: { type: 'text' },
@@ -134,7 +134,7 @@ TextPlaygroundStory.argTypes = {
     decoration: selectWithNone(['strikethrough', 'underline']),
     case: selectWithNone(['uppercase']),
     lineClamp: selectWithNone([1, 2, 3, 4, 5]),
-    tone: select(['normal', 'secondary', 'danger']),
+    tone: select(['normal', 'secondary', 'danger', 'positive', 'actionable']),
     align: selectWithNone(['start', 'center', 'end', 'justify']),
     children: {
         control: { type: 'text' },
