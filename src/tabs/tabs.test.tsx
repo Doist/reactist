@@ -318,6 +318,23 @@ describe('Tabs', () => {
         expect(onClick).toHaveBeenCalledTimes(1)
     })
 
+    it('preserves inline styles on the default tab button', async () => {
+        render(
+            <Tabs>
+                <TabList aria-label="test-tabs">
+                    <Tab id="tab1" style={{ marginTop: '13px' }}>
+                        Tab 1
+                    </Tab>
+                </TabList>
+                <TabPanel id="tab1">Content of tab 1</TabPanel>
+            </Tabs>,
+        )
+
+        expect(await screen.findByRole('tab', { name: 'Tab 1' })).toHaveStyle({
+            marginTop: '13px',
+        })
+    })
+
     describe('a11y', () => {
         it('renders with no a11y violations', async () => {
             const { container } = render(
