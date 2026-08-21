@@ -136,7 +136,7 @@
         "jscodeshift": "17.3.0",
         "less": "4.9.0",
         "lint-staged": "10.5.4",
-        "marked": "4.3.0",
+        "marked": "18.0.9",
         "mockdate": "3.0.5",
         "plop": "3.1.2",
         "prettier": "3.6.2",
