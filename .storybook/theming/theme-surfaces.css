@@ -1,1 +1,8 @@
-/* Preview surfaces follow the selected theme. Filled in by Task 3. */
+/*
+ * Paints the preview iframe's canvas from the selected theme. Storybook's docs
+ * page keeps its own light background, which `docs.theme` in preview.ts sets.
+ */
+body {
+    background-color: var(--product-library-background-base-secondary);
+    color: var(--product-library-display-primary-idle-tint);
+}
