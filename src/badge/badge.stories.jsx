@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-import { withDarkTheme } from '../../.storybook/dark-theme'
 import { Box } from '../box'
 import { Button } from '../button'
 import { Column, Columns } from '../columns'
@@ -58,14 +57,6 @@ function BadgeExamples() {
                 </Stack>
             </Column>
         </Columns>
-    )
-}
-
-function DarkModeTemplate() {
-    return (
-        <Box padding="xlarge" background="default">
-            <BadgeExamples />
-        </Box>
     )
 }
 
@@ -165,25 +156,6 @@ export const InsideOtherElements = {
 
         chromatic: {
             disableSnapshot: false,
-        },
-    },
-}
-
-export const DarkMode = {
-    render: DarkModeTemplate.bind({}),
-    decorators: [withDarkTheme],
-    name: 'Dark mode',
-
-    parameters: {
-        docs: {
-            source: {
-                type: 'dynamic',
-            },
-            // Render as an iframe to scope `theme_dark` to the story
-            story: {
-                inline: false,
-                height: '260px',
-            },
         },
     },
 }

@@ -1,6 +1,5 @@
 import * as React from 'react'
 
-import { withDarkTheme } from '../../.storybook/dark-theme'
 import { Box } from '../box'
 import { Button } from '../button'
 import { CheckboxField } from '../checkbox-field'
@@ -350,32 +349,6 @@ function BannerContentExamples({ theme }) {
     )
 }
 
-function DarkModeTemplate() {
-    return (
-        <Box
-            display="flex"
-            flexDirection="column"
-            padding="xlarge"
-            background="default"
-            gap="large"
-        >
-            <Banner type="neutral" icon={<ArchiveIcon />} description="This is a neutral message" />
-            <Banner type="info" description="This is an info message" />
-            <Banner type="upgrade" description="This is a upgrade message" />
-            <Banner type="experiment" description="This is an experimentalist message" />
-            <Banner type="warning" description="This is a warning message" />
-            <Banner type="error" description="This is a error message" />
-            <Banner type="success" description="This is a success message" />
-            <Banner
-                type="neutral"
-                image={<PromoImage theme="dark" />}
-                description="This is a neutral message"
-                onClose={() => ({})}
-            />
-        </Box>
-    )
-}
-
 export default {
     title: '💬 Feedback/Banner',
     component: Banner,
@@ -522,29 +495,6 @@ export const Content = {
         docs: {
             source: {
                 type: 'code',
-            },
-        },
-
-        chromatic: {
-            disableSnapshot: false,
-        },
-    },
-}
-
-export const DarkMode = {
-    render: DarkModeTemplate.bind({}),
-    decorators: [withDarkTheme],
-    name: 'Dark mode',
-
-    parameters: {
-        docs: {
-            source: {
-                type: 'dynamic',
-            },
-            // Render as an iframe to scope `theme_dark` to the story
-            story: {
-                inline: false,
-                height: '760px',
             },
         },
 

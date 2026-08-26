@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
-import { withDarkTheme } from '../../.storybook/dark-theme'
 import { Box } from '../box'
 import { IconButton } from '../button'
 import { Inline } from '../inline'
@@ -50,14 +49,6 @@ function PlaygroundTemplate({ label, ...props }) {
                 </Box>
             </Inline>
         </Stack>
-    )
-}
-
-function DarkModeTemplate(props) {
-    return (
-        <Box padding="xlarge" background="default">
-            <PlaygroundTemplate {...props} />
-        </Box>
     )
 }
 
@@ -481,86 +472,4 @@ export const Playground = {
     },
 
     name: 'Playground',
-}
-
-export const DarkMode = {
-    render: DarkModeTemplate.bind({}),
-    decorators: [withDarkTheme],
-
-    parameters: {
-        docs: {
-            source: {
-                type: 'dynamic',
-            },
-            // Render as an iframe to scope `theme_dark` to the story
-            story: {
-                inline: false,
-                height: '320px',
-            },
-        },
-    },
-
-    name: 'Dark mode',
-
-    args: {
-        label: 'Submit',
-        variant: 'primary',
-        tone: 'normal',
-        size: 'normal',
-    },
-
-    argTypes: {
-        label: {
-            control: {
-                type: 'select',
-            },
-
-            options: [
-                'Submit',
-                'Mark as done',
-                'Yes, cancel my subscription',
-                'Click me <em>now</em>',
-            ],
-        },
-
-        variant: {
-            options: ['primary', 'secondary', 'tertiary', 'quaternary'],
-
-            control: {
-                type: 'select',
-            },
-        },
-
-        tone: {
-            options: ['normal', 'destructive'],
-
-            control: {
-                type: 'inline-radio',
-            },
-        },
-
-        size: {
-            options: ['small', 'normal', 'large'],
-
-            control: {
-                type: 'inline-radio',
-            },
-        },
-
-        disabled: {
-            control: false,
-        },
-
-        icon: {
-            control: false,
-        },
-
-        tooltip: {
-            control: false,
-        },
-
-        exceptionallySetClassName: {
-            control: false,
-        },
-    },
 }
