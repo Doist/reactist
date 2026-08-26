@@ -64,8 +64,17 @@
         left: 0;
         right: 0;
         padding: 20px;
-        font-family: 'Nunito Sans', -apple-system, '.SFNSText-Regular', 'San Francisco',
-            BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-family:
+            'Nunito Sans',
+            -apple-system,
+            '.SFNSText-Regular',
+            'San Francisco',
+            BlinkMacSystemFont,
+            'Segoe UI',
+            'Helvetica Neue',
+            Helvetica,
+            Arial,
+            sans-serif;
         -webkit-font-smoothing: antialiased;
         overflow: auto;
     }
@@ -106,8 +115,9 @@
         padding: 10px;
         background: #000;
         color: #eee;
-        font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, 'Cascadia Mono',
-            Consolas, 'Liberation Mono', 'Courier New', monospace;
+        font-family:
+            ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, 'Cascadia Mono', Consolas,
+            'Liberation Mono', 'Courier New', monospace;
     }
 
     .sb-errordisplay pre {
@@ -124,3 +134,30 @@
         display: none !important;
     }
 </style>
+<script>
+    /*
+     * Applies the theme class before the document paints. Storybook reloads the
+     * preview iframe on every globals change in docs view, and without this the
+     * reloaded page paints unthemed until React mounts, which reads as a flash.
+     *
+     * Repeats getThemeClassNameFromSearch in .storybook/theming/theme-class.ts,
+     * and the DEFAULT_ACCENT and DEFAULT_MODE values in its constants.ts. This
+     * file is plain HTML and cannot import them. Change them together.
+     */
+    ;(function initTheme() {
+        try {
+            var globals = new URLSearchParams(window.location.search).get('globals') || ''
+            var parsed = {}
+            globals.split(';').forEach(function (pair) {
+                var parts = pair.split(':')
+                if (parts.length === 2) parsed[parts[0]] = parts[1]
+            })
+            var accent = parsed.theme || 'red'
+            var mode = parsed.mode === 'dark' ? 'dark' : 'light'
+            var suffix = accent === 'red' ? mode : mode === 'dark' ? accent + '_dark' : accent
+            document.documentElement.classList.add('theme_' + suffix)
+        } catch (error) {
+            // This file is not transpiled. A parsing failure must not break the preview.
+        }
+    })()
+</script>

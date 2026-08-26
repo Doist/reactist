@@ -1,5 +1,5 @@
 import { THEME_ACCENTS, THEME_MODES } from './constants'
-import { applyThemeClass, getThemeClassName } from './theme-class'
+import { applyThemeClass, getThemeClassName, getThemeClassNameFromSearch } from './theme-class'
 
 describe('getThemeClassName', () => {
     it('drops the accent for the red pair', () => {
@@ -20,6 +20,30 @@ describe('getThemeClassName', () => {
             THEME_MODES.map((mode) => getThemeClassName(accent.value, mode.value)),
         )
         expect(new Set(classNames).size).toBe(16)
+    })
+})
+
+describe('getThemeClassNameFromSearch', () => {
+    it('falls back to the toolbar defaults when the param is absent', () => {
+        expect(getThemeClassNameFromSearch('?id=button--docs')).toBe('theme_light')
+    })
+
+    it('reads a mode Storybook wrote on its own', () => {
+        expect(getThemeClassNameFromSearch('?globals=mode%3Adark')).toBe('theme_dark')
+    })
+
+    it('reads an accent and a mode together', () => {
+        expect(getThemeClassNameFromSearch('?globals=theme%3Ablueberry%3Bmode%3Adark')).toBe(
+            'theme_blueberry_dark',
+        )
+    })
+
+    it('keeps the default mode when only the accent is named', () => {
+        expect(getThemeClassNameFromSearch('?globals=theme%3Akale')).toBe('theme_kale')
+    })
+
+    it('ignores globals belonging to other toolbars', () => {
+        expect(getThemeClassNameFromSearch('?globals=locale%3Ade%3Bmode%3Adark')).toBe('theme_dark')
     })
 })
 

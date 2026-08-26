@@ -32,3 +32,10 @@ export const THEME_MODES: ReadonlyArray<{ value: ThemeMode; title: string }> = [
     { value: 'light', title: 'Light' },
     { value: 'dark', title: 'Dark' },
 ]
+
+/**
+ * The toolbar's starting selection, used for `initialGlobals` in `preview.ts`.
+ * The inline script in `.storybook/preview-head.html` repeats these values.
+ */
+export const DEFAULT_ACCENT: ThemeAccent = 'red'
+export const DEFAULT_MODE: ThemeMode = 'light'

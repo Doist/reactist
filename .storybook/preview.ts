@@ -5,7 +5,13 @@ import { create } from 'storybook/theming/create'
 
 import BaseDecorator from './BaseDecorator'
 import { reactistBadgeTones } from './components/badge-tones'
-import { modeToolbarConfig, ThemeDecorator, themeToolbarConfig } from './theming'
+import {
+    DEFAULT_ACCENT,
+    DEFAULT_MODE,
+    modeToolbarConfig,
+    ThemeDecorator,
+    themeToolbarConfig,
+} from './theming'
 
 import type { Preview } from '@storybook/react-vite'
 
@@ -16,8 +22,8 @@ const preview: Preview = {
         mode: modeToolbarConfig,
     },
     initialGlobals: {
-        theme: 'red',
-        mode: 'light',
+        theme: DEFAULT_ACCENT,
+        mode: DEFAULT_MODE,
     },
     parameters: {
         viewMode: 'docs',
