@@ -1,3 +1,5 @@
+## [37.3.0](https://github.com/Doist/reactist/compare/v37.2.0...v37.3.0) (2026-08-26)
+
 ## [37.2.0](https://github.com/Doist/reactist/compare/v37.1.0...v37.2.0) (2026-08-20)
 
 ## [37.1.0](https://github.com/Doist/reactist/compare/v37.0.0...v37.1.0) (2026-08-20)
