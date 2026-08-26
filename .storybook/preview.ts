@@ -16,7 +16,7 @@ const preview: Preview = {
         mode: modeToolbarConfig,
     },
     initialGlobals: {
-        theme: 'neutral',
+        theme: 'red',
         mode: 'light',
     },
     parameters: {

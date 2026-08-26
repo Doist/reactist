@@ -2,9 +2,9 @@ import { THEME_ACCENTS, THEME_MODES } from './constants'
 import { applyThemeClass, getThemeClassName } from './theme-class'
 
 describe('getThemeClassName', () => {
-    it('drops the accent for the neutral pair', () => {
-        expect(getThemeClassName('neutral', 'light')).toBe('theme_light')
-        expect(getThemeClassName('neutral', 'dark')).toBe('theme_dark')
+    it('drops the accent for the red pair', () => {
+        expect(getThemeClassName('red', 'light')).toBe('theme_light')
+        expect(getThemeClassName('red', 'dark')).toBe('theme_dark')
     })
 
     it('names an accent alone in light mode', () => {

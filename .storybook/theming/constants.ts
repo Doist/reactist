@@ -1,5 +1,5 @@
 export type ThemeAccent =
-    | 'neutral'
+    | 'red'
     | 'blueberry'
     | 'gold'
     | 'kale'
@@ -14,11 +14,11 @@ export type ThemeMode = 'light' | 'dark'
 export const THEME_CLASS_PREFIX = 'theme_'
 
 /**
- * The accent axis of the toolbar. `neutral` is the accent-free pair,
+ * The accent axis of the toolbar. `red` is the default Todoist pair,
  * `theme_light` and `theme_dark`.
  */
 export const THEME_ACCENTS: ReadonlyArray<{ value: ThemeAccent; title: string }> = [
-    { value: 'neutral', title: 'Neutral' },
+    { value: 'red', title: 'Red' },
     { value: 'blueberry', title: 'Blueberry' },
     { value: 'gold', title: 'Gold' },
     { value: 'kale', title: 'Kale' },

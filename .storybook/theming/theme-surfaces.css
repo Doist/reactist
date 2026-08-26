@@ -1,8 +1,18 @@
 /*
- * Paints the preview iframe's canvas from the selected theme. Storybook's docs
- * page keeps its own light background, which `docs.theme` in preview.ts sets.
+ * Paints the preview iframe's story surfaces from the selected theme.
+ *
+ * The docs page itself keeps the light background `docs.theme` gives it, because
+ * Storybook paints its prose for a light page. Only the Canvas blocks follow the
+ * theme, so a story renders on the surface its own tokens assume.
+ *
+ * The [class*='theme_'] prefix raises specificity to (0,2,1), above the (0,1,0)
+ * Emotion class the docs theme paints .sbdocs-preview with.
  */
 body {
     background-color: var(--product-library-background-base-secondary);
     color: var(--product-library-display-primary-idle-tint);
+}
+
+:root[class*='theme_'] .sbdocs-preview {
+    background-color: var(--product-library-background-base-secondary);
 }
