@@ -1,4 +1,3 @@
-import '@doist/product-libraries-tokens/css/td-light.css'
 import '../src/styles/design-tokens.css'
 import '../stories/components/styles/story.css'
 
@@ -6,11 +5,26 @@ import { create } from 'storybook/theming/create'
 
 import BaseDecorator from './BaseDecorator'
 import { reactistBadgeTones } from './components/badge-tones'
+import {
+    DEFAULT_ACCENT,
+    DEFAULT_MODE,
+    modeToolbarConfig,
+    ThemeDecorator,
+    themeToolbarConfig,
+} from './theming'
 
 import type { Preview } from '@storybook/react-vite'
 
 const preview: Preview = {
-    decorators: [BaseDecorator],
+    decorators: [ThemeDecorator, BaseDecorator],
+    globalTypes: {
+        theme: themeToolbarConfig,
+        mode: modeToolbarConfig,
+    },
+    initialGlobals: {
+        theme: DEFAULT_ACCENT,
+        mode: DEFAULT_MODE,
+    },
     parameters: {
         viewMode: 'docs',
         docs: {

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
 
-import { withDarkTheme } from '../../.storybook/dark-theme'
 import { Box } from '../box'
 import { Inline } from '../inline'
 import { Stack } from '../stack'
@@ -134,14 +133,6 @@ function PlaygroundTemplate({ label, ...props }) {
                 </Box>
             </Inline>
         </Stack>
-    )
-}
-
-function DarkModeTemplate(props) {
-    return (
-        <Box padding="xlarge" background="default">
-            <PlaygroundTemplate {...props} />
-        </Box>
     )
 }
 
@@ -763,95 +754,6 @@ export const Playground = {
 
         shape: {
             options: ['normal', 'rounded'],
-
-            control: {
-                type: 'inline-radio',
-            },
-        },
-
-        disabled: {
-            control: false,
-        },
-
-        startIcon: {
-            control: false,
-        },
-
-        endIcon: {
-            control: false,
-        },
-
-        icon: {
-            control: false,
-        },
-
-        tooltip: {
-            control: false,
-        },
-
-        exceptionallySetClassName: {
-            control: false,
-        },
-    },
-}
-
-export const DarkMode = {
-    render: DarkModeTemplate.bind({}),
-    decorators: [withDarkTheme],
-    name: 'Dark mode',
-
-    parameters: {
-        docs: {
-            source: {
-                type: 'dynamic',
-            },
-            // Render as an iframe to scope `theme_dark` to the story
-            story: {
-                inline: false,
-                height: '320px',
-            },
-        },
-    },
-
-    args: {
-        label: 'Submit',
-        variant: 'primary',
-        tone: 'normal',
-        size: 'normal',
-    },
-
-    argTypes: {
-        label: {
-            control: {
-                type: 'select',
-            },
-
-            options: [
-                'Submit',
-                'Mark as done',
-                'Yes, cancel my subscription',
-                'Click me <em>now</em>',
-            ],
-        },
-
-        variant: {
-            options: ['primary', 'secondary', 'tertiary', 'quaternary'],
-
-            control: {
-                type: 'select',
-            },
-        },
-
-        tone: {
-            options: ['normal', 'destructive'],
-
-            control: {
-                type: 'inline-radio',
-            },
-        },
-
-        size: {
-            options: ['small', 'normal', 'large'],
 
             control: {
                 type: 'inline-radio',
