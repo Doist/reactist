@@ -121,8 +121,10 @@ describe('Text', () => {
             expect(textElement).not.toHaveClass('tone-normal')
             expect(textElement).not.toHaveClass('tone-secondary')
             expect(textElement).not.toHaveClass('tone-danger')
+            expect(textElement).not.toHaveClass('tone-positive')
+            expect(textElement).not.toHaveClass('tone-actionable')
 
-            for (const tone of ['secondary', 'danger'] as const) {
+            for (const tone of ['secondary', 'danger', 'positive', 'actionable'] as const) {
                 rerender(
                     <Text data-testid="text-element" tone={tone}>
                         Text
