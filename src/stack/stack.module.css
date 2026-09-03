@@ -1,0 +1,5 @@
+.stack > .divider:first-child,
+.stack > .divider + .divider,
+.stack > .divider:not(:has(~ :not(.divider))) {
+    display: none;
+}

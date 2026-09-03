@@ -95,6 +95,45 @@ ResponsiveStory.argTypes = {
     ...disableResponsiveProps,
 }
 
+function MaybePlaceholder({ render, label }: { render: boolean; label: string }) {
+    return render ? <Placeholder label={label} height={60} /> : null
+}
+
+export function DividersWithNullChildrenStory({
+    renderFirstItem,
+    renderThirdItem,
+    renderLastItem,
+    ...args
+}: PartialProps<typeof Stack> & {
+    renderFirstItem: boolean
+    renderThirdItem: boolean
+    renderLastItem: boolean
+}) {
+    return (
+        <Wrapper
+            border
+            title="Children that render null do not cause leading, consecutive, or trailing dividers"
+        >
+            <Stack {...args}>
+                <MaybePlaceholder render={renderFirstItem} label="1" />
+                <Placeholder label="2" height={60} />
+                <MaybePlaceholder render={renderThirdItem} label="3" />
+                <Placeholder label="4" height={60} />
+                <MaybePlaceholder render={renderLastItem} label="5" />
+            </Stack>
+        </Wrapper>
+    )
+}
+
+DividersWithNullChildrenStory.args = {
+    space: 'medium',
+    dividers: 'primary',
+    paddingY: 'medium',
+    renderFirstItem: false,
+    renderThirdItem: false,
+    renderLastItem: false,
+}
+
 export function NestedStacksStory(args: PartialProps<typeof Stack>) {
     const spaceStr = typeof args.space !== 'string' ? 'none' : args.space
     return (

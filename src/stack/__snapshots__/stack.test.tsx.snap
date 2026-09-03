@@ -2,20 +2,20 @@
 
 exports[`Stack renders dividers when instructed to do so: dividers="primary" 1`] = `
 <div
-  class="box display-flex flexDirection-column width-full"
+  class="stack box display-flex flexDirection-column width-full"
   data-testid="stack"
 >
   <div>
     one
   </div>
   <hr
-    class="weight-primary box"
+    class="divider weight-primary box"
   />
   <div>
     two
   </div>
   <hr
-    class="weight-primary box"
+    class="divider weight-primary box"
   />
   <div>
     three
@@ -25,20 +25,20 @@ exports[`Stack renders dividers when instructed to do so: dividers="primary" 1`]
 
 exports[`Stack renders dividers when instructed to do so: dividers="secondary" 1`] = `
 <div
-  class="box display-flex flexDirection-column width-full"
+  class="stack box display-flex flexDirection-column width-full"
   data-testid="stack"
 >
   <div>
     one
   </div>
   <hr
-    class="weight-secondary box"
+    class="divider weight-secondary box"
   />
   <div>
     two
   </div>
   <hr
-    class="weight-secondary box"
+    class="divider weight-secondary box"
   />
   <div>
     three
@@ -48,20 +48,20 @@ exports[`Stack renders dividers when instructed to do so: dividers="secondary" 1
 
 exports[`Stack renders dividers when instructed to do so: dividers="tertiary" 1`] = `
 <div
-  class="box display-flex flexDirection-column width-full"
+  class="stack box display-flex flexDirection-column width-full"
   data-testid="stack"
 >
   <div>
     one
   </div>
   <hr
-    class="weight-tertiary box"
+    class="divider weight-tertiary box"
   />
   <div>
     two
   </div>
   <hr
-    class="weight-tertiary box"
+    class="divider weight-tertiary box"
   />
   <div>
     three

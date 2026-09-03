@@ -6,6 +6,8 @@ import { Divider } from '../divider'
 import { polymorphicComponent } from '../utils/polymorphism'
 import { mapResponsiveProp } from '../utils/responsive-props'
 
+import styles from './stack.module.css'
+
 import type { BoxProps, ReusableBoxProps } from '../box'
 import type { DividerWeight, Space } from '../utils/common-types'
 import type { ResponsiveProp } from '../utils/responsive-props'
@@ -50,7 +52,7 @@ const Stack = polymorphicComponent<'div', StackProps>(function Stack(
             alignItems={alignItems}
             gap={space}
             as={as}
-            className={exceptionallySetClassName}
+            className={[styles.stack, exceptionallySetClassName]}
             ref={ref}
         >
             {dividers !== 'none'
@@ -60,7 +62,10 @@ const Stack = polymorphicComponent<'div', StackProps>(function Stack(
                       (child, index) =>
                           index > 0 ? (
                               <>
-                                  <Divider weight={dividers} />
+                                  <Divider
+                                      exceptionallySetClassName={styles.divider}
+                                      weight={dividers}
+                                  />
                                   {child}
                               </>
                           ) : (
