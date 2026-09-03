@@ -9,13 +9,13 @@ exports[`Stack renders dividers when instructed to do so: dividers="primary" 1`]
     one
   </div>
   <hr
-    class="weight-primary box"
+    class="divider weight-primary box"
   />
   <div>
     two
   </div>
   <hr
-    class="weight-primary box"
+    class="divider weight-primary box"
   />
   <div>
     three
@@ -32,13 +32,13 @@ exports[`Stack renders dividers when instructed to do so: dividers="secondary" 1
     one
   </div>
   <hr
-    class="weight-secondary box"
+    class="divider weight-secondary box"
   />
   <div>
     two
   </div>
   <hr
-    class="weight-secondary box"
+    class="divider weight-secondary box"
   />
   <div>
     three
@@ -55,13 +55,13 @@ exports[`Stack renders dividers when instructed to do so: dividers="tertiary" 1`
     one
   </div>
   <hr
-    class="weight-tertiary box"
+    class="divider weight-tertiary box"
   />
   <div>
     two
   </div>
   <hr
-    class="weight-tertiary box"
+    class="divider weight-tertiary box"
   />
   <div>
     three
