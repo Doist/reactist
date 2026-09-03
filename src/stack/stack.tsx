@@ -62,7 +62,10 @@ const Stack = polymorphicComponent<'div', StackProps>(function Stack(
                       (child, index) =>
                           index > 0 ? (
                               <>
-                                  <Divider weight={dividers} />
+                                  <Divider
+                                      exceptionallySetClassName={styles.divider}
+                                      weight={dividers}
+                                  />
                                   {child}
                               </>
                           ) : (
