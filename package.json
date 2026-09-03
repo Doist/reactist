@@ -121,7 +121,7 @@
         "classnames": "2.5.1",
         "conventional-changelog-conventionalcommits": "10.4.0",
         "cssnano": "8.0.8",
-        "eslint": "8.57.1",
+        "eslint": "10.9.1",
         "eslint-config-prettier": "^8.5.0",
         "eslint-formatter-codeframe": "^7.32.1",
         "eslint-plugin-jest": "28.14.0",
