@@ -1,0 +1,5 @@
+.stack > hr:first-child,
+.stack > hr + hr,
+.stack > hr:not(:has(~ :not(hr))) {
+    display: none;
+}
