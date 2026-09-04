@@ -55,6 +55,15 @@ function flushMicrotasks() {
     return act(() => Promise.resolve())
 }
 
+async function flushAnimationFrames() {
+    await act(
+        () =>
+            new Promise<void>((resolve) =>
+                requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+            ),
+    )
+}
+
 function TestIcon() {
     return (
         <svg
@@ -75,4 +84,4 @@ function TestIcon() {
     )
 }
 
-export { flushMicrotasks, runSpaceTests, TestIcon }
+export { flushAnimationFrames, flushMicrotasks, runSpaceTests, TestIcon }
